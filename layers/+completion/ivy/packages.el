@@ -1,6 +1,6 @@
 ;;; packages.el --- Ivy Layer packages File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,6 +20,7 @@
         helm-make
         imenu
         ivy
+        ivy-avy
         ivy-hydra
         (ivy-rich :toggle ivy-enable-advanced-buffer-information)
         (ivy-spacemacs-help :location local)
@@ -42,8 +43,8 @@
            spacemacs--symbol-highlight-transient-state-doc
            "  Search: [_s_] swiper  [_b_] buffers  [_f_] files  [_/_] project"))
     (spacemacs/transient-state-register-add-bindings 'symbol-highlight
-      '(("s" spacemacs/swiper-region-or-symbol :exit t)
-        ("b" spacemacs/swiper-all-region-or-symbol :exit t)
+      '(("s" swiper-thing-at-point :exit t)
+        ("b" swiper-all-thing-at-point :exit t)
         ("f" spacemacs/search-auto-region-or-symbol :exit t)
         ("/" spacemacs/search-project-auto-region-or-symbol :exit t)))))
 
@@ -57,7 +58,7 @@
       (spacemacs/set-leader-keys
         dotspacemacs-emacs-command-key 'counsel-M-x
         ;; files
-        "ff"  'counsel-find-file
+        "ff"  'spacemacs/counsel-find-file
         "fel" 'counsel-find-library
         "fL"  'counsel-locate
         ;; help
@@ -205,12 +206,14 @@
         "Ce" 'counsel-colors-emacs
         "Cf" 'counsel-faces
         "Cw" 'counsel-colors-web
-        "fr" 'counsel-recentf
+        "fr" 'spacemacs/counsel-recentf
         "rl" 'ivy-resume
+        "sl" 'ivy-resume
         "bb" 'ivy-switch-buffer)
       ;; Moved C-k to C-M-k
-      (define-key ivy-switch-buffer-map (kbd "C-M-k") 'ivy-switch-buffer-kill))
-
+      (define-key ivy-switch-buffer-map (kbd "C-M-k") 'ivy-switch-buffer-kill)
+      (define-key ivy-reverse-i-search-map
+        (kbd "C-M-k") 'ivy-reverse-i-search-kill))
     :config
     (progn
       ;; custom actions for recentf
@@ -224,6 +227,8 @@
       ;; mappings to quit minibuffer or enter transient state
       (define-key ivy-minibuffer-map [escape] 'minibuffer-keyboard-quit)
       (define-key ivy-minibuffer-map (kbd "M-SPC") 'hydra-ivy/body)
+      (define-key ivy-minibuffer-map (kbd "C-<return>") #'ivy-alt-done)
+      (define-key ivy-minibuffer-map (kbd "C-SPC") #'ivy-call-and-recenter)
 
       (when ivy-ret-visits-directory
         (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
@@ -235,6 +240,9 @@
       ;; Occur
       (evil-set-initial-state 'ivy-occur-grep-mode 'normal)
       (evil-make-overriding-map ivy-occur-mode-map 'normal)
+      (dolist (mode-map (list ivy-occur-mode-map ivy-occur-grep-mode-map))
+        (define-key mode-map "g" nil)
+        (define-key mode-map "U" 'ivy-occur-revert-buffer))
       (ivy-set-occur 'spacemacs/counsel-search
                      'spacemacs//counsel-occur)
       (spacemacs/set-leader-keys-for-major-mode 'ivy-occur-grep-mode
@@ -246,9 +254,15 @@
       ;; allow to select prompt in some ivy functions
       (setq ivy-use-selectable-prompt t))))
 
+(defun ivy/init-ivy-avy ()
+  (use-package ivy-avy
+    :after ivy))
+
 (defun ivy/init-ivy-hydra ()
-  (use-package ivy-hydra)
-  (define-key hydra-ivy/keymap [escape] 'hydra-ivy/keyboard-escape-quit-and-exit))
+  (use-package ivy-hydra
+    :after ivy
+    :config
+    (define-key hydra-ivy/keymap [escape] 'hydra-ivy/keyboard-escape-quit-and-exit)))
 
 (defun ivy/init-ivy-rich ()
   (use-package ivy-rich
@@ -366,9 +380,9 @@
     (progn
       (spacemacs/set-leader-keys
         "ss" 'swiper
-        "sS" 'spacemacs/swiper-region-or-symbol
+        "sS" 'swiper-thing-at-point
         "sb" 'swiper-all
-        "sB" 'spacemacs/swiper-all-region-or-symbol)
+        "sB" 'swiper-all-thing-at-point)
       (global-set-key "\C-s" 'swiper))))
 
 (defun ivy/init-wgrep ()

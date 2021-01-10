@@ -1,6 +1,6 @@
 ;;; packages.el --- ocaml Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,22 +9,23 @@
 ;;
 ;;; License: GPLv3
 
-(setq ocaml-packages
-      '(
-        ;; auto-complete
-        company
-        dune
-        flycheck
-        (flycheck-ocaml :toggle (configuration-layer/layer-used-p 'syntax-checking))
-        ggtags
-        counsel-gtags
-        helm-gtags
-        merlin
-        ocp-indent
-        smartparens
-        tuareg
-        utop
-        ))
+(defconst ocaml-packages
+  '(
+    company
+    dune
+    flycheck
+    (flycheck-ocaml :toggle (configuration-layer/layer-used-p 'syntax-checking))
+    ggtags
+    counsel-gtags
+    helm-gtags
+    imenu
+    merlin
+    merlin-eldoc
+    ocamlformat
+    ocp-indent
+    smartparens
+    tuareg
+    utop))
 
 (defun ocaml/post-init-company ()
   (when (configuration-layer/package-used-p 'merlin)
@@ -70,7 +71,6 @@
 
 (defun ocaml/init-flycheck-ocaml ()
   (use-package flycheck-ocaml
-    :if (configuration-layer/package-used-p 'flycheck)
     :defer t
     :init
     (progn
@@ -93,8 +93,12 @@
     :init
     (progn
       (add-to-list 'spacemacs-jump-handlers-tuareg-mode
-                'spacemacs/merlin-locate)
+                   'spacemacs/merlin-locate)
       (add-hook 'tuareg-mode-hook 'merlin-mode)
+
+      ;; Actively load merline-iedit
+      (require 'merlin-iedit)
+
       (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
         "cp" 'merlin-project-check
         "cv" 'merlin-goto-project-file
@@ -110,12 +114,28 @@
         "hh" 'merlin-document
         "ht" 'merlin-type-enclosing
         "hT" 'merlin-type-expr
-        "rd" 'merlin-destruct)
+        "rd" 'merlin-destruct
+        "re" 'merlin-iedit-occurrences)
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mc" "compile/check")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mE" "errors")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mh" "help")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mr" "refactor"))))
+
+(defun ocaml/post-init-imenu ()
+  (add-hook 'merlin-mode-hook #'merlin-use-merlin-imenu))
+
+(defun ocaml/init-merlin-eldoc ()
+  (use-package merlin-eldoc
+    :defer t
+    :hook (merlin-mode . merlin-eldoc-setup)))
+
+(defun ocaml/init-ocamlformat ()
+  (use-package ocamlformat
+    :defer t
+    :init
+    (when ocaml-format-before-save
+      (add-hook 'before-save-hook 'ocamlformat-before-save))))
 
 (defun ocaml/init-ocp-indent ()
   (use-package ocp-indent

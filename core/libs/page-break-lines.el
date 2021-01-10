@@ -106,7 +106,7 @@ horizontal line of `page-break-lines-char' characters."
   (page-break-lines--update-display-tables))
 
 ;;;###autoload
-(define-obsolete-function-alias 'turn-on-page-break-lines-mode 'page-break-lines-mode)
+(define-obsolete-function-alias 'turn-on-page-break-lines-mode 'page-break-lines-mode "2018-07-24")
 
 (dolist (hook '(window-configuration-change-hook
                 window-size-change-functions

@@ -1,4 +1,14 @@
-{:spacetools.spacedoc.config/layers-org-query
+{:spacetools.spacedoc.config/layers-org-title-text "Spacemacs layers list"
+
+ :spacetools.spacedoc.config/layers-org-description
+ "\nTHIS FILE IS AUTO-GENERATED!
+Don't edit it directly. See [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#readmeorg-tags][\"README.org  tags\" section of CONTRIBUTING.org for the instructions]].
+
+This is an overview of Spacemacs configuration layers. For information about
+configuration layer development see [[https://develop.spacemacs.org/doc/LAYERS.html][Configuration layers development]].
+"
+
+ :spacetools.spacedoc.config/layers-org-query
  {"layer" ["chat"
            "checker"
            "completion"

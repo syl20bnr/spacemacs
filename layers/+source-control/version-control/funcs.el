@@ -1,6 +1,6 @@
 ;;; funcs.el --- Version control functions File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -152,3 +152,6 @@ the number of conflicts detected by `smerge-mode'."
   (interactive)
   (setq spacemacs--smerge-ts-full-hint-toggle
         (not spacemacs--smerge-ts-full-hint-toggle)))
+
+(defun spacemacs//git-gutter+-refresh-in-all-buffers ()
+  (git-gutter+-in-all-buffers (when git-gutter+-mode (git-gutter+-refresh))))

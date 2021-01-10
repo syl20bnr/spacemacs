@@ -9,6 +9,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
+  - [[#auto-completion][Auto-completion]]
 - [[#key-bindings][Key bindings]]
   - [[#debug][Debug]]
   - [[#repl][REPL]]
@@ -34,7 +35,16 @@ add =hy= to the existing =dotspacemacs-configuration-layers= list in this file.
 To install =hy= globally:
 
 #+BEGIN_SRC sh
-  pip install hy
+  pip3 install hy
+#+END_SRC
+
+** Auto-completion
+[[https://github.com/hylang/hy-mode][hy-mode]] relies on [[https://github.com/ekaschalk/jedhy][jedhy]] for auto-completion.
+
+=jedhy= can be installed with:
+
+#+BEGIN_SRC sh
+  pip3 install jedhy
 #+END_SRC
 
 * Key bindings

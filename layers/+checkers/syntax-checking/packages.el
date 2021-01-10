@@ -1,6 +1,6 @@
 ;;; packages.el --- Syntax Checking Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -102,7 +102,8 @@
     :defer t
     :init
     (with-eval-after-load 'flycheck
-      (flycheck-pos-tip-mode))))
+      (flycheck-pos-tip-mode)
+      (setq flycheck-pos-tip-timeout (or syntax-checking-auto-hide-tooltips 0)))))
 
 (defun syntax-checking/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin

@@ -18,11 +18,17 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =ranger= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-To default with preview enabled when entering ranger:
+To use ranger/deer by default set ~ranger-override-dired~ to ~ranger/deer~ like
+shown in the example below (setting this via customize as explained by the
+original [[https://github.com/ralesi/ranger.el#installation][ranger installation instructions]] will not work). To default with
+preview enabled when entering ranger set ~ranger-show-preview~ to ~t~. The following
+example code shows how you can set both variables at once via the
+~dotspacemacs-configuration-layers~ of your dotfiles as follows:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '(ranger :variables
+                         ranger-override-dired 'ranger
                          ranger-show-preview t))
 #+END_SRC
 
@@ -34,10 +40,14 @@ Most parameters can be toggled on and off and stay within the current emacs
 session. Any settings that are desired on startup should be set below.
 
 ** Customizing
-You toggle the use of =-= to enter ranger with `ranger-enter-with-minus`.
+Toggle the use of =-= to enter deer or ranger with =ranger-enter-with-minus=.
+The possible values are:
+- ='deer= (default)
+- ='ranger=
+- =nil= (restores the default behavior of =-=)
 
 #+BEGIN_SRC elisp
-  (setq ranger-enter-with-minus t)
+  (setq ranger-enter-with-minus 'deer)
 #+END_SRC
 
 When disabling the mode you can choose to kill the buffers that were opened

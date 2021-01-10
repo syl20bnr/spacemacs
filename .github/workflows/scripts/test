@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+## Testing script for Emacs Lisp files on GNU/Linux and MacOS
+##
+## Copyright (c) 2012-2014 Sylvain Benner
+## Copyright (c) 2014-2020 Sylvain Benner & Contributors
+##
+## Author: Eugene Yaremenko
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
+
+# realpath for OS X https://stackoverflow.com/a/3572105/1224362
+abs_p() {
+    [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
+}
+
+ln -s "$(pwd)" $HOME/.emacs.d
+cp .github/workflows/scripts/dot_lock.el ~/.emacs.d/.lock
+
+testdir=$(abs_p tests/$1)
+cd ..
+
+echo "Running '$2' for '$1' in '$testdir' folder"
+if [ -f $testdir/dotspacemacs.el ]; then
+    cp $testdir/dotspacemacs.el ~/.spacemacs
+fi
+cd $testdir && echo "Now in $(pwd)"
+make $2
+exit $?

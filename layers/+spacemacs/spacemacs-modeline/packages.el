@@ -1,6 +1,6 @@
 ;;; packages.el --- Spacemacs Mode-line Visual Layer packages File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -32,9 +32,13 @@
     (spaceline-all-the-icons--setup-anzu)))
 
 (defun spacemacs-modeline/init-doom-modeline ()
-  (use-package doom-modeline
-    :defer t
-    :init (doom-modeline-mode)))
+  ;; doom modeline depends on `display-graphic-p' so we delay its initialization
+  ;; as when dumping we don't know yet wether we are using a graphical emacs or
+  ;; not.
+  (spacemacs|unless-dumping-and-eval-after-loaded-dump doom-modeline
+    (use-package doom-modeline
+      :defer t
+      :init (doom-modeline-mode))))
 
 (defun spacemacs-modeline/init-fancy-battery ()
   (use-package fancy-battery
@@ -59,20 +63,11 @@
               '(spacemacs all-the-icons custom))
     :init
     (progn
-      (add-hook 'emacs-startup-hook
-                (lambda ()
-                  (spacemacs|add-transient-hook window-configuration-change-hook
-                    (lambda ()
-                      (setq spaceline-byte-compile t)
-                      ;; this must also be set in this hook because
-                      ;; (spacemacs/compute-mode-line-height) returns incorrect
-                      ;; results if it is called before the display system is
-                      ;; initialized. see issue for details:
-                      ;; https://github.com/syl20bnr/spacemacs/issues/10181
-                      (setq powerline-height
-                            (spacemacs/compute-mode-line-height))
-                      (spaceline-compile))
-                    lazy-load-spaceline)))
+      (spacemacs|require-when-dumping 'spaceline)
+      (spacemacs|when-dumping-strict
+        (spacemacs/spaceline-config-startup))
+      (spacemacs|unless-dumping
+        (add-hook 'emacs-startup-hook 'spacemacs/spaceline-config-startup-hook))
       (add-hook 'spacemacs-post-theme-change-hook
                 'spacemacs/customize-powerline-faces)
       (add-hook 'spacemacs-post-theme-change-hook 'powerline-reset)

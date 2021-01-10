@@ -233,3 +233,40 @@ tries to restore a dead buffer or window."
     (setq shell-pop-last-buffer (window-buffer (get-mru-window nil t t))))
   (unless (window-live-p shell-pop-last-window)
     (setq shell-pop-last-window (get-buffer-window shell-pop-last-buffer))))
+
+(defun spacemacs//vterm-make-history-candidates ()
+  (with-temp-buffer
+    (insert-file-contents spacemacs-vterm-history-file-location)
+    (reverse
+     (delete-dups
+      (split-string (buffer-string) "\n")))))
+
+(defun spacemacs/helm-vterm-search-history ()
+  "Narrow down bash history with helm."
+  (interactive)
+  (assert (string-equal mode-name "VTerm") nil "Not in VTerm mode")
+  (helm :sources (helm-build-sync-source "Bash history"
+                                         :candidates (spacemacs//vterm-make-history-candidates)
+                                         :action #'vterm-send-string)
+        :buffer "*helm-bash-history*"
+        :candidate-number-limit 10000))
+
+(defun spacemacs/counsel-vterm-search-history ()
+  "Narrow down bash history with ivy."
+  (interactive)
+  (assert (string-equal mode-name "VTerm") nil "Not in VTerm mode")
+  (ivy-read "Bash history: "
+            (spacemacs//vterm-make-history-candidates)
+            :keymap counsel-describe-map
+            :preselect (ivy-thing-at-point)
+            :history 'spacemacs/counsel-shell-search-history-history
+            :require-match t
+            :action #'vterm-send-string
+            :caller 'spacemacs/counsel-vterm-search-history))
+
+(defun spacemacs//vterm-bind-m-r (mode-map)
+  (cond
+   ((configuration-layer/layer-used-p 'helm)
+    (define-key mode-map (kbd "M-r") 'spacemacs/helm-vterm-search-history))
+   ((configuration-layer/layer-used-p 'ivy)
+    (define-key mode-map (kbd "M-r") 'spacemacs/counsel-vterm-search-history))))

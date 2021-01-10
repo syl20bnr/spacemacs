@@ -1,6 +1,6 @@
 ;;; packages.el --- typescript Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Chris Bowdon <c.bowdon@bath.edu>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,7 +20,6 @@
         typescript-mode
         import-js
         web-mode
-        tide
         yasnippet
         ))
 
@@ -61,16 +60,18 @@
 
 (defun typescript/set-lsp-linter ()
   (with-eval-after-load 'lsp-ui
-    (with-eval-after-load 'flycheck
-      (cond ((eq typescript-linter 'tslint)
-             (flycheck-add-mode 'typescript-tslint 'typescript-tsx-mode)
-             (flycheck-add-next-checker 'lsp 'typescript-tslint 'append))
-            ((eq typescript-linter 'eslint)
-             (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
-             (flycheck-add-mode 'javascript-eslint 'typescript-mode))
-            (t
-             (message
-              "Invalid typescript-layer configuration, no such linter: %s" typescript-linter))))))
+    (with-eval-after-load 'lsp
+      (with-eval-after-load 'flycheck
+        (cond ((eq typescript-linter 'tslint)
+               (flycheck-add-mode 'typescript-tslint 'typescript-tsx-mode))
+              ;; This sets tslint unconditionally for all lsp clients which is wrong
+              ;; Must be set for respective modes only, see go layer for examples.
+              ((eq typescript-linter 'eslint)
+               (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
+               (flycheck-add-mode 'javascript-eslint 'typescript-mode))
+              (t
+               (message
+                "Invalid typescript-layer configuration, no such linter: %s" typescript-linter)))))))
 
 (defun typescript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'typescript-mode)
@@ -101,8 +102,12 @@
   (when typescript-fmt-on-save
     (add-hook 'typescript-tsx-mode-hook 'spacemacs/typescript-fmt-before-save-hook))
   (spacemacs/set-leader-keys-for-major-mode 'typescript-tsx-mode
-    "="  'spacemacs/typescript-format
-    "p" 'spacemacs/typescript-open-region-in-playground))
+    "p" 'spacemacs/typescript-open-region-in-playground)
+  (pcase (spacemacs//typescript-backend)
+    ('lsp (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
+            "==" 'spacemacs/typescript-format))
+    (_ (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
+         "=" 'spacemacs/typescript-format))))
 
 (defun typescript/post-init-yasnippet ()
   (spacemacs/add-to-hooks #'spacemacs/typescript-yasnippet-setup '(typescript-mode-hook
@@ -121,16 +126,15 @@
         (when typescript-fmt-on-save
           (add-hook 'typescript-mode-hook 'spacemacs/typescript-fmt-before-save-hook))
         (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
-          "="  'spacemacs/typescript-format
-          "p" 'spacemacs/typescript-open-region-in-playground)))))
+          "p" 'spacemacs/typescript-open-region-in-playground)
+        (pcase (spacemacs//typescript-backend)
+          ('lsp (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
+                  "==" 'spacemacs/typescript-format))
+          (_ (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
+               "=" 'spacemacs/typescript-format)))))))
 
 (defun typescript/pre-init-import-js ()
   (if (eq javascript-import-tool 'import-js)
       (progn
         (add-to-list 'spacemacs--import-js-modes (cons 'typescript-mode 'typescript-mode-hook))
         (add-to-list 'spacemacs--import-js-modes (cons 'typescript-tsx-mode 'typescript-tsx-mode-hook)))))
-
-(defun typescript/post-init-tide ()
-  (when (eq (spacemacs//typescript-backend) 'tide)
-    (add-to-list 'tide-managed-modes 'typescript-mode)
-    (add-to-list 'tide-managed-modes 'typescript-tsx-mode)))

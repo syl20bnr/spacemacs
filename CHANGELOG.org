@@ -1310,7 +1310,7 @@
   =dotspacemacs-command-key=. This variable represents the key to press after
   the leader key to execute =M-x=. Default value is ~SPC~.
 - New variable =dotspacemacs-folding-method= to allow choosing between
-  different code folding methods. Currently supported are =evil= and =origami=.
+  different code folding methods. Currently supported are =evil=, =origami= and =vimish=.
   Default value is =evil=. (thanks to ralesi)
 - New variable =dotspacemacs-ex-substitute-global=, if non-nil then
   the behavior of the =g= flag in =:substitute= ex-command is inverted.
@@ -1342,7 +1342,9 @@
 *** Distribution layer changes
 - Add package =evil-ediff= (thanks to justbur)
 - Add package =evil-visual-mark-mode= (thanks to nixmaniack)
-- Add package =origmai= (used only if new variable =dotspacemacs-folding-method=
+- Add packages =vimish-fold= and =evil-vimish-fold= (used only if new variable =dotspacemacs-folding-method=
+  is set to =origami=) (thanks to Keith Pinson)
+- Add package =origami= (used only if new variable =dotspacemacs-folding-method=
   is set to =origami=) (thanks to ralesi)
 - Add package =link-hint=:
   - ~SPC x o~ to use avy to select a link in the frame and open it

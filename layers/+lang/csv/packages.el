@@ -1,6 +1,6 @@
 ;;; packages.el --- csharp Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: William Casarin <bill@casarin.me>
 ;; URL: https://github.com/syl20bnr/spacemacs

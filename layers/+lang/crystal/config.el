@@ -1,6 +1,6 @@
 ;;; config.el --- Crystal Layer Configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Brantou <brantou89@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -15,3 +15,8 @@
 
 (defvar crystal-enable-auto-format nil
   "If non-nil then auto-format on save.")
+
+(defvar crystal-backend nil
+  "The backend to use for IDE features.
+Possible values are `lsp' and `company-crystal'.
+If `nil' then 'company-crystal` is the default backend unless `lsp' layer is used")

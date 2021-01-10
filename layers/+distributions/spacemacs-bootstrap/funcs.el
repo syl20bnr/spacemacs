@@ -1,6 +1,6 @@
 ;;; funcs.el --- Spacemacs Bootstrap Layer functions File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -230,3 +230,18 @@ the scroll transient state.")
       (use-package-concat
        body
        `((spacemacs|spacebind ,@args))))))
+
+
+
+;; As suggested in the Emacs wiki https://www.emacswiki.org/emacs/HideShow#toc5
+(defun spacemacs/toggle-selective-display (column)
+  "Toggle selective display by column, a.k.a. folding by indentation.
+
+Invokes `set-selective-display', but if a prefix argument is not supplied and
+`selective-display' is not already true, source the prefix argument from the
+column."
+  (interactive "P")
+  (set-selective-display
+   (or column
+       (unless selective-display
+         (1+ (current-column))))))

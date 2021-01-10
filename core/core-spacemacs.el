@@ -1,6 +1,6 @@
 ;;; core-spacemacs.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -43,6 +43,8 @@
   "Hook run after dotspacemacs/user-config")
 (defvar spacemacs-post-user-config-hook-run nil
   "Whether `spacemacs-post-user-config-hook' has been run")
+(defvar spacemacs-scratch-mode-hook nil
+  "Hook run on buffer *scratch* after `dotspacemacs-scratch-mode' is invoked.")
 
 (defvar spacemacs--default-mode-line mode-line-format
   "Backup of default mode line format.")
@@ -52,6 +54,7 @@ the final step of executing code in `emacs-startup-hook'.")
 
 (defun spacemacs/init ()
   "Perform startup initialization."
+  (setq command-line-args (spacemacs//parse-command-line command-line-args))
   (when spacemacs-debugp (spacemacs/init-debug))
   ;; silence ad-handle-definition about advised functions getting redefined
   (setq ad-redefinition-action 'accept)
@@ -229,7 +232,8 @@ Note: the hooked function is not executed when in dumped mode."
      (setq spacemacs-post-user-config-hook-run t)
      (when (fboundp dotspacemacs-scratch-mode)
        (with-current-buffer "*scratch*"
-         (funcall dotspacemacs-scratch-mode)))
+         (funcall dotspacemacs-scratch-mode)
+         (run-hooks 'spacemacs-scratch-mode-hook)))
      (when spacemacs--delayed-user-theme
        (spacemacs/load-theme spacemacs--delayed-user-theme
                              spacemacs--fallback-theme t))

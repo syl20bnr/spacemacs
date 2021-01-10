@@ -121,8 +121,8 @@ If you use Emacs editing style, check the key bindings at the [[https://github.c
 | ~m~                  | Set mark                                  |
 | ~'~                  | Go to mark                                |
 | ~y~                  | Yank selected region                      |
-| ~[~                  | History back                              |
-| ~]~                  | History forward                           |
+| ~C-o~ or ~[~         | History back                              |
+| ~C-i~ or ~]~         | History forward                           |
 |----------------------+-------------------------------------------|
 | *Search*             |                                           |
 |----------------------+-------------------------------------------|

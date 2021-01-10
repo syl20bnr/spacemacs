@@ -20,10 +20,14 @@ This layer adds packages to improve editing with Spacemacs.
 - Support for selecting, copying and opening links using =avy= via =link-hint=.
 - Adding of sample text via =lorem-ipsum=.
 - Transient state for moving text via =move-text=.
-- Support for folding of code via =origami=.
+- Support for folding of code via =origami= and =evil-vimish-fold=.
 - Support for password generation via =password-generator=.
 - Support for improving parenthesis handling via =smartparens=.
 - Automatic whitespace cleanup on save via =spacemacs-whitespace-cleanup=.
 - Support for converting definitions to certain styles via =string-inflection=.
 - Support for generating UUIDs via =uuidgen=.
 - Support for conversion between Emacs regexps and PCRE regexps.
+- Support for persistent scratch via =persistent-scratch=.
+- Support for unkillable scratch via =unkillable-scratch=.
+- In =dired-mode=, press ~Shift S~ to select sorting.
+- Support for =evil-easymotion= if the editing style is =vim= or =hybrid=.

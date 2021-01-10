@@ -78,7 +78,7 @@ It integrates with =company= and =flycheck=. In addition it also provides
 full graphical debugging support via =DAP mode=.
 
 LSP is the default backend used by this layer, see [[#choosing-a-backend][Choosing a backend]] in
-order to lean how to select a different backend.
+order to learn how to select a different backend.
 
 *** Installation
 The lsp server will be installed automatically whenever a Java file

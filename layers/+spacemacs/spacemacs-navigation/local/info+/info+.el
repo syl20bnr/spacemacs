@@ -982,6 +982,8 @@
 (define-key Info-mode-map "?"               'describe-mode) ; Don't use `Info-summary'.
 (define-key Info-mode-map "+"               'Info-merge-subnodes)
 (define-key Info-mode-map "."               'Info-save-current-node)
+(define-key Info-mode-map "J"               'Info-scroll-up)
+(define-key Info-mode-map "K"               'Info-scroll-down)
 (define-key Info-mode-map "a"               'info-apropos)
 (define-key Info-mode-map "G"               'Info-goto-node-web)
 (define-key Info-mode-map "O"               'Info-toc-outline)

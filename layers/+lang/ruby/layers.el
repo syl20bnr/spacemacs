@@ -1,6 +1,6 @@
 ;;; layers.el --- Ruby Layer declarations File for Spacemacs
 ;;
-;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -12,3 +12,6 @@
 (when (and (boundp 'ruby-backend)
            (eq ruby-backend 'lsp))
   (configuration-layer/declare-layer-dependencies '(dap)))
+
+(when (boundp 'ruby-prettier-on-save)
+  (configuration-layer/declare-layer-dependencies '(prettier)))

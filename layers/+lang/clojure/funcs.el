@@ -1,6 +1,6 @@
 ;;; funcs.el --- Clojure Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,30 +9,43 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs//clojure-backend ()
+  "Return selected backend."
+  (if clojure-backend
+      clojure-backend
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t 'cider))))
+
+(defun spacemacs//clojure-setup-backend ()
+  "Conditionally setup clojure backend."
+  (pcase (spacemacs//clojure-backend)
+    (`lsp (lsp))))
+
 (defun clojure/fancify-symbols (mode)
   "Pretty symbols for Clojure's anonymous functions and sets,
    like (λ [a] (+ a 5)), ƒ(+ % 5), and ∈{2 4 6}."
   (font-lock-add-keywords mode
-    `(("(\\(fn\\)[[[:space:]]"
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "λ")
-                 nil)))
-      ("(\\(partial\\)[[[:space:]]"
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "Ƥ")
-                 nil)))
-      ("(\\(comp\\)[[[:space:]]"
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "∘")
-                 nil)))
-      ("\\(#\\)("
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "ƒ")
-                 nil)))
-      ("\\(#\\){"
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "∈")
-                 nil))))))
+                          `(("(\\(fn\\)[[[:space:]]"
+                             (0 (progn (compose-region (match-beginning 1)
+                                                       (match-end 1) "λ")
+                                       nil)))
+                            ("(\\(partial\\)[[[:space:]]"
+                             (0 (progn (compose-region (match-beginning 1)
+                                                       (match-end 1) "Ƥ")
+                                       nil)))
+                            ("(\\(comp\\)[[[:space:]]"
+                             (0 (progn (compose-region (match-beginning 1)
+                                                       (match-end 1) "∘")
+                                       nil)))
+                            ("\\(#\\)("
+                             (0 (progn (compose-region (match-beginning 1)
+                                                       (match-end 1) "ƒ")
+                                       nil)))
+                            ("\\(#\\){"
+                             (0 (progn (compose-region (match-beginning 1)
+                                                       (match-end 1) "∈")
+                                       nil))))))
 
 
 (defun spacemacs/cider-eval-sexp-end-of-line ()
@@ -54,7 +67,7 @@
       (indent-region pt-max (point))
       (cider-repl-return)
       (with-selected-window (get-buffer-window (cider-current-connection))
-               (goto-char (point-max))))))
+        (goto-char (point-max))))))
 
 (defun spacemacs/cider-send-last-sexp-to-repl ()
   "Send last sexp to REPL and evaluate it without changing
@@ -110,12 +123,12 @@ the focus."
   (cider-insert-ns-form-in-repl t)
   (evil-insert-state))
 
-(defun spacemacs/cider-send-buffer-in-repl-and-focus ()
+(defun spacemacs/cider-send-buffer-in-repl-and-focus (&optional set-namespace)
   "Send the current buffer in the REPL and switch to the REPL in
-`insert state'."
-  (interactive)
+`insert state'. When set-namespace, also change into the namespace of the buffer."
+  (interactive "P")
   (cider-load-buffer)
-  (cider-switch-to-repl-buffer)
+  (cider-switch-to-repl-buffer set-namespace)
   (evil-insert-state))
 
 (defun spacemacs/cider-test-run-focused-test ()

@@ -1,6 +1,6 @@
 ;;; spacemacs-xclipboard.el --- Add support for xclipboard in the terminal
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Authors: Charles Weill <weill@google.com>
 ;;          Google LLC.

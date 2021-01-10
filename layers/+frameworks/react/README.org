@@ -127,6 +127,8 @@ concatenations and contiguous function calls:
 
 * Key bindings
 ** rjsx-mode
+The =javascript= layers keymap is set as the parent of the =react= layers keymap.
+Check the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+lang/javascript/README.org#key-bindings][javascript layers documentation]] for additional key bindings.
 
 | Key binding   | Description                                                                      |
 |---------------+----------------------------------------------------------------------------------|

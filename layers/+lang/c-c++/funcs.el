@@ -1,6 +1,6 @@
 ;;; funcs.el --- C/C++ Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -197,6 +197,7 @@
       "gD" 'rtags-diagnostics
       "ge" 'rtags-reparse-file
       "gE" 'rtags-preprocess-file
+      "gf" 'rtags-find-dead-functions
       "gF" 'rtags-fixit
       "gG" 'rtags-guess-function-at-point
       "gh" 'rtags-print-class-hierarchy
@@ -205,10 +206,13 @@
       "gM" 'rtags-symbol-info
       "gO" 'rtags-goto-offset
       "gp" 'rtags-set-current-project
+      "gr" 'rtags-references-tree
       "gR" 'rtags-rename-symbol
       "gs" 'rtags-print-source-arguments
       "gS" 'rtags-display-summary
+      "gt" 'rtags-symbol-type
       "gT" 'rtags-taglist
+      "gu" 'rtags-dependency-tree 
       "gv" 'rtags-find-virtuals-at-point
       "gV" 'rtags-print-enum-value-at-point
       "gX" 'rtags-fix-fixit-at-point

@@ -1,6 +1,6 @@
 ;;; config.el --- Ruby Layer configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -31,3 +31,6 @@ Possible values are `rbenv', `rvm' or `chruby'.)")
 
 (defvar ruby-highlight-debugger-keywords t
   "If non-nil, enable highlight for debugger keywords.")
+
+(defvar ruby-prettier-on-save nil
+  "Use prettier and run on buffer save")

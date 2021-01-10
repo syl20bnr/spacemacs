@@ -1,6 +1,6 @@
 ;;; core-dotspacemacs.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -61,7 +61,7 @@ or `spacemacs'.")
 (defvar dotspacemacs-enable-emacs-pdumper nil
   "If non-nil then enable support for the portable dumper. You'll need
 to compile Emacs 27 from source following the instructions in file
-EXPERIMENTAL.org at to root of the git repository.")
+EXPERIMENTAL.org at the root of the git repository.")
 
 (defvar dotspacemacs-emacs-pdumper-executable-file "emacs"
   "File path pointing to emacs 27 or later executable.")
@@ -96,7 +96,8 @@ environment, otherwise it is strongly recommended to let it set to t.")
 (defvar dotspacemacs-use-spacelpa nil
   "If non-nil then Spacelpa repository is the primary source to install
 a locked version of packages. If nil then Spacemacs will install the latest
-version of packages from MELPA.")
+version of packages from MELPA. Spacelpa is currently in experimental
+state and should only be used for testing.")
 
 (defvar dotspacemacs-verify-spacelpa-archives nil
   "If non-nil then verify the signature for downloaded Spacelpa archives.")
@@ -242,7 +243,7 @@ pressing `<leader> m`. Set it to `nil` to disable it.")
 running Emacs in terminal.")
 
 (defvar dotspacemacs-folding-method 'evil
-  "Code folding method. Possible values are `evil' and `origami'.")
+  "Code folding method. Possible values are `evil', `origami' and `vimish'.")
 
 (defvar dotspacemacs-default-layout-name "Default"
   "Name of the default layout.")
@@ -409,9 +410,12 @@ tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.")
 `(list-type . list-size)`. If nil it is disabled.
 
 Possible values for list-type are:
-`recents' `bookmarks' `projects' `agenda' `todos'.
+`recents' `recents-by-project' `bookmarks' `projects' `agenda' `todos'.
 List sizes may be nil, in which case
-`spacemacs--buffer-startup-lists-length' takes effect.")
+`spacemacs--buffer-startup-lists-length' takes effect.
+In the `recents-by-project' case, the list size should be a `cons' cell whose
+`car' is the maximum number of projects to show, and whose `cdr' is the maximum
+number of recent files to show in each project.")
 
 (defvar dotspacemacs-startup-buffer-responsive t
   "True if the home buffer should respond to resize events.")
@@ -435,8 +439,16 @@ visiting README.org files of Spacemacs.")
 If non nil activate `clean-aindent-mode' which tries to correct
 virtual indentation of simple modes. This can interfer with mode specific
 indent handling like has been reported for `go-mode'.
-If it does deactivate it here.
-(default t)")
+If it does deactivate it here. (default t)")
+
+(defvar dotspacemacs-swap-number-row nil
+  "Shift number row for easier access.
+
+If non-nil shift your number row to match the entered keyboard layout
+(only in insert mode). Currently the keyboard layouts
+(qwerty-us qwertz-de) are supported.
+New layouts can be added in `spacemacs-editing' layer.
+(default nil)")
 
 (defvar dotspacemacs-home-shorten-agenda-source nil
   "If nil the home buffer shows the full path of agenda items
@@ -445,7 +457,15 @@ and todos. If non nil only the file name is shown.")
 (defvar dotspacemacs--pretty-ignore-subdirs
   '(".cache/junk")
   "Subdirectories of `spacemacs-start-directory' to ignore when
-  prettifying Org files.")
+prettifying Org files.")
+
+(defvar dotspacemacs-scratch-buffer-persistent nil
+  "If non-nil, *scratch* buffer will be persistent. Things you write down in
+   *scratch* buffer will be saved automatically.")
+
+(defvar dotspacemacs-scratch-buffer-unkillable nil
+  "If non-nil, `kill-buffer' on *scratch* buffer
+will bury it instead of killing.")
 
 (defun dotspacemacs//prettify-spacemacs-docs ()
   "Run `spacemacs/prettify-org-buffer' if `buffer-file-name'
@@ -509,7 +529,7 @@ changed, and issue a warning if it did."
   "Read editing style CONFIG: apply variables and return the editing style.
 CONFIG can be the symbol of an editing style or a list where the car is
 the symbol of an editing style and the cdr is a list of keyword arguments like
-`:variables'."
+  `:variables'."
   (cond
    ((symbolp config) config)
    ((listp config)
@@ -534,7 +554,7 @@ the symbol of an editing style and the cdr is a list of keyword arguments like
 Returns non nil if the layer has been effectively inserted."
   (unless (configuration-layer/layer-used-p layer-name)
     (with-current-buffer (find-file-noselect (dotspacemacs/location))
-      (beginning-of-buffer)
+      (goto-char (point-min))
       (let ((insert-point
              (re-search-forward
               "[^`]dotspacemacs-configuration-layers\\s-*\n?[^(]*\\((\\)")))
@@ -749,7 +769,7 @@ If ARG is non nil then ask questions to the user before installing the dotfile."
            (fs (format-spec-make
                 ?a abbreviated-file-name
                 ?t project-name
-                ?S system-name
+                ?S (system-name)
                 ?I invocation-name
                 ?U (or (getenv "USER") "")
                 ?b "%b"
@@ -902,16 +922,22 @@ error recovery."
     (lambda (x)
       (let ((el (or (car-safe x) x))
             (list-size (cdr-safe x)))
-        (member el '(recents bookmarks projects todos agenda))))
-    'dotspacemacs-startup-lists (concat "includes \'recents, "
+        (member el '(recents recents-by-project bookmarks projects todos agenda))))
+    'dotspacemacs-startup-lists (concat "includes \'recents, 'recents-by-project, "
                                         "\'bookmarks, \'todos, "
                                         "\'agenda or \'projects"))
    (spacemacs//test-list
     (lambda (x)
       (let ((el (or (car-safe x) x))
             (list-size (cdr-safe x)))
-        (or (null list-size)(numberp list-size))))
-    'dotspacemacs-startup-lists (concat "list size is a number"))
+        (if (eq el 'recents-by-project)
+            (and (consp list-size)
+                 (numberp (car list-size))
+                 (numberp (cdr list-size)))
+          (or (null list-size) (numberp list-size)))))
+    'dotspacemacs-startup-lists (concat "list size is a number, unless "
+                                        "list type is recents-by-project "
+                                        "when it is a pair of numbers"))
    (spacemacs//test-var 'stringp 'dotspacemacs-leader-key "is a string")
    (spacemacs//test-var 'stringp 'dotspacemacs-emacs-leader-key "is a string")
    (spacemacs//test-var

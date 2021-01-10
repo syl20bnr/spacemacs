@@ -14,23 +14,11 @@
 skip_when_branch_update
 fail_when_undefined_pr_number
 
-echo "PATCH_URL: \"${pr_patch_URL}\""
+files_json=$(curl "${pr_file_list_URL}" --silent)
 
-curl "${pr_patch_URL}" --output /tmp/patch --silent
-first_commit=$(echo $(head -n 1 /tmp/patch) | sed -n 's/From \([a-zA-Z0-9]\+\).*/\1/p')
-
-if [[ -z "${first_commit// }" ]]; then
-    echo "Can't find first commit"
-    exit 1
-else
-    echo "First commit: ${first_commit}"
-fi
-
-git diff --name-only "${first_commit}^" HEAD > /tmp/changed_files
-if [ $? -ne 0 ]; then
-    echo "Git diff failed"
-    exit 1
-fi
+for file_name in $(echo "${files_json}" | jq -r '.[].filename'); do
+    echo "${file_name}" >> /tmp/changed_files
+done
 
 echo_headline "CHANGED FILES:"
 cat /tmp/changed_files

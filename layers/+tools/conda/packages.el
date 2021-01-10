@@ -1,6 +1,6 @@
 ;;; packages.el --- Conda Layer packages File for Spacemacs
 ;;
-;; Copyright (C) 2012-2019 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Zach Pearson <zach@zjp.codes>
 ;; URL: https://github.com/syl20bnr/spacemacs

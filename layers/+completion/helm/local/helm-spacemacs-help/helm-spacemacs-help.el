@@ -43,7 +43,7 @@
 
 (defun helm-spacemacs-help//init (&optional arg)
   (when (or arg (null helm-spacemacs--initialized))
-    (configuration-layer/make-all-packages)
+    (configuration-layer/make-all-packages nil t)
     (setq helm-spacemacs--initialized t)))
 
 ;;;###autoload

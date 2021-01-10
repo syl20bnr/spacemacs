@@ -43,6 +43,7 @@ This layer adds support for the [[https://github.com/hrs/engine-mode][Search Eng
 - Python Package Index
 - Python Docs
 - C++ Reference
+- Melpa
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

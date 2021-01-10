@@ -1,6 +1,6 @@
 ;;; core-command-line.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -67,7 +67,5 @@ arguments is that we want to process these arguments as soon as possible."
           (_ (push arg new-args))))
       (setq i (1+ i)))
     (nreverse new-args)))
-
-(setq command-line-args (spacemacs//parse-command-line command-line-args))
 
 (provide 'core-command-line)

@@ -1,6 +1,6 @@
 ;;; funcs.el --- Spacemacs Mode-line Layer functions File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -18,8 +18,14 @@
 (defun spacemacs/mode-line-separator ()
   "Return the separator type for the mode-line.
 Return nil if no separator is defined."
-  (when (listp dotspacemacs-mode-line-theme)
-    (plist-get (cdr dotspacemacs-mode-line-theme) :separator)))
+  (let ((separator (when (listp dotspacemacs-mode-line-theme)
+                     (plist-get (cdr dotspacemacs-mode-line-theme) :separator))))
+    ;; `utf-8' separator is not supported by all-the-icons font
+    ;; we force `utf-8' to be `arrow'
+    (if (and (eq 'utf-8 separator)
+             (eq 'all-the-icons (spacemacs/get-mode-line-theme-name)))
+        'arrow
+      separator)))
 
 (defun spacemacs/mode-line-separator-scale ()
   "Return the separator scale for the mode-line.
@@ -31,6 +37,24 @@ Return nil if no scale is defined."
 
 
 ;; spaceline
+
+(defun spacemacs/spaceline-config-startup-hook ()
+  "Install a transient hook to delay spaceline config after Emacs starts."
+  (spacemacs|add-transient-hook window-configuration-change-hook
+    (lambda () (spacemacs/spaceline-config-startup)) lazy-load-spaceline))
+
+(defun spacemacs/spaceline-config-startup ()
+  "Compile the spaceline config."
+  (setq spaceline-byte-compile t)
+  ;; this must also be set in this hook because
+  ;; (spacemacs/compute-mode-line-height) returns incorrect
+  ;; results if it is called before the display system is
+  ;; initialized. see issue for details:
+  ;; https://github.com/syl20bnr/spacemacs/issues/10181
+  (setq powerline-height
+        (spacemacs/compute-mode-line-height))
+  (spaceline-compile))
+
 
 (defun spacemacs/customize-powerline-faces ()
   "Alter powerline face to make them work with more themes."
