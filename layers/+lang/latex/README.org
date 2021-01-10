@@ -104,11 +104,10 @@ latex symbols than the default counter-part in =company-auctex=. If you prefer t
 use =company-auctex= for math symbols completion set the following in your
 =~/.spacemacs=:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-                '(
-                  (latex :packages (not company-math))))
-#+end_src
+                '((latex :packages (not company-math))))
+#+END_SRC
 
 ** Previewing
 =LaTex= layer support full-document previews and inline preview (via ~SPC m p~).
