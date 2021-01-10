@@ -1,6 +1,6 @@
 ;;; config.el --- cscope configuration File
 ;;
-;; Copyright (c) 2019 Sylvain Benner & Contributors
+;; Copyright (c) 2020 Sylvain Benner & Contributors
 ;;
 ;; This file is not part of GNU Emacs.
 ;;

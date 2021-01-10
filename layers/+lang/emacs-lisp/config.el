@@ -1,6 +1,6 @@
 ;;; config.el --- Emacs Lisp Layer configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -18,6 +18,7 @@
 
 (spacemacs|define-jump-handlers emacs-lisp-mode)
 (spacemacs|define-jump-handlers lisp-interaction-mode)
+(spacemacs|define-jump-handlers inferior-emacs-lisp-mode)
 
 (defvar emacs-lisp-hide-namespace-prefix nil
   "If non-nil, hide namespace prefixes using nameless-mode.")

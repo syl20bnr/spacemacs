@@ -1,6 +1,6 @@
 ;;; funcs.el --- Factor Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: timor <timor.dd@googlemail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -98,7 +98,7 @@ Returns the process object.
   (setq factor--ui-listener-process
         (start-process-shell-command
          "Factor-UI-Listener" "*Factor-UI-Listener*"
-         (format "%s -image='%s' -e='USING: fuel.remote ; fuel-start-remote-listener* \"ui.tools\" run ' %s"
+         (format "%s -image='%s' -e='USING: fuel.remote vocabs.loader ; fuel-start-remote-listener* \"ui.tools\" run ' %s"
                  factor-binary
                  factor-image
                  (or cmd-line-options "")))))

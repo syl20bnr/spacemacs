@@ -19,6 +19,7 @@
     (flycheck-rust :requires flycheck)
     ggtags
     helm-gtags
+    ron-mode
     racer
     rust-mode
     smartparens
@@ -117,3 +118,8 @@
 (defun rust/init-toml-mode ()
   (use-package toml-mode
     :mode "/\\(Cargo.lock\\|\\.cargo/config\\)\\'"))
+
+(defun rust/init-ron-mode ()
+  (use-package ron-mode
+    :mode ("\\.ron\\'" . ron-mode)
+    :defer t))

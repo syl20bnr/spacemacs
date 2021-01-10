@@ -29,7 +29,8 @@ This layer supports [[https://www.rust-lang.org][Rust]] development in Spacemacs
 ** Features:
 - Auto-completion and navigation support through [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] or [[https://github.com/phildawes/racer][Racer]]
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
-- support for the Rust package manager [[http://doc.crates.io/index.html][Cargo]]
+- Support for the Rust package manager [[http://doc.crates.io/index.html][Cargo]]
+- Support for [[https://github.com/nabero/ron-mode][Rusty Object Notation (RON)]]
 
 * Install
 ** Layer

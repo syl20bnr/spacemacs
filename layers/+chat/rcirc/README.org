@@ -68,8 +68,8 @@ is convenient but not recommended.
 #+BEGIN_SRC emacs-lisp
   (setq rcirc-server-alist
     '(("irc.freenode.net"
-        :user-name "spacemacs_user"
-        :port "1337"
+        :user-name "spacemacs_user" :encryption tls
+        :port "6697"
         :password "le_passwd"
         :channels ("#emacs"))))
 #+END_SRC

@@ -1,6 +1,6 @@
 ;;; config.el --- Git Layer configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -17,5 +17,9 @@
 (defvar git-magit-status-fullscreen nil
   "If non nil magit-status buffer is displayed in fullscreen.")
 
+(defvar git-enable-magit-delta-plugin nil
+  "If non nil `magit-delta-mode' plugin is enabled.")
+
 (defvar spacemacs--git-blame-ts-full-hint-toggle nil
   "Display git blame transient state documentation.")
+

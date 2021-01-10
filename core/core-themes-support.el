@@ -1,6 +1,6 @@
 ;;; core-themes-support.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -191,6 +191,7 @@
     (doom-material                    . doom-themes)
     (doom-molokai                     . doom-themes)
     (doom-monokai-classic             . doom-themes)
+    (doom-monokai-spectrum            . doom-themes)
     (doom-monokai-pro                 . doom-themes)
     (doom-moonlight                   . doom-themes)
     (doom-nord                        . doom-themes)
@@ -213,6 +214,7 @@
     (doom-tomorrow-night              . doom-themes)
     (doom-vibrant                     . doom-themes)
     (doom-wilmersdorf                 . doom-themes)
+    (doom-zenburn                     . doom-themes)
     (dorsey                           . sublime-themes)
     (eziam-dark                       . eziam-theme)
     (eziam-dusk                       . eziam-theme)

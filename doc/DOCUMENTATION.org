@@ -198,6 +198,9 @@
       - [[#emacs-keyboard-macros][Emacs keyboard macros]]
         - [[#macro-counter][Macro counter]]
         - [[#key-bindings-1][Key bindings]]
+    - [[#scratch-buffer][Scratch buffer]]
+      - [[#persistent-scratch][Persistent scratch]]
+      - [[#unkillable-scratch][Unkillable scratch]]
     - [[#mouse-usage][Mouse usage]]
   - [[#comparing-diff][Comparing (diff)]]
   - [[#managing-projects][Managing projects]]
@@ -210,7 +213,6 @@
 - [[#emacs-server][Emacs Server]]
   - [[#connecting-to-the-emacs-server][Connecting to the Emacs server]]
   - [[#keeping-the-server-alive][Keeping the server alive]]
-  - [[#disabling-the-emacs-server][Disabling the Emacs server]]
 - [[#troubleshoot][Troubleshoot]]
   - [[#loading-fails][Loading fails]]
   - [[#upgradingdowngrading-emacs-version][Upgrading/Downgrading Emacs version]]
@@ -1113,11 +1115,12 @@ key-discovery tools can use (e.g., which-key).
 Example to create binding in major mode:
 
 #+BEGIN_SRC emacs-lisp
-  (spacemacs/declare-prefix-for-mode 'org-mode "o" "custom")
+  (spacemacs/declare-prefix-for-mode 'org-mode "mo" "custom")
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "oi" 'org-id-get-create)
 #+END_SRC
 
-This would add binding as ~, oi~ and ~SPC moi~.
+This would add binding as ~, oi~ and ~SPC moi~ (note that the "m" in the prefix
+declaration must be include).
 
 There is much more to say about bindings keys, but these are the basics. Keys
 can be bound in your =~/.spacemacs= file or in individual layers.
@@ -2005,7 +2008,8 @@ thusly:
 | ~SPC h d p~ | describe a package (Emacs built-in function)              |
 | ~SPC h d P~ | describe a package (Spacemacs layer information)          |
 | ~SPC h d s~ | copy system information that you can paste in gitter chat |
-| ~SPC h d t~ | describe a theme                                          |
+| ~SPC h d t~ | describe text properties                                  |
+| ~SPC h d T~ | describe a theme                                          |
 | ~SPC h d v~ | describe a variable                                       |
 
 Other help key bindings:
@@ -2038,6 +2042,8 @@ Navigation key bindings in =help-mode=:
 
 | Key binding  | Description                                         |
 |--------------+-----------------------------------------------------|
+| ~J~          | Scroll up (or next node)                            |
+| ~K~          | Scroll down (or next node)                          |
 | ~g b~ or ~[~ | go back (same as clicking on =[back]= button)       |
 | ~g f~ or ~]~ | go forward (same as clicking on =[forward]= button) |
 | ~g h~        | go to help for symbol under point                   |
@@ -2166,11 +2172,11 @@ selecting an avy candidate.
 
 **** ace-link mode
 Similar to =avy=, [[https://github.com/abo-abo/ace-link][ace-link]] allows one to jump to any link in
-=help-mode= and =info-mode=.
+=help-mode=, =woman-mode= and =info-mode=.
 
-| Key binding | Description                                           |
-|-------------+-------------------------------------------------------|
-| ~o~         | initiate ace link mode in =help-mode= and =info-mode= |
+| Key binding | Description                                               |
+|-------------+-----------------------------------------------------------|
+| ~o~         | initiate ace link mode in =help=, =info= and =woman-mode= |
 
 *** Unimpaired bindings
 Spacemacs comes with a built-in port of [[https://github.com/tpope/vim-unimpaired][tpope's vim-unimpaired]].
@@ -3142,12 +3148,18 @@ With [[https://github.com/TheBB/evil-indent-plus][evil-indent-plus]] the followi
 The displayed text of a buffer can be narrowed with the commands (start with
 ~n~):
 
-| Key binding | Description                               |
-|-------------+-------------------------------------------|
-| ~SPC n f~   | narrow the buffer to the current function |
-| ~SPC n p~   | narrow the buffer to the visible page     |
-| ~SPC n r~   | narrow the buffer to the selected text    |
-| ~SPC n w~   | widen, i.e. show the whole buffer again   |
+| Key binding | Description                                          |
+|-------------+------------------------------------------------------|
+| ~SPC n f~   | narrow the buffer to the current function            |
+| ~SPC n p~   | narrow the buffer to the visible page                |
+| ~SPC n r~   | narrow the buffer to the selected text               |
+| ~SPC n w~   | widen, i.e. show the whole buffer again              |
+| ~SPC n F~   | narrow to the current function in an indirect buffer |
+| ~SPC n P~   | narrow to the visible page in an indirect buffer     |
+| ~SPC n R~   | narrow to the selected text in an indirect buffer    |
+
+Narrowing in an indirect buffer overcomes the problem that a buffer can only be
+narrowed in one place at a given time.
 
 *** Replacing text with iedit
 Spacemacs uses the powerful [[https://github.com/tsdh/iedit][iedit]] mode through [[https://github.com/syl20bnr/evil-iedit-state][evil-iedit-state]] to quickly
@@ -3469,6 +3481,17 @@ When recording a macro it's possible to insert the current value by pressing:
 | ~SPC K r s~ | swap the first two macros in ring                                         |
 | ~SPC K v~   | view last macro string in minibuffer                                      |
 
+*** Scratch buffer
+Some features which could improve editing experience in =*scratch*= buffer.
+
+**** Persistent scratch
+Make your =*scratch*= buffer persistent. Everything you write down in =*scratch*= buffer will be automatically saved and restored.
+You can set variable =dotspacemacs-scratch-buffer-persistent= with a non-nil value in your =.spacemacs= file to enable this feature.
+
+**** Unkillable scratch
+Make your =*scratch*= buffer not killable (bury instead).
+You can set variable =dotspacemacs-scratch-buffer-unkillable= with a non-nil value in your =.spacemacs= file to enable this feature.
+
 *** Mouse usage
 There are some added mouse features set for the line number margin (if shown):
 - single click in line number margin visually selects the entire line
@@ -3633,8 +3656,13 @@ To customize your editorconfig experience, read [[https://github.com/editorconfi
 documentation]].
 
 * Emacs Server
-Spacemacs starts a server at launch. This server is killed whenever you close
-your Emacs windows.
+Spacemacs provides the ability to start a server at launch, and to kill that
+server whenever you close your Emacs windows. This can be enabled by setting the
+variable =dotspacemacs-enable-server= to =t= in your =~./spacemacs=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-enable-server t)
+#+END_SRC
 
 ** Connecting to the Emacs server
 You can open a file in Emacs from the terminal using =emacsclient=. Use
@@ -3687,14 +3715,6 @@ server is to use the following bindings:
 | ~SPC q f~   | Kill the current frame                                                   |
 | ~SPC q t~   | Restart Emacs and debug with --with-timed-requires                       |
 | ~SPC q T~   | Restart Emacs and debug with --adv-timers                                |
-
-** Disabling the Emacs server
-You can disable the built-in server by setting the variable
-=dotspacemacs-enable-server= to =nil= in your =~/.spacemacs=.
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-enable-server nil)
-#+END_SRC
 
 * Troubleshoot
 ** Loading fails

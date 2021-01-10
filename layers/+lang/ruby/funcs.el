@@ -1,6 +1,6 @@
 ;;; funcs.el --- Ruby Layer functions File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -152,3 +152,13 @@ Called interactively it prompts for a directory."
   (save-excursion
     (goto-char (point-min))
     (insert "#!/usr/bin/env ruby\n")))
+
+
+;; Prettier
+
+(defun spacemacs/ruby-format ()
+  (interactive)
+  (call-interactively 'prettier-js))
+
+(defun spacemacs/ruby-fmt-before-save-hook ()
+  (add-hook 'before-save-hook 'spacemacs/ruby-format t t))

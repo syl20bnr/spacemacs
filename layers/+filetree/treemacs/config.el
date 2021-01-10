@@ -1,6 +1,6 @@
 ;;; config.el --- Treemacs Layer configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Alexander Miller <alexanderm@web.de>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -21,13 +21,9 @@ Possible values are:
  - `Frames' - to scope treemacs to the current frame
  - `Perspectives' - to scope treemacs in conjunction with `persp-mode'.")
 
-(defvar treemacs-use-git-mode
-  (pcase (cons (not (null (executable-find "git")))
-               (not (null (executable-find "python3"))))
-    (`(t . t) 'deferred)
-    (`(t . _) 'simple))
+(defvar treemacs-use-git-mode nil
   "Type of git integration for `treemacs-git-mode'.
-There are 2 possible values:
+There are 3 possible values:
 1) simple, which highlights only files based on their git status, and is
    slightly faster
 2) extended, which highlights both files and directories, but requires python
@@ -39,3 +35,6 @@ There are 2 possible values:
 
 (defvar treemacs-use-icons-dired t
   "When non-nil use `treemacs-icons-dired'")
+
+(defvar treemacs-use-all-the-icons-theme nil
+  "Enable the treemacs supported `all-the-icons' theme")

@@ -1,6 +1,6 @@
 ;;; packages.el --- DAP mode functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Ivan Yonchovski (yyoncho@gmail.com)
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -103,23 +103,30 @@
                         ("dT" . "toggles")
                         ("dw" . "debug windows"))))
 
-        (apply #'spacemacs/set-leader-keys bindings)
-
+        ;; Set global prefixes
         (mapc (lambda (cons)
                 (spacemacs/declare-prefix (car cons) (cdr cons)))
               prefixes)
 
+        ;; Set global key bindings
+        (apply #'spacemacs/set-leader-keys bindings)
+
+        ;; Do all mode specific dap bindings
         (dolist (mode spacemacs--dap-supported-modes)
 
           ;; avoid clash with other debug key bindings
           (spacemacs/set-leader-keys-for-major-mode mode "db" nil)
           (spacemacs/set-leader-keys-for-major-mode mode "dd" nil)
 
-          (apply #'spacemacs/set-leader-keys-for-major-mode mode bindings)
-
+          ;; Set prefixes
           (mapc (lambda (cons)
                   (spacemacs/declare-prefix-for-mode mode (concat "m" (car cons)) (cdr cons)))
-                prefixes))))))
+                prefixes)
+
+          ;; Set bindings
+          (apply #'spacemacs/set-leader-keys-for-major-mode mode bindings))))))
+
+
 
 (defun dap/init-posframe ()
   (unless (version< emacs-version "26.1")

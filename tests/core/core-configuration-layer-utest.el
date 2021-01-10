@@ -1,6 +1,6 @@
 ;;; core-configuration-layer-utest.el --- Spacemacs Unit Test File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -2227,8 +2227,9 @@
      ;; the variable `configuration-layer--indexed-layers'
      ;; Moreover `configuration-layer/declare-layers' requires a valid
      ;; path on disk etc...
-     ((configuration-layer/declare-layers (layers-specs) ((:output nil))))
-     (configuration-layer/make-all-packages 'no-discovery)
+     ((configuration-layer/declare-layers (layers-specs &optional skip-layer-deps)
+                                          ((:output nil))))
+     (configuration-layer/make-all-packages 'no-discovery 'no-layer-deps)
      (should (null configuration-layer--used-packages))
      (should (equal '(pkg1
                       pkg6

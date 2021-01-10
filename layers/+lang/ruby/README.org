@@ -14,6 +14,7 @@
   - [[#prerequisites][Prerequisites]]
   - [[#ruby-version-management][Ruby version management]]
   - [[#test-runner][Test runner]]
+  - [[#formatting][Formatting]]
 - [[#key-bindings][Key bindings]]
   - [[#ruby-enh-ruby-mode-robe-inf-ruby-ruby-tools][Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)]]
   - [[#debugger][Debugger]]
@@ -40,6 +41,7 @@ This layer provides support for the Ruby programming language.
 - Test runner (ruby-test and rspec)
 - Rake runner
 - Linter (rubocop)
+- Formatter (prettier)
 - Interactive REPL and code navigation (robe)
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
@@ -102,6 +104,7 @@ based on your version manager):
 - =pry= and =pry-doc= are required for *jump to definition* and *code documentation* (=robe-mode=)
 - =ruby_parser= is required for *goto-step_definition* in =feature-mode=
 - =rubocop= is required for rubocop integration
+- =prettier= is required for formatter
 - =seeing_is_believing= helps you evaluate code inline
 - =solargraph= is required for using the language server protocol in =ruby-mode=
 
@@ -152,6 +155,17 @@ Example to set the test runner to =RSpec=:
 =Tip:= You can enable different test runners for different projects by using
 directory local variables.
 
+** Formatting
+If you'd like to use [[https://github.com/prettier/plugin-ruby][prettier/plugin-ruby]] to format on save:
+
+#+BEGIN_SRC emacs-lisp
+  (defun dotspacemacs-configuration-layers ()
+     '((ruby :variables ruby-prettier-on-save t)))
+#+END_SRC
+
+Note that the =prettier= binary must be available in the project's
+=node_modules/.bin/= or on =exec-path=.
+
 * Key bindings
 ** Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)
 
@@ -173,6 +187,7 @@ directory local variables.
 | ~SPC m x "​~ | Change symbol or ='= string to ="=                |
 | ~SPC m x :~ | Change string to symbol                           |
 | ~SPC m x h~ | toggle hash syntax in active region               |
+| ~SPC m = =~ | format buffer using prettier                      |
 | ~%~         | [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] jumps between blocks                 |
 
 ** Debugger

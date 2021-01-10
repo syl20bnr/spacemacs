@@ -1,6 +1,6 @@
 ;;; packages.el --- Mandatory Bootstrap Layer packages File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -67,6 +67,9 @@
   (require 'evil)
   (evil-mode 1)
 
+  (when (configuration-layer/package-used-p 'undo-tree)
+    (evil-set-undo-system 'undo-tree))
+
   ;; Use evil as a default jump handler
   (add-to-list 'spacemacs-default-jump-handlers 'evil-goto-definition)
 
@@ -90,6 +93,8 @@
 
   ;; Make the current definition and/or comment visible.
   (define-key evil-normal-state-map "zf" 'reposition-window)
+  ;; Make set-selective-display more discoverable to Evil folks
+  (define-key evil-normal-state-map "z$" 'spacemacs/toggle-selective-display)
   ;; toggle maximize buffer
   (define-key evil-window-map (kbd "o") 'spacemacs/toggle-maximize-buffer)
   (define-key evil-window-map (kbd "C-o") 'spacemacs/toggle-maximize-buffer)

@@ -1,0 +1,60 @@
+name: elisp tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - develop
+
+env:
+  TEST_SCRIPT: ./.github/workflows/scripts/test
+  TESTELPA_REPO: JAremko/testelpa-develop
+  GITHUB_WORKSPACE: ${{ github.workspace }}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        emacs_version: [26.3, 27.1, snapshot]
+        test_root:
+          - core
+          - layers/+distribution/spacemacs-base
+          - layers/+distribution/spacemacs
+    steps:
+    - name: Install Emacs on UNIX
+      uses: purcell/setup-emacs@master
+      with:
+        version: ${{ matrix.emacs_version }}
+      if: ${{ matrix.os != 'windows-latest' }}
+
+    - name: Install Emacs on Windows
+      uses: jcs090218/setup-emacs-windows@master
+      with:
+        version: ${{ matrix.emacs_version }}
+      if: ${{ matrix.os == 'windows-latest' }}
+
+    - uses: actions/checkout@v2
+
+    - name: Fetch Spacemacs elpa mirror
+      run: |
+        curl -L \
+        https://github.com/$TESTELPA_REPO/releases/latest/download/elpa.zip \
+        --output /tmp/elpa.zip
+
+    - name: Unpack elpa mirror
+      run: unzip /tmp/elpa.zip -d ../testelpa_mirror
+
+    - name: Dependencies installation
+      run: ${{ env.TEST_SCRIPT }} ${{ matrix.test_root }} installation
+    - name: Unit testing
+      run: ${{ env.TEST_SCRIPT }} ${{ matrix.test_root }} unit_tests
+    - name: Functional testing
+      run: ${{ env.TEST_SCRIPT }} ${{ matrix.test_root }} func_tests

@@ -1,6 +1,6 @@
 ;;; packages.el --- perl6 layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author:  Bahtiar `kalkin-`''Gadimov <bahtiar@gadimov.de>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -15,7 +15,7 @@
     evil
     flycheck
     (flycheck-perl6 :requires flycheck)
-    perl6-mode
+    raku-mode
     ))
 
 (defun perl6/post-init-company ()
@@ -33,7 +33,7 @@
   (with-eval-after-load 'flycheck
     (require 'flycheck-perl6)))
 
-(defun perl6/init-perl6-mode()
-  (use-package perl6-mode
+(defun perl6/init-raku-mode()
+  (use-package raku-mode
     :defer t
     :mode (("/perl6/site/sources/" . perl6-mode))))

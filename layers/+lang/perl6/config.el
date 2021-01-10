@@ -1,6 +1,6 @@
 ;;; config.el --- perl6 layer configuration file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author:  Bahtiar `kalkin-`''Gadimov <bahtiar@gadimov.de>
 ;; URL: https://github.com/syl20bnr/spacemacs

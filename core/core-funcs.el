@@ -1,6 +1,6 @@
 ;;; core-funcs.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -416,7 +416,8 @@ set."
         (min spacemacs--gne-max-line
              (max spacemacs--gne-min-line
                   (+ num spacemacs--gne-cur-line))))
-  (goto-line spacemacs--gne-cur-line)
+  (goto-char (point-min))
+  (forward-line (1- spacemacs--gne-cur-line))
   (funcall spacemacs--gne-line-func
            (buffer-substring (point-at-bol) (point-at-eol))))
 

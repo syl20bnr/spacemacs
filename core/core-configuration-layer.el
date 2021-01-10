@@ -1,7 +1,7 @@
 ;; -*- nameless-current-name: "configuration-layer" -*-
 ;;; core-configuration-layer.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -214,7 +214,7 @@ LAYER has to be installed for this method to work properly."
     (when (and (numberp rank)
                (not (eq 'unspecified shadow-candidates))
                (listp shadow-candidates))
-      (mapcar
+      (mapc
        (lambda (other)
          (let ((orank (cl-position other configuration-layer--used-layers)))
            ;; OTHER shadows LAYER if and only if OTHER's rank is bigger than
@@ -580,8 +580,9 @@ refreshed during the current session."
     ;; force dump
     (configuration-layer//load)
     (when (spacemacs/emacs-with-pdumper-set-p)
-      (configuration-layer/message (concat "--force-dump passed on the command line, "
-                                           "forcing a redump."))
+      (configuration-layer/message
+       (concat "--force-dump passed on the command line or configuration has "
+               "been reloaded, forcing a redump."))
       (configuration-layer//dump-emacs)))
    ((spacemacs-is-dumping-p)
     ;; dumping
@@ -1187,16 +1188,17 @@ Return nil if package object is not found."
   "Return a sorted list of PACKAGES objects."
   (sort packages (lambda (x y) (string< (symbol-name x) (symbol-name y)))))
 
-(defun configuration-layer/make-all-packages (&optional skip-layer-discovery)
+(defun configuration-layer/make-all-packages (&optional skip-layer-discovery skip-layer-deps)
   "Create objects for _all_ packages supported by Spacemacs.
-If SKIP-LAYER-DISCOVERY is non-nil then do not check for new layers."
+If SKIP-LAYER-DISCOVERY is non-nil then do not check for new layers.
+If SKIP-LAYER-DEPS is non-nil then skip declaration of layer dependencies."
   (let ((all-layers (configuration-layer/get-layers-list))
         (configuration-layer--load-packages-files t)
         (configuration-layer--package-properties-read-onlyp t)
         (configuration-layer--inhibit-warnings t))
     (unless skip-layer-discovery
       (configuration-layer/discover-layers))
-    (configuration-layer/declare-layers all-layers)
+    (configuration-layer/declare-layers all-layers skip-layer-deps)
     (configuration-layer/make-packages-from-layers all-layers)))
 
 (defun configuration-layer/make-packages-from-layers
@@ -1461,14 +1463,16 @@ discovery."
                 ;; layer not found, add it to search path
                 (setq search-paths (cons sub search-paths)))))))))))
 
-(defun configuration-layer/declare-layers (layers-specs)
+(defun configuration-layer/declare-layers (layers-specs &optional skip-layer-deps)
   "Declare layers with LAYERS-SPECS."
-  (mapc 'configuration-layer/declare-layer layers-specs))
+  (dolist (specs layers-specs)
+    (configuration-layer/declare-layer specs skip-layer-deps)))
 
-(defun configuration-layer/declare-layer (layer-specs)
+(defun configuration-layer/declare-layer (layer-specs &optional skip-layer-deps)
   "Declare a single layer with spec LAYER-SPECS.
 Set the variable `configuration-layer--declared-layers-usedp' to control
-whether the declared layer is an used one or not."
+whether the declared layer is an used one or not.
+If `SKIP-LAYER-DEPS' is non nil then skip loading of layer dependenciesl"
   (let* ((layer-name (if (listp layer-specs) (car layer-specs) layer-specs))
          (layer (configuration-layer/get-layer layer-name))
          (usedp configuration-layer--declared-layers-usedp))
@@ -1479,7 +1483,8 @@ whether the declared layer is an used one or not."
                     usedp)))
           (configuration-layer//add-layer obj usedp)
           (configuration-layer//set-layer-variables obj)
-          (when (and (not (oref layer :deps-loaded))
+          (when (and (not skip-layer-deps)
+                     (not (oref layer :deps-loaded))
                      (or usedp configuration-layer--load-packages-files))
             (oset layer :deps-loaded t)
             (configuration-layer//load-layer-files layer-name '("layers.el"))))
@@ -2167,8 +2172,11 @@ to update."
         (spacemacs-buffer/append
          (format
           (concat "\nEmacs has to be restarted to actually install the "
-                  "new version of the packages%s.\n")
-          (if (member "restart-emacs" update-packages) "" " (SPC q r)")))
+                  "new version of the packages %s.\n")
+          (if (member 'restart-emacs update-packages)
+              (concat "\n(SPC q r) won't work this time, "
+                      "because the restart-emacs package is being updated")
+            "(SPC q r)")))
         (configuration-layer//cleanup-rollback-directory)
         (spacemacs//redisplay)))
     (when (eq upgrade-count 0)
@@ -2453,7 +2461,7 @@ depends on it."
   (let ((layer-name
          (intern (completing-read
                   "Choose a used layer"
-                  (sort (copy-list configuration-layer--used-layers) #'string<)))))
+                  (sort (cl-copy-list configuration-layer--used-layers) #'string<)))))
     (let ((mode-exts (configuration-layer//lazy-install-extensions-for-layer
                       layer-name)))
       (dolist (x mode-exts)
@@ -2599,7 +2607,7 @@ Returns nil if the version is unknown."
   (when (file-exists-p configuration-layer--stable-elpa-version-file)
     (with-current-buffer (find-file-noselect
                           configuration-layer--stable-elpa-version-file)
-      (when (called-interactively-p)
+      (when (called-interactively-p 'interactive)
         (message "Stable ELPA repository version is: %s" (buffer-string)))
       (buffer-string))))
 
@@ -2647,7 +2655,7 @@ MSG is an additional message append to the generic error."
   (with-current-buffer (find-file-noselect
                         configuration-layer--stable-elpa-version-file)
     (erase-buffer)
-    (beginning-of-buffer)
+    (goto-char (point-min))
     (insert (format "%s" configuration-layer-stable-elpa-version))
     (save-buffer)))
 

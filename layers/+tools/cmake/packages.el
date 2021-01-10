@@ -1,6 +1,6 @@
 ;;; packages.el --- CMake layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Alexander Dalshov <dalshov@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -8,13 +8,12 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(setq cmake-packages
-      '(
-        cmake-ide
-        cmake-mode
-        company
-        (helm-ctest :requires helm)
-        ))
+(defconst cmake-packages
+  '(
+    (cmake-ide :toggle cmake-enable-cmake-ide-support)
+    cmake-mode
+    company
+    (helm-ctest :requires helm)))
 
 (defun cmake/init-cmake-ide ()
   (use-package cmake-ide
@@ -38,10 +37,11 @@
 (defun cmake/init-cmake-mode ()
   (use-package cmake-mode
     :defer t
-    :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))))
+    :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))
+    :init (add-hook 'cmake-mode-hook #'spacemacs//cmake-setup-backend)))
 
 (defun cmake/post-init-company ()
-  (spacemacs|add-company-backends :backends company-cmake :modes cmake-mode))
+  (spacemacs//cmake-setup-company))
 
 (defun cmake/init-helm-ctest ()
   (use-package helm-ctest

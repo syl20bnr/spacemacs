@@ -1,6 +1,6 @@
 ;;; packages.el --- BibTeX Layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Joshua Ellis <josh@jpellis.me>
 ;; URL: https://github.com/JP-Ellis
@@ -9,19 +9,35 @@
 ;;
 ;;; License: GPLv3
 
-(setq bibtex-packages
-      '(
-        auctex
-        org
-        org-ref
-        markdown-mode
-        (helm-bibtex :requires helm)
-        biblio
-        biblio-core
-        ))
+(defconst bibtex-packages
+  '(
+    auctex
+    (helm-bibtex :requires helm)
+    (ivy-bibtex :requires ivy)
+    markdown-mode
+    org
+    org-ref))
 
 (defun bibtex/post-init-auctex ()
   (spacemacs/set-leader-keys-for-major-mode 'latex-mode
+    "ic" 'org-ref-insert-link))
+
+(defun bibtex/init-helm-bibtex ()
+  (use-package helm-bibtex
+    :defer t
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'bibtex-mode
+      "m" 'helm-bibtex)))
+
+(defun bibtex/init-ivy-bibtex ()
+  (use-package ivy-bibtex
+    :defer t
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'bibtex-mode
+      "m" 'ivy-bibtex)))
+
+(defun bibtex/post-init-markdown-mode ()
+  (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
     "ic" 'org-ref-insert-link))
 
 (defun bibtex/post-init-org ()
@@ -33,6 +49,7 @@
     :defer t
     :commands (org-ref-bibtex-next-entry
                org-ref-bibtex-previous-entry
+               org-ref-insert-link
                org-ref-open-in-browser
                org-ref-open-bibtex-notes
                org-ref-open-bibtex-pdf
@@ -46,12 +63,20 @@
                pubmed-insert-bibtex-from-pmid)
     :init
     (progn
+      (add-hook 'org-mode-hook (lambda () (require 'org-ref)))
+
+      (cond ((configuration-layer/layer-used-p 'helm)
+             (setq org-ref-completion-library 'org-ref-helm-bibtex))
+            ((configuration-layer/layer-used-p 'ivy)
+             (setq org-ref-completion-library 'org-ref-ivy-cite)))
+
       (evil-define-key 'normal bibtex-mode-map
         (kbd "C-j") 'org-ref-bibtex-next-entry
         (kbd "C-k") 'org-ref-bibtex-previous-entry
         "gj" 'org-ref-bibtex-next-entry
         "gk" 'org-ref-bibtex-previous-entry)
 
+      (spacemacs/declare-prefix-for-mode 'bibtex-mode "ml" "lookup")
       (spacemacs/set-leader-keys-for-major-mode 'bibtex-mode
         ;; Navigation
         "j" 'org-ref-bibtex-next-entry
@@ -73,15 +98,3 @@
         "ld" 'doi-utils-add-bibtex-entry-from-doi
         "li" 'isbn-to-bibtex
         "lp" 'pubmed-insert-bibtex-from-pmid))))
-
-(defun bibtex/pre-init-org-ref ()
-  (add-hook 'org-mode-hook (lambda () (require 'org-ref))))
-
-(defun bibtex/post-init-markdown-mode ()
-  (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
-    "ic" 'org-ref-insert-link))
-
-(defun bibtex/init-helm-bibtex ())
-(defun bibtex/init-biblio ())
-(defun bibtex/init-biblio-core ())
-

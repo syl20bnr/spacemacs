@@ -1,6 +1,6 @@
 ;;; funcs.el --- Python Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -25,9 +25,18 @@
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
      (t 'yapf))))
 
+(defun spacemacs//poetry-activate ()
+  "Attempt to activate Poetry only if its configuration file is found."
+  (let ((root-path (locate-dominating-file default-directory "pyproject.toml")))
+    (when root-path
+      (message "Poetry configuration file found. Activating virtual environment.")
+      (poetry-venv-workon))
+    ))
+
 (defun spacemacs//python-setup-backend ()
   "Conditionally setup python backend."
-  (when python-pipenv-activate (pipenv-activate))
+  (when python-pipenv-activate (pipenv-activate)
+        python-poetry-activate (spacemacs//poetry-activate))
   (pcase (spacemacs//python-backend)
     (`anaconda (spacemacs//python-setup-anaconda))
     (`lsp (spacemacs//python-setup-lsp))))
@@ -83,8 +92,8 @@
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        (when (eq python-lsp-server 'mspyls)
-          (require 'lsp-python-ms))
+        (cond ((eq python-lsp-server 'mspyls)  (require 'lsp-python-ms))
+              ((eq python-lsp-server 'pyright) (require 'lsp-pyright)))
         (lsp))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
@@ -231,21 +240,22 @@ location of \".venv\" file, then relative to pyvenv-workon-home()."
   (let ((root-path (locate-dominating-file default-directory ".venv")))
     (when root-path
       (let ((file-path (expand-file-name ".venv" root-path)))
-        (if (file-directory-p file-path)
-            (pyvenv-activate file-path)
-          (let* ((virtualenv-path-in-file
-                  (with-temp-buffer
-                    (insert-file-contents-literally file-path)
-                    (buffer-substring-no-properties (line-beginning-position)
-                                                    (line-end-position))))
-                 (virtualenv-abs-path
-                  (if (file-name-absolute-p virtualenv-path-in-file)
-                      virtualenv-path-in-file
-                    (format "%s/%s" root-path virtualenv-path-in-file))))
-            (if (file-directory-p virtualenv-abs-path)
-                (pyvenv-activate virtualenv-abs-path)
-              (pyvenv-workon virtualenv-path-in-file))))))))
-
+        (cond ((file-directory-p file-path)
+               (pyvenv-activate file-path) (setq-local pyvenv-activate file-path))
+              (t (let* ((virtualenv-path-in-file
+                         (with-temp-buffer
+                           (insert-file-contents-literally file-path)
+                           (buffer-substring-no-properties (line-beginning-position)
+                                                           (line-end-position))))
+                        (virtualenv-abs-path
+                         (if (file-name-absolute-p virtualenv-path-in-file)
+                             virtualenv-path-in-file
+                           (format "%s/%s" root-path virtualenv-path-in-file))))
+                   (cond ((file-directory-p virtualenv-abs-path)
+                          (pyvenv-activate virtualenv-abs-path)
+                          (setq-local pyvenv-activate virtualenv-abs-path))
+                         (t (pyvenv-workon virtualenv-path-in-file)
+                            (setq-local pyvenv-workon virtualenv-path-in-file))))))))))
 
 ;; Tests
 
@@ -439,6 +449,33 @@ Bind formatter to '==' for LSP and '='for all other backends."
   (interactive "r")
   (let ((python-mode-hook nil))
     (python-shell-send-region start end)))
+
+(defun spacemacs/python-shell-send-line ()
+	"Send the current line to shell"
+	(interactive)
+	(let ((python-mode-hook nil)
+	       (start (point-at-bol))
+	       (end (point-at-eol)))
+	      (python-shell-send-region start end)))
+
+(defun spacemacs/python-shell-send-statement ()
+	"Send the current statement to shell, same as `python-shell-send-statement' in Emacs27."
+	(interactive)
+  (if (fboundp 'python-shell-send-statement)
+      (call-interactively #'python-shell-send-statement)
+    (if (region-active-p)
+        (call-interactively #'python-shell-send-region)
+      (let ((python-mode-hook nil))
+	      (python-shell-send-region
+         (save-excursion (python-nav-beginning-of-statement))
+         (save-excursion (python-nav-end-of-statement)))))))
+
+(defun spacemacs/python-shell-send-statement-switch ()
+  "Send statement to shell and switch to it in insert mode."
+  (interactive)
+  (call-interactively #'spacemacs/python-shell-send-statement)
+  (python-shell-switch-to-shell)
+  (evil-insert-state))
 
 (defun spacemacs/python-start-or-switch-repl ()
   "Start and/or switch to the REPL."

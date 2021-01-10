@@ -1,4 +1,4 @@
-#+TITLE: Configuration layers
+#+TITLE: Configuration layers development
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#introduction][Introduction]]
@@ -35,7 +35,8 @@
 This document is intended as a tutorial for users who are interested in writing
 their first configuration layer, whether for private use or for contributing
 upstream. It should help clear up some confusion regarding how layers work and
-how Spacemacs (and Emacs) loads packages.
+how Spacemacs (and Emacs) loads packages. For an overview of configuration
+layers with descriptions see [[https://develop.spacemacs.org/layers/LAYERS.html][Spacemacs layers list]].
 
 * Nomenclature
 Layers and packages. What gives?
@@ -60,7 +61,7 @@ To understand how to best implement a layer, we have to investigate how Emacs
 loads code.
 
 ** Emacs Lisp files
-Emacs Lisp files contains code that can be evaluated. When evaluated, the
+Emacs Lisp files contain code that can be evaluated. When evaluated, the
 functions, macros and modes defined in that file become available to the current
 Emacs session. Henceforth, this will be termed as /loading/ a file.
 
@@ -334,10 +335,12 @@ as follows:
 #+END_SRC
 
 The =:location= attribute specifies where the package may be found. Spacemacs
-currently supports packages on ELPA compliant repositories, local packages and
-MELPA recipes (through the Quelpa package). Local packages should reside at
-=<layer>/local/<package>/=. For information about recipes see the [[https://github.com/milkypostman/melpa#user-content-recipe-format][MELPA
-documentation]].
+currently supports packages on ELPA compliant repositories, local packages,
+remote packages hosted on Git repositories (including specific helpers for
+GitHub, GitLab, and Bitbucket) and MELPA recipes (through the Quelpa package).
+Local packages should reside at =<layer>/local/<package>/=.
+
+For information about recipes see the [[https://github.com/milkypostman/melpa#user-content-recipe-format][MELPA documentation]].
 
 As you may have noticed from examples above, there are two ways to declare a
 local package: using either =:location local= or a Quelpa recipe with the

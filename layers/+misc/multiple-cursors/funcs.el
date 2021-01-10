@@ -2,7 +2,7 @@
 ;;
 ;;; funcs.el --- Spacemacs Multiple Cursors Layer packages File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Codruț Constantin Gușoi <codrut.gusoi@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -21,9 +21,12 @@
   "Disable paste transient state if there is more than 1 cursor."
   (interactive "*P")
   (setq this-command 'evil-paste-after)
-  (if (spacemacs//evil-mc-paste-transient-state-p)
-    (spacemacs/paste-transient-state/evil-paste-after)
-    (evil-paste-after count (or register evil-this-register))))
+  (cond ((spacemacs//evil-mc-paste-transient-state-p)
+         (spacemacs/paste-transient-state/evil-paste-after))
+        ((and (bound-and-true-p org-src-mode)
+              (get-text-property (point) 'table-cell))
+         (*table--cell-yank))
+        (t (evil-paste-after count (or register evil-this-register)))))
 
 (defun spacemacs/evil-mc-paste-before (&optional count register)
   "Disable paste transient state if there is more than 1 cursor."

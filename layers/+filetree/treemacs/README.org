@@ -15,6 +15,7 @@
   - [[#git-mode][Git mode]]
   - [[#flattening-of-directories][Flattening of directories]]
   - [[#locking-width][Locking width]]
+  - [[#theme][Theme]]
 - [[#key-bindings][Key bindings]]
   - [[#global][Global]]
   - [[#inside-treemacs][Inside Treemacs]]
@@ -129,6 +130,14 @@ resizable through Treemacs commands and key bindings.
 #+END_SRC
 
 Default is =nil=.
+
+** Theme
+To use the `all-the-icons` theme rather than the default one, set the `treemacs-use-all-the-icons-theme` variable:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (treemacs :variables treemacs-use-all-the-icons-theme t)))
+#+END_SRC
 
 * Key bindings
 ** Global

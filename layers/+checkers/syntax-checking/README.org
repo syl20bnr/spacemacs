@@ -14,6 +14,7 @@
   - [[#enable-flycheck-globally][Enable flycheck globally]]
   - [[#enable-support-for-traditional-error-navigation][Enable support for traditional error navigation]]
   - [[#bitmaps][Bitmaps]]
+  - [[#auto-hide-tooltips][Auto hide tooltips]]
 - [[#key-bindings][Key bindings]]
 
 * Description
@@ -91,6 +92,18 @@ variable =syntax-checking-use-original-bitmaps= to =t=:
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
     '((syntax-checking :variables syntax-checking-use-original-bitmaps t)))
+#+END_SRC
+
+** Auto hide tooltips
+You can set time in seconds after which tooltips are automatically hidden by setting
+the variable =syntax-checking-auto-hide-tooltips= to a positive number of seconds.
+
+Default value of =syntax-checking-auto-hide-tooltips= is =nil=, and in that case tooltips
+are kept open until the cursor is moved.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((syntax-checking :variables syntax-checking-auto-hide-tooltips 10)))
 #+END_SRC
 
 * Key bindings

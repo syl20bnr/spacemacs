@@ -1,6 +1,6 @@
 ;;; funcs.el --- TypeScript  Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -45,7 +45,7 @@
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
         (when (not typescript-lsp-linter)
-          (setq-local lsp-diagnostic-package :none))
+          (setq-local lsp-diagnostics-provider :none))
         (lsp))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))

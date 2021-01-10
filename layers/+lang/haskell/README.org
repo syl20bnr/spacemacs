@@ -7,16 +7,17 @@
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
+- [[#quick-start-and-how-to-use-this-readme][Quick start (and how to use this README)]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#dependencies][Dependencies]]
   - [[#setup-path][Setup PATH]]
+- [[#configuration][Configuration]]
   - [[#choosing-a-backend][Choosing a backend]]
-    - [[#company-ghci][=company-ghci=]]
-    - [[#intero][=intero=]]
     - [[#dante][=dante=]]
-    - [[#ghc-mod][=ghc-mod=]]
     - [[#lsp][=lsp=]]
+      - [[#hie][=hie=]]
+      - [[#hls][=hls=]]
   - [[#optional-extras][Optional extras]]
     - [[#structured-haskell-mode][structured-haskell-mode]]
     - [[#hindent][hindent]]
@@ -25,46 +26,44 @@
   - [[#debug][Debug]]
   - [[#debug-buffer][Debug Buffer]]
   - [[#repl][REPL]]
-  - [[#intero-repl][Intero REPL]]
   - [[#cabal-commands][Cabal commands]]
   - [[#cabal-files][Cabal files]]
   - [[#refactor][Refactor]]
-  - [[#ghc-mod-1][Ghc-mod]]
-    - [[#insert-template][Insert template]]
-  - [[#intero-1][Intero]]
 - [[#syntax-checking][Syntax checking]]
   - [[#flycheck][Flycheck]]
   - [[#hlint][HLint]]
-  - [[#ghc-mod-2][ghc-mod]]
-  - [[#interactive-haskell-mode][Interactive haskell-mode]]
-  - [[#flymake][Flymake]]
-  - [[#troubleshooting][Troubleshooting]]
 - [[#faq][FAQ]]
+  - [[#dante-reports-missinghidden-imports-for-test-files][Dante reports missing/hidden imports for test files]]
   - [[#the-repl-doesnt-work][The REPL doesn't work]]
   - [[#the-repl-is-stuck][The REPL is stuck]]
-  - [[#i-am-using-stack-and-ghc-mod-but-ghc-mod-doesnt-work][I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work]]
-  - [[#ghc-mod-doesnt-work][=ghc-mod= doesn't work]]
   - [[#indentation-doesnt-reset-when-pressing-return-after-an-empty-line][Indentation doesn't reset when pressing return after an empty line]]
   - [[#flycheck-displays-hlint-warnings-but-not-errors][Flycheck displays HLint warnings but not errors]]
+  - [[#hlint-fails-with-parse-error][HLint fails with parse error]]
   - [[#i-can-see-highlighted-errors-but-they-dont-appear-in-the-error-list][I can see highlighted errors but they don't appear in the error list]]
   - [[#flycheck-doesnt-work][Flycheck doesn't work]]
   - [[#flycheck-doesnt-work-with-stack][Flycheck doesn't work with =stack=]]
     - [[#the-stack-build-directory-is-wrong][The =stack= build directory is wrong]]
     - [[#the-project-root-directory-is-not-set-properly][The Project root directory is not set properly]]
   - [[#haskell-mode-commands-dont-work][haskell-mode commands don't work]]
-  - [[#ghc-mod-and-haskell-mode-commands-overlap-how-do-i-know-which-command-belongs-to-what][=ghc-mod= and =haskell-mode= commands overlap. How do I know which command belongs to what?]]
-  - [[#some-commands-start-with-ghc--and-some-with-haskell--what-does-that-mean][Some commands start with =ghc-= and some with =haskell-=. What does that mean?]]
-  - [[#why-doesnt-the-hlint-flycheck-checker-work-when-the-intero-backend-is-enabled][Why doesn't the HLint Flycheck checker work when the Intero backend is enabled?]]
 
 * Description
 This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
 
 ** Features:
-- syntax highlighting for [[https://github.com/haskell/haskell-mode][haskell source]], [[https://github.com/haskell/haskell-mode][cabal files]], [[https://github.com/bgamari/cmm-mode][C-- source]],
-- auto-completion with one of the selected backends (=intero=, =dante=, =ghci= or
-  =ghc-mod=).
+- syntax highlighting for [[https://github.com/haskell/haskell-mode][haskell source]], [[https://github.com/haskell/haskell-mode][cabal files]], [[https://github.com/bgamari/cmm-mode][C-- source]]
+- auto-completion and syntax-checking with one of the selected backends (=dante= or =lsp=).
 
-*This layer is under construction, it needs your contributions and bug reports.*
+* Quick start (and how to use this README)
+- Follow instructions in *Install* section to correctly install the layer.
+- Ensure that you have =auto-completion= and =syntax-checking= layers enabled.
+- Set backend to =dante= (check *Configuration* section for details). =dante= is default already, but if =lsp= layer is enabled, you will have to set it explicitly.
+- You are ready to go! Open any Haskell project and enjoy syntax-checking, auto-completion and more.
+
+After that, check the rest of the README to:
+- Learn about more powerful (but more complicated to set up) backend: =lsp= with =hie= / =hls=: Check *Configuration* -> *lsp*.
+- Learn about all the functionalities and key bindings: Check *Key bindings* and *Configuration* -> *Optional extras*.
+- Learn about the details of how syntax-checking works and how it can be tweaked: Check *Syntax checking*.
+- Find solutions to common problems in FAQ: Check *FAQ*.
 
 * Install
 ** Layer
@@ -79,8 +78,6 @@ This layer requires some [[https://www.haskell.org/cabal/][cabal]] packages:
 - =stylish-haskell= (optional for =haskell-mode=)
 - =hasktags= (optional)
 - =hoogle= (optional for =haskell-mode= and =helm-hoogle=)
-- =ghc-mod= (optional for completion)
-- =intero= (optional for completion)
 
 To install them, use the following command (or the =stack= equivalent):
 
@@ -100,24 +97,29 @@ packages. If you are using =cabal= it should be =~/.cabal/bin= or
 =~/Library/Haskell/bin= (for 'Haskell for Mac' users). If you are using =stack=
 then it should be =~/.local/bin=.
 
-For information about setting up =$PATH=, check out the corresponding section in
+For more information about setting up =$PATH=, check out the corresponding section in
 the FAQ (~SPC h SPC $PATH RET~).
 
+* Configuration
 ** Choosing a backend
-To choose a default backend set the layer variable =haskell-completion-backend=:
+Language backend is the core component of a language layer - it has the responsibility of compiling/parsing the actual code and reporting errors, warnings, suggesting fixes, auto-completions and more.
 
-#+BEGIN_SRC elisp
-  (haskell :variables haskell-completion-backend 'ghci)
+To get the most out of the language backend, you will want to ensure that you have =auto-completion= and =syntax-checking= layers enabled.
+
+Then, to choose a haskell backend, set the haskell layer variable =haskell-completion-backend=:
+
+#+BEGIN_SRC emacs-lisp
+  (haskell :variables haskell-completion-backend 'dante)
 #+END_SRC
 
-Note that in order to enable completion, you'll have to enable the
-=auto-completion= layer as well.
+Supported values for =haskell-completion-backend= are =dante= and =lsp=.
 
-Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
-is used and you did not specify any value for =haskell-completion-backend=.
+If you don't specify any value for =haskell-completion-backend=,
+=dante= will be used as default backend, unless the layer =lsp= is enabled,
+in which case =lsp= is used as default backend.
 
 Backend can be chosen on a per project basis using directory local variables
-(files named =.dir-locals.el= at the root of a project), an example to use the
+(files named =.dir-locals.el= at the root of a project). An example of =.dir-locals.el= to use the
 =lsp= backend:
 
 #+BEGIN_SRC elisp
@@ -129,54 +131,48 @@ Backend can be chosen on a per project basis using directory local variables
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
 
-Supported values for =haskell-completion-backend= arer =intero=, =dante=,
-=ghci=, =ghc-mod=, and =lsp=. =ghci= (=company-ghci=) is used by default unless
-the layer =lsp= is used. =ghci= is the default backend because it doesn't
-require any dependencies, and it works with both =stack= and pure =cabal=
-projects.
+There are two backends available: =dante= and =lsp=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-                '(auto-completion
-                  (haskell :variables haskell-completion-backend 'intero)))
-#+END_SRC
+=dante= is lightweight, requires no setup and works out of the box in most cases, which is why it is also a default backend.
 
-*** =company-ghci=
-[[https://github.com/juiko/company-ghci][company-ghci]] communicates directly with =ghci=, in order to provide completion.
-To use it, you have to call =haskell-process-load-or-reload= (=SPC s b=).
-
-*** =intero=
-=Intero= only works for =stack= users. You can install the =intero= executable
-manually, by calling =stack install intero=, but this step is optional as
-=Intero= installs itself.
+=lsp= (=hie= or =hls=) is a more ambitious, heavy-weight, cutting-edge backend that is however still somewhat rough on the edges and requires some additional setup.
 
 *** =dante=
-=dante= works for =cabal=, =nix=, =sytx=, and =stack= users.
-=dante= requires Emacs 25.
+[[https://github.com/jyp/dante][Dante]] is a lightweight backend which delegates most of its work directly to GHCi.
 
-*** =ghc-mod=
-[[http://www.mew.org/~kazu/proj/ghc-mod/][ghc-mod]] enhances =haskell-mode=, with for example code completion, templates,
-case-splitting and much more. In order to use it, you need to install the
-executable with =cabal install ghc-mod= (or the =stack= equivalent).
+It brings features like syntax checking, auto completion, hlint suggestions, automatic error fixing, info at point, definition and use sites.
 
-=Stack= users also should make sure that =dist/setup-config= doesn't exist in
-the project root. As it will confuse =ghc-mod=. For more troubleshooting,
-checkout this [[https://github.com/DanielG/ghc-mod/wiki#user-content-known-issues-related-to-stack][document]].
-
-Also note that =ghc-mod= only works with the =GHC= version that was used to
-build =ghc-mod=. You can check which version was used by calling
-=ghc-mod --version=.
+=dante= works for =cabal=, =nix=, =sytx=, and =stack= users and requires no additional setup.
 
 *** =lsp=
-=lsp= requires an appropriate installation of =hie= the official Haskell language server to work properly.
-=hie= is like an improved version of =ghc-mod= it is best installed by building it locally as it requires
-that the same GHC version has been used to compile your code as has been used for =hie=.
+[[https://microsoft.github.io/language-server-protocol][Language Server Protocol]] is a standard for implementing language backends.
+
+In Haskell layer, you can use a backend that implements Language Server Protocol for Haskell by specifying =lsp= as backend
+and then installing concrete backend implementation, of which there are two available at the moment: =hie= and =hls=.
+
+Enabling the =lsp= backend requires the =lsp= layer to be enabled, and provides access to
+all the additional =lsp-mode= key bindings.
+
+**** =hie=
+[[https://github.com/haskell/haskell-ide-engine][Haskell Ide Engine]] (=hie=) aims to be the universal interface to a growing number of Haskell tools,
+providing a fully-featured Language Server Protocol server for editors and IDEs that require Haskell-specific functionality.
+
+This is where most of the Haskell community effort is (was - check =hls=) being focused regarding building Haskell IDE / language backend.
+
+=hie= is best installed by building it locally as it requires that the same GHC version has been used to
+compile your code as has been used for =hie=.
 
 To install it please refer to the official installation instructions [[https://github.com/haskell/haskell-ide-engine#installation][here]].
 
-Enabling the =lsp= backend requires the =lsp= layer to be enabled, and provides access to
-all the additional =lsp-mode= key bindings. As such it is more of a full backend than just
-a completion backend.
+NOTE: =hie= is being superseded by =hls=, which is still in early development though.
+
+**** =hls=
+[[https://github.com/haskell/haskell-language-server][Haskell Language Server]] (=hls=) is integration point for ghcide and =hie=. One IDE to rule them all.
+
+=hls= is meant to supersede =hie= and is therefore the cutting-edge and most ambitious implementation of Haskell language backend.
+However, it is still in early stages of development.
+
+Check their docs for installation details and how to use it with emacs/spacemacs.
 
 ** Optional extras
 The Haskell layer supports some extra features, which can be enabled through the
@@ -277,18 +273,6 @@ REPL commands are prefixed by ~SPC m s~:
 | ~C-k~       | switch to previous history item                 |
 | ~C-l~       | clear the REPL                                  |
 
-** Intero REPL
-Intero REPL commands are prefixed by ~SPC m i~:
-
-| Key binding | Description                                                   |
-|-------------+---------------------------------------------------------------|
-| ~SPC m i c~ | change directory in the backend process                       |
-| ~SPC m i d~ | reload the module =DevelMain= and then run =DevelMain.update= |
-| ~SPC m i k~ | stop the current worker process and kill its associated       |
-| ~SPC m i l~ | list hidden process buffers created by =intero=               |
-| ~SPC m i r~ | restart the process with the same configuration as before     |
-| ~SPC m i t~ | set the targets to use for stack =ghci=                       |
-
 ** Cabal commands
 Cabal commands are prefixed by ~SPC m c~:
 
@@ -327,102 +311,46 @@ Refactor commands are prefixed by ~SPC m r~:
 | ~SPC m r b~ | apply all HLint suggestions in the current buffer |
 | ~SPC m r i~ | reformat imports from anywhere in the buffer      |
 | ~SPC m r r~ | apply the HLint suggestion under the cursor       |
-| ~SPC m r s~ | list all Intero suggestions                       |
 
 Only some of the HLint suggestions can be applied.
 
-To apply the Intero suggestions, press `C-c C-c` when the window is open.
-
-Both the HLint and Intero suggestions appear in the same window.
-
-** Ghc-mod
-These commands are only available when ghc-mod is enabled.
-
-For more info, see
-[[http://www.mew.org/~kazu/proj/ghc-mod/en/emacs.html]]
-
-ghc-mod commands are prefixed by ~SPC m m~:
-
-| Key binding | Description                               |
-|-------------+-------------------------------------------|
-| ~SPC t~     | insert template                           |
-| ~SPC m m u~ | insert template with holes                |
-| ~SPC m m a~ | select one of possible cases (=ghc-auto=) |
-| ~SPC m m f~ | replace a hole (=ghc-refine=)             |
-| ~SPC m m e~ | expand template haskell                   |
-| ~SPC m m n~ | go to next type hole                      |
-| ~SPC m m p~ | go to previous type hole                  |
-| ~SPC m m >~ | make indent deeper                        |
-| ~SPC m m <~ | make indent shallower                     |
-
-*** Insert template
-~SPC m m t~ inserts a template. What this means is that in the beginning of a
-buffer, =module Foo where= is inserted. On a function without signature, the
-inferred type is inserted. On a symbol =foo= without definition, =foo =
-undefined= is inserted or a proper module is imported. ~SPC m m u~ inserts a
-hole in this case. On a variable, the case is split. When checking with hlint,
-the original code is replaced with hlint's suggestion if possible.
-
-** Intero
-This command is only available when intero is enabled.
-
-This top-level command is prefixed by ~SPC m~:
-
-| Key binding | Description            |
-|-------------+------------------------|
-| ~SPC m g b~ | return from definition |
-
 * Syntax checking
-At the moment there are four components, which can check the syntax and indicate
+There are multiple components that can indicate
 errors and warnings in the code. Those components are:
-- flycheck
+- dante (via flycheck)
 - hlint (via flycheck)
-- ghc-mod
-- haskell-mode interactive
+- lsp (via lsp-ui)
 
-Since all of these components can be active at the same time, it can be tricky to
+Since some of these components can be active at the same time, it can be tricky to
 know which component is displaying which message, especially when they disagree,
-or if one isn't working. Only flycheck errors (ghc and hlint) are displayed in
+or if one isn't working. Only flycheck errors (from ghci and hlint) are displayed in
 the error list and can be navigated between, using the standard Spacemacs key
 bindings (under ~SPC e~) even though errors from other modes might highlight the
 actual buffer.
 
 ** Flycheck
 This is the standard Spacemacs way of syntax checking, and it's also the most
-elaborate. You need to install the syntax-checking layer first. Please read the
+elaborate. You need to install the syntax-checking layer first, which will bring flycheck. Please read the
 layer's [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/+checkers/syntax-checking][documentation]] on how to interact with flycheck.
 
-Flycheck has different Haskell checkers: =haskell-ghc=, =haskell-stack-ghc= and
+Flycheck has different Haskell checkers: =haskell-dante=, =haskell-ghc=, =haskell-stack-ghc= and
 =haskell-hlint=. Normally it can detect the best one to use automatically, but
 if it doesn't work, then you can change it with ~SPC e s~.
 
 ** HLint
-HLint is a linter for Haskell. It doesn't detect errors (as long as it can parse
+[[https://github.com/ndmitchell/hlint][HLint]] is a linter for Haskell. It doesn't detect errors (as long as it can parse
 the file) but bad coding style and code smell. The HLint checker is called
 *after* the flycheck GHC checker.
 
-** ghc-mod
-Ghc-mod, when enabled, also does syntax checking. It doesn't highlight errors,
-but instead displays an exclamation point in the fringe. You can navigate
-between errors using =ghc-goto-next-error= (~M-n~) and =ghc-goto-prev-error=
-(~M-p~).
-
-** Interactive haskell-mode
-Finally, interactive haskell-mode (~SPC m s b~) also displays errors. These
-errors can be navigated to, from the interactive buffer (by clicking on the
-error) or using =haskell-goto-next-error= (~M-n~) and =haskell-goto-prev-error=
-(~M-p~).
-
-** Flymake
-An alternative to syntax checking is to build your projects with
-=flymake-compile=. It doesn't highlight errors in the buffer, but it's more
-reliable. The error navigation is similar to interactive haskell-mode.
-
-** Troubleshooting
-Flycheck and ghc-mod can fail silently for miscellaneous reasons. See the [[#faq][FAQ]]
-for troubleshooting.
+HLint can be configured per project via .hlint.yaml (check Hlint docs for more details).
 
 * FAQ
+** Dante reports missing/hidden imports for test files
+The cause might be that Dante is not loading appropriate packages for the test suite target, instead it is loading packages for the library.
+
+Solution is to create =.dir-local.el= in the directory where the test suite (usually =test/= or =tests/=) is and to put the line =((haskell-mode . ((dante-target . "--test"))))= into it.
+This tells Dante to use test suite target when working with test files.
+
 ** The REPL doesn't work
 Usually =haskell-mode= is great at figuring out which interactive process to
 bring up. But if you are experiencing problems with it, then you can help
@@ -470,26 +398,6 @@ placing the following snippet in your =dotspacemacs/user-config= function:
           (call-interactively 'evil-insert))))
 #+END_SRC
 
-** I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work
-Make sure that a =dist= directory doesn't exist in your project root. If it
-exists, just remove it and try again.
-
-** =ghc-mod= doesn't work
-First of all - make sure that the version of =ghc= matches the version of =ghc=
-that was used to build =ghc-mod=. To get the latter, call =ghc-mod --version= in
-the terminal. If they don't match then you'll have to rebuild =ghc-mod=.
-
-=Stack= provides the ability to use different =ghc= versions across different
-projects. If you're using this feature, then you'll have to rebuild =ghc-mod=
-quite often. If you only use =ghc-mod= for completion, and don't want to rebuild
-=ghc-mod= every time you switch projects, then you'd better disable =ghc-mod=
-support, so that =company-ghci= will be used for completion.
-
-The second thing to do if it's still not working - is to call =ghc-mod debug= in
-the root of the project that you're currently working on. Make sure that it
-doesn't show any errors. If there are errors that you can't solve - then it's
-better to report them [[https://github.com/DanielG/ghc-mod][upstream]].
-
 ** Indentation doesn't reset when pressing return after an empty line
 This is the intended behavior in =haskell-indentation-mode=. If you want to
 reset the indentation when pressing return after an empty line, add the
@@ -511,10 +419,14 @@ following snippet into your =dotspacemacs/user-config= function.
 The HLint checker is called *after* the normal flycheck checker, even if the
 checker fails. Check the [[#flycheck-doesnt-work][Flycheck doesn't work]] section.
 
+** HLint fails with parse error
+If HLint is not correctly configured (e.g. does not load some extensions that you are using in your project) it might fail while parsing the file.
+
+Check [[https://github.com/ndmitchell/hlint][HLint]] docs for more details.
+
 ** I can see highlighted errors but they don't appear in the error list
 The error list is only set by flycheck. You are probably seeing errors
-highlighted by either ghc-mode or haskell-mode. Check the [[#flycheck-doesnt-work][Flycheck doesn't work]]
-section.
+highlighted by haskell-mode. Check the [[#flycheck-doesnt-work][Flycheck doesn't work]] section.
 
 ** Flycheck doesn't work
 You can use the =flycheck-compile= command to check what's wrong with flycheck.
@@ -567,24 +479,3 @@ Make sure you set =flycheck-haskell-stack-ghc-executable= to this script.
 Some (most) of the haskell-mode commands only work when haskell-mode is in
 interactive mode, i.e. has an interactive session associated with it. Load it
 using ~SPC m s b~.
-
-** =ghc-mod= and =haskell-mode= commands overlap. How do I know which command belongs to what?
-ghc-mod commands are prefixed with =ghc-=, haskell-mode ones are prefixed with
-=haskell-=.
-
-** Some commands start with =ghc-= and some with =haskell-=. What does that mean?
-Commands starting with =ghc-= are ghc-mod commands. Commands starting with
-=haskell-= are haskell-mode commands.
-
-** Why doesn't the HLint Flycheck checker work when the Intero backend is enabled?
-By default, only the Intrero checker will be enabled if you manually set the
-Intero backend as described in [[#choosing-a-backend][Choosing a backend]].
-
-To also enable the HLint checker, use =flycheck-add-next-checker= to set the
-HLint checker after the Intero checker.
-
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/user-init ()
-    (with-eval-after-load 'intero
-      (flycheck-add-next-checker 'intero '(warning . haskell-hlint))))
-#+END_SRC

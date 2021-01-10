@@ -11,6 +11,7 @@
   - [[#deleting-visual-regions-dont-work-find-out-why][Deleting visual regions don't work, find out why]]
 - [[#install][Install]]
   - [[#layer][Layer]]
+  - [[#choosing-a-backend][Choosing a backend]]
   - [[#dependencies][Dependencies]]
   - [[#what-needs-to-be-run][What needs to be run]]
 - [[#using-the-ipython-notebook][Using the IPython notebook]]
@@ -34,6 +35,7 @@ lots of informative stuff.
 ** Features:
 - Key bindings available through transient-state or leader key
 - Lazy-loading
+- Auto-completion
 
 * List of TODOS
 This is a WIP, feel free to collaborate.
@@ -49,6 +51,17 @@ This is a WIP, feel free to collaborate.
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =ipython-notebook= to the existing =dotspacemacs-configuration-layers= list
 in this file.
+
+** Choosing a backend
+To choose a default backend set the layer variable =ein-backend=:
+
+#+BEGIN_SRC elisp
+  (ipython-notebook :variables ein-backend 'jupyter)
+#+END_SRC
+
+Currently only jupyter backend is available. If =ein-backend= is set to =jupyter=,
+jupyter backend will be enabled, otherwise no backend will be enabled.
+Jupyter backend currently only supports auto-completion features.
 
 ** Dependencies
 Install IPython Notebook > 3

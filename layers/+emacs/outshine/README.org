@@ -1,0 +1,41 @@
+#+TITLE: outshine layer
+
+#+TAGS: emacs|layer
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds support for [[https://github.com/alphapapa/outshine][outshine]] and [[https://github.com/alphapapa/outorg][outorg]]. They will be enabled in all
+programming modes.
+
+** Features:
+- Navigate through code buffers via headings like you do with org buffers
+- Edit comments under outline headings in separate org-mode buffers
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =outshine= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key binding   | Description                                                |
+|---------------+------------------------------------------------------------|
+| ~SPC a O S~   | Show the contents of all outline sections                  |
+| ~SPC a O .~   | Structural navigation/editing transient state              |
+| ~SPC a O c~   | Save the edits back to the original file                   |
+| ~SPC a O e~   | Edit the current heading as org                            |
+| ~SPC a O g u~ | Navigate up an outline heading                             |
+| ~SPC a O g n~ | Navigate to the next outline heading                       |
+| ~SPC a O g j~ | Navigate to the next outline heading at the same level     |
+| ~SPC a O g j~ | Navigate to the previous outline heading at the same level |
+| ~SPC a O i h~ | Insert an outline heading                                  |
+| ~SPC a O I~   | imenu of outshine headlines                                |
+| ~SPC a O J~   | Move the current outline subtree down                      |
+| ~SPC a O K~   | Move the current outline subtree up                        |
+| ~SPC a O >~   | Demote the current outline subtree                         |
+| ~SPC a O <~   | Promote the current outline subtree                        |

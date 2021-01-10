@@ -1,6 +1,6 @@
 ;;; layers.el --- docker Layer declarations File for Spacemacs
 ;;
-;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Seong Yong-ju <sei40kr@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

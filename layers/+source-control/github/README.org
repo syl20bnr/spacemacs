@@ -10,11 +10,11 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#git-configuration][Git configuration]]
-  - [[#forge][Forge]]
+  - [[#grip-mode][grip-mode]]
 - [[#key-bindings][Key bindings]]
-  - [[#forge-1][Forge]]
   - [[#gistel][gist.el]]
   - [[#clone-repositories][Clone repositories]]
+  - [[#grip-mode-1][Grip-mode]]
 
 * Description
 This layers adds support for [[http://github.com][GitHub]].
@@ -24,6 +24,7 @@ This layers adds support for [[http://github.com][GitHub]].
 - [[https://github.com/defunkt/gist.el][gist.el]]: full-featured mode to browse and post GitHub gists.
 - [[https://github.com/sshaw/git-link][git-link]]: quickly generate URLs for commits or files.
 - [[https://github.com/dgtized/github-clone.el][github-clone]] allows for easy cloning and forking of repositories.
+- [[https://github.com/seagle0128/grip-mode][grip-mode]] Github-flavored Markdown/Org preview using [[https://github.com/joeyespo/grip][Grip]].
 
 * Install
 ** Layer
@@ -42,51 +43,13 @@ You will also need to [[https://help.github.com/articles/generating-a-new-ssh-ke
   git config --global github.oauth-token <token>
 #+END_SRC
 
-** Forge
-The =forge= package uses =emacsql= which requires a C compiler to be available
-on MS Windows, see issue [[https://github.com/skeeto/emacsql/issues/46]].
-
-For this reason the =forge= package is not installed on MS Windows by default.
-If you still want to install it (which means you do have a C compiler available
-in your PATH) then use the =dotspacemacs-additional-packages= variable in your
-dotfile:
-
-#+BEGIN_SRC emacs-lisp
-  (dotspacemacs-additional-packages '((forge :toggle t)))
-#+END_SRC
+** grip-mode
+Grip-mode [[https://github.com/seagle0128/grip-mode#prerequisite][requires python and the python package grip]] to be installed on the
+system. Grip can usually be installed with the command =pip install grip=,
+on debian based systems make sure you use the python 3 version
+of pip, it is normally called =pip3=.
 
 * Key bindings
-** Forge
-In a =magit-status= buffer (~SPC g s~):
-
-| Key binding | Description                                               |
-|-------------+-----------------------------------------------------------|
-| ~b Y~       | create branch from pull-request                           |
-| ~b y~       | create and check out branch from pull-request             |
-| ~F f~       | fetch issues and pull-requests                            |
-| ~F n~       | fetch notifications                                       |
-| ~F p~       | create pull-request                                       |
-| ~F i~       | create issue                                              |
-| ~F F~       | list notifications                                        |
-| ~F P~       | list pull-requests                                        |
-| ~F I~       | list issues                                               |
-| ~p y~       | pull pull-requests and issues for the current repository  |
-| ~p Y~       | pull all notifications for the current repository's forge |
-
-In a =forge-topic= buffer:
-
-| Key binding | Description     |
-|-------------+-----------------|
-| ~SPC m c~   | create new post |
-| ~SPC m e~   | edit post       |
-
-In a =forge-post= buffer (assuming the major mode leader key is ~,~)
-
-| Key binding            | Description |
-|------------------------+-------------|
-| ~SPC m c~ or ~SPC m ,~ | submit post |
-| ~SPC m k~ or ~SPC m k~ | cancel post |
-
 ** gist.el
 
 | Key binding | Description                                   |
@@ -127,3 +90,9 @@ In the gist list buffer:
 | ~SPC g h c r~ | add a remote that is an existing fork of selected remote |
 | ~SPC g h c f~ | fork remote in current user namespace                    |
 | ~SPC g h c u~ | add upstream as remote                                   |
+
+** Grip-mode
+
+| Key binding | Description                                                 |
+|-------------+-------------------------------------------------------------|
+| ~SPC g p~   | toggle github flavored mb/org buffer preview in web-browser |

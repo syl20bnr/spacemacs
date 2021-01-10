@@ -1,6 +1,6 @@
 ;;; packages.el --- mercury layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Ludvig Böklin <ludvig.boklin@protonmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -14,7 +14,6 @@
                                    :fetcher github
                                    :repo "ahungry/metal-mercury-mode"
                                    :commit "99e2d8fb7177cae3bfa2dec2910fc28216d5f5a8"))
-    (mercury-mode :excluded t)
     flycheck
     (flycheck-mercury :requires flycheck)
     smartparens))

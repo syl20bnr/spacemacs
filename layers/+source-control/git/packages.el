@@ -1,6 +1,6 @@
 ;;; packages.el --- Git Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -13,6 +13,9 @@
       '(
         evil-magit
         fill-column-indicator
+        ;; forge requires a C compiler on Windows so we disable
+        ;; it by default on Windows.
+        (forge :toggle (not (spacemacs/system-is-mswindows)))
         gitattributes-mode
         gitconfig-mode
         gitignore-mode
@@ -25,6 +28,7 @@
         (helm-git-grep :requires helm)
         (helm-gitignore :requires helm)
         magit
+        (magit-delta :toggle git-enable-magit-delta-plugin)
         magit-gitflow
         magit-section
         magit-svn
@@ -45,7 +49,14 @@
     (when (spacemacs//support-evilified-buffer-p dotspacemacs-editing-style)
       (evil-magit-init))
     (evil-define-key 'motion magit-mode-map
-      (kbd dotspacemacs-leader-key) spacemacs-default-map)))
+      (kbd dotspacemacs-leader-key) spacemacs-default-map)
+    ;; Remove inherited bindings from evil-mc and evil-easymotion
+    ;; do this after the config to make sure the keymap is available
+    (which-key-add-keymap-based-replacements magit-mode-map
+      "<normal-state> g r" nil
+      "<visual-state> g r" nil
+      "<normal-state> g s" nil
+      "<visual-state> g s" nil)))
 
 (defun git/init-evil-magit ()
   (use-package evil-magit
@@ -151,7 +162,7 @@
     (progn
       (push "magit: .*" spacemacs-useless-buffers-regexp)
       (push "magit-.*: .*"  spacemacs-useless-buffers-regexp)
-      (spacemacs|require 'magit)
+      (spacemacs|require-when-dumping 'magit)
       (setq magit-completing-read-function
             (if (configuration-layer/layer-used-p 'ivy)
                 'ivy-completing-read
@@ -233,6 +244,17 @@
       ;; whitespace
       (define-key magit-status-mode-map (kbd "C-S-w")
         'spacemacs/magit-toggle-whitespace)
+      ;; Add missing which-key prefixes using the new keymap api
+      (when (spacemacs//support-evilified-buffer-p dotspacemacs-editing-style)
+        (which-key-add-keymap-based-replacements magit-status-mode-map
+          "gf"  "jump-to-unpulled"
+          "gp"  "jump-to-unpushed"))
+      ;; https://magit.vc/manual/magit/MacOS-Performance.html
+      ;; But modified according Tommi Komulainen's advice: "...going through
+      ;; shell raises an eyebrow, and in the odd edge case of not having git
+      ;; setting the executable to empty string(?) feels slightly wrong."
+      (when-let ((git (executable-find "git")))
+        (setq magit-git-executable git))
       ;; full screen magit-status
       (when git-magit-status-fullscreen
         (setq magit-display-buffer-function
@@ -241,20 +263,27 @@
       ;; Workaround for #12747 - org-mode
       (evil-define-key 'normal magit-blame-read-only-mode-map (kbd "RET") 'magit-show-commit)
       ;; Make sure that M-m still switch windows in all magit buffers
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-1") 'winum-select-window-1)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-2") 'winum-select-window-2)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-3") 'winum-select-window-3)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-4") 'winum-select-window-4)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-5") 'winum-select-window-5)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-6") 'winum-select-window-6)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-7") 'winum-select-window-7)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-8") 'winum-select-window-8)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-9") 'winum-select-window-9))))
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-1") 'spacemacs/winum-select-window-1)
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-2") 'spacemacs/winum-select-window-2)
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-3") 'spacemacs/winum-select-window-3)
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-4") 'spacemacs/winum-select-window-4)
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-5") 'spacemacs/winum-select-window-5)
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-6") 'spacemacs/winum-select-window-6)
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-7") 'spacemacs/winum-select-window-7)
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-8") 'spacemacs/winum-select-window-8)
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-9") 'spacemacs/winum-select-window-9))))
+
+(defun git/init-magit-delta ()
+  (use-package magit-delta
+    :defer t
+    :init (add-hook 'magit-mode-hook 'magit-delta-mode)))
 
 (defun git/init-magit-gitflow ()
   (use-package magit-gitflow
     :defer t
-    :init (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+    :init (progn
+            (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+            (setq magit-gitflow-popup-key "%"))
     :config
     (progn
       (spacemacs|diminish magit-gitflow-mode "Flow")
@@ -306,14 +335,30 @@
         "gHh" 'smeargle-commits
         "gHt" 'smeargle))))
 
+(defun git/pre-init-transient ()
+  (setq transient-history-file (expand-file-name "transient/history.el"
+                                                 spacemacs-cache-directory))
+  (setq transient-levels-file (expand-file-name "transient/levels.el"
+                                                spacemacs-cache-directory))
+  (setq transient-values-file (expand-file-name "transient/values.el"
+                                                spacemacs-cache-directory)))
+
 (defun git/init-transient ()
   (use-package transient
-    :defer t
+    :defer t))
+
+(defun git/init-forge ()
+  (use-package forge
+    :after magit
     :init
-    (setq
-     transient-levels-file
-     (expand-file-name "transient/levels.el" spacemacs-cache-directory)
-     transient-values-file
-     (expand-file-name "transient/values.el" spacemacs-cache-directory)
-     transient-history-file
-     (expand-file-name "transient/history.el" spacemacs-cache-directory))))
+    (progn
+      (setq forge-database-file (concat spacemacs-cache-directory
+                                        "forge-database.sqlite"))
+      (spacemacs/set-leader-keys-for-major-mode 'forge-topic-mode
+        "c" 'forge-create-post
+        "e" 'forge-edit-post)
+      (spacemacs/set-leader-keys-for-major-mode 'forge-post-mode
+        dotspacemacs-major-mode-leader-key 'forge-post-submit
+        "c" 'forge-post-submit
+        "k" 'forge-post-cancel
+        "a" 'forge-post-cancel))))

@@ -1,6 +1,6 @@
 ;;; packages.el --- Dhall Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Colin Woodbury <colin@fosskers.ca>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -15,6 +15,7 @@
 
 (defconst dhall-packages
   '(
+    lsp-mode
     dhall-mode
     ))
 
@@ -24,5 +25,8 @@
     :defer t
 
     ))
+
+(defun dhall/post-init-lsp-mode ()
+  (add-hook 'dhall-mode-hook #'lsp))
 
 ;;; packages.el ends here

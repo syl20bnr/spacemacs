@@ -1,6 +1,6 @@
 ;;; packages.el --- Markdown Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,6 +20,7 @@
         mmm-mode
         org
         smartparens
+        valign
         (vmd-mode :toggle (eq 'vmd markdown-live-preview-engine))
         ))
 
@@ -46,15 +47,18 @@
       (spacemacs/set-leader-keys-for-major-mode mode
         "cr" 'gh-md-render-buffer))))
 
+(defun markdown/post-init-valign ()
+  (add-hook 'markdown-mode-hook 'valign-mode))
+
 (defun markdown/post-init-smartparens ()
   (add-hook 'markdown-mode-hook 'smartparens-mode))
 
 (defun markdown/init-markdown-mode ()
   (use-package markdown-mode
     :mode
-    (("\\.m[k]d" . markdown-mode)
-     ("\\.mdk" . markdown-mode)
-     ("\\.mdx" . markdown-mode))
+    (("\\.mkd\\'" . markdown-mode)
+     ("\\.mdk\\'" . markdown-mode)
+     ("\\.mdx\\'" . markdown-mode))
     :defer t
     :config
     (progn
@@ -161,7 +165,7 @@
         "gl" 'outline-next-visible-heading)
       ;; Promotion, Demotion
       (add-hook 'spacemacs-editing-style-hook
-         'spacemacs//markdown-hjkl-promotion-demotion)
+                'spacemacs//markdown-hjkl-promotion-demotion)
       (spacemacs//markdown-hjkl-promotion-demotion dotspacemacs-editing-style)
       (define-key markdown-mode-map (kbd "M-<down>") 'markdown-move-down)
       (define-key markdown-mode-map (kbd "M-<left>") 'markdown-promote)

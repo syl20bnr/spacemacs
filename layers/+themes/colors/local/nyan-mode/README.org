@@ -66,7 +66,7 @@ Customizing nyan-animate-nyancat is broken; don't do it.
 
 ** Credits
 Code and idea inspired by sml-modeline.el, written by Lennart Borgman.
-See: [[http://bazaar.launchpad.net/~nxhtml/nxhtml/main/annotate/head%3A/util/sml-modeline.el]]
+See: [[https://www.emacswiki.org/emacs/sml-modeline.el]]
 
 For animated Nyan Cat, I used frames [[http://media.photobucket.com/image/nyan%20cat%20sprites/DryBowser455/th_NyanCatSprite.png?t=1304659408][by DryBowser455]].
 

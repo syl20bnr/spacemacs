@@ -1,6 +1,6 @@
 ;;; config.el --- Perl5 Layer config File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Troy Hinckley <troyhinckley@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -16,3 +16,8 @@
 
 (defvar perl5-perltidy-options '()
   "Command line options to pass to perltidy")
+
+(defvar perl5-backend nil
+  "The backend to use for IDE features.
+Possible values are `lsp' and `company-plsense'.
+If `nil' then 'company-plsense` is the default backend unless `lsp' layer is used")

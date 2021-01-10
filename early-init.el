@@ -1,6 +1,6 @@
 ;;; early-init.el --- Spacemacs Early Init File
 ;;
-;; Copyright (c) 2018 Sylvain Benner & Contributors
+;; Copyright (c) 2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Miciah Dashiel Butler Masters <miciah.masters@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

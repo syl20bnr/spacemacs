@@ -1,6 +1,6 @@
 ;;; config.el --- prolog layer config File for Spacemacs
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Newres Al Haider <newrescode@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

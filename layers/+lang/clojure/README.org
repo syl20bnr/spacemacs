@@ -13,6 +13,7 @@
 - [[#install][Install]]
   - [[#add-the-clojure-layer-manually][Add the Clojure Layer manually]]
   - [[#pretty-symbols][Pretty Symbols]]
+  - [[#optional-lsp-server][Optional LSP server]]
   - [[#enabling-automatic-linting][Enabling Automatic Linting]]
     - [[#enable-clj-kondo-linter][Enable clj-kondo linter]]
     - [[#enable-joker-linter][Enable joker linter]]
@@ -28,7 +29,7 @@
     - [[#quick-start-with-lein][Quick Start with lein]]
     - [[#more-details][More details]]
   - [[#managing-repl-connections][Managing REPL connections]]
-  - [[#cheatsheet][Cheatsheet]]
+  - [[#advanced-help][Advanced help]]
   - [[#structuraly-safe-editing][Structuraly safe editing]]
 - [[#key-bindings][Key bindings]]
   - [[#working-with-clojure-files-barfage-slurpage--more][Working with clojure files (barfage, slurpage & more)]]
@@ -67,7 +68,7 @@ and a full suite of tooling for Clojure development.
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
 - Aligning of code forms via [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]]
 - Debugging with [[https://github.com/clojure-emacs/sayid][sayid]]
-- Clojure cheatsheet
+- Advanced help with [[https://github.com/clojure-emacs/helm-cider][helm-cider]]
 - Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 - Linting via [[https://github.com/borkdude/clj-kondo][clj-kondo]] ([[https://github.com/candid82/joker][joker]] and [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] also available)
 
@@ -75,10 +76,11 @@ and a full suite of tooling for Clojure development.
 The following Spacemacs layers should also be added for a complete experience.
 - auto-completion
 - syntax-checking (provides flycheck for linter support)
+- LSP
 
 *** Other optional features
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
-- Debugging with [[https://github.com/clojure-emacs/sayid][sayid]] (beta)
+- Debugging with [[https://github.com/clojure-emacs/sayid][sayid]]
 
 *** References
 - [[https://docs.cider.mx/cider/][CIDER documentation]]
@@ -109,6 +111,41 @@ Or set this variable when loading the configuration layer:
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
   '((clojure :variables clojure-enable-fancify-symbols t)))
+#+END_SRC
+
+** Optional LSP server
+Traditionally the clojure developing environment is working
+exclusively with an external server called CIDER.
+This has some drawbacks especially that most features require
+a working REPL session in the background. Newer layers work
+with a standard LSP server providing standard
+bindings for most features. In addition =lsp-UI= provides a more
+modern UI for visualising linter results and providing
+code actions.
+
+The server is automatically activated when you have the =lsp-layer=
+installed in your dotfile. Alternatively you can force a
+certain backend by setting the =clojure-backend= variable
+in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+  '((clojure :variables clojure-backend 'lsp)))
+#+END_SRC
+
+The server is started automatically when a supported file is opened.
+It will also provide a flycheck integration via =lsp-flycheck= which
+will run the configured linter from your project config.
+See [[https://github.com/snoe/clojure-lsp][here]] for details. The server is installed automatically
+in your emacs directory however if this does not work
+it can also be installed manually from [[https://github.com/snoe/clojure-lsp/releases/latest/download/clojure-lsp][here]].
+
+You can also explicitly disable lsp support by setting =cider= as
+backend explicitly:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+  '((clojure :variables clojure-backend 'cider)))
 #+END_SRC
 
 ** Enabling Automatic Linting
@@ -398,13 +435,16 @@ multiple projects or have multiple connections opened for the same project
 
 See REPL connections in the key bindings section for all the commands.
 
-** Cheatsheet
-This layers installs the [[https://github.com/clojure-emacs/clojure-cheatsheet][clojure-cheatsheet]] package which embeds this useful
-[[https://clojure.org/api/cheatsheet][cheatsheet]] into Emacs.
+** Advanced help
+This layer installs the [[https://github.com/clojure-emacs/helm-cider][helm-cider]] package which provides helm integration
+with cider apropos. It also embeds cider cheatsheet.
 
+Type ~SPC m h a~ to display advanced apropos window.
 Type ~SPC m h c~ to display the cheatsheet then type in some terms (space
-separated) to narrow down the list. For example, try typing in sort map to see
+separated) to narrow down the list. For example, try typing in "sort map" to see
 some functions that deal with sorting maps.
+
+NOTE: If helm is not used, then =cider-apropos= and =cider-cheatsheet= are used.
 
 ** Structuraly safe editing
 The Clojure layer adds support for =evil-cleverparens= which allows to safely edit
@@ -468,7 +508,7 @@ Managing CIDER REPL connections and sessions
 | Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC m h a~ | cider apropos               |
-| ~SPC m h c~ | clojure cheatsheet          |
+| ~SPC m h c~ | cider cheatsheet            |
 | ~SPC m h d~ | cider clojuredocs           |
 | ~SPC m h h~ | cider doc                   |
 | ~SPC m h j~ | cider javadoc               |
@@ -484,6 +524,7 @@ Evaluate Clojure code in the source code buffer
 |---------------+-------------------------------------------------------------------|
 | ~SPC m e ;~   | eval sexp and show result as comment                              |
 | ~SPC m e $~   | go to end of line and eval last sexp                              |
+| ~SPC m e (~   | eval 'list' around point (sequence, list, vector, map, set)       |
 | ~SPC m e b~   | eval buffer                                                       |
 | ~SPC m e e~   | eval last sexp                                                    |
 | ~SPC m e f~   | eval function at point                                            |
@@ -491,8 +532,10 @@ Evaluate Clojure code in the source code buffer
 | ~SPC m e l~   | go to end of line and eval last sexp                              |
 | ~SPC m e m~   | cider macroexpand 1                                               |
 | ~SPC m e M~   | cider macroexpand all                                             |
-| ~SPC m e n~   | refresh namespace (cider-ns-refresh)                              |
-| ~SPC m e N~   | reload namespace (cider-ns-reload), ~SPC u~ (cider-ns-reload-all) |
+| ~SPC m e n a~ | reload all namespaces (cider-ns-reload-all)                       |
+| ~SPC m e n n~ | eval current namespace form (cider-eval-ns-form)                  |
+| ~SPC m e n r~ | refresh namespace (cider-ns-refresh)                              |
+| ~SPC m e n l~ | reload namespace (cider-ns-reload), ~SPC u~ (cider-ns-reload-all) |
 | ~SPC m e p ;~ | eval top-level sexp, pretty print result as a comment             |
 | ~SPC m e p :~ | eval last sexp, pretty print result as a comment                  |
 | ~SPC m e p f~ | eval top-level sexp, pretty print result in separate buffer       |
@@ -519,35 +562,36 @@ Evaluate Clojure code in the source code buffer
 Use these key bindings when working directly with a REPL buffer.
 Use the Evaluation key bindings when evaluating in source code buffer.
 
-| Key binding   | Description                                                                |
-|---------------+----------------------------------------------------------------------------|
-| ~SPC m s a~   | switch between REPL and last Clojure source code buffer (cider-repl)       |
-| ~SPC m s b~   | send and eval buffer in REPL                                               |
-| ~SPC m s B~   | send and eval buffer and switch to REPL in =insert state=                  |
-| ~SPC m s c j~ | connect to a running Clojure REPL (cider-connect-clj)                      |
-| ~SPC m s c m~ | connect to a running Clojure & ClojureScript REPL (cider-connect-clj&cljs) |
-| ~SPC m s c s~ | connect to a running ClojureScript REPL (cider-connect-cljs)               |
-| ~SPC m s e~   | send and eval last sexp in REPL                                            |
-| ~SPC m s E~   | send and eval last sexp and switch to REPL in =insert state=               |
-| ~SPC m s f~   | send and eval function in REPL                                             |
-| ~SPC m s F~   | send and eval function and switch to REPL in =insert state=                |
-| ~SPC m s i~   | start a REPL - prompt for REPL type (sesman-start)                         |
-| ~SPC m s j j~ | start Clojure REPL (=cider-jack-in-clj=)                                   |
-| ~SPC m s j m~ | start Clojure REPL (=cider-jack-in-clj&cljs=)                              |
-| ~SPC m s j s~ | start ClojureScript REPL (=cider-jack-in-cljs=)                            |
-| ~SPC m l~     | clear REPL buffer (cider-repl-clear-buffer)                                |
-| ~SPC m L~     | clear and switch to REPL buffer (cider-find-and-clear-repl-output)         |
-| ~SPC m s n~   | send and eval ns form in REPL                                              |
-| ~SPC m s N~   | send and eval ns form and switch to REPL in =insert state=                 |
-| ~SPC m s o~   | switch to other repl instance (cider-repl-switch-to-other)                 |
-| ~SPC m s q n~ | reload namespace in REPL (cider-ns-reload)                                 |
-| ~SPC m s q N~ | reload all namespace in REPL (cider-ns-reload-all)                         |
-| ~SPC m s q q~ | quit REPL (cider-quit)                                                     |
-| ~SPC m s q r~ | restart REPL (cider-restart)                                               |
-| ~SPC m s r~   | send and eval region in REPL                                               |
-| ~SPC m s R~   | send and eval region and switch to REPL in =insert state=                  |
-| ~SPC m e u~   | require Clojure utils into current namespace - i.e. =doc= =source=         |
-| ~SPC m s p~   | print last sexp (clojure interaction mode only)                            |
+| Key binding       | Description                                                                |
+|-------------------+----------------------------------------------------------------------------|
+| ~SPC m s a~       | switch between REPL and last Clojure source code buffer (cider-repl)       |
+| ~SPC m s b~       | send and eval buffer in REPL                                               |
+| ~SPC m s B~       | send and eval buffer and switch to REPL in =insert state=                  |
+| ~SPC u SPC m s B~ | same as ~SPC m s B~ including switching to the buffer namespace in REPL    |
+| ~SPC m s c j~     | connect to a running Clojure REPL (cider-connect-clj)                      |
+| ~SPC m s c m~     | connect to a running Clojure & ClojureScript REPL (cider-connect-clj&cljs) |
+| ~SPC m s c s~     | connect to a running ClojureScript REPL (cider-connect-cljs)               |
+| ~SPC m s e~       | send and eval last sexp in REPL                                            |
+| ~SPC m s E~       | send and eval last sexp and switch to REPL in =insert state=               |
+| ~SPC m s f~       | send and eval function in REPL                                             |
+| ~SPC m s F~       | send and eval function and switch to REPL in =insert state=                |
+| ~SPC m s i~       | start a REPL - prompt for REPL type (sesman-start)                         |
+| ~SPC m s j j~     | start Clojure REPL (=cider-jack-in-clj=)                                   |
+| ~SPC m s j m~     | start Clojure REPL (=cider-jack-in-clj&cljs=)                              |
+| ~SPC m s j s~     | start ClojureScript REPL (=cider-jack-in-cljs=)                            |
+| ~SPC m l~         | clear REPL buffer (cider-repl-clear-buffer)                                |
+| ~SPC m L~         | clear and switch to REPL buffer (cider-find-and-clear-repl-output)         |
+| ~SPC m s n~       | send and eval ns form in REPL                                              |
+| ~SPC m s N~       | send and eval ns form and switch to REPL in =insert state=                 |
+| ~SPC m s o~       | switch to other repl instance (cider-repl-switch-to-other)                 |
+| ~SPC m s q n~     | reload namespace in REPL (cider-ns-reload)                                 |
+| ~SPC m s q N~     | reload all namespace in REPL (cider-ns-reload-all)                         |
+| ~SPC m s q q~     | quit REPL (cider-quit)                                                     |
+| ~SPC m s q r~     | restart REPL (cider-restart)                                               |
+| ~SPC m s r~       | send and eval region in REPL                                               |
+| ~SPC m s R~       | send and eval region and switch to REPL in =insert state=                  |
+| ~SPC m e u~       | require Clojure utils into current namespace - i.e. =doc= =source=         |
+| ~SPC m s p~       | print last sexp (clojure interaction mode only)                            |
 
 *** Tests
 
@@ -594,7 +638,11 @@ TODO: separate clojure-mode and sayid key bindings
 | ~SPC m d t p~ | trace namespaces by regex                          |
 | ~SPC m d t r~ | remove trace on function                           |
 | ~SPC m d t y~ | recursively trace every namespace in given dir     |
-| ~SPC m d v~   | inspect expression at point                        |
+| ~SPC m d v e~ | inspect last expression                            |
+| ~SPC m d v f~ | inspect function at point                          |
+| ~SPC m d v i~ | inspect value at point (=cider-inspect=)           |
+| ~SPC m d v l~ | inspect last result                                |
+| ~SPC m d v v~ | inspect expression at point                        |
 | ~SPC m d V~   | set the view                                       |
 | ~SPC m d w~   | open sayid workspace window                        |
 | ~SPC m d x~   | clear workspace traces and log                     |

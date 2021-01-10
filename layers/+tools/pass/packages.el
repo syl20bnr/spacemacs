@@ -1,6 +1,6 @@
 ;;; packages.el --- Passwords Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Andrew Oppenlander <andrew.oppenlander@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -13,7 +13,9 @@
       '(
         (ivy-pass :requires ivy)
         (helm-pass :requires helm)
+        auth-source-pass
         password-store
+        password-store-otp
         ))
 
 (defun pass/init-helm-pass ()
@@ -44,3 +46,22 @@
         "atPw" 'password-store-url
         "atP?" 'spacemacs/pass-describe
         "atPY" 'spacemacs/pass-copy-and-describe))))
+
+(defun pass/init-password-store-otp ()
+  (use-package password-store-otp
+    :defer t
+    :init
+    (progn
+      (spacemacs/declare-prefix "atPo" "otp")
+      (spacemacs/set-leader-keys
+        "atPoy" 'password-store-otp-token-copy
+        "atPoY" 'password-store-otp-uri-copy
+        "atPoi" 'password-store-otp-insert
+        "atPoa" 'password-store-otp-append
+        "atPoA" 'password-store-otp-append-from-image))))
+
+(defun pass/init-auth-source-pass ()
+  (use-package auth-source-pass
+    :after auth-source
+    :config
+    (auth-source-pass-enable)))

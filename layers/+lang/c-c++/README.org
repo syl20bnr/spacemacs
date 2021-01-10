@@ -108,7 +108,7 @@ The backend can be chosen on a per project basis using directory local variables
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
 
 *** LSP
-LSP support is provided via the [[file:../../+tools/lsp/README.org][LSP layer]], using one of three available backends
+LSP support is provided via the [[file:../../+tools/lsp/README.org][LSP layer]], using one of two available backends
 (all based on libclang).
 - [[https://clang.llvm.org/extra/clangd/][clangd]]
 - [[https://github.com/MaskRay/ccls][ccls]]
@@ -279,7 +279,7 @@ To enable automatic buffer formatting on save, set the variable
 
 ** Enable google-set-c-style
 If you have clang enabled with =clang-format= as described earlier in this page
-you may not have a lot of neeed for =google-set-c-style= if you are already
+you may not have a lot of need for =google-set-c-style= if you are already
 using a mode based on Google mode for most of your projects.
 
 However, if you don't have (or want) =clang-format=, or if you have to do a lot
@@ -436,6 +436,7 @@ A ~[ccls]~ suffix indicates that the binding is for the indicated backend only.
 | ~SPC m g D~ | diagnostics                     |
 | ~SPC m g e~ | reparse file                    |
 | ~SPC m g E~ | preprocess file                 |
+| ~SPC m g f~ | find dead functions             |
 | ~SPC m g F~ | fixit                           |
 | ~SPC m g G~ | guess function at point         |
 | ~SPC m g h~ | print class hierarchy           |
@@ -444,10 +445,13 @@ A ~[ccls]~ suffix indicates that the binding is for the indicated backend only.
 | ~SPC m g M~ | symbol info                     |
 | ~SPC m g O~ | goto offset                     |
 | ~SPC m g p~ | set current project             |
+| ~SPC m g r~ | display reference tree at point |
 | ~SPC m g R~ | rename symbol                   |
 | ~SPC m g s~ | print source arguments          |
 | ~SPC m g S~ | display summary                 |
+| ~SPC m g t~ | symbol type                     |
 | ~SPC m g T~ | taglist                         |
+| ~SPC m g u~ | display include dependency tree |
 | ~SPC m g v~ | find virtuals at point          |
 | ~SPC m g V~ | print enum value at point       |
 | ~SPC m g X~ | fix fixit at point              |

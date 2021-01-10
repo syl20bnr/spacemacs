@@ -1,6 +1,6 @@
 ;;; funcs.el --- react layer funcs file for Spacemacs. -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Muneeb Shaikh <muneeb@reversehack.in>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -35,7 +35,7 @@
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
         (when (not javascript-lsp-linter)
-          (setq-local lsp-diagnostic-package :none))
+          (setq-local lsp-diagnostics-provider :none))
         (lsp))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 

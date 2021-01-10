@@ -18,8 +18,7 @@
     eldoc
     flycheck
     (flycheck-golangci-lint :toggle (and go-use-golangci-lint
-                                         (configuration-layer/package-used-p
-                                          'flycheck)))
+                                         (configuration-layer/package-used-p 'flycheck)))
     ggtags
     helm-gtags
     go-eldoc

@@ -11,6 +11,7 @@
 
 (defconst ruby-packages
   '(
+    add-node-modules-path
     bundler
     chruby
     company
@@ -24,6 +25,7 @@
     minitest
     org
     popwin
+    prettier-js
     rake
     rbenv
     robe
@@ -60,6 +62,9 @@
     :defer t
     :init (spacemacs/add-to-hooks 'chruby-use-corresponding
                                   '(ruby-mode-hook enh-ruby-mode-hook))))
+
+(defun ruby/post-init-add-node-modules-path ()
+  (spacemacs/add-to-hooks #'add-node-modules-path '(ruby-mode-hook)))
 
 (defun ruby/post-init-company ()
   (add-hook 'ruby-mode-local-vars-hook #'spacemacs//ruby-setup-company))
@@ -140,6 +145,10 @@
 (defun ruby/pre-init-org ()
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(ruby . t))))
+
+(defun ruby/pre-init-prettier-js ()
+  (add-to-list 'spacemacs--prettier-modes 'ruby-mode)
+  (add-to-list 'spacemacs--prettier-modes 'enh-ruby-mode))
 
 (defun ruby/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
@@ -300,6 +309,8 @@
       ;; This might have been important 10 years ago but now it's frustrating.
       (setq ruby-insert-encoding-magic-comment nil)
 
+      (when ruby-prettier-on-save
+        (add-hook 'ruby-mode-hook 'spacemacs/ruby-fmt-before-save-hook))
       (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
         "if"  'spacemacs/ruby-insert-frozen-string-literal-comment
         "is"  'spacemacs/ruby-insert-shebang
