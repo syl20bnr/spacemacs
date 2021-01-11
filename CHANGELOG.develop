@@ -3290,6 +3290,9 @@ files (thanks to Daniel Nicolai)
     - ~SPC c s d~ Copy rpms to the phone
     - ~SPC c s i~ Install rpms into target
 **** Scala
+- Provide an easy way to configure SBT to use a small buffer at the bottom of
+  the frame by setting =scala-sbt-window-position= to =bottom= (thanks to Keith
+  Pinson)
 - Move =ensime= to the =java= layer (Tor Hedin Bronner)
 - Key bindings:
   - Evilify =ensime= search in insert/normal mode (thanks to Diego Alvarez)

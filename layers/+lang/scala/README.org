@@ -63,6 +63,10 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =scala= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
++ To turn off the Metals tree view side bar, set =scala-auto-treeview= to =nil=.
++ To display SBT in a small buffer at the bottom of the frame, set the
+  =scala-sbt-window-position= layer variable to =bottom=.
+
 * Backends
 The currently supported language backends are:
 - scala-metals
