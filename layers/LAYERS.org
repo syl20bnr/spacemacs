@@ -214,6 +214,7 @@
   - [[#dap][DAP]]
   - [[#debug][Debug]]
   - [[#docker][Docker]]
+  - [[#eaf-emacs-application-layer][EAF (Emacs Application Layer)]]
   - [[#fasd][Fasd]]
   - [[#finance][Finance]]
   - [[#geolocation][Geolocation]]
@@ -2773,6 +2774,16 @@ Features:
 - Syntax checking via [[https://github.com/hadolint/hadolint][hadolint]]
 - Code-Completion via =lsp=
 
+** EAF (Emacs Application Layer)
+[[file:+tools/eaf/README.org][+tools/eaf/README.org]]
+
+This layer integrates the [[https://github.com/clvv/fasd][fasd]] command line tool into Spacemacs.
+
+Features:
+- Adds easy shortcuts to reference recent files and directories.
+- Provides =fasd= with recent open file lists from Emacs.
+- Allows to filter =fasd= results with =helm= or =ivy=.
+  
 ** Fasd
 [[file:+tools/fasd/README.org][+tools/fasd/README.org]]
 

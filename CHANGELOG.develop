@@ -428,6 +428,7 @@ In org-agenda-mode
 - dap (thanks to Ivan Yonchovski)
 - debug (thanks to Hodge Shen, Troy Hinckley, and Sylvain Benner)
 - dotnet (thanks to Jordan Kaye)
+- eaf (thanks to Daniel Nicolai)
 - import-js (thanks to Thanh Vuong and Seong Yong-ju)
 - kubernetes with tramp support (thanks to Matt Bray and Maximilian Wolff)
 - languagetool (thanks to Robbert van der Helm)
