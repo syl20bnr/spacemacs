@@ -707,7 +707,7 @@ in `package-build-archive-dir'."
                  (package-build--desc-from-library
                   name version commit files))))
     (unless (string-equal (downcase (concat name ".el"))
-                          (downcase file))
+                          (downcase (file-name-nondirectory file)))
       (error "Single file %s does not match package name %s" file name))
     (copy-file source target t)
     (let ((enable-local-variables nil)
