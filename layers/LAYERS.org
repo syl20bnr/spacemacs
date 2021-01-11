@@ -2235,19 +2235,15 @@ This layer adds support for the Scala language to Spacemacs.
 
 Features:
 - Syntax highlighting
-- Support for language backend. Either using [[https://ensime.github.io/][ENSIME]] or [[https://scalameta.org/metals/][Metals]]
-- Debugging support via dap
+- Support for language backend using LSP and [[https://scalameta.org/metals/][Metals]]
+- Debugging support via =dap=
 - Auto-completion
 - Treeview support for viewing project structure and triggering compilation
 - Syntax-checking
 - Refactoring
 - Incremental compilation
-- Scala Repl
 - Style linting
-- Eldoc integration
 - Optional GGTags search
-- Test execution directly from Emacs
-- Automatic replacement of ASCII arrows with unicode ones
 
 **** SML
 [[file:+lang/sml/README.org][+lang/sml/README.org]]
@@ -3067,12 +3063,12 @@ Features:
 ** Tide Layer
 [[file:+tools/tide/README.org][+tools/tide/README.org]]
 
-This layer installs [[https://github.com/ananthakumaran/tide][tide]] package which allows communication with 
+This layer installs [[https://github.com/ananthakumaran/tide][tide]] package which allows communication with
 [[https://github.com/Microsoft/TypeScript/wiki/Standalone-Server-%28tsserver%29][standalone typescript server]] =tsserver= for JavaScript/TypeScript development.
 
 Features:
 - First class support from =tsserver= just like =vscode=: speed and accuracy
-- Linter 
+- Linter
 - Refactor
 - Go to definition
 - Find references
