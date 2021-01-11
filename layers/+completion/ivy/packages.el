@@ -210,6 +210,12 @@
         "rl" 'ivy-resume
         "sl" 'ivy-resume
         "bb" 'ivy-switch-buffer)
+      ;; Common Ctrl-TAB buffer switch behavior
+      (with-eval-after-load 'evil
+        (evil-global-set-key 'motion (kbd "<C-tab>") 'ivy-switch-buffer)
+        (evil-global-set-key 'motion (kbd "<C-iso-lefttab>") 'ivy-switch-buffer))
+      (define-key ivy-mode-map (kbd "<C-tab>") 'ivy-next-line-and-call)
+      (define-key ivy-mode-map (kbd "<C-iso-lefttab>") 'ivy-previous-line-and-call)
       ;; Moved C-k to C-M-k
       (define-key ivy-switch-buffer-map (kbd "C-M-k") 'ivy-switch-buffer-kill)
       (define-key ivy-reverse-i-search-map
