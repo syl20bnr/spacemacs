@@ -58,3 +58,7 @@ are configured.")
 
 (defvar org-enable-roam-support nil
   "If non-nil, org-roam (https://www.orgroam.com/) is configured")
+
+(defvar org-enable-valign nil
+  "If non-nil, enable valign-mode in org-mode buffers.
+ATTENTION: `valign-mode' will be laggy working with tables contain more than 100 lines.")
