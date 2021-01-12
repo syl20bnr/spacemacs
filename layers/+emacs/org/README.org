@@ -26,6 +26,7 @@
   - [[#sticky-header-support][Sticky header support]]
   - [[#epub-support][Epub support]]
   - [[#jira-support][Jira support]]
+  - [[#valign-support][Valign support]]
   - [[#verb-support][Verb support]]
   - [[#spacemacs-layout-integration][Spacemacs layout integration]]
 - [[#key-bindings][Key bindings]]
@@ -73,6 +74,7 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 - Project-specific TODOs via [[https://github.com/IvanMalison/org-projectile][org-projectile]]
 - Easy insert of URLs from clipboard with org format via [[https://github.com/rexim/org-cliplink][org-cliplink]]
 - Rich insert of code (into a source block with highlighting, and a link) from other buffers via [[https://github.com/unhammer/org-rich-yank][org-rich-yank]]
+- Pixel-perfect visual alignment for Org and Markdown tables via [[https://github.com/casouri/valign][valign]]
 
 * BibTeX
 For more extensive support of references through BibTeX files, have a look at
@@ -355,6 +357,18 @@ you connect, add your authentication credentials to =~/.authinfo.gpg= or
 #+BEGIN_SRC authinfo
   machine yourcompany.atlassian.net login you@example.com password yourPassword port 443
 #+END_SRC
+
+** Valign support
+To install [[https://github.com/casouri/valign][valign]]. Which provides:
+Pixel-perfect visual alignment for Org and Markdown tables.
+Set the variable =org-enable-valign= to =t=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+   '((org :variables org-enable-valign t)))
+#+END_SRC
+
+[[https://github.com/casouri/valign#valignel][Known problem: Rendering large tables (≥100 lines) is laggy.]]
 
 ** Verb support
 To install [[https://github.com/federicotdn/verb][Verb]], an HTTP client based on Org mode, set the

@@ -10,7 +10,3 @@
 ;;; License: GPLv3
 
 ;; Variables
-
-(defvar org-enable-valign nil
-  "If non-nil, enable valign-mode in org-mode buffers.
-ATTENTION: `valign-mode' will be laggy working with tables contain more than 100 lines.")

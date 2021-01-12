@@ -47,6 +47,7 @@
         (org-sticky-header :toggle org-enable-sticky-header)
         (verb :toggle org-enable-verb-support)
         (org-roam :toggle org-enable-roam-support)
+        (valign :toggle org-enable-valign)
         ))
 
 (defun org/post-init-company ()
@@ -937,3 +938,11 @@ Headline^^            Visit entry^^               Filter^^                    Da
 (defun org/pre-init-verb ()
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(verb . t))))
+
+(defun org/init-valign ()
+  (use-package valign
+    :init
+    (progn
+      (add-hook 'org-mode-hook 'valign-mode)
+      (add-hook 'valign-mode-hook (lambda () (unless valign-mode
+                                               (valign-remove-advice)))))))
