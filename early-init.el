@@ -1,4 +1,4 @@
-;;; early-init.el --- Spacemacs Early Init File
+;;; early-init.el -*- no-byte-compile: t -*- --- Spacemacs Early Init File
 ;;
 ;; Copyright (c) 2020 Sylvain Benner & Contributors
 ;;
@@ -22,3 +22,11 @@
 ;; the package manager before loading the init file, so this file is neither
 ;; needed nor loaded on those versions.
 (setq package-enable-at-startup nil)
+
+;; Auto compilation.
+(setq load-prefer-newer t)
+(load (concat user-emacs-directory "core/libs/packed"))
+(load (concat user-emacs-directory "core/libs/auto-compile"))
+(auto-compile-on-load-mode)
+(auto-compile-on-save-mode)
+;;; early-init.el ends here

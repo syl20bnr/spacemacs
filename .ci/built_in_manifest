@@ -13,3 +13,5 @@ https://raw.githubusercontent.com/nashamri/spacemacs-theme/master/spacemacs-dark
 https://raw.githubusercontent.com/nashamri/spacemacs-theme/master/spacemacs-light-theme.el core/libs/spacemacs-theme/spacemacs-light-theme.el
 https://raw.githubusercontent.com/nashamri/spacemacs-theme/master/spacemacs-theme-pkg.el core/libs/spacemacs-theme/spacemacs-theme-pkg.el
 https://raw.githubusercontent.com/sigma/mocker.el/master/mocker.el core/libs/mocker.el
+https://raw.githubusercontent.com/emacscollective/packed/master/packed.el core/libs/packed.el
+https://raw.githubusercontent.com/emacscollective/auto-compile/master/auto-compile.el core/libs/auto-compile.el
