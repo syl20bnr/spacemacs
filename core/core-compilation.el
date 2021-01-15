@@ -21,9 +21,8 @@
 (defconst spacemacs--compiled-files
   '(;; Built-in libs that we changed
     "core/libs/forks/load-env-vars.el"
+    "core/libs/forks/spacemacs-ht.el"
     ;; Rest of built-in libs.
-    "core/libs/dash.el"
-    "core/libs/ht.el"
     "core/libs/ido-vertical-mode.el"
     "core/libs/package-build-badges.el"
     "core/libs/package-build.el"

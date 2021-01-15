@@ -29,6 +29,7 @@
         (holy-mode :location local :step pre)
         (hybrid-mode :location (recipe :fetcher local) :step pre)
         (spacemacs-theme :location built-in)
+        dash
         ))
 
 
@@ -615,4 +616,8 @@ Press \\[which-key-toggle-persistent] to hide."
 
 (defun spacemacs-bootstrap/init-spacemacs-theme ()
   (use-package spacemacs-theme
+    :defer t))
+
+(defun spacemacs-bootstrap/init-dash ()
+  (use-package dash
     :defer t))

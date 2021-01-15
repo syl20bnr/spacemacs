@@ -1623,11 +1623,11 @@
     (configuration-layer/make-packages-from-layers '(layer1))
     (should
      (and (equal (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1))
-                 (ht-get configuration-layer--indexed-packages 'pkg3))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg3))
           (equal (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1))
-                 (ht-get configuration-layer--indexed-packages 'pkg2))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg2))
           (equal (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))
-                 (ht-get configuration-layer--indexed-packages 'pkg1))))))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-layers--lists-only ()
   (let* ((layer1 (cfgl-layer "layer1"
@@ -1651,14 +1651,14 @@
                                :owners '(layer1)
                                :location 'local
                                :step 'pre)
-                 (ht-get configuration-layer--indexed-packages 'pkg3))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg3))
           (equal (cfgl-package "pkg2"
                                :name 'pkg2
                                :owners '(layer1)
                                :location '(recipe blahblah))
-                 (ht-get configuration-layer--indexed-packages 'pkg2))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg2))
           (equal (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1) :excluded t)
-                 (ht-get configuration-layer--indexed-packages 'pkg1))))))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-layers--symbols-and-lists ()
   (let* ((layer1 (cfgl-layer "layer1"
@@ -1680,20 +1680,20 @@
     (configuration-layer/make-packages-from-layers '(layer1))
     (should
      (and (equal (cfgl-package "pkg4" :name 'pkg4 :owners '(layer1))
-                 (ht-get configuration-layer--indexed-packages 'pkg4))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg4))
           (equal (cfgl-package "pkg3"
                                :name 'pkg3
                                :owners '(layer1)
                                :location 'local
                                :step 'pre)
-                 (ht-get configuration-layer--indexed-packages 'pkg3))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg3))
           (equal (cfgl-package "pkg2"
                                :name 'pkg2
                                :owners '(layer1)
                                :location '(recipe blahblah))
-                 (ht-get configuration-layer--indexed-packages 'pkg2))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg2))
           (equal (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))
-                 (ht-get configuration-layer--indexed-packages 'pkg1))))))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-layers--pkg2-has-no-owner-because-no-init-function ()
   (let* ((layer2 (cfgl-layer "layer2"
@@ -1713,11 +1713,11 @@
      (configuration-layer/make-packages-from-layers '(layer2))
      (should
       (and (equal (cfgl-package "pkg3" :name 'pkg3 :owners '(layer2))
-                  (ht-get configuration-layer--indexed-packages 'pkg3))
+                  (spacemacs-ht-get configuration-layer--indexed-packages 'pkg3))
            (equal (cfgl-package "pkg2" :name 'pkg2)
-                  (ht-get configuration-layer--indexed-packages 'pkg2))
+                  (spacemacs-ht-get configuration-layer--indexed-packages 'pkg2))
            (equal (cfgl-package "pkg1" :name 'pkg1 :owners '(layer2))
-                  (ht-get configuration-layer--indexed-packages 'pkg1)))))))
+                  (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1)))))))
 
 (ert-deftest test-make-packages-from-layers--pre-init-function ()
   (let* ((layer3 (cfgl-layer "layer3"
@@ -1740,7 +1740,7 @@
                                  :name 'pkg1
                                  :owners '(layer3)
                                  :pre-layers '(layer4))
-                   (ht-get configuration-layer--indexed-packages 'pkg1)))))
+                   (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1)))))
 
 (ert-deftest test-make-packages-from-layers--post-init-function ()
   (let* ((layer3 (cfgl-layer "layer3"
@@ -1763,7 +1763,7 @@
                                  :name 'pkg1
                                  :owners '(layer3)
                                  :post-layers '(layer5))
-                   (ht-get configuration-layer--indexed-packages 'pkg1)))))
+                   (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1)))))
 
 (ert-deftest test-make-packages-from-layers--pre-and-post-init-functions ()
   (let* ((layer3 (cfgl-layer "layer3"
@@ -1788,7 +1788,7 @@
                                  :owners '(layer3)
                                  :pre-layers '(layer6)
                                  :post-layers '(layer6))
-                   (ht-get configuration-layer--indexed-packages 'pkg1)))))
+                   (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1)))))
 
 (ert-deftest test-make-packages-from-layers--several-init-functions-last-one-is-the-owner ()
   (let* ((layer7 (cfgl-layer "layer7"
@@ -1813,7 +1813,7 @@
      (should (equal (cfgl-package "pkg1"
                                   :name 'pkg1
                                   :owners '(layer8 layer7))
-                    (ht-get configuration-layer--indexed-packages 'pkg1))))))
+                    (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-layers--layer-10-excludes-pkg2-in-layer-9 ()
   (let* ((layer9 (cfgl-layer "layer9"
@@ -1835,11 +1835,11 @@
     (configuration-layer/make-packages-from-layers '(layer9 layer10))
     (should
      (and (equal (cfgl-package "pkg3" :name 'pkg3 :owners '(layer10))
-                 (ht-get configuration-layer--indexed-packages 'pkg3))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg3))
           (equal (cfgl-package "pkg2" :name 'pkg2 :owners '(layer9) :excluded t)
-                 (ht-get configuration-layer--indexed-packages 'pkg2))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg2))
           (equal (cfgl-package "pkg1" :name 'pkg1 :owners '(layer9))
-                 (ht-get configuration-layer--indexed-packages 'pkg1))))))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-layers--last-owner-can-overwrite-location ()
   (let* ((layer13 (cfgl-layer "layer13"
@@ -1865,7 +1865,7 @@
                                   :name 'pkg1
                                   :owners '(layer14 layer13)
                                   :location 'local)
-                    (ht-get configuration-layer--indexed-packages 'pkg1))))))
+                    (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-layers--last-owner-can-overwrite-step-nil-to-pre ()
   (let* ((layer15 (cfgl-layer "layer15"
@@ -1891,7 +1891,7 @@
                                   :name 'pkg1
                                   :owners '(layer16 layer15)
                                   :step 'pre)
-                    (ht-get configuration-layer--indexed-packages 'pkg1))))))
+                    (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-layers--last-owner-cannot-overwrite-step-pre-to-nil ()
   (let* ((layer15 (cfgl-layer "layer15"
@@ -1917,7 +1917,7 @@
                                   :name 'pkg1
                                   :owners '(layer16 layer15)
                                   :step 'pre)
-                    (ht-get configuration-layer--indexed-packages 'pkg1))))))
+                    (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-layers--last-owner-can-overwrite-exclude ()
   (let* ((layer17 (cfgl-layer "layer17"
@@ -1944,7 +1944,7 @@
                                   :name 'pkg1
                                   :owners '(layer18 layer17)
                                   :excluded t)
-                    (ht-get configuration-layer--indexed-packages 'pkg1))))))
+                    (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-layers--owner-layer-can-define-toggle ()
   (let* ((layer19 (cfgl-layer "layer19"
@@ -1963,7 +1963,7 @@
                                  :name 'pkg1
                                  :owners '(layer19)
                                  :toggle '(foo-toggle))
-                   (ht-get configuration-layer--indexed-packages 'pkg1)))))
+                   (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1)))))
 
 (ert-deftest test-make-packages-from-layers--not-owner-layer-can-define-toggle-with-warning ()
   (let* ((layer20 (cfgl-layer "layer20"
@@ -1990,7 +1990,7 @@
                                   :owners '(layer20)
                                   :post-layers '(layer21)
                                   :toggle '(foo-toggle))
-                    (ht-get configuration-layer--indexed-packages 'pkg1))))))
+                    (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-layers--layer-can-override-toggle ()
   (let* ((layer22 (cfgl-layer "layer22"
@@ -2016,7 +2016,7 @@
                                   :name 'pkg1
                                   :owners '(layer23 layer22)
                                   :toggle '(bar-toggle))
-                    (ht-get configuration-layer--indexed-packages 'pkg1))))))
+                    (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-layers--not-selected-packages-are-not-excluded ()
   (let* ((layer24 (cfgl-layer "layer24"
@@ -2044,13 +2044,13 @@
                                :name 'pkg1
                                :owners '(layer25)
                                :excluded nil)
-                 (ht-get configuration-layer--indexed-packages 'pkg1))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))
           (equal (cfgl-package "pkg2"
                                :name 'pkg2
                                :owners '(layer24)
                                :location 'local
                                :excluded nil)
-                 (ht-get configuration-layer--indexed-packages 'pkg2))))))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg2))))))
 
 (ert-deftest test-make-packages-from-layers--not-selected-package-in-a-layer-can-still-be-created-with-no-owner ()
   (let* ((layer26 (cfgl-layer "layer26"
@@ -2077,13 +2077,13 @@
                                :name 'pkg1
                                :post-layers '(layer27)
                                :owners nil)
-                 (ht-get configuration-layer--indexed-packages 'pkg1))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))
           (equal (cfgl-package "pkg2"
                                :name 'pkg2
                                :owners '(layer26)
                                :post-layers '(layer27)
                                :location 'local)
-                 (ht-get configuration-layer--indexed-packages 'pkg2))))))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg2))))))
 
 (ert-deftest test-make-packages-from-layers--package-properties-read-only ()
   ;; we expect that :excluded is still nil
@@ -2109,7 +2109,7 @@
      (let ((configuration-layer--package-properties-read-onlyp t))
        (configuration-layer/make-packages-from-layers '(layer28 layer29)))
      (should
-      (equal expected (ht-get configuration-layer--indexed-packages 'pkg1))))))
+      (equal expected (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer/make-packages-from-dotfile
@@ -2132,11 +2132,11 @@
     (configuration-layer/make-packages-from-dotfile 'used)
     (should
      (and (equal (cfgl-package "pkg3" :name 'pkg3 :owners '(dotfile))
-                 (ht-get configuration-layer--indexed-packages 'pkg3))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg3))
           (equal (cfgl-package "pkg2" :name 'pkg2 :owners '(layer-dotfile-1))
-                 (ht-get configuration-layer--indexed-packages 'pkg2))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg2))
           (equal (cfgl-package "pkg1" :name 'pkg1 :owners '(layer-dotfile-1))
-                 (ht-get configuration-layer--indexed-packages 'pkg1))))))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-dotfile--dotfile-cannot-own-package-owned-by-layer ()
   (let* ((layer-dotfile-2 (cfgl-layer "layer-dotfile-2"
@@ -2154,7 +2154,7 @@
     (configuration-layer/make-packages-from-dotfile 'used)
     (should
      (equal (cfgl-package "pkg1" :name 'pkg1 :owners '(layer-dotfile-2))
-            (ht-get configuration-layer--indexed-packages 'pkg1)))))
+            (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1)))))
 
 (ert-deftest test-make-packages-from-dotfile--dotfile-excludes-pkg2-in-layer-11 ()
   (let* ((layer-dotfile-3 (cfgl-layer "layer-dotfile-3"
@@ -2175,12 +2175,12 @@
     (configuration-layer/make-packages-from-dotfile 'used)
     (should
      (and (equal (cfgl-package "pkg3" :name 'pkg3 :owners '(layer-dotfile-3))
-                 (ht-get configuration-layer--indexed-packages 'pkg3))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg3))
           (equal (cfgl-package "pkg2" :name 'pkg2 :owners '(layer-dotfile-3)
                                :excluded t)
-                 (ht-get configuration-layer--indexed-packages 'pkg2))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg2))
           (equal (cfgl-package "pkg1" :name 'pkg1 :owners '(layer-dotfile-3))
-                 (ht-get configuration-layer--indexed-packages 'pkg1))))))
+                 (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer/make-all-packages
@@ -2240,7 +2240,7 @@
                       pkg4
                       pkg9
                       pkg5)
-                    (ht-keys configuration-layer--indexed-packages))))))
+                    (spacemacs-ht-keys configuration-layer--indexed-packages))))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//pre-configure-package
