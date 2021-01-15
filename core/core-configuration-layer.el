@@ -17,7 +17,7 @@
 (require 'package)
 (require 'warnings)
 (require 'help-mode)
-(require 'ht)
+(require 'spacemacs-ht)
 (require 'core-dotspacemacs)
 (require 'core-funcs)
 (require 'core-progress-bar)
@@ -1149,21 +1149,21 @@ USEDP non-nil means that PKG is a used layer."
 (defun configuration-layer/get-layer (layer-name)
   "Return a layer object with name LAYER-NAME.
 Return nil if layer object is not found."
-  (when (ht-contains? configuration-layer--indexed-layers layer-name)
-    (ht-get configuration-layer--indexed-layers layer-name)))
+  (when (spacemacs-ht-contains? configuration-layer--indexed-layers layer-name)
+    (spacemacs-ht-get configuration-layer--indexed-layers layer-name)))
 
 (defun configuration-layer/get-layers-list ()
   "Return a list of all discovered layer symbols."
-  (ht-keys configuration-layer--indexed-layers))
+  (spacemacs-ht-keys configuration-layer--indexed-layers))
 
 (defun configuration-layer/get-layer-local-dir (layer)
   "Return the value of SLOT for the given LAYER."
-  (let ((obj (ht-get configuration-layer--indexed-layers layer)))
+  (let ((obj (spacemacs-ht-get configuration-layer--indexed-layers layer)))
     (when obj (concat (oref obj :dir) "local/"))))
 
 (defun configuration-layer/get-layer-path (layer)
   "Return the path for LAYER symbol."
-  (let ((obj (ht-get configuration-layer--indexed-layers layer)))
+  (let ((obj (spacemacs-ht-get configuration-layer--indexed-layers layer)))
     (when obj (oref obj :dir))))
 
 (defun configuration-layer//add-package (pkg &optional usedp)
@@ -1176,13 +1176,13 @@ USEDP non-nil means that PKG is a used package."
 
 (defun configuration-layer/get-packages-list ()
   "Return a list of all package symbols."
-  (ht-keys configuration-layer--indexed-packages))
+  (spacemacs-ht-keys configuration-layer--indexed-packages))
 
 (defun configuration-layer/get-package (pkg-name)
   "Return a package object with name PKG-NAME.
 Return nil if package object is not found."
-  (when (ht-contains? configuration-layer--indexed-packages pkg-name)
-    (ht-get configuration-layer--indexed-packages pkg-name)))
+  (when (spacemacs-ht-contains? configuration-layer--indexed-packages pkg-name)
+    (spacemacs-ht-get configuration-layer--indexed-packages pkg-name)))
 
 (defun configuration-layer//sort-packages (packages)
   "Return a sorted list of PACKAGES objects."
@@ -2272,7 +2272,7 @@ depends on it."
              (deps (configuration-layer//get-package-deps-from-alist pkg-sym)))
         (dolist (dep deps)
           (let* ((dep-sym (car dep))
-                 (value (ht-get result dep-sym)))
+                 (value (spacemacs-ht-get result dep-sym)))
             (puthash dep-sym
                      (if value (add-to-list 'value pkg-sym) (list pkg-sym))
                      result)))))
@@ -2301,8 +2301,8 @@ depends on it."
   "Returns not nil if PKG-NAME is the name of an orphan package."
   (unless (or (memq pkg-name dist-pkgs)
               (memq pkg-name configuration-layer--protected-packages))
-    (if (ht-contains? dependencies pkg-name)
-        (let ((parents (ht-get dependencies pkg-name)))
+    (if (spacemacs-ht-contains? dependencies pkg-name)
+        (let ((parents (spacemacs-ht-get dependencies pkg-name)))
           (cl-reduce (lambda (x y) (and x y))
                      (mapcar (lambda (p) (configuration-layer//is-package-orphan
                                           p dist-pkgs dependencies))
@@ -2497,7 +2497,7 @@ depends on it."
   "Return a list of all ELPA packages in indexed packages and dependencies."
   (let (result)
     (dolist (pkg-sym (configuration-layer//filter-distant-packages
-                      (ht-keys configuration-layer--indexed-packages) nil))
+                      (spacemacs-ht-keys configuration-layer--indexed-packages) nil))
       (when (assq pkg-sym package-archive-contents)
         (let* ((deps (mapcar 'car
                              (configuration-layer//get-package-deps-from-archive

@@ -27,7 +27,6 @@
 ;;; Code:
 
 (require 'cl-lib)
-(require 'ht)
 (require 'helm)
 (require 'helm-command)
 (require 'core-configuration-layer)

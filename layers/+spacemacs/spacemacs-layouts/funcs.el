@@ -850,7 +850,7 @@ Accepts a list of VARIABLE, DEFAULT-VALUE pairs.
                                     (-map 'car
                                           spacemacs--layout-local-variables))))
     ;; save the current layout
-    (ht-set! spacemacs--layout-local-map
+    (spacemacs-ht-set! spacemacs--layout-local-map
              (spacemacs//current-layout-name)
              (--map (cons it (symbol-value it))
                     layout-local-vars))
@@ -858,6 +858,6 @@ Accepts a list of VARIABLE, DEFAULT-VALUE pairs.
     (--each layout-local-vars
       (set it (alist-get it spacemacs--layout-local-variables)))
     ;; override with the previously bound values for the new layout
-    (--when-let (ht-get spacemacs--layout-local-map persp-name)
+    (--when-let (spacemacs-ht-get spacemacs--layout-local-map persp-name)
       (-each it
         (-lambda ((var . val)) (set var val))))))
