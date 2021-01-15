@@ -2787,6 +2787,7 @@ files (thanks to Daniel Nicolai)
   - Added package =org-jira= (thanks to Kirill A. Korinsky)
   - Added package =org-rich-yank= (thanks to Keith Pinson)
   - Added package =org-roam= (thanks to Mariusz Klochowicz)
+  - Added package =org-contacts= (thanks to Daniel Nicolai)
 - Key bindings:
   - ~SPC m T i~ to toggle inline images
   - Move clock related key bindings to ~SPC a o C~
@@ -2898,6 +2899,8 @@ files (thanks to Daniel Nicolai)
     (thanks to Mariusz Klochowicz)
   - Added additional prefix (~SPC m m j~) for org-jira bindings
     (thanks to Mariusz Klochowicz)
+  - Added keybindings ~SPC a o C f~ and org/agenda local ~SPC m C f~ keybindings
+    and changed =clocks= prefixes to =clocks/contacts=
 - Made =org= layer depend on =spacemacs-org= (thanks to Eivind Fonn)
 - Remove =mu4e= and =notmuch= from =org= (thanks to Sylvain Benner)
 - Use evil-org from MELPA (thanks to Eivind Fonn)

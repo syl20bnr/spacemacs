@@ -19,10 +19,13 @@
         gnuplot
         (helm-org-rifle :toggle (configuration-layer/layer-used-p 'helm))
         htmlize
-        ;; ob, org and org-agenda are installed by `org-plus-contrib'
+        ;; ob, org, org-agenda and org-contacts are installed by `org-plus-contrib'
         (ob :location built-in)
         (org :location built-in)
         (org-agenda :location built-in)
+        (org-contacts :location built-in
+                      :toggle org-enable-org-contacts-support)
+        (org-vcard)
         (org-brain :toggle (version<= "25" emacs-version))
         (org-expiry :location built-in)
         (org-journal :toggle org-enable-org-journal-support)
@@ -182,24 +185,24 @@ Will work on both org-mode and any mode that accepts plain html."
             (insert (format tag ""))
             (forward-char -8))))
 
-      (dolist (prefix '(
-                        ("mb" . "babel")
-                        ("mC" . "clocks")
-                        ("md" . "dates")
-                        ("me" . "export")
-                        ("mf" . "feeds")
-                        ("mi" . "insert")
-                        ("miD" . "download")
-                        ("mm" . "more")
-                        ("ms" . "trees/subtrees")
-                        ("mT" . "toggles")
-                        ("mt" . "tables")
-                        ("mtd" . "delete")
-                        ("mti" . "insert")
-                        ("mtt" . "toggle")
-                        ("mx" . "text")
-                        ))
-        (spacemacs/declare-prefix-for-mode 'org-mode (car prefix) (cdr prefix)))
+        (dolist (prefix `(
+                          ("mb" . "babel")
+                          ("mC" . ,(org-clocks-prefix))
+                          ("md" . "dates")
+                          ("me" . "export")
+                          ("mf" . "feeds")
+                          ("mi" . "insert")
+                          ("miD" . "download")
+                          ("mm" . "more")
+                          ("ms" . "trees/subtrees")
+                          ("mT" . "toggles")
+                          ("mt" . "tables")
+                          ("mtd" . "delete")
+                          ("mti" . "insert")
+                          ("mtt" . "toggle")
+                          ("mx" . "text")
+                          ))
+          (spacemacs/declare-prefix-for-mode 'org-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "'" 'org-edit-special
         "c" 'org-capture
@@ -209,6 +212,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "Cc" 'org-clock-cancel
         "Cd" 'org-clock-display
         "Ce" 'org-evaluate-time-range
+        "Cf" 'org-contacts-find-file
         "Cg" 'org-clock-goto
         "Ci" 'org-clock-in
         "CI" 'org-clock-in-last
@@ -357,7 +361,7 @@ Will work on both org-mode and any mode that accepts plain html."
       ;; functionalities – and a few others commands – from any other mode.
       (spacemacs/declare-prefix "ao" "org")
       (spacemacs/declare-prefix "aof" "feeds")
-      (spacemacs/declare-prefix "aoC" "clock")
+      (spacemacs/declare-prefix "aoC" (org-clocks-prefix))
       ;; org-agenda
       (when (configuration-layer/layer-used-p 'ivy)
         (spacemacs/set-leader-keys "ao/" 'org-occur-in-agenda-files))
@@ -373,6 +377,7 @@ Will work on both org-mode and any mode that accepts plain html."
         ;; Clock
         ;; These keybindings should match those under the "mC" prefix (above)
         "aoCc" 'org-clock-cancel
+        "aoCf" 'org-contacts-find-file
         "aoCg" 'org-clock-goto
         "aoCi" 'org-clock-in
         "aoCI" 'org-clock-in-last
@@ -455,12 +460,12 @@ Will work on both org-mode and any mode that accepts plain html."
     :init
     (progn
       (setq org-agenda-restore-windows-after-quit t)
-      (dolist (prefix '(("mC" . "clocks")
-                        ("md" . "dates")
-                        ("mi" . "insert")
-                        ("ms" . "trees/subtrees")))
-        (spacemacs/declare-prefix-for-mode 'org-agenda-mode
-          (car prefix) (cdr prefix)))
+        (dolist (prefix `(("mC" . ,(org-clocks-prefix))
+                          ("md" . "dates")
+                          ("mi" . "insert")
+                          ("ms" . "trees/subtrees")))
+          (spacemacs/declare-prefix-for-mode 'org-agenda-mode
+            (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
         (or dotspacemacs-major-mode-leader-key ",") 'org-agenda-ctrl-c-ctrl-c
         "a" 'org-agenda
@@ -469,6 +474,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "Ci" 'org-agenda-clock-in
         "Co" 'org-agenda-clock-out
         "Cj" 'org-agenda-clock-goto
+        "Cf" 'org-contacts-find-file
         "dd" 'org-agenda-deadline
         "ds" 'org-agenda-schedule
         "ie" 'org-agenda-set-effort
@@ -563,6 +569,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
         ("." org-agenda-goto-today)
         ("gd" org-agenda-goto-date)))
     :config
+    (when org-enable-org-contacts-support
+      (use-package org-contacts))
     (evilified-state-evilify-map org-agenda-mode-map
       :mode org-agenda-mode
       :bindings
@@ -796,6 +804,15 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (if agenda-files
           (find-file (first agenda-files))
         (user-error "Error: No agenda files configured, nothing to display.")))))
+
+(defun org/init-org-contacts ()
+  (use-package org-contacts
+    :defer t))
+
+(defun org/init-org-vcard ()
+  (use-package org-vcard
+    :after org-contacts
+    :defer t))
 
 (defun org/init-org-journal ()
   (use-package org-journal
