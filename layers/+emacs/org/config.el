@@ -34,6 +34,9 @@ path, one file per project is used (and the path is relative to
 the project root). If it an absolute path, one global file is
 used.")
 
+(defvar org-enable-org-contacts-support nil
+  "If non-nil org-contacts is configured.")
+
 (defvar org-enable-org-journal-support nil
   "If non-nil org-journal is configured.")
 

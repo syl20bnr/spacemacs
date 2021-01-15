@@ -12,6 +12,19 @@
 ;; Autoload space-doc-mode
 (autoload 'space-doc-mode "space-doc" nil 'interactive)
 
+(defun org-clocks-prefix ()
+  (if org-enable-org-contacts-support
+      "clocks/contacts"
+    "clocks"))
+
+(defun org-contacts-find-file ()
+  (interactive)
+  (if org-contacts-files
+      (find-file (car org-contacts-files))
+    (message "No specific org-contacts-files defined. Org-contacts uses all org files.")))
+
+
+
 (defun org-projectile/capture (&optional arg)
   (interactive "P")
   (if arg
