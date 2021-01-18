@@ -33,6 +33,7 @@
 (require 'core-transient-state)
 (require 'core-use-package-ext)
 (require 'core-spacebind)
+(require 'core-compilation)
 
 (defgroup spacemacs nil
   "Spacemacs customizations."
@@ -158,6 +159,9 @@ the final step of executing code in `emacs-startup-hook'.")
   (if (fboundp 'dotspacemacs/user-env)
       (dotspacemacs/call-user-env)
     (spacemacs/load-spacemacs-env))
+  ;; Ensure that `spacemacs-compiled-files' are compiled.
+  (let ((default-directory user-emacs-directory))
+    (spacemacs//ensure-compilation spacemacs-compiled-files))
   ;; install the dotfile if required
   (dotspacemacs/maybe-install-dotfile))
 

@@ -25,8 +25,8 @@
 
 ;; Auto compilation.
 (setq load-prefer-newer t)
-(load (concat user-emacs-directory "core/libs/packed"))
-(load (concat user-emacs-directory "core/libs/auto-compile"))
+(load (concat user-emacs-directory "core/libs/packed") nil t)
+(load (concat user-emacs-directory "core/libs/auto-compile") nil t)
 (auto-compile-on-load-mode)
 (auto-compile-on-save-mode)
 ;;; early-init.el ends here
