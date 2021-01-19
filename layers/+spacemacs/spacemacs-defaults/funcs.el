@@ -150,6 +150,22 @@ If not in such a search box, fall back on `Custom-newline'."
         (indent-region (point-min) (point-max))
         (whitespace-cleanup)))))
 
+(defun spacemacs//trailing-whitespace ()
+  (setq show-trailing-whitespace dotspacemacs-show-trailing-whitespace))
+
+(defun spacemacs//set-whitespace-style-for-diff ()
+  "Whitespace configuration for `diff-mode'"
+  (setq-local whitespace-style '(face
+                                 tabs
+                                 tab-mark
+                                 spaces
+                                 space-mark
+                                 trailing
+                                 indentation::space
+                                 indentation::tab
+                                 newline
+                                 newline-mark)))
+
 ;; from https://gist.github.com/3402786
 (defun spacemacs/toggle-maximize-buffer ()
   "Maximize buffer"

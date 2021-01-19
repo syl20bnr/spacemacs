@@ -458,15 +458,11 @@
     :defer t
     :init
     (progn
-      (setq spacemacs-show-trailing-whitespace t)
-      (defun spacemacs//show-trailing-whitespace ()
-        (when spacemacs-show-trailing-whitespace
-          (set-face-attribute 'trailing-whitespace nil
-                              :background
-                              (face-attribute 'font-lock-comment-face
-                                              :foreground))
-          (setq show-trailing-whitespace 1)))
-      (add-hook 'prog-mode-hook 'spacemacs//show-trailing-whitespace)
+      (when dotspacemacs-show-trailing-whitespace
+        (set-face-attribute
+         'trailing-whitespace nil
+         :background (face-attribute 'font-lock-comment-face :foreground)))
+      (add-hook 'prog-mode-hook 'spacemacs//trailing-whitespace)
 
       (spacemacs|add-toggle whitespace
         :mode whitespace-mode
@@ -477,18 +473,6 @@
         :documentation "Display whitespace globally."
         :evil-leader "t C-w")
 
-      (defun spacemacs//set-whitespace-style-for-diff ()
-        "Whitespace configuration for `diff-mode'"
-        (setq-local whitespace-style '(face
-                                       tabs
-                                       tab-mark
-                                       spaces
-                                       space-mark
-                                       trailing
-                                       indentation::space
-                                       indentation::tab
-                                       newline
-                                       newline-mark)))
       (add-hook 'diff-mode-hook 'whitespace-mode)
       (add-hook 'diff-mode-hook 'spacemacs//set-whitespace-style-for-diff))
     :config

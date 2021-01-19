@@ -391,6 +391,9 @@ If non-nil zone out after the specified number of seconds.")
 Possible values are `any', `current', `all' or `nil'.
 Default is `all' (highlight any scope and emphasize the current one.")
 
+(defvar dotspacemacs-show-trailing-whitespace t
+  "Show trailing whitespace. Default is `t'.")
+
 (defvar dotspacemacs-whitespace-cleanup nil
   "Delete whitespace while saving buffer.
 
