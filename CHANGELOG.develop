@@ -490,6 +490,7 @@ In org-agenda-mode
     (thanks to Zach Pearson)
   - New variable =dotspacemacs-read-process-output-max= to optimise lsp
     performance in emacs 27 (thanks to Maximilian Wolff)
+  - New variable =dotspacemacs-show-trailing-whitespace= (thanks to duianto)
 - Removed Variables:
   - Removed unused variable =dotspacemacs-verbose-loading= from
     =.spacemacs.template= (thanks to Ying Qu)
