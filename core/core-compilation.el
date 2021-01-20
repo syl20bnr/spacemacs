@@ -25,11 +25,12 @@
   "List of Spacemacs files that should be compiled.
 File paths are relative to the `user-emacs-directory'.")
 
-(defun spacemacs//ensure-compilation (files)
-  "Make sure that the .el FILES are compiled."
+
+(defun spacemacs//ensure-byte-compilation (files)
+  "Make sure that elisp FILES are byte-compiled."
   (dolist (file files)
-    (let ((fbn (file-name-sans-extension (file-truename file))))
-     (unless (file-exists-p (concat fbn ".elc"))
-       (byte-compile-file (concat fbn ".el"))))))
+    (let ((fbp (file-name-sans-extension (file-truename file))))
+     (unless (file-exists-p (concat fbp ".elc"))
+       (byte-compile-file (concat fbp ".el"))))))
 
 (provide 'core-compilation)
