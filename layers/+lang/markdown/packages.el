@@ -65,6 +65,18 @@
       ;; Make markdown-mode behave a bit more like org w.r.t. code blocks i.e.
       ;; use proper syntax highlighting
       (setq markdown-fontify-code-blocks-natively t)
+      ;; set the markdown-command
+      (if markdown-executable     ; verify the executable for user defined value
+          (if (executable-find markdown-executable)
+              (setq markdown-command markdown-executable)
+            (warn "Non-exist markdown-executable: %s" markdown-executable))
+        (when (or (null markdown-command) ; markdown-command is nil or not exist
+                  (not (executable-find markdown-command)))
+          ;; try more markdown CLIs
+          (let ((cmd (cl-loop for cmd in '("markdown_py")
+                              when (executable-find cmd)
+                              return (file-name-nondirectory it))))
+            (when cmd (setq markdown-command cmd)))))
       ;; Declare prefixes and bind keys
       (dolist (prefix '(("mc" . "markdown/command")
                         ("mh" . "markdown/header")
