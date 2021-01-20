@@ -36,24 +36,34 @@ In order to enable code linting, install [[https://github.com/mpeterv/luacheck][
 
 ** Backends
 Supported backends are:
-- =lsp-emmy= using clangd LSP server
+- =lsp-emmy-lua= using emmy LSP server
+- =lsp-lua-language-server= using lua-language-server.
+- =lsp-lua-lsp= using lua-lsp.
 - =lua-mode= using emacs package
 
 *** LSP
-LSP support is provided via the [[file:../../+tools/lsp/README.org][LSP layer]], currently only [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua]] is supported.
+LSP support is provided via the [[file:../../+tools/lsp/README.org][LSP layer]], currently [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua]], [[https://github.com/sumneko/lua-language-server][lua-language-server]] and [[https://github.com/Alloyed/lua-lsp][lua-lsp]] are supported.
 
-To use the =lsp-emmy= backend, please download the [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua-LS-all.jar]] and put it into =~/.emacs.d/=,
-then set the layer variable lua-backend to =lsp-emmy=.
+To use the =lsp-emmy-lua= backend, please download the [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua-LS-all.jar]] and put it into =~/.emacs.d/=,
+and then set the layer variable lua-backend to =lsp-emmy-lua=.
 
-=Lsp-emmy= requires a working java installation in the path as well as the path to the LSP server jar.
+=lsp-emmy-lua= requires a working java installation in the path as well as the path to the LSP server jar.
 The java path and the path to the server executable can be configured as is shown below:
 
 #+BEGIN_SRC elisp
   (lua :variables
        lua-backend 'lsp-emmy
-       lua-lsp-emmy-jar-path "~/.emacs.d/EmmyLua-LS-all.jar" ; default path
-       lua-lsp-emmy-java-path "java"                         ; default path
-       lua-lsp-emmy-enable-file-watchers t)                  ; enabled default
+       lsp-clients-emmy-lua-jar-path "~/.emacs.d/.cache/lsp/EmmyLua-LS-all.jar" ; default path
+       lsp-clients-emmy-lua-java-path "java") ; default path
+#+END_SRC
+
+To use the =lsp-lua-language-server= backend, please follow [[https://github.com/sumneko/lua-language-server][lua-language-server]] to compile the standalone binary,
+and then set the layer variable =lua-backend= to =lsp-lua-language-server=, and the variables for binary and main entry such as the example below:
+#+BEGIN_SRC elisp
+  (lua :variables
+       lua-backend 'lsp-lua-language-server
+       lsp-clients-lua-language-server-bin "~/.emacs.d/.cache/lsp/lua-language-server/bin/Linux/lua-language-server" ; default path
+       lsp-clients-lua-language-server-main-location "~/.emacs.d/.cache/lsp/lua-language-server/main.lua") ; default path
 #+END_SRC
 
 *** Lua mode

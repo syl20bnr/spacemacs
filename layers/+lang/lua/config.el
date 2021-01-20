@@ -13,15 +13,7 @@
 
 (spacemacs|define-jump-handlers lua-mode)
 
-(defvar lua-backend 'nil
-  "The backend to be used for lua must be `lsp-emmy' or nil if `lua-mode' should be used.")
-
-;; lua-lsp-backend variables
-(defvar lua-lsp-emmy-java-path "java"
-  "Path to java which will be used for running emmy-lua language server.")
-
-(defvar lua-lsp-emmy-jar-path "~/.emacs.d/EmmyLua-LS-all.jar"
-  "Path to jar which will be used for running EmmyLua language server.")
-
-(defvar lua-lsp-emmy-enable-file-watchers t
-  "Enabled the EmmyLua file watchers.")
+(defvar lua-backend nil
+  "The backend to be used for Lua.
+When nil, use `lua-mode' as the backend.
+When non-nil, use one of LSP Lua clients, i.e. `lsp-emmy', `lua-language-server', or `lsp-lua-lsp'.")
