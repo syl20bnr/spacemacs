@@ -24,7 +24,13 @@
     "sr" 'lua-send-region
     "'" 'lua-show-process-buffer)
   (pcase lua-backend
-    (`lsp-emmy (spacemacs//lua-setup-lsp-emmy))))
+    ('lsp-emmy-lua (spacemacs//lua-setup-lsp-emmy-lua))
+    ('lsp-lua-language-server (spacemacs//lua-setup-lsp-lua-language-server))
+    ('lsp-lua-lsp (spacemacs//lua-setup-lsp-lua-lsp))
+    (_ (if lua-backend
+           (user-error "Unexpected value of `lua-backend', %s" lua-backend)
+         (when (configuration-layer/layer-used-p 'lsp)
+           (lsp))))))
 
 (defun spacemacs//lua-setup-company ()
   "Conditionally setup company based on backend."
@@ -33,13 +39,19 @@
 
 
 ;; LSP Lua
-(defun spacemacs//lua-setup-lsp-emmy ()
-  "Setup LSP Lua."
-  (when lua-lsp-emmy-java-path
-    (setq lsp-clients-emmy-lua-java-path lua-lsp-emmy-java-path))
-  (when lua-lsp-emmy-jar-path
-    (setq lsp-clients-emmy-lua-jar-path (expand-file-name lua-lsp-emmy-jar-path)))
-  (setq lsp-enable-file-watchers lua-lsp-emmy-enable-file-watchers)
+(defun spacemacs//lua-setup-lsp-emmy-lua ()
+  "Setup emmy Lua."
+  (setq-local lsp-disabled-clients '(lua-language-server lsp-lua-lsp))
+  (lsp))
+
+(defun spacemacs//lua-setup-lsp-lua-language-server ()
+  "Setup lua-language-server."
+  (setq-local lsp-disabled-clients '(emmy-lua lsp-lua-lsp))
+  (lsp))
+
+(defun spacemacs//lua-setup-lsp-lua-lsp ()
+  "Setup lsp-lua-lsp."
+  (setq-local lsp-disabled-clients '(emmy-lua lsp-lua-language-server))
   (lsp))
 
 

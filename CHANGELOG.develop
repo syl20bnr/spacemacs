@@ -2577,7 +2577,7 @@ files (thanks to Daniel Nicolai)
   compiled PDF is changed (thanks to Lucius Hu)
 **** Lua
 - Added support for auto-completion with =company= (thanks to halfcrazy)
-- Added support for =LSP= (EmmyLua-LS-all) (thanks to Lin.Sun)
+- Added support for =LSP= (EmmyLua-LS-all, lua-language-server, lua-lsp) (thanks to Lin.Sun)
 - Added =EmmyLua-LS-all.jar= to =.gitignore= (thanks to duianto)
 - Removed require lsp-clients (thanks to duianto)
 **** Language Server Protocol (LSP)
