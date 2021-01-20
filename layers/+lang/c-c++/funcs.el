@@ -165,7 +165,7 @@
 
 (defun spacemacs//c-c++-setup-lsp-dap ()
   "Setup DAP integration."
-  (require 'dap-gdb-lldb))
+  (mapc #'require c-c++-dap-adapters))
 
 
 ;; rtags

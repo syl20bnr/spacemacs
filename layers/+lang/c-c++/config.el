@@ -34,6 +34,18 @@ By default `font-lock' is used to highlight the text, set the variable to
 `overlay' if you want to use overlays. Note that overlays can be slower.")
 
 
+;; dap
+
+(defvar c-c++-dap-adapters '(dap-cpptools)
+  "Debug adapters to use for IDE debug features.
+
+By default only `dap-cpptools' is used.
+
+Add `dap-cpptools' for the official Microsoft C/C++ Extension for VSCode.
+Add `dap-lldb' for the official LLDB project adapter.
+Add `dap-gdb-lldb' for the WebFreak Native Debug extension.")
+
+
 ;; rtags
 
 (defvar c-c++-enable-rtags-completion t
