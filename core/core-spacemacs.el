@@ -160,7 +160,7 @@ the final step of executing code in `emacs-startup-hook'.")
       (dotspacemacs/call-user-env)
     (spacemacs/load-spacemacs-env))
   ;; Ensure that `spacemacs-compiled-files' are compiled.
-  (let ((default-directory user-emacs-directory))
+  (let ((default-directory spacemacs-start-directory))
     (spacemacs//ensure-compilation spacemacs-compiled-files))
   ;; install the dotfile if required
   (dotspacemacs/maybe-install-dotfile))
