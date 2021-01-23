@@ -1884,6 +1884,7 @@ Other:
 - Fixed flycheck initialization (thanks to Kevin W. van Rooijen)
 - Added =elm-test-runner= (thanks to Juan Edi)
 **** Emacs Lisp
+- Fix: after edebug session, get out of evil-evilified (thanks to Ag Ibragimov)
 - Key bindings:
   - Make ~SPC m h h~ and jump handlers work in =ielm= (thanks to Keith Pinson)
   - Added ~c~ to continue in edebug mode (thanks to hodge)

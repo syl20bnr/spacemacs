@@ -60,14 +60,17 @@ Unlike `eval-defun', this does not go to topmost function."
 
 (defun spacemacs//edebug-mode (&rest args)
   "Additional processing when `edebug-mode' is activated or deactivated."
-  (let ((evilified (or (eq 'vim dotspacemacs-editing-style)
-                       (and (eq 'hybrid dotspacemacs-editing-style)
-                            hybrid-style-enable-evilified-state))))
+  (let ((evilified? (or (eq 'vim dotspacemacs-editing-style)
+                        (and (eq 'hybrid dotspacemacs-editing-style)
+                             hybrid-style-enable-evilified-state))))
     (if (not edebug-mode)
         ;; disable edebug-mode
-        (when evilified (evil-normal-state))
+        (when evilified?
+          (remove-hook 'pre-command-hook 'evilified-state--pre-command-hook)
+          (define-key evil-normal-state-map [escape] 'evil-force-normal-state)
+          (evil-normal-state))
       ;; enable edebug-mode
-      (when evilified (evil-evilified-state))
+      (when evilified? (evil-evilified-state))
       (evil-normalize-keymaps)
       (when (and (fboundp 'golden-ratio-mode)
                  golden-ratio-mode)
