@@ -16,7 +16,7 @@ This layer installs [[https://github.com/ananthakumaran/tide][tide]] package whi
 
 ** Features:
 - First class support from =tsserver= just like =vscode=: speed and accuracy
-- Linter 
+- Linter
 - Refactor
 - Go to definition
 - Find references
