@@ -23,7 +23,7 @@
     "core/libs/quelpa.el"
     "core/libs/spinner.el")
   "List of Spacemacs files that should be compiled.
-File paths are relative to the `user-emacs-directory'.")
+File paths are relative to the `spacemacs-start-directory'.")
 
 
 (defun spacemacs//ensure-byte-compilation (files)
