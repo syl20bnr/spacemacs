@@ -380,10 +380,9 @@ To install [[https://github.com/federicotdn/verb][Verb]], an HTTP client based o
 #+END_SRC
 
 ** Spacemacs layout integration
-A [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#layouts-and-workspaces][Spacemacs custom layout]] =@Org=  is defined by the layer and accessible via =SPC l o=. The startup behavior can be customized with the following layer variables:
+A [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#layouts-and-workspaces][Spacemacs custom layout]] =@Org= is defined by the layer and accessible via =SPC l o=. The startup behavior can be customized with the following layer variables:
 - =org-persp-startup-org-file= Defines the org file buffer that should be opened after startup. Defaults to the first file in =org-agenda-files=, if =org-persp-startup-org-file= is set to =nil=.
 - =org-persp-startup-with-agenda= If non-nil, sets initial buffer to the specified (custom) org-agenda buffer, e.g. =(setq org-persp-startup-with-agenda "a")= opens =org-agenda-list=.
-
 
 * Key bindings
 ** Starting org-mode

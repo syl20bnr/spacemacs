@@ -492,6 +492,7 @@ Features:
 - Project-specific TODOs via [[https://github.com/IvanMalison/org-projectile][org-projectile]]
 - Easy insert of URLs from clipboard with org format via [[https://github.com/rexim/org-cliplink][org-cliplink]]
 - Rich insert of code (into a source block with highlighting, and a link) from other buffers via [[https://github.com/unhammer/org-rich-yank][org-rich-yank]]
+- Pixel-perfect visual alignment for Org and Markdown tables via [[https://github.com/casouri/valign][valign]]
 
 ** Outshine
 [[file:+emacs/outshine/README.org][+emacs/outshine/README.org]]
@@ -2714,10 +2715,11 @@ Features:
 ** Command-log
 [[file:+tools/command-log/README.org][+tools/command-log/README.org]]
 
-This layer adds a handy command demonstration mode to Spacemacs.
+This layer adds handy commands for demonstrating Spacemacs.
 
 Features:
 - Support for logging all entered keys and triggered commands in a designated buffer via [[https://github.com/lewang/command-log-mode][command-log-mode]].
+- Experimental support for logging the last command directly in the mode line via [[https://github.com/tarsius/keycast][keycast]].
 - Provides the best way to demonstrate the connection between keystrokes and commands in Emacs.
 - Provides an easy way to create command logs for training classes.
 
@@ -3063,7 +3065,7 @@ Features:
 ** Tide Layer
 [[file:+tools/tide/README.org][+tools/tide/README.org]]
 
-This layer installs [[https://github.com/ananthakumaran/tide][tide]] package which allows communication with
+This layer installs [[https://github.com/ananthakumaran/tide][tide]] package which allows communication with 
 [[https://github.com/Microsoft/TypeScript/wiki/Standalone-Server-%28tsserver%29][standalone typescript server]] =tsserver= for JavaScript/TypeScript development.
 
 Features:

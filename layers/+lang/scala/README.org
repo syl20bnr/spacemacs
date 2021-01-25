@@ -122,11 +122,11 @@ To enable gtags when in =scala-mode= set the variable =scala-enable-gtags= to =t
 #+END_SRC
 
 * Key bindings
-Additional major mode keybindings are populated by LSP and DAP.
+Additional major mode key bindings are populated by LSP and DAP.
 
 ** sbt
 
-| Key binding | Description            |
-|-------------+------------------------|
-| ~SPC m b .~ | sbt transient state    |
-| ~SPC m b b~ | sbt command            |
+| Key binding | Description         |
+|-------------+---------------------|
+| ~SPC m b .~ | sbt transient state |
+| ~SPC m b b~ | sbt command         |
