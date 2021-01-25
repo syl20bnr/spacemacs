@@ -255,10 +255,10 @@ OWNER REPO."
   "Hard reset the current branch to specified TAG."
   (let ((proc-buffer "git-hard-reset")
         (default-directory (file-truename spacemacs-start-directory)))
-    (prog1
-        (eq 0 (process-file "git" nil proc-buffer nil
-                            "reset" "--hard" tag))
-      (kill-buffer proc-buffer))))
+    (prog1 (eq 0 (process-file "git" nil proc-buffer nil
+                               "reset" "--hard" tag))
+      (kill-buffer proc-buffer)
+      (spacemacs//revision-update))))
 
 (defun spacemacs//git-latest-tag (remote branch)
   "Returns the latest tag on REMOTE/BRANCH."
@@ -347,6 +347,20 @@ Example: (1 42 3) = 1 042 003"
 (spacemacs/set-new-version-lighter-mode-line-faces)
 (add-hook 'spacemacs-post-theme-change-hook
           'spacemacs/set-new-version-lighter-mode-line-faces)
+
+(defun spacemacs//revision-update ()
+  "Update saved revision value and trigger `spacemacs-revision--changed-hook'."
+  (let ((proc-buffer "spacemacs//revision-update:git-get-current-rev"))
+    (when (eq 0 (process-file "git" nil proc-buffer nil "rev-parse" "HEAD"))
+      (with-current-buffer proc-buffer
+        (goto-char 1)
+        (setq spacemacs-revision--last (current-word))
+        (kill-buffer proc-buffer))))
+  (with-temp-file spacemacs-revision--file
+    (insert (format "(setq spacemacs-revision--last %S)"
+                    spacemacs-revision--last))
+    (make-directory (file-name-directory spacemacs-revision--file) t))
+  (run-hooks 'spacemacs-revision--changed-hook))
 
 (defun spacemacs//revision-check ()
   "Update saved value of the current revision asynchronously.

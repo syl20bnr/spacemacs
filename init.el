@@ -25,6 +25,11 @@
 (load (concat spacemacs-core-directory "core-dumper.el")
       nil (not init-file-debug))
 
+(load (concat spacemacs-core-directory "core-compilation.el")
+      nil (not init-file-debug))
+(let ((default-directory spacemacs-start-directory))
+  (spacemacs//remove-byte-compiled-if-stale spacemacs--compiled-files))
+
 (if (not (version<= spacemacs-emacs-min-version emacs-version))
     (error (concat "Your version of Emacs (%s) is too old. "
                    "Spacemacs requires Emacs version %s or above.")
