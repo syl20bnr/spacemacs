@@ -159,9 +159,6 @@ the final step of executing code in `emacs-startup-hook'.")
   (if (fboundp 'dotspacemacs/user-env)
       (dotspacemacs/call-user-env)
     (spacemacs/load-spacemacs-env))
-  ;; Ensure that `spacemacs-compiled-files' are compiled.
-  (let ((default-directory spacemacs-start-directory))
-    (spacemacs//ensure-byte-compilation spacemacs-compiled-files))
   ;; install the dotfile if required
   (dotspacemacs/maybe-install-dotfile))
 
@@ -206,6 +203,12 @@ defer call using `spacemacs-post-user-config-hook'."
       (funcall func)
     (add-hook 'spacemacs-post-user-config-hook func)))
 
+(defun spacemacs//byte-compile-cleanup ()
+  "Remove byte-compiled versions of `spacemacs-compiled-files'."
+  (let ((default-directory spacemacs-start-directory))
+    (spacemacs//remove-byte-compiled-files
+     spacemacs-compiled-files)))
+
 (defun spacemacs/setup-startup-hook ()
   "Add post init processing.
 Note: the hooked function is not executed when in dumped mode."
@@ -248,6 +251,14 @@ Note: the hooked function is not executed when in dumped mode."
      (setq gc-cons-threshold (car dotspacemacs-gc-cons)
            gc-cons-percentage (cadr dotspacemacs-gc-cons))
      (unless (version< emacs-version "27")
-       (setq read-process-output-max dotspacemacs-read-process-output-max)))))
+       (setq read-process-output-max dotspacemacs-read-process-output-max))))
+
+  ;; Ensure that `spacemacs-compiled-files' are byte-compiled.
+  (let ((default-directory spacemacs-start-directory))
+    (spacemacs//ensure-byte-compilation spacemacs-compiled-files))
+  ;; Remove Spacemacs'es .elc files if Spacemacs revision has changed.
+  (add-hook 'spacemacs-revision--changed-hook 'spacemacs//byte-compile-cleanup)
+  ;; Update saved revision.
+  (spacemacs//revision-check))
 
 (provide 'core-spacemacs)

@@ -13,6 +13,8 @@
   '(;; Built-in libs that we changed
     "core/libs/forks/load-env-vars.el"
     ;; Rest of built-in libs.
+    "core/libs/packed.el"
+    "core/libs/auto-compile.el"
     "core/libs/dash.el"
     "core/libs/ht.el"
     "core/libs/ido-vertical-mode.el"
@@ -32,5 +34,14 @@ File paths are relative to the `spacemacs-start-directory'.")
     (let ((fbp (file-name-sans-extension (file-truename file))))
      (unless (file-exists-p (concat fbp ".elc"))
        (byte-compile-file (concat fbp ".el"))))))
+
+(defun spacemacs//remove-byte-compiled-files (files)
+  "Remove .elc files corresponding to the source FILES."
+  (dolist (file files)
+    (thread-last file
+      (file-truename)
+      (file-name-sans-extension)
+      (format "%s.elc")
+      (delete-file))))
 
 (provide 'core-compilation)
