@@ -392,7 +392,8 @@
                                             global-mark-ring
                                             search-ring
                                             regexp-search-ring
-                                            extended-command-history)
+                                            extended-command-history
+                                            kill-ring)
             savehist-autosave-interval 60)
       (savehist-mode t))))
 
