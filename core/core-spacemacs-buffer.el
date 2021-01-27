@@ -721,21 +721,32 @@ LIST: a list of strings displayed as entries."
 (defun spacemacs-buffer//insert-file-list (list-display-name list)
   "Insert an interactive list of files in the home buffer.
 LIST-DISPLAY-NAME: the displayed title of the list.
-LIST: a list of string pathnames made interactive in this function."
+LIST: a list of string pathnames made interactive in this function.
+
+If LIST-DISPLAY-NAME is \"Recent Files:\":
+prepend each list item with a number starting at: 1
+The numbers indicate that the file can be opened,
+by pressing its number key."
   (when (car list)
     (insert list-display-name)
-    (mapc (lambda (el)
-            (insert "\n    ")
-            (widget-create 'push-button
-                           :action `(lambda (&rest ignore)
-                                      (find-file-existing ,el))
-                           :mouse-face 'highlight
-                           :follow-link "\C-m"
-                           :button-prefix ""
-                           :button-suffix ""
-                           :format "%[%t%]"
-                           (abbreviate-file-name el)))
-          list)))
+    (let ((list-nr 1))
+      (mapc (lambda (el)
+              (insert "\n    ")
+              (let ((button-text
+                     (concat (when (string= list-display-name "Recent Files:")
+                               (concat (number-to-string list-nr) " "))
+                             (abbreviate-file-name el))))
+                (widget-create 'push-button
+                               :action `(lambda (&rest ignore)
+                                          (find-file-existing ,el))
+                               :mouse-face 'highlight
+                               :follow-link "\C-m"
+                               :button-prefix ""
+                               :button-suffix ""
+                               :format "%[%t%]"
+                               button-text))
+              (setq list-nr (1+ list-nr)))
+            list))))
 
 (defun spacemacs-buffer//insert-files-by-dir-list (list-display-name grouped-list)
   "Insert an interactive grouped list of files in the home buffer.
@@ -936,7 +947,16 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
                        "Recent Files:"
                        (spacemacs//subseq recentf-list 0 list-size))
                   (spacemacs-buffer||add-shortcut "r" "Recent Files:")
-                  (insert list-separator)))
+                  (let (recent-files-list-length)
+                    (dolist (item dotspacemacs-startup-lists)
+                      (when (equal (car item) 'recents)
+                        (setq recent-files-list-length (cdr item))))
+                    (dotimes (i recent-files-list-length)
+                      (define-key spacemacs-buffer-mode-map
+                        (number-to-string (1+ i))
+                        `,(intern (format "recentf-open-most-recent-file-%s"
+                                          (1+ i)))))))
+                (insert list-separator))
                ((eq el 'recents-by-project)
                 (unless recentf-mode (recentf-mode))
                 (unless projectile-mode (projectile-mode))
