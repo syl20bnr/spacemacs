@@ -865,6 +865,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
                org-roam-dailies-find-yesterday
                org-roam-dailies-find-today
                org-roam-dailies-find-tomorrow
+               org-roam-dailies-find-date
                org-roam-tag-add
                org-roam-tag-delete)
     :init
@@ -876,6 +877,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "aordy" 'org-roam-dailies-find-yesterday
         "aordt" 'org-roam-dailies-find-today
         "aordT" 'org-roam-dailies-find-tomorrow
+        "aordd" 'org-roam-dailies-find-date
         "aorf" 'org-roam-find-file
         "aorg" 'org-roam-graph
         "aori" 'org-roam-insert
@@ -892,6 +894,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "rdy" 'org-roam-dailies-find-yesterday
         "rdt" 'org-roam-dailies-find-today
         "rdT" 'org-roam-dailies-find-tomorrow
+        "rdd" 'org-roam-dailies-find-date
         "rf" 'org-roam-find-file
         "rg" 'org-roam-graph
         "ri" 'org-roam-insert
