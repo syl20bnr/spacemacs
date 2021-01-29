@@ -575,21 +575,46 @@ If MESSAGEBUF is not nil then MSG is also written in message buffer."
       (when messagebuf
         (message "(Spacemacs) %s" msg)))))
 
+(defun spacemacs-buffer//startup-list-jump-func-name (str)
+  "Given a string, return a spacemacs-buffer function name.
+
+Given:           Return:
+\"[?]\"            \"spacemacs-buffer/jump-to-[?]\"
+\"Recent Files:\"  \"spacemacs-buffer/jump-to-recent-files\""
+  (let ((s (downcase str)))
+    ;; remove last char if it's a colon
+    (when (string-match ":$" s)
+      (setq s (substring s nil (1- (length s)))))
+    ;; replace any spaces with a dash
+    (setq s (replace-regexp-in-string " " "-" s))
+    (concat "spacemacs-buffer/jump-to-" s)))
+
 (defmacro spacemacs-buffer||add-shortcut
     (shortcut-char search-label &optional no-next-line)
   "Add a single-key keybinding for quick navigation in the home buffer.
 Navigation is done by searching for a specific word in the buffer.
 SHORTCUT-CHAR: the key that the user will have to press.
 SEARCH-LABEL: the word the cursor will be brought under (or on).
-NO-NEXT-LINE: if nil the cursor is brought under the searched word."
-  `(define-key spacemacs-buffer-mode-map
-     ,shortcut-char (lambda ()
-                      (interactive)
-                      (unless (search-forward ,search-label (point-max) t)
-                        (search-backward ,search-label (point-min) t))
-                      ,@(unless no-next-line
-                          '((forward-line 1)))
-                      (back-to-indentation))))
+NO-NEXT-LINE: if nil the cursor is brought under the searched word.
+
+Define a named function: spacemacs-buffer/jump-to-...
+for the shortcut. So that a descriptive name is shown,
+in for example the view-lossage (C-h l) buffer:
+ r                      ;; spacemacs-buffer/jump-to-recent-files
+ p                      ;; spacemacs-buffer/jump-to-projects
+instead of:
+ r                      ;; anonymous-command
+ p                      ;; anonymous-command"
+  (let* ((func-name (spacemacs-buffer//startup-list-jump-func-name search-label))
+         (func-name-symbol (intern func-name)))
+    (eval `(defun ,func-name-symbol ()
+               (interactive)
+             (unless (search-forward ,search-label (point-max) t)
+               (search-backward ,search-label (point-min) t))
+             ,@(unless no-next-line
+                 '((forward-line 1)))
+             (back-to-indentation)))
+    `(define-key spacemacs-buffer-mode-map ,shortcut-char ',func-name-symbol)))
 
 (defun spacemacs-buffer//center-line (&optional real-width)
   "When point is at the end of a line, center it.
