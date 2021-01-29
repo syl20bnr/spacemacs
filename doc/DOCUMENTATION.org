@@ -2440,11 +2440,12 @@ The mode can be toggled on and off with ~SPC t g~.
 
 *** Buffers and Files
 **** Buffers manipulation key bindings
-Buffer manipulation commands (start with ~b~):
+With few exceptions, buffer manipulation commands (start with ~b~):
 
 | Key binding     | Description                                                                            |
 |-----------------+----------------------------------------------------------------------------------------|
 | ~SPC TAB~       | switch to alternate buffer in the current window (switch back and forth)               |
+| ~C-TAB/C-S tab~ | cycle backward/forward through previous visited buffers (i.e. scroll helm buffer list) |
 | ~SPC b b~       | switch to a buffer                                                                     |
 | ~SPC b d~       | kill the current buffer (does not delete the visited file)                             |
 | ~SPC u SPC b d~ | kill the current buffer and window (does not delete the visited file)                  |
