@@ -2247,6 +2247,7 @@ Other:
   - Add ~C-d~ to create a project perspective and open a project root dired
     buffer, from the ~SPC p l~ persp switch project prompt
     (thanks to Magnus Therning)
+  - Add =C(-S)-tab= keybindings for buffer switching (thanks to Daniel Nicolai)
 - Fixes:
   - Fixed signature of =spacemacs//display-helm-window= (thanks to Jack Kamm)
   - Fixed initialization by calling =helm-mode= when Helm is initialized=
