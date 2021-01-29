@@ -973,7 +973,7 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
                                (spacemacs//subseq (spacemacs-buffer//recent-files-by-project)
                                                   0
                                                   (car list-size))))
-                  (spacemacs-buffer||add-shortcut "R" "Recent Files:")
+                  (spacemacs-buffer||add-shortcut "R" "Recent Files by Project:")
                   (insert list-separator)))
                ((eq el 'todos)
                 (when (spacemacs-buffer//insert-todo-list
