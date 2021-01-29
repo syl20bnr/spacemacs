@@ -733,9 +733,11 @@ by pressing its number key."
       (mapc (lambda (el)
               (insert "\n    ")
               (let ((button-text
-                     (concat (when (string= list-display-name "Recent Files:")
-                               (concat (number-to-string list-nr) " "))
-                             (abbreviate-file-name el))))
+                     (concat
+                      (when (and (string= list-display-name "Recent Files:")
+                                 (< list-nr 10))
+                        (concat (number-to-string list-nr) " "))
+                      (abbreviate-file-name el))))
                 (widget-create 'push-button
                                :action `(lambda (&rest ignore)
                                           (find-file-existing ,el))
@@ -952,10 +954,11 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
                       (when (equal (car item) 'recents)
                         (setq recent-files-list-length (cdr item))))
                     (dotimes (i recent-files-list-length)
-                      (define-key spacemacs-buffer-mode-map
-                        (number-to-string (1+ i))
-                        `,(intern (format "recentf-open-most-recent-file-%s"
-                                          (1+ i)))))))
+                      (when (< (1+ i) 10)
+                        (define-key spacemacs-buffer-mode-map
+                          (number-to-string (1+ i))
+                          `,(intern (format "recentf-open-most-recent-file-%s"
+                                            (1+ i))))))))
                 (insert list-separator))
                ((eq el 'recents-by-project)
                 (unless recentf-mode (recentf-mode))
