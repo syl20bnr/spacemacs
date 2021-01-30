@@ -121,6 +121,13 @@ If not in such a search box, fall back on `Custom-newline'."
 (defalias 'spacemacs/display-buffer-other-frame 'display-buffer-other-frame)
 (defalias 'spacemacs/find-file-and-replace-buffer 'find-alternate-file)
 
+(defun spacemacs/dired-remove-evil-mc-gr-which-key-entry ()
+  ;; Remove inherited bindings from evil-mc
+  ;; do this after the config to make sure the keymap is available
+  (which-key-add-keymap-based-replacements dired-mode-map
+    "<normal-state> g r" nil
+    "<visual-state> g r" nil))
+
 (defun spacemacs/indent-region-or-buffer ()
   "Indent a region if selected, otherwise the whole buffer."
   (interactive)
