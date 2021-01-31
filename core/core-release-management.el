@@ -356,15 +356,13 @@ Example: (1 42 3) = 1 042 003"
         (goto-char 1)
         (setq spacemacs-revision--last (current-word))
         (kill-buffer proc-buffer))))
-  (with-temp-file spacemacs-revision--file
-    (insert (format "(setq spacemacs-revision--last %S)"
-                    spacemacs-revision--last))
-    (make-directory (file-name-directory spacemacs-revision--file) t))
+  (spacemacs/dump-vars-to-file '(spacemacs-revision--last)
+                               spacemacs-revision--file)
   (run-hooks 'spacemacs-revision--changed-hook))
 
 (defun spacemacs//revision-check ()
   "Update saved value of the current revision asynchronously.
-NOTE: If old and new revisions are different `spacemacs-revision--changed-hook'
+If old and new revisions are different `spacemacs-revision--changed-hook'
  will be triggered."
   (when (file-exists-p spacemacs-revision--file)
     (load spacemacs-revision--file nil t))
