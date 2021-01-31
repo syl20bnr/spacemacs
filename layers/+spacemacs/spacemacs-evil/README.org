@@ -34,7 +34,7 @@ throughout the entirety of Spacemacs.
 - Persistent highlight of searched text with =evil-search-highlight-persist=
 - Display tildes in non-buffer area with =vi-tilde-fringe=
 - Add =evil-collection=
-  
+
 * Install
 The =spacemacs-evil= layer is included by default in the Spacemacs distribution.
 
@@ -56,11 +56,11 @@ users and layer hackers to enable evil-collection on their desired modes.
 For users, if you want to enable evil-collection on =eglot=, then you will need
 to declare this layer with it variable explicitly:
 
-#+begin_example elisp
+#+BEGIN_EXAMPLE
   (spacemacs-evil :variables
                       spacemacs-evil-collection-allowed-list
                      '(eglot))
-#+end_example
+#+END_EXAMPLE
 
 For Spacemacs hackers check out git layer to see how we apply =evil-collection= to
 =magit.=
