@@ -1,4 +1,4 @@
-;;; core-compilation.el --- Spacemacs Core File
+;;; core-compilation.el --- Spacemacs Core File -*- no-byte-compile: t -*-
 ;;
 ;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
