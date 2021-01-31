@@ -899,6 +899,7 @@ Features:
 - Improves the comment function to be able to also do the inverse operation
 - Persistent highlight of searched text with =evil-search-highlight-persist=
 - Display tildes in non-buffer area with =vi-tilde-fringe=
+- Add =evil-collection=
 
 ** Spacemacs-language
 [[file:+spacemacs/spacemacs-language/README.org][+spacemacs/spacemacs-language/README.org]]
