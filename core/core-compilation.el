@@ -44,15 +44,14 @@ File paths are relative to the `spacemacs-start-directory'.")
       (format "%s.elc")
       (delete-file))))
 
-(defun spacemacs//remove-byte-compiled-if-stale (files)
-  "Remove all .elc files corresponding to the source FILES if any is stale."
-  (when (cl-dolist (file files)
-          (let* ((file-el (file-truename file))
-                 (file-elc (thread-last file-el
-                             (file-name-sans-extension)
-                             (format "%s.elc"))))
-            (when (file-newer-than-file-p file-el file-elc)
-              (cl-return t))))
-    (spacemacs//remove-byte-compiled-files files)))
+(defun spacemacs//contains-newer-than-byte-compiled-p (files)
+  "Return true if any file in FILES is newer than its byte-compiled version."
+  (cl-dolist (file files)
+    (let* ((file-el (file-truename file))
+           (file-elc (thread-last file-el
+                       (file-name-sans-extension)
+                       (format "%s.elc"))))
+      (when (file-newer-than-file-p file-el file-elc)
+        (cl-return t)))))
 
 (provide 'core-compilation)
