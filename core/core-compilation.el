@@ -44,11 +44,12 @@ File paths are relative to the `spacemacs-start-directory'.")
 (defun spacemacs//remove-byte-compiled-files (files)
   "Remove .elc files corresponding to the source FILES."
   (dolist (file files)
-    (thread-last file
-      (file-truename)
-      (file-name-sans-extension)
-      (format "%s.elc")
-      (delete-file))))
+    (let ((file-elc (thread-last file
+                      (file-truename)
+                      (file-name-sans-extension)
+                      (format "%s.elc"))))
+      (when (file-exists-p file-elc)
+        (delete-file file-elc)))))
 
 (defun spacemacs//contains-newer-than-byte-compiled-p (files)
   "Return true if any file in FILES is newer than its byte-compiled version."
