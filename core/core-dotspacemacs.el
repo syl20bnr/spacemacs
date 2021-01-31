@@ -470,6 +470,9 @@ prettifying Org files.")
   "If non-nil, `kill-buffer' on *scratch* buffer
 will bury it instead of killing.")
 
+(defvar dotspacemacs-byte-compile nil
+  "If non-nil, byte-compile some of Spacemacs files.")
+
 (defun dotspacemacs//prettify-spacemacs-docs ()
   "Run `spacemacs/prettify-org-buffer' if `buffer-file-name'
 looks like Spacemacs documentation."
