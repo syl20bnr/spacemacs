@@ -12,6 +12,12 @@
 (require 'cl-lib)
 (require 'subr-x)
 
+(defvar spacemacs--last-emacs-version ""
+  "This variable is set during Emacs initialization to its version.")
+(defconst spacemacs--last-emacs-version-file
+  (expand-file-name (concat spacemacs-cache-directory "last-emacs-version"))
+  "File that sets `spacemacs--last-emacs-version' variable.")
+
 (defconst spacemacs--compiled-files
   '(;; Built-in libs that we changed
     "core/libs/forks/load-env-vars.el"
@@ -53,5 +59,13 @@ File paths are relative to the `spacemacs-start-directory'.")
                        (format "%s.elc"))))
       (when (file-newer-than-file-p file-el file-elc)
         (cl-return t)))))
+
+(defun spacemacs//update-last-emacs-version ()
+  "Update `spacemacs--last-emacs-version' and its saved value."
+  (with-temp-file spacemacs--last-emacs-version-file
+    (insert (format "(setq spacemacs--last-emacs-version %S)"
+                    (setq spacemacs--last-emacs-version emacs-version)))
+    (make-directory (file-name-directory spacemacs--last-emacs-version-file)
+                    t)))
 
 (provide 'core-compilation)
