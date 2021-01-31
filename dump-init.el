@@ -1,3 +1,4 @@
+;; -*- no-byte-compile: t -*-
 (setq spacemacs-dump-mode 'dumping)
 ;; load init.el
 (setq spacemacs-start-directory (file-name-directory load-file-name))
