@@ -37,6 +37,8 @@ See `dotspacemacs-startup-buffer-responsive'.")
   "Length used for startup lists with otherwise unspecified bounds.
 Set to nil for unbounded.")
 
+(defvar spacemacs-buffer-list-separator "\n\n")
+
 (defvar spacemacs-buffer--release-note-version nil
   "If nil the release note is displayed.
 If non nil it contains a version number, if the version number is lesser than
@@ -950,92 +952,107 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
     (cl-subseq seq start (and (number-or-marker-p end)
                               (min len end)))))
 
+(defun spacemacs-buffer//insert-errors ()
+  (when (spacemacs-buffer//insert-string-list
+         "Errors:" spacemacs-buffer--errors)
+    (spacemacs-buffer||add-shortcut "e" "Errors:")
+    (insert spacemacs-buffer-list-separator)))
+
+(defun spacemacs-buffer//insert-warnings ()
+  (when (spacemacs-buffer//insert-string-list
+         "Warnings:" spacemacs-buffer--warnings)
+    (spacemacs-buffer||add-shortcut "w" "Warnings:")
+    (insert spacemacs-buffer-list-separator)))
+
+(defun spacemacs-buffer//insert-recent-files (list-size)
+  (unless recentf-mode (recentf-mode))
+  (when (spacemacs-buffer//insert-file-list
+         "Recent Files:"
+         (spacemacs//subseq recentf-list 0 list-size))
+    (spacemacs-buffer||add-shortcut "r" "Recent Files:")
+    (let (recent-files-list-length)
+      (dolist (item dotspacemacs-startup-lists)
+        (when (equal (car item) 'recents)
+          (setq recent-files-list-length (cdr item))))
+      (dotimes (i recent-files-list-length)
+        (when (< (1+ i) 10)
+          (define-key spacemacs-buffer-mode-map
+            (number-to-string (1+ i))
+            `,(intern (format "recentf-open-most-recent-file-%s"
+                              (1+ i))))))))
+  (insert spacemacs-buffer-list-separator))
+
+(defun spacemacs-buffer//insert-recent-files-by-project (list-size)
+  (unless recentf-mode (recentf-mode))
+  (unless projectile-mode (projectile-mode))
+  (when (spacemacs-buffer//insert-files-by-dir-list
+         "Recent Files by Project:"
+         (mapcar (lambda (group)
+                   (cons (car group)
+                         (spacemacs//subseq (reverse (cdr group))
+                                            0
+                                            (cdr list-size))))
+                 (spacemacs//subseq (spacemacs-buffer//recent-files-by-project)
+                                    0
+                                    (car list-size))))
+    (spacemacs-buffer||add-shortcut "R" "Recent Files by Project:")
+    (insert spacemacs-buffer-list-separator)))
+
+(defun spacemacs-buffer//insert-todos (list-size)
+  (when (spacemacs-buffer//insert-todo-list
+         "ToDo:"
+         (spacemacs//subseq (spacemacs-buffer//todo-list)
+                            0 list-size))
+    (spacemacs-buffer||add-shortcut "d" "ToDo:")
+    (insert spacemacs-buffer-list-separator)))
+
+(defun spacemacs-buffer//insert-agenda (list-size)
+  (when (spacemacs-buffer//insert-todo-list
+         "Agenda:"
+         (spacemacs//subseq (spacemacs-buffer//agenda-list)
+                            0 list-size))
+    (spacemacs-buffer||add-shortcut "c" "Agenda:")
+    (insert spacemacs-buffer-list-separator)))
+
+(defun spacemacs-buffer//insert-bookmarks (list-size)
+  (when (configuration-layer/layer-used-p 'spacemacs-helm)
+    (helm-mode))
+  (require 'bookmark)
+  (when (spacemacs-buffer//insert-bookmark-list
+         "Bookmarks:"
+         (spacemacs//subseq (bookmark-all-names)
+                            0 list-size))
+    (spacemacs-buffer||add-shortcut "b" "Bookmarks:")
+    (insert spacemacs-buffer-list-separator)))
+
+(defun spacemacs-buffer//insert-projects (list-size)
+  (unless projectile-mode (projectile-mode))
+  (when (spacemacs-buffer//insert-file-list
+         "Projects:"
+         (spacemacs//subseq (projectile-relevant-known-projects)
+                            0 list-size))
+    (spacemacs-buffer||add-shortcut "p" "Projects:")
+    (insert spacemacs-buffer-list-separator)))
+
 (defun spacemacs-buffer//do-insert-startupify-lists ()
   "Insert the startup lists in the current buffer."
-  (let ((list-separator "\n\n"))
-    (mapc (lambda (els)
-            (let ((el (or (car-safe els) els))
-                  (list-size
-                   (or (cdr-safe els)
-                       spacemacs-buffer-startup-lists-length)))
-              (cond
-               ((eq el 'warnings)
-                (when (spacemacs-buffer//insert-string-list
-                       "Errors:" spacemacs-buffer--errors)
-                  (spacemacs-buffer||add-shortcut "e" "Errors:")
-                  (insert list-separator))
-                (when (spacemacs-buffer//insert-string-list
-                       "Warnings:" spacemacs-buffer--warnings)
-                  (spacemacs-buffer||add-shortcut "w" "Warnings:")
-                  (insert list-separator)))
-               ((eq el 'recents)
-                (unless recentf-mode (recentf-mode))
-                (when (spacemacs-buffer//insert-file-list
-                       "Recent Files:"
-                       (spacemacs//subseq recentf-list 0 list-size))
-                  (spacemacs-buffer||add-shortcut "r" "Recent Files:")
-                  (let (recent-files-list-length)
-                    (dolist (item dotspacemacs-startup-lists)
-                      (when (equal (car item) 'recents)
-                        (setq recent-files-list-length (cdr item))))
-                    (dotimes (i recent-files-list-length)
-                      (when (< (1+ i) 10)
-                        (define-key spacemacs-buffer-mode-map
-                          (number-to-string (1+ i))
-                          `,(intern (format "recentf-open-most-recent-file-%s"
-                                            (1+ i))))))))
-                (insert list-separator))
-               ((eq el 'recents-by-project)
-                (unless recentf-mode (recentf-mode))
-                (unless projectile-mode (projectile-mode))
-                (when (spacemacs-buffer//insert-files-by-dir-list
-                       "Recent Files by Project:"
-                       (mapcar (lambda (group)
-                                 (cons (car group)
-                                       (spacemacs//subseq (reverse (cdr group))
-                                                          0
-                                                          (cdr list-size))))
-                               (spacemacs//subseq (spacemacs-buffer//recent-files-by-project)
-                                                  0
-                                                  (car list-size))))
-                  (spacemacs-buffer||add-shortcut "R" "Recent Files by Project:")
-                  (insert list-separator)))
-               ((eq el 'todos)
-                (when (spacemacs-buffer//insert-todo-list
-                       "ToDo:"
-                       (spacemacs//subseq (spacemacs-buffer//todo-list)
-                                          0 list-size))
-                  (spacemacs-buffer||add-shortcut "d" "ToDo:")
-                  (insert list-separator)))
-               ((eq el 'agenda)
-                (when (spacemacs-buffer//insert-todo-list
-                       "Agenda:"
-                       (spacemacs//subseq (spacemacs-buffer//agenda-list)
-                                          0 list-size))
-                  (spacemacs-buffer||add-shortcut "c" "Agenda:")
-                  (insert list-separator)))
-               ((eq el 'bookmarks)
-                (when (configuration-layer/layer-used-p 'spacemacs-helm)
-                  (helm-mode))
-                (require 'bookmark)
-                (when (spacemacs-buffer//insert-bookmark-list
-                       "Bookmarks:"
-                       (spacemacs//subseq (bookmark-all-names)
-                                          0 list-size))
-                  (spacemacs-buffer||add-shortcut "b" "Bookmarks:")
-                  (insert list-separator)))
-               ((and (eq el 'projects)
-                     (fboundp 'projectile-mode))
-                (unless projectile-mode (projectile-mode))
-                (when (spacemacs-buffer//insert-file-list
-                       "Projects:"
-                       (spacemacs//subseq (projectile-relevant-known-projects)
-                                          0 list-size))
-                  (spacemacs-buffer||add-shortcut "p" "Projects:")
-                  (insert list-separator))))))
-          (append
-           '(warnings)
-           dotspacemacs-startup-lists))))
+  (dolist (els (append '(warnings) dotspacemacs-startup-lists))
+    (let ((el (or (car-safe els) els))
+          (list-size (or (cdr-safe els)
+                         spacemacs-buffer-startup-lists-length)))
+      (cond
+       ((eq el 'warnings)
+        (spacemacs-buffer//insert-errors)
+        (spacemacs-buffer//insert-warnings))
+       ((eq el 'recents) (spacemacs-buffer//insert-recent-files list-size))
+       ((eq el 'recents-by-project)
+        (spacemacs-buffer//insert-recent-files-by-project list-size))
+       ((eq el 'todos) (spacemacs-buffer//insert-todos list-size))
+       ((eq el 'agenda) (spacemacs-buffer//insert-agenda list-size))
+       ((eq el 'bookmarks) (spacemacs-buffer//insert-bookmarks list-size))
+       ((and (eq el 'projects)
+             (fboundp 'projectile-mode))
+        (spacemacs-buffer//insert-projects list-size))))))
 
 (defun spacemacs-buffer//get-buffer-width ()
   "Return the length of longest line in the current buffer."
