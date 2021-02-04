@@ -71,7 +71,7 @@ Then setup the =markdown-executable= variable to point to the executable of =Pyt
   (setq-default dotspacemacs-configuration-layers '(
     (markdown :variables markdown-executable "~/.local/bin/markdown_py")))
 #+END_SRC
-
+Another alternative is to install the `github layer` and use `grip-mode` for live previewing, though this only supports Github flavored markdown.
 By default the built-in Emacs web browser is used to live preview a markdown
 buffer.
 
