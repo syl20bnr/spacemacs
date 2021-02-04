@@ -51,6 +51,27 @@ file.
 
 * Configuration
 ** Live preview
+A live preview can be generated when either of these two executables are in path:
+- =markdown=
+- =pandoc=
+
+A well-knowned =markdown= command is from https://daringfireball.net/projects/markdown/.
+Or follow =pandoc= installation instructions to install pandoc into path:
+https://pandoc.org/installing.html
+
+Another choice is installing =Python-Markdown=:
+
+#+BEGIN_SRC shell
+  pip install --user Markdown
+#+END_SRC
+
+Then setup the =markdown-executable= variable to point to the executable of =Python-Markdown=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (markdown :variables markdown-executable "~/.local/bin/markdown_py")))
+#+END_SRC
+Another alternative is to install the `github layer` and use `grip-mode` for live previewing, though this only supports Github flavored markdown.
 By default the built-in Emacs web browser is used to live preview a markdown
 buffer.
 
