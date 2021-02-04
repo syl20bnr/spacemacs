@@ -948,4 +948,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
     (progn
       (add-hook 'org-mode-hook 'valign-mode)
       (add-hook 'valign-mode-hook (lambda () (unless valign-mode
-                                               (valign-remove-advice)))))))
+                                               (valign-remove-advice)))))
+    :config
+    (spacemacs|diminish valign-mode " ㊣" " E")))
+
