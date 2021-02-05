@@ -336,6 +336,10 @@ parse warnings:
 | ~SPC m n c~ | Run the =npm clean= command in the project root                                 |
 | ~SPC m n s~ | Prompt for the name of an npm package, install it and save to =dependencies=    |
 | ~SPC m n d~ | Prompt for the name of an npm package, install it and save to =devDependencies= |
+| ~SPC m n n~ | Initialize new project                                                          |
+| ~SPC m n u~ | Remove project dependency                                                       |
+| ~SPC m n l~ | List installed project dependencies                                             |
+| ~SPC m n p~ | Visit project =package.json= file                                               |
 
 ** Importing (import-js)
 

@@ -77,7 +77,11 @@
         "ni" 'npm-mode-npm-install
         "nr" 'npm-mode-npm-run
         "ns" 'npm-mode-npm-install-save
-        "nd" 'npm-mode-npm-install-save-dev))))
+        "nd" 'npm-mode-npm-install-save-dev
+        "nn" 'npm-mode-npm-init
+        "nu" 'npm-mode-npm-uninstall
+        "nl" 'npm-mode-npm-list
+        "np" 'npm-mode-visit-project-file))))
 
 (defun javascript/post-init-impatient-mode ()
   (spacemacs/set-leader-keys-for-major-mode 'js2-mode
