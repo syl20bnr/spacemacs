@@ -332,7 +332,7 @@ parse warnings:
 | Key binding | Description                                                                     |
 |-------------+---------------------------------------------------------------------------------|
 | ~SPC m n i~ | Run the =npm install= command in the project root                               |
-| ~SPC m n r~ | Show a list of avilable npm scripts, and execute the selected one               |
+| ~SPC m n r~ | Show a list of available npm scripts, and execute the selected one              |
 | ~SPC m n c~ | Run the =npm clean= command in the project root                                 |
 | ~SPC m n s~ | Prompt for the name of an npm package, install it and save to =dependencies=    |
 | ~SPC m n d~ | Prompt for the name of an npm package, install it and save to =devDependencies= |
