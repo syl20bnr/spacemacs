@@ -68,10 +68,8 @@
 
 (defun javascript/init-npm-mode ()
   (use-package npm-mode
-    :init
-    (progn
-      (add-hook 'js2-mode-hook #'npm-mode))
     :defer t
+    :init (add-hook 'js2-mode-hook #'npm-mode)
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'js2-mode "mn" "npm")
