@@ -209,7 +209,6 @@ have been disabled in favour of server,
 as recommended by =ccls= wikis.
 
 **** Debugger (dap integration)
-
 ***** Adapter selection
 To select the active adapters, configure the =c-c++-dap-adapters= layer variable.
 By default only the Microsoft extension is available.
@@ -221,6 +220,7 @@ By default only the Microsoft extension is available.
 | LLVM Project | lldb                              | =dap-lldb=     |
 
 Example configuration with two adapters selected:
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '((c-c++ :variables
