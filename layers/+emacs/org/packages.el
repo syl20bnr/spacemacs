@@ -803,7 +803,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
         (user-error "Error: No agenda files configured, nothing to display.")))))
 
 (defun org/pre-init-org-contacts ()
-  (spacemacs|use-package-add-hook org-agenda :post-config (require 'org-contacts)))
+  (spacemacs|use-package-add-hook org-agenda :pre-config (require 'org-contacts)))
 (defun org/init-org-contacts ()
   (use-package org-contacts
     :defer t
