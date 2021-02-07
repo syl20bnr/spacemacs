@@ -566,6 +566,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
         ("." org-agenda-goto-today)
         ("gd" org-agenda-goto-date)))
     :config
+    (when org-enable-org-contacts-support
+      (use-package org-contacts))
     (evilified-state-evilify-map org-agenda-mode-map
       :mode org-agenda-mode
       :bindings
@@ -802,8 +804,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
                    ))
         (user-error "Error: No agenda files configured, nothing to display.")))))
 
-(defun org/pre-init-org-contacts ()
-  (spacemacs|use-package-add-hook org-agenda :pre-config (require 'org-contacts)))
+;; (defun org/pre-init-org-contacts ()
+;;   (spacemacs|use-package-add-hook org-agenda :post-init (require 'org-contacts)))
 (defun org/init-org-contacts ()
   (use-package org-contacts
     :defer t
