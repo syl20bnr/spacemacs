@@ -56,9 +56,9 @@ A live preview can be generated when one of these executables are in path:
 - =pandoc=
 - =markdown_py=
 
-A well-knowned =markdown= command is from https://daringfireball.net/projects/markdown/.
+A well-knowned =markdown= command is from [[https://daringfireball.net/projects/markdown/]].
 Or follow =pandoc= installation instructions to install pandoc into path:
-https://pandoc.org/installing.html
+[[https://pandoc.org/installing.html]]
 
 Another choice is installing =Python-Markdown=:
 

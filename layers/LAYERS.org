@@ -214,7 +214,6 @@
   - [[#dap][DAP]]
   - [[#debug][Debug]]
   - [[#docker][Docker]]
-  - [[#eaf-emacs-application-layer][EAF (Emacs Application Layer)]]
   - [[#fasd][Fasd]]
   - [[#finance][Finance]]
   - [[#geolocation][Geolocation]]
@@ -252,6 +251,7 @@
   - [[#vinegar][Vinegar]]
 - [[#web-services][Web services]]
   - [[#confluence][Confluence]]
+  - [[#eaf][Eaf]]
   - [[#evernote][Evernote]]
   - [[#search-engine][Search Engine]]
   - [[#twitter][Twitter]]
@@ -2774,16 +2774,6 @@ Features:
 - Syntax checking via [[https://github.com/hadolint/hadolint][hadolint]]
 - Code-Completion via =lsp=
 
-** EAF (Emacs Application Layer)
-[[file:+tools/eaf/README.org][+tools/eaf/README.org]]
-
-This layer integrates the [[https://github.com/clvv/fasd][fasd]] command line tool into Spacemacs.
-
-Features:
-- Adds easy shortcuts to reference recent files and directories.
-- Provides =fasd= with recent open file lists from Emacs.
-- Allows to filter =fasd= results with =helm= or =ivy=.
-  
 ** Fasd
 [[file:+tools/fasd/README.org][+tools/fasd/README.org]]
 
@@ -3196,6 +3186,18 @@ This layer adds support for Atlassian [[https://www.atlassian.com/software/confl
 Features:
 - Creating/editing of Confluence pages
 - Exporting of org buffers to Confluence =wiki= format
+
+** Eaf
+[[file:+tools/eaf/README.org][+tools/eaf/README.org]]
+
+This layer adds support for the [[https://github.com/manateelazycat/emacs-application-framework][Emacs Application Framework (EAF)]].
+
+Features:
+- Browse using a full-fledged browser within Emacs
+- PDF viewer (with continuous scroll)
+- Video player
+- Image viewer
+- See [[https://github.com/manateelazycat/emacs-application-framework#launch-eaf-applications][EAF documentation]] for many more features
 
 ** Evernote
 [[file:+web-services/evernote/README.org][+web-services/evernote/README.org]]
