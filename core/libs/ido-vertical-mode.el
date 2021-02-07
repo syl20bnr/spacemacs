@@ -1,10 +1,11 @@
-;;; ido-vertical-mode.el --- Makes ido-mode display vertically.
+;;; ido-vertical-mode.el --- Makes ido-mode display vertically
 
 ;; Copyright (C) 2013, 2014  Steven Degutis
 
 ;; Author: Steven Degutis
 ;; Maintainer: Christopher Reichert <creichert07@gmail.com>
-;; Version: 1.0.0
+;; Version: 1.0.1
+;; Package-Requires: ((emacs "24.4"))
 ;; Keywords: convenience
 ;; URL: https://github.com/creichert/ido-vertical-mode.el
 
@@ -43,31 +44,45 @@
 ;; Remember if current directory is 'huge' (so we don't want to do completion).
 (defvar ido-directory-too-big)
 
-(defcustom ido-vertical-indicator "->"
-  "Indicator displayed next to the candidate that will be selected."
-  :type 'string
-  :group 'ido-vertical-mode)
-
-(defvar ido-vertical-decorations
-  `(,(format "\n%s " ido-vertical-indicator)  ; left bracket around prospect list
-    ""                                        ; right bracket around prospect list
-    "\n   "                                   ; separator between prospects, depends on `ido-separator`
-    "\n   ..."                                ; inserted at the end of a truncated list of prospects
-    "["                                       ; left bracket around common match string
-    "]"                                       ; right bracket around common match string
-    " [No match]"
-    " [Matched]"
-    " [Not readable]"
-    " [Too big]"
-    " [Confirm]"
-    ,(format "\n%s " ido-vertical-indicator)  ; left bracket around the sole remaining completion
-    ""                                        ; right bracket around the sole remaining completion
-    )
-
+(defvar ido-vertical-decorations nil
   "Changing the decorations does most of the work for ido-vertical
 
 This sets up newlines and arrows before, between, and after the
 prospects. For additional information, see `ido-decorations'.")
+
+(defcustom ido-vertical-padding " "
+  "How many spaces to pad the completion candidates.
+
+When setting this variable in ELISP, you must also make sure
+`ido-vertical-decorations' is updated. In addition, if
+`ido-vertical-mode' is on, it must be set to the new value of
+`ido-vertical-decorations' for this variable to take effect in
+the next ido completion event."
+  :type 'string
+  :group 'ido-vertical
+  :initialize 'custom-initialize-default
+  :set (lambda (symbol value)
+         (set-default symbol value)
+         (setq ido-vertical-decorations (ido-vertical-make-decorations :padding value))
+         (when (bound-and-true-p ido-vertical-mode)
+           (setq ido-decorations ido-vertical-decorations))))
+
+(defcustom ido-vertical-indicator "->"
+  "Indicator displayed next to the candidate that will be selected.
+
+When setting this variable in ELISP, you must also make sure
+`ido-vertical-decorations' is updated. In addition, if
+`ido-vertical-mode' is on, it must be set to the new value of
+`ido-vertical-decorations' for this variable to take effect in
+the next ido completion event."
+  :type 'string
+  :group 'ido-vertical
+  :initialize 'custom-initialize-default
+  :set (lambda (symbol value)
+         (set-default symbol value)
+         (setq ido-vertical-decorations (ido-vertical-make-decorations :indicator value))
+         (when (bound-and-true-p ido-vertical-mode)
+           (setq ido-decorations ido-vertical-decorations))))
 
 (defvar ido-vertical-old-decorations nil
   "The original `ido-decorations' variable
@@ -81,14 +96,14 @@ when turning `ido-vertical-mode' off")
 We need to keep track of the original value of `ido-completions'
 so we can restore it when turning `ido-vertical-mode' off")
 
-(defgroup ido-vertical-mode nil
+(defgroup ido-vertical nil
   "Make ido behave vertically."
   :group 'ido)
 
 (defcustom ido-vertical-show-count nil
   "Non nil means show the count of candidates while completing."
   :type 'boolean
-  :group 'ido-vertical-mode)
+  :group 'ido-vertical)
 
 (defvar ido-vertical-count-active nil
   "Used internally to track whether we're already showing the count")
@@ -100,32 +115,51 @@ so we can restore it when turning `ido-vertical-mode' off")
           (const :tag "C-p and C-n are up & down in match" C-n-and-C-p-only)
           (const :tag "C-p/up and C-n/down are up and down in match." C-n-C-p-up-and-down)
           (const :tag "C-p/up, C-n/down are up/down in match. left or right cycle history or directory." C-n-C-p-up-down-left-right))
-  :group 'ido-vertical-mode)
+  :group 'ido-vertical)
 
 (defcustom ido-vertical-pad-list t
   "Non nil means to pad the list of candidates to ensure the minibuffer area is always tall"
   :type 'boolean
-  :group 'ido-vertical-mode)
+  :group 'ido-vertical)
 
 (defcustom ido-vertical-disable-if-short nil
   "Non nil means that ido will go back to horizontal mode if the candidates all fit in the minibuffer area"
   :type 'boolean
-  :group 'ido-vertical-mode)
+  :group 'ido-vertical)
 
 (defface ido-vertical-first-match-face
   '((t (:inherit ido-first-match)))
   "Face used by Ido Vertical for highlighting first match."
-  :group 'ido-vertical-mode)
+  :group 'ido-vertical)
 
 (defface ido-vertical-only-match-face
   '((t (:inherit ido-only-match)))
   "Face used by Ido Vertical for highlighting only match."
-  :group 'ido-vertical-mode)
+  :group 'ido-vertical)
 
 (defface ido-vertical-match-face
   '((t (:inherit font-lock-variable-name-face :bold t :underline t)))
   "Face used by Ido Vertical for the matched part."
-  :group 'ido-vertical-mode)
+  :group 'ido-vertical)
+
+(cl-defun ido-vertical-make-decorations (&key (padding ido-vertical-padding)
+                                              (indicator ido-vertical-indicator))
+  "Construct a new `ido-decorations' format."
+  (list
+   (concat "\n" indicator padding)                                           ; left bracket around prospect list
+   ""                                                                        ; right bracket around prospect list
+   (concat (format (format "\n%%-%ds" (length indicator)) "") padding)       ; separator between prospects, depends on `ido-separator`
+   (concat (format (format "\n%%-%ds" (length indicator)) "") padding "...") ; inserted at the end of a truncated list of prospects
+   "["                                                                       ; left bracket around common match string
+   "]"                                                                       ; right bracket around common match string
+   " [No match]"
+   " [Matched]"
+   " [Not readable]"
+   " [Too big]"
+   " [Confirm]"
+   (concat "\n" indicator padding)                                           ; left bracket around the sole remaining completion
+   ""                                                                        ; right bracket around the sole remaining completion
+   ))
 
 (defun ido-vertical-or-horizontal-completions (name)
   (if (and ido-vertical-disable-if-short
@@ -191,11 +225,12 @@ so we can restore it when turning `ido-vertical-mode' off")
         (put-text-property 0 1 'face 'ido-indicator ind))
 
     (when ido-vertical-show-count
-      (setcar ido-vertical-decorations (format " [%d]\n%s " lencomps ido-vertical-indicator))
+      (setcar ido-vertical-decorations (concat (format " [%d]\n%s" lencomps ido-vertical-indicator)
+                                               ido-vertical-padding))
       (setq ido-vertical-count-active t))
     (when (and (not ido-vertical-show-count)
                ido-vertical-count-active)
-      (setcar ido-vertical-decorations (format "\n%s "ido-vertical-indicator))
+      (setcar ido-vertical-decorations (concat "\n" ido-vertical-indicator ido-vertical-padding))
       (setq ido-vertical-count-active nil))
 
     (if (and ido-use-faces comps)
@@ -285,25 +320,27 @@ so we can restore it when turning `ido-vertical-mode' off")
   "Prevent the newlines in the minibuffer from being truncated"
   (set (make-local-variable 'truncate-lines) nil))
 
-(defun turn-on-ido-vertical ()
+(defun ido-vertical-turn-on ()
   (if (and (eq nil ido-vertical-old-decorations)
            (eq nil ido-vertical-old-completions))
       (progn
         (setq ido-vertical-old-decorations ido-decorations)
         (setq ido-vertical-old-completions (symbol-function 'ido-completions))))
 
-  (setq ido-decorations ido-vertical-decorations)
+  (setq ido-vertical-decorations (ido-vertical-make-decorations) ido-decorations ido-vertical-decorations)
   (fset 'ido-completions 'ido-vertical-or-horizontal-completions)
 
   (add-hook 'ido-minibuffer-setup-hook 'ido-vertical-disable-line-truncation)
   (add-hook 'ido-setup-hook 'ido-vertical-define-keys))
+(make-obsolete 'turn-on-ido-vertical 'ido-vertical-turn-on "1.0.1")
 
-(defun turn-off-ido-vertical ()
+(defun ido-vertical-turn-off ()
   (setq ido-decorations ido-vertical-old-decorations)
   (fset 'ido-completions ido-vertical-old-completions)
 
   (remove-hook 'ido-minibuffer-setup-hook 'ido-vertical-disable-line-truncation)
   (remove-hook 'ido-setup-hook 'ido-vertical-define-keys))
+(make-obsolete 'turn-off-ido-vertical 'ido-vertical-turn-off "1.0.1")
 
 (defun ido-vertical-next-match ()
   "Call the correct next-match function for right key.
@@ -347,10 +384,9 @@ This is based on:
 (define-minor-mode ido-vertical-mode
   "Makes ido-mode display vertically."
   :global t
-  :group 'ido-vertical-mode
   (if ido-vertical-mode
-      (turn-on-ido-vertical)
-    (turn-off-ido-vertical)))
+      (ido-vertical-turn-on)
+    (ido-vertical-turn-off)))
 
 (provide 'ido-vertical-mode)
 ;; Local Variables:
