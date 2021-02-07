@@ -9,49 +9,48 @@
 ;;
 ;;; License: GPLv3
 
-(setq org-packages
-      '(
-        company
-        company-emoji
-        emoji-cheat-sheet-plus
-        evil-org
-        evil-surround
-        gnuplot
-        (helm-org-rifle :toggle (configuration-layer/layer-used-p 'helm))
-        htmlize
-        ;; ob, org, org-agenda and org-contacts are installed by `org-plus-contrib'
-        (ob :location built-in)
-        (org :location built-in)
-        (org-agenda :location built-in)
-        (org-contacts :location built-in
-                      :toggle org-enable-org-contacts-support)
-        (org-vcard)
-        (org-brain :toggle (version<= "25" emacs-version))
-        (org-expiry :location built-in)
-        (org-journal :toggle org-enable-org-journal-support)
-        org-download
-        (org-jira :toggle org-enable-jira-support)
-        org-mime
-        org-pomodoro
-        org-present
-        org-cliplink
-        org-rich-yank
-        (org-projectile :requires projectile)
-        (ox-epub :toggle org-enable-epub-support)
-        (ox-twbs :toggle org-enable-bootstrap-support)
-        ;; use a for of ox-gfm to fix index generation
-        (ox-gfm :location (recipe :fetcher github :repo "syl20bnr/ox-gfm")
-                :toggle org-enable-github-support)
-        (org-re-reveal :toggle org-enable-reveal-js-support)
-        persp-mode
-        (ox-hugo :toggle org-enable-hugo-support)
-        (ox-jira :toggle org-enable-jira-support)
-        (org-trello :toggle org-enable-trello-support)
-        (org-sticky-header :toggle org-enable-sticky-header)
-        (verb :toggle org-enable-verb-support)
-        (org-roam :toggle org-enable-roam-support)
-        (valign :toggle org-enable-valign)
-        ))
+(defconst org-packages
+  '(
+    company
+    company-emoji
+    emoji-cheat-sheet-plus
+    evil-org
+    evil-surround
+    gnuplot
+    (helm-org-rifle :toggle (configuration-layer/layer-used-p 'helm))
+    htmlize
+    ;; ob, org, org-agenda and org-contacts are installed by `org-plus-contrib'
+    (ob :location built-in)
+    (org :location built-in)
+    (org-agenda :location built-in)
+    (org-contacts :location built-in
+                  :toggle org-enable-org-contacts-support)
+    (org-vcard :toggle org-enable-org-contacts-support)
+    (org-brain :toggle (version<= "25" emacs-version))
+    (org-expiry :location built-in)
+    (org-journal :toggle org-enable-org-journal-support)
+    org-download
+    (org-jira :toggle org-enable-jira-support)
+    org-mime
+    org-pomodoro
+    org-present
+    org-cliplink
+    org-rich-yank
+    (org-projectile :requires projectile)
+    (ox-epub :toggle org-enable-epub-support)
+    (ox-twbs :toggle org-enable-bootstrap-support)
+    ;; use a for of ox-gfm to fix index generation
+    (ox-gfm :location (recipe :fetcher github :repo "syl20bnr/ox-gfm")
+            :toggle org-enable-github-support)
+    (org-re-reveal :toggle org-enable-reveal-js-support)
+    persp-mode
+    (ox-hugo :toggle org-enable-hugo-support)
+    (ox-jira :toggle org-enable-jira-support)
+    (org-trello :toggle org-enable-trello-support)
+    (org-sticky-header :toggle org-enable-sticky-header)
+    (verb :toggle org-enable-verb-support)
+    (org-roam :toggle org-enable-roam-support)
+    (valign :toggle org-enable-valign)))
 
 (defun org/post-init-company ()
   (spacemacs|add-company-backends :backends company-capf :modes org-mode))
@@ -186,24 +185,24 @@ Will work on both org-mode and any mode that accepts plain html."
             (insert (format tag ""))
             (forward-char -8))))
 
-        (dolist (prefix `(
-                          ("mb" . "babel")
-                          ("mC" . ,(org-clocks-prefix))
-                          ("md" . "dates")
-                          ("me" . "export")
-                          ("mf" . "feeds")
-                          ("mi" . "insert")
-                          ("miD" . "download")
-                          ("mm" . "more")
-                          ("ms" . "trees/subtrees")
-                          ("mT" . "toggles")
-                          ("mt" . "tables")
-                          ("mtd" . "delete")
-                          ("mti" . "insert")
-                          ("mtt" . "toggle")
-                          ("mx" . "text")
-                          ))
-          (spacemacs/declare-prefix-for-mode 'org-mode (car prefix) (cdr prefix)))
+      (dolist (prefix `(
+                        ("mb" . "babel")
+                        ("mC" . ,(org-clocks-prefix))
+                        ("md" . "dates")
+                        ("me" . "export")
+                        ("mf" . "feeds")
+                        ("mi" . "insert")
+                        ("miD" . "download")
+                        ("mm" . "more")
+                        ("ms" . "trees/subtrees")
+                        ("mT" . "toggles")
+                        ("mt" . "tables")
+                        ("mtd" . "delete")
+                        ("mti" . "insert")
+                        ("mtt" . "toggle")
+                        ("mx" . "text")
+                        ))
+        (spacemacs/declare-prefix-for-mode 'org-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "'" 'org-edit-special
         "c" 'org-capture
@@ -213,7 +212,6 @@ Will work on both org-mode and any mode that accepts plain html."
         "Cc" 'org-clock-cancel
         "Cd" 'org-clock-display
         "Ce" 'org-evaluate-time-range
-        "Cf" 'org-contacts-find-file
         "Cg" 'org-clock-goto
         "Ci" 'org-clock-in
         "CI" 'org-clock-in-last
@@ -378,7 +376,6 @@ Will work on both org-mode and any mode that accepts plain html."
         ;; Clock
         ;; These keybindings should match those under the "mC" prefix (above)
         "aoCc" 'org-clock-cancel
-        "aoCf" 'org-contacts-find-file
         "aoCg" 'org-clock-goto
         "aoCi" 'org-clock-in
         "aoCI" 'org-clock-in-last
@@ -461,12 +458,12 @@ Will work on both org-mode and any mode that accepts plain html."
     :init
     (progn
       (setq org-agenda-restore-windows-after-quit t)
-        (dolist (prefix `(("mC" . ,(org-clocks-prefix))
-                          ("md" . "dates")
-                          ("mi" . "insert")
-                          ("ms" . "trees/subtrees")))
-          (spacemacs/declare-prefix-for-mode 'org-agenda-mode
-            (car prefix) (cdr prefix)))
+      (dolist (prefix `(("mC" . ,(org-clocks-prefix))
+                        ("md" . "dates")
+                        ("mi" . "insert")
+                        ("ms" . "trees/subtrees")))
+        (spacemacs/declare-prefix-for-mode 'org-agenda-mode
+          (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
         (or dotspacemacs-major-mode-leader-key ",") 'org-agenda-ctrl-c-ctrl-c
         "a" 'org-agenda
@@ -475,7 +472,6 @@ Will work on both org-mode and any mode that accepts plain html."
         "Ci" 'org-agenda-clock-in
         "Co" 'org-agenda-clock-out
         "Cj" 'org-agenda-clock-goto
-        "Cf" 'org-contacts-find-file
         "dd" 'org-agenda-deadline
         "ds" 'org-agenda-schedule
         "ie" 'org-agenda-set-effort
@@ -570,8 +566,6 @@ Headline^^            Visit entry^^               Filter^^                    Da
         ("." org-agenda-goto-today)
         ("gd" org-agenda-goto-date)))
     :config
-    (when org-enable-org-contacts-support
-      (use-package org-contacts))
     (evilified-state-evilify-map org-agenda-mode-map
       :mode org-agenda-mode
       :bindings
@@ -805,16 +799,25 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (if agenda-files
           (progn (find-file (if org-persp-startup-org-file org-persp-startup-org-file (first agenda-files)))
                  (if org-persp-startup-with-agenda (org-agenda nil org-persp-startup-with-agenda)
-                 ))
+                   ))
         (user-error "Error: No agenda files configured, nothing to display.")))))
 
+(defun org/pre-init-org-contacts ()
+  (spacemacs|use-package-add-hook org-agenda :post-config (require 'org-contacts)))
 (defun org/init-org-contacts ()
   (use-package org-contacts
-    :defer t))
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
+        "Cf" 'org-contacts-find-file)
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "Cf" 'org-contacts-find-file)
+      (spacemacs/set-leader-keys
+        "aoCf" 'org-contacts-find-file))))
 
 (defun org/init-org-vcard ()
   (use-package org-vcard
-    :after org-contacts
     :defer t))
 
 (defun org/init-org-journal ()
@@ -968,4 +971,3 @@ Headline^^            Visit entry^^               Filter^^                    Da
                                                (valign-remove-advice)))))
     :config
     (spacemacs|diminish valign-mode " ㊣" " E")))
-

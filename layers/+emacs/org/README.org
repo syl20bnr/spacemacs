@@ -172,12 +172,10 @@ visited with the keyboard shortcut ~SPC a o C f~.
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '((org :variables org-enable-org-contacts-support t
-                       org=contact-file '("file1.org" "file2.org")
-                       ("c" "Contacts" entry (file "~/Org/contacts.org")
-                        "* %(org-contacts-template-name)
-  :PROPERTIES:
-  :EMAIL: %(org-contacts-template-email)
-  :END:"))))
+                                  org=contact-file '("file1.org" "file2.org")
+                                  ("c" "Contacts" entry (file "~/Org/contacts.org")
+                                  "* %(org-contacts-template-name) :PROPERTIES:
+                                  :EMAIL: %(org-contacts-template-email) :END:"))))
 #+END_SRC
 A more elaborate capture template can be found in the =org-contacts.el= file.
 
@@ -185,10 +183,10 @@ Contacts can include the :BIRTHDAY: keyword. To include the birthdays in your
 org-agenda add ~%%(org-contacts-anniversaries)~ to one of your contacts files.
 It is important that this is inserted after a heading an that it has no
 preceding whitespace. So probably the best way is to add
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   * Birthdays
   %%(org-contacts-anniversaries)
-#+end_src
+#+END_SRC
 to the beginning or the end of one of your contacts files.
 
 *** V-Card import/export

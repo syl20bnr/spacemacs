@@ -18,8 +18,9 @@
     "clocks"))
 
 (defun org-contacts-find-file ()
+  "Open first contact file"
   (interactive)
-  (if org-contacts-files
+  (if (bound-and-true-p org-contacts-files)
       (find-file (car org-contacts-files))
     (message "No specific org-contacts-files defined. Org-contacts uses all org files.")))
 
