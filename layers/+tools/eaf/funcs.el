@@ -1,3 +1,14 @@
+;;; funcs.el --- eaf Layer functions File for Spacemacs
+;;
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;;
+;; Author: Daniel Nicolai <dalanicolai@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
 (defun duckduckgo ()
   (interactive)
   (eaf-open-browser "www.duckduckgo.com"))

@@ -2,9 +2,6 @@
 
 #+TAGS: layer|web service
 
-# The maximum height of the logo should be 200 pixels.
-# [[img/eaf.png]]
-
 * Table of Contents                                       :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
@@ -63,30 +60,44 @@
 *** All EAF-applications
 | Key Binding | Description                                                           |
 |-------------+-----------------------------------------------------------------------|
-| ~SPC a a f~ | EAF open file ([[https://github.com/manateelazycat/emacs-application-framework#launch-eaf-applications][see EAF doc for suppoted file types]])                   |
+| ~SPC a a f~ | EAF open file ([[https://github.com/manateelazycat/emacs-application-framework#launch-eaf-applications][see EAF doc for supported file types]])                   |
 | ~SPC t k m~ | Show available key commands in which-key (read [[https://develop.spacemacs.org/doc/DOCUMENTATION.html#which-key][here]] for more details) |
-| ~, d~       | toggle dark-mode (in pdf-viewer just press ~d~)                      |
+| ~SPC m d~   | toggle dark-mode (in pdf-viewer just press ~d~)                      |
+
 *** Browser
+| Key Binding   | Description                                                           |
+|---------------+-----------------------------------------------------------------------|
 | ~SPC a a b o~ | Open url in new buffer                                                                |
 | ~SPC a a b s~ | Search with [[https://github.com/manateelazycat/emacs-application-framework/wiki/Customization#default-search-engine][your favorite search engine]]. Defaults to symbol at point or region string |
 | ~SPC a a b b~ | Open bookmark in new buffer                                                           |
 | ~SPC a a b h~ | Search and open buffer from history                                                   |
+
 ** Local
 *** All EAF-applications
-| ~j/k~ | Scroll up/down |
+| Key Binding | Description    |
+|-------------+----------------|
+| ~j/k~       | Scroll up/down |
+
 *** Browser
-|-------+----------------------------------------------------------------|
-| ~J/K~ | Scroll (half) page up/down                                     |
-| ~e~   | Edit url                                                       |
-| ~m~   | Bookmark page                                                  |
-| ~C-s~ | Search/search find next (to enter new search prefix with ~C-g~ |
-| ~C-r~ | Search find previous                                           |
-| ~, h~ | Open new buffer from history                                   |
-| ~, s~ | Search web with [[https://github.com/manateelazycat/emacs-application-framework/wiki/Customization#default-search-engine][favorite search engine]]                         |
+| Key Binding | Description                                                    |
+|-------------+----------------------------------------------------------------|
+| ~J/K~       | Scroll (half) page up/down                                     |
+| ~e~         | Edit url                                                       |
+| ~m~         | Bookmark page                                                  |
+| ~C-s~       | Search/search find next (to enter new search prefix with ~C-g~ |
+| ~C-r~       | Search find previous                                           |
+| ~SPC m h~   | Open new buffer from history                                   |
+| ~SPC m s~   | Search web with [[https://github.com/manateelazycat/emacs-application-framework/wiki/Customization#default-search-engine][favorite search engine]]                         |
+
 *** PDF-viewer
-| ~d~ | toggle dark-mode |
+| Key Binding | Description      |
+|-------------+------------------|
+| ~d~         | toggle dark-mode |
+
 *** pdf-view-mode (pdf-tools)
-| ~, e~ | open in eaf pdf-viewer |
+| Key Binding | Description            |
+|-------------+------------------------|
+| ~SPC m e~   | open in eaf pdf-viewer |
     
 There are many more keybindings. Use ~SPC t k m~ to [[https://develop.spacemacs.org/doc/DOCUMENTATION.html#which-key-persistent][show them persistently in
 which-key]], or use ~SPC h d k~ to show the `eaf-mode-map` in a separate buffer.
