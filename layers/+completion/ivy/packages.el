@@ -281,7 +281,8 @@
             ivy-virtual-abbreviate 'full))
     :config
     (progn
-      (ivy-rich-mode))))
+      (ivy-rich-mode)
+      (ivy-rich-project-root-cache-mode))))
 
 (defun ivy/init-ivy-spacemacs-help ()
   (use-package ivy-spacemacs-help
