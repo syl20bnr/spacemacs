@@ -174,7 +174,7 @@ the lsp server and separate dependencies with below
 command:
 
 #+BEGIN_SRC sh
-  npm install -g elm-analysis @elm-tooling/elm-language-server
+  npm install -g elm-analyse @elm-tooling/elm-language-server
 #+END_SRC
 
 NOTE: Key bindings for LSP are defined in the
