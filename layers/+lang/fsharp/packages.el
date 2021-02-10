@@ -13,6 +13,7 @@
   '(
     company
     counsel-gtags
+    (eglot-fsharp :toggle (eq (spacemacs//fsharp-backend) 'eglot))
     flycheck
     fsharp-mode
     ggtags
@@ -25,15 +26,23 @@
 (defun fsharp/post-init-flycheck ()
   (spacemacs/enable-flycheck 'fsharp-mode))
 
+(defun fsharp/init-eglot-fsharp ()
+  (use-package eglot-fsharp
+    :defer t
+    :init
+    (progn
+      (require 'f)
+      (setq eglot-fsharp-server-install-dir
+            (expand-file-name
+             (locate-user-emacs-file (f-join ".cache" "eglot")))))))
+
 (defun fsharp/init-fsharp-mode ()
   (use-package fsharp-mode
     :defer t
     :init
     (progn
-      (unless (eq (spacemacs//fsharp-backend) 'lsp)
+      (when (eq (spacemacs//fsharp-backend) 'eglot)
         (require 'eglot-fsharp))
-      (setq eglot-fsharp-server-install-dir (expand-file-name
-                                             (locate-user-emacs-file (f-join ".cache" "eglot"))))
       (setq fsharp-doc-idle-delay .2)
       (spacemacs/register-repl 'fsharp-mode 'fsharp-show-subshell "F#")
       (add-hook 'fsharp-mode-hook #'spacemacs//fsharp-setup-backend))
@@ -63,7 +72,7 @@
 
       (spacemacs/declare-prefix-for-mode 'fsharp-mode "ms" "repl")
       (spacemacs/declare-prefix-for-mode 'fsharp-mode "mc" "compile")
-      (unless (eq (spacemacs//fsharp-backend) 'lsp)
+      (when (eq (spacemacs//fsharp-backend) 'eglot)
         (spacemacs/declare-prefix-for-mode 'fsharp-mode "mg" "goto"))
 
       (spacemacs/set-leader-keys-for-major-mode 'fsharp-mode
