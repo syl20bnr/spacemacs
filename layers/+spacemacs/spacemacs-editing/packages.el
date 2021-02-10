@@ -76,7 +76,7 @@
         "xo" 'spacemacs/avy-open-url))
     :config
     (progn
-      (defun spacemacs/avy-goto-url()
+      (defun spacemacs/avy-goto-url ()
         "Use avy to go to an URL in the buffer."
         (interactive)
         (avy-jump "https?://"))

@@ -26,7 +26,7 @@
                t)
   (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(factor-mode-hook fuel-mode-hook)))
 
-(defun factor/init-fuel()
+(defun factor/init-fuel ()
   (use-package factor-mode
     :commands factor-mode run-factor fuel-mode
     :mode ("factor\\'" . factor-mode)

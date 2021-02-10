@@ -48,7 +48,7 @@
     res))
 
 (when (configuration-layer/layer-used-p 'helm)
-  (defun spacemacs//julia-helm-math-insert()
+  (defun spacemacs//julia-helm-math-insert ()
     "Insert a utf8 symbol from `julia-latexsubs'"
     (interactive)
     (helm :sources (helm-build-sync-source "test"

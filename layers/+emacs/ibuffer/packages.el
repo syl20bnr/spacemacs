@@ -15,7 +15,7 @@
         ibuffer-projectile
         ))
 
-(defun ibuffer/init-ibuffer()
+(defun ibuffer/init-ibuffer ()
   (use-package ibuffer
     :defer t
     :init
@@ -40,7 +40,7 @@
       "gk" 'ibuffer-backward-filter-group
       "["  'ibuffer-backward-filter-group)))
 
-(defun ibuffer/init-ibuffer-projectile()
+(defun ibuffer/init-ibuffer-projectile ()
     (use-package ibuffer-projectile
       :defer t
       :init

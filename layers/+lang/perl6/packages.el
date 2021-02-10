@@ -33,7 +33,7 @@
   (with-eval-after-load 'flycheck
     (require 'flycheck-perl6)))
 
-(defun perl6/init-raku-mode()
+(defun perl6/init-raku-mode ()
   (use-package raku-mode
     :defer t
     :mode (("/perl6/site/sources/" . perl6-mode))))

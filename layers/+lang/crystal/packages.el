@@ -24,7 +24,7 @@
 (defun crystal/post-init-company ()
   (spacemacs//crystal-setup-company))
 
-(defun crystal/init-ameba()
+(defun crystal/init-ameba ()
   (use-package ameba
     :defer t
     :init
@@ -36,7 +36,7 @@
         "uaf" 'ameba-check-current-file
         "uap" 'ameba-check-project))))
 
-(defun crystal/init-crystal-mode()
+(defun crystal/init-crystal-mode ()
   (use-package crystal-mode
     :defer t
     :init
@@ -58,13 +58,13 @@
         "ui" 'crystal-tool-imp
         "ax" 'spacemacs/crystal-run-main))))
 
-(defun crystal/post-init-flycheck()
+(defun crystal/post-init-flycheck ()
   (spacemacs/enable-flycheck 'crystal-mode))
 
 (defun crystal/init-flycheck-crystal ()
   (use-package flycheck-crystal))
 
-(defun crystal/init-inf-crystal()
+(defun crystal/init-inf-crystal ()
   (use-package inf-crystal
     :defer t
     :init
@@ -90,7 +90,7 @@
       :init (add-to-list 'org-babel-load-languages '(crystal . t)))))
 (defun crystal/init-ob-crystal ())
 
-(defun crystal/init-play-crystal()
+(defun crystal/init-play-crystal ()
   (use-package play-crystal
     :defer t
     :init

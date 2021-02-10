@@ -12,7 +12,7 @@
 (defconst debug-packages
   '(realgud))
 
-(defun debug/init-realgud()
+(defun debug/init-realgud ()
   (use-package realgud
     :defer t
     :init

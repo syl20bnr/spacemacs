@@ -215,7 +215,7 @@
   (use-package rtags
     :defer t))
 
-(defun c-c++/post-init-realgud()
+(defun c-c++/post-init-realgud ()
   (dolist (mode c-c++-modes)
     (spacemacs/add-realgud-debugger mode "gdb")))
 
