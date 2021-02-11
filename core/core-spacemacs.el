@@ -256,7 +256,7 @@ Note: the hooked function is not executed when in dumped mode."
   (let ((default-directory spacemacs-start-directory))
     (if dotspacemacs-byte-compile
         (spacemacs//ensure-byte-compilation spacemacs--compiled-files)
-      (spacemacs//remove-byte-compiled-files spacemacs--compiled-files)))
+      (spacemacs//remove-byte-compiled-files-in-dir spacemacs-core-directory)))
   ;; Check if revision has changed.
   (spacemacs//revision-check))
 
