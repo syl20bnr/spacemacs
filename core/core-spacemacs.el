@@ -10,6 +10,11 @@
 ;;; License: GPLv3
 (setq message-log-max 16384)
 
+(defgroup spacemacs nil
+  "Spacemacs customizations."
+  :group 'emacs
+  :prefix 'spacemacs-)
+
 (require 'subr-x nil 'noerror)
 (require 'core-emacs-backports)
 (require 'core-env)
@@ -34,11 +39,6 @@
 (require 'core-use-package-ext)
 (require 'core-spacebind)
 (require 'core-compilation)
-
-(defgroup spacemacs nil
-  "Spacemacs customizations."
-  :group 'starter-kit
-  :prefix 'spacemacs-)
 
 (defvar spacemacs-post-user-config-hook nil
   "Hook run after dotspacemacs/user-config")
