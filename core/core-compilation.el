@@ -27,6 +27,7 @@
     "core/libs/package-build-badges.el"
     "core/libs/package-build.el"
     "core/libs/package-recipe-mode.el"
+    "core/libs/package-recipe.el"
     "core/libs/page-break-lines.el"
     "core/libs/quelpa.el"
     "core/libs/spinner.el")
@@ -40,24 +41,18 @@ File paths are relative to the `spacemacs-start-directory'.")
       (unless (file-exists-p (concat fbp ".elc"))
         (byte-compile-file (concat fbp ".el"))))))
 
-(defun spacemacs//remove-byte-compiled-files (files)
-  "Remove .elc files corresponding to the source FILES."
-  (dolist (file files)
-    (let ((file-elc (thread-last file
-                      (file-truename)
-                      (file-name-sans-extension)
-                      (format "%s.elc"))))
-      (when (file-exists-p file-elc)
-        (delete-file file-elc)))))
+(defun spacemacs//remove-byte-compiled-files-in-dir (dir)
+  "Remove all .elc files in DIR directory."
+  (dolist (elc (directory-files-recursively dir "\\.elc$"))
+    (when (file-exists-p elc)
+      (delete-file elc))))
 
-(defun spacemacs//contains-newer-than-byte-compiled-p (files)
-  "Return true if any file in FILES is newer than its byte-compiled version."
-  (cl-dolist (file files)
-    (let* ((file-el (file-truename file))
-           (file-elc (thread-last file-el
-                       (file-name-sans-extension)
-                       (format "%s.elc"))))
-      (when (file-newer-than-file-p file-el file-elc)
+(defun spacemacs//dir-contains-stale-byte-compiled-files-p (dir)
+  "Returns true if any .elc file in DIR directory is stale or orphaned."
+  (cl-dolist (elc (directory-files-recursively dir "\\.elc$"))
+    (let ((el (substring elc 0 -1)))
+      (unless (and (file-exists-p el)
+                   (file-newer-than-file-p elc el))
         (cl-return t)))))
 
 (defun spacemacs//update-last-emacs-version ()
