@@ -25,7 +25,10 @@
                 (spacemacs/set-leader-keys
                   "hdk" #'helpful-key
                   "hdf" #'helpful-callable
-                  "hdv" #'helpful-variable))
+                  "hdv" #'helpful-variable)
+                (global-set-key (kbd "C-h k") 'helpful-key)
+                (global-set-key (kbd "C-h f") 'helpful-callable)
+                (global-set-key (kbd "C-h v") 'helpful-variable))
               'append)
     :config
     (evil-set-initial-state 'helpful-mode 'normal)

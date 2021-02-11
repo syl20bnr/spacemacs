@@ -1,13 +1,15 @@
-;;; package-build.el --- Tools for assembling a package archive
+;;; package-build.el --- Tools for assembling a package archive  -*- lexical-binding: t -*-
 
-;; Copyright (C) 2011-2020 Donald Ephraim Curtis <dcurtis@milkbox.net>
-;; Copyright (C) 2012-2020 Steve Purcell <steve@sanityinc.com>
-;; Copyright (C) 2016-2020 Jonas Bernoulli <jonas@bernoul.li>
+;; Copyright (C) 2011-2021 Donald Ephraim Curtis <dcurtis@milkbox.net>
+;; Copyright (C) 2012-2021 Steve Purcell <steve@sanityinc.com>
+;; Copyright (C) 2016-2021 Jonas Bernoulli <jonas@bernoul.li>
 ;; Copyright (C) 2009 Phil Hagelberg <technomancy@gmail.com>
 
 ;; Author: Donald Ephraim Curtis <dcurtis@milkbox.net>
 ;; Keywords: tools
-;; Package-Requires: ((cl-lib "0.5") (emacs "24.1"))
+;; Homepage: https://github.com/melpa/package-build
+;; Package-Requires: ((cl-lib "0.5") (emacs "25.1"))
+;; Package-Version: 0-git
 
 ;; This file is not (yet) part of GNU Emacs.
 ;; However, it is distributed under the same license.
@@ -39,6 +41,8 @@
 ;;; Code:
 
 (require 'cl-lib)
+(require 'pcase)
+(require 'subr-x)
 
 (require 'package)
 (require 'lisp-mnt)
@@ -198,7 +202,8 @@ is used instead."
             (file-name-as-directory (or directory default-directory)))
           (argv (nconc (unless (eq system-type 'windows-nt)
                          (list "env" "LC_ALL=C"))
-                       (if (and package-build-timeout-secs package-build-timeout-executable)
+                       (if (and package-build-timeout-secs
+                                package-build-timeout-executable)
                            (nconc (list package-build-timeout-executable
                                         "-k" "60" (number-to-string
                                                    package-build-timeout-secs)
@@ -229,20 +234,14 @@ is used instead."
 ;;; Checkout
 ;;;; Common
 
-(defmethod package-build--checkout :before ((rcp package-recipe))
+(cl-defmethod package-build--checkout :before ((rcp package-recipe))
   (package-build--message "Package: %s" (oref rcp name))
-  (package-build--message "Fetcher: %s"
-                          (substring (symbol-name
-                                      (with-no-warnings
-                                        ;; Use eieio-object-class once we
-                                        ;; no longer support Emacs 24.3.
-                                        (object-class-fast rcp)))
-                                     8 -7))
+  (package-build--message "Fetcher: %s" (package-recipe--fetcher rcp))
   (package-build--message "Source:  %s\n" (package-recipe--upstream-url rcp)))
 
 ;;;; Git
 
-(defmethod package-build--checkout ((rcp package-git-recipe))
+(cl-defmethod package-build--checkout ((rcp package-git-recipe))
   (let ((dir (package-recipe--working-tree rcp))
         (url (package-recipe--upstream-url rcp)))
     (cond
@@ -271,7 +270,7 @@ is used instead."
                    (package-build--expand-source-file-list rcp)))
        (oref rcp tag-regexp)))))
 
-(defmethod package-build--checkout-1 ((rcp package-git-recipe) &optional rev)
+(cl-defmethod package-build--checkout-1 ((rcp package-git-recipe) &optional rev)
   (let ((dir (package-recipe--working-tree rcp)))
     (unless rev
       (setq rev (or (oref rcp commit)
@@ -287,13 +286,20 @@ is used instead."
     (package-build--run-process dir nil "git" "submodule" "update"
                                 "--init" "--recursive")))
 
-(defmethod package-build--used-url ((rcp package-git-recipe))
+(cl-defmethod package-build--used-url ((rcp package-git-recipe))
   (let ((default-directory (package-recipe--working-tree rcp)))
     (car (process-lines "git" "config" "remote.origin.url"))))
 
+(cl-defmethod package-build--get-commit ((rcp package-git-recipe))
+  (ignore-errors
+    (package-build--run-process-match
+     "\\(.*\\)"
+     (package-recipe--working-tree rcp)
+     "git" "rev-parse" "HEAD")))
+
 ;;;; Hg
 
-(defmethod package-build--checkout ((rcp package-hg-recipe))
+(cl-defmethod package-build--checkout ((rcp package-hg-recipe))
   (let ((dir (package-recipe--working-tree rcp))
         (url (package-recipe--upstream-url rcp)))
     (cond
@@ -325,84 +331,128 @@ is used instead."
                    (package-build--expand-source-file-list rcp)))
        (oref rcp tag-regexp)))))
 
-(defmethod package-build--used-url ((rcp package-hg-recipe))
+(cl-defmethod package-build--used-url ((rcp package-hg-recipe))
   (package-build--run-process-match "default = \\(.*\\)"
                                     (package-recipe--working-tree rcp)
                                     "hg" "paths"))
 
-;;; Various Files
+(cl-defmethod package-build--get-commit ((rcp package-hg-recipe))
+  (ignore-errors
+    (package-build--run-process-match
+     "changeset:[[:space:]]+[[:digit:]]+:\\([[:xdigit:]]+\\)"
+     (package-recipe--working-tree rcp)
+     "hg" "log" "--debug" "--limit=1")))
 
-(defun package-build--write-pkg-file (pkg-file pkg-info)
-  "Write PKG-FILE containing PKG-INFO."
-  (with-temp-file pkg-file
-    (pp
-     `(define-package
-        ,(aref pkg-info 0)
-        ,(aref pkg-info 3)
-        ,(aref pkg-info 2)
-        ',(mapcar
-           (lambda (elt)
-             (list (car elt)
-                   (package-version-join (cadr elt))))
-           (aref pkg-info 1))
-        ;; Append our extra information
-        ,@(cl-mapcan (lambda (entry)
-                       (let ((value (cdr entry)))
-                         (when (or (symbolp value) (listp value))
-                           ;; We must quote lists and symbols,
-                           ;; because Emacs 24.3 and earlier evaluate
-                           ;; the package information, which would
-                           ;; break for unquoted symbols or lists
-                           (setq value (list 'quote value)))
-                         (list (car entry) value)))
-                     (when (> (length pkg-info) 4)
-                       (aref pkg-info 4))))
-     (current-buffer))
-    (princ ";; Local Variables:\n;; no-byte-compile: t\n;; End:\n"
-           (current-buffer))))
+;;; Generate Files
 
-(defun package-build--create-tar (file dir &optional files)
-  "Create a tar FILE containing the contents of DIR, or just FILES if non-nil."
-  (when (eq system-type 'windows-nt)
-    (setq file (replace-regexp-in-string "^\\([a-z]\\):" "/\\1" file)))
-  (apply 'process-file
-         package-build-tar-executable nil
-         (get-buffer-create "*package-build-checkout*")
-         nil "-cvf"
-         file
-         "--exclude=.git"
-         "--exclude=.hg"
-         (or (mapcar (lambda (fn) (concat dir "/" fn)) files) (list dir))))
+(defun package-build--write-pkg-file (desc dir)
+  (let ((name (package-desc-name desc)))
+    (with-temp-file (expand-file-name (format "%s-pkg.el" name) dir)
+      (pp `(define-package ,(symbol-name name)
+             ,(package-version-join (package-desc-version desc))
+             ,(package-desc-summary desc)
+             ',(mapcar (pcase-lambda (`(,pkg ,ver))
+                         (list pkg (package-version-join ver)))
+                       (package-desc-reqs desc))
+             ,@(cl-mapcan (pcase-lambda (`(,key . ,val))
+                            (when (or (symbolp val) (listp val))
+                              ;; We must quote lists and symbols,
+                              ;; because Emacs 24.3 and earlier evaluate
+                              ;; the package information, which would
+                              ;; break for unquoted symbols or lists.
+                              ;; While this library does not support
+                              ;; such old Emacsen, the packages that
+                              ;; we produce should remain compatible.
+                              (setq val (list 'quote val)))
+                            (list key val))
+                          (package-desc-extras desc)))
+          (current-buffer))
+      (princ ";; Local Variables:\n;; no-byte-compile: t\n;; End:\n"
+             (current-buffer)))))
 
-(defun package-build--find-package-commentary (file-path)
-  "Get commentary section from FILE-PATH."
-  (when (file-exists-p file-path)
+(defun package-build--create-tar (name version directory)
+  "Create a tar file containing the contents of VERSION of package NAME."
+  (let ((tar (expand-file-name (concat name "-" version ".tar")
+                                package-build-archive-dir))
+        (dir (concat name "-" version)))
+    (when (eq system-type 'windows-nt)
+      (setq tar (replace-regexp-in-string "^\\([a-z]\\):" "/\\1" tar)))
+    (let ((default-directory directory))
+      (process-file package-build-tar-executable nil
+                    (get-buffer-create "*package-build-checkout*") nil
+                    "-cvf" tar
+                    "--exclude=.git"
+                    "--exclude=.hg"
+                    dir))
+    (when (and package-build-verbose noninteractive)
+      (message "Created %s containing:" (file-name-nondirectory tar))
+      (dolist (line (sort (process-lines package-build-tar-executable
+                                         "--list" "--file" tar)
+                          #'string<))
+        (message "  %s" line)))))
+
+(defun package-build--write-pkg-readme (name files directory)
+  (when-let ((commentary
+              (let* ((file (concat name ".el"))
+                     (file (or (car (rassoc file files)) file))
+                     (file (and file (expand-file-name file directory))))
+                (and (file-exists-p file)
+                     (lm-commentary file)))))
     (with-temp-buffer
-      (insert-file-contents file-path)
-      (lm-commentary))))
-
-(defun package-build--write-pkg-readme (target-dir commentary file-name)
-  "In TARGET-DIR, write COMMENTARY to a -readme.txt file prefixed with FILE-NAME."
-  (when commentary
-    (with-temp-buffer
-      (insert commentary)
-      ;; Adapted from `describe-package-1'.
-      (goto-char (point-min))
-      (save-excursion
-        (when (re-search-forward "^;;; Commentary:\n" nil t)
-          (replace-match ""))
-        (while (re-search-forward "^\\(;+ ?\\)" nil t)
-          (replace-match ""))
-        (goto-char (point-min))
-        (when (re-search-forward "\\`\\( *\n\\)+" nil t)
-          (replace-match "")))
-      (delete-trailing-whitespace)
+      (if (>= emacs-major-version 27)
+          (insert commentary)
+        ;; Taken from 27.1's `lm-commentary'.
+        (insert
+         (replace-regexp-in-string       ; Get rid of...
+          "[[:blank:]]*$" ""             ; trailing white-space
+          (replace-regexp-in-string
+           (format "%s\\|%s\\|%s"
+                   ;; commentary header
+                   (concat "^;;;[[:blank:]]*\\("
+                           lm-commentary-header
+                           "\\):[[:blank:]\n]*")
+                   "^;;[[:blank:]]*"     ; double semicolon prefix
+                   "[[:blank:]\n]*\\'")  ; trailing new-lines
+           "" commentary))))
+      (unless (or (bobp) (= (char-before) ?\n))
+        (insert ?\n))
+      ;; We write the file even if it is empty, which is perhaps
+      ;; a questionable choice, but at least it's consistent.
       (let ((coding-system-for-write buffer-file-coding-system))
         (write-region nil nil
-                      (expand-file-name (concat file-name "-readme.txt")
-                                        target-dir))))))
+                      (expand-file-name (concat name "-readme.txt")
+                                        package-build-archive-dir))))))
 
-;;; Entries
+(defun package-build--generate-info-files (files source-dir target-dir)
+  "Create an info file for each texinfo file listed in FILES.
+Also create the info dir file.  Remove each original texinfo
+file.  The source and destination file paths are expanded in
+SOURCE-DIR and TARGET-DIR respectively."
+  (pcase-dolist (`(,src . ,tmp) files)
+    (let ((extension (file-name-extension tmp)))
+      (when (member extension '("info" "texi" "texinfo"))
+        (setq src (expand-file-name src source-dir))
+        (setq tmp (expand-file-name tmp target-dir))
+        (let ((info tmp))
+          (when (member extension '("texi" "texinfo"))
+            (unwind-protect
+                (progn
+                  (setq info (concat (file-name-sans-extension tmp) ".info"))
+                  (unless (file-exists-p info)
+                    ;; If the info file is located in a subdirectory
+                    ;; and contains relative includes, then it is
+                    ;; necessary to run makeinfo in the subdirectory.
+                    (with-demoted-errors "Error: %S"
+                      (package-build--run-process
+                       (file-name-directory src) nil
+                       "makeinfo" src "-o" info))
+                    (package-build--message "Created %s" info)))
+              (delete-file tmp)))
+          (with-demoted-errors "Error: %S"
+            (package-build--run-process
+             target-dir nil "install-info" "--dir=dir" info)))))))
+
+;;; Patch Libraries
 
 (defun package-build--update-or-insert-header (name value)
   "Ensure current buffer has NAME header with the given VALUE.
@@ -425,12 +475,12 @@ still be renamed."
   (insert (format ";; %s: %s" name value))
   (newline))
 
-(defun package-build--ensure-ends-here-line (file-path)
-  "Add a 'FILE-PATH ends here' trailing line if missing."
+(defun package-build--ensure-ends-here-line (file)
+  "Add a 'FILE ends here' trailing line if missing."
   (save-excursion
     (goto-char (point-min))
     (let ((trailer (concat ";;; "
-                           (file-name-nondirectory file-path)
+                           (file-name-nondirectory file)
                            " ends here")))
       (unless (search-forward trailer nil t)
         (goto-char (point-max))
@@ -438,143 +488,86 @@ still be renamed."
         (insert trailer)
         (newline)))))
 
-(defun package-build--get-package-info (file-path)
-  "Get a vector of package info from the docstrings in FILE-PATH."
-  (when (file-exists-p file-path)
-    (ignore-errors
-      (with-temp-buffer
-        (insert-file-contents file-path)
-        ;; next few lines are a hack for some packages that aren't
-        ;; commented properly.
-        (package-build--update-or-insert-header "Package-Version" "0")
-        (package-build--ensure-ends-here-line file-path)
-        (cl-flet ((package-strip-rcs-id (str) "0"))
-          (package-build--package-buffer-info-vec))))))
+;;; Package Structs
 
-(defun package-build--package-buffer-info-vec ()
-  "Return a vector of package info.
-`package-buffer-info' returns a vector in older Emacs versions,
-and a cl struct in Emacs HEAD.  This wrapper normalises the results."
-  (let ((desc (package-buffer-info))
-        (keywords (lm-keywords-list)))
-    (if (fboundp 'package-desc-create)
-        (let ((extras (package-desc-extras desc)))
-          (when (and keywords (not (assq :keywords extras)))
-            (push (cons :keywords keywords) extras))
-          (vector (package-desc-name desc)
-                  (package-desc-reqs desc)
-                  (package-desc-summary desc)
-                  (package-desc-version desc)
-                  extras))
-      (let ((homepage (package-build--lm-homepage))
-            extras)
-        (when keywords (push (cons :keywords keywords) extras))
-        (when homepage (push (cons :url homepage) extras))
-        (vector  (aref desc 0)
-                 (aref desc 1)
-                 (aref desc 2)
-                 (aref desc 3)
-                 extras)))))
+(defun package-build--desc-from-library (name version commit files &optional type)
+  (let* ((file (concat name ".el"))
+         (file (or (car (rassoc file files)) file)))
+    (and (file-exists-p file)
+         (with-temp-buffer
+           (insert-file-contents file)
+           (package-desc-from-define
+            name version
+            (or (save-excursion
+                  (goto-char (point-min))
+                  (and (re-search-forward
+                        "^;;; [^ ]*\\.el ---[ \t]*\\(.*?\\)[ \t]*\\(-\\*-.*-\\*-[ \t]*\\)?$"
+                        nil t)
+                       (match-string-no-properties 1)))
+                "No description available.")
+            (when-let ((require-lines (lm-header-multiline "package-requires")))
+              (package--prepare-dependencies
+               (package-read-from-string (mapconcat #'identity require-lines " "))))
+            :kind       (or type 'single)
+            :url        (lm-homepage)
+            :keywords   (lm-keywords-list)
+            :maintainer (lm-maintainer)
+            :authors    (lm-authors)
+            :commit     commit)))))
 
-(defun package-build--get-pkg-file-info (file-path)
-  "Get a vector of package info from \"-pkg.el\" file FILE-PATH."
-  (when (file-exists-p file-path)
-    (let ((package-def (with-temp-buffer
-                         (insert-file-contents file-path)
-                         (read (current-buffer)))))
-      (if (eq 'define-package (car package-def))
-          (let* ((pkgfile-info (cdr package-def))
-                 (descr (nth 2 pkgfile-info))
-                 (rest-plist (cl-subseq pkgfile-info (min 4 (length pkgfile-info))))
-                 (extras (let (alist)
-                           (while rest-plist
-                             (unless (memq (car rest-plist) '(:kind :archive))
-                               (let ((value (cadr rest-plist)))
-                                 (when value
-                                   (push (cons (car rest-plist)
-                                               (if (eq (car-safe value) 'quote)
-                                                   (cadr value)
-                                                 value))
-                                         alist))))
-                             (setq rest-plist (cddr rest-plist)))
-                           alist)))
-            (when (string-match "[\r\n]" descr)
-              (error "Illegal multi-line package description in %s" file-path))
-            (vector
-             (nth 0 pkgfile-info)
-             (mapcar
-              (lambda (elt)
-                (unless (symbolp (car elt))
-                  (error "Invalid package name in dependency: %S" (car elt)))
-                (list (car elt) (version-to-list (cadr elt))))
-              (eval (nth 3 pkgfile-info)))
-             descr
-             (nth 1 pkgfile-info)
-             extras))
-        (error "No define-package found in %s" file-path)))))
+(defun package-build--desc-from-package (name version commit files)
+  (let* ((file (concat name "-pkg.el"))
+         (file (or (car (rassoc file files))
+                   file)))
+    (and (or (file-exists-p file)
+             (file-exists-p (setq file (concat file ".in"))))
+         (let ((form (with-temp-buffer
+                       (insert-file-contents file)
+                       (read (current-buffer)))))
+           (unless (eq (car form) 'define-package)
+             (error "No define-package found in %s" file))
+           (pcase-let*
+               ((`(,_ ,_ ,_ ,summary ,deps . ,extra) form)
+                (deps (eval deps))
+                (alt-desc (package-build--desc-from-library
+                           name version nil files))
+                (alt (and alt-desc (package-desc-extras alt-desc))))
+             (when (string-match "[\r\n]" summary)
+               (error "Illegal multi-line package description in %s" file))
+             (package-desc-from-define
+              name version
+              (if (string-empty-p summary)
+                  (or (and alt-desc (package-desc-summary alt-desc))
+                      "No description available.")
+                summary)
+              (mapcar (pcase-lambda (`(,pkg ,ver))
+                        (unless (symbolp pkg)
+                          (error "Invalid package name in dependency: %S" pkg))
+                        (list pkg ver))
+                      deps)
+              :kind       'tar
+              :url        (or (alist-get :url extra)
+                              (alist-get :homepage extra)
+                              (alist-get :url alt))
+              :keywords   (or (alist-get :keywords extra)
+                              (alist-get :keywords alt))
+              :maintainer (or (alist-get :maintainer extra)
+                              (alist-get :maintainer alt))
+              :authors    (or (alist-get :authors extra)
+                              (alist-get :authors alt))
+              :commit     commit))))))
 
-(defun package-build--merge-package-info (pkg-info name version commit)
-  "Return a version of PKG-INFO updated with NAME, VERSION and info from CONFIG.
-If PKG-INFO is nil, an empty one is created."
-  (let ((merged (or (copy-sequence pkg-info)
-                    (vector name nil "No description available." version nil))))
-    (aset merged 0 name)
-    (aset merged 3 version)
-    (when commit
-      (aset merged 4 (cons (cons :commit commit) (elt pkg-info 4))))
-    merged))
-
-(defun package-build--write-archive-entry (rcp pkg-info type)
-  (let ((entry (package-build--archive-entry rcp pkg-info type)))
-    (with-temp-file (package-build--archive-entry-file entry)
-      (print entry (current-buffer)))))
-
-(defmethod package-build--get-commit ((rcp package-git-recipe))
-  (ignore-errors
-    (package-build--run-process-match
-     "\\(.*\\)"
-     (package-recipe--working-tree rcp)
-     "git" "rev-parse" "HEAD")))
-
-(defmethod package-build--get-commit ((rcp package-hg-recipe))
-  (ignore-errors
-    (package-build--run-process-match
-     "changeset:[[:space:]]+[[:digit:]]+:\\([[:xdigit:]]+\\)"
-     (package-recipe--working-tree rcp)
-     "hg" "log" "--debug" "--limit=1")))
-
-(defun package-build--archive-entry (rcp pkg-info type)
-  (let ((name (intern (aref pkg-info 0)))
-        (requires (aref pkg-info 1))
-        (desc (or (aref pkg-info 2) "No description available."))
-        (version (aref pkg-info 3))
-        (extras (and (> (length pkg-info) 4)
-                     (aref pkg-info 4))))
-    (cons name
-          (vector (version-to-list version)
-                  requires
-                  desc
-                  type
-                  extras))))
-
-(defun package-build--artifact-file (archive-entry)
-  "Return the path of the file in which the package for ARCHIVE-ENTRY is stored."
-  (let* ((name (car archive-entry))
-         (pkg-info (cdr archive-entry))
-         (version (package-version-join (aref pkg-info 0)))
-         (flavour (aref pkg-info 3)))
-    (expand-file-name
-     (format "%s-%s.%s" name version (if (eq flavour 'single) "el" "tar"))
-     package-build-archive-dir)))
-
-(defun package-build--archive-entry-file (archive-entry)
-  "Return the path of the file in which the package for ARCHIVE-ENTRY is stored."
-  (let* ((name (car archive-entry))
-         (pkg-info (cdr archive-entry))
-         (version (package-version-join (aref pkg-info 0))))
-    (expand-file-name
-     (format "%s-%s.entry" name version)
-     package-build-archive-dir)))
+(defun package-build--write-archive-entry (desc)
+  (with-temp-file
+      (expand-file-name (concat (package-desc-full-name desc) ".entry")
+                        package-build-archive-dir)
+    (pp (cons (package-desc-name    desc)
+              (vector (package-desc-version desc)
+                      (package-desc-reqs    desc)
+                      (package-desc-summary desc)
+                      (package-desc-kind    desc)
+                      (package-desc-extras  desc)))
+        (current-buffer))))
 
 ;;; File Specs
 
@@ -595,7 +588,7 @@ for ALLOW-EMPTY to prevent this error."
   (let ((default-directory dir)
         (prefix (if subdir (format "%s/" subdir) ""))
         (lst))
-    (dolist (entry specs lst)
+    (dolist (entry specs)
       (setq lst
             (if (consp entry)
                 (if (eq :exclude (car entry))
@@ -612,7 +605,6 @@ for ALLOW-EMPTY to prevent this error."
                           t)))
               (nconc
                lst (mapcar (lambda (f)
-                             (let ((destname)))
                              (cons f
                                    (concat prefix
                                            (replace-regexp-in-string
@@ -640,65 +632,15 @@ for ALLOW-EMPTY to prevent this error."
            (package-recipe--working-tree rcp)
            (package-build--config-file-list rcp))))
 
-;;; Info Manuals
-
-(defun package-build--generate-info-files (files source-dir target-dir)
-  "Create .info files from any .texi files listed in FILES.
-
-The source and destination file paths are expanded in SOURCE-DIR
-and TARGET-DIR respectively.
-
-Any of the original .texi(nfo) files found in TARGET-DIR are
-deleted."
-  (dolist (spec files)
-    (let* ((source-file (car spec))
-           (source-path (expand-file-name source-file source-dir))
-           (dest-file (cdr spec))
-           (info-path (expand-file-name
-                       (concat (file-name-sans-extension dest-file) ".info")
-                       target-dir)))
-      (when (string-match ".texi\\(nfo\\)?$" source-file)
-        (unless (file-exists-p info-path)
-          (ignore-errors
-            (package-build--run-process
-             (file-name-directory source-path) nil
-             "makeinfo" source-path "-o" info-path)
-            (package-build--message "Created %s" info-path)))
-        (package-build--message "Removing %s"
-                                (expand-file-name dest-file target-dir))
-        (delete-file (expand-file-name dest-file target-dir))))))
-
-(defun package-build--generate-dir-file (files target-dir)
-  "Create dir file from any .info files listed in FILES in TARGET-DIR."
-  (dolist (spec files)
-    (let* ((source-file (car spec))
-           (dest-file (cdr spec))
-           (info-path (expand-file-name
-                       (concat (file-name-sans-extension dest-file) ".info")
-                       target-dir)))
-      (when (and (or (string-match ".info$" source-file)
-                     (string-match ".texi\\(nfo\\)?$" source-file))
-                 (file-exists-p info-path))
-        (ignore-errors
-          (package-build--run-process
-           nil nil
-           "install-info"
-           (concat "--dir=" (expand-file-name "dir" target-dir))
-           info-path))))))
-
-;;; Building Utilities
-
 (defun package-build--copy-package-files (files source-dir target-dir)
   "Copy FILES from SOURCE-DIR to TARGET-DIR.
 FILES is a list of (SOURCE . DEST) relative filepath pairs."
   (package-build--message
    "Copying files (->) and directories (=>)\n  from %s\n  to %s"
    source-dir target-dir)
-  (dolist (elt files)
-    (let* ((src  (car elt))
-           (dst  (cdr elt))
-           (src* (expand-file-name src source-dir))
-           (dst* (expand-file-name dst target-dir)))
+  (pcase-dolist (`(,src . ,dst) files)
+    (let ((src* (expand-file-name src source-dir))
+          (dst* (expand-file-name dst target-dir)))
       (make-directory (file-name-directory dst*) t)
       (cond ((file-regular-p src*)
              (package-build--message
@@ -709,14 +651,12 @@ FILES is a list of (SOURCE . DEST) relative filepath pairs."
               "  %s %s => %s" (if (equal src dst) " " "!") src dst)
              (copy-directory src* dst*))))))
 
-(defconst package-build--this-file load-file-name)
-
-;;; Building
+;;; Commands
 
 ;;;###autoload
 (defun package-build-archive (name &optional dump-archive-contents)
   "Build a package archive for the package named NAME.
-if DUMP-ARCHIVE-CONTENTS is non-nil, the updated archive contents
+If DUMP-ARCHIVE-CONTENTS is non-nil, the updated archive contents
 are subsequently dumped."
   (interactive (list (package-recipe-read-name) t))
   (let ((start-time (current-time))
@@ -733,8 +673,7 @@ are subsequently dumped."
       (package-build--message "Built %s in %.3fs, finished at %s"
                               name
                               (float-time (time-since start-time))
-                              (current-time-string))
-      (list name version)))
+                              (current-time-string))))
   (when dump-archive-contents
     (package-build-dump-archive-contents)))
 
@@ -758,97 +697,52 @@ in `package-build-archive-dir'."
       (error "Unable to check out repository for %s" name))
      ((= 1 (length files))
       (package-build--build-single-file-package
-       rcp version commit (caar files) source-dir))
+       rcp version commit files source-dir))
      ((< 1 (length  files))
       (package-build--build-multi-file-package
        rcp version commit files source-dir))
      (t (error "Unable to find files matching recipe patterns")))))
 
-(define-obsolete-function-alias 'package-build-package 'package-build--package
-  "Package-Build 2.0.
-
-The purpose of this alias is to get Cask working again.
-
-This alias is only a temporary kludge and is going to be removed
-again.  It will likely be replaced by a function with the same
-name but a different signature.
-
-Do not use this alias elsewhere.")
-
-(defun package-build--build-single-file-package (rcp version commit file source-dir)
+(defun package-build--build-single-file-package (rcp version commit files source-dir)
   (let* ((name (oref rcp name))
-         (pkg-source (expand-file-name file source-dir))
-         (pkg-target (expand-file-name
-                      (concat name "-" version ".el")
-                      package-build-archive-dir))
-         (pkg-info (package-build--merge-package-info
-                    (package-build--get-package-info pkg-source)
-                    name version commit)))
+         (file (caar files))
+         (source (expand-file-name file source-dir))
+         (target (expand-file-name (concat name "-" version ".el")
+                                   package-build-archive-dir))
+         (desc (let ((default-directory source-dir))
+                 (package-build--desc-from-library
+                  name version commit files))))
     (unless (string-equal (downcase (concat name ".el"))
-                          (downcase (file-name-nondirectory pkg-source)))
-      (error "Single file %s does not match package name %s"
-             (file-name-nondirectory pkg-source) name))
-    (copy-file pkg-source pkg-target t)
+                          (downcase (file-name-nondirectory file)))
+      (error "Single file %s does not match package name %s" file name))
+    (copy-file source target t)
     (let ((enable-local-variables nil)
           (make-backup-files nil))
-      (with-current-buffer (find-file pkg-target)
+      (with-current-buffer (find-file target)
         (package-build--update-or-insert-header "Package-Commit" commit)
         (package-build--update-or-insert-header "Package-Version" version)
-        (package-build--ensure-ends-here-line pkg-source)
-        (write-file pkg-target nil)
-        (condition-case err
-            (package-build--package-buffer-info-vec)
-          (error
-           (package-build--message "Warning: %S" err)))
+        (package-build--ensure-ends-here-line source)
+        (write-file target nil)
         (kill-buffer)))
-    (package-build--write-pkg-readme
-     package-build-archive-dir
-     (package-build--find-package-commentary pkg-source)
-     name)
-    (package-build--write-archive-entry rcp pkg-info 'single)))
+    (package-build--write-pkg-readme name files source-dir)
+    (package-build--write-archive-entry desc)))
 
 (defun package-build--build-multi-file-package (rcp version commit files source-dir)
   (let* ((name (oref rcp name))
          (tmp-dir (file-name-as-directory (make-temp-file name t))))
     (unwind-protect
-        (let* ((pkg-dir-name (concat name "-" version))
-               (pkg-tmp-dir (expand-file-name pkg-dir-name tmp-dir))
-               (pkg-file (concat name "-pkg.el"))
-               (pkg-file-source (or (car (rassoc pkg-file files))
-                                    pkg-file))
-               (file-source (concat name ".el"))
-               (pkg-source (or (car (rassoc file-source files))
-                               file-source))
-               (pkg-info (package-build--merge-package-info
-                          (let ((default-directory source-dir))
-                            (or (package-build--get-pkg-file-info pkg-file-source)
-                                ;; Some packages provide NAME-pkg.el.in
-                                (package-build--get-pkg-file-info
-                                 (expand-file-name (concat pkg-file ".in")
-                                                   (file-name-directory pkg-source)))
-                                (package-build--get-package-info pkg-source)))
-                          name version commit)))
-          (package-build--copy-package-files files source-dir pkg-tmp-dir)
-          (package-build--write-pkg-file (expand-file-name
-                                          pkg-file
-                                          (file-name-as-directory pkg-tmp-dir))
-                                         pkg-info)
-
-          (package-build--generate-info-files files source-dir pkg-tmp-dir)
-          (package-build--generate-dir-file files pkg-tmp-dir)
-
-          (let ((default-directory tmp-dir))
-            (package-build--create-tar
-             (expand-file-name (concat name "-" version ".tar")
-                               package-build-archive-dir)
-             pkg-dir-name))
-
-          (let ((default-directory source-dir))
-            (package-build--write-pkg-readme
-             package-build-archive-dir
-             (package-build--find-package-commentary pkg-source)
-             name))
-          (package-build--write-archive-entry rcp pkg-info 'tar))
+        (let* ((target (expand-file-name (concat name "-" version) tmp-dir))
+               (desc (let ((default-directory source-dir))
+                       (or (package-build--desc-from-package
+                            name version commit files)
+                           (package-build--desc-from-library
+                            name version commit files 'tar)))))
+          (package-build--copy-package-files files source-dir target)
+          (package-build--write-pkg-file desc target)
+          (package-build--generate-info-files files source-dir target)
+          (package-build--create-tar name version tmp-dir)
+          (package-build--write-pkg-readme name files source-dir)
+          (package-build--write-archive-entry desc))
       (delete-directory tmp-dir t nil))))
 
 ;;;###autoload
@@ -899,27 +793,31 @@ Do not use this alias elsewhere.")
 
 If non-nil, then store the archive contents in FILE instead of in
 the \"archive-contents\" file inside `package-build-archive-dir'.
-If PRETTY-PRINT is non-nil, then pretty-print insted of using one
+If PRETTY-PRINT is non-nil, then pretty-print instead of using one
 line per entry."
   (let (entries)
-    (dolist (file (directory-files package-build-archive-dir t ".*\.entry$"))
+    (dolist (file (sort (directory-files package-build-archive-dir t ".*\.entry$")
+                        ;; Sort more recently-build packages first
+                        (lambda (f1 f2)
+                          (let ((default-directory package-build-archive-dir))
+                            (file-newer-than-file-p f1 f2)))))
       (let* ((entry (with-temp-buffer
                       (insert-file-contents file)
                       (read (current-buffer))))
              (name (car entry))
-             (other-entry (assq name entries)))
+             (newer-entry (assq name entries)))
         (if (not (file-exists-p (expand-file-name (symbol-name name)
                                                   package-build-recipes-dir)))
             (package-build--remove-archive-files entry)
-          (when other-entry
-            (when (version-list-< (elt (cdr entry) 0)
-                                  (elt (cdr other-entry) 0))
-              ;; Swap so that other-entry has the smallest version.
-              (cl-rotatef other-entry entry))
-            (package-build--remove-archive-files other-entry)
-            (setq entries (remove other-entry entries)))
-          (add-to-list 'entries entry))))
-    (setq entries (nreverse entries))
+          ;; Prefer the more-recently-built package, which may not
+          ;; necessarily have the highest version number, e.g. if
+          ;; commit histories were changed.
+          (if newer-entry
+              (package-build--remove-archive-files entry)
+            (push entry entries)))))
+    (setq entries (sort entries (lambda (a b)
+                                  (string< (symbol-name (car a))
+                                           (symbol-name (car b))))))
     (with-temp-file
         (or file
             (expand-file-name "archive-contents" package-build-archive-dir))
@@ -935,8 +833,6 @@ line per entry."
           (insert ")"))))
     entries))
 
-(defalias 'package-build--archive-entries 'package-build-dump-archive-contents)
-
 (defun package-build--remove-archive-files (archive-entry)
   "Remove the entry and archive file for ARCHIVE-ENTRY."
   (package-build--message "Removing archive: %s-%s"
@@ -949,11 +845,28 @@ line per entry."
     (when (file-exists-p file)
       (delete-file file))))
 
-;;; Exporting Data as Json
+(defun package-build--artifact-file (archive-entry)
+  "Return the path of the file in which the package for ARCHIVE-ENTRY is stored."
+  (pcase-let* ((`(,name . ,desc) archive-entry)
+               (version (package-version-join (aref desc 0)))
+               (flavour (aref desc 3)))
+    (expand-file-name
+     (format "%s-%s.%s" name version (if (eq flavour 'single) "el" "tar"))
+     package-build-archive-dir)))
+
+(defun package-build--archive-entry-file (archive-entry)
+  "Return the path of the file in which the package for ARCHIVE-ENTRY is stored."
+  (pcase-let* ((`(,name . ,desc) archive-entry)
+               (version (package-version-join (aref desc 0))))
+    (expand-file-name
+     (format "%s-%s.entry" name version)
+     package-build-archive-dir)))
+
+;;; Json Exports
 
 (defun package-build-recipe-alist-as-json (file)
   "Dump the recipe list to FILE as json."
-  (interactive)
+  (interactive "FDump json to file: ")
   (with-temp-file file
     (insert
      (json-encode
@@ -973,12 +886,7 @@ line per entry."
 
 (defun package-build--pkg-info-for-json (info)
   "Convert INFO into a data structure which will serialize to JSON in the desired shape."
-  (let ((ver (elt info 0))
-        (deps (elt info 1))
-        (desc (elt info 2))
-        (type (elt info 3))
-        (props (and (> (length info) 4)
-                    (elt info 4))))
+  (pcase-let ((`(,ver ,deps ,desc ,type . (,props)) (append info nil)))
     (list :ver ver
           :deps (cl-mapcan (lambda (dep)
                              (list (intern (format ":%s" (car dep)))
@@ -1020,18 +928,10 @@ line per entry."
   (with-temp-file file
     (insert (json-encode (package-build--archive-alist-for-json)))))
 
-;;; Backports
-
-(defun package-build--lm-homepage (&optional file)
-  "Return the homepage in file FILE, or current buffer if FILE is nil.
-This is a copy of `lm-homepage', which first appeared in Emacs 24.4."
-  (let ((page (lm-with-file file
-                (lm-header "\\(?:x-\\)?\\(?:homepage\\|url\\)"))))
-    (if (and page (string-match "^<.+>$" page))
-        (substring page 1 -1)
-      page)))
-
 ;;; _
+
+(define-obsolete-function-alias 'package-build--archive-entries
+  'package-build-dump-archive-contents "Package-Build 3.0")
 
 (provide 'package-build)
 
@@ -1040,5 +940,10 @@ This is a copy of `lm-homepage', which first appeared in Emacs 24.4."
 
 (require 'package-build-badges)
 (require 'package-recipe-mode)
+
+;; Local Variables:
+;; coding: utf-8
+;; checkdoc-minor-mode: 1
+;; indent-tabs-mode: nil
 ;; End:
 ;;; package-build.el ends here

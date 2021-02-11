@@ -157,6 +157,9 @@ To display the current project, current file, and document symbols,
                 '((lsp :variables lsp-headerline-breadcrumb-segments '(project file symbols))))
 #+END_SRC
 
+You may need to run ~all-the-icons-install-fonts~ if you have ~all-the-icons~ package installed,
+otherwise separators used by ~lsp-headerline-breadcrumb-mode~ will be garbled due to fonts missing.
+
 * Key bindings
 A number of lsp features useful for all/most modes have been bound to the lsp minor mode, meaning they'll be
 available in all language layers based on the lsp layer.

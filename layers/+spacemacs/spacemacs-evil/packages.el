@@ -13,6 +13,7 @@
       '(
         evil-anzu
         evil-args
+        evil-collection
         evil-cleverparens
         evil-ediff
         evil-escape
@@ -98,6 +99,14 @@
   (use-package evil-ediff
     :after (ediff)
     :if (memq dotspacemacs-editing-style '(hybrid vim))))
+
+
+(defun spacemacs-evil/init-evil-collection ()
+  (use-package evil-collection
+    :after evil
+    :config
+    (setq evil-collection-mode-list spacemacs-evil-collection-allowed-list)
+    (evil-collection-init)))
 
 (defun spacemacs-evil/init-evil-escape ()
   (use-package evil-escape

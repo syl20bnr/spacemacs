@@ -11,7 +11,7 @@
 
 (setq git-packages
       '(
-        evil-magit
+        evil-collection
         fill-column-indicator
         ;; forge requires a C compiler on Windows so we disable
         ;; it by default on Windows.
@@ -43,26 +43,8 @@
     :post-config
     (add-to-list 'golden-ratio-exclude-buffer-names " *transient*")))
 
-(defun git/pre-init-evil-magit ()
-  (spacemacs|use-package-add-hook magit
-    :post-config
-    (when (spacemacs//support-evilified-buffer-p dotspacemacs-editing-style)
-      (evil-magit-init))
-    (evil-define-key 'motion magit-mode-map
-      (kbd dotspacemacs-leader-key) spacemacs-default-map)
-    ;; Remove inherited bindings from evil-mc and evil-easymotion
-    ;; do this after the config to make sure the keymap is available
-    (which-key-add-keymap-based-replacements magit-mode-map
-      "<normal-state> g r" nil
-      "<visual-state> g r" nil
-      "<normal-state> g s" nil
-      "<visual-state> g s" nil)))
-
-(defun git/init-evil-magit ()
-  (use-package evil-magit
-    :defer t
-    :init (add-hook 'spacemacs-editing-style-hook
-                    'spacemacs//magit-evil-magit-bindings)))
+(defun git/pre-init-evil-collection ()
+  (add-to-list 'spacemacs-evil-collection-allowed-list 'magit))
 
 (defun git/post-init-fill-column-indicator ()
   (add-hook 'git-commit-mode-hook 'fci-mode))
@@ -271,7 +253,14 @@
       (evil-define-key 'normal magit-section-mode-map (kbd "M-6") 'spacemacs/winum-select-window-6)
       (evil-define-key 'normal magit-section-mode-map (kbd "M-7") 'spacemacs/winum-select-window-7)
       (evil-define-key 'normal magit-section-mode-map (kbd "M-8") 'spacemacs/winum-select-window-8)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-9") 'spacemacs/winum-select-window-9))))
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-9") 'spacemacs/winum-select-window-9)
+      ;; Remove inherited bindings from evil-mc and evil-easymotion
+      ;; do this after the config to make sure the keymap is available
+      (which-key-add-keymap-based-replacements magit-mode-map
+        "<normal-state> g r" nil
+        "<visual-state> g r" nil
+        "<normal-state> g s" nil
+        "<visual-state> g s" nil))))
 
 (defun git/init-magit-delta ()
   (use-package magit-delta

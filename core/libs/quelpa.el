@@ -4,10 +4,10 @@
 ;; Copyright 2014-2015, Vasilij Schneidermann <v.schneidermann@gmail.com>
 
 ;; Author: steckerhalter
-;; URL: https://framagit.org/steckerhalter/quelpa
-;; Version: 0.0.1
-;; Package-Requires: ((emacs "24.3"))
-;; Keywords: package management build source elpa
+;; URL: https://github.com/quelpa/quelpa
+;; Version: 1.0
+;; Package-Requires: ((emacs "25.1"))
+;; Keywords: tools package management build source elpa
 
 ;; This file is not part of GNU Emacs.
 
@@ -32,11 +32,11 @@
 ;; built on-the-fly directly from source.
 
 ;; See the README for more info:
-;; https://framagit.org/steckerhalter/quelpa/blob/master/README.md
+;; https://github.com/quelpa/quelpa/blob/master/README.org
 
 ;;; Requirements:
 
-;; Emacs 24.3.1
+;; Emacs 25.1
 
 ;;; Code:
 
@@ -45,6 +45,7 @@
 (require 'url-parse)
 (require 'package)
 (require 'lisp-mnt)
+(eval-when-compile (require 'subr-x))
 
 ;; --- customs / variables ---------------------------------------------------
 
@@ -61,6 +62,13 @@ the `:upgrade' argument."
 
 (defcustom quelpa-stable-p nil
   "When non-nil, try to build stable packages like MELPA does."
+  :group 'quelpa
+  :type 'boolean)
+
+(defcustom quelpa-autoremove-p t
+  "When non-nil, automatically remove old packages after upgrading.
+The global value can be overridden for each package by supplying the
+`:autoremove' argument."
   :group 'quelpa
   :type 'boolean)
 
@@ -153,45 +161,19 @@ quelpa cache."
   :type '(choice (const :tag "Don't shallow clone" nil)
                  (integer :tag "Depth")))
 
+(defcustom quelpa-upgrade-interval nil
+  "Interval in days for `quelpa-upgrade-all-maybe'."
+  :group 'quelpa
+  :type 'integer)
+
 (defvar quelpa-initialized-p nil
   "Non-nil when quelpa has been initialized.")
 
 (defvar quelpa-cache nil
   "The `quelpa' command stores processed pkgs/recipes in the cache.")
 
-(defvar quelpa-recipe '(quelpa :url "https://framagit.org/steckerhalter/quelpa.git" :fetcher git)
+(defvar quelpa-recipe '(quelpa :repo "quelpa/quelpa" :fetcher github)
   "The recipe for quelpa.")
-
-;; --- compatibility for legacy `package.el' in Emacs 24.3  -------------------
-
-(defun quelpa-setup-package-structs ()
-  "Setup the struct `package-desc' when not available.
-`package-desc-from-legacy' is provided to convert the legacy
-vector desc into a valid PACKAGE-DESC."
-  (unless (functionp 'package-desc-p)
-    (cl-defstruct
-        (package-desc
-         (:constructor
-          ;; convert legacy package desc into PACKAGE-DESC
-          package-desc-from-legacy
-          (pkg-info kind
-                    &aux
-                    (name (intern (aref pkg-info 0)))
-                    (version (version-to-list (aref pkg-info 3)))
-                    (summary (if (string= (aref pkg-info 2) "")
-                                 "No description available."
-                               (aref pkg-info 2)))
-                    (reqs  (aref pkg-info 1))
-                    (kind kind))))
-      name
-      version
-      (summary "No description available.")
-      reqs
-      kind
-      archive
-      dir
-      extras
-      signed)))
 
 ;; --- package building ------------------------------------------------------
 
@@ -217,14 +199,9 @@ On error return nil."
                      (`tar (insert-file-contents-literally file)
                            (tar-mode)
                            (with-no-warnings
-                             (if (help-function-arglist 'package-tar-file-info)
-                                 ;; legacy `package-tar-file-info' requires an arg
-                                 (package-tar-file-info file)
-                               (package-tar-file-info)))))))))
-    (pcase desc
-      ((pred package-desc-p) desc)
-      ((pred vectorp) (when (fboundp 'package-desc-from-legacy)
-                        (package-desc-from-legacy desc kind))))))
+                             (package-tar-file-info))))))))
+    (when (package-desc-p desc)
+      desc)))
 
 (defun quelpa-archive-file-name (archive-entry)
   "Return the path of the file in which the package for ARCHIVE-ENTRY is stored."
@@ -236,23 +213,46 @@ On error return nil."
      (format "%s-%s.%s" name version (if (eq flavour 'single) "el" "tar"))
      quelpa-packages-dir)))
 
-(defun quelpa-version>-p (name version)
-  "Return non-nil if VERSION of pkg with NAME is newer than what is currently installed."
-  (not (or (not version)
-           (let ((pkg-desc (cdr (assq name package-alist))))
-             (and pkg-desc
-                  (version-list-<=
-                   (version-to-list version)
-                   (package-desc-version (car pkg-desc)))))
-           ;; Also check built-in packages.
-           (package-built-in-p name (version-to-list version)))))
+(defconst quelpa--min-ver '(0 -10) "Smallest possible version.")
+(defun quelpa-version-cmp (name version op)
+  "Return non-nil if version of pkg with NAME and VERSION satisfies OP.
+OP is taking two version list and comparing."
+  (let ((ver (if version (version-to-list version) quelpa--min-ver))
+        (pkg-ver
+         (or (when-let ((pkg-desc (cdr (assq name package-alist)))
+                        (pkg-ver (package-desc-version (car pkg-desc))))
+               pkg-ver)
+             (alist-get name package--builtin-versions)
+             quelpa--min-ver)))
+    (funcall op ver pkg-ver)))
 
+(defmacro quelpa-version>-p (name version)
+  "Return non-nil if VERSION of pkg with NAME is newer than what is currently installed."
+  `(quelpa-version-cmp ,name ,version (lambda (o1 o2) (not (version-list-<= o1 o2)))))
+
+(defmacro quelpa-version<-p (name version)
+  "Return non-nil if VERSION of pkg with NAME is older than what is currently installed."
+  `(quelpa-version-cmp ,name ,version 'version-list-<))
+
+(defmacro quelpa-version=-p (name version)
+  "Return non-nil if VERSION of pkg with NAME is same which what is currently installed."
+  `(quelpa-version-cmp ,name ,version 'version-list-=))
+
+(defun quelpa--package-installed-p (package &optional min-version)
+  "Return non-nil if PACKAGE, of MIN-VERSION or newer, is installed.
+Like `package-installed-p' but properly check for built-in package even when all
+packages are not initialized."
+  (or (package-installed-p package (or min-version quelpa--min-ver))
+      (package-built-in-p package (or min-version quelpa--min-ver))))
+
+(defvar quelpa--override-version-check nil)
 (defun quelpa-checkout (rcp dir)
   "Return the version of the new package given a RCP and DIR.
 Return nil if the package is already installed and should not be upgraded."
   (pcase-let ((`(,name . ,config) rcp)
-              (quelpa-build-stable quelpa-stable-p))
-    (unless (or (and (assq name package-alist) (not quelpa-upgrade-p))
+              (quelpa-build-stable quelpa-stable-p)
+              (quelpa--override-version-check quelpa--override-version-check))
+    (unless (or (and (quelpa--package-installed-p name) (not quelpa-upgrade-p))
                 (and (not config)
                      (quelpa-message t "no recipe found for package `%s'" name)))
       (let ((version (condition-case-unless-debug err
@@ -260,8 +260,14 @@ Return nil if the package is already installed and should not be upgraded."
                        (error
                         (error "Failed to checkout `%s': `%s'"
                                name (error-message-string err))))))
-        (when (quelpa-version>-p name version)
-          version)))))
+        (cond
+          ((and quelpa--override-version-check
+                (quelpa-version=-p name version))
+           (setq version (concat version ".1"))
+           version)
+          ((or quelpa--override-version-check
+               (quelpa-version>-p name version))
+           version))))))
 
 (defun quelpa-build (rcp)
   "Build a package from the given recipe RCP.
@@ -273,13 +279,18 @@ already and should not be upgraded etc)."
   (let* ((name (car rcp))
          (build-dir (expand-file-name (symbol-name name) quelpa-build-dir))
          (version (quelpa-checkout rcp build-dir)))
-    (when version
-      (quelpa-archive-file-name
-       (quelpa-build-package (symbol-name name)
-                             version
-                             (quelpa-build--config-file-list (cdr rcp))
-                             build-dir
-                             quelpa-packages-dir)))))
+    (prog1
+        (if version
+            (quelpa-archive-file-name
+             (quelpa-build-package (symbol-name name)
+                                   version
+                                   (quelpa-build--config-file-list (cdr rcp))
+                                   build-dir
+                                   quelpa-packages-dir))
+          (quelpa-build--message "Newer package has been installed. Not upgrading.")
+          nil)
+      (when (fboundp 'package--quickstart-maybe-refresh)
+        (package--quickstart-maybe-refresh)))))
 
 ;; --- package-build.el integration ------------------------------------------
 
@@ -884,14 +895,15 @@ Return a cons cell whose `car' is the root and whose `cdr' is the repository."
   (let* ((repo (plist-get config :url))
          (remote (or (plist-get config :remote) "origin"))
          (commit (or (plist-get config :commit)
-                     (let ((branch (plist-get config :branch)))
-                       (when branch (concat remote "/" branch)))))
+                     (when-let ((branch (plist-get config :branch)))
+                       (concat remote "/" branch))))
          (depth (or (plist-get config :depth) quelpa-git-clone-depth))
          (force (plist-get config :force))
          (use-current-ref (plist-get config :use-current-ref)))
     (when (string-match (rx bos "file://" (group (1+ anything))) repo)
       ;; Expand local file:// URLs
       (setq repo (expand-file-name (match-string 1 repo))))
+    (setq quelpa--override-version-check use-current-ref)
     (with-current-buffer (get-buffer-create "*quelpa-build-checkout*")
       (goto-char (point-max))
       (cond
@@ -910,8 +922,8 @@ Return a cons cell whose `car' is the root and whose `cdr' is the repository."
                 (when (and depth (not (plist-get config :commit)))
                   `("--depth" ,(int-to-string depth)
                     "--no-single-branch"))
-                (let ((branch (plist-get config :branch)))
-                  (when branch `("--branch" ,branch)))))))
+                (when-let ((branch (plist-get config :branch)))
+                  `("--branch" ,branch))))))
       (if quelpa-build-stable
           (let* ((min-bound (goto-char (point-max)))
                  (tag-version
@@ -971,6 +983,11 @@ This will perform an checkout or a reset if FORCE."
 (defun quelpa-build--checkout-github (name config dir)
   "Check package NAME with config CONFIG out of github into DIR."
   (let ((url (format "https://github.com/%s.git" (plist-get config :repo))))
+    (quelpa-build--checkout-git name (plist-put (copy-sequence config) :url url) dir)))
+
+(defun quelpa-build--checkout-github-ssh (name config dir)
+  "Check package NAME with config CONFIG out of github into DIR."
+  (let ((url (format "git@github.com:%s.git" (plist-get config :repo))))
     (quelpa-build--checkout-git name (plist-put (copy-sequence config) :url url) dir)))
 
 (defun quelpa-build--checkout-gitlab (name config dir)
@@ -1251,13 +1268,12 @@ Tests and sets variable `quelpa--tar-type' if not already set."
                  (extras (let (alist)
                            (while rest-plist
                              (unless (memq (car rest-plist) '(:kind :archive))
-                               (let ((value (cadr rest-plist)))
-                                 (when value
-                                   (push (cons (car rest-plist)
-                                               (if (eq (car-safe value) 'quote)
-                                                   (cadr value)
-                                                 value))
-                                         alist))))
+                               (when-let ((value (cadr rest-plist)))
+                                 (push (cons (car rest-plist)
+                                             (if (eq (car-safe value) 'quote)
+                                                 (cadr value)
+                                               value))
+                                       alist)))
                              (setq rest-plist (cddr rest-plist)))
                            alist)))
             (when (string-match "[\r\n]" descr)
@@ -1451,12 +1467,8 @@ and a cl struct in Emacs HEAD.  This wrapper normalises the results."
                   (package-desc-summary desc)
                   (package-desc-version desc)
                   extras))
-      ;; The regexp and the processing is taken from `lm-homepage' in Emacs 24.4
-      (let* ((page (lm-header "\\(?:x-\\)?\\(?:homepage\\|url\\)"))
-             (homepage (if (and page (string-match "^<.+>$" page))
-                           (substring page 1 -1)
-                         page))
-             extras)
+      (let ((homepage (lm-homepage))
+            extras)
         (when keywords (push (cons :keywords keywords) extras))
         (when homepage (push (cons :url homepage) extras))
         (vector  (aref desc 0)
@@ -1671,15 +1683,22 @@ Return t in each case."
   ;; default value anyways
   (when (plist-member (cdr cache-item) :stable)
     (setq quelpa-stable-p (plist-get (cdr cache-item) :stable)))
-  (when (and quelpa-stable-p (not (plist-get (cdr cache-item) :stable)))
+  (when (and quelpa-stable-p
+             (plist-member (cdr cache-item) :stable)
+             (not (plist-get (cdr cache-item) :stable)))
     (setf (cdr (last cache-item)) '(:stable t))))
 
-(defun quelpa-checkout-melpa ()
+;;;###autoload
+(defun quelpa-checkout-melpa (&optional force)
   "Fetch or update the melpa source code from Github.
 If there is no error return non-nil.
 If there is an error but melpa is already checked out return non-nil.
-If there is an error and no existing checkout return nil."
-  (or (and (null quelpa-update-melpa-p)
+If there is an error and no existing checkout return nil.
+
+When FORCE is non-nil we will always update MELPA regrdless of
+`quelpa-update-melpa-p`."
+  (interactive "p")
+  (or (and (not (or force quelpa-update-melpa-p))
            (file-exists-p (expand-file-name ".git" quelpa-melpa-dir)))
       (condition-case err
           (quelpa-build--checkout-git
@@ -1693,7 +1712,7 @@ If there is an error and no existing checkout return nil."
 Return the recipe if it exists, otherwise nil."
   (cl-loop for store in quelpa-melpa-recipe-stores
            if (stringp store)
-           for file = (assoc-string name (directory-files store nil "^[^\.]+"))
+           for file = (assoc-string name (directory-files store nil "^[^.].*$"))
            when file
            return (with-temp-buffer
                     (insert-file-contents-literally
@@ -1712,9 +1731,10 @@ Return non-nil if quelpa has been initialized properly."
       (unless (file-exists-p dir) (make-directory dir t)))
     (unless quelpa-initialized-p
       (quelpa-read-cache)
-      (quelpa-setup-package-structs)
-      (if quelpa-checkout-melpa-p
-          (unless (quelpa-checkout-melpa) (throw 'quit nil)))
+      (when (and quelpa-checkout-melpa-p
+                 (not (quelpa-checkout-melpa)))
+        (throw 'quit nil))
+      (unless package-alist (package-load-all-descriptors))
       (setq quelpa-initialized-p t))
     t))
 
@@ -1728,9 +1748,9 @@ Return non-nil if quelpa has been initialized properly."
   "Given recipe or package name ARG, return an alist '(NAME . RCP).
 If RCP cannot be found it will be set to nil"
   (pcase arg
-    (`(,a . nil) (quelpa-get-melpa-recipe (car arg)))
-    (`(,a . ,_) arg)
-    ((pred symbolp) (quelpa-get-melpa-recipe arg))))
+    (`(,name) (quelpa-get-melpa-recipe name))
+    (`(,name . ,_) arg)
+    (name (quelpa-get-melpa-recipe name))))
 
 (defun quelpa-parse-plist (plist)
   "Parse the optional PLIST argument of `quelpa'.
@@ -1742,13 +1762,18 @@ If t, `quelpa' tries to do an upgrade.
 
 :stable
 
-If t, `quelpa' tries building the stable version of a package."
+If t, `quelpa' tries building the stable version of a package.
+
+:autoremove
+
+If t, `quelpa' tries to remove obsoleted packages."
   (while plist
     (let ((key (car plist))
           (value (cadr plist)))
       (pcase key
         (:upgrade (setq quelpa-upgrade-p value))
-        (:stable (setq quelpa-stable-p value))))
+        (:stable (setq quelpa-stable-p value))
+        (:autoremove (setq quelpa-autoremove-p value))))
     (setq plist (cddr plist))))
 
 (defun quelpa-package-install-file (file)
@@ -1770,43 +1795,67 @@ So here we replace that with `insert-file-contents' for non-tar files."
 (defun quelpa-package-install (arg &rest plist)
   "Build and install package from ARG (a recipe or package name).
 PLIST is a plist that may modify the build and/or fetch process.
-If the package has dependencies recursively call this function to install them."
+If the package has dependencies recursively call this function to install them.
+Return new package version."
   (let* ((rcp (quelpa-arg-rcp arg))
          (file (when rcp (quelpa-build (append rcp plist)))))
     (when file
       (let* ((pkg-desc (quelpa-get-package-desc file))
-             (requires (package-desc-reqs pkg-desc)))
+             (requires (package-desc-reqs pkg-desc))
+             (ver (package-desc-version pkg-desc)))
         (when requires
           (mapc (lambda (req)
                   (unless (or (equal 'emacs (car req))
-                              (package-installed-p (car req) (cadr req)))
+                              (quelpa--package-installed-p (car req) (cadr req)))
                     (quelpa-package-install (car req))))
                 requires))
-        (quelpa-package-install-file file)))))
+        (quelpa-package-install-file file)
+        ver))))
 
 (defun quelpa-interactive-candidate ()
-  "Query the user for a recipe and return the name."
+  "Query the user for a recipe and return the name or recipe."
   (when (quelpa-setup-p)
-    (let  ((recipes (cl-loop
-                     for store in quelpa-melpa-recipe-stores
-                     if (stringp store)
-                     ;; this regexp matches all files except dotfiles
-                     append (directory-files store nil "^[^.].+$")
-                     else if (listp store)
-                     append store)))
-      (intern (completing-read "Choose MELPA recipe: "
-                               recipes nil t)))))
+    (let*  ((recipes (cl-loop
+                      for store in quelpa-melpa-recipe-stores
+                      if (stringp store)
+                      ;; this regexp matches all files except dotfiles
+                      append (directory-files store nil "^[^.].*$")
+                      else if (listp store)
+                      append store))
+            (recipe (completing-read "Choose MELPA recipe: " recipes nil t)))
+      (pcase (assoc-string recipe recipes)
+        ((and re (pred stringp)) (intern re))
+        (re re)))))
+
+(defun quelpa--delete-obsoleted-package (name &optional new-version)
+  "Delete obsoleted packages with name NAME.
+With NEW-VERSION, will delete obsoleted packages that are not in same
+version."
+  (when-let ((all-pkgs (alist-get name package-alist))
+             (new-pkg-version (or new-version
+                                   (package-desc-version (car all-pkgs)))))
+    (with-demoted-errors "Error deleting package: %S"
+      (mapc (lambda (pkg-desc)
+              (unless (equal (package-desc-version pkg-desc)
+                             new-pkg-version)
+                (let ((inhibit-message t))
+                  (package-delete pkg-desc 'force))))
+            all-pkgs))
+    ;; Only packages with same version remained. Just pick the first one.
+    (when-let (all-pkgs (alist-get name package-alist))
+      (setf (cdr all-pkgs) nil))))
 
 ;; --- public interface ------------------------------------------------------
 
 ;;;###autoload
-(defun quelpa-expand-recipe (recipe-name)
-  "Expand a given RECIPE-NAME into full recipe.
+(defun quelpa-expand-recipe (recipe)
+  "Expand a given RECIPE into full recipe.
 If called interactively, let the user choose a recipe name and
 insert the result into the current buffer."
   (interactive (list (quelpa-interactive-candidate)))
   (when (quelpa-setup-p)
-    (let* ((recipe (quelpa-get-melpa-recipe recipe-name)))
+    (let* ((recipe (if (listp recipe) recipe
+                     (quelpa-get-melpa-recipe recipe))))
       (when recipe
         (if (called-interactively-p 'any)
             (prin1 recipe (current-buffer)))
@@ -1828,15 +1877,11 @@ the `quelpa' command has been run in the current Emacs session.
 With prefix FORCE, packages will all be upgraded discarding local changes."
   (interactive "P")
   (when (quelpa-setup-p)
-    (let ((quelpa-upgrade-p t))
-      (when quelpa-self-upgrade-p
-        (quelpa-self-upgrade))
-      (setq quelpa-cache
-            (cl-remove-if-not #'package-installed-p quelpa-cache :key #'car))
-      (mapc (lambda (item)
-              (when (package-installed-p (car (quelpa-arg-rcp item)))
-                (quelpa item :force force)))
-            quelpa-cache))))
+    (when quelpa-self-upgrade-p
+      (quelpa-self-upgrade))
+    (mapc (lambda (rcp)
+            (quelpa-upgrade rcp (when force 'force)))
+          quelpa-cache)))
 
 ;;;###autoload
 (defun quelpa-upgrade (rcp &optional action)
@@ -1846,21 +1891,22 @@ Optionally, ACTION can be passed for non-interactive call with value of:
 - `local' (or \\[universal-argument] \\[universal-argument] \\[quelpa-upgrade])
   for upgrade using current working tree."
   (interactive
-   (when (quelpa-setup-p)
-     (let* ((quelpa-melpa-recipe-stores (list quelpa-cache))
-            (name (quelpa-interactive-candidate))
-            (prefix (prefix-numeric-value current-prefix-arg)))
-       (list (assoc name quelpa-cache)
-             (cond  ((eq prefix 4) 'force)
-                    ((eq prefix 16) 'local))))))
-  (when rcp
-    (let ((quelpa-upgrade-p t)
-          (current-prefix-arg nil)
-          (config (cond ((eq action 'force) `(:force t))
-                        ((eq action 'local) `(:use-current-ref t)))))
-      (setq quelpa-cache
-            (cl-remove-if-not #'package-installed-p quelpa-cache :key #'car))
-      (when (package-installed-p (car (quelpa-arg-rcp rcp)))
+   (let ((prefix (prefix-numeric-value current-prefix-arg)))
+     (list nil
+           (cond  ((eq prefix 4) 'force)
+                  ((eq prefix 16) 'local)))))
+  (when (quelpa-setup-p)
+    (let* ((rcp (or rcp
+                    (let ((quelpa-melpa-recipe-stores
+                           (list (cl-remove-if-not #'quelpa--package-installed-p
+                                                   quelpa-cache :key #'car))))
+                      (quelpa-interactive-candidate))))
+           (quelpa-upgrade-p t)
+           (current-prefix-arg nil)
+           (config (append (cond ((eq action 'force) `(:force t))
+                                 ((eq action 'local) `(:use-current-ref t)))
+                           `(:autoremove ,quelpa-autoremove-p))))
+      (when (quelpa--package-installed-p (car (quelpa-arg-rcp rcp)))
         (apply #'quelpa rcp config)))))
 
 ;;;###autoload
@@ -1875,19 +1921,39 @@ When `quelpa' is called interactively with a prefix argument (e.g
 \\[universal-argument] \\[quelpa]) it will try to upgrade the
 given package even if the global var `quelpa-upgrade-p' is set to
 nil."
-
-  (interactive (list (quelpa-interactive-candidate)))
+  (interactive (list nil))
   (run-hooks 'quelpa-before-hook)
   (when (quelpa-setup-p) ;if init fails we do nothing
-    (let* ((quelpa-upgrade-p (if current-prefix-arg t quelpa-upgrade-p)) ;shadow `quelpa-upgrade-p'
+    (let* ((arg (or arg
+                    (let ((quelpa-melpa-recipe-stores
+                           `(,@quelpa-melpa-recipe-stores ,quelpa-cache)))
+                      (quelpa-interactive-candidate))))
+           (quelpa-upgrade-p (if current-prefix-arg t quelpa-upgrade-p)) ;shadow `quelpa-upgrade-p'
            (quelpa-stable-p quelpa-stable-p) ;shadow `quelpa-stable-p'
-           (cache-item (if (symbolp arg) (list arg) arg)))
+           (quelpa-autoremove-p (if current-prefix-arg quelpa-autoremove-p nil))
+           (cache-item (quelpa-arg-rcp arg)))
       (quelpa-parse-plist plist)
       (quelpa-parse-stable cache-item)
-      (apply #'quelpa-package-install arg plist)
-      (quelpa-update-cache cache-item)))
+      (when-let ((ver (apply #'quelpa-package-install arg plist)))
+        (when quelpa-autoremove-p
+          (quelpa--delete-obsoleted-package (car cache-item) ver))
+        (quelpa-update-cache cache-item))))
   (quelpa-shutdown)
   (run-hooks 'quelpa-after-hook))
+
+;;;###autoload
+(defun quelpa-upgrade-all-maybe (&optional force)
+  "Run `quelpa-upgrade-all' if at least `quelpa-upgrade-interval' days have passed since the last run.
+With prefix FORCE, packages will all be upgraded discarding local changes."
+  (interactive "P")
+  (when quelpa-upgrade-interval
+    (let ((timestamp (expand-file-name "last_upgrade" quelpa-dir)))
+      (when (or (not (file-exists-p timestamp))
+                (> (- (time-to-seconds) ; Current time - modification time.
+                      (time-to-seconds (nth 5 (file-attributes timestamp))))
+                   (* 60 60 24 quelpa-upgrade-interval)))
+        (quelpa-upgrade-all force)
+        (write-region "" nil timestamp)))))
 
 (provide 'quelpa)
 

@@ -1,4 +1,4 @@
-;;; early-init.el --- Spacemacs Early Init File
+;;; early-init.el --- Spacemacs Early Init File -*- no-byte-compile: t -*-
 ;;
 ;; Copyright (c) 2020 Sylvain Benner & Contributors
 ;;

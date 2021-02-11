@@ -47,6 +47,7 @@
         (org-sticky-header :toggle org-enable-sticky-header)
         (verb :toggle org-enable-verb-support)
         (org-roam :toggle org-enable-roam-support)
+        (valign :toggle org-enable-valign)
         ))
 
 (defun org/post-init-company ()
@@ -467,10 +468,13 @@ Will work on both org-mode and any mode that accepts plain html."
         (spacemacs/declare-prefix-for-mode 'org-agenda-mode
           (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
+        (or dotspacemacs-major-mode-leader-key ",") 'org-agenda-ctrl-c-ctrl-c
         "a" 'org-agenda
+        "c" 'org-agenda-capture
         "Cc" 'org-agenda-clock-cancel
         "Ci" 'org-agenda-clock-in
         "Co" 'org-agenda-clock-out
+        "Cj" 'org-agenda-clock-goto
         "dd" 'org-agenda-deadline
         "ds" 'org-agenda-schedule
         "ie" 'org-agenda-set-effort
@@ -570,6 +574,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
       :bindings
       "j" 'org-agenda-next-line
       "k" 'org-agenda-previous-line
+      "K" nil
       ;; C-h should not be rebound by evilification so we unshadow it manually
       ;; TODO add the rule in auto-evilification to ignore C-h (like we do
       ;; with C-g)
@@ -795,7 +800,9 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :body
     (let ((agenda-files (org-agenda-files)))
       (if agenda-files
-          (find-file (first agenda-files))
+          (progn (find-file (if org-persp-startup-org-file org-persp-startup-org-file (first agenda-files)))
+                 (if org-persp-startup-with-agenda (org-agenda nil org-persp-startup-with-agenda)
+                 ))
         (user-error "Error: No agenda files configured, nothing to display.")))))
 
 (defun org/init-org-journal ()
@@ -863,6 +870,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
                org-roam-dailies-find-yesterday
                org-roam-dailies-find-today
                org-roam-dailies-find-tomorrow
+               org-roam-dailies-find-date
                org-roam-tag-add
                org-roam-tag-delete)
     :init
@@ -874,6 +882,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "aordy" 'org-roam-dailies-find-yesterday
         "aordt" 'org-roam-dailies-find-today
         "aordT" 'org-roam-dailies-find-tomorrow
+        "aordd" 'org-roam-dailies-find-date
         "aorf" 'org-roam-find-file
         "aorg" 'org-roam-graph
         "aori" 'org-roam-insert
@@ -890,6 +899,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "rdy" 'org-roam-dailies-find-yesterday
         "rdt" 'org-roam-dailies-find-today
         "rdT" 'org-roam-dailies-find-tomorrow
+        "rdd" 'org-roam-dailies-find-date
         "rf" 'org-roam-find-file
         "rg" 'org-roam-graph
         "ri" 'org-roam-insert
@@ -936,3 +946,14 @@ Headline^^            Visit entry^^               Filter^^                    Da
 (defun org/pre-init-verb ()
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(verb . t))))
+
+(defun org/init-valign ()
+  (use-package valign
+    :init
+    (progn
+      (add-hook 'org-mode-hook 'valign-mode)
+      (add-hook 'valign-mode-hook (lambda () (unless valign-mode
+                                               (valign-remove-advice)))))
+    :config
+    (spacemacs|diminish valign-mode " ㊣" " E")))
+

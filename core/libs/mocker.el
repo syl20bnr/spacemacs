@@ -132,16 +132,17 @@
       rec)))
 
 (cl-defmethod mocker-verify ((mock mocker-mock))
-  (mapc #'(lambda (r) (when (and (oref r :-active)
-                                 (< (oref r :-occurrences)
-                                    (oref r :min-occur)))
-                        (signal 'mocker-record-error
-                                (list (format
-                                       (concat "Expected call to mock `%s',"
-                                               " with input like %s,"
-                                               " was not run.")
-                                       (oref mock :function)
-                                       (mocker-get-record-expectations r))))))
+  (mapc #'(lambda (r)
+            (when (and (oref r :-active)
+                       (< (oref r :-occurrences)
+                          (oref r :min-occur)))
+              (signal 'mocker-record-error
+                      (list (format
+                             (concat "Expected call to mock `%s',"
+                                     " with input like %s,"
+                                     " was not run.")
+                             (oref mock :function)
+                             (mocker-get-record-expectations r))))))
         (oref mock :records)))
 
 ;;; Mock record base object
@@ -159,11 +160,12 @@
   (let* ((obj (cl-call-next-method))
          (occur (oref obj :occur)))
     (when occur
-      (oset obj :min-occur (max (oref obj :min-occur)
-                                occur))
       (oset obj :max-occur (if (oref obj :max-occur)
                                (min (oref obj :max-occur) occur)
-                             occur)))
+                             occur))
+      (oset obj :min-occur (min (oref obj :max-occur)
+                                (max (oref obj :min-occur)
+                                     occur))))
     obj))
 
 (cl-defmethod mocker-read-record ((rec (subclass mocker-record-base)) spec)
@@ -172,10 +174,15 @@
 (cl-defmethod mocker-use-record ((rec mocker-record-base))
   (let ((max (oref rec :max-occur))
         (n (1+ (oref rec :-occurrences))))
-    (oset rec :-occurrences n)
-    (when (and (not (null max))
-               (= n max))
-      (oset rec :-active nil))))
+    (if (and max (> n max))
+        (signal 'mocker-record-error
+                (list (format
+                       "Unexpected call to mock `%s'"
+                       (oref mock :function))))
+      (oset rec :-occurrences n)
+      (when (and (not (null max))
+                 (= n max))
+        (oset rec :-active nil)))))
 
 (cl-defmethod mocker-skip-record ((rec mocker-record-base) args)
   (if (>= (oref rec :-occurrences)
@@ -343,7 +350,7 @@ specialized mini-languages for specific record classes.
                             (cons 'progn
                                   (mapcar #'(lambda (rec)
                                               `(mocker-add-record ,(car m)
-                                                              ,@rec))
+                                                                  ,@rec))
                                           (nth 2 m))))
                         mocks))
          (verifs (mapcar #'(lambda (m)

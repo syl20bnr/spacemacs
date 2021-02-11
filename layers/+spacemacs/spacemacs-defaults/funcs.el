@@ -121,6 +121,14 @@ If not in such a search box, fall back on `Custom-newline'."
 (defalias 'spacemacs/display-buffer-other-frame 'display-buffer-other-frame)
 (defalias 'spacemacs/find-file-and-replace-buffer 'find-alternate-file)
 
+(defun spacemacs/dired-remove-evil-mc-gr-which-key-entry ()
+  ;; Remove inherited bindings from evil-mc
+  ;; do this after the config to make sure the keymap is available
+  (with-eval-after-load 'dired
+    (which-key-add-keymap-based-replacements dired-mode-map
+      "<normal-state> g r" nil
+      "<visual-state> g r" nil)))
+
 (defun spacemacs/indent-region-or-buffer ()
   "Indent a region if selected, otherwise the whole buffer."
   (interactive)
@@ -149,6 +157,22 @@ If not in such a search box, fall back on `Custom-newline'."
         (untabify (point-min) (point-max))
         (indent-region (point-min) (point-max))
         (whitespace-cleanup)))))
+
+(defun spacemacs//trailing-whitespace ()
+  (setq show-trailing-whitespace dotspacemacs-show-trailing-whitespace))
+
+(defun spacemacs//set-whitespace-style-for-diff ()
+  "Whitespace configuration for `diff-mode'"
+  (setq-local whitespace-style '(face
+                                 tabs
+                                 tab-mark
+                                 spaces
+                                 space-mark
+                                 trailing
+                                 indentation::space
+                                 indentation::tab
+                                 newline
+                                 newline-mark)))
 
 ;; from https://gist.github.com/3402786
 (defun spacemacs/toggle-maximize-buffer ()

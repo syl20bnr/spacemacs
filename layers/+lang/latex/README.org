@@ -97,6 +97,18 @@ To explicitly choose =company-auctex= as the backend, set the following in your
                 '((latex :variables latex-backend 'company-auctex)))
 #+END_SRC
 
+When =company-auctex= is chosen as the backend, it uses =company-math= for the
+completion of math symbols. =company-math= displays a unicode representation of
+symbols proposed for completion. It is supposed to have a better coverage of
+latex symbols than the default counter-part in =company-auctex=. If you prefer to
+use =company-auctex= for math symbols completion set the following in your
+=~/.spacemacs=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((latex :packages (not company-math))))
+#+END_SRC
+
 ** Previewing
 =LaTex= layer support full-document previews and inline preview (via ~SPC m p~).
 

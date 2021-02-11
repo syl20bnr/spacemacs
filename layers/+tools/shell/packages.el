@@ -17,6 +17,7 @@
     (eshell :location built-in)
     eshell-prompt-extras
     eshell-z
+    evil-collection
     helm
     ivy
     magit
@@ -129,6 +130,9 @@
       ;; automatically truncate buffer after output
       (when (boundp 'eshell-output-filter-functions)
         (add-hook 'eshell-output-filter-functions #'eshell-truncate-buffer)))))
+
+(defun shell/pre-init-evil-collection ()
+  (add-to-list 'spacemacs-evil-collection-allowed-list 'vterm))
 
 (defun shell/init-eshell-prompt-extras ()
   (use-package eshell-prompt-extras

@@ -58,3 +58,13 @@ are configured.")
 
 (defvar org-enable-roam-support nil
   "If non-nil, org-roam (https://www.orgroam.com/) is configured")
+
+(defvar org-persp-startup-org-file nil
+  "If non-nil, opens the specified file instead of the first in org-agenda-files")
+
+(defvar org-persp-startup-with-agenda nil
+  "If non-nil, opens the specified agenda custom view")
+
+(defvar org-enable-valign nil
+  "If non-nil, enable valign-mode in org-mode buffers.
+ATTENTION: `valign-mode' will be laggy working with tables contain more than 100 lines.")

@@ -391,6 +391,9 @@ If non-nil zone out after the specified number of seconds.")
 Possible values are `any', `current', `all' or `nil'.
 Default is `all' (highlight any scope and emphasize the current one.")
 
+(defvar dotspacemacs-show-trailing-whitespace t
+  "Show trailing whitespace. Default is `t'.")
+
 (defvar dotspacemacs-whitespace-cleanup nil
   "Delete whitespace while saving buffer.
 
@@ -466,6 +469,9 @@ prettifying Org files.")
 (defvar dotspacemacs-scratch-buffer-unkillable nil
   "If non-nil, `kill-buffer' on *scratch* buffer
 will bury it instead of killing.")
+
+(defvar dotspacemacs-byte-compile nil
+  "If non-nil, byte-compile some of Spacemacs files.")
 
 (defun dotspacemacs//prettify-spacemacs-docs ()
   "Run `spacemacs/prettify-org-buffer' if `buffer-file-name'

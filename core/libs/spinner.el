@@ -155,6 +155,7 @@ Each spinner can override this value.")
 The list of possible built-in spinner types is given by the
 `spinner-types' variable, but you can also use your own (see
 below).
+
 If TYPE is nil, the frames of this spinner are given by the first
 element of `spinner-types'.
 If TYPE is a symbol, it specifies an element of `spinner-types'.
@@ -195,16 +196,20 @@ own spinner animations."
 (defun spinner-create (&optional type buffer-local fps delay)
   "Create a spinner of the given TYPE.
 The possible TYPEs are described in `spinner--type-to-frames'.
+
 FPS, if given, is the number of desired frames per second.
 Default is `spinner-frames-per-second'.
+
 If BUFFER-LOCAL is non-nil, the spinner will be automatically
 deactivated if the buffer is killed.  If BUFFER-LOCAL is a
 buffer, use that instead of current buffer.
+
 When started, in order to function properly, the spinner runs a
 timer which periodically calls `force-mode-line-update' in the
 curent buffer.  If BUFFER-LOCAL was set at creation time, then
 `force-mode-line-update' is called in that buffer instead.  When
 the spinner is stopped, the timer is deactivated.
+
 DELAY, if given, is the number of seconds to wait after starting
 the spinner before actually displaying it. It is safe to cancel
 the spinner before this time, in which case it won't display at
@@ -273,16 +278,20 @@ simply activate it.  This method is designed for minor modes, so
 they can use the spinner as part of their lighter by doing:
     '(:eval (spinner-print THE-SPINNER))
 To stop this spinner, call `spinner-stop' on it.
+
 If TYPE-OR-OBJECT is anything else, a buffer-local spinner is
 created with this type, and it is displayed in the
 `mode-line-process' of the buffer it was created it.  Both
 TYPE-OR-OBJECT and FPS are passed to `make-spinner' (which see).
 To stop this spinner, call `spinner-stop' in the same buffer.
+
 Either way, the return value is a function which can be called
 anywhere to stop this spinner.  You can also call `spinner-stop'
 in the same buffer where the spinner was created.
+
 FPS, if given, is the number of desired frames per second.
 Default is `spinner-frames-per-second'.
+
 DELAY, if given, is the number of seconds to wait until actually
 displaying the spinner. It is safe to cancel the spinner before
 this time, in which case it won't display at all."

@@ -5,6 +5,8 @@
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
+- [[#install][Install]]
+- [[#note-about-evil-collection][Note about evil-collection]]
 
 * Description
 This layer adds various adjustments to packages to create an evilified experience
@@ -31,3 +33,34 @@ throughout the entirety of Spacemacs.
 - Improves the comment function to be able to also do the inverse operation
 - Persistent highlight of searched text with =evil-search-highlight-persist=
 - Display tildes in non-buffer area with =vi-tilde-fringe=
+- Add =evil-collection=
+
+* Install
+The =spacemacs-evil= layer is included by default in the Spacemacs distribution.
+
+* Note about evil-collection
+[[https://github.com/emacs-evil/evil-collection][evil-collection]] is a collection of Evil bindings for the parts of Emacs that
+Evil does not cover properly by default, such as help-mode, M-x calendar, Eshell
+and more.
+
+However, there is a large overlap of features provided by both =Spacemacs= and
+=evil-collection=. For the same feature, =Spacemacs= implementation is often better
+than =evil-collection=.
+
+That's said, when =evil-collection= is used carefully we can reduce the amount of
+effort wasted on ~reinventing the wheel~ on =Spacemacs= side.
+
+Spacemacs provides a layer variable =spacemacs-evil-collection-allowed-list= for
+users and layer hackers to enable evil-collection on their desired modes.
+
+For users, if you want to enable evil-collection on =eglot=, then you will need
+to declare this layer with it variable explicitly:
+
+#+BEGIN_EXAMPLE
+  (spacemacs-evil :variables
+                      spacemacs-evil-collection-allowed-list
+                     '(eglot))
+#+END_EXAMPLE
+
+For Spacemacs hackers check out git layer to see how we apply =evil-collection= to
+=magit.=

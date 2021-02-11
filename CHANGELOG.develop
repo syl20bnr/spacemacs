@@ -158,6 +158,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   - ~SPC m s r~ for =ess-eval-region=
   - ~SPC m s s~ for =ess-switch-to-inferior-or-script-buffer=
   - ~SPC m w~ for =ess-r-package-dev-map=
+- Fixed a bug that R scripts cannot plot graphs (thanks to Lucius Hu)
 ***** Elixir
 - Key bindings;
   - Changed ~SPC m p t~ to ~SPC m t F~ for =alchemist-project-find-test=
@@ -490,6 +491,7 @@ In org-agenda-mode
     (thanks to Zach Pearson)
   - New variable =dotspacemacs-read-process-output-max= to optimise lsp
     performance in emacs 27 (thanks to Maximilian Wolff)
+  - New variable =dotspacemacs-show-trailing-whitespace= (thanks to duianto)
 - Removed Variables:
   - Removed unused variable =dotspacemacs-verbose-loading= from
     =.spacemacs.template= (thanks to Ying Qu)
@@ -620,6 +622,8 @@ Other:
     =dotspacemacs-emacs-dumper-dump-file= (thanks to Evan Klitzke)
   - Add =spacemacs-scratch-mode-hook= to run functions
     after =spacemacs-scratch-mode= is applied to =*scratch*= buffer (thanks to rayw000)
+  - Add toggles for persistent which-key keymaps, (full)-major/minor mode
+    keymaps and top-level keymap, under prefix ~SPC t k~ (thanks to Daniel Nicolai)
 - Fixes:
   - Avoid non-idempotent use of push in init code (thanks to Miciah Masters)
   - Moved Spacemacs startup progress bar to =core-progress-bar.el=, removed
@@ -1882,6 +1886,7 @@ Other:
 - Fixed flycheck initialization (thanks to Kevin W. van Rooijen)
 - Added =elm-test-runner= (thanks to Juan Edi)
 **** Emacs Lisp
+- Fix: after edebug session, get out of evil-evilified (thanks to Ag Ibragimov)
 - Key bindings:
   - Make ~SPC m h h~ and jump handlers work in =ielm= (thanks to Keith Pinson)
   - Added ~c~ to continue in edebug mode (thanks to hodge)
@@ -2242,6 +2247,7 @@ Other:
   - Add ~C-d~ to create a project perspective and open a project root dired
     buffer, from the ~SPC p l~ persp switch project prompt
     (thanks to Magnus Therning)
+  - Add =C(-S)-tab= keybindings for buffer switching (thanks to Daniel Nicolai)
 - Fixes:
   - Fixed signature of =spacemacs//display-helm-window= (thanks to Jack Kamm)
   - Fixed initialization by calling =helm-mode= when Helm is initialized=
@@ -2352,6 +2358,7 @@ Other:
   - Bound =SPC s l= to =ivy-resume= (thanks to Wieland Hoffmann)
   - Rebind =C-k= to =C-M-k= in =ivy-reverse-i-search= (=C-r= at a prompt)
     (thanks to duianto)
+  - Add =C-(S)-tab= keybindings for buffer switching (thanks to Daniel Nicolai)
 - Removed definitions for =spacemacs/swiper-region-or-symbol= and
   =spacemacs/swiper-all-region-or-symbol= and updated keybindings, because Ivy has
   more advanced implementation via =swiper-thing-at-point= and
@@ -2614,6 +2621,8 @@ files (thanks to Daniel Nicolai)
 - Improvements:
   - Evilfied =dap= debug windows
 **** Markdown
+- Fontify code blocks natively by default, for parity with the Org layer (thanks
+  to Keith Pinson)
 - Disable =mmm-mode= in Git commit buffers, in order to allow the use of Markdown
   mode when committing (thanks to Keith Pinson)
 - New layer variable =markdown-mmm-auto-modes= which is a list of language names
@@ -2669,6 +2678,7 @@ files (thanks to Daniel Nicolai)
   terminal users (thanks to AmaiKinono)
 - Made =*lsp-help*= buffer shown in a popup window using popwin
 - Add support for mdx files via markdown-mode (thanks to robbyoconnor)
+- Improve documentation about markdown preview options (thanks to Lin Sun)
 **** Major modes
 - Added SPARQL-mode (thanks to Dietrich Daroch)
 - Added android logcat (thanks to jiejingzhang)
@@ -2892,6 +2902,8 @@ files (thanks to Daniel Nicolai)
     - ~SPC a o r d t~ (~SPC m r d t~) Open today's daily note
     - ~SPC a o r d T~ (~SPC m r d T~) Open tomorrow's daily note
     (thanks to Mariusz Klochowicz)
+    - ~SPC a o r d d~ (~SPC m r d d~) Open daily note via calendar view
+    (thanks to Ben Swift)
   - Added additional prefix (~SPC m m j~) for org-jira bindings
     (thanks to Mariusz Klochowicz)
 - Made =org= layer depend on =spacemacs-org= (thanks to Eivind Fonn)
@@ -3286,6 +3298,10 @@ files (thanks to Daniel Nicolai)
     - ~SPC c s d~ Copy rpms to the phone
     - ~SPC c s i~ Install rpms into target
 **** Scala
+- Remove long-deprecated Ensime support (thanks to Keith Pinson)
+- Provide an easy way to configure SBT to use a small buffer at the bottom of
+  the frame by setting =scala-sbt-window-position= to =bottom= (thanks to Keith
+  Pinson)
 - Move =ensime= to the =java= layer (Tor Hedin Bronner)
 - Key bindings:
   - Evilify =ensime= search in insert/normal mode (thanks to Diego Alvarez)
