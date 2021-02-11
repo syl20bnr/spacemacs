@@ -109,6 +109,25 @@ Requires smartparens because all movement is done using `sp-forward-symbol'."
       (sp-forward-symbol)
       (call-interactively 'eval-last-sexp))))
 
+(defun spacemacs/eval-current-form-to-comment-sp (&optional arg)
+  "Same as `spacemacs/eval-current-form-sp' but inserts output as a comment."
+  (interactive "p")
+  (require 'smartparens)
+  (let ((evil-move-beyond-eol t))
+    ;; evil-move-beyond-eol disables the evil advices around eval-last-sexp
+    (save-excursion
+      (let ((max 10))
+        (while (and (> max 0)
+                    (sp-point-in-string-or-comment))
+          (decf max)
+          (sp-up-sexp)))
+      (sp-up-sexp arg)
+      (let ((ret-val (format ";; %S" (call-interactively 'eval-last-sexp))))
+        (goto-char (point-at-eol))
+        (open-line 1)
+        (forward-line 1)
+        (insert ret-val)))))
+
 
 ;; elisp comment text-object definition
 

@@ -320,6 +320,7 @@
   (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
     (spacemacs/set-leader-keys-for-major-mode mode
       "ec" 'spacemacs/eval-current-form-sp
+      "e;" 'spacemacs/eval-current-form-to-comment-sp
       "es" 'spacemacs/eval-current-symbol-sp)))
 
 (defun emacs-lisp/init-emr ()
