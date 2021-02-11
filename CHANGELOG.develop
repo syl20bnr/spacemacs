@@ -462,6 +462,7 @@ In org-agenda-mode
 - flow-type (replaced by LSP in =javascript= layer)
 - ycmd (moved to =c-c++=)
 *** Dotfile changes
+- Added type bases validation for .spacemacs variables.
 - New Variables:
   - New dotvariable =dotspacemacs-auto-generate-layout-names= (thanks to bmag)
   - New dotvariables =dotspacemacs-emacs-pdumper-executable-file=,
