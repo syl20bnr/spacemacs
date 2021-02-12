@@ -258,16 +258,17 @@ If the universal prefix argument is used then kill also the window."
 
 ;; ace-link
 
-(defvar spacemacs--link-pattern "~?/.+\\|\s\\[")
-
 (defun spacemacs//collect-spacemacs-buffer-links ()
-  (let ((end (window-end))
-        points)
+  "Return a list of widget-button positions."
+  (let (widget-button-positions)
     (save-excursion
       (goto-char (window-start))
-      (while (re-search-forward spacemacs--link-pattern end t)
-        (push (+ (match-beginning 0) 1) points))
-      (nreverse points))))
+      (while (< (point) (window-end))
+        (when (eq (car (get-char-property-and-overlay (point) 'face))
+                  'widget-button)
+          (push (point) widget-button-positions))
+        (goto-char (next-overlay-change (point)))))
+    (nreverse widget-button-positions)))
 
 (defun spacemacs/ace-buffer-links ()
   "Ace jump to links in `spacemacs' buffer."
