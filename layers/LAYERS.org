@@ -448,9 +448,9 @@ This layer enhances the default commands of Emacs and is primarily intended to
 be used with the =emacs= editing style as it does not change anything in the Vim
 key bindings.
 
-However the =emacs= editing style is not required, you can still use this layer
+However the =emacs= editing style is not required. You can still use this layer
 while you are using the =vim= editing style if you have some kind of mixed
-style.
+style, but some of the layer bindings might be shadowed by the evil key bindings.
 
 The commands defined in this layer are taken from various sources like [[https://github.com/bbatsov/prelude][Prelude]].
 
@@ -556,6 +556,7 @@ This layer adds support for tabs. Implementation is done using [[https://github.
 
 Features:
 - Sets up tabs using Centaur tabs as backend
+- Optionally auto hide tabs after delay
 
 ** Typography
 [[file:+emacs/typography/README.org][+emacs/typography/README.org]]

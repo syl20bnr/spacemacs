@@ -18,7 +18,7 @@ key bindings.
 
 However the =emacs= editing style is not required. You can still use this layer
 while you are using the =vim= editing style if you have some kind of mixed
-style, but some of the layer bindings might be shadowed by the evil keybindings.
+style, but some of the layer bindings might be shadowed by the evil key bindings.
 
 The commands defined in this layer are taken from various sources like [[https://github.com/bbatsov/prelude][Prelude]].
 
