@@ -13,7 +13,11 @@
 
 (spacemacs|define-jump-handlers lua-mode)
 
-(defvar lua-backend nil
-  "The backend to be used for Lua.
-When nil, use `lua-mode' as the backend.
-When non-nil, use one of LSP Lua clients, i.e. `lsp-emmy', `lua-language-server', or `lsp-lua-lsp'.")
+(defvar lua-backend 'nil
+  "The backend to use for IDE features.
+Possible values are `lua-mode' and `lsp'.
+If `nil' then `lua-mode' is the default backend unless `lsp' layer is used.")
+
+(defvar lua-lsp-server 'emmy
+  "Language server to use for lsp backend.
+Possible values are `emmy', `lua-language-server', or `lua-lsp'.")
