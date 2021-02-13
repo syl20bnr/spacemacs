@@ -70,7 +70,8 @@
   (require 'evil)
   (evil-mode 1)
 
-  (when (configuration-layer/package-used-p 'undo-tree)
+  (when (and (fboundp 'evil-set-undo-system)
+             (configuration-layer/package-used-p 'undo-tree))
     (evil-set-undo-system 'undo-tree))
 
   ;; Use evil as a default jump handler
