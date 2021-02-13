@@ -27,12 +27,12 @@ customizing =centaur-tabs-hide-tabs-hooks=
 
 Alternatively you can set ~tabs-auto-hide~ to ~t~ to auto hide tabs after some
 delay ~tabs-auto-hide-delay~ via the :variables keyword in your dotfile:
-#+begin_src emacs-lisp
-     (tabs :variables
-           tabs-auto-hide t
-           tabs-auto-hide-delay 3)
-#+end_src
 
+#+BEGIN_SRC emacs-lisp
+  (tabs :variables
+        tabs-auto-hide t
+        tabs-auto-hide-delay 3)
+#+END_SRC
 
 * Key bindings
 

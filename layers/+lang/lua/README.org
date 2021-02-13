@@ -57,12 +57,12 @@ but also provides less features. To enable it set the =lua-backend= to =lua-mode
 *** LSP
 This is the prefered backend choice. It relies on an external server implementing the LSP protocol.
 It requires installing one of the supported server implementations below:
-  - [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua]]
-  - [[https://github.com/sumneko/lua-language-server][lua-language-server]]
-  - [[https://github.com/Alloyed/lua-lsp][lua-lsp]]
+- [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua]]
+- [[https://github.com/sumneko/lua-language-server][lua-language-server]]
+- [[https://github.com/Alloyed/lua-lsp][lua-lsp]]
 
-Once it is installed the keybindings are provided by [[file:../../+tools/lsp/README.org][LSP layer]] allowing
-consistent keybindings among different layers.
+Once it is installed the key bindings are provided by [[file:../../+tools/lsp/README.org][LSP layer]] allowing
+consistent key bindings among different layers.
 
 To enable LSP set =lua-backend= to =lsp=. If =lua-backend= is =nil= and the =LSP layer= is loaded
 =LSP= will be used automatically otherwise it will fallback to =lua-mode=.
@@ -91,6 +91,7 @@ The java path and the path to the server executable can be configured as is show
 **** Lua-language server setup
 To use the =lua-language-server= lsp server, please follow [[https://github.com/sumneko/lua-language-server][lua-language-server]] to compile the standalone binary. 
 Then set the layer variables as shown below:
+
 #+BEGIN_SRC elisp
   (lua :variables
        lua-backend 'lsp
@@ -106,6 +107,7 @@ on the installed luarocks packages, so make sure you have them all installed
 for maximum benefit.
 
 To instruct Spacemacs to use this server set your config as shown below:
+
 #+BEGIN_SRC elisp
   (lua :variables
        lua-backend 'lsp
