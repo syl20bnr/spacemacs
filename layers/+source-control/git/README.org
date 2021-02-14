@@ -160,10 +160,10 @@ Spacemacs uses [[https://github.com/magit/forge/][forge]] for integration with r
 the =status buffer= with the ~@~ key binding. For information on setting up
 remotes check the manual's [[https://magit.vc/manual/forge/Getting-Started.html][Getting Started page]].
 
-Spacemacs uses [[https://github.com/justbur/evil-magit][evil-magit]] for key bindings in magit buffers (unless your editing
-style is set to emacs, in which case you get the default magit bindings), which
-are the standard magit key bindings with some minimal changes to make them
-comfortable for evil users.
+Spacemacs uses [[https://github.com/emacs-evil/evil-collection/tree/master/modes/magit][evil-collection-magit]] for key bindings in magit buffers (unless
+your editing style is set to emacs, in which case you get the default magit
+bindings), which are the standard magit key bindings with some minimal changes
+to make them comfortable for evil users.
 
 Here are the often used bindings inside a =status buffer=:
 
