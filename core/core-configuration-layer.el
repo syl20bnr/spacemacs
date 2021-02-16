@@ -2719,19 +2719,39 @@ repository."
           configuration-layer-stable-elpa-version
           (configuration-layer//stable-elpa-tarball-sig-filename)))
 
-(defun configuration-layer/load-lock-file ()
-  "Load the .lock-xxx file and set `configuration-layer--lock-filename'.
+(defun configuration-layer//get-lock-filename ()
+  "Return the name of the lock file.
 
 On the master branch it loads the file `.lock-stable'.
 On the other branch it loads the file `.lock-latest' if the variable
 `dotspacemacs-use-stable-elpa' is nil, otherwise it loads the file
 `lock-stable'."
-  (setq configuration-layer--lock-filename
-        (if (or (string-equal "master" (spacemacs//git-get-current-branch))
-                dotspacemacs-use-stable-elpa)
-            configuration-layer-lock-file-stable
-          configuration-layer-lock-file-latest))
+  (if (or (string-equal "master" (spacemacs//git-get-current-branch))
+          dotspacemacs-use-stable-elpa)
+      configuration-layer-lock-file-stable
+    configuration-layer-lock-file-latest))
+
+(defun configuration-layer//load-lock-file ()
+  "Load the .lock-xxx file and set `configuration-layer--lock-filename'."
+  (setq configuration-layer--lock-filename (configuration-layer//get-lock-filename))
   (configuration-layer/load-file configuration-layer--lock-filename))
+
+(defun configuration-layer//stable-elpa-needs-to-be-installed-p ()
+  "Return non-nil if stable ELPA needs to be installed.
+
+This function may prompt the user to decide if a new version of stable ELPA
+should be installed."
+  (and
+   ;; when the stable lock file has been loaded
+   (string-equal configuration-layer--lock-filename
+                 configuration-layer-lock-file-stable)
+   (or
+    (not (configuration-layer//stable-elpa-version-installed-p))
+    (and
+     ;; prompt the user for upgrade if a previous installation
+     ;; has been found
+     (not (configuration-layer/stable-elpa-locked-version-installed-p))
+     (configuration-layer//stable-elpa-prompt-install-locked-version)))))
 
 (defun configuration-layer/stable-elpa-init ()
   "Initialize the stable ELPA repository.
@@ -2745,20 +2765,11 @@ must quit. Basically on a stable branch (like master) the stable ELPA repository
 is mandatory whereas on a develop branch the stable ELPA repository is optional
 (it can be enabled essentially for testing purpose). "
   ;; load the lock file depending on the currently checked out git branch
-  (configuration-layer/load-lock-file)
-  (if (and
-       ;; when the stable lock file has been loaded
-       (string-equal configuration-layer--lock-filename
-                     configuration-layer-lock-file-stable)
-       (or
-        (not (configuration-layer//stable-elpa-version-installed-p))
-        (and
-         ;; prompt the user for upgrade if a previous installation
-         ;; has been found
-         (not (configuration-layer//stable-elpa-locked-version-installed-p))
-         (configuration-layer//stable-elpa-prompt-install-locked-version))))
-      (configuration-layer//stable-elpa-install)
-    t))
+  (configuration-layer//load-lock-file)
+  (let ((continue t))
+    (when (configuration-layer//stable-elpa-needs-to-be-installed-p)
+      (setq continue configuration-layer//stable-elpa-install))
+    continue))
 
 (defun configuration-layer//stable-elpa-locked-version-installed-p ()
   "Returns non-nil if locked version of stable ELPA repository is installed."

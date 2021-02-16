@@ -3192,42 +3192,74 @@
       (should (equal pkg patched-pkg)))))
 
 ;; ---------------------------------------------------------------------------
+;; configuration-layer//get-lock-filename
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-get-lock-filename--master-uses-stable-lock-filename ()
+  (mocker-let
+   ((spacemacs//git-get-current-branch () ((:record-cls 'mocker-stub-record
+                                                 :output "master" :occur 1))))
+   (should (equal configuration-layer-lock-file-stable
+                  (configuration-layer//get-lock-filename)))))
+
+(ert-deftest test-get-lock-filename--develop-uses-latest-lock-filename-by-default ()
+  (mocker-let
+   ((spacemacs//git-get-current-branch () ((:record-cls 'mocker-stub-record
+                                                        :output "develop" :occur 1))))
+   (should (equal configuration-layer-lock-file-latest
+                  (configuration-layer//get-lock-filename)))))
+
+(ert-deftest test-get-lock-filename--develop-uses-stable-lock-filename-with-dotspacemacs-use-stable-elpa ()
+  (let ((dotspacemacs-use-stable-elpa t))
+    (mocker-let
+     ((spacemacs//git-get-current-branch () ((:record-cls 'mocker-stub-record
+                                                          :output "develop" :occur 1))))
+     (should (equal configuration-layer-lock-file-stable
+                    (configuration-layer//get-lock-filename))))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer//stable-elpa-needs-to-be-installed-p
+;; ---------------------------------------------------------------------------
+
+
+
+;; ---------------------------------------------------------------------------
 ;; configuration-layer//stable-elpa-verify-archive
 ;; ---------------------------------------------------------------------------
 
-(ert-deftest test-stable-elpa-verify-archive--archive-not-found-is-fatal-error ()
-  (mocker-let
-   ((configuration-layer//stable-elpa-tarball-local-file
-     nil ((:record-cls 'mocker-stub-record
-                       :output
-                       (concat spacemacs-test-directory
-                               "core/data/not-found.tar.gz")
-                       :occur 1)))
-    (configuration-layer//stable-elpa-tarball-local-sign-file
-     nil ((:record-cls 'mocker-stub-record
-                       :output
-                       (concat spacemacs-test-directory
-                               "core/data/stable-elpa.sig")
-                       :occur 1)))
-    (configuration-layer//error
-     (msg &rest args) ((:record-cls 'mocker-stub-record :occur 1))))
-   (should (null (configuration-layer//stable-elpa-verify-archive)))))
+;; (ert-deftest test-stable-elpa-verify-archive--archive-not-found-is-fatal-error ()
+;;   (mocker-let
+;;    ((configuration-layer//stable-elpa-tarball-local-file
+;;      nil ((:record-cls 'mocker-stub-record
+;;                        :output
+;;                        (concat spacemacs-test-directory
+;;                                "core/data/not-found.tar.gz")
+;;                        :occur 1)))
+;;     (configuration-layer//stable-elpa-tarball-local-sign-file
+;;      nil ((:record-cls 'mocker-stub-record
+;;                        :output
+;;                        (concat spacemacs-test-directory
+;;                                "core/data/stable-elpa.sig")
+;;                        :occur 1)))
+;;     (configuration-layer//error
+;;      (msg &rest args) ((:record-cls 'mocker-stub-record :occur 1))))
+;;    (should (null (configuration-layer//stable-elpa-verify-archive)))))
 
 
-(ert-deftest test-stable-elpa-verify-archive--signature-not-found-is-fatal-error ()
-  (mocker-let
-   ((configuration-layer//stable-elpa-tarball-local-file
-     nil ((:record-cls 'mocker-stub-record
-                       :output
-                       (concat spacemacs-test-directory
-                               "core/data/signed-stable-elpa.tar.gz")
-                       :occur 1)))
-    (configuration-layer//stable-elpa-tarball-local-sign-file
-     nil ((:record-cls 'mocker-stub-record
-                       :output
-                       (concat spacemacs-test-directory
-                               "core/data/not-found.sig")
-                       :occur 1)))
-    (configuration-layer//error
-     (msg &rest args) ((:record-cls 'mocker-stub-record :occur 1))))
-   (should (null (configuration-layer//stable-elpa-verify-archive)))))
+;; (ert-deftest test-stable-elpa-verify-archive--signature-not-found-is-fatal-error ()
+;;   (mocker-let
+;;    ((configuration-layer//stable-elpa-tarball-local-file
+;;      nil ((:record-cls 'mocker-stub-record
+;;                        :output
+;;                        (concat spacemacs-test-directory
+;;                                "core/data/signed-stable-elpa.tar.gz")
+;;                        :occur 1)))
+;;     (configuration-layer//stable-elpa-tarball-local-sign-file
+;;      nil ((:record-cls 'mocker-stub-record
+;;                        :output
+;;                        (concat spacemacs-test-directory
+;;                                "core/data/not-found.sig")
+;;                        :occur 1)))
+;;     (configuration-layer//error
+;;      (msg &rest args) ((:record-cls 'mocker-stub-record :occur 1))))
+;;    (should (null (configuration-layer//stable-elpa-verify-archive)))))
