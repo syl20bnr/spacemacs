@@ -31,6 +31,7 @@
         (evil-swap-keys :toggle dotspacemacs-swap-number-row)
         (spacemacs-whitespace-cleanup :location local)
         string-inflection
+        multi-line
         undo-tree
         (unkillable-scratch :toggle dotspacemacs-scratch-buffer-unkillable)
         uuidgen
@@ -475,6 +476,18 @@
         "xi_" 'string-inflection-underscore
         "xiu" 'string-inflection-underscore
         "xiU" 'string-inflection-upcase))))
+
+(defun spacemacs-editing/init-multi-line ()
+  (use-package multi-line
+    :init
+    (progn
+      (spacemacs|define-transient-state multi-line
+        :title "Multi-line Transient State"
+        :doc "\n [_n_] cycle"
+        :bindings
+        ("n" multi-line))
+      (spacemacs/set-leader-keys
+        "xn" 'spacemacs/multi-line-transient-state/body))))
 
 (defun spacemacs-editing/init-undo-tree ()
   (use-package undo-tree
