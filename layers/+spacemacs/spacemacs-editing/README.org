@@ -31,3 +31,4 @@ This layer adds packages to improve editing with Spacemacs.
 - Support for unkillable scratch via =unkillable-scratch=.
 - In =dired-mode=, press ~Shift S~ to select sorting.
 - Support for =evil-easymotion= if the editing style is =vim= or =hybrid=.
+- Support for cycling between multi line block styles via =multi-line=
