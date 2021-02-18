@@ -65,13 +65,9 @@ Unlike `eval-defun', this does not go to topmost function."
                              hybrid-style-enable-evilified-state))))
     (if (not edebug-mode)
         ;; disable edebug-mode
-        (when evilified?
-          (remove-hook 'pre-command-hook 'evilified-state--pre-command-hook)
-          (define-key evil-normal-state-map [escape] 'evil-force-normal-state)
-          (evil-normal-state))
+        (when evilified? (evil-evilified-state-exit))
       ;; enable edebug-mode
       (when evilified? (evil-evilified-state))
-      (evil-normalize-keymaps)
       (when (and (fboundp 'golden-ratio-mode)
                  golden-ratio-mode)
         (golden-ratio)))))
