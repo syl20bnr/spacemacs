@@ -73,9 +73,8 @@
                                        when (executable-find cmd)
                                        return (file-name-nondirectory it))))
                 command
-              (user-error (if markdown-executable
-                              (format "Cannot find markdown-executable %s" markdown-executable)
-                            "Please refer to the layer documentation and install a markdown command"))))
+              (when markdown-executable
+                (user-error (format "Cannot find markdown-executable %s" markdown-executable)))))
 
       ;; Declare prefixes and bind keys
       (dolist (prefix '(("mc" . "markdown/command")
