@@ -11,6 +11,7 @@
 - [[#important-note][Important Note]]
 - [[#install][Install]]
   - [[#layer][Layer]]
+  - [[#agenda-notifications][Agenda notifications]]
   - [[#github-support][GitHub support]]
   - [[#twitter-bootstrap-support][Twitter Bootstrap support]]
   - [[#gnuplot-support][Gnuplot support]]
@@ -111,6 +112,37 @@ More details can be found [[https://github.com/syl20bnr/spacemacs/issues/8106][h
 To use this configuration layer: in the main Spacemacs configuration
 file (=~/.spacemacs=), to the existing =dotspacemacs-configuration-layers= list
 add the =org= entry.
+
+** Agenda notifications
+To enable notifications for agenda events, set the variable
+=org-enable-notifications= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (org :variables
+         org-enable-notifications t
+         org-start-notification-daemon-on-startup t)))
+#+END_SRC
+
+This will install and configure the [[https://code.orgmode.org/bzg/org-mode/src/master/contrib/lisp/org-notify.el][org-notify]] package. Run the
+=org-notify-start= command to start the =org-notify= notification daemon. To
+start the notification daemon automatically on Spacemacs startup, set the
+variable =org-start-notification-daemon-on-startup= to =t= as shown in the code
+snippet above.
+
+The notifications system can be configured via the =org-notify-add= function. An
+explanation for how to use this function can be found in the initial comment of
+the =org-notify.el= file (=SPC h d f org-notify-add RET o a=) and in the
+function its docstring.
+
+The =org-notify= package will scan through your =org-agenda-files= for =TODO=
+headlines that include the =DEADLINE:= stamp. Press =M-S RET= to enter a todo
+headline and then press =, d d= to add a deadline stamp to the headline. This
+layer implements a configuration type named =default=. Org-notify automatically
+applies this type to all =TODO= entries with a =DEADLINE:= stamp. To set a
+custom notification type for an item add a =:NOTIFY:= property where its value
+should be the name of a type that you have added via =org-notify-add= function
+(see the explanation in the initial comment of the =org-notify.el=).
 
 ** GitHub support
 To install GitHub related extensions like [[https://github.com/larstvei/ox-gfm][ox-gfm]] to export to GitHub

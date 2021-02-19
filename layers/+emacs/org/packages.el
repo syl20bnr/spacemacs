@@ -23,6 +23,8 @@
     (ob :location built-in)
     (org :location built-in)
     (org-agenda :location built-in)
+    (org-notify :location built-in
+                :toggle org-enable-notifications)
     (org-contacts :location built-in
                   :toggle org-enable-org-contacts-support)
     (org-vcard :toggle org-enable-org-contacts-support)
@@ -587,6 +589,21 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (kbd "M-RET") 'org-agenda-show-and-scroll-up
       (kbd "M-SPC") 'spacemacs/org-agenda-transient-state/body
       (kbd "s-M-SPC") 'spacemacs/org-agenda-transient-state/body)))
+
+(defun org/init-org-notify ()
+  (use-package org-notify
+    :commands org-notify-start
+    :init
+    (when org-start-notification-daemon-on-startup
+      (org-notify-start))
+    :config
+    (org-notify-add 'default
+                    '(:time "-1s" :period "20s" :duration 10
+                            :actions (-message -ding))
+                    '(:time "15m" :period "2m" :duration 100
+                            :actions -notify)
+                    '(:time "2h" :period "5m" :actions -message)
+                    '(:time "3d" :actions -email))))
 
 (defun org/init-org-brain ()
   (use-package org-brain
