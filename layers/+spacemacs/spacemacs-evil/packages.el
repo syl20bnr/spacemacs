@@ -106,6 +106,7 @@
     :after evil
     :config
     (setq evil-collection-mode-list spacemacs-evil-collection-allowed-list)
+    (setq evil-collection-want-unimpaired-p nil)
     (evil-collection-init)))
 
 (defun spacemacs-evil/init-evil-escape ()
