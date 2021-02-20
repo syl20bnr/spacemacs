@@ -83,14 +83,6 @@
       (add-hook 'inferior-ess-mode-hook
                 'spacemacs//ess-fix-read-only-inferior-ess-mode)
 
-      ;; Set DISPLAY in R if not already set via env file
-      (unless (getenv "DISPLAY")
-        (add-hook
-         'ess-r-post-run-hook
-         (lambda ()
-           (ess-load-file (make-temp-file nil nil nil
-                                          "Sys.setenv(\"DISPLAY\"=\":0.0\")")))))
-
       (with-eval-after-load 'ess-julia
         (spacemacs/ess-bind-keys-for-julia))
       (with-eval-after-load 'ess-r-mode
