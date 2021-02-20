@@ -404,7 +404,6 @@
     (progn
       (setq helm-swoop-split-with-multiple-windows t
             helm-swoop-split-direction 'split-window-vertically
-            helm-swoop-speed-or-color t
             helm-swoop-split-window-function 'spacemacs/helm-swoop-split-window-function
             helm-swoop-pre-input-function (lambda () ""))
 
