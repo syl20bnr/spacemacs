@@ -12,7 +12,7 @@
 (defconst lsp-packages
   '(
     lsp-mode
-    lsp-ui
+    (lsp-ui :toggle lsp-use-lsp-ui)
     (helm-lsp :requires helm)
     (lsp-ivy :requires ivy)
     (lsp-treemacs :requires treemacs)
