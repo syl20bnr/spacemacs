@@ -345,6 +345,7 @@ In org-agenda-mode
 - Key bindings:
   - Changed ~SPC g h o~ to ~SPC g o~ for =browse-at-remote= (thanks to Codruț
     Constantin Gușoi)
+  - Changed ~SPC g f d~ to bind to ~magit-file-dispatch~ (thanks to Ag Ibragimov)
 ***** YAML
 - Added LSP support (thanks to Seong Yong-ju)
 ***** ycmd
