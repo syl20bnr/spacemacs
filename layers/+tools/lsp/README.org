@@ -136,7 +136,7 @@ and the =lsp-ui-peek= variants under ~SPC m G~. Setting ~lsp-navigation~ to eith
 the bindings under ~SPC m G~ and creates bindings under ~SPC m g~ according to the specified preference.
 
 ** Breadcrumb on headerline
-To display breadcrumb in the headerline, set ~lsp-headerline-breadcrumb-segments~ to ~t~.
+To display breadcrumb in the headerline, set ~lsp-headerline-breadcrumb-enable~ to ~t~.
 
 You can customize the breadcrumb segments via ~lsp-headerline-breadcrumb-segments~. Available segments are:
 - ~project~ shows the name of the current project.
