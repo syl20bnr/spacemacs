@@ -103,11 +103,13 @@
     (add-hook 'typescript-tsx-mode-hook 'spacemacs/typescript-fmt-before-save-hook))
   (spacemacs/set-leader-keys-for-major-mode 'typescript-tsx-mode
     "p" 'spacemacs/typescript-open-region-in-playground)
-  (pcase (spacemacs//typescript-backend)
-    ('lsp (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
-            "==" 'spacemacs/typescript-format))
-    (_ (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
-         "=" 'spacemacs/typescript-format))))
+  (let ((supported-mode-list '(typescript-mode typescript-tsx-mode)))
+    (dolist (mode supported-mode-list)
+      (pcase (spacemacs//typescript-backend)
+        ('lsp (spacemacs/set-leader-keys-for-major-mode mode
+                "==" 'spacemacs/typescript-format))
+        (_ (spacemacs/set-leader-keys-for-major-mode mode
+             "=" 'spacemacs/typescript-format))))))
 
 (defun typescript/post-init-yasnippet ()
   (spacemacs/add-to-hooks #'spacemacs/typescript-yasnippet-setup '(typescript-mode-hook
