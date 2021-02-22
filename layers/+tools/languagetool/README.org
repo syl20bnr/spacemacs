@@ -1,6 +1,6 @@
 #+TITLE: LanguageTool layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: layer|checker
 
 [[file:img/languagetool.png]]
 
