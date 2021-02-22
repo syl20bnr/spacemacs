@@ -14,10 +14,6 @@
 (defvar markdown-live-preview-engine 'eww
   "Possibe values are `eww' (built-in browser) or `vmd' (installed with `npm').")
 
-(defvar markdown-executable nil
-  "When non-nil, use the specified command if it's found on PATH.
-Otherwise, use one of \"markdown\", \"pandoc\", or \"markdown_py\" when it's available.")
-
 (defvar markdown-mmm-auto-modes
   '(
     ;; in alphabetical order, symbols first then lists
