@@ -65,17 +65,6 @@
       ;; use proper syntax highlighting
       (setq markdown-fontify-code-blocks-natively t)
 
-      ;; set the markdown-command
-      (setq markdown-command
-            (if-let ((command (cl-loop for cmd in (if markdown-executable
-                                                      (list markdown-executable)
-                                                    (list "markdown" "pandoc" "markdown_py"))
-                                       when (executable-find cmd)
-                                       return (file-name-nondirectory it))))
-                command
-              (when markdown-executable
-                (user-error (format "Cannot find markdown-executable %s" markdown-executable)))))
-
       ;; Declare prefixes and bind keys
       (dolist (prefix '(("mc" . "markdown/command")
                         ("mh" . "markdown/header")
