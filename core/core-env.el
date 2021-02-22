@@ -22,6 +22,7 @@
     "GPG_AGENT_INFO"
     "SSH_AGENT_PID"
     "SSH_AUTH_SOCK"
+    "DISPLAY"
     )
   "Ignored environments variables.
 Environment variables with names matching these regexps are not
