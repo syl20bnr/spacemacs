@@ -1122,6 +1122,7 @@ Other:
     (thanks to Ivan Yonchovski)
   - Added ~SPC x n~ for multi-line transient state
     (thanks to Tristan Harmer)
+  - Added ~s~ =hydra-dired-quick-sort/body= (thanks to duianto)
 - Improvements:
   - Rewrote window layout functions for ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and
     ~SPC w 4~ (thanks to Codruț Constantin Gușoi):
