@@ -11,7 +11,7 @@
 
 (defun spacemacs//setup-lsp-jump-handler ()
   "Set jump handler for LSP with the given MODE."
-    (add-to-list 'spacemacs-jump-handlers '(lsp-ui-peek-find-definitions :async t)))
+  (add-to-list 'spacemacs-jump-handlers '(lsp-ui-peek-find-definitions :async t)))
 
 
 ;; Key bindings
@@ -68,12 +68,13 @@
     "rr" #'lsp-rename
     ;; toggles
     "T" "toggle"
-    "Td" #'lsp-ui-doc-mode
-    "Ts" #'lsp-ui-sideline-mode
-    "TF" #'spacemacs/lsp-ui-doc-func
-    "TS" #'spacemacs/lsp-ui-sideline-symb
-    "TI" #'spacemacs/lsp-ui-sideline-ignore-duplicate
-    "Tl" #'lsp-lens-mode
+    "Tl" "lsp"
+    "Tld" #'lsp-ui-doc-mode
+    "Tls" #'lsp-ui-sideline-mode
+    "TlF" #'spacemacs/lsp-ui-doc-func
+    "TlS" #'spacemacs/lsp-ui-sideline-symb
+    "TlI" #'spacemacs/lsp-ui-sideline-ignore-duplicate
+    "Tll" #'lsp-lens-mode
     ;; folders
     "F" "folder"
     "Fs" #'lsp-workspace-folders-switch
