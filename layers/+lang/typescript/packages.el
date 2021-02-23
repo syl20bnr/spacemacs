@@ -92,36 +92,24 @@
     (spacemacs/add-to-hooks #'smartparens-mode '(typescript-mode-hook
                                                  typescript-tsx-mode-hook))))
 
-(defun typescript/post-init-web-mode ()
-  (define-derived-mode typescript-tsx-mode web-mode "TypeScript-tsx")
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode)))
-
 (defun typescript/post-init-yasnippet ()
   (spacemacs/add-to-hooks #'spacemacs/typescript-yasnippet-setup '(typescript-mode-hook
                                                                    typescript-tsx-mode-hook)))
+
+(defun typescript/post-init-web-mode ()
+  (define-derived-mode typescript-tsx-mode web-mode "TypeScript-tsx")
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode))
+  (spacemacs/typescript-mode-init 'typescript-tsx-mode-local-vars-hook)
+  (spacemacs/typescript-mode-config 'typescript-tsx-mode))
 
 (defun typescript/init-typescript-mode ()
   (use-package typescript-mode
     :defer t
     :init
     (progn
-      (let ((hooks '(typescript-mode-local-vars-hook typescript-tsx-mode-local-vars-hook)))
-        (dolist (hook hooks)
-          (add-hook hook 'spacemacs//typescript-setup-backend)
-          (when typescript-fmt-on-save
-            (add-hook hook 'spacemacs/typescript-fmt-before-save-hook))))
-      (spacemacs/typescript-safe-local-variables '(lsp tide)))
-    :config
-    (progn
-      (let ((modes '(typescript-mode typescript-tsx-mode)))
-        (dolist (mode modes)
-          (spacemacs/set-leader-keys-for-major-mode mode
-            "p" 'spacemacs/typescript-open-region-in-playground)
-          (pcase (spacemacs//typescript-backend)
-            ('lsp (spacemacs/set-leader-keys-for-major-mode mode
-                    "==" 'spacemacs/typescript-format))
-            (_ (spacemacs/set-leader-keys-for-major-mode mode
-                 "=" 'spacemacs/typescript-format))))))))
+      (spacemacs/typescript-safe-local-variables '(lsp tide))
+      (spacemacs/typescript-mode-init 'typescript-mode-local-vars-hook))
+    :config (spacemacs/typescript-mode-config 'typescript-mode)))
 
 (defun typescript/pre-init-import-js ()
   (if (eq javascript-import-tool 'import-js)
