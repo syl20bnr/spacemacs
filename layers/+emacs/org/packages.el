@@ -881,13 +881,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
 (defun org/init-org-roam ()
   (use-package org-roam
     :defer t
-    :commands (org-roam-buffer-toggle-display
-               org-roam-dailies-find-yesterday
-               org-roam-dailies-find-today
-               org-roam-dailies-find-tomorrow
-               org-roam-dailies-find-date
-               org-roam-tag-add
-               org-roam-tag-delete)
+    :hook (after-init . org-roam-mode)
     :init
     (progn
       (spacemacs/declare-prefix "aor" "org-roam")
