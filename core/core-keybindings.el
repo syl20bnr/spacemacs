@@ -167,4 +167,44 @@ Example:
     (when (spacemacs//init-leader-mode-map mode map t)
       (which-key-add-keymap-based-replacements (symbol-value map) prefix name))))
 
+(defun spacemacs//init-root-leader-mode-map (mode map &optional minor)
+  "Check for MAP-prefix. If it doesn't exist yet, use `bind-map'
+to create it and bind it to `dotspacemacs-emacs-leader-key'
+and `dotspacemacs-leader-key'. If MODE is a
+minor-mode, the third argument should be non nil."
+  (let* ((prefix (intern (format "%s-prefix" map))))
+    (or (boundp prefix)
+        (progn
+          (eval
+           `(bind-map ,map
+              :prefix-cmd ,prefix
+              ,(if minor :minor-modes :major-modes) (,mode)
+              :keys (,dotspacemacs-emacs-leader-key)
+              :evil-keys (,dotspacemacs-leader-key)
+              :evil-states (normal motion visual evilified)))
+          (boundp prefix)))))
+
+
+(defun spacemacs/set-root-leader-keys-for-mode (mode is-minor key def &rest bindings)
+  "Add KEY and DEF as key bindings under
+`dotspacemacs-leader-key' and `dotspacemacs-emacs-leader-key' for
+the mode MODE. MODE should be a quoted symbol corresponding to a
+valid mode. IS-MINOR is non-nil if MODE is a minor one. When DEF
+is a string then it will be the prefix for KEY. The rest of the
+arguments are treated exactly like they are in
+`spacemacs/set-leader-keys'.
+
+Example:
+\(spacemacs/set-root-leader-keys-for-mode 'org-mode nil
+  \"nb\" \"foo\"
+  \"nbb\" 'bar\)"
+  (let ((map (intern (format "spacemacs-root-%s-map" mode))))
+    (when (spacemacs//init-root-leader-mode-map mode map is-minor)
+      (while key
+        (if (stringp def)
+            (which-key-add-keymap-based-replacements (symbol-value map) key def)
+          (define-key (symbol-value map) (kbd key) def))
+        (setq key (pop bindings) def (pop bindings))))))
+(put 'spacemacs/set-root-leader-keys-for-mode 'lisp-indent-function 'defun)
+
 (provide 'core-keybindings)

@@ -39,6 +39,7 @@
   - [[#tables][Tables]]
   - [[#trees][Trees]]
   - [[#element-insertion][Element insertion]]
+  - [[#narrowing][Narrowing]]
   - [[#links][Links]]
   - [[#babel--source-blocks][Babel / Source Blocks]]
     - [[#org-babel-transient-state][Org Babel Transient State]]
@@ -619,6 +620,14 @@ are also available.
 | ~SPC m i r~   | org-rich-yank (paste code into a =src= block) |
 | ~SPC m i s~   | org-insert-subheading                         |
 | ~SPC m i t~   | org-set-tags                                  |
+
+** Narrowing
+ 
+| Key binding | Description           |
+|-------------+-----------------------|
+| ~SPC n b~   | org-narrow-to-block   |
+| ~SPC n e~   | org-narrow-to-element |
+| ~SPC n s~   | org-narrow-to-subtree |
 
 ** Links
 
