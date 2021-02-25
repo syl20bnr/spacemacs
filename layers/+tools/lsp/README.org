@@ -18,6 +18,7 @@
   - [[#language-specific-key-binding-extensions][Language-specific key binding extensions]]
     - [[#spacemacslsp-define-extensions-layer-name-kind-request-optional-extra-parameters][~spacemacs/lsp-define-extensions layer-name kind request &optional extra-parameters~]]
     - [[#spacemacslsp-bind-extensions-for-mode][~spacemacs/lsp-bind-extensions-for-mode~]]
+  - [[#bind-to-lsp-upstreams][Bind to lsp upstreams]]
 - [[#dap-integration][DAP integration]]
 - [[#diagnostics][Diagnostics]]
 - [[#references][References]]
@@ -319,6 +320,24 @@ whereas with ~lsp-navigation~ set to ~'peek~, this is equivalent to:
 #+END_SRC
 
 etc.
+
+** Bind to lsp upstreams
+Alternative to the binding shemes above. If you set ~lsp-use-upstream-bindings~
+to ~t~ then Spacemacs will bind all ~lsp-command-map~ behind ~SPC m~, ~,~ and
+~M-m~. This way the bidings will be managed by upstream ~lsp-mode~ which is
+documented at https://emacs-lsp.github.io/lsp-mode/page/keybindings/. Spacemacs
+only replaces the prefix ~s-l~ with ~SPC m~. For example:
+
+| lsp binding | Spacemacs binding                   |
+|-------------+-------------------------------------|
+| ~s-l w s~   | ~SPC m w s~ or ~, w s~ or ~M-m w s~ |
+
+As ~lsp-mode~ and has a deep integration into ~Spacemacs~. ~Spacemacs~ hackers
+should pay attention to avoid any binding collision with ~lsp-mode~.
+
+#+begin_src elisp
+  (lsp :variables lsp-use-upstream-bindings t)
+#+end_src
 
 * DAP integration
 =lsp-mode= integrates with =dap-mode=, which implements DAP(Debugger Adapter Protocol). See documentation on =DAP= layer for details.

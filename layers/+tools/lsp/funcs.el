@@ -37,6 +37,24 @@
     (setq key (pop bindings)
           def (pop bindings))))
 
+(defun spacemacs/lsp-bind-upstream-keys ()
+  "Bind upstream `lsp-command-map' behind \"SPC m\" and the likes."
+  (bind-map lsp-command-map
+    :minor-modes (lsp-mode)
+    :keys ((concat dotspacemacs-emacs-leader-key " m") dotspacemacs-major-mode-emacs-leader-key)
+    :evil-keys ((concat dotspacemacs-leader-key " m") dotspacemacs-major-mode-leader-key)
+    :evil-states (normal motion visual evilified))
+  (dolist (it '(("=" . "format")
+                ("F" . "folder")
+                ("T" . "toggle")
+                ("g" . "goto")
+                ("h" . "help")
+                ("r" . "refactor")
+                ("w" . "workspace")
+                ("a" . "actions")
+                ("G" . "peek")))
+    (which-key-add-keymap-based-replacements lsp-command-map (car it) (cdr it))))
+
 (defun spacemacs/lsp-bind-keys ()
   "Define key bindings for the lsp minor mode."
   (cl-ecase lsp-navigation
