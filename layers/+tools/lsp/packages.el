@@ -36,7 +36,9 @@
     :defer t
     :config
     (progn
-      (spacemacs/lsp-bind-keys)
+      (if lsp-use-upstream-bindings
+          (spacemacs/lsp-bind-upstream-keys)
+        (spacemacs/lsp-bind-keys))
       (setq lsp-prefer-capf t)
       (add-hook 'lsp-after-open-hook (lambda ()
                                        "Setup xref jump handler"

@@ -36,3 +36,5 @@ If `both', binds lightweight navigation functions under `SPC m g' and lsp-ui fun
 (defvar lsp-ui-sideline-ignore-duplicate t "Ignore duplicates")
 
 (defvar lsp-use-lsp-ui t "When non-nil, use `lsp-ui' package.")
+
+(defvar lsp-use-upstream-bindings nil "When non-nil, map keys to `lsp-command-map'.")
