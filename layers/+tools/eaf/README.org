@@ -57,11 +57,11 @@ implemented in this layer can be found [[https://github.com/manateelazycat/emacs
 ** Global
 *** All EAF-applications
 
-| Key binding | Description                                                           |
-|-------------+-----------------------------------------------------------------------|
-| ~SPC a a f~ | EAF open file ([[https://github.com/manateelazycat/emacs-application-framework#launch-eaf-applications][see EAF doc for supported file types]])                  |
-| ~SPC t k m~ | Show available key commands in which-key (read [[https://develop.spacemacs.org/doc/DOCUMENTATION.html#which-key][here]] for more details) |
-| ~SPC m d~   | toggle dark-mode (in pdf-viewer just press ~d~)                       |
+| Key binding | Description                                                             |
+|-------------+-------------------------------------------------------------------------|
+| ~SPC a a f~ | EAF open file ([[https://github.com/manateelazycat/emacs-application-framework#launch-eaf-applications][see EAF doc for supported file types]])                    |
+| ~SPC t k m~ | Show available key commands in which-key (read [[https://develop.spacemacs.org/doc/DOCUMENTATION.html#which-key][here]] for more details)   |
+| ~SPC m d~   | toggle dark-mode (in browser press ~M-d~, in pdf-viewer just press ~d~) |
 
 *** Browser
 
