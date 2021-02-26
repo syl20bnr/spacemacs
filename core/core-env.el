@@ -42,6 +42,7 @@ current contents of the file will be overwritten."
     (with-temp-file spacemacs-env-vars-file
       (let ((shell-command-switches (cond
                                      ((or(eq system-type 'darwin)
+                                         (eq system-type 'cygwin)
                                          (eq system-type 'gnu/linux))
                                       ;; execute env twice, once with a
                                       ;; non-interactive login shell and
@@ -52,6 +53,7 @@ current contents of the file will be overwritten."
                                      ((eq system-type 'windows-nt) '("-c"))))
             (tmpfile (make-temp-file spacemacs-env-vars-file))
             (executable (cond ((or(eq system-type 'darwin)
+                                  (eq system-type 'cygwin)
                                   (eq system-type 'gnu/linux)) "env")
                               ((eq system-type 'windows-nt) "set"))))
         (insert
