@@ -613,7 +613,10 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "Bgf" 'org-brain-goto-friend
         "BR"  'org-brain-refile
         "Bx"  'org-brain-delete-entry)
-      (evil-set-initial-state 'org-brain-visualize-mode 'emacs))))
+      (evil-set-initial-state 'org-brain-visualize-mode 'emacs)
+      (when (memq dotspacemacs-editing-style '(vim hybrid))
+        (with-eval-after-load 'org-brain
+          (define-key org-brain-visualize-mode-map (kbd "SPC") 'spacemacs-cmds))))))
 
 (defun org/init-org-expiry ()
   (use-package org-expiry
