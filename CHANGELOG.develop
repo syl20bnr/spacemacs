@@ -2919,6 +2919,7 @@ files (thanks to Daniel Nicolai)
     (thanks to Mariusz Klochowicz)
   - Added keybindings ~SPC a o C f~ and org/agenda local ~SPC m C f~ keybindings
     and changed =clocks= prefixes to =clocks/contacts=
+  - Add =org-brain= buffer, ~SPC~ menu (vim or hybrid style) (thanks to duianto)
 - Made =org= layer depend on =spacemacs-org= (thanks to Eivind Fonn)
 - Remove =mu4e= and =notmuch= from =org= (thanks to Sylvain Benner)
 - Use evil-org from MELPA (thanks to Eivind Fonn)
