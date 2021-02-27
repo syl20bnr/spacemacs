@@ -32,3 +32,4 @@ This layer adds packages to improve editing with Spacemacs.
 - Support for sorting (press ~s~) via [[https://gitlab.com/xuhdev/dired-quick-sort][=dired-quick-sort=]]
 - Support for [[https://github.com/PythonNut/evil-easymotion][=evil-easymotion=]] if the editing style is =vim= or =hybrid=.
 - Support for cycling between multi line block styles via [[https://github.com/IvanMalison/multi-line/][=multi-line=]].
+- Support for editing strings inplace via [[https://github.com/magnars/string-edit.el][=string-edit=]]

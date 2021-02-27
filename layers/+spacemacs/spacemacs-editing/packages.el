@@ -30,6 +30,7 @@
         smartparens
         (evil-swap-keys :toggle dotspacemacs-swap-number-row)
         (spacemacs-whitespace-cleanup :location local)
+        string-edit
         string-inflection
         multi-line
         undo-tree
@@ -478,6 +479,14 @@
         "xi_" 'string-inflection-underscore
         "xiu" 'string-inflection-underscore
         "xiU" 'string-inflection-upcase))))
+
+(defun spacemacs-editing/init-string-edit ()
+  (use-package string-edit
+    :init
+    (spacemacs/set-leader-keys "xe" 'string-edit-at-point)
+    (spacemacs/set-leader-keys-for-minor-mode 'string-edit-mode
+      "," 'string-edit-conclude
+      "k" 'string-edit-abort)))
 
 (defun spacemacs-editing/init-multi-line ()
   (use-package multi-line
