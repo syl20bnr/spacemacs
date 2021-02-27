@@ -2613,6 +2613,7 @@ files (thanks to Daniel Nicolai)
 - Added package =helm-lsp=
   - ~SPC m g s~ to find symbol in current project
   - ~SPC m g S~ to find symbol in all projects
+  - ~SPC p E~ to show error list
 - Disabled =helm-lsp= keybindings when =ivy= layer enabled (Cormac Cannon)
 - Deleted =fix-lsp-company-prefix= since =company-lsp= is doing that handling.
 - Fixed a delay when declaring prefixes for mode (thanks to Thanh Vuong)
