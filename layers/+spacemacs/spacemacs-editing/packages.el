@@ -487,6 +487,8 @@
     (spacemacs/set-leader-keys "xe" 'string-edit-at-point)
     (spacemacs/set-leader-keys-for-minor-mode 'string-edit-mode
       "," 'string-edit-conclude
+      "c" 'string-edit-conclude
+      "a" 'string-edit-abort
       "k" 'string-edit-abort)))
 
 (defun spacemacs-editing/init-multi-line ()
