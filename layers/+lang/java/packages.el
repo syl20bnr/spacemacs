@@ -175,6 +175,8 @@
         "rat" 'lsp-java-add-throws
         "raa" 'lsp-java-assign-all
         "raf" 'lsp-java-assign-to-field
+        "raF" 'lsp-java-assign-statement-to-field
+        "ral" 'lsp-java-assign-statement-to-local
 
         ;; generate
         "rgt" 'lsp-java-generate-to-string

@@ -2460,6 +2460,9 @@ files (thanks to Daniel Nicolai)
     - ~SPC m c p~ create spring boot project
       (thanks to Ivan Yonchovski)
   - Fixed ~SPC m m t C-a~ it was bound to ~SPC m m t C - a~ (thanks to duianto)
+  - New =lsp= backend keybindings
+    - ~SPC m r a l~ assign statement to local
+    - ~SPC m r a F~ assign statement to field
 - Improvements:
   - Added support for multiple backends. Supported backends are: =meghanada=,
     =eclim=. The default backend is =meghanada=. (thanks to Ivan Yonchovski)
