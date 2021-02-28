@@ -3021,6 +3021,7 @@ files (thanks to Daniel Nicolai)
     - ~[~ history-backward (previous view)
     - ~]~ history-forward (next view)
     - ~?~ toggle transient sate documentation hint (shown by default)
+- Add pdf-view-restore (thanks to Daniel Nicolai)
 **** Perl5
 - Fixed =spacemacs/perltidy-format-buffer= and
   =spacemacs/perltidy-format-function= to move the point and window to their
