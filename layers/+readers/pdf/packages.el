@@ -10,7 +10,8 @@
 ;;
 ;;; License: GPLv3
 
-(setq pdf-packages '(pdf-tools))
+(setq pdf-packages '(pdf-tools
+                     pdf-view-restore))
 
 (defun pdf/init-pdf-tools ()
   (use-package pdf-tools
@@ -118,3 +119,9 @@
         "r"              'pdf-occur-revert-buffer-with-args
         "*"              'spacemacs/enter-ahs-forward
         "?"              'evil-search-backward))))
+
+(defun pdf/init-pdf-view-restore ()
+  (use-package pdf-view-restore
+    :after pdf-tools
+    :config
+    (add-hook 'pdf-view-mode-hook 'pdf-view-restore-mode)))
