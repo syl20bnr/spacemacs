@@ -131,6 +131,7 @@ Git commands (start with ~g~):
 | ~SPC g f f~ | view a file at a specific branch or commit          |
 | ~SPC g f l~ | commits log for current file                        |
 | ~SPC g f d~ | diff for current file                               |
+| ~SPC g f m~ | magit dispatch popup for file operations            |
 | ~SPC g H c~ | clear highlights                                    |
 | ~SPC g H h~ | highlight regions by age of commits                 |
 | ~SPC g H t~ | highlight regions by last updated time              |
