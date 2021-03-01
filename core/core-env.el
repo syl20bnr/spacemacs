@@ -28,9 +28,6 @@
 Environment variables with names matching these regexps are not
 imported into the `.spacemacs.env' file.")
 
-(defvar spacemacs--spacemacs-env-loaded nil
-  "non-nil if `spacemacs/load-spacemacs-env' has been called at least once.")
-
 (defun spacemacs//init-spacemacs-env (&optional force)
   "Attempt to fetch the environment variables from the users shell.
 This solution is far from perfect and we should not rely on this function
@@ -114,8 +111,7 @@ current contents of the file will be overwritten."
 (defun spacemacs/edit-env ()
   "Open the `.spacemacs.env' file for editing."
   (interactive)
-  (if (and spacemacs--spacemacs-env-loaded
-           (file-exists-p spacemacs-env-vars-file))
+  (if (file-exists-p spacemacs-env-vars-file)
       (progn
         (find-file spacemacs-env-vars-file)
         (when (fboundp 'dotenv-mode)
@@ -123,14 +119,11 @@ current contents of the file will be overwritten."
     ;; fallback to the dotspacemacs/user-env
     (dotspacemacs/go-to-user-env)))
 
-(defun spacemacs/load-spacemacs-env (&optional force)
+(defun spacemacs/load-spacemacs-env ()
   "Load the environment variables from the `.spacemacs.env' file.
-If FORCE is non-nil then force the loading of environment variables from env.
-file."
-  (interactive "P")
-  (setq spacemacs--spacemacs-env-loaded t)
-  (when (or force (display-graphic-p))
-    (spacemacs//init-spacemacs-env force)
-    (load-env-vars spacemacs-env-vars-file)))
+If file does not exist, it will be created."
+  (interactive)
+  (spacemacs//init-spacemacs-env)
+  (load-env-vars spacemacs-env-vars-file))
 
 (provide 'core-env)
