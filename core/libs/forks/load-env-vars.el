@@ -78,7 +78,7 @@
   "Set environment variables from key value lists from ENV-VARS."
   (setq exec-path (cl-remove-duplicates (mapcar #'directory-file-name exec-path)
                                         :test #'string-equal :from-end t))
-  (let ((convert-to-os-path (if (memq system-type '(windows-nt cygwin ms-dos))
+  (let ((convert-to-os-path (if (memq system-type '(windows-nt ms-dos))
                                 (apply-partially #'subst-char-in-string ?/ ?\\)
                               ;; Assume that we start with forward slashes.
                               #'identity)))
