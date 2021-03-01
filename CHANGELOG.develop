@@ -345,7 +345,7 @@ In org-agenda-mode
 - Key bindings:
   - Changed ~SPC g h o~ to ~SPC g o~ for =browse-at-remote= (thanks to Codruț
     Constantin Gușoi)
-  - Changed ~SPC g f d~ to bind to ~magit-file-dispatch~ (thanks to Ag Ibragimov)
+  - Add ~SPC g f m~ for ~magit-file-dispatch~ (thanks to Ag Ibragimov and Ilya Grigoriev)
 ***** YAML
 - Added LSP support (thanks to Seong Yong-ju)
 ***** ycmd
@@ -801,6 +801,8 @@ Other:
     (thanks to kenkangxgwe)
   - Added =valign= package to =spacemacs-org= layer
     (thanks to rayw000)
+  - Added =string-edit= package to =spacemacs-editing= layer
+    (thanks to Ivan Yonchovski)
 - Key bindings:
   - Evilify =Custom-mode= (thanks to Keith Pinson)
   - Fixed ~M-x~ prefix visualization for ~dotspacemacs-emacs-command-key~
@@ -2460,6 +2462,9 @@ files (thanks to Daniel Nicolai)
     - ~SPC m c p~ create spring boot project
       (thanks to Ivan Yonchovski)
   - Fixed ~SPC m m t C-a~ it was bound to ~SPC m m t C - a~ (thanks to duianto)
+  - New =lsp= backend keybindings
+    - ~SPC m r a l~ assign statement to local
+    - ~SPC m r a F~ assign statement to field
 - Improvements:
   - Added support for multiple backends. Supported backends are: =meghanada=,
     =eclim=. The default backend is =meghanada=. (thanks to Ivan Yonchovski)
@@ -2919,6 +2924,7 @@ files (thanks to Daniel Nicolai)
     (thanks to Mariusz Klochowicz)
   - Added keybindings ~SPC a o C f~ and org/agenda local ~SPC m C f~ keybindings
     and changed =clocks= prefixes to =clocks/contacts=
+  - Add =org-brain= buffer, ~SPC~ menu (vim or hybrid style) (thanks to duianto)
 - Made =org= layer depend on =spacemacs-org= (thanks to Eivind Fonn)
 - Remove =mu4e= and =notmuch= from =org= (thanks to Sylvain Benner)
 - Use evil-org from MELPA (thanks to Eivind Fonn)

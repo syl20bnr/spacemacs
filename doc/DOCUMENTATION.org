@@ -2990,10 +2990,12 @@ Text related commands (start with ~x~):
 | ~SPC x a r~   | align region using user-specified regexp                      |
 | ~SPC x a m~   | align region at arithmetic operators (+-*/)                   |
 | ~SPC x a ¦~   | align region at ¦                                             |
+| ~SPC x A~     | Open all visible links                                        |
 | ~SPC x c~     | count the number of chars/words/lines in the selection region |
 | ~SPC x d l~   | delete blank lines but one or the single blank line           |
 | ~SPC x d w~   | delete trailing whitespaces                                   |
 | ~SPC x d SPC~ | Delete all spaces and tabs around point, leaving one space    |
+| ~SPC x e~     | Edit strings in place                                         |
 | ~SPC x g l~   | set languages used by translate commands                      |
 | ~SPC x g t~   | translate current word using Google Translate                 |
 | ~SPC x g T~   | reverse source and target languages                           |
@@ -3030,6 +3032,7 @@ Text related commands (start with ~x~):
 | ~SPC x w d~   | show dictionary entry of word from wordnik.com                |
 | ~SPC x w r~   | randomize words in region                                     |
 | ~SPC x y~     | use avy to copy a link in the frame                           |
+| ~SPC x Y~     | use avy to copy multiple links in the frame                   |
 
 *** Text insertion commands
 Text insertion commands (start with ~i~):
