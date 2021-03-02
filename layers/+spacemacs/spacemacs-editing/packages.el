@@ -15,6 +15,7 @@
         (bracketed-paste :toggle (version<= emacs-version "25.0.92"))
         (clean-aindent-mode :toggle dotspacemacs-use-clean-aindent-mode)
         dired-quick-sort
+        drag-stuff
         editorconfig
         eval-sexp-fu
         expand-region
@@ -113,6 +114,35 @@
           (dired-quick-sort-setup))))
     :config
     (evil-define-key 'normal dired-mode-map "s" 'hydra-dired-quick-sort/body)))
+
+(defun spacemacs-editing/init-drag-stuff ()
+  (use-package drag-stuff
+    :defer t
+    :init
+    (drag-stuff-mode t)
+    (spacemacs|define-transient-state drag-stuff
+      :title "Drag Stuff Transient State"
+      :doc "
+[_k_/_K_] up    [_h_/_H_] left   [_q_] quit
+[_j_/_J_] down  [_l_/_L_] right"
+      :bindings
+      ("j" drag-stuff-down)
+      ("J" drag-stuff-down)
+      ("<down>" drag-stuff-down)
+      ("k" drag-stuff-up)
+      ("K" drag-stuff-up)
+      ("<up>" drag-stuff-up)
+      ("h" drag-stuff-left)
+      ("H" drag-stuff-left)
+      ("<left>" drag-stuff-left)
+      ("l" drag-stuff-right)
+      ("L" drag-stuff-right)
+      ("<right>" drag-stuff-right)
+      ("q" nil :exit t))
+    (spacemacs/set-leader-keys
+      "x." 'spacemacs/drag-stuff-transient-state/body
+      "xK" 'spacemacs/drag-stuff-transient-state/drag-stuff-up
+      "xJ" 'spacemacs/drag-stuff-transient-state/drag-stuff-down)))
 
 (defun spacemacs-editing/init-editorconfig ()
   (use-package editorconfig
@@ -226,18 +256,7 @@
         "ilp" 'lorem-ipsum-insert-paragraphs
         "ils" 'lorem-ipsum-insert-sentences))))
 
-(defun spacemacs-editing/init-move-text ()
-  (use-package move-text
-    :defer t
-    :init
-    (spacemacs|define-transient-state move-text
-      :title "Move Text Transient State"
-      :bindings
-      ("J" move-text-down "move down")
-      ("K" move-text-up "move up"))
-    (spacemacs/set-leader-keys
-      "xJ" 'spacemacs/move-text-transient-state/move-text-down
-      "xK" 'spacemacs/move-text-transient-state/move-text-up)))
+(defun spacemacs-editing/init-move-text ())
 
 (defun spacemacs-editing/init-origami ()
   (use-package origami
