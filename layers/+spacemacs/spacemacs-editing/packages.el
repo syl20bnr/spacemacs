@@ -482,7 +482,6 @@
 
 (defun spacemacs-editing/init-string-edit ()
   (use-package string-edit
-    :defer t
     :init
     (spacemacs/set-leader-keys "xe" 'string-edit-at-point)
     (spacemacs/set-leader-keys-for-minor-mode 'string-edit-mode
