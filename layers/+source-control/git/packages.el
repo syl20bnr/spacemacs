@@ -162,6 +162,7 @@
         "gfF" 'magit-find-file
         "gfl" 'magit-log-buffer-file
         "gfd" 'magit-diff
+        "gfm" 'magit-file-dispatch
         "gi"  'magit-init
         "gL"  'magit-list-repositories
         "gm"  'magit-dispatch

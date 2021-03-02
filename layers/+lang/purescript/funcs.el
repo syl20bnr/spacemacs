@@ -17,7 +17,7 @@
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
      (t 'psc-ide))))
 
-(defun spacemacs//purescript-setup-backend()
+(defun spacemacs//purescript-setup-backend ()
   "Conditionally setup purescript backend."
   (pcase (spacemacs//purescript-backend)
     ('lsp (lsp))))

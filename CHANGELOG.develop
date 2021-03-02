@@ -158,7 +158,6 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   - ~SPC m s r~ for =ess-eval-region=
   - ~SPC m s s~ for =ess-switch-to-inferior-or-script-buffer=
   - ~SPC m w~ for =ess-r-package-dev-map=
-- Fixed a bug that R scripts cannot plot graphs (thanks to Lucius Hu)
 ***** Elixir
 - Key bindings;
   - Changed ~SPC m p t~ to ~SPC m t F~ for =alchemist-project-find-test=
@@ -191,6 +190,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   - Change jump back to last mark from ~SPC m g p~ to ~SPC m g b~
     to follow the keybindings convention (thanks to Magnus Therning)
   - Use ~lsp-ivy~ when ~ivy~ layer is present.
+  - added  ~lsp-use-lsp-ui~ variable to control whether ~lsp-ui~ is installed or not.
 ***** IPython notebook
 - Key bindings;
   - Change prefix from ~SPC a i~ to ~SPC a y~ (thanks to Swaroop C H)
@@ -335,6 +335,8 @@ In org-agenda-mode
   - Move major specific error key bindings to ~SPC m E~ prefix
     (thanks to Sylvain Benner)
   - Changed ~SPC e e~ to ~SPC e b~ for =flycheck-buffer=
+***** Tabs
+- Add auto hide tabs feature (thanks to Daniel Nicolai)
 ***** Vagrant
 - Key bindings:
   - Vagrant key bindings prefix is now ~SPC a V~.
@@ -343,6 +345,7 @@ In org-agenda-mode
 - Key bindings:
   - Changed ~SPC g h o~ to ~SPC g o~ for =browse-at-remote= (thanks to Codruț
     Constantin Gușoi)
+  - Add ~SPC g f m~ for ~magit-file-dispatch~ (thanks to Ag Ibragimov and Ilya Grigoriev)
 ***** YAML
 - Added LSP support (thanks to Seong Yong-ju)
 ***** ycmd
@@ -396,6 +399,7 @@ In org-agenda-mode
 - prolog (thanks to Newres Al Haider)
 - reasonml (thanks to fredyr and Dave Aitken)
 - solidity (thanks to Brooklyn Zelenka and Seong Yong-ju)
+- tabs (thanks to Deepu Puthrote)
 - protobuf (thanks to Amol Mandhane)
 - restructuredtext (thanks to Wei-Wei Guo and Kalle Lindqvist)
 - semantic-web (thanks to Andreas Textor)
@@ -428,6 +432,7 @@ In org-agenda-mode
 - dap (thanks to Ivan Yonchovski)
 - debug (thanks to Hodge Shen, Troy Hinckley, and Sylvain Benner)
 - dotnet (thanks to Jordan Kaye)
+- eaf (thanks to Daniel Nicolai)
 - import-js (thanks to Thanh Vuong and Seong Yong-ju)
 - kubernetes with tramp support (thanks to Matt Bray and Maximilian Wolff)
 - languagetool (thanks to Robbert van der Helm)
@@ -796,6 +801,8 @@ Other:
     (thanks to kenkangxgwe)
   - Added =valign= package to =spacemacs-org= layer
     (thanks to rayw000)
+  - Added =string-edit= package to =spacemacs-editing= layer
+    (thanks to Ivan Yonchovski)
 - Key bindings:
   - Evilify =Custom-mode= (thanks to Keith Pinson)
   - Fixed ~M-x~ prefix visualization for ~dotspacemacs-emacs-command-key~
@@ -1115,6 +1122,9 @@ Other:
     (thanks to John Stevenson)
   - Added ~SPC c b~ to switch to last compilation buffer
     (thanks to Ivan Yonchovski)
+  - Added ~SPC x n~ for multi-line transient state
+    (thanks to Tristan Harmer)
+  - Added ~s~ =hydra-dired-quick-sort/body= (thanks to duianto)
 - Improvements:
   - Rewrote window layout functions for ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and
     ~SPC w 4~ (thanks to Codruț Constantin Gușoi):
@@ -1983,6 +1993,8 @@ Other:
 - Support running graphical Factor listener instances from Spacemacs
 - Support reloading factor-mode/fuel-mode code when connecting to different
   Factor versions
+**** FASD
+- Add ~search from~ ivy action (thanks to Daniel Nicolai)
 **** Finance
 - Remove key-bindings pointing to removed commands (thanks to Alexander Baier)
 - Added =evil-ledger= package (thanks to Alexander Miller)
@@ -2450,6 +2462,9 @@ files (thanks to Daniel Nicolai)
     - ~SPC m c p~ create spring boot project
       (thanks to Ivan Yonchovski)
   - Fixed ~SPC m m t C-a~ it was bound to ~SPC m m t C - a~ (thanks to duianto)
+  - New =lsp= backend keybindings
+    - ~SPC m r a l~ assign statement to local
+    - ~SPC m r a F~ assign statement to field
 - Improvements:
   - Added support for multiple backends. Supported backends are: =meghanada=,
     =eclim=. The default backend is =meghanada=. (thanks to Ivan Yonchovski)
@@ -2574,7 +2589,7 @@ files (thanks to Daniel Nicolai)
   compiled PDF is changed (thanks to Lucius Hu)
 **** Lua
 - Added support for auto-completion with =company= (thanks to halfcrazy)
-- Added support for =LSP= (EmmyLua-LS-all) (thanks to Lin.Sun)
+- Added support for =LSP= (EmmyLua-LS-all, lua-language-server, lua-lsp) (thanks to Lin.Sun)
 - Added =EmmyLua-LS-all.jar= to =.gitignore= (thanks to duianto)
 - Removed require lsp-clients (thanks to duianto)
 **** Language Server Protocol (LSP)
@@ -2793,6 +2808,7 @@ files (thanks to Daniel Nicolai)
   - Added package =org-jira= (thanks to Kirill A. Korinsky)
   - Added package =org-rich-yank= (thanks to Keith Pinson)
   - Added package =org-roam= (thanks to Mariusz Klochowicz)
+  - Added package =org-contacts= (thanks to Daniel Nicolai)
 - Key bindings:
   - ~SPC m T i~ to toggle inline images
   - Move clock related key bindings to ~SPC a o C~
@@ -2906,6 +2922,9 @@ files (thanks to Daniel Nicolai)
     (thanks to Ben Swift)
   - Added additional prefix (~SPC m m j~) for org-jira bindings
     (thanks to Mariusz Klochowicz)
+  - Added keybindings ~SPC a o C f~ and org/agenda local ~SPC m C f~ keybindings
+    and changed =clocks= prefixes to =clocks/contacts=
+  - Add =org-brain= buffer, ~SPC~ menu (vim or hybrid style) (thanks to duianto)
 - Made =org= layer depend on =spacemacs-org= (thanks to Eivind Fonn)
 - Remove =mu4e= and =notmuch= from =org= (thanks to Sylvain Benner)
 - Use evil-org from MELPA (thanks to Eivind Fonn)

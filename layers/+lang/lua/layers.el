@@ -10,5 +10,5 @@
 ;;; License: GPLv3
 
 (when (and (boundp 'lua-backend)
-           (string-match-p "^lsp-.*" (symbol-name lua-backend)))
+           (eq lua-backend 'lsp))
   (configuration-layer/declare-layer-dependencies '(lsp)))

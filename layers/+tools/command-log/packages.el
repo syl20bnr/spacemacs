@@ -35,7 +35,7 @@
                                                 evil-backward-char))
           command-log-mode-auto-show t)))
 
-(defun command-log/init-keycast()
+(defun command-log/init-keycast ()
   (use-package keycast
     :init
     (progn

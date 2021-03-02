@@ -156,7 +156,9 @@
                   ;; to overwrite any key binding
                   (unless (configuration-layer/layer-usedp 'smex)
                     (spacemacs/set-leader-keys
-                      dotspacemacs-emacs-command-key 'spacemacs/helm-M-x-fuzzy-matching)))))
+                      dotspacemacs-emacs-command-key 'spacemacs/helm-M-x-fuzzy-matching))))
+      ;; avoid duplicates in `helm-M-x' history.
+      (setq history-delete-duplicates t))
     :config
     (progn
       (helm-mode)
@@ -404,7 +406,6 @@
     (progn
       (setq helm-swoop-split-with-multiple-windows t
             helm-swoop-split-direction 'split-window-vertically
-            helm-swoop-speed-or-color t
             helm-swoop-split-window-function 'spacemacs/helm-swoop-split-window-function
             helm-swoop-pre-input-function (lambda () ""))
 

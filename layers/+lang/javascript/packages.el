@@ -20,6 +20,7 @@
     ggtags
     helm-gtags
     imenu
+    npm-mode
     impatient-mode
     import-js
     js-doc
@@ -64,6 +65,23 @@
 (defun javascript/post-init-imenu ()
   ;; Required to make imenu functions work correctly
   (add-hook 'js2-mode-hook 'js2-imenu-extras-mode))
+
+(defun javascript/init-npm-mode ()
+  (use-package npm-mode
+    :defer t
+    :init (add-hook 'js2-mode-hook #'npm-mode)
+    :config
+    (progn
+      (spacemacs/declare-prefix-for-mode 'js2-mode "mn" "npm")
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+        "ni" 'npm-mode-npm-install
+        "nr" 'npm-mode-npm-run
+        "ns" 'npm-mode-npm-install-save
+        "nd" 'npm-mode-npm-install-save-dev
+        "nn" 'npm-mode-npm-init
+        "nu" 'npm-mode-npm-uninstall
+        "nl" 'npm-mode-npm-list
+        "np" 'npm-mode-visit-project-file))))
 
 (defun javascript/post-init-impatient-mode ()
   (spacemacs/set-leader-keys-for-major-mode 'js2-mode

@@ -10,8 +10,11 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#backends][Backends]]
-    - [[#lsp][LSP]]
     - [[#lua-mode][Lua mode]]
+    - [[#lsp][LSP]]
+      - [[#emmy-server-setup][Emmy server setup]]
+      - [[#lua-language-server-setup][Lua-language server setup]]
+      - [[#lua-lsp-server-setup][Lua-lsp server setup]]
 - [[#key-bindings][Key bindings]]
   - [[#lsp-1][LSP]]
   - [[#commands][Commands]]
@@ -36,29 +39,81 @@ In order to enable code linting, install [[https://github.com/mpeterv/luacheck][
 
 ** Backends
 Supported backends are:
-- =lsp-emmy= using clangd LSP server
-- =lua-mode= using emacs package
+- =lua-mode= using emacs packages
+- =lsp= using one of below LSP servers
+  - emmy LSP server (default)
+  - lua-language-server.
+  - lua-lsp.
+
+*** Lua mode
+This backend provides basic support via pure emacs packages. It requires less setup than a full blown LSP setup
+but also provides less features. To enable it set the =lua-backend= to =lua-mode=.
+
+#+BEGIN_SRC elisp
+  (lua :variables
+       lua-backend 'lua-mode)
+#+END_SRC
 
 *** LSP
-LSP support is provided via the [[file:../../+tools/lsp/README.org][LSP layer]], currently only [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua]] is supported.
+This is the prefered backend choice. It relies on an external server implementing the LSP protocol.
+It requires installing one of the supported server implementations below:
+- [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua]]
+- [[https://github.com/sumneko/lua-language-server][lua-language-server]]
+- [[https://github.com/Alloyed/lua-lsp][lua-lsp]]
 
-To use the =lsp-emmy= backend, please download the [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua-LS-all.jar]] and put it into =~/.emacs.d/=,
-then set the layer variable lua-backend to =lsp-emmy=.
+Once it is installed the key bindings are provided by [[file:../../+tools/lsp/README.org][LSP layer]] allowing
+consistent key bindings among different layers.
 
-=Lsp-emmy= requires a working java installation in the path as well as the path to the LSP server jar.
+To enable LSP set =lua-backend= to =lsp=. If =lua-backend= is =nil= and the =LSP layer= is loaded
+=LSP= will be used automatically otherwise it will fallback to =lua-mode=.
+
+#+BEGIN_SRC elisp
+  (lua :variables
+       lua-backend 'lsp)
+#+END_SRC
+
+**** Emmy server setup
+To use the =emmy= lsp server, please download the [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua-LS-all.jar]] and put it into =~/.emacs.d/=.
+Then set the layer variable =lua-lsp-server= to =emmy=. This is also the default choice if no specific
+lsp server has been selected.
+
+=emmy= requires a working java installation in the path as well as the path to the LSP server jar.
 The java path and the path to the server executable can be configured as is shown below:
 
 #+BEGIN_SRC elisp
   (lua :variables
-       lua-backend 'lsp-emmy
-       lua-lsp-emmy-jar-path "~/.emacs.d/EmmyLua-LS-all.jar" ; default path
-       lua-lsp-emmy-java-path "java"                         ; default path
-       lua-lsp-emmy-enable-file-watchers t)                  ; enabled default
+       lua-backend 'lsp
+       lua-lsp-server 'emmy
+       lsp-clients-emmy-lua-jar-path "~/.emacs.d/.cache/lsp/EmmyLua-LS-all.jar" ; default path
+       lsp-clients-emmy-lua-java-path "java") ; default path
 #+END_SRC
 
-*** Lua mode
-This backend provides support via pure emacs packages. It requires less setup than a full blown LSP setup
-but also provides less features. To enable it just set the =lua-backend= to =nil=.
+**** Lua-language server setup
+To use the =lua-language-server= lsp server, please follow [[https://github.com/sumneko/lua-language-server][lua-language-server]] to compile the standalone binary. 
+Then set the layer variables as shown below:
+
+#+BEGIN_SRC elisp
+  (lua :variables
+       lua-backend 'lsp
+       lua-lsp-server 'lua-language-server
+       lsp-clients-lua-language-server-bin "~/.emacs.d/.cache/lsp/lua-language-server/bin/Linux/lua-language-server" ; default path
+       lsp-clients-lua-language-server-main-location "~/.emacs.d/.cache/lsp/lua-language-server/main.lua") ; default path
+#+END_SRC
+
+**** Lua-lsp server setup
+To use the =lua-lsp= lsp server, please follow [[https://github.com/Alloyed/lua-lsp][lua-lsp]] to install the server via
+luarocks. Remember that the capabilities of this server are mainly dependent
+on the installed luarocks packages, so make sure you have them all installed
+for maximum benefit.
+
+To instruct Spacemacs to use this server set your config as shown below:
+
+#+BEGIN_SRC elisp
+  (lua :variables
+       lua-backend 'lsp
+       lua-lsp-server 'lua-lsp
+       lsp-clients-luarocks-bin-dir "~/.luarocks/bin/") ; default path
+#+END_SRC
 
 * Key bindings
 ** LSP

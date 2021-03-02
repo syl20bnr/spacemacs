@@ -164,7 +164,8 @@ quelpa cache."
 (defcustom quelpa-upgrade-interval nil
   "Interval in days for `quelpa-upgrade-all-maybe'."
   :group 'quelpa
-  :type 'integer)
+  :type '(choice (const :tag "Don't upgrade" nil)
+                 (integer :tag "Days")))
 
 (defvar quelpa-initialized-p nil
   "Non-nil when quelpa has been initialized.")
@@ -416,7 +417,8 @@ and return TIME-STAMP, otherwise return OLD-TIME-STAMP."
       prog))
   "Path to a GNU coreutils \"timeout\" command if available.
 This must be a version which supports the \"-k\" option."
-  :type '(file :must-match t))
+  :type '(choice (const nil)
+                 (file :must-match t)))
 
 (defcustom quelpa-build-timeout-secs 600
   "Wait this many seconds for external processes to complete.
@@ -431,7 +433,8 @@ if `quelpa-build-timeout-executable' is non-nil."
       (executable-find "tar"))
   "Path to a (preferably GNU) tar command.
 Certain package names (e.g. \"@\") may not work properly with a BSD tar."
-  :type '(file :must-match t))
+  :type '(choice (const nil)
+                 (file :must-match t)))
 
 (defvar quelpa--tar-type nil
   "Type of `quelpa-build-tar-executable'.  Can be `gnu' or `bsd'.

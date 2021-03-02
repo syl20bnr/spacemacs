@@ -583,7 +583,7 @@ to 'auto, tags may not be properly aligned. "
      `(info-title-4 ((,class (:height 1.2))))
 
 ;;;;; ivy
-     `(ivy-current-match ((,class (:background ,highlight :inherit bold))))
+     `(ivy-current-match ((,class (:background ,highlight :inherit bold :extend t))))
      `(ivy-minibuffer-match-face-1 ((,class (:inherit bold))))
      `(ivy-minibuffer-match-face-2 ((,class (:foreground ,head1 :underline t))))
      `(ivy-minibuffer-match-face-3 ((,class (:foreground ,head4 :underline t))))
@@ -839,6 +839,10 @@ to 'auto, tags may not be properly aligned. "
      `(rcirc-timestamp ((,class (:foreground ,keyword))))
      `(rcirc-track-keyword ((,class (:background ,green :foreground ,bg1))))
      `(rcirc-url ((,class (:inherit link))))
+
+;;;;; sh-mode
+     `(sh-heredoc ((,class :foreground ,str)))
+     `(sh-quoted-exec ((,class :foreground ,func)))
 
 ;;;;; shm
      `(shm-current-face ((,class (:background ,green-bg-s))))

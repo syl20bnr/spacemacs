@@ -34,7 +34,7 @@
         hlint-refactor
         ))
 
-(defun haskell/init-lsp-haskell()
+(defun haskell/init-lsp-haskell ()
   (use-package lsp-haskell
     :defer t))
 

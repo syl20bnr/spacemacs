@@ -1,0 +1,107 @@
+#+TITLE: eaf layer
+
+#+TAGS: layer|web service
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#usage][Usage]]
+  - [[#configuring-key-bindings][Configuring key bindings]]
+- [[#key-bindings][Key bindings]]
+  - [[#global][Global]]
+    - [[#all-eaf-applications][All EAF-applications]]
+    - [[#browser][Browser]]
+  - [[#local][Local]]
+    - [[#all-eaf-applications-1][All EAF-applications]]
+    - [[#browser-1][Browser]]
+    - [[#pdf-viewer][PDF-viewer]]
+    - [[#pdf-view-mode-pdf-tools][pdf-view-mode (pdf-tools)]]
+
+* Description
+This layer adds support for the [[https://github.com/manateelazycat/emacs-application-framework][Emacs Application Framework (EAF)]].
+
+** Features:
+- Browse using a full-fledged browser within Emacs
+- PDF viewer (with continuous scroll)
+- Video player
+- Image viewer
+- See [[https://github.com/manateelazycat/emacs-application-framework#launch-eaf-applications][EAF documentation]] for many more features
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =eaf= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+Subsequently install the required dependencies with =SPC SPC
+  eaf-install-dependencies=. This command only works for Ubuntu and Fedora based
+distributions. Users of Arch (based) distributions can run the script manually
+in their terminal. If the script does not work for you then [[https://github.com/manateelazycat/emacs-application-framework#dependency-list][install the
+required dependencies manually]].
+
+* Usage
+** Configuring key bindings
+Configuration of EAF key bindings works in a different way than normally in Spacemacs.
+
+Also EAF, and additionally this layer, implement some tricks that are
+required to make leader keys in EAF buffers behave as expected in Spacemacs.
+Therefore it is recommended to keep these default (major-mode-)leader
+keybindings.
+
+For information about configuration of other key bindings for EAF, see [[https://github.com/manateelazycat/emacs-application-framework/wiki/Keybindings][here]]. 
+
+If you do want to modify the leader keys, then information about the tricks
+implemented in this layer can be found [[https://github.com/manateelazycat/emacs-application-framework/issues/498][here]] and [[https://github.com/manateelazycat/emacs-application-framework/pull/500][here]].
+
+* Key bindings
+** Global
+*** All EAF-applications
+
+| Key binding | Description                                                             |
+|-------------+-------------------------------------------------------------------------|
+| ~SPC a a f~ | EAF open file ([[https://github.com/manateelazycat/emacs-application-framework#launch-eaf-applications][see EAF doc for supported file types]])                    |
+| ~SPC t k m~ | Show available key commands in which-key (read [[https://develop.spacemacs.org/doc/DOCUMENTATION.html#which-key][here]] for more details)   |
+| ~SPC m d~   | toggle dark-mode (in browser press ~M-d~, in pdf-viewer just press ~d~) |
+
+*** Browser
+
+| Key binding   | Description                                                                           |
+|---------------+---------------------------------------------------------------------------------------|
+| ~SPC a a b o~ | Open url in new buffer                                                                |
+| ~SPC a a b s~ | Search with [[https://github.com/manateelazycat/emacs-application-framework/wiki/Customization#default-search-engine][your favorite search engine]]. Defaults to symbol at point or region string |
+| ~SPC a a b b~ | Open bookmark in new buffer                                                           |
+| ~SPC a a b h~ | Search and open buffer from history                                                   |
+
+** Local
+*** All EAF-applications
+
+| Key binding | Description    |
+|-------------+----------------|
+| ~j/k~       | Scroll up/down |
+
+*** Browser
+
+| Key binding | Description                                                    |
+|-------------+----------------------------------------------------------------|
+| ~J/K~       | Scroll (half) page up/down                                     |
+| ~e~         | Edit url                                                       |
+| ~m~         | Bookmark page                                                  |
+| ~C-s~       | Search/search find next (to enter new search prefix with ~C-g~ |
+| ~C-r~       | Search find previous                                           |
+| ~SPC m h~   | Open new buffer from history                                   |
+| ~SPC m s~   | Search web with [[https://github.com/manateelazycat/emacs-application-framework/wiki/Customization#default-search-engine][favorite search engine]]                         |
+
+*** PDF-viewer
+
+| Key binding | Description      |
+|-------------+------------------|
+| ~d~         | toggle dark-mode |
+
+*** pdf-view-mode (pdf-tools)
+
+| Key binding | Description            |
+|-------------+------------------------|
+| ~SPC m e~   | open in eaf pdf-viewer |
+
+There are many more key bindings. Use ~SPC t k m~ to [[https://develop.spacemacs.org/doc/DOCUMENTATION.html#which-key-persistent][show them persistently in
+which-key]], or use ~SPC h d k~ to show the `eaf-mode-map` in a separate buffer.

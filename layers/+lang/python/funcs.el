@@ -200,7 +200,7 @@ as the pyenv version then also return nil. This works around https://github.com/
         (python-indent-line)))))
 
 ;; from https://www.snip2code.com/Snippet/127022/Emacs-auto-remove-unused-import-statemen
-(defun spacemacs/python-remove-unused-imports()
+(defun spacemacs/python-remove-unused-imports ()
   "Use Autoflake to remove unused function"
   "autoflake --remove-all-unused-imports -i unused_imports.py"
   (interactive)

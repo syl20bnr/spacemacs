@@ -10,8 +10,8 @@
 ;;; License: GPLv3
 
 (defun spacemacs/activate-mmm-mode ()
-  (unless git-commit-mode
-  ;; Enable `mmm-mode'.
+  (unless (bound-and-true-p git-commit-mode)
+    ;; Enable `mmm-mode'.
     (mmm-mode 1)))
 
 ;; stolen from http://stackoverflow.com/a/26297700

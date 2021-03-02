@@ -68,15 +68,6 @@
       (and (eq style 'hybrid)
            hybrid-style-enable-evilified-state)))
 
-(defun spacemacs//magit-evil-magit-bindings (style)
-  "Set `evil-magit' bindings for the given editing STYLE."
-  (cond
-   ((spacemacs//support-evilified-buffer-p style)
-    (evil-magit-init))
-   (t
-    (when (featurep 'evil-magit)
-      (evil-magit-revert)))))
-
 
 ;; git blame transient state
 

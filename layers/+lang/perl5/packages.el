@@ -127,7 +127,7 @@
 (defun perl5/post-init-flycheck ()
   (spacemacs/enable-flycheck 'cperl-mode))
 
-(defun perl5/post-init-realgud()
+(defun perl5/post-init-realgud ()
   (spacemacs/add-realgud-debugger 'cperl-mode "trepan.pl"))
 
 (defun perl5/post-init-smartparens ()

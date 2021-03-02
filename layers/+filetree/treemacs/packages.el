@@ -103,7 +103,7 @@
 (defun treemacs/init-treemacs-all-the-icons ()
   (use-package treemacs-all-the-icons
     :if treemacs-use-all-the-icons-theme
-    :hook (treemacs-mode . (lambda () (treemacs-load-theme 'all-the-icons)))))
+    :hook ((treemacs-mode dired-mode) . (lambda () (treemacs-load-theme 'all-the-icons)))))
 
 (defun treemacs/pre-init-winum ()
   (spacemacs|use-package-add-hook winum

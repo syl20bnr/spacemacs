@@ -15,6 +15,8 @@
   - [[#twitter-bootstrap-support][Twitter Bootstrap support]]
   - [[#gnuplot-support][Gnuplot support]]
   - [[#revealjs-support][Reveal.js support]]
+  - [[#org-contacts-support][Org-contacts support]]
+    - [[#v-card-importexport][V-Card import/export]]
   - [[#org-journal-support][Org-journal support]]
   - [[#hugo-support][Hugo support]]
   - [[#trello-support][Trello support]]
@@ -157,6 +159,47 @@ Alternatively, add the following line to each =.org= file you want to process:
 #+BEGIN_EXAMPLE
   #+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js@3.8.0
 #+END_EXAMPLE
+
+** Org-contacts support
+[[https://github.com/tkf/org-mode/blob/master/contrib/lisp/org-contacts.el][org-contacts]] is a handy contacts management system. It can be used to manage
+(email) addresses (compatible with gnus, mu4e, notmuch etc.), birthdays and
+more. It is simpler than bbdb/ebdb and probably powerful enough for most users.
+
+To install org-contacts, set the variable =org-enable-org-contacts-support= to
+=t=. Optionally, also set the variable =org-contacts-files= and add a capture
+template. The value of the =org-contacts-files= variable should be a list with
+filenames to use as contact sources. If set to =nil= (default) then all your Org
+files will be used. The first file in the =org-contacts-files= list can be
+visited with the keyboard shortcut ~SPC a o C f~.
+
+#+BEGIN_SRC emacs-lisp
+  (org :variables org-enable-org-contacts-support t
+       org-contacts-files '("~/Org/contacts.org" "~/Org/file2.org")
+       org-capture-templates '(("c" "Contacts" entry (file "~/Org/contacts.org")
+                                "* %(org-contacts-template-name)
+  :PROPERTIES:
+  :EMAIL: %(org-contacts-template-email)
+  :END:")))
+#+END_SRC
+
+A more elaborate capture template can be found in the =org-contacts.el= file.
+
+Contacts can include the :BIRTHDAY: keyword. To include the birthdays in your
+org-agenda add ~%%(org-contacts-anniversaries)~ to one of your contacts files.
+It is important that this is inserted after a heading an that it has no
+preceding whitespace. So probably the best way is to add
+
+#+BEGIN_SRC emacs-lisp
+  * Birthdays
+  %%(org-contacts-anniversaries)
+#+END_SRC
+
+to the beginning or the end of one of your contacts files.
+
+*** V-Card import/export
+Importing/exporting contacts can be done via the `org-vcard-import/export`
+commands provided by the [[https://github.com/flexibeast/org-vcard][org-vcard]] package. This package gets installed
+automatically after enabling org contacts support.
 
 ** Org-journal support
 [[https://github.com/bastibe/org-journal][org-journal]] is a simple journal management system that:

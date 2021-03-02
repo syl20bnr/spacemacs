@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar tabs-navigation nil
+(defvaralias 'tabs-navigation 'centaur-tabs-cycle-scope
   "*Specify the scope of cyclic navigation through tabs.
 The following scopes are possible:
 
@@ -20,38 +20,44 @@ The following scopes are possible:
 - nil
     Navigate through visible tabs, then through tab groups.")
 
-(defvar tabs-gray-out-unselected nil
-  "When non nil, enable gray icons for unselected buffer.")
+(defvaralias 'tabs-gray-out-unselected 'centaur-tabs-gray-out-icons)
 
-(defvar tabs-height 22
-  "The height of tab")
+(defvaralias 'tabs-height 'centaur-tabs-height)
 
-(defvar tabs-show-icons t
-  "When non nil, show icon from all-the-icons")
+(defvaralias 'tabs-show-icons 'centaur-tabs-set-icons)
 
-(defvar tabs-set-modified-marker t
-  "When non nil, display a marker when buffer is modified")
+(defvaralias 'tabs-set-modified-marker 'centaur-tabs-set-modified-marker)
 
-(defvar tabs-modified-marker "⚠"
-  "Display appearance of modified marker if enabled")
+(defvaralias 'tabs-modified-marker 'centaur-tabs-modified-marker)
 
-(defvar tabs-show-navigation-buttons nil
-  "When non-nil, show buttons for backward/forward tabs")
+(defvaralias 'tabs-show-navigation-buttons 'centaur-tabs-show-navigation-buttons)
 
-(defvar tabs-style "bar"
-  "Style of tab; available values are \"bar\", \"alternate\", \"box\", \"chamfer\", \"rounded\", \"slant\", \"wave\", \"zigzag\" ")
+(defvaralias 'tabs-style 'centaur-tabs-style
+  "Style of tab.
+Available values are \"bar\", \"alternate\", \"box\",
+\"chamfer\", \"rounded\", \"slant\", \"wave\", \"zigzag\" ")
 
-(defvar tabs-group-by-project t
-  "When non-nil, group tabs by projectile project. Default t.
-   If non-nil calls (centaur-tabs-group-by-projectile-project)
-   Otherwise calls (centaur-tabs-group-buffer-groups)")
+(defvaralias 'tabs-set-bar 'centaur-tabs-set-bar)
 
-(defvar tabs-headline-match t
-  "When non-nil, make headline use centaur-tabs-default-face. Default t. Calls (centaur-tabs-headline-match)")
+(defcustom tabs-group-by-project t
+  "When non-nil, group tabs by projectile project.
+Default t. If non-nil calls (tabs-group-by-projectile-project)
+Otherwise calls (tabs-group-buffer-groups)"
+:type '(boolean)
+:group 'tabs)
 
-(defvar tabs-set-bar 'left
-  "When non-nil, display a bar to show currently selected tab.
-  There are three options:
-  - 'left: displays the bar at the left of the currently selected tab.
-  - 'under: displays the bar under the currently selected tab.
-  - 'over: displays the bar over the currently selected tab.")
+(defcustom tabs-headline-match t
+  "When non-nil, make headline use tabs-default-face. Default t.
+Calls (tabs-headline-match)"
+:type '(boolean)
+:group 'tabs)
+
+(defcustom tabs-auto-hide nil
+  "If non-nil hide tabs automatically after TABS-AUTO-HIDE-DELAY seconds."
+  :type '(boolean)
+  :group 'tabs)
+
+(defcustom tabs-auto-hide-delay 2
+  "Tabs auto hide delay in seconds."
+  :type '(float)
+  :group 'tabs)

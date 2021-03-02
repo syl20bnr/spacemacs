@@ -109,7 +109,7 @@
     (call-interactively 'prettier-js))
    (t (error (concat "%s isn't valid typescript-fmt-tool value."
                      " It should be 'tide, 'typescript-formatter or 'prettier.")
-                     (symbol-name typescript-fmt-tool)))))
+             (symbol-name typescript-fmt-tool)))))
 
 (defun spacemacs/typescript-fmt-before-save-hook ()
   (add-hook 'before-save-hook 'spacemacs/typescript-format t t))
@@ -139,3 +139,17 @@
 (defun spacemacs//typescript-setup-checkers ()
   (when-let* ((found (executable-find "eslint_d")))
     (set (make-local-variable 'flycheck-javascript-eslint-executable) found)))
+
+(defun spacemacs/typescript-mode-init (hook)
+  (add-hook hook 'spacemacs//typescript-setup-backend)
+  (when typescript-fmt-on-save
+    (add-hook hook 'spacemacs/typescript-fmt-before-save-hook)))
+
+(defun spacemacs/typescript-mode-config (mode)
+  (spacemacs/set-leader-keys-for-major-mode mode
+    "p" 'spacemacs/typescript-open-region-in-playground)
+  (pcase (spacemacs//typescript-backend)
+    ('lsp (spacemacs/set-leader-keys-for-major-mode mode
+            "==" 'spacemacs/typescript-format))
+    (_ (spacemacs/set-leader-keys-for-major-mode mode
+         "=" 'spacemacs/typescript-format))))

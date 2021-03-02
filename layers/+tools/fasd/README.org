@@ -8,6 +8,7 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#fasd][fasd]]
+- [[#comment][Comment]]
 - [[#key-bindings][Key bindings]]
 
 * Description
@@ -33,6 +34,13 @@ On macOS, it can be installed via [[https://github.com/Homebrew/legacy-homebrew]
 #+BEGIN_SRC sh
   $ brew install fasd
 #+END_SRC
+
+* Comment
+The fasd package has been updated to support Ivy actions (~M-o~). This layer
+adds an Ivy action to start a deep search in a directory
+(~spacemacs/search-auto~) from the fasd results. After the fasd query,
+instead of enter, type ~M-o~ on some directory then press ~s~ to start a
+deep search in that directory.
 
 * Key bindings
 
