@@ -34,7 +34,7 @@
         magit-svn
         org
         (orgit :requires org)
-        (orgit-forge :requires org)
+        (orgit-forge :requires (org forge))
         smeargle
         transient))
 
