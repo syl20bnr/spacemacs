@@ -185,7 +185,7 @@ Homebrew now recommends to use the cask version with the following message:
 version:
 
 ```
-brew install emacs --cask
+brew install --cask emacs
 ```
 
 or in older versions of homebrew
