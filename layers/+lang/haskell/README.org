@@ -269,6 +269,7 @@ REPL commands are prefixed by ~SPC m s~:
 | ~SPC m s c~ | clear the REPL                                  |
 | ~SPC m s s~ | show and switch to the REPL                     |
 | ~SPC m s S~ | show the REPL without switching to it           |
+| ~SPC m s t~ | change the target for the REPL                  |
 | ~C-j~       | switch to next history item                     |
 | ~C-k~       | switch to previous history item                 |
 | ~C-l~       | clear the REPL                                  |
