@@ -10,7 +10,11 @@
 ;;
 ;;; License: GPLv3
 
-(setq autohotkey-packages '(ahk-mode))
+(setq autohotkey-packages
+      '(
+        company
+        ahk-mode
+        ))
 
 (defun autohotkey/init-ahk-mode ()
   (use-package ahk-mode
@@ -30,3 +34,9 @@
         "eb" 'ahk-run-script
         "hh" 'ahk-lookup-web
         "hH" 'ahk-lookup-chm))))
+
+(defun autohotkey/post-init-company ()
+  (spacemacs|add-company-backends
+    :backends company-capf
+    :modes ahk-mode
+    :variables company-tooltip-align-annotations t))
