@@ -51,5 +51,8 @@
 (defvar mu4e-org-compose-support nil
   "If non-nil org-mu4e is configured.")
 
+(defvar mu4e-autorun-background-at-startup nil
+  "If non-nil, mu4e will automatically run in background at emacs startup.")
+
 (when mu4e-installation-path
   (add-to-list 'load-path mu4e-installation-path))
