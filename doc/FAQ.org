@@ -34,7 +34,7 @@
   - [[#change-special-buffer-rules][Change special buffer rules?]]
   - [[#enable-navigation-by-visual-lines][Enable navigation by visual lines?]]
   - [[#disable-evilification-of-a-mode][Disable evilification of a mode?]]
-  - [[#include-underscores-in-word-motions][Include underscores in word motions?]]
+  - [[#include-underscores-and-dashes-in-word-motions][Include underscores and dashes in word motions?]]
   - [[#setup-path][Setup =$PATH=?]]
   - [[#change-or-define-an-alias-for-a-leader-key][Change or define an alias for a leader key?]]
   - [[#restore-the-sentence-delimiter-to-two-spaces][Restore the sentence delimiter to two spaces?]]
@@ -365,9 +365,13 @@ binding in the mode's map, e.g. for =magit-status-mode=,
       (kbd dotspacemacs-leader-key) spacemacs-default-map))
 #+END_SRC
 
-** Include underscores in word motions?
-You can modify the syntax table of the mode in question. To do so you can
-include this on your =dotspacemacs/user-config=.
+** Include underscores and dashes in word motions?
+If you want =*= and =#= searches to include underscores and dashes as a
+part of a word, add ~(setq-default evil-symbol-word-search t)~ to your 
+=dotspacemacs/user-config=.
+
+For other motions, you can modify the syntax table of the mode in question
+by also adding the following.
 
 #+BEGIN_SRC emacs-lisp
   ;; For python
@@ -381,6 +385,8 @@ include this on your =dotspacemacs/user-config=.
   ;; For all modes
   (add-hook 'after-change-major-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 #+END_SRC
+
+For more details, see the [[https://evil.readthedocs.io/en/latest/faq.html#underscore-is-not-a-word-character][FAQ for Evil]].
 
 ** Setup =$PATH=?
 Some layers require certain tools to be available on your =$PATH=. This means
