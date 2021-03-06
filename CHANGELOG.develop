@@ -137,7 +137,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 - Add ~J/K~ for scrolling down/up (thanks to Daniel Nicolai)
 ***** ESS
 - ESS key bindings were re-organised in the following list
-  (thanks to Guido Kraemer, Yi Liu, and Jack Kamm):
+  (thanks to Guido Kraemer, Yi Liu, Jack Kamm and Ben Swift):
   - ~SPC m ,~ for =ess-eval-region-or-function-or-paragraph-and-step=
   - ~SPC m d~ for =ess-dev-map=
   - ~SPC m h h~ for =ess-display-help-on-object=
@@ -155,6 +155,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   - ~SPC m s f~ for =ess-eval-function=
   - ~SPC m s i~ for =spacemacs/ess-start-repl=
   - ~SPC m s l~ for =ess-eval-line=
+  - ~SPC m s Q~ for =ess-quit=
   - ~SPC m s r~ for =ess-eval-region=
   - ~SPC m s s~ for =ess-switch-to-inferior-or-script-buffer=
   - ~SPC m w~ for =ess-r-package-dev-map=

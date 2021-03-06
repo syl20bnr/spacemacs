@@ -62,6 +62,7 @@
     "sD" #'ess-eval-function-or-paragraph-and-step
     "sL" #'ess-eval-line-and-go
     "sl" #'ess-eval-line
+    "sQ" #'ess-quit
     "sR" #'ess-eval-region-and-go
     "sr" #'ess-eval-region
     "sF" #'ess-eval-function-and-go
