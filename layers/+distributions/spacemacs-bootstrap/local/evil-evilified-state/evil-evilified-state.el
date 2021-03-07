@@ -45,10 +45,6 @@
 (require 'evil)
 (require 'bind-map)
 
-(defvar evilified-state--evil-surround nil
-  "Evil surround mode variable backup.")
-(make-variable-buffer-local 'evilified-state--evil-surround)
-
 (defvar evilified-state--normal-state-map nil
   "Local backup of normal state keymap.")
 (make-variable-buffer-local 'evilified-state--normal-state-map)
@@ -56,6 +52,10 @@
 (defvar evilified-state--visual-state-map nil
   "Local backup of visual state keymap.")
 (make-variable-buffer-local 'evilified-state--visual-state-map)
+
+(defvar evilified-state--evil-surround-was-enabled nil
+  "Used to restore evil-surround-mode when exiting evilified state.")
+(make-variable-buffer-local 'evilified-state--evil-surround-was-enabled)
 
 (evil-define-state evilified
   "Evilified state.
@@ -135,6 +135,7 @@ Needed to bypass keymaps set as text properties."
     ;; annoying ;; and introduces possible bugs
     (remove-hook 'activate-mark-hook 'evil-visual-activate-hook t))
   (when (bound-and-true-p evil-surround-mode)
+    (setq evilified-state--evil-surround-was-enabled t)
     (make-local-variable 'evil-surround-mode)
     (evil-surround-mode -1))
   (evilified-state--setup-normal-state-keymap)
@@ -147,6 +148,9 @@ Needed to bypass keymaps set as text properties."
 
 (defun evilified-state--evilified-state-on-exit ()
   "Restore evil normal and visual states."
+  (when evilified-state--evil-surround-was-enabled
+    (evil-surround-mode 1)
+    (setq evilified-state--evil-surround-was-enabled nil))
   (evilified-state--restore-normal-state-keymap)
   (evilified-state--restore-visual-state-keymap)
   (remove-hook 'pre-command-hook 'evilified-state--pre-command-hook 'local)
