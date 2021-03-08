@@ -19,19 +19,24 @@
     :hook emacs-lisp-mode clojure-mode scheme-mode common-lisp-mode
     :init
     (progn
-      (setq parinfer-rust-auto-download t
-            ;;; TODO smile13241324 07-03-2021
-            ;;; Needed to duplicate the lib name algorithm to savely change the lib install directory to our cache folder.
-            ;;; This is caused by the folders not having been separated from the system dependent library name.
-            ;;; PR has been opened see here https://github.com/justinbarclay/parinfer-rust-mode/pull/39
-            parinfer-rust-library (concat spacemacs-cache-directory "parinfer-rust/" (cond
-                                                                                      ((eq system-type 'darwin) "parinfer-rust-darwin.so")
-                                                                                      ((eq system-type 'gnu/linux) "parinfer-rust-linux.so")
-                                                                                      ((eq system-type 'windows-nt) "parinfer-rust-windows.dll")))
-            (spacemacs|add-toggle parinfer-smart-indent
-              :evil-leader "tP"
-              :documentation "Enable Parinfer Smart Indent Mode."
-              :if (bound-and-true-p parinfer-rust-mode)
-              :status (eq parinfer-rust--mode 'smart)
-              :on (parinfer-rust-toggle-paren-mode)
-              :off (parinfer-rust-toggle-paren-mode))))))
+      (setq parinfer-rust-auto-download t)
+      ;;; TODO smile13241324 07-03-2021
+      ;;; Needed to duplicate the lib name algorithm to safely change the lib
+      ;;; install directory to our cache folder. This is caused by the folders
+      ;;; not having been separated from the system dependent library name.
+      ;;; A PR has been opened see here
+      ;;; https://github.com/justinbarclay/parinfer-rust-mode/pull/39
+      (setq parinfer-rust-library
+            (concat spacemacs-cache-directory
+                    "parinfer-rust/"
+                    (cond
+                     ((eq system-type 'darwin) "parinfer-rust-darwin.so")
+                     ((eq system-type 'gnu/linux) "parinfer-rust-linux.so")
+                     ((eq system-type 'windows-nt) "parinfer-rust-windows.dll"))))
+      (spacemacs|add-toggle parinfer-smart-indent
+        :evil-leader "tP"
+        :documentation "Enable Parinfer Smart Indent Mode."
+        :if (bound-and-true-p parinfer-rust-mode)
+        :status (eq parinfer-rust--mode 'smart)
+        :on (parinfer-rust-toggle-paren-mode)
+        :off (parinfer-rust-toggle-paren-mode)))))
