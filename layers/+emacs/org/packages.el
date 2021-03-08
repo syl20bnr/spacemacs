@@ -50,7 +50,9 @@
     (org-sticky-header :toggle org-enable-sticky-header)
     (verb :toggle org-enable-verb-support)
     (org-roam :toggle org-enable-roam-support)
-    (valign :toggle org-enable-valign)))
+    (valign :toggle org-enable-valign)
+    (org-appear :location(recipe :fetcher github :repo "awth13/org-appear")
+                :toggle org-enable-appear-support)))
 
 (defun org/post-init-company ()
   (spacemacs|add-company-backends :backends company-capf :modes org-mode))
@@ -968,3 +970,13 @@ Headline^^            Visit entry^^               Filter^^                    Da
                                                (valign-remove-advice)))))
     :config
     (spacemacs|diminish valign-mode " ㊣" " E")))
+
+(defun org/init-org-appear()
+  (use-package org-appear
+    :init
+    (progn
+      (add-hook 'org-mode-hook 'org-appear-mode))
+    :config
+    (setq org-appear-autolinks t)
+    (setq org-appear-autoemphasis t)
+    (setq org-appear-autosubmarkers t)))

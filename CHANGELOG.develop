@@ -803,6 +803,7 @@ Other:
     (thanks to rayw000)
   - Added =string-edit= package to =spacemacs-editing= layer
     (thanks to Ivan Yonchovski)
+  - Added =org-appear= package to =spacemacs-org= layer (thanks to winsphinX)
 - Key bindings:
   - Evilify =Custom-mode= (thanks to Keith Pinson)
   - Fixed ~M-x~ prefix visualization for ~dotspacemacs-emacs-command-key~

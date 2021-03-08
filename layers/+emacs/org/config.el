@@ -71,3 +71,6 @@ are configured.")
 (defvar org-enable-valign nil
   "If non-nil, enable valign-mode in org-mode buffers.
 ATTENTION: `valign-mode' will be laggy working with tables contain more than 100 lines.")
+
+(defvar org-enable-appear-support nil
+  "If non-nil, enable org-appear in org-mode buffers.")
