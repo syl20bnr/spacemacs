@@ -630,6 +630,7 @@ Other:
   - Add toggles for persistent which-key keymaps, (full)-major/minor mode
     keymaps and top-level keymap, under prefix ~SPC t k~ (thanks to Daniel Nicolai)
 - Fixes:
+  - Don't use a mode's hook before the mode is even loaded (thanks to Keith Pinson)
   - Avoid non-idempotent use of push in init code (thanks to Miciah Masters)
   - Moved Spacemacs startup progress bar to =core-progress-bar.el=, removed
     counter from progress bar, fixed updating, and fixed size when Emacs is
