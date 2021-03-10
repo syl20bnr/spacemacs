@@ -29,5 +29,5 @@ small window at the bottom of the frame.")
   "Backend used to trigger IDE language features.
 Only `scala-metals' is currently supported.")
 
-(defvar scala-auto-treeview t
+(defvar scala-auto-treeview nil
   "If non-nil automatically show treeview when views are recieved by metals.")

@@ -61,6 +61,12 @@ where =0.9.8= can be replaced with the current version of [[https://scalameta.or
     -o /usr/local/bin/metals-emacs -f
 #+END_SRC
 
+Notice that the layer by default overwrites Metals-scala tree view to nil
+#+begin_example elisp
+(defvar scala-auto-treeview nil
+#+end_example
+This to avoid issues with buffers when rendering VSCode like view, issue described [[https://github.com/syl20bnr/spacemacs/pull/14470][Here]].
+
 You will then have the common LSP key bindings; see
 [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/lsp#key-bindings][LSP#key-bindings]] for more details.
 
