@@ -964,22 +964,37 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
     (spacemacs-buffer||add-shortcut "w" "Warnings:")
     (insert spacemacs-buffer-list-separator)))
 
+(defvar spacemacs-buffer//recent-files-list nil
+  "Remember the recent files when the Spacemacs buffer was drawn.")
+
+(defun spacemacs-buffer//recent-files-define-funcs-bind-keys (list-size)
+  "Define LIST-SIZE named functions:
+spacemacs-buffer/open-recent-file-1, -2, etc.
+
+and bind LIST-SIZE keys: 1, 2, etc.
+to the previously defined functions.
+
+Limit the functions and key bindings to 9."
+  (dotimes (i list-size)
+    (when (< (1+ i) 10)
+      (eval `(defun ,(intern (format "spacemacs-buffer/open-recent-file-%s"
+                                     (1+ i))) ()
+               (interactive)
+               (find-file (nth ,i spacemacs-buffer//recent-files-list))))
+      (define-key spacemacs-buffer-mode-map
+        (number-to-string (1+ i))
+        `,(intern (format "spacemacs-buffer/open-recent-file-%s" (1+ i)))))))
+
 (defun spacemacs-buffer//insert-recent-files (list-size)
   (unless recentf-mode (recentf-mode))
+  (setq spacemacs-buffer//recent-files-list
+        (spacemacs//subseq recentf-list 0 list-size))
   (when (spacemacs-buffer//insert-file-list
          "Recent Files:"
-         (spacemacs//subseq recentf-list 0 list-size))
+         spacemacs-buffer//recent-files-list)
     (spacemacs-buffer||add-shortcut "r" "Recent Files:")
-    (let (recent-files-list-length)
-      (dolist (item dotspacemacs-startup-lists)
-        (when (equal (car item) 'recents)
-          (setq recent-files-list-length (cdr item))))
-      (dotimes (i recent-files-list-length)
-        (when (< (1+ i) 10)
-          (define-key spacemacs-buffer-mode-map
-            (number-to-string (1+ i))
-            `,(intern (format "recentf-open-most-recent-file-%s"
-                              (1+ i))))))))
+    (spacemacs-buffer//recent-files-define-funcs-bind-keys
+     (length spacemacs-buffer//recent-files-list)))
   (insert spacemacs-buffer-list-separator))
 
 (defun spacemacs-buffer//insert-recent-files-by-project (list-size)
