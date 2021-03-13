@@ -3039,13 +3039,13 @@ Text related commands (start with ~x~):
 **** Drag stuff transient state
 The drag stuff transient state is opened with ~SPC x .~:
 
- | Key binding       | Description                 |
- |-------------------+-----------------------------|
- | ~k~, ~K~, ~Up~    | drag up                     |
- | ~j~, ~J~, ~Down~  | drag down                   |
- | ~h~, ~H~, ~Left~  | drag left (word or region)  |
- | ~l~, ~L~, ~Right~ | drag right (word or region) |
- | ~q~               | quit transient state        |
+| Key binding       | Description                 |
+|-------------------+-----------------------------|
+| ~k~, ~K~, ~Up~    | drag up                     |
+| ~j~, ~J~, ~Down~  | drag down                   |
+| ~h~, ~H~, ~Left~  | drag left (word or region)  |
+| ~l~, ~L~, ~Right~ | drag right (word or region) |
+| ~q~               | quit transient state        |
 
 *** Text insertion commands
 Text insertion commands (start with ~i~):
