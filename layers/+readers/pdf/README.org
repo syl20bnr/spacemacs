@@ -88,8 +88,9 @@ Tips:
   ~SPC m s b~) This command trims the blank parts of the
   lateral margins, making the useful portion larger.
 - The layer uses the package [[https://github.com/007kevin/pdf-view-restore][pdf-view-restore]] to store and restore last-visited
+
 pages. By default the information is stored in the directory of the viewed
-document (so it can get lost if you use e.g. [[https://calibre-ebook.com/][Calibre]]/[[https://github.com/chenyanming/calibredb.el][calibredb.el]] for your
+document (so it can get lost if you use e.g. [[https://calibre-ebook.com/][Calibre]] / [[https://github.com/chenyanming/calibredb.el][calibredb.el]] for your
 document management). If you would like the information to get stored in a
 different location then [[https://github.com/chenyanming/calibredb.el][set the variable]] =pdf-view-restore-filename= to the path
 of the filename to use. Alternatively you can (additionally) use Emacs its

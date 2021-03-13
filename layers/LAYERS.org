@@ -773,6 +773,7 @@ controls indentation based on parentheses or vice versa.
 
 Features:
 - Automatic management of parenthesis in clojure, emacs lisp, common-lisp and scheme following the parinfer editing paradigm.
+- Powered by a native library in the background
 
 ** Spacemacs-completion
 [[file:+spacemacs/spacemacs-completion/README.org][+spacemacs/spacemacs-completion/README.org]]
@@ -838,27 +839,29 @@ Features:
 This layer adds packages to improve editing with Spacemacs.
 
 Features:
-- Support for automatic indentation of code via =aggressive-indent=.
-- Support for jumping to chars using a decision tree via =avy=.
-- Improvements for evaluating sexps via =eval-sexp-fu=.
-- Selecting and editing of multiple text elements via =expand-region=.
-- Support for editing files in hex format via =hexl=.
+- Support for automatic indentation of code via [[https://github.com/Malabarba/aggressive-indent-mode][=aggressive-indent=]].
+- Support for jumping to chars using a decision tree via [[https://github.com/abo-abo/avy][=avy=]].
+- Improvements for evaluating sexps via [[https://github.com/hchbaw/eval-sexp-fu.el/tree/36d2fe3bcf602e15ca10a7f487da103515ef391a][=eval-sexp-fu=]].
+- Selecting and editing of multiple text elements via [[https://github.com/magnars/expand-region.el][=expand-region=]].
+- Support for editing files in hex format via [[https://github.com/emacs-mirror/emacs/blob/master/lisp/hexl.el][=hexl=]].
 - Deletion of consecutive horizontal whitespace with a single key
-  via =hungry-delete=.
-- Support for selecting, copying and opening links using =avy= via =link-hint=.
-- Adding of sample text via =lorem-ipsum=.
-- Transient state for moving text via =move-text=.
-- Support for folding of code via =origami= and =evil-vimish-fold=.
-- Support for password generation via =password-generator=.
-- Support for improving parenthesis handling via =smartparens=.
+  via [[https://github.com/nflath/hungry-delete][=hungry-delete=]].
+- Support for selecting, copying and opening links using [[https://github.com/abo-abo/avy][=avy=]] via [[https://github.com/noctuid/link-hint.el][=link-hint=]].
+- Adding of sample text via [[https://github.com/jschaf/emacs-lorem-ipsum][=lorem-ipsum=]].
+- Transient state for moving text via [[https://github.com/emacsfodder/move-text][=move-text=]].
+- Support for folding of code via [[https://github.com/gregsexton/origami.el][=origami=]] and [[https://github.com/alexmurray/evil-vimish-fold][=evil-vimish-fold=]].
+- Support for password generation via [[https://github.com/vandrlexay/emacs-password-genarator][=password-generator=]].
+- Support for improving parenthesis handling via [[https://github.com/Fuco1/smartparens][=smartparens=]].
 - Automatic whitespace cleanup on save via =spacemacs-whitespace-cleanup=.
-- Support for converting definitions to certain styles via =string-inflection=.
-- Support for generating UUIDs via =uuidgen=.
+- Support for converting definitions to certain styles via [[https://github.com/akicho8/string-inflection][=string-inflection=]].
+- Support for generating UUIDs via [[https://github.com/kanru/uuidgen-el][=uuidgen=]].
 - Support for conversion between Emacs regexps and PCRE regexps.
-- Support for persistent scratch via =persistent-scratch=.
-- Support for unkillable scratch via =unkillable-scratch=.
-- In =dired-mode=, press ~Shift S~ to select sorting.
-- Support for =evil-easymotion= if the editing style is =vim= or =hybrid=.
+- Support for persistent scratch via [[https://github.com/Fanael/persistent-scratch][=persistent-scratch=]].
+- Support for unkillable scratch via [[https://github.com/EricCrosson/unkillable-scratch][=unkillable-scratch=]].
+- Support for sorting (press ~s~) via [[https://gitlab.com/xuhdev/dired-quick-sort][=dired-quick-sort=]]
+- Support for [[https://github.com/PythonNut/evil-easymotion][=evil-easymotion=]] if the editing style is =vim= or =hybrid=.
+- Support for cycling between multi line block styles via [[https://github.com/IvanMalison/multi-line/][=multi-line=]].
+- Support for editing strings inplace via [[https://github.com/magnars/string-edit.el][=string-edit=]]
 
 ** Spacemacs-editing-visual
 [[file:+spacemacs/spacemacs-editing-visual/README.org][+spacemacs/spacemacs-editing-visual/README.org]]
