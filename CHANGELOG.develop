@@ -2087,6 +2087,8 @@ Other:
   - Allowed multichar major mode leader key for exiting magit commit edits
     (thanks to tuh8888)
   - Restore magit transient args between sessions (thanks to duianto)
+- Improvements:
+  - Added orgit-forge (thanks to Ag Ibragimov)
 **** Gnus
 - Key bindings:
   - Added ~g r~ for =gnus-group-get-new-news= (thanks to Matthew Leach)

@@ -34,6 +34,7 @@
         magit-svn
         org
         (orgit :requires org)
+        (orgit-forge :requires (org forge))
         smeargle
         transient))
 
@@ -294,6 +295,11 @@
 
 (defun git/init-orgit ()
   (use-package orgit
+    :defer t))
+
+(defun git/init-orgit-forge ()
+  (use-package orgit-forge
+    :after forge
     :defer t))
 
 (defun git/post-init-org ()
