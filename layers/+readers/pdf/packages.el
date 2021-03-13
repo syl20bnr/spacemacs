@@ -32,15 +32,15 @@
         "sb" 'pdf-view-set-slice-from-bounding-box
         "sr" 'pdf-view-reset-slice
         ;; Annotations
-        "aD" 	'pdf-annot-delete
-        "at" 	'pdf-annot-attachment-dired
-        "ah" 	'pdf-annot-add-highlight-markup-annotation
-        "al" 	'pdf-annot-list-annotations
-        "am" 	'pdf-annot-add-markup-annotation
-        "ao" 	'pdf-annot-add-strikeout-markup-annotation
-        "as" 	'pdf-annot-add-squiggly-markup-annotation
-        "at" 	'pdf-annot-add-text-annotation
-        "au" 	'pdf-annot-add-underline-markup-annotation
+        "aD"  'pdf-annot-delete
+        "at"  'pdf-annot-attachment-dired
+        "ah"  'pdf-annot-add-highlight-markup-annotation
+        "al"  'pdf-annot-list-annotations
+        "am"  'pdf-annot-add-markup-annotation
+        "ao"  'pdf-annot-add-strikeout-markup-annotation
+        "as"  'pdf-annot-add-squiggly-markup-annotation
+        "at"  'pdf-annot-add-text-annotation
+        "au"  'pdf-annot-add-underline-markup-annotation
         ;; Fit image to window
         "fw" 'pdf-view-fit-width-to-window
         "fh" 'pdf-view-fit-height-to-window
@@ -123,5 +123,6 @@
 (defun pdf/init-pdf-view-restore ()
   (use-package pdf-view-restore
     :after pdf-tools
+    :defer t
     :init
     (add-hook 'pdf-view-mode-hook 'pdf-view-restore-mode)))
