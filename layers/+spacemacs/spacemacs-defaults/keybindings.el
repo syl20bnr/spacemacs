@@ -382,15 +382,18 @@
     ("y" spacemacs/copy-file-path "File path")
     ("b" spacemacs/copy-buffer-name "Buffer name")))))
 ;; frame ----------------------------------------------------------------------
-(spacemacs/set-leader-keys
-  "Ff" 'spacemacs/find-file-other-frame
-  "Fd" 'delete-frame
-  "FD" 'delete-other-frames
-  "Fb" 'spacemacs/switch-to-buffer-other-frame
-  "FB" 'spacemacs/display-buffer-other-frame
-  "Fo" 'other-frame
-  "FO" 'spacemacs/dired-other-frame
-  "Fn" 'make-frame)
+(spacemacs|spacebind
+ "Frames"
+ :global
+ (("F" "Frames"
+   ("f" spacemacs/find-file-other-frame "Find file other frame...")
+   ("d" delete-frame "Delete frame")
+   ("D" delete-other-frames "Delete other frames")
+   ("b" spacemacs/switch-to-buffer-other-frame "Switch to buffer other frame...")
+   ("B" spacemacs/display-buffer-other-frame "Display buffer other frame...")
+   ("o" other-frame "Switch to other frame")
+   ("O" spacemacs/dired-other-frame "Dired other frame...")
+   ("n" make-frame "Make frame"))))
 ;; help -----------------------------------------------------------------------
 (defalias 'emacs-tutorial 'help-with-tutorial)
 (spacemacs/set-leader-keys
