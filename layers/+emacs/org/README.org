@@ -987,3 +987,4 @@ Key binding prefixes:
 | ~[prefix] r d d~ | Open daily note via calendar view     |
 | ~[prefix] r t a~ | add org-roam tag to file              |
 | ~[prefix] r t d~ | delete org-roam tag from file         |
+| ~[prefix] r a~   | add org-roam alias to file            |

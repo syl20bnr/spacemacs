@@ -901,7 +901,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "aorI" 'org-roam-insert-immediate
         "aorl" 'org-roam-buffer-toggle-display
         "aorta" 'org-roam-tag-add
-        "aortd" 'org-roam-tag-delete)
+        "aortd" 'org-roam-tag-delete
+        "aora" 'org-roam-alias-add)
 
       (spacemacs/declare-prefix-for-mode 'org-mode "mr" "org-roam")
       (spacemacs/declare-prefix-for-mode 'org-mode "mrd" "org-roam-dailies")
@@ -918,7 +919,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "rI" 'org-roam-insert-immediate
         "rl" 'org-roam-buffer-toggle-display
         "rta" 'org-roam-tag-add
-        "rtd" 'org-roam-tag-delete))
+        "rtd" 'org-roam-tag-delete
+        "rta" 'org-roam-alias-add))
     :config
     (progn
       (spacemacs|hide-lighter org-roam-mode))))
