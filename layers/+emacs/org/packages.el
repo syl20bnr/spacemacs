@@ -920,7 +920,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "rl" 'org-roam-buffer-toggle-display
         "rta" 'org-roam-tag-add
         "rtd" 'org-roam-tag-delete
-        "rta" 'org-roam-alias-add))
+        "ra" 'org-roam-alias-add))
     :config
     (progn
       (spacemacs|hide-lighter org-roam-mode))))
