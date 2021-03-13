@@ -1,6 +1,6 @@
 ;;; quelpa.el --- Emacs Lisp packages built directly from source
 
-;; Copyright 2014-2018, Steckerhalter
+;; Copyright 2014-2021, Steckerhalter
 ;; Copyright 2014-2015, Vasilij Schneidermann <v.schneidermann@gmail.com>
 
 ;; Author: steckerhalter
@@ -155,11 +155,18 @@ quelpa cache."
   :group 'quelpa
   :type 'boolean)
 
-(defcustom quelpa-git-clone-depth 1
+(defcustom quelpa-git-clone-depth nil
   "If non-nil shallow clone quelpa git recipes."
   :group 'quelpa
   :type '(choice (const :tag "Don't shallow clone" nil)
                  (integer :tag "Depth")))
+
+(defcustom quelpa-git-clone-partial :blobless
+  "If non-nil partially clone quelpa git recipes."
+  :group 'quelpa
+  :type '(choice (const :tag "Don't partially clone" nil)
+                 (const :tag "Blobless clone" :blobless)
+                 (const :tag "Treeless clone" :treeless)))
 
 (defcustom quelpa-upgrade-interval nil
   "Interval in days for `quelpa-upgrade-all-maybe'."
@@ -901,6 +908,7 @@ Return a cons cell whose `car' is the root and whose `cdr' is the repository."
                      (when-let ((branch (plist-get config :branch)))
                        (concat remote "/" branch))))
          (depth (or (plist-get config :depth) quelpa-git-clone-depth))
+         (partial (or (plist-get config :partial) quelpa-git-clone-partial))
          (force (plist-get config :force))
          (use-current-ref (plist-get config :use-current-ref)))
     (when (string-match (rx bos "file://" (group (1+ anything))) repo)
@@ -922,6 +930,9 @@ Return a cons cell whose `car' is the root and whose `cdr' is the repository."
                (append
                 `(nil "git" "clone" ,repo ,dir)
                 `("--origin" ,remote)
+                (pcase partial
+                  (:blobless `("--filter=blob:none"))
+                  (:treeless `("--filter=tree:0")))
                 (when (and depth (not (plist-get config :commit)))
                   `("--depth" ,(int-to-string depth)
                     "--no-single-branch"))
@@ -1706,7 +1717,7 @@ When FORCE is non-nil we will always update MELPA regrdless of
       (condition-case err
           (quelpa-build--checkout-git
            'package-build
-           `(:url ,quelpa-melpa-repo-url :files ("*"))
+           `(:url ,quelpa-melpa-repo-url :files ("*") :partial :treeless)
            quelpa-melpa-dir)
         (error "Failed to checkout melpa git repo: `%s'" (error-message-string err)))))
 
