@@ -120,7 +120,10 @@ Needed to bypass keymaps set as text properties."
     (setq-local evilified-state--visual-state-map
                 (copy-keymap evil-visual-state-map)))
   (setq-local evil-visual-state-map
-              (cons 'keymap (list (cons ?y 'evil-yank)
+              (cons 'keymap (list (cons ?a evil-outer-text-objects-map)
+                                  (cons ?i evil-inner-text-objects-map)
+                                  (cons ?o 'exchange-point-and-mark)
+                                  (cons ?y 'evil-yank)
                                   (cons 'escape 'evil-exit-visual-state)))))
 
 (defun evilified-state--restore-visual-state-keymap ()
