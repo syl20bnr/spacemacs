@@ -23,7 +23,6 @@
         hungry-delete
         link-hint
         lorem-ipsum
-        move-text
         (origami :toggle (eq 'origami dotspacemacs-folding-method))
         password-generator
         (persistent-scratch :toggle dotspacemacs-scratch-buffer-persistent)
@@ -255,8 +254,6 @@
         "ill" 'lorem-ipsum-insert-list
         "ilp" 'lorem-ipsum-insert-paragraphs
         "ils" 'lorem-ipsum-insert-sentences))))
-
-(defun spacemacs-editing/init-move-text ())
 
 (defun spacemacs-editing/init-origami ()
   (use-package origami
