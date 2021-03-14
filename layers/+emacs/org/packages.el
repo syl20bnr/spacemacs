@@ -23,6 +23,8 @@
     (ob :location built-in)
     (org :location built-in)
     (org-agenda :location built-in)
+    (org-wild-notifier
+                :toggle org-enable-notifications)
     (org-contacts :location built-in
                   :toggle org-enable-org-contacts-support)
     (org-vcard :toggle org-enable-org-contacts-support)
@@ -589,6 +591,13 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (kbd "M-RET") 'org-agenda-show-and-scroll-up
       (kbd "M-SPC") 'spacemacs/org-agenda-transient-state/body
       (kbd "s-M-SPC") 'spacemacs/org-agenda-transient-state/body)))
+
+(defun org/init-org-wild-notifier ()
+  (use-package org-wild-notifier
+    :defer t
+    :init
+    (when org-start-notification-daemon-on-startup
+      (org-wild-notifier-mode))))
 
 (defun org/init-org-brain ()
   (use-package org-brain
