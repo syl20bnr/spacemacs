@@ -415,7 +415,7 @@ Set the variable =org-enable-valign= to =t=:
 [[https://github.com/casouri/valign#valignel][Known problem: Rendering large tables (≥100 lines) is laggy.]]
 
 ** Org-appear support
-To install [[https://github.com/awth13/org-appear][org-appear]], set the =org-enable-appear-support= to =t=:
+To install [[https://github.com/awth13/org-appear][org-appear]], which toggles visibility of emphasis markers, links, subscripts, and superscripts in org mode, set the =org-enable-appear-support= to =t=:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers

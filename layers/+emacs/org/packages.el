@@ -51,7 +51,7 @@
     (verb :toggle org-enable-verb-support)
     (org-roam :toggle org-enable-roam-support)
     (valign :toggle org-enable-valign)
-    (org-appear :location(recipe :fetcher github :repo "awth13/org-appear")
+    (org-appear :location (recipe :fetcher github :repo "awth13/org-appear")
                 :toggle org-enable-appear-support)))
 
 (defun org/post-init-company ()
@@ -973,10 +973,10 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-org-appear()
   (use-package org-appear
+    :defer t
     :init
     (progn
-      (add-hook 'org-mode-hook 'org-appear-mode))
-    :config
-    (setq org-appear-autolinks t)
-    (setq org-appear-autoemphasis t)
-    (setq org-appear-autosubmarkers t)))
+      (add-hook 'org-mode-hook 'org-appear-mode)
+      (setq org-appear-autolinks t
+            org-appear-autoemphasis t
+            org-appear-autosubmarkers t))))
