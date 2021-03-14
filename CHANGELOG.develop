@@ -2814,6 +2814,7 @@ files (thanks to Daniel Nicolai)
   - Added package =org-roam= (thanks to Mariusz Klochowicz)
   - Added package =org-contacts= (thanks to Daniel Nicolai)
   - Added package =org-appear= (thanks to winsphinX)
+  - Added package =org-wild-notifier= (thanks to Daniel Nicolai)
 - Key bindings:
   - ~SPC m T i~ to toggle inline images
   - Move clock related key bindings to ~SPC a o C~
