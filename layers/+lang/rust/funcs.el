@@ -40,6 +40,12 @@
   (message (concat "`lsp' layer is not installed, "
                    "please add `lsp' layer to your dotfile.")))
 
+(defun spacemacs//lsp-rust-switch-server ()
+  "Switch between rust-analyzer and rls."
+  (interactive)
+  (lsp-rust-switch-server)
+  (call-interactively 'lsp-workspace-restart))
+
 (defun spacemacs//rust-setup-lsp ()
   "Setup lsp backend"
   (if (configuration-layer/layer-used-p 'lsp)
@@ -47,7 +53,7 @@
         (lsp)
         (spacemacs/declare-prefix-for-mode 'rust-mode "ms" "switch")
         (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-          "ss" 'lsp-rust-switch-server))
+          "ss" 'spacemacs//lsp-rust-switch-server))
     (spacemacs//lsp-layer-not-installed-message)))
 
 (defun spacemacs//rust-setup-lsp-dap ()
