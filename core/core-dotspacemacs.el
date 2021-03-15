@@ -375,7 +375,11 @@ otherwise a directory path like \"~/.emacs.d/server\".
 Has no effect if `dotspacemacs-enable-server' is nil.")
 
 (defvar dotspacemacs-smartparens-strict-mode nil
-  "If non-nil smartparens-strict-mode will be enabled in programming modes.")
+  "If non-nil and `dotspacemacs-activate-smartparens-mode' is also non-nil,
+smartparens-strict-mode will be enabled in programming modes.")
+
+(defvar dotspacemacs-activate-smartparens-mode t
+  "If non-nil smartparens-mode will be enabled in programming modes.")
 
 (defvar dotspacemacs-smart-closing-parenthesis nil
   "If non-nil pressing the closing parenthesis `)' key in insert mode passes
@@ -795,8 +799,8 @@ If ARG is non nil then ask questions to the user before installing the dotfile."
                 ?\[ "%["
                 ?\] "%]"
                 ?% "%%"
-                ?- "%-"
-                )))
+                ?- "%-")))
+
       (format-spec title-format fs))))
 
 (defun dotspacemacs/safe-load ()
