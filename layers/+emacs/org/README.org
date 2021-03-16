@@ -137,7 +137,7 @@ Note also [[https://github.com/jwiegley/alert/pull/94][this issue]]).
 
 Press =M-S RET= to enter a todo headline and then press =, d t= to add a
 timestamp to the headline (or use the =org-journal-new-scheduled-entry= that
-becomes available by enabling [[Org-journal support]]. By default, the
+becomes available by enabling =Org-journal support=. By default, the
 =org-wild-notifier= package will scan your =org-agenda-files= (every minute) for
 =TODO= headlines that include a timestamp (configuration options are documented
 [[https://github.com/akhramov/org-wild-notifier.el#configuration][here]]). The default configuration shows a notification 10 minutes before the
