@@ -18,7 +18,7 @@
     :config (spacemacs/set-leader-keys-for-major-mode 'salt-mode "pb" 'mmm-parse-buffer)))
 
 (defun salt/pre-init-smartparens ()
-  (add-hook 'salt-mode-hook 'smartparens-mode)
+  (add-hook 'salt-mode-hook #'spacemacs//activate-smartparens)
   (spacemacs|use-package-add-hook smartparens
     :post-config
     (progn

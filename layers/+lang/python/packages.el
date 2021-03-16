@@ -447,7 +447,7 @@ fix this issue."
             ad-do-it
           (call-interactively 'sp-backward-delete-char))))))
 (defun python/post-init-smartparens ()
-  (add-hook 'inferior-python-mode-hook 'smartparens-mode))
+  (add-hook 'inferior-python-mode-hook #'spacemacs//activate-smartparens))
 
 (defun python/post-init-stickyfunc-enhance ()
   (add-hook 'python-mode-hook 'spacemacs/load-stickyfunc-enhance))

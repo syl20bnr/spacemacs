@@ -20,8 +20,8 @@
         typescript-mode
         import-js
         web-mode
-        yasnippet
-        ))
+        yasnippet))
+
 
 (defun typescript/post-init-add-node-modules-path ()
   (spacemacs/add-to-hooks #'add-node-modules-path '(typescript-mode-hook
@@ -86,11 +86,8 @@
                           t))
 
 (defun typescript/post-init-smartparens ()
-  (if dotspacemacs-smartparens-strict-mode
-      (spacemacs/add-to-hooks #'smartparens-strict-mode '(typescript-mode-hook
-                                                          typescript-tsx-mode-hook))
-    (spacemacs/add-to-hooks #'smartparens-mode '(typescript-mode-hook
-                                                 typescript-tsx-mode-hook))))
+  (spacemacs/add-to-hooks #'spacemacs//activate-smartparens '(typescript-mode-hook
+                                                              typescript-tsx-mode-hook)))
 
 (defun typescript/post-init-yasnippet ()
   (spacemacs/add-to-hooks #'spacemacs/typescript-yasnippet-setup '(typescript-mode-hook

@@ -60,11 +60,31 @@ or `sp-local-pair'."
      (t
       (insert-char ?\))))))
 
+(defun spacemacs//activate-smartparens()
+  "Enable `smartparens-mode' or strict version.
+This either activates `smartparens-mode' or `smartparens-strict-mode'
+depending on the respective dotfile setting.
+
+It is not necessary to activate `smartparens-mode' independently as it
+is included in `smartparens-strict-mode'."
+  (if dotspacemacs-smartparens-strict-mode
+      (smartparens-strict-mode 1)
+    (smartparens-mode 1)))
+
+(defun spacemacs//deactivate-smartparens()
+  "Deactivate `smartparens-mode'.
+This deactivates `smartparens-mode' and `smartparens-strict-mode'.
+
+It is important to disable both to remove all advices."
+  (when smartparens-strict-mode
+    (smartparens-strict-mode -1))
+  (smartparens-mode -1))
+
 (defun spacemacs//conditionally-enable-smartparens-mode ()
   "Enable `smartparens-mode' in the minibuffer, during `eval-expression'."
   (if (or (eq this-command 'eval-expression)
           (eq this-command 'eldoc-eval-expression))
-      (smartparens-mode)))
+      (spacemacs//activate-smartparens)))
 
 (defun spacemacs//adaptive-smartparent-pair-overlay-face ()
   (set-face-attribute 'sp-pair-overlay-face nil

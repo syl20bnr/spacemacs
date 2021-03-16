@@ -117,6 +117,4 @@
     (push '("*elm-make*" :tail t :noselect t) popwin:special-display-config)))
 
 (defun elm/post-init-smartparens ()
-  (if dotspacemacs-smartparens-strict-mode
-      (add-hook 'elm-mode-hook #'smartparens-strict-mode)
-    (add-hook 'elm-mode-hook #'smartparens-mode)))
+  (add-hook 'elm-mode-hook #'spacemacs//activate-smartparens))

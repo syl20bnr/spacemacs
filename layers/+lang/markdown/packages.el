@@ -50,7 +50,7 @@
   (add-hook 'markdown-mode-hook 'valign-mode))
 
 (defun markdown/post-init-smartparens ()
-  (add-hook 'markdown-mode-hook 'smartparens-mode))
+  (add-hook 'markdown-mode-hook #'spacemacs//activate-smartparens))
 
 (defun markdown/init-markdown-mode ()
   (use-package markdown-mode

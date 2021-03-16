@@ -48,9 +48,7 @@
   (add-to-list 'spacemacs--prettier-modes 'vue-mode))
 
 (defun vue/post-init-smartparens ()
-  (if dotspacemacs-smartparens-strict-mode
-      (add-hook 'vue-mode-hook #'smartparens-strict-mode)
-    (add-hook 'vue-mode-hook #'smartparens-mode)))
+  (add-hook 'vue-mode-hook #'spacemacs//activate-smartparens))
 
 (defun vue/post-init-yasnippet ()
   (add-hook 'vue-mode-hook #'spacemacs//vue-setup-yasnippet))

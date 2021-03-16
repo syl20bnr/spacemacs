@@ -14,8 +14,8 @@
         (company-coq :requires company)
         proof-general
         smartparens
-        vi-tilde-fringe
-        ))
+        vi-tilde-fringe))
+
 
 (defun coq/init-company-coq ()
   (use-package company-coq
@@ -66,8 +66,8 @@
                         ("mai" . "show-implicits")
                         ("mg" . "pg/goto")))
         (spacemacs/declare-prefix-for-mode
-         'coq-mode
-         (car prefix) (cdr prefix)))
+          'coq-mode
+          (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'coq-mode
         ;; Basic proof management
         "]" 'proof-assert-next-command-interactive
@@ -109,10 +109,7 @@
         "Te" 'proof-electric-terminator-toggle))))
 
 (defun coq/post-init-smartparens ()
-  (spacemacs/add-to-hooks (if dotspacemacs-smartparens-strict-mode
-                              'smartparens-strict-mode
-                            'smartparens-mode)
-                          '(coq-mode-hook)))
+  (add-hook 'coq-mode-hook #'spacemacs//activate-smartparens))
 
 (defun coq/post-init-vi-tilde-fringe ()
   (spacemacs/add-to-hooks 'spacemacs/disable-vi-tilde-fringe

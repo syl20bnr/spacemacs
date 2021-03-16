@@ -23,8 +23,8 @@
     smartparens
     tern
     web-beautify
-    yasnippet
-    ))
+    yasnippet))
+
 
 (defun react/post-init-add-node-modules-path ()
   (add-hook 'rjsx-mode-hook #'add-node-modules-path))
@@ -117,9 +117,7 @@
     (add-to-list 'spacemacs--prettier-modes 'rjsx-mode)))
 
 (defun react/post-init-smartparens ()
-  (if dotspacemacs-smartparens-strict-mode
-      (add-hook 'rjsx-mode-hook #'smartparens-strict-mode)
-    (add-hook 'rjsx-mode-hook #'smartparens-mode)))
+  (add-hook 'rjsx-mode-hook #'spacemacs//activate-smartparens))
 
 (defun react/post-init-tern ()
   (add-to-list 'tern--key-bindings-modes 'rjsx-mode))

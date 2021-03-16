@@ -409,9 +409,7 @@
             sp-highlight-pair-overlay nil
             sp-highlight-wrap-overlay nil
             sp-highlight-wrap-tag-overlay nil)
-      (spacemacs/add-to-hooks (if dotspacemacs-smartparens-strict-mode
-                                  'smartparens-strict-mode
-                                'smartparens-mode)
+      (spacemacs/add-to-hooks #'spacemacs//activate-smartparens
                               '(prog-mode-hook comint-mode-hook))
       ;; enable smartparens-mode in `eval-expression'
       (add-hook 'minibuffer-setup-hook 'spacemacs//conditionally-enable-smartparens-mode)

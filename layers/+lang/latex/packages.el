@@ -207,7 +207,7 @@
   (add-hook 'latex-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun latex/post-init-smartparens ()
-  (add-hook 'LaTeX-mode-hook 'smartparens-mode))
+  (add-hook 'LaTeX-mode-hook #'spacemacs//activate-smartparens))
 
 (defun latex/post-init-typo ()
   ;; Typo mode isn't useful for LaTeX.
