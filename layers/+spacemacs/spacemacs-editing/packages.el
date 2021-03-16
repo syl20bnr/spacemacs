@@ -395,7 +395,7 @@
 (defun spacemacs-editing/init-smartparens ()
   (use-package smartparens
     :defer t
-    :commands (sp-split-sexp sp-newline sp-up-sexp)
+    :commands (sp-point-in-string-or-comment sp-forward-symbol sp-split-sexp sp-newline sp-up-sexp)
     :init
     (progn
       ;; settings

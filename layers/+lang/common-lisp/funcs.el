@@ -55,7 +55,6 @@ An optional ARG can be used which is passed to `sp-up-sexp' to move out of more
 than one sexp.
 Requires smartparens because all movement is done using `sp-up-sexp'."
   (interactive "p")
-  (require 'smartparens)
   (let ((evil-move-beyond-eol t))
     ;; evil-move-beyond-eol disables the evil advices around eval-last-sexp
     (save-excursion
@@ -72,7 +71,6 @@ Requires smartparens because all movement is done using `sp-up-sexp'."
   "Call `eval-last-sexp' on the symbol around point.
 Requires smartparens because all movement is done using `sp-forward-symbol'."
   (interactive)
-  (require 'smartparens)
   (let ((evil-move-beyond-eol t))
     ;; evil-move-beyond-eol disables the evil advices around eval-last-sexp
     (save-excursion
