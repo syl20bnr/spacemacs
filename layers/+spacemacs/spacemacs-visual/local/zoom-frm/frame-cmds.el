@@ -794,9 +794,10 @@ A negative prefix arg deiconifies all iconified frames."
 ;; If WINDOW is the only one in its frame, `delete-frame'.
 (defadvice delete-window (around delete-frame-if-one-win activate)
   "If WINDOW is the only one in its frame, then `delete-frame' too."
-  (save-current-buffer
-    (select-window (or (ad-get-arg 0)  (selected-window)))
-    (if (one-window-p t) (delete-frame) ad-do-it)))
+  (let ((window (or (ad-get-arg 0) (selected-window))))
+    (if (with-selected-window window (one-window-p t))
+        (delete-frame (window-frame window))
+      ad-do-it)))
 
 ;;;###autoload
 (defun delete-windows-for (&optional buffer)
