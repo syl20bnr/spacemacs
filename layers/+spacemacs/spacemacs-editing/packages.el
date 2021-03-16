@@ -415,11 +415,15 @@
       (add-hook 'minibuffer-setup-hook 'spacemacs//conditionally-enable-smartparens-mode)
       ;; toggles
       (spacemacs|add-toggle smartparens
-        :mode smartparens-mode
+        :status (or smartparens-mode smartparens-strict-mode)
+        :on (spacemacs//activate-smartparens)
+        :off (spacemacs//deactivate-smartparens)
         :documentation "Enable smartparens."
         :evil-leader "tp")
       (spacemacs|add-toggle smartparens-globally
-        :mode smartparens-global-mode
+        :status (or smartparens-global-mode smartparens-global-strict-mode)
+        :on (spacemacs//activate-smartparens t)
+        :off (spacemacs//deactivate-smartparens t)
         :documentation "Enable smartparens globally."
         :evil-leader "t C-p")
       ;; key bindings
