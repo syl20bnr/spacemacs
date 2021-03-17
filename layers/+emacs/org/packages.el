@@ -53,8 +53,7 @@
     (verb :toggle org-enable-verb-support)
     (org-roam :toggle org-enable-roam-support)
     (valign :toggle org-enable-valign)
-    (org-appear :location (recipe :fetcher github :repo "awth13/org-appear")
-                :toggle org-enable-appear-support)))
+    (org-appear :toggle org-enable-appear-support)))
 
 (defun org/post-init-company ()
   (spacemacs|add-company-backends :backends company-capf :modes org-mode))
