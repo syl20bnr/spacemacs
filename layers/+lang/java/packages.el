@@ -31,7 +31,7 @@
     helm-gtags
     (java-mode :location built-in)
     maven-test-mode
-    (meghanada :toggle (not (version< emacs-version "25.1")))
+    (meghanada :toggle (eq (spacemacs//java-backend) 'meghanada))
     mvn
     (lsp-java :requires lsp-mode)
     org
@@ -97,7 +97,6 @@
 (defun java/init-meghanada ()
   (use-package meghanada
     :defer t
-    :if (eq java-backend 'meghanada)
     :init
     (progn
       (setq meghanada-server-install-dir (concat spacemacs-cache-directory
