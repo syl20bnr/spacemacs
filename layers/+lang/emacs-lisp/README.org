@@ -255,6 +255,18 @@ mode line)
 | ~?~         | help                       |
 | ~d~         | backtrace                  |
 
+In =edebug-eval-mode=
+
+| Key binding | Description                  |
+|-------------+------------------------------|
+| ~SPC m g w~ | where                        |
+| ~SPC m a~   | delete evaluation item       |
+| ~SPC m k~   | delete evaluation item       |
+| ~SPC m ,~   | update evaluation list       |
+| ~SPC m c~   | update evaluation list       |
+| ~SPC m e e~ | evaluate last sexp           |
+| ~SPC m e E~ | evaluate last sexp and print |
+
 In =debugger-mode= (=Debugger= is displayed in major mode segment of the mode
 line)
 
