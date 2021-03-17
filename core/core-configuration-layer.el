@@ -993,7 +993,7 @@ a new object."
         (princ (if (cfgl-package-toggled-p pkg t) "on" "off"))
         (princ " because the following expression evaluates to ")
         (princ (if (cfgl-package-toggled-p pkg t) "t:\n" "nil:\n"))
-        (princ (oref pkg :toggle))
+        (prin1 (oref pkg :toggle))
         (princ "\n"))
       (when (oref pkg :requires)
         (princ "\nThis package requires the following packages: ")
