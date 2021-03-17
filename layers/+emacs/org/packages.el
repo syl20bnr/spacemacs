@@ -263,6 +263,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "sA" 'org-archive-subtree-default
         "sb" 'org-tree-to-indirect-buffer
         "sd" 'org-cut-subtree
+        "sy" 'org-copy-subtree
         "sh" 'org-promote-subtree
         "sj" 'org-move-subtree-down
         "sk" 'org-move-subtree-up
