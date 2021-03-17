@@ -217,30 +217,7 @@ with `buffer-size' if the buffer is large."
 (defun vim-empty-lines-initialize-maybe ()
   "Setup some advices to emacs primitives for workarounds"
   (unless vim-empty-lines-initialize-p
-    (setq vim-empty-lines-initialize-p t)
-
-    ;; A kludge to bug#19553
-    ;; fixed in b544ab561fcb575790c963a2eda51524fa366409
-    ;; XXX: The fix is in the emacs-24 branch only at this time.
-    (unless (and (version< emacs-version "25")
-                 (version< "24.4.51" emacs-version))
-      (eval-when-compile
-        (defmacro vim-empty-lines-advice-add-overlay-handling (&rest functions)
-          `(progn
-             ,@(mapcar
-                (lambda (function)
-                  `(defadvice ,function (around vim-empty-lines activate)
-                     (if (not (overlayp vim-empty-lines-overlay))
-                         ad-do-it
-                       (let ((inhibit-redisplay t) ;;Hope not to break anything
-                             (p (overlay-start vim-empty-lines-overlay)))
-                         (delete-overlay vim-empty-lines-overlay)
-                         (unwind-protect ad-do-it
-                           (move-overlay vim-empty-lines-overlay p p))))))
-                functions))))
-
-      (vim-empty-lines-advice-add-overlay-handling vertical-motion
-                                                   move-to-window-line))))
+    (setq vim-empty-lines-initialize-p t)))
 
 ;;;###autoload
 (define-minor-mode vim-empty-lines-mode

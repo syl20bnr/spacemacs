@@ -28,7 +28,7 @@
     (org-contacts :location built-in
                   :toggle org-enable-org-contacts-support)
     (org-vcard :toggle org-enable-org-contacts-support)
-    (org-brain :toggle (version<= "25" emacs-version))
+    org-brain
     (org-expiry :location built-in)
     (org-journal :toggle org-enable-org-journal-support)
     org-download
@@ -204,8 +204,8 @@ Will work on both org-mode and any mode that accepts plain html."
                         ("mtd" . "delete")
                         ("mti" . "insert")
                         ("mtt" . "toggle")
-                        ("mx" . "text")
-                        ))
+                        ("mx" . "text")))
+
         (spacemacs/declare-prefix-for-mode 'org-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "'" 'org-edit-special
@@ -355,7 +355,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "xc" (spacemacs|org-emphasize spacemacs/org-code ?~)
         "xi" (spacemacs|org-emphasize spacemacs/org-italic ?/)
         "xo" 'org-open-at-point
-        "xr" (spacemacs|org-emphasize spacemacs/org-clear ? )
+        "xr" (spacemacs|org-emphasize spacemacs/org-clear ?)
         "xs" (spacemacs|org-emphasize spacemacs/org-strike-through ?+)
         "xu" (spacemacs|org-emphasize spacemacs/org-underline ?_)
         "xv" (spacemacs|org-emphasize spacemacs/org-verbatim ?=))
@@ -814,8 +814,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
     (let ((agenda-files (org-agenda-files)))
       (if agenda-files
           (progn (find-file (if org-persp-startup-org-file org-persp-startup-org-file (first agenda-files)))
-                 (if org-persp-startup-with-agenda (org-agenda nil org-persp-startup-with-agenda)
-                   ))
+                 (if org-persp-startup-with-agenda (org-agenda nil org-persp-startup-with-agenda)))
+
         (user-error "Error: No agenda files configured, nothing to display.")))))
 
 (defun org/init-org-contacts ()
