@@ -2817,6 +2817,7 @@ files (thanks to Daniel Nicolai)
   - Added package =org-appear= (thanks to winsphinX)
   - Added package =org-wild-notifier= (thanks to Daniel Nicolai)
 - Key bindings:
+  - ~SPC m s y~ for =org-copy-subtree= (thanks to Keith Pinson)
   - ~SPC m T i~ to toggle inline images
   - Move clock related key bindings to ~SPC a o C~
   - Key bindings (thanks to darkfeline and Langston Barrett):
