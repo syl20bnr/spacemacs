@@ -1903,6 +1903,14 @@ Other:
   - Make ~SPC m h h~ and jump handlers work in =ielm= (thanks to Keith Pinson)
   - Added ~c~ to continue in edebug mode (thanks to hodge)
   - Added ~SPC m g b~ to jump back to previous point (thanks to Magnus Therning)
+  - Added Edebug Eval List key bindings
+    - ~SPC m g w~ for =edebug-where=
+    - ~SPC m a~ for =edebug-delete-eval-item=
+    - ~SPC m k~ for =edebug-delete-eval-item=
+    - ~SPC m ,~ for =edebug-update-eval-list=
+    - ~SPC m c~ for =edebug-update-eval-list=
+    - ~SPC m e e~ for =edebug-eval-last-sexp=
+    - ~SPC m e E~ for =edebug-eval-print-last-sexp=
 - Identify Cask files as emacs lisp ones (thanks to Adrien Becchis)
 - Added =overseer= ert test runner (thanks to Adrien Becchis)
   - Key bindings:
