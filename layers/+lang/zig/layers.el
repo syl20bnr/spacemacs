@@ -1,8 +1,8 @@
-;;; packages.el --- zig layer packages file for Spacemacs.
+;;; layers.el --- zig Layer declarations File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
-;; Author:  <mijoharas@archlinux>
+;; Author: Riccardo Binetti <rbino@gmx.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
@@ -21,18 +21,6 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defconst zig-packages
-  '(
-    zig-mode
-    )
-  "The list of Lisp packages required by the zig layer.")
-
-(defun zig/init-zig-mode ()
-  (use-package zig-mode
-    :defer t
-    :init
-    (progn
-      (add-hook 'zig-mode-hook #'spacemacs//zig-setup-backend)
-      )))
-
-;;; packages.el ends here
+(when (and (boundp 'zig-backend)
+           (eq zig-backend 'lsp))
+  (configuration-layer/declare-layer-dependencies '(lsp)))
