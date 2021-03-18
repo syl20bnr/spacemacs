@@ -29,7 +29,7 @@
     :init
     (progn
       (setq xkcd-cache-dir (concat spacemacs-cache-directory "xkcd/"))
-      (when (not (file-directory-p xkcd-cache-dir))
+      (unless (file-directory-p xkcd-cache-dir)
         (make-directory xkcd-cache-dir))
       (spacemacs/set-leader-keys
         "afx" 'xkcd)
