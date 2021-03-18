@@ -52,7 +52,7 @@
                (eaf-set app-dark-mode "true")
                (when browser
                  (eaf-proxy-insert_or_dark_mode))))
-        (when (not browser)
+        (unless browser
           (eaf-restart-process))))))
 
 (defun spacemacs/open-with-eaf ()
