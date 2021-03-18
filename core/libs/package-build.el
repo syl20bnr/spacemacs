@@ -736,7 +736,9 @@ in `package-build-archive-dir'."
                        (or (package-build--desc-from-package
                             name version commit files)
                            (package-build--desc-from-library
-                            name version commit files 'tar)))))
+                            name version commit files 'tar)
+                           (error "%s[-pkg].el matching package name is missing"
+                                  name)))))
           (package-build--copy-package-files files source-dir target)
           (package-build--write-pkg-file desc target)
           (package-build--generate-info-files files source-dir target)
