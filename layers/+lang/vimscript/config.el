@@ -25,7 +25,7 @@
 
 (spacemacs|define-jump-handlers vimrc-mode)
 
-(defvar vimscript-backend nil
+(defvar vimscript-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'company-vimscript)
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-vimscript'.
 If `nil' then 'company-vimscript` is the default backend unless `lsp' layer is used")

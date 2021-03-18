@@ -21,24 +21,16 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//vimscript-backend ()
-  "Returns selected backend."
-  (if vimscript-backend
-      vimscript-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'company-vimscript))))
-
 (defun spacemacs//vimscript-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//vimscript-backend)
-    ;; Activate lsp company explicitly to activate
-    ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
-            :backends company-capf
-            :modes vimrc-mode))))
+  ;; Activate lsp company explicitly to activate
+  ;; standard backends as well
+  (when (eq vimscript-backend 'lsp)
+    (spacemacs|add-company-backends
+      :backends company-capf
+      :modes vimrc-mode)))
 
 (defun spacemacs//vimscript-setup-backend ()
   "Conditionally setup vimscript backend."
-  (pcase (spacemacs//vimscript-backend)
-    (`lsp (lsp))))
+  (when (eq vimscript-backend 'lsp)
+    (lsp)))
