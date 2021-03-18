@@ -101,7 +101,7 @@
           (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
                               m (car x) (cdr x)))
                 cider--key-binding-prefixes)
-          (unless (eq (spacemacs//clojure-backend) 'lsp)
+          (unless (eq clojure-backend 'lsp)
             (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
                                 m (car x) (cdr x)))
                   cider--key-binding-non-lsp-prefixes)
@@ -330,7 +330,7 @@
         (dolist (r cljr--all-helpers)
           (let* ((binding (car r))
                  (func (cadr r)))
-            (when (not (string-prefix-p "hydra" (symbol-name func)))
+            (unless (string-prefix-p "hydra" (symbol-name func))
               (spacemacs/set-leader-keys-for-major-mode m
                 (concat "r" binding) func))))))))
 
@@ -379,7 +379,7 @@
           (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
                               m (car x) (cdr x)))
                 clj-refactor--key-binding-prefixes)
-          (unless (eq (spacemacs//clojure-backend) 'lsp)
+          (unless (eq clojure-backend 'lsp)
             (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
                                 m (car x) (cdr x)))
                   clj-refactor--key-binding-non-lsp-prefixes))
