@@ -22,7 +22,7 @@
 
 (defun dash//activate-package-docsets (path)
   "Add dash docsets from specified PATH."
-  (when (not (string-blank-p path))
+  (unless (string-blank-p path)
     (setq dash-docs-docsets-path (expand-file-name path)))
   (setq dash-docs-common-docsets (dash-docs-installed-docsets))
   (message (format "activated %d docsets from: %s"
