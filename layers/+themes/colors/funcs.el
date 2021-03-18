@@ -39,8 +39,8 @@
   "Tweak color themes by adjusting rainbow-identifiers."
   (interactive)
   ;; tweak the saturation and lightness of identifier colors
-  (when (not (assq theme (get 'rainbow-identifiers-cie-l*a*b*-saturation
-                              'theme-value)))
+  (unless (assq theme (get 'rainbow-identifiers-cie-l*a*b*-saturation
+                           'theme-value))
     (let ((sat&light (assq theme colors-theme-identifiers-sat&light)))
       (if sat&light
           (setq rainbow-identifiers-cie-l*a*b*-saturation (cadr sat&light)
