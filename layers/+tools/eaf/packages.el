@@ -230,17 +230,18 @@
     (progn
       ;; the following line are taken from the evil-integration example:
       ;; https://github.com/manateelazycat/emacs-application-framework/wiki/Evil
-      (setq eaf-evil-leader-keymap spacemacs-cmds) 
+      (setq eaf-evil-leader-keymap spacemacs-cmds)
 
       (define-key key-translation-map (kbd "SPC")
         (lambda (prompt)
           (if (derived-mode-p 'eaf-mode)
               (pcase eaf--buffer-app-name
-                ("browser" (if (string= (eaf-call-sync "call_function" eaf--buffer-id "is_focus") "True")
-                               (kbd "SPC")
-                             (kbd eaf-evil-leader-key)))
-                ("pdf-viewer" (kbd eaf-evil-leader-key))
-                ("image-viewer" (kbd eaf-evil-leader-key))
+                ((or
+                  (and "browser"
+                       (guard (string= (eaf-call-sync "call_function" eaf--buffer-id "is_focus") "True")))
+                  "image-viewer"
+                  "pdf-viewer")
+                 (kbd eaf-evil-leader-key))
                 (_  (kbd "SPC")))
             (kbd "SPC"))))
 
