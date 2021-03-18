@@ -11,17 +11,6 @@
 
 (require 'core-customization)
 
-;; Those groups exists for bookkeeping.
-(defgroup spacemacs-dotspacemacs-init nil
-  "Dotspacemacs init customizations."
-  :group 'spacemacs--uncustomizable
-  :prefix 'spacemacs--uncustomizable-spacemacs-dotspacemacs-init-)
-
-(defgroup spacemacs-dotspacemacs-layers nil
-  "Dotspacemacs layers customizations."
-  :group 'spacemacs--uncustomizable
-  :prefix 'spacemacs--uncustomizable-spacemacs-dotspacemacs-layers-)
-
 (defconst dotspacemacs-template-directory
   (expand-file-name (concat spacemacs-core-directory "templates/"))
   "Templates directory.")
