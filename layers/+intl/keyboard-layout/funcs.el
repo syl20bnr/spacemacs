@@ -89,7 +89,7 @@ key."
          (prefix nil)
          (rebinding-map (cdr (assoc kl-layout kl--rebinding-maps))))
     ;; If key not existing as-is in the kl--rebinding-maps, try on last letter.
-    (when (not (assoc key1 rebinding-map))
+    (unless (assoc key1 rebinding-map)
       (setq key1 (substring key -1))
       (setq prefix (substring key 0 -1)))
     (let* ((key2 (cdr (assoc key1 rebinding-map)))
@@ -199,16 +199,16 @@ before or after the keyboard-layout's configurations."
                   (when (fboundp ',preconf) (funcall ',preconf))
                   ,common
                   ,specific
-                  (when (fboundp ',postconf) (funcall ',postconf))
-                  )))
+                  (when (fboundp ',postconf) (funcall ',postconf)))))
+
     ;; Use loader if defined
     (when loader
       (kl//replace-in-list-rec loader 'BODY body)
       (setq body loader))
     ;; If the configuration is not disabled
-    (when (not disable)
+    (unless disable
       ;; If the configuration is not in disabled-list
-      (when (not (member name kl-disabled-configurations))
+      (unless (member name kl-disabled-configurations)
         ;; If the package is in enabled-list, if any.
         (when (or (not kl-enabled-configurations) (member name kl-enabled-configurations))
           (when init-file-debug
@@ -217,5 +217,4 @@ before or after the keyboard-layout's configurations."
              ,functions
              ,body
              ,special
-             ,description
-             ))))))
+             ,description))))))
