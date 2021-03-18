@@ -21,14 +21,6 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//fsharp-backend ()
-  "Returns selected backend."
-  (if fsharp-backend
-      fsharp-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'eglot))))
-
 (defun spacemacs//fsharp-setup-company ()
   "Conditionally setup company based on backend."
   ;; Activate lsp company explicitly to activate
@@ -41,6 +33,27 @@
 
 (defun spacemacs//fsharp-setup-backend ()
   "Conditionally setup fsharp backend."
-  (pcase (spacemacs//fsharp-backend)
-    (`lsp (lsp))
-    (_ (eglot-ensure))))
+  (pcase fsharp-backend
+    ('lsp (lsp))
+    ('eglot (eglot-ensure))))
+
+(defun spacemacs/fsharp-load-buffer-file-focus ()
+  "Send the current buffer to REPL and switch to the REPL in `insert state'."
+  (interactive)
+  (fsharp-load-buffer-file)
+  (switch-to-buffer-other-window inferior-fsharp-buffer-name)
+  (evil-insert-state))
+
+(defun spacemacs/fsharp-eval-phrase-focus ()
+  "Send the current phrase to REPL and switch to the REPL in `insert state'."
+  (interactive)
+  (fsharp-eval-phrase)
+  (switch-to-buffer-other-window inferior-fsharp-buffer-name)
+  (evil-insert-state))
+
+(defun spacemacs/fsharp-eval-region-focus (start end)
+  "Send the current phrase to REPL and switch to the REPL in `insert state'."
+  (interactive "r")
+  (fsharp-eval-region start end)
+  (switch-to-buffer-other-window inferior-fsharp-buffer-name)
+  (evil-insert-state))
