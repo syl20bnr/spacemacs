@@ -33,28 +33,19 @@
      (format "crystal run %s"
              (shell-quote-argument (buffer-file-name))))))
 
-(defun spacemacs//crystal-backend ()
-  "Return selected backend."
-  (if crystal-backend
-      crystal-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'company-crystal))))
-
 (defun spacemacs//crystal-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//crystal-backend)
+  (pcase crystal-backend
     ;; Activate lsp company explicitly to activate
     ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
+    ('lsp (spacemacs|add-company-backends
             :backends company-capf
             :modes crystal-mode))
-    (`company-crystal (spacemacs|add-company-backends
+    ('company-crystal (spacemacs|add-company-backends
                         :backends company-capf
                         :modes crystal-mode
                         :variables company-tooltip-align-annotations t))))
 
 (defun spacemacs//crystal-setup-backend ()
   "Conditionally setup crystal backend."
-  (pcase (spacemacs//crystal-backend)
-    (`lsp (lsp))))
+  (when (eq crystal-backend 'lsp) (lsp)))
