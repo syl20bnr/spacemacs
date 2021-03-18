@@ -23,7 +23,7 @@
 
 ;; Variables
 
-(defvar groovy-backend nil
+(defvar groovy-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'company-groovy)
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-groovy'.
 If `nil' then 'company-groovy` is the default backend unless `lsp' layer is used")
