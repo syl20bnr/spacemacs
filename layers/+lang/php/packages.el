@@ -42,8 +42,8 @@
     (geben :toggle (not (eq php-backend 'lsp)))))
 
 (defun php/pre-init-dap-mode ()
-  (pcase php-backend
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'php-mode)))
+  (when (eq php-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'php-mode))
   (add-hook 'php-mode-local-vars-hook #'spacemacs//php-setup-dap))
 
 (defun php/init-drupal-mode ()

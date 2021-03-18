@@ -23,14 +23,14 @@
 
 (defun spacemacs//php-setup-backend ()
   "Conditionally setup php backend."
-  (pcase php-backend
-    (`lsp (lsp))))
+  (when (eq php-backend 'lsp)
+    (lsp)))
 
 (defun spacemacs//php-setup-dap ()
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase php-backend
-    (`lsp (spacemacs//php-setup-lsp-dap))))
+  (when (eq php-backend 'lsp)
+    (spacemacs//php-setup-lsp-dap)))
 
 (defun spacemacs//php-setup-lsp-dap ()
   "Setup DAP integration."
