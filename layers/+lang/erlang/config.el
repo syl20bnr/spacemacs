@@ -30,7 +30,7 @@
 
 ;; lsp - erlang_ls
 
-(defvar erlang-backend nil
+(defvar erlang-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'company-erlang)
   "The backend to use for IDE features.
 Possible values are `lsp' or `company-erlang'.
 If `nil' then `company-erlang' is the default backend unless `lsp' layer is used.")
