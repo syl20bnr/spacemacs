@@ -21,32 +21,22 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//elm-backend ()
-  "Returns selected backend."
-  (if elm-backend
-      elm-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'company-elm))))
-
 (defun spacemacs//elm-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//elm-backend)
-    ;; Activate lsp company explicitly to activate
-    ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
-            :backends company-capf
-            :modes elm-mode))
-    (`company-elm (spacemacs|add-company-backends
-                    :backends elm-company
-                    :modes elm-mode))))
+  (spacemacs|add-company-backends
+    :backends (pcase elm-backend
+                ;; Activate lsp company explicitly to activate
+                ;; standard backends as well
+                ('lsp 'company-capf)
+                ('company-elm 'elm-company))
+    :modes elm-mode))
 
 (defun spacemacs//elm-setup-backend ()
   "Conditionally setup elm backend."
   (spacemacs/init-elm-mode)
-  (pcase (spacemacs//elm-backend)
-    (`lsp (lsp))
-    (`company-elm (elm-oracle-setup-completion))))
+  (pcase elm-backend
+    ('lsp (lsp))
+    ('company-elm (elm-oracle-setup-completion))))
 
 
 ;; elm-mode
