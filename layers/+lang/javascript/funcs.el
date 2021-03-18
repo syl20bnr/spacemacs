@@ -24,31 +24,23 @@
 
 ;; backend
 
-(defun spacemacs//javascript-backend ()
-  "Returns selected backend."
-  (if javascript-backend
-      javascript-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'tern))))
-
 (defun spacemacs//javascript-setup-backend ()
   "Conditionally setup javascript backend."
-  (pcase (spacemacs//javascript-backend)
-    (`tern (spacemacs//javascript-setup-tern))
-    (`tide (spacemacs//tide-setup))
-    (`lsp (spacemacs//javascript-setup-lsp))))
+  (pcase javascript-backend
+    ('tern (spacemacs//javascript-setup-tern))
+    ('tide (spacemacs//tide-setup))
+    ('lsp (spacemacs//javascript-setup-lsp))))
 
 (defun spacemacs//javascript-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//javascript-backend)
-    (`tide (spacemacs//tide-setup-company 'js2-mode))))
+  (when (eq javascript-backend 'tide)
+    (spacemacs//tide-setup-company 'js2-mode)))
 
 (defun spacemacs//javascript-setup-dap ()
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase (spacemacs//javascript-backend)
-    (`lsp (spacemacs//javascript-setup-lsp-dap))))
+  (when (eq javascript-backend 'lsp)
+    (spacemacs//javascript-setup-lsp-dap)))
 
 (defun spacemacs//javascript-setup-next-error-fn ()
   "If the `syntax-checking' layer is enabled, then disable `js2-mode''s
@@ -62,7 +54,7 @@
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        (when (not javascript-lsp-linter)
+        (unless javascript-lsp-linter
           (setq-local lsp-diagnostics-provider :none))
         (lsp))
     (message (concat "`lsp' layer is not installed, "
@@ -146,19 +138,17 @@
 
 (defun spacemacs//javascript-setup-checkers ()
   (when-let* ((found (executable-find "eslint_d")))
-    (set (make-local-variable 'flycheck-javascript-eslint-executable) found)))
+    (setq-local flycheck-javascript-eslint-executable found)))
 
 (defun spacemacs/javascript-format ()
   "Call formatting tool specified in `javascript-fmt-tool'."
   (interactive)
-  (cond
-   ((eq javascript-fmt-tool 'prettier)
-    (call-interactively 'prettier-js))
-   ((eq javascript-fmt-tool 'web-beautify)
-    (call-interactively 'web-beautify-js))
-   (t (error (concat "%s isn't valid javascript-fmt-tool value."
-                     " It should be 'web-beutify or 'prettier.")
-             (symbol-name javascript-fmt-tool)))))
+  (pcase javascript-fmt-tool
+    ('prettier (call-interactively 'prettier-js))
+    ('web-beautify (call-interactively 'web-beautify-js))
+    (_ (error (concat "%s isn't valid javascript-fmt-tool value."
+                    " It should be 'web-beutify or 'prettier.")
+            (symbol-name javascript-fmt-tool)))))
 
 (defun spacemacs/javascript-fmt-before-save-hook ()
   (add-hook 'before-save-hook 'spacemacs/javascript-format t t))
