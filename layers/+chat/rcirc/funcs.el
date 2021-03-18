@@ -93,7 +93,7 @@
         ;; Append the line to the appropriate logfile.
         (let ((coding-system-for-write 'no-conversion)
               (logfile (concat rcirc-log-directory  (downcase target))))
-          (when (not (file-directory-p (file-name-directory logfile)))
+          (unless (file-directory-p (file-name-directory logfile))
             (make-directory (file-name-directory logfile)))
           (write-region (point-min) (point-max)
                         logfile
