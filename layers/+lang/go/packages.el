@@ -56,8 +56,8 @@
   (add-hook 'go-mode-local-vars-hook #'spacemacs//go-setup-company))
 
 (defun go/pre-init-dap-mode ()
-  (pcase (spacemacs//go-backend)
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'go-mode)))
+  (when (eq go-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'go-mode))
   (add-hook 'go-mode-local-vars-hook #'spacemacs//go-setup-dap))
 
 (defun go/post-init-counsel-gtags ()
