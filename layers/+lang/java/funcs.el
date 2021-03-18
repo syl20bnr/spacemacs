@@ -21,36 +21,28 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//java-backend ()
-  "Returns selected backend."
-  (if java-backend
-      java-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'meghanada))))
-
 (defun spacemacs//java-setup-backend ()
   "Conditionally setup java backend."
-  (pcase (spacemacs//java-backend)
-    (`meghanada (spacemacs//java-setup-meghanada))
-    (`lsp (spacemacs//java-setup-lsp))))
+  (pcase java-backend
+    ('meghanada (spacemacs//java-setup-meghanada))
+    ('lsp (spacemacs//java-setup-lsp))))
 
 (defun spacemacs//java-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//java-backend)
-    (`meghanada (spacemacs//java-setup-meghanada-company))))
+  (when (eq java-backend 'meghanada)
+    (spacemacs//java-setup-meghanada-company)))
 
 (defun spacemacs//java-setup-dap ()
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase (spacemacs//java-backend)
-    (`lsp (spacemacs//java-setup-lsp-dap))))
+  (when (eq java-backend 'lsp)
+    (spacemacs//java-setup-lsp-dap)))
 
 (defun spacemacs//java-setup-flycheck ()
   "Conditionally setup flycheck based on backend."
-  (pcase (spacemacs//java-backend)
-    (`meghanada (spacemacs//java-setup-meghanada-flycheck))
-    (`lsp (spacemacs//java-setup-lsp-flycheck))))
+  (pcase java-backend
+    ('meghanada (spacemacs//java-setup-meghanada-flycheck))
+    ('lsp (spacemacs//java-setup-lsp-flycheck))))
 
 
 ;; meghanada
