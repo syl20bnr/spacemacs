@@ -25,7 +25,7 @@
 
 (spacemacs|define-jump-handlers go-mode godef-jump)
 
-(defvar go-backend nil
+(defvar go-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'go-mode)
   "The backend to use for IDE features.
 Possible values are `go-mode' and `lsp'.
 If `nil' then `go-mode' is the default backend unless `lsp' layer is used.")
