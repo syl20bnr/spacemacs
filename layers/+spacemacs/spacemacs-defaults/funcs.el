@@ -1173,12 +1173,12 @@ toggling fullscreen."
   (cond
    ((eq window-system 'x)
     (set-frame-parameter nil 'fullscreen
-                         (when (not (frame-parameter nil 'fullscreen))
+                         (unless (frame-parameter nil 'fullscreen)
                            'fullboth)))
    ((eq window-system 'mac)
     (set-frame-parameter
      nil 'fullscreen
-     (when (not (frame-parameter nil 'fullscreen)) 'fullscreen)))))
+     (unless (frame-parameter nil 'fullscreen)) 'fullscreen))))
 
 (defun spacemacs/toggle-frame-fullscreen-non-native ()
   "Toggle full screen using the `fullboth' frame parameter.
@@ -1446,8 +1446,8 @@ using a visual block/rectangle selection."
           (line-move-visual t))
       (goto-char (window-start))
       (next-line (1- click-y))
-      (1+ (line-number-at-pos))
-      )))
+      (1+ (line-number-at-pos)))))
+
 
 (defun spacemacs/md-select-linum (event)
   "Set point as spacemacs-linum-mdown-line"
