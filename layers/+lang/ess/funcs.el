@@ -24,16 +24,9 @@
 
 ;; R
 
-(defun spacemacs//ess-r-backend ()
-  "Returns selected backend."
-  (if ess-r-backend
-      ess-r-backend
-    (cond ((configuration-layer/layer-used-p 'lsp) 'lsp)
-          (t 'ess))))
-
 (defun spacemacs//ess-may-setup-r-lsp ()
   "Conditionally setup LSP based on backend."
-  (when (eq (spacemacs//ess-r-backend) 'lsp)
+  (when (eq ess-r-backend 'lsp)
     (spacemacs//ess-setup-r-lsp)))
 
 (defun spacemacs//ess-setup-r-lsp ()
@@ -56,8 +49,8 @@
     "h" 'ess-doc-map              ;; help
     "d" 'ess-dev-map              ;; debug
     "D" 'ess-r-package-dev-map    ;; devtools
-    "E" 'ess-extra-map            ;; extra
-    ))
+    "E" 'ess-extra-map))            ;; extra
+
 
 (defun spacemacs//ess-bind-repl-keys-for-mode (mode)
   "Set the REPL keys in MODE."

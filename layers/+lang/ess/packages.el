@@ -41,7 +41,7 @@
     :modes inferior-ess-r-mode)
 
   ;; Set R company to lsp manually to include file completion
-  (unless (eq (spacemacs//ess-r-backend) 'lsp)
+  (unless (eq ess-r-backend 'lsp)
     (spacemacs|add-company-backends
       :backends (company-R-library company-R-args company-R-objects :separate)
       :modes ess-r-mode)))
@@ -99,7 +99,7 @@
         (spacemacs/ess-bind-keys-for-julia))
       (with-eval-after-load 'ess-r-mode
         (spacemacs/ess-bind-keys-for-r)
-        (unless (eq (spacemacs//ess-r-backend) 'lsp)
+        (unless (eq ess-r-backend 'lsp)
           (spacemacs/declare-prefix-for-mode 'ess-r-mode "mg" "goto")
           (define-key ess-doc-map "h" #'ess-display-help-on-object)))
       (with-eval-after-load 'ess-inf-mode

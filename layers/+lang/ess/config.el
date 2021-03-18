@@ -25,7 +25,7 @@
 
 ;; Variables
 
-(defvar ess-r-backend 'nil
+(defvar ess-r-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'ess)
   "The backend to use for IDE features. Possible values are `ess' and `lsp'.")
 
 (defvar ess-assign-key nil
