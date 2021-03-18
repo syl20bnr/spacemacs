@@ -26,7 +26,7 @@
 (spacemacs|define-jump-handlers python-mode)
 (spacemacs|define-jump-handlers cython-mode anaconda-mode-goto)
 
-(defvar python-backend 'nil
+(defvar python-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'anaconda)
   "The backend to use for IDE features.
 Possible values are `anaconda'and `lsp'.
 If `nil' then `anaconda' is the default backend unless `lsp' layer is used.")
@@ -44,9 +44,9 @@ and `mspyls'")
 (defvar python-poetry-activate nil
   "If non-nil, activate poetry before enabling backend")
 
-(defvar python-formatter nil
-  "The formatter to use. Possible values are `yapf',
-  `black' and `lsp'.")
+(defvar python-formatter (if (configuration-layer/layer-used-p 'lsp) 'lsp 'yapf)
+  "The formatter to use. Possible values are `yapf', `black' and `lsp'.
+If nil then `yapf' is the default formatter unless `lsp' layer is used.")
 
 (defvar python-format-on-save nil
   "If non-nil, automatically format code with formatter selected
