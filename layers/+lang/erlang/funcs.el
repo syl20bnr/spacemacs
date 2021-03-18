@@ -21,29 +21,19 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//erlang-backend ()
-  "Returns selected backend."
-  (if erlang-backend
-      erlang-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'company-erlang))))
-
 (defun spacemacs//erlang-setup-backend ()
   "Conditionally setup erlang backend."
-  (pcase (spacemacs//erlang-backend)
-    (`lsp (spacemacs//erlang-setup-lsp)))
-  )
+  (when (eq erlang-backend 'lsp) (spacemacs//erlang-setup-lsp)))
 
 (defun spacemacs//erlang-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//erlang-backend)
-    ;; Activate lsp company explicitly to activate
-    ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
-            :backends company-capf
-            :modes erlang-mode
-            :append-hooks t))))
+  ;; Activate lsp company explicitly to activate
+  ;; standard backends as well
+  (when (eq erlang-backend 'lsp)
+        (spacemacs|add-company-backends
+           :backends company-capf
+           :modes erlang-mode
+           :append-hooks t)))
 
 (defun spacemacs//erlang-setup-lsp ()
   "Setup lsp backend."
