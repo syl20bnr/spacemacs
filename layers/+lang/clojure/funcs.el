@@ -21,18 +21,9 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//clojure-backend ()
-  "Return selected backend."
-  (if clojure-backend
-      clojure-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'cider))))
-
 (defun spacemacs//clojure-setup-backend ()
   "Conditionally setup clojure backend."
-  (pcase (spacemacs//clojure-backend)
-    (`lsp (lsp))))
+  (when (eq clojure-backend 'lsp) (lsp)))
 
 (defun clojure/fancify-symbols (mode)
   "Pretty symbols for Clojure's anonymous functions and sets,
