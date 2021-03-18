@@ -43,7 +43,7 @@
 (defun spacemacs/current-state-face ()
   "Return the face associated to the current state."
   (let ((state (if (eq evil-state 'operator)
-                    evil-previous-state
+                   evil-previous-state
                   evil-state)))
     (spacemacs/state-color-face state)))
 
@@ -128,7 +128,7 @@ current major mode."
                (when (or (and (symbolp mode) (derived-mode-p mode))
                          (and (listp mode) (apply 'derived-mode-p mode))
                          (eq 't mode))
-                 (when (not (listp val))
+                 (unless (listp val)
                    (setq val (list val)))
                  (dolist (v val)
                    (cond
