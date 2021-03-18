@@ -52,14 +52,17 @@ TYPE           should be a widget type for editing the symbol's value.
 GROUP-OVERRIDE should be provided if you don't want Spacemacs to infer the
                configuration group from the currently configured layer name.
 
-NOTE: Use interactive function `spacemacs/customization-valid-p' to
-test if a variable has a proper type. In interactive mode it will also
-`message' variable's symbol, value and type - so you can call this function
-on a .spacemacs variable with s value similar to your variable's and use its
-type as an example.
+NOTE: Use interactive function `spacemacs/customization-valid-p' to test if a
+      variable has a proper type. In interactive mode it will also `message'
+      variable's symbol, value and type - so you can call this function with a
+      similar .spacemacs variable and use its type as an example.
 NOTE: Spacemacs checks variables using validate.el package. Currently it
-doesn't support: `:inline', `plist', `coding-system', `color', `hook',
-`restricted-sexp' types so more general ones should be used instead."
+      doesn't support: `:inline', `plist', `coding-system', `color', `hook',
+      `restricted-sexp' types so more general ones should be used instead.
+NOTE: Variables defined with a group listed in
+      `spacemacs-customization-uncustomizable-groups' won't appear in
+      `spacemacs' customization subgroups. Also their doc-string won't provide
+      customization  menu link when viewed via `describe-variable'."
   (declare (indent defun) (doc-string 3) (debug (name body)))
   `(let ((group (or ,group-override
                     spacemacs-customization--current-group
