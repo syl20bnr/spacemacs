@@ -90,7 +90,7 @@
           (if (nth 4 (syntax-ppss))
               'font-lock-comment-face
             (if (= (- (match-end 2) (match-beginning 2)) 1)
-                (if (eq (char-after (match-beginning 3)) ?{})
+                (if (eq (char-after (match-beginning 3)) ?{)
                     'cperl-hash-face
                   'cperl-array-face)
               font-lock-variable-name-face)) t)
