@@ -78,6 +78,7 @@
       (evilified-state-evilify-map
         mu4e-view-mode-map
         :mode mu4e-view-mode
+        :eval-after-load t
         :bindings
         (kbd "C-j") 'mu4e-view-headers-next
         (kbd "C-k") 'mu4e-view-headers-prev
