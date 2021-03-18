@@ -70,16 +70,22 @@ Will stop current fuel connection if applicable."
 
 Since unloading switches buffers which were in factor-mode back
 to fundamental mode, this re-enables factor-mode in these buffers
-afterwards."
-  (let ((factor-buffers (cl-loop for b being the buffers
-                                 if (eq (buffer-local-value 'major-mode b)
-                                        'factor-mode)
-                                 collect b)))
-    (factor//unload-fuel)
-    (factor//load-fuel-from-path path)
-    (cl-loop for b in factor-buffers do
-             (with-current-buffer b
-               (factor-mode)))))
+afterwards.
+
+Only reloads if currently loaded factor mode belongs to a different factor root.
+"
+  (when (not (string-equal (factor//fuel-elisp-dir)
+                           path))
+    (let ((factor-buffers (cl-loop for b being the buffers
+                                   if (eq (buffer-local-value 'major-mode b)
+                                          'factor-mode)
+                                   collect b)))
+      (factor//unload-fuel)
+      (message "Reloading fuel mode from %s" path)
+      (factor//load-fuel-from-path path)
+      (cl-loop for b in factor-buffers do
+               (with-current-buffer b
+                 (factor-mode))))))
 
 (defun factor/start-connect-factor (factor-binary factor-image fuel-path &optional cmd-line-options)
   "Start a graphical Factor listener at FACTOR-ROOT.
