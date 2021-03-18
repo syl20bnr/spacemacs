@@ -158,8 +158,8 @@ so we can restore it when turning `ido-vertical-mode' off")
    " [Too big]"
    " [Confirm]"
    (concat "\n" indicator padding)                                           ; left bracket around the sole remaining completion
-   ""                                                                        ; right bracket around the sole remaining completion
-   ))
+   ""))                                                                        ; right bracket around the sole remaining completion
+
 
 (defun ido-vertical-or-horizontal-completions (name)
   (if (and ido-vertical-disable-if-short
@@ -318,7 +318,7 @@ so we can restore it when turning `ido-vertical-mode' off")
 
 (defun ido-vertical-disable-line-truncation ()
   "Prevent the newlines in the minibuffer from being truncated"
-  (set (make-local-variable 'truncate-lines) nil))
+  (setq-local truncate-lines nil))
 
 (defun ido-vertical-turn-on ()
   (if (and (eq nil ido-vertical-old-decorations)
