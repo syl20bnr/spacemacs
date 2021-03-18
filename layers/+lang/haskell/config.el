@@ -27,7 +27,7 @@
 
 (spacemacs|define-jump-handlers haskell-mode haskell-mode-jump-to-def-or-tag)
 
-(defvar haskell-completion-backend nil
+(defvar haskell-completion-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'dante)
   "Completion backend used by company.
 Available options are `dante' and `lsp'.
 If `nil' then `dante' is the default backend unless `lsp' layer is used.")
