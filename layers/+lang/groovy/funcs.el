@@ -21,29 +21,21 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//groovy-backend ()
-  "Return selected backend."
-  (if groovy-backend
-      groovy-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'company-groovy))))
-
 (defun spacemacs//groovy-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//groovy-backend)
+  (pcase groovy-backend
     ;; Activate lsp company explicitly to activate
     ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
+    ('lsp (spacemacs|add-company-backends
             :backends company-capf
             :modes groovy-mode))
-    (`company-groovy (spacemacs|add-company-backends
+    ('company-groovy (spacemacs|add-company-backends
                        :modes groovy-mode))))
 
 (defun spacemacs//groovy-setup-backend ()
   "Conditionally setup groovy backend."
-  (pcase (spacemacs//groovy-backend)
-    (`lsp (lsp))))
+  (when (eq groovy-backend 'lsp)
+    (lsp)))
 
 
 ;; REPL
