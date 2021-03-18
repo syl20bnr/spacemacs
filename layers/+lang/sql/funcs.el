@@ -29,17 +29,9 @@
                             (lambda (product) (sql-get-product-feature (car product) :sqli-program))
                             sql-product-alist)))
 
-(defun spacemacs//sql-backend ()
-  "Returns selected backend."
-  (if sql-backend
-      sql-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'company-sql))))
-
 (defun spacemacs//sql-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//sql-backend)
+  (pcase sql-backend
     ('company-sql (spacemacs|add-company-backends
                     :backends company-capf
                     :modes sql-mode))
@@ -51,5 +43,5 @@
 
 (defun spacemacs//sql-setup-backend ()
   "Conditionally setup sql backend."
-  (pcase (spacemacs//sql-backend)
-    (`lsp (lsp))))
+  (when (eq sql-backend 'lsp)
+    (lsp)))

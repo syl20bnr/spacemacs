@@ -35,7 +35,7 @@
 (defvar sql-auto-indent t
   "If non nil use sql-indent.")
 
-(defvar sql-backend nil
+(defvar sql-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'company-sql)
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-sql'.
 If `nil' then 'company-sql` is the default backend unless `lsp' layer is used")
