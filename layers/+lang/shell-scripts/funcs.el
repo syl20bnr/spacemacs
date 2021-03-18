@@ -21,15 +21,10 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//shell-scripts-backend ()
-  "Returns selected backend."
-  ;; backend must be choosed explicitly with this layer
-  shell-scripts-backend)
-
 (defun spacemacs//shell-scripts-setup-backend ()
   "Conditionally setup shell-scripts backend."
-  (pcase (spacemacs//shell-scripts-backend)
-    (`lsp (spacemacs//shell-scripts-setup-lsp))))
+  (when (eq shell-scripts-backend 'lsp)
+    (spacemacs//shell-scripts-setup-lsp)))
 
 
 ;; lsp
@@ -49,4 +44,3 @@
   (require 'insert-shebang)
   (insert-shebang-get-extension-and-insert
    (file-name-nondirectory (buffer-file-name))))
-
