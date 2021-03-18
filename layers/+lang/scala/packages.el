@@ -81,9 +81,9 @@
 
       (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
 
-      (pcase scala-sbt-window-position
-        ('bottom (setq sbt:display-buffer-action
-                       (list #'spacemacs//scala-display-sbt-at-bottom))))
+      (when (eq scala-sbt-window-position 'bottom)
+        (setq sbt:display-buffer-action
+              (list #'spacemacs//scala-display-sbt-at-bottom)))
 
       ;; Compatibility with `aggressive-indent'
       (setq scala-indent:align-forms t
