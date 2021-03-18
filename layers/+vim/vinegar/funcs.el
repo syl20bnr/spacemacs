@@ -27,12 +27,12 @@
   (when (equal major-mode 'dired-mode)
     (if (or (not (boundp 'dired-dotfiles-show-p)) dired-dotfiles-show-p) ; if currently showing
         (progn
-          (set (make-local-variable 'dired-dotfiles-show-p) nil)
+          (setq-local dired-dotfiles-show-p nil)
           (message "h")
           (dired-mark-files-regexp "^\\\.")
           (dired-do-kill-lines))
       (progn (revert-buffer) ; otherwise just revert to re-show
-             (set (make-local-variable 'dired-dotfiles-show-p) t)))))
+             (setq-local dired-dotfiles-show-p t)))))
 
 (defun vinegar/back-to-top ()
   "Move to first file"
@@ -79,22 +79,22 @@
   "Ediff marked files in dired or selected files in separate window"
   (interactive)
   (let* ((marked-files (dired-get-marked-files nil nil))
-        (other-win (get-window-with-predicate
-                    (lambda (window)
-                      (with-current-buffer (window-buffer window)
-                        (and (not (eq window (selected-window)))
-                             (eq major-mode 'dired-mode))))))
-        (other-marked-files (and other-win
-                                 (with-current-buffer (window-buffer other-win)
-                                   (dired-get-marked-files nil)))))
+         (other-win (get-window-with-predicate
+                     (lambda (window)
+                       (with-current-buffer (window-buffer window)
+                         (and (not (eq window (selected-window)))
+                              (eq major-mode 'dired-mode))))))
+         (other-marked-files (and other-win
+                                  (with-current-buffer (window-buffer other-win)
+                                    (dired-get-marked-files nil)))))
     (cond ((= (length marked-files) 2)
            (ediff-files (nth 0 marked-files)
                         (nth 1 marked-files)))
           ((= (length marked-files) 3)
            (ediff-files3 (nth 0 marked-files)
                          (nth 1 marked-files)
-                         (nth 2 marked-files)
-                         ))
+                         (nth 2 marked-files)))
+
           ((and (= (length marked-files) 1)
                 (= (length other-marked-files) 1))
            (ediff-files (nth 0 marked-files)
@@ -121,8 +121,8 @@
 
   (local-set-key (kbd  "<mouse-1>") 'vinegar/dired-mouse-click)
   (local-set-key (kbd  "<mouse-3>") 'vinegar/up-directory)
-  (local-set-key (kbd  "<down-mouse-3>") nil)
-  )
+  (local-set-key (kbd  "<down-mouse-3>") nil))
+
 
 (defun vinegar/dired-mouse-click (event)
   "In Dired, visit the file or directory name you click on."
@@ -154,7 +154,7 @@
             (setq file (dired-get-file-for-visit))
             (dired-find-file-other-window))
         ('error
-         (vinegar/up-directory)
-         ))
-    )))
+         (vinegar/up-directory))))))
+
+
 ;; )
