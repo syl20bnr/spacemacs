@@ -54,36 +54,35 @@ of the cleanup."
 
 (defun spacemacs-whitespace-cleanup/on-message (&optional global)
   "Return a string to display when the mode is activated."
-  (pcase dotspacemacs-whitespace-cleanup
-    (`all
-     (format "whitespace-cleanup enabled%s (all whitespace)"
-             (if global " globally" "")))
-    (`trailing
-     (format "whitespace-cleanup enabled%s (trailing whitespace)"
-             (if global " globally" "")))
-    (`changed
-     (format "whitespace-cleanup enabled%s (changed lines)"
-             (if global " globally" "")))))
+  (format "whitespace-cleanup enabled%s (%s)"
+          (if global " globally" "")
+          (pcase dotspacemacs-whitespace-cleanup
+            ('all "all whitespace")
+            ('trailing "trailing whitespace")
+            ('changed "changed lines")
+            (x (user-error
+                "%s is not a valid option for 'dotspacemacs-whitespace-cleanup'"
+                x)))))
 
 (defun spacemacs-whitespace-cleanup//turn-on (&optional global)
   "Turn on `spacemacs-whitespace-cleanup-mode'."
   (pcase dotspacemacs-whitespace-cleanup
-    (`all
+    ('all
      (add-hook 'before-save-hook 'whitespace-cleanup nil (not global)))
-    (`trailing
+    ('trailing
      (add-hook 'before-save-hook 'delete-trailing-whitespace nil (not global)))
-    (`changed
+    ('changed
      (when (fboundp 'ws-butler-mode)
        (if global (ws-butler-global-mode) (ws-butler-mode))))))
 
 (defun spacemacs-whitespace-cleanup//turn-off (&optional global)
   "Turn off `spacemacs-whitespace-cleanup-mode'."
   (pcase dotspacemacs-whitespace-cleanup
-    (`all
+    ('all
      (remove-hook 'before-save-hook 'whitespace-cleanup (not global)))
-    (`trailing
+    ('trailing
      (remove-hook 'before-save-hook 'delete-trailing-whitespace (not global)))
-    (`changed
+    ('changed
      (when (fboundp 'ws-butler-mode)
        (if global (ws-butler-global-mode -1) (ws-butler-mode -1))))))
 
