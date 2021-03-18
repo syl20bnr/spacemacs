@@ -25,7 +25,7 @@
 
 (spacemacs|define-jump-handlers lua-mode)
 
-(defvar lua-backend 'nil
+(defvar lua-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'lua-mode)
   "The backend to use for IDE features.
 Possible values are `lua-mode' and `lsp'.
 If `nil' then `lua-mode' is the default backend unless `lsp' layer is used.")
