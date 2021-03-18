@@ -415,7 +415,8 @@
       (add-hook 'minibuffer-setup-hook 'spacemacs//conditionally-enable-smartparens-mode)
       ;; toggles
       (spacemacs|add-toggle smartparens
-        :status (or smartparens-mode smartparens-strict-mode)
+        :status (or (bound-and-true-p smartparens-mode)
+                    (bound-and-true-p smartparens-strict-mode))
         :on (spacemacs//activate-smartparens)
         :off (spacemacs//deactivate-smartparens)
         :documentation "Enable smartparens."
