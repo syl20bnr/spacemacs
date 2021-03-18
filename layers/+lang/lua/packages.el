@@ -59,7 +59,7 @@
         "'" 'lua-show-process-buffer)
 
       ;; Set lua-mode specific bindings
-      (when (eq (spacemacs//lua-backend) `lua-mode)
+      (when (eq lua-backend 'lua-mode)
         (spacemacs/declare-prefix-for-mode 'lua-mode "mh" "help")
         (spacemacs/declare-prefix-for-mode 'lua-mode "mg" "goto")))))
 
@@ -68,7 +68,7 @@
 
 (defun lua/init-company-lua ()
   (use-package company-lua
-    :if (eq (spacemacs//lua-backend) 'lua-mode)
+    :if (eq lua-backend 'lua-mode)
     :defer t))
 
 (defun lua/post-init-ggtags ()
