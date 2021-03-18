@@ -21,27 +21,17 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//cmake-backend ()
-  "Returns selected backend."
-  (if cmake-backend
-      cmake-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'company-cmake))))
-
 (defun spacemacs//cmake-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//cmake-backend)
-    ;; Activate lsp company explicitly to activate
-    ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
-            :backends company-capf
-            :modes cmake-mode))
-    (`company-cmake (spacemacs|add-company-backends
-                      :backends company-cmake
-                      :modes cmake-mode))))
+  (spacemacs|add-company-backends
+    :backends (pcase cmake-backend
+                ;; Activate lsp company explicitly to activate
+                ;; standard backends as well
+                ('lsp 'company-capf)
+                ('company-cmake 'company-cmake))
+    :modes cmake-mode))
 
 (defun spacemacs//cmake-setup-backend ()
   "Conditionally setup cmake backend."
-  (pcase (spacemacs//cmake-backend)
-    (`lsp (lsp))))
+  (when (eq cmake-backend 'lsp)
+    (lsp)))
