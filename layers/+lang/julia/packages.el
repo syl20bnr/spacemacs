@@ -27,8 +27,7 @@
     flycheck
     julia-mode
     julia-repl
-    lsp-julia
-    ))
+    lsp-julia))
 
 (defun julia/init-julia-mode ()
   (use-package julia-mode
@@ -37,13 +36,11 @@
     (progn
       (add-hook 'julia-mode-hook #'spacemacs//julia-setup-buffer)
       (add-hook 'julia-mode-local-vars-hook #'spacemacs//julia-setup-backend)
-      (if (and (configuration-layer/layer-used-p 'ess)
-               julia-mode-enable-ess)
-          (add-to-list 'auto-mode-alist
-                       '("\\.jl\\'" . ess-julia-mode)))
-      (if (and (not (configuration-layer/layer-used-p 'ess))
-               julia-mode-enable-ess)
-          (message "`ess' layer is not installed. Please add `ess' layer to your dotfile.")))
+      (when julia-mode-enable-ess
+        (if (configuration-layer/layer-used-p 'ess)
+            (add-to-list 'auto-mode-alist
+                         '("\\.jl\\'" . ess-julia-mode))
+          (message "`ess' layer is not installed. Please add `ess' layer to your dotfile."))))
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'julia-mode "m=" "format")
