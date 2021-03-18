@@ -24,30 +24,22 @@
 
 ;; backend
 
-(defun spacemacs//typescript-backend ()
-  "Returns selected backend."
-  (if typescript-backend
-      typescript-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'tide))))
-
 (defun spacemacs//typescript-setup-backend ()
   "Conditionally setup typescript backend."
-  (pcase (spacemacs//typescript-backend)
-    (`tide (spacemacs//tide-setup))
-    (`lsp (spacemacs//typescript-setup-lsp))))
+  (pcase typescript-backend
+    ('tide (spacemacs//tide-setup))
+    ('lsp (spacemacs//typescript-setup-lsp))))
 
 (defun spacemacs//typescript-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//typescript-backend)
-    (`tide (spacemacs//tide-setup-company 'typescript-mode 'typescript-tsx-mode))))
+  (when (eq typescript-backend 'tide)
+    (spacemacs//tide-setup-company 'typescript-mode 'typescript-tsx-mode)))
 
 (defun spacemacs//typescript-setup-eldoc ()
   "Conditionally setup eldoc based on backend."
-  (pcase (spacemacs//typescript-backend)
-    (`tide (spacemacs//tide-setup-eldoc))
-    (`lsp (spacemacs//typescript-setup-lsp-eldoc))))
+  (pcase typescript-backend
+    ('tide (spacemacs//tide-setup-eldoc))
+    ('lsp (spacemacs//typescript-setup-lsp-eldoc))))
 
 
 ;; lsp
@@ -56,7 +48,7 @@
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        (when (not typescript-lsp-linter)
+        (unless typescript-lsp-linter
           (setq-local lsp-diagnostics-provider :none))
         (lsp))
     (message (concat "`lsp' layer is not installed, "
@@ -112,16 +104,14 @@
 (defun spacemacs/typescript-format ()
   "Call formatting tool specified in `typescript-fmt-tool'."
   (interactive)
-  (cond
-   ((eq typescript-fmt-tool 'typescript-formatter)
-    (call-interactively 'spacemacs/typescript-tsfmt-format-buffer))
-   ((eq typescript-fmt-tool 'tide)
-    (call-interactively 'tide-format))
-   ((eq typescript-fmt-tool 'prettier)
-    (call-interactively 'prettier-js))
-   (t (error (concat "%s isn't valid typescript-fmt-tool value."
-                     " It should be 'tide, 'typescript-formatter or 'prettier.")
-             (symbol-name typescript-fmt-tool)))))
+  (call-interactively
+   (pcase typescript-fmt-tool
+     ('typescript-formatter 'spacemacs/typescript-tsfmt-format-buffer)
+     ('tide 'tide-format)
+     ('prettier 'prettier-js)
+     (_ (user-error
+         "%s isn't a valid typescript formatter. Possible values are 'tide, 'typescript-formatter or 'prettier"
+         typescript-fmt-tool)))))
 
 (defun spacemacs/typescript-fmt-before-save-hook ()
   (add-hook 'before-save-hook 'spacemacs/typescript-format t t))
@@ -150,7 +140,7 @@
 
 (defun spacemacs//typescript-setup-checkers ()
   (when-let* ((found (executable-find "eslint_d")))
-    (set (make-local-variable 'flycheck-javascript-eslint-executable) found)))
+    (setq-local flycheck-javascript-eslint-executable found)))
 
 (defun spacemacs/typescript-mode-init (hook)
   (add-hook hook 'spacemacs//typescript-setup-backend)
@@ -160,8 +150,8 @@
 (defun spacemacs/typescript-mode-config (mode)
   (spacemacs/set-leader-keys-for-major-mode mode
     "p" 'spacemacs/typescript-open-region-in-playground)
-  (pcase (spacemacs//typescript-backend)
+  (pcase typescript-backend
     ('lsp (spacemacs/set-leader-keys-for-major-mode mode
             "==" 'spacemacs/typescript-format))
-    (_ (spacemacs/set-leader-keys-for-major-mode mode
-         "=" 'spacemacs/typescript-format))))
+    ('tide (spacemacs/set-leader-keys-for-major-mode mode
+             "=" 'spacemacs/typescript-format))))
