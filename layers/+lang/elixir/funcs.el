@@ -21,30 +21,20 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//elixir-backend ()
-  "Returns selected backend."
-  (if elixir-backend
-      elixir-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'alchemist))))
-
 (defun spacemacs//elixir-setup-backend ()
   "Conditionally setup elixir backend."
-  (pcase (spacemacs//elixir-backend)
-    (`alchemist (spacemacs//elixir-setup-alchemist))
-    (`lsp (spacemacs//elixir-setup-lsp))))
+  (pcase elixir-backend
+    ('alchemist (spacemacs//elixir-setup-alchemist))
+    ('lsp (spacemacs//elixir-setup-lsp))))
 
 (defun spacemacs//elixir-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//elixir-backend)
-    (`alchemist (spacemacs//elixir-setup-alchemist-company))))
+  (when (eq elixir-backend 'alchemist) (spacemacs//elixir-setup-alchemist-company)))
 
 (defun spacemacs//elixir-setup-dap ()
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase (spacemacs//elixir-backend)
-    (`lsp (spacemacs//elixir-setup-lsp-dap))))
+  (when (eq elixir-backend 'lsp) (spacemacs//elixir-setup-lsp-dap)))
 
 
 ;;alchemist
@@ -54,11 +44,10 @@
 
 (defun spacemacs//elixir-setup-alchemist-company ()
   (when (configuration-layer/package-used-p 'alchemist)
-    (progn
-      (spacemacs|add-company-backends
-        :backends alchemist-company
-        :modes elixir-mode alchemist-iex-mode)
-      (company-mode))))
+    (spacemacs|add-company-backends
+      :backends alchemist-company
+      :modes elixir-mode alchemist-iex-mode)
+    (company-mode)))
 
 
 ;;lsp

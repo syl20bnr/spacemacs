@@ -163,8 +163,7 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'elixir-mode))
 
 (defun elixir/pre-init-dap-mode ()
-  (pcase (spacemacs//elixir-backend)
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'elixir-mode)))
+  (when (eq elixir-backend 'lsp) (add-to-list 'spacemacs--dap-supported-modes 'elixir-mode))
   (add-hook 'elixir-mode-local-vars-hook #'spacemacs//elixir-setup-dap))
 
 (defun elixir/post-init-evil-matchit ()

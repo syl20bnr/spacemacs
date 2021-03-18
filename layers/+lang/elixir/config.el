@@ -23,7 +23,7 @@
 
 ;; Variables
 
-(defvar elixir-backend nil
+(defvar elixir-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'alchemist)
   "The backend to use for IDE features.
 Possible values are `alchemist' and `lsp'.
 If `nil' then `alchemist' is the default backend unless `lsp' layer is used.")
