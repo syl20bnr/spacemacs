@@ -21,27 +21,17 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//purescript-backend ()
-  "Returns selected backend."
-  (if purescript-backend
-      purescript-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'psc-ide))))
-
 (defun spacemacs//purescript-setup-backend ()
   "Conditionally setup purescript backend."
-  (pcase (spacemacs//purescript-backend)
-    ('lsp (lsp))))
+  (when (eq purescript-backend 'lsp)
+    (lsp)))
 
 (defun spacemacs//purescript-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//purescript-backend)
-    ;; Activate lsp company explicitly to activate
-    ;; standard backends as well
-    ('lsp (spacemacs|add-company-backends
-            :backends company-capf
-            :modes purescript-mode))
-    ('psc-ide (spacemacs|add-company-backends
-                :backends company-psc-ide-backend
-                :modes purescript-mode))))
+  (spacemacs|add-company-backends
+    :backends (pcase purescript-backend
+                ;; Activate lsp company explicitly to activate
+                ;; standard backends as well
+                ('lsp 'company-capf)
+                ('psc-ide 'company-psc-ide-backend))
+    :modes 'purescript-mode))
