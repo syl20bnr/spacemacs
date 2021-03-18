@@ -31,7 +31,7 @@
 ;; ...but AUCTeX runs LaTeX-mode-hook rather than latex-mode-hook, so:
 (add-hook 'LaTeX-mode-hook #'spacemacs//init-jump-handlers-latex-mode)
 
-(defvar latex-backend nil
+(defvar latex-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'company-auctex)
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-auctex'.
 If `nil' then 'company-auctex` is the default backend unless `lsp' layer is used")
