@@ -25,6 +25,6 @@
 
 (spacemacs|define-jump-handlers sh-mode)
 
-(defvar shell-scripts-backend nil
+(defvar shell-scripts-backend (when (configuration-layer/layer-used-p 'lsp) 'lsp)
   "The backend to use for IDE features.
-Possible values are `lsp'.")
+When `lsp' layer is used, defaults to `lsp'.")
