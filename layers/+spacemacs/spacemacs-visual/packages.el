@@ -20,8 +20,9 @@
         hl-todo
         popup
         popwin
-        (zoom-frm :location local)
-        ))
+        (zoom-frm :location (recipe
+                             :fetcher url
+                             :url "https://raw.githubusercontent.com/emacsmirror/emacswiki.org/master/zoom-frm.el"))))
 
 (defun spacemacs-visual/init-ansi-colors ()
   (add-hook 'compilation-filter-hook
