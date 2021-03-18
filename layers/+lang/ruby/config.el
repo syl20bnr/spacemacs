@@ -26,7 +26,7 @@
 (spacemacs|define-jump-handlers enh-ruby-mode)
 (spacemacs|define-jump-handlers ruby-mode)
 
-(defvar ruby-backend 'robe
+(defvar ruby-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'robe)
   "Defines the backend for IDE features, defaulting to robe.
 Possible values are `robe', and `lsp'.
 If `nil' then `robe' is the default backend unless `lsp' layer is used.")
