@@ -47,7 +47,7 @@
     :defer t
     :init
     (progn
-      (unless (eq (spacemacs//json-backend) 'lsp)
+      (unless (eq json-backend 'lsp)
         (spacemacs/declare-prefix-for-mode 'json-mode "mT" "toggle")
         (spacemacs/declare-prefix-for-mode 'json-mode "mh" "help")
         (spacemacs/declare-prefix-for-mode 'json-mode "m=" "format"))
