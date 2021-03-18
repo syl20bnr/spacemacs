@@ -1933,8 +1933,8 @@ to install.
 
 When `quelpa' is called interactively with a prefix argument (e.g
 \\[universal-argument] \\[quelpa]) it will try to upgrade the
-given package even if the global var `quelpa-upgrade-p' is set to
-nil."
+given package and remove any old versions of it even if the
+`quelpa-upgrade-p' and `quelpa-autoremove-p' are set to nil."
   (interactive (list nil))
   (run-hooks 'quelpa-before-hook)
   (when (quelpa-setup-p) ;if init fails we do nothing
@@ -1944,7 +1944,7 @@ nil."
                       (quelpa-interactive-candidate))))
            (quelpa-upgrade-p (if current-prefix-arg t quelpa-upgrade-p)) ;shadow `quelpa-upgrade-p'
            (quelpa-stable-p quelpa-stable-p) ;shadow `quelpa-stable-p'
-           (quelpa-autoremove-p (if current-prefix-arg quelpa-autoremove-p nil))
+           (quelpa-autoremove-p (if current-prefix-arg t quelpa-autoremove-p))
            (cache-item (quelpa-arg-rcp arg)))
       (quelpa-parse-plist plist)
       (quelpa-parse-stable cache-item)
