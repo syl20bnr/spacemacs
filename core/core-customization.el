@@ -24,7 +24,22 @@
   :prefix 'spacemacs-layers-)
 
 (defgroup spacemacs--uncustomizable nil
-  "Dummy group that contains variables that can't be customized.")
+  "Dummy group that contains variables that can't be customized."
+  :group 'spacemacs--phony-group)
+
+(defgroup spacemacs-dotspacemacs-init nil
+  "Dotspacemacs init customizations."
+  :group 'spacemacs--uncustomizable)
+
+(defgroup spacemacs-dotspacemacs-layers nil
+  "Dotspacemacs layers customizations."
+  :group 'spacemacs--uncustomizable)
+
+(defconst spacemacs-customization-uncustomizable-groups
+  '(spacemacs--uncustomizable
+    spacemacs-dotspacemacs-init
+    spacemacs-dotspacemacs-layers)
+  "List of variable groups that can't be customized.")
 
 (defmacro spacemacs|defc (symbol standard doc type &optional group-override)
   "Spacemacs flavored `defcustom' for .spacemacs configurations.
@@ -37,14 +52,18 @@ TYPE           should be a widget type for editing the symbol's value.
 GROUP-OVERRIDE should be provided if you don't want Spacemacs to infer the
                configuration group from the currently configured layer name.
 
-NOTE: You can use interactive function `spacemacs/customization-valid-p' to
-test if a variable has a proper type.
-NOTE: `core-dotspacemacs' contains plenty of customization examples.
+NOTE: Use interactive function `spacemacs/customization-valid-p' to
+test if a variable has a proper type. In interactive mode it will also
+`message' variable's symbol, value and type - so you can call this function
+on a .spacemacs variable with s value similar to your variable's and use its
+type as an example.
 NOTE: Spacemacs checks variables using validate.el package. Currently it
 doesn't support: `:inline', `plist', `coding-system', `color', `hook',
 `restricted-sexp' types so more general ones should be used instead."
   (declare (indent defun) (doc-string 3) (debug (name body)))
-  `(progn
+  `(let ((group (or ,group-override
+                    spacemacs-customization--current-group
+                    'spacemacs--uncustomizable)))
      (put ',symbol 'spacemacs-customization--variable t)
      (custom-declare-variable
       ',symbol
@@ -54,10 +73,13 @@ doesn't support: `:inline', `plist', `coding-system', `color', `hook',
          `',standard)
       ,(format "%s\n\nTYPE: %s\n" doc type)
       :type ,type
-      :group
-      (or ,group-override
-          spacemacs-customization--current-group
-          'spacemacs--uncustomizable))))
+      :group group)
+     (when (memq group spacemacs-customization-uncustomizable-groups)
+       ;; HACK: This will make `custom-variable-p' return nil
+       ;; so the `describe-variable' function won't add customization
+       ;; link. Will there be the reckoning? Will see!
+       (put ',symbol 'standard-value nil)
+       (put ',symbol 'custom-autoload nil))))
 
 (defun spacemacs/customization-valid-p (var-symbol)
   "returns true if symbol refers spacemacs custom variable with valid value.
