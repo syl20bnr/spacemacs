@@ -26,7 +26,7 @@
 (spacemacs|define-jump-handlers c++-mode)
 (spacemacs|define-jump-handlers c-mode)
 
-(defvar c-c++-backend nil
+(defvar c-c++-backend (when (configuration-layer/layer-used-p 'lsp) 'lsp-clangd)
   "The backend to use for IDE features.
 Possible values are `lsp-ccls', `lsp-clangd', `rtags' and `ycmd'.")
 
@@ -90,7 +90,7 @@ Add `dap-gdb-lldb' for the WebFreak Native Debug extension.")
 
 ;; misc
 
-(defvar c-c++-default-mode-for-headers (when (not (functionp 'c-or-c++-mode)) 'c-mode)
+(defvar c-c++-default-mode-for-headers (unless (functionp 'c-or-c++-mode) 'c-mode)
   "Default mode to open header files. Can be `c-mode' or `c++-mode', or `c-or-c++-mode' for Emacs > 26+.")
 
 (defvar c-c++-adopt-subprojects nil

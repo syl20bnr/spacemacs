@@ -130,10 +130,10 @@
         "ri" #'spacemacs/c++-organize-includes))))
 
 (defun c-c++/pre-init-dap-mode ()
-  (pcase (spacemacs//c-c++-backend)
-    (`lsp-clangd (add-to-list 'spacemacs--dap-supported-modes 'c-mode)
+  (pcase c-c++-backend
+    ('lsp-clangd (add-to-list 'spacemacs--dap-supported-modes 'c-mode)
                  (add-to-list 'spacemacs--dap-supported-modes 'c++-mode))
-    (`lsp-ccls (add-to-list 'spacemacs--dap-supported-modes 'c-mode)
+    ('lsp-ccls (add-to-list 'spacemacs--dap-supported-modes 'c-mode)
                (add-to-list 'spacemacs--dap-supported-modes 'c++-mode)))
   (add-hook 'c-mode-local-vars-hook #'spacemacs//c-c++-setup-dap)
   (add-hook 'c++-mode-local-vars-hook #'spacemacs//c-c++-setup-dap))
