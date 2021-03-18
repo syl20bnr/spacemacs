@@ -984,18 +984,17 @@ If ARG is non nil then ask questions to the user before installing the dotfile."
             (when (string-match-p "%t" title-format)
               (if (boundp 'spacemacs--buffer-project-name)
                   spacemacs--buffer-project-name
-                (set (make-local-variable 'spacemacs--buffer-project-name)
-                     (if (fboundp 'projectile-project-name)
-                         (projectile-project-name)
-                       "-")))))
+                (setq-local spacemacs--buffer-project-name
+                            (if (fboundp 'projectile-project-name)
+                                (projectile-project-name)
+                              "-")))))
            (abbreviated-file-name
             (when (string-match-p "%a" title-format)
               (if (boundp 'spacemacs--buffer-abbreviated-filename)
                   spacemacs--buffer-abbreviated-filename
-                (set (make-local-variable
-                      'spacemacs--buffer-abbreviated-filename)
-                     (abbreviate-file-name (or (buffer-file-name)
-                                               (buffer-name)))))))
+                (setq-local spacemacs--buffer-abbreviated-filename
+                            (abbreviate-file-name (or (buffer-file-name)
+                                                      (buffer-name)))))))
            (fs (format-spec-make
                 ?a abbreviated-file-name
                 ?t project-name
