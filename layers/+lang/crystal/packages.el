@@ -56,7 +56,7 @@
       (add-hook 'crystal-mode-hook 'spacemacs//crystal-auto-format-setup)
       (add-hook 'crystal-mode-hook #'spacemacs//crystal-setup-backend)
       (spacemacs/declare-prefix-for-mode 'crystal-mode "mu" "tool")
-      (unless (eq (spacemacs//crystal-backend) 'lsp)
+      (unless (eq crystal-backend 'lsp)
         (spacemacs/declare-prefix-for-mode 'crystal-mode "mg" "goto")
         (spacemacs/declare-prefix-for-mode 'crystal-mode "mt" "test")
         (spacemacs/declare-prefix-for-mode 'crystal-mode "ma" "action"))
