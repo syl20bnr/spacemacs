@@ -33,8 +33,8 @@
         pangu-spacing
         org
         (youdao-dictionary :toggle chinese-enable-youdao-dict)
-        chinese-conv
-        ))
+        chinese-conv))
+
 
 (defun chinese/init-fcitx ()
   (use-package fcitx
@@ -113,7 +113,7 @@
                  ;; Always insert `real' space in org-mode.
                  (add-hook 'org-mode-hook
                            '(lambda ()
-                              (set (make-local-variable 'pangu-spacing-real-insert-separtor) t))))))
+                              (setq-local pangu-spacing-real-insert-separtor t))))))
 
 (defun chinese/init-chinese-conv ()
   (use-package chinese-conv
