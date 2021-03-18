@@ -41,8 +41,8 @@
         (holy-mode :location local :step pre)
         (hybrid-mode :location (recipe :fetcher local) :step pre)
         (spacemacs-theme :location built-in)
-        dash
-        ))
+        dash))
+
 
 
 ;; bootstrap packages
@@ -52,7 +52,7 @@
 (defun spacemacs-bootstrap/init-bind-key ())
 
 (defun spacemacs-bootstrap/init-diminish ()
-  (when (not (configuration-layer/package-used-p 'spaceline))
+  (unless (configuration-layer/package-used-p 'spaceline)
     (add-hook 'after-load-functions 'spacemacs/diminish-hook)))
 
 (defun spacemacs-bootstrap/init-dotenv-mode ()
@@ -361,7 +361,7 @@
   (spacemacs/declare-prefix "tk" "which-key-persistent")
   (setq which-key-toggle-of-message
         "To exit which-key-persistent-mode use `which-key-toggle-persistent'.")
-  
+
   (spacemacs|add-toggle which-key-toggle-persistent
     :status which-key-persistent-popup
     :on (setq which-key-persistent-popup t)
@@ -428,8 +428,8 @@ Press \\[which-key-toggle-persistent] to hide."
            ("evil-lisp-state-\\(.+\\)" . "\\1")
            ("helm-mini\\|ivy-switch-buffer" . "list-buffers")
            ("lazy-helm/\\(.+\\)" . "\\1")
-           ("lazy-helm/spacemacs/\\(.+\\)" . "\\1")
-           )))
+           ("lazy-helm/spacemacs/\\(.+\\)" . "\\1"))))
+
     (dolist (nd new-descriptions)
       ;; ensure the target matches the whole string
       (push (cons (cons nil (concat "\\`" (car nd) "\\'")) (cons nil (cdr nd)))
@@ -555,7 +555,7 @@ Press \\[which-key-toggle-persistent] to hide."
 
   ;; hide the "C-c -> eyebrowse-create-window-config" entry
   (push '(("\\(.*\\)C-c C-w C-c" . "eyebrowse-create-window-config") . t)
-          which-key-replacement-alist)
+         which-key-replacement-alist)
 
   ;; C-c C-d-
   ;; Combine the d and C-d key entries
@@ -565,7 +565,7 @@ Press \\[which-key-toggle-persistent] to hide."
 
   ;; hide the "C-d -> elisp-slime-nav-describe-elisp-thing-at-point" entry
   (push '(("\\(.*\\)C-c C-d C-d" . "elisp-slime-nav-describe-elisp-thing-at-point") . t)
-          which-key-replacement-alist)
+         which-key-replacement-alist)
 
   (which-key-add-key-based-replacements
     dotspacemacs-leader-key '("root" . "Spacemacs root")
@@ -574,9 +574,9 @@ Press \\[which-key-toggle-persistent] to hide."
   ;; disable special key handling for spacemacs, since it can be
   ;; disorienting if you don't understand it
   (pcase dotspacemacs-which-key-position
-    (`right (which-key-setup-side-window-right))
-    (`bottom (which-key-setup-side-window-bottom))
-    (`right-then-bottom (which-key-setup-side-window-right-bottom)))
+    ('right (which-key-setup-side-window-right))
+    ('bottom (which-key-setup-side-window-bottom))
+    ('right-then-bottom (which-key-setup-side-window-right-bottom)))
 
   (which-key-mode)
   (spacemacs|diminish which-key-mode " Ⓚ" " K"))
