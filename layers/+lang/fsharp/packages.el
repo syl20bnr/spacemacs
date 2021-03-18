@@ -25,12 +25,11 @@
   '(
     company
     counsel-gtags
-    (eglot-fsharp :toggle (eq (spacemacs//fsharp-backend) 'eglot))
+    (eglot-fsharp :toggle (eq fsharp-backend 'eglot))
     flycheck
     fsharp-mode
     ggtags
-    helm-gtags
-    ))
+    helm-gtags))
 
 (defun fsharp/post-init-company ()
   (spacemacs//fsharp-setup-company))
@@ -53,40 +52,17 @@
     :defer t
     :init
     (progn
-      (when (eq (spacemacs//fsharp-backend) 'eglot)
+      (when (eq fsharp-backend 'eglot)
         (require 'eglot-fsharp))
       (setq fsharp-doc-idle-delay .2)
       (spacemacs/register-repl 'fsharp-mode 'fsharp-show-subshell "F#")
       (add-hook 'fsharp-mode-hook #'spacemacs//fsharp-setup-backend))
     :config
     (progn
-      (defun spacemacs/fsharp-load-buffer-file-focus ()
-        "Send the current buffer to REPL and switch to the REPL in
- `insert state'."
-        (interactive)
-        (fsharp-load-buffer-file)
-        (switch-to-buffer-other-window inferior-fsharp-buffer-name)
-        (evil-insert-state))
-      (defun spacemacs/fsharp-eval-phrase-focus ()
-        "Send the current phrase to REPL and switch to the REPL in
- `insert state'."
-        (interactive)
-        (fsharp-eval-phrase)
-        (switch-to-buffer-other-window inferior-fsharp-buffer-name)
-        (evil-insert-state))
-      (defun spacemacs/fsharp-eval-region-focus (start end)
-        "Send the current phrase to REPL and switch to the REPL in
- `insert state'."
-        (interactive "r")
-        (fsharp-eval-region start end)
-        (switch-to-buffer-other-window inferior-fsharp-buffer-name)
-        (evil-insert-state))
-
       (spacemacs/declare-prefix-for-mode 'fsharp-mode "ms" "repl")
       (spacemacs/declare-prefix-for-mode 'fsharp-mode "mc" "compile")
-      (when (eq (spacemacs//fsharp-backend) 'eglot)
+      (when (eq fsharp-backend 'eglot)
         (spacemacs/declare-prefix-for-mode 'fsharp-mode "mg" "goto"))
-
       (spacemacs/set-leader-keys-for-major-mode 'fsharp-mode
         "cc" 'compile
         "ga" 'fsharp-find-alternate-file
