@@ -28,11 +28,11 @@
 
 (defvar typescript-fmt-tool 'tide
   "The name of the tool to be used for TypeScript source code formatting.
-Currently available 'tide (default), 'typescript-formatter and 'prettier.")
+Possible values are 'tide (default), 'typescript-formatter and 'prettier.")
 
-(defvar typescript-backend nil
+(defvar typescript-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'tide)
   "The backend to use for IDE features.
-Possible values are `tide'+and `lsp'.
+Possible values are `tide' and `lsp'.
 If `nil' then `tide' is the default backend unless `lsp' layer is used.")
 
 (defvar typescript-linter 'tslint
