@@ -24,32 +24,24 @@
 
 ;; backend
 
-(defun spacemacs//ruby-backend ()
-  "Returns selected backend."
-  (if ruby-backend
-      ruby-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'robe))))
-
 (defun spacemacs//ruby-setup-backend ()
   "Conditionally configure Ruby backend"
   (spacemacs//ruby-setup-version-manager)
-  (pcase (spacemacs//ruby-backend)
-    (`lsp (spacemacs//ruby-setup-lsp))
-    (`robe (spacemacs//ruby-setup-robe))))
+  (pcase ruby-backend
+    ('lsp (spacemacs//ruby-setup-lsp))
+    ('robe (spacemacs//ruby-setup-robe))))
 
 (defun spacemacs//ruby-setup-company ()
   "Configure backend company"
-  (pcase (spacemacs//ruby-backend)
-    (`robe (spacemacs//ruby-setup-robe-company))
-    (`lsp nil))) ;; Company is automatically set up by lsp
+  ;; Company is automatically set up by lsp
+  (when (eq ruby-backend 'robe)
+      (spacemacs//ruby-setup-robe-company)))
 
 (defun spacemacs//ruby-setup-dap ()
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase (spacemacs//ruby-backend)
-    (`lsp (spacemacs//ruby-setup-lsp-dap))))
+  (when (eq ruby-backend 'lsp)
+    (spacemacs//ruby-setup-lsp-dap)))
 
 
 ;; lsp
@@ -85,8 +77,8 @@
 
 (defun spacemacs//ruby-setup-version-manager ()
   "Setup ruby version manager."
-  (pcase ruby-version-manager
-    (`rbenv (spacemacs//enable-rbenv))))
+  (when (eq ruby-version-manager 'rbenv)
+    (spacemacs//enable-rbenv)))
 
 
 ;; rbenv

@@ -58,7 +58,7 @@
     :defer t
     :init (dolist (mode '(ruby-mode enh-ruby-mode))
             (spacemacs/declare-prefix-for-mode mode "mb"
-              (if (eq (spacemacs//ruby-backend) 'lsp) "build/bundle" "bundle"))
+              (if (eq ruby-backend 'lsp) "build/bundle" "bundle"))
             (spacemacs/set-leader-keys-for-major-mode mode
               "bc" 'bundle-check
               "bi" 'bundle-install
@@ -86,9 +86,9 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'enh-ruby-mode))
 
 (defun ruby/pre-init-dap-mode ()
-  (pcase (spacemacs//ruby-backend)
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'ruby-mode)
-          (add-to-list 'spacemacs--dap-supported-modes 'enh-ruby-mode)))
+  (when (eq ruby-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'ruby-mode)
+    (add-to-list 'spacemacs--dap-supported-modes 'enh-ruby-mode))
   (spacemacs/add-to-hooks #'spacemacs//ruby-setup-dap
                           '(ruby-mode-local-vars-hook
                             enh-ruby-mode-local-vars-hook)))
@@ -303,8 +303,8 @@
   (use-package ruby-mode
     :defer t
     :mode (("Appraisals\\'" . ruby-mode)
-            ("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . ruby-mode)
-            ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\|pryrc\\)\\'" . ruby-mode))
+           ("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . ruby-mode)
+           ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\|pryrc\\)\\'" . ruby-mode))
     :init
     (progn
       (spacemacs/declare-prefix-for-mode 'ruby-mode "mi" "insert")
