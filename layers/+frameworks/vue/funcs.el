@@ -31,8 +31,8 @@
 
 (defun spacemacs//vue-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase vue-backend
-    ('dumb (spacemacs//vue-setup-dumb-company))))
+  (when (eq vue-backend 'dumb)
+    (spacemacs//vue-setup-dumb-company)))
 
 
 ;; lsp
