@@ -46,7 +46,7 @@
     :config
     (progn
       ;; Set non lsp bindings
-      (when (eq (spacemacs//nim-backend) 'company-nim)
+      (when (eq nim-backend 'company-nim)
         (spacemacs/declare-prefix-for-mode 'nim-mode "mg" "goto")
         (spacemacs/declare-prefix-for-mode 'nim-mode "mh" "help")
         (spacemacs/set-leader-keys-for-major-mode 'nim-mode

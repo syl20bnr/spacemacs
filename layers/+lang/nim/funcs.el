@@ -21,34 +21,20 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//nim-backend ()
-  "Returns selected backend."
-  (if nim-backend
-      nim-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'company-nim))))
-
 (defun spacemacs//nim-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//nim-backend)
-    ;; Activate lsp company explicitly to activate
-    ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
-            :backends company-capf
-            :modes nim-mode nimscript-mode))
-    (`company-nim (spacemacs|add-company-backends
-                    :backends company-nimsuggest
-                    :modes nim-mode nimscript-mode))))
+  (spacemacs|add-company-backends
+   :backends (pcase nim-backend
+              ('lsp 'company-capf)
+              ('company-nim 'company-nimsuggest))
+   :modes nim-mode nimscript-mode))
 
 (defun spacemacs//nim-setup-backend ()
   "Conditionally setup nim backend."
-  (pcase (spacemacs//nim-backend)
-    (`lsp (lsp))
-    (`company-nim (progn
-                    (nimsuggest-mode)
-                    (add-to-list 'spacemacs-jump-handlers-nim-mode 'nimsuggest-find-definition)))))
-
+  (pcase nim-backend
+    ('lsp (lsp))
+    ('company-nim (nimsuggest-mode)
+                  (add-to-list 'spacemacs-jump-handlers-nim-mode 'nimsuggest-find-definition))))
 
 (defun spacemacs/nim-compile-run ()
   "Compile current buffer file."
