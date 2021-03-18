@@ -25,7 +25,7 @@
 
 (spacemacs|define-jump-handlers rust-mode)
 
-(defvar rust-backend nil
+(defvar rust-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'racer)
   "The backend to use for completion.
 Possible values are `lsp' `racer'.
 If `nil' then `racer' is the default backend unless `lsp' layer is used.")
