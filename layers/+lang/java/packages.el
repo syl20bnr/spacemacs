@@ -41,8 +41,8 @@
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-company))
 
 (defun java/pre-init-dap-mode ()
-  (pcase (spacemacs//java-backend)
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'java-mode)))
+  (when (eq java-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'java-mode))
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-dap))
 
 (defun java/post-init-flycheck ()
@@ -151,7 +151,7 @@
 (defun java/init-lsp-java ()
   (use-package lsp-java
     :defer t
-    :if (eq (spacemacs//java-backend) 'lsp)
+    :if (eq java-backend 'lsp)
     :config
     (progn
       ;; key bindings
