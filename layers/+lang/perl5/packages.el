@@ -32,9 +32,9 @@
     smartparens))
 
 (defun perl5/pre-init-dap-mode ()
-  (pcase (spacemacs//perl5-backend)
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'cperl-mode)
-          (add-hook 'cperl-mode-hook #'dap-mode))))
+  (when (eq perl5-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'cperl-mode)
+    (add-hook 'cperl-mode-hook #'dap-mode)))
 
 (defun perl5/post-init-company ()
   (spacemacs//perl5-setup-company))
@@ -90,7 +90,7 @@
           (if (nth 4 (syntax-ppss))
               'font-lock-comment-face
             (if (= (- (match-end 2) (match-beginning 2)) 1)
-                (if (eq (char-after (match-beginning 3)) ?{)
+                (if (eq (char-after (match-beginning 3)) ?{})
                     'cperl-hash-face
                   'cperl-array-face)
               font-lock-variable-name-face)) t)
@@ -121,7 +121,7 @@
       (add-hook 'cperl-mode-hook
                 (lambda () (local-set-key (kbd "<tab>") 'indent-for-tab-command)))
 
-      (unless (eq (spacemacs//perl5-backend) 'lsp)
+      (unless (eq perl5-backend 'lsp)
         (spacemacs/declare-prefix-for-mode 'cperl-mode "m=" "format")
         (spacemacs/declare-prefix-for-mode 'cperl-mode "mg" "find-symbol")
         (spacemacs/declare-prefix-for-mode 'cperl-mode "mh" "perldoc"))
