@@ -21,24 +21,16 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//kotlin-backend ()
-  "Returns selected backend."
-  (if kotlin-backend
-      kotlin-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'company-kotlin))))
-
 (defun spacemacs//kotlin-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//kotlin-backend)
-    ;; Activate lsp company explicitly to activate
-    ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
-            :backends company-capf
-            :modes kotlin-mode))))
+  ;; Activate lsp company explicitly to activate
+  ;; standard backends as well
+  (when (eq kotlin-backend 'lsp)
+    (spacemacs|add-company-backends
+      :backends company-capf
+      :modes kotlin-mode)))
 
 (defun spacemacs//kotlin-setup-backend ()
   "Conditionally setup kotlin backend."
-  (pcase (spacemacs//kotlin-backend)
-    (`lsp (lsp))))
+  (when (eq kotlin-backend 'lsp)
+    (lsp)))
