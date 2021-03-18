@@ -21,27 +21,19 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//json-backend ()
-  "Returns selected backend."
-  (if json-backend
-      json-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'company-json))))
-
 (defun spacemacs//json-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//json-backend)
-    ;; Activate lsp company explicitly to activate
-    ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
-            :backends company-capf
-            :modes json-mode))))
+  ;; Activate lsp company explicitly to activate
+  ;; standard backends as well
+  (when (eq json-backend 'lsp)
+    (spacemacs|add-company-backends
+      :backends company-capf
+      :modes json-mode)))
 
 (defun spacemacs//json-setup-backend ()
   "Conditionally setup json backend."
-  (pcase (spacemacs//json-backend)
-    (`lsp (lsp))))
+  (when (eq json-backend 'lsp)
+    (lsp)))
 
 (defun spacemacs/json-navigator-dwim (arg &optional start end)
   "Display the JSON hierarchy of the whole buffer or the active region.
