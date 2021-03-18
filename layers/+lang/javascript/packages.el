@@ -57,8 +57,8 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'js2-mode))
 
 (defun javascript/pre-init-dap-mode ()
-  (pcase (spacemacs//javascript-backend)
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'js2-mode)))
+  (when (eq javascript-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'js2-mode))
   (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-dap))
 
 (defun javascript/post-init-evil-matchit ()

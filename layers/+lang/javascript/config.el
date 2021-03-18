@@ -25,7 +25,7 @@
 
 (spacemacs|define-jump-handlers js2-mode)
 
-(defvar javascript-backend nil
+(defvar javascript-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'tern)
   "The backend to use for IDE features.
 Possible values are `tern', `tide' and `lsp'.
 If `nil' then `tern' is the default backend unless `lsp' layer is used.")
