@@ -265,7 +265,7 @@ can be a symbol or a list with additional properties like '(all-the-icons
 (spacemacs|defc dotspacemacs-frame-title-format "%I@%S"
   "Default format string for a frame title bar, using the
 original format spec, and additional customizations."
-  'string
+  '(choice (const nil) string)
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-icon-title-format nil
@@ -292,7 +292,7 @@ original format spec, and additional customizations."
 (spacemacs|defc dotspacemacs-major-mode-leader-key ","
   "Major mode leader key is a shortcut key which is the equivalent of
 pressing `<leader> m`. Set it to `nil` to disable it."
-  'string
+  '(choice (const nil) string)
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-major-mode-emacs-leader-key
