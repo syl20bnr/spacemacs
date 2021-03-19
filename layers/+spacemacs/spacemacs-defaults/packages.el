@@ -26,7 +26,7 @@
         (ediff :location built-in)
         (eldoc :location built-in)
         (help-fns+ :location (recipe :fetcher url
-                                     :url "https://raw.githubusercontent.com/emacsmirror/emacswiki.org/master/help-fns%2B.el"))
+                                     :url "https://raw.githubusercontent.com/emacsmirror/emacswiki.org/master/help-fns+.el"))
         (hi-lock :location built-in)
         (image-mode :location built-in)
         (imenu :location built-in)
@@ -536,9 +536,9 @@
                            ;; zone-pgm-martini-swan-dive
                            zone-pgm-rat-race
                            zone-pgm-paragraph-spaz])
-                           ;; zone-pgm-stress
-                           ;; zone-pgm-stress-destress
-                           ;; zone-pgm-random-life
+      ;; zone-pgm-stress
+      ;; zone-pgm-stress-destress
+      ;; zone-pgm-random-life
 
       (spacemacs/set-leader-keys "TZ" 'zone))
     :config
