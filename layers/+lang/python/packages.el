@@ -25,7 +25,7 @@
     (helm-pydoc :requires helm)
     importmagic
     live-py-mode
-    (nose :location local)
+    (nose :location (:fetcher github :repo "syl20bnr/nose.el"))
     org
     pip-requirements
     pipenv
