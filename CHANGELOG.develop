@@ -3299,6 +3299,7 @@ files (thanks to Daniel Nicolai)
   - Modified ~SPC m c X~ for =cargo run --bin= command, instead of
     =cargo run --example= (thanks to Lucius Hu)
   - Added ~SPC m c E~ for =cargo run --example= (thanks to Lucius Hu)
+  - Added ~SPC m b R~ to reload Rust-Analyzer workspace
 - Added rust lsp completion with company and bindings (thanks to Justin)
 - Added debugger integration via =dap= layer
 - Fixed rust dap integration (thanks to Tommi Komulainen)

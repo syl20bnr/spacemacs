@@ -47,6 +47,7 @@
         (lsp)
         (spacemacs/declare-prefix-for-mode 'rust-mode "ms" "switch")
         (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+          "bR" 'lsp-rust-analyzer-reload-workspace
           "ss" 'lsp-rust-switch-server))
     (spacemacs//lsp-layer-not-installed-message)))
 
