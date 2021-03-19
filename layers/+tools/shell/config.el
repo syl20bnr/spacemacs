@@ -27,7 +27,7 @@
 (spacemacs|defc shell-default-position 'bottom
   "Position of the shell. Possible values are `top', `bottom', `full',
   `left' and `right'."
-  '(choice (const bottom) (const full) (const top)))
+  '(choice (const top) (const bottom) (const full) (const left) (const right)))
 
 (spacemacs|defc shell-default-height 30
   "Height in percents for the shell window."
