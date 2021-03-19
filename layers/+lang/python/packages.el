@@ -33,7 +33,7 @@
     pippel
     py-isort
     pyenv-mode
-    (pylookup :location (:fetcher github :repo "tsgates/pylookup"))
+    (pylookup :location (recipe :fetcher github :repo "tsgates/pylookup"))
     pytest
     (python :location built-in)
     pyvenv
