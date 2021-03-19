@@ -1106,7 +1106,11 @@ error recovery."
 (defmacro dotspacemacs||let-init-test (&rest body)
   "Macro to protect dotspacemacs variables"
   `(let ((fpath dotspacemacs-filepath)
-         ,@(dotspacemacs/get-variable-list)
+         ,@(mapcar (lambda (symbol)
+                     `(,symbol ,(let ((v (symbol-value symbol)))
+                                  (if (or (symbolp v) (listp v))
+                                      `',v v))))
+                   (dotspacemacs/get-variable-list))
          (passed-tests 0) (total-tests 0))
      (setq dotspacemacs-filepath fpath)
      (load dotspacemacs-filepath)
