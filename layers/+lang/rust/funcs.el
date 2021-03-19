@@ -53,12 +53,24 @@
         (lsp)
         (spacemacs/declare-prefix-for-mode 'rust-mode "ms" "switch")
         (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-          "ss" 'spacemacs//lsp-rust-switch-server))
+          "ss" 'spacemacs//lsp-rust-switch-server
+          "bR" 'spacemacs//lsp-rust-analyzer-reload-workspace))
     (spacemacs//lsp-layer-not-installed-message)))
 
 (defun spacemacs//rust-setup-lsp-dap ()
   "Setup DAP integration."
   (require 'dap-gdb-lldb))
+
+(defun spacemacs//lsp-rust-analyzer-reload-workspace ()
+  (interactive)
+  (if (->> (lsp-workspaces)
+        (mapcar 'lsp--workspace-client)
+        (mapcar 'lsp--client-server-id)
+        (member 'rust-analyzer))
+      (progn
+        (lsp-rust-analyzer-reload-workspace)
+        (message "Reloaded workspace"))
+    (message "RLS reloads automatically, and doesn't require an explicit reload")))
 
 
 ;; racer
