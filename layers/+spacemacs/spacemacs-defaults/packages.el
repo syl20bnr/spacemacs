@@ -25,7 +25,8 @@
         (electric-indent-mode :location built-in)
         (ediff :location built-in)
         (eldoc :location built-in)
-        (help-fns+ :location local)
+        (help-fns+ :location (recipe :fetcher url
+                                     :url "https://raw.githubusercontent.com/emacsmirror/emacswiki.org/master/help-fns%2B.el"))
         (hi-lock :location built-in)
         (image-mode :location built-in)
         (imenu :location built-in)
@@ -45,8 +46,7 @@
         (visual-line-mode :location built-in)
         (whitespace :location built-in)
         (winner :location built-in)
-        (zone :location built-in)
-        ))
+        (zone :location built-in)))
 
 ;; Initialization of packages
 
@@ -505,8 +505,8 @@
                                               "*cvs*"
                                               "*Buffer List*"
                                               "*Ibuffer*"
-                                              "*esh command on file*"
-                                              ))
+                                              "*esh command on file*"))
+
       (setq winner-boring-buffers
             (append winner-boring-buffers spacemacs/winner-boring-buffers)))))
 
@@ -535,11 +535,11 @@
                            ;; zone-pgm-five-oclock-swan-dive
                            ;; zone-pgm-martini-swan-dive
                            zone-pgm-rat-race
-                           zone-pgm-paragraph-spaz
+                           zone-pgm-paragraph-spaz])
                            ;; zone-pgm-stress
                            ;; zone-pgm-stress-destress
                            ;; zone-pgm-random-life
-                           ])
+
       (spacemacs/set-leader-keys "TZ" 'zone))
     :config
     ;; be sure to disable running zone if the user does not want it
