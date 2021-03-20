@@ -114,6 +114,10 @@
 (define-key minibuffer-local-must-match-map (kbd "<escape>") 'keyboard-escape-quit)
 (define-key minibuffer-local-isearch-map (kbd "<escape>") 'keyboard-escape-quit)
 
+;; Also bind C-n C-p in minibuffer
+(define-key minibuffer-local-map (kbd "C-n") 'next-line-or-history-element)
+(define-key minibuffer-local-map (kbd "C-p") 'previous-line-or-history-element)
+
 ;; linum margin bindings-------------------------------------------------------
 (global-set-key (kbd "<left-margin> <down-mouse-1>") 'spacemacs/md-select-linum)
 (global-set-key (kbd "<left-margin> <mouse-1>") 'spacemacs/mu-select-linum)
