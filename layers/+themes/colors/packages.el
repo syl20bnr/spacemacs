@@ -27,10 +27,11 @@
 (defun colors/init-nyan-mode ()
   (use-package nyan-mode
     :if colors-enable-nyan-cat-progress-bar
+    :init (setq nyan-animate-nyancat t
+                nyan-animation-endless-loop nil
+                nyan-wavy-trail 'animated-only)
     :config
     (progn
-      (setq nyan-wavy-trail t)
-      (setq nyan-animate-nyancat t)
       (nyan-mode)
       ;; explicitly re-enable the cat for the first GUI client
       (spacemacs|do-after-display-system-init
