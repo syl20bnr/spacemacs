@@ -25,8 +25,7 @@
         (electric-indent-mode :location built-in)
         (ediff :location built-in)
         (eldoc :location built-in)
-        (help-fns+ :location (recipe :fetcher url
-                                     :url "https://raw.githubusercontent.com/emacsmirror/emacswiki.org/master/help-fns+.el"))
+        (help-fns+ :location local)
         (hi-lock :location built-in)
         (image-mode :location built-in)
         (imenu :location built-in)
@@ -47,6 +46,7 @@
         (whitespace :location built-in)
         (winner :location built-in)
         (zone :location built-in)))
+
 
 ;; Initialization of packages
 
@@ -539,7 +539,6 @@
       ;; zone-pgm-stress
       ;; zone-pgm-stress-destress
       ;; zone-pgm-random-life
-
       (spacemacs/set-leader-keys "TZ" 'zone))
     :config
     ;; be sure to disable running zone if the user does not want it
