@@ -47,13 +47,24 @@
         (lsp)
         (spacemacs/declare-prefix-for-mode 'rust-mode "ms" "switch")
         (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-          "bR" 'lsp-rust-analyzer-reload-workspace
+          "bR" 'spacemacs//lsp-rust-analyzer-reload-workspace
           "ss" 'lsp-rust-switch-server))
     (spacemacs//lsp-layer-not-installed-message)))
 
 (defun spacemacs//rust-setup-lsp-dap ()
   "Setup DAP integration."
   (require 'dap-gdb-lldb))
+
+(defun spacemacs//lsp-rust-analyzer-reload-workspace ()
+  (interactive)
+  (if (->> (lsp-workspaces)
+        (mapcar 'lsp--workspace-client)
+        (mapcar 'lsp--client-server-id)
+        (member 'rust-analyzer))
+      (progn
+       (lsp-rust-analyzer-reload-workspace)
+       (message "Reloaded Rust-Analyzer workspace"))
+    (message "Can only reload Rust-Analyzer workspaces, consider restarting workspace instead")))
 
 
 ;; racer
