@@ -171,7 +171,7 @@ a layer lazily."
 wrapped in a layer. If you need some configuration for these
 packages then consider to create a layer, you can also put the
 configuration in `dotspacemacs/user-config'."
-  '(repeat symbol)
+  '(repeat (choice symbol (cons symbol sexp)))
   'spacemacs-dotspacemacs-layers)
 
 (defvar dotspacemacs--additional-theme-packages '()
