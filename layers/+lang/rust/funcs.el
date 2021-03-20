@@ -62,9 +62,9 @@
         (mapcar 'lsp--client-server-id)
         (member 'rust-analyzer))
       (progn
-       (lsp-rust-analyzer-reload-workspace)
-       (message "Reloaded Rust-Analyzer workspace"))
-    (message "Can only reload Rust-Analyzer workspaces, consider restarting workspace instead")))
+        (lsp-rust-analyzer-reload-workspace)
+        (message "Reloaded workspace"))
+    (message "RLS reloads automatically, and doesn't require an explicit reload")))
 
 
 ;; racer
