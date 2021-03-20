@@ -19,8 +19,7 @@
         (view :location built-in)
         golden-ratio
         (grep :location built-in)
-        (info+ :location (recipe :fetcher url
-                                 :url https://raw.githubusercontent.com/emacsmirror/emacswiki.org/master/info+.el))
+        (info+ :location local)
         open-junk-file
         paradox
         restart-emacs
