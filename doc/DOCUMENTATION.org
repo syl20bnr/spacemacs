@@ -437,8 +437,8 @@ Example:
 #+END_SRC
 
 **** Overriding a layer package
-     See [[https://www.spacemacs.org/doc/FAQ.html#how-to-override-a-layer-package][this answer in the FAQ's]].
-     
+See [[https://www.spacemacs.org/doc/FAQ.html#how-to-override-a-layer-package][this answer in the FAQ's]].
+
 *** Without a layer
 Sometimes a layer can be an unnecessary overhead, this is the case if you just
 want to install a package with very few configuration associated to it. A good
