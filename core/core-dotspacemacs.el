@@ -264,7 +264,11 @@ can be a symbol or a list with additional properties like '(all-the-icons
 
 (spacemacs|defc dotspacemacs-frame-title-format "%I@%S"
   "Default format string for a frame title bar, using the
-original format spec, and additional customizations."
+original format spec, and additional customizations.
+
+If nil then Spacemacs uses default `frame-title-format' instead of
+calculating the frame title by `spacemacs/title-prepare' all the time.
+This can help to avoid performance issues."
   '(choice (const nil) string)
   'spacemacs-dotspacemacs-init)
 
