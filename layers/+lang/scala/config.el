@@ -12,7 +12,7 @@
 (spacemacs|define-jump-handlers scala-mode)
 
 (defvar scala-enable-gtags nil
-  "If non nil then gtags is enabled in the scala layer.")
+  "If non-nil then gtags is enabled in the scala layer.")
 
 (defvar scala-sbt-window-position nil
   "Where to position the SBT window.
@@ -30,4 +30,4 @@ small window at the bottom of the frame.")
 Only `scala-metals' is currently supported.")
 
 (defvar scala-auto-treeview nil
-  "If non-nil automatically show treeview when views are recieved by metals.")
+  "If non-nil automatically show treeview when views are received by metals.")
