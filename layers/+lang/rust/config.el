@@ -29,3 +29,6 @@
   "The backend to use for completion.
 Possible values are `lsp' `racer'.
 If `nil' then `racer' is the default backend unless `lsp' layer is used.")
+
+(defvar cargo-process-reload-on-modify nil
+  "When non-nil, reload workspace after a cargo-process command modifies Cargo.toml.")

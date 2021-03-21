@@ -43,9 +43,12 @@
     :init
     (progn
       (spacemacs/declare-prefix-for-mode 'rust-mode "mc" "cargo")
+      (spacemacs/declare-prefix-for-mode 'rust-mode "mt" "tests")
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-        "c." 'cargo-process-repeat
-        "ca" 'cargo-process-add
+        "c." 'spacemacs/cargo-process-repeat
+        "c/" 'cargo-process-search
+        "c=" 'cargo-process-fmt
+        "ca" 'spacemacs/cargo-process-add
         "cA" 'cargo-process-audit
         "cc" 'cargo-process-build
         "cC" 'cargo-process-clean
@@ -53,20 +56,19 @@
         "cD" 'cargo-process-doc-open
         "ce" 'cargo-process-bench
         "cE" 'cargo-process-run-example
-        "cf" 'cargo-process-fmt
         "ci" 'cargo-process-init
         "cl" 'cargo-process-clippy
         "cn" 'cargo-process-new
-        "co" 'cargo-process-current-file-tests
-        "cr" 'cargo-process-rm
-        "cs" 'cargo-process-search
-        "ct" 'cargo-process-current-test
+        "co" 'cargo-process-outdated
+        "cr" 'spacemacs/cargo-process-rm
         "cu" 'cargo-process-update
-        "cU" 'cargo-process-upgrade
+        "cU" 'spacemacs/cargo-process-upgrade
+        "cv" 'cargo-process-check
         "cx" 'cargo-process-run
         "cX" 'cargo-process-run-bin
-        "cv" 'cargo-process-check
-        "t" 'cargo-process-test))))
+        "ta" 'cargo-process-test
+        "tt" 'cargo-process-current-test
+        "tb" 'cargo-process-current-file-tests))))
 
 (defun rust/post-init-company ()
   ;; backend specific

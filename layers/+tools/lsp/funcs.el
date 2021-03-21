@@ -275,6 +275,10 @@ EXTRA is an additional parameter that's passed to the LSP function"
   (interactive)
   (message "Not supported yet... (to be implemented in 'lsp-mode')"))
 
+(defun spacemacs//lsp-client-server-id ()
+  "Return the ID of the LSP server associated with current project."
+  (mapcar 'lsp--client-server-id (mapcar 'lsp--workspace-client (lsp-workspaces))))
+
 
 ;; ivy integration
 
