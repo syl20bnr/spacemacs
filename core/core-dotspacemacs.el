@@ -184,9 +184,9 @@ in `dotspacemacs-themes'.")
 `hybrid state' with `emacs' key bindings. The value can also be a list
  with `:variables' keyword (similar to layers). Check the editing styles
  section of the documentation for details on available variables."
-  '(choice (const vim (cons symbol sexp))
-           (const emacs (cons symbol sexp))
-           (const hybrid (cons symbol sexp)))
+  '(choice (const vim) (cons symbol sexp)
+           (const emacs) (cons symbol sexp)
+           (const hybrid) (cons symbol sexp))
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-startup-banner 'official
