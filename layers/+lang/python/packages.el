@@ -33,7 +33,7 @@
     pippel
     py-isort
     pyenv-mode
-    (pylookup :location (recipe :fetcher github :repo "tsgates/pylookup"))
+    (pylookup :location local)
     pytest
     (python :location built-in)
     pyvenv
@@ -49,7 +49,6 @@
     (company-anaconda :requires company)
     ;; packages for Microsoft LSP backend
     (lsp-python-ms :requires lsp-mode)
-
     ;; packages for Microsoft's pyright language server
     (lsp-pyright :requires lsp-mode)))
 
