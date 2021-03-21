@@ -636,7 +636,7 @@ visiting README.org files of Spacemacs."
   "Correct indentation for simple modes.
 
 If non nil activate `clean-aindent-mode' which tries to correct
-virtual indentation of simple modes. This can interfer with mode specific
+virtual indentation of simple modes. This can interfere with mode specific
 indent handling like has been reported for `go-mode'.
 If it does deactivate it here. (default t)"
   'boolean
