@@ -117,10 +117,7 @@
         (define-key map (kbd "C-d")   'company-show-doc-buffer))
       (add-hook 'spacemacs-editing-style-hook 'spacemacs//company-active-navigation)
       ;; ensure that the correct bindings are set at startup
-      (spacemacs//company-active-navigation dotspacemacs-editing-style)
-
-      (setq company-transformers '(spacemacs//company-transformer-cancel
-                                   company-sort-by-occurrence)))))
+      (spacemacs//company-active-navigation dotspacemacs-editing-style))))
 
 (defun auto-completion/init-company-statistics ()
   (use-package company-statistics
