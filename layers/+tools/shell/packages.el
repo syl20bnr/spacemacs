@@ -329,34 +329,28 @@
   (use-package vterm
     :defer t
     :commands (vterm vterm-other-window)
-
     :init
     (progn
       (make-shell-pop-command "vterm" vterm)
       (spacemacs/set-leader-keys "atsv" 'spacemacs/shell-pop-vterm)
       (spacemacs/register-repl 'vterm 'vterm))
-
     :config
     (progn
       (setq vterm-shell shell-default-term-shell)
-
       (define-key vterm-mode-map (kbd "M-n") 'vterm-send-down)
       (define-key vterm-mode-map (kbd "M-p") 'vterm-send-up)
       (define-key vterm-mode-map (kbd "M-y") 'vterm-yank-pop)
       (define-key vterm-mode-map (kbd "M-/") 'vterm-send-tab)
       (when spacemacs-vterm-history-file-location
         (spacemacs//vterm-bind-m-r vterm-mode-map))
-
       (evil-define-key 'insert vterm-mode-map (kbd "C-y") 'vterm-yank)
-
+      (evil-define-key 'insert vterm-mode-map (kbd "C-o") 'evil-execute-in-normal-state)
       (evil-define-key 'normal vterm-mode-map
         [escape] 'vterm-send-escape
         [return] 'vterm-send-return
         (kbd "p") 'vterm-yank
         (kbd "u") 'vterm-undo)
-
       (add-hook 'vterm-mode-hook 'spacemacs/disable-hl-line-mode)
-
       (with-eval-after-load 'centered-cursor-mode
         (add-hook 'vterm-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode)))))
 
