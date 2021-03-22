@@ -157,5 +157,4 @@
       (purpose-x-golden-ratio-setup)
 
       ;; Show magit-log-select and diff in two windows
-      (with-eval-after-load 'magit
-        (purpose-x-magit-multi-on)))))
+      (purpose-x-magit-multi-on))))

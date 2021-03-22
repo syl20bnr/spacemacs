@@ -417,10 +417,7 @@
           popwin:special-display-config)))
 
 (defun clojure/post-init-smartparens ()
-  (add-hook 'cider-repl-mode-hook
-            (if dotspacemacs-smartparens-strict-mode
-                #'smartparens-strict-mode
-              #'smartparens-mode))
+  (add-hook 'cider-repl-mode-hook #'spacemacs//activate-smartparens)
   (with-eval-after-load 'smartparens
     (sp-local-pair 'clojure-mode "`" nil :actions nil)))
 

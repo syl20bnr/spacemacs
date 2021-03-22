@@ -27,8 +27,8 @@
         (ivy-yasnippet :requires ivy)
         smartparens
         yasnippet
-        yasnippet-snippets
-        ))
+        yasnippet-snippets))
+
 
 ;; TODO replace by company-ispell which comes with company
 ;; to be moved to spell-checking layer as well
@@ -39,9 +39,9 @@
     (progn
       (setq ac-ispell-requires 4)
       (with-eval-after-load 'auto-complete
-        (ac-ispell-setup))
-      ;; (add-hook 'markdown-mode-hook 'ac-ispell-ac-setup)
-      )))
+        (ac-ispell-setup)))))
+;; (add-hook 'markdown-mode-hook 'ac-ispell-ac-setup)
+
 
 (defun auto-completion/init-auto-complete ()
   (use-package auto-complete
@@ -117,10 +117,7 @@
         (define-key map (kbd "C-d")   'company-show-doc-buffer))
       (add-hook 'spacemacs-editing-style-hook 'spacemacs//company-active-navigation)
       ;; ensure that the correct bindings are set at startup
-      (spacemacs//company-active-navigation dotspacemacs-editing-style)
-
-      (setq company-transformers '(spacemacs//company-transformer-cancel
-                                   company-sort-by-occurrence)))))
+      (spacemacs//company-active-navigation dotspacemacs-editing-style))))
 
 (defun auto-completion/init-company-statistics ()
   (use-package company-statistics
@@ -337,8 +334,8 @@
       (spacemacs|require-when-dumping 'yasnippet)
       (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
                                                           markdown-mode-hook
-                                                          org-mode-hook))
-      )
+                                                          org-mode-hook)))
+
     :config (spacemacs|diminish yas-minor-mode " ⓨ" " y")))
 
 (defun auto-completion/init-yasnippet-snippets ())

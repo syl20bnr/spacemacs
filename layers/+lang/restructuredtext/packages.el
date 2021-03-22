@@ -62,4 +62,4 @@
   (add-hook 'rst-mode-hook 'spacemacs/load-yasnippet))
 
 (defun restructuredtext/post-init-smartparens ()
-  (add-hook 'rst-mode-hook 'smartparens-mode))
+  (add-hook 'rst-mode-hook #'spacemacs//activate-smartparens))

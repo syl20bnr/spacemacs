@@ -4,21 +4,22 @@
 ;; Description: Commands to zoom frame font size.
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
-;; Copyright (C) 2005-2015, Drew Adams, all rights reserved.
+;; Copyright (C) 2005-2019, Drew Adams, all rights reserved.
 ;; Created: Fri Jan 07 10:24:35 2005
 ;; Version: 0
 ;; Package-Requires: ((frame-fns "0") (frame-cmds "0"))
-;; Last-Updated: Thu Jan  1 11:24:13 2015 (-0800)
+;; Last-Updated: Tue Nov 19 13:15:54 2019 (-0800)
 ;;           By: dradams
-;;     Update #: 322
-;; URL: http://www.emacswiki.org/zoom-frm.el
-;; Doc URL: http://emacswiki.org/SetFonts
+;;     Update #: 359
+;; URL: https://www.emacswiki.org/emacs/download/zoom-frm.el
+;; Doc URL: https://emacswiki.org/emacs/SetFonts
 ;; Keywords: frames, extensions, convenience
-;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
+;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x, 26.x
 ;;
 ;; Features that might be required by this library:
 ;;
-;;   `avoid', `frame-cmds', `frame-fns', `misc-fns', `strings',
+;;   `avoid', `backquote', `bytecomp', `cconv', `cl-lib',
+;;   `frame-cmds', `frame-fns', `macroexp', `misc-fns', `strings',
 ;;   `thingatpt', `thingatpt+'.
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -61,7 +62,7 @@
 ;;
 ;;    Frame parameter changes, such as font size, can be saved for
 ;;    future use by all frames or all frames of a certain kind.  For
-;;    that, you must change the frame parameters of the corresponding
+;;    that, you must change the frame parameters of the correponding
 ;;    frame-alist variable.
 ;;
 ;;    There is no single variable for saving changes to parameters of
@@ -117,14 +118,34 @@
 ;;                                      mouse-wheel-down-event))
 ;;                      [C-mouse-wheel])    ; Emacs 20, 21
 ;;                    'zoom-in)
+;;    (global-set-key (if (boundp 'mouse-wheel-down-event) ; Emacs 22+
+;;                        (vector (list 'control 'meta
+;;                                      mouse-wheel-down-event))
+;;                      [C-M-mouse-wheel])  ; Emacs 20, 21
+;;                    'zoom-all-frames-in)
 ;;    (when (boundp 'mouse-wheel-up-event) ; Emacs 22+
-;;      (global-set-key (vector (list 'control mouse-wheel-up-event))
+;;      (global-set-key (vector (list 'control 
+;;                                    mouse-wheel-up-event))
 ;;                      'zoom-out))
+;;      (global-set-key (vector (list 'control 'meta
+;;                                    mouse-wheel-up-event))
+;;                      'zoom-all-frames-out))
 ;;
 ;;    (global-set-key [S-mouse-1]    'zoom-in)
 ;;    (global-set-key [C-S-mouse-1]  'zoom-out)
 ;;    ;; Get rid of `mouse-set-font' or `mouse-appearance-menu':
 ;;    (global-set-key [S-down-mouse-1] nil)
+;;
+;;
+;;  Some of the commands are not autoloaded by default, because this
+;;  library works with old as well as recent Emacs releases.  The
+;;  commands that are not autoloaded are not usable in older releases.
+;;  You can autoload such commands yourself.  For example, if you use
+;;  Emacs 23 or later, you can add this to your init file, to autoload
+;;  `zoom-in/out':
+;;
+;;  (autoload 'zoom-in/out "zoom-frm"
+;;            "Zoom current frame or buffer in or out" t)
 ;;
 ;;  The first two of the mouse bindings mean that in Emacs 22 or later
 ;;  you can hold the Control key and rotate the mouse wheel to zoom in
@@ -157,6 +178,14 @@
 ;;
 ;;; Change Log:
 ;;
+;; 2019/11/19 dadams
+;;     zoom-all-frames-(in|out):
+;;       Use zoom-frm-(in|out): zoom each relative to its current font.  Visible only.  Autoload.
+;; 2015/11/01 dadams
+;;     Require cl.el at compile time, for macro case.
+;; 2015/01/10 dadams
+;;     zoom-in, zoom-out: Added message about new zoom type.
+;;     zoom-in/out: Corrected msg: C- modifier was missing.  Reminder at end of doc string.
 ;; 2013/12/31 dadams
 ;;     zoom-in/out: Use set-transient-map, if defined.
 ;; 2013/09//29 dadams
@@ -201,6 +230,8 @@
 ;;
 ;;; Code:
 
+(eval-when-compile (require 'cl)) ;; case
+
 (require 'frame-cmds) ;; enlarge-font
 
 
@@ -221,11 +252,11 @@ zoom-frm.el bug: \
 &body=Describe bug here, starting with `emacs -q'.  \
 Don't forget to mention your Emacs and library versions."))
   :link '(url-link :tag "Other Libraries by Drew"
-          "http://www.emacswiki.org/DrewsElispLibraries")
+          "https://www.emacswiki.org/emacs/DrewsElispLibraries")
   :link '(url-link :tag "Download"
-          "http://www.emacswiki.org/emacs-en/download/zoom-frm.el")
+          "https://www.emacswiki.org/emacs/download/zoom-frm.el")
   :link '(url-link :tag "Description"
-          "http://www.emacswiki.org/SetFonts#ChangingFontSize")
+          "https://www.emacswiki.org/emacs/SetFonts#ChangingFontSize")
   :link '(emacs-commentary-link :tag "Commentary" "zoom-frm"))
 
 ;;;###autoload
@@ -258,11 +289,11 @@ With prefix argument FLIP, reverse the direction:
 if `frame-zoom-font-difference' is positive, then make text smaller.
 This is equal but opposite to `zoom-frm-out'."
   (interactive (list (selected-frame) current-prefix-arg))
-  (setq frame (or frame (selected-frame)))
-  (let ((zoom-factor (frame-parameter frame 'zoomed))
-        (increment (if flip (- frame-zoom-font-difference) frame-zoom-font-difference)))
-    (unless zoom-factor (setq zoom-factor 0))
-    (setq zoom-factor (+ zoom-factor increment))
+  (setq frame  (or frame  (selected-frame)))
+  (let ((zoom-factor  (frame-parameter frame 'zoomed))
+        (increment    (if flip (- frame-zoom-font-difference) frame-zoom-font-difference)))
+    (unless zoom-factor (setq zoom-factor  0))
+    (setq zoom-factor  (+ zoom-factor increment))
     (enlarge-font increment frame)
     (modify-frame-parameters frame (list (cons 'zoomed zoom-factor)))))
 
@@ -275,16 +306,16 @@ With prefix argument FLIP, reverse the direction:
 if `frame-zoom-font-difference' is positive, then make text larger.
 This is equal but opposite to `zoom-frm-in'."
   (interactive (list (selected-frame) current-prefix-arg))
-  (setq frame (or frame (selected-frame)))
-  (let ((frame-zoom-font-difference (- frame-zoom-font-difference)))
+  (setq frame  (or frame  (selected-frame)))
+  (let ((frame-zoom-font-difference  (- frame-zoom-font-difference)))
     (zoom-frm-in frame flip)))
 
 ;;;###autoload
 (defun zoom-frm-unzoom (&optional frame)
   "Cancel zoom of FRAME."
   (interactive)
-  (setq frame (or frame (selected-frame)))
-  (let ((zoom-factor (frame-parameter frame 'zoomed)))
+  (setq frame  (or frame  (selected-frame)))
+  (let ((zoom-factor  (frame-parameter frame 'zoomed)))
     (if (not zoom-factor)
         (error "Frame is not zoomed")
       (enlarge-font (- zoom-factor) frame)
@@ -294,10 +325,8 @@ This is equal but opposite to `zoom-frm-in'."
 (defun toggle-zoom-frame (&optional frame)
   "Alternately zoom/unzoom FRAME by `frame-zoom-font-difference'."
   (interactive)
-  (setq frame (or frame (selected-frame)))
-  (if (frame-parameter frame 'zoomed)
-      (zoom-frm-unzoom frame)
-    (zoom-frm-in frame)))
+  (setq frame  (or frame  (selected-frame)))
+  (if (frame-parameter frame 'zoomed) (zoom-frm-unzoom frame) (zoom-frm-in frame)))
 
 (when (> emacs-major-version 22)
   (defun zoom-in (arg)
@@ -307,7 +336,9 @@ Frame zooming uses command `zoom-frm-in'.
 Buffer zooming uses command `text-scale-increase'."
     (interactive "P")
     (when arg
-      (setq zoom-frame/buffer  (if (eq zoom-frame/buffer 'frame) 'buffer 'frame)))
+      (setq zoom-frame/buffer  (if (eq zoom-frame/buffer 'frame) 'buffer 'frame))
+      (message "%s zooming from now on" (upcase (symbol-name zoom-frame/buffer)))
+      (sit-for 1))
     (if (eq zoom-frame/buffer 'frame)
         (zoom-frm-in)
       (with-current-buffer
@@ -324,7 +355,9 @@ Frame zooming uses command `zoom-frm-out'.
 Buffer zooming uses command `text-scale-decrease'."
     (interactive "P")
     (when arg
-      (setq zoom-frame/buffer  (if (eq zoom-frame/buffer 'frame) 'buffer 'frame)))
+      (setq zoom-frame/buffer  (if (eq zoom-frame/buffer 'frame) 'buffer 'frame))
+      (message "%s zooming from now on" (upcase (symbol-name zoom-frame/buffer)))
+      (sit-for 1))
     (if (eq zoom-frame/buffer 'frame)
         (zoom-frm-out)
       (with-current-buffer
@@ -336,7 +369,7 @@ Buffer zooming uses command `text-scale-decrease'."
 
   (when (or (fboundp 'set-transient-map) ; Emacs 24.4+
             (fboundp 'set-temporary-overlay-map)) ; Emacs 24.3
-
+            
     (defun zoom-in/out (arg)
       "Zoom current frame or buffer in or out.
 A prefix arg determines the behavior, as follows:
@@ -360,13 +393,15 @@ Buffer zooming uses command `text-scale-increase'.
 
 User option `zoom-frame/buffer' determines the default zoom type:
 frame or buffer.  If the option value is `buffer' and you never use
-plain `C-u' with this command then it acts like `text-scale-adjust'."
+plain `C-u' with this command then it acts like `text-scale-adjust'.
+
+Remember that you can also use `C-u' when you are done zooming."
       (interactive "P")
       (when (or (equal arg '(4))  (eq ?\025 last-command-event)) ; `C-u'
         (setq zoom-frame/buffer  (if (eq zoom-frame/buffer 'frame) 'buffer 'frame)
               arg                1)
-        (message "Zooming %sS from now on" (upcase (symbol-name zoom-frame/buffer)))
-        (sit-for 1))
+        (message "%s zooming from now on" (upcase (symbol-name zoom-frame/buffer)))
+        (sit-for 1))    
       (let* ((ev               last-command-event)
              (echo-keystrokes  nil)
              (base             (event-basic-type ev))
@@ -379,8 +414,8 @@ plain `C-u' with this command then it acts like `text-scale-adjust'."
                                    (?0      0)
                                    (t       arg)))))
         (message (if (eq step 0)
-                     "Reset to default size.  Use +/- to zoom in/out"
-                   "Use +/- to zoom in/out, 0 to reset (unzoom)"))
+                     "Reset to default size.  Use C-x C-+/C-- to zoom in/out"
+                   "Use C-x C-+/C-- to zoom in/out, C-0 to reset (unzoom)"))
         (unless (eq step 'C-U-WAS-USED)
           (if (eq zoom-frame/buffer 'frame)
               (if (eq step 0)
@@ -403,33 +438,31 @@ plain `C-u' with this command then it acts like `text-scale-adjust'."
                      (define-key map "\C-u" `(lambda () (interactive) (zoom-in/out ',arg)))
                      map)))))))
 
-;; These are not so useful, but some people might like them.
-(when (fboundp 'set-face-attribute)     ; Emacs 22+
-  (defun zoom-all-frames-in (&optional flip)
-    "Zoom all frames in by `frame-zoom-font-difference', making text larger.
+;;;###autoload
+(defun zoom-all-frames-in (&optional flip)
+  "Zoom all visible frames in, making text larger.
+Zoom by `frame-zoom-font-difference' points.
+
 If `frame-zoom-font-difference' is negative, make text smaller.
 With prefix argument FLIP, reverse the direction:
-if `frame-zoom-font-difference' is positive, then make text smaller.
-This is equal but opposite to `zoom-all-frames-out'.
-Note: This zooming is unaffected by `zoom-frm-unzoom'."
-    (interactive "P")
-    (let ((increment  (if flip (- frame-zoom-font-difference) frame-zoom-font-difference)))
-      (set-face-attribute 'default nil
-                          :height  (+ (* 10 increment)
-                                      (face-attribute 'default :height nil 'default)))))
+if `frame-zoom-font-difference' is positive, make text smaller.
+This is equal but opposite to `zoom-all-frames-out'."
+  (interactive "P")
+  (dolist (fr  (visible-frame-list))
+    (zoom-frm-in fr flip)))
 
-  (defun zoom-all-frames-out (&optional flip)
-    "Zoom all frames out by `frame-zoom-font-difference', making text smaller.
+;;;###autoload
+(defun zoom-all-frames-out (&optional flip)
+  "Zoom all frames out, making text smaller.
+Zoom by `frame-zoom-font-difference' points.
+
 If `frame-zoom-font-difference' is negative, make text larger.
 With prefix argument FLIP, reverse the direction:
-if `frame-zoom-font-difference' is positive, then make text larger.
-This is equal but opposite to `zoom-frm-in'.
-Note: This zooming is unaffected by `zoom-frm-unzoom'."
-    (interactive "P")
-    (let ((increment  (if flip frame-zoom-font-difference (- frame-zoom-font-difference))))
-      (set-face-attribute 'default nil
-                          :height  (+ (* 10 increment)
-                                      (face-attribute 'default :height nil 'default))))))
+if `frame-zoom-font-difference' is positive, make text larger.
+This is equal but opposite to `zoom-all-frames-in'."
+  (interactive "P")
+  (dolist (fr  (visible-frame-list))
+    (zoom-frm-out fr flip)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 

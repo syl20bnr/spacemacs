@@ -132,8 +132,8 @@
 
   ;; move selection up and down
   (when vim-style-visual-line-move-text
-    (define-key evil-visual-state-map "J" (concat ":m '>+1" (kbd "RET") "gv=gv"))
-    (define-key evil-visual-state-map "K" (concat ":m '<-2" (kbd "RET") "gv=gv")))
+    (define-key evil-visual-state-map "J" 'drag-stuff-down)
+    (define-key evil-visual-state-map "K" 'drag-stuff-up))
 
   (evil-ex-define-cmd "enew" 'spacemacs/new-empty-buffer)
 
@@ -592,9 +592,13 @@ Press \\[which-key-toggle-persistent] to hide."
         (spacemacs|add-toggle holy-mode
           :status holy-mode
           :on (progn (when (bound-and-true-p hybrid-mode)
-                       (hybrid-mode -1))
-                     (holy-mode))
-          :off (holy-mode -1)
+                       (hybrid-mode -1)
+                       (spacemacs/declare-prefix "tEh" "hybrid (hybrid-mode)"))
+                     (holy-mode)
+                     (spacemacs/declare-prefix "tEe" "vim (evil-mode"))
+          :off (progn (holy-mode -1)
+                      (spacemacs/declare-prefix "tEe" "emacs (holy-mode)"))
+          :off-message "evil-mode enabled."
           :documentation "Globally toggle holy mode."
           :evil-leader "tEe")
         (spacemacs|diminish holy-mode " Ⓔe" " Ee")))))
@@ -608,9 +612,13 @@ Press \\[which-key-toggle-persistent] to hide."
         (spacemacs|add-toggle hybrid-mode
           :status hybrid-mode
           :on (progn (when (bound-and-true-p holy-mode)
-                       (holy-mode -1))
-                     (hybrid-mode))
-          :off (hybrid-mode -1)
+                       (holy-mode -1)
+                       (spacemacs/declare-prefix "tEe" "emacs (holy-mode)"))
+                     (hybrid-mode)
+                     (spacemacs/declare-prefix "tEh" "vim (evil-mode)"))
+          :off (progn (hybrid-mode -1)
+                      (spacemacs/declare-prefix "tEh" "hybrid (hybrid-mode)"))
+          :off-message "evil-mode enabled."
           :documentation "Globally toggle hybrid mode."
           :evil-leader "tEh")
         (spacemacs|diminish hybrid-mode " Ⓔh" " Eh")))))

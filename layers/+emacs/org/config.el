@@ -34,6 +34,12 @@ path, one file per project is used (and the path is relative to
 the project root). If it an absolute path, one global file is
 used.")
 
+(defvar org-enable-notifications nil
+  "If non-nil org-wild-notifier is configured.")
+
+(defvar org-start-notification-daemon-on-startup nil
+  "If non-nil start the notification daemon on startup.")
+
 (defvar org-enable-org-contacts-support nil
   "If non-nil org-contacts is configured.")
 
@@ -71,3 +77,6 @@ are configured.")
 (defvar org-enable-valign nil
   "If non-nil, enable valign-mode in org-mode buffers.
 ATTENTION: `valign-mode' will be laggy working with tables contain more than 100 lines.")
+
+(defvar org-enable-appear-support nil
+  "If non-nil, enable org-appear in org-mode buffers.")

@@ -81,8 +81,7 @@ To choose the experimental [[https://github.com/rust-analyzer/rust-analyzer][rus
 #+END_SRC
 
 **** Switch to another LSP server
-If both =rls= and =rust-analyzer= server are installed, you can press ~SPC m s s~ to select
-another LSP server backend, and press ~SPC m b r~ to restart the LSP server to finish the switching.
+If both =rls= and =rust-analyzer= server are installed, you can press ~SPC m s s~ to switch to another LSP server backend.
 
 **** Autocompletion
 To enable auto-completion, ensure that the =auto-completion= layer is enabled.
@@ -131,6 +130,7 @@ To enable automatic buffer formatting on save, set the variable =rust-format-on-
 | Key binding | Description                                                 |
 |-------------+-------------------------------------------------------------|
 | ~SPC m = =~ | reformat the buffer                                         |
+| ~SPC m b R~ | reload Rust-Analyzer workspace                              |
 | ~SPC m c .~ | repeat the last Cargo command                               |
 | ~SPC m c a~ | add a new dependency with cargo-edit                        |
 | ~SPC m c A~ | audit dependencies for known vulnerability with cargo-audit |

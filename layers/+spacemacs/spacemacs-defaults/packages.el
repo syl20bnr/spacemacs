@@ -45,8 +45,8 @@
         (visual-line-mode :location built-in)
         (whitespace :location built-in)
         (winner :location built-in)
-        (zone :location built-in)
-        ))
+        (zone :location built-in)))
+
 
 ;; Initialization of packages
 
@@ -505,8 +505,8 @@
                                               "*cvs*"
                                               "*Buffer List*"
                                               "*Ibuffer*"
-                                              "*esh command on file*"
-                                              ))
+                                              "*esh command on file*"))
+
       (setq winner-boring-buffers
             (append winner-boring-buffers spacemacs/winner-boring-buffers)))))
 
@@ -535,11 +535,10 @@
                            ;; zone-pgm-five-oclock-swan-dive
                            ;; zone-pgm-martini-swan-dive
                            zone-pgm-rat-race
-                           zone-pgm-paragraph-spaz
-                           ;; zone-pgm-stress
-                           ;; zone-pgm-stress-destress
-                           ;; zone-pgm-random-life
-                           ])
+                           zone-pgm-paragraph-spaz])
+      ;; zone-pgm-stress
+      ;; zone-pgm-stress-destress
+      ;; zone-pgm-random-life
       (spacemacs/set-leader-keys "TZ" 'zone))
     :config
     ;; be sure to disable running zone if the user does not want it

@@ -46,6 +46,4 @@
         "cr" 'metal-mercury-mode-runner))))
 
 (defun mercury/post-init-smartparens ()
-  (if dotspacemacs-smartparens-strict-mode
-      (add-hook 'metal-mercury-mode-hook #'smartparens-strict-mode)
-    (add-hook 'metal-mercury-mode-hook #'smartparens-mode)))
+  (add-hook 'metal-mercury-mode-hook #'spacemacs//activate-smartparens))

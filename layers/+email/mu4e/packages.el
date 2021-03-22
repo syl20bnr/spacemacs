@@ -78,6 +78,7 @@
       (evilified-state-evilify-map
         mu4e-view-mode-map
         :mode mu4e-view-mode
+        :eval-after-load t
         :bindings
         (kbd "C-j") 'mu4e-view-headers-next
         (kbd "C-k") 'mu4e-view-headers-prev
@@ -101,6 +102,9 @@
 
       (when (fboundp 'imagemagick-register-types)
         (imagemagick-register-types))
+
+      (when mu4e-autorun-background-at-startup
+        (mu4e t))
 
       (add-to-list 'mu4e-view-actions
                    '("View in browser" . mu4e-action-view-in-browser) t)

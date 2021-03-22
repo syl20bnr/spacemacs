@@ -114,6 +114,10 @@
 (define-key minibuffer-local-must-match-map (kbd "<escape>") 'keyboard-escape-quit)
 (define-key minibuffer-local-isearch-map (kbd "<escape>") 'keyboard-escape-quit)
 
+;; Also bind C-n C-p in minibuffer
+(define-key minibuffer-local-map (kbd "C-n") 'next-line-or-history-element)
+(define-key minibuffer-local-map (kbd "C-p") 'previous-line-or-history-element)
+
 ;; linum margin bindings-------------------------------------------------------
 (global-set-key (kbd "<left-margin> <down-mouse-1>") 'spacemacs/md-select-linum)
 (global-set-key (kbd "<left-margin> <mouse-1>") 'spacemacs/mu-select-linum)
@@ -382,15 +386,18 @@
     ("y" spacemacs/copy-file-path "File path")
     ("b" spacemacs/copy-buffer-name "Buffer name")))))
 ;; frame ----------------------------------------------------------------------
-(spacemacs/set-leader-keys
-  "Ff" 'spacemacs/find-file-other-frame
-  "Fd" 'delete-frame
-  "FD" 'delete-other-frames
-  "Fb" 'spacemacs/switch-to-buffer-other-frame
-  "FB" 'spacemacs/display-buffer-other-frame
-  "Fo" 'other-frame
-  "FO" 'spacemacs/dired-other-frame
-  "Fn" 'make-frame)
+(spacemacs|spacebind
+ "Frames"
+ :global
+ (("F" "Frames"
+   ("f" spacemacs/find-file-other-frame "Find file other frame...")
+   ("d" delete-frame "Delete frame")
+   ("D" delete-other-frames "Delete other frames")
+   ("b" spacemacs/switch-to-buffer-other-frame "Switch to buffer other frame...")
+   ("B" spacemacs/display-buffer-other-frame "Display buffer other frame...")
+   ("o" other-frame "Switch to other frame")
+   ("O" spacemacs/dired-other-frame "Dired other frame...")
+   ("n" make-frame "Make frame"))))
 ;; help -----------------------------------------------------------------------
 (defalias 'emacs-tutorial 'help-with-tutorial)
 (spacemacs/set-leader-keys

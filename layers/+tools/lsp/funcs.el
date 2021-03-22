@@ -97,7 +97,8 @@
    ((configuration-layer/package-usedp 'helm)
     (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
       (concat prefix-char "s") #'helm-lsp-workspace-symbol
-      (concat prefix-char "S") #'helm-lsp-global-workspace-symbol))
+      (concat prefix-char "S") #'helm-lsp-global-workspace-symbol)
+    (spacemacs/set-leader-keys "pE" #'helm-lsp-diagnostics))
    ((configuration-layer/package-usedp 'ivy)
     (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
       (concat prefix-char "s") #'lsp-ivy-workspace-symbol

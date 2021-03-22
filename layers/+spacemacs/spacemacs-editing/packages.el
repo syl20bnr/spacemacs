@@ -15,6 +15,7 @@
         (bracketed-paste :toggle (version<= emacs-version "25.0.92"))
         (clean-aindent-mode :toggle dotspacemacs-use-clean-aindent-mode)
         dired-quick-sort
+        drag-stuff
         editorconfig
         eval-sexp-fu
         expand-region
@@ -22,12 +23,11 @@
         hungry-delete
         link-hint
         lorem-ipsum
-        move-text
         (origami :toggle (eq 'origami dotspacemacs-folding-method))
         password-generator
         (persistent-scratch :toggle dotspacemacs-scratch-buffer-persistent)
         pcre2el
-        smartparens
+        (smartparens :toggle dotspacemacs-activate-smartparens-mode)
         (evil-swap-keys :toggle dotspacemacs-swap-number-row)
         (spacemacs-whitespace-cleanup :location local)
         string-edit
@@ -113,6 +113,37 @@
           (dired-quick-sort-setup))))
     :config
     (evil-define-key 'normal dired-mode-map "s" 'hydra-dired-quick-sort/body)))
+
+(defun spacemacs-editing/init-drag-stuff ()
+  (use-package drag-stuff
+    :defer t
+    :init
+    (progn
+      (spacemacs|diminish drag-stuff-mode)
+      (drag-stuff-mode t)
+      (spacemacs|define-transient-state drag-stuff
+        :title "Drag Stuff Transient State"
+        :doc "
+[_k_/_K_] up    [_h_/_H_] left   [_q_] quit
+[_j_/_J_] down  [_l_/_L_] right"
+        :bindings
+        ("j" drag-stuff-down)
+        ("J" drag-stuff-down)
+        ("<down>" drag-stuff-down)
+        ("k" drag-stuff-up)
+        ("K" drag-stuff-up)
+        ("<up>" drag-stuff-up)
+        ("h" drag-stuff-left)
+        ("H" drag-stuff-left)
+        ("<left>" drag-stuff-left)
+        ("l" drag-stuff-right)
+        ("L" drag-stuff-right)
+        ("<right>" drag-stuff-right)
+        ("q" nil :exit t))
+      (spacemacs/set-leader-keys
+        "x." 'spacemacs/drag-stuff-transient-state/body
+        "xK" 'spacemacs/drag-stuff-transient-state/drag-stuff-up
+        "xJ" 'spacemacs/drag-stuff-transient-state/drag-stuff-down))))
 
 (defun spacemacs-editing/init-editorconfig ()
   (use-package editorconfig
@@ -225,19 +256,6 @@
         "ill" 'lorem-ipsum-insert-list
         "ilp" 'lorem-ipsum-insert-paragraphs
         "ils" 'lorem-ipsum-insert-sentences))))
-
-(defun spacemacs-editing/init-move-text ()
-  (use-package move-text
-    :defer t
-    :init
-    (spacemacs|define-transient-state move-text
-      :title "Move Text Transient State"
-      :bindings
-      ("J" move-text-down "move down")
-      ("K" move-text-up "move up"))
-    (spacemacs/set-leader-keys
-      "xJ" 'spacemacs/move-text-transient-state/move-text-down
-      "xK" 'spacemacs/move-text-transient-state/move-text-up)))
 
 (defun spacemacs-editing/init-origami ()
   (use-package origami
@@ -379,7 +397,7 @@
 (defun spacemacs-editing/init-smartparens ()
   (use-package smartparens
     :defer t
-    :commands (sp-split-sexp sp-newline sp-up-sexp)
+    :commands (sp-point-in-string-or-comment sp-forward-symbol sp-split-sexp sp-newline sp-up-sexp)
     :init
     (progn
       ;; settings
@@ -393,19 +411,22 @@
             sp-highlight-pair-overlay nil
             sp-highlight-wrap-overlay nil
             sp-highlight-wrap-tag-overlay nil)
-      (spacemacs/add-to-hooks (if dotspacemacs-smartparens-strict-mode
-                                  'smartparens-strict-mode
-                                'smartparens-mode)
+      (spacemacs/add-to-hooks #'spacemacs//activate-smartparens
                               '(prog-mode-hook comint-mode-hook))
       ;; enable smartparens-mode in `eval-expression'
       (add-hook 'minibuffer-setup-hook 'spacemacs//conditionally-enable-smartparens-mode)
       ;; toggles
       (spacemacs|add-toggle smartparens
-        :mode smartparens-mode
+        :status (or (bound-and-true-p smartparens-mode)
+                    (bound-and-true-p smartparens-strict-mode))
+        :on (spacemacs//activate-smartparens)
+        :off (spacemacs//deactivate-smartparens)
         :documentation "Enable smartparens."
         :evil-leader "tp")
       (spacemacs|add-toggle smartparens-globally
-        :mode smartparens-global-mode
+        :status (or smartparens-global-mode smartparens-global-strict-mode)
+        :on (spacemacs//activate-smartparens t)
+        :off (spacemacs//deactivate-smartparens t)
         :documentation "Enable smartparens globally."
         :evil-leader "t C-p")
       ;; key bindings
@@ -482,7 +503,6 @@
 
 (defun spacemacs-editing/init-string-edit ()
   (use-package string-edit
-    :defer t
     :init
     (spacemacs/set-leader-keys "xe" 'string-edit-at-point)
     (spacemacs/set-leader-keys-for-minor-mode 'string-edit-mode

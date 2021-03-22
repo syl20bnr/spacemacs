@@ -24,7 +24,8 @@
     persp-mode
     rcirc
     rcirc-color
-    (rcirc-late-fix :location local
+    (rcirc-late-fix :location (recipe :fetcher url
+                                      :url "https://raw.githubusercontent.com/emacsmirror/emacswiki.org/master/rcirc-late-fix.el")
                     :toggle rcirc-enable-late-fix)
     rcirc-notify
     (rcirc-styles :toggle rcirc-enable-styles)

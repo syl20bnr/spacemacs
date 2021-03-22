@@ -24,12 +24,14 @@
   "Default shell to use in Spacemacs. Possible values are `eshell' (default),
 `shell', `term', `ansi-term', `multi-term' and `vterm'.")
 
-(defvar shell-default-position 'bottom
+(spacemacs|defc shell-default-position 'bottom
   "Position of the shell. Possible values are `top', `bottom', `full',
-  `left' and `right'.")
+  `left' and `right'."
+  '(choice (const top) (const bottom) (const full) (const left) (const right)))
 
-(defvar shell-default-height 30
-  "Height in percents for the shell window.")
+(spacemacs|defc shell-default-height 30
+  "Height in percents for the shell window."
+  'integer)
 
 (defvar shell-default-width 30
   "Width in percents for the shell window.")

@@ -92,6 +92,16 @@
         (spacemacs/set-leader-keys-for-major-mode mode
           "df" 'spacemacs/edebug-instrument-defun-on
           "dF" 'spacemacs/edebug-instrument-defun-off))
+      (spacemacs/declare-prefix-for-mode 'edebug-eval-mode "mg" "goto")
+      (spacemacs/declare-prefix-for-mode 'edebug-eval-mode "me" "eval")
+      (spacemacs/set-leader-keys-for-major-mode 'edebug-eval-mode
+        "gw" 'edebug-where
+        "a" 'edebug-delete-eval-item
+        "k" 'edebug-delete-eval-item
+        "," 'edebug-update-eval-list
+        "c" 'edebug-update-eval-list
+        "ee" 'edebug-eval-last-sexp
+        "eE" 'edebug-eval-print-last-sexp)
       ;; since we evilify `edebug-mode-map' we don't need to intercept it to
       ;; make it work with evil
       (evil-set-custom-state-maps

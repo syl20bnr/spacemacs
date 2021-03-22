@@ -17,6 +17,7 @@ controls indentation based on parentheses or vice versa.
 
 ** Features:
 - Automatic management of parenthesis in clojure, emacs lisp, common-lisp and scheme following the parinfer editing paradigm.
+- Powered by a native library in the background
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -24,11 +25,16 @@ add =parinfer= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Configuration
-See the official package [[https://github.com/DogLooksGood/parinfer-mode][documentation]] for information about how the parinfer
-works and how to configure it.
+This package comes preconfigured to auto install the native library in your cache
+directory. It uses the new =smart-mode= instead of the =indent-mode= traditionally
+used with =parinfer=. For the autoinstallation =curl= is required to be in your
+path.
+
+If you still want to manually configure it please check the respective package
+repo [[https://github.com/justinbarclay/parinfer-rust-mode][here]].
 
 * Key bindings
 
-| Key binding | Description                                   |
-|-------------+-----------------------------------------------|
-| ~SPC t P~   | Toggle between parinfer indent and paren mode |
+| Key binding | Description                                         |
+|-------------+-----------------------------------------------------|
+| ~SPC t P~   | Toggle between parinfer smart indent and paren mode |

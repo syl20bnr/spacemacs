@@ -178,6 +178,7 @@
           "sc"  'haskell-interactive-mode-clear
           "sS"  'spacemacs/haskell-interactive-bring
           "ss"  'haskell-interactive-switch
+          "st"  'haskell-session-change-target
           "'"   'haskell-interactive-switch
 
           "ca"  'haskell-process-cabal

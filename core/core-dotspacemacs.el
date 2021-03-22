@@ -8,6 +8,9 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
+
+(require 'core-customization)
+
 (defconst dotspacemacs-template-directory
   (expand-file-name (concat spacemacs-core-directory "templates/"))
   "Templates directory.")
@@ -53,73 +56,99 @@ exists, then this is used. If ~/.spacemacs does not exist, then
 check for init.el in dotspacemacs-directory and use this if it
 exists. Otherwise, fallback to ~/.spacemacs"))
 
-(defvar dotspacemacs-distribution 'spacemacs
+(spacemacs|defc dotspacemacs-distribution 'spacemacs
   "Base distribution to use. This is a layer contained in the directory
 `+distributions'. For now available distributions are `spacemacs-base'
-or `spacemacs'.")
+or `spacemacs'."
+  '(choice (const spacemacs-base) (const spacemacs))
+  'spacemacs-dotspacemacs-layers)
 
-(defvar dotspacemacs-enable-emacs-pdumper nil
+(spacemacs|defc dotspacemacs-enable-emacs-pdumper nil
   "If non-nil then enable support for the portable dumper. You'll need
 to compile Emacs 27 from source following the instructions in file
-EXPERIMENTAL.org at the root of the git repository.")
+EXPERIMENTAL.org at the root of the git repository."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-emacs-pdumper-executable-file "emacs"
-  "File path pointing to emacs 27 or later executable.")
+(spacemacs|defc dotspacemacs-emacs-pdumper-executable-file "emacs"
+  "File path pointing to emacs 27 or later executable."
+  'string
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-emacs-dumper-dump-file
+(spacemacs|defc dotspacemacs-emacs-dumper-dump-file
   (format "spacemacs-%s.pdmp" emacs-version)
   "Name of the Spacemacs dump file. This is the file will be created by the
 portable dumper in the cache directory under dumps sub-directory.
 To load it when starting Emacs add the parameter `--dump-file'
 when invoking Emacs 27.1 executable on the command line, for instance:
-./emacs --dump-file=$HOME/.emacs.d/.cache/dumps/spacemacs-27.1.pdmp")
+./emacs --dump-file=$HOME/.emacs.d/.cache/dumps/spacemacs-27.1.pdmp"
+  'string
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-gc-cons '(100000000 0.1)
+(spacemacs|defc dotspacemacs-gc-cons '(100000000 0.1)
   "Set `gc-cons-threshold' and `gc-cons-percentage' when startup finishes.
 This is an advanced option and should not be changed unless you suspect
-performance issues due to garbage collection operations.")
+performance issues due to garbage collection operations."
+  '(list integer float)
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-read-process-output-max (* 1024 1024)
+(spacemacs|defc dotspacemacs-read-process-output-max (* 1024 1024)
   "Set `read-process-output-max' when startup finishes.
 This defines how much data is read from a foreign process.
 Setting this >= 1 MB should increase performance for lsp servers
-in emacs 27.")
+in emacs 27."
+  'integer
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-elpa-https t
+(spacemacs|defc dotspacemacs-elpa-https t
   "If non nil ELPA repositories are contacted via HTTPS whenever it's
 possible. Set it to nil if you have no way to use HTTPS in your
-environment, otherwise it is strongly recommended to let it set to t.")
+environment, otherwise it is strongly recommended to let it set to t."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-elpa-timeout 5
-  "Maximum allowed time in seconds to contact an ELPA repository.")
+(spacemacs|defc dotspacemacs-elpa-timeout 5
+  "Maximum allowed time in seconds to contact an ELPA repository."
+  'integer
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-use-spacelpa nil
+(spacemacs|defc dotspacemacs-use-spacelpa nil
   "If non-nil then Spacelpa repository is the primary source to install
 a locked version of packages. If nil then Spacemacs will install the latest
 version of packages from MELPA. Spacelpa is currently in experimental
-state and should only be used for testing.")
+state and should only be used for testing."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-verify-spacelpa-archives nil
-  "If non-nil then verify the signature for downloaded Spacelpa archives.")
+(spacemacs|defc dotspacemacs-verify-spacelpa-archives nil
+  "If non-nil then verify the signature for downloaded Spacelpa archives."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-elpa-subdirectory 'emacs-version
+(spacemacs|defc dotspacemacs-elpa-subdirectory 'emacs-version
   "If non-nil, a form that evaluates to a package directory. For
 example, to use different package directories for different Emacs
-versions, set this to `emacs-version'.")
+versions, set this to `emacs-version'."
+  'sexp
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-configuration-layer-path '()
+(spacemacs|defc dotspacemacs-configuration-layer-path '()
   "List of additional paths where to look for configuration layers.
-Paths must have a trailing slash (ie. `~/.mycontribs/')")
+Paths must have a trailing slash (ie. `~/.mycontribs/')"
+  '(repeat string)
+  'spacemacs-dotspacemacs-layers)
 
-(defvar dotspacemacs-install-packages 'used-only
+(spacemacs|defc dotspacemacs-install-packages 'used-only
   "Defines the behaviour of Spacemacs when installing packages.
 Possible values are `used-only', `used-but-keep-unused' and `all'. `used-only'
 installs only explicitly used packages and deletes any unused packages as well
 as their unused dependencies. `used-but-keep-unused' installs only the used
 packages but won't delete unused ones. `all' installs *all*
-packages supported by Spacemacs and never uninstalls them.")
+packages supported by Spacemacs and never uninstalls them."
+  '(choice (const used-only) (const used-but-keep-unused) (const all))
+  'spacemacs-dotspacemacs-layers)
 
-(defvar dotspacemacs-enable-lazy-installation 'unused
+(spacemacs|defc dotspacemacs-enable-lazy-installation 'unused
   "Lazy installation of layers (i.e. layers are installed only when a file
 with a supported type is opened). Possible values are `all', `unused' and `nil'.
 `unused' will lazy install only unused layers (i.e. layers not listed in
@@ -127,226 +156,339 @@ variable `dotspacemacs-configuration-layers'), `all' will lazy install any layer
 that support lazy installation even the layers listed in
 `dotspacemacs-configuration-layers'. `nil' disable the lazy installation feature
 and you have to explicitly list a layer in the variable
-`dotspacemacs-configuration-layers' to install it.")
+`dotspacemacs-configuration-layers' to install it."
+  '(choice (const all) (const unused) (const nil))
+  'spacemacs-dotspacemacs-layers)
 
-(defvar dotspacemacs-ask-for-lazy-installation t
+(spacemacs|defc dotspacemacs-ask-for-lazy-installation t
   "If non-nil then Spacemacs will ask for confirmation before installing
-a layer lazily.")
+a layer lazily."
+  'boolean
+  'spacemacs-dotspacemacs-layers)
 
-(defvar dotspacemacs-additional-packages '()
+(spacemacs|defc dotspacemacs-additional-packages '()
   "List of additional packages that will be installed wihout being
 wrapped in a layer. If you need some configuration for these
 packages then consider to create a layer, you can also put the
-configuration in `dotspacemacs/user-config'.")
+configuration in `dotspacemacs/user-config'."
+  '(repeat (choice symbol (cons symbol sexp)))
+  'spacemacs-dotspacemacs-layers)
 
 (defvar dotspacemacs--additional-theme-packages '()
   "Same as `dotspacemacs-additional-packages' but reserved for themes declared
 in `dotspacemacs-themes'.")
 
-(defvar dotspacemacs-editing-style 'vim
+(spacemacs|defc dotspacemacs-editing-style 'vim
   "One of `vim', `emacs' or `hybrid'.
 `hybrid' is like `vim' except that `insert state' is replaced by the
 `hybrid state' with `emacs' key bindings. The value can also be a list
  with `:variables' keyword (similar to layers). Check the editing styles
- section of the documentation for details on available variables.")
+ section of the documentation for details on available variables."
+  '(choice (const vim) (cons symbol sexp)
+           (const emacs) (cons symbol sexp)
+           (const hybrid) (cons symbol sexp))
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-startup-banner 'official
+(spacemacs|defc dotspacemacs-startup-banner 'official
   "Specify the startup banner. Default value is `official', it displays
 the official spacemacs logo. An integer value is the index of text
 banner, `random' chooses a random text banner in `core/banners'
 directory. A string value must be a path to a .PNG file.
-If the value is nil then no banner is displayed.")
+If the value is nil then no banner is displayed."
+  '(choice (const official) (const random) (const nil) string integer)
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-startup-buffer-show-version t
-  "If bound, show Spacemacs and Emacs version at the top right of the
-Spacemacs buffer.")
+(spacemacs|defc dotspacemacs-startup-buffer-show-version t
+  "If true, show Spacemacs and Emacs version at the top right of the
+Spacemacs buffer."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-scratch-mode 'text-mode
-  "Default major mode of the scratch buffer.")
+(spacemacs|defc dotspacemacs-scratch-mode 'text-mode
+  "Default major mode of the scratch buffer."
+  'symbol
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-initial-scratch-message 'nil
-  "Initial message in the scratch buffer.")
+(spacemacs|defc dotspacemacs-initial-scratch-message 'nil
+  "Initial message in the scratch buffer."
+  '(choice (const nil) string)
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-check-for-update nil
+(spacemacs|defc dotspacemacs-check-for-update nil
   "If non nil then spacemacs will check for updates at startup
 when the current branch is not `develop'. Note that checking for
 new versions works via git commands, thus it calls GitHub services
-whenever you start Emacs.")
+whenever you start Emacs."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-configuration-layers '(emacs-lisp)
-  "List of configuration layers to load.")
+(spacemacs|defc dotspacemacs-configuration-layers '(emacs-lisp)
+  "List of configuration layers to load."
+  '(repeat (choice symbol (cons symbol sexp)))
+  'spacemacs-dotspacemacs-layers)
 
 (defvar dotspacemacs--configuration-layers-saved nil
   "Saved value of `dotspacemacs-configuration-layers' after sync.")
 
-(defvar dotspacemacs-themes '(spacemacs-dark
-                              spacemacs-light)
+(spacemacs|defc dotspacemacs-themes '(spacemacs-dark
+                                      spacemacs-light)
   "List of themes, the first of the list is loaded when spacemacs starts.
 Press `SPC T n' to cycle to the next theme in the list (works great
-with 2 themes variants, one dark and one light")
+with 2 themes variants, one dark and one light"
+  '(repeat (choice symbol (cons symbol sexp)))
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-mode-line-theme '(spacemacs
-                                       :separator wave
-                                       :separator-scale 1.5)
+(spacemacs|defc dotspacemacs-mode-line-theme '(spacemacs
+                                               :separator wave
+                                               :separator-scale 1.5)
   "Set the theme for the Spaceline. Supported themes are `spacemacs',
 `all-the-icons', `custom', `doom',`vim-powerline' and `vanilla'. The first three
 are spaceline themes. `doom' is the doom-emacs mode-line. `vanilla' is default
 Emacs mode-line. `custom' is a user defined themes, refer to the
 DOCUMENTATION.org for more info on how to create your own spaceline theme. Value
 can be a symbol or a list with additional properties like '(all-the-icons
-:separator-scale 1.5).")
+:separator-scale 1.5)."
+  '(choice (const spacemacs)
+           (const all-the-icons)
+           (const custom)
+           (const doom)
+           (const vim-powerline)
+           (const vanilla)
 
-(defvar dotspacemacs-frame-title-format "%I@%S"
+           (cons (choice (const spacemacs)
+                         (const all-the-icons)
+                         (const custom)
+                         (const doom)
+                         (const vim-powerline)
+                         (const vanilla))
+                 sexp))
+  'spacemacs-dotspacemacs-init)
+
+(spacemacs|defc dotspacemacs-frame-title-format "%I@%S"
   "Default format string for a frame title bar, using the
-original format spec, and additional customizations.")
+original format spec, and additional customizations.
 
-(defvar dotspacemacs-icon-title-format nil
+If nil then Spacemacs uses default `frame-title-format' instead of
+calculating the frame title by `spacemacs/title-prepare' all the time.
+This can help to avoid performance issues."
+  '(choice (const nil) string)
+  'spacemacs-dotspacemacs-init)
+
+(spacemacs|defc dotspacemacs-icon-title-format nil
   "Default format string for a icon title bar, using the
-original format spec, and additional customizations.")
+original format spec, and additional customizations."
+  '(choice (const nil) string)
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-colorize-cursor-according-to-state t
-  "If non nil the cursor color matches the state color in GUI Emacs.")
+(spacemacs|defc dotspacemacs-colorize-cursor-according-to-state t
+  "If non nil the cursor color matches the state color in GUI Emacs."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-leader-key "SPC"
-  "The leader key.")
+(spacemacs|defc dotspacemacs-leader-key "SPC"
+  "The leader key."
+  'string
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-emacs-leader-key "M-m"
-  "The leader key accessible in `emacs state' and `insert state'")
+(spacemacs|defc dotspacemacs-emacs-leader-key "M-m"
+  "The leader key accessible in `emacs state' and `insert state'"
+  'string
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-major-mode-leader-key ","
+(spacemacs|defc dotspacemacs-major-mode-leader-key ","
   "Major mode leader key is a shortcut key which is the equivalent of
-pressing `<leader> m`. Set it to `nil` to disable it.")
+pressing `<leader> m`. Set it to `nil` to disable it."
+  '(choice (const nil) string)
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-major-mode-emacs-leader-key (if window-system "<M-return>" "C-M-m")
-  "Major mode leader key accessible in `emacs state' and `insert state'")
+(spacemacs|defc dotspacemacs-major-mode-emacs-leader-key
+  (if window-system "<M-return>" "C-M-m")
+  "Major mode leader key accessible in `emacs state' and `insert state'"
+  'string
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-ex-command-key ":"
-  "The key used for Vim Ex commands.")
+(spacemacs|defc dotspacemacs-ex-command-key ":"
+  "The key used for Vim Ex commands."
+  'string
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-command-key "SPC"
-  "The key used for Emacs commands (M-x) (after pressing on the leader key).")
+(spacemacs|defc dotspacemacs-command-key "SPC"
+  "The key used for Emacs commands (M-x) (after pressing on the leader key)."
+  'string
+  'spacemacs-dotspacemacs-init)
 (defvaralias 'dotspacemacs-emacs-command-key 'dotspacemacs-command-key
   "New official name for `dotspacemacs-command-key'")
 
-(defvar dotspacemacs-distinguish-gui-tab nil
-  "If non nil, distinguish C-i and tab in the GUI version of Emacs.")
+(spacemacs|defc dotspacemacs-distinguish-gui-tab nil
+  "If non nil, distinguish C-i and tab in the GUI version of Emacs."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
 ;; (defvar dotspacemacs-distinguish-gui-ret nil
 ;;   "If non nil, distinguish C-m and return in the GUI version of
 ;; emacs.")
 
-(defvar dotspacemacs-default-font '("Source Code Pro"
-                                    :size 10.0
-                                    :weight normal
-                                    :width normal)
+(spacemacs|defc dotspacemacs-default-font '("Source Code Pro"
+                                            :size 10.0
+                                            :weight normal
+                                            :width normal)
   "Default font, or prioritized list of fonts. This setting has no effect when
-running Emacs in terminal.")
+running Emacs in terminal."
+  '(choice (cons string sexp)
+           (repeat (cons string sexp)))
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-folding-method 'evil
-  "Code folding method. Possible values are `evil', `origami' and `vimish'.")
+(spacemacs|defc dotspacemacs-folding-method 'evil
+  "Code folding method. Possible values are `evil', `origami' and `vimish'."
+  '(choice (cosnt evil) (const origami) (const vimish))
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-default-layout-name "Default"
-  "Name of the default layout.")
+(spacemacs|defc dotspacemacs-default-layout-name "Default"
+  "Name of the default layout."
+  'string
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-display-default-layout nil
-  "If non nil the default layout name is displayed in the mode-line.")
+(spacemacs|defc dotspacemacs-display-default-layout nil
+  "If non nil the default layout name is displayed in the mode-line."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-auto-resume-layouts nil
+(spacemacs|defc dotspacemacs-auto-resume-layouts nil
   "If non nil then the last auto saved layouts are resume automatically upon
-start.")
+start."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-auto-generate-layout-names nil
+(spacemacs|defc dotspacemacs-auto-generate-layout-names nil
   "If non-nil, auto-generate layout name when creating new layouts.
-Only has effect when using the \"jump to layout by number\" commands.")
+Only has effect when using the \"jump to layout by number\" commands."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-max-rollback-slots 5
-  "Maximum number of rollback slots to keep in the cache.")
+(spacemacs|defc dotspacemacs-max-rollback-slots 5
+  "Maximum number of rollback slots to keep in the cache."
+  'integer
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-large-file-size 1
+(spacemacs|defc dotspacemacs-large-file-size 1
   "Size (in MB) above which spacemacs will prompt to open the large file
 literally to avoid performance issues. Opening a file literally means that
-no major mode or minor modes are active.")
+no major mode or minor modes are active."
+  'integer
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-auto-save-file-location 'cache
+(spacemacs|defc dotspacemacs-auto-save-file-location 'cache
   "Location where to auto-save files. Possible values are `original' to
 auto-save the file in-place, `cache' to auto-save the file to another
-file stored in the cache directory and `nil' to disable auto-saving.")
+file stored in the cache directory and `nil' to disable auto-saving."
+  '(choice (const cache) (const original) (const nil))
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-enable-paste-transient-state nil
+(spacemacs|defc dotspacemacs-enable-paste-transient-state nil
   "If non-nil, the paste transient-state is enabled. While enabled, after you
 paste something, pressing `C-j' and `C-k' several times cycles through the
-elements in the `kill-ring'.")
+elements in the `kill-ring'."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 (defvaralias
   'dotspacemacs-enable-paste-micro-state
   'dotspacemacs-enable-paste-transient-state
   "Old name of `dotspacemacs-enable-paste-transient-state'.")
 
-(defvar dotspacemacs-which-key-delay 0.4
+(spacemacs|defc dotspacemacs-which-key-delay 0.4
   "Delay in seconds starting from the last keystroke after which
 the which-key buffer will be shown if you have not completed a
 key sequence. Setting this variable is equivalent to setting
-`which-key-idle-delay'.")
+`which-key-idle-delay'."
+  'float
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-which-key-position 'bottom
+(spacemacs|defc dotspacemacs-which-key-position 'bottom
   "Location of the which-key popup buffer. Possible choices are bottom,
 right, and right-then-bottom. The last one will display on the
-right if possible and fallback to bottom if not.")
+right if possible and fallback to bottom if not."
+  '(choice (const right) (const bottom) (const right-then-bottom))
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-switch-to-buffer-prefers-purpose nil
+(spacemacs|defc dotspacemacs-switch-to-buffer-prefers-purpose nil
   "Control where `switch-to-buffer' displays the buffer.
 If nil, `switch-to-buffer' displays the buffer in the current
 window even if another same-purpose window is available. If non
 nil, `switch-to-buffer' displays the buffer in a same-purpose
 window even if the buffer can be displayed in the current
-window.")
+window."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-loading-progress-bar t
+(spacemacs|defc dotspacemacs-loading-progress-bar t
   "If non nil a progress bar is displayed when spacemacs is loading. This
 may increase the boot time on some systems and emacs builds, set it to nil
-to boost the loading time.")
+to boost the loading time."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-fullscreen-at-startup nil
-  "If non nil the frame is fullscreen when Emacs starts up (Emacs 24.4+ only).")
+(spacemacs|defc dotspacemacs-fullscreen-at-startup nil
+  "If non nil the frame is fullscreen when Emacs starts up (Emacs 24.4+ only)."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-fullscreen-use-non-native nil
+(spacemacs|defc dotspacemacs-fullscreen-use-non-native nil
   "If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen. Use
-to disable fullscreen animations on macOS.")
+to disable fullscreen animations on macOS."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-maximized-at-startup nil
+(spacemacs|defc dotspacemacs-maximized-at-startup nil
   "If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only).
-Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.")
+Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-undecorated-at-startup nil
-  "If non nil the frame is undecorated when Emacs starts up.")
+(spacemacs|defc dotspacemacs-undecorated-at-startup nil
+  "If non nil the frame is undecorated when Emacs starts up."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-active-transparency 90
+(spacemacs|defc dotspacemacs-active-transparency 90
   "A value from the range (0..100), in increasing opacity, which describes the
 transparency level of a frame when it's active or selected. Transparency
-can be toggled through `toggle-transparency'.")
+can be toggled through `toggle-transparency'."
+  'integer
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-inactive-transparency 90
+(spacemacs|defc dotspacemacs-inactive-transparency 90
   "A value from the range (0..100), in increasing opacity, which describes the
 transparency level of a frame when it's inactive or deselected. Transparency
-can be toggled through `toggle-transparency'.")
+can be toggled through `toggle-transparency'."
+  'integer
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-show-transient-state-title t
-  "If non nil show the titles of transient states.")
+(spacemacs|defc dotspacemacs-show-transient-state-title t
+  "If non nil show the titles of transient states."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-show-transient-state-color-guide t
-  "If non nil show the color guide hint for transient state keys.")
+(spacemacs|defc dotspacemacs-show-transient-state-color-guide t
+  "If non nil show the color guide hint for transient state keys."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-mode-line-unicode-symbols t
+(spacemacs|defc dotspacemacs-mode-line-unicode-symbols t
   "If non nil unicode symbols are displayed in the mode-line (eg. for lighters).
 If you use Emacs as a daemon and wants unicode characters only in GUI set
-the value to quoted `display-graphic-p'. (default t)")
+the value to quoted `display-graphic-p'. (default t)"
+  '(choice boolean (connst display-graphic-p))
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-smooth-scrolling t
+(spacemacs|defc dotspacemacs-smooth-scrolling t
   "If non nil smooth scrolling (native-scrolling) is enabled.
 Smooth scrolling overrides the default behavior of Emacs which
 recenters point when it reaches the top or bottom of the
-screen.")
+screen."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-line-numbers nil
+(spacemacs|defc dotspacemacs-line-numbers nil
   "Control line numbers activation.
 If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
 `text-mode' derivatives. If set to `relative', line numbers are relative.
@@ -360,55 +502,87 @@ This variable can also be set to a property list for finer control:
                       text-mode
   :size-limit-kb 1000)
 The property `:enabled-for-modes' takes priority over `:disabled-for-modes' and
-restricts line-number to the specified list of major-mode.")
+restricts line-number to the specified list of major-mode."
+  '(choice boolean
+           (const relative)
+           (const visual)
+           (const prog-mode)
+           (repeat sexp))
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-enable-server nil
-  "If non-nil, start an Emacs server if one is not already running.")
+(spacemacs|defc dotspacemacs-enable-server nil
+  "If non-nil, start an Emacs server if one is not already running."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-persistent-server nil
-  "If non nil advises quit functions to keep server open when quitting.")
+(spacemacs|defc dotspacemacs-persistent-server nil
+  "If non nil advises quit functions to keep server open when quitting."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-server-socket-dir nil
+(spacemacs|defc dotspacemacs-server-socket-dir nil
   "Set the emacs server socket location.
 If nil, uses whatever the Emacs default is,
 otherwise a directory path like \"~/.emacs.d/server\".
-Has no effect if `dotspacemacs-enable-server' is nil.")
+Has no effect if `dotspacemacs-enable-server' is nil."
+  '(choice (const nil) string)
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-smartparens-strict-mode nil
-  "If non-nil smartparens-strict-mode will be enabled in programming modes.")
+(spacemacs|defc dotspacemacs-smartparens-strict-mode nil
+  "If non-nil and `dotspacemacs-activate-smartparens-mode' is also non-nil,
+smartparens-strict-mode will be enabled in programming modes."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-smart-closing-parenthesis nil
+(spacemacs|defc dotspacemacs-activate-smartparens-mode t
+  "If non-nil smartparens-mode will be enabled in programming modes."
+  'boolean
+  'spacemacs-dotspacemacs-init)
+
+(spacemacs|defc dotspacemacs-smart-closing-parenthesis nil
   "If non-nil pressing the closing parenthesis `)' key in insert mode passes
 over any automatically added closing parenthesis, bracket, quote, etc...
-This can be temporary disabled by pressing `C-q' before `)'. (default nil)")
+This can be temporary disabled by pressing `C-q' before `)'. (default nil)"
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-zone-out-when-idle nil
+(spacemacs|defc dotspacemacs-zone-out-when-idle nil
   "Either nil or a number of seconds.
-If non-nil zone out after the specified number of seconds.")
+If non-nil zone out after the specified number of seconds."
+  '(choice (const nil) integer)
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-highlight-delimiters 'all
+(spacemacs|defc dotspacemacs-highlight-delimiters 'all
   "Select a scope to highlight delimiters.
 Possible values are `any', `current', `all' or `nil'.
-Default is `all' (highlight any scope and emphasize the current one.")
+Default is `all' (highlight any scope and emphasize the current one."
+  '(choice (const all) (const any) (const current) (const nil))
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-show-trailing-whitespace t
-  "Show trailing whitespace. Default is `t'.")
+(spacemacs|defc dotspacemacs-show-trailing-whitespace t
+  "Show trailing whitespace. Default is `t'."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-whitespace-cleanup nil
+(spacemacs|defc dotspacemacs-whitespace-cleanup nil
   "Delete whitespace while saving buffer.
 
 Possible values are:
 `all' to aggressively delete empty lines and long sequences of whitespace,
 `trailing' to delete only the whitespace at end of lines,
 `changed' to delete only whitespace for changed lines or
-`nil' to disable cleanup.")
+`nil' to disable cleanup."
+  '(choice (const nil) (const all) (const trailing) (const changed))
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
+(spacemacs|defc dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
   "List of search tool executable names. Spacemacs uses the first installed
-tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.")
+tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'."
+  '(set (const "rg") (const "ag") (const "pt") (const "ack") (const "grep"))
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-startup-lists '((recents  . 5)
-                                     (projects . 7))
+(spacemacs|defc dotspacemacs-startup-lists '((recents  . 5)
+                                             (projects . 7))
   "Association list of items to show in the startup buffer of the form
 `(list-type . list-size)`. If nil it is disabled.
 
@@ -418,60 +592,94 @@ List sizes may be nil, in which case
 `spacemacs--buffer-startup-lists-length' takes effect.
 In the `recents-by-project' case, the list size should be a `cons' cell whose
 `car' is the maximum number of projects to show, and whose `cdr' is the maximum
-number of recent files to show in each project.")
+number of recent files to show in each project."
+  '(choice (alist :key-type (choice (const recents)
+                                    (const recents-by-project)
+                                    (const bookmarks)
+                                    (const projects)
+                                    (const agenda)
+                                    (const todos))
+                  :value-type (choice integer
+                                      (const nil)
+                                      ;; for `recents-by-project':
+                                      (cons integer integer)))
+           (const nil))
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-startup-buffer-responsive t
-  "True if the home buffer should respond to resize events.")
+(spacemacs|defc dotspacemacs-startup-buffer-responsive t
+  "True if the home buffer should respond to resize events."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-excluded-packages '()
-  "A list of packages that will not be installed and loaded.")
+(spacemacs|defc dotspacemacs-excluded-packages '()
+  "A list of packages that will not be installed and loaded."
+  '(repeat symbol)
+  'spacemacs-dotspacemacs-layers)
 
-(defvar dotspacemacs-frozen-packages '()
-  "A list of packages that cannot be updated.")
+(spacemacs|defc dotspacemacs-frozen-packages '()
+  "A list of packages that cannot be updated."
+  '(repeat symbol)
+  'spacemacs-dotspacemacs-layers)
 
-(defvar dotspacemacs-pretty-docs nil
+(spacemacs|defc dotspacemacs-pretty-docs nil
   "Run `spacemacs/prettify-org-buffer' when
-visiting README.org files of Spacemacs.")
+visiting README.org files of Spacemacs."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-new-empty-buffer-major-mode nil
-  "Set the major mode for a new empty buffer.")
+(spacemacs|defc dotspacemacs-new-empty-buffer-major-mode nil
+  "Set the major mode for a new empty buffer."
+  'symbol
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-use-clean-aindent-mode t
+(spacemacs|defc dotspacemacs-use-clean-aindent-mode t
   "Correct indentation for simple modes.
 
 If non nil activate `clean-aindent-mode' which tries to correct
-virtual indentation of simple modes. This can interfer with mode specific
+virtual indentation of simple modes. This can interfere with mode specific
 indent handling like has been reported for `go-mode'.
-If it does deactivate it here. (default t)")
+If it does deactivate it here. (default t)"
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-swap-number-row nil
+(spacemacs|defc dotspacemacs-swap-number-row nil
   "Shift number row for easier access.
 
 If non-nil shift your number row to match the entered keyboard layout
 (only in insert mode). Currently the keyboard layouts
 (qwerty-us qwertz-de) are supported.
 New layouts can be added in `spacemacs-editing' layer.
-(default nil)")
+(default nil)"
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-home-shorten-agenda-source nil
+(spacemacs|defc dotspacemacs-home-shorten-agenda-source nil
   "If nil the home buffer shows the full path of agenda items
-and todos. If non nil only the file name is shown.")
+and todos. If non nil only the file name is shown."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
 (defvar dotspacemacs--pretty-ignore-subdirs
   '(".cache/junk")
   "Subdirectories of `spacemacs-start-directory' to ignore when
 prettifying Org files.")
 
-(defvar dotspacemacs-scratch-buffer-persistent nil
+(spacemacs|defc dotspacemacs-scratch-buffer-persistent nil
   "If non-nil, *scratch* buffer will be persistent. Things you write down in
-   *scratch* buffer will be saved automatically.")
+   *scratch* buffer will be saved automatically."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-scratch-buffer-unkillable nil
+(spacemacs|defc dotspacemacs-scratch-buffer-unkillable nil
   "If non-nil, `kill-buffer' on *scratch* buffer
-will bury it instead of killing.")
+will bury it instead of killing."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
-(defvar dotspacemacs-byte-compile nil
-  "If non-nil, byte-compile some of Spacemacs files.")
+(spacemacs|defc dotspacemacs-byte-compile nil
+  "If non-nil, byte-compile some of Spacemacs files."
+  'boolean
+  'spacemacs-dotspacemacs-init)
 
 (defun dotspacemacs//prettify-spacemacs-docs ()
   "Run `spacemacs/prettify-org-buffer' if `buffer-file-name'
@@ -728,8 +936,12 @@ If ARG is non nil then ask questions to the user before installing the dotfile."
         (unless (with-demoted-errors "Error loading .spacemacs: %S"
                   (load dotspacemacs))
           (dotspacemacs/safe-load))))
-  (advice-add 'dotspacemacs/user-config
-              :around 'dotspacemacs//profile-user-config))
+  (advice-add 'dotspacemacs/layers :after
+              'spacemacs-customization//validate-dotspacemacs-layers-vars)
+  (advice-add 'dotspacemacs/init :after
+              'spacemacs-customization//validate-dotspacemacs-init-vars)
+  (advice-add 'dotspacemacs/user-config :around
+              'dotspacemacs//profile-user-config))
 
 (defun spacemacs/title-prepare (title-format)
   "A string is printed verbatim except for %-constructs.
@@ -795,8 +1007,8 @@ If ARG is non nil then ask questions to the user before installing the dotfile."
                 ?\[ "%["
                 ?\] "%]"
                 ?% "%%"
-                ?- "%-"
-                )))
+                ?- "%-")))
+
       (format-spec title-format fs))))
 
 (defun dotspacemacs/safe-load ()

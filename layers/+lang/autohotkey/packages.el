@@ -10,7 +10,11 @@
 ;;
 ;;; License: GPLv3
 
-(setq autohotkey-packages '(ahk-mode))
+(setq autohotkey-packages
+      '(
+        company
+        ahk-mode
+        ))
 
 (defun autohotkey/init-ahk-mode ()
   (use-package ahk-mode
@@ -18,6 +22,9 @@
     :defer t
     :init
     (progn
+      ;; work-around for issue #21
+      ;; https://github.com/ralesi/ahk-mode/issues/21
+      (add-hook 'ahk-mode-hook 'spacemacs/run-prog-mode-hooks)
       (spacemacs/declare-prefix-for-mode 'ahk-mode "mc" "comment")
       (spacemacs/declare-prefix-for-mode 'ahk-mode "me" "eval")
       (spacemacs/declare-prefix-for-mode 'ahk-mode "mh" "help")
@@ -27,3 +34,9 @@
         "eb" 'ahk-run-script
         "hh" 'ahk-lookup-web
         "hH" 'ahk-lookup-chm))))
+
+(defun autohotkey/post-init-company ()
+  (spacemacs|add-company-backends
+    :backends company-capf
+    :modes ahk-mode
+    :variables company-tooltip-align-annotations t))

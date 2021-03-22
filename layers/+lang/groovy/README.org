@@ -61,7 +61,7 @@ To set explicitly do the following in your dotfile:
 #+BEGIN_SRC emacs-lisp
   (groovy :variables
           groovy-backend 'lsp
-          groovy-lsp-jar-path "path/to/groovy/lsp/jar.jar")
+          groovy-lsp-jar-path "path/to/groovy/lsp/jar-all.jar")
 #+END_SRC
 
 For this to work you will also need to obtain
@@ -73,6 +73,8 @@ NOTE: Key bindings for LSP are defined in the
 LSP layer. Also it is advisable to have a look
 at the autocomplete layer for an optimal
 intellisense config for LSP.
+
+NOTE: The build on [[https://github.com/prominic/groovy-language-server]] will generate two jar files. You will need the ~groovy-language-server-all.jar~ as the ~groovy-lsp-jar-path~. 
 
 * Key bindings
 ** Imports

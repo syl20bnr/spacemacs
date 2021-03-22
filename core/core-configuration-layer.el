@@ -993,7 +993,7 @@ a new object."
         (princ (if (cfgl-package-toggled-p pkg t) "on" "off"))
         (princ " because the following expression evaluates to ")
         (princ (if (cfgl-package-toggled-p pkg t) "t:\n" "nil:\n"))
-        (princ (oref pkg :toggle))
+        (prin1 (oref pkg :toggle))
         (princ "\n"))
       (when (oref pkg :requires)
         (princ "\nThis package requires the following packages: ")
@@ -1381,6 +1381,15 @@ Returns nil if the directory is not a category."
       (when (string-match "^+" dirname)
         (intern (substring dirname 1))))))
 
+(defun configuration-layer//get-layer-parent-category (layer-name)
+  "Return a parent category symbol for given LAYER-NAME.
+Returns nil if there is no layer named LAYER-NAME."
+  (when-let ((lp (configuration-layer/get-layer-path layer-name)))
+    (thread-last lp
+      directory-file-name
+      file-name-directory
+      configuration-layer//get-category-from-path)))
+
 (defun configuration-layer/discover-layers (&optional refresh-index)
   "Initialize `configuration-layer--indexed-layers' with layer directories.
 If REFRESH-INDEX is non-nil, the layer index is cleared before
@@ -1591,7 +1600,11 @@ RNAME is the name symbol of another existing layer."
       (let ((var (pop variables)))
         (if (consp variables)
             (condition-case-unless-debug err
-                (set-default var (eval (pop variables)))
+                (let ((val (eval (pop variables))))
+                  (when (get var 'spacemacs-customization--variable)
+                    (spacemacs-customization//validate
+                     val (custom-variable-type var)))
+                  (set-default var val))
               ('error
                (configuration-layer//error
                 (concat "\nAn error occurred while setting layer "
@@ -1636,7 +1649,11 @@ RNAME is the name symbol of another existing layer."
   "Configure layers with LAYER-NAMES."
   (let ((warning-minimum-level :error))
     (dolist (layer-name layer-names)
-      (configuration-layer//load-layer-files layer-name '("config.el")))))
+      (let ((spacemacs-customization--current-group
+             (spacemacs-customization//create-layer-group
+              layer-name
+              (configuration-layer//get-layer-parent-category layer-name))))
+        (configuration-layer//load-layer-files layer-name '("config.el"))))))
 
 (defun configuration-layer//declare-used-packages (layers)
   "Declare used packages contained in LAYERS."

@@ -96,16 +96,16 @@ Available PROPS:
           (push `(add-to-list ',raw-backends-var-name ',backend) result))
         ;; define initialization hook function
         (push `(defun ,init-func-name ()
-                ,(format "Initialize company for %S." mode)
-                (if auto-completion-enable-snippets-in-popup
-                    (setq ,backends-var-name
-                          (mapcar 'spacemacs//show-snippets-in-company
-                                  ,raw-backends-var-name))
-                  (setq ,backends-var-name ,raw-backends-var-name))
-                (set (make-variable-buffer-local 'auto-completion-front-end)
-                     'company)
-                (set (make-variable-buffer-local 'company-backends)
-                     ,backends-var-name)) result)
+                 ,(format "Initialize company for %S." mode)
+                 (if auto-completion-enable-snippets-in-popup
+                     (setq ,backends-var-name
+                           (mapcar 'spacemacs//show-snippets-in-company
+                                   ,raw-backends-var-name))
+                   (setq ,backends-var-name ,raw-backends-var-name))
+                 (set (make-variable-buffer-local 'auto-completion-front-end)
+                      'company)
+                 (set (make-variable-buffer-local 'company-backends)
+                      ,backends-var-name)) result)
         (when call-hooks
           (push `(,init-func-name) result))
         (when hooks
@@ -384,24 +384,26 @@ MODE parameter must match the :modes values used in the call to
 ;; but NOT for the nested ones.
 ;;
 ;; That's why we introduce `spacemacs--yasnippet-expanding' below.
+;;
+;; MWO 2021-03-16
+;; I have removed spacemacs--yasnippet-expanding as it prevents
+;; default yasnippet expansions from seeing the value of smartparens-mode.
+;; This will effectively disable smartparens with the first yasnippet expand.
+;; As `hippie-expand' is less frequently used than yasnippet I think it is
+;; better to have smartparens state preserved with the default case.
 
 (defvar spacemacs--smartparens-enabled-initially t
   "Stored whether smartparens is originally enabled or not.")
-(defvar spacemacs--yasnippet-expanding nil
-  "Whether the snippet expansion is in progress.")
 
 (defun spacemacs//smartparens-disable-before-expand-snippet ()
   "Handler for `yas-before-expand-snippet-hook'.
 Disable smartparens and remember its initial state."
   ;; Remember the initial smartparens state only once, when expanding a top-level snippet.
-  (unless spacemacs--yasnippet-expanding
-    (setq spacemacs--yasnippet-expanding t
-          spacemacs--smartparens-enabled-initially smartparens-mode))
-  (smartparens-mode -1))
+  (setq spacemacs--smartparens-enabled-initially (or smartparens-mode smartparens-strict-mode))
+  (spacemacs//deactivate-smartparens))
 
 (defun spacemacs//smartparens-restore-after-exit-snippet ()
   "Handler for `yas-after-exit-snippet-hook'.
  Restore the initial state of smartparens."
-  (setq spacemacs--yasnippet-expanding nil)
   (when spacemacs--smartparens-enabled-initially
-    (smartparens-mode 1)))
+    (spacemacs//activate-smartparens)))

@@ -58,13 +58,5 @@ manually.")
 (defvar auto-completion-use-company-box nil
   "If non nil company-box is used.")
 
-(defvar company-mode-completion-cancel-keywords
-  '("do"
-    "then"
-    "begin"
-    "case")
-  "Keywords on which to cancel completion so that you can use RET
-to complet without blocking common line endings.")
-
 (defvar auto-completion-private-snippets-directory nil
   "Configurable private snippets directory.")

@@ -18,8 +18,8 @@
         pyenv-mode
         pyvenv
         pipenv
-        smartparens
-        ))
+        smartparens))
+
 
 (defun hy/post-init-company ()
   ;; Autocompletion now fit for use, not all symbols complete, hy bug
@@ -93,4 +93,4 @@
   (add-to-list 'spacemacs--python-pipenv-modes 'hy-mode))
 
 (defun hy/post-init-smartparens ()
-  (add-hook 'hy-mode-hook 'smartparens-mode))
+  (add-hook 'hy-mode-hook #'spacemacs//activate-smartparens))
