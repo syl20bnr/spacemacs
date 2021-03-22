@@ -219,7 +219,7 @@
     :init
     (progn
       (spacemacs/set-leader-keys "is" 'spacemacs/helm-yas)
-      (setq helm-c-yas-space-match-any-greedy t))))
+      (setq helm-yas-space-match-any-greedy t))))
 
 (defun auto-completion/pre-init-helm-company ()
   (spacemacs|use-package-add-hook company
