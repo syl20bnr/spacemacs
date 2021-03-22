@@ -1,6 +1,6 @@
 ;;; config.el --- ranger Layer config File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner
+;; Copyright (c) 2012-2021 Sylvain Benner
 ;; Copyright (c) 2020-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
