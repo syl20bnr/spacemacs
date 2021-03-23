@@ -108,6 +108,12 @@
               (wolfram-alpha
                :name "Wolfram Alpha"
                :url "https://www.wolframalpha.com/input/?i=%s")
+              (debian-packages
+               :name "Debian Package Search"
+               :url "https://packages.debian.org/search?keywords=%s")
+              (ubuntu-packages
+               :name "Ubuntu Package Search"
+               :url "https://packages.ubuntu.com/search?keywords=%s")
               (melpa
                :name "Melpa Package Search"
                :url "https://melpa.org/#/?q=%s")
