@@ -44,6 +44,8 @@ This layer adds support for the [[https://github.com/hrs/engine-mode][Search Eng
 - Python Docs
 - C++ Reference
 - Melpa
+- Debian Packages
+- Ubuntu Packages
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
