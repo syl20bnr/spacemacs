@@ -74,12 +74,6 @@ Press any other key to exit." component (eval var) component component)))
      map) t)
   (colors//change-color-mini-mode-doc component))
 
-(defun colors/init-rainbow-mode ()
-  (use-package rainbow-mode
-    :commands rainbow-mode
-    :init (spacemacs/set-leader-keys "tCc" 'rainbow-mode)
-    :config (spacemacs|hide-lighter rainbow-mode)))
-
 (defun colors/start-change-color-saturation ()
   "Initiate the overlay map to change the saturation."
   (interactive)
