@@ -274,8 +274,14 @@ Right justified, based on the Spacemacs buffers window width."
            (heart-size (when heart (car (image-size heart))))
            (build-lhs "Made with ")
            (build-rhs " by the community")
+           (gplv3-path spacemacs-gplv3-official-png)
+           (gplv3 (when (and (display-graphic-p)
+                             (image-type-available-p
+                              (intern (file-name-extension gplv3-path))))
+                    (create-image gplv3-path)))
+           (gplv3-size (when gplv3 (car (image-size gplv3))))
            (buffer-read-only nil))
-      (when (or badge heart)
+      (when (or badge heart gplv3)
         (goto-char (point-max))
         (spacemacs-buffer/insert-page-break)
         (insert "\n")
@@ -290,7 +296,11 @@ Right justified, based on the Spacemacs buffers window width."
           (spacemacs-buffer//center-line (+ (length build-lhs)
                                             heart-size
                                             (length build-rhs)))
-          (insert "\n"))))))
+          (insert "\n"))
+        (when gplv3
+          (insert "\n")
+          (insert-image gplv3)
+          (spacemacs-buffer//center-line gplv3-size))))))
 
 (defmacro spacemacs-buffer||notes-adapt-caption-to-width (caption
                                                           caption-length

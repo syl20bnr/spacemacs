@@ -56,6 +56,9 @@
 (defconst spacemacs-purple-heart-png
   (expand-file-name (concat spacemacs-banner-directory "img/heart.png"))
   "Purple heart emoji.")
+(defconst spacemacs-gplv3-official-png
+  (expand-file-name (concat spacemacs-banner-directory "img/gplv3.png"))
+  "GPLv3 official badge image.")
 (defconst spacemacs-cache-directory
   (expand-file-name (concat user-emacs-directory ".cache/"))
   "Spacemacs storage area for persistent files")
