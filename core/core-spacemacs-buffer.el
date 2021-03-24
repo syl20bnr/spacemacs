@@ -691,18 +691,22 @@ REAL-WIDTH: the real width of the line.  If the line contains an image, the size
                  "https://gitter.im/syl20bnr/spacemacs")
   (insert " ")
   (widget-create 'push-button
+                 :help-echo "GPLv3 copying conditions."
+                 :action (lambda (&rest ignore)
+                           (find-file (concat spacemacs-start-directory "LICENSE"))
+                           (read-only-mode))
+                 :mouse-face 'highlight
+                 :follow-link "\C-m"
+                 (propertize "Licensing" 'face 'font-lock-keyword-face))
+  (spacemacs-buffer//center-line)
+  (insert "\n")
+  (widget-create 'push-button
                  :help-echo "Update Spacemacs core and layers."
                  :action (lambda (&rest ignore) (spacemacs/switch-to-version))
                  :mouse-face 'highlight
                  :follow-link "\C-m"
                  (propertize "Update Spacemacs" 'face 'font-lock-keyword-face))
-  (let ((len (- (line-end-position)
-                (line-beginning-position))))
-    (spacemacs-buffer//center-line)
-    (setq spacemacs-buffer--buttons-position (- (line-end-position)
-                                                (line-beginning-position)
-                                                len)))
-  (insert "\n")
+  (insert " ")
   (widget-create 'push-button
                  :help-echo "Update all ELPA packages to the latest versions."
                  :action (lambda (&rest ignore)
