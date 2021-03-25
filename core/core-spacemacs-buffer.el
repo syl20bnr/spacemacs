@@ -1181,10 +1181,6 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
       (search-forward "[")
       (left-char 2))))
 
-(defvar spacemacs-buffer-multi-digit-delay 0.4
-  "This determines how quickly (in seconds)
-the numbers have to be typed.")
-
 (defvar spacemacs-buffer--idle-numbers-timer nil
   "This stores the idle numbers timer.")
 
@@ -1195,9 +1191,9 @@ It's cleared when the idle timer runs.")
 (defun spacemacs-buffer/jump-to-number-startup-list-line ()
   "Jump to the startup list line with the typed number.
 
-The delay between the number key presses,
-can be adjusted (in seconds) with the variable:
-`spacemacs-buffer-multi-digit-delay'."
+The minimum delay in seconds between number key presses,
+can be adjusted with the variable:
+`dotspacemacs-startup-buffer-multi-digit-delay'."
   (interactive)
   (when spacemacs-buffer--idle-numbers-timer
     (cancel-timer spacemacs-buffer--idle-numbers-timer))
@@ -1208,7 +1204,7 @@ can be adjusted (in seconds) with the variable:
       (message "Jump to startup list: %s" spacemacs-buffer--startup-list-number))
     (setq spacemacs-buffer--idle-numbers-timer
           (run-with-idle-timer
-           spacemacs-buffer-multi-digit-delay nil
+           dotspacemacs-startup-buffer-multi-digit-delay nil
            'spacemacs-buffer/stop-waiting-for-additional-numbers))))
 
 (defun spacemacs-buffer//re-line-starts-with-nr-space (nr-string)
