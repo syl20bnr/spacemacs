@@ -23,15 +23,20 @@
 
 ;; Variables
 
+(defvar git-enable-magit-delta-plugin nil
+  "If non nil, enable `magit-delta' plugin.")
+
+(defvar git-enable-magit-gitflow-plugin nil
+  "If non nil, enable `magit-gitflow' plugin.")
+
 (defvar git-enable-magit-svn-plugin nil
-  "If non nil `magit-svn' plugin is enabled.")
+  "If non nil, enable `magit-svn' plugin.")
+
+(defvar git-enable-magit-todos-plugin nil
+  "If non nil, enable `magit-todos' plugin.")
 
 (defvar git-magit-status-fullscreen nil
   "If non nil magit-status buffer is displayed in fullscreen.")
 
-(defvar git-enable-magit-delta-plugin nil
-  "If non nil `magit-delta-mode' plugin is enabled.")
-
 (defvar spacemacs--git-blame-ts-full-hint-toggle nil
   "Display git blame transient state documentation.")
-

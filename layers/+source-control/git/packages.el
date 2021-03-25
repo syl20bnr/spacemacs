@@ -41,9 +41,10 @@
         (helm-gitignore :requires helm)
         magit
         (magit-delta :toggle git-enable-magit-delta-plugin)
-        magit-gitflow
+        (magit-gitflow :toggle git-enable-magit-gitflow-plugin)
         magit-section
-        magit-svn
+        (magit-svn :toggle git-enable-magit-svn-plugin)
+        (magit-todos :toggle git-enable-magit-todos-plugin)
         org
         (orgit :requires org)
         (orgit-forge :requires (org forge))
@@ -278,19 +279,15 @@
 
 (defun git/init-magit-delta ()
   (use-package magit-delta
-    :defer t
-    :init (add-hook 'magit-mode-hook 'magit-delta-mode)))
+    :hook (magit-mode . magit-delta-mode)))
 
 (defun git/init-magit-gitflow ()
   (use-package magit-gitflow
-    :defer t
-    :init (progn
-            (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
-            (setq magit-gitflow-popup-key "%"))
-    :config
-    (progn
-      (spacemacs|diminish magit-gitflow-mode "Flow")
-      (define-key magit-mode-map "%" 'magit-gitflow-popup))))
+    :hook (magit-mode . magit-gitflow-mode)
+    :init (setq magit-gitflow-popup-key "%")
+    :config (progn
+              (spacemacs|diminish magit-gitflow-mode "Flow")
+              (define-key magit-mode-map "%" 'magit-gitflow-popup))))
 
 (defun git/init-magit-section ()
   (use-package magit-section
@@ -298,12 +295,15 @@
 
 (defun git/init-magit-svn ()
   (use-package magit-svn
-    :if git-enable-magit-svn-plugin
-    :commands turn-on-magit-svn
-    :init (add-hook 'magit-mode-hook 'turn-on-magit-svn)
+    :hook (magit-mode . magit-svn-mode)
     :config (progn
               (spacemacs|diminish magit-svn-mode "SVN")
               (define-key magit-mode-map "~" 'magit-svn))))
+
+(defun git/init-magit-todos ()
+  (use-package magit-todos
+    :hook (magit-mode . magit-todos-mode)
+    :config (spacemacs|diminish magit-todos-mode "TODOS")))
 
 (defun git/init-orgit ()
   (use-package orgit
