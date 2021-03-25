@@ -6,4 +6,11 @@ If you are posting about a *bug* please close this issue and open a new one from
 
 If the bug makes Spacemacs unusable, you can find the bug report template [here](https://github.com/syl20bnr/spacemacs/blob/develop/core/templates/REPORTING.template).
 
+A few optional steps that might help:
+- Update `emacs` to latest stable release.
+- [Update](https://github.com/syl20bnr/spacemacs#update) `spacemacs`.
+- Update all emacs packages. 
+  -`M-x configuration-layer/update-packages`. When seeing the prompt, type `y` and then restart emacs with `SPC q r`.
+- ~~If you are on Windows, try to restart.~~
+  
 You can delete this message to start typing.
