@@ -274,7 +274,7 @@ Right justified, based on the Spacemacs buffers window width."
            (heart-size (when heart (car (image-size heart))))
            (build-lhs "Made with ")
            (build-rhs " by the community")
-           (proudly-free "Proudly free software ")
+           (proudly-free "Proudly free software")
            (gplv3-path spacemacs-gplv3-official-png)
            (gplv3 (when (and (display-graphic-p)
                              (image-type-available-p
@@ -300,10 +300,17 @@ Right justified, based on the Spacemacs buffers window width."
           (insert "\n"))
         (when gplv3
           (insert "\n")
-          (insert proudly-free)
+          (widget-create 'url-link
+                         :tag proudly-free
+                         :help-echo "What is free software?"
+                         :mouse-face 'highlight
+                         :follow-link "\C-m"
+                         "https://www.gnu.org/philosophy/free-sw.en.html")
+          (spacemacs-buffer//center-line (+ 2 (length proudly-free)))
+          (insert "\n\n")
           (insert-image gplv3)
-          (spacemacs-buffer//center-line (+ (length proudly-free)
-                                            gplv3-size)))))))
+          (spacemacs-buffer//center-line gplv3-size)
+          (insert "\n"))))))
 
 (defmacro spacemacs-buffer||notes-adapt-caption-to-width (caption
                                                           caption-length
