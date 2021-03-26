@@ -936,6 +936,8 @@ Other:
     - ~SPC F O~ (=dired-other-frame=)
     (thanks to Miciah Masters)
   - New key binding ~SPC f i~ for =insert-file=.
+  - New key binidng ~SPC f e I~ to open =early-init.el= file
+    (thanks to Sylvain Benner)
   - New ~SPC f e U~ to update packages (thanks to Codruț Constantin Gușoi)
   - New frame manipulation key bindings:
     - Added ~SPC F f~ for =find-file-other-frame=
