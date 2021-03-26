@@ -274,6 +274,7 @@ Right justified, based on the Spacemacs buffers window width."
            (heart-size (when heart (car (image-size heart))))
            (build-lhs "Made with ")
            (build-rhs " by the community")
+           (proudly-free "Proudly free software ")
            (gplv3-path spacemacs-gplv3-official-png)
            (gplv3 (when (and (display-graphic-p)
                              (image-type-available-p
@@ -299,8 +300,10 @@ Right justified, based on the Spacemacs buffers window width."
           (insert "\n"))
         (when gplv3
           (insert "\n")
+          (insert proudly-free)
           (insert-image gplv3)
-          (spacemacs-buffer//center-line gplv3-size))))))
+          (spacemacs-buffer//center-line (+ (length proudly-free)
+                                            gplv3-size)))))))
 
 (defmacro spacemacs-buffer||notes-adapt-caption-to-width (caption
                                                           caption-length
