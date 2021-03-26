@@ -502,6 +502,7 @@ In org-agenda-mode
     performance in emacs 27 (thanks to Maximilian Wolff)
   - New variable =dotspacemacs-show-trailing-whitespace= (thanks to duianto)
   - New var =dotspacemacs-startup-buffer-multi-digit-delay= (thanks to duianto)
+  - New variable =dotspacemacs-scroll-bar-while-scrolling= (thanks to duianto)
 - Removed Variables:
   - Removed unused variable =dotspacemacs-verbose-loading= from
     =.spacemacs.template= (thanks to Ying Qu)
