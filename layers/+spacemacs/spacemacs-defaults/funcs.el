@@ -825,6 +825,11 @@ variable."
   (interactive)
   (find-file-existing user-init-file))
 
+(defun spacemacs/find-user-early-init-file ()
+  "Edit the `early-init-file', in the current window."
+  (interactive)
+  (find-file-existing early-init-file))
+
 (defun spacemacs/find-dotfile ()
   "Edit the `dotfile', in the current window."
   (interactive)
