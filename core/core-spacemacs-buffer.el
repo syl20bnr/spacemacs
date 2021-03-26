@@ -708,7 +708,12 @@ REAL-WIDTH: the real width of the line.  If the line contains an image, the size
                  :mouse-face 'highlight
                  :follow-link "\C-m"
                  (propertize "Licensing" 'face 'font-lock-keyword-face))
-  (spacemacs-buffer//center-line)
+  (let ((len (- (line-end-position)
+                (line-beginning-position))))
+    (spacemacs-buffer//center-line)
+    (setq spacemacs-buffer--buttons-position (- (line-end-position)
+                                  (line-beginning-position)
+                                  len)))
   (insert "\n")
   (widget-create 'push-button
                  :help-echo "Update Spacemacs core and layers."
