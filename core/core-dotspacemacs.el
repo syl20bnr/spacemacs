@@ -500,6 +500,12 @@ screen."
   'boolean
   'spacemacs-dotspacemacs-init)
 
+(spacemacs|defc dotspacemacs-scroll-bar-while-scrolling t
+  "Show the scroll bar while scrolling. The auto hide time can be configured by
+setting this variable to a number."
+  '(choice boolean number)
+  'spacemacs-dotspacemacs-init)
+
 (spacemacs|defc dotspacemacs-line-numbers nil
   "Control line numbers activation.
 If set to `t' or `relative' line numbers are turned on in all `prog-mode' and

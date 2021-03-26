@@ -1437,6 +1437,7 @@ using a visual block/rectangle selection."
 (defun spacemacs//scroll-bar-hide ()
   " Hide the scroll bar."
   (scroll-bar-mode -1))
+
 (defun spacemacs//scroll-bar-show-delayed-hide (&rest _ignore)
   "Show the scroll bar for a couple of seconds, before hiding it.
 
@@ -1446,8 +1447,14 @@ This can be used to temporarily show the scroll bar when mouse wheel scrolling.
 The advice can be removed with:
 (advice-remove 'mwheel-scroll #'spacemacs//scroll-bar-show-delayed-hide)"
   (scroll-bar-mode 1)
-  (run-with-idle-timer 3 nil #'spacemacs//scroll-bar-hide))
-(when (fboundp 'scroll-bar-mode)
+  (run-with-idle-timer
+   (if (numberp dotspacemacs-scroll-bar-while-scrolling)
+       dotspacemacs-scroll-bar-while-scrolling
+     3)
+   nil
+   #'spacemacs//scroll-bar-hide))
+(when (and (fboundp 'scroll-bar-mode)
+           dotspacemacs-scroll-bar-while-scrolling)
   (advice-add 'mwheel-scroll :after #'spacemacs//scroll-bar-show-delayed-hide))
 
 ;; BEGIN linum mouse helpers
