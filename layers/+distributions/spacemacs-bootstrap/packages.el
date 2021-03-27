@@ -332,7 +332,8 @@
         ;; inject use-package hooks for easy customization of stock package
         ;; configuration
         use-package-inject-hooks t)
-  (add-to-list 'use-package-keywords :spacebind t))
+  (add-to-list 'use-package-keywords :spacebind t)
+  (add-to-list 'use-package-keywords :spacediminish t))
 
 (defun spacemacs-bootstrap/init-which-key ()
   (require 'which-key)
