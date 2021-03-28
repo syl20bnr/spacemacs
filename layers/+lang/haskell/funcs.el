@@ -32,6 +32,7 @@
 
 (defun spacemacs-haskell//setup-company ()
   "Conditionally setup haskell completion backend."
+  ;; nothing to do for lsp-mode, auto-configured to `company-capf`
   (when (eq haskell-completion-backend 'dante)
     (spacemacs-haskell//setup-dante-company)))
 
@@ -39,7 +40,7 @@
 ;; LSP functions
 
 (defun spacemacs-haskell//setup-lsp ()
-  "Setup lsp backend"
+  "Setup LSP backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
         ;; The functionality we require from this is not an autoload, but rather some
@@ -59,17 +60,38 @@
 (defun spacemacs-haskell//setup-dante-company ()
   (spacemacs|add-company-backends
     :backends (dante-company company-dabbrev-code company-yasnippet)
-    :modes haskell-mode))
+    :modes haskell-mode haskell-literate-mode))
 
-(defun spacemacs-haskell//dante-insert-type ()
+(defun spacemacs-haskell/dante-insert-type ()
+  "Insert the type of current selection or symbol at point in current buffer."
   (interactive)
   (dante-type-at :insert))
 
 
+;; commands
+(defun spacemacs/haskell-interactive-bring ()
+  "Bring up the interactive mode for this session without switching to it."
+  (interactive)
+  (let* ((session (haskell-session))
+         (buffer (haskell-session-interactive-buffer session)))
+    (display-buffer buffer)))
+
+(defun spacemacs/haskell-process-do-type-on-prev-line ()
+  "Print the type of the expression on previous line.."
+  (interactive)
+  (haskell-process-do-type 1))
+
+
 ;; misc
 
-(defun spacemacs-haskell//disable-electric-indent ()
-  "Disable electric indent mode if available"
+;; NOTE: when cheaper reloading function is available (like rust-analyzer's), use that instead
+(defun spacemacs//force-haskell-mode-loading ()
+  "Force `haskell-mode' loading when visiting cabal file."
+  (require 'haskell-mode))
+
+(defun spacemacs//haskell-disable-electric-indent ()
+  "Disable electric indent mode if available."
+  ;; Haskell cabal files interact badly with electric-indent-mode
   ;; use only internal indentation system from haskell
   (if (fboundp 'electric-indent-local-mode)
       (electric-indent-local-mode -1)))
