@@ -34,7 +34,7 @@
     php-auto-yasnippets
     (php-extras :location (recipe :fetcher github :repo "arnested/php-extras") :toggle (not (eq php-backend 'lsp)))
     php-mode
-    phpcbf
+    (phpcbf :location (recipe :fetcher github :repo "nishimaki10/emacs-phpcbf"))
     phpunit
     (phpactor :toggle (not (eq php-backend 'lsp)))
     (company-phpactor :requires company :toggle (not (eq php-backend 'lsp)))
