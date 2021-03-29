@@ -203,13 +203,6 @@ To use the latest built version in a cloned git repo, use the ~python-lsp-git-ro
 N.B. If you're using Arch linux or a derivative distribution, you can install the =microsoft-python-language-server=
 package from the AUR.
 
-If you're using the Nix package =python-language-server= (which is the Microsoft Python language server), you may also need to set the =lsp-python-ms-executable= variable:
-
-#+BEGIN_SRC elisp
-(defun dotspacemacs/user-config ()
-  (setq lsp-python-ms-executable (executable-find "python-language-server")))
-#+END_SRC
-
 *** Microsoft pyright language server
 [[https://github.com/microsoft/pyright][Pyright]] is a new language server by Microsoft rewritten from scratch. Microsoft
 python language server is planned to be deprecated in favor of pyright. Pyright
