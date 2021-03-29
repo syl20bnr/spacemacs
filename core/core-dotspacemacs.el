@@ -412,7 +412,7 @@ elements in the `kill-ring'."
 the which-key buffer will be shown if you have not completed a
 key sequence. Setting this variable is equivalent to setting
 `which-key-idle-delay'."
-  'float
+  'number
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-which-key-position 'bottom
@@ -489,7 +489,7 @@ can be toggled through `toggle-transparency'."
   "If non nil unicode symbols are displayed in the mode-line (eg. for lighters).
 If you use Emacs as a daemon and wants unicode characters only in GUI set
 the value to quoted `display-graphic-p'. (default t)"
-  '(choice boolean (connst display-graphic-p))
+  '(choice boolean (const display-graphic-p))
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-smooth-scrolling t
