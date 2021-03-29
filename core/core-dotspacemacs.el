@@ -412,7 +412,7 @@ elements in the `kill-ring'."
 the which-key buffer will be shown if you have not completed a
 key sequence. Setting this variable is equivalent to setting
 `which-key-idle-delay'."
-  'float
+  'number
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-which-key-position 'bottom
