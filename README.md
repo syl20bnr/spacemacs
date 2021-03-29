@@ -209,6 +209,13 @@ the default Source Code Pro font:
 
 ```sh
 brew tap homebrew/cask-fonts
+brew install --cask font-source-code-pro
+```
+
+or in older versions of homebrew
+
+```
+brew tap homebrew/cask-fonts
 brew cask install font-source-code-pro
 ```
 
