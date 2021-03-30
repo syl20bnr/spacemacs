@@ -63,13 +63,13 @@ under the derived mode t prefix by =(spacemacs/lsp-bind-keys-for-mode mode)=
 | Variable name                        | Default                              | Description                                                                                                     |
 |--------------------------------------+--------------------------------------+-----------------------------------------------------------------------------------------------------------------|
 | =lsp-headerline-breadcrumb-enable=   | t                                    | When non-nil, shows breadcrumb on headerline.                                                                   |
-| =lsp-headerline-breadcrumb-segments= | `'(path-up-to-project file symbols)' | Display the path to the root of project, the name of the current file, and also its symbols. See details below. |
+| =lsp-headerline-breadcrumb-segments= | ='(path-up-to-project file symbols)= | Display the path to the root of project, the name of the current file, and also its symbols. See details below. |
 | =lsp-lens-enable=                    | nil                                  | When non-nil, shows code lens when it's supported.                                                              |
 | =lsp-modeline-diagnostics-enable=    | t                                    | When non-nil, shows error diagnostics in modeline.                                                              |
-| =lsp-modeline-diagnostics-scope=     | `:project'                           | Displays all error statistcs per projects. See details below.                                                   |
+| =lsp-modeline-diagnostics-scope=     | =:project=                           | Displays all error statistcs per projects. See details below.                                                   |
 | =lsp-modeline-code-actions-enable=   | t                                    | When non-nil, shows available code actions in modeline.                                                         |
-| =lsp-modeline-code-actions-segments= | `'(count icon)'                      | Display the number of available code actions and an icon. See details below.                                    |
-| =lsp-navigation=                     | `both'                               | `simple' or `peek' to bind only xref OR lsp-ui-peek navigation functions.                                       |
+| =lsp-modeline-code-actions-segments= | ='(count icon)=                      | Display the number of available code actions and an icon. See details below.                                    |
+| =lsp-navigation=                     | ='both=                              | ~'simple~ or ~'peek~ to bind only xref OR lsp-ui-peek navigation functions.                                     |
 | =lsp-use-lsp-ui=                     | nil                                  | When non-nil, install lsp-ui package                                                                            |
 | =lsp-ui-remap-xref-keybindings=      | nil                                  | When non-nil, xref key bindings remapped to lsp-ui-peek-find-{definition,references}.                           |
 | =lsp-ui-doc-enable=                  | t                                    | When non-nil, the documentation overlay is displayed.                                                           |
@@ -219,7 +219,7 @@ The lsp minor mode bindings are:
 | ~SPC m g p~   | goto previous (~xref-pop-marker-stack~)                                          |
 |---------------+----------------------------------------------------------------------------------|
 | Note          | /Omitted when ~lsp-navigation~ is ~'peek~ or ~'simple~ /                         |
-|               | /Bound under ~SPC m g~ rather than ~SPC m G~ when ~lsp-navigation~ == ='peek=/   |
+|               | /Bound under ~SPC m g~ rather than ~SPC m G~ when ~lsp-navigation~ == ~'peek~/   |
 | ~SPC m G i~   | find implementation (=lsp-ui-peek=)                                              |
 | ~SPC m G d~   | find definitions (=lsp-ui-peek=)                                                 |
 | ~SPC m G r~   | find references (=lsp-ui-peek=)                                                  |
