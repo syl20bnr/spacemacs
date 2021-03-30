@@ -232,12 +232,13 @@
 
 (defun spacemacs//c-c++-setup-rtags-company ()
   "Setup rtags auto-completion."
-  (setq rtags-completions-enabled t)
-  (spacemacs|add-company-backends
-    :backends company-rtags
-    :modes c-mode-common
-    :append-hooks nil
-    :call-hooks t))
+  (when c-c++-enable-rtags-completion
+    (setq rtags-completions-enabled t)
+    (spacemacs|add-company-backends
+      :backends company-rtags
+      :modes c-mode-common
+      :append-hooks nil
+      :call-hooks t)))
 
 (defun spacemacs//c-c++-setup-rtags-flycheck ()
   "Setup rtags syntax checking."
