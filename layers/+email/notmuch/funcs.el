@@ -44,26 +44,43 @@
   (notmuch-search-previous-thread)
   (notmuch-search-previous-thread))
 
-(defun spacemacs//notmuch-message-delete (go-next)
+(defun spacemacs//notmuch-tree-message-delete (go-next)
+  "Delete message and select GO-NEXT message."
+  (notmuch-tree-tag notmuch-message-deleted-tags)
+  (if (eq 'up go-next)
+      (notmuch-tree-prev-thread)
+    (notmuch-tree-next-thread)))
+
+(defun spacemacs/notmuch-tree-message-delete-down ()
+  "Delete a message and select the next message."
+  (interactive)
+  (spacemacs//notmuch-tree-message-delete 'down))
+
+(defun spacemacs/notmuch-tree-message-delete-up ()
+  "Delete a message and select the previous message."
+  (interactive)
+  (spacemacs//notmuch-tree-message-delete 'up))
+
+(defun spacemacs//notmuch-search-message-delete (go-next)
   "Delete message and select GO-NEXT message."
   (notmuch-search-tag notmuch-message-deleted-tags)
   (if (eq 'up go-next)
       (notmuch-search-previous-thread)
     (notmuch-search-next-thread)))
 
+(defun spacemacs/notmuch-search-message-delete-down ()
+  "Delete a message and select the next message."
+  (interactive)
+  (spacemacs//notmuch-search-message-delete 'down))
+
+(defun spacemacs/notmuch-search-message-delete-up ()
+  "Delete a message and select the previous message."
+  (interactive)
+  (spacemacs//notmuch-search-message-delete 'up))
+
 (defun spacemacs/notmuch-show-as-patch ()
   (interactive)
   (notmuch-show-choose-mime-of-part "text/x-patch"))
-
-(defun spacemacs/notmuch-message-delete-down ()
-  "Delete a message and select the next message."
-  (interactive)
-  (spacemacs//notmuch-message-delete 'down))
-
-(defun spacemacs/notmuch-message-delete-up ()
-  "Delete a message and select the previous message."
-  (interactive)
-  (spacemacs//notmuch-message-delete 'up))
 
 (defun spacemacs/notmuch-show-close-all ()
   "Close all."
