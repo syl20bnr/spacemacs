@@ -72,7 +72,9 @@
     :eval-after-load archive-mode))
 
 (defun spacemacs-defaults/init-buffer-menu ()
-  (add-to-list 'spacemacs-evil-collection-allowed-list '(buff-menu "buff-menu")))
+  (with-eval-after-load 'evil-collection
+    (add-to-list
+     'spacemacs-evil-collection-allowed-list '(buff-menu "buff-menu"))))
 
 (defun spacemacs-defaults/init-bookmark ()
   (use-package bookmark
