@@ -127,8 +127,8 @@
         :bindings
         (kbd "N") 'notmuch-tree-next-message
         (kbd "P") 'notmuch-tree-prev-message
-        (kbd "d") 'spacemacs/notmuch-message-delete-down
-        (kbd "D") 'spacemacs/notmuch-message-delete-up
+        (kbd "d") 'spacemacs/notmuch-tree-message-delete-down
+        (kbd "D") 'spacemacs/notmuch-tree-message-delete-up
         (kbd "n") 'notmuch-tree-next-matching-message
         (kbd "p") 'notmuch-tree-prev-matching-message
         (kbd "M") 'compose-mail-other-frame)
@@ -137,8 +137,8 @@
         :bindings
         (kbd "a") 'spacemacs/notmuch-search-archive-thread-down
         (kbd "A") 'spacemacs/notmuch-search-archive-thread-up
-        (kbd "d") 'spacemacs/notmuch-message-delete-down
-        (kbd "D") 'spacemacs/notmuch-message-delete-up
+        (kbd "d") 'spacemacs/notmuch-search-message-delete-down
+        (kbd "D") 'spacemacs/notmuch-search-message-delete-up
         (kbd "J") 'notmuch-jump-search
         (kbd "L") 'notmuch-search-filter
         (kbd "gg") 'notmuch-search-first-thread
