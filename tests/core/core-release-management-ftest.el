@@ -1,6 +1,6 @@
 ;;; core-release-management-ftest.el --- Spacemacs Functional Test File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Alberto Zaccagni <me@lazywithclass.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

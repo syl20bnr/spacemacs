@@ -1,13 +1,25 @@
 ;;; funcs.el --- C/C++ Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (require 'cl-lib)
 (require 'subr-x)
@@ -220,12 +232,13 @@
 
 (defun spacemacs//c-c++-setup-rtags-company ()
   "Setup rtags auto-completion."
-  (setq rtags-completions-enabled t)
-  (spacemacs|add-company-backends
-    :backends company-rtags
-    :modes c-mode-common
-    :append-hooks nil
-    :call-hooks t))
+  (when c-c++-enable-rtags-completion
+    (setq rtags-completions-enabled t)
+    (spacemacs|add-company-backends
+      :backends company-rtags
+      :modes c-mode-common
+      :append-hooks nil
+      :call-hooks t)))
 
 (defun spacemacs//c-c++-setup-rtags-flycheck ()
   "Setup rtags syntax checking."

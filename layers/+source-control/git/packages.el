@@ -1,13 +1,25 @@
 ;;; packages.el --- Git Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (setq git-packages
       '(
@@ -34,6 +46,7 @@
         magit-svn
         org
         (orgit :requires org)
+        (orgit-forge :requires (org forge))
         smeargle
         transient))
 
@@ -294,6 +307,11 @@
 
 (defun git/init-orgit ()
   (use-package orgit
+    :defer t))
+
+(defun git/init-orgit-forge ()
+  (use-package orgit-forge
+    :after forge
     :defer t))
 
 (defun git/post-init-org ()

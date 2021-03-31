@@ -37,7 +37,7 @@ This layer adds support for the Scala language to Spacemacs.
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =scala= to the existing =dotspacemacs-configuration-layers= list in this
 file.
-+ To turn off the Metals tree view side bar, set =scala-auto-treeview= to =nil=.
++ To turn on the Metals tree view side bar, set =scala-auto-treeview= to =t=.
 + To display SBT in a small buffer at the bottom of the frame, set the
   =scala-sbt-window-position= layer variable to =bottom=.
 
@@ -60,6 +60,9 @@ where =0.9.8= can be replaced with the current version of [[https://scalameta.or
     -r sonatype:snapshots \
     -o /usr/local/bin/metals-emacs -f
 #+END_SRC
+
+Notice that the layer by default overwrites Metals-scala tree view to nil.
+This to avoid issues with buffers when rendering VSCode like view, issue described [[https://github.com/syl20bnr/spacemacs/pull/14470][Here]].
 
 You will then have the common LSP key bindings; see
 [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/lsp#key-bindings][LSP#key-bindings]] for more details.

@@ -92,6 +92,7 @@ Send code to inferior process with these commands:
 | ~SPC m s F~ | send function and focus REPL                         |
 | ~SPC m s l~ | send line and keep code buffer focused               |
 | ~SPC m s L~ | send line and focus REPL                             |
+| ~SPC m s Q~ | quit REPL                                            |
 | ~SPC m s r~ | send region and keep code buffer focused             |
 | ~SPC m s R~ | send region and focus REPL                           |
 

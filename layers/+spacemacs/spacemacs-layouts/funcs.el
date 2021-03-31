@@ -1,13 +1,25 @@
 ;;; funcs.el --- Spacemacs Layouts Layer functions File -*- lexical-binding: t; -*-
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 
 ;; General Persp functions
@@ -278,36 +290,36 @@ Available PROPS:
   One or several EXPRESSIONS that are going to be evaluated after
   we change into the perspective NAME."
   (declare (indent 1))
-  (let* ((name (if (symbolp name)
-                   (symbol-value name)
-                 name))
-         (func (spacemacs//custom-layout-func-name name))
-         (binding-prop (car (spacemacs/mplist-get-values props :binding)))
-         (binding (if (symbolp binding-prop)
-                      (symbol-value binding-prop)
-                    binding-prop))
-         (body (spacemacs/mplist-get-values props :body))
-         (already-defined? (cdr (assoc binding
-                                       spacemacs--custom-layout-alist))))
-    `(progn
-       (defun ,func ()
-         ,(format "Open custom perspective %s" name)
-         (interactive)
-         (let ((initialize (not (gethash ,name *persp-hash*))))
-           (persp-switch ,name)
-           (when initialize
-             (delete-other-windows)
-             ,@body)))
-       ;; Check for Clashes
-       (if ,already-defined?
-           (unless (equal ,already-defined? ,name)
-             (spacemacs-buffer/message "Replacing existing binding \"%s\" for %s with %s"
-                                       ,binding ,already-defined? ,name)
-             (setq spacemacs--custom-layout-alist
-                   (delete (assoc ,binding spacemacs--custom-layout-alist)
-                           spacemacs--custom-layout-alist))
-             (push '(,binding . ,name) spacemacs--custom-layout-alist))
-         (push '(,binding . ,name) spacemacs--custom-layout-alist)))))
+  (when-let* ((name (if (symbolp name)
+                        (and (boundp name) (symbol-value name))
+                      name))
+              (binding-prop (car (spacemacs/mplist-get-values props :binding)))
+              (binding (if (symbolp binding-prop)
+                           (and (boundp binding-prop) (symbol-value binding-prop))
+                         binding-prop)))
+    (let* ((func (spacemacs//custom-layout-func-name name))
+           (body (spacemacs/mplist-get-values props :body))
+           (already-defined? (cdr (assoc binding
+                                         spacemacs--custom-layout-alist))))
+      `(progn
+         (defun ,func ()
+           ,(format "Open custom perspective %s" name)
+           (interactive)
+           (let ((initialize (not (gethash ,name *persp-hash*))))
+             (persp-switch ,name)
+             (when initialize
+               (delete-other-windows)
+               ,@body)))
+         ;; Check for Clashes
+         (if ,already-defined?
+             (unless (equal ,already-defined? ,name)
+               (spacemacs-buffer/message "Replacing existing binding \"%s\" for %s with %s"
+                                         ,binding ,already-defined? ,name)
+               (setq spacemacs--custom-layout-alist
+                     (delete (assoc ,binding spacemacs--custom-layout-alist)
+                             spacemacs--custom-layout-alist))
+               (push '(,binding . ,name) spacemacs--custom-layout-alist))
+           (push '(,binding . ,name) spacemacs--custom-layout-alist))))))
 
 (defun spacemacs/select-custom-layout ()
   "Update the custom-perspectives transient-state and then activate it."

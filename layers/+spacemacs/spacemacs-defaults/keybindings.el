@@ -1,13 +1,25 @@
 ;;; keybindings.el --- Spacemacs Defaults Layer key-bindings File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 ;; ---------------------------------------------------------------------------
 ;; Prefixes
@@ -113,6 +125,10 @@
 (define-key minibuffer-local-completion-map (kbd "<escape>") 'keyboard-escape-quit)
 (define-key minibuffer-local-must-match-map (kbd "<escape>") 'keyboard-escape-quit)
 (define-key minibuffer-local-isearch-map (kbd "<escape>") 'keyboard-escape-quit)
+
+;; Also bind C-n C-p in minibuffer
+(define-key minibuffer-local-map (kbd "C-n") 'next-line-or-history-element)
+(define-key minibuffer-local-map (kbd "C-p") 'previous-line-or-history-element)
 
 ;; linum margin bindings-------------------------------------------------------
 (global-set-key (kbd "<left-margin> <down-mouse-1>") 'spacemacs/md-select-linum)
@@ -382,15 +398,18 @@
     ("y" spacemacs/copy-file-path "File path")
     ("b" spacemacs/copy-buffer-name "Buffer name")))))
 ;; frame ----------------------------------------------------------------------
-(spacemacs/set-leader-keys
-  "Ff" 'spacemacs/find-file-other-frame
-  "Fd" 'delete-frame
-  "FD" 'delete-other-frames
-  "Fb" 'spacemacs/switch-to-buffer-other-frame
-  "FB" 'spacemacs/display-buffer-other-frame
-  "Fo" 'other-frame
-  "FO" 'spacemacs/dired-other-frame
-  "Fn" 'make-frame)
+(spacemacs|spacebind
+ "Frames"
+ :global
+ (("F" "Frames"
+   ("f" spacemacs/find-file-other-frame "Find file other frame...")
+   ("d" delete-frame "Delete frame")
+   ("D" delete-other-frames "Delete other frames")
+   ("b" spacemacs/switch-to-buffer-other-frame "Switch to buffer other frame...")
+   ("B" spacemacs/display-buffer-other-frame "Display buffer other frame...")
+   ("o" other-frame "Switch to other frame")
+   ("O" spacemacs/dired-other-frame "Dired other frame...")
+   ("n" make-frame "Make frame"))))
 ;; help -----------------------------------------------------------------------
 (defalias 'emacs-tutorial 'help-with-tutorial)
 (spacemacs/set-leader-keys

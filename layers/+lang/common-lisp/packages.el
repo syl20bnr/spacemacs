@@ -1,13 +1,25 @@
 ;;; packages.el --- Common Lisp Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (setq common-lisp-packages
       '(
@@ -22,8 +34,8 @@
         parinfer
         rainbow-identifiers
         slime
-        (slime-company :requires company)
-        ))
+        (slime-company :requires company)))
+
 
 (defun common-lisp/post-init-auto-highlight-symbol ()
   (with-eval-after-load 'auto-highlight-symbol
@@ -90,12 +102,7 @@
       ;; enable fuzzy matching in code buffer and SLIME REPL
       (setq slime-complete-symbol*-fancy t)
       (setq slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
-      ;; enabel smartparen in code buffer and SLIME REPL
-      ;; (add-hook 'slime-repl-mode-hook #'smartparens-strict-mode)
-      (defun slime/disable-smartparens ()
-        (smartparens-strict-mode -1)
-        (turn-off-smartparens-mode))
-      (add-hook 'slime-repl-mode-hook #'slime/disable-smartparens)
+      (add-hook 'slime-repl-mode-hook #'spacemacs//deactivate-smartparens)
       (spacemacs/add-to-hooks 'slime-mode '(lisp-mode-hook)))
     :config
     (progn
@@ -150,8 +157,8 @@
         ;; Add key bindings for custom eval functions
         "ec" 'spacemacs/cl-eval-current-form-sp
         "eC" 'spacemacs/cl-eval-current-form
-        "es" 'spacemacs/cl-eval-current-symbol-sp
-        )
+        "es" 'spacemacs/cl-eval-current-symbol-sp)
+
       ;; prefix names for which-key
       (mapc (lambda (x)
               (spacemacs/declare-prefix-for-mode 'lisp-mode (car x) (cdr x)))

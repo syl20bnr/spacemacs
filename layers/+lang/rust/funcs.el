@@ -1,13 +1,25 @@
 ;;; funcs.el --- rust Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: NJBS <DoNotTrackMeUsingThis@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defun spacemacs//rust-backend ()
   "Returns selected backend."
@@ -40,6 +52,12 @@
   (message (concat "`lsp' layer is not installed, "
                    "please add `lsp' layer to your dotfile.")))
 
+(defun spacemacs//lsp-rust-switch-server ()
+  "Switch between rust-analyzer and rls."
+  (interactive)
+  (lsp-rust-switch-server)
+  (call-interactively 'lsp-workspace-restart))
+
 (defun spacemacs//rust-setup-lsp ()
   "Setup lsp backend"
   (if (configuration-layer/layer-used-p 'lsp)
@@ -47,12 +65,24 @@
         (lsp)
         (spacemacs/declare-prefix-for-mode 'rust-mode "ms" "switch")
         (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-          "ss" 'lsp-rust-switch-server))
+          "ss" 'spacemacs//lsp-rust-switch-server
+          "bR" 'spacemacs//lsp-rust-analyzer-reload-workspace))
     (spacemacs//lsp-layer-not-installed-message)))
 
 (defun spacemacs//rust-setup-lsp-dap ()
   "Setup DAP integration."
   (require 'dap-gdb-lldb))
+
+(defun spacemacs//lsp-rust-analyzer-reload-workspace ()
+  (interactive)
+  (if (->> (lsp-workspaces)
+        (mapcar 'lsp--workspace-client)
+        (mapcar 'lsp--client-server-id)
+        (member 'rust-analyzer))
+      (progn
+        (lsp-rust-analyzer-reload-workspace)
+        (message "Reloaded workspace"))
+    (message "RLS reloads automatically, and doesn't require an explicit reload")))
 
 
 ;; racer

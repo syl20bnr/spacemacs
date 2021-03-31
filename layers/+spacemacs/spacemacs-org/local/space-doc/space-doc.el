@@ -1,6 +1,6 @@
 ;;; space-doc.el --- Spacemacs org minor mode. -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -23,14 +23,26 @@
 ;; file:~/.emacs.d/layers/org/README.org::*links
 ;; Also the `space-doc' mode will be applied.
 
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 ;;; Code:
 (require 'face-remap)
 (require 'org)
 (require 'org-compat)
 
 (defgroup space-doc nil "Minor mode for viewing Spacemacs documentation files."
-  :group 'convenience)
+  :group 'spacemacs)
 
 ;; NOTE: Dont forget to update Spacemacs FAQ if you modify this list!
 (defcustom spacemacs-space-doc-modificators

@@ -87,8 +87,15 @@ Tips:
 - You'll probably want to use =pdf-view-set-slice-from-bounding-box= (bound to
   ~SPC m s b~) This command trims the blank parts of the
   lateral margins, making the useful portion larger.
-- The last visited page is not saved across Emacs sessions. If you want save it,
-  use the bookmarks commands on ~SPC j b~ to save and go to a bookmark.
+- The layer uses the package [[https://github.com/007kevin/pdf-view-restore][pdf-view-restore]] to store and restore last-visited
+
+pages. By default the information is stored in the directory of the viewed
+document (so it can get lost if you use e.g. [[https://calibre-ebook.com/][Calibre]] / [[https://github.com/chenyanming/calibredb.el][calibredb.el]] for your
+document management). If you would like the information to get stored in a
+different location then [[https://github.com/chenyanming/calibredb.el][set the variable]] =pdf-view-restore-filename= to the path
+of the filename to use. Alternatively you can (additionally) use Emacs its
+[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Bookmarks.html][bookmarks]] system to store and revisit (=SPC f b= for both) any location
+manually.
 
 * Known Issues
 Due to =image-mode=’s behaviour, the =pdf-tools= buffer might go back to the
