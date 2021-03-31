@@ -26,6 +26,7 @@
         (abbrev :location built-in)
         (archive-mode :location built-in)
         (bookmark :location built-in)
+        (buffer-menu :location built-in)
         (conf-mode :location built-in)
         (cus-edit :location built-in
                   :toggle (or (eq 'vim dotspacemacs-editing-style)
@@ -69,6 +70,9 @@
   (evilified-state-evilify-map archive-mode-map
     :mode archive-mode
     :eval-after-load archive-mode))
+
+(defun spacemacs-defaults/init-buffer-menu ()
+  (add-to-list 'spacemacs-evil-collection-allowed-list '(buff-menu "buff-menu")))
 
 (defun spacemacs-defaults/init-bookmark ()
   (use-package bookmark
