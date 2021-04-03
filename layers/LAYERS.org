@@ -183,6 +183,7 @@
   - [[#elfeed][Elfeed]]
   - [[#epub][Epub]]
   - [[#pdf][PDF]]
+  - [[#pocket][Pocket]]
   - [[#speed-reading][Speed Reading]]
 - [[#readmeorg-files-that-need-proper-tags][README.org files that need proper tags]]
   - [[#languagetool][LanguageTool]]
@@ -2450,6 +2451,26 @@ Features:
 - Show document headings in outline buffer.
 - Manipulate annotations.
 - Fit PDF to screen.
+
+** Pocket
+[[file:+readers/pocket/README.org]]
+
+This layer adds [[https://getpocket.com/][Pocket]] support to Spacemacs via the package
+[[https://github.com/alphapapa/pocket-reader.el][pocket-reader]].
+
+#+begin_quote
+This is a client for Pocket (getpocket.com). It allows you to manage
+your reading list: add, remove, delete, tag, view, favorite,
+etc. Doing so in Emacs with the keyboard is fast and efficient. Links
+can be opened in Emacs with any function, or in external browsers, and
+specific sites/URLs can be opened with specific browser
+functions. Views can be sorted by date, title, domain, tags, favorite,
+etc, and “limited” mutt-style. Items can be searched for using
+keywords, tags, favorite status, unread/archived status, etc. Items
+can optionally be colorized by site, making it easy to tell which
+items come from different sites. Items are grouped depending on the
+sort column.
+#+end_quote
 
 ** Speed Reading
 [[file:+readers/speed-reading/README.org][+readers/speed-reading/README.org]]
