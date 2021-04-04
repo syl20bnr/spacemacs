@@ -3055,6 +3055,7 @@ files (thanks to Daniel Nicolai)
   - Added LSP support, which can be used by enabling the =lsp= layer and setting
     the =php= layer's =php-backend= variable to =lsp=
     (thanks to Daniel Richtmann)
+  - Fix packages missed in Melpa (thanks to zebradil)
 **** PlantUML
 - Added a missing prefix: =compile= (thanks to Seong Yong-ju)
 - Added instructions for compiling the image locally by setting
