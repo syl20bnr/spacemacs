@@ -215,7 +215,7 @@
           "dt"  'haskell-debug/trace
 
           "ri"  'spacemacs/haskell-format-imports)
-        (if (eq haskell-backend 'lsp)
+        (if (eq haskell-completion-backend 'lsp)
             (spacemacs/set-leader-keys-for-major-mode mode
               "gl"  'haskell-navigate-imports
               "S"   'haskell-mode-stylish-buffer
