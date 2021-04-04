@@ -90,8 +90,10 @@
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
         (require (pcase python-lsp-server
+                   ('pyls 'lsp-pyls)
                    ('mspyls 'lsp-python-ms)
-                   ('pyright 'lsp-pyright)))
+                   ('pyright 'lsp-pyright)
+                   (x (user-error "Unknown value for `python-lsp-server': %s" x))))
         (lsp))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
