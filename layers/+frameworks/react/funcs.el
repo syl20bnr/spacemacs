@@ -62,7 +62,7 @@
 ;; Others
 (defun spacemacs//javascript-jsx-file-p ()
   "Enable rjsx mode by using magic-mode-alist."
-  (when-let* ((buffer-file-name))
+  (when buffer-file-name
     (and (memq (file-name-extension buffer-file-name) '("js" "jsx"))
          (re-search-forward "\\(^\\s-*import React\\|\\( from \\|require(\\)[\"']react\\)"
                             magic-mode-regexp-match-limit t)
