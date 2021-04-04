@@ -21,9 +21,10 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(when (fboundp 'spacemacs//c-c++-backend)
-  (pcase (spacemacs//c-c++-backend)
-    (`lsp-clangd (configuration-layer/declare-layer-dependencies '(lsp dap)))
-    (`lsp-ccls (configuration-layer/declare-layer-dependencies '(lsp dap)))
-    (`rtags (configuration-layer/declare-layer-dependencies '(ggtags)))
-    (`ycmd (configuration-layer/declare-layer-dependencies '(ycmd)))))
+(when (boundp 'c-c++-backend)
+  (configuration-layer/declare-layer-dependencies
+   (pcase c-c++-backend
+     ('lsp-clangd '(lsp dap))
+     ('lsp-ccls '(lsp dap))
+     ('rtags '(ggtags))
+     ('ycmd '(ycmd)))))
