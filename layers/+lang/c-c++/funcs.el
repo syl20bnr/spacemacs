@@ -24,50 +24,58 @@
 (require 'cl-lib)
 (require 'subr-x)
 
+(defun spacemacs//c-c++-backend ()
+  "Returns selected backend."
+  (if c-c++-backend
+      c-c++-backend
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp-clangd)
+     (t nil))))
+
 (defun spacemacs//c-c++-setup-backend ()
   "Conditionally setup c-c++ backend."
-  (pcase c-c++-backend
-    ('lsp-clangd (spacemacs//c-c++-setup-lsp-clangd))
-    ('lsp-ccls (spacemacs//c-c++-setup-lsp-ccls))
-    ('rtags (spacemacs//c-c++-setup-rtags))
-    ('ycmd (spacemacs//c-c++-setup-ycmd))))
+  (pcase (spacemacs//c-c++-backend)
+    (`lsp-clangd (spacemacs//c-c++-setup-lsp-clangd))
+    (`lsp-ccls (spacemacs//c-c++-setup-lsp-ccls))
+    (`rtags (spacemacs//c-c++-setup-rtags))
+    (`ycmd (spacemacs//c-c++-setup-ycmd))))
 
 (defun spacemacs//c-c++-setup-company ()
   "Conditionally setup C/C++ company integration based on backend."
-  (pcase c-c++-backend
-    ('rtags (spacemacs//c-c++-setup-rtags-company))
-    ('ycmd (spacemacs//c-c++-setup-ycmd-company))))
+  (pcase (spacemacs//c-c++-backend)
+    (`rtags (spacemacs//c-c++-setup-rtags-company))
+    (`ycmd (spacemacs//c-c++-setup-ycmd-company))))
 
 (defun spacemacs//c-c++-setup-dap ()
   "Conditionally setup C/C++ DAP integration based on backend."
   ;; currently DAP is only available using LSP
-  (pcase c-c++-backend
-    ('lsp-clangd (spacemacs//c-c++-setup-lsp-dap))
-    ('lsp-ccls (spacemacs//c-c++-setup-lsp-dap))))
+  (pcase (spacemacs//c-c++-backend)
+    (`lsp-clangd (spacemacs//c-c++-setup-lsp-dap))
+    (`lsp-ccls (spacemacs//c-c++-setup-lsp-dap))))
 
 (defun spacemacs//c-c++-setup-eldoc ()
   "Conditionally setup C/C++ eldoc integration based on backend."
-  ;; lsp setup eldoc on its own
-  (when (eq c-c++-backend 'ycmd)
-    (spacemacs//c-c++-setup-ycmd-eldoc)))
+  (pcase (spacemacs//c-c++-backend)
+    ;; lsp setup eldoc on its own
+    (`ycmd (spacemacs//c-c++-setup-ycmd-eldoc))))
 
 (defun spacemacs//c-c++-setup-flycheck ()
   "Conditionally setup C/C++ flycheck integration based on backend."
-  (pcase c-c++-backend
-    ('rtags (spacemacs//c-c++-setup-rtags-flycheck))
-    ('ycmd (spacemacs//c-c++-setup-ycmd-flycheck))))
+  (pcase (spacemacs//c-c++-backend)
+    (`rtags (spacemacs//c-c++-setup-rtags-flycheck))
+    (`ycmd (spacemacs//c-c++-setup-ycmd-flycheck))))
 
 (defun spacemacs//c-c++-setup-format ()
   "Conditionally setup format based on backend."
-  (pcase c-c++-backend
-    ('lsp-clangd (spacemacs//c-c++-setup-clang-format))
-    ('lsp-ccls (spacemacs//c-c++-setup-clang-format))))
+  (pcase (spacemacs//c-c++-backend)
+    (`lsp-clangd (spacemacs//c-c++-setup-clang-format))
+    (`lsp-ccls (spacemacs//c-c++-setup-clang-format))))
 
 (defun spacemacs//c-c++-setup-semantic ()
   "Conditionally setup semantic based on backend."
-  (pcase c-c++-backend
-    ('rtags (spacemacs//c-c++-setup-rtags-semantic))
-    ('ycmd (spacemacs//c-c++-setup-ycmd-semantic))))
+  (pcase (spacemacs//c-c++-backend)
+    (`rtags (spacemacs//c-c++-setup-rtags-semantic))
+    (`ycmd (spacemacs//c-c++-setup-ycmd-semantic))))
 
 
 ;; lsp
@@ -80,7 +88,7 @@
   (spacemacs/lsp-define-extensions
    "c-c++" "lsp-clangd"
    'clangd-other-file "textDocument/switchSourceHeader" 'buffer-file-name)
-  (setq-local lsp-disabled-clients '(ccls))
+  (set (make-local-variable 'lsp-disabled-clients) '(ccls))
   (lsp))
 
 ;; ccls
@@ -164,7 +172,7 @@
 
   ;;(evil-set-initial-state 'ccls--tree-mode 'emacs)
   ;;(evil-make-overriding-map 'ccls-tree-mode-map)
-  (setq-local lsp-disabled-clients '(clangd))
+  (set (make-local-variable 'lsp-disabled-clients) '(clangd))
   (lsp))
 
 (defun spacemacs//c-c++-setup-lsp-dap ()
@@ -216,7 +224,7 @@
       "gS" 'rtags-display-summary
       "gt" 'rtags-symbol-type
       "gT" 'rtags-taglist
-      "gu" 'rtags-dependency-tree
+      "gu" 'rtags-dependency-tree 
       "gv" 'rtags-find-virtuals-at-point
       "gV" 'rtags-print-enum-value-at-point
       "gX" 'rtags-fix-fixit-at-point
@@ -361,8 +369,9 @@
         (progn
           (clang-format-region (region-beginning) (region-end) style)
           (message "Formatted region"))
+      (progn
         (clang-format-buffer style)
-        (message "Formatted buffer %s" (buffer-name)))))
+        (message "Formatted buffer %s" (buffer-name))))))
 
 (defun spacemacs//clang-format-on-save ()
   "Format the current buffer with clang-format on save when
