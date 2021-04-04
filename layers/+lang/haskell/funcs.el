@@ -24,16 +24,25 @@
 
 ;; Completion setup functions
 
+(defun spacemacs//haskell-backend ()
+  "Returns selected backend."
+  (if haskell-completion-backend
+      haskell-completion-backend
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t 'dante))))
+
 (defun spacemacs-haskell//setup-backend ()
   "Conditionally setup haskell backend."
-  (pcase haskell-backend
-    ('lsp (spacemacs-haskell//setup-lsp))
-    ('dante (spacemacs-haskell//setup-dante))))
+  (pcase (spacemacs//haskell-backend)
+    (`lsp (spacemacs-haskell//setup-lsp))
+    (`dante (spacemacs-haskell//setup-dante))))
 
 (defun spacemacs-haskell//setup-company ()
   "Conditionally setup haskell completion backend."
-  (when (eq haskell-backend 'dante)
-    (spacemacs-haskell//setup-dante-company)))
+  (pcase (spacemacs//haskell-backend)
+    (`lsp nil) ;; nothing to do, auto-configured by lsp-mode
+    (`dante (spacemacs-haskell//setup-dante-company))))
 
 
 ;; LSP functions
