@@ -26,13 +26,13 @@
 
 (defun spacemacs-haskell//setup-backend ()
   "Conditionally setup haskell backend."
-  (pcase haskell-backend
+  (pcase haskell-completion-backend
     ('lsp (spacemacs-haskell//setup-lsp))
     ('dante (spacemacs-haskell//setup-dante))))
 
 (defun spacemacs-haskell//setup-company ()
   "Conditionally setup haskell completion backend."
-  (when (eq haskell-backend 'dante)
+  (when (eq haskell-completion-backend 'dante)
     (spacemacs-haskell//setup-dante-company)))
 
 
