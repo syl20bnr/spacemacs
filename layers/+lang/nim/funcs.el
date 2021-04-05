@@ -23,11 +23,15 @@
 
 (defun spacemacs//nim-setup-company ()
   "Conditionally setup company based on backend."
-  (spacemacs|add-company-backends
-   :backends (pcase nim-backend
-              ('lsp 'company-capf)
-              ('company-nim 'company-nimsuggest))
-   :modes nim-mode nimscript-mode))
+  (pcase nim-backend
+    ('lsp
+     (spacemacs|add-company-backends ;; Activate lsp company explicitly to activate
+       :backends company-capf        ;; standard backends as well
+       :modes nim-mode nimscript-mode))
+    ('company-nim
+     (spacemacs|add-company-backends
+       :backends company-nimsuggest
+       :modes nim-mode nimscript-mode))))
 
 (defun spacemacs//nim-setup-backend ()
   "Conditionally setup nim backend."
