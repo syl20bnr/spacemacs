@@ -29,17 +29,56 @@ jobs:
           - layers/+distribution/spacemacs-base
           - layers/+distribution/spacemacs
     steps:
+# Installing Emacs on Unix
     - name: Install Emacs on UNIX
+      continue-on-error: true
+      id: unix-install-1
       uses: purcell/setup-emacs@master
       with:
         version: ${{ matrix.emacs_version }}
       if: ${{ matrix.os != 'windows-latest' }}
 
+    - name: Install Emacs on UNIX [retry 1]
+      continue-on-error: true
+      id: unix-install-2
+      uses: purcell/setup-emacs@master
+      with:
+        version: ${{ matrix.emacs_version }}
+      if: ${{ matrix.os != 'windows-latest' && steps.unix-install-1.outcome == 'failure' }}
+
+    - name: Install Emacs on UNIX [retry 2]
+      continue-on-error: false
+      id: unix-install-3
+      uses: purcell/setup-emacs@master
+      with:
+        version: ${{ matrix.emacs_version }}
+      if: ${{ matrix.os != 'windows-latest' && steps.unix-install-2.outcome == 'failure' }}
+
+# Installing Emacs on Windows
     - name: Install Emacs on Windows
+      continue-on-error: true
+      id: windows-install-1
       uses: jcs090218/setup-emacs-windows@master
       with:
         version: ${{ matrix.emacs_version }}
       if: ${{ matrix.os == 'windows-latest' }}
+
+    - name: Install Emacs on Windows [retry 1]
+      continue-on-error: true
+      id: windows-install-2
+      uses: jcs090218/setup-emacs-windows@master
+      with:
+        version: ${{ matrix.emacs_version }}
+      if: ${{ matrix.os == 'windows-latest' && steps.windows-install-1.outcome == 'failure' }}
+
+    - name: Install Emacs on Windows [retry 2]
+      continue-on-error: false
+      id: windows-install-3
+      uses: jcs090218/setup-emacs-windows@master
+      with:
+        version: ${{ matrix.emacs_version }}
+      if: ${{ matrix.os == 'windows-latest' && steps.windows-install-2.outcome == 'failure' }}
+# ---------------------------
 
     - uses: actions/checkout@v2
 
