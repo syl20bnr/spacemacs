@@ -28,10 +28,12 @@
 
 (defun spacemacs//purescript-setup-company ()
   "Conditionally setup company based on backend."
-  (spacemacs|add-company-backends
-    :backends (pcase purescript-backend
-                ;; Activate lsp company explicitly to activate
-                ;; standard backends as well
-                ('lsp 'company-capf)
-                ('psc-ide 'company-psc-ide-backend))
-    :modes 'purescript-mode))
+  (pcase purescript-backend
+    ('lsp
+     (spacemacs|add-company-backends ;; Activate lsp company explicitly to activate
+       :backends company-capf        ;; standard backends as well
+       :modes purescript-mode))
+    ('psc-ide
+     (spacemacs|add-company-backends
+       :backends company-psc-ide-backend
+       :modes purescript-mode))))
