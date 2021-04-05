@@ -28,11 +28,15 @@
 
 (defun spacemacs//lua-setup-company ()
   "Conditionally setup company based on backend."
-  (spacemacs|add-company-backends
-    :backends (pcase lua-backend
-                ('lua-mode 'company-lua)
-                ('lsp 'company-capf))
-    :modes lua-mode))
+  (pcase lua-backend
+    ('lua-mode
+     (spacemacs|add-company-backends
+       :backends company-lua
+       :modes lua-mode))
+    ('lsp
+     (spacemacs|add-company-backends
+       :backends company-capf
+       :modes lua-mode))))
 
 
 ;; LSP Lua
