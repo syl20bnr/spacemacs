@@ -23,13 +23,15 @@
 
 (defun spacemacs//cmake-setup-company ()
   "Conditionally setup company based on backend."
-  (spacemacs|add-company-backends
-    :backends (pcase cmake-backend
-                ;; Activate lsp company explicitly to activate
-                ;; standard backends as well
-                ('lsp 'company-capf)
-                ('company-cmake 'company-cmake))
-    :modes cmake-mode))
+  (pcase cmake-backend
+    ('lsp
+     (spacemacs|add-company-backends ;; Activate lsp company explicitly to activate
+       :backends company-capf        ;; standard backends as well
+       :modes cmake-mode))
+    ('company-cmake
+     (spacemacs|add-company-backends
+       :backends company-cmake
+       :modes cmake-mode))))
 
 (defun spacemacs//cmake-setup-backend ()
   "Conditionally setup cmake backend."
