@@ -23,13 +23,15 @@
 
 (defun spacemacs//terraform-setup-company ()
   "Conditionally setup company based on backend."
-  (spacemacs|add-company-backends
-    :backends (pcase terraform-backend
-                ('company-terraform 'company-terraform)
-                ;; Activate lsp company explicitly to activate
-                ;; standard backends as well
-                ('lsp 'company-capf))
-    :modes terraform-mode))
+  (pcase terraform-backend
+    ('lsp
+     (spacemacs|add-company-backends ;; Activate lsp company explicitly to activate
+       :backends company-capf        ;; standard backends as well
+       :modes terraform-mode))
+    ('company-terraform
+     (spacemacs|add-company-backends
+       :backends company-terraform
+       :modes terraform-mode))))
 
 (defun spacemacs//terraform-setup-backend ()
   "Conditionally setup terraform backend."
