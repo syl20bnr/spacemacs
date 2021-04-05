@@ -1,6 +1,6 @@
 #+TITLE: Pocket layer
 
-#+TAGS: layer|reader
+#+TAGS: layer|web service
 
 [[file:img/pocket.png]]
 
@@ -10,6 +10,7 @@
 - [[#install][Install]]
 - [[#authentication][Authentication]]
 - [[#key-bindings][Key bindings]]
+  - [[#bindings-in-pocket-reader-buffer][Bindings in pocket-reader buffer]]
 
 * Description
 This layer adds [[https://getpocket.com/][Pocket]] support to Spacemacs via the package
@@ -43,6 +44,11 @@ authorization completed by checking the file
 | Key binding | Description                                                       |
 |-------------+-------------------------------------------------------------------|
 | ~SPC a w p~ | Open pocket-reader buffer                                         |
+
+** Bindings in pocket-reader buffer
+
+| Key binding | Description                                                       |
+|-------------+-------------------------------------------------------------------|
 | ~RET~       | Open with default browse function                                 |
 | ~TAB~       | Open with default pop-to function                                 |
 | ~b~         | Open with external browser function                               |

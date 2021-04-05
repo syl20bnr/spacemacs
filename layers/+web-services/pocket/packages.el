@@ -26,7 +26,7 @@
 (defun pocket/init-pocket-reader ()
   (use-package pocket-reader
     :defer t
-    :init (spacemacs/set-leader-keys "arp" 'pocket-reader)
+    :init (spacemacs/set-leader-keys "awp" 'pocket-reader)
     :config
     (progn
       (evilified-state-evilify-map pocket-reader-mode-map
