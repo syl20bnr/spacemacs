@@ -23,13 +23,15 @@
 
 (defun spacemacs//perl5-setup-company ()
   "Conditionally setup company based on backend."
-  (spacemacs|add-company-backends
-    :backends (pcase perl5-backend
-                ;; Activate lsp company explicitly to activate
-                ;; standard backends as well
-                ('lsp 'company-capf)
-                ('company-plsense 'company-plsense))
-    :modes cperl-mode))
+  (pcase perl5-backend
+    ('lsp
+     (spacemacs|add-company-backends ;; Activate lsp company explicitly to activate
+       :backends 'company-capf       ;; standard backends as well
+       :modes cperl-mode))
+    ('company-plsense
+     (spacemacs|add-company-backends
+       :backends 'company-plsense
+       :modes cperl-mode))))
 
 (defun spacemacs//perl5-setup-backend ()
   "Conditionally setup perl5 backend."
