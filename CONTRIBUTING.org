@@ -179,21 +179,34 @@ variable =dotspacemacs-additional-packages=.
 The file header for =elisp= files should look like the following template:
 
 #+BEGIN_EXAMPLE
-  ;;; FILENAME --- NAME Layer packages File for Spacemacs
+
+  ;;; FILENAME --- NAME Layer <TYPE> File for Spacemacs
   ;;
-  ;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+  ;; Copyright (c) 2012-<YEAR> Sylvain Benner & Contributors
   ;;
   ;; Author: YOUR_NAME <YOUR_EMAIL>
   ;; URL: https://github.com/syl20bnr/spacemacs
   ;;
   ;; This file is not part of GNU Emacs.
   ;;
-  ;;; License: GPLv3
+  ;; This program is free software; you can redistribute it and/or modify
+  ;; it under the terms of the GNU General Public License as published by
+  ;; the Free Software Foundation, either version 3 of the License, or
+  ;; (at your option) any later version.
+  ;;
+  ;; This program is distributed in the hope that it will be useful,
+  ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ;; GNU General Public License for more details.
+  ;;
+  ;; You should have received a copy of the GNU General Public License
+  ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #+END_EXAMPLE
 
-You should replace =FILENAME= by the name of the file (e.g. =packages.el=)
-and =NAME= by the name of the layer you are creating, don't forget to replace
-=YOUR_NAME= and =YOUR_EMAIL= also. Some files already have a template inside
+You should replace =FILENAME= by the name of the file (e.g. =packages.el=), and
+and =NAME= by the name of the layer you are creating. =TYPE= should matchess the
+=FILENAME= (e.g. =funcs= for =funcs.el=). Don't forget to replace =YEAR=,
+=YOUR_NAME=, and =YOUR_EMAIL= also. Some files already have a template inside
 =core/templates/=, so look in there first.
 Note that if you use =configuration-layer/create-layer=, spacemacs will prepare
 files and headers for you, and for free :smile: !
