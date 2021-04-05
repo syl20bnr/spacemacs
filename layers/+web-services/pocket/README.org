@@ -4,7 +4,7 @@
 
 [[file:img/pocket.png]]
 
-* Table of Contents                                       :TOC_5_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -24,13 +24,13 @@ This layer adds [[https://getpocket.com/][Pocket]] support to Spacemacs via the 
   status, etc.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=.  You
+To use this configuration layer, add it to your =~/.spacemacs=. You
 will need to add =pocket= to the existing
 =dotspacemacs-configuration-layers= list in this file.
 
 * Authentication
-Just run the =pocket-reader= command.  A URL will be copied to the
-clipboard/kill ring.  Open the URL in a web browser and follow the
+Just run the =pocket-reader= command. A URL will be copied to the
+clipboard/kill ring. Open the URL in a web browser and follow the
 instructions to log into your Pocket account.
 
 Note: Please ignore any =Page Not Found= error you might see on the
@@ -41,9 +41,9 @@ authorization completed by checking the file
 
 * Key bindings
 
-| Key binding | Description                                                       |
-|-------------+-------------------------------------------------------------------|
-| ~SPC a w p~ | Open pocket-reader buffer                                         |
+| Key binding | Description               |
+|-------------+---------------------------|
+| ~SPC a w p~ | Open pocket-reader buffer |
 
 ** Bindings in pocket-reader buffer
 

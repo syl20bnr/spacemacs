@@ -900,15 +900,25 @@ Return a cons cell whose `car' is the root and whose `cdr' is the repository."
   (quelpa-build--run-process-match
    "Fetch URL: \\(.*\\)" dir "git" "remote" "show" "-n" remote))
 
+(defvar quelpa--git-version :uninitialized)
+
 (defun quelpa-build--checkout-git (name config dir)
   "Check package NAME with config CONFIG out of git into DIR."
-  (let* ((repo (plist-get config :url))
+  (let* ((version-regexp-alist `(,@version-regexp-alist ("^[-._+ ]?.*$" . 0)))
+         (git-version (or (when (not (eq quelpa--git-version :uninitialized))
+                            quelpa--git-version)
+                          (setq quelpa--git-version (version-to-list
+                                                     (quelpa-build--run-process-match
+                                                      "git version \\(.*\\)"
+                                                      nil "git" "version")))))
+         (repo (plist-get config :url))
          (remote (or (plist-get config :remote) "origin"))
          (commit (or (plist-get config :commit)
                      (when-let ((branch (plist-get config :branch)))
                        (concat remote "/" branch))))
          (depth (or (plist-get config :depth) quelpa-git-clone-depth))
-         (partial (or (plist-get config :partial) quelpa-git-clone-partial))
+         (partial (and (or (plist-get config :partial) quelpa-git-clone-partial)
+                       (version-list-<= '(2 20) git-version)))
          (force (plist-get config :force))
          (use-current-ref (plist-get config :use-current-ref)))
     (when (string-match (rx bos "file://" (group (1+ anything))) repo)
