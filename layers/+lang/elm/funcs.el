@@ -23,13 +23,15 @@
 
 (defun spacemacs//elm-setup-company ()
   "Conditionally setup company based on backend."
-  (spacemacs|add-company-backends
-    :backends (pcase elm-backend
-                ;; Activate lsp company explicitly to activate
-                ;; standard backends as well
-                ('lsp 'company-capf)
-                ('company-elm 'elm-company))
-    :modes elm-mode))
+  (pcase elm-backend
+    ('lsp
+     (spacemacs|add-company-backends ;; Activate lsp company explicitly to activate
+       :backends company-capf        ;; standard backends as well
+       :modes elm-mode))
+    ('company-elm
+     (spacemacs|add-company-backends
+       :backends elm-company
+       :modes elm-mode))))
 
 (defun spacemacs//elm-setup-backend ()
   "Conditionally setup elm backend."
