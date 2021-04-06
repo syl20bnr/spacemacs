@@ -1,0 +1,9 @@
+name: Rebase
+on:
+  push:
+    branches: [develop]
+jobs:
+  rebase:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: peter-evans/rebase@v1
