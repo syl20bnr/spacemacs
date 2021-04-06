@@ -7,3 +7,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: peter-evans/rebase@v1
+        with:
+          base: develop
