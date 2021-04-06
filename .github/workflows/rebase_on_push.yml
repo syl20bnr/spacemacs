@@ -9,3 +9,5 @@ jobs:
       - uses: peter-evans/rebase@v1
         with:
           base: develop
+          repository: syl20bnr/spacemacs
+          token: ${{ secrets.GITHUB_TOKEN }}
