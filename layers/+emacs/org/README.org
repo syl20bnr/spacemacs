@@ -25,6 +25,7 @@
   - [[#project-support][Project support]]
   - [[#org-brain-support][Org-brain support]]
   - [[#org-roam-support][Org-roam support]]
+    - [[#org-roam-server-support][Org-roam-server support]]
   - [[#mode-line-support][Mode line support]]
   - [[#sticky-header-support][Sticky header support]]
   - [[#epub-support][Epub support]]
@@ -389,6 +390,10 @@ To install org-roam support set the variable =org-enable-roam-support= to =t=.
 
 More information about org-roam package (including manual) can be found at [[https://www.orgroam.com/][Org-roam]] website.
 
+*** Org-roam-server support
+ To install support for [[https://github.com/org-roam/org-roam-server][org-roam-server]] set the variable =org-enable-roam-server=
+ to =t=.
+ 
 ** Mode line support
 To temporarily enable mode line display of org clock, press ~SPC t m c~.
 

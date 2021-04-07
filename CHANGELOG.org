@@ -3953,6 +3953,7 @@ Improve loading robustness:
 + Fix ~SPC m l~ by calling =org-open-at-point= instead of =evil-org-open-links=
   (thanks to TheBB)
 + Fix org-repo-todo loading (thanks to TheBB)
++ Add =org-roam-server= package to visualise a =org-roam= database (thanks to KjartanOli)
 
 **** Osx
 - Re-factor and expand support for trash can (thanks to usharf)
