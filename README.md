@@ -557,7 +557,7 @@ Thank you!
 [emacs-plus]: https://github.com/d12frosted/homebrew-emacs-plus
 [powerline documentation]: https://spacemacs.org/doc/DOCUMENTATION.html#powerline-separators
 [emacs-for-windows]: https://ftp.gnu.org/gnu/emacs/windows/
-[gzip-for-windows]: https://gnuwin32.sourceforge.net/packages/gzip.htm
+[gzip-for-windows]: http://gnuwin32.sourceforge.net/packages/gzip.htm
 [the platinum searcher]: https://github.com/monochromegane/the_platinum_searcher
 [so-server-unsafe]: https://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
 [Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
