@@ -4,13 +4,13 @@
 ;; Description: Frame and window commands (interactive functions).
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
-;; Copyright (C) 1996-2019, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2021, Drew Adams, all rights reserved.
 ;; Created: Tue Mar  5 16:30:45 1996
 ;; Version: 0
 ;; Package-Requires: ((frame-fns "0"))
-;; Last-Updated: Sun Sep 13 14:15:03 2020 (-0700)
+;; Last-Updated: Thu Mar 18 09:11:08 2021 (-0700)
 ;;           By: dradams
-;;     Update #: 3182
+;;     Update #: 3187
 ;; URL: https://www.emacswiki.org/emacs/download/frame-cmds.el
 ;; Doc URL: https://emacswiki.org/emacs/FrameModes
 ;; Doc URL: https://www.emacswiki.org/emacs/OneOnOneEmacs
@@ -64,7 +64,7 @@
 ;;    Frame parameter changes, such as background color, can be saved
 ;;    for future use by all frames or all frames of a certain
 ;;    kind.  For that, you must change the frame parameters of the
-;;    correponding frame-alist variable.
+;;    corresponding frame-alist variable.
 ;;
 ;;    There is no single variable for saving changes to parameters of
 ;;    the current frame.  Instead, there are several different
@@ -454,7 +454,7 @@
 ;;     tile-frames, available-screen-pixel-(width|height):
 ;;       Redefined to use available-screen-pixel-bounds.  Thx to Nathaniel Cunningham for input.
 ;; 2008/05/29 dadams
-;;     Fixes for Mac by Nathaniel Cunningham and David Reitter:
+;;     Fixes for macOS by Nathaniel Cunningham and David Reitter:
 ;;       window-mgr-title-bar-pixel-height, tile-frames, smart-tool-bar-pixel-height (added).
 ;; 2007/12/27 dadams
 ;;      tile-frames: Restored border calculation, but using only external border.
@@ -533,7 +533,7 @@
 ;; 2004/12/09 dadams
 ;;     Changed compile-time require of strings to a soft require.
 ;; 2004/10/11 dadams
-;;     args-for-tile-frames: Fixed bug when non-existant frame in name history.
+;;     args-for-tile-frames: Fixed bug when non-existent frame in name history.
 ;;     tile-frames: show-frame at end (for case where use prefix arg)
 ;; 2004/09/11 dadams
 ;;     Moved to doremi-frm.el: frame-config-ring*, frame-config-wo-parameters,
@@ -691,7 +691,7 @@ Candidates include `jump-to-frame-config-register' and `show-buffer-menu'."
 
 ;; Use `cond', not `case', for Emacs 20 byte-compiler.
 (defcustom window-mgr-title-bar-pixel-height (cond ((eq window-system 'mac) 22)
-                                                   ;; For older versions of OS X, 40 might be better.
+                                                   ;; For older versions of macOS, 40 might be better.
                                                    ((eq window-system 'ns)  50)
                                                    (t  27))
   "*Height of frame title bar provided by the window manager, in pixels.
@@ -1593,7 +1593,7 @@ the pixel width and height of the rectangle."
   (- (frame-pixel-height frame) (* (frame-char-height frame) (frame-height frame))))
 
 (defun frcmds-smart-tool-bar-pixel-height (&optional frame)
-  "Pixel height of Mac smart tool bar."
+  "Pixel height of macOS smart tool bar."
   (if (and (boundp 'mac-tool-bar-display-mode)  (> (frame-parameter frame 'tool-bar-lines) 0))
       (if (eq mac-tool-bar-display-mode 'icons) 40 56)
     0))
@@ -1636,7 +1636,7 @@ Return value can be used as second argument for `frcmds-tile-frames'."
   "Returns a value of the same form as option `available-screen-pixel-bounds'.
 This represents the currently available screen area."
   (or available-screen-pixel-bounds     ; Use the option value, if available.
-      (if (fboundp 'mac-display-available-pixel-bounds) ; Mac-OS-specific.
+      (if (fboundp 'mac-display-available-pixel-bounds) ; macOS-specific.
           (mac-display-available-pixel-bounds)
         (if (fboundp 'display-monitor-attributes-list) ; Emacs 24.4+
             (let ((attss  (display-monitor-attributes-list))
