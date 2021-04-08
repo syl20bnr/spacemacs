@@ -2573,6 +2573,7 @@ navigate between =Emacs= and Spacemacs specific files.
 | ~SPC f e E~   | reload the environment variables by executing the function =dotspacemacs/user-env=                      |
 | ~SPC f e C-e~ | reinitialize the =~/.spacemacs.env= file by importing system and shell environment variables            |
 | ~SPC f e i~   | open the all mighty =init.el=                                                                           |
+| ~SPC f e I~   | open the =early-init.el=                                                                                |
 | ~SPC f e l~   | locate an Emacs library                                                                                 |
 | ~SPC f e R~   | resync the dotfile with spacemacs                                                                       |
 | ~SPC f e U~   | update packages                                                                                         |
