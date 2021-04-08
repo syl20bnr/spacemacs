@@ -77,7 +77,7 @@ are configured.")
 (defvar org-enable-verb-support nil
   "If non-nil, Verb (https://github.com/federicotdn/verb) is configured.")
 
-(defvar org-enable-roam-support (when org-enable-roam-server t)
+(defvar org-enable-roam-support (bound-and-true-p org-enable-roam-server)
   "If non-nil, org-roam (https://www.orgroam.com/) is configured")
 
 (defvar org-persp-startup-org-file nil
