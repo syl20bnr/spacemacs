@@ -32,8 +32,8 @@
         hl-todo
         popup
         popwin
-        (zoom-frm :location local)
-        ))
+        (zoom-frm :location local)))
+
 
 (defun spacemacs-visual/init-ansi-colors ()
   (add-hook 'compilation-filter-hook
@@ -65,6 +65,7 @@
 (defun spacemacs-visual/init-fill-column-indicator ()
   (use-package fill-column-indicator
     :defer t
+    :spacediminish ((fci-mode " ⓕ" " f"))
     :init
     (progn
       (setq fci-rule-width 1)
@@ -76,9 +77,7 @@
         :on (turn-on-fci-mode)
         :off (turn-off-fci-mode)
         :documentation "Display the fill column indicator."
-        :evil-leader "tf"))
-    :config
-    (spacemacs|diminish fci-mode " ⓕ" " f")))
+        :evil-leader "tf"))))
 
 (defun spacemacs-visual/init-hl-todo ()
   (use-package hl-todo

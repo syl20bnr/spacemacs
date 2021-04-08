@@ -44,7 +44,7 @@
   "Return the face associated to the current state."
   (let ((state (if (eq evil-state 'operator)
                    evil-previous-state
-                  evil-state)))
+                 evil-state)))
     (spacemacs/state-color-face state)))
 
 (defun spacemacs/add-evil-cursor (state color shape)
@@ -293,7 +293,7 @@ the scroll transient state.")
                         (stringp y)
                         (stringp z))))
        arg)
-      (t
+      (_
        (use-package-error
         (format
          "%s wants a symbol, string, (symbol string), (string string), (symbol string string) or list of these: %S"
