@@ -135,11 +135,11 @@ setting your =PYTHONPATH= as explained at
 ** Language Server Protocol
 The =lsp= backend can use either of the following language server implementations:
 
-| symbol   | description                              |
-|----------+------------------------------------------|
-| 'pyls    | python-language-server package (default) |
-| 'mspyls  | Microsoft python language server         |
-| 'pyright | Microsoft pyright language server        |
+| symbol   | description                                                                      |
+|----------+----------------------------------------------------------------------------------|
+| 'pyls    | python-language-server package (default)                                         |
+| 'mspyls  | [[https://github.com/emacs-lsp/lsp-python-ms][Microsoft python language server]] |
+| 'pyright | [[https://github.com/emacs-lsp/lsp-pyright][Microsoft pyright language server]]  |
 
 =pyls= is used by default - to use the Microsoft python language server, set the
 =python-lsp-server= layer variable as follows:
