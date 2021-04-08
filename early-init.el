@@ -34,3 +34,10 @@
 ;; the package manager before loading the init file, so this file is neither
 ;; needed nor loaded on those versions.
 (setq package-enable-at-startup nil)
+
+(load (concat (file-name-directory load-file-name)
+              "core/core-early-funcs.el")
+      nil (not init-file-debug))
+
+;; Remove GUI elements early to avoid some possible grapical glitches.
+(spacemacs/removes-gui-elements)
