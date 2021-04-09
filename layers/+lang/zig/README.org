@@ -28,7 +28,7 @@ add =zig= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** Choosing a backend
-You cane choose between multiple language backends.
+You can choose between multiple language backends.
 This choice defines mainly which kind of IDE features spacemacs
 can deliver.
 
@@ -49,7 +49,9 @@ following the [[https://github.com/zigtools/zls/wiki/Downloading-and-Building-ZL
 the appropriate variable:
 
 #+BEGIN_SRC elisp
-  (zig :variables zls-backend 'lsp)
+  (setq-default dotspacemacs-configuration-layers
+    '((zig :variables
+          zls-backend 'lsp)))
 #+END_SRC
 
 *** zig-mode
