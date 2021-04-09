@@ -23,7 +23,7 @@
 
 (spacemacs|define-jump-handlers zig-mode)
 
-(defvar zig-backend nil
+(defvar zig-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'zig-mode)
   "The backend to use for IDE features.
 Possible values are `lsp' or `zig-mode'.
 If `nil' then `zig-mode' is the default backend unless the `lsp' layer is used.")

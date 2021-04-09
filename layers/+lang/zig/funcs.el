@@ -21,23 +21,12 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//zig-backend ()
-  "Returns selected backend."
-  (if zig-backend
-      zig-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'zig-mode))))
-
 (defun spacemacs//zig-setup-backend ()
   "Conditionally setup zig backend."
-  (pcase (spacemacs//zig-backend)
+  (pcase zig-backend
     (`lsp (spacemacs//zig-setup-zls))))
 
 ;; lsp
-
-;; zls
-
 (defun spacemacs//zig-setup-zls ()
   "Setup LSP zls."
   (if (configuration-layer/layer-used-p 'lsp)
