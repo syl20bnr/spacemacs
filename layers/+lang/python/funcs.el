@@ -31,8 +31,8 @@
 
 (defun spacemacs//python-setup-backend ()
   "Conditionally setup python backend."
-  (when python-pipenv-activate (pipenv-activate)
-        python-poetry-activate (spacemacs//poetry-activate))
+  (when python-pipenv-activate (pipenv-activate))
+  (when python-poetry-activate (spacemacs//poetry-activate))
   (pcase python-backend
     ('anaconda (spacemacs//python-setup-anaconda))
     ('lsp (spacemacs//python-setup-lsp))))
