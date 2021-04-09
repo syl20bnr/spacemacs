@@ -4,7 +4,8 @@ Spacemacs is a volunteer effort. We encourage you to pitch in. The community
 makes Spacemacs what it is. We have a few guidelines, which we ask all
 contributors to follow.
 
-You can only consider reading the sections relevant to what you are going to do or just watch this video [[https://www.youtube.com/watch?v=OMS-3Jl05mE&feature=youtu.be&list=PLpr9V-R8ZxiCHMl2_dn1Fovcd34Oz45sua][here]]:
+You can only consider reading the sections relevant to what you are going to do
+or just watch this video [[https://www.youtube.com/watch?v=OMS-3Jl05mE&feature=youtu.be&list=PLpr9V-R8ZxiCHMl2_dn1Fovcd34Oz45sua][here]]:
 - [[#asking-for-help][Asking for help]] if you are about to open an issue to ask a question.
 - [[#reporting-issues][Reporting issues]] if you are about to open a new issue.
 - [[#contributing-code][Contributing code]] if you are about to send a PR.
@@ -67,8 +68,8 @@ Issues have to be reported on our [[https://github.com/syl20bnr/spacemacs/issues
     step guide.
 
 * Contributing code
-Code contributions are welcome. Please read the following sections carefully. In
-any case, feel free to join us on the [[https://gitter.im/syl20bnr/spacemacs][gitter chat]] to ask questions about
+Code contributions are welcome. Please read the following sections carefully.
+In any case, feel free to join us on the [[https://gitter.im/syl20bnr/spacemacs][gitter chat]] to ask questions about
 contributing!
 
 ** General contribution guidelines
@@ -109,7 +110,8 @@ You may want to [[https://github.com/syl20bnr/spacemacs/wiki/Beginner%27s-Guide-
 - One commit per PR
 - If you have several commits on different topics, close the PR and
   create one PR per topic
-- If you still have several commits, squash them into only one commit ([[https://github.com/syl20bnr/spacemacs/pull/13381#pullrequestreview-380313280][here's a guide]])
+- If you still have several commits, squash them into only one commit
+  ([[https://github.com/syl20bnr/spacemacs/pull/13381#pullrequestreview-380313280][here's a guide]])
 - Rebase your PR branch on top of upstream =develop= before submitting
   the PR
 
@@ -204,12 +206,12 @@ The file header for =elisp= files should look like the following template:
 #+END_EXAMPLE
 
 You should replace =FILENAME= by the name of the file (e.g. =packages.el=), and
-and =NAME= by the name of the layer you are creating. =TYPE= should matchess the
+=NAME= by the name of the layer you are creating. =TYPE= should match the
 =FILENAME= (e.g. =funcs= for =funcs.el=). Don't forget to replace =YEAR=,
 =YOUR_NAME=, and =YOUR_EMAIL= also. Some files already have a template inside
-=core/templates/=, so look in there first.
-Note that if you use =configuration-layer/create-layer=, spacemacs will prepare
-files and headers for you, and for free :smile: !
+=core/templates/=, so look in there first. Note that if you use
+=configuration-layer/create-layer=, Spacemacs will prepare files and headers for
+you, and for free :smile: !
 
 *** Author of a new layer
 In the files header, change the default author name (=Sylvain Benner=) to your
@@ -242,20 +244,21 @@ Tags are listed in [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spac
 
 Labels are used to name headlines in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/LAYERS.org][LAYERS.org]] file and
 [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][:spacetools.spacedoc.config/layers-org-query]] defines structure of the file by
-chaining tags into a tree where every leaf turns into a list of
-descriptions pulled out of README.org files which tags match leaf's path in the tree.
-You can see how the shape of [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][<spacemacs_root>/.ci/spacedoc-cfg.edn]]
-repeats in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/LAYERS.org#table-of-contents][TOC of LAYERS.org]].
+chaining tags into a tree where every leaf turns into a list of descriptions
+pulled out of README.org files which tags match leaf's path in the tree. You can
+see how the shape of [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][<spacemacs_root>/.ci/spacedoc-cfg.edn]] repeats in
+[[https://github.com/syl20bnr/spacemacs/blob/develop/layers/LAYERS.org#table-of-contents][TOC of LAYERS.org]].
 
 Important details:
-- Every layer description will be displayed exacly one time.
-- In the case when a README.org file of a layer doesn't have =#+TAGS:=
-  documentation formatting tool will inster dummy tags =layer|uncategorized=,
-  such files will be listed in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/LAYERS.org#readmeorg-files-that-need-proper-tags][LAYERS.org#readmeorg-files-that-need-proper-tags]].
-- Files which tag set has not being matched by [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][:spacetools.spacedoc.config/layers-org-query]]
-  will appire in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/LAYERS.org#skipped-layers][LAYERS.org#skipped-layers]]
-- If [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/LAYERS.org][LAYERS.org]] file has =Skipped layers:= and/or
-  =README.org files that need proper tags= sections - someone is slacking :wink:
+- Every layer description will be displayed exactly one time.
+- When a README.org layer file doesn't have =#+TAGS:=, then the documentation
+  formatting tool will insert dummy tags =layer|uncategorized=, and such files
+  will be listed in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/LAYERS.org#readmeorg-files-that-need-proper-tags][LAYERS.org#readmeorg-files-that-need-proper-tags]].
+- Files with tags, that have not been matched by
+  [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][:spacetools.spacedoc.config/layers-org-query]] will appear in
+  [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/LAYERS.org#skipped-layers][LAYERS.org#skipped-layers]]
+- If [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/LAYERS.org][LAYERS.org]] has either or both of these sections: =Skipped layers:= and/or
+  =README.org files that need proper tags=, then someone is slacking :wink:
 
 If you want to experiment with the tool locally:
 
@@ -271,21 +274,20 @@ If you are contributing to an already existing layer, you should not modify any
 header file.
 
 ** Contributing a key binding
-Key bindings are an important part of spacemacs.
+Key bindings are an important part of Spacemacs.
 
 First if you want to have some personal key bindings, you can freely bind them
 inside the ~SPC o~ and ~SPC m o~ prefixes which are reserved for the user. This
 can be done from the =dotspacemacs/user-config= function of your =.spacemacs=
 file and don't require any contribution to Spacemacs.
 
-If you think it worth contributing a new key bindings then be sure to read
-the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/CONVENTIONS.org][CONVENTIONS.org]] file to find the best key bindings, then create a
-PR with your changes.
+If you think it worth contributing a new key bindings then be sure to read the
+[[https://github.com/syl20bnr/spacemacs/blob/develop/doc/CONVENTIONS.org][CONVENTIONS.org]] file to find the best key bindings, then create a PR with your
+changes.
 
 *ALWAYS* document your new key bindings or key bindings changes inside the
 relevant documentation file. It should be the layer's =README.org= file for
-layer's key bindings, or =DOCUMENTATION.org= for general Spacemacs key
-bindings.
+layer's key bindings, or =DOCUMENTATION.org= for general Spacemacs key bindings.
 
 ** Contributing a banner
 The startup banner is by default the Spacemacs logo but there are also ASCII
@@ -309,7 +311,7 @@ tested by an independent reviewer. The steps:
   the PR branch for hours or days to help stumble on unforeseen issues. Of
   course, common sense can be used and typo fixes do not need to be tested
   against bugs, but be thorough in actual code changes. Testing with a fresh
-  spacemacs installation might be a good idea as well.
+  Spacemacs installation might be a good idea as well.
 - Step back and think if the proposed changes could cause any other problems not
   covered by your testing. You should also ask yourself whether or not you feel
   that your testing is adequate to confidently state that this PR introduces no
@@ -340,7 +342,7 @@ token]] after which you can execute ~M-x forge-pull~. It will fetch all the PRs
 which may take a few seconds as we have lot of PRs. Note also that all your
 Magit actions will get some additional delay due to the refresh of the PRs list.
 
-Now, from the magit status buffer you can:
+Now, from the Magit status buffer you can:
 - checkout a PR with ~b y~ and searching it by name or ID
 - donate all commits to develop by doing ~A d~ and selecting your current branch
   first and the develop branch second
