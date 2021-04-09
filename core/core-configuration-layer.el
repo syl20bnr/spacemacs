@@ -2125,6 +2125,7 @@ LAYER must not be the owner of PKG."
 If called with a prefix argument or NO-CONFIRMATION is non-nil then assume yes
 to update."
   (interactive "P")
+  (switch-to-buffer spacemacs-buffer-name)
   (spacemacs-buffer/insert-page-break)
   (spacemacs-buffer/append "\nUpdating package archives, please wait...\n")
   (configuration-layer/retrieve-package-archives nil 'force)
