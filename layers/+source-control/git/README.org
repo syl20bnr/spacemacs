@@ -74,15 +74,15 @@ Magit auto-complete feature is enabled by default.
 For this feature to work best - setup [[#repository-list][magit repository list]].
 
 ** Magit Plugins
-
 *** magit-delta
 [[https://github.com/dandavison/magit-delta][magit-delta]] uses [[https://github.com/dandavison/delta][delta]] to display diffs, with extensive changes to its
 layout and styles.
 
 You need to [[https://github.com/dandavison/delta#installation][install delta]] first, and add the following to your =dotspacemacs/user-config=:
+
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-              '((git :variables git-enable-magit-delta-plugin t)))
+  (setq-default dotspacemacs-configuration-layers
+                '((git :variables git-enable-magit-delta-plugin t)))
 #+END_SRC
 
 *** magit-gitflow
@@ -91,9 +91,10 @@ of making things more manageable. While there are tools to assist with making
 this easier, these do nothing you couldn't do manually.
 
 After [[https://github.com/petervanderdoes/gitflow/wiki][installing]] =git-flow=, add the following to your =dotspacemacs/user-config=:
+
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-              '((git :variables git-enable-magit-gitflow-plugin t)))
+  (setq-default dotspacemacs-configuration-layers
+                '((git :variables git-enable-magit-gitflow-plugin t)))
 #+END_SRC
 
 *** magit-svn
@@ -102,9 +103,10 @@ Press ~!~ in *Magit* buffer to open the magit-svn-popup.
 There you can push to or rebase from svn.
 
 To enable =magit-svn= plugin, add the following to your =dotspacemacs/user-config=:
+
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-              '((git :variables git-enable-magit-svn-plugin t)))
+  (setq-default dotspacemacs-configuration-layers
+                '((git :variables git-enable-magit-svn-plugin t)))
 #+END_SRC
 
 | Key binding | Description          |
@@ -116,9 +118,10 @@ To enable =magit-svn= plugin, add the following to your =dotspacemacs/user-confi
 status buffer.
 
 To enable =magit-todos= plugin, add the following to your =dotspacemacs/user-config=:
+
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-              '((git :variables git-enable-magit-todos-plugin t)))
+  (setq-default dotspacemacs-configuration-layers
+                '((git :variables git-enable-magit-todos-plugin t)))
 #+END_SRC
 
 ** Global git commit mode
