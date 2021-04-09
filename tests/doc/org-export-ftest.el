@@ -7,7 +7,20 @@
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
 (require 'mocker)
 (require 'org)
 (require 'core-documentation)
@@ -29,15 +42,15 @@
            ignore ;; make sure it is not nil
            (string-match ignore f))
                                         ; ignore
-          nil
-          )
+          nil)
+
          ((and
            (file-regular-p f)
            (file-readable-p f)
            (not(file-directory-p f))
            (string-match match f))
-          (setq files-list (cons f files-list))
-          )
+          (setq files-list (cons f files-list)))
+
          ((and
            (file-directory-p f)
            (file-readable-p f)
@@ -45,11 +58,11 @@
            (not (string-equal "." (substring f -1)))
            (> maxdepth 0))
           ;; recurse only if necessary
-          (setq files-list (append files-list (directory-files-recursive_ForOldEmacs f match (- maxdepth -1) ignore)))
-          )
-         (t)
-         )
-        )
+          (setq files-list (append files-list (directory-files-recursive_ForOldEmacs f match (- maxdepth -1) ignore))))
+
+         (t)))
+
+
       (setq current-directory-list (cdr current-directory-list)))
     files-list))
 

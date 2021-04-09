@@ -7,7 +7,20 @@
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
 (require 'mocker)
 (require 'core-command-line)
 (require 'core-configuration-layer)
@@ -730,8 +743,8 @@
     (helper--add-packages
      (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))
            (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2) :requires '(pkg1))
-           (cfgl-package "pkg3" :name 'pkg3 :owners '(layer3) :requires '(pkg2))
-           )
+           (cfgl-package "pkg3" :name 'pkg3 :owners '(layer3) :requires '(pkg2)))
+
      'used)
     (should (configuration-layer/package-used-p 'pkg3))))
 
@@ -919,9 +932,9 @@
         (configuration-layer--package-archives-refreshed nil)
         (dotspacemacs-elpa-timeout -1))
     (mocker-let
-        ((message (format-string &rest args)
-                  ((:record-cls 'mocker-stub-record :output nil))))
-      (configuration-layer/retrieve-package-archives))))
+     ((message (format-string &rest args)
+               ((:record-cls 'mocker-stub-record :output nil))))
+     (configuration-layer/retrieve-package-archives))))
 
 (ert-deftest test-retrieve-package-archives--catch-connection-errors ()
   (let ((package-archives '(("gnu" . "https://elpa.gnu.org/packages/")))
@@ -1040,7 +1053,7 @@
                                 :packages '(pkg1 pkg2 pkg3)
                                 :selected-packages 'all
                                 :dir spacemacs-start-directory)
-              (configuration-layer/make-layer 'layer layer 'used))))))
+                    (configuration-layer/make-layer 'layer layer 'used))))))
 
 (ert-deftest test-make-layer--make-layer-force-load-packages-file-with-var ()
   (let ((layer (cfgl-layer "layer"
@@ -1534,8 +1547,8 @@
     ;; (message "%s" (configuration-layer/make-package input 'layer-make-pkg-13))
     (should
      (not (equal
-       expected
-       (configuration-layer/make-package input 'layer-make-pkg-13))))))
+           expected
+           (configuration-layer/make-package input 'layer-make-pkg-13))))))
 
 (ert-deftest test-make-package--make-package-requires-list-when-multiple-symbols ()
   (let* (configuration-layer--used-layers
@@ -1927,10 +1940,10 @@
          (layer18 (cfgl-layer "layer18"
                               :name 'layer18
                               :dir "/path/"
-                              :packages '((pkg1 :excluded t))
-                              ))
-        configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+                              :packages '((pkg1 :excluded t))))
+
+         configuration-layer--used-layers
+         (configuration-layer--indexed-layers (make-hash-table :size 1024))
          configuration-layer--used-packages
          (configuration-layer--indexed-packages (make-hash-table :size 2048))
          (mocker-mock-default-record-cls 'mocker-stub-record))
@@ -2117,9 +2130,9 @@
 
 (ert-deftest test-make-packages-from-dotfile--dotfile-declares-and-owns-one-additional-package ()
   (let* ((layer-dotfile-1 (cfgl-layer "layer-dotfile-1"
-                              :name 'layer-dotfile-1
-                              :dir "/path/"
-                              :packages '(pkg1 pkg2)))
+                                      :name 'layer-dotfile-1
+                                      :dir "/path/"
+                                      :packages '(pkg1 pkg2)))
          (dotspacemacs-additional-packages '(pkg3))
          configuration-layer--used-layers
          (configuration-layer--indexed-layers (make-hash-table :size 1024))
@@ -2158,9 +2171,9 @@
 
 (ert-deftest test-make-packages-from-dotfile--dotfile-excludes-pkg2-in-layer-11 ()
   (let* ((layer-dotfile-3 (cfgl-layer "layer-dotfile-3"
-                              :name 'layer-dotfile-3
-                              :dir "/path/"
-                              :packages '(pkg1 pkg2 pkg3)))
+                                      :name 'layer-dotfile-3
+                                      :dir "/path/"
+                                      :packages '(pkg1 pkg2 pkg3)))
          (dotspacemacs-excluded-packages '(pkg2))
          configuration-layer--used-layers
          (configuration-layer--indexed-layers (make-hash-table :size 1024))
@@ -2831,10 +2844,10 @@
                                 :owners '(layer-filter-4))
                   (cfgl-package "pkg8" :name 'pkg8
                                 :owners '(layer-filter-4)))
-      (configuration-layer/filter-objects
-       pkgs (lambda (x)
-              (or (not (eq 'local (oref x :location)))
-                  (not (oref x :excluded)))))))))
+            (configuration-layer/filter-objects
+             pkgs (lambda (x)
+                    (or (not (eq 'local (oref x :location)))
+                        (not (oref x :excluded)))))))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//directory-type
@@ -3127,7 +3140,7 @@
 
 (ert-deftest test-package-install-org--no-effect-on-symbol-name-other-packages ()
   (let ((pkg (configuration-layer//package-install-org 'identity 'foo)))
-    (should (eq 'foo pkg ))))
+    (should (eq 'foo pkg))))
 
 (ert-deftest test-package-install-org--package-desc-name-org ()
   (let ((pkg (package-desc-create :name 'org
