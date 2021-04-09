@@ -12,6 +12,7 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#agenda-notifications][Agenda notifications]]
+  - [[#agenda-recommendations][Agenda recommendations]]
   - [[#github-support][GitHub support]]
   - [[#twitter-bootstrap-support][Twitter Bootstrap support]]
   - [[#gnuplot-support][Gnuplot support]]
@@ -126,28 +127,54 @@ To enable notifications for agenda events, set the variable
          org-start-notification-daemon-on-startup t)))
 #+END_SRC
 
-This will install and configure the [[https://github.com/akhramov/org-wild-notifier.el][org-wild-notifier]] package. After install run
-the =org-wild-notifier-mode= to start the =org-wild-notifier= notification daemon. To
-start the notification daemon automatically on Spacemacs startup, set the
-variable =org-start-notification-daemon-on-startup= to =t= as shown in the code
-snippet above.
+This will install and configure the [[https://github.com/akhramov/org-wild-notifier.el][org-wild-notifier]] package. After install,
+run the =org-wild-notifier-mode= to start the =org-wild-notifier= notification
+daemon. To start the notification daemon automatically on Spacemacs startup, set
+the variable =org-start-notification-daemon-on-startup= to =t= as shown in the
+code snippet above.
 
-Documentation for how the notifications system can be configured is provided
-[[https://github.com/akhramov/org-wild-notifier.el#configuration][here]] (on GNU/linux and Windows, using the =notifications= style is recommended.
-Note also [[https://github.com/jwiegley/alert/pull/94][this issue]]).
+Documentation for how org-wild-notifier can be configured is provided [[https://github.com/akhramov/org-wild-notifier.el#configuration][here]]
+(org-wild-notifier uses the [[https://melpa.org/#/alert][alert]] package for showing notifications. On
+GNU/linux and Windows, using alert's [[https://github.com/jwiegley/alert#builtin-alert-styles][notifications]] style is recommended. Note
+also [[https://github.com/jwiegley/alert/pull/94][this issue]]).
 
 Press =M-S RET= to enter a todo headline and then press =, d t= to add a
-timestamp to the headline (or use the =org-journal-new-scheduled-entry= that
-becomes available by enabling =Org-journal support=. By default, the
-=org-wild-notifier= package will scan your =org-agenda-files= (every minute) for
-=TODO= headlines that include a timestamp (configuration options are documented
-[[https://github.com/akhramov/org-wild-notifier.el#configuration][here]]). The default configuration shows a notification 10 minutes before the
-event using the [[https://melpa.org/#/alert][alert]] package. The default behavior can be configured via the
-=org-wild-notifier-alert-time= variable. The notification type can be configured
-via the [[https://github.com/jwiegley/alert#for-users][the alert package its configuration settings]]. Additional notification
-times can be added using the [[https://github.com/akhramov/org-wild-notifier.el#configuration][:WILD_NOTIFIER_NOTIFY_BEFORE:]] keyword (*note* that
-[[https://github.com/akhramov/org-wild-notifier.el/issues/46][this additionally requires a =SCHEDULED:= stamp)]]. Properties can be added with
-=, i p=.
+timestamp to the headline (using =, d t= requires the =diary-file= variable to
+point to an existing file, see [[Agenda recommendations]]. You can also use the
+=org-journal-new-scheduled-entry= that becomes available by enabling [[Org-journal support][org-journal
+support]]). By default, the =org-wild-notifier= package will scan your
+=org-agenda-files= (every minute) for =TODO= headlines that include a timestamp
+(configuration options are documented [[https://github.com/akhramov/org-wild-notifier.el#configuration][here]]). The default configuration shows a
+notification 10 minutes before the event using the [[https://melpa.org/#/alert][alert]] package. The default
+behavior can be configured via the =org-wild-notifier-alert-time= variable. The
+notification type can be configured via the [[https://github.com/jwiegley/alert#for-users][the alert package its configuration
+settings]]. Additional notification times can be added using the
+[[https://github.com/akhramov/org-wild-notifier.el#configuration][:WILD_NOTIFIER_NOTIFY_BEFORE:]] keyword (*note* that [[https://github.com/akhramov/org-wild-notifier.el/issues/46][this additionally requires a
+=SCHEDULED:= stamp)]]. Properties can be added with =, i p=.
+
+** Agenda recommendations
+Emacs comes with its own diary package included. It is recommended not to use
+the diary directly. Instead of [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Format-of-Diary-File.html][creating a diary file]], create a =diary.org=
+file and set the =diary-file= variable to point to that file. To make the
+holidays, birthdays etc. from the diary show up in the agenda, add the
+diary-style expression entries to your =diary.org= file as shown in the code
+block of the =Calendar/Diary integration= section [[https://orgmode.org/manual/Weekly_002fdaily-agenda.html][here]].
+
+Subsequently, to add appointments to the agenda you could use the following
+syntax:
+#+begin_src org
+  ,* Friday, 04/02/2021
+    ,** Appointment 1
+    <2021-04-02 Fri 10:10> 
+    ,** TODO Appointment 2
+    <2021-04-02 Fri 10:11>
+#+end_src
+or just use the [[Org-journal-support][org journal system]]. Outside =org-journal= you can still use
+=org-journal-insert-header-at-point= to create the date headers. In the source
+block above, the first appointment will just show up in the agenda. If
+=org-wild-notifier= is configured, then the second appointment will also trigger
+a notification 10 minutes (by default) before its due time (see [[Agenda
+notifications]]).
 
 ** GitHub support
 To install GitHub related extensions like [[https://github.com/larstvei/ox-gfm][ox-gfm]] to export to GitHub
