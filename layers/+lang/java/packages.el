@@ -31,8 +31,8 @@
     helm-gtags
     (java-mode :location built-in)
     maven-test-mode
-    (meghanada :toggle (and (not (version< emacs-version "25.1"))
-                            (eq (spacemacs//java-backend) 'meghanada)))
+    (meghanada :toggle (and (not (version< emacs-version "25.1"))                            
+                            (eq java-backend 'meghanada)))
     mvn
     (lsp-java :requires lsp-mode)
     org
