@@ -25,3 +25,6 @@
 
 (defvar search-engine-config-list nil
   "Set additional search engines")
+
+(defvar search-engine-amazon-tld "com"
+  "Amazon website TLD to use for searching.")
