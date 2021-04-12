@@ -48,6 +48,7 @@
         ;; page-break-lines is shipped with spacemacs core
         (page-break-lines :location built-in)
         (process-menu :location built-in)
+        quickrun
         (recentf :location built-in)
         (savehist :location built-in)
         (saveplace :location built-in)
@@ -376,6 +377,14 @@
 
 (defun spacemacs-defaults/init-process-menu ()
   (evilified-state-evilify process-menu-mode process-menu-mode-map))
+
+(defun spacemacs-defaults/init-quickrun ()
+  (use-package quickrun
+    :defer t
+    :init
+    (setq quickrun-focus-p nil)
+    (spacemacs/set-leader-keys
+      "xx" 'spacemacs/quickrun)))
 
 (defun spacemacs-defaults/init-recentf ()
   (use-package recentf
