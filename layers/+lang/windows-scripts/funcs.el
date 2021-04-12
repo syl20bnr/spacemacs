@@ -20,11 +20,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defun windows-scripts/bat-outline-setup ()
-  "Select position by mouse and return to `bat-mode'."
-  (local-set-key [mouse-1] (lambda () (interactive) (bat-mode) (beginning-of-line)))
-  (local-set-key [return] 'bat-mode))
-
 ;;;###autoload
 (defun windows-scripts/bat-outline ()
   "Navigate within Batch script using outline-mode."
@@ -32,4 +27,6 @@
   (setq-local outline-regexp ":[^:]")
   (outline-mode)
   (hide-body)
+  (local-set-key [mouse-1] (lambda () (interactive) (bat-mode) (beginning-of-line)))
+  (local-set-key [return] 'bat-mode)
   (define-key evil-normal-state-local-map (kbd "SPC m z") 'bat-mode))

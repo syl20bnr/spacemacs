@@ -35,7 +35,6 @@
     :commands (bat-cmd-help bat-run bat-run-args bat-template)
     :mode (("\\.bat\\'" . bat-mode)
            ("\\.cmd\\'" . bat-mode))
-    :hook (outline-mode . windows-scripts/bat-outline-setup)
     :init
     (progn
       (spacemacs/declare-prefix-for-mode 'bat-mode "me" "eval")
