@@ -28,12 +28,12 @@
   "List of jump handlers local to this buffer.
 
 Jump handlers in this list has the highest priority. A jump
-handler jump-hanlder can add be registered by making this call
+handler jump-handler can be registered by making this call
 from a mode hook:
 
-\(add-to-list 'spacemacs-jump-handlers 'jump-hanlder\)
+\(add-to-list 'spacemacs-jump-handlers 'jump-handler\)
 
-Handler in is list is called first so only dynamic handlers like
+Handler in this list is called first so only dynamic handlers like
 `lsp' should use this one. Conventional jump handlers should use
 `spacemacs-jump-handlers-MODE' instead.")
 
