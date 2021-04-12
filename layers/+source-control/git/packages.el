@@ -301,7 +301,8 @@
               (define-key magit-mode-map "~" 'magit-svn))))
 
 (defun git/pre-init-magit-todos ()
-  (add-to-list 'spacemacs-evil-collection-allowed-list 'magit-todos))
+  (when (configuration-layer/layer-used-p 'spacemacs-evil)
+    (add-to-list 'spacemacs-evil-collection-allowed-list 'magit-todos)))
 
 (defun git/init-magit-todos ()
   (use-package magit-todos
