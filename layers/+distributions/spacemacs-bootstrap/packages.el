@@ -292,13 +292,13 @@
   ;; turn off evil in corelv buffers
   (add-to-list 'evil-buffer-regexps '("\\*LV\\*"))
 
-  ;; replace `dired-goto-file' with `helm-find-files', since `helm-find-files'
-  ;; can do the same thing and with fuzzy matching and other features.
+  ;; replace `dired-goto-file' with equivalent helm and ivy functions:
+  ;; `spacemacs/helm-find-files' fuzzy matching and other features
+  ;; `spacemacs/counsel-find-file' more `M-o' actions
   (with-eval-after-load 'dired
-    (evil-define-key 'normal dired-mode-map "J" 'spacemacs/helm-find-files)
-    (define-key dired-mode-map "j" 'spacemacs/helm-find-files)
-    (evil-define-key 'normal dired-mode-map (kbd dotspacemacs-leader-key)
-      spacemacs-default-map))
+    (define-key dired-mode-map "j"
+      (cond ((configuration-layer/layer-used-p 'helm) 'spacemacs/helm-find-files)
+            ((configuration-layer/layer-used-p 'ivy) 'spacemacs/counsel-find-file))))
 
   ;; support smart 1parens-strict-mode
   (when (configuration-layer/package-used-p 'smartparens)
