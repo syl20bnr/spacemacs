@@ -1782,6 +1782,14 @@ Decision is based on `dotspacemacs-line-numbers'."
           (not disabled-for-parent)))))
 
 
+;; quick run
+(defun spacemacs/quickrun ()
+  "Call `quickrun' or `quickrun-region'"
+  (interactive)
+  (if (region-active-p)
+      (call-interactively 'quickrun-region)
+    (quickrun)))
+
 ;; randomize region
 
 (defun spacemacs/randomize-words (beg end)

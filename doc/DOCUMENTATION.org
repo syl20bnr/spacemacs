@@ -212,6 +212,7 @@
     - [[#error-transient-state][Error transient state]]
     - [[#custom-fringe-bitmaps][Custom fringe bitmaps]]
   - [[#compiling][Compiling]]
+  - [[#quickrun][Quickrun]]
 - [[#editorconfig][EditorConfig]]
 - [[#emacs-server][Emacs Server]]
   - [[#connecting-to-the-emacs-server][Connecting to the Emacs server]]
@@ -3688,6 +3689,14 @@ Spacemacs binds a few commands to support compiling a project.
 | ~SPC c k~   | kill compilation               |
 | ~SPC c m~   | =helm-make=                    |
 | ~SPC c r~   | recompile                      |
+
+** Quickrun
+Spacemacs can execute current buffer or region.
+
+| Key binding | Description                                       |
+|-------------+---------------------------------------------------|
+| ~SPC x x~   | smart =quickrun= or =quickrun-region=             |
+| ~C-g~       | to dismiss a quickrun buffer without selecting it |
 
 * EditorConfig
 Spacemacs has support for [[http://editorconfig.org/][EditorConfig]], a configuration file to "define and
