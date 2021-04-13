@@ -2037,6 +2037,7 @@ thusly:
 | ~SPC h d t~ | describe text properties                                  |
 | ~SPC h d T~ | describe a theme                                          |
 | ~SPC h d v~ | describe a variable                                       |
+| ~SPC h d x~ | describe an evil ex-command                               |
 
 Other help key bindings:
 

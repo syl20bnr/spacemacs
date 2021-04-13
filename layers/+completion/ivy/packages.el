@@ -81,6 +81,7 @@
         "hdF" 'counsel-describe-face
         "hdm" 'spacemacs/describe-mode
         "hdv" 'counsel-describe-variable
+        "hdx" 'spacemacs/describe-ex-command
         "hi"  'counsel-info-lookup-symbol
         "hm"  (if (spacemacs/system-is-mswindows) 'woman 'man)
         "hR"  'spacemacs/counsel-search-docs
