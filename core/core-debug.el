@@ -236,6 +236,22 @@ seconds to load")
                      "You can paste it in the gitter chat.\n"
                      "Check the *Messages* buffer if you need to review it"))))
 
+(defun spacemacs/describe-ex-command (ex-command)
+  (interactive (list (completing-read "Describe ex-command: " evil-ex-commands)))
+  (let* ((func (alist-get ex-command evil-ex-commands nil nil 'string=))
+         (prompt (if (stringp func)
+                     "The ex-command :%s is an alias for the ex-command :%s. Describe :%s?"
+                   "The ex-command :%s calls %s. Describe %s?")))
+    (when (y-or-n-p (format prompt
+                            ex-command
+                            func
+                            func))
+      (if (stringp func)
+          (spacemacs/describe-ex-command func)
+        (if (configuration-layer/layer-usedp 'helpful)
+            (helpful-callable func)
+          (describe-function func))))))
+
 (defun spacemacs/report-issue (arg)
   "Open a spacemacs/report-issue-mode buffer prepopulated with
    issue report template and system information.
