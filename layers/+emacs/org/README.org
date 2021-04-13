@@ -169,7 +169,7 @@ syntax:
     ,** TODO Appointment 2
     <2021-04-02 Fri 10:11>
 #+end_src
-or just use the [[Org-journal-support][org journal system]]. Outside =org-journal= you can still use
+or just use the [[Org-journal support][org journal system]]. Outside =org-journal= you can still use
 =org-journal-insert-header-at-point= to create the date headers. In the source
 block above, the first appointment will just show up in the agenda. If
 =org-wild-notifier= is configured, then the second appointment will also trigger

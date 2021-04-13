@@ -3855,7 +3855,7 @@ retested.
 | [[https://github.com/syl20bnr/spacemacs/issues/5000][5000th issue (too many issues)]] | [[https://github.com/justbur][justbur]]      |
 | [[https://github.com/syl20bnr/spacemacs/pull/6000][6000th issue (PR)]]              | [[https://github.com/d12frosted][d12frosted]]   |
 | [[https://github.com/syl20bnr/spacemacs/pull/7000][7000th issue (PR)]]              | [[https://github.com/deb0ch][deb0ch]]       |
-| [[https://github.com/syl20bnr/spacemacs/issues/8000][8000th issue (bug)]]             | [[https://github.com/jonbash][jonbash]]      |
+| [[https://github.com/syl20bnr/spacemacs/issues/8000][8000th issue (bug)]]             | jonbash      |
 | [[https://github.com/syl20bnr/spacemacs/issues/9000][9000th issue (bug)]]             | [[https://github.com/shaunpatel][shaunpatel]]   |
 | [[https://github.com/syl20bnr/spacemacs/pull/10000][10000th issue (PR)]]             | [[https://github.com/nikital][nikital]]      |
 
