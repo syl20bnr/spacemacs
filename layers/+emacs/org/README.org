@@ -140,7 +140,7 @@ also [[https://github.com/jwiegley/alert/pull/94][this issue]]).
 
 Press =M-S RET= to enter a todo headline and then press =, d t= to add a
 timestamp to the headline (using =, d t= requires the =diary-file= variable to
-point to an existing file, see [[Agenda recommendations]]. You can also use the
+point to an existing file, see [[#agenda-recommendations][Agenda recommendations]]. You can also use the
 =org-journal-new-scheduled-entry= that becomes available by enabling [[Org-journal support][org-journal
 support]]). By default, the =org-wild-notifier= package will scan your
 =org-agenda-files= (every minute) for =TODO= headlines that include a timestamp
