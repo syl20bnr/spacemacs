@@ -21,16 +21,24 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq scheme-packages
-      '(
-        company
-        evil-cleverparens
-        geiser
-        ggtags
-        counsel-gtags
-        helm-gtags
-        parinfer
-        ))
+(defconst scheme-packages
+  '(company
+    evil-cleverparens
+    geiser
+    ggtags
+    counsel-gtags
+    helm-gtags
+    parinfer-rust-mode
+    (geiser-chez    :toggle (memq 'chez    scheme-implementations))
+    (geiser-chibi   :toggle (memq 'chibi   scheme-implementations))
+    (geiser-chicken :toggle (memq 'chicken scheme-implementations))
+    (geiser-gambit  :toggle (memq 'gambit  scheme-implementations))
+    (geiser-gauche  :toggle (memq 'gauche  scheme-implementations))
+    (geiser-guile   :toggle (memq 'guile   scheme-implementations))
+    (geiser-kawa    :toggle (memq 'kawa    scheme-implementations))
+    (geiser-mit     :toggle (memq 'mit     scheme-implementations))
+    (geiser-racket  :toggle (memq 'racket  scheme-implementations))))
+
 
 (defun scheme/post-init-company ()
   ;; Geiser provides completion as long as company mode is loaded.
@@ -104,5 +112,41 @@
 (defun scheme/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'scheme-mode))
 
-(defun scheme/post-init-parinfer ()
-  (add-hook 'scheme-mode-hook 'parinfer-mode))
+(defun scheme/post-init-parinfer-rust-mode ()
+  (add-hook 'scheme-mode-hook 'parinfer-rust-mode))
+
+(defun scheme/init-geiser-chez ()
+  (use-package geiser-chez
+    :defer t))
+
+(defun scheme/init-geiser-chibi ()
+  (use-package geiser-chibi
+    :defer t))
+
+(defun scheme/init-geiser-chicken ()
+  (use-package geiser-chicken
+    :defer t))
+
+(defun scheme/init-geiser-gambit ()
+  (use-package geiser-gambit
+    :defer t))
+
+(defun scheme/init-geiser-gauche ()
+  (use-package geiser-gauche
+    :defer t))
+
+(defun scheme/init-geiser-guile ()
+  (use-package geiser-guile
+    :defer t))
+
+(defun scheme/init-geiser-kawa ()
+  (use-package geiser-kawa
+    :defer t))
+
+(defun scheme/init-geiser-mit ()
+  (use-package geiser-mit
+    :defer t))
+
+(defun scheme/init-geiser-racket ()
+  (use-package geiser-racket
+    :defer t))
