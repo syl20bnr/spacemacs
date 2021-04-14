@@ -141,7 +141,7 @@ also [[https://github.com/jwiegley/alert/pull/94][this issue]]).
 Press =M-S RET= to enter a todo headline and then press =, d t= to add a
 timestamp to the headline (using =, d t= requires the =diary-file= variable to
 point to an existing file, see [[#agenda-recommendations][Agenda recommendations]]. You can also use the
-=org-journal-new-scheduled-entry= that becomes available by enabling [[Org-journal support][org-journal
+=org-journal-new-scheduled-entry= that becomes available by enabling [[#org-journal-support][org-journal
 support]]). By default, the =org-wild-notifier= package will scan your
 =org-agenda-files= (every minute) for =TODO= headlines that include a timestamp
 (configuration options are documented [[https://github.com/akhramov/org-wild-notifier.el#configuration][here]]). The default configuration shows a
@@ -169,11 +169,11 @@ syntax:
     ,** TODO Appointment 2
     <2021-04-02 Fri 10:11>
 #+end_src
-or just use the [[Org-journal support][org journal system]]. Outside =org-journal= you can still use
+or just use the [[#org-journal-support][org journal system]]. Outside =org-journal= you can still use
 =org-journal-insert-header-at-point= to create the date headers. In the source
 block above, the first appointment will just show up in the agenda. If
 =org-wild-notifier= is configured, then the second appointment will also trigger
-a notification 10 minutes (by default) before its due time (see [[Agenda
+a notification 10 minutes (by default) before its due time (see [[#agenda-notifications][Agenda
 notifications]]).
 
 ** GitHub support
