@@ -253,7 +253,9 @@ is used instead."
       (when (file-exists-p dir)
         (delete-directory dir t))
       (package-build--message "Cloning %s to %s" url dir)
-      (package-build--run-process nil nil "git" "clone" url dir)))
+      (package-build--run-process nil nil "git" "clone"
+                                  "--filter=blob:none" "--no-checkout"
+                                  url dir)))
     (if package-build-stable
         (cl-destructuring-bind (tag . version)
             (or (package-build--find-version-newest
