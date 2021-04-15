@@ -20,16 +20,12 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; Code:
-
 (defconst eww-packages
   '(
-    ;; A local package
     (eww :location built-in)
-    texfrag
-    ;; (ace-link :location elpa)
-    ;; (helm-net :location elpa)
-    ))
+    texfrag))
+;; (ace-link :location elpa)
+;; (helm-net :location elpa)
 
 (defun eww/init-eww ()
   (use-package eww
@@ -42,7 +38,6 @@
     (progn
       (define-key eww-link-keymap "f" 'eww-follow-link)
       (define-key eww-link-keymap "F" (lambda () (interactive) (eww-follow-link 2)))
-
       (let ((mode 'eww-mode))
         (spacemacs/declare-prefix-for-mode mode "mv" "view")
         (spacemacs/declare-prefix-for-mode mode "ml" "list")
@@ -111,4 +106,3 @@
 (defun eww/init-texfrag ()
   (use-package texfrag
     :defer t))
-;;; packages.el ends here

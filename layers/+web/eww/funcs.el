@@ -29,7 +29,6 @@
     (eww-reload)))
 
 (defun spacemacs//eww-setup-transient-state ()
-
   "Setup eww transient state with toggleable help hint.
 
 Beware: due to transient state's implementation details this

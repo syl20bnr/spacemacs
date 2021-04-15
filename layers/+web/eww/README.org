@@ -1,9 +1,7 @@
 #+TITLE: eww layer
 
-# The maximum height of the logo should be 200 pixels.
 [[file:img/eww.png]]
 
-# TOC links should be GitHub style anchors.
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
 - [[#install][Install]]
@@ -26,26 +24,27 @@
   repository somewhere and add it as a private layer in spacemacs:
   
   #+BEGIN_SRC bash
-  git clone https://github.com/coljamkop/eww-layer.git /path/to/dotspacemacs-configuration-layer-path/eww
+     git clone https://github.com/coljamkop/eww-layer.git /path/to/dotspacemacs-configuration-layer-path/eww
   #+END_SRC
   
   OR
 
   #+BEGIN_SRC bash
-  git clone https://github.com/coljamkop/eww-layer.git
-  ln -s "`pwd`/eww-layer" ~/.emacs.d/private/eww
+     git clone https://github.com/coljamkop/eww-layer.git
+     ln -s "`pwd`/eww-layer" ~/.emacs.d/private/eww
   #+END_SRC
-
 
   To use this configuration layer, add it to your =~/.spacemacs=. You will need to
   add =eww= to the existing =dotspacemacs-configuration-layers= list in this
   file.
 
 * Key bindings
+
    | Key Binding | Description      | Function         |
    |-------------+------------------+------------------|
    | ~SPC a w e~ | Start eww        | eww              |
    | ~SPC a w w~ | List eww buffers | eww-list-buffers |
+
 ** Eww
    | ~SPC m .~   | Eww Transient state      |                                  |
    | ~SPC m s~   | Search                   | helm-google-suggest              |
@@ -74,9 +73,11 @@
    | ~o~         | Follow Link (avy/ace)    | eww-follow-link                  |
    | ~+/-~       | zoom in/out              | zoom-frm-in/out                  |
    | ~=~         | unzoom                   | zoom-frm-unzoom                  |
+
 ** Eww History
    | ~SPC m f~ | Open History | eww-history-browse |
    | ~f~       | Open History | eww-history-browse |
+
 ** Eww Bookmarks
    | ~SPC m f~ | Open Bookmark   | eww-bookmark-browse |
    | ~SPC m d~ | Delete Bookmark | eww-bookmark-kill   |
@@ -84,6 +85,7 @@
    | ~f~       | Open Bookmark   | eww-bookmark-browse |
    | ~d~       | Delete Bookmark | eww-bookmark-kill   |
    | ~y~       | Yank Bookmark   | eww-yank-bookmark   |
+
 ** Eww Buffers
    | ~SPC m f~ | Open Buffer     | eww-buffer-select        |
    | ~SPC m d~ | Delete Buffer   | eww-buffer-kill          |
@@ -93,9 +95,3 @@
    | ~d~       | Delete Buffer   | eww-buffer-kill          |
    | ~n~       | Next Buffer     | eww-buffer-show-next     |
    | ~p~       | Previous Buffer | eww-buffer-show-previous |
-
-   # Use GitHub URLs if you wish to link a Spacemacs documentation file or its heading.
-   # Examples:
-   # [[https://github.com/syl20bnr/spacemacs/blob/master/doc/VIMUSERS.org#sessions]]
-   # [[https://github.com/syl20bnr/spacemacs/blob/master/layers/%2Bfun/emoji/README.org][Link to Emoji layer README.org]]
-   # If space-doc-mode is enabled, Spacemacs will open a local copy of the linked file.
