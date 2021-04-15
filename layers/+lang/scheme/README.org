@@ -36,11 +36,11 @@ for the implementation must be enabled by adding its name to the list of
 directly in the =dotspacemacs-configuration-layers= list as shown in the
 following example for guile and racket:
 
-#+begin_src elisp
+#+BEGIN_SRC elisp
   dotspacemacs-configuration-layers
   '((scheme :variables
              scheme-implementations '(guile racket)))
-#+end_src
+#+END_SRC
 
 Currently support is available for the following scheme implementations:
 chez, chibi, chicken, gambit, gauche, guile, kawa, mit and racket.
@@ -53,9 +53,8 @@ The following subsection shows how to install Chicken scheme and activate geiser
 support.
 
 ** Install Chicken scheme example
-
 First add =chicken= to the list of =scheme-implementations= as explained above.
-   
+
 For full Chicken support, the following commands should be run:
 
 #+BEGIN_SRC shell

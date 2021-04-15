@@ -162,13 +162,15 @@ block of the =Calendar/Diary integration= section [[https://orgmode.org/manual/W
 
 Subsequently, to add appointments to the agenda you could use the following
 syntax:
-#+begin_src org
-  ,* Friday, 04/02/2021
-    ,** Appointment 1
+
+#+BEGIN_SRC org
+  * Friday, 04/02/2021
+    ** Appointment 1
     <2021-04-02 Fri 10:10> 
-    ,** TODO Appointment 2
+    ** TODO Appointment 2
     <2021-04-02 Fri 10:11>
-#+end_src
+#+END_SRC
+
 or just use the [[#org-journal-support][org journal system]]. Outside =org-journal= you can still use
 =org-journal-insert-header-at-point= to create the date headers. In the source
 block above, the first appointment will just show up in the agenda. If

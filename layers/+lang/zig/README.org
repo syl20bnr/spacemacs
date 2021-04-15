@@ -21,7 +21,6 @@ This layer adds support for the zig programming language [[https://ziglang.org/]
 - LSP support via =zls= (see [[#lsp-zls][LSP]])
 
 * Install
-
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =zig= to the existing =dotspacemacs-configuration-layers= list in this
@@ -61,6 +60,5 @@ indentation and custom commands for compilation and testing.
 For more information check the [[https://github.com/ziglang/zig-mode][=zig-mode= repository]].
 
 * Key bindings
-
 ** LSP
 You can find an overview of all the key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/lsp#key-bindings][lsp layer description]].
