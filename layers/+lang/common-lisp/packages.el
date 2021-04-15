@@ -21,20 +21,19 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq common-lisp-packages
-      '(
-        auto-highlight-symbol
-        (common-lisp-snippets :requires yasnippet)
-        evil
-        evil-cleverparens
-        ggtags
-        counsel-gtags
-        helm
-        helm-gtags
-        parinfer
-        rainbow-identifiers
-        slime
-        (slime-company :requires company)))
+(defconst common-lisp-packages
+  '(
+    auto-highlight-symbol
+    (common-lisp-snippets :requires yasnippet)
+    evil
+    evil-cleverparens
+    ggtags
+    counsel-gtags
+    helm
+    helm-gtags
+    rainbow-identifiers
+    slime
+    (slime-company :requires company)))
 
 
 (defun common-lisp/post-init-auto-highlight-symbol ()
@@ -72,9 +71,6 @@
 
 (defun common-lisp/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'common-lisp-mode))
-
-(defun common-lisp/post-init-parinfer ()
-  (add-hook 'lisp-mode-hook 'parinfer-mode))
 
 (defun common-lisp/post-init-rainbow-identifiers ()
   (add-hook 'lisp-mode-hook #'colors//rainbow-identifiers-ignore-keywords))

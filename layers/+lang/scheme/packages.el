@@ -28,7 +28,6 @@
     ggtags
     counsel-gtags
     helm-gtags
-    parinfer-rust-mode
     (geiser-chez    :toggle (memq 'chez    scheme-implementations))
     (geiser-chibi   :toggle (memq 'chibi   scheme-implementations))
     (geiser-chicken :toggle (memq 'chicken scheme-implementations))
@@ -111,9 +110,6 @@
 
 (defun scheme/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'scheme-mode))
-
-(defun scheme/post-init-parinfer-rust-mode ()
-  (add-hook 'scheme-mode-hook 'parinfer-rust-mode))
 
 (defun scheme/init-geiser-chez ()
   (use-package geiser-chez

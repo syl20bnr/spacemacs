@@ -46,7 +46,6 @@
     counsel-gtags
     helm-gtags
     org
-    parinfer
     popwin
     (sayid :toggle clojure-enable-sayid)
     smartparens
@@ -523,9 +522,6 @@
         (unload-feature 'sayid)
         (require 'sayid)
         (setq cider-jack-in-lein-plugins (delete `("com.billpiel/sayid" nil) cider-jack-in-lein-plugins))))))
-
-(defun clojure/post-init-parinfer ()
-  (add-hook 'clojure-mode-hook 'parinfer-mode))
 
 (defun clojure/post-init-flycheck ()
   ;; When user has chosen to use multiple linters.
