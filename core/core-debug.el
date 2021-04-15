@@ -143,7 +143,7 @@ seconds to load")
                 (with-current-buffer "*load-times*"
                   (goto-char (point-max))
                   (insert (format "[%.3f] Spacemacs finished initializing\n\n"
-                                  (float-time (time-since emacs-start-time)) )))))
+                                  (float-time (time-since emacs-start-time)))))))
 
     (advice-add 'load :around #'spacemacs//load-timer)
     (advice-add 'require :around #'spacemacs//load-timer)
@@ -248,9 +248,7 @@ seconds to load")
                             func))
       (if (stringp func)
           (spacemacs/describe-ex-command func)
-        (if (configuration-layer/layer-usedp 'helpful)
-            (helpful-callable func)
-          (describe-function func))))))
+        (describe-function func)))))
 
 (defun spacemacs/report-issue (arg)
   "Open a spacemacs/report-issue-mode buffer prepopulated with
