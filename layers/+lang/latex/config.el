@@ -29,7 +29,7 @@
 ;; lowercase form, since bind-map uses the value of major-mode...
 (spacemacs|define-jump-handlers latex-mode)
 ;; ...but AUCTeX runs LaTeX-mode-hook rather than latex-mode-hook, so:
-(add-hook 'LaTeX-mode-hook #'spacemacs//init-jump-handlers-latex-mode)
+(add-to-list 'spacemacs-jump-handlers-latex-mode 'LaTeX-mode-hook)
 
 (defvar latex-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'company-auctex)
   "The backend to use for IDE features.
