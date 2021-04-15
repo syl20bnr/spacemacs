@@ -22,8 +22,16 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq pdf-packages '(pdf-tools
-                     pdf-view-restore))
+(setq pdf-packages
+      '((pdf-tools :location (recipe
+                              :fetcher github
+                              :repo "vedang/pdf-tools"
+                              :files ("lisp/*.el"
+                                      "README"
+                                      ("build" "Makefile")
+                                      ("build" "server")
+                                      (:exclude "lisp/tablist.el" "lisp/tablist-filter.el"))))
+        pdf-view-restore))
 
 (defun pdf/init-pdf-tools ()
   (use-package pdf-tools
