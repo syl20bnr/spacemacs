@@ -73,6 +73,8 @@
         (add-hook 'doc-view-mode-hook 'auto-revert-mode)))
     :config
     (progn
+      ;; otherwise `, p` preview commands doesn't work
+      (require 'preview)
       ;; Key bindings for plain TeX
       (dolist (mode '(tex-mode latex-mode context-mode))
         (spacemacs/set-leader-keys-for-major-mode mode
