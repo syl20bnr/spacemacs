@@ -40,6 +40,7 @@
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
   (when (eq javascript-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'js2-mode)
     (spacemacs//javascript-setup-lsp-dap)))
 
 (defun spacemacs//javascript-setup-next-error-fn ()
@@ -152,3 +153,8 @@
 
 (defun spacemacs/javascript-fmt-before-save-hook ()
   (add-hook 'before-save-hook 'spacemacs/javascript-format t t))
+
+(defun spacemacs//setup-import-js ()
+  "Conditionally enable/disable `import-js` mode."
+  (when (eq javascript-import-tool 'import-js)
+    (add-to-list 'spacemacs--import-js-modes (cons 'js2-mode 'js2-mode-hook))))

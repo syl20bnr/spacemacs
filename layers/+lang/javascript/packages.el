@@ -57,12 +57,10 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'js2-mode))
 
 (defun javascript/pre-init-dap-mode ()
-  (when (eq javascript-backend 'lsp)
-    (add-to-list 'spacemacs--dap-supported-modes 'js2-mode))
   (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-dap))
 
 (defun javascript/post-init-evil-matchit ()
-  (add-hook `js2-mode-hook `turn-on-evil-matchit-mode))
+  (add-hook 'js2-mode-hook 'turn-on-evil-matchit-mode))
 
 (defun javascript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'js2-mode)
@@ -100,8 +98,7 @@
     "I" 'spacemacs/impatient-mode))
 
 (defun javascript/pre-init-import-js ()
-  (when (eq javascript-import-tool 'import-js)
-    (add-to-list 'spacemacs--import-js-modes (cons 'js2-mode 'js2-mode-hook))))
+  (add-hook 'js2-mode-local-vars-hook #'spacemacs//setup-import-js))
 
 (defun javascript/init-js-doc ()
   (use-package js-doc
@@ -113,14 +110,9 @@
   (use-package js2-mode
     :defer t
     :mode (("\\.m?js\\'"  . js2-mode))
-    :init
-    (progn
-      (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-backend)
-      (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-next-error-fn)
-      ;; safe values for backend to be used in directory file variables
-      (dolist (value '(lsp tern tide))
-        (add-to-list 'safe-local-variable-values
-                     (cons 'javascript-backend value))))
+    :hook
+    ((js2-mode-local-vars . spacemacs//javascript-setup-backend)
+     (js2-mode-local-vars . spacemacs//javascript-setup-next-error-fn))
     :config
     (progn
       (when javascript-fmt-on-save

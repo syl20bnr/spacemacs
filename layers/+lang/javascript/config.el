@@ -29,12 +29,20 @@
   "The backend to use for IDE features.
 Possible values are `tern', `tide' and `lsp'.
 If `nil' then `tern' is the default backend unless `lsp' layer is used.")
+;; safe values for backend to be used in directory file variables
+(dolist (value '(lsp tern tide))
+  (add-to-list 'safe-local-variable-values
+               (cons 'javascript-backend value)))
 
 (defvar javascript-fmt-tool 'web-beautify
   "The formatter to format a JavaScript file. Possible values are `web-beautify' and `prettier'.")
+(dolist (value '(web-beautify prettier))
+  (add-to-list 'safe-local-variable-values
+               (cons 'javascript-fmt-tool value)))
 
 (defvar javascript-import-tool nil
   "The import backend to import modules. Possible values are `import-js' and `nil' to disable.")
+(put 'javascript-import-tool 'safe-local-variable #'symbolp)
 
 (defvar javascript-fmt-on-save nil
   "Run formatter on buffer save.")
