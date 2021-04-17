@@ -53,7 +53,7 @@
     spacemacs-dotspacemacs-layers)
   "List of variable groups that can't be customized.")
 
-(defmacro spacemacs|defc (symbol standard doc type &optional group-override)
+(defmacro spacemacs|defc (symbol standard doc type &optional group-override safe)
   "Spacemacs flavored `defcustom' for .spacemacs configurations.
 SYMBOL         is the variable name; it should not be quoted.
 STANDARD       is an expression specifying the variable's standard value.
@@ -63,6 +63,8 @@ TYPE           should be a widget type for editing the symbol's value.
                base types and useful composite types.
 GROUP-OVERRIDE should be provided if you don't want Spacemacs to infer the
                configuration group from the currently configured layer name.
+SAFE           should be filled with a function to be set to
+               safe-local-variable property.
 
 NOTE: Use interactive function `spacemacs/customization-valid-p' to test if a
       variable has a proper type. In interactive mode it will also `message'
@@ -88,6 +90,7 @@ NOTE: Variables defined with a group listed in
          `',standard)
       ,(format "%s\n\nTYPE: %s\n" doc type)
       :type ,type
+      :safe ,safe
       :group group)
      (when (memq group spacemacs-customization-uncustomizable-groups)
        ;; HACK: This will make `custom-variable-p' return nil

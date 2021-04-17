@@ -23,11 +23,12 @@
 
 ;; Variables
 
-(defvar groovy-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'company-groovy)
+(spacemacs|defc groovy-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'company-groovy)
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-groovy'.
-If `nil' then 'company-groovy` is the default backend unless `lsp' layer is used")
-(put 'groovy-backend 'safe-local-variable #'symbolp)
+If not set then 'company-groovy` is the default backend unless `lsp' layer is used"
+  '(choice (const lsp) (const company-groovy)) nil #'symbolp)
 
-(defvar groovy-lsp-jar-path "~/groovy-lsp-all.jar"
-  "The path to the lsp jar file")
+(spacemacs|defc groovy-lsp-jar-path "~/groovy-lsp-all.jar"
+  "The path to the lsp jar file"
+  '(file) nil #'stringp)
