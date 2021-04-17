@@ -29,3 +29,4 @@
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-elm'.
 If `nil' then 'company-elm` is the default backend unless `lsp' layer is used")
+(put 'elm-backend 'safe-local-variable #'symbolp)

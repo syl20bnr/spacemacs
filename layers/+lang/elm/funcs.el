@@ -40,6 +40,26 @@
     ('lsp (lsp))
     ('company-elm (elm-oracle-setup-completion))))
 
+(defun spacemacs//elm-setup-binding
+    (common-prefix company-elm-prefix common-binding company-elm-binding)
+  "Conditionally setup prefix and bindings according to `elm-backend'."
+  (cl-loop for x on common-prefix
+           by 'cddr
+           do (apply 'spacemacs/declare-prefix-for-mode 'elm-mode
+                     (list (car x) (cadr x))))
+  (apply 'spacemacs/set-leader-keys-for-major-mode 'elm-mode
+         common-binding)
+  (add-hook 'elm-mode-local-vars-hook
+            (lambda ()
+              (when (eq elm-backend 'company-elm)
+                (cl-loop for x on company-elm-prefix
+                         by 'cddr
+                         do (apply 'spacemacs/declare-prefix-for-mode
+                                   'elm-mode
+                                   (list (car x) (cadr x))))
+                (apply 'spacemacs/set-leader-keys-for-major-mode 'elm-mode
+                       company-elm-binding)))))
+
 
 ;; elm-mode
 

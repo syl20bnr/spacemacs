@@ -32,7 +32,7 @@
     smartparens))
 
 (defun elm/post-init-company ()
-  (spacemacs//elm-setup-company))
+  (add-hook 'elm-mode-local-vars-hook #'spacemacs//elm-setup-company))
 
 (defun elm/post-init-flycheck ()
   (spacemacs/enable-flycheck 'elm-mode))
@@ -47,58 +47,48 @@
   "Initialize elm-mode"
   (use-package elm-mode
     :mode ("\\.elm\\'" . elm-mode)
-    :defer t
-    :init
-    (progn
-      (spacemacs/register-repl 'elm-mode 'elm-repl-load "elm")
-      (add-hook 'elm-mode-hook 'spacemacs//elm-setup-backend))
+    :hook (elm-mode-local-vars . spacemacs//elm-setup-backend)
+    :init (spacemacs/register-repl 'elm-mode 'elm-repl-load "elm")
     :config
     (progn
-      ;; Bind non-lsp keys
-      (when (eq elm-backend 'company-elm)
-        (spacemacs/set-leader-keys-for-major-mode 'elm-mode
-          ;; format
-          "=b" 'elm-format-buffer
+      (spacemacs//elm-setup-binding
+       ;; Common prefix
+       '("mp" "package"
+         "mc" "compile"
+         "mR" "reactor"
+         "ms" "repl")
+       ;; Non-lsp prefix
+       '("m=" "format"
+         "mh" "help"
+         "mg" "goto"
+         "mr" "refactor")
+       ;; Bind general keys
+       '(;; refactoring
+         "ri" elm-sort-imports
+         ;; repl
+         "'"  elm-repl-load
+         "si" elm-repl-load
+         "sf" elm-repl-push-decl
+         "sF" spacemacs/elm-repl-push-decl-focus
+         "sr" elm-repl-push
+         "sR" spacemacs/elm-repl-push-focus
+         ;; make
+         "cb" elm-compile-buffer
+         "cB" spacemacs/elm-compile-buffer-output
+         "cm" elm-compile-main
+         ;; reactor
+         "Rn" elm-preview-buffer
+         "Rm" elm-preview-main
+         ;; package
+         "pi" elm-import
+         "pc" elm-package-catalog
+         "pd" elm-documentation-lookup)
+       ;; Bind non-lsp keys
+       '(;; format
+          "=b" elm-format-buffer
           ;; oracle
-          "hh" 'elm-oracle-doc-at-point
-          "ht" 'elm-oracle-type-at-point)
-
-        ;; Bind prefixes
-        (dolist (x '(("m=" . "format")
-                     ("mh" . "help")
-                     ("mg" . "goto")
-                     ("mr" . "refactor")))
-          (spacemacs/declare-prefix-for-mode 'elm-mode (car x) (cdr x))))
-
-      ;; Bind general keys
-      (spacemacs/set-leader-keys-for-major-mode 'elm-mode
-        ;; refactoring
-        "ri" 'elm-sort-imports
-        ;; repl
-        "'"  'elm-repl-load
-        "si" 'elm-repl-load
-        "sf" 'elm-repl-push-decl
-        "sF" 'spacemacs/elm-repl-push-decl-focus
-        "sr" 'elm-repl-push
-        "sR" 'spacemacs/elm-repl-push-focus
-        ;; make
-        "cb" 'elm-compile-buffer
-        "cB" 'spacemacs/elm-compile-buffer-output
-        "cm" 'elm-compile-main
-        ;; reactor
-        "Rn" 'elm-preview-buffer
-        "Rm" 'elm-preview-main
-        ;; package
-        "pi" 'elm-import
-        "pc" 'elm-package-catalog
-        "pd" 'elm-documentation-lookup)
-
-      ;; Bind prefixes
-      (dolist (x '(("mp" . "package")
-                   ("mc" . "compile")
-                   ("mR" . "reactor")
-                   ("ms" . "repl")))
-        (spacemacs/declare-prefix-for-mode 'elm-mode (car x) (cdr x)))
+          "hh" elm-oracle-doc-at-point
+          "ht" elm-oracle-type-at-point))
 
       (evilified-state-evilify elm-package-mode elm-package-mode-map
         "g" 'elm-package-refresh
