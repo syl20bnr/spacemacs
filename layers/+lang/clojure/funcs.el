@@ -25,6 +25,24 @@
   "Conditionally setup clojure backend."
   (when (eq clojure-backend 'lsp) (lsp)))
 
+(defun spacemacs//clojure-bindings-hook
+    (common-prefix cider-prefix common-binding cider-binding)
+  "Conditinally setup clojure-modes bindings."
+  (spacemacs||forall-clojure-modes m
+    (mapc (lambda (x) (spacemacs/declare-prefix-for-mode m (car x) (cdr x)))
+          common-prefix)
+    (eval `(spacemacs/set-leader-keys-for-major-mode ,m
+             ,@(common-binding)))
+    (add-hook (intern (format "%s-local-vars-hook" m))
+              (lambda ()
+                (when (eq clojure-backend 'cider)
+                  (mapc (lambda (x) (spacemacs/declare-prefix-for-mode m (car x) (cdr x)))
+                        cider-prefix)
+                  (when cider-binding
+                    (eval `(spacemacs/set-leader-keys-for-major-mode ,m
+                             ,@(cider-binding))))))
+              nil t)))
+
 (defun clojure/fancify-symbols (mode)
   "Pretty symbols for Clojure's anonymous functions and sets,
    like (λ [a] (+ a 5)), ƒ(+ % 5), and ∈{2 4 6}."
@@ -224,7 +242,7 @@ in your Spacemacs configuration:
              clojure-enable-clj-refactor t)
     ) ")))
 
-(defmacro spacemacs|forall-clojure-modes (m &rest body)
+(defmacro spacemacs||forall-clojure-modes (m &rest body)
   "Executes BODY with M bound to all clojure derived modes."
   (declare (indent 1))
   `(dolist (,m '(clojure-mode

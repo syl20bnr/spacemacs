@@ -74,7 +74,7 @@
 
       ;; TODO: having this work for cider-macroexpansion-mode would be nice,
       ;;       but the problem is that it uses clojure-mode as its major-mode
-      (let ((cider--key-binding-prefixes
+      (let ((clojure--common-prefix
              '(("m=e" . "edn")
                ("md" . "debug")
                ("mdv" . "inspect values")
@@ -91,145 +91,141 @@
                ("msj" . "jack-in")
                ("msq" . "quit/restart repl")
                ("mt" . "test")))
-            (cider--key-binding-non-lsp-prefixes
+            (clojure--cider-prefix
              '(("m=" . "format")
                ("mg" . "goto") ;; no lsp
                ("mh" . "documentation")
-               ("mT" . "toggle"))))
-        (spacemacs|forall-clojure-modes m
-          (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
-                              m (car x) (cdr x)))
-                cider--key-binding-prefixes)
-          (unless (eq clojure-backend 'lsp)
-            (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
-                                m (car x) (cdr x)))
-                  cider--key-binding-non-lsp-prefixes)
-            (spacemacs/set-leader-keys-for-major-mode m
-              "hh" 'cider-doc
-              "=r" 'cider-format-region
-              "ge" 'cider-jump-to-compilation-error
-              "gr" 'cider-find-resource
-              "gs" 'cider-browse-spec
-              "gS" 'cider-browse-spec-all))
-          (spacemacs/set-leader-keys-for-major-mode m
-            ;; shortcuts
-            "'"  'sesman-start
-            ;; help / documentation
-            "ha" 'cider-apropos
-            "hc" 'cider-cheatsheet
-            "hd" 'cider-clojuredocs
-            "hj" 'cider-javadoc
-            "hn" 'cider-browse-ns
-            "hN" 'cider-browse-ns-all
-            "hs" 'cider-browse-spec
-            "hS" 'cider-browse-spec-all
-            ;; evaluate in source code buffer
-            "e;" 'cider-eval-defun-to-comment
-            "e$" 'spacemacs/cider-eval-sexp-end-of-line
-            "e(" 'cider-eval-list-at-point
-            "eb" 'cider-eval-buffer
-            "ee" 'cider-eval-last-sexp
-            "ef" 'cider-eval-defun-at-point
-            "ei" 'cider-interrupt
-            "el" 'spacemacs/cider-eval-sexp-end-of-line
-            "em" 'cider-macroexpand-1
-            "eM" 'cider-macroexpand-all
-            "ena" 'cider-ns-reload-all
-            "enn" 'cider-eval-ns-form
-            "enr" 'cider-ns-refresh
-            "enl" 'cider-ns-reload  ;; SPC u for cider-ns-reload-all
-            "ep;" 'cider-pprint-eval-defun-to-comment
-            "ep:" 'cider-pprint-eval-last-sexp-to-comment
-            "epf" 'cider-pprint-eval-defun-at-point
-            "epe" 'cider-pprint-eval-last-sexp
-            "er" 'cider-eval-region
-            "eu" 'cider-undef
-            "ev" 'cider-eval-sexp-at-point
-            "eV" 'cider-eval-sexp-up-to-point
-            "ew" 'cider-eval-last-sexp-and-replace
-            ;; format code style
-            "==" 'cider-format-buffer
-            "=eb" 'cider-format-edn-buffer
-            "=ee" 'cider-format-edn-last-sexp
-            "=er" 'cider-format-edn-region
-            "=f" 'cider-format-defun
-            ;; goto
-            "gb" 'cider-pop-back
-            "gc" 'cider-classpath
-            "gg" 'spacemacs/clj-find-var
-            "gn" 'cider-find-ns
-            ;; manage cider connections / sesman
-            "mb" 'sesman-browser
-            "mi" 'sesman-info
-            "mg" 'sesman-goto
-            "mlb" 'sesman-link-with-buffer
-            "mld" 'sesman-link-with-directory
-            "mlu" 'sesman-unlink
-            "mqq" 'sesman-quit
-            "mqr" 'sesman-restart
-            "mlp" 'sesman-link-with-project
-            "mSj" 'cider-connect-sibling-clj
-            "mSs" 'cider-connect-sibling-cljs
-            "ms" 'sesman-start
-            ;; send code - spacemacs convention
-            "sa" (if (eq m 'cider-repl-mode)
-                     'cider-switch-to-last-clojure-buffer
-                   'cider-switch-to-repl-buffer)
-            "sb" 'cider-load-buffer
-            "sB" 'spacemacs/cider-send-buffer-in-repl-and-focus
-            "scj" 'cider-connect-clj
-            "scm" 'cider-connect-clj&cljs
-            "scs" 'cider-connect-cljs
-            "se" 'spacemacs/cider-send-last-sexp-to-repl
-            "sE" 'spacemacs/cider-send-last-sexp-to-repl-focus
-            "sf" 'spacemacs/cider-send-function-to-repl
-            "sF" 'spacemacs/cider-send-function-to-repl-focus
-            "si" 'sesman-start
-            "sjj" 'cider-jack-in-clj
-            "sjm" 'cider-jack-in-clj&cljs
-            "sjs" 'cider-jack-in-cljs
-            "sl" 'spacemacs/cider-find-and-clear-repl-buffer
-            "sL" 'cider-find-and-clear-repl-output
-            "sn" 'spacemacs/cider-send-ns-form-to-repl
-            "sN" 'spacemacs/cider-send-ns-form-to-repl-focus
-            "so" 'cider-repl-switch-to-other
-            "sqq" 'cider-quit
-            "sqr" 'cider-restart
-            "sqn" 'cider-ns-reload
-            "sqN" 'cider-ns-reload-all
-            "sr" 'spacemacs/cider-send-region-to-repl
-            "sR" 'spacemacs/cider-send-region-to-repl-focus
-            "su" 'cider-repl-require-repl-utils
-            ;; toggle options
-            "Te" 'cider-enlighten-mode
-            "Tf" 'spacemacs/cider-toggle-repl-font-locking
-            "Tp" 'spacemacs/cider-toggle-repl-pretty-printing
-            "Tt" 'cider-auto-test-mode
-            ;; cider-tests
-            "ta" 'spacemacs/cider-test-run-all-tests
-            "tb" 'cider-test-show-report
-            "tl" 'spacemacs/cider-test-run-loaded-tests
-            "tn" 'spacemacs/cider-test-run-ns-tests
-            "tp" 'spacemacs/cider-test-run-project-tests
-            "tr" 'spacemacs/cider-test-rerun-failed-tests
-            "tt" 'spacemacs/cider-test-run-focused-test
-            ;; cider-debug and inspect
-            "db" 'cider-debug-defun-at-point
-            "de" 'spacemacs/cider-display-error-buffer
-            "dve" 'cider-inspect-last-sexp
-            "dvf" 'cider-inspect-defun-at-point
-            "dvi" 'cider-inspect
-            "dvl" 'cider-inspect-last-result
-            "dvv" 'cider-inspect-expr
-            ;; profile
-            "p+" 'cider-profile-samples
-            "pc" 'cider-profile-clear
-            "pn" 'cider-profile-ns-toggle
-            "ps" 'cider-profile-var-summary
-            "pS" 'cider-profile-summary
-            "pt" 'cider-profile-toggle
-            "pv" 'cider-profile-var-profiled-p)))
-
+               ("mT" . "toggle")))
+            (clojure--common-binding
+             '(;; shortcuts
+               "'"  'sesman-start
+               ;; help / documentation
+               "ha" 'cider-apropos
+               "hc" 'cider-cheatsheet
+               "hd" 'cider-clojuredocs
+               "hj" 'cider-javadoc
+               "hn" 'cider-browse-ns
+               "hN" 'cider-browse-ns-all
+               "hs" 'cider-browse-spec
+               "hS" 'cider-browse-spec-all
+               ;; evaluate in source code buffer
+               "e;" 'cider-eval-defun-to-comment
+               "e$" 'spacemacs/cider-eval-sexp-end-of-line
+               "e(" 'cider-eval-list-at-point
+               "eb" 'cider-eval-buffer
+               "ee" 'cider-eval-last-sexp
+               "ef" 'cider-eval-defun-at-point
+               "ei" 'cider-interrupt
+               "el" 'spacemacs/cider-eval-sexp-end-of-line
+               "em" 'cider-macroexpand-1
+               "eM" 'cider-macroexpand-all
+               "ena" 'cider-ns-reload-all
+               "enn" 'cider-eval-ns-form
+               "enr" 'cider-ns-refresh
+               "enl" 'cider-ns-reload  ;; SPC u for cider-ns-reload-all
+               "ep;" 'cider-pprint-eval-defun-to-comment
+               "ep:" 'cider-pprint-eval-last-sexp-to-comment
+               "epf" 'cider-pprint-eval-defun-at-point
+               "epe" 'cider-pprint-eval-last-sexp
+               "er" 'cider-eval-region
+               "eu" 'cider-undef
+               "ev" 'cider-eval-sexp-at-point
+               "eV" 'cider-eval-sexp-up-to-point
+               "ew" 'cider-eval-last-sexp-and-replace
+               ;; format code style
+               "==" 'cider-format-buffer
+               "=eb" 'cider-format-edn-buffer
+               "=ee" 'cider-format-edn-last-sexp
+               "=er" 'cider-format-edn-region
+               "=f" 'cider-format-defun
+               ;; goto
+               "gb" 'cider-pop-back
+               "gc" 'cider-classpath
+               "gg" 'spacemacs/clj-find-var
+               "gn" 'cider-find-ns
+               ;; manage cider connections / sesman
+               "mb" 'sesman-browser
+               "mi" 'sesman-info
+               "mg" 'sesman-goto
+               "mlb" 'sesman-link-with-buffer
+               "mld" 'sesman-link-with-directory
+               "mlu" 'sesman-unlink
+               "mqq" 'sesman-quit
+               "mqr" 'sesman-restart
+               "mlp" 'sesman-link-with-project
+               "mSj" 'cider-connect-sibling-clj
+               "mSs" 'cider-connect-sibling-cljs
+               "ms" 'sesman-start
+               ;; send code - spacemacs convention
+               "sa" (if (eq m 'cider-repl-mode
+                             'cider-switch-to-last-clojure-buffer
+                           'cider-switch-to-repl-buffer))
+               "sb" 'cider-load-buffer
+               "sB" 'spacemacs/cider-send-buffer-in-repl-and-focus
+               "scj" 'cider-connect-clj
+               "scm" 'cider-connect-clj&cljs
+               "scs" 'cider-connect-cljs
+               "se" 'spacemacs/cider-send-last-sexp-to-repl
+               "sE" 'spacemacs/cider-send-last-sexp-to-repl-focus
+               "sf" 'spacemacs/cider-send-function-to-repl
+               "sF" 'spacemacs/cider-send-function-to-repl-focus
+               "si" 'sesman-start
+               "sjj" 'cider-jack-in-clj
+               "sjm" 'cider-jack-in-clj&cljs
+               "sjs" 'cider-jack-in-cljs
+               "sl" 'spacemacs/cider-find-and-clear-repl-buffer
+               "sL" 'cider-find-and-clear-repl-output
+               "sn" 'spacemacs/cider-send-ns-form-to-repl
+               "sN" 'spacemacs/cider-send-ns-form-to-repl-focus
+               "so" 'cider-repl-switch-to-other
+               "sqq" 'cider-quit
+               "sqr" 'cider-restart
+               "sqn" 'cider-ns-reload
+               "sqN" 'cider-ns-reload-all
+               "sr" 'spacemacs/cider-send-region-to-repl
+               "sR" 'spacemacs/cider-send-region-to-repl-focus
+               "su" 'cider-repl-require-repl-utils
+               ;; toggle options
+               "Te" 'cider-enlighten-mode
+               "Tf" 'spacemacs/cider-toggle-repl-font-locking
+               "Tp" 'spacemacs/cider-toggle-repl-pretty-printing
+               "Tt" 'cider-auto-test-mode
+               ;; cider-tests
+               "ta" 'spacemacs/cider-test-run-all-tests
+               "tb" 'cider-test-show-report
+               "tl" 'spacemacs/cider-test-run-loaded-tests
+               "tn" 'spacemacs/cider-test-run-ns-tests
+               "tp" 'spacemacs/cider-test-run-project-tests
+               "tr" 'spacemacs/cider-test-rerun-failed-tests
+               "tt" 'spacemacs/cider-test-run-focused-test
+               ;; cider-debug and inspect
+               "db" 'cider-debug-defun-at-point
+               "de" 'spacemacs/cider-display-error-buffer
+               "dve" 'cider-inspect-last-sexp
+               "dvf" 'cider-inspect-defun-at-point
+               "dvi" 'cider-inspect
+               "dvl" 'cider-inspect-last-result
+               "dvv" 'cider-inspect-expr
+               ;; profile
+               "p+" 'cider-profile-samples
+               "pc" 'cider-profile-clear
+               "pn" 'cider-profile-ns-toggle
+               "ps" 'cider-profile-var-summary
+               "pS" 'cider-profile-summary
+               "pt" 'cider-profile-toggle
+               "pv" 'cider-profile-var-profiled-p))
+            (clojure--cider-binding
+             '("hh" 'cider-doc
+               "=r" 'cider-format-region
+               "ge" 'cider-jump-to-compilation-error
+               "gr" 'cider-find-resource
+               "gs" 'cider-browse-spec
+               "gS" 'cider-browse-spec-all)))
+        (spacemacs//clojure-bindings-hook
+         clojure--common-prefix
+         clojure--cider-prefix
+         clojure--common-binding
+         clojure--cider-binding))
       ;; cider-repl-mode only
       (spacemacs/set-leader-keys-for-major-mode 'cider-repl-mode
         "," 'cider-repl-handle-shortcut)
@@ -325,7 +321,7 @@
       ;; here because it reads the variable `cljr--all-helpers'. Since
       ;; `clj-refactor-mode' is added to the hook, this should trigger when a
       ;; clojure buffer is opened anyway, so there's no "keybinding delay".
-      (spacemacs|forall-clojure-modes m
+      (spacemacs||forall-clojure-modes m
         (dolist (r cljr--all-helpers)
           (let* ((binding (car r))
                  (func (cadr r)))
@@ -341,7 +337,7 @@
       (add-hook 'clojure-mode-hook 'helm-cider-mode)
       (setq sayid--key-binding-prefixes
             '(("mhc" . "helm-cider-cheatsheet")))
-      (spacemacs|forall-clojure-modes m
+      (spacemacs||forall-clojure-modes m
         (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
                             m (car x) (cdr x)))
               sayid--key-binding-prefixes)
@@ -356,9 +352,11 @@
       (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
       ;; This regexp matches shebang expressions like `#!/usr/bin/env boot'
       (add-to-list 'magic-mode-alist '("#!.*boot\\s-*$" . clojure-mode))
-      (add-hook 'clojure-mode-local-vars-hook #'spacemacs//clojure-setup-backend)
+      (spacemacs||forall-clojure-modes m
+        (add-hook (intern (format "%s-local-vars-hook" m))
+                  #'spacemacs//clojure-setup-backend))
       ;; Define all the prefixes here, although most of them apply only to bindings in clj-refactor
-      (let ((clj-refactor--key-binding-prefixes
+      (let ((clojure--common-refactor-prefixes
              '(("mra" . "add")
                ("mrc" . "cycle/clean/convert")
                ("mrd" . "destructure")
@@ -372,40 +370,38 @@
                ("mrs" . "show/sort/stop")
                ("mrt" . "thread")
                ("mru" . "unwind/update")))
-            (clj-refactor--key-binding-non-lsp-prefixes
-             '(("mr" . "refactor"))))
-        (spacemacs|forall-clojure-modes m
-          (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
-                              m (car x) (cdr x)))
-                clj-refactor--key-binding-prefixes)
-          (unless (eq clojure-backend 'lsp)
-            (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
-                                m (car x) (cdr x)))
-                  clj-refactor--key-binding-non-lsp-prefixes))
-          (spacemacs/set-leader-keys-for-major-mode m
-            "=l" 'clojure-align
-            "ran" 'clojure-insert-ns-form
-            "raN" 'clojure-insert-ns-form-at-point
-            "rci" 'clojure-cycle-if
-            "rcp" 'clojure-cycle-privacy
-            "rc#" 'clojure-convert-collection-to-set
-            "rc'" 'clojure-convert-collection-to-quoted-list
-            "rc(" 'clojure-convert-collection-to-list
-            "rc[" 'clojure-convert-collection-to-vector
-            "rc{" 'clojure-convert-collection-to-map
-            "rc:" 'clojure-toggle-keyword-string
-            "rsn" 'clojure-sort-ns
-            "rtf" 'clojure-thread-first-all
-            "rth" 'clojure-thread
-            "rtl" 'clojure-thread-last-all
-            "rua" 'clojure-unwind-all
-            "ruw" 'clojure-unwind)
+            (clojure--cider-refactor-prefix
+             '(("mr" . "refactor")))
+            (clojure--common-refactor-binding
+             '("=l" 'clojure-align
+               "ran" 'clojure-insert-ns-form
+               "raN" 'clojure-insert-ns-form-at-point
+               "rci" 'clojure-cycle-if
+               "rcp" 'clojure-cycle-privacy
+               "rc#" 'clojure-convert-collection-to-set
+               "rc'" 'clojure-convert-collection-to-quoted-list
+               "rc(" 'clojure-convert-collection-to-list
+               "rc[" 'clojure-convert-collection-to-vector
+               "rc{" 'clojure-convert-collection-to-map
+               "rc:" 'clojure-toggle-keyword-string
+               "rsn" 'clojure-sort-ns
+               "rtf" 'clojure-thread-first-all
+               "rth" 'clojure-thread
+               "rtl" 'clojure-thread-last-all
+               "rua" 'clojure-unwind-all
+               "ruw" 'clojure-unwind)))
+        (spacemacs//clojure-bindings-hook
+         clojure--common-refactor-prefixes
+         clojure--cider-refactor-prefix
+         clojure--common-refactor-binding
+         nil)
+        (spacemacs||forall-clojure-modes m
           (unless clojure-enable-clj-refactor
             (spacemacs/set-leader-keys-for-major-mode m
               "r?" 'spacemacs/clj-describe-missing-refactorings)))))
     :config
     (when clojure-enable-fancify-symbols
-      (spacemacs|forall-clojure-modes m
+      (spacemacs||forall-clojure-modes m
         (clojure/fancify-symbols m)))))
 
 (defun clojure/post-init-eldoc ()
@@ -416,7 +412,7 @@
 (defun clojure/pre-init-evil-cleverparens ()
   (spacemacs|use-package-add-hook evil-cleverparens
     :pre-init
-    (spacemacs|forall-clojure-modes m
+    (spacemacs||forall-clojure-modes m
       (add-to-list 'evil-lisp-safe-structural-editing-modes m))))
 
 (defun clojure/pre-init-popwin ()
@@ -465,7 +461,7 @@
     (progn
       (setq sayid--key-binding-prefixes
             '(("mdt" . "trace")))
-      (spacemacs|forall-clojure-modes m
+      (spacemacs||forall-clojure-modes m
         (mapc (lambda (x) (spacemacs/declare-prefix-for-mode m
                             (car x) (cdr x)))
               sayid--key-binding-prefixes)
@@ -573,7 +569,7 @@
               (dolist (next-checker checkers-to-add)
                 (flycheck-add-next-checker checker next-checker t))
               (setq checkers-to-add (cdr checkers-to-add))))))))
-  (spacemacs|forall-clojure-modes m
+  (spacemacs||forall-clojure-modes m
     (spacemacs/enable-flycheck m)))
 
 (defun clojure/init-flycheck-clojure ()
