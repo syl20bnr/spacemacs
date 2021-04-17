@@ -43,7 +43,10 @@
   ;; currently DAP is only available using LSP
   (pcase c-c++-backend
     ('lsp-clangd (spacemacs//c-c++-setup-lsp-dap))
-    ('lsp-ccls (spacemacs//c-c++-setup-lsp-dap))))
+    ('lsp-ccls (spacemacs//c-c++-setup-lsp-dap))
+    (_ (user-error "Unknown `c-c++-backend': %s" c-c++-backend)))
+  (setq-local spacemacs--dap-supported-modes
+              '(c-mode c++-mode)))
 
 (defun spacemacs//c-c++-setup-eldoc ()
   "Conditionally setup C/C++ eldoc integration based on backend."
@@ -169,7 +172,7 @@
 
 (defun spacemacs//c-c++-setup-lsp-dap ()
   "Setup DAP integration."
-  (mapc #'require c-c++-dap-adapters))
+  (mapc #'require c-c++-dap-adaptors))
 
 
 ;; rtags
@@ -393,10 +396,12 @@
 (defun spacemacs//c-c++-organize-includes-on-save ()
   "Organize the includes on save when `c-c++-enable-organize-includes-on-save'
 is non-nil."
-  (when c-c++-enable-organize-includes-on-save
-    (spacemacs/c-c++-organize-includes)))
+  (spacemacs/c-c++-organize-includes))
 
-(defun spacemacs/c-c++-organize-includes-on-save ()
-  "Add before-save hook for c-c++-organize-includes."
-  (add-hook 'before-save-hook
-            #'spacemacs//c-c++-organize-includes-on-save nil t))
+(defun spacemacs//c-c++-organize-includes-on-save-hook ()
+  "Conditionally enable `spacemacs/c-c++-organize-includes'.
+When `c-c++-enable-organize-includes-on-save' is non-nil, add before-save hook for
+`c-c++-organize-includes'."
+  (when c-c++-enable-organize-includes-on-save
+    (add-hook 'before-save-hook
+              #'spacemacs//c-c++-organize-includes-on-save nil t)))

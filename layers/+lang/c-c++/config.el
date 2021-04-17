@@ -29,6 +29,7 @@
 (defvar c-c++-backend (when (configuration-layer/layer-used-p 'lsp) 'lsp-clangd)
   "The backend to use for IDE features.
 Possible values are `lsp-ccls', `lsp-clangd', `rtags' and `ycmd'.")
+(put 'c-c++-backend 'safe-local-variable #'symbolp)
 
 
 ;; lsp
@@ -47,14 +48,14 @@ By default `font-lock' is used to highlight the text, set the variable to
 
 
 ;; dap
-
-(defvar c-c++-dap-adapters '(dap-cpptools)
-  "Debug adapters to use for IDE debug features.
+(define-obsolete-variable-alias 'c-c++-dap-adapters 'c-c++-dap-adaptors "April 17, 2021")
+(defvar c-c++-dap-adaptors '(dap-cpptools)
+  "Debug adaptors to use for IDE debug features.
 
 By default only `dap-cpptools' is used.
 
 Add `dap-cpptools' for the official Microsoft C/C++ Extension for VSCode.
-Add `dap-lldb' for the official LLDB project adapter.
+Add `dap-lldb' for the official LLDB project adaptor.
 Add `dap-gdb-lldb' for the WebFreak Native Debug extension.")
 
 
@@ -75,6 +76,7 @@ Add `dap-gdb-lldb' for the WebFreak Native Debug extension.")
 (define-obsolete-variable-alias 'c++-enable-organize-includes-on-save 'c-c++-enable-organize-includes-on-save nil)
 (defvar c-c++-enable-organize-includes-on-save nil
   "If non-nil then automatically organize the includes on save C++ buffer.")
+(put 'c-c++-enable-organize-includes-on-save 'safe-local-variable #'symbolp)
 
 (defvar c-c++-enable-auto-newline nil
   "If non nil then enables the `Auto-newline' minor mode.")
