@@ -64,7 +64,7 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'go-mode))
 
 (defun go/post-init-eldoc ()
-  (add-hook 'go-mode-hook #'spacemacs//go-setup-eldoc))
+  (add-hook 'go-mode-local-vars-hook #'spacemacs//go-setup-eldoc))
 
 (defun go/post-init-flycheck ()
   (spacemacs/enable-flycheck 'go-mode))
@@ -128,14 +128,13 @@
 
 (defun go/init-go-mode ()
   (use-package go-mode
-    :defer t
+    :hook (go-mode . spacemacs//go-set-tab-width)
+          (go-mode-local-vars . spacemacs//go-setup-backend)
+          (go-mode-local-vars . spacemacs//go-setup-format)
     :init
     (progn
       ;; get go packages much faster
       (setq go-packages-function 'spacemacs/go-packages-gopkgs)
-      (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width)
-      (add-hook 'go-mode-local-vars-hook
-                #'spacemacs//go-setup-backend)
       (dolist (value '(lsp go-mode))
         (add-to-list 'safe-local-variable-values
                      (cons 'go-backend value)))
@@ -147,8 +146,6 @@
         :evil-leader-for-mode (go-mode . "tv")))
     :config
     (progn
-      (when go-format-before-save
-        (add-hook 'before-save-hook 'gofmt-before-save))
       (spacemacs/declare-prefix-for-mode 'go-mode "me" "playground")
       (spacemacs/declare-prefix-for-mode 'go-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'go-mode "mh" "help")

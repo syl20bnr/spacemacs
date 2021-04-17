@@ -51,6 +51,12 @@
     (require 'dap-go)
     (dap-go-setup)))
 
+(defun spacemacs//go-setup-format ()
+  "Conditionally setup format on save."
+  (if go-format-before-save
+      (add-hook 'before-save-hook 'gofmt-before-save)
+    (remove-hook 'before-save-hook 'gofmt-before-save)))
+
 
 ;; lsp
 
