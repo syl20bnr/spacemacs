@@ -31,16 +31,16 @@
   (spacemacs||forall-clojure-modes m
     (mapc (lambda (x) (spacemacs/declare-prefix-for-mode m (car x) (cdr x)))
           common-prefix)
-    (eval `(spacemacs/set-leader-keys-for-major-mode ,m
-             ,@(common-binding)))
+    (apply 'spacemacs/set-leader-keys-for-major-mode m
+           common-binding)
     (add-hook (intern (format "%s-local-vars-hook" m))
               (lambda ()
                 (when (eq clojure-backend 'cider)
                   (mapc (lambda (x) (spacemacs/declare-prefix-for-mode m (car x) (cdr x)))
                         cider-prefix)
                   (when cider-binding
-                    (eval `(spacemacs/set-leader-keys-for-major-mode ,m
-                             ,@(cider-binding))))))
+                    (apply 'spacemacs/set-leader-keys-for-major-mode m
+                           cider-binding))))
               nil t)))
 
 (defun clojure/fancify-symbols (mode)
