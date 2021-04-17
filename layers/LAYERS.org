@@ -214,6 +214,7 @@
   - [[#dap][DAP]]
   - [[#debug][Debug]]
   - [[#docker][Docker]]
+  - [[#eww][Eww]]
   - [[#fasd][Fasd]]
   - [[#finance][Finance]]
   - [[#geolocation][Geolocation]]
@@ -2780,6 +2781,17 @@ Features:
 - =docker-compose= integration via [[https://github.com/Silex/docker.el][docker.el]]
 - Syntax checking via [[https://github.com/hadolint/hadolint][hadolint]]
 - Code-Completion via =lsp=
+
+** Eww
+[[file:+web/eww/README.org][+web/eww/README.org]]
+
+Ewww.. So ergonomic!
+
+Features:
+- Adds evil key bindings support to eww-mode (including
+  eww-buffers/bookmarks/history-mode)
+- Adds spacemacs functionality to eww-mode
+- Adds ability to easily navigate eww buffers
 
 ** Fasd
 [[file:+tools/fasd/README.org][+tools/fasd/README.org]]

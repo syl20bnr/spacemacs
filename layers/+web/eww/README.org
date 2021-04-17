@@ -4,8 +4,9 @@
 
 [[file:img/eww.png]]
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
   - [[#eww][Eww]]
@@ -15,86 +16,90 @@
 
 * Description
 Ewww.. So ergonomic!
+
 ** Features:
-- Adds evil keybindings support to eww-mode (including
+- Adds evil key bindings support to eww-mode (including
   eww-buffers/bookmarks/history-mode)
 - Adds spacemacs functionality to eww-mode
 - Adds ability to easily navigate eww buffers
 
 * Install
+Because this layer is not officially apart of spacemacs, first clone the git
+repository somewhere and add it as a private layer in spacemacs:
 
-  Because this layer is not officially apart of spacemacs, first clone the git
-  repository somewhere and add it as a private layer in spacemacs:
-  
-  #+BEGIN_SRC bash
-     git clone https://github.com/coljamkop/eww-layer.git /path/to/dotspacemacs-configuration-layer-path/eww
-  #+END_SRC
-  
-  OR
+#+BEGIN_SRC bash
+  git clone https://github.com/coljamkop/eww-layer.git /path/to/dotspacemacs-configuration-layer-path/eww
+#+END_SRC
 
-  #+BEGIN_SRC bash
-     git clone https://github.com/coljamkop/eww-layer.git
-     ln -s "`pwd`/eww-layer" ~/.emacs.d/private/eww
-  #+END_SRC
+OR
 
-  To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-  add =eww= to the existing =dotspacemacs-configuration-layers= list in this
-  file.
+#+BEGIN_SRC bash
+  git clone https://github.com/coljamkop/eww-layer.git
+  ln -s "`pwd`/eww-layer" ~/.emacs.d/private/eww
+#+END_SRC
+
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =eww= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key bindings
 
-   | Key Binding | Description      | Function         |
-   |-------------+------------------+------------------|
-   | ~SPC a w e~ | Start eww        | eww              |
-   | ~SPC a w w~ | List eww buffers | eww-list-buffers |
+| Key binding | Description      | Function         |
+|-------------+------------------+------------------|
+| ~SPC a w e~ | Start eww        | eww              |
+| ~SPC a w w~ | List eww buffers | eww-list-buffers |
 
 ** Eww
-   | ~SPC m .~   | Eww Transient state      |                                  |
-   | ~SPC m s~   | Search                   | helm-google-suggest              |
-   | ~SPC m S~   | Search (alt)             | browse-web                       |
-   | ~SPC m r~   | Reload                   | eww-reload                       |
-   | ~SPC m p~   | Previous URL             | eww-previous-url                 |
-   | ~SPC m n~   | Next URL                 | eww-next-url                     |
-   | ~SPC m h~   | History                  | eww-list-histories               |
-   | ~SPC m d~   | Download                 | eww-download                     |
-   | ~SPC m a~   | Add Bookmark             | eww-add-bookmark                 |
-   | ~SPC m l o~ | List Bookmarks           | eww-list-bookmarks               |
-   | ~SPC m l b~ | List Eww Buffers         | eww-list-buffers                 |
-   | ~SPC m v x~ | View in External Browser | eww-browse-with-external-browser |
-   | ~SPC m v f~ | Toggle Fancy Fonts       | eww-toggle-fonts                 |
-   | ~SPC m v r~ | Reader View              | eww-readable                     |
-   | ~[~         | Previous URL             | eww-previous-url                 |
-   | ~]~         | Next URL                 | eww-next-url                     |
-   | ~H~         | Next Eww Buffer          | eww-jump-next-buffer             |
-   | ~L~         | Previous Eww Buffer      | eww-jump-previous-buffer         |
-   | ~C-o/<~     | History back             | eww-back-url                     |
-   | ~C-i/>~     | History forward          | eww-forward-url                  |
-   | ~C-j~       | Next Link                | shr-next-link                    |
-   | ~C-k~       | Previous Link            | shr-previous-link                |
-   | ~f~         | Follow Link              | eww-follow-link                  |
-   | ~F~         | Follow Link New Buffer   | eww-follow-link                  |
-   | ~o~         | Follow Link (avy/ace)    | eww-follow-link                  |
-   | ~+/-~       | zoom in/out              | zoom-frm-in/out                  |
-   | ~=~         | unzoom                   | zoom-frm-unzoom                  |
+
+| ~SPC m .~   | Eww Transient state      |                                  |
+| ~SPC m s~   | Search                   | helm-google-suggest              |
+| ~SPC m S~   | Search (alt)             | browse-web                       |
+| ~SPC m r~   | Reload                   | eww-reload                       |
+| ~SPC m p~   | Previous URL             | eww-previous-url                 |
+| ~SPC m n~   | Next URL                 | eww-next-url                     |
+| ~SPC m h~   | History                  | eww-list-histories               |
+| ~SPC m d~   | Download                 | eww-download                     |
+| ~SPC m a~   | Add Bookmark             | eww-add-bookmark                 |
+| ~SPC m l o~ | List Bookmarks           | eww-list-bookmarks               |
+| ~SPC m l b~ | List Eww Buffers         | eww-list-buffers                 |
+| ~SPC m v x~ | View in External Browser | eww-browse-with-external-browser |
+| ~SPC m v f~ | Toggle Fancy Fonts       | eww-toggle-fonts                 |
+| ~SPC m v r~ | Reader View              | eww-readable                     |
+| ~[~         | Previous URL             | eww-previous-url                 |
+| ~]~         | Next URL                 | eww-next-url                     |
+| ~H~         | Next Eww Buffer          | eww-jump-next-buffer             |
+| ~L~         | Previous Eww Buffer      | eww-jump-previous-buffer         |
+| ~C-o/<~     | History back             | eww-back-url                     |
+| ~C-i/>~     | History forward          | eww-forward-url                  |
+| ~C-j~       | Next Link                | shr-next-link                    |
+| ~C-k~       | Previous Link            | shr-previous-link                |
+| ~f~         | Follow Link              | eww-follow-link                  |
+| ~F~         | Follow Link New Buffer   | eww-follow-link                  |
+| ~o~         | Follow Link (avy/ace)    | eww-follow-link                  |
+| ~+/-~       | zoom in/out              | zoom-frm-in/out                  |
+| ~=~         | unzoom                   | zoom-frm-unzoom                  |
 
 ** Eww History
-   | ~SPC m f~ | Open History | eww-history-browse |
-   | ~f~       | Open History | eww-history-browse |
+
+| ~SPC m f~ | Open History | eww-history-browse |
+| ~f~       | Open History | eww-history-browse |
 
 ** Eww Bookmarks
-   | ~SPC m f~ | Open Bookmark   | eww-bookmark-browse |
-   | ~SPC m d~ | Delete Bookmark | eww-bookmark-kill   |
-   | ~SPC m y~ | Yank Bookmark   | eww-yank-bookmark   |
-   | ~f~       | Open Bookmark   | eww-bookmark-browse |
-   | ~d~       | Delete Bookmark | eww-bookmark-kill   |
-   | ~y~       | Yank Bookmark   | eww-yank-bookmark   |
+
+| ~SPC m f~ | Open Bookmark   | eww-bookmark-browse |
+| ~SPC m d~ | Delete Bookmark | eww-bookmark-kill   |
+| ~SPC m y~ | Yank Bookmark   | eww-yank-bookmark   |
+| ~f~       | Open Bookmark   | eww-bookmark-browse |
+| ~d~       | Delete Bookmark | eww-bookmark-kill   |
+| ~y~       | Yank Bookmark   | eww-yank-bookmark   |
 
 ** Eww Buffers
-   | ~SPC m f~ | Open Buffer     | eww-buffer-select        |
-   | ~SPC m d~ | Delete Buffer   | eww-buffer-kill          |
-   | ~SPC m n~ | Next Buffer     | eww-buffer-show-next     |
-   | ~SPC m p~ | Previous Buffer | eww-buffer-show-previous |
-   | ~f~       | Open Buffer     | eww-buffer-select        |
-   | ~d~       | Delete Buffer   | eww-buffer-kill          |
-   | ~n~       | Next Buffer     | eww-buffer-show-next     |
-   | ~p~       | Previous Buffer | eww-buffer-show-previous |
+
+| ~SPC m f~ | Open Buffer     | eww-buffer-select        |
+| ~SPC m d~ | Delete Buffer   | eww-buffer-kill          |
+| ~SPC m n~ | Next Buffer     | eww-buffer-show-next     |
+| ~SPC m p~ | Previous Buffer | eww-buffer-show-previous |
+| ~f~       | Open Buffer     | eww-buffer-select        |
+| ~d~       | Delete Buffer   | eww-buffer-kill          |
+| ~n~       | Next Buffer     | eww-buffer-show-next     |
+| ~p~       | Previous Buffer | eww-buffer-show-previous |

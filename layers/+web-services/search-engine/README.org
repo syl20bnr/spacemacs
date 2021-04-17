@@ -71,6 +71,7 @@ your =dotspacemacs/user-config=:
 
 The Amazon search engine defaults to use the =.com= [[https://en.wikipedia.org/wiki/TLD][TLD]]. If you want it to search on
 another country's website, you can specify a different one:
+
 #+BEGIN_SRC emacs-lisp
   ;; Use amazon.es site (Spain)
   (setq-default search-engine-amazon-tld "es")
