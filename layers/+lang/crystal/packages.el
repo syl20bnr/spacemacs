@@ -34,7 +34,7 @@
     play-crystal))
 
 (defun crystal/post-init-company ()
-  (spacemacs//crystal-setup-company))
+  (add-hook 'crystal-mode-local-vars-hook #'spacemacs//crystal-setup-company))
 
 (defun crystal/init-ameba ()
   (use-package ameba
@@ -54,7 +54,7 @@
     :init
     (progn
       (add-hook 'crystal-mode-hook 'spacemacs//crystal-auto-format-setup)
-      (add-hook 'crystal-mode-hook #'spacemacs//crystal-setup-backend)
+      (add-hook 'crystal-mode-local-vars-hook #'spacemacs//crystal-setup-backend)
       (spacemacs/declare-prefix-for-mode 'crystal-mode "mu" "tool")
       (unless (eq crystal-backend 'lsp)
         (spacemacs/declare-prefix-for-mode 'crystal-mode "mg" "goto")

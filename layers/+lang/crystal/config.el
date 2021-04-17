@@ -32,3 +32,4 @@
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-crystal'.
 If `nil' then 'company-crystal` is the default backend unless `lsp' layer is used")
+(put 'crystal-backend 'safe-local-variable #'symbolp)
