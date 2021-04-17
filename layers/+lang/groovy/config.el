@@ -31,4 +31,4 @@ If not set then 'company-groovy` is the default backend unless `lsp' layer is us
 
 (spacemacs|defc groovy-lsp-jar-path "~/groovy-lsp-all.jar"
   "The path to the lsp jar file"
-  '(file) nil #'stringp)
+  '(file :must-match t) nil #'stringp)
