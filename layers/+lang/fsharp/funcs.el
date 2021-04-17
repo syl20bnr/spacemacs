@@ -35,7 +35,25 @@
   "Conditionally setup fsharp backend."
   (pcase fsharp-backend
     ('lsp (lsp))
-    ('eglot (eglot-ensure))))
+    ('eglot (eglot-ensure)
+            (require 'eglot-fsharp))))
+
+(defun spacemacs//fsharp-setup-binding
+    (common-prefix eglot-prefix common-binding)
+  (cl-loop for x on common-prefix
+           by 'cddr
+           do (apply 'spacemacs/declare-prefix-for-mode 'fsharp-mode
+                     (list (car x) (cadr x))))
+  (apply 'spacemacs/set-leader-keys-for-major-mode 'fsharp-mode
+         common-binding)
+  (add-hook 'fsharp-mode-local-vars-hoook
+            (lambda ()
+              (when (eq fsharp-backend 'eglot)
+                (cl-loop for x on eglot-prefix
+                         by 'cddr
+                         do (apply 'spacemacs/declare-prefix-for-mode
+                                   'fsharp-mode
+                                   (list (car x) (cadr x))))))))
 
 (defun spacemacs/fsharp-load-buffer-file-focus ()
   "Send the current buffer to REPL and switch to the REPL in `insert state'."

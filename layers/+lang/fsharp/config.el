@@ -27,3 +27,4 @@
   "The backend to use for IDE features.
 Possible values are `lsp' and `eglot'.
 If `nil' then 'eglot` is the default backend unless `lsp' layer is used")
+(put 'fsharp-backend 'safe-local-variable #'symbolp)
