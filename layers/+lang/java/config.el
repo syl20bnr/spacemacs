@@ -29,3 +29,4 @@
   "The backend to use for IDE features.
 Possible values are `lsp' and `meghanada'.
 If `nil' then `meghanada' is the default backend unless `lsp' layer is used.")
+(put 'java-backend 'safe-local-variable #'symbolp)
