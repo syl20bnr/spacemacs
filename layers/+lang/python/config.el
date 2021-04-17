@@ -30,10 +30,12 @@
   "The backend to use for IDE features.
 Possible values are `anaconda'and `lsp'.
 If `nil' then `anaconda' is the default backend unless `lsp' layer is used.")
+(put 'python-backend 'safe-local-variable #'symbolp)
 
 (defvar python-lsp-server 'pyls
   "Language server to use for lsp backend. Possible values are `pyls', `pyright'
 and `mspyls'")
+(put 'python-lsp-server 'safe-local-variable #'symbolp)
 
 (defvar python-lsp-git-root nil
   "If non-nil, use a development version of the language server in this folder")
@@ -54,6 +56,7 @@ If nil then `yapf' is the default formatter unless `lsp' layer is used.")
 
 (defvar python-test-runner 'nose
   "Test runner to use. Possible values are `nose' or `pytest'.")
+(put 'python-test-runner 'safe-local-variable #'symbolp)
 
 (defvar python-save-before-test t
   "If non nil, current buffer will be save before call a test function")
