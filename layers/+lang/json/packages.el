@@ -34,7 +34,7 @@
         web-beautify))
 
 (defun json/post-init-company ()
-  (spacemacs//json-setup-company))
+  (add-hook 'json-mode-local-vars-hook #'spacemacs//json-setup-company))
 
 (defun json/post-init-add-node-modules-path ()
   (add-hook 'json-mode-hook #'add-node-modules-path))
@@ -45,13 +45,8 @@
 (defun json/init-json-mode ()
   (use-package json-mode
     :defer t
-    :init
-    (progn
-      (unless (eq json-backend 'lsp)
-        (spacemacs/declare-prefix-for-mode 'json-mode "mT" "toggle")
-        (spacemacs/declare-prefix-for-mode 'json-mode "mh" "help")
-        (spacemacs/declare-prefix-for-mode 'json-mode "m=" "format"))
-      (add-hook 'json-mode-hook #'spacemacs//json-setup-backend))))
+    :init (add-hook 'json-mode-local-vars-hook
+                    #'spacemacs//json-setup-backend)))
 
 (defun json/init-json-navigator ()
   (use-package json-navigator
@@ -78,17 +73,9 @@
       "hp" 'jsons-print-path)))
 
 (defun json/pre-init-prettier-js ()
-  (when (eq json-fmt-tool 'prettier)
-    (add-to-list 'spacemacs--prettier-modes 'json-mode)
-    (add-hook 'json-mode-hook #'spacemacs/json-setup-prettier)
-    (when (eq json-fmt-on-save t)
-      (add-hook 'json-mode-hook 'prettier-js-mode))))
+  (add-to-hook 'json-mode-local-vars-hook
+               #'spacemacs//json-setup-formatter))
 
 (defun json/pre-init-web-beautify ()
-  (when (eq json-fmt-tool 'web-beautify)
-    (add-to-list 'spacemacs--web-beautify-modes
-                 (cons 'json-mode 'web-beautify-js))
-    (when (eq json-fmt-on-save t)
-      (add-hook 'json-mode-hook
-                (lambda ()
-                  (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))))
+  (add-to-hook 'json-mode-local-vars-hook
+               #'spacemacs//json-setup-formatter))

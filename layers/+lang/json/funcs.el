@@ -32,8 +32,11 @@
 
 (defun spacemacs//json-setup-backend ()
   "Conditionally setup json backend."
-  (when (eq json-backend 'lsp)
-    (lsp)))
+  (if (eq json-backend 'lsp)
+      (lsp)
+    (spacemacs/declare-prefix-for-mode 'json-mode "mT" "toggle")
+    (spacemacs/declare-prefix-for-mode 'json-mode "mh" "help")
+    (spacemacs/declare-prefix-for-mode 'json-mode "m=" "format")))
 
 (defun spacemacs/json-navigator-dwim (arg &optional start end)
   "Display the JSON hierarchy of the whole buffer or the active region.
@@ -59,7 +62,27 @@ If ARG is a numerical prefix argument then specify the indentation level."
         (save-excursion (json-reformat-region (point-min) (point-max)))
       (json-reformat-region start end))))
 
-(defun spacemacs/json-setup-prettier ()
-  "Tell prettier the content is to be parsed as JSON regardless of any file
-extensions."
-  (setq-local prettier-js-args '("--parser=json")))
+(defun spacemacs//json-setup-formatter()
+  "Conditionally enable `prettier-js' or `web-beautify' as formatter.
+If `json-fmt-on-save' is non-nil, format the file automatically on save
+with the selected formatter."
+  (pcase json-fmt-tool
+    ('web-beautify (spacemacs//json-setup-web-beautify))
+    ('prettier-js (spacemacs//json-setup-prettier-js))
+    (_ (user-error "Unknown JSON formatter: %s" json-fmt-tool))))
+
+(defun spacemacs//json-setup-web-beautify()
+  "Use `web-beautify' as formatter. "
+  (setq-local spacemacs--web-beautify-modes
+              (cons 'json-mode 'web-beautify-js))
+  (when json-fmt-on-save
+    (add-hook 'json-mode-hook
+              (lambda () (add-hook 'before-save-hook 'web-beautify-js-buffer nil t))
+              nil t)))
+
+(defun spacemacs//json-setup-prettier-js ()
+  "Use `prettier-js' as formatter."
+  (setq-local spacemacs--prettier-modes 'json-mode)
+  (setq-local prettier-js-args '("--parser=json"))
+  (when json-fmt-on-save
+    (add-hook 'json-mode-hook 'prettier-js-mode nil t)))
