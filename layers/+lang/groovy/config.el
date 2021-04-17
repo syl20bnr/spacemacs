@@ -27,6 +27,7 @@
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-groovy'.
 If `nil' then 'company-groovy` is the default backend unless `lsp' layer is used")
+(put 'groovy-backend 'safe-local-variable #'symbolp)
 
 (defvar groovy-lsp-jar-path "~/groovy-lsp-all.jar"
   "The path to the lsp jar file")
