@@ -35,6 +35,27 @@
       (lsp)
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
+(defun spacemacs//ess-setup-company()
+  "Conditionally setup company backend. "
+  ;; Julia
+  (spacemacs|add-company-backends
+    :backends company-ess-julia-objects
+    :modes ess-julia-mode inferior-ess-julia-mode)
+  ;; Inferior-R
+  (spacemacs|add-company-backends
+    :backends (company-R-library company-R-args company-R-objects :separate)
+    :modes inferior-ess-r-mode)
+  ;;Set R company to lsp manually to include file completion
+  (add-hook 'ess-r-mode-local-vars-hook
+            (lambda ()
+              (unless (eq ess-r-backend 'lsp)
+                (spacemacs|add-company-backends
+                  :backends (company-R-library
+                             company-R-args
+                             company-R-objects
+                             :separate)
+                  :modes ess-r-mode)))))
+
 
 ;; Key Bindings
 

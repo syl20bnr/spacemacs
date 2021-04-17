@@ -31,20 +31,9 @@
     org))
 
 (defun ess/post-init-company ()
-  ;; Julia
-  (spacemacs|add-company-backends
-    :backends company-ess-julia-objects
-    :modes ess-julia-mode inferior-ess-julia-mode)
-  ;; R
-  (spacemacs|add-company-backends
-    :backends (company-R-library company-R-args company-R-objects :separate)
-    :modes inferior-ess-r-mode)
-
-  ;; Set R company to lsp manually to include file completion
-  (unless (eq ess-r-backend 'lsp)
-    (spacemacs|add-company-backends
-      :backends (company-R-library company-R-args company-R-objects :separate)
-      :modes ess-r-mode)))
+  "Setup company for Julia and Inferior R.
+Additionally setup compnay for R if not using LSP."
+  (spacemacs//ess-setup-company))
 
 (defun ess/post-init-flycheck ()
   (spacemacs/enable-flycheck 'ess-r-mode))
