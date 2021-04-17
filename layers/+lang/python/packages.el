@@ -364,9 +364,8 @@
       (spacemacs/register-repl 'python
                                'spacemacs/python-start-or-switch-repl "python")
       (spacemacs//bind-python-repl-keys)
-      (spacemacs/add-to-hook 'python-mode-hook
-                             '(spacemacs//python-setup-backend
-                               spacemacs//python-default))
+      (add-hook 'python-mode-local-vars-hook 'spacemacs//python-setup-backend)
+      (add-hook 'python-mode-hook 'spacemacs//python-default)
       ;; call `spacemacs//python-setup-shell' once, don't put it in a hook
       ;; (see issue #5988)
       (spacemacs//python-setup-shell))
