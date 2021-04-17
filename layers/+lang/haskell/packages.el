@@ -183,51 +183,45 @@
       (spacemacs/register-repl 'haskell
                                'haskell-interactive-switch "haskell")
 
-      (dolist (mode haskell-modes)
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "sb"  'haskell-process-load-file
-          "sc"  'haskell-interactive-mode-clear
-          "sS"  'spacemacs/haskell-interactive-bring
-          "ss"  'haskell-interactive-switch
-          "st"  'haskell-session-change-target
-          "'"   'haskell-interactive-switch
+      (spacemacs-haskell//setup-binding
+        '("sb"  haskell-process-load-file
+          "sc"  haskell-interactive-mode-clear
+          "sS"  spacemacs/haskell-interactive-bring
+          "ss"  haskell-interactive-switch
+          "st"  haskell-session-change-target
+          "'"   haskell-interactive-switch
 
-          "ca"  'haskell-process-cabal
-          "cb"  'haskell-process-cabal-build
-          "cc"  'haskell-compile
-          "cv"  'haskell-cabal-visit-file
+          "ca"  haskell-process-cabal
+          "cb"  haskell-process-cabal-build
+          "cc"  haskell-compile
+          "cv"  haskell-cabal-visit-file
 
-          "hd"  'inferior-haskell-find-haddock
-          "hi"  'haskell-process-do-info
-          "ht"  'haskell-process-do-type
-          "hT"  'spacemacs/haskell-process-do-type-on-prev-line
+          "hd"  inferior-haskell-find-haddock
+          "hi"  haskell-process-do-info
+          "ht"  haskell-process-do-type
+          "hT"  spacemacs/haskell-process-do-type-on-prev-line
 
-          "da"  'haskell-debug/abandon
-          "db"  'haskell-debug/break-on-function
-          "dB"  'haskell-debug/delete
-          "dc"  'haskell-debug/continue
-          "dd"  'haskell-debug
-          "dn"  'haskell-debug/next
-          "dN"  'haskell-debug/previous
-          "dp"  'haskell-debug/previous
-          "dr"  'haskell-debug/refresh
-          "ds"  'haskell-debug/step
-          "dt"  'haskell-debug/trace
+          "da"  haskell-debug/abandon
+          "db"  haskell-debug/break-on-function
+          "dB"  haskell-debug/delete
+          "dc"  haskell-debug/continue
+          "dd"  haskell-debug
+          "dn"  haskell-debug/next
+          "dN"  haskell-debug/previous
+          "dp"  haskell-debug/previous
+          "dr"  haskell-debug/refresh
+          "ds"  haskell-debug/step
+          "dt"  haskell-debug/trace
 
-          "ri"  'spacemacs/haskell-format-imports)
-        (if (eq haskell-completion-backend 'lsp)
-            (spacemacs/set-leader-keys-for-major-mode mode
-              "gl"  'haskell-navigate-imports
-              "S"   'haskell-mode-stylish-buffer
-
-              "hg"  'hoogle
-              "hG"  'haskell-hoogle-lookup-from-local)
-          (spacemacs/set-leader-keys-for-major-mode mode
-            "gi"  'haskell-navigate-imports
-            "F"   'haskell-mode-stylish-buffer
-
-            "hh"  'hoogle
-            "hG"  'haskell-hoogle-lookup-from-local)))
+          "ri"  spacemacs/haskell-format-imports)
+        '("gl"  haskell-navigate-imports
+          "S"   haskell-mode-stylish-buffer
+          "hg"  hoogle
+          "hG"  haskell-hoogle-lookup-from-local)
+        '("gi"  haskell-navigate-imports
+          "F"   haskell-mode-stylish-buffer
+          "hh"  hoogle
+          "hG"  haskell-hoogle-lookup-from-local))
 
       (evilified-state-evilify haskell-debug-mode haskell-debug-mode-map
         "RET" 'haskell-debug/select

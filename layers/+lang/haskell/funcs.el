@@ -35,6 +35,18 @@
   (when (eq haskell-completion-backend 'dante)
     (spacemacs-haskell//setup-dante-company)))
 
+(defun spacemacs-haskell//setup-binding (common lsp dante)
+  "Conditionally setup haskell bindings."
+  (dolist (mode haskell-modes)
+    (apply 'spacemacs/set-leader-keys-for-major-mode mode common)
+    (add-hook (intern (format "%s-local-vars-hook" mode))
+              (lambda ()
+                (pcase haskell-completion-backend
+                  ('lsp (apply 'spacemacs/set-leader-keys-for-major-mode
+                               mode lsp))
+                  ('dante (apply 'spacemacs/set-leader-keys-for-major-mode
+                                 mode dante)))))))
+
 
 ;; LSP functions
 

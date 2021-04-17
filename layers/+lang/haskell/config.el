@@ -23,7 +23,7 @@
 
 ;; Variables
 
-(setq haskell-modes '(haskell-mode haskell-literate-mode))
+(defconst haskell-modes '(haskell-mode haskell-literate-mode))
 
 (spacemacs|define-jump-handlers haskell-mode haskell-mode-jump-to-def-or-tag)
 
@@ -31,6 +31,7 @@
   "Completion backend used by company.
 Available options are `dante' and `lsp'.
 If `nil' then `dante' is the default backend unless `lsp' layer is used.")
+(put 'haskell-completion-backend 'safe-local-variable #'symbolp)
 
 (defvar haskell-enable-hindent nil
   "Formatting with hindent; If t hindent is enabled.")
