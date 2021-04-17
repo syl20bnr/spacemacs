@@ -24,30 +24,16 @@ Ewww.. So ergonomic!
 - Adds ability to easily navigate eww buffers
 
 * Install
-Because this layer is not officially apart of spacemacs, first clone the git
-repository somewhere and add it as a private layer in spacemacs:
-
-#+BEGIN_SRC bash
-  git clone https://github.com/coljamkop/eww-layer.git /path/to/dotspacemacs-configuration-layer-path/eww
-#+END_SRC
-
-OR
-
-#+BEGIN_SRC bash
-  git clone https://github.com/coljamkop/eww-layer.git
-  ln -s "`pwd`/eww-layer" ~/.emacs.d/private/eww
-#+END_SRC
-
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =eww= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Key bindings
 
-| Key binding | Description      | Function         |
-|-------------+------------------+------------------|
-| ~SPC a w e~ | Start eww        | eww              |
-| ~SPC a w w~ | List eww buffers | eww-list-buffers |
+| Key binding   | Description      | Function         |
+|---------------+------------------+------------------|
+| ~SPC a t e e~ | Start eww        | eww              |
+| ~SPC a t e w~ | List eww buffers | eww-list-buffers |
 
 ** Eww
 
