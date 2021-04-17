@@ -356,7 +356,7 @@
       (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
       ;; This regexp matches shebang expressions like `#!/usr/bin/env boot'
       (add-to-list 'magic-mode-alist '("#!.*boot\\s-*$" . clojure-mode))
-      (add-hook 'clojure-mode-hook #'spacemacs//clojure-setup-backend)
+      (add-hook 'clojure-mode-local-vars-hook #'spacemacs//clojure-setup-backend)
       ;; Define all the prefixes here, although most of them apply only to bindings in clj-refactor
       (let ((clj-refactor--key-binding-prefixes
              '(("mra" . "add")

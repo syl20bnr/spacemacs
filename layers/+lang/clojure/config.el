@@ -45,3 +45,4 @@
   "The backend to use for IDE features.
 Possible values are `lsp' and `cider'.
 If `nil' then 'cider` is the default backend unless `lsp' layer is used")
+(put 'clojure-backend 'safe-local-variable #'symbolp)
