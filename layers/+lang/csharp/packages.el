@@ -36,14 +36,11 @@
 (defun csharp/init-omnisharp ()
   (use-package omnisharp
     :defer t
-    :init
-    (spacemacs//csharp-setup-backend)
-    :config
-    (spacemacs//csharp-configure)
-    ))
+    :hook (csharp-mode-local-vars . spacemacs//csharp-setup-backend)
+          (csharp-mode-local-vars . spacemacs//csharp-configure)))
 
 (defun csharp/post-init-company ()
-  (spacemacs//csharp-setup-company))
+  (add-to-hook 'csharp-mode-local-vars-hook #'spacemacs//csharp-setup-company))
 
 (defun csharp/init-csharp-mode ()
   (use-package csharp-mode

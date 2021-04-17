@@ -29,3 +29,4 @@
   "The backend to use for IDE features.
 Possible values are `omnisharp' and `lsp'.
 If `nil' then no backend is enabled.")
+(put 'csharp-backend 'safe-local-variable #'symbop)
