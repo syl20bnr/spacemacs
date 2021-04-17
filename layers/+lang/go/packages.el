@@ -72,7 +72,7 @@
 (defun go/init-flycheck-golangci-lint ()
   (use-package flycheck-golangci-lint
     :defer t
-    :init (add-hook 'go-mode-hook 'spacemacs//go-enable-flycheck-golangci-lint t)))
+    :init (add-hook 'go-mode-local-vars-hook 'spacemacs//go-enable-flycheck-golangci-lint)))
 
 (defun go/post-init-ggtags ()
   (add-hook 'go-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
@@ -81,7 +81,8 @@
   (spacemacs/helm-gtags-define-keys-for-mode 'go-mode))
 
 (defun go/init-go-eldoc ()
-  (use-package go-eldoc :defer t))
+  (use-package go-eldoc
+    :defer t))
 
 (defun go/init-go-fill-struct ()
   (use-package go-fill-struct
@@ -128,16 +129,13 @@
 
 (defun go/init-go-mode ()
   (use-package go-mode
-    :hook (go-mode . spacemacs//go-set-tab-width)
-          (go-mode-local-vars . spacemacs//go-setup-backend)
-          (go-mode-local-vars . spacemacs//go-setup-format)
+    :hook ((go-mode-local-vars . spacemacs//go-set-tab-width)
+           (go-mode-local-vars . spacemacs//go-setup-backend)
+           (go-mode-local-vars . spacemacs//go-setup-format))
     :init
     (progn
       ;; get go packages much faster
       (setq go-packages-function 'spacemacs/go-packages-gopkgs)
-      (dolist (value '(lsp go-mode))
-        (add-to-list 'safe-local-variable-values
-                     (cons 'go-backend value)))
       (spacemacs|add-toggle go-test-verbose
         :documentation "Enable verbose test output."
         :status go-test-verbose
