@@ -27,6 +27,7 @@
 
 (defvar ess-r-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'ess)
   "The backend to use for IDE features. Possible values are `ess' and `lsp'.")
+(put 'ess-r-backend 'safe-local-variable #'symbolp)
 
 (defvar ess-assign-key nil
   "Call `ess-insert-assign'.")

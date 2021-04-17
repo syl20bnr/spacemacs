@@ -79,6 +79,8 @@
            ("\\.[Jj][Oo][Gg]\\'" . ess-jags-mode)
            ("\\.[Jj][Mm][Dd]\\'" . ess-jags-mode))
     :commands (R stata julia SAS ess-julia-mode)
+    :hook (ess-r-mode-local-vars . spacemacs//ess-may-setup-r-lsp)
+          (inferior-ess-mode . spacemacs//ess-fix-read-only-inferior-ess-mode)
     :init
     (progn
       (setq ess-use-company nil
@@ -90,10 +92,6 @@
       (evil-set-initial-state 'ess-help-mode 'motion)
 
       (spacemacs/register-repl 'ess-site #'spacemacs/ess-start-repl)
-
-      (add-hook 'ess-r-mode-hook #'spacemacs//ess-may-setup-r-lsp)
-      (add-hook 'inferior-ess-mode-hook
-                'spacemacs//ess-fix-read-only-inferior-ess-mode)
 
       (with-eval-after-load 'ess-julia
         (spacemacs/ess-bind-keys-for-julia))
