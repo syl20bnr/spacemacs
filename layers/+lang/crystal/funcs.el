@@ -47,5 +47,9 @@
                         :variables company-tooltip-align-annotations t))))
 
 (defun spacemacs//crystal-setup-backend ()
-  "Conditionally setup crystal backend."
-  (when (eq crystal-backend 'lsp) (lsp)))
+  "Conditionally setup crystal backend and bindings."
+  (if (eq crystal-backend 'lsp)
+      (lsp)
+    (spacemacs/declare-prefix-for-mode 'crystal-mode "mg" "goto")
+    (spacemacs/declare-prefix-for-mode 'crystal-mode "mt" "test")
+    (spacemacs/declare-prefix-for-mode 'crystal-mode "ma" "action")))

@@ -51,15 +51,12 @@
 (defun crystal/init-crystal-mode ()
   (use-package crystal-mode
     :defer t
+    :hook
+    (crystal-mode-local-vars . spacemacs//crystal-auto-format-setup)
+    (crystal-mode-local-vars . spacemacs//crystal-setup-backend)
     :init
     (progn
-      (add-hook 'crystal-mode-hook 'spacemacs//crystal-auto-format-setup)
-      (add-hook 'crystal-mode-local-vars-hook #'spacemacs//crystal-setup-backend)
       (spacemacs/declare-prefix-for-mode 'crystal-mode "mu" "tool")
-      (unless (eq crystal-backend 'lsp)
-        (spacemacs/declare-prefix-for-mode 'crystal-mode "mg" "goto")
-        (spacemacs/declare-prefix-for-mode 'crystal-mode "mt" "test")
-        (spacemacs/declare-prefix-for-mode 'crystal-mode "ma" "action"))
       (spacemacs/set-leader-keys-for-major-mode 'crystal-mode
         "ga" 'crystal-spec-switch
         "tb" 'crystal-spec-buffer
