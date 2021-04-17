@@ -90,8 +90,9 @@ NOTE: Variables defined with a group listed in
          `',standard)
       ,(format "%s\n\nTYPE: %s\n" doc type)
       :type ,type
-      :safe ,safe
       :group group)
+     (when (not (null ',safe))
+       (put ',symbol 'safe-local-variable ,safe))
      (when (memq group spacemacs-customization-uncustomizable-groups)
        ;; HACK: This will make `custom-variable-p' return nil
        ;; so the `describe-variable' function won't add customization
