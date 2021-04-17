@@ -172,12 +172,10 @@
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode
     :defer t
-    :init (spacemacs/add-to-hook 'elixir-mode-hook
-                                 '(spacemacs//elixir-setup-backend
-                                   spacemacs//elixir-default))
-    :config
-    (spacemacs/set-leader-keys-for-major-mode 'elixir-mode
-      "=" 'elixir-format)))
+    :hook (elixir-mode . spacemacs//elixir-default)
+          (elixir-mode-local-vars . spacemacs//elixir-setup-backend)
+    :config (spacemacs/set-leader-keys-for-major-mode 'elixir-mode
+              "=" 'elixir-format)))
 
 (defun elixir/post-init-flycheck ()
   (spacemacs/enable-flycheck 'elixir-mode))
