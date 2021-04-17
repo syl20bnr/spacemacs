@@ -1,5 +1,7 @@
 #+TITLE: eww layer
 
+#+TAGS: layer|tool
+
 [[file:img/eww.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
@@ -12,11 +14,12 @@
   - [[#eww-buffers][Eww Buffers]]
 
 * Description
-  This layer does wonderful things:
-  - Adds evil keybindings support to eww-mode (including
-    eww-buffers/bookmarks/history-mode)
-  - Adds spacemacs functionality to eww-mode
-  - Adds ability to easily navigate eww buffers
+Ewww.. So ergonomic!
+** Features:
+- Adds evil keybindings support to eww-mode (including
+  eww-buffers/bookmarks/history-mode)
+- Adds spacemacs functionality to eww-mode
+- Adds ability to easily navigate eww buffers
 
 * Install
 
