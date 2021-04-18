@@ -29,7 +29,13 @@
   "The backend to use for IDE features.
 Possible values are `lua-mode' and `lsp'.
 If `nil' then `lua-mode' is the default backend unless `lsp' layer is used.")
+(dolist (m '(lsp lua-mode))
+  (add-to-list 'safe-local-variable-values
+               (cons 'lua-backend m)))
 
 (defvar lua-lsp-server 'emmy
   "Language server to use for lsp backend.
 Possible values are `emmy', `lua-language-server', or `lua-lsp'.")
+(dolist (v '(emmy lua-language-server lua-lsp))
+  (add-to-list 'safe-local-variable-values
+               (cons 'lua-lsp-server v)))

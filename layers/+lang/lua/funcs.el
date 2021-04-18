@@ -38,6 +38,23 @@
        :backends company-capf
        :modes lua-mode))))
 
+(defun spacemacs//lua-setup-binding (common-prefix
+                                     common-binding
+                                     lua-mode-binding)
+  "Conditionally setup prefix and binding."
+  (cl-loop for x on common-prefix
+           by 'cddr
+           do (apply 'spacemacs/declare-prefix-for-mode
+                     'lua-mode
+                     (list (car x) (cadr x))))
+  (apply 'spacemacs/set-leader-keys-for-major-mode
+         'lua-mode common-prefix)
+  (add-hook 'lua-mode-local-vars-hook
+            (lambda ()
+              (when (eq lua-backend 'lua-mode)
+                (apply 'spacemacs/set-leader-keys-for-major-mode
+                       'lua-mode lua-mode-binding)))))
+
 
 ;; LSP Lua
 
