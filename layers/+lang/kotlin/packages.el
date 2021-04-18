@@ -32,7 +32,7 @@
     kotlin-mode))
 
 (defun kotlin/post-init-company ()
-  (spacemacs//kotlin-setup-company))
+  (add-hook 'kotlin-mode-local-vars-hook #'spacemacs//kotlin-setup-company))
 
 (defun kotlin/post-init-flycheck ()
   (spacemacs/enable-flycheck 'kotlin-mode))
@@ -45,10 +45,7 @@
 (defun kotlin/init-kotlin-mode ()
   (use-package kotlin-mode
     :defer t
-    :init
-    (progn
-      (setq lsp-clients-kotlin-server-executable kotlin-lsp-jar-path)
-      (add-hook 'kotlin-mode-hook #'spacemacs//kotlin-setup-backend))))
+    :hook (kotlin-mode-local-vars . spacemacs//kotlin-setup-backend)))
 
 (defun kotlin/post-init-ggtags ()
   (add-hook 'kotlin-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

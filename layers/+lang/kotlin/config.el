@@ -29,6 +29,9 @@
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-kotlin'.
 If `nil' then 'company-kotlin` is the default backend unless `lsp' layer is used")
+(dolist (v '(lsp company-kotlin))
+  (add-to-list 'safe-local-variable-values
+               (cons 'kotlin-backend v)))
 
 (defvar kotlin-lsp-jar-path "~/install/server/bin/kotlin-language-server"
   "The path to the lsp jar file")

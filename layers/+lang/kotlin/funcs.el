@@ -28,7 +28,8 @@
   (when (eq kotlin-backend 'lsp)
     (spacemacs|add-company-backends
       :backends company-capf
-      :modes kotlin-mode)))
+      :modes kotlin-mode)
+    (setq lsp-clients-kotlin-server-executable kotlin-lsp-jar-path)))
 
 (defun spacemacs//kotlin-setup-backend ()
   "Conditionally setup kotlin backend."
