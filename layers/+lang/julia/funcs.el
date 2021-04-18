@@ -21,7 +21,6 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-
 (defun spacemacs//julia-setup-backend ()
   "Conditionally setup julia backend."
   (when (eq julia-backend 'lsp)

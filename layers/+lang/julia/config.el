@@ -32,3 +32,4 @@
 ;; disabled by default since most won't have lsp-mode working
 (defvar julia-backend (when (configuration-layer/layer-used-p 'lsp) 'lsp)
   "Set to 'lsp to enable use of LanguageServer.jl")
+(put 'julia-backend 'safe-local-variable #'symbolp)
