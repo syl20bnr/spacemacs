@@ -45,7 +45,7 @@
     yasnippet))
 
 (defun latex/post-init-company ()
-  (spacemacs//latex-setup-company))
+  (add-hook  'latex-mode-local-vars-hook #'spacemacs//latex-setup-company))
 
 (defun latex/init-auctex ()
   (use-package tex
@@ -62,52 +62,93 @@
             ;; Don't insert line-break at inline math
             LaTeX-fill-break-at-separators nil)
       (when latex-enable-auto-fill
-        (add-hook 'LaTeX-mode-hook 'latex/auto-fill-mode))
+        (add-hook 'latex-mode-hook 'latex/auto-fill-mode))
       (when latex-enable-folding
-        (add-hook 'LaTeX-mode-hook 'TeX-fold-mode))
-      (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-      (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
-      (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
-      (add-hook 'LaTeX-mode-hook #'spacemacs//latex-setup-backend)
+        (add-hook 'latex-mode-hook 'tex-fold-mode))
+      (add-hook 'latex-mode-hook 'latex-math-mode)
+      (add-hook 'latex-mode-hook 'TeX-source-correlate-mode)
+      (add-hook 'latex-mode-hook 'TeX-PDF-mode)
+      (add-hook 'latex-mode-hook #'spacemacs//latex-setup-backend)
       (when latex-refresh-preview
         (add-hook 'doc-view-mode-hook 'auto-revert-mode)))
     :config
     (progn
       ;; otherwise `, p` preview commands doesn't work
       (require 'preview)
-      ;; Key bindings for plain TeX
+
+      (spacemacs//latex-setup-binding
+       ;; prefix for plain TeX
+       '("mxf" "fonts")
+       ;; key bindings for plain TeX
+       '("\\"  TeX-insert-macro                   ;; C-c C-m
+         "-"   TeX-recenter-output-buffer         ;; C-c C-l
+         "%"   TeX-comment-or-uncomment-paragraph ;; C-c %
+         ";"   comment-or-uncomment-region        ;; C-c ; or C-c :
+         "k"   TeX-kill-job                       ;; C-c C-k
+         "l"   TeX-recenter-output-buffer         ;; C-c C-l
+         "m"   TeX-insert-macro                   ;; C-c C-m
+         "n"   TeX-next-error                     ;; C-c `
+         "N"   TeX-previous-error                 ;; M-g p
+         "v"   TeX-view                           ;; C-c C-v
+         ;; TeX-doc is a very slow function
+         "hd"  TeX-doc
+         "xb"  latex/font-bold
+         "xc"  latex/font-code
+         "xe"  latex/font-emphasis
+         "xi"  latex/font-italic
+         "xr"  latex/font-clear
+         "xo"  latex/font-oblique
+         ;; fonts
+         "xfc" latex/font-small-caps
+         "xff" latex/font-sans-serif
+         "xfr" latex/font-serif)
+       ;; prefix specific to LaTeX
+       '("mi" "insert"
+         "mp" "preview"
+         "mf" "fill")
+       ;; key bindings specific to LaTeX
+       '("*"   LaTeX-mark-section     ;; C-c *
+         "."   LaTeX-mark-environment ;; C-c .
+         ;; insert
+         "ii"  LaTeX-insert-item     ;; C-c C-j
+
+         "s"   LaTeX-section          ;; C-c C-s
+         ;; fill
+         "fe"  LaTeX-fill-environment ;; C-c C-q C-e
+         "fp"  LaTeX-fill-paragraph   ;; C-c C-q C-p
+         "fr"  LaTeX-fill-region      ;; C-c C-q C-r
+         "fs"  LaTeX-fill-section     ;; C-c C-q C-s
+         ;; preview
+         "pb"  preview-buffer
+         "pc"  preview-clearout
+         "pd"  preview-document
+         "pe"  preview-environment
+         "pf"  preview-cache-preamble
+         "pp"  preview-at-point
+         "pr"  preview-region
+         "ps"  preview-section
+
+         "xB"  latex/font-medium
+         "xr"  latex/font-clear
+         ;; fonts
+         "xfa" latex/font-calligraphic
+         "xfn" latex/font-normal
+         "xfu" latex/font-upright)
+       ;; prefix for non-lsp LaTeX
+       '("mh" "help"
+         "mx" "text/fonts")
+       ;; bindings for non-lsp LaTeX
+       '("a"   TeX-command-run-all     ;; C-c C-a
+         "b"   latex/build
+         "c"   LaTeX-close-environment ;; C-c ]
+         "e"   LaTeX-environment)      ;; C-c C-e
+       ;; bindings for lsp LaTeX
+       '("au"  TeX-command-run-all
+         "c"   latex/build
+         "ic"  LaTeX-close-environment ;; C-c ]
+         "ie"  LaTeX-environment))     ;; C-c C-e
+
       (dolist (mode '(tex-mode latex-mode context-mode))
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "\\"  'TeX-insert-macro                            ;; C-c C-m
-          "-"   'TeX-recenter-output-buffer                  ;; C-c C-l
-          "%"   'TeX-comment-or-uncomment-paragraph          ;; C-c %
-          ";"   'comment-or-uncomment-region                 ;; C-c ; or C-c :
-          ;; TeX-command-run-all runs compile and open the viewer
-          "k"   'TeX-kill-job                                ;; C-c C-k
-          "l"   'TeX-recenter-output-buffer                  ;; C-c C-l
-          "m"   'TeX-insert-macro                            ;; C-c C-m
-          "n"   'TeX-next-error                              ;; C-c `
-          "N"   'TeX-previous-error                          ;; M-g p
-          "v"   'TeX-view                                    ;; C-c C-v
-          ;; TeX-doc is a very slow function
-          "hd"  'TeX-doc
-          "xb"  'latex/font-bold
-          "xc"  'latex/font-code
-          "xe"  'latex/font-emphasis
-          "xi"  'latex/font-italic
-          "xr"  'latex/font-clear
-          "xo"  'latex/font-oblique
-          "xfc" 'latex/font-small-caps
-          "xff" 'latex/font-sans-serif
-          "xfr" 'latex/font-serif)
-        (spacemacs/declare-prefix-for-mode mode "mxf" "fonts")
-        (unless (and (eq latex-backend 'lsp)
-                     (eq mode 'latex-mode))
-          (spacemacs/declare-prefix-for-mode mode "mh" "help")
-          (spacemacs/declare-prefix-for-mode mode "mx" "text/fonts")
-          (spacemacs/set-leader-keys-for-major-mode mode
-            "a"   'TeX-command-run-all                         ;; C-c C-a
-            "b"   'latex/build))
         (when dotspacemacs-major-mode-emacs-leader-key
           (spacemacs/set-leader-keys-for-major-mode mode
             dotspacemacs-major-mode-emacs-leader-key 'TeX-command-master))
@@ -117,7 +158,7 @@
         (when latex-enable-folding
           (spacemacs/set-leader-keys-for-major-mode mode
             ;; the following commands are mostly not autoloaded, but that's fine
-            ;; because `TeX-fold-mode' is added to `LaTeX-mode-hook'
+            ;; because `tex-fold-mode' is added to `latex-mode-hook'
             "z=" 'TeX-fold-math
             "zb" 'TeX-fold-buffer
             "zB" 'TeX-fold-clearout-buffer
@@ -129,47 +170,7 @@
             "zr" 'TeX-fold-region
             "zR" 'TeX-fold-clearout-region
             "zz" 'TeX-fold-dwim)
-          (spacemacs/declare-prefix-for-mode mode "mz" "fold")))
-
-      ;; Key bindings specific to LaTeX
-      (spacemacs/set-leader-keys-for-major-mode 'latex-mode
-        "*"   'LaTeX-mark-section      ;; C-c *
-        "."   'LaTeX-mark-environment  ;; C-c .
-        "ii"   'LaTeX-insert-item       ;; C-c C-j
-        "s"   'LaTeX-section           ;; C-c C-s
-        "fe"  'LaTeX-fill-environment  ;; C-c C-q C-e
-        "fp"  'LaTeX-fill-paragraph    ;; C-c C-q C-p
-        "fr"  'LaTeX-fill-region       ;; C-c C-q C-r
-        "fs"  'LaTeX-fill-section      ;; C-c C-q C-s
-        "pb"  'preview-buffer
-        "pc"  'preview-clearout
-        "pd"  'preview-document
-        "pe"  'preview-environment
-        "pf"  'preview-cache-preamble
-        "pp"  'preview-at-point
-        "pr"  'preview-region
-        "ps"  'preview-section
-        "xB"  'latex/font-medium
-        "xr"  'latex/font-clear
-        "xfa" 'latex/font-calligraphic
-        "xfn" 'latex/font-normal
-        "xfu" 'latex/font-upright)
-
-      ;; Rebind latex keys to avoid conflicts with lsp mode
-      (if (eq latex-backend 'lsp)
-          (spacemacs/set-leader-keys-for-major-mode 'latex-mode
-            "au"   'TeX-command-run-all
-            "c"   'latex/build
-            "ic"   'LaTeX-close-environment ;; C-c ]
-            "ie"   'LaTeX-environment)       ;; C-c C-e
-        (spacemacs/set-leader-keys-for-major-mode 'latex-mode
-          "c"   'LaTeX-close-environment ;; C-c ]
-          "e"   'LaTeX-environment))       ;; C-c C-e
-
-      ;; Declare prefixes
-      (spacemacs/declare-prefix-for-mode 'latex-mode "mi" "insert")
-      (spacemacs/declare-prefix-for-mode 'latex-mode "mp" "preview")
-      (spacemacs/declare-prefix-for-mode 'latex-mode "mf" "fill"))))
+          (spacemacs/declare-prefix-for-mode mode "mz" "fold"))))))
 
 (defun latex/pre-init-auctex-latexmk ()
   (spacemacs|use-package-add-hook tex
@@ -182,34 +183,33 @@
     :init (setq auctex-latexmk-inherit-TeX-PDF-mode t)))
 
 (defun latex/post-init-evil-matchit ()
-  (add-hook 'LaTeX-mode-hook 'evil-matchit-mode))
+  (add-hook 'latex-mode-hook 'evil-matchit-mode))
 
 (defun latex/post-init-flycheck ()
   (spacemacs/enable-flycheck 'latex-mode))
 
 (defun latex/post-init-flyspell ()
-  (spell-checking/add-flyspell-hook 'LaTeX-mode-hook))
+  (spell-checking/add-flyspell-hook 'latex-mode-hook))
 
 (defun latex/init-reftex ()
-  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+  (add-hook 'latex-mode-hook 'turn-on-reftex)
   (setq reftex-plug-into-AUCTeX '(nil nil t t t)
         reftex-use-fonts t)
-  (let ((prefix (if (eq latex-backend 'lsp) "R" "r")))
-    (spacemacs/declare-prefix-for-mode 'latex-mode (concat "m" prefix) "reftex")
-    (spacemacs/set-leader-keys-for-major-mode 'latex-mode
-      (concat prefix "c")    'reftex-citation
-      (concat prefix "g")    'reftex-grep-document
-      (concat prefix "i")    'reftex-index-selection-or-word
-      (concat prefix "I")    'reftex-display-index
-      (concat prefix " " "TAB") 'reftex-index
-      (concat prefix "l")    'reftex-label
-      (concat prefix "p")    'reftex-index-phrase-selection-or-word
-      (concat prefix "P")    'reftex-index-visit-phrases-buffer
-      (concat prefix "r")    'reftex-reference
-      (concat prefix "s")    'reftex-search-document
-      (concat prefix "t")    'reftex-toc
-      (concat prefix "T")    'reftex-toc-recenter
-      (concat prefix "v")    'reftex-view-crossref)))
+  (spacemacs//latex-reftex-setup-binding
+   "reftex"
+   '("c"    reftex-citation
+     "g"    reftex-grep-document
+     "i"    reftex-index-selection-or-word
+     "I"    reftex-display-index
+     " TAB" reftex-index
+     "l"    reftex-label
+     "p"    reftex-index-phrase-selection-or-word
+     "P"    reftex-index-visit-phrases-buffer
+     "r"    reftex-reference
+     "s"    reftex-search-document
+     "t"    reftex-toc
+     "T"    reftex-toc-recenter
+     "v"    reftex-view-crossref)))
 
 (defun latex/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'latex-mode))
@@ -221,16 +221,16 @@
   (add-hook 'latex-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun latex/post-init-smartparens ()
-  (add-hook 'LaTeX-mode-hook #'spacemacs//activate-smartparens))
+  (add-hook 'latex-mode-hook #'spacemacs//activate-smartparens))
 
 (defun latex/post-init-typo ()
   ;; Typo mode isn't useful for LaTeX.
   (defun spacemacs//disable-typo-mode ()
     (typo-mode -1))
-  (add-hook 'LaTeX-mode-hook 'spacemacs//disable-typo-mode))
+  (add-hook 'latex-mode-hook 'spacemacs//disable-typo-mode))
 
 (defun latex/post-init-yasnippet ()
-  (add-hook 'LaTeX-mode-hook 'spacemacs/load-yasnippet))
+  (add-hook 'latex-mode-hook 'spacemacs/load-yasnippet))
 
 (defun latex/post-init-which-key ()
   (push '((nil . "\\`latex/font-\\(.+\\)\\'") . (nil . "\\1"))

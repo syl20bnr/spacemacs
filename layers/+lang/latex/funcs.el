@@ -55,6 +55,56 @@
     (require 'lsp-latex)
     (lsp)))
 
+(defun spacemacs//latex-setup-binding (common-prefix
+                                       common-binding
+                                       common-latex-prefix
+                                       common-latex-binding
+                                       auctex-latex-prefix
+                                       auctex-latex-binding
+                                       lsp-latex-binding)
+  "Conditionally setup prefix and binding."
+  (dolist (mode '(tex-mode latex-mode context-mode))
+    (cl-loop for x on common-prefix
+             by 'cddr
+             do (apply 'spacemacs/declare-prefix-for-mode 'latex-mode
+                       (list (car x) (cadr x))))
+    (apply 'spacemacs/set-leader-keys-for-major-mode mode
+           common-binding))
+  (cl-loop for x on common-latex-prefix
+           by 'cddr
+           do (apply 'spacemacs/declare-prefix-for-mode 'latex-mode
+                     (list (car x) (cadr x))))
+  (apply 'spacemacs/set-leader-keys-for-major-mode 'latex-mode
+         common-latex-binding)
+  (add-hook 'latex-mode-local-vars-hook
+               (lambda ()
+                 (pcase latex-backend
+                   ('company-auctex
+                    (cl-loop for x on common-latex-prefix
+                             by 'cddr
+                             do (apply 'spacemacs/declare-prefix-for-mode 'latex-mode
+                                       (list (car x) (cadr x))))
+                    (apply 'spacemacs/set-leader-keys-for-major-mode
+                           'latex-mode auctex-latex-binding))
+                   ('lsp
+                    (apply 'spacemacs/set-leader-keys-for-major-mode
+                           'latex-mode lsp-latex-binding))))))
+
+(defun spacemacs//latex-reftex-setup-binding (prefix binding)
+  "Conditionally setup reftex prefix and binding."
+  (add-hook
+   'latex-mode-local-vars-hook
+   (lambda ()
+     (let ((key (if (eq latex-backend 'lsp) "R" "r")))
+       (spacemacs/declare-prefix-for-mode 'latex-mode
+         (concat "m" key) prefix)
+       (apply 'spacemacs/set-leader-keys-for-major-mode 'latex-mode
+              (flatten-list
+               (cl-loop for x on binding
+                        by 'cddr
+                        collect (list (concat key (car x))
+                                      (cadr x)))))))))
+
 (defun latex/build ()
   (interactive)
   (progn

@@ -35,6 +35,9 @@
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-auctex'.
 If `nil' then 'company-auctex` is the default backend unless `lsp' layer is used")
+(dolist (v '(lsp company-auctex))
+  (add-to-list 'safe-local-variable-values
+               (cons 'latex-backend v)))
 
 (defvar latex-build-command (if (executable-find "latexmk") "LatexMk" "LaTeX")
   "The default command to use with `SPC m b'")
