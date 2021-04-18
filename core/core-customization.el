@@ -63,8 +63,9 @@ TYPE           should be a widget type for editing the symbol's value.
                base types and useful composite types.
 GROUP-OVERRIDE should be provided if you don't want Spacemacs to infer the
                configuration group from the currently configured layer name.
-SAFE           should be filled with a function to be set to
-               safe-local-variable property.
+SAFE           should either be a function or t to be set to
+               safe-local-variable property. When it's t, use TYPE to determine
+               the safety.
 
 NOTE: Use interactive function `spacemacs/customization-valid-p' to test if a
       variable has a proper type. In interactive mode it will also `message'
@@ -91,8 +92,9 @@ NOTE: Variables defined with a group listed in
       ,(format "%s\n\nTYPE: %s\n" doc type)
       :type ,type
       :group group)
-     (when (not (null ',safe))
-       (put ',symbol 'safe-local-variable ,safe))
+     (pcase ,safe
+       ('t (put ',symbol 'safe-local-variable (lambda (val) (validate-value val ,type t))))
+       ((pred functionp) (put ',symbol 'safe-local-variable ,safe)))
      (when (memq group spacemacs-customization-uncustomizable-groups)
        ;; HACK: This will make `custom-variable-p' return nil
        ;; so the `describe-variable' function won't add customization
