@@ -31,7 +31,7 @@
     helm-gtags
     (java-mode :location built-in)
     maven-test-mode
-    (meghanada :toggle (and (not (version< emacs-version "25.1"))                            
+    (meghanada :toggle (and (not (version< emacs-version "25.1"))
                             (eq java-backend 'meghanada)))
     mvn
     (lsp-java :requires lsp-mode)
@@ -42,8 +42,6 @@
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-company))
 
 (defun java/pre-init-dap-mode ()
-  (when (eq java-backend 'lsp)
-    (add-to-list 'spacemacs--dap-supported-modes 'java-mode))
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-dap))
 
 (defun java/post-init-flycheck ()
@@ -71,8 +69,7 @@
     :defer t
     :init
     (progn
-      (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-backend)
-      (put 'java-backend 'safe-local-variable 'symbolp))))
+      (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-backend))))
 
 (defun java/init-maven-test-mode ()
   (use-package maven-test-mode

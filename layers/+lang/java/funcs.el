@@ -36,6 +36,7 @@
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
   (when (eq java-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'java-mode)
     (spacemacs//java-setup-lsp-dap)))
 
 (defun spacemacs//java-setup-flycheck ()
