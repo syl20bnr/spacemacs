@@ -70,6 +70,9 @@
       (add-hook 'racket-mode-hook 'racket-xp-mode))
     :config
     (progn
+      (add-to-list 'evil-evilified-state-modes 'racket-describe-mode)
+      (evil-define-key 'evilified 'racket-describe-mode-map
+        "o" 'link-hint-open-link)
       ;; smartparens configuration
       (with-eval-after-load 'smartparens
         (add-to-list 'sp--lisp-modes 'racket-mode)
