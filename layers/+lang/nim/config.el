@@ -29,3 +29,6 @@
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-nim'.
 If `nil' then 'company-nim` is the default backend unless `lsp' layer is used")
+(dolist (v '(lsp company-nim))
+  (add-to-list 'safe-local-variable-values
+               (cons 'nim-backend v)))

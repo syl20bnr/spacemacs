@@ -38,7 +38,30 @@
   (pcase nim-backend
     ('lsp (lsp))
     ('company-nim (nimsuggest-mode)
-                  (add-to-list 'spacemacs-jump-handlers-nim-mode 'nimsuggest-find-definition))))
+                  (add-to-list 'spacemacs-jump-handlers-nim-mode
+                               'nimsuggest-find-definition))))
+
+(defun spacemacs//nim-setup-binding (common-prefix
+                                     common-binding
+                                     company-nim-prefix
+                                     company-nim-binding)
+  "Conditionally setup prefix and binding."
+  (cl-loop for x on common-prefix
+           by 'cddr
+           do (apply 'spacemacs/declare-prefix-for-mode 'nim-mode
+                     (list (car x) (cadr x))))
+  (apply 'spacemacs/set-leader-keys-for-major-mode 'nim-mode
+         common-binding)
+  (add-hook 'nim-mode-local-vars-hook
+            (lambda ()
+              (when (eq nim-backend 'company-nim)
+                (cl-loop for x on company-nim-prefix
+                         by 'cddr
+                         do (apply 'spacemacs/declare-prefix-for-mode
+                                   'nim-mode
+                                   (list (carx) (cadr x))))
+                (apply 'spacemacs/set-leader-keys-for-major-mode
+                       'nim-mode company-nim-binding)))))
 
 (defun spacemacs/nim-compile-run ()
   "Compile current buffer file."
