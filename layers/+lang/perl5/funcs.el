@@ -42,7 +42,21 @@
   "Conditionally setup perl5 DAP integration."
   ;; currently DAP is only available using LSP
   (when (eq perl5-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'cperl-mode)
     (add-hook 'cperl-mode-hook #'dap-mode)))
+
+(defun spacemacs//perl5-setup-binding (common-binding plsense-prefix)
+  "Conditionally setup prefix and binding."
+  (apply 'spacemacs/set-leader-keys-for-major-mode
+         'cperl-mode common-binding)
+  (add-hook 'cperl-mode-local-vars-hook
+            (lambda ()
+              (when (eq perl5-backend 'company-plsense)
+                (cl-loop for x on plsense-prefix
+                         by 'cddr
+                         do (apply 'spacemacs/declare-prefix-for-mode
+                                   'cperl-mode
+                                   (list (car x) (cadr x))))))))
 
 (defun spacemacs//perl5-smartparens-enable ()
   (define-key cperl-mode-map "{" nil))
@@ -90,3 +104,63 @@ If region is active, operate on it, else operate on line."
     (spacemacs/perltidy-format)
     (goto-char old-point)
     (set-window-start (selected-window) old-window-start)))
+
+;; Keep this chunk always at the bottom.
+;; It's killing the eys.
+(defun spacemacs//perl5-custom-face ()
+  "Some opinionated custmizations."
+  ;; Don't highlight arrays and hashs in comments
+  (font-lock-remove-keywords
+   'cperl-mode
+   '(("\\(\\([@%]\\|\\$#\\)[a-zA-Z_:][a-zA-Z0-9_:]*\\)" 1
+      (if (eq (char-after (match-beginning 2)) 37)
+          'cperl-hash-face 'cperl-array-face) t)
+     ("\\(\\([$@]+\\)[a-zA-Z_:][a-zA-Z0-9_:]*\\)[ \t]*\\([[{]\\)" 1
+      (if (= (- (match-end 2) (match-beginning 2)) 1)
+          (if (eq (char-after (match-beginning 3)) 123)
+              'cperl-hash-face 'cperl-array-face)
+        font-lock-variable-name-face) t)
+     ("\\([]}\\\\%@>*&]\\|\\$[a-zA-Z0-9_:]*\\)[ \t]*{[ \t]*\\(-?[a-zA-Z0-9_:]+\\)[ \t]*}"
+      (2 font-lock-string-face t)
+      ("\\=[ \t]*{[ \t]*\\(-?[a-zA-Z0-9_:]+\\)[ \t]*}" nil nil
+       (1 font-lock-string-face t)))
+     ("[[ \t{,(]\\(-?[a-zA-Z0-9_:]+\\)[ \t]*=>" 1 font-lock-string-face t)))
+
+  (font-lock-add-keywords
+   'cperl-mode
+   '(("\\(\\([@%]\\|\\$#\\)[a-zA-Z_:][a-zA-Z0-9_:]*\\)" 1
+      (if (nth 4 (syntax-ppss))
+          'font-lock-comment-face
+        (if (eq (char-after (match-beginning 2)) ?%)
+            'cperl-hash-face
+          'cperl-array-face)) t)
+     ("\\(\\([$@]+\\)[a-zA-Z_:][a-zA-Z0-9_:]*\\)[ \t]*\\([[{]\\)" 1
+      (if (nth 4 (syntax-ppss))
+          'font-lock-comment-face
+        (if (= (- (match-end 2) (match-beginning 2)) 1)
+            (if (eq (char-after (match-beginning 3)) ?{)
+                'cperl-hash-face
+              'cperl-array-face)
+          font-lock-variable-name-face)) t)
+     ("\\([]}\\\\%@>*&]\\|\\$[a-zA-Z0-9_:]*\\)[ \t]*{[ \t]*\\(-?[a-zA-Z0-9_:]+\\)[ \t]*}"
+      (2 (if (nth 4 (syntax-ppss))
+             'font-lock-comment-face
+           'font-lock-string-face) t)
+      ("\\=[ \t]*{[ \t]*\\(-?[a-zA-Z0-9_:]+\\)[ \t]*}" nil nil
+       (1 (if (nth 4 (syntax-ppss))
+              'font-lock-comment-face
+            'font-lock-string-face) t)))
+     ("[[ \t{,(]\\(-?[a-zA-Z0-9_:]+\\)[ \t]*=>" 1
+      (if (nth 4 (syntax-ppss))
+          'font-lock-comment-face
+        'font-lock-string-face) t)))
+
+  ;; Use less horrible colors for cperl arrays and hashes
+  (set-face-attribute 'cperl-array-face nil
+                      :foreground  "#DD7D0A"
+                      :background  'unspecified
+                      :weight 'unspecified)
+  (set-face-attribute 'cperl-hash-face nil
+                      :foreground "OrangeRed3"
+                      :background 'unspecified
+                      :weight 'unspecified))

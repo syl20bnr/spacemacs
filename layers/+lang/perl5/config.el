@@ -33,3 +33,6 @@
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-plsense'.
 If `nil' then 'company-plsense` is the default backend unless `lsp' layer is used")
+(dolist (v '(lsp company-plsense))
+  (add-to-list 'safe-local-variable-values
+               (cons 'perl5-backend v)))
