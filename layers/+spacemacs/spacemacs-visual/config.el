@@ -20,5 +20,5 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defvar spacemacs-popwin-last-buffer nil
+(defvar spacemacs-popwin--last-buffer nil
   "Last popwin buffer. This is a private variable.")

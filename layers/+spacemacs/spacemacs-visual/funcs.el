@@ -44,14 +44,14 @@
   "Advice to `popwin:match-config' around to save the buffer active."
   (let ((result (apply orig-fun args)))
     (when result
-      (setq spacemacs-popwin-last-buffer (car args)))
+      (setq spacemacs-popwin--last-buffer (car args)))
     result))
 
 (defun spacemacs/last-popwin ()
   "Resume last popwin buffer."
   (interactive)
-  (if (buffer-live-p spacemacs-popwin-last-buffer)
-      (select-window (display-buffer spacemacs-popwin-last-buffer))
+  (if (buffer-live-p spacemacs-popwin--last-buffer)
+      (select-window (display-buffer spacemacs-popwin--last-buffer))
     (message "Last popwin buffer not found or killed.")))
 
 ;; zoom
