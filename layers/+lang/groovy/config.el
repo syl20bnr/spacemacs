@@ -27,8 +27,8 @@
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-groovy'.
 If not set then 'company-groovy` is the default backend unless `lsp' layer is used"
-  '(choice (const lsp) (const company-groovy)) nil #'symbolp)
+  '(choice (const lsp) (const company-groovy)) nil t)
 
 (spacemacs|defc groovy-lsp-jar-path "~/groovy-lsp-all.jar"
   "The path to the lsp jar file"
-  '(file :must-match t) nil #'stringp)
+  '(file :must-match t) nil t)

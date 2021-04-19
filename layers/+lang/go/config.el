@@ -29,19 +29,19 @@
   "The backend to use for IDE features.
 Possible values are `lsp' and `go-mode'.
 If not set then `go-mode' is the default backend unless `lsp' layer is used."
-  '(choice (const lsp) (const go-mode)) nil #'symbolp)
+  '(choice (const lsp) (const go-mode)) nil t)
 
 (spacemacs|defc go-use-gocheck-for-testing nil
   "If using gocheck for testing when running the tests -check.f will be used instead of -run to specify the test that will be ran. Gocheck is mandatory for testing suites."
-  'boolean nil #'booleanp)
+  'boolean nil t)
 
 (spacemacs|defc go-use-testify-for-testing nil
   "If using testify for testing when running the tests -testify.m will be used instead of -run to specify the test that will be ran. Testify is mandatory for testing suites."
-  'boolean nil #'booleanp)
+  'boolean nil t)
 
 (spacemacs|defc go-format-before-save nil
   "Use gofmt before save. Set to non-nil to enable gofmt before saving. Default is nil."
-  'boolean nil #'booleanp)
+  'boolean nil t)
 
 (spacemacs|defc go-tab-width 8
   "Set the `tab-width' in Go mode. Default is 8."
@@ -49,28 +49,28 @@ If not set then `go-mode' is the default backend unless `lsp' layer is used."
 
 (spacemacs|defc go-use-golangci-lint nil
   "Use `golangci-lint' if the variable has non-nil value."
-  'boolean nil #'booleanp)
+  'boolean nil t)
 
 (spacemacs|defc go-test-buffer-name "*go test*"
   "Name of the buffer for go test output. Default is *go test*."
-  'string nil #'stringp)
+  'string nil t)
 
 (spacemacs|defc go-use-test-args ""
   "Additional arguments to be supplied to `go test` during runtime."
-  'string nil #'stringp)
+  'string nil t)
 
 (spacemacs|defc go-test-verbose nil
   "Control verbosity of `go test` output"
-  'boolean nil #'booleanp)
+  'boolean nil t)
 
 (spacemacs|defc go-run-args ""
   "Additional arguments to by supplied to `go run` during runtime."
-  'string nil #'stringp)
+  'string nil t)
 
 (spacemacs|defc go-run-command "go run"
   "Go run command. Default is `go run`."
-  'string nil #'stringp)
+  'string nil t)
 
 (spacemacs|defc go-test-command "go test"
   "Go test command. Default is `go test`."
-  'string nil #'stringp)
+  'string nil t)
