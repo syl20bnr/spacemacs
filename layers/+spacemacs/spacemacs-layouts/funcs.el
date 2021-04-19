@@ -701,6 +701,20 @@ STATE is a window-state object as returned by `window-state-get'."
 
 ;; Eyebrowse transient state
 
+(defun spacemacs/clone-workspace ()
+  "Clone the current workspace.
+And show a minibuffer message, ex:
+Workspace: 1, cloned to Workspace: 2"
+  (interactive)
+  (let* ((eyebrowse-new-workspace nil) ; nil = clone current workspace
+         (current-workspace-nr (eyebrowse--get 'current-slot))
+         (window-configs (eyebrowse--get 'window-configs))
+         (slots (mapcar 'car window-configs))
+         (next-free-workspace-nr (eyebrowse-free-slot slots)))
+    (eyebrowse-switch-to-window-config next-free-workspace-nr)
+    (message "Workspace: %s, cloned to Workspace: %s"
+             current-workspace-nr next-free-workspace-nr)))
+
 (defun spacemacs/single-win-workspace ()
   "Create a new single window workspace, and show the Spacemacs home buffer."
   (interactive)
