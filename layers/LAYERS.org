@@ -49,6 +49,7 @@
   - [[#dtrt-indent][Dtrt-indent]]
   - [[#ietf][Ietf]]
   - [[#multiple-cursors][Multiple-cursors]]
+  - [[#nav-flash][Nav-flash]]
   - [[#nlinum][Nlinum]]
   - [[#parinfer][Parinfer]]
   - [[#spacemacs-completion][Spacemacs-completion]]
@@ -752,6 +753,16 @@ Features:
 Features:
 - support for multiple cursors.
 
+** Nav-flash
+[[file:+misc/nav-flash/README.org][+misc/nav-flash/README.org]]
+
+This layer adds [[https://github.com/rolandwalker/nav-flash][nav-flash]] package which temporarily highlights the line
+containing the point, which is sometimes useful for orientation after a
+navigation command.
+
+Features:
+- Fancy flashing line on navigation.
+
 ** Nlinum
 [[file:+misc/nlinum/README.org][+misc/nlinum/README.org]]
 
@@ -823,6 +834,7 @@ Features:
   - package-menu
   - page-break-lines
   - process-menu
+  - quickrun
   - recentf
   - savehist
   - saveplace
