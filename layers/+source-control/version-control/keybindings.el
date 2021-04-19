@@ -46,6 +46,7 @@
   ("N" spacemacs/vcs-previous-hunk)
   ("p" spacemacs/vcs-previous-hunk)
   ("r" spacemacs/vcs-revert-hunk)
+  ("R" spacemacs/vcs-revert-next-hunk)
   ("s" spacemacs/vcs-stage-hunk)
   ("h" spacemacs/vcs-show-hunk)
   ("t" spacemacs/toggle-version-control-margin)
@@ -53,3 +54,8 @@
   ("q" nil :exit t))
 (spacemacs/set-leader-keys "g." 'spacemacs/vcs-transient-state/body)
 
+(global-set-key (kbd "C-.") 'spacemacs/vcs-next-hunk)
+(global-set-key (kbd "C-,") 'spacemacs/vcs-previous-hunk)
+(global-set-key (kbd "C->") 'spacemacs/vcs-revert-hunk)
+(global-set-key (kbd "C-<") 'spacemacs/vcs-revert-next-hunk)
+(global-set-key (kbd "C-+") 'spacemacs/vcs-show-hunk)

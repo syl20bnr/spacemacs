@@ -53,6 +53,14 @@
        (git-gutter  'git-gutter:revert-hunk)
        (git-gutter+ 'git-gutter+-revert-hunks)))))
 
+(defun spacemacs/vcs-revert-next-hunk ()
+  (interactive)
+  (let ((current-prefix-arg t))
+    (call-interactively
+     (spacemacs/vcs-revert-hunk)
+     (spacemacs/vcs-next-hunk)
+    )))
+
 (defun spacemacs/vcs-stage-hunk ()
   (interactive)
   (if (eq 'diff-hl version-control-diff-tool)

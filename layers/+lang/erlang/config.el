@@ -34,4 +34,8 @@
   "The backend to use for IDE features.
 Possible values are `lsp' or `company-erlang'.
 If `nil' then `company-erlang' is the default backend unless `lsp' layer is used.")
+
 (put 'erlang-backend 'safe-local-variable #'symbolp)
+
+(defvar edts-auto-start-minor-mode nil
+  "If non nil then edts mode will start automatically when opening edts project file.")

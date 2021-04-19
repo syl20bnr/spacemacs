@@ -25,16 +25,18 @@
       '(
         company
         erlang
-        ggtags
-        counsel-gtags
-        helm-gtags
-        flycheck))
-
-
-(defun erlang/post-init-company ()
-  ;; backend specific
-  (add-hook 'erlang-mode-local-vars-hook #'spacemacs//erlang-setup-company))
-
+        ;; flycheck
+        edts
+        (erl-trace :location (recipe
+                              :fetcher github
+                              :repo "datttnwork7247/erl-trace"
+                              :file ("*")))
+        (cmpload :location (recipe
+                            :fetcher github
+                            :repo "datttnwork7247/cmpload"
+                            :file ("*")))
+        ))
+;; INIT
 (defun erlang/init-erlang ()
   (use-package erlang
     :defer t
@@ -45,26 +47,46 @@
           (erlang-mode-local-vars . spacemacs//erlang-setup-backend)
     :init
     (progn
-      ;; (setq erlang-root-dir "/usr/lib/erlang/erts-5.10.3")
-      ;; (add-to-list 'exec-path "/usr/lib/erlang/erts-5.10.3/bin")
-      ;; (setq erlang-man-root-dir "/usr/lib/erlang/erts-5.10.3/man")
-      ;; (add-hook 'erlang-mode-hook
-      ;;           (lambda ()
-      ;;             (setq mode-name "Erlang")
-      ;;             ;; when starting an Erlang shell in Emacs, with a custom node name
-      ;;             (setq inferior-erlang-machine-options '("-sname" "syl20bnr"))
-      ;;             ))
+      (add-hook 'erlang-mode-hook 'spacemacs/run-prog-mode-hooks)
+      (with-eval-after-load 'auto-highlight-symbol
+        (add-to-list 'ahs-plugin-bod-modes 'erlang-mode))
       (setq erlang-compile-extra-opts '(debug_info)))
     :config (require 'erlang-start)))
 
-(defun erlang/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'erlang-mode))
+(defun erlang/init-erl-trace ()
+  :defer t
+  :init
+  (use-package erl-trace))
 
-(defun erlang/post-init-ggtags ()
-  (add-hook 'erlang-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+(defun erlang/init-cmpload ()
+  :defer t
+  :init
+  (use-package cmpload))
 
-(defun erlang/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'erlang-mode))
+(defun erlang/init-edts ()
+  (use-package edts
+    :defer t
+    :init
+    (progn
+      (when edts-auto-start-minor-mode
+        (add-hook 'after-init-hook (lambda () (require 'edts-mode)))))
+    :config
+    (spacemacs/declare-prefix-for-mode 'erlang-mode "mn" "navigate")
+    ))
 
-(defun erlang/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'erlang-mode))
+;; Post INIT
+(defun erlang/post-init-company ()
+  (add-hook 'erlang-mode-hook 'company-mode))
+
+(defun erlang/post-init-edts ()
+  (unless (ignore-errors (require 'edts-start))
+    (warn "EDTS is not installed in this environment!")))
+;; (add-hook 'erlang-mode-hook 'edts-mode)
+
+;; (defun erlang/post-init-edts ()
+;;   (unless (ignore-errors (require 'edts-start))
+;;     (warn "EDTS is not installed in this environment!")))
+;; (add-hook 'after-init-hook 'my-edts-after-init-hook)
+
+;; (defun erlang/post-init-flycheck ()
+;;   (spacemacs/add-flycheck-hook 'erlang-mode))
