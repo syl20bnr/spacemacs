@@ -131,7 +131,6 @@
               ("-" . "insert_or_zoom_out")
               ("=" . "insert_or_zoom_in")
               ("0" . "insert_or_zoom_reset")
-              ("d" . "insert_or_dark_mode")
               ("m" . "insert_or_save_as_bookmark")
               ("o" . "insert_or_open_browser")
               ;; ("y" . "insert_or_download_youtube_video")
@@ -236,12 +235,11 @@
         (lambda (prompt)
           (if (derived-mode-p 'eaf-mode)
               (pcase eaf--buffer-app-name
-                ((or
-                  (and "browser"
-                       (guard (string= (eaf-call-sync "call_function" eaf--buffer-id "is_focus") "True")))
-                  "image-viewer"
-                  "pdf-viewer")
-                 (kbd eaf-evil-leader-key))
+                ("browser" (if (string= (eaf-call-sync "call_function" eaf--buffer-id "is_focus") "True")
+                               (kbd "SPC")
+                             (kbd eaf-evil-leader-key)))
+                ("pdf-viewer" (kbd eaf-evil-leader-key))
+                ("image-viewer" (kbd eaf-evil-leader-key))
                 (_  (kbd "SPC")))
             (kbd "SPC"))))
 
@@ -249,7 +247,7 @@
       ;; in a similar way as how it was done in the evil-integration example
       (setq eaf-evil-leader-for-major-keymap (make-sparse-keymap))
       (define-key eaf-evil-leader-for-major-keymap (kbd "h") 'eaf-open-browser-with-history)
-      (define-key eaf-evil-leader-for-major-keymap (kbd "d") 'eaf-toggle-dark-mode)
+      (define-key eaf-evil-leader-for-major-keymap (kbd "d") 'eaf-proxy-toggle_dark_mode)
       (define-key eaf-evil-leader-for-major-keymap (kbd "s") 'eaf-search-it)
       (add-hook 'evil-normal-state-entry-hook
                 (lambda ()
