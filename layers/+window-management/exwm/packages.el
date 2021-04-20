@@ -71,8 +71,8 @@
     ;; At the user's option, begin with even more workspaces
     (setq exwm-workspace-number
           (if exwm-workspace-number
-              (max exwm-workspace-number (list-length exwm--randr-displays))
-              (list-length exwm--randr-displays)))
+              (max exwm-workspace-number (length exwm--randr-displays))
+              (length exwm--randr-displays)))
     ;; The first workspaces will match the order in RandR
     (setq exwm-randr-workspace-output-plist
           (exwm//flatenum 0 exwm--randr-displays))
