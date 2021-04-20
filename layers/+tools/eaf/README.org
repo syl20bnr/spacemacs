@@ -54,14 +54,19 @@ If you do want to modify the leader keys, then information about the tricks
 implemented in this layer can be found [[https://github.com/manateelazycat/emacs-application-framework/issues/498][here]] and [[https://github.com/manateelazycat/emacs-application-framework/pull/500][here]].
 
 * Key bindings
+  Except for the few Spacemacs specific modifications listed below, all EAF
+  keybindings are documented [[https://github.com/manateelazycat/emacs-application-framework/wiki/Keybindings][here.]]
+
+  Use ~SPC t k m~ to [[https://develop.spacemacs.org/doc/DOCUMENTATION.html#which-key-persistent][show the EAF keybindings persistently in which-key]], or use
+  ~SPC h d K~ to show the `eaf-mode-map` in a separate buffer.
 ** Global
 *** All EAF-applications
 
-| Key binding | Description                                                                |
-|-------------+----------------------------------------------------------------------------|
-| ~SPC a a f~ | EAF open file ([[https://github.com/manateelazycat/emacs-application-framework#launch-eaf-applications][see EAF doc for supported file types]])                       |
-| ~SPC t k m~ | Show available key commands in which-key (read [[https://develop.spacemacs.org/doc/DOCUMENTATION.html#which-key][here]] for more details)      |
-| ~SPC m d~   | toggle dark-mode (or in browser press ~M-d~, in pdf-viewer just press ~d~) |
+| Key binding | Description                                                                   |
+|-------------+-------------------------------------------------------------------------------|
+| ~SPC a a f~ | EAF open file ([[https://github.com/manateelazycat/emacs-application-framework#launch-eaf-applications][see EAF doc for supported file types]])                          |
+| ~SPC t k m~ | Show available key commands in which-key (read [[https://develop.spacemacs.org/doc/DOCUMENTATION.html#which-key][here]] for more details)         |
+| ~SPC m d~   | toggle dark-mode (or in browser press ~M-d~ and in pdf-viewer just press ~d~) |
 
 *** Browser
 
@@ -102,6 +107,3 @@ implemented in this layer can be found [[https://github.com/manateelazycat/emacs
 | Key binding | Description            |
 |-------------+------------------------|
 | ~SPC m e~   | open in eaf pdf-viewer |
-
-There are many more key bindings. Use ~SPC t k m~ to [[https://develop.spacemacs.org/doc/DOCUMENTATION.html#which-key-persistent][show them persistently in
-which-key]], or use ~SPC h d k~ to show the `eaf-mode-map` in a separate buffer.
