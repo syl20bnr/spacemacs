@@ -58,4 +58,4 @@ Can show completions at point for COMMAND using helm"
 
 ;; Other utilities
 (defun exwm//flatenum (i ls)
-  (if ls (cons i (cons (first ls) (exwm//flatenum  (1+ i) (cdr ls)))) (list)))
+  (if ls (cons i (cons (car ls) (exwm//flatenum  (1+ i) (cdr ls)))) (list)))
