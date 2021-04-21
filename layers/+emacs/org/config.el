@@ -95,3 +95,6 @@ ATTENTION: `valign-mode' will be laggy working with tables contain more than 100
 
 (defvar org-enable-roam-server nil
   "if non-nil, enable org-roam-server support")
+
+(defvar org-enable-asciidoc-support nil
+  "If non-nil, enable ox-asciidoc.")
