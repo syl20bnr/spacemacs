@@ -70,7 +70,8 @@
     (org-roam :toggle org-enable-roam-support)
     (valign :toggle org-enable-valign)
     (org-appear :toggle org-enable-appear-support)
-    (org-roam-server :require org-roam :toggle org-enable-roam-server)))
+    (org-roam-server :require org-roam :toggle org-enable-roam-server)
+    (ox-asciidoc :toggle org-enable-asciidoc-support)))
 
 (defun org/post-init-company ()
   (spacemacs|add-company-backends :backends company-capf :modes org-mode))
@@ -1016,3 +1017,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
     (progn
       (spacemacs/set-leader-keys "aors" 'org-roam-server-mode)
       (spacemacs/set-leader-keys-for-major-mode 'org-mode "rs" 'org-roam-server-mode))))
+
+(defun org/init-ox-asciidoc ()
+  (use-package ox-asciidoc
+    :after ox
+    :defer t))
