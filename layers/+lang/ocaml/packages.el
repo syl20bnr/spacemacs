@@ -141,7 +141,7 @@
   (use-package merlin-iedit
     :defer t
     :init
-    (prog
+    (progn
      (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
        "re" 'merlin-iedit-occurrences))))
 
