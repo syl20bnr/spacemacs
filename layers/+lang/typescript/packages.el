@@ -70,16 +70,15 @@
 
 (defun typescript/set-lsp-linter ()
   (with-eval-after-load 'lsp-ui
-    (with-eval-after-load 'lsp
-      (with-eval-after-load 'flycheck
-        (pcase typescript-linter
-          ('tslint (flycheck-add-mode 'typescript-tslint 'typescript-tsx-mode))
-          ;; This sets tslint unconditionally for all lsp clients which is wrong
-          ;; Must be set for respective modes only, see go layer for examples.
-          ('eslint (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
-                   (flycheck-add-mode 'javascript-eslint 'typescript-mode))
-          (_ (message
-              "Invalid typescript-layer configuration, no such linter: %s" typescript-linter)))))))
+    (with-eval-after-load 'flycheck
+      (pcase typescript-linter
+        ('tslint (flycheck-add-mode 'typescript-tslint 'typescript-tsx-mode))
+        ;; This sets tslint unconditionally for all lsp clients which is wrong
+        ;; Must be set for respective modes only, see go layer for examples.
+        ('eslint (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
+                 (flycheck-add-mode 'javascript-eslint 'typescript-mode))
+        (_ (message
+            "Invalid typescript-layer configuration, no such linter: %s" typescript-linter))))))
 
 (defun typescript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'typescript-mode)
