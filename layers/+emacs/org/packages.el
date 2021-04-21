@@ -952,7 +952,10 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "ra" 'org-roam-alias-add))
     :config
     (progn
-      (spacemacs|hide-lighter org-roam-mode))))
+      (spacemacs|hide-lighter org-roam-mode)
+      (when org-enable-roam-protocol
+          (add-hook 'org-roam-mode-hook (lambda ()
+                                          (require 'org-roam-protocol)))))))
 
 (defun org/init-org-sticky-header ()
   (use-package org-sticky-header
