@@ -2509,14 +2509,15 @@ depends on it."
     (spacemacs-buffer/insert-page-break)
     (with-current-buffer (get-buffer-create spacemacs-buffer-name)
       (let ((buffer-read-only nil))
-        (spacemacs-buffer/append
-         (format "\n%s packages loaded in %.3fs (e:%s r:%s l:%s b:%s)"
-                 (cadr (assq 'total stats))
-                 configuration-layer--spacemacs-startup-time
-                 (cadr (assq 'elpa stats))
-                 (cadr (assq 'recipe stats))
-                 (cadr (assq 'local stats))
-                 (cadr (assq 'built-in stats))))
+        (let-alist stats
+          (spacemacs-buffer/append
+           (format "\n%s packages loaded in %.3fs (e:%s r:%s l:%s b:%s)"
+                   .total
+                   configuration-layer--spacemacs-startup-time
+                   .elpa
+                   .recipe
+                   .local
+                   .built-in)))
         (spacemacs-buffer//center-line)
         (spacemacs-buffer/append (format "\n(%.3fs spent in your user-config)"
                                          dotspacemacs--user-config-elapsed-time))
