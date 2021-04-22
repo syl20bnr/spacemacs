@@ -1023,5 +1023,4 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-ox-asciidoc ()
   (use-package ox-asciidoc
-    :after ox
-    :defer t))
+    :after ox))
