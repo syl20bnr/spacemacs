@@ -118,8 +118,8 @@ effect if called after that point."
                                :columns ,prop-columns
                                :foreign-keys ,prop-foreign-keys
                                :body-pre ,prop-entry-sexp
-                               :before-exit ,prop-exit-sexp)))
-                 'append))))
+                               :before-exit ,prop-exit-sexp)))))
+             'append))
 
 (defface spacemacs-transient-state-title-face
   `((t :inherit mode-line))
