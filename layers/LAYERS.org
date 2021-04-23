@@ -216,6 +216,7 @@
   - [[#debug][Debug]]
   - [[#docker][Docker]]
   - [[#eww][Eww]]
+  - [[#exwm][EXWM]]
   - [[#fasd][Fasd]]
   - [[#finance][Finance]]
   - [[#geolocation][Geolocation]]
@@ -2804,6 +2805,29 @@ Features:
   eww-buffers/bookmarks/history-mode)
 - Adds spacemacs functionality to eww-mode
 - Adds ability to easily navigate eww buffers
+
+** EXWM
+[[file:+window-management/exwm/README.org][+window-management/exwm/README.org]]
+
+The time has arrived when one can finally use Emacs as a Window Manager, long
+ago the concepts of *windows* and *frames* made so much sense when one was
+working in a TTY, and basically that's all the window management you got. In
+these *modern* times though, it sounds silly to have those names. But not
+Anymore!
+
+Thanks to @ch11ng and his [[https://github.com/ch11ng/exwm][EXWM]] project we can now use Emacs as our window
+manager, and all those *windows* that didn't make sense before, now can not only
+hold buffers, but X Windows, that means that you can spawn a Browser Window, or
+your music player, or anything.
+
+I urge you to read the [[https://github.com/ch11ng/exwm/wiki][EXWM Wiki]] for a more in depth explanation and if you can
+contribute, please do so! The purpose of me making this layer is that I find it
+awesome and having nice defaults would make more people dive into it and the
+project would receive more attention and contributions which will only make it
+more awesome, so if you try it and like it, share it!
+
+Features:
+- Support for using Spacemacs as window manager
 
 ** Fasd
 [[file:+tools/fasd/README.org][+tools/fasd/README.org]]

@@ -4,15 +4,14 @@
 
 [[file:img/spacemacsOS.jpg]]
 
-* Table of Contents                                                 :TOC_5_gh:noexport:
-  - [[#description][Description]]
-    - [[#features][Features:]]
-  - [[#install][Install]]
-    - [[#layer][Layer]]
-    - [[#note-about-display-managers][Note about Display Managers]]
-    - [[#not-having-display-managers][Not having Display Managers]]
-    - [[#osx][OSX]]
-  - [[#key-bindings][Key bindings]]
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#note-about-display-managers][Note about Display Managers]]
+  - [[#not-having-display-managers][Not having Display Managers]]
+  - [[#osx][OSX]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 The time has arrived when one can finally use Emacs as a Window Manager, long
@@ -68,7 +67,7 @@ I have, for convenience, disabled the use of ~C-x~ and ~C-c~ in X windows,
 mainly because that's something we could use for Cutting and Copying text, but if
 you want you can enable it, this layer focuses on less Emacs-y bindings.
 
-| Key Binding           | Description                                    |
+| Key binding           | Description                                    |
 |-----------------------+------------------------------------------------|
 | ~C-q~                 | Send next key pressed to the X window          |
 | ~C-'~                 | Pop shell                                      |
