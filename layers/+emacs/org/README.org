@@ -429,11 +429,11 @@ to =t=.
 To enable support for [[https://www.orgroam.com/manual.html#Roam-Protocol][Org Roam Protocol]] set the variable
 =org-enable-roam-protocol= to =t=.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (org :variables
          org-enable-roam-protocol t)))
-#+end_src
+#+END_SRC
 
 And create a desktop file as described in the [[https://www.orgroam.com/manual.html#Roam-Protocol][org-roam manual]].
 
