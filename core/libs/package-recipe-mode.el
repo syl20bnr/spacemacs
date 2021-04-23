@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2011-2020 Donald Ephraim Curtis <dcurtis@milkbox.net>
 ;; Copyright (C) 2012-2020 Steve Purcell <steve@sanityinc.com>
-;; Copyright (C) 2016-2020 Jonas Bernoulli <jonas@bernoul.li>
+;; Copyright (C) 2016-2021 Jonas Bernoulli <jonas@bernoul.li>
 ;; Copyright (C) 2009 Phil Hagelberg <technomancy@gmail.com>
 
 ;; Author: Donald Ephraim Curtis <dcurtis@milkbox.net>
@@ -44,9 +44,7 @@
 
 (define-minor-mode package-build-minor-mode
   "Helpful functionality for building packages."
-  nil
-  " PBuild"
-  package-build-minor-mode-map
+  :lighter " PBuild"
   (when package-build-minor-mode
     (message "Use C-c C-c to build this recipe.")))
 
