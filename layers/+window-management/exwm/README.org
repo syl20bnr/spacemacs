@@ -14,7 +14,7 @@
     - [[#osx][OSX]]
   - [[#key-bindings][Key bindings]]
 
-** Description
+* Description
 The time has arrived when one can finally use Emacs as a Window Manager, long
 ago the concepts of *windows* and *frames* made so much sense when one was
 working in a TTY, and basically that's all the window management you got. In
