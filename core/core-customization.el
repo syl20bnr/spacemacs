@@ -91,6 +91,8 @@ NOTE: Variables defined with a group listed in
          `',standard)
       ,(format "%s\n\nTYPE: %s\n" doc type)
       :type ,type
+      :safe (lambda (val)
+              (or (spacemacs-customization//validate val ,type nil) t))
       :group group)
      (pcase ,safe
        ('t (put ',symbol 'safe-local-variable
