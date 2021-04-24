@@ -3056,11 +3056,11 @@
            (cfgl-package "pkg6" :name 'pkg6 :location 'local)
            (cfgl-package "pkg7" :name 'pkg7 :location '(recipe :foo bar))
            (cfgl-package "pkg8" :name 'pkg8 :location '(recipe :foo bar))) t)
-    (should (equal '((total 8)
-                     (elpa 3)
-                     (recipe 2)
-                     (local 1)
-                     (built-in 2))
+    (should (equal '((total . 8)
+                     (elpa . 3)
+                     (recipe . 2)
+                     (local . 1)
+                     (built-in . 2))
                    (configuration-layer/configured-packages-stats
                     configuration-layer--used-packages)))))
 
@@ -3079,10 +3079,10 @@
            (cfgl-package "pkg8" :name 'pkg8 :location '(recipe :foo bar))) t)
     (setq stats (configuration-layer/configured-packages-stats
                  configuration-layer--used-packages))
-    (should (equal 8 (+ (cadr (assq 'elpa stats))
-                        (cadr (assq 'recipe stats))
-                        (cadr (assq 'local stats))
-                        (cadr (assq 'built-in stats)))))))
+    (should (equal 8 (+ (cdr (assq 'elpa stats))
+                        (cdr (assq 'recipe stats))
+                        (cdr (assq 'local stats))
+                        (cdr (assq 'built-in stats)))))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//package-install-org

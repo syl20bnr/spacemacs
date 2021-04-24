@@ -1697,29 +1697,29 @@ RNAME is the name symbol of another existing layer."
 
 (defun configuration-layer/configured-packages-stats (packages)
   "Return a statistics alist regarding the number of configured PACKAGES."
-  `((total ,(length packages))
-    (elpa ,(length (configuration-layer/filter-objects
-                    packages
-                    (lambda (x)
-                      (let ((pkg (configuration-layer/get-package x)))
-                        (eq 'elpa (oref pkg :location)))))))
-    (recipe ,(length (configuration-layer/filter-objects
+  `((total . ,(length packages))
+    (elpa . ,(length (configuration-layer/filter-objects
                       packages
                       (lambda (x)
-                        (let* ((pkg (configuration-layer/get-package x))
-                               (location (oref pkg :location)))
-                          (and (listp location)
-                               (eq 'recipe (car location))))))))
-    (local ,(length (configuration-layer/filter-objects
-                     packages
-                     (lambda (x)
-                       (let ((pkg (configuration-layer/get-package x)))
-                         (memq (oref pkg :location) '(local site)))))))
-    (built-in ,(length (configuration-layer/filter-objects
+                        (let ((pkg (configuration-layer/get-package x)))
+                          (eq 'elpa (oref pkg :location)))))))
+    (recipe . ,(length (configuration-layer/filter-objects
                         packages
                         (lambda (x)
-                          (let ((pkg (configuration-layer/get-package x)))
-                            (eq 'built-in (oref pkg :location)))))))))
+                          (let* ((pkg (configuration-layer/get-package x))
+                                 (location (oref pkg :location)))
+                            (and (listp location)
+                                 (eq 'recipe (car location))))))))
+    (local . ,(length (configuration-layer/filter-objects
+                       packages
+                       (lambda (x)
+                         (let ((pkg (configuration-layer/get-package x)))
+                           (memq (oref pkg :location) '(local site)))))))
+    (built-in . ,(length (configuration-layer/filter-objects
+                          packages
+                          (lambda (x)
+                            (let ((pkg (configuration-layer/get-package x)))
+                              (eq 'built-in (oref pkg :location)))))))))
 
 (defun configuration-layer//install-package (pkg)
   "Unconditionally install the package PKG."
