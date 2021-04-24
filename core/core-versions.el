@@ -20,6 +20,14 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;;; Commentary:
+;;
+;;    Define Spacemacs version and minimum supported Emacs version.
+
+;;; Code:
 
 (defconst spacemacs-version          "0.300.0" "Spacemacs version.")
 (defconst spacemacs-emacs-min-version   "25.1" "Minimal version of Emacs.")
+
+(provide 'core-versions)
+;;; core-versions.el ends here
