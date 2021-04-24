@@ -207,15 +207,15 @@ complete list of key bindings on the [[https://github.com/syl20bnr/spacemacs/tre
 
 ** RuboCop
 
-| Key binding | Description                                          |
-|-------------+------------------------------------------------------|
-| ~SPC m = r~ | Format the current buffer using RuboCop              |
-| ~SPC m R f~ | Runs RuboCop on the currently visited file           |
-| ~SPC m R F~ | Runs auto-correct on the currently visited file      |
-| ~SPC m R d~ | Prompts from a directory on which to run RuboCop     |
-| ~SPC m R D~ | Prompts for a directory on which to run auto-correct |
-| ~SPC m R p~ | Runs RuboCop on the entire project                   |
-| ~SPC m R P~ | Runs auto-correct on the project                     |
+| Key binding   | Description                                          |
+|---------------+------------------------------------------------------|
+| ~SPC m = r~   | Format the current buffer using RuboCop              |
+| ~SPC m R r b~ | Runs RuboCop on the currently visited file           |
+| ~SPC m R r B~ | Runs auto-correct on the currently visited file      |
+| ~SPC m R r d~ | Prompts from a directory on which to run RuboCop     |
+| ~SPC m R r D~ | Prompts for a directory on which to run auto-correct |
+| ~SPC m R r p~ | Runs RuboCop on the entire project                   |
+| ~SPC m R r P~ | Runs auto-correct on the project                     |
 
 ** Tests
 *** RSpec-mode
@@ -247,12 +247,12 @@ When =ruby-test-runner= equals =ruby-test=.
 *** minitest-mode
 When =ruby-test-runner= equals =minitest=.
 
-| Key binding | Description               |
-|-------------+---------------------------|
-| ~SPC m t a~ | run all tests             |
-| ~SPC m t b~ | run current file          |
-| ~SPC m t r~ | repeat last test command  |
-| ~SPC m t s~ | run test for current file |
+| Key binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m t a~ | run all tests               |
+| ~SPC m t b~ | run tests in current buffer |
+| ~SPC m t l~ | repeat last test command    |
+| ~SPC m t t~ | run test around point       |
 
 ** Toggles
 

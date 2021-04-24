@@ -22,11 +22,55 @@
 
 
 
-;; backend
+;; macros
+
+(defmacro spacemacs|eval-for-enabled-ruby-mode (body)
+  "Evaluate BODY for the currently active ruby mode.
+
+All occurrences of `mode' in BODY are replaced with the actual mode name symbol.
+All occurrences of `hook' in BODY are replaced with the actual hook name symbol.
+All occurrences of `local-vars-hook' in BODY are replaced with the actual local
+vars hook name symbol.
+Note that `mode', `hook' and `local-vars-hook' need to be explicitly quoted
+except when they are themselves inside a macro."
+  (declare (debug (form)) (indent 0))
+  (if ruby-enable-enh-ruby-mode
+      ;; enh-ruby-mode
+      (progn
+        (let ((new 'enh-ruby-mode)
+              (old 'mode))
+          (cl-nsubstitute-if new 'spacemacs//ruby-substitute-predicate body))
+        (let ((new 'enh-ruby-mode-hook)
+              (old 'hook))
+          (cl-nsubstitute-if new 'spacemacs//ruby-substitute-predicate body))
+        (let ((new 'enh-ruby-mode-local-vars-hook)
+              (old 'local-vars-hook))
+          (cl-nsubstitute-if new 'spacemacs//ruby-substitute-predicate body)))
+    ;; ruby-mode
+    (let ((new 'ruby-mode)
+          (old 'mode))
+      (cl-nsubstitute-if new 'spacemacs//ruby-substitute-predicate body))
+    (let ((new 'ruby-mode-hook)
+          (old 'hook))
+      (cl-nsubstitute-if new 'spacemacs//ruby-substitute-predicate body))
+    (let ((new 'ruby-mode-local-vars-hook)
+          (old 'local-vars-hook))
+      (cl-nsubstitute-if new 'spacemacs//ruby-substitute-predicate body))))
+
+(defun spacemacs//ruby-substitute-predicate (body)
+  "Predicate to replace all `old' occurrences by `new' occurrences in BODY.
+Reccurse if BODY is a list."
+  (if (listp body)
+      (progn
+        (cl-nsubstitute-if new 'spacemacs//ruby-substitute-predicate body)
+        nil)
+    (eq body old)))
+
+
+;; Backend
 
 (defun spacemacs//ruby-setup-backend ()
   "Conditionally configure Ruby backend"
-  (spacemacs//ruby-setup-version-manager)
   (pcase ruby-backend
     ('lsp (spacemacs//ruby-setup-lsp))
     ('robe (spacemacs//ruby-setup-robe))))
@@ -43,9 +87,7 @@
   (when (eq ruby-backend 'lsp)
     (spacemacs//ruby-setup-lsp-dap)))
 
-
 ;; lsp
-
 (defun spacemacs//ruby-setup-lsp ()
   "Setup Ruby lsp."
   (if (configuration-layer/layer-used-p 'lsp)
@@ -54,12 +96,17 @@
 
 (defun spacemacs//ruby-setup-lsp-dap ()
   "Setup DAP integration."
+  (if ruby-enable-enh-ruby-mode
+      (add-to-list 'spacemacs--dap-supported-modes 'enh-ruby-mode)
+    (add-to-list 'spacemacs--dap-supported-modes 'ruby-mode))
   (require 'dap-ruby))
 
-
 ;; robe
-
 (defun spacemacs//ruby-setup-robe ()
+  (spacemacs/register-repl 'robe 'robe-start "robe")
+  (spacemacs/add-to-hooks 'robe-jump
+                          '(spacemacs-jump-handlers-ruby-mode
+                            spacemacs-jump-handlers-enh-ruby-mode))
   (robe-mode))
 
 (defun spacemacs//ruby-setup-robe-company ()
@@ -73,18 +120,24 @@
       (add-to-list 'company-dabbrev-code-modes mode))))
 
 
-;; version manager
+;; Version Manager
 
 (defun spacemacs//ruby-setup-version-manager ()
-  "Setup ruby version manager."
-  (when (eq ruby-version-manager 'rbenv)
-    (spacemacs//enable-rbenv)))
+  "Conditionally configure Ruby version manager."
+  (pcase ruby-version-manager
+    ('chruby (spacemacs//ruby-setup-chruby))
+    ('rbenv (spacemacs//ruby-setup-rbenv ))
+    ('rvm (spacemacs//ruby-setup-rvm ))))
 
-
+;; chruby
+(defun spacemacs//ruby-setup-chruby ()
+  "Setup chruby version manager."
+  (require 'chruby)
+  (chruby-use-corresponding))
+
 ;; rbenv
-
-(defun spacemacs//enable-rbenv ()
-  "Enable rbenv, use .ruby-version if exists."
+(defun spacemacs//ruby-setup-rbenv ()
+  "Setup rbenv version manager, use .ruby-version if exists."
   (require 'rbenv)
   (let ((version-file-path (rbenv--locate-file ".ruby-version")))
     (global-rbenv-mode)
@@ -97,39 +150,49 @@
                            "from .ruby-version file.")))
       (message "[rbenv] Using the currently activated ruby."))))
 
+;; rvm
+(defun spacemacs//ruby-setup-rvm ()
+  "Setup rvm version manager."
+  (require 'rvm)
+  (rvm-activate-corresponding-ruby))
+
 
+;; Test runner
+
+(defun spacemacs//ruby-setup-test-runner ()
+  "Conditionally configure Ruby test runner."
+  (pcase ruby-test-runner
+    ('minitest (spacemacs//ruby-setup-minitest))
+    ('rspec (spacemacs//ruby-setup-rspec ))
+    ('ruby-test (spacemacs//ruby-setup-ruby-test ))))
+
+;; minitest
+(defun spacemacs//ruby-setup-minitest ()
+  "Setup minitest test runner."
+  (minitest-enable-appropriate-mode))
+
 ;; rspec
-
-(defun spacemacs//ruby-enable-rspec-mode ()
-  "Conditionally enable `rspec-mode'"
-  (when (eq 'rspec ruby-test-runner)
-    (rspec-enable-appropriate-mode)))
-
-(defun ruby/rspec-verify-directory (dir)
-  "Launch tests in DIR directory.
-Called interactively it prompts for a directory."
-  (interactive "Drspec directory: ")
-  (rspec-run-single-file dir (rspec-core-options)))
+(defun spacemacs//ruby-setup-rspec ()
+  "Setup rspec test runner."
+  (when (eq ruby-version-manager 'rvm)
+    (setq rspec-use-rvm t))
+  (add-hook 'rspec-compilation-mode-hook 'spacemacs//inf-ruby-auto-enter)
+  (rspec-enable-appropriate-mode))
 
 (defun spacemacs//inf-ruby-auto-enter ()
   "Automatically enters inf-ruby-mode in ruby modes' debugger breakpoints."
   (add-hook 'compilation-filter-hook 'inf-ruby-auto-enter nil t))
 
-
+(defun spacemacs/rspec-verify-directory (dir)
+  "Launch tests in DIR directory.
+Called interactively it prompts for a directory."
+  (interactive "Drspec directory: ")
+  (rspec-run-single-file dir (rspec-core-options)))
+
 ;; ruby-test
-
-(defun spacemacs//ruby-enable-ruby-test-mode ()
-  "Conditionally enable `ruby-test-mode'"
-  (when (eq 'ruby-test ruby-test-runner)
-    (ruby-test-mode)))
-
-
-;; minitest
-
-(defun spacemacs//ruby-enable-minitest-mode ()
-  "Conditionally enable `minitest-mode'"
-  (when (eq 'minitest ruby-test-runner)
-    (minitest-enable-appropriate-mode)))
+(defun spacemacs//ruby-setup-ruby-test ()
+  "Setup ruby-test test runner."
+  (ruby-test-mode))
 
 
 ;; highlight debugger keywords
@@ -146,12 +209,14 @@ Called interactively it prompts for a directory."
 ;; Insert text
 
 (defun spacemacs/ruby-insert-frozen-string-literal-comment ()
+  "Insert frozen_string_literal comment at start of file."
   (interactive)
   (save-excursion
     (goto-char (point-min))
     (insert "# frozen_string_literal: true\n")))
 
 (defun spacemacs/ruby-insert-shebang ()
+  "Insert ruby shebang at start of file."
   (interactive)
   (save-excursion
     (goto-char (point-min))
@@ -160,9 +225,5 @@ Called interactively it prompts for a directory."
 
 ;; Prettier
 
-(defun spacemacs/ruby-format ()
-  (interactive)
-  (call-interactively 'prettier-js))
-
-(defun spacemacs/ruby-fmt-before-save-hook ()
-  (add-hook 'before-save-hook 'spacemacs/ruby-format t t))
+(defun spacemacs//ruby-add-prettier-js-before-save-hook ()
+  (add-hook 'before-save-hook 'prettier-js t t))
