@@ -30,6 +30,7 @@
   "Defines the backend for IDE features, defaulting to robe.
 Possible values are `robe', and `lsp'.
 If `nil' then `robe' is the default backend unless `lsp' layer is used.")
+(put 'ruby-backend 'safe-local-variable #'symbolp)
 
 (defvar ruby-enable-enh-ruby-mode nil
   "If non-nil, use `enh-ruby-mode' package instead of the built-in Ruby Mode.")
@@ -37,9 +38,11 @@ If `nil' then `robe' is the default backend unless `lsp' layer is used.")
 (defvar ruby-version-manager nil
   "If non nil, defines the Ruby version manager.
 Possible values are `rbenv', `rvm' or `chruby'.)")
+(put 'ruby-version-manager 'safe-local-variable #'symbolp)
 
 (defvar ruby-test-runner 'ruby-test
   "Test runner to use. Possible values are `ruby-test', `minitest' or `rspec'.")
+(put 'ruby-test-runner 'safe-local-variable #'symbolp)
 
 (defvar ruby-highlight-debugger-keywords t
   "If non-nil, enable highlight for debugger keywords.")
