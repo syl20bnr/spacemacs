@@ -51,6 +51,7 @@
     (python :location built-in)
     pyvenv
     semantic
+    shadowenv
     sphinx-doc
     smartparens
     stickyfunc-enhance
@@ -460,6 +461,9 @@ fix this issue."
     (condition-case-unless-debug nil
         (apply f args)
       (error nil))))
+
+(defun python/pre-init-shadowenv ()
+  (add-to-list 'spacemacs--shadowenv-modes 'python-mode))
 
 (defun python/pre-init-smartparens ()
   (spacemacs|use-package-add-hook smartparens
