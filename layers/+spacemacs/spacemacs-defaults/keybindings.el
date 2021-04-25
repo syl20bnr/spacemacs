@@ -608,7 +608,7 @@ respond to this toggle."
   "ttg" 'timeclock-workday-remaining-string
   "tti" 'timeclock-in
   "ttl" 'timeclock-when-to-leave-string
-  "ttm" 'timeclock-modeline-display
+  "ttm" 'timeclock-mode-line-display
   "tto" 'timeclock-out
   "ttr" 'timeclock-reread-log
   "tts" 'timeclock-status-string
