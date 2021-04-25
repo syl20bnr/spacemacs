@@ -29,7 +29,7 @@
 
 (defconst user-home-directory
   (expand-file-name "~/")
-  "User home directory (~/).")
+  "User home directory (default ~/).")
 
 ;; ~/.emacs.d
 (defvar spacemacs-start-directory
@@ -110,6 +110,7 @@
 
 ;;;; Setup cache directories
 
+;; TODO: Should also catch any IO error such as permission error (Apr 25 2021 Lucius)
 (unless (file-exists-p spacemacs-cache-directory)
   (make-directory spacemacs-cache-directory))
 
@@ -121,6 +122,7 @@
   "Prepend DIR to `load-path'."
   (add-to-list 'load-path dir))
 
+;; FIXME: unused function (Apr 25 2021 Lucius)
 (defun add-to-load-path-if-exists (dir)
   "If DIR exists in the file system, prepend it to `load-path'."
   (when (file-exists-p dir)
