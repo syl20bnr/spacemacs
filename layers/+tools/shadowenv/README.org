@@ -1,0 +1,31 @@
+#+TITLE: shadowenv layer
+
+#+TAGS: layer|tool
+
+[[file:img/shadowenv.png]]
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds support for [[https://shopify.github.io/shadowenv/][shadowenv]]
+
+** Features:
+- Automatically activate found shadowenv shadows in supported buffer
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =shadowenv= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+To install =shadowenv= follow [[https://shopify.github.io/shadowenv/getting-started/][this installation guide]].
+
+* Key bindings
+
+| Key binding | Description                                       |
+|-------------+---------------------------------------------------|
+| ~SPC m V r~ | Reload the shadowenv for current buffer           |
+| ~SPC m V s~ | Display the environment shadows in a popup buffer |
