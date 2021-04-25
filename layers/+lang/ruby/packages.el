@@ -50,6 +50,7 @@
     ruby-tools
     rvm
     seeing-is-believing
+    shadowenv
     smartparens))
 
 (defun ruby/init-bundler ()
@@ -416,6 +417,10 @@
        ("@" "Seeing is Believing"
         ("@" seeing-is-believing-run "Start")
         ("c" seeing-is-believing-clear "Clear")))))))
+
+(defun ruby/pre-init-shadowenv ()
+  (spacemacs|eval-for-enabled-ruby-mode
+    (add-to-list 'spacemacs--shadowenv-modes 'mode)))
 
 (defun ruby/pre-init-smartparens ()
   (spacemacs|use-package-add-hook smartparens

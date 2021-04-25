@@ -52,6 +52,7 @@
     (recentf :location built-in)
     (savehist :location built-in)
     (saveplace :location built-in)
+    shadowenv
     (subword :location built-in)
     (tar-mode :location built-in)
     (uniquify :location built-in)
@@ -423,6 +424,9 @@
       (setq save-place t))
     ;; Save point position between sessions
     (setq save-place-file (concat spacemacs-cache-directory "places"))))
+
+(defun spacemacs-defaults/pre-init-shadowenv ()
+  (add-to-list 'spacemacs--shadowenv-modes 'compilation-mode))
 
 (defun spacemacs-defaults/init-subword ()
   (use-package subword
