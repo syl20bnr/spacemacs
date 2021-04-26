@@ -31,12 +31,15 @@
       (exwm :location (recipe :fetcher github
                               :repo "ch11ng/exwm")
             :step pre)
+      (xdg :location built-in)
       (desktop-environment
        :location (recipe :fetcher github
-                         :repo "DamienCassou/desktop-environment"
-                         :upgrade t
-                         :commit "cd5145288944f4bbd7b2459e4b55a6a95e37f06d"))))
+                         :repo "DamienCassou/desktop-environment"))))
 
+(defun exwm/init-xdg ()
+  (use-package xdg
+    :defer t
+    :commands (xdg-config-dirs xdg-config-home xdg-desktop-read-file)))
 
 (defun exwm/init-desktop-environment ()
   (use-package desktop-environment
@@ -213,8 +216,6 @@
       (exwm-systemtray-enable))
     (when exwm-autostart-xdg-applications
       (add-hook 'exwm-init-hook 'exwm//autostart-xdg-applications t))
-    (when exwm-custom-init
-      (add-hook 'exwm-init-hook exwm-custom-init t))
 
     (if exwm-randr-command
      (start-process-shell-command

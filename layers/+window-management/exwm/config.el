@@ -33,16 +33,17 @@
   "Key to use for EXWM global commands")
 
 (defvar exwm-enable-systray nil
-  "Whether to enable EXWM's bundled system tray implementation.")
+  "When non-nil, enable system tray integration for EXWM.")
 
 (defvar exwm-autostart-xdg-applications nil
-  "Whether to run $XDG_USER_HOME/autostart applications after initialization.")
-
-(defvar exwm-custom-init nil
-  "This can be set to a function that runs after all other EXWM initialization.")
+  "When non-nil, autostart applications in  $XDG_USER_HOME/autostart directory.")
 
 (defvar exwm-workspace-switch-wrap t
-  "Whether `exwm/exwm-workspace-next' and `exwm/exwm-workspace-prev' should wrap.")
+  "When non-nil, `exwm/exwm-workspace-next' and `exwm/exwm-workspace-prev' should wrap.")
+
+(defvar exwm-autostart-process-list nil
+  "List of processes to run during autostart.
+This is a list of strings used as shell commands.")
 
 (defvar exwm-workspace-number nil
   "Number of workspaces. Defaults to the number of connected displays if `nil'.")

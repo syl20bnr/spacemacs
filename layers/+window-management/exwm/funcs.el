@@ -66,8 +66,8 @@
   (setq exwm--toggle-workspace exwm-workspace-current-index))
 
 (defun exwm/exwm-app-launcher ()
-  "Launches an application in your PATH.
-Can show completions at point for COMMAND using helm"
+  "Launch an application in PATH.
+Optionally, this has helm integration when helm is enabled."
   (interactive)
   (call-interactively
    (if (configuration-layer/package-usedp 'helm)
@@ -78,67 +78,52 @@ Can show completions at point for COMMAND using helm"
   (interactive)
   (start-process "" nil exwm-locking-command))
 
+(defun exwm//autostart-process (name command &optional directory)
+  "Start a program in subprocess and append it to `exwm-autostart-process-list'.
+NAME is the name for process.
+COMMAND is the shell command to run.
+DIRECTORY is the working directory in which the process is run.  It defaults to
+  `user-home-directory' if not provided.
+The started process is also added to `exwm-autostart-process-list'."
+  (add-to-list (let ((default-directory (or directory user-home-directory)))
+                   (start-process-shell-command name nil command))
+               exwm-autostart-process-list))
 
-(defvar exwm//autostart-process-list nil
-  "List of processes run during autostart.")
-
-(defun exwm/autostart-process (name command &optional directory)
-  "Can be used during initialization to run COMMAND as a process
-  with NAME and add it to the list of autostarted processes.
-
-DIRECTORY can be set to a string which will be used as working directory for the
-process.  If not supplied, will be set to `user-home-directory'.
-"
-  (push (let ((default-directory (or directory user-home-directory)))
-          (start-process-shell-command name nil command))
-        exwm//autostart-process-list))
-
-(defun exwm//start-desktop-application (basename xdg)
+(defun exwm//start-desktop-application (xdg)
   "Autostart an application from a XDG desktop entry specification."
-  (let* ((type (gethash "Type" xdg))
-         ;; (name (gethash "Name" xdg))
-         (cmd (gethash "Exec" xdg))
-         (hidden (gethash "Hidden" xdg))
-         (include (gethash "OnlyShowIn" xdg))
-         (exclude (gethash "NotShowIn" xdg))
-         (try-exec (gethash "TryExec" xdg))
-         (exec-directory (gethash "Path" xdg))
-         ;; (dbus-p (gethash "DBusActivatable" xdg)) ; TODO: support
-         (included-p (cond (include (member "EXWM" (split-string include ";" t)))
-                           (exclude (not (member "EXWM" (split-string exclude ";" t))))
-                           (t)))
-         (should-exec-p (and
-                         (string= type "Application")
-                         included-p
-                         (if try-exec
-                             (executable-find try-exec)
-                           t))))
-    (when should-exec-p (exwm/autostart-process basename cmd exec-directory))))
+  (when-let* ((type (gethash "Type" xdg))
+              (_application? (string= type "Application"))
+              ;; Note that we can't always assume the presence of Exec: when
+              ;; DBusActivatable support is added, the application is launched
+              ;; through D-Bus rather than a program.
+              (basename (gethash "Name" xdg))
+              (cmd (gethash "Exec" xdg))
+                            ;; (dbus-p (gethash "DBusActivatable" xdg)) ; TODO: support
+              (directory (gethash "Path" xdg) user-home-directory)
+              (_include? (and (null (gethash "Hidden" xdg))
+                              (if-let ((only-show (gethash "OnlyShowIn" xdg)))
+                                  (member "EXWM" (split-string only-show ";" t))
+                                t)
+                              (if-let ((not-show (gethash "NotShowIn" xdg)))
+                                  (not (member "EXWM" (split-string not-show ";" t)))
+                                t)
+                              (if-let ((try-exec (gethash "TryExec" xdg)))
+                                  (executable-find try-exec)
+                                t))))
+    (exwm//autostart-process basename cmd directory)))
 
 (defun exwm//read-xdg-autostart-files ()
-  "Return a hashtable for autostart applications as defined by the freedesktop specification."
-  (cl-loop with xdg-specs = (make-hash-table :test 'equal)
-           for dir in (append (xdg-config-dirs) (list (xdg-config-home)))
-           for autostart-dir = (expand-file-name "autostart/" dir)
-           for autostart-files = (when (file-exists-p autostart-dir)
-                                   (directory-files autostart-dir t (rx (1+ word) ".desktop")))
-           do
-           (cl-loop for file in autostart-files do
-                    (setf (gethash (file-name-base file) xdg-specs) (xdg-desktop-read-file file)))
-           finally (return xdg-specs)))
+  "Return the list of autostart applications."
+  (cl-loop for dir in (append (xdg-config-dirs) (list (xdg-config-home)))
+           for autostart-dir = (concat dir "/autostart")
+           for file in (when (file-exists-p autostart-dir)
+                         (directory-files autostart-dir t ".+\\.desktop$"))
+           (collect (xdg-desktop-read-file file))))
 
 (defun exwm//autostart-xdg-applications ()
   "Run the autostart applications as defined by the freedesktop autostart specification."
-  (unless exwm//autostart-process-list
-    (cl-loop for basename being the hash-keys of
-             (exwm//read-xdg-autostart-files)
-             using (hash-values xdg) do
-             (exwm//start-desktop-application basename xdg))))
-
-(defun exwm//kill-autostart-processes ()
-  (cl-loop for p in exwm//autostart-process-list do
-           (when (process-live-p p) (kill-process p)))
-  (setq exwm//autostart-process-list nil))
+  (unless exwm-autostart-process-list
+    (mapc #'exwm//start-desktop-application (exwm//read-xdg-autostart-files))))
 
 ;; Other utilities
 (defun exwm//flatenum (i ls)
