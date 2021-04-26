@@ -951,14 +951,14 @@ There exists two type of toggles:
 - major mode specific toggles under the key prefix ~SPC m T~
 
 When a toggle is turned on a unicode symbol is displayed in the mode-line, this
-symbol is a circled letter for globally available toggles and a plain squared
+symbol is a circled letter for globally available toggles and a parenthesized
 letter for major mode specific toggles. The letter corresponds to the key
 binding for this toggle.
 
 For instance the globally available toggle for =which-key= is under ~SPC t K~
 and its corresponding symbol in the mode-line is =Ⓚ=. Also the major mode
 specific toggle for =nameless= available only in =emacs-lisp= mode is under
-~SPC m T n~ and its corresponding symbol in the mode-line is =🅽=.
+~SPC m T n~ and its corresponding symbol in the mode-line is =⒩=.
 
 All toggles can be browsed via the Spacemacs help system under ~SPC h t~.
 
