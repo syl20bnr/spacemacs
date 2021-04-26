@@ -197,7 +197,7 @@
         :mode livid-mode
         :documentation "Live evaluation of JS buffer change."
         :evil-leader-for-mode (js2-mode . "Tl"))
-      (spacemacs|diminish livid-mode " 🅻" " [l]"))))
+      (spacemacs|diminish livid-mode " ⒧" " (l)"))))
 
 (defun javascript/init-nodejs-repl ()
   (when (eq javascript-repl 'nodejs)

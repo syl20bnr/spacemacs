@@ -98,7 +98,7 @@
              :evil-leader-for-mode
              ,@(mapcar (lambda (x) (cons x "Ts"))
                        evil-lisp-safe-structural-editing-modes)))
-    (spacemacs|diminish evil-cleverparens-mode " 🆂" " [s]")
+    (spacemacs|diminish evil-cleverparens-mode " ⒮" " (s)")
     :config
     ;; `evil-cp-change' should move the point, see https://github.com/luxbock/evil-cleverparens/pull/71
     (evil-set-command-properties 'evil-cp-change :move-point t)))
