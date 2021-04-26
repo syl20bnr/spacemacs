@@ -16,11 +16,28 @@
 
 * Configuration layers
 Spacemacs divides its configuration into self-contained units called
-=configuration layers=. These layers are stacked on top of each other
-to achieve a custom configuration.
+=configuration layers=. These layers are stacked on top of each other to achieve
+a custom configuration.
 
 By default Spacemacs uses a dotfile called =~/.spacemacs= to control which
-layers to load. Within this file you can also configure certain features.
+layers to load. Within this file you can also configure certain features. This
+design makes it extremely easy to turn Spacemacs into a fully integrated
+development environment.
+
+For example to get python support, simply add =python= to the list of
+=dotspacemacs-configuration-layers= in your =~/.spacemacs=. Find the
+=~/.spacemacs= file by pressing =SPC f e d= and then after adding the layer,
+reload it with =SPC f e R=. Now open a =.py= file (=SPC f f=) to find the python
+environment has been fully configured. Some extra configuration might make the
+environment even more powerful, which is very well described in the [[https://develop.spacemacs.org/layers/+lang/python/README.html][layer's
+documentation]] that can be accessed by pressing =SPC h l= and selecting the
+=python= layer entry. For configuration of specific packages within a layer,
+=SPC h SPC= provides quick navigation functionality for jumping directly to the
+relevant location within the configuration files.
+
+A list of pre-configured layers is available [[https://develop.spacemacs.org/layers/LAYERS.html][here]]. If you still would like to
+configure anything not covered by any layer, then it is easy to build a personal
+layer.
 
 A configuration layer is a directory containing at least a =packages.el=
 file which defines and configures packages to be downloaded from Emacs
