@@ -34,32 +34,21 @@ vars hook name symbol.
 Note that `mode', `hook' and `local-vars-hook' need to be explicitly quoted
 except when they are themselves inside a macro."
   (declare (debug (form)) (indent 0))
-  (if ruby-enable-enh-ruby-mode
-      ;; enh-ruby-mode
-      (progn
-        (let ((new 'enh-ruby-mode)
-              (old 'mode))
-          (cl-nsubstitute-if new 'spacemacs//ruby-substitute-predicate body))
-        (let ((new 'enh-ruby-mode-hook)
-              (old 'hook))
-          (cl-nsubstitute-if new 'spacemacs//ruby-substitute-predicate body))
-        (let ((new 'enh-ruby-mode-local-vars-hook)
-              (old 'local-vars-hook))
-          (cl-nsubstitute-if new 'spacemacs//ruby-substitute-predicate body)))
-    ;; ruby-mode
-    (let ((new 'ruby-mode)
-          (old 'mode))
-      (cl-nsubstitute-if new 'spacemacs//ruby-substitute-predicate body))
-    (let ((new 'ruby-mode-hook)
-          (old 'hook))
-      (cl-nsubstitute-if new 'spacemacs//ruby-substitute-predicate body))
-    (let ((new 'ruby-mode-local-vars-hook)
-          (old 'local-vars-hook))
-      (cl-nsubstitute-if new 'spacemacs//ruby-substitute-predicate body))))
+  (let* ((mode (if ruby-enable-enh-ruby-mode 'enh-ruby-mode 'ruby-mode))
+         (pairs (cl-loop for old in '(mode hook local-vars-hook)
+                         for new = (if (eq old 'mode)
+                                       mode
+                                     (intern (format "%S-%S" mode old)))
+                         collect (cons new old))))
+    (dolist (pair pairs)
+      (let ((new (car pair))
+            (old (cdr pair)))
+        (cl-nsubstitute-if new 'spacemacs//ruby-substitute-predicate body)))
+    `,@body))
 
 (defun spacemacs//ruby-substitute-predicate (body)
   "Predicate to replace all `old' occurrences by `new' occurrences in BODY.
-Reccurse if BODY is a list."
+ Reccurse if BODY is a list."
   (if (listp body)
       (progn
         (cl-nsubstitute-if new 'spacemacs//ruby-substitute-predicate body)
