@@ -71,8 +71,16 @@ Otherwise binding happens at the next event loop.")
                                            `(,(spacemacs/major-mode-prefix))
                                            (cadr args))
                                    " "))
+                (shortcutkeys (string-join
+                               (append `(,(spacemacs/major-mode-leader-key))
+                                       (cadr args))
+                               " "))
                 (label (caddr args)))
-            (which-key-add-major-mode-key-based-replacements mode keys label)))
+            (which-key-add-major-mode-key-based-replacements mode keys label)
+            (which-key-add-major-mode-key-based-replacements
+              mode
+              shortcutkeys
+              label)))
 
         ;; `spacemacs/declare-prefix'
         (dolist (args spacebind--bs-declare-prefix)
@@ -144,6 +152,10 @@ NOTE: `dotspacemacs-major-mode-leader-key' isn't the same."
 (defun spacemacs/leader-key ()
   "Returns `dotspacemacs-leader-key'"
   dotspacemacs-leader-key)
+
+(defun spacemacs/major-mode-leader-key ()
+  "Returns `dotspacemacs-major-mode-leader-key'"
+  dotspacemacs-major-mode-leader-key)
 
 (defun spacebind//strip-docstring (mode-binding-form)
   "Remove second element of MODE-BINDING-FORM if it is a string."
