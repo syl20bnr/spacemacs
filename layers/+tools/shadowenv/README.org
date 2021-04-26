@@ -2,13 +2,15 @@
 
 #+TAGS: layer|tool
 
-[[file:img/shadowenv.png]]
+k[[file:img/shadowenv.png]]
+ [fn:1]
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
+- [[#footnotes][Footnotes]]
 
 * Description
 This layer adds support for [[https://shopify.github.io/shadowenv/][shadowenv]]
@@ -29,3 +31,9 @@ To install =shadowenv= follow [[https://shopify.github.io/shadowenv/getting-star
 |-------------+---------------------------------------------------|
 | ~SPC m V r~ | Reload the shadowenv for current buffer           |
 | ~SPC m V s~ | Display the environment shadows in a popup buffer |
+
+* Footnotes
+
+[fn:1] This logo image consists only of simple geometric shapes or text. It does
+       not meet the threshold of originality needed for copyright protection,
+       and is therefore in the public domain.
