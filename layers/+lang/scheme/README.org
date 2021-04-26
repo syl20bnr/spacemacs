@@ -184,6 +184,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 | ~SPC m e r~ | Evaluate region           |
 
 ** REPL
+
 | Key binding | Description                 |
 |-------------+-----------------------------|
 | ~g j~       | geiser-repl-next-prompt     |
