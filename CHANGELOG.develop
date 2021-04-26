@@ -3243,6 +3243,60 @@ files (thanks to Daniel Nicolai)
 - Added =purescript-mode= to =spacemacs-indent-sensitive-modes=
   (thanks to Hideaki Kawai)
 **** Python
+- Improvements:
+  - Hide =yapf-mode= modeline lighter (thanks to Robert ven der Helm)
+  - Search for Pylint and Flake8 in the virtualenvs (thanks Alexey Kotlyarov)
+  - Highlight wdb breakpoints as well as pdb/ipdb/pudb
+   (thanks to Alexey Kotlyarov)
+  - Made =python-execute-file= use =python-shell-interpreter=
+    (thanks to Swaroop C H)
+  - Trim output from pyenv command (thanks to Eivind Fonn)
+  - Set VIRTUAL_ENV environment variable when switching to new pyenv
+    (thanks to James Gough)
+  - Use Python executable from active virtual env to compile files
+    (thanks to Swaroop C H)
+  - The LSP backend can use either the =pyls= (default) server or the =mspyls=
+    (Microsoft) implementation, which may be selected by setting the
+    =python-lsp-server= layer variable to =mspyls=
+    (thanks to Cormac Cannon and Benoit Coste).
+  - Added =pippel= for python package management (thanks to et2010)
+    (thanks to Sylvain Benner)
+  - Added defvar =python-save-before-test= (thanks to Benoit Coste)
+    (thanks to Volodymyr Vitvitskyi)
+  - Use =python-mode= for SCons script files (thanks to shanemikel)
+  - Added LSP support, which can be enabled by setting the =python= layer's
+    =python-backend= variable to =lsp=
+    (thanks to Yuan Fu and Sylvain Benner).
+  - Added support for breakpoints for the =trepan3k= python debugger
+    (thanks to dangirsh)
+  - Conditionally remove binding to obsolete keymap (thanks to bmag)
+  - Improved setup of =lsp-python= and =anaconda-mode= (thanks to Ting Zhou)
+  - Added support for =pipenv= with proper keybindings (thanks to jackkamm)
+  - New variable =python-spacemacs-indent-guess= for guessing correct
+    indentation settings (thanks to Benno Fünfstück)
+  - Replace =anaconda-mode-go-back= with =xref-pop-marker-stack=
+    (thanks to JimmyG)
+  - Highlight python3.7 builtin =breakpoint()= function
+    (thanks to Boris Verhovsky)
+  - Support relative path in pyvenv file .venv (thanks to Nam Nguyen)
+  - Added diminish for importmagic (thanks to Loys Ollivier)
+  - Added debugger integration via =dap= layer
+  - Added documentation on installing importmagic and epc
+    (thanks to Trapez Breen)
+  - Made python-send-shell-* functions faster (thanks to Trapez Breen)
+  - Added support for 'black' formatter (thanks to Mike Macpherson)
+  - Enabled =eldoc= for =anaconda-mode= (thanks to Vikash Balasubramanian)
+  - Various fixes for =lsp-python-ms= setup (thanks to Trapez Breen)
+  - Added lazy loading of =lsp-python-ms= (thanks to Ying Qu)
+  - Make pylookup makefile use correct shell (thanks to Koray Al)
+  - Make =inferior-python-mode= do not use tabs (thanks to tsoernes)
+  - Automatic use the =lsp= as =python-formater= when =lsp= is enabled
+    (thanks sunlin7)
+  - Added python-test-last support for pytest runner
+  - Added --last-failed support for pytest (thanks to Jaakko Luttinen)
+  - Added =spacemacs/python-shell-send-statement= support (thanks to Lin Sun)
+  - Added =sphinx-doc= support (thanks to Stefan Ruschke)
+  - Added support for =shadowenv= (thanks to Sylvain Benner)
 - Key bindings:
   - Update invalid cython mode keybindings (thanks to Muneeb Shaikh)
   - New =anaconda-view-mode= keybindings (thanks to Muneeb Shaikh)
@@ -3252,82 +3306,83 @@ files (thanks to Daniel Nicolai)
   - Added keybinding ~SPC m P~ for pip package management with =pippel=
   - Added key binding ~SPC m r f~ to fix missing import statements
   - Added ~SPC m t l~ key binding to re-run the last test command
-- Various fixes in =pylookup.py= (thanks to ishestakov and Shitikanth Kashyap)
-- Hide =yapf-mode= modeline lighter (thanks to Robert ven der Helm)
-- Search for Pylint and Flake8 in the virtualenvs (thanks Alexey Kotlyarov)
-- Highlight wdb breakpoints as well as pdb/ipdb/pudb (thanks to Alexey Kotlyarov)
-- Made =python-execute-file= use =python-shell-interpreter=
-  (thanks to Swaroop C H)
-- Trim output from pyenv command (thanks to Eivind Fonn)
-- Set VIRTUAL_ENV environment variable when switching to new pyenv
-  (thanks to James Gough)
-- Use Python executable from active virtual env to compile files
-  (thanks to Swaroop C H)
-- Fixed arguments to =python-setup-hy= (thanks to Eivind Fonn)
-- Fixed ipython version check bug on windows (thanks to lostmarble)
-- Fixed =pyenv-executable-find= in presence of =pyenv-which-ext=
-  (thanks to Christoph Paulik)
-- Fixed broken repl invocation through ~SPC a '~  (thanks to Hans Jang)
-- Added =pippel= for python package management (thanks to et2010)
-  (thanks to Sylvain Benner)
-- Added defvar =python-save-before-test= (thanks to Benoit Coste)
-  (thanks to Volodymyr Vitvitskyi)
-- Use =python-mode= for SCons script files (thanks to shanemikel)
-- Added LSP support, which can be enabled by setting the =python= layer's
-  =python-backend= variable to =lsp=
-  (thanks to Yuan Fu and Sylvain Benner).
-- The LSP backend can use either the =pylsp= (default) server or the =mspyls=
-  (Microsoft) implementation, which may be selected by setting the
-  =python-lsp-server= layer variable to =mspyls=
-  (thanks to Cormac Cannon).
-  (thanks to Benoit Coste).
-- Added support for breakpoints for the =trepan3k= python debugger
-  (thanks to dangirsh)
-- Added support for =pipenv= with proper keybindings (thanks to jackkamm)
-- Fixed bytecomp warning: =reference to free variable 'smartparens-strict-mode'=
-  (thanks to Nikita Leshenko and Sylvain Benner)
-- Fixed =pyenv=, =pre-init= function and =hy-mode= prefixes
-  (thanks to Brandon T. Willard)
-- Conditionally remove binding to obsolete keymap (thanks to bmag)
-- Improved setup of =lsp-python= and =anaconda-mode= (thanks to Ting Zhou)
-- Fixed support of multiple pyenv versions via =spacemacs/pyenv-executable-find=
-  (thanks to Guan Xipeng)
-- Fixed initialization of =inferior-python-mode= variables
-  (thanks to Miciah Masters)
-- Fixed bug with out-of-bound index (thanks to EMayej)
-- Fixed escaping of shell argument for =spacemacs/python-execute-file=
-  (thanks to Riley Levy)
-- New variable =python-spacemacs-indent-guess= for guessing correct indentation
-  settings (thanks to Benno Fünfstück)
-- Fixed pyenv for system Python (thanks to Alexander Eberspächer)
-- Replace =anaconda-mode-go-back= with =xref-pop-marker-stack=
-  (thanks to JimmyG)
-- Highlight python3.7 builtin =breakpoint()= function
-  (thanks to Boris Verhovsky)
-- Fixed conflict between pipenv directory .venv and pyvenv file .venv
-  (thanks to rgb-24bit)
-- Support relative path in pyvenv file .venv (thanks to Nam Nguyen)
-- Added diminish for importmagic (thanks to Loys Ollivier)
-- Added debugger integration via =dap= layer
-- Added documentation on installing importmagic and epc (thanks to Trapez Breen)
-- Made python-send-shell-* functions faster (thanks to Trapez Breen)
-- Added support for 'black' formatter (thanks to Mike Macpherson)
-- Enabled =eldoc= for =anaconda-mode= (thanks to Vikash Balasubramanian)
-- Various fixes for =lsp-python-ms= setup (thanks to Trapez Breen)
-- Added lazy loading of =lsp-python-ms= (thanks to Ying Qu)
-- Make pylookup makefile use correct shell (thanks to Koray Al)
-- Fix lazy loading of =lsp-python-ms= (thanks to lsp-ableton)
-- Fix =Ipython= path on windows (thanks to Daniel K)
-- Make =inferior-python-mode= do not use tabs (thanks to tsoernes)
-- Automatic use the =lsp= as =python-formater= when =lsp= is enabled
-  (thanks sunlin7)
-- Fixed directory selection for self compiled mspyls (thanks Jee Lee)
-- Add python-test-last support for pytest runner
-- Added --last-failed support for pytest (thanks to Jaakko Luttinen)
-- Added =spacemacs/python-shell-send-statement= support (thanks to Lin Sun)
-- Added =sphinx-doc= support (thanks to Stefan Ruschke)
-- Fix ipython version parsing for dev branches (thanks to Corentin Risselin)
-- Fix pyvenv-workon path (thanks to Eugene Kim)
+Fixes:
+  - Various fixes in =pylookup.py= (thanks to ishestakov and Shitikanth Kashyap)
+  - Hide =yapf-mode= modeline lighter (thanks to Robert ven der Helm)
+  - Search for Pylint and Flake8 in the virtualenvs (thanks Alexey Kotlyarov)
+  - Highlight wdb breakpoints as well as pdb/ipdb/pudb (thanks to Alexey Kotlyarov)
+  - Made =python-execute-file= use =python-shell-interpreter=
+    (thanks to Swaroop C H)
+  - Trim output from pyenv command (thanks to Eivind Fonn)
+  - Set VIRTUAL_ENV environment variable when switching to new pyenv
+    (thanks to James Gough)
+  - Use Python executable from active virtual env to compile files
+    (thanks to Swaroop C H)
+  - Fixed arguments to =python-setup-hy= (thanks to Eivind Fonn)
+  - Fixed ipython version check bug on windows (thanks to lostmarble)
+  - Fixed =pyenv-executable-find= in presence of =pyenv-which-ext=
+    (thanks to Christoph Paulik)
+  - Fixed broken repl invocation through ~SPC a '~  (thanks to Hans Jang)
+  - Added =pippel= for python package management (thanks to et2010)
+    (thanks to Sylvain Benner)
+  - Added defvar =python-save-before-test= (thanks to Benoit Coste)
+    (thanks to Volodymyr Vitvitskyi)
+  - Use =python-mode= for SCons script files (thanks to shanemikel)
+  - Added LSP support, which can be enabled by setting the =python= layer's
+    =python-backend= variable to =lsp=
+    (thanks to Yuan Fu and Sylvain Benner).
+  - The LSP backend can use either the =pylsp= (default) server or the =mspyls=
+    (Microsoft) implementation, which may be selected by setting the
+    =python-lsp-server= layer variable to =mspyls=
+    (thanks to Cormac Cannon).
+    (thanks to Benoit Coste).
+  - Added support for breakpoints for the =trepan3k= python debugger
+    (thanks to dangirsh)
+  - Added support for =pipenv= with proper keybindings (thanks to jackkamm)
+  - Fixed bytecomp warning: =reference to free variable 'smartparens-strict-mode'=
+    (thanks to Nikita Leshenko and Sylvain Benner)
+  - Fixed =pyenv=, =pre-init= function and =hy-mode= prefixes
+    (thanks to Brandon T. Willard)
+  - Conditionally remove binding to obsolete keymap (thanks to bmag)
+  - Improved setup of =lsp-python= and =anaconda-mode= (thanks to Ting Zhou)
+  - Fixed support of multiple pyenv versions via =spacemacs/pyenv-executable-find=
+    (thanks to Guan Xipeng)
+  - Fixed initialization of =inferior-python-mode= variables
+    (thanks to Miciah Masters)
+  - Fixed bug with out-of-bound index (thanks to EMayej)
+  - Fixed escaping of shell argument for =spacemacs/python-execute-file=
+    (thanks to Riley Levy)
+  - New variable =python-spacemacs-indent-guess= for guessing correct indentation
+    settings (thanks to Benno Fünfstück)
+  - Fixed pyenv for system Python (thanks to Alexander Eberspächer)
+  - Replace =anaconda-mode-go-back= with =xref-pop-marker-stack=
+    (thanks to JimmyG)
+  - Highlight python3.7 builtin =breakpoint()= function
+    (thanks to Boris Verhovsky)
+  - Fixed conflict between pipenv directory .venv and pyvenv file .venv
+    (thanks to rgb-24bit)
+  - Support relative path in pyvenv file .venv (thanks to Nam Nguyen)
+  - Added diminish for importmagic (thanks to Loys Ollivier)
+  - Added debugger integration via =dap= layer
+  - Added documentation on installing importmagic and epc (thanks to Trapez Breen)
+  - Made python-send-shell-* functions faster (thanks to Trapez Breen)
+  - Added support for 'black' formatter (thanks to Mike Macpherson)
+  - Enabled =eldoc= for =anaconda-mode= (thanks to Vikash Balasubramanian)
+  - Various fixes for =lsp-python-ms= setup (thanks to Trapez Breen)
+  - Added lazy loading of =lsp-python-ms= (thanks to Ying Qu)
+  - Make pylookup makefile use correct shell (thanks to Koray Al)
+  - Fix lazy loading of =lsp-python-ms= (thanks to lsp-ableton)
+  - Fix =Ipython= path on windows (thanks to Daniel K)
+  - Make =inferior-python-mode= do not use tabs (thanks to tsoernes)
+  - Automatic use the =lsp= as =python-formater= when =lsp= is enabled
+    (thanks sunlin7)
+  - Fixed directory selection for self compiled mspyls (thanks Jee Lee)
+  - Add python-test-last support for pytest runner
+  - Added --last-failed support for pytest (thanks to Jaakko Luttinen)
+  - Added =spacemacs/python-shell-send-statement= support (thanks to Lin Sun)
+  - Added =sphinx-doc= support (thanks to Stefan Ruschke)
+  - Fix ipython version parsing for dev branches (thanks to Corentin Risselin)
+  - Fix pyvenv-workon path (thanks to Eugene Kim)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 - Updated racket logo (thanks to Vityou)
@@ -3410,47 +3465,49 @@ files (thanks to Daniel Nicolai)
 - Moved key binding for =helm-restclient= from ~SPC m j i~ to ~SPC m j~
   (thanks to Thanh Vuong)
 **** Ruby
-- Added support for =org-babel= (thanks to Muneeb Shaikh)
-- Highlight debugger keywords (thanks to Alexander Berezovsky and Eivind Fonn)
-- Adding ruby-refactor package (thanks to Daniel Luna)
-  - Key bindings:
-    - Added ~SPC m r e m~ for extract to method.
-    - Added ~SPC m r e v~ to extract local variable.
-    - Added ~SPC m r e c~ to extract constant.
-    - Added ~SPC m r e l~ to extract to =let=.
-- Added ~SPC m x h~ to toggle between old and new hash syntax in the active
-  region (thanks to Paweł Siudak)
-- Added gtags to =enh-ruby-mode= as well as =ruby-mode=
-  (thanks to David Balatero)
-- Added ~SPC m s b~ key binding to send buffer to the Ruby console
-  (thanks to Alejandro Arrufat)
-- Added ~SPC m s B~ and ~SPC m s L~ key bindings to send buffer or line,
-  respectively, to the Ruby console and switch focus to the console
-  (thanks to Paweł Siudak)
+- Improvements:
+  - Added support for =org-babel= (thanks to Muneeb Shaikh)
+  - Highlight debugger keywords (thanks to Alexander Berezovsky and Eivind Fonn)
+  - Adding ruby-refactor package (thanks to Daniel Luna)
+  - Added gtags to =enh-ruby-mode= as well as =ruby-mode=
+    (thanks to David Balatero)
+  - Added support for prettier formatting (thanks to sidraval)
+  - Added popwin config for bundler, projectile-rails, and rubocop
+    (thanks to Paweł Siudak)
+  - Added the =seeing-is-believing= package (thanks to Brandon Conway)
+  - Added prefixes for ruby major mode keybindings (thanks to Seong Yong-ju)
+  - Added =lsp= and =dap= support (thanks to Billy Kaplan)
+  - Removed stray =test.rb= file (thanks to Michael Hauser-Raspe)
+  - Added missing key bindings for =counsel-gtags= in =enh=ruby-mode=
+    (thanks to Seong Yong-ju)
+  - Added =dap= support for =enh-ruby-mode= (thanks to Seong Yong-ju)
+  - Added support for =shadowenv= (thanks to Sylvain Benner)
+Fixes:
+  - Fixed lazy loading of =ruby-test-mode= (thanks to Michael Franz Aigner)
 - Key bindings:
+  - Added ~SPC m = =~ to format buffer via prettier (thanks to sidraval)
+  - Added missing prefix =seeing-is-believing= for ~SPC m @~
+    (thanks to Seong Yong-ju)
+  - Added ~SPC m s l~ to send line to REPL (thanks to Paweł Siudak)
   - Added ~SPC m s l~ to send line to REPL (thanks to Paweł Siudak)
   - Added ~SPC m T~ toggle prefix (thanks to Codruț Constantin Gușoi)
     - ~SPC m T '~ to toggle string quotes
     - ~SPC m T {~ to toggle block style
-- Added popwin config for bundler, projectile-rails, and rubocop
-  (thanks to Paweł Siudak)
+  - Added ~SPC m r e m~ for extract to method.
+  - Added ~SPC m r e v~ to extract local variable.
+  - Added ~SPC m r e c~ to extract constant.
+  - Added ~SPC m r e l~ to extract to =let=.
   - Added ~SPC m r R m~ for extract to method.
   - Added ~SPC m r R v~ to extract local variable.
   - Added ~SPC m r R c~ to extract constant.
   - Added ~SPC m r R l~ to extract to =let=.
-  - Added ~SPC m s l~ to send line to REPL (thanks to Paweł Siudak)
-- Added the =seeing-is-believing= package (thanks to Brandon Conway)
-- Added prefixes for ruby major mode keybindings (thanks to Seong Yong-ju)
-- Added =lsp= and =dap= support (thanks to Billy Kaplan)
-- Fixed lazy loading of =ruby-test-mode= (thanks to Michael Franz Aigner)
-- Removed stray =test.rb= file (thanks to Michael Hauser-Raspe)
-- Added missing key bindings for =counsel-gtags= in =enh=ruby-mode=
-  (thanks to Seong Yong-ju)
-- Added =dap= support for =enh-ruby-mode= (thanks to Seong Yong-ju)
-- Added missing prefix =seeing-is-believing= for ~SPC m @~
-  (thanks to Seong Yong-ju)
-- Added support for prettier formatting (thanks to sidraval)
-  - Added ~SPC m = =~ to format buffer via prettier (thanks to sidraval)
+  - Added ~SPC m x h~ to toggle between old and new hash syntax in the active
+    region (thanks to Paweł Siudak)
+  - Added ~SPC m s b~ key binding to send buffer to the Ruby console
+    (thanks to Alejandro Arrufat)
+  - Added ~SPC m s B~ and ~SPC m s L~ key bindings to send buffer or line,
+    respectively, to the Ruby console and switch focus to the console
+    (thanks to Paweł Siudak)
 **** Ruby on Rails
 - Changed leader keys to be configured for the =projectile-rails-mode= minor
   mode instead of =ruby-mode= and =enh-ruby-mode= so that the key bindings will
