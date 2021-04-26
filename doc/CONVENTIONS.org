@@ -35,6 +35,8 @@
     - [[#all-languages][All languages]]
     - [[#language-specific][Language specific]]
   - [[#toggles][Toggles]]
+    - [[#key-bindings][Key bindings]]
+    - [[#mode-line-lighters][Mode-line lighters]]
   - [[#refactoring][Refactoring]]
   - [[#imports][Imports]]
   - [[#code-formatting][Code Formatting]]
@@ -372,8 +374,21 @@ Note that there are overlaps, depending on the language we will choose
 one or more bindings for the same thing
 
 ** Toggles
+*** Key bindings
 - Global toggles are under ~SPC t~, ~SPC T~ and ~SPC C-t~
 - Major mode toggles are only under ~SPC m T~
+
+*** Mode-line lighters
+Global toggles with minor modes should have a circled-letter lighter in the
+mode-line that corresponds to their associated key. The non unicode version is
+just the letter. For instance the lighters for ~SPC t a~ to toggle
+auto-completion is =ⓐ= (unicode) and =a= (non unicode).
+
+Major mode toggles with minor modes should have a parenthesized-letter lighter
+in the mode-line that corresponds to their associated key. The non unicode
+version in a letter surrounded with parenthesis. For instance the
+lighter for ~SPC m T n~ to toggle =namespace= in elisp buffer is =⒩= (unicode)
+and =(n)= (non unicode).
 
 ** Refactoring
 Refactoring prefix is ~SPC m r~.
