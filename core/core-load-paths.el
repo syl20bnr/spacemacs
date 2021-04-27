@@ -118,21 +118,20 @@
 
 ;;;; Load Paths
 
-(defun add-to-load-path (dir)
+(defun spacemacs//add-to-load-path (dir)
   "Prepend DIR to `load-path'."
   (add-to-list 'load-path dir))
 
 ;; FIXME: unused function (Apr 25 2021 Lucius)
-(defun add-to-load-path-if-exists (dir)
+(defun spacemacs//add-to-load-path-if-exists (dir)
   "If DIR exists in the file system, prepend it to `load-path'."
   (when (file-exists-p dir)
-    (add-to-load-path dir)))
+    (spacemacs//add-to-load-path dir)))
 
 (dolist (suffix '(nil "libs/" "libs/spacemacs-theme/" "libs/forks"))
-  (add-to-load-path (concat spacemacs-core-directory suffix)))
+  (spacemacs//add-to-load-path (concat spacemacs-core-directory suffix)))
 
 ;;;; Themes
-
 (add-to-list 'custom-theme-load-path (concat spacemacs-core-directory
                                              "libs/spacemacs-theme/"))
 
