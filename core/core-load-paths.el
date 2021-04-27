@@ -1,4 +1,4 @@
-;;; core-load-paths.el --- Spacemacs Core File  -*- no-byte-compile: t -*-
+;;; core-load-paths.el --- Spacemacs Core File  -*- no-byte-compile: t; lexical-binding: t -*-
 ;;
 ;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
@@ -21,6 +21,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
+;;
 ;;    Define various PATH variables, and set up load path.
 
 ;;; Code:
@@ -117,6 +118,7 @@
 (setq pcache-directory (concat spacemacs-cache-directory "pcache/"))
 
 ;;;; Load Paths
+;; TODO: Since these functions are not called anywhere, consider to inline them (Apr 27 2021 Lucius)
 
 (defun spacemacs//add-to-load-path (dir)
   "Prepend DIR to `load-path'."
