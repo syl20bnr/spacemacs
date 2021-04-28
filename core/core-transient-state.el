@@ -102,24 +102,18 @@ effect if called after that point."
   (declare (indent 1))
   `(add-hook 'spacemacs-post-user-config-hook
              (lambda ()
-               (let* ((props-var ,(spacemacs//transient-state-props-var-name
-                                   name))
-                      (prop-hint (cadr (assq 'hint props-var)))
-                      (prop-columns (cadr (assq 'columns props-var)))
-                      (prop-foreign-keys (cadr (assq 'foreign-keys props-var)))
-                      (prop-entry-sexp (cadr (assq 'entry-sexp props-var)))
-                      (prop-exit-sexp (cadr (assq 'exit-sexp props-var))))
+               (let-alist ,(spacemacs//transient-state-props-var-name name)
                  (setq ,var (spacemacs//transient-state-make-doc
                              ',name
                              ,hint
                              `(nil
                                nil
-                               :hint ,prop-hint
-                               :columns ,prop-columns
-                               :foreign-keys ,prop-foreign-keys
-                               :body-pre ,prop-entry-sexp
-                               :before-exit ,prop-exit-sexp)))
-                 'append))))
+                               :hint ,.hint
+                               :columns ,.columns
+                               :foreign-keys ,.foreign-keys
+                               :body-pre ,.entry-sexp
+                               :before-exit ,.exit-sexp)))))
+             'append))
 
 (defface spacemacs-transient-state-title-face
   `((t :inherit mode-line))
@@ -197,11 +191,11 @@ used."
                           "properties of the transient state %S. Those "
                           "properties are used in macro "
                           "`spacemacs|transient-state-format-hint'.") name))
-       (add-to-list ',props-var '(hint ,hint))
-       (add-to-list ',props-var '(columns ,columns))
-       (add-to-list ',props-var '(foreign-keys ,foreign-keys))
-       (add-to-list ',props-var '(entry-sexp ,entry-sexp))
-       (add-to-list ',props-var '(exit-sexp ,exit-sexp))
+       (add-to-list ',props-var '(hint . ,hint))
+       (add-to-list ',props-var '(columns . ,columns))
+       (add-to-list ',props-var '(foreign-keys . ,foreign-keys))
+       (add-to-list ',props-var '(entry-sexp . ,entry-sexp))
+       (add-to-list ',props-var '(exit-sexp . ,exit-sexp))
        (spacemacs/defer-until-after-user-config
         '(lambda ()
            (eval

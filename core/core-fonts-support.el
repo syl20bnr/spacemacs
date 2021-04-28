@@ -118,10 +118,7 @@ the mode will not show in the mode line."
              ;; the new indicator is 3 chars (including the space), ex: " Ⓔh"
              (= (length unicode) 3))
     (setq unicode (spacemacs/terminal-fix-mode-line-indicator-overlap unicode)))
-  `(let ((cell (assq ',mode spacemacs--diminished-minor-modes)))
-     (if cell
-         (setcdr cell '(,unicode ,ascii))
-       (push '(,mode ,unicode ,ascii) spacemacs--diminished-minor-modes))))
+  `(setf (alist-get ',mode spacemacs--diminished-minor-modes) '(,unicode ,ascii)))
 
 (defun spacemacs/diminish-undo (mode)
   "Restore the diminished lighter."

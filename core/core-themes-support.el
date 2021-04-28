@@ -312,8 +312,7 @@ package name does not match theme name + `-theme' suffix.")
    ;; built-in
    ((memq theme-name emacs-built-in-themes) nil)
    ;; from explicit alist
-   ((assq theme-name spacemacs-theme-name-to-package)
-    (cdr (assq theme-name spacemacs-theme-name-to-package)))
+   ((cdr (assq theme-name spacemacs-theme-name-to-package)))
    ;; fallback to <name>-theme
    (t (intern (format "%S-theme" theme-name)))))
 
