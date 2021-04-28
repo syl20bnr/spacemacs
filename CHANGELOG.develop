@@ -77,8 +77,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   Andriy Kmit)
 *** Breaking Changes
 **** Major
-- Support for Emacs 24 has been dropped, the minimal Emacs version is now
-  =25.1=.
+- Support for Emacs 25 has been dropped, the minimal Emacs version is now
+  =26.1=.
 **** Core
 - Change loading order of layers init functions. Previously the =pre-init=,
   =init= and =post-init= function were called in a row for each package. Now
@@ -124,7 +124,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
     state (thanks to Sylvain Benner)
   - Restricted ~SPC b C-d~ to only kill other buffers in current perspective
     (thanks to Seong Yong-ju)
-  - Changed ~SPC t t m~ from ~timeclock-modeline-display~ which was deprecated 
+  - Changed ~SPC t t m~ from ~timeclock-modeline-display~ which was deprecated
     in Emacs 24.3 to ~timeclock-mode-line-display~ (thanks to Zach Pearson)
 - Other:
   - Support for multiple cursors using =evil-mc= is now encapsulated in the

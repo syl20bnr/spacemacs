@@ -42,7 +42,6 @@
         (hi-lock :location built-in)
         (image-mode :location built-in)
         (imenu :location built-in)
-        (linum :location built-in :toggle (version< emacs-version "26"))
         (occur-mode :location built-in)
         (package-menu :location built-in)
         ;; page-break-lines is shipped with spacemacs core
