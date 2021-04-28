@@ -114,10 +114,6 @@
   (when python-spacemacs-indent-guess
     (python-indent-guess-indent-offset))
 
-  (when (version< emacs-version "24.5")
-    ;; auto-indent on colon doesn't work well with if statement
-    ;; should be fixed in 24.5 and above
-    (setq electric-indent-chars (delq ?: electric-indent-chars)))
   (setq-local comment-inline-offset 2)
   (spacemacs/python-annotate-pdb)
   ;; make C-j work the same way as RET
@@ -521,11 +517,6 @@ Bind formatter to '==' for LSP and '='for all other backends."
   (switch-to-buffer-other-window "*compilation*")
   (end-of-buffer)
   (evil-insert-state))
-
-;; fix for issue #2569 (https://github.com/syl20bnr/spacemacs/issues/2569)
-(when (version< emacs-version "25")
-  (advice-add 'wisent-python-default-setup :after
-              #'spacemacs//python-imenu-create-index-use-semantic-maybe))
 
 (defun spacemacs//bind-python-repl-keys ()
   "Bind the keys for testing in Python."

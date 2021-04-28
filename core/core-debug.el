@@ -179,8 +179,7 @@ seconds to load")
            "- Editing style: %s\n"
            "- Completion: %s\n"
            "- Layers:\n```elisp\n%s```\n"
-           (when (version<= "25.1" emacs-version)
-             "- System configuration features: %s\n"))
+           "- System configuration features: %s\n")
    system-type
    emacs-version
    spacemacs-version

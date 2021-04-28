@@ -2398,17 +2398,11 @@ depends on it."
 
 (defun configuration-layer//package-delete (pkg-name)
   "Delete package with name PKG-NAME."
-  (cond
-   ((version<= "25.0.50" emacs-version)
-    (let ((p (cadr (assq pkg-name package-alist))))
-      ;; add force flag to ignore dependency checks in Emacs25
-      (if (not (configuration-layer//system-package-p p))
-          (package-delete p t t)
-        (message "Would have removed package %s but this is a system package so it has not been changed." pkg-name))))
-   (t (let ((p (cadr (assq pkg-name package-alist))))
-        (if (not (configuration-layer//system-package-p p))
-            (package-delete p)
-          (message "Would have removed package %s but this is a system package so it has not been changed." pkg-name))))))
+  (let ((p (cadr (assq pkg-name package-alist))))
+    ;; add force flag to ignore dependency checks in Emacs25
+    (if (not (configuration-layer//system-package-p p))
+        (package-delete p t t)
+      (message "Would have removed package %s but this is a system package so it has not been changed." pkg-name))))
 
 (defun configuration-layer/delete-orphan-packages (packages)
   "Delete PACKAGES if they are orphan."

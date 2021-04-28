@@ -24,7 +24,6 @@
 (setq spacemacs-editing-packages
       '(aggressive-indent
         avy
-        (bracketed-paste :toggle (version<= emacs-version "25.0.92"))
         (clean-aindent-mode :toggle dotspacemacs-use-clean-aindent-mode)
         dired-quick-sort
         drag-stuff
@@ -100,13 +99,6 @@
         (save-excursion
           (spacemacs/avy-goto-url)
           (browse-url-at-point))))))
-
-(defun spacemacs-editing/init-bracketed-paste ()
-  (use-package bracketed-paste
-    :defer t
-    :init
-    ;; Enable bracketed-paste for tty
-    (add-hook 'tty-setup-hook 'bracketed-paste-enable)))
 
 (defun spacemacs-editing/init-clean-aindent-mode ()
   (use-package clean-aindent-mode
