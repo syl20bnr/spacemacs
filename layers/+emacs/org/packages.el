@@ -373,7 +373,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "xc" (spacemacs|org-emphasize spacemacs/org-code ?~)
         "xi" (spacemacs|org-emphasize spacemacs/org-italic ?/)
         "xo" 'org-open-at-point
-        "xr" (spacemacs|org-emphasize spacemacs/org-clear ?)
+        "xr" (spacemacs|org-emphasize spacemacs/org-clear ? )
         "xs" (spacemacs|org-emphasize spacemacs/org-strike-through ?+)
         "xu" (spacemacs|org-emphasize spacemacs/org-underline ?_)
         "xv" (spacemacs|org-emphasize spacemacs/org-verbatim ?=))
