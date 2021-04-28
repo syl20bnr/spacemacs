@@ -30,11 +30,11 @@
     ediff
     elfeed
     evil
+    evil-collection
     evil-cleverparens
     evil-escape
     evil-evilified-state
     evil-lisp-state
-    evil-magit
     evil-surround
     eyebrowse
     flycheck
@@ -290,22 +290,22 @@
       "K"
       "L")))
 
-(defun keyboard-layout/pre-init-evil-magit ()
-  (kl|config evil-magit
+(defun keyboard-layout/pre-init-evil-collection ()
+  (kl|config evil-collection-magit
     :description
-    "Remap `evil-magit' bindings."
+    "Remap `evil-collection-magit' bindings."
     :loader
-    (with-eval-after-load 'evil-magit BODY)
+    (with-eval-after-load 'evil-collection-magit BODY)
     :common
-    (dolist (state (if evil-magit-use-y-for-yank
-                       (list evil-magit-state 'visual)
-                     (list evil-magit-state)))
+    (dolist (state (if evil-collection-magit-use-y-for-yank
+                       (list evil-collection-magit-state 'visual)
+                     (list evil-collection-magit-state)))
       (kl/evil-correct-keys state magit-mode-map
         "j"
         "k"
         "C-j"
         "C-k"))
-    (kl/evil-correct-keys 'normal evil-magit-toggle-text-minor-mode-map
+    (kl/evil-correct-keys 'normal evil-collection-magit-toggle-text-minor-mode-map
       "C-j")))
 
 (defun keyboard-layout/pre-init-evil-surround ()
