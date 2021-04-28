@@ -60,9 +60,15 @@ Otherwise binding happens at the next event loop.")
                 (keys (string-join (append `(,(spacemacs/leader-key))
                                            (cadr args))
                                    " "))
+                (shortcutkeys (string-join
+                               (append `(,(spacemacs/major-mode-leader-key))
+                                       (cadr args))
+                               " "))
                 (label (caddr args)))
             (spacemacs/add-key-based-replacements-for-minor-mode
-             mode keys label)))
+             mode keys label)
+            (spacemacs/add-key-based-replacements-for-minor-mode
+             mode shortcutkeys label)))
 
         ;; `which-key-add-major-mode-key-based-replacements'
         (dolist (args spacebind--bs-major-mode-replacements)
@@ -78,9 +84,7 @@ Otherwise binding happens at the next event loop.")
                 (label (caddr args)))
             (which-key-add-major-mode-key-based-replacements mode keys label)
             (which-key-add-major-mode-key-based-replacements
-              mode
-              shortcutkeys
-              label)))
+              mode shortcutkeys label)))
 
         ;; `spacemacs/declare-prefix'
         (dolist (args spacebind--bs-declare-prefix)
