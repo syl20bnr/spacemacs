@@ -141,6 +141,10 @@ To enable sorting auto-completion results by their usage frequency set
 This feature is provided by the [[https://github.com/company-mode/company-statistics][company-statistics]] package when =company=
 is used. The variable has no effect when =auto-complete= is used.
 
+Beware: Sorting completion results is often done already by the
+completion backend, doing it again in company may degrate
+performance.
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
     '((auto-completion :variables

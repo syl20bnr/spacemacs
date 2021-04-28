@@ -1,27 +1,35 @@
 ;;; config.el --- Lua Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 ;; variables
 
 (spacemacs|define-jump-handlers lua-mode)
 
-(defvar lua-backend 'nil
-  "The backend to be used for lua must be `lsp-emmy' or nil if `lua-mode' should be used.")
+(defvar lua-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'lua-mode)
+  "The backend to use for IDE features.
+Possible values are `lua-mode' and `lsp'.
+If `nil' then `lua-mode' is the default backend unless `lsp' layer is used.")
 
-;; lua-lsp-backend variables
-(defvar lua-lsp-emmy-java-path "java"
-  "Path to java which will be used for running emmy-lua language server.")
-
-(defvar lua-lsp-emmy-jar-path "~/.emacs.d/EmmyLua-LS-all.jar"
-  "Path to jar which will be used for running EmmyLua language server.")
-
-(defvar lua-lsp-emmy-enable-file-watchers t
-  "Enabled the EmmyLua file watchers.")
+(defvar lua-lsp-server 'emmy
+  "Language server to use for lsp backend.
+Possible values are `emmy', `lua-language-server', or `lua-lsp'.")

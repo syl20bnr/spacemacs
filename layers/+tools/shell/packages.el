@@ -1,13 +1,25 @@
 ;;; packages.el --- shell packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst shell-packages
   '(
@@ -17,6 +29,7 @@
     (eshell :location built-in)
     eshell-prompt-extras
     eshell-z
+    evil-collection
     helm
     ivy
     magit
@@ -129,6 +142,9 @@
       ;; automatically truncate buffer after output
       (when (boundp 'eshell-output-filter-functions)
         (add-hook 'eshell-output-filter-functions #'eshell-truncate-buffer)))))
+
+(defun shell/pre-init-evil-collection ()
+  (add-to-list 'spacemacs-evil-collection-allowed-list 'vterm))
 
 (defun shell/init-eshell-prompt-extras ()
   (use-package eshell-prompt-extras
@@ -325,34 +341,28 @@
   (use-package vterm
     :defer t
     :commands (vterm vterm-other-window)
-
     :init
     (progn
       (make-shell-pop-command "vterm" vterm)
       (spacemacs/set-leader-keys "atsv" 'spacemacs/shell-pop-vterm)
       (spacemacs/register-repl 'vterm 'vterm))
-
     :config
     (progn
       (setq vterm-shell shell-default-term-shell)
-
       (define-key vterm-mode-map (kbd "M-n") 'vterm-send-down)
       (define-key vterm-mode-map (kbd "M-p") 'vterm-send-up)
       (define-key vterm-mode-map (kbd "M-y") 'vterm-yank-pop)
       (define-key vterm-mode-map (kbd "M-/") 'vterm-send-tab)
       (when spacemacs-vterm-history-file-location
         (spacemacs//vterm-bind-m-r vterm-mode-map))
-
       (evil-define-key 'insert vterm-mode-map (kbd "C-y") 'vterm-yank)
-
+      (evil-define-key 'insert vterm-mode-map (kbd "C-o") 'evil-execute-in-normal-state)
       (evil-define-key 'normal vterm-mode-map
         [escape] 'vterm-send-escape
         [return] 'vterm-send-return
         (kbd "p") 'vterm-yank
         (kbd "u") 'vterm-undo)
-
       (add-hook 'vterm-mode-hook 'spacemacs/disable-hl-line-mode)
-
       (with-eval-after-load 'centered-cursor-mode
         (add-hook 'vterm-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode)))))
 

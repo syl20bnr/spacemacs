@@ -1,13 +1,25 @@
 ;;; funcs.el --- Factor Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: timor <timor.dd@googlemail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (autoload 'feature-file "loadhist")
 (autoload 'file-requires "loadhist")
@@ -70,16 +82,22 @@ Will stop current fuel connection if applicable."
 
 Since unloading switches buffers which were in factor-mode back
 to fundamental mode, this re-enables factor-mode in these buffers
-afterwards."
-  (let ((factor-buffers (cl-loop for b being the buffers
-                                 if (eq (buffer-local-value 'major-mode b)
-                                        'factor-mode)
-                                 collect b)))
-    (factor//unload-fuel)
-    (factor//load-fuel-from-path path)
-    (cl-loop for b in factor-buffers do
-             (with-current-buffer b
-               (factor-mode)))))
+afterwards.
+
+Only reloads if currently loaded factor mode belongs to a different factor root.
+"
+  (when (not (string-equal (factor//fuel-elisp-dir)
+                           path))
+    (let ((factor-buffers (cl-loop for b being the buffers
+                                   if (eq (buffer-local-value 'major-mode b)
+                                          'factor-mode)
+                                   collect b)))
+      (factor//unload-fuel)
+      (message "Reloading fuel mode from %s" path)
+      (factor//load-fuel-from-path path)
+      (cl-loop for b in factor-buffers do
+               (with-current-buffer b
+                 (factor-mode))))))
 
 (defun factor/start-connect-factor (factor-binary factor-image fuel-path &optional cmd-line-options)
   "Start a graphical Factor listener at FACTOR-ROOT.
@@ -98,7 +116,7 @@ Returns the process object.
   (setq factor--ui-listener-process
         (start-process-shell-command
          "Factor-UI-Listener" "*Factor-UI-Listener*"
-         (format "%s -image='%s' -e='USING: fuel.remote ; fuel-start-remote-listener* \"ui.tools\" run ' %s"
+         (format "%s -image='%s' -e='USING: fuel.remote vocabs.loader ; fuel-start-remote-listener* \"ui.tools\" run ' %s"
                  factor-binary
                  factor-image
                  (or cmd-line-options "")))))

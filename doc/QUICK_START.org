@@ -166,12 +166,13 @@ backslash, an actual space and a lowercase ~b~.
 =Describe functions= are powerful Emacs introspection commands to get information
 about functions, variables, modes etc. These commands are bound thusly:
 
-| Key binding | Description       |
-|-------------+-------------------|
-| ~SPC h d f~ | describe-function |
-| ~SPC h d k~ | describe-key      |
-| ~SPC h d m~ | describe-mode     |
-| ~SPC h d v~ | describe-variable |
+| Key binding | Description         |
+|-------------+---------------------|
+| ~SPC h d f~ | describe-function   |
+| ~SPC h d k~ | describe-key        |
+| ~SPC h d m~ | describe-mode       |
+| ~SPC h d v~ | describe-variable   |
+| ~SPC h d x~ | describe-ex-command |
 
 * How-To's
 Some quick =how-to's= are compiled in the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/FAQ.org#how-do-i][FAQ.]]

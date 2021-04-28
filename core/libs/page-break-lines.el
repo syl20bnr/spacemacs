@@ -1,4 +1,4 @@
-;;; page-break-lines.el --- Display ^L page breaks as tidy horizontal lines
+;;; page-break-lines.el --- Display ^L page breaks as tidy horizontal lines  -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2012-2015 Steve Purcell
 
@@ -105,9 +105,6 @@ horizontal line of `page-break-lines-char' characters."
   :group 'page-break-lines
   (page-break-lines--update-display-tables))
 
-;;;###autoload
-(define-obsolete-function-alias 'turn-on-page-break-lines-mode 'page-break-lines-mode)
-
 (dolist (hook '(window-configuration-change-hook
                 window-size-change-functions
                 after-setting-font-hook
@@ -130,7 +127,8 @@ its display table will be modified as necessary."
               (set-face-attribute 'page-break-lines nil :height default-height)
               (let* ((cwidth (char-width page-break-lines-char))
                      (wwidth-pix (- (window-width nil t)
-                                    (if (bound-and-true-p display-line-numbers)
+                                    (if (and (bound-and-true-p display-line-numbers)
+                                             (fboundp 'line-number-display-width))
                                         (line-number-display-width t)
                                       0)))
                      (width (- (/ wwidth-pix (frame-char-width) cwidth)
@@ -170,5 +168,10 @@ When `major-mode' is listed in `page-break-lines-modes', then
 
 
 (provide 'page-break-lines)
+
+;; Local Variables:
+;; coding: utf-8
+;; checkdoc-minor-mode: t
 ;; End:
+
 ;;; page-break-lines.el ends here

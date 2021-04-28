@@ -1,27 +1,39 @@
 ;;; packages.el --- Markdown Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(setq markdown-packages
-      '(
-        company
-        company-emoji
-        emoji-cheat-sheet-plus
-        gh-md
-        markdown-mode
-        markdown-toc
-        mmm-mode
-        org
-        smartparens
-        (vmd-mode :toggle (eq 'vmd markdown-live-preview-engine))
-        ))
+
+(defconst markdown-packages
+  '(
+    company
+    company-emoji
+    emoji-cheat-sheet-plus
+    gh-md
+    markdown-mode
+    markdown-toc
+    mmm-mode
+    org
+    smartparens
+    valign
+    (vmd-mode :toggle (eq 'vmd markdown-live-preview-engine))))
 
 (defun markdown/post-init-company ()
   (dolist (mode markdown--key-bindings-modes)
@@ -46,8 +58,11 @@
       (spacemacs/set-leader-keys-for-major-mode mode
         "cr" 'gh-md-render-buffer))))
 
+(defun markdown/post-init-valign ()
+  (add-hook 'markdown-mode-hook 'valign-mode))
+
 (defun markdown/post-init-smartparens ()
-  (add-hook 'markdown-mode-hook 'smartparens-mode))
+  (add-hook 'markdown-mode-hook #'spacemacs//activate-smartparens))
 
 (defun markdown/init-markdown-mode ()
   (use-package markdown-mode
@@ -58,6 +73,10 @@
     :defer t
     :config
     (progn
+      ;; Make markdown-mode behave a bit more like org w.r.t. code blocks i.e.
+      ;; use proper syntax highlighting
+      (setq markdown-fontify-code-blocks-natively t)
+
       ;; Declare prefixes and bind keys
       (dolist (prefix '(("mc" . "markdown/command")
                         ("mh" . "markdown/header")
@@ -161,7 +180,7 @@
         "gl" 'outline-next-visible-heading)
       ;; Promotion, Demotion
       (add-hook 'spacemacs-editing-style-hook
-         'spacemacs//markdown-hjkl-promotion-demotion)
+                'spacemacs//markdown-hjkl-promotion-demotion)
       (spacemacs//markdown-hjkl-promotion-demotion dotspacemacs-editing-style)
       (define-key markdown-mode-map (kbd "M-<down>") 'markdown-move-down)
       (define-key markdown-mode-map (kbd "M-<left>") 'markdown-promote)

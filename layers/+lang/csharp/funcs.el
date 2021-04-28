@@ -1,13 +1,25 @@
 ;;; funcs.el --- C# Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Muneeb Shaikh <muneeb@reversehack.in>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 
 ;; backend
@@ -15,18 +27,18 @@
 (defun spacemacs//csharp-setup-backend ()
   "Conditionally setup layer csharp based on backend."
   (pcase csharp-backend
-    (`omnisharp (spacemacs//csharp-setup-omnisharp))
-    (`lsp (spacemacs//csharp-setup-lsp))))
+    ('omnisharp (spacemacs//csharp-setup-omnisharp))
+    ('lsp (spacemacs//csharp-setup-lsp))))
 
 (defun spacemacs//csharp-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase csharp-backend
-    (`omnisharp (spacemacs//csharp-setup-omnisharp-company))))
+  (when (eq csharp-backend 'omnisharp)
+    (spacemacs//csharp-setup-omnisharp-company)))
 
 (defun spacemacs//csharp-configure ()
   "Conditionally configure csharp layer based on backend."
-  (pcase csharp-backend
-    (`omnisharp (spacemacs//csharp-configure-omnisharp))))
+  (when (eq csharp-backend 'omnisharp)
+    (spacemacs//csharp-configure-omnisharp)))
 
 
 ;; omnisharp
@@ -109,9 +121,9 @@
 
       ;; Code manipulation
       "u" 'omnisharp-auto-complete-overrides
-      "i" 'omnisharp-fix-usings
+      "i" 'omnisharp-fix-usings)
       ;; [missing in roslyn] "=" 'omnisharp-code-format
-      )
+
     (spacemacs|hide-lighter omnisharp-mode)))
 
 

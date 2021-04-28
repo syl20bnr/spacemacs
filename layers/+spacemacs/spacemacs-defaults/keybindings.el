@@ -1,13 +1,25 @@
 ;;; keybindings.el --- Spacemacs Defaults Layer key-bindings File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 ;; ---------------------------------------------------------------------------
 ;; Prefixes
@@ -113,6 +125,10 @@
 (define-key minibuffer-local-completion-map (kbd "<escape>") 'keyboard-escape-quit)
 (define-key minibuffer-local-must-match-map (kbd "<escape>") 'keyboard-escape-quit)
 (define-key minibuffer-local-isearch-map (kbd "<escape>") 'keyboard-escape-quit)
+
+;; Also bind C-n C-p in minibuffer
+(define-key minibuffer-local-map (kbd "C-n") 'next-line-or-history-element)
+(define-key minibuffer-local-map (kbd "C-p") 'previous-line-or-history-element)
 
 ;; linum margin bindings-------------------------------------------------------
 (global-set-key (kbd "<left-margin> <down-mouse-1>") 'spacemacs/md-select-linum)
@@ -361,6 +377,7 @@
     ("C-e" spacemacs/force-init-spacemacs-env "Recreate env. variables file")
     ("c" spacemacs/recompile-elpa "Recompile packages")
     ("i" spacemacs/find-user-init-file "Open Emacs \"init.el\"")
+    ("I" spacemacs/find-user-early-init-file "Open Emacs \"early-init.el\"")
     ("d" spacemacs/find-dotfile "Open Spacemacs dotfile")
     ("D" spacemacs/ediff-dotfile-and-template "Diff. with dotfile template")
     ("e" spacemacs/edit-env "Open \".spacemacs.env\"")
@@ -382,15 +399,18 @@
     ("y" spacemacs/copy-file-path "File path")
     ("b" spacemacs/copy-buffer-name "Buffer name")))))
 ;; frame ----------------------------------------------------------------------
-(spacemacs/set-leader-keys
-  "Ff" 'spacemacs/find-file-other-frame
-  "Fd" 'delete-frame
-  "FD" 'delete-other-frames
-  "Fb" 'spacemacs/switch-to-buffer-other-frame
-  "FB" 'spacemacs/display-buffer-other-frame
-  "Fo" 'other-frame
-  "FO" 'spacemacs/dired-other-frame
-  "Fn" 'make-frame)
+(spacemacs|spacebind
+ "Frames"
+ :global
+ (("F" "Frames"
+   ("f" spacemacs/find-file-other-frame "Find file other frame...")
+   ("d" delete-frame "Delete frame")
+   ("D" delete-other-frames "Delete other frames")
+   ("b" spacemacs/switch-to-buffer-other-frame "Switch to buffer other frame...")
+   ("B" spacemacs/display-buffer-other-frame "Display buffer other frame...")
+   ("o" other-frame "Switch to other frame")
+   ("O" spacemacs/dired-other-frame "Dired other frame...")
+   ("n" make-frame "Make frame"))))
 ;; help -----------------------------------------------------------------------
 (defalias 'emacs-tutorial 'help-with-tutorial)
 (spacemacs/set-leader-keys
@@ -770,15 +790,15 @@ respond to this toggle."
   ("M-7" swap-buffer-window-no-follow-7)
   ("M-8" swap-buffer-window-no-follow-8)
   ("M-9" swap-buffer-window-no-follow-9)
-  ("C-1" winum-select-window-1)
-  ("C-2" winum-select-window-2)
-  ("C-3" winum-select-window-3)
-  ("C-4" winum-select-window-4)
-  ("C-5" winum-select-window-5)
-  ("C-6" winum-select-window-6)
-  ("C-7" winum-select-window-7)
-  ("C-8" winum-select-window-8)
-  ("C-9" winum-select-window-9))
+  ("C-1" spacemacs/winum-select-window-1)
+  ("C-2" spacemacs/winum-select-window-2)
+  ("C-3" spacemacs/winum-select-window-3)
+  ("C-4" spacemacs/winum-select-window-4)
+  ("C-5" spacemacs/winum-select-window-5)
+  ("C-6" spacemacs/winum-select-window-6)
+  ("C-7" spacemacs/winum-select-window-7)
+  ("C-8" spacemacs/winum-select-window-8)
+  ("C-9" spacemacs/winum-select-window-9))
 (spacemacs/set-leader-keys "b." 'spacemacs/buffer-transient-state/body)
 
 ;; end of Buffer Transient State
@@ -859,16 +879,16 @@ Select: _a_ _h_ _j_ _k_ _l_ _w_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s
   ("<left>" evil-window-left)
   ("l" evil-window-right)
   ("<right>" evil-window-right)
-  ("0" winum-select-window-0)
-  ("1" winum-select-window-1)
-  ("2" winum-select-window-2)
-  ("3" winum-select-window-3)
-  ("4" winum-select-window-4)
-  ("5" winum-select-window-5)
-  ("6" winum-select-window-6)
-  ("7" winum-select-window-7)
-  ("8" winum-select-window-8)
-  ("9" winum-select-window-9)
+  ("0" spacemacs/winum-select-window-0)
+  ("1" spacemacs/winum-select-window-1)
+  ("2" spacemacs/winum-select-window-2)
+  ("3" spacemacs/winum-select-window-3)
+  ("4" spacemacs/winum-select-window-4)
+  ("5" spacemacs/winum-select-window-5)
+  ("6" spacemacs/winum-select-window-6)
+  ("7" spacemacs/winum-select-window-7)
+  ("8" spacemacs/winum-select-window-8)
+  ("9" spacemacs/winum-select-window-9)
   ("a" ace-window)
   ("o" other-frame)
   ("w" other-window)

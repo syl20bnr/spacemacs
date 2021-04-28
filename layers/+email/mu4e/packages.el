@@ -1,13 +1,25 @@
 ;;; packages.el --- mu4e Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst mu4e-packages
   '(
@@ -50,7 +62,8 @@
       (setq mu4e-completing-read-function 'completing-read
             mu4e-use-fancy-chars 't
             mu4e-view-show-images 't
-            message-kill-buffer-on-exit 't)
+            message-kill-buffer-on-exit 't
+            mu4e-org-support nil)
       (let ((dir "~/Downloads"))
         (when (file-directory-p dir)
           (setq mu4e-attachment-dir dir))))
@@ -101,6 +114,9 @@
       (when (fboundp 'imagemagick-register-types)
         (imagemagick-register-types))
 
+      (when mu4e-autorun-background-at-startup
+        (mu4e t))
+
       (add-to-list 'mu4e-view-actions
                    '("View in browser" . mu4e-action-view-in-browser) t)
 
@@ -150,10 +166,22 @@ mu4e-use-maildirs-extension-load to be evaluated after mu4e has been loaded."
     :init (with-eval-after-load 'mu4e (mu4e-maildirs-extension-load))))
 
 (defun mu4e/pre-init-org ()
-  ;; load mu4e-org when org is actually loaded
-  (with-eval-after-load 'org
-    (require 'mu4e nil 'noerror)
-    (require 'mu4e-org nil 'noerror)))
+  (if mu4e-org-link-support
+      (with-eval-after-load 'org
+        (require 'mu4e-meta)
+        (if (version<= mu4e-mu-version "1.3.5")
+            (require 'org-mu4e)
+          (require 'mu4e-org))
+        ;; We require mu4e due to an existing bug https://github.com/djcb/mu/issues/1829
+        ;; Note that this bug prevents lazy-loading.
+        (if (version<= mu4e-mu-version "1.4.15")
+            (require 'mu4e))))
+  (if mu4e-org-compose-support
+      (progn
+        (spacemacs/set-leader-keys-for-major-mode 'mu4e-compose-mode
+          "o" 'org-mu4e-compose-org-mode)
+        (autoload 'org-mu4e-compose-org-mode "org-mu4e")
+        )))
 
 (defun mu4e/post-init-window-purpose ()
   (let ((modes))

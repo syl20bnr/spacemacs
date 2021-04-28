@@ -1,13 +1,25 @@
 ;;; packages.el --- Go Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst go-packages
   '(
@@ -44,15 +56,15 @@
   (add-hook 'go-mode-local-vars-hook #'spacemacs//go-setup-company))
 
 (defun go/pre-init-dap-mode ()
-  (pcase (spacemacs//go-backend)
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'go-mode)))
+  (when (eq go-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'go-mode))
   (add-hook 'go-mode-local-vars-hook #'spacemacs//go-setup-dap))
 
 (defun go/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'go-mode))
 
 (defun go/post-init-eldoc ()
-  (add-hook 'go-mode-hook #'spacemacs//go-setup-eldoc))
+  (add-hook 'go-mode-local-vars-hook #'spacemacs//go-setup-eldoc))
 
 (defun go/post-init-flycheck ()
   (spacemacs/enable-flycheck 'go-mode))
@@ -60,7 +72,7 @@
 (defun go/init-flycheck-golangci-lint ()
   (use-package flycheck-golangci-lint
     :defer t
-    :init (add-hook 'go-mode-hook 'spacemacs//go-enable-flycheck-golangci-lint t)))
+    :init (add-hook 'go-mode-local-vars-hook 'spacemacs//go-enable-flycheck-golangci-lint)))
 
 (defun go/post-init-ggtags ()
   (add-hook 'go-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
@@ -69,7 +81,8 @@
   (spacemacs/helm-gtags-define-keys-for-mode 'go-mode))
 
 (defun go/init-go-eldoc ()
-  (use-package go-eldoc :defer t))
+  (use-package go-eldoc
+    :defer t))
 
 (defun go/init-go-fill-struct ()
   (use-package go-fill-struct
@@ -77,7 +90,7 @@
     :init (spacemacs/set-leader-keys-for-major-mode 'go-mode
             "rs" 'go-fill-struct)))
 
-(defun go/init-go-gen-test()
+(defun go/init-go-gen-test ()
   (use-package go-gen-test
     :defer t
     :init
@@ -108,25 +121,21 @@
         "fr" 'go-guru-referrers
         "fs" 'go-guru-callstack))))
 
-(defun go/init-go-impl()
+(defun go/init-go-impl ()
   (use-package go-impl
     :defer t
     :init (spacemacs/set-leader-keys-for-major-mode 'go-mode
             "ri" 'go-impl)))
 
-(defun go/init-go-mode()
+(defun go/init-go-mode ()
   (use-package go-mode
-    :defer t
+    :hook ((go-mode-local-vars . spacemacs//go-set-tab-width)
+           (go-mode-local-vars . spacemacs//go-setup-backend)
+           (go-mode-local-vars . spacemacs//go-setup-format))
     :init
     (progn
       ;; get go packages much faster
       (setq go-packages-function 'spacemacs/go-packages-gopkgs)
-      (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width)
-      (add-hook 'go-mode-local-vars-hook
-                #'spacemacs//go-setup-backend)
-      (dolist (value '(lsp go-mode))
-        (add-to-list 'safe-local-variable-values
-                     (cons 'go-backend value)))
       (spacemacs|add-toggle go-test-verbose
         :documentation "Enable verbose test output."
         :status go-test-verbose
@@ -135,8 +144,6 @@
         :evil-leader-for-mode (go-mode . "tv")))
     :config
     (progn
-      (when go-format-before-save
-        (add-hook 'before-save-hook 'gofmt-before-save))
       (spacemacs/declare-prefix-for-mode 'go-mode "me" "playground")
       (spacemacs/declare-prefix-for-mode 'go-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'go-mode "mh" "help")

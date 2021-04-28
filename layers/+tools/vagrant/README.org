@@ -31,7 +31,7 @@ file.
 to install the =ruby= layer as well.
 
 ** Vagrant
-Follow the [[https://www.vagrantup.com/docs/installation#installing-vagrant][Installing Vagrant]] and [[https://www.vagrantup.com/intro/getting-started/index.html][Getting Started]] guides in
+Follow the [[https://www.vagrantup.com/docs/installation#installing-vagrant][Installing Vagrant]] and [[https://learn.hashicorp.com/tutorials/vagrant/getting-started-index][Getting Started]] guides in
 Vagrant's documentation.
 
 ** Testing

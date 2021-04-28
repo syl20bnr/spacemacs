@@ -1,13 +1,25 @@
 ;;; packages.el --- Javascript Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst javascript-packages
   '(
@@ -20,6 +32,7 @@
     ggtags
     helm-gtags
     imenu
+    npm-mode
     impatient-mode
     import-js
     js-doc
@@ -31,7 +44,6 @@
     prettier-js
     skewer-mode
     tern
-    tide
     web-beautify))
 
 (defun javascript/post-init-add-node-modules-path ()
@@ -45,8 +57,8 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'js2-mode))
 
 (defun javascript/pre-init-dap-mode ()
-  (pcase (spacemacs//javascript-backend)
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'js2-mode)))
+  (when (eq javascript-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'js2-mode))
   (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-dap))
 
 (defun javascript/post-init-evil-matchit ()
@@ -65,6 +77,23 @@
 (defun javascript/post-init-imenu ()
   ;; Required to make imenu functions work correctly
   (add-hook 'js2-mode-hook 'js2-imenu-extras-mode))
+
+(defun javascript/init-npm-mode ()
+  (use-package npm-mode
+    :defer t
+    :init (add-hook 'js2-mode-hook #'npm-mode)
+    :config
+    (progn
+      (spacemacs/declare-prefix-for-mode 'js2-mode "mn" "npm")
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+        "ni" 'npm-mode-npm-install
+        "nr" 'npm-mode-npm-run
+        "ns" 'npm-mode-npm-install-save
+        "nd" 'npm-mode-npm-install-save-dev
+        "nn" 'npm-mode-npm-init
+        "nu" 'npm-mode-npm-uninstall
+        "nl" 'npm-mode-npm-list
+        "np" 'npm-mode-visit-project-file))))
 
 (defun javascript/post-init-impatient-mode ()
   (spacemacs/set-leader-keys-for-major-mode 'js2-mode
@@ -262,10 +291,6 @@
 
 (defun javascript/post-init-tern ()
   (add-to-list 'tern--key-bindings-modes 'js2-mode))
-
-(defun javascript/post-init-tide ()
-  (when (eq (spacemacs//typescript-backend) `tide)
-    (add-to-list 'tide-managed-modes 'js2-mode)))
 
 (defun javascript/pre-init-web-beautify ()
   (when (eq javascript-fmt-tool 'web-beautify)

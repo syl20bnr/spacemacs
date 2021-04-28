@@ -1,13 +1,25 @@
 ;;; core-spacebind.el --- Spacemacs Core File -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Eugene "JAremko" Yaremenko <w3techplayground@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (require 'core-keybindings)
 
@@ -16,34 +28,34 @@
 Otherwise binding happens at the next event loop.")
 
 ;;;; Binding stacks
-(defvar spacebind--bs-add-minor-mode-replacements '()
+(defvar spacebind--bs-minor-mode-replacements '()
   "Binding stack for `spacemacs/add-key-based-replacements-for-minor-mode'.")
-(defvar spacebind--bs-add-major-mode-replacements '()
+(defvar spacebind--bs-major-mode-replacements '()
   "Binding stack for `which-key-add-major-mode-key-based-replacements'.")
 (defvar spacebind--bs-declare-prefix '()
   "Binding stack for `spacemacs/declare-prefix'.")
 (defvar spacebind--bs-declare-prefix-for-mode '()
   "Binding stack for `spacemacs/declare-prefix-for-mode'.")
-(defvar spacebind--bs-set-leader-keys '()
+(defvar spacebind--bs-leader-keys '()
   "Binding stack for `spacemacs/set-leader-keys'.")
-(defvar spacebind--bs-set-leader-keys-for-major-mode '()
+(defvar spacebind--bs-leader-keys-for-major-mode '()
   "Binding stack for `spacemacs/set-leader-keys-for-major-mode'.")
-(defvar spacebind--bs-set-leader-keys-for-minor-mode '()
+(defvar spacebind--bs-leader-keys-for-minor-mode '()
   "Binding stack for `spacemacs/set-leader-keys-for-minor-mode'.")
 (defvar spacebind--bs-global-replacements '()
   "Binding stack for `which-key-add-key-based-replacements'.")
-(defvar spacebind--bs-add-fn-key-seq-override '()
+(defvar spacebind--bs-fn-key-seq-override '()
   "Binding stack for `spacemacs/add-which-key-fn-key-seq-override'.")
 
 (defvar spacebind--timer [t]
   "`run-with-idle-timer' return value for `spacebind//process-bind-stack'.")
 
 (defun spacebind//process-bind-stack ()
-  "Drains bind stacks and binds keys and prefixes."
+  "Binds keys and prefixes popping the binding stacks."
   (unwind-protect
       (progn
         ;; `spacemacs/add-key-based-replacements-for-minor-mode'
-        (dolist (args spacebind--bs-add-minor-mode-replacements)
+        (dolist (args spacebind--bs-minor-mode-replacements)
           (let ((mode (car args))
                 (keys (string-join (append `(,(spacemacs/leader-key))
                                            (cadr args))
@@ -53,7 +65,7 @@ Otherwise binding happens at the next event loop.")
              mode keys label)))
 
         ;; `which-key-add-major-mode-key-based-replacements'
-        (dolist (args spacebind--bs-add-major-mode-replacements)
+        (dolist (args spacebind--bs-major-mode-replacements)
           (let ((mode (car args))
                 (keys (string-join (append `(,(spacemacs/leader-key))
                                            `(,(spacemacs/major-mode-prefix))
@@ -76,20 +88,20 @@ Otherwise binding happens at the next event loop.")
             (spacemacs/declare-prefix-for-mode mode prefix label)))
 
         ;; `spacemacs/set-leader-keys'
-        (dolist (args spacebind--bs-set-leader-keys)
+        (dolist (args spacebind--bs-leader-keys)
           (let ((keys (string-join (car args) " "))
                 (fn-sym (cadr args)))
             (spacemacs/set-leader-keys keys fn-sym)))
 
         ;; `spacemacs/set-leader-keys-for-major-mode'
-        (dolist (args spacebind--bs-set-leader-keys-for-major-mode)
+        (dolist (args spacebind--bs-leader-keys-for-major-mode)
           (let ((mode (car args))
                 (keys (string-join (cadr args) " "))
                 (fn-sym (caddr args)))
             (spacemacs/set-leader-keys-for-major-mode mode keys fn-sym)))
 
         ;; `spacemacs/set-leader-keys-for-minor-mode'
-        (dolist (args spacebind--bs-set-leader-keys-for-minor-mode)
+        (dolist (args spacebind--bs-leader-keys-for-minor-mode)
           (let ((mode (car args))
                 (keys (string-join (cadr args) " "))
                 (fn-sym (caddr args)))
@@ -104,7 +116,7 @@ Otherwise binding happens at the next event loop.")
             (which-key-add-key-based-replacements keys label)))
 
         ;; `spacemacs/add-which-key-fn-key-seq-override'
-        (dolist (args spacebind--bs-add-fn-key-seq-override)
+        (dolist (args spacebind--bs-fn-key-seq-override)
           (let ((sym (car args))
                 (rep (cadr args))
                 (label (caddr args)))
@@ -112,14 +124,14 @@ Otherwise binding happens at the next event loop.")
 
     ;; Reset stacks
     (setq spacebind--bs-global-replacements nil
-          spacebind--bs-set-leader-keys-for-minor-mode nil
-          spacebind--bs-set-leader-keys-for-major-mode nil
-          spacebind--bs-set-leader-keys nil
+          spacebind--bs-leader-keys-for-minor-mode nil
+          spacebind--bs-leader-keys-for-major-mode nil
+          spacebind--bs-leader-keys nil
           spacebind--bs-declare-prefix-for-mode nil
           spacebind--bs-declare-prefix nil
-          spacebind--bs-add-major-mode-replacements nil
-          spacebind--bs-add-minor-mode-replacements nil
-          spacebind--bs-add-fn-key-seq-override nil
+          spacebind--bs-major-mode-replacements nil
+          spacebind--bs-minor-mode-replacements nil
+          spacebind--bs-fn-key-seq-override nil
           ;; Reset timer var
           spacebind--timer [t])))
 
@@ -205,7 +217,7 @@ delimited by \"|\" character."
                 (el)
                 (thread-last el
                   ;; Convert new lines and multiply spaces into singular.
-                  ;; This is done to enable better binding forms.
+                  ;; This is done to enable better code formatting.
                   (replace-regexp-in-string "[\n[:space:]]+" " ")
                   ;; Discard everything after | symbol in labels.
                   ;; This way we can add extra text into the README.org
@@ -446,23 +458,23 @@ NOTE: You can override key labels and displayed key sequences with :label <TEXT>
               (append acc `(,stack-var (nconc ',stack ,stack-var)))
             acc))
         `((:minor-mode-replacements
-           spacebind--bs-add-minor-mode-replacements)
+           spacebind--bs-minor-mode-replacements)
           (:major-mode-replacements
-           spacebind--bs-add-major-mode-replacements)
+           spacebind--bs-major-mode-replacements)
           (:declare-prefix
            spacebind--bs-declare-prefix)
           (:declare-prefix-for-mode
            spacebind--bs-declare-prefix-for-mode)
           (:set-leader-keys
-           spacebind--bs-set-leader-keys)
+           spacebind--bs-leader-keys)
           (:set-leader-keys-for-major-mode
-           spacebind--bs-set-leader-keys-for-major-mode)
+           spacebind--bs-leader-keys-for-major-mode)
           (:set-leader-keys-for-minor-mode
-           spacebind--bs-set-leader-keys-for-minor-mode)
+           spacebind--bs-leader-keys-for-minor-mode)
           (:global-replacements
            spacebind--bs-global-replacements)
           (:fn-key-seq-override
-           spacebind--bs-add-fn-key-seq-override))
+           spacebind--bs-fn-key-seq-override))
         '(setq))))
    ;; Schedule stacks processing with `spacebind//process-bind-stack' function.
    `((when (aref spacebind--timer 0)

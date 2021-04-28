@@ -6,6 +6,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#install-chicken-scheme-example][Install Chicken scheme example]]
 - [[#structurally-safe-editing][Structurally safe editing]]
 - [[#key-bindings][Key bindings]]
   - [[#compiling][Compiling]]
@@ -28,6 +29,31 @@ This layer adds support for Scheme via [[http://geiser.nongnu.org][Geiser]]. Not
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =scheme= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+Additionally, before geiser can be used with a scheme implementation, support
+for the implementation must be enabled by adding its name to the list of
+=scheme-implementations=. It is recommended to set the value of the list
+directly in the =dotspacemacs-configuration-layers= list as shown in the
+following example for guile and racket:
+
+#+BEGIN_SRC elisp
+  dotspacemacs-configuration-layers
+  '((scheme :variables
+             scheme-implementations '(guile racket)))
+#+END_SRC
+
+Currently support is available for the following scheme implementations:
+chez, chibi, chicken, gambit, gauche, guile, kawa, mit and racket.
+
+Finally, to use a scheme implementation its binary must be available in your
+PATH (or you can manually set the location of the binary as explained in [[https://nongnu.org/geiser/geiser_3.html][this
+section of the geiser documentation]]).
+
+The following subsection shows how to install Chicken scheme and activate geiser
+support.
+
+** Install Chicken scheme example
+First add =chicken= to the list of =scheme-implementations= as explained above.
 
 For full Chicken support, the following commands should be run:
 

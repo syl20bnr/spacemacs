@@ -14,6 +14,7 @@ This layer adds support for tabs. Implementation is done using [[https://github.
 
 ** Features:
 - Sets up tabs using Centaur tabs as backend
+- Optionally auto hide tabs after delay
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -23,6 +24,15 @@ file.
 * Hide tabs
 You can set hooks for buffers in which it isn't desired to have tabs by
 customizing =centaur-tabs-hide-tabs-hooks=
+
+Alternatively you can set ~tabs-auto-hide~ to ~t~ to auto hide tabs after some
+delay ~tabs-auto-hide-delay~ via the :variables keyword in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (tabs :variables
+        tabs-auto-hide t
+        tabs-auto-hide-delay 3)
+#+END_SRC
 
 * Key bindings
 

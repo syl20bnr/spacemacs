@@ -8,8 +8,13 @@ branches:
   only:
   - master
   - develop
+before_install:
+  - docker load -i /tmp/docker_images/images.tar || true
+before_cache:
+  - docker save -o /tmp/docker_images/images.tar $(docker images -a -q)
 cache:
   directories:
+  - /tmp/docker_images
   - /tmp/elpa
   - !/tmp/elpa/gnupg
 env:
@@ -25,7 +30,7 @@ script:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: ".travisci/pub_org.sh"
+    script: ".travisci/pub_auto_update.sh"
     on:
       branch: develop
       condition: $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG

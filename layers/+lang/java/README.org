@@ -134,6 +134,8 @@ at the root of your project first.
 | ~SPC m r c i~ | Convert to static import                 |
 | ~SPC m r a t~ | Add throws exception                     |
 | ~SPC m r a a~ | Assign all parameters to fields          |
+| ~SPC m r a F~ | Assign statement to field                |
+| ~SPC m r a l~ | Assign statement to local                |
 | ~SPC m r a f~ | Assign parameter to field                |
 | ~SPC m r g g~ | Generate getters/setters                 |
 | ~SPC m r g e~ | Generate =equals= and =hashCode= methods |

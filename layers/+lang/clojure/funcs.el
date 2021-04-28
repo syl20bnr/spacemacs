@@ -1,38 +1,54 @@
 ;;; funcs.el --- Clojure Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+(defun spacemacs//clojure-setup-backend ()
+  "Conditionally setup clojure backend."
+  (when (eq clojure-backend 'lsp) (lsp)))
 
 (defun clojure/fancify-symbols (mode)
   "Pretty symbols for Clojure's anonymous functions and sets,
    like (λ [a] (+ a 5)), ƒ(+ % 5), and ∈{2 4 6}."
   (font-lock-add-keywords mode
-    `(("(\\(fn\\)[[[:space:]]"
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "λ")
-                 nil)))
-      ("(\\(partial\\)[[[:space:]]"
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "Ƥ")
-                 nil)))
-      ("(\\(comp\\)[[[:space:]]"
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "∘")
-                 nil)))
-      ("\\(#\\)("
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "ƒ")
-                 nil)))
-      ("\\(#\\){"
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "∈")
-                 nil))))))
+                          `(("(\\(fn\\)[[[:space:]]"
+                             (0 (progn (compose-region (match-beginning 1)
+                                                       (match-end 1) "λ")
+                                       nil)))
+                            ("(\\(partial\\)[[[:space:]]"
+                             (0 (progn (compose-region (match-beginning 1)
+                                                       (match-end 1) "Ƥ")
+                                       nil)))
+                            ("(\\(comp\\)[[[:space:]]"
+                             (0 (progn (compose-region (match-beginning 1)
+                                                       (match-end 1) "∘")
+                                       nil)))
+                            ("\\(#\\)("
+                             (0 (progn (compose-region (match-beginning 1)
+                                                       (match-end 1) "ƒ")
+                                       nil)))
+                            ("\\(#\\){"
+                             (0 (progn (compose-region (match-beginning 1)
+                                                       (match-end 1) "∈")
+                                       nil))))))
 
 
 (defun spacemacs/cider-eval-sexp-end-of-line ()
@@ -54,7 +70,7 @@
       (indent-region pt-max (point))
       (cider-repl-return)
       (with-selected-window (get-buffer-window (cider-current-connection))
-               (goto-char (point-max))))))
+        (goto-char (point-max))))))
 
 (defun spacemacs/cider-send-last-sexp-to-repl ()
   "Send last sexp to REPL and evaluate it without changing
@@ -187,12 +203,12 @@ If called with a prefix argument, uses the other-window instead."
 (defun spacemacs/clj-find-var (sym-name &optional arg)
   "Attempts to jump-to-definition of the symbol-at-point.
 
-If CIDER fails, or not available, falls back to dumb-jump."
+If CIDER fails, or not available, falls back to dumb-jump's xref interface."
   (interactive (list (cider-symbol-at-point)))
   (if (and (cider-connected-p) (cider-var-info sym-name))
       (unless (eq 'symbol (type-of (cider-find-var nil sym-name)))
-        (dumb-jump-go))
-    (dumb-jump-go)))
+        (xref-find-definitions))
+    (xref-find-definitions)))
 
 (defun spacemacs/clj-describe-missing-refactorings ()
   "Inform the user to add clj-refactor to configuration"

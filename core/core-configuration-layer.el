@@ -1,14 +1,26 @@
 ;; -*- nameless-current-name: "configuration-layer" -*-
 ;;; core-configuration-layer.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (require 'cl-lib)
 (require 'epg)
@@ -17,7 +29,7 @@
 (require 'package)
 (require 'warnings)
 (require 'help-mode)
-(require 'ht)
+(require 'spacemacs-ht)
 (require 'core-dotspacemacs)
 (require 'core-funcs)
 (require 'core-progress-bar)
@@ -993,7 +1005,7 @@ a new object."
         (princ (if (cfgl-package-toggled-p pkg t) "on" "off"))
         (princ " because the following expression evaluates to ")
         (princ (if (cfgl-package-toggled-p pkg t) "t:\n" "nil:\n"))
-        (princ (oref pkg :toggle))
+        (prin1 (oref pkg :toggle))
         (princ "\n"))
       (when (oref pkg :requires)
         (princ "\nThis package requires the following packages: ")
@@ -1149,21 +1161,21 @@ USEDP non-nil means that PKG is a used layer."
 (defun configuration-layer/get-layer (layer-name)
   "Return a layer object with name LAYER-NAME.
 Return nil if layer object is not found."
-  (when (ht-contains? configuration-layer--indexed-layers layer-name)
-    (ht-get configuration-layer--indexed-layers layer-name)))
+  (when (spacemacs-ht-contains? configuration-layer--indexed-layers layer-name)
+    (spacemacs-ht-get configuration-layer--indexed-layers layer-name)))
 
 (defun configuration-layer/get-layers-list ()
   "Return a list of all discovered layer symbols."
-  (ht-keys configuration-layer--indexed-layers))
+  (spacemacs-ht-keys configuration-layer--indexed-layers))
 
 (defun configuration-layer/get-layer-local-dir (layer)
   "Return the value of SLOT for the given LAYER."
-  (let ((obj (ht-get configuration-layer--indexed-layers layer)))
+  (let ((obj (spacemacs-ht-get configuration-layer--indexed-layers layer)))
     (when obj (concat (oref obj :dir) "local/"))))
 
 (defun configuration-layer/get-layer-path (layer)
   "Return the path for LAYER symbol."
-  (let ((obj (ht-get configuration-layer--indexed-layers layer)))
+  (let ((obj (spacemacs-ht-get configuration-layer--indexed-layers layer)))
     (when obj (oref obj :dir))))
 
 (defun configuration-layer//add-package (pkg &optional usedp)
@@ -1176,13 +1188,13 @@ USEDP non-nil means that PKG is a used package."
 
 (defun configuration-layer/get-packages-list ()
   "Return a list of all package symbols."
-  (ht-keys configuration-layer--indexed-packages))
+  (spacemacs-ht-keys configuration-layer--indexed-packages))
 
 (defun configuration-layer/get-package (pkg-name)
   "Return a package object with name PKG-NAME.
 Return nil if package object is not found."
-  (when (ht-contains? configuration-layer--indexed-packages pkg-name)
-    (ht-get configuration-layer--indexed-packages pkg-name)))
+  (when (spacemacs-ht-contains? configuration-layer--indexed-packages pkg-name)
+    (spacemacs-ht-get configuration-layer--indexed-packages pkg-name)))
 
 (defun configuration-layer//sort-packages (packages)
   "Return a sorted list of PACKAGES objects."
@@ -1380,6 +1392,15 @@ Returns nil if the directory is not a category."
                              dirpath)))))
       (when (string-match "^+" dirname)
         (intern (substring dirname 1))))))
+
+(defun configuration-layer//get-layer-parent-category (layer-name)
+  "Return a parent category symbol for given LAYER-NAME.
+Returns nil if there is no layer named LAYER-NAME."
+  (when-let ((lp (configuration-layer/get-layer-path layer-name)))
+    (thread-last lp
+      directory-file-name
+      file-name-directory
+      configuration-layer//get-category-from-path)))
 
 (defun configuration-layer/discover-layers (&optional refresh-index)
   "Initialize `configuration-layer--indexed-layers' with layer directories.
@@ -1591,7 +1612,11 @@ RNAME is the name symbol of another existing layer."
       (let ((var (pop variables)))
         (if (consp variables)
             (condition-case-unless-debug err
-                (set-default var (eval (pop variables)))
+                (let ((val (eval (pop variables))))
+                  (when (get var 'spacemacs-customization--variable)
+                    (spacemacs-customization//validate
+                     val (custom-variable-type var)))
+                  (set-default var val))
               ('error
                (configuration-layer//error
                 (concat "\nAn error occurred while setting layer "
@@ -1636,7 +1661,11 @@ RNAME is the name symbol of another existing layer."
   "Configure layers with LAYER-NAMES."
   (let ((warning-minimum-level :error))
     (dolist (layer-name layer-names)
-      (configuration-layer//load-layer-files layer-name '("config.el")))))
+      (let ((spacemacs-customization--current-group
+             (spacemacs-customization//create-layer-group
+              layer-name
+              (configuration-layer//get-layer-parent-category layer-name))))
+        (configuration-layer//load-layer-files layer-name '("config.el"))))))
 
 (defun configuration-layer//declare-used-packages (layers)
   "Declare used packages contained in LAYERS."
@@ -2096,6 +2125,7 @@ LAYER must not be the owner of PKG."
 If called with a prefix argument or NO-CONFIRMATION is non-nil then assume yes
 to update."
   (interactive "P")
+  (switch-to-buffer spacemacs-buffer-name)
   (spacemacs-buffer/insert-page-break)
   (spacemacs-buffer/append "\nUpdating package archives, please wait...\n")
   (configuration-layer/retrieve-package-archives nil 'force)
@@ -2170,10 +2200,11 @@ to update."
         (spacemacs-buffer/append
          (format "\n--> %s package(s) to be updated.\n" upgraded-count))
         (spacemacs-buffer/append
-         (format
-          (concat "\nEmacs has to be restarted to actually install the "
-                  "new version of the packages%s.\n")
-          (if (member "restart-emacs" update-packages) "" " (SPC q r)")))
+         (format "\nRestart Emacs to install the updated packages. %s\n"
+                 (if (member 'restart-emacs update-packages)
+                     (concat "\n(SPC q r) won't work this time, because the"
+                             "\nrestart-emacs package is being updated.")
+                   "(SPC q r)")))
         (configuration-layer//cleanup-rollback-directory)
         (spacemacs//redisplay)))
     (when (eq upgrade-count 0)
@@ -2271,7 +2302,7 @@ depends on it."
              (deps (configuration-layer//get-package-deps-from-alist pkg-sym)))
         (dolist (dep deps)
           (let* ((dep-sym (car dep))
-                 (value (ht-get result dep-sym)))
+                 (value (spacemacs-ht-get result dep-sym)))
             (puthash dep-sym
                      (if value (add-to-list 'value pkg-sym) (list pkg-sym))
                      result)))))
@@ -2300,8 +2331,8 @@ depends on it."
   "Returns not nil if PKG-NAME is the name of an orphan package."
   (unless (or (memq pkg-name dist-pkgs)
               (memq pkg-name configuration-layer--protected-packages))
-    (if (ht-contains? dependencies pkg-name)
-        (let ((parents (ht-get dependencies pkg-name)))
+    (if (spacemacs-ht-contains? dependencies pkg-name)
+        (let ((parents (spacemacs-ht-get dependencies pkg-name)))
           (cl-reduce (lambda (x y) (and x y))
                      (mapcar (lambda (p) (configuration-layer//is-package-orphan
                                           p dist-pkgs dependencies))
@@ -2496,7 +2527,7 @@ depends on it."
   "Return a list of all ELPA packages in indexed packages and dependencies."
   (let (result)
     (dolist (pkg-sym (configuration-layer//filter-distant-packages
-                      (ht-keys configuration-layer--indexed-packages) nil))
+                      (spacemacs-ht-keys configuration-layer--indexed-packages) nil))
       (when (assq pkg-sym package-archive-contents)
         (let* ((deps (mapcar 'car
                              (configuration-layer//get-package-deps-from-archive
@@ -2704,6 +2735,10 @@ continue with the stable ELPA repository installation."
           (error (setq verification-err
                        (format "GnuPGP doesn't seem to be available. %s"
                                (cdr error)))))
+        (when package-gnupghome-dir
+          (with-file-modes 448
+            (make-directory package-gnupghome-dir t))
+          (setf (epg-context-home-directory context) package-gnupghome-dir))
         (unless verification-err
           (condition-case error
               (epg-import-keys-from-file

@@ -1,53 +1,59 @@
 ;;; funcs.el --- Python Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defun spacemacs//python-backend ()
-  "Returns selected backend."
-  (if python-backend
-      python-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'anaconda))))
 
-(defun spacemacs//python-formatter ()
-  "Returns selected backend."
-  (if python-formatter
-      python-formatter
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'yapf))))
+(defun spacemacs//poetry-activate ()
+  "Attempt to activate Poetry only if its configuration file is found."
+  (let ((root-path (locate-dominating-file default-directory "pyproject.toml")))
+    (when root-path
+      (message "Poetry configuration file found. Activating virtual environment.")
+      (poetry-venv-workon))
+    ))
 
 (defun spacemacs//python-setup-backend ()
   "Conditionally setup python backend."
   (when python-pipenv-activate (pipenv-activate))
-  (pcase (spacemacs//python-backend)
-    (`anaconda (spacemacs//python-setup-anaconda))
-    (`lsp (spacemacs//python-setup-lsp))))
+  (when python-poetry-activate (spacemacs//poetry-activate))
+  (pcase python-backend
+    ('anaconda (spacemacs//python-setup-anaconda))
+    ('lsp (spacemacs//python-setup-lsp))))
 
 (defun spacemacs//python-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//python-backend)
-    (`anaconda (spacemacs//python-setup-anaconda-company))))
+  (when (eq python-backend 'anaconda)
+    (spacemacs//python-setup-anaconda-company)))
 
 (defun spacemacs//python-setup-dap ()
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase (spacemacs//python-backend)
-    (`lsp (spacemacs//python-setup-lsp-dap))))
+  (when (eq python-backend 'lsp)
+    (spacemacs//python-setup-lsp-dap)))
 
 (defun spacemacs//python-setup-eldoc ()
   "Conditionally setup eldoc based on backend."
-  (pcase (spacemacs//python-backend)
+  (when (eq python-backend 'anaconda)
     ;; lsp setup eldoc on its own
-    (`anaconda (spacemacs//python-setup-anaconda-eldoc))))
+    (spacemacs//python-setup-anaconda-eldoc)))
+
 
 ;; anaconda
 
@@ -83,8 +89,11 @@
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        (cond ((eq python-lsp-server 'mspyls)  (require 'lsp-python-ms))
-              ((eq python-lsp-server 'pyright) (require 'lsp-pyright)))
+        (require (pcase python-lsp-server
+                   ('pyls 'lsp-pyls)
+                   ('mspyls 'lsp-python-ms)
+                   ('pyright 'lsp-pyright)
+                   (x (user-error "Unknown value for `python-lsp-server': %s" x))))
         (lsp))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
@@ -148,7 +157,7 @@ as the pyenv version then also return nil. This works around https://github.com/
 (defun spacemacs//python-setup-shell (&rest args)
   (if (spacemacs/pyenv-executable-find "ipython")
       (progn (setq python-shell-interpreter "ipython")
-             (if (version< (replace-regexp-in-string "[\r\n|\n]$" "" (shell-command-to-string (format "\"%s\" --version" (string-trim (spacemacs/pyenv-executable-find "ipython"))))) "5")
+             (if (version< (replace-regexp-in-string "\\(\\.dev\\)?[\r\n|\n]$" "" (shell-command-to-string (format "\"%s\" --version" (string-trim (spacemacs/pyenv-executable-find "ipython"))))) "5")
                  (setq python-shell-interpreter-args "-i")
                (setq python-shell-interpreter-args "--simple-prompt -i")))
     (progn
@@ -191,7 +200,7 @@ as the pyenv version then also return nil. This works around https://github.com/
         (python-indent-line)))))
 
 ;; from https://www.snip2code.com/Snippet/127022/Emacs-auto-remove-unused-import-statemen
-(defun spacemacs/python-remove-unused-imports()
+(defun spacemacs/python-remove-unused-imports ()
   "Use Autoflake to remove unused function"
   "autoflake --remove-all-unused-imports -i unused_imports.py"
   (interactive)
@@ -383,17 +392,18 @@ to be called for each testrunner. "
   "Bind the python formatter keys.
 Bind formatter to '==' for LSP and '='for all other backends."
   (spacemacs/set-leader-keys-for-major-mode 'python-mode
-    (if (eq (spacemacs//python-backend) 'lsp)
+    (if (eq python-backend 'lsp)
         "=="
-      "=") 'spacemacs/python-format-buffer))
+      "=")
+    'spacemacs/python-format-buffer))
 
 (defun spacemacs/python-format-buffer ()
   "Bind possible python formatters."
   (interactive)
-  (pcase (spacemacs//python-formatter)
-    (`yapf (yapfify-buffer))
-    (`black (blacken-buffer))
-    (`lsp (lsp-format-buffer))
+  (pcase python-formatter
+    ('yapf (yapfify-buffer))
+    ('black (blacken-buffer))
+    ('lsp (lsp-format-buffer))
     (code (message "Unknown formatter: %S" code))))
 
 

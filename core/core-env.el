@@ -1,13 +1,25 @@
 ;;; core-env.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (require 'core-dotspacemacs)
 (require 'load-env-vars)
@@ -22,6 +34,7 @@
     "GPG_AGENT_INFO"
     "SSH_AGENT_PID"
     "SSH_AUTH_SOCK"
+    "DISPLAY"
     )
   "Ignored environments variables.
 Environment variables with names matching these regexps are not
@@ -41,6 +54,7 @@ current contents of the file will be overwritten."
     (with-temp-file spacemacs-env-vars-file
       (let ((shell-command-switches (cond
                                      ((or(eq system-type 'darwin)
+                                         (eq system-type 'cygwin)
                                          (eq system-type 'gnu/linux))
                                       ;; execute env twice, once with a
                                       ;; non-interactive login shell and
@@ -51,6 +65,7 @@ current contents of the file will be overwritten."
                                      ((eq system-type 'windows-nt) '("-c"))))
             (tmpfile (make-temp-file spacemacs-env-vars-file))
             (executable (cond ((or(eq system-type 'darwin)
+                                  (eq system-type 'cygwin)
                                   (eq system-type 'gnu/linux)) "env")
                               ((eq system-type 'windows-nt) "set"))))
         (insert

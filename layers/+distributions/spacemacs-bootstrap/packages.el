@@ -1,13 +1,25 @@
 ;;; packages.el --- Mandatory Bootstrap Layer packages File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (setq spacemacs-bootstrap-packages
       '(
@@ -21,7 +33,7 @@
         (hydra :step bootstrap)
         (use-package :step bootstrap)
         (which-key :step bootstrap)
-        ;; pre packages, initialized aftert the bootstrap packages
+        ;; pre packages, initialized after the bootstrap packages
         ;; these packages can use use-package
         (dotenv-mode :step pre)
         (evil-evilified-state :location local :step pre :protected t)
@@ -29,7 +41,8 @@
         (holy-mode :location local :step pre)
         (hybrid-mode :location (recipe :fetcher local) :step pre)
         (spacemacs-theme :location built-in)
-        ))
+        dash))
+
 
 
 ;; bootstrap packages
@@ -39,7 +52,7 @@
 (defun spacemacs-bootstrap/init-bind-key ())
 
 (defun spacemacs-bootstrap/init-diminish ()
-  (when (not (configuration-layer/package-used-p 'spaceline))
+  (unless (configuration-layer/package-used-p 'spaceline)
     (add-hook 'after-load-functions 'spacemacs/diminish-hook)))
 
 (defun spacemacs-bootstrap/init-dotenv-mode ()
@@ -64,10 +77,13 @@
   ;; evil-mode is mandatory for Spacemacs to work properly
   ;; evil must be require explicitly, the autoload seems to not
   ;; work properly sometimes.
+  ;; `evil-collection' wants this value
+  (setq evil-want-keybinding nil)
   (require 'evil)
   (evil-mode 1)
 
-  (when (fboundp 'evil-set-undo-system)
+  (when (and (fboundp 'evil-set-undo-system)
+             (configuration-layer/package-used-p 'undo-tree))
     (evil-set-undo-system 'undo-tree))
 
   ;; Use evil as a default jump handler
@@ -93,6 +109,8 @@
 
   ;; Make the current definition and/or comment visible.
   (define-key evil-normal-state-map "zf" 'reposition-window)
+  ;; Make set-selective-display more discoverable to Evil folks
+  (define-key evil-normal-state-map "z$" 'spacemacs/toggle-selective-display)
   ;; toggle maximize buffer
   (define-key evil-window-map (kbd "o") 'spacemacs/toggle-maximize-buffer)
   (define-key evil-window-map (kbd "C-o") 'spacemacs/toggle-maximize-buffer)
@@ -126,8 +144,8 @@
 
   ;; move selection up and down
   (when vim-style-visual-line-move-text
-    (define-key evil-visual-state-map "J" (concat ":m '>+1" (kbd "RET") "gv=gv"))
-    (define-key evil-visual-state-map "K" (concat ":m '<-2" (kbd "RET") "gv=gv")))
+    (define-key evil-visual-state-map "J" 'drag-stuff-down)
+    (define-key evil-visual-state-map "K" 'drag-stuff-up))
 
   (evil-ex-define-cmd "enew" 'spacemacs/new-empty-buffer)
 
@@ -274,13 +292,13 @@
   ;; turn off evil in corelv buffers
   (add-to-list 'evil-buffer-regexps '("\\*LV\\*"))
 
-  ;; replace `dired-goto-file' with `helm-find-files', since `helm-find-files'
-  ;; can do the same thing and with fuzzy matching and other features.
+  ;; replace `dired-goto-file' with equivalent helm and ivy functions:
+  ;; `spacemacs/helm-find-files' fuzzy matching and other features
+  ;; `spacemacs/counsel-find-file' more `M-o' actions
   (with-eval-after-load 'dired
-    (evil-define-key 'normal dired-mode-map "J" 'spacemacs/helm-find-files)
-    (define-key dired-mode-map "j" 'spacemacs/helm-find-files)
-    (evil-define-key 'normal dired-mode-map (kbd dotspacemacs-leader-key)
-      spacemacs-default-map))
+    (define-key dired-mode-map "j"
+      (cond ((configuration-layer/layer-used-p 'helm) 'spacemacs/helm-find-files)
+            ((configuration-layer/layer-used-p 'ivy) 'spacemacs/counsel-find-file))))
 
   ;; support smart 1parens-strict-mode
   (when (configuration-layer/package-used-p 'smartparens)
@@ -314,7 +332,8 @@
         ;; inject use-package hooks for easy customization of stock package
         ;; configuration
         use-package-inject-hooks t)
-  (add-to-list 'use-package-keywords :spacebind t))
+  (add-to-list 'use-package-keywords :spacebind t)
+  (add-to-list 'use-package-keywords :spacediminish t))
 
 (defun spacemacs-bootstrap/init-which-key ()
   (require 'which-key)
@@ -340,6 +359,54 @@
     "Display a buffer with available key bindings."
     :evil-leader "tK")
 
+  (spacemacs/declare-prefix "tk" "which-key-persistent")
+  (setq which-key-toggle-of-message
+        "To exit which-key-persistent-mode use `which-key-toggle-persistent'.")
+
+  (spacemacs|add-toggle which-key-toggle-persistent
+    :status which-key-persistent-popup
+    :on (setq which-key-persistent-popup t)
+    :off (setq which-key-persistent-popup nil)
+    :documentation
+    "Toggle on/off which-key-persistent-popup."
+    :evil-leader "tkk")
+
+  (spacemacs|add-toggle which-key-major-mode-map
+    :status which-key-persistent-popup
+    :on (progn
+          (setq which-key-persistent-popup t)
+          (which-key-show-major-mode))
+    :off (which-key-show-major-mode)
+    :documentation
+    "Show persistent major mode keymap.
+Press \\[which-key-toggle-persistent] to hide."
+    :off-message which-key-toggle-of-message
+    :evil-leader "tkm")
+
+  (spacemacs|add-toggle which-key-full-major-mode-map
+    :status which-key-persistent-popup
+    :on (progn
+          (setq which-key-persistent-popup t)
+          (which-key-show-full-major-mode))
+    :off (which-key-show-full-major-mode)
+    :documentation
+    "Show persistent full major mode keymap.
+Press \\[which-key-toggle-persistent] to hide."
+    :off-message which-key-toggle-of-message
+    :evil-leader "tkM")
+
+  (spacemacs|add-toggle which-key-top-level
+    :status which-key-persistent-popup
+    :on (progn
+          (setq which-key-persistent-popup t)
+          (which-key-show-top-level))
+    :off (which-key-show-top-level)
+    :documentation
+    "Show persistent top level keymap.
+Press \\[which-key-toggle-persistent] to hide."
+    :off-message which-key-toggle-of-message
+    :evil-leader "tkt")
+
   (spacemacs/set-leader-keys "hk" 'which-key-show-top-level)
 
   ;; Needed to avoid nil variable error before update to recent which-key
@@ -362,8 +429,8 @@
            ("evil-lisp-state-\\(.+\\)" . "\\1")
            ("helm-mini\\|ivy-switch-buffer" . "list-buffers")
            ("lazy-helm/\\(.+\\)" . "\\1")
-           ("lazy-helm/spacemacs/\\(.+\\)" . "\\1")
-           )))
+           ("lazy-helm/spacemacs/\\(.+\\)" . "\\1"))))
+
     (dolist (nd new-descriptions)
       ;; ensure the target matches the whole string
       (push (cons (cons nil (concat "\\`" (car nd) "\\'")) (cons nil (cdr nd)))
@@ -489,7 +556,7 @@
 
   ;; hide the "C-c -> eyebrowse-create-window-config" entry
   (push '(("\\(.*\\)C-c C-w C-c" . "eyebrowse-create-window-config") . t)
-          which-key-replacement-alist)
+         which-key-replacement-alist)
 
   ;; C-c C-d-
   ;; Combine the d and C-d key entries
@@ -499,7 +566,7 @@
 
   ;; hide the "C-d -> elisp-slime-nav-describe-elisp-thing-at-point" entry
   (push '(("\\(.*\\)C-c C-d C-d" . "elisp-slime-nav-describe-elisp-thing-at-point") . t)
-          which-key-replacement-alist)
+         which-key-replacement-alist)
 
   (which-key-add-key-based-replacements
     dotspacemacs-leader-key '("root" . "Spacemacs root")
@@ -508,9 +575,9 @@
   ;; disable special key handling for spacemacs, since it can be
   ;; disorienting if you don't understand it
   (pcase dotspacemacs-which-key-position
-    (`right (which-key-setup-side-window-right))
-    (`bottom (which-key-setup-side-window-bottom))
-    (`right-then-bottom (which-key-setup-side-window-right-bottom)))
+    ('right (which-key-setup-side-window-right))
+    ('bottom (which-key-setup-side-window-bottom))
+    ('right-then-bottom (which-key-setup-side-window-right-bottom)))
 
   (which-key-mode)
   (spacemacs|diminish which-key-mode " Ⓚ" " K"))
@@ -538,9 +605,13 @@
         (spacemacs|add-toggle holy-mode
           :status holy-mode
           :on (progn (when (bound-and-true-p hybrid-mode)
-                       (hybrid-mode -1))
-                     (holy-mode))
-          :off (holy-mode -1)
+                       (hybrid-mode -1)
+                       (spacemacs/declare-prefix "tEh" "hybrid (hybrid-mode)"))
+                     (holy-mode)
+                     (spacemacs/declare-prefix "tEe" "vim (evil-mode"))
+          :off (progn (holy-mode -1)
+                      (spacemacs/declare-prefix "tEe" "emacs (holy-mode)"))
+          :off-message "evil-mode enabled."
           :documentation "Globally toggle holy mode."
           :evil-leader "tEe")
         (spacemacs|diminish holy-mode " Ⓔe" " Ee")))))
@@ -554,13 +625,21 @@
         (spacemacs|add-toggle hybrid-mode
           :status hybrid-mode
           :on (progn (when (bound-and-true-p holy-mode)
-                       (holy-mode -1))
-                     (hybrid-mode))
-          :off (hybrid-mode -1)
+                       (holy-mode -1)
+                       (spacemacs/declare-prefix "tEe" "emacs (holy-mode)"))
+                     (hybrid-mode)
+                     (spacemacs/declare-prefix "tEh" "vim (evil-mode)"))
+          :off (progn (hybrid-mode -1)
+                      (spacemacs/declare-prefix "tEh" "hybrid (hybrid-mode)"))
+          :off-message "evil-mode enabled."
           :documentation "Globally toggle hybrid mode."
           :evil-leader "tEh")
         (spacemacs|diminish hybrid-mode " Ⓔh" " Eh")))))
 
 (defun spacemacs-bootstrap/init-spacemacs-theme ()
   (use-package spacemacs-theme
+    :defer t))
+
+(defun spacemacs-bootstrap/init-dash ()
+  (use-package dash
     :defer t))

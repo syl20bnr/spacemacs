@@ -1,13 +1,25 @@
 ;;; packages.el --- Python Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst python-packages
   '(
@@ -25,10 +37,11 @@
     (helm-pydoc :requires helm)
     importmagic
     live-py-mode
-    (nose :location local)
+    (nose :location (recipe :fetcher github :repo "syl20bnr/nose.el"))
     org
     pip-requirements
     pipenv
+    poetry
     pippel
     py-isort
     pyenv-mode
@@ -41,19 +54,19 @@
     smartparens
     stickyfunc-enhance
     xcscope
+    window-purpose
     yapfify
     ;; packages for anaconda backend
     anaconda-mode
     (company-anaconda :requires company)
     ;; packages for Microsoft LSP backend
     (lsp-python-ms :requires lsp-mode)
-
     ;; packages for Microsoft's pyright language server
     (lsp-pyright :requires lsp-mode)))
 
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
-    :if (eq (spacemacs//python-backend) 'anaconda)
+    :if (eq python-backend 'anaconda)
     :defer t
     :init
     (setq anaconda-mode-installation-directory
@@ -97,10 +110,9 @@
 
 (defun python/init-company-anaconda ()
   (use-package company-anaconda
-    :if (eq (spacemacs//python-backend) 'anaconda)
+    :if (eq python-backend 'anaconda)
     :defer t))
 ;; see `spacemacs//python-setup-anaconda-company'
-
 
 (defun python/init-blacken ()
   (use-package blacken
@@ -109,7 +121,7 @@
     (progn
       (spacemacs//bind-python-formatter-keys)
       (when (and python-format-on-save
-                 (eq 'black (spacemacs//python-formatter)))
+                 (eq 'black python-formatter))
         (add-hook 'python-mode-hook 'blacken-mode)))
     :config (spacemacs|hide-lighter blacken-mode)))
 
@@ -117,14 +129,14 @@
   (use-package cython-mode
     :defer t
     :config
-    (when (eq (spacemacs//python-backend) 'anaconda)
+    (when (eq python-backend 'anaconda)
       (spacemacs/set-leader-keys-for-major-mode 'cython-mode
         "hh" 'anaconda-mode-show-doc
         "gu" 'anaconda-mode-find-references))))
 
 (defun python/pre-init-dap-mode ()
-  (pcase (spacemacs//python-backend)
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'python-mode)))
+  (when (eq python-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'python-mode))
   (add-hook 'python-mode-local-vars-hook #'spacemacs//python-setup-dap))
 
 (defun python/post-init-eldoc ()
@@ -216,6 +228,22 @@
           "vps" 'pipenv-shell
           "vpu" 'pipenv-uninstall)))))
 
+(defun python/pre-init-poetry ()
+  (add-to-list 'spacemacs--python-poetry-modes 'python-mode))
+(defun python/init-poetry ()
+  (use-package poetry
+    :defer t
+    :commands (poetry-venv-toggle
+               poetry-tracking-mode)
+    :init
+    (progn
+      (dolist (m spacemacs--python-poetry-modes)
+        (spacemacs/set-leader-keys-for-major-mode m
+          "vod" 'poetry-venv-deactivate
+          "vow" 'poetry-venv-workon
+          "vot" 'poetry-venv-toggle)))))
+
+
 (defun python/init-pip-requirements ()
   (use-package pip-requirements
     :defer t))
@@ -259,11 +287,11 @@
     :init
     (progn
       (pcase python-auto-set-local-pyenv-version
-        (`on-visit
+        ('on-visit
          (dolist (m spacemacs--python-pyenv-modes)
            (add-hook (intern (format "%s-hook" m))
                      'spacemacs//pyenv-mode-set-local-version)))
-        (`on-project-switch
+        ('on-project-switch
          (add-hook 'projectile-after-switch-project-hook
                    'spacemacs//pyenv-mode-set-local-version)))
       ;; setup shell correctly on environment switch
@@ -282,11 +310,11 @@
     (progn
       (add-hook 'python-mode-hook #'pyvenv-tracking-mode)
       (pcase python-auto-set-local-pyvenv-virtualenv
-        (`on-visit
+        ('on-visit
          (dolist (m spacemacs--python-pyvenv-modes)
            (add-hook (intern (format "%s-hook" m))
                      'spacemacs//pyvenv-mode-set-local-virtualenv)))
-        (`on-project-switch
+        ('on-project-switch
          (add-hook 'projectile-after-switch-project-hook
                    'spacemacs//pyvenv-mode-set-local-virtualenv)))
       (dolist (m spacemacs--python-pyvenv-modes)
@@ -336,9 +364,8 @@
       (spacemacs/register-repl 'python
                                'spacemacs/python-start-or-switch-repl "python")
       (spacemacs//bind-python-repl-keys)
-      (spacemacs/add-to-hook 'python-mode-hook
-                             '(spacemacs//python-setup-backend
-                               spacemacs//python-default))
+      (add-hook 'python-mode-local-vars-hook 'spacemacs//python-setup-backend)
+      (add-hook 'python-mode-hook 'spacemacs//python-default)
       ;; call `spacemacs//python-setup-shell' once, don't put it in a hook
       ;; (see issue #5988)
       (spacemacs//python-setup-shell))
@@ -356,6 +383,7 @@
       (spacemacs/declare-prefix-for-mode 'python-mode "mr" "refactor")
       (spacemacs/declare-prefix-for-mode 'python-mode "mv" "virtualenv")
       (spacemacs/declare-prefix-for-mode 'python-mode "mvp" "pipenv")
+      (spacemacs/declare-prefix-for-mode 'python-mode "mvo" "poetry")
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "'"  'spacemacs/python-start-or-switch-repl
         "cc" 'spacemacs/python-execute-file
@@ -429,7 +457,7 @@ fix this issue."
             ad-do-it
           (call-interactively 'sp-backward-delete-char))))))
 (defun python/post-init-smartparens ()
-  (add-hook 'inferior-python-mode-hook 'smartparens-mode))
+  (add-hook 'inferior-python-mode-hook #'spacemacs//activate-smartparens))
 
 (defun python/post-init-stickyfunc-enhance ()
   (add-hook 'python-mode-hook 'spacemacs/load-stickyfunc-enhance))
@@ -447,7 +475,7 @@ fix this issue."
     (progn
       (spacemacs//bind-python-formatter-keys)
       (when (and python-format-on-save
-                 (eq 'yapf (spacemacs//python-formatter)))
+                 (eq 'yapf python-formatter))
         (add-hook 'python-mode-hook 'yapf-mode)))
     :config (spacemacs|hide-lighter yapf-mode)))
 
@@ -478,3 +506,14 @@ fix this issue."
     :if (eq python-lsp-server 'pyright)
     :ensure nil
     :defer t))
+
+(defun python/post-init-window-purpose ()
+  (purpose-set-extension-configuration
+   :python-layer
+   (purpose-conf
+    :mode-purposes '((inferior-python-mode . repl))
+    :name-purposes '(("*compilation*" . logs)
+                     ("*Pylookup Completions*" . help))
+    :regexp-purposes '(("^\\*Anaconda" . help)
+                       ("^\\*Pydoc" . help)
+                       ("^\\*live-py" . logs)))))

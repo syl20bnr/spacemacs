@@ -1,13 +1,25 @@
 ;;; packages.el --- Crystal Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Brantou <brantou89@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst crystal-packages
   '((ameba :location (recipe :fetcher github
@@ -24,7 +36,7 @@
 (defun crystal/post-init-company ()
   (spacemacs//crystal-setup-company))
 
-(defun crystal/init-ameba()
+(defun crystal/init-ameba ()
   (use-package ameba
     :defer t
     :init
@@ -36,7 +48,7 @@
         "uaf" 'ameba-check-current-file
         "uap" 'ameba-check-project))))
 
-(defun crystal/init-crystal-mode()
+(defun crystal/init-crystal-mode ()
   (use-package crystal-mode
     :defer t
     :init
@@ -44,7 +56,7 @@
       (add-hook 'crystal-mode-hook 'spacemacs//crystal-auto-format-setup)
       (add-hook 'crystal-mode-hook #'spacemacs//crystal-setup-backend)
       (spacemacs/declare-prefix-for-mode 'crystal-mode "mu" "tool")
-      (unless (eq (spacemacs//crystal-backend) 'lsp)
+      (unless (eq crystal-backend 'lsp)
         (spacemacs/declare-prefix-for-mode 'crystal-mode "mg" "goto")
         (spacemacs/declare-prefix-for-mode 'crystal-mode "mt" "test")
         (spacemacs/declare-prefix-for-mode 'crystal-mode "ma" "action"))
@@ -58,13 +70,13 @@
         "ui" 'crystal-tool-imp
         "ax" 'spacemacs/crystal-run-main))))
 
-(defun crystal/post-init-flycheck()
+(defun crystal/post-init-flycheck ()
   (spacemacs/enable-flycheck 'crystal-mode))
 
 (defun crystal/init-flycheck-crystal ()
   (use-package flycheck-crystal))
 
-(defun crystal/init-inf-crystal()
+(defun crystal/init-inf-crystal ()
   (use-package inf-crystal
     :defer t
     :init
@@ -90,7 +102,7 @@
       :init (add-to-list 'org-babel-load-languages '(crystal . t)))))
 (defun crystal/init-ob-crystal ())
 
-(defun crystal/init-play-crystal()
+(defun crystal/init-play-crystal ()
   (use-package play-crystal
     :defer t
     :init

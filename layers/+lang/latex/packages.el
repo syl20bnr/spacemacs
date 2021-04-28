@@ -1,19 +1,33 @@
 ;;; packages.el --- Latex Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst latex-packages
   '(
     auctex
     (auctex-latexmk :toggle (string= "LatexMk" latex-build-command))
     company
+    math-symbol-lists
+    (company-math :requires company math-symbol-lists)
     (company-auctex :requires company)
     (company-reftex :requires company)
     counsel-gtags
@@ -39,6 +53,7 @@
     :init
     (progn
       (setq TeX-command-default latex-build-command
+            TeX-engine latex-build-engine
             TeX-auto-save t
             TeX-parse-self t
             TeX-syntactic-comment t
@@ -53,9 +68,13 @@
       (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
       (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
       (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
-      (add-hook 'LaTeX-mode-hook #'spacemacs//latex-setup-backend))
+      (add-hook 'LaTeX-mode-hook #'spacemacs//latex-setup-backend)
+      (when latex-refresh-preview
+        (add-hook 'doc-view-mode-hook 'auto-revert-mode)))
     :config
     (progn
+      ;; otherwise `, p` preview commands doesn't work
+      (require 'preview)
       ;; Key bindings for plain TeX
       (dolist (mode '(tex-mode latex-mode context-mode))
         (spacemacs/set-leader-keys-for-major-mode mode
@@ -82,7 +101,7 @@
           "xff" 'latex/font-sans-serif
           "xfr" 'latex/font-serif)
         (spacemacs/declare-prefix-for-mode mode "mxf" "fonts")
-        (unless (and (eq (spacemacs//latex-backend) 'lsp)
+        (unless (and (eq latex-backend 'lsp)
                      (eq mode 'latex-mode))
           (spacemacs/declare-prefix-for-mode mode "mh" "help")
           (spacemacs/declare-prefix-for-mode mode "mx" "text/fonts")
@@ -137,7 +156,7 @@
         "xfu" 'latex/font-upright)
 
       ;; Rebind latex keys to avoid conflicts with lsp mode
-      (if (eq (spacemacs//latex-backend) 'lsp)
+      (if (eq latex-backend 'lsp)
           (spacemacs/set-leader-keys-for-major-mode 'latex-mode
             "au"   'TeX-command-run-all
             "c"   'latex/build
@@ -175,7 +194,7 @@
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
   (setq reftex-plug-into-AUCTeX '(nil nil t t t)
         reftex-use-fonts t)
-  (let ((prefix (if (eq (spacemacs//latex-backend) 'lsp) "R" "r")))
+  (let ((prefix (if (eq latex-backend 'lsp) "R" "r")))
     (spacemacs/declare-prefix-for-mode 'latex-mode (concat "m" prefix) "reftex")
     (spacemacs/set-leader-keys-for-major-mode 'latex-mode
       (concat prefix "c")    'reftex-citation
@@ -202,7 +221,7 @@
   (add-hook 'latex-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun latex/post-init-smartparens ()
-  (add-hook 'LaTeX-mode-hook 'smartparens-mode))
+  (add-hook 'LaTeX-mode-hook #'spacemacs//activate-smartparens))
 
 (defun latex/post-init-typo ()
   ;; Typo mode isn't useful for LaTeX.
@@ -231,6 +250,14 @@
 
 (defun latex/init-lsp-latex ()
   (use-package lsp-latex
+    :defer t))
+
+(defun latex/init-math-symbol-lists ()
+  (use-package math-symbol-lists
+    :defer t))
+
+(defun latex/init-company-math ()
+  (use-package company-math
     :defer t))
 
 (defun latex/init-company-auctex ()

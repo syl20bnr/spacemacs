@@ -1,13 +1,25 @@
 ;;; packages.el --- Ivy Layer packages File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (setq ivy-packages
       '(
@@ -69,6 +81,7 @@
         "hdF" 'counsel-describe-face
         "hdm" 'spacemacs/describe-mode
         "hdv" 'counsel-describe-variable
+        "hdx" 'spacemacs/describe-ex-command
         "hi"  'counsel-info-lookup-symbol
         "hm"  (if (spacemacs/system-is-mswindows) 'woman 'man)
         "hR"  'spacemacs/counsel-search-docs
@@ -210,6 +223,12 @@
         "rl" 'ivy-resume
         "sl" 'ivy-resume
         "bb" 'ivy-switch-buffer)
+      ;; Common Ctrl-TAB buffer switch behavior
+      (with-eval-after-load 'evil
+        (evil-global-set-key 'motion (kbd "<C-tab>") 'ivy-switch-buffer)
+        (evil-global-set-key 'motion (kbd "<C-iso-lefttab>") 'ivy-switch-buffer))
+      (define-key ivy-mode-map (kbd "<C-tab>") 'ivy-next-line-and-call)
+      (define-key ivy-mode-map (kbd "<C-iso-lefttab>") 'ivy-previous-line-and-call)
       ;; Moved C-k to C-M-k
       (define-key ivy-switch-buffer-map (kbd "C-M-k") 'ivy-switch-buffer-kill)
       (define-key ivy-reverse-i-search-map
@@ -228,6 +247,7 @@
       (define-key ivy-minibuffer-map [escape] 'minibuffer-keyboard-quit)
       (define-key ivy-minibuffer-map (kbd "M-SPC") 'hydra-ivy/body)
       (define-key ivy-minibuffer-map (kbd "C-<return>") #'ivy-alt-done)
+      (define-key ivy-minibuffer-map (kbd "C-SPC") #'ivy-call-and-recenter)
 
       (when ivy-ret-visits-directory
         (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
@@ -239,11 +259,19 @@
       ;; Occur
       (evil-set-initial-state 'ivy-occur-grep-mode 'normal)
       (evil-make-overriding-map ivy-occur-mode-map 'normal)
+      (dolist (mode-map (list ivy-occur-mode-map ivy-occur-grep-mode-map))
+        (define-key mode-map "g" nil)
+        (define-key mode-map "U" 'ivy-occur-revert-buffer))
       (ivy-set-occur 'spacemacs/counsel-search
                      'spacemacs//counsel-occur)
       (spacemacs/set-leader-keys-for-major-mode 'ivy-occur-grep-mode
         "w" 'spacemacs/ivy-wgrep-change-to-wgrep-mode
         "s" 'wgrep-save-all-buffers)
+
+      ;; emacs 27 extend line for ivy highlight
+      (setf (alist-get 't ivy-format-functions-alist)
+            #'ivy-format-function-line)
+
       ;; Why do we do this ?
       (ido-mode -1)
 
@@ -271,7 +299,8 @@
             ivy-virtual-abbreviate 'full))
     :config
     (progn
-      (ivy-rich-mode))))
+      (ivy-rich-mode)
+      (ivy-rich-project-root-cache-mode))))
 
 (defun ivy/init-ivy-spacemacs-help ()
   (use-package ivy-spacemacs-help

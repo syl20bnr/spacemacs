@@ -34,6 +34,7 @@
 - [[#key-bindings][Key bindings]]
   - [[#js2-mode][js2-mode]]
   - [[#folding-js2-mode][Folding (js2-mode)]]
+  - [[#running-npm-npm-mode][Running NPM (npm-mode)]]
   - [[#importing-import-js][Importing (import-js)]]
   - [[#refactoring-js2-refactor][Refactoring (js2-refactor)]]
     - [[#documentation-js-doc][Documentation (js-doc)]]
@@ -325,6 +326,20 @@ parse warnings:
 | ~SPC m z e~ | toggle hide/show element |
 | ~SPC m z F~ | toggle hide functions    |
 | ~SPC m z C~ | toggle hide comments     |
+
+** Running NPM (npm-mode)
+
+| Key binding | Description                                                                     |
+|-------------+---------------------------------------------------------------------------------|
+| ~SPC m n i~ | Run the =npm install= command in the project root                               |
+| ~SPC m n r~ | Show a list of available npm scripts, and execute the selected one              |
+| ~SPC m n c~ | Run the =npm clean= command in the project root                                 |
+| ~SPC m n s~ | Prompt for the name of an npm package, install it and save to =dependencies=    |
+| ~SPC m n d~ | Prompt for the name of an npm package, install it and save to =devDependencies= |
+| ~SPC m n n~ | Initialize new project                                                          |
+| ~SPC m n u~ | Remove project dependency                                                       |
+| ~SPC m n l~ | List installed project dependencies                                             |
+| ~SPC m n p~ | Visit project =package.json= file                                               |
 
 ** Importing (import-js)
 

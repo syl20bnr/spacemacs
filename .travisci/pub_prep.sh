@@ -35,6 +35,37 @@ base_revision=$(git rev-parse '@')
 echo $base_revision > /tmp/base_revision
 echo "Base revision $base_revision"
 
+fold_start "UPDATING_BUILT_IN_FILES"
+built_in_manifest="${TRAVIS_BUILD_DIR}/.ci/built_in_manifest"
+lines=$(cat "${built_in_manifest}")
+while read line; do
+    url=$(echo $line | cut -f1 -d " ")
+    target=$(echo $line | cut -f2 -d " ")
+    curl "${url}" --output "${TRAVIS_BUILD_DIR}/${target}"
+    if [ $? -ne 0 ]; then
+        echo "Failed to update built in file: ${target} from url: ${url}"
+        echo "Please update manifest file: .emacs.d/.ci/built_in_manifest"
+        exit 2
+    fi
+done <"${built_in_manifest}"
+fold_end "UPDATING_BUILT_IN_FILES"
+
+fold_start "CREATING_BUILT_IN_PATCH_FILE"
+git add --all
+git commit -m "Built-in files auto-update: $(date -u)"
+if [ $? -ne 0 ]; then
+    echo "Built-in files don't need an update."
+else
+    git format-patch -1 HEAD --stdout > /tmp/built_in.patch
+    if [ $? -ne 0 ]; then
+        echo "Failed to create built-in patch file."
+        exit 2
+    fi
+    git reset --hard HEAD~1
+    cat /tmp/built_in.patch
+fi
+fold_end "CREATING_BUILT_IN_PATCH_FILE"
+
 fold_start "FORMATTING_DOCUMENTATION"
 docker run \
        --rm \
@@ -56,8 +87,10 @@ if [ $? -ne 0 ]; then
 else
     git format-patch -1 HEAD --stdout > /tmp/docfmt.patch
     if [ $? -ne 0 ]; then
-        echo "Failed to create patch file."
+        echo "Failed to create documentation patch file."
+        exit 2
     fi
+    git reset --hard HEAD~1
     cat /tmp/docfmt.patch
 fi
 fold_end "CREATING_DOCUMENTATION_PATCH_FILE"

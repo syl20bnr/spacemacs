@@ -1,13 +1,25 @@
 ;;; core-spacemacs.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 (defconst spacemacs-repository "spacemacs"
   "Name of the Spacemacs remote repository.")
 (defconst spacemacs-repository-owner "syl20bnr"
@@ -36,6 +48,14 @@
   "Time of last version check.")
 (defvar spacemacs-version--startup-check-interval (* 3600 24)
   "Minimum number of seconds between two version checks at startup.")
+(defvar spacemacs-revision--last nil
+  "Last detected git revision of `spacemacs-start-directory' or nil.
+NOTE: This variable will be set asynchronously after Spacemacs startup.")
+(defvar spacemacs-revision--file
+  (expand-file-name (concat spacemacs-cache-directory "spacemacs-revision"))
+  "File where the last revision of `spacemacs-start-directory' is saved.")
+(defvar spacemacs-revision--changed-hook nil
+  "Hooks to be ran when Spacemacs detects revision change.")
 
 (defun spacemacs/switch-to-version (&optional version)
   "Switch spacemacs to VERSION.
@@ -194,18 +214,18 @@ OWNER REPO."
 (defun spacemacs//git-has-remote (remote)
   "Return non nil if REMOTE is declared."
   (let ((proc-buffer "git-has-remote")
-       (default-directory (file-truename spacemacs-start-directory)))
+        (default-directory (file-truename spacemacs-start-directory)))
     (when (eq 0 (process-file "git" nil proc-buffer nil "remote"))
-        (with-current-buffer proc-buffer
-          (prog2
-              (goto-char (point-min))
-              (re-search-forward (format "^%s$" remote) nil 'noerror)
-            (kill-buffer proc-buffer))))))
+      (with-current-buffer proc-buffer
+        (prog2
+            (goto-char (point-min))
+            (re-search-forward (format "^%s$" remote) nil 'noerror)
+          (kill-buffer proc-buffer))))))
 
 (defun spacemacs//git-add-remote (remote url)
   "Add a REMOTE with URL, return t if no error."
   (let ((proc-buffer "git-add-remote")
-       (default-directory (file-truename spacemacs-start-directory)))
+        (default-directory (file-truename spacemacs-start-directory)))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
                             "remote" "add" remote url))
@@ -214,7 +234,7 @@ OWNER REPO."
 (defun spacemacs//git-remove-remote (remote)
   "Remove a REMOTE, return t if no error."
   (let ((proc-buffer "git-remove-remote")
-       (default-directory (file-truename spacemacs-start-directory)))
+        (default-directory (file-truename spacemacs-start-directory)))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
                             "remote" "remove" remote))
@@ -223,7 +243,7 @@ OWNER REPO."
 (defun spacemacs//git-fetch-remote (remote)
   "Fetch last commits from REMOTE, return t if no error."
   (let ((proc-buffer "git-fetch-remote")
-       (default-directory (file-truename spacemacs-start-directory)))
+        (default-directory (file-truename spacemacs-start-directory)))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
                             "fetch" remote))
@@ -232,7 +252,7 @@ OWNER REPO."
 (defun spacemacs//git-fetch-tags (remote branch)
   "Fetch the tags for BRANCH in REMOTE repository."
   (let ((proc-buffer "git-fetch-tags")
-       (default-directory (file-truename spacemacs-start-directory)))
+        (default-directory (file-truename spacemacs-start-directory)))
     (prog1
         ;;;; original comment: seems necessary to fetch first
         ;; but we remove this according to issue #6692 proposal
@@ -246,61 +266,61 @@ OWNER REPO."
 (defun spacemacs//git-hard-reset-to-tag (tag)
   "Hard reset the current branch to specified TAG."
   (let ((proc-buffer "git-hard-reset")
-       (default-directory (file-truename spacemacs-start-directory)))
-    (prog1
-        (eq 0 (process-file "git" nil proc-buffer nil
-                            "reset" "--hard" tag))
-      (kill-buffer proc-buffer))))
+        (default-directory (file-truename spacemacs-start-directory)))
+    (prog1 (eq 0 (process-file "git" nil proc-buffer nil
+                               "reset" "--hard" tag))
+      (kill-buffer proc-buffer)
+      (spacemacs//revision-update))))
 
 (defun spacemacs//git-latest-tag (remote branch)
   "Returns the latest tag on REMOTE/BRANCH."
   (let ((proc-buffer "git-latest-tag")
-       (default-directory (file-truename spacemacs-start-directory))
-       (where (format "%s/%s" remote branch)))
+        (default-directory (file-truename spacemacs-start-directory))
+        (where (format "%s/%s" remote branch)))
     (when (eq 0 (process-file "git" nil proc-buffer nil
                               "describe" "--tags" "--abbrev=0"
                               "--match=v*" where "FETCH_HEAD"))
       (with-current-buffer proc-buffer
         (prog1
             (when (buffer-string)
-                (goto-char (point-max))
-                (forward-line -1)
-                (replace-regexp-in-string
-                 "\n$" ""
-                 (buffer-substring (line-beginning-position)
-                                   (line-end-position))))
+              (goto-char (point-max))
+              (forward-line -1)
+              (replace-regexp-in-string
+               "\n$" ""
+               (buffer-substring (line-beginning-position)
+                                 (line-end-position))))
           (kill-buffer proc-buffer))))))
 
 (defun spacemacs//git-checkout (branch)
   "Checkout the given BRANCH. Return t if there is no error."
   (let ((proc-buffer "git-checkout")
-       (default-directory (file-truename spacemacs-start-directory)))
+        (default-directory (file-truename spacemacs-start-directory)))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
                             "checkout" branch))
       (kill-buffer proc-buffer))))
 
 (defun spacemacs//git-get-current-branch ()
-   "Return the current branch. Return nil if an error occurred."
-   (let ((proc-buffer "git-get-current-branch")
+  "Return the current branch. Return nil if an error occurred."
+  (let ((proc-buffer "git-get-current-branch")
         (default-directory (file-truename spacemacs-start-directory)))
-     (when (eq 0 (process-file "git" nil proc-buffer nil
-                               "symbolic-ref" "--short" "-q" "HEAD"))
-       (with-current-buffer proc-buffer
-         (prog1
-             (when (buffer-string)
-               (goto-char (point-min))
-               (replace-regexp-in-string
-                "\n$" ""
-                (buffer-substring (line-beginning-position)
-                                  (line-end-position))))
-           (kill-buffer proc-buffer))))))
+    (when (eq 0 (process-file "git" nil proc-buffer nil
+                              "symbolic-ref" "--short" "-q" "HEAD"))
+      (with-current-buffer proc-buffer
+        (prog1
+            (when (buffer-string)
+              (goto-char (point-min))
+              (replace-regexp-in-string
+               "\n$" ""
+               (buffer-substring (line-beginning-position)
+                                 (line-end-position))))
+          (kill-buffer proc-buffer))))))
 
 (defun spacemacs//git-working-directory-dirty ()
   "Non-nil if the user's emacs directory is not clean.
 Returns the output of git status --porcelain."
   (let ((proc-buffer "git-working-directory-dirty")
-       (default-directory (file-truename spacemacs-start-directory)))
+        (default-directory (file-truename spacemacs-start-directory)))
     (when (eq 0 (process-file "git" nil proc-buffer nil
                               "status" "--porcelain"))
       (with-current-buffer proc-buffer
@@ -330,7 +350,7 @@ Returns the output of git status --porcelain."
 Example: (1 42 3) = 1 042 003"
   (let ((i -1))
     (cl-reduce '+ (mapcar (lambda (n) (setq i (1+ i)) (* n (expt 10 (* i 3))))
-                       (reverse version)))))
+                          (reverse version)))))
 
 (defun spacemacs/set-new-version-lighter-mode-line-faces ()
   "Define or set the new version lighter mode-line faces."
@@ -339,5 +359,43 @@ Example: (1 42 3) = 1 042 003"
 (spacemacs/set-new-version-lighter-mode-line-faces)
 (add-hook 'spacemacs-post-theme-change-hook
           'spacemacs/set-new-version-lighter-mode-line-faces)
+
+(defun spacemacs//revision-update ()
+  "Update saved revision value and trigger `spacemacs-revision--changed-hook'."
+  (let ((proc-buffer "spacemacs//revision-update:git-get-current-rev"))
+    (when (eq 0 (process-file "git" nil proc-buffer nil "rev-parse" "HEAD"))
+      (with-current-buffer proc-buffer
+        (goto-char 1)
+        (setq spacemacs-revision--last (current-word))
+        (kill-buffer proc-buffer))))
+  (spacemacs/dump-vars-to-file '(spacemacs-revision--last)
+                               spacemacs-revision--file)
+  (run-hooks 'spacemacs-revision--changed-hook))
+
+(defun spacemacs//revision-check ()
+  "Update saved value of the current revision asynchronously.
+If old and new revisions are different `spacemacs-revision--changed-hook'
+ will be triggered."
+  (when (file-exists-p spacemacs-revision--file)
+    (load spacemacs-revision--file nil t))
+  (require 'async)
+  (async-start
+   `(lambda ()
+      (let ((proc-buffer "spacemacs//revision-check:git-get-current-rev")
+            (default-directory (file-truename ,spacemacs-start-directory))
+            (new_rev))
+        (when (eq 0 (process-file "git" nil proc-buffer nil "rev-parse" "HEAD"))
+          (with-current-buffer proc-buffer
+            (goto-char 1)
+            (setq new_rev (current-word))
+            (kill-buffer proc-buffer)))
+        (with-temp-file ,spacemacs-revision--file
+          (insert (format "(setq spacemacs-revision--last %S)" new_rev))
+          (make-directory (file-name-directory ,spacemacs-revision--file) t))
+        new_rev))
+   (lambda (new_rev)
+     (unless (string= spacemacs-revision--last new_rev)
+       (setq spacemacs-revision--last new_rev)
+       (run-hooks 'spacemacs-revision--changed-hook)))))
 
 (provide 'core-release-management)
