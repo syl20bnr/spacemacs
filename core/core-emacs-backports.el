@@ -25,8 +25,7 @@
 
 (provide 'core-emacs-backports)
 
-(when (and (version<  "25" emacs-version)
-           (version< emacs-version "26.3"))
+(when (version< emacs-version "26.3")
   ;; Hack to prevent TLS error with Emacs 26.1 and 26.2 and gnutls 3.6.4 and
   ;; above see https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
   (message (concat "Testing if your Emacs version %s and GnuTLS version "
