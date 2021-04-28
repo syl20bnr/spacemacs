@@ -40,7 +40,7 @@
     :defer t
     ;; explicitly run prog-mode hooks since erlang mode does is not
     ;; derived from prog-mode major-mode
-    :hook (erlang-mode . spacemacs//run-prog-mode-hooks)
+    :hook (erlang-mode . spacemacs/run-prog-mode-hooks)
           (erlang-mode . spacemacs//erlang-default)
           (erlang-mode-local-vars . spacemacs//erlang-setup-backend)
     :init
