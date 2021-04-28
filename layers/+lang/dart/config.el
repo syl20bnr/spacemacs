@@ -27,3 +27,4 @@
 (defvar dart-backend 'lsp
   "The backend to use for IDE features.
 Possible values are `analyzer' and `lsp'.")
+(put 'dart-backend 'safe-local-variable #'symbolp)

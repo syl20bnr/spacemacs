@@ -4,17 +4,16 @@
 
 [[file:img/spacemacsOS.jpg]]
 
-* Table of Contents                                                 :TOC_5_gh:noexport:
-  - [[#description][Description]]
-    - [[#features][Features:]]
-  - [[#install][Install]]
-    - [[#layer][Layer]]
-    - [[#note-about-display-managers][Note about Display Managers]]
-    - [[#not-having-display-managers][Not having Display Managers]]
-    - [[#osx][OSX]]
-  - [[#key-bindings][Key bindings]]
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#note-about-display-managers][Note about Display Managers]]
+  - [[#not-having-display-managers][Not having Display Managers]]
+  - [[#osx][OSX]]
+- [[#key-bindings][Key bindings]]
 
-** Description
+* Description
 The time has arrived when one can finally use Emacs as a Window Manager, long
 ago the concepts of *windows* and *frames* made so much sense when one was
 working in a TTY, and basically that's all the window management you got. In
@@ -35,12 +34,12 @@ more awesome, so if you try it and like it, share it!
 ** Features:
 - Support for using Spacemacs as window manager
 
-** Install
+* Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =exwm= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-*** Note about Display Managers
+** Note about Display Managers
 This is most common among Ubuntu and derivative users:
 
 LightDM, GDM, and other Display managers that need a session file will need you
@@ -50,17 +49,17 @@ make sure the [[file:files/exwm-start][exwm-start script]] is in your PATH, you 
 ~/usr/local/bin/exwm-start~ and that should be enough, next time you log out,
 select the EXWM session instead of the Ubuntu one and you should be alright.
 
-*** Not having Display Managers
+** Not having Display Managers
 If you use Arch, Gentoo, or any other Linux, most probably you'll start your
 configurations via a ~.xinitrc~ file, just append ~exwm-start~ to the end of
 that file and you should be fine. I do recommend to check the [[https://github.com/ch11ng/exwm/wiki][EXWM Wiki]] for more
 details.
 
-*** OSX
+** OSX
 If you are an OSX user, please report back on whether this works with xQuartz,
 always back up your data before attempting to try stuff like this.
 
-** Key bindings
+* Key bindings
 As other window managers the ~s~ or *Super* key (Windows Key) is the one that
 is the prefix to every action. We'll use a lot of ~s~.
 
@@ -68,7 +67,7 @@ I have, for convenience, disabled the use of ~C-x~ and ~C-c~ in X windows,
 mainly because that's something we could use for Cutting and Copying text, but if
 you want you can enable it, this layer focuses on less Emacs-y bindings.
 
-| Key Binding           | Description                                    |
+| Key binding           | Description                                    |
 |-----------------------+------------------------------------------------|
 | ~C-q~                 | Send next key pressed to the X window          |
 | ~C-'~                 | Pop shell                                      |

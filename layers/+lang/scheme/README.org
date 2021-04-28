@@ -14,8 +14,9 @@
   - [[#documentation][Documentation]]
   - [[#insertion][Insertion]]
   - [[#macroexpansion][Macroexpansion]]
-  - [[#repl][REPL]]
+  - [[#repl-interaction][REPL interaction]]
   - [[#evaluation][Evaluation]]
+  - [[#repl][REPL]]
 
 * Description
 This layer adds support for Scheme via [[http://geiser.nongnu.org][Geiser]]. Note that combined usage of racket-mode and geiser has not been tested.
@@ -158,7 +159,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 | ~SPC m m f~ | Macroexpand surrounding sexp |
 | ~SPC m m r~ | Macroexpand region           |
 
-** REPL
+** REPL interaction
 
 | Key binding | Description                              |
 |-------------+------------------------------------------|
@@ -181,3 +182,16 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 | ~SPC m e f~ | Evaluate current function |
 | ~SPC m e l~ | Evaluate line             |
 | ~SPC m e r~ | Evaluate region           |
+
+** REPL
+
+| Key binding | Description                 |
+|-------------+-----------------------------|
+| ~g j~       | geiser-repl-next-prompt     |
+| ~g k~       | geiser-repl-previous-prompt |
+| ~SPC m h~   | geiser-doc-symbol-at-point  |
+| ~SPC m i~   | geiser-repl-interrupt       |
+| ~SPC m c~   | geiser-repl-clear-buffer    |
+| ~SPC m m~   | geiser-repl-import-module   |
+| ~SPC m u~   | geiser-repl-unload-function |
+| ~SPC m q~   | geiser-repl-exit            |

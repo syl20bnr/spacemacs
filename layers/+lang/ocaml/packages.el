@@ -32,7 +32,9 @@
     helm-gtags
     imenu
     merlin
+    merlin-company
     merlin-eldoc
+    merlin-iedit
     ocamlformat
     ocp-indent
     smartparens
@@ -40,7 +42,8 @@
     utop))
 
 (defun ocaml/post-init-company ()
-  (when (configuration-layer/package-used-p 'merlin)
+  (when (and (configuration-layer/package-used-p 'merlin)
+             (configuration-layer/package-used-p 'merlin-company))
     (spacemacs|add-company-backends
       :backends merlin-company-backend
       :modes merlin-mode
@@ -108,9 +111,6 @@
                    'spacemacs/merlin-locate)
       (add-hook 'tuareg-mode-hook 'merlin-mode)
 
-      ;; Actively load merline-iedit
-      (require 'merlin-iedit)
-
       (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
         "cp" 'merlin-project-check
         "cv" 'merlin-goto-project-file
@@ -126,13 +126,24 @@
         "hh" 'merlin-document
         "ht" 'merlin-type-enclosing
         "hT" 'merlin-type-expr
-        "rd" 'merlin-destruct
-        "re" 'merlin-iedit-occurrences)
+        "rd" 'merlin-destruct)
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mc" "compile/check")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mE" "errors")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mh" "help")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mr" "refactor"))))
+
+(defun ocaml/init-merlin-company ()
+  (use-package merlin-company
+    :defer t))
+
+(defun ocaml/init-merlin-iedit ()
+  (use-package merlin-iedit
+    :defer t
+    :init
+    (progn
+     (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+       "re" 'merlin-iedit-occurrences))))
 
 (defun ocaml/post-init-imenu ()
   (add-hook 'merlin-mode-hook #'merlin-use-merlin-imenu))

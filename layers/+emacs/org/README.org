@@ -27,6 +27,7 @@
   - [[#org-brain-support][Org-brain support]]
   - [[#org-roam-support][Org-roam support]]
     - [[#org-roam-server-support][Org-roam-server support]]
+    - [[#org-roam-protocol-support][Org-roam-protocol support]]
   - [[#mode-line-support][Mode line support]]
   - [[#sticky-header-support][Sticky header support]]
   - [[#epub-support][Epub support]]
@@ -34,6 +35,7 @@
   - [[#valign-support][Valign support]]
   - [[#org-appear-support][Org-appear support]]
   - [[#verb-support][Verb support]]
+  - [[#asciidoc-support][AsciiDoc support]]
   - [[#spacemacs-layout-integration][Spacemacs layout integration]]
 - [[#key-bindings][Key bindings]]
   - [[#starting-org-mode][Starting org-mode]]
@@ -423,6 +425,18 @@ More information about org-roam package (including manual) can be found at [[htt
 To install support for [[https://github.com/org-roam/org-roam-server][org-roam-server]] set the variable =org-enable-roam-server=
 to =t=.
 
+*** Org-roam-protocol support
+To enable support for [[https://www.orgroam.com/manual.html#Roam-Protocol][Org Roam Protocol]] set the variable
+=org-enable-roam-protocol= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (org :variables
+         org-enable-roam-protocol t)))
+#+END_SRC
+
+And create a desktop file as described in the [[https://www.orgroam.com/manual.html#Roam-Protocol][org-roam manual]].
+
 ** Mode line support
 To temporarily enable mode line display of org clock, press ~SPC t m c~.
 
@@ -498,6 +512,15 @@ To install [[https://github.com/federicotdn/verb][Verb]], an HTTP client based o
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
    '((org :variables org-enable-verb-support t)))
+#+END_SRC
+
+** AsciiDoc support
+To install Org exporter [[https://github.com/yashi/org-asciidoc][ox-asciidoc]], that generates AsciiDoc documents, set the
+variable =org-enable-asciidoc-support= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((org :variables org-enable-asciidoc-support t)))
 #+END_SRC
 
 ** Spacemacs layout integration

@@ -94,4 +94,11 @@ ATTENTION: `valign-mode' will be laggy working with tables contain more than 100
   "If non-nil, enable org-appear in org-mode buffers.")
 
 (defvar org-enable-roam-server nil
-  "if non-nil, enable org-roam-server support")
+  "If non-nil, enable org-roam-server support.")
+
+(defvar org-enable-roam-protocol nil
+  "If non-nil, enable org-roam-protocol.
+See https://www.orgroam.com/manual.html#Roam-Protocol.")
+  
+(defvar org-enable-asciidoc-support nil
+  "If non-nil, enable ox-asciidoc.")

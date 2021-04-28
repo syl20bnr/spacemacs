@@ -28,24 +28,23 @@
         ggtags
         counsel-gtags
         helm-gtags
-        flycheck
-        ))
+        flycheck))
+
 
 (defun erlang/post-init-company ()
   ;; backend specific
-  (spacemacs//erlang-setup-company))
+  (add-hook 'erlang-mode-local-vars-hook #'spacemacs//erlang-setup-company))
 
 (defun erlang/init-erlang ()
   (use-package erlang
     :defer t
+    ;; explicitly run prog-mode hooks since erlang mode does is not
+    ;; derived from prog-mode major-mode
+    :hook (erlang-mode . spacemacs//run-prog-mode-hooks)
+          (erlang-mode . spacemacs//erlang-default)
+          (erlang-mode-local-vars . spacemacs//erlang-setup-backend)
     :init
     (progn
-      ;; explicitly run prog-mode hooks since erlang mode does is not
-      ;; derived from prog-mode major-mode
-      (spacemacs/add-to-hook 'erlang-mode-hook
-                             '(spacemacs/run-prog-mode-hooks
-                               spacemacs//erlang-setup-backend
-                               spacemacs//erlang-default))
       ;; (setq erlang-root-dir "/usr/lib/erlang/erts-5.10.3")
       ;; (add-to-list 'exec-path "/usr/lib/erlang/erts-5.10.3/bin")
       ;; (setq erlang-man-root-dir "/usr/lib/erlang/erts-5.10.3/man")

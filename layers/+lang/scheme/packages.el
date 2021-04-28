@@ -41,7 +41,7 @@
 
 (defun scheme/post-init-company ()
   ;; Geiser provides completion as long as company mode is loaded.
-  (spacemacs|add-company-backends :modes scheme-mode))
+  (spacemacs|add-company-backends :modes scheme-mode :backends geiser-company-backend))
 
 (defun scheme/pre-init-evil-cleverparens ()
   (spacemacs|use-package-add-hook evil-cleverparens
@@ -51,7 +51,7 @@
 (defun scheme/init-geiser ()
   (use-package geiser
     :commands run-geiser
-    :init (spacemacs/register-repl 'geiser 'geiser-mode-switch-to-repl "geiser")
+    :init (spacemacs/register-repl 'geiser 'run-geiser "geiser")
     :config
     (progn
       ;; prefixes
@@ -100,7 +100,19 @@
         "se" 'geiser-eval-last-sexp
         "sr" 'geiser-eval-region
         "sR" 'geiser-eval-region-and-go
-        "ss" 'geiser-set-scheme))))
+        "ss" 'geiser-set-scheme)
+
+      (evil-define-key 'normal 'geiser-repl-mode-map
+      "gj" 'geiser-repl-next-prompt
+      "gk" 'geiser-repl-previous-prompt)
+
+      (spacemacs/set-leader-keys-for-major-mode 'geiser-repl-mode
+        "q" 'geiser-repl-exit
+        "c" 'geiser-repl-clear-buffer
+        "i" 'geiser-repl-interrupt
+        "m" 'geiser-repl-import-module
+        "u" 'geiser-repl-unload-function
+        "h" 'geiser-doc-symbol-at-point))))
 
 (defun scheme/post-init-ggtags ()
   (add-hook 'scheme-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
