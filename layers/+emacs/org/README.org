@@ -12,6 +12,7 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#agenda-notifications][Agenda notifications]]
+  - [[#agenda-recommendations][Agenda recommendations]]
   - [[#github-support][GitHub support]]
   - [[#twitter-bootstrap-support][Twitter Bootstrap support]]
   - [[#gnuplot-support][Gnuplot support]]
@@ -25,6 +26,8 @@
   - [[#project-support][Project support]]
   - [[#org-brain-support][Org-brain support]]
   - [[#org-roam-support][Org-roam support]]
+    - [[#org-roam-server-support][Org-roam-server support]]
+    - [[#org-roam-protocol-support][Org-roam-protocol support]]
   - [[#mode-line-support][Mode line support]]
   - [[#sticky-header-support][Sticky header support]]
   - [[#epub-support][Epub support]]
@@ -32,6 +35,7 @@
   - [[#valign-support][Valign support]]
   - [[#org-appear-support][Org-appear support]]
   - [[#verb-support][Verb support]]
+  - [[#asciidoc-support][AsciiDoc support]]
   - [[#spacemacs-layout-integration][Spacemacs layout integration]]
 - [[#key-bindings][Key bindings]]
   - [[#starting-org-mode][Starting org-mode]]
@@ -125,28 +129,56 @@ To enable notifications for agenda events, set the variable
          org-start-notification-daemon-on-startup t)))
 #+END_SRC
 
-This will install and configure the [[https://github.com/akhramov/org-wild-notifier.el][org-wild-notifier]] package. After install run
-the =org-wild-notifier-mode= to start the =org-wild-notifier= notification daemon. To
-start the notification daemon automatically on Spacemacs startup, set the
-variable =org-start-notification-daemon-on-startup= to =t= as shown in the code
-snippet above.
+This will install and configure the [[https://github.com/akhramov/org-wild-notifier.el][org-wild-notifier]] package. After install,
+run the =org-wild-notifier-mode= to start the =org-wild-notifier= notification
+daemon. To start the notification daemon automatically on Spacemacs startup, set
+the variable =org-start-notification-daemon-on-startup= to =t= as shown in the
+code snippet above.
 
-Documentation for how the notifications system can be configured is provided
-[[https://github.com/akhramov/org-wild-notifier.el#configuration][here]] (on GNU/linux and Windows, using the =notifications= style is recommended.
-Note also [[https://github.com/jwiegley/alert/pull/94][this issue]]).
+Documentation for how org-wild-notifier can be configured is provided [[https://github.com/akhramov/org-wild-notifier.el#configuration][here]]
+(org-wild-notifier uses the [[https://melpa.org/#/alert][alert]] package for showing notifications. On
+GNU/linux and Windows, using alert's [[https://github.com/jwiegley/alert#builtin-alert-styles][notifications]] style is recommended. Note
+also [[https://github.com/jwiegley/alert/pull/94][this issue]]).
 
 Press =M-S RET= to enter a todo headline and then press =, d t= to add a
-timestamp to the headline (or use the =org-journal-new-scheduled-entry= that
-becomes available by enabling =Org-journal support=. By default, the
-=org-wild-notifier= package will scan your =org-agenda-files= (every minute) for
-=TODO= headlines that include a timestamp (configuration options are documented
-[[https://github.com/akhramov/org-wild-notifier.el#configuration][here]]). The default configuration shows a notification 10 minutes before the
-event using the [[https://melpa.org/#/alert][alert]] package. The default behavior can be configured via the
-=org-wild-notifier-alert-time= variable. The notification type can be configured
-via the [[https://github.com/jwiegley/alert#for-users][the alert package its configuration settings]]. Additional notification
-times can be added using the [[https://github.com/akhramov/org-wild-notifier.el#configuration][:WILD_NOTIFIER_NOTIFY_BEFORE:]] keyword (*note* that
-[[https://github.com/akhramov/org-wild-notifier.el/issues/46][this additionally requires a =SCHEDULED:= stamp)]]. Properties can be added with
-=, i p=.
+timestamp to the headline (using =, d t= requires the =diary-file= variable to
+point to an existing file, see [[#agenda-recommendations][Agenda recommendations]]. You can also use the
+=org-journal-new-scheduled-entry= that becomes available by enabling [[#org-journal-support][org-journal
+support]]). By default, the =org-wild-notifier= package will scan your
+=org-agenda-files= (every minute) for =TODO= headlines that include a timestamp
+(configuration options are documented [[https://github.com/akhramov/org-wild-notifier.el#configuration][here]]). The default configuration shows a
+notification 10 minutes before the event using the [[https://melpa.org/#/alert][alert]] package. The default
+behavior can be configured via the =org-wild-notifier-alert-time= variable. The
+notification type can be configured via the [[https://github.com/jwiegley/alert#for-users][the alert package its configuration
+settings]]. Additional notification times can be added using the
+[[https://github.com/akhramov/org-wild-notifier.el#configuration][:WILD_NOTIFIER_NOTIFY_BEFORE:]] keyword (*note* that [[https://github.com/akhramov/org-wild-notifier.el/issues/46][this additionally requires a
+=SCHEDULED:= stamp)]]. Properties can be added with =, i p=.
+
+** Agenda recommendations
+Emacs comes with its own diary package included. It is recommended not to use
+the diary directly. Instead of [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Format-of-Diary-File.html][creating a diary file]], create a =diary.org=
+file and set the =diary-file= variable to point to that file. To make the
+holidays, birthdays etc. from the diary show up in the agenda, add the
+diary-style expression entries to your =diary.org= file as shown in the code
+block of the =Calendar/Diary integration= section [[https://orgmode.org/manual/Weekly_002fdaily-agenda.html][here]].
+
+Subsequently, to add appointments to the agenda you could use the following
+syntax:
+
+#+BEGIN_SRC org
+  * Friday, 04/02/2021
+    ** Appointment 1
+    <2021-04-02 Fri 10:10> 
+    ** TODO Appointment 2
+    <2021-04-02 Fri 10:11>
+#+END_SRC
+
+or just use the [[#org-journal-support][org journal system]]. Outside =org-journal= you can still use
+=org-journal-insert-header-at-point= to create the date headers. In the source
+block above, the first appointment will just show up in the agenda. If
+=org-wild-notifier= is configured, then the second appointment will also trigger
+a notification 10 minutes (by default) before its due time (see [[#agenda-notifications][Agenda
+notifications]]).
 
 ** GitHub support
 To install GitHub related extensions like [[https://github.com/larstvei/ox-gfm][ox-gfm]] to export to GitHub
@@ -389,6 +421,22 @@ To install org-roam support set the variable =org-enable-roam-support= to =t=.
 
 More information about org-roam package (including manual) can be found at [[https://www.orgroam.com/][Org-roam]] website.
 
+*** Org-roam-server support
+To install support for [[https://github.com/org-roam/org-roam-server][org-roam-server]] set the variable =org-enable-roam-server=
+to =t=.
+
+*** Org-roam-protocol support
+To enable support for [[https://www.orgroam.com/manual.html#Roam-Protocol][Org Roam Protocol]] set the variable
+=org-enable-roam-protocol= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (org :variables
+         org-enable-roam-protocol t)))
+#+END_SRC
+
+And create a desktop file as described in the [[https://www.orgroam.com/manual.html#Roam-Protocol][org-roam manual]].
+
 ** Mode line support
 To temporarily enable mode line display of org clock, press ~SPC t m c~.
 
@@ -464,6 +512,15 @@ To install [[https://github.com/federicotdn/verb][Verb]], an HTTP client based o
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
    '((org :variables org-enable-verb-support t)))
+#+END_SRC
+
+** AsciiDoc support
+To install Org exporter [[https://github.com/yashi/org-asciidoc][ox-asciidoc]], that generates AsciiDoc documents, set the
+variable =org-enable-asciidoc-support= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((org :variables org-enable-asciidoc-support t)))
 #+END_SRC
 
 ** Spacemacs layout integration
@@ -631,6 +688,7 @@ are also available.
 | ~SPC m s A~   | Archive subtree                 |
 | ~SPC m s b~   | org-tree-to-indirect-buffer     |
 | ~SPC m s d~   | org-cut-subtree                 |
+| ~SPC m s y~   | org-copy-subtree                |
 | ~SPC m s l~   | org-demote-subtree              |
 | ~SPC m s h~   | org-promote-subtree             |
 | ~SPC m s k~   | org-move-subtree-up             |
@@ -1017,18 +1075,19 @@ Key binding prefixes:
 - ~SPC a o r~ (anywhere)
 - ~SPC m r~ (in an org-mode buffer)
 
-| Key binding      | Description                           |
-|------------------+---------------------------------------|
-| ~[prefix] r l~   | Toggle org-roam links visibility      |
-| ~[prefix] r f~   | Find file in org-roam                 |
-| ~[prefix] r i~   | Insert file into org-roam             |
-| ~[prefix] r I~   | Immediately insert file into org-roam |
-| ~[prefix] r g~   | Visualize org-roam graph              |
-| ~[prefix] r b~   | Switch org-roam buffer                |
-| ~[prefix] r d y~ | Open yesterday's daily note           |
-| ~[prefix] r d t~ | Open today's daily note               |
-| ~[prefix] r d T~ | Open tomorrow's daily note            |
-| ~[prefix] r d d~ | Open daily note via calendar view     |
-| ~[prefix] r t a~ | add org-roam tag to file              |
-| ~[prefix] r t d~ | delete org-roam tag from file         |
-| ~[prefix] r a~   | add org-roam alias to file            |
+| Key binding   | Description                           |
+|---------------+---------------------------------------|
+| ~SPC m r l~   | Toggle org-roam links visibility      |
+| ~SPC m r f~   | Find file in org-roam                 |
+| ~SPC m r i~   | Insert file into org-roam             |
+| ~SPC m r I~   | Immediately insert file into org-roam |
+| ~SPC m r g~   | Visualize org-roam graph              |
+| ~SPC m r b~   | Switch org-roam buffer                |
+| ~SPC m r d y~ | Open yesterday's daily note           |
+| ~SPC m r d t~ | Open today's daily note               |
+| ~SPC m r d T~ | Open tomorrow's daily note            |
+| ~SPC m r d d~ | Open daily note via calendar view     |
+| ~SPC m r t a~ | Add org-roam tag to file              |
+| ~SPC m r t d~ | Delete org-roam tag from file         |
+| ~SPC m r a~   | Add org-roam alias to file            |
+| ~SPC m r s~   | Start org-roam server mode            |

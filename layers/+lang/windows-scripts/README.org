@@ -10,7 +10,7 @@
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
   - [[#powershell-powershellel][Powershell (powershell.el)]]
-  - [[#batch-dosel][Batch (dos.el)]]
+  - [[#bat-mode][Bat-mode]]
 
 * Description
 This simple layer adds support for the Powershell scripting language as well
@@ -18,7 +18,8 @@ as support for batch files.
 
 ** Features:
 - Syntax highlighting of powershell =.ps1= files via [[https://github.com/jschaf/powershell.el][powershell.el]]
-- Syntax highlighting of batch =.bat= files via [[https://www.emacswiki.org/emacs/DosMode][dos.el]]
+- Syntax highlighting of batch =.bat= files via [[https://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/progmodes/bat-mode.el][bat-mode]]
+- Auto-completion, code-navigation and refactoring capabilities of batch files via [[https://github.com/josteink/bmx-mode][bmx-mode]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -33,14 +34,16 @@ file.
 | ~SPC m r r~   | Transform marked regexp to regex |
 | ~SPC a t s p~ | Start powershell shell           |
 
-** Batch (dos.el)
+** Bat-mode
 
-| Key binding | Description                          |
-|-------------+--------------------------------------|
-| ~SPC m D~   | ask for a command and display help   |
-| ~SPC m e b~ | evaluate buffer                      |
-| ~SPC m e B~ | evaluate buffer with args            |
-| ~SPC m s~   | insert separator =&=                 |
-| ~SPC m t~   | mini snippet to start a batch script |
-| ~SPC m T~   | big snippet to start a batch script  |
-| ~SPC m z~   | toggle outline                       |
+| Key binding | Description                                     |
+|-------------+-------------------------------------------------|
+| ~SPC m e b~ | evaluate buffer                                 |
+| ~SPC m e B~ | evaluate buffer with args                       |
+| ~SPC m h h~ | show help of command                            |
+| ~SPC m i t~ | insert minimal template                         |
+| ~SPC m z~   | toggle outline                                  |
+| ~SPC m g d~ | jump to definition                              |
+| ~SPC m g r~ | find references                                 |
+| ~SPC m r r~ | rename symbol                                   |
+| ~SPC m r f~ | ensure all symbols has consistent casing/syntax |

@@ -1,58 +1,59 @@
 ;;; funcs.el --- Auctex Layer Functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defun spacemacs//latex-backend ()
-  "Returns selected backend."
-  (if latex-backend
-      latex-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'company-auctex))))
 
 (defun spacemacs//latex-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//latex-backend)
-    ;; Activate lsp company explicitly to activate
-    ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
-            :backends company-capf
-            :modes LaTeX-mode))
-    (_ (when (configuration-layer/package-used-p 'company-auctex)
-         (if (configuration-layer/package-used-p 'company-math)
-             (spacemacs|add-company-backends
-               :backends
-               company-math-symbols-unicode
-               company-math-symbols-latex
-               (company-auctex-macros)
-               company-auctex-symbols
-               company-auctex-environments
-               :modes LaTeX-mode)
+  (pcase latex-backend
+    ('lsp
+     (spacemacs|add-company-backends ;; Activate lsp company explicitly to activate
+       :backends company-capf        ;; standard backends as well
+       :modes LaTeX-mode))
+    ('company-auctex
+     (when (configuration-layer/package-used-p 'company-auctex)
+       (if (configuration-layer/package-used-p 'company-math)
            (spacemacs|add-company-backends
-             :backends
-             (company-auctex-macros)
-             company-auctex-symbols
-             company-auctex-environments
-             :modes LaTeX-mode)))
-       (when (configuration-layer/package-used-p 'company-reftex)
+             :backends company-math-symbols-unicode
+                       company-math-symbols-latex
+                       company-auctex-macros
+                       company-auctex-symbols
+                       company-auctex-environments
+             :modes LaTeX-mode)
          (spacemacs|add-company-backends
-           :backends
-           company-reftex-labels
-           company-reftex-citations
-           :modes LaTeX-mode)))))
+           :backends company-auctex-macros
+                     company-auctex-symbols
+                     company-auctex-environments
+           :modes LaTeX-mode)))
+     (when (configuration-layer/package-used-p 'company-reftex)
+      (spacemacs|add-company-backends
+        :backends company-reftex-labels
+                  company-reftex-citations
+        :modes LaTeX-mode)))))
 
 (defun spacemacs//latex-setup-backend ()
   "Conditionally setup latex backend."
-  (pcase (spacemacs//latex-backend)
-    (`lsp (require 'lsp-latex)
-          (lsp))))
+  (when (eq latex-backend 'lsp)
+    (require 'lsp-latex)
+    (lsp)))
 
 (defun latex/build ()
   (interactive)

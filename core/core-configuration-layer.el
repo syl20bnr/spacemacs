@@ -1,14 +1,26 @@
 ;; -*- nameless-current-name: "configuration-layer" -*-
 ;;; core-configuration-layer.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (require 'cl-lib)
 (require 'epg)
@@ -993,7 +1005,7 @@ a new object."
         (princ (if (cfgl-package-toggled-p pkg t) "on" "off"))
         (princ " because the following expression evaluates to ")
         (princ (if (cfgl-package-toggled-p pkg t) "t:\n" "nil:\n"))
-        (princ (oref pkg :toggle))
+        (prin1 (oref pkg :toggle))
         (princ "\n"))
       (when (oref pkg :requires)
         (princ "\nThis package requires the following packages: ")
@@ -1381,6 +1393,15 @@ Returns nil if the directory is not a category."
       (when (string-match "^+" dirname)
         (intern (substring dirname 1))))))
 
+(defun configuration-layer//get-layer-parent-category (layer-name)
+  "Return a parent category symbol for given LAYER-NAME.
+Returns nil if there is no layer named LAYER-NAME."
+  (when-let ((lp (configuration-layer/get-layer-path layer-name)))
+    (thread-last lp
+      directory-file-name
+      file-name-directory
+      configuration-layer//get-category-from-path)))
+
 (defun configuration-layer/discover-layers (&optional refresh-index)
   "Initialize `configuration-layer--indexed-layers' with layer directories.
 If REFRESH-INDEX is non-nil, the layer index is cleared before
@@ -1591,7 +1612,11 @@ RNAME is the name symbol of another existing layer."
       (let ((var (pop variables)))
         (if (consp variables)
             (condition-case-unless-debug err
-                (set-default var (eval (pop variables)))
+                (let ((val (eval (pop variables))))
+                  (when (get var 'spacemacs-customization--variable)
+                    (spacemacs-customization//validate
+                     val (custom-variable-type var)))
+                  (set-default var val))
               ('error
                (configuration-layer//error
                 (concat "\nAn error occurred while setting layer "
@@ -1636,7 +1661,11 @@ RNAME is the name symbol of another existing layer."
   "Configure layers with LAYER-NAMES."
   (let ((warning-minimum-level :error))
     (dolist (layer-name layer-names)
-      (configuration-layer//load-layer-files layer-name '("config.el")))))
+      (let ((spacemacs-customization--current-group
+             (spacemacs-customization//create-layer-group
+              layer-name
+              (configuration-layer//get-layer-parent-category layer-name))))
+        (configuration-layer//load-layer-files layer-name '("config.el"))))))
 
 (defun configuration-layer//declare-used-packages (layers)
   "Declare used packages contained in LAYERS."
@@ -2096,6 +2125,7 @@ LAYER must not be the owner of PKG."
 If called with a prefix argument or NO-CONFIRMATION is non-nil then assume yes
 to update."
   (interactive "P")
+  (switch-to-buffer spacemacs-buffer-name)
   (spacemacs-buffer/insert-page-break)
   (spacemacs-buffer/append "\nUpdating package archives, please wait...\n")
   (configuration-layer/retrieve-package-archives nil 'force)
@@ -2699,6 +2729,10 @@ continue with the stable ELPA repository installation."
           (error (setq verification-err
                        (format "GnuPGP doesn't seem to be available. %s"
                                (cdr error)))))
+        (when package-gnupghome-dir
+          (with-file-modes 448
+            (make-directory package-gnupghome-dir t))
+          (setf (epg-context-home-directory context) package-gnupghome-dir))
         (unless verification-err
           (condition-case error
               (epg-import-keys-from-file

@@ -6,6 +6,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#install-chicken-scheme-example][Install Chicken scheme example]]
 - [[#structurally-safe-editing][Structurally safe editing]]
 - [[#key-bindings][Key bindings]]
   - [[#compiling][Compiling]]
@@ -13,8 +14,9 @@
   - [[#documentation][Documentation]]
   - [[#insertion][Insertion]]
   - [[#macroexpansion][Macroexpansion]]
-  - [[#repl][REPL]]
+  - [[#repl-interaction][REPL interaction]]
   - [[#evaluation][Evaluation]]
+  - [[#repl][REPL]]
 
 * Description
 This layer adds support for Scheme via [[http://geiser.nongnu.org][Geiser]]. Note that combined usage of racket-mode and geiser has not been tested.
@@ -28,6 +30,31 @@ This layer adds support for Scheme via [[http://geiser.nongnu.org][Geiser]]. Not
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =scheme= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+Additionally, before geiser can be used with a scheme implementation, support
+for the implementation must be enabled by adding its name to the list of
+=scheme-implementations=. It is recommended to set the value of the list
+directly in the =dotspacemacs-configuration-layers= list as shown in the
+following example for guile and racket:
+
+#+BEGIN_SRC elisp
+  dotspacemacs-configuration-layers
+  '((scheme :variables
+             scheme-implementations '(guile racket)))
+#+END_SRC
+
+Currently support is available for the following scheme implementations:
+chez, chibi, chicken, gambit, gauche, guile, kawa, mit and racket.
+
+Finally, to use a scheme implementation its binary must be available in your
+PATH (or you can manually set the location of the binary as explained in [[https://nongnu.org/geiser/geiser_3.html][this
+section of the geiser documentation]]).
+
+The following subsection shows how to install Chicken scheme and activate geiser
+support.
+
+** Install Chicken scheme example
+First add =chicken= to the list of =scheme-implementations= as explained above.
 
 For full Chicken support, the following commands should be run:
 
@@ -132,7 +159,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 | ~SPC m m f~ | Macroexpand surrounding sexp |
 | ~SPC m m r~ | Macroexpand region           |
 
-** REPL
+** REPL interaction
 
 | Key binding | Description                              |
 |-------------+------------------------------------------|
@@ -155,3 +182,16 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 | ~SPC m e f~ | Evaluate current function |
 | ~SPC m e l~ | Evaluate line             |
 | ~SPC m e r~ | Evaluate region           |
+
+** REPL
+
+| Key binding | Description                 |
+|-------------+-----------------------------|
+| ~g j~       | geiser-repl-next-prompt     |
+| ~g k~       | geiser-repl-previous-prompt |
+| ~SPC m h~   | geiser-doc-symbol-at-point  |
+| ~SPC m i~   | geiser-repl-interrupt       |
+| ~SPC m c~   | geiser-repl-clear-buffer    |
+| ~SPC m m~   | geiser-repl-import-module   |
+| ~SPC m u~   | geiser-repl-unload-function |
+| ~SPC m q~   | geiser-repl-exit            |

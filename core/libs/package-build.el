@@ -253,7 +253,9 @@ is used instead."
       (when (file-exists-p dir)
         (delete-directory dir t))
       (package-build--message "Cloning %s to %s" url dir)
-      (package-build--run-process nil nil "git" "clone" url dir)))
+      (package-build--run-process nil nil "git" "clone"
+                                  "--filter=blob:none" "--no-checkout"
+                                  url dir)))
     (if package-build-stable
         (cl-destructuring-bind (tag . version)
             (or (package-build--find-version-newest
@@ -736,7 +738,9 @@ in `package-build-archive-dir'."
                        (or (package-build--desc-from-package
                             name version commit files)
                            (package-build--desc-from-library
-                            name version commit files 'tar)))))
+                            name version commit files 'tar)
+                           (error "%s[-pkg].el matching package name is missing"
+                                  name)))))
           (package-build--copy-package-files files source-dir target)
           (package-build--write-pkg-file desc target)
           (package-build--generate-info-files files source-dir target)

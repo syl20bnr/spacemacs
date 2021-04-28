@@ -1,13 +1,25 @@
 ;;; packages.el --- Mandatory Bootstrap Layer packages File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (setq spacemacs-bootstrap-packages
       '(
@@ -29,8 +41,8 @@
         (holy-mode :location local :step pre)
         (hybrid-mode :location (recipe :fetcher local) :step pre)
         (spacemacs-theme :location built-in)
-        dash
-        ))
+        dash))
+
 
 
 ;; bootstrap packages
@@ -40,7 +52,7 @@
 (defun spacemacs-bootstrap/init-bind-key ())
 
 (defun spacemacs-bootstrap/init-diminish ()
-  (when (not (configuration-layer/package-used-p 'spaceline))
+  (unless (configuration-layer/package-used-p 'spaceline)
     (add-hook 'after-load-functions 'spacemacs/diminish-hook)))
 
 (defun spacemacs-bootstrap/init-dotenv-mode ()
@@ -280,13 +292,13 @@
   ;; turn off evil in corelv buffers
   (add-to-list 'evil-buffer-regexps '("\\*LV\\*"))
 
-  ;; replace `dired-goto-file' with `helm-find-files', since `helm-find-files'
-  ;; can do the same thing and with fuzzy matching and other features.
+  ;; replace `dired-goto-file' with equivalent helm and ivy functions:
+  ;; `spacemacs/helm-find-files' fuzzy matching and other features
+  ;; `spacemacs/counsel-find-file' more `M-o' actions
   (with-eval-after-load 'dired
-    (evil-define-key 'normal dired-mode-map "J" 'spacemacs/helm-find-files)
-    (define-key dired-mode-map "j" 'spacemacs/helm-find-files)
-    (evil-define-key 'normal dired-mode-map (kbd dotspacemacs-leader-key)
-      spacemacs-default-map))
+    (define-key dired-mode-map "j"
+      (cond ((configuration-layer/layer-used-p 'helm) 'spacemacs/helm-find-files)
+            ((configuration-layer/layer-used-p 'ivy) 'spacemacs/counsel-find-file))))
 
   ;; support smart 1parens-strict-mode
   (when (configuration-layer/package-used-p 'smartparens)
@@ -320,7 +332,8 @@
         ;; inject use-package hooks for easy customization of stock package
         ;; configuration
         use-package-inject-hooks t)
-  (add-to-list 'use-package-keywords :spacebind t))
+  (add-to-list 'use-package-keywords :spacebind t)
+  (add-to-list 'use-package-keywords :spacediminish t))
 
 (defun spacemacs-bootstrap/init-which-key ()
   (require 'which-key)
@@ -349,7 +362,7 @@
   (spacemacs/declare-prefix "tk" "which-key-persistent")
   (setq which-key-toggle-of-message
         "To exit which-key-persistent-mode use `which-key-toggle-persistent'.")
-  
+
   (spacemacs|add-toggle which-key-toggle-persistent
     :status which-key-persistent-popup
     :on (setq which-key-persistent-popup t)
@@ -416,8 +429,8 @@ Press \\[which-key-toggle-persistent] to hide."
            ("evil-lisp-state-\\(.+\\)" . "\\1")
            ("helm-mini\\|ivy-switch-buffer" . "list-buffers")
            ("lazy-helm/\\(.+\\)" . "\\1")
-           ("lazy-helm/spacemacs/\\(.+\\)" . "\\1")
-           )))
+           ("lazy-helm/spacemacs/\\(.+\\)" . "\\1"))))
+
     (dolist (nd new-descriptions)
       ;; ensure the target matches the whole string
       (push (cons (cons nil (concat "\\`" (car nd) "\\'")) (cons nil (cdr nd)))
@@ -543,7 +556,7 @@ Press \\[which-key-toggle-persistent] to hide."
 
   ;; hide the "C-c -> eyebrowse-create-window-config" entry
   (push '(("\\(.*\\)C-c C-w C-c" . "eyebrowse-create-window-config") . t)
-          which-key-replacement-alist)
+         which-key-replacement-alist)
 
   ;; C-c C-d-
   ;; Combine the d and C-d key entries
@@ -553,7 +566,7 @@ Press \\[which-key-toggle-persistent] to hide."
 
   ;; hide the "C-d -> elisp-slime-nav-describe-elisp-thing-at-point" entry
   (push '(("\\(.*\\)C-c C-d C-d" . "elisp-slime-nav-describe-elisp-thing-at-point") . t)
-          which-key-replacement-alist)
+         which-key-replacement-alist)
 
   (which-key-add-key-based-replacements
     dotspacemacs-leader-key '("root" . "Spacemacs root")
@@ -562,9 +575,9 @@ Press \\[which-key-toggle-persistent] to hide."
   ;; disable special key handling for spacemacs, since it can be
   ;; disorienting if you don't understand it
   (pcase dotspacemacs-which-key-position
-    (`right (which-key-setup-side-window-right))
-    (`bottom (which-key-setup-side-window-bottom))
-    (`right-then-bottom (which-key-setup-side-window-right-bottom)))
+    ('right (which-key-setup-side-window-right))
+    ('bottom (which-key-setup-side-window-bottom))
+    ('right-then-bottom (which-key-setup-side-window-right-bottom)))
 
   (which-key-mode)
   (spacemacs|diminish which-key-mode " Ⓚ" " K"))

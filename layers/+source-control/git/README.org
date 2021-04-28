@@ -9,12 +9,15 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
+  - [[#git][Git]]
   - [[#magit-status-fullscreen][Magit status fullscreen]]
   - [[#magit-auto-complete][Magit auto-complete]]
-  - [[#magit-svn-plugin][Magit SVN plugin]]
+  - [[#magit-plugins][Magit Plugins]]
+    - [[#magit-delta][magit-delta]]
+    - [[#magit-gitflow][magit-gitflow]]
+    - [[#magit-svn][magit-svn]]
+    - [[#magit-todos][magit-todos]]
   - [[#global-git-commit-mode][Global git commit mode]]
-  - [[#git][Git]]
-  - [[#git-flow][Git-Flow]]
   - [[#forge][Forge]]
   - [[#org-integration][Org integration]]
 - [[#working-with-git][Working with Git]]
@@ -25,7 +28,7 @@
   - [[#interactive-rebase-buffer][Interactive rebase buffer]]
   - [[#quick-guide-for-recurring-use-cases-in-magit][Quick guide for recurring use cases in Magit]]
   - [[#git-blame-transient-state][Git Blame Transient State]]
-  - [[#git-flow-1][Git-Flow]]
+  - [[#git-flow][Git-Flow]]
   - [[#git-time-machine][Git time machine]]
   - [[#git-links-to-web-services][Git links to web services]]
   - [[#repository-list][Repository list]]
@@ -53,6 +56,10 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =git= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+** Git
+Of course if your OS does not ship with git (!) you'll have to install it
+on your machine. You can download it from the [[http://git-scm.com/downloads][download page]].
+
 ** Magit status fullscreen
 To display the =magit status= buffer in fullscreen set the variable
 =git-magit-status-fullscreen= to =t= in your =dotspacemacs/user-init= function.
@@ -66,22 +73,56 @@ To display the =magit status= buffer in fullscreen set the variable
 Magit auto-complete feature is enabled by default.
 For this feature to work best - setup [[#repository-list][magit repository list]].
 
-** Magit SVN plugin
-The magit SVN plugin shows commits which were not pushed to svn yet.
+** Magit Plugins
+*** magit-delta
+[[https://github.com/dandavison/magit-delta][magit-delta]] uses [[https://github.com/dandavison/delta][delta]] to display diffs, with extensive changes to its
+layout and styles.
+
+You need to [[https://github.com/dandavison/delta#installation][install delta]] first, and add the following to your =dotspacemacs/user-config=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((git :variables git-enable-magit-delta-plugin t)))
+#+END_SRC
+
+*** magit-gitflow
+[[https://github.com/petervanderdoes/gitflow-avh][git-flow]] is a standardized branching pattern for git repositories with the aim
+of making things more manageable. While there are tools to assist with making
+this easier, these do nothing you couldn't do manually.
+
+After [[https://github.com/petervanderdoes/gitflow/wiki][installing]] =git-flow=, add the following to your =dotspacemacs/user-config=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((git :variables git-enable-magit-gitflow-plugin t)))
+#+END_SRC
+
+*** magit-svn
+[[https://github.com/emacsorphanage/magit-svn][magit-svn]] shows commits which were not pushed to svn yet.
 Press ~!~ in *Magit* buffer to open the magit-svn-popup.
 There you can push to or rebase from svn.
 
-For convenience the magit SVN plugin can be activated directly in the Git
-layer by setting the variable =git-enable-magit-svn-plugin= to =t=.
+To enable =magit-svn= plugin, add the following to your =dotspacemacs/user-config=:
 
 #+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/user-init ()
-    (setq-default git-enable-magit-svn-plugin t))
+  (setq-default dotspacemacs-configuration-layers
+                '((git :variables git-enable-magit-svn-plugin t)))
 #+END_SRC
 
 | Key binding | Description          |
 |-------------+----------------------|
 | ~~~         | open magit-svn-popup |
+
+*** magit-todos
+[[https://github.com/alphapapa/magit-todos][magit-todos]] displays TODO-entries in source code comments and Org files in the Magit
+status buffer.
+
+To enable =magit-todos= plugin, add the following to your =dotspacemacs/user-config=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((git :variables git-enable-magit-todos-plugin t)))
+#+END_SRC
 
 ** Global git commit mode
 Spacemacs can be used as the =$EDITOR= (or =$GIT_EDITOR=) for editing git
@@ -91,18 +132,6 @@ commits messages. To enable this you have to add the following line to your
 #+BEGIN_SRC emacs-lisp
   (global-git-commit-mode t)
 #+END_SRC
-
-** Git
-Of course if your OS does not ship with git (!) you'll have to install it
-on your machine. You can download it from the [[http://git-scm.com/downloads][download page]].
-
-** Git-Flow
-Git-flow is a standardized branching pattern for git repositories with the aim
-of making things more manageable. While there are tools to assist with making
-this easier, these do nothing you couldn't do manually.
-
-Support requires installation of the git-flow extensions. Please reference their
-[[https://github.com/petervanderdoes/gitflow/wiki][installation page]] for assistance.
 
 ** Forge
 The =forge= package uses =emacsql= which requires a C compiler to be available

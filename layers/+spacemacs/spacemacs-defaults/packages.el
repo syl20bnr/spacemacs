@@ -1,19 +1,32 @@
 ;;; packages.el --- Spacemacs Defaults Layer packages File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (setq spacemacs-defaults-packages
       '(
         (abbrev :location built-in)
         (archive-mode :location built-in)
         (bookmark :location built-in)
+        (buffer-menu :location built-in)
         (conf-mode :location built-in)
         (cus-edit :location built-in
                   :toggle (or (eq 'vim dotspacemacs-editing-style)
@@ -35,6 +48,7 @@
         ;; page-break-lines is shipped with spacemacs core
         (page-break-lines :location built-in)
         (process-menu :location built-in)
+        quickrun
         (recentf :location built-in)
         (savehist :location built-in)
         (saveplace :location built-in)
@@ -45,8 +59,8 @@
         (visual-line-mode :location built-in)
         (whitespace :location built-in)
         (winner :location built-in)
-        (zone :location built-in)
-        ))
+        (zone :location built-in)))
+
 
 ;; Initialization of packages
 
@@ -57,6 +71,11 @@
   (evilified-state-evilify-map archive-mode-map
     :mode archive-mode
     :eval-after-load archive-mode))
+
+(defun spacemacs-defaults/init-buffer-menu ()
+  (with-eval-after-load 'evil-collection
+    (add-to-list
+     'spacemacs-evil-collection-allowed-list '(buff-menu "buff-menu"))))
 
 (defun spacemacs-defaults/init-bookmark ()
   (use-package bookmark
@@ -359,6 +378,14 @@
 (defun spacemacs-defaults/init-process-menu ()
   (evilified-state-evilify process-menu-mode process-menu-mode-map))
 
+(defun spacemacs-defaults/init-quickrun ()
+  (use-package quickrun
+    :defer t
+    :init
+    (setq quickrun-focus-p nil)
+    (spacemacs/set-leader-keys
+      "xx" 'spacemacs/quickrun)))
+
 (defun spacemacs-defaults/init-recentf ()
   (use-package recentf
     :defer (spacemacs/defer)
@@ -505,8 +532,8 @@
                                               "*cvs*"
                                               "*Buffer List*"
                                               "*Ibuffer*"
-                                              "*esh command on file*"
-                                              ))
+                                              "*esh command on file*"))
+
       (setq winner-boring-buffers
             (append winner-boring-buffers spacemacs/winner-boring-buffers)))))
 
@@ -535,11 +562,10 @@
                            ;; zone-pgm-five-oclock-swan-dive
                            ;; zone-pgm-martini-swan-dive
                            zone-pgm-rat-race
-                           zone-pgm-paragraph-spaz
-                           ;; zone-pgm-stress
-                           ;; zone-pgm-stress-destress
-                           ;; zone-pgm-random-life
-                           ])
+                           zone-pgm-paragraph-spaz])
+      ;; zone-pgm-stress
+      ;; zone-pgm-stress-destress
+      ;; zone-pgm-random-life
       (spacemacs/set-leader-keys "TZ" 'zone))
     :config
     ;; be sure to disable running zone if the user does not want it

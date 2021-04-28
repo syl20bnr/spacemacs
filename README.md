@@ -1,31 +1,32 @@
 <a name="top" id="fork-destination-box"></a>
-<a href="http://spacemacs.org"><img src="https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg" alt="Made with Spacemacs"></a><a href="http://www.twitter.com/spacemacs"><img src="http://i.imgur.com/tXSoThF.png" alt="Twitter" align="right"></a><br>
+<a href="https://spacemacs.org"><img src="https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg" alt="Made with Spacemacs"><a href="https://www.gnu.org/licenses/gpl-3.0.en.html"><img src="https://github.com/syl20bnr/spacemacs/blob/655e2886d88f79f4da01d607d29342e7447cad65/assets/gplv3.png" alt="GPLv3 Software" align="right" width="70" height="28"></a></a><a href="https://www.twitter.com/spacemacs"><img src="https://i.imgur.com/tXSoThF.png" alt="Twitter" align="right"></a><br>
 - - -
 <p align="center"><img src="/doc/img/title2.png" alt="Spacemacs"/></p>
 <p align="center">
-<b><a href="http://spacemacs.org/doc/DOCUMENTATION#core-pillars">philosophy</a></b>
+<b><a href="https://spacemacs.org/doc/DOCUMENTATION#core-pillars">philosophy</a></b>
 |
-<b><a href="http://spacemacs.org/doc/DOCUMENTATION#who-can-benefit-from-this">for whom?</a></b>
+<b><a href="https://spacemacs.org/doc/DOCUMENTATION#who-can-benefit-from-this">for whom?</a></b>
 |
-<b><a href="http://spacemacs.org/doc/DOCUMENTATION#screenshots">screenshots</a></b>
+<b><a href="https://spacemacs.org/doc/DOCUMENTATION#screenshots">screenshots</a></b>
 |
-<b><a href="http://spacemacs.org/doc/DOCUMENTATION.html">documentation</a></b>
+<b><a href="https://spacemacs.org/doc/DOCUMENTATION.html">documentation</a></b>
 |
 <b><a href="CONTRIBUTING.org">contribute</a></b>
 |
-<b><a href="http://spacemacs.org/doc/DOCUMENTATION#achievements">achievements</a></b>
+<b><a href="https://spacemacs.org/doc/DOCUMENTATION#achievements">achievements</a></b>
 |
-<b><a href="http://spacemacs.org/doc/FAQ">FAQ</a></b>
+<b><a href="https://spacemacs.org/doc/FAQ">FAQ</a></b>
 </p>
 
 - - -
 
 <p align="center">
 <a href="https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/Join Chat.svg" alt="Gitter"></a>
-<a href="https://circleci.com/gh/syl20bnr/spacemacs/tree/develop"><img src="https://circleci.com/gh/syl20bnr/spacemacs/tree/develop.svg?style=shield" alt="Build Status"></a>
+<a href="https://github.com/syl20bnr/spacemacs/actions/workflows/elisp_test.yml"><img src="https://github.com/syl20bnr/spacemacs/actions/workflows/elisp_test.yml/badge.svg?branch=develop"></a>
+<a href="https://travis-ci.org/syl20bnr/spacemacs"><img src="https://travis-ci.org/syl20bnr/spacemacs.svg?branch=develop"></a>
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ESFVNPKP4Y742"><img src="https://img.shields.io/badge/Paypal-Donate-blue.svg" alt="Donate"></a>
 <a href="https://shop.spreadshirt.com/spacemacs-shop"><img src="https://img.shields.io/badge/Shop-T--Shirts-blue.svg" alt="Donate"></a>
-<a href="http://www.slant.co/topics/12/~what-are-the-best-programming-text-editors"><img src="https://img.shields.io/badge/Slant-Recommend-ff69b4.svg" alt="Recommend it"></a>
+<a href="https://www.slant.co/topics/12/~what-are-the-best-programming-text-editors"><img src="https://img.shields.io/badge/Slant-Recommend-ff69b4.svg" alt="Recommend it"></a>
 </p>
 
 - - -
@@ -208,6 +209,13 @@ Once Emacs is installed, run the following commands in the terminal to install
 the default Source Code Pro font:
 
 ```sh
+brew tap homebrew/cask-fonts
+brew install --cask font-source-code-pro
+```
+
+or in older versions of homebrew
+
+```
 brew tap homebrew/cask-fonts
 brew cask install font-source-code-pro
 ```
@@ -499,7 +507,7 @@ The license is GPLv3 for all parts specific to Spacemacs, this includes:
 For the packages shipped in this repository, you can refer to the files header.
 
 [Spacemacs logo][] by [Nasser Alshammari][] released under a
-[Creative Commons Attribution-ShareAlike 4.0 International License.](http://creativecommons.org/licenses/by-sa/4.0/)
+[Creative Commons Attribution-ShareAlike 4.0 International License.](https://creativecommons.org/licenses/by-sa/4.0/)
 
 # Supporting Spacemacs
 The best way to support Spacemacs is to contribute to it either by reporting
@@ -513,54 +521,54 @@ If you want to show your support financially, then you can contribute to
 [Paypal badge](#top).
 
 If you used spacemacs in a project, and you want to show that fact, you can use
-the spacemacs badge: [![Built with Spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg)](http://spacemacs.org)
+the spacemacs badge: [![Built with Spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg)](https://spacemacs.org)
 
 - For Markdown:
 
    ```markdown
-   [![Built with Spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg)](http://spacemacs.org)
+   [![Built with Spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg)](https://spacemacs.org)
    ```
 
 - For HTML:
 
    ```html
-   <a href="http://spacemacs.org"><img alt="Built with Spacemacs" src="https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg" /></a>
+   <a href="https://spacemacs.org"><img alt="Built with Spacemacs" src="https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg" /></a>
    ```
 
 - For Org-mode:
 
    ```org
-   [[http://spacemacs.org][file:https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg]]
+   [[https://spacemacs.org][file:https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg]]
    ```
 
 Thank you!
 
-[Twitter]: http://i.imgur.com/tXSoThF.png
+[Twitter]: https://i.imgur.com/tXSoThF.png
 [CONTRIBUTING.org]: CONTRIBUTING.org
-[CONVENTIONS.org]: http://spacemacs.org/doc/CONVENTIONS
-[DOCUMENTATION.org]: http://spacemacs.org/doc/DOCUMENTATION
-[QUICK_START.org]: http://spacemacs.org/doc/QUICK_START
-[FAQ.org]: http://spacemacs.org/doc/FAQ
-[VIMUSERS.org]: http://spacemacs.org/doc/VIMUSERS
-[dotfile]: http://spacemacs.org/doc/DOCUMENTATION#dotfile-configuration
-[osx layer]: http://spacemacs.org/layers/+os/osx/README.html
+[CONVENTIONS.org]: https://spacemacs.org/doc/CONVENTIONS
+[DOCUMENTATION.org]: https://spacemacs.org/doc/DOCUMENTATION
+[QUICK_START.org]: https://spacemacs.org/doc/QUICK_START
+[FAQ.org]: https://spacemacs.org/doc/FAQ
+[VIMUSERS.org]: https://spacemacs.org/doc/VIMUSERS
+[dotfile]: https://spacemacs.org/doc/DOCUMENTATION#dotfile-configuration
+[osx layer]: https://spacemacs.org/layers/+os/osx/README.html
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
 [Gitter Chat IRC server]: https://irc.gitter.im/
-[Homebrew]: http://brew.sh
+[Homebrew]: https://brew.sh
 [emacs-plus]: https://github.com/d12frosted/homebrew-emacs-plus
-[powerline documentation]: http://spacemacs.org/doc/DOCUMENTATION.html#powerline-separators
+[powerline documentation]: https://spacemacs.org/doc/DOCUMENTATION.html#powerline-separators
 [emacs-for-windows]: https://ftp.gnu.org/gnu/emacs/windows/
 [gzip-for-windows]: http://gnuwin32.sourceforge.net/packages/gzip.htm
 [the platinum searcher]: https://github.com/monochromegane/the_platinum_searcher
-[so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
+[so-server-unsafe]: https://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
 [Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
 [Nasser Alshammari]: https://github.com/nashamri
 [compilation-warnings]: https://github.com/quelpa/quelpa/issues/90#issuecomment-137982713
 [cpaulik-unity-icon]: http://splendidabacus.com/posts/2015/03/spacemacs-unity-icon/
-[icon-mac-instructions]: http://www.idownloadblog.com/2014/07/16/how-to-change-app-icon-mac/
+[icon-mac-instructions]: https://www.idownloadblog.com/2014/07/16/how-to-change-app-icon-mac/
 [latest tags]: https://github.com/syl20bnr/spacemacs/tags
 [icon-repository]: https://github.com/nashamri/spacemacs-logo
-[Stack Exchange]: http://emacs.stackexchange.com/questions/tagged/spacemacs
+[Stack Exchange]: https://emacs.stackexchange.com/questions/tagged/spacemacs
 [Reddit]: https://www.reddit.com/r/spacemacs
 [quote01]: https://gitter.im/syl20bnr/spacemacs?at=568e627a0cdaaa62045a7df6
 [quote02]: https://gitter.im/syl20bnr/spacemacs?at=5768456c6577f032450cfedb

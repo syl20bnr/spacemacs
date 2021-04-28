@@ -900,15 +900,25 @@ Return a cons cell whose `car' is the root and whose `cdr' is the repository."
   (quelpa-build--run-process-match
    "Fetch URL: \\(.*\\)" dir "git" "remote" "show" "-n" remote))
 
+(defvar quelpa--git-version :uninitialized)
+
 (defun quelpa-build--checkout-git (name config dir)
   "Check package NAME with config CONFIG out of git into DIR."
-  (let* ((repo (plist-get config :url))
+  (let* ((version-regexp-alist `(,@version-regexp-alist ("^[-._+ ]?.*$" . 0)))
+         (git-version (or (when (not (eq quelpa--git-version :uninitialized))
+                            quelpa--git-version)
+                          (setq quelpa--git-version (version-to-list
+                                                     (quelpa-build--run-process-match
+                                                      "git version \\(.*\\)"
+                                                      nil "git" "version")))))
+         (repo (plist-get config :url))
          (remote (or (plist-get config :remote) "origin"))
          (commit (or (plist-get config :commit)
                      (when-let ((branch (plist-get config :branch)))
                        (concat remote "/" branch))))
          (depth (or (plist-get config :depth) quelpa-git-clone-depth))
-         (partial (or (plist-get config :partial) quelpa-git-clone-partial))
+         (partial (and (or (plist-get config :partial) quelpa-git-clone-partial)
+                       (version-list-<= '(2 20) git-version)))
          (force (plist-get config :force))
          (use-current-ref (plist-get config :use-current-ref)))
     (when (string-match (rx bos "file://" (group (1+ anything))) repo)
@@ -1933,8 +1943,8 @@ to install.
 
 When `quelpa' is called interactively with a prefix argument (e.g
 \\[universal-argument] \\[quelpa]) it will try to upgrade the
-given package even if the global var `quelpa-upgrade-p' is set to
-nil."
+given package and remove any old versions of it even if the
+`quelpa-upgrade-p' and `quelpa-autoremove-p' are set to nil."
   (interactive (list nil))
   (run-hooks 'quelpa-before-hook)
   (when (quelpa-setup-p) ;if init fails we do nothing
@@ -1944,7 +1954,7 @@ nil."
                       (quelpa-interactive-candidate))))
            (quelpa-upgrade-p (if current-prefix-arg t quelpa-upgrade-p)) ;shadow `quelpa-upgrade-p'
            (quelpa-stable-p quelpa-stable-p) ;shadow `quelpa-stable-p'
-           (quelpa-autoremove-p (if current-prefix-arg quelpa-autoremove-p nil))
+           (quelpa-autoremove-p (if current-prefix-arg t quelpa-autoremove-p))
            (cache-item (quelpa-arg-rcp arg)))
       (quelpa-parse-plist plist)
       (quelpa-parse-stable cache-item)

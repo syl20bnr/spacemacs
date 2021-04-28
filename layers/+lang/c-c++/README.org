@@ -239,7 +239,7 @@ on Linux or download it manually from [[https://marketplace.visualstudio.com/ite
 ***** LLDB adapter installation
 Install the =lldb-vscode= program. It usually comes with =lldb= from your
 distribution's package repository.
-Alternatively build directly following the [[https://github.com/llvm/llvm-project/tree/master/lldb/tools/lldb-vscode#installation-for-visual-studio-code][official installation instructions]].
+Alternatively build directly following the [[https://github.com/llvm/llvm-project/tree/main/lldb/tools/lldb-vscode#installation-for-visual-studio-code][official installation instructions]].
 
 Adjust the =dap-lldb-debug-program= variable to match the executable.
 
@@ -289,11 +289,11 @@ can be found in the manual: [[http://www.gnu.org/software/emacs/manual/html_node
 
 ** Organize file header includes on save
 To organize the file header includes on save, set the layer variable
-=c++-enable-organize-includes-on-save= to =t= in the dotfile:
+=c-c++-enable-organize-includes-on-save= to =t= in the dotfile:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-                '((c-c++ :variables c++-enable-organize-includes-on-save t)))
+                '((c-c++ :variables c-c++-enable-organize-includes-on-save t)))
 #+END_SRC
 
 ** clang-format

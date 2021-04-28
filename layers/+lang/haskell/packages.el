@@ -1,13 +1,25 @@
 ;;; packages.el --- Haskell Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (setq haskell-packages
       '(
@@ -31,8 +43,7 @@
         helm-gtags
         (helm-hoogle :requires helm)
         hindent
-        hlint-refactor
-        ))
+        hlint-refactor))
 
 (defun haskell/init-lsp-haskell ()
   (use-package lsp-haskell
@@ -86,8 +97,8 @@
   (progn
     (add-hook 'dante-mode-hook
               (lambda () (flycheck-add-next-checker 'haskell-dante '(warning . haskell-hlint))))
-    (spacemacs/enable-flycheck 'haskell-mode))
-  )
+    (spacemacs/enable-flycheck 'haskell-mode)))
+
 
 (defun haskell/init-flycheck-haskell ()
   (use-package flycheck-haskell
@@ -204,7 +215,7 @@
           "dt"  'haskell-debug/trace
 
           "ri"  'spacemacs/haskell-format-imports)
-        (if (eq (spacemacs//haskell-backend) 'lsp)
+        (if (eq haskell-completion-backend 'lsp)
             (spacemacs/set-leader-keys-for-major-mode mode
               "gl"  'haskell-navigate-imports
               "S"   'haskell-mode-stylish-buffer

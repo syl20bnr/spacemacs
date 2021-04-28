@@ -28,6 +28,7 @@
   - [[#i-want-to-learn-elisp-where-do-i-start-][I want to learn elisp, where do I start ?]]
 - [[#how-do-i][How do I]]
   - [[#install-a-package-not-provided-by-a-layer][Install a package not provided by a layer?]]
+  - [[#how-to-override-a-layer-package][How to override a layer package?]]
   - [[#disable-a-package-completely][Disable a package completely?]]
   - [[#disable-a-package-only-for-a-specific-major-mode][Disable a package only for a specific major-mode?]]
   - [[#disable-company-for-a-specific-major-mode][Disable company for a specific major-mode?]]
@@ -286,6 +287,29 @@ Spacemacs provides a variable in the =dotspacemacs/layers= function in
 =.spacemacs= called =dotspacemacs-additional-packages=. Just add a package name
 to the list and it will be installed when you reload your configuration with
 ~SPC f e R~, or at the next Spacemacs launch.
+
+** How to override a layer package?
+To replace a package that is installed and configured by a layer, without
+losing the layer's configuration for that package, add the package to your
+=dotspacemacs-additional-packages= with the =:location= keyword set to the
+value =local=:
+
+#+BEGIN_SRC emacs-lisp
+  (package-name :location local)
+#+END_SRC
+
+The package should reside at =<layer>/local/<package>/= (this could be a
+symbolic link to the real package (repo) directory). The package will still
+get configured (but not loaded) by the layer. To load the package, require it
+from your =dotspacemacs/user-config=: =(require 'package-name)=. In this way
+you can easily switch between the custom version and the version configured by
+the layer by commenting in/out the line in =dotspacemacs-additional-packages=
+(to restore deferred loading also comment out the =require= form in
+=dotspacemacs/user-config=).
+
+You could also fully replace (i.e. overwrite) the layer version of the package
+by using a Quelpa recipe with the pseudo-fetcher =local= as described [[https://develop.spacemacs.org/doc/LAYERS.html#packagesel][here]] and
+[[https://github.com/quelpa/quelpa#file][here]].
 
 ** Disable a package completely?
 To completely disable a package and effectively uninstalling it even if it is

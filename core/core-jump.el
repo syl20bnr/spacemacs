@@ -1,27 +1,48 @@
 ;;; core-jump.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defvar spacemacs-default-jump-handlers '()
   "List of jump handlers available in every mode.")
 
 (defvar-local spacemacs-jump-handlers '()
-  "List of jump handlers local to this buffer.")
+  "List of jump handlers local to this buffer.
+
+Jump handlers in this list has the highest priority. A jump
+handler jump-handler can be registered by making this call
+from a mode hook:
+
+\(add-to-list 'spacemacs-jump-handlers 'jump-handler\)
+
+Handler in this list is called first so only dynamic handlers like
+`lsp' should use this one. Conventional jump handlers should use
+`spacemacs-jump-handlers-MODE' instead.")
 
 (defmacro spacemacs|define-jump-handlers (mode &rest handlers)
   "Defines jump handlers for the given MODE.
+
 This defines a variable `spacemacs-jump-handlers-MODE' to which
-handlers can be added, and a function added to MODE-hook which
-sets `spacemacs-jump-handlers' in buffers of that mode."
+handlers can be added. MODE must be a major mode."
   (let ((mode-hook (intern (format "%S-hook" mode)))
-        (func (intern (format "spacemacs//init-jump-handlers-%S" mode)))
         (handlers-list (intern (format "spacemacs-jump-handlers-%S" mode))))
     `(progn
        (defvar ,handlers-list ',handlers
@@ -29,11 +50,6 @@ sets `spacemacs-jump-handlers' in buffers of that mode."
                           "These take priority over those in "
                           "`spacemacs-default-jump-handlers'.")
                   mode))
-       (defun ,func ()
-         (setq spacemacs-jump-handlers
-               (append ,handlers-list
-                       spacemacs-default-jump-handlers)))
-       (add-hook ',mode-hook ',func)
        (with-eval-after-load 'bind-map
          (spacemacs/set-leader-keys-for-major-mode ',mode
            "gg" 'spacemacs/jump-to-definition
@@ -62,13 +78,27 @@ sets `spacemacs-reference-handlers' in buffers of that mode."
          (spacemacs/set-leader-keys-for-major-mode ',mode
            "gr" 'spacemacs/jump-to-reference)))))
 
+(defun spacemacs//get-jump-handlers ()
+  "Combine all jump handlers into a list.
+
+They are in order: `spacemacs-jump-handlers',
+`spacemacs-jump-handlers-MAJOR-MODE',
+`spacemacs-default-jump-handlers'."
+  (let ((handlers-major-mode-list (intern (format "spacemacs-jump-handlers-%S"
+                                                  major-mode))))
+    (append spacemacs-jump-handlers
+            (if (boundp handlers-major-mode-list)
+                (symbol-value handlers-major-mode-list)
+              '())
+            spacemacs-default-jump-handlers)))
+
 (defun spacemacs/jump-to-definition ()
   "Jump to definition around point using the best tool for this action."
   (interactive)
   (catch 'done
     (let ((old-buffer (current-buffer))
           (old-point (point)))
-      (dolist (-handler spacemacs-jump-handlers)
+      (dolist (-handler (spacemacs//get-jump-handlers))
         (let ((handler (if (listp -handler) (car -handler) -handler))
               (async (when (listp -handler)
                        (plist-get (cdr -handler) :async))))

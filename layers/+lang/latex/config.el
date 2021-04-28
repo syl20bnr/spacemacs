@@ -1,13 +1,25 @@
 ;;; config.el --- Latex Layer Configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 ;; variables
 
@@ -15,11 +27,11 @@
 ;; will still be bound to 'latex-mode (since AUCTeX uses an advice to override
 ;; latex-mode with TeX-latex-mode), so the keymap's name should use the
 ;; lowercase form, since bind-map uses the value of major-mode...
-(spacemacs|define-jump-handlers latex-mode dumb-jump-go)
+(spacemacs|define-jump-handlers latex-mode)
 ;; ...but AUCTeX runs LaTeX-mode-hook rather than latex-mode-hook, so:
-(add-hook 'LaTeX-mode-hook #'spacemacs//init-jump-handlers-latex-mode)
+(add-to-list 'spacemacs-jump-handlers-latex-mode 'LaTeX-mode-hook)
 
-(defvar latex-backend nil
+(defvar latex-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'company-auctex)
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-auctex'.
 If `nil' then 'company-auctex` is the default backend unless `lsp' layer is used")

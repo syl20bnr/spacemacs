@@ -1,13 +1,25 @@
 ;;; packages.el --- Java Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Lukasz Klich <klich.lukasz@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst java-packages
   '(
@@ -19,7 +31,8 @@
     helm-gtags
     (java-mode :location built-in)
     maven-test-mode
-    (meghanada :toggle (not (version< emacs-version "25.1")))
+    (meghanada :toggle (and (not (version< emacs-version "25.1"))                            
+                            (eq java-backend 'meghanada)))
     mvn
     (lsp-java :requires lsp-mode)
     org
@@ -29,8 +42,8 @@
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-company))
 
 (defun java/pre-init-dap-mode ()
-  (pcase (spacemacs//java-backend)
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'java-mode)))
+  (when (eq java-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'java-mode))
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-dap))
 
 (defun java/post-init-flycheck ()
@@ -85,7 +98,6 @@
 (defun java/init-meghanada ()
   (use-package meghanada
     :defer t
-    :if (eq java-backend 'meghanada)
     :init
     (progn
       (setq meghanada-server-install-dir (concat spacemacs-cache-directory
@@ -139,7 +151,7 @@
 (defun java/init-lsp-java ()
   (use-package lsp-java
     :defer t
-    :if (eq (spacemacs//java-backend) 'lsp)
+    :if (eq java-backend 'lsp)
     :config
     (progn
       ;; key bindings

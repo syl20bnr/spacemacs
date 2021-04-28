@@ -124,6 +124,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
     state (thanks to Sylvain Benner)
   - Restricted ~SPC b C-d~ to only kill other buffers in current perspective
     (thanks to Seong Yong-ju)
+  - Changed ~SPC t t m~ from ~timeclock-modeline-display~ which was deprecated 
+    in Emacs 24.3 to ~timeclock-mode-line-display~ (thanks to Zach Pearson)
 - Other:
   - Support for multiple cursors using =evil-mc= is now encapsulated in the
     =multiple-cursors= layer (thanks to Codruț Constantin Gușoi)
@@ -323,6 +325,9 @@ In org-agenda-mode
   - Changed =projectile-rails= key binding prefix from ~SPC m r~ to ~SPC m f~
     to avoid conflicts with key bindings in the =web-mode= layer
     (thanks to Adam Sokolnicki)
+***** Search-engine
+  - Add Debian & Ubuntu package search engines (thanks to Alfonso Montero).
+  - Allow to configure a TLD other than =.com= for Amazon searches (thanks to Alfonso Montero).
 ***** Spacemacs-navigation
 - Key bindings:
   - Add ~J/K~ to scroll up/down (or next/previous node) in Info-mode
@@ -462,6 +467,7 @@ In org-agenda-mode
 - flow-type (replaced by LSP in =javascript= layer)
 - ycmd (moved to =c-c++=)
 *** Dotfile changes
+- Added type bases validation for .spacemacs variables.
 - New Variables:
   - New dotvariable =dotspacemacs-auto-generate-layout-names= (thanks to bmag)
   - New dotvariables =dotspacemacs-emacs-pdumper-executable-file=,
@@ -498,6 +504,8 @@ In org-agenda-mode
   - New variable =dotspacemacs-read-process-output-max= to optimise lsp
     performance in emacs 27 (thanks to Maximilian Wolff)
   - New variable =dotspacemacs-show-trailing-whitespace= (thanks to duianto)
+  - New var =dotspacemacs-startup-buffer-multi-digit-delay= (thanks to duianto)
+  - New variable =dotspacemacs-scroll-bar-while-scrolling= (thanks to duianto)
 - Removed Variables:
   - Removed unused variable =dotspacemacs-verbose-loading= from
     =.spacemacs.template= (thanks to Ying Qu)
@@ -630,6 +638,7 @@ Other:
     after =spacemacs-scratch-mode= is applied to =*scratch*= buffer (thanks to rayw000)
   - Add toggles for persistent which-key keymaps, (full)-major/minor mode
     keymaps and top-level keymap, under prefix ~SPC t k~ (thanks to Daniel Nicolai)
+  - Add =describe-ex-command= on ~SPC h d x~ (thanks to Daniel Nicolai)
 - Fixes:
   - Avoid non-idempotent use of push in init code (thanks to Miciah Masters)
   - Moved Spacemacs startup progress bar to =core-progress-bar.el=, removed
@@ -935,6 +944,8 @@ Other:
     - ~SPC F O~ (=dired-other-frame=)
     (thanks to Miciah Masters)
   - New key binding ~SPC f i~ for =insert-file=.
+  - New key binidng ~SPC f e I~ to open =early-init.el= file
+    (thanks to Sylvain Benner)
   - New ~SPC f e U~ to update packages (thanks to Codruț Constantin Gușoi)
   - New frame manipulation key bindings:
     - Added ~SPC F f~ for =find-file-other-frame=
@@ -1487,7 +1498,7 @@ Other:
     (thanks to Alexander Dalshov)
 - New packages:
   - =cpp-auto-include= Insert and delete C++ header files automatically:
-    - Added variable: =++-enable-organize-includes-on-save=
+    - Added variable: =c-c++-enable-organize-includes-on-save=
     - Added key binding: ~SPC m r i~ organize includes
     (thanks to Seong Yong-ju)
 - Improvements:
@@ -1902,6 +1913,14 @@ Other:
   - Make ~SPC m h h~ and jump handlers work in =ielm= (thanks to Keith Pinson)
   - Added ~c~ to continue in edebug mode (thanks to hodge)
   - Added ~SPC m g b~ to jump back to previous point (thanks to Magnus Therning)
+  - Added Edebug Eval List key bindings
+    - ~SPC m g w~ for =edebug-where=
+    - ~SPC m a~ for =edebug-delete-eval-item=
+    - ~SPC m k~ for =edebug-delete-eval-item=
+    - ~SPC m ,~ for =edebug-update-eval-list=
+    - ~SPC m c~ for =edebug-update-eval-list=
+    - ~SPC m e e~ for =edebug-eval-last-sexp=
+    - ~SPC m e E~ for =edebug-eval-print-last-sexp=
 - Identify Cask files as emacs lisp ones (thanks to Adrien Becchis)
 - Added =overseer= ert test runner (thanks to Adrien Becchis)
   - Key bindings:
@@ -2786,6 +2805,7 @@ files (thanks to Daniel Nicolai)
   (thanks to jupl)
 - Disabled add-node-modules-path by default (thanks to Eivind Fonn)
 **** Notmuch
+- Fixed a bug in notmuch-tree which was preventing ~d~/~D~ bindings to work (thanks to Daniel Nicolai, alexey0308, inwit)
 - Try harder to find GitHub patch URL (thanks to Miciah Masters)
 - Open GitHub patches fullscreen
 - Add next and previous message bindings to notmuch-tree mode
@@ -2816,6 +2836,7 @@ files (thanks to Daniel Nicolai)
   - Added package =org-appear= (thanks to winsphinX)
   - Added package =org-wild-notifier= (thanks to Daniel Nicolai)
 - Key bindings:
+  - ~SPC m s y~ for =org-copy-subtree= (thanks to Keith Pinson)
   - ~SPC m T i~ to toggle inline images
   - Move clock related key bindings to ~SPC a o C~
   - Key bindings (thanks to darkfeline and Langston Barrett):
@@ -2986,6 +3007,7 @@ files (thanks to Daniel Nicolai)
 - Implemented automatic activation of evil insert state after
   =org-insert-drawer=, =org-insert-heading=, =org-insert-item= and
   =org-insert-structure-template= commands (thanks to Andriy Kmit')
+- Added =ox-asciidoc= as org export backend (thanks to Christian "West" Westrom)
 **** Osx
 - Key bindings:
   - Added key bindings to use ~command-1..9~ for selecting window
@@ -3045,6 +3067,7 @@ files (thanks to Daniel Nicolai)
   - Added LSP support, which can be used by enabling the =lsp= layer and setting
     the =php= layer's =php-backend= variable to =lsp=
     (thanks to Daniel Richtmann)
+  - Fix packages missed in Melpa (thanks to zebradil)
 **** PlantUML
 - Added a missing prefix: =compile= (thanks to Seong Yong-ju)
 - Added instructions for compiling the image locally by setting
@@ -3309,6 +3332,7 @@ files (thanks to Daniel Nicolai)
   - Modified ~SPC m c X~ for =cargo run --bin= command, instead of
     =cargo run --example= (thanks to Lucius Hu)
   - Added ~SPC m c E~ for =cargo run --example= (thanks to Lucius Hu)
+  - Added ~SPC m b R~ to reload Rust-Analyzer workspace
 - Added rust lsp completion with company and bindings (thanks to Justin)
 - Added debugger integration via =dap= layer
 - Fixed rust dap integration (thanks to Tommi Komulainen)
@@ -3319,6 +3343,7 @@ files (thanks to Daniel Nicolai)
 - Added/Updated instructions on external dependencies, =cargo-edit=,
   =cargo-audit=, =rustfmt=, and =clippy= (thanks to Lucius Hu)
 - Added support for Rusty Object Notation (RON) (thanks to Daniel Hutzley)
+- Improved LSP Rust server switch functionality (thanks to Lucius Hu)
 **** Sailfish-Developer
 - Key bindings:
   - Added =sailfish-scratchbox= key bindings (thanks to Victor Polevoy):
@@ -3712,6 +3737,7 @@ files (thanks to Daniel Nicolai)
   (thanks to Alexander Dalshov)
 **** Zig
 - Added syntax highlighting (thanks to Michael Hauser-Raspe)
+- Added support for lsp server (thanks to rbino)
 *** Various improvements
 - Lots of improvement with CI and documentation exporting
   (thanks to Eugene Yaremenko)

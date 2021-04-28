@@ -1,6 +1,6 @@
 ;;; packages.el --- gtags Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;;    and: Christian E. Hopps <chopps@gmail.com>
@@ -8,7 +8,19 @@
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst gtags-packages
   '(
@@ -24,24 +36,32 @@
     (progn
       (setq counsel-gtags-ignore-case t
             counsel-gtags-auto-update t)
-      ;; modes that do not have a layer, define here
-      (spacemacs/counsel-gtags-define-keys-for-mode 'tcl-mode)
-      (spacemacs/counsel-gtags-define-keys-for-mode 'vhdl-mode)
-      (spacemacs/counsel-gtags-define-keys-for-mode 'awk-mode)
-      (spacemacs/counsel-gtags-define-keys-for-mode 'dired-mode)
-      (spacemacs/counsel-gtags-define-keys-for-mode 'compilation-mode)
-      (spacemacs/counsel-gtags-define-keys-for-mode 'shell-mode))))
+      (add-hook 'ggtags-mode-hook 'counsel-gtags-mode)
+      (add-hook 'ggtags-mode-hook #'spacemacs/counsel-ggtags-set-jump-handler))
+    :config
+    ;; TODO add mixing commands
+    (spacemacs/set-leader-keys-for-minor-mode 'counsel-gtags-mode
+      "gC" 'counsel-gtags-create-tags
+      "gd" 'counsel-gtags-dwim
+      ;; "gD" 'helm-gtags-find-tag-other-window
+      "gf" 'counsel-gtags-find-file
+      ;; "gG" 'helm-gtags-dwim-other-window
+      ;; "gi" 'helm-gtags-tags-in-this-function
+      ;; "gl" 'helm-gtags-parse-file
+      "gn" 'counsel-gtags-go-forward
+      "gp" 'counsel-gtags-go-backward
+      "gr" 'counsel-gtags-find-reference
+      ;; "gR" 'helm-gtags-resume
+      ;; "gs" 'helm-gtags-select
+      ;; "gS" 'helm-gtags-show-stack
+      "gy" 'counsel-gtags-find-symbol
+      "gu" 'counsel-gtags-update-tags)))
 
 (defun gtags/init-ggtags ()
   (use-package ggtags
     :defer t
     :init
     (progn
-      ;; modes that do not have a layer, add here.
-      (add-hook 'awk-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
-      (add-hook 'shell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
-      (add-hook 'tcl-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
-      (add-hook 'vhdl-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
       (spacemacs|add-toggle ggtags-mode
         :status ggtags-mode
         :on (ggtags-mode nil)
@@ -110,10 +130,22 @@
             helm-gtags-auto-update t
             helm-gtags-use-input-at-cursor t
             helm-gtags-pulse-at-cursor t)
-      ;; modes that do not have a layer, define here
-      (spacemacs/helm-gtags-define-keys-for-mode 'tcl-mode)
-      (spacemacs/helm-gtags-define-keys-for-mode 'vhdl-mode)
-      (spacemacs/helm-gtags-define-keys-for-mode 'awk-mode)
-      (spacemacs/helm-gtags-define-keys-for-mode 'dired-mode)
-      (spacemacs/helm-gtags-define-keys-for-mode 'compilation-mode)
-      (spacemacs/helm-gtags-define-keys-for-mode 'shell-mode))))
+      (add-hook 'ggtags-mode-hook 'helm-gtags-mode)
+      (add-hook 'ggtags-mode-hook #'spacemacs/helm-ggtags-set-jump-handler))
+    :config
+    (spacemacs/set-leader-keys-for-minor-mode 'helm-gtags-mode
+       "gC" 'helm-gtags-create-tags
+       "gd" 'helm-gtags-find-tag
+       "gD" 'helm-gtags-find-tag-other-window
+       "gf" 'helm-gtags-select-path
+       "gG" 'helm-gtags-dwim-other-window
+       "gi" 'helm-gtags-tags-in-this-function
+       "gl" 'helm-gtags-parse-file
+       "gn" 'helm-gtags-next-history
+       "gp" 'helm-gtags-previous-history
+       "gr" 'helm-gtags-find-rtag
+       "gR" 'helm-gtags-resume
+       "gs" 'helm-gtags-select
+       "gS" 'helm-gtags-show-stack
+       "gy" 'helm-gtags-find-symbol
+       "gu" 'helm-gtags-update-tags)))

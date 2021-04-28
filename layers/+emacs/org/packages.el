@@ -1,13 +1,25 @@
 ;;; packages.el --- Org Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst org-packages
   '(
@@ -30,7 +42,11 @@
     (org-vcard :toggle org-enable-org-contacts-support)
     org-brain
     (org-expiry :location built-in)
-    (org-journal :toggle org-enable-org-journal-support)
+    ; temporarily point org-journal to dalanicolai fork until dalanicolai's
+    ; PR's https://github.com/bastibe/org-journal/pulls get merged
+    (org-journal
+     :location (recipe :fetcher github :repo "dalanicolai/org-journal")
+     :toggle org-enable-org-journal-support)
     org-download
     (org-jira :toggle org-enable-jira-support)
     org-mime
@@ -53,8 +69,9 @@
     (verb :toggle org-enable-verb-support)
     (org-roam :toggle org-enable-roam-support)
     (valign :toggle org-enable-valign)
-    (org-appear :location (recipe :fetcher github :repo "awth13/org-appear")
-                :toggle org-enable-appear-support)))
+    (org-appear :toggle org-enable-appear-support)
+    (org-roam-server :require org-roam :toggle org-enable-roam-server)
+    (ox-asciidoc :toggle org-enable-asciidoc-support)))
 
 (defun org/post-init-company ()
   (spacemacs|add-company-backends :backends company-capf :modes org-mode))
@@ -263,6 +280,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "sA" 'org-archive-subtree-default
         "sb" 'org-tree-to-indirect-buffer
         "sd" 'org-cut-subtree
+        "sy" 'org-copy-subtree
         "sh" 'org-promote-subtree
         "sj" 'org-move-subtree-down
         "sk" 'org-move-subtree-up
@@ -934,7 +952,10 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "ra" 'org-roam-alias-add))
     :config
     (progn
-      (spacemacs|hide-lighter org-roam-mode))))
+      (spacemacs|hide-lighter org-roam-mode)
+      (when org-enable-roam-protocol
+          (add-hook 'org-roam-mode-hook (lambda ()
+                                          (require 'org-roam-protocol)))))))
 
 (defun org/init-org-sticky-header ()
   (use-package org-sticky-header
@@ -991,3 +1012,15 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (setq org-appear-autolinks t
             org-appear-autoemphasis t
             org-appear-autosubmarkers t))))
+
+(defun org/init-org-roam-server()
+  (use-package org-roam-server
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys "aors" 'org-roam-server-mode)
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode "rs" 'org-roam-server-mode))))
+
+(defun org/init-ox-asciidoc ()
+  (use-package ox-asciidoc
+    :after ox))
