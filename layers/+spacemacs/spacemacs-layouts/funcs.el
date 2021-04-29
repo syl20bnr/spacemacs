@@ -788,9 +788,12 @@ Otherwise create a new workspace at the next free slot."
 
 (defun spacemacs/eyebrowse-close-window-config ()
   (interactive)
-  (let ((current-workspace (eyebrowse--get 'current-slot)))
-    (eyebrowse-close-window-config)
-    (message "Workspace %s closed" current-workspace)))
+  (let ((current-workspace (eyebrowse--get 'current-slot))
+        (last-workspace-p (= (length (eyebrowse--get 'window-configs)) 1)))
+    (if last-workspace-p
+        (message "The last workspace can not be closed")
+      (eyebrowse-close-window-config)
+      (message "Workspace %s closed" current-workspace))))
 
 (defun spacemacs//workspaces-ts-toggle-hint ()
   "Toggle the full hint docstring for the workspaces transient-state."
