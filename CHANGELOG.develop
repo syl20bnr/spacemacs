@@ -1052,10 +1052,11 @@ Other:
       root
     - ~SPC f y b~ to show and copy buffer name.
     (thanks to Codruț Constantin Gușoi)
-  - New ~SPC f e e~ to open spacemacs.env file (thanks to Sylvain Benner)
-  - New ~SPC f e E~ to reload environment variable from env file
+  - New ~SPC V e d~ and ~SPC f e e~ to open spacemacs.env file
     (thanks to Sylvain Benner)
-  - New ~SPC f e C-e~ to re-initialize the env file from shell
+  - New ~SPC V e R~ and ~SPC f e E~ to reload environment variable from env file
+    (thanks to Sylvain Benner)
+  - New ~SPC V e C~ and ~SPC f e C-e~ to re-initialize the env file from shell
     (thanks to Sylvain Benner)
   - New ~SPC f A~ to open a file and replace buffer with it
     (thanks to Masayuki Takemura)

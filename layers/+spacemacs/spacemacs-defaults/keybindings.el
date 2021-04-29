@@ -742,6 +742,15 @@ respond to this toggle."
   "xwc" 'spacemacs/count-words-analysis
   "xwr" 'spacemacs/randomize-words
   "x TAB" 'indent-rigidly)
+;; Version and Environment ----------------------------------------------------
+(spacemacs|spacebind
+ "Version/Environment"
+ :global
+ (("V" "Version/Environment"
+   ("e" "Emacs"
+    ("C" spacemacs/force-init-spacemacs-env "Recreate env. variables file")
+    ("R" dotspacemacs/call-user-env "Refresh env. variables")
+    ("d" spacemacs/edit-env "Open dotfile \".spacemacs.env\"")))))
 
 (define-key indent-rigidly-map "h" 'indent-rigidly-left)
 (define-key indent-rigidly-map "l" 'indent-rigidly-right)

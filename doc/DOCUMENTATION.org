@@ -1049,15 +1049,15 @@ the file =~/.spacemacs.env=. This file is automatically created for you by
 Spacemacs and it is initialized with the environment variables of your
 system as well as the environment variables of your default shell.
 
-To open this file use ~SPC f e e~. You can edit it to change or add/remove
-environment variables. Use ~SPC f e E~ to reload it.
+To open this file use ~SPC V e d~. You can edit it to change or add/remove
+environment variables. Use ~SPC V e R~ to reload it.
 
 Some dynamic environment variables are ignored by Spacemacs when it first
 creates the =~/.spacemacs.env= file. These ignored variables are listed in
 the variable =spacemacs-ignored-environment-variables=.
 
 It is possible to force a new import of system and shell environment variables
-with ~SPC f e C-e~. Note that this action will overwrite =~/.spacemacs.env=.
+with ~SPC V e C~. Note that this action will overwrite =~/.spacemacs.env=.
 
 ** Managing environment variables by yourself
 For full flexibility you can bypass the default behavior simply by removing
