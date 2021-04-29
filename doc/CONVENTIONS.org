@@ -31,6 +31,7 @@
     - [[#movement-in-normal-mode][Movement in normal mode]]
     - [[#promotion-demotion-and-element-movement][Promotion, Demotion and element movement]]
     - [[#table-editing][Table editing]]
+  - [[#version-and-environment-managers][Version and Environment managers]]
   - [[#tests][Tests]]
     - [[#all-languages][All languages]]
     - [[#language-specific][Language specific]]
@@ -337,6 +338,20 @@ keys:
 *** Table editing
 If table specific commands are available the they are grouped under the
 ~SPC m t~ group.
+
+** Version and Environment managers
+Version and environment managment modes are inherently globals, they need to
+control the execution environment for all buffers. This is the reason why the
+key bindings for version and environment managers like Python =virtualenv= or
+Ruby =rbenv= are bound globally.
+
+The prefix for environment management commands is ~SPC V~.
+
+Each language has its own prefix, for instance Python environment managers
+are under ~SPC V p~.
+
+The prefixes can be long in order to keep the risk of key bindings collision
+low but this is an acceptable trade off.
 
 ** Tests
 A lot of languages have their own test frameworks. These frameworks
