@@ -22,21 +22,25 @@
 
 
 (defconst shadowenv-packages
-  '(shadowenv))
+  '(eshell
+    shadowenv))
+
+(defun shadowenv/post-init-eshell ()
+  (add-hook 'eshell-mode-hook 'shadowenv-global-mode))
 
 (defun shadowenv/init-shadowenv ()
   (use-package shadowenv
-    :defer t
-    :spacediminish " 🆅" " [V]"
+    :defer (spacemacs/defer)
+    :spacediminish " 🆂" " [S]"
     :init
     (progn
-      (dolist (mode spacemacs--shadowenv-modes)
-        (add-hook (intern (format "%S-hook" mode)) 'shadowenv-mode))
+      (if shadowenv-enable-at-startup
+          (shadowenv-global-mode 1)
+        (add-hook 'prog-mode-hook 'shadowenv-global-mode))
       (spacemacs|spacebind
-       :minor
-       (shadowenv-mode
-        "Shadowenv key bindings"
-        ("V" "Environment"
-         ("v" "Shadowenv"
+       :global
+       ("Shadowenv key bindings"
+        ("V" "Version/Environment"
+         ("S" "Shadowenv"
           ("r" shadowenv-reload "Reload shadowenv configuration")
           ("s" shadowenv-shadows "Display the environment shadows..."))))))))
