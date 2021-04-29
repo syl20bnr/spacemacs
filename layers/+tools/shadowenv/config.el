@@ -1,4 +1,4 @@
-;;; config.el --- shadowenv Layer configuration file for Spacemacs
+;;; config.el --- shadowenv configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
@@ -21,7 +21,5 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-;; Variables
-
-(defvar spacemacs--shadowenv-modes nil
-  "List of mode where shadowenv will be active.")
+(defvar shadowenv-enable-at-startup nil
+  "If non-nil load and enable `shadowenv-mode' at startup.")
