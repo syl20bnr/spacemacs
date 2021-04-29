@@ -29,12 +29,14 @@
     :defer t
     :spacediminish " 🆅" " [V]"
     :init
-    (dolist (mode spacemacs--shadowenv-modes)
-      (add-hook (intern (format "%S-hook" mode)) 'shadowenv-mode)
-      (eval `(spacemacs|spacebind
-              :major
-              (,mode
-               "Shadowenv key bindings"
-               ("V" "Environment"
-                ("r" shadowenv-reload "Reload shadowenv configuration")
-                ("s" shadowenv-shadows "Display the environment shadows..."))))))))
+    (progn
+      (dolist (mode spacemacs--shadowenv-modes)
+        (add-hook (intern (format "%S-hook" mode)) 'shadowenv-mode))
+      (spacemacs|spacebind
+       :minor
+       (shadowenv-mode
+        "Shadowenv key bindings"
+        ("V" "Environment"
+         ("v" "Shadowenv"
+          ("r" shadowenv-reload "Reload shadowenv configuration")
+          ("s" shadowenv-shadows "Display the environment shadows..."))))))))
