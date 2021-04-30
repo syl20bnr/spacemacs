@@ -701,25 +701,99 @@ STATE is a window-state object as returned by `window-state-get'."
 
 ;; Eyebrowse transient state
 
+(defun spacemacs//workspace-get-used-slots ()
+  (mapcar 'car (eyebrowse--get 'window-configs)))
+
+(defun spacemacs//workspace-next-free-slot ()
+  "Get the next free workspace slot."
+  (eyebrowse-free-slot (spacemacs//workspace-get-used-slots)))
+
 (defun spacemacs/clone-workspace ()
-  "Clone the current workspace.
-And show a minibuffer message, ex:
-Workspace: 1, cloned to Workspace: 2"
+  "Clone the current workspace."
   (interactive)
-  (let* ((eyebrowse-new-workspace nil) ; nil = clone current workspace
-         (current-workspace-nr (eyebrowse--get 'current-slot))
-         (window-configs (eyebrowse--get 'window-configs))
-         (slots (mapcar 'car window-configs))
-         (next-free-workspace-nr (eyebrowse-free-slot slots)))
-    (eyebrowse-switch-to-window-config next-free-workspace-nr)
-    (message "Workspace: %s, cloned to Workspace: %s"
-             current-workspace-nr next-free-workspace-nr)))
+  (let ((eyebrowse-new-workspace nil) ; nil = clone current workspace
+        (current-slot (eyebrowse--get 'current-slot))
+        (next-free-slot (spacemacs//workspace-next-free-slot)))
+    (eyebrowse-switch-to-window-config next-free-slot)
+    (message "Workspace %s cloned to %s" current-slot next-free-slot)))
+
+(defun spacemacs/new-workspace (&optional slot)
+  "Create a new workspace, showing the Spacemacs home buffer.
+If a optional SLOT (number) was provided,
+then create the new workspace at that slot.
+Otherwise create it at the next free slot."
+  (let ((eyebrowse-new-workspace 'spacemacs/home)
+        (slot (or slot (spacemacs//workspace-next-free-slot))))
+    (eyebrowse-switch-to-window-config slot)
+    (message "Workspace %s created" slot)))
 
 (defun spacemacs/single-win-workspace ()
-  "Create a new single window workspace, and show the Spacemacs home buffer."
+  "Create a new single window workspace,
+showing the Spacemacs home buffer."
   (interactive)
-  (let ((eyebrowse-new-workspace 'spacemacs/home))
-    (eyebrowse-create-window-config)))
+  (spacemacs/new-workspace))
+
+(defun spacemacs/workspace-switch-or-create (slot)
+  "Given a workspace SLOT number.
+If SLOT is current, show a message.
+If SLOT exists, switch to it.
+Otherwise create a new workspace at the next free slot."
+  (let* ((slot-current-p (= slot (eyebrowse--get 'current-slot)))
+         (slot-exists-p (and (not slot-current-p)
+                             (memq slot (spacemacs//workspace-get-used-slots)))))
+    (cond (slot-current-p (message "Already on Workspace: %s" slot))
+          (slot-exists-p (eyebrowse-switch-to-window-config slot)
+                         (message "Workspace switched to: %s" slot))
+          (t (spacemacs/new-workspace slot)))))
+
+(defun spacemacs/eyebrowse-switch-to-window-config-0 ()
+  (interactive)
+  (spacemacs/workspace-switch-or-create 0))
+
+(defun spacemacs/eyebrowse-switch-to-window-config-1 ()
+  (interactive)
+  (spacemacs/workspace-switch-or-create 1))
+
+(defun spacemacs/eyebrowse-switch-to-window-config-2 ()
+  (interactive)
+  (spacemacs/workspace-switch-or-create 2))
+
+(defun spacemacs/eyebrowse-switch-to-window-config-3 ()
+  (interactive)
+  (spacemacs/workspace-switch-or-create 3))
+
+(defun spacemacs/eyebrowse-switch-to-window-config-4 ()
+  (interactive)
+  (spacemacs/workspace-switch-or-create 4))
+
+(defun spacemacs/eyebrowse-switch-to-window-config-5 ()
+  (interactive)
+  (spacemacs/workspace-switch-or-create 5))
+
+(defun spacemacs/eyebrowse-switch-to-window-config-6 ()
+  (interactive)
+  (spacemacs/workspace-switch-or-create 6))
+
+(defun spacemacs/eyebrowse-switch-to-window-config-7 ()
+  (interactive)
+  (spacemacs/workspace-switch-or-create 7))
+
+(defun spacemacs/eyebrowse-switch-to-window-config-8 ()
+  (interactive)
+  (spacemacs/workspace-switch-or-create 8))
+
+(defun spacemacs/eyebrowse-switch-to-window-config-9 ()
+  (interactive)
+  (spacemacs/workspace-switch-or-create 9))
+
+(defun spacemacs/eyebrowse-close-window-config ()
+  (interactive)
+  (let ((current-workspace (eyebrowse--get 'current-slot))
+        (last-workspace-p (= (length (eyebrowse--get 'window-configs)) 1)))
+    (if last-workspace-p
+        (message "The last workspace can not be closed")
+      (eyebrowse-close-window-config)
+      (message "Workspace %s closed" current-workspace))))
 
 (defun spacemacs//workspaces-ts-toggle-hint ()
   "Toggle the full hint docstring for the workspaces transient-state."
