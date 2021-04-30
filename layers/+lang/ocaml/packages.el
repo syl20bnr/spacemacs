@@ -157,7 +157,7 @@
   (use-package ocamlformat
     :defer t
     :init
-    (when ocaml-format-before-save
+    (when ocaml-format-on-save
       (add-hook 'before-save-hook 'ocamlformat-before-save))))
 
 (defun ocaml/init-ocp-indent ()
