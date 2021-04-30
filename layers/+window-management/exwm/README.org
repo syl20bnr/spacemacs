@@ -11,6 +11,8 @@
   - [[#note-about-display-managers][Note about Display Managers]]
   - [[#not-having-display-managers][Not having Display Managers]]
   - [[#osx][OSX]]
+  - [[#system-tray-integratios][System Tray Integratios]]
+  - [[#xdg-autostart][XDG Autostart]]
 - [[#key-bindings][Key bindings]]
 
 * Description
@@ -58,6 +60,19 @@ details.
 ** OSX
 If you are an OSX user, please report back on whether this works with xQuartz,
 always back up your data before attempting to try stuff like this.
+
+** System Tray Integratios
+To enable system tray integration, set =exwm-enable-systray= to =t=.
+
+** XDG Autostart
+If =exwm-autostart-xdg-applications= is non-nil, =.desktop= files in
+=$XDG_CONFIG_HOME/autostart= and =XDG_CONFIG_DIRS= will be used to run applications at
+startup. (See [[https://specifications.freedesktop.org/autostart-spec/autostart-spec-latest.html][Specification]] for details).
+
+For the purpose of controlling whether an entry should be run under SpacemacsOS,
+the =OnlyShowIn= and =NotShotIn= keys are checked for the string =EXWM=.
+
+This is disabled per default.
 
 * Key bindings
 As other window managers the ~s~ or *Super* key (Windows Key) is the one that

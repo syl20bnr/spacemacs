@@ -30,7 +30,39 @@
             :step pre)
       (exwm :location (recipe :fetcher github
                               :repo "ch11ng/exwm")
-            :step pre)))
+            :step pre)
+      (xdg :location built-in)
+      (desktop-environment
+       :location (recipe :fetcher github
+                         :repo "DamienCassou/desktop-environment"))))
+
+(defun exwm/init-xdg ()
+  (use-package xdg
+    :defer t
+    :commands (xdg-config-dirs xdg-config-home xdg-desktop-read-file)))
+
+(defun exwm/init-desktop-environment ()
+  (use-package desktop-environment
+    :after exwm
+    :spacediminish
+    :defer t
+    :init
+    (spacemacs|add-toggle desktop-environment
+      :mode desktop-environment-mode
+      :documentation "Keybindings for Desktop Environment functionality."
+      :evil-leader "TD")
+
+    :config
+    (progn
+      ;; We bypass desktop-environment's locking functionality for 2 reasons:
+      ;; 1. s-l is most likely needed for window manipulation
+      ;; 2. desktop-environment's locking mechanism does not support registering as session manager
+      ;; The following line would instead assign their locking command to the default binding:
+      ;; (define-key desktop-environment-mode-map (kbd "<s-pause>") (lookup-key desktop-environment-mode-map (kbd "s-l")))
+      (setq desktop-environment-update-exwm-global-keys :prefix)
+      (define-key desktop-environment-mode-map (kbd "s-l") nil)
+      ;; If we don't enable this, exwm/switch-to-buffer-or-run won't move an X window to the current frame
+      (setq exwm-layout-show-all-buffers t))))
 
 (defun exwm/init-helm-exwm ()
   ;; when helm is used activate extra EXWM features
@@ -179,7 +211,11 @@
       "Tm" 'exwm-layout-toggle-mode-line)
 
     (exwm-randr-enable)
-    (exwm-systemtray-enable)
+    (when exwm-enable-systray
+      (require 'exwm-systemtray)
+      (exwm-systemtray-enable))
+    (when exwm-autostart-xdg-applications
+      (add-hook 'exwm-init-hook 'exwm//autostart-xdg-applications t))
 
     (if exwm-randr-command
      (start-process-shell-command
