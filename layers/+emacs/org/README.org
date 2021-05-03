@@ -120,7 +120,6 @@ file (=~/.spacemacs=), to the existing =dotspacemacs-configuration-layers= list
 add the =org= entry.
 
 ** =TODO= dependencies
-
 If you would like to enforce dependencies in your =TODO= hierarchy, this layer has
 some sane default configurations to try via its ~org-todo-dependencies-strategy~
 configuration variable.
