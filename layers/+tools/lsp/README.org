@@ -322,11 +322,13 @@ whereas with ~lsp-navigation~ set to ~'peek~, this is equivalent to:
 etc.
 
 ** Bind to lsp upstreams
-Alternative to the binding shemes above. If you set ~lsp-use-upstream-bindings~
-to ~t~ then Spacemacs will bind all ~lsp-command-map~ behind ~SPC m~, ~,~ and
-~M-m~. This way the bidings will be managed by upstream ~lsp-mode~ which is
-documented at https://emacs-lsp.github.io/lsp-mode/page/keybindings/. Spacemacs
-only replaces the prefix ~s-l~ with ~SPC m~. For example:
+Alternatively, you can have ~lsp-mode~ handle the bindings for you,
+by setting =lsp-use-upstream-bindings= to =t=.
+In this case Spacemacs will bind the ~lsp-command-map~ behind ~SPC m~, ~,~ and
+~M-m~.
+
+The detailed bindings can be found [https://emacs-lsp.github.io/lsp-mode/page/keybindings/][here]]
+where Spacemacs only replaces the prefix ~s-l~ with ~SPC m~.
 
 | lsp binding | Spacemacs binding                   |
 |-------------+-------------------------------------|
