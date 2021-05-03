@@ -327,7 +327,7 @@ by setting =lsp-use-upstream-bindings= to =t=.
 In this case Spacemacs will bind the ~lsp-command-map~ behind ~SPC m~, ~,~ and
 ~M-m~.
 
-The detailed bindings can be found [https://emacs-lsp.github.io/lsp-mode/page/keybindings/][here]]
+The detailed bindings can be found [[https://emacs-lsp.github.io/lsp-mode/page/keybindings/][here]]
 where Spacemacs only replaces the prefix ~s-l~ with ~SPC m~.
 
 | lsp binding | Spacemacs binding                   |
