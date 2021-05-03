@@ -8,9 +8,9 @@
 ;; Created: Tue Mar  5 16:30:45 1996
 ;; Version: 0
 ;; Package-Requires: ((frame-fns "0"))
-;; Last-Updated: Thu Mar 18 09:11:08 2021 (-0700)
+;; Last-Updated: Thu Apr 22 09:05:03 2021 (-0700)
 ;;           By: dradams
-;;     Update #: 3187
+;;     Update #: 3188
 ;; URL: https://www.emacswiki.org/emacs/download/frame-cmds.el
 ;; Doc URL: https://emacswiki.org/emacs/FrameModes
 ;; Doc URL: https://www.emacswiki.org/emacs/OneOnOneEmacs
@@ -1248,7 +1248,7 @@ BUFFER may be a buffer or its name (a string)."
   "Delete all frames except FRAME (default: selected frame).
 Interactively, use a prefix arg (`\\[universal-argument]') to be prompted for FRAME."
   (interactive (list (if current-prefix-arg
-                         (get-a-frame (read-frame "Frame to make invisible: "))
+                         (get-a-frame (read-frame "Frame to delete: "))
                        (selected-frame))))
   (when frame
     (dolist (fr  (frame-list))
