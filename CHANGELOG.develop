@@ -2822,6 +2822,8 @@ files (thanks to Daniel Nicolai)
 - Fixed flycheck-ocaml not initialized warning (thanks to Artur Juraszek)
 - Added =dune= support via =dune-mode= (thanks to Lyman Gillispie)
 **** Org
+- Provide some sane default strategies for enforcing =TODO= dependencies via
+  =org-todo-dependencies-strategy=. (thanks to Keith Pinson)
 - Load org-mode email integration (mu4e/notmuch) when org is loaded
   (thanks to Steven Allen)
 - Packages:

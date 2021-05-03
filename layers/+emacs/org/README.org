@@ -11,6 +11,7 @@
 - [[#important-note][Important Note]]
 - [[#install][Install]]
   - [[#layer][Layer]]
+  - [[#todo-dependencies][=TODO= dependencies]]
   - [[#agenda-notifications][Agenda notifications]]
   - [[#agenda-recommendations][Agenda recommendations]]
   - [[#github-support][GitHub support]]
@@ -118,6 +119,44 @@ To use this configuration layer: in the main Spacemacs configuration
 file (=~/.spacemacs=), to the existing =dotspacemacs-configuration-layers= list
 add the =org= entry.
 
+** =TODO= dependencies
+
+If you would like to enforce dependencies in your =TODO= hierarchy, this layer has
+some sane default configurations to try via its ~org-todo-dependencies-strategy~
+configuration variable.
+
+Setting it to ~'naive-auto~, will cause an entry to switch to =DONE= when all its
+subentries are done, and to =TODO= otherwise. This does not result in extra
+prompts for the user, but doesn't work well with more workflow states because of
+the literal =DONE= and =TODO=; it is an excellent place for beginners and
+minimalists:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (org :variables
+         org-todo-dependencies-strategy 'naive-auto)))
+#+END_SRC
+
+Setting it to ~'semiauto~, will cause the user to be prompted to change an entry's
+state when the state of the subentries imply it: that is, when they are either
+all done while it is still a todo, or the when they are all still todo's while
+it is done. This assumes next to nothing about your workflow states (it does not
+use literal =TODO= and =DONE=), but may result in additional, possibly surprising,
+prompting for the user; and it has no intelligence to attempt to determine the
+destination state. It is a good thing to try if ~'naive-auto~ does not accomplish
+what you need:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (org :variables
+         org-todo-dependencies-strategy 'naive-auto)))
+#+END_SRC
+
+If neither of these suffice for you, =org-mode= can be configured directly by
+setting ~org-enforce-todo-dependencies~ to ~t~ and writing your own function to
+register on the ~org-after-todo-statistics-hook~. The layer implementation is a
+good reference.
+
 ** Agenda notifications
 To enable notifications for agenda events, set the variable
 =org-enable-notifications= to =t=.
@@ -168,7 +207,7 @@ syntax:
 #+BEGIN_SRC org
   * Friday, 04/02/2021
     ** Appointment 1
-    <2021-04-02 Fri 10:10> 
+    <2021-04-02 Fri 10:10>
     ** TODO Appointment 2
     <2021-04-02 Fri 10:11>
 #+END_SRC

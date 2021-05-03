@@ -116,3 +116,20 @@ For example: To unfold from a magit diff buffer, evaluate the following:
 (advice-add 'magit-diff-visit-file :after #'spacemacs/org-reveal-advice)"
   (when (derived-mode-p 'org-mode)
     (org-reveal)))
+
+
+;; Based on the suggestion here:
+;; https://orgmode.org/manual/Breaking-Down-Tasks.html
+(defun spacemacs/org-summary-todo-naive-auto (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  (org-todo (if (= n-not-done 0) "DONE" "TODO")))
+
+(defun spacemacs/org-summary-todo-semiauto (n-done n-not-done)
+  "Prompt to change entry state when the state of the subentries imply it."
+  (and (org-get-todo-state) ;; Don't force a todo state if there is none yet
+       ;; If either it is in a todo state but should be in a done state
+       (if (or (and (org-entry-is-todo-p) (= n-not-done 0))
+               ;; or it is in a done state and should be in a todo state
+               (and (org-entry-is-done-p) (> n-not-done 0)))
+           ;; then prompt to change the state
+           (org-todo))))
