@@ -327,7 +327,7 @@ by setting =lsp-use-upstream-bindings= to =t=.
 In this case Spacemacs will bind the ~lsp-command-map~ behind ~SPC m~, ~,~ and
 ~M-m~.
 
-The detailed bindings can be found [https://emacs-lsp.github.io/lsp-mode/page/keybindings/][here]]
+The detailed bindings can be found [ [[https://emacs-lsp.github.io/lsp-mode/page/keybindings/]] ][here]]
 where Spacemacs only replaces the prefix ~s-l~ with ~SPC m~.
 
 | lsp binding | Spacemacs binding                   |
@@ -337,9 +337,9 @@ where Spacemacs only replaces the prefix ~s-l~ with ~SPC m~.
 As ~lsp-mode~ and has a deep integration into ~Spacemacs~. ~Spacemacs~ hackers
 should pay attention to avoid any binding collision with ~lsp-mode~.
 
-#+begin_src elisp
+#+BEGIN_SRC elisp
   (lsp :variables lsp-use-upstream-bindings t)
-#+end_src
+#+END_SRC
 
 * DAP integration
 =lsp-mode= integrates with =dap-mode=, which implements DAP(Debugger Adapter Protocol). See documentation on =DAP= layer for details.
