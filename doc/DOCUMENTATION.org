@@ -2521,6 +2521,7 @@ File manipulation commands (start with ~f~):
 | Key binding | Description                                                                                            |
 |-------------+--------------------------------------------------------------------------------------------------------|
 | ~SPC f A~   | open a file and replace the current buffer with the new file                                           |
+| ~SPC f a~   | open a file and open it in a new buffer leaving the old buffer untouched                               |
 | ~SPC f b~   | go to file bookmarks                                                                                   |
 | ~SPC f c~   | copy current file to a different location                                                              |
 | ~SPC f C d~ | convert file from unix to dos encoding                                                                 |
