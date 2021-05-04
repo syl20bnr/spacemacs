@@ -25,5 +25,5 @@
 
 (spacemacs|define-jump-handlers tuareg-mode)
 
-(defvar ocaml-format-before-save nil
+(defvar ocaml-format-on-save nil
   "If non-nil, ocamlformat before saving.")
