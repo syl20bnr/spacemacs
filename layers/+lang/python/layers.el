@@ -20,7 +20,9 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+(spacemacs/add-available-project-type 'python)
 
 (when (and (boundp 'python-backend)
            (eq python-backend 'lsp))
   (configuration-layer/declare-layer-dependencies '(dap)))
+

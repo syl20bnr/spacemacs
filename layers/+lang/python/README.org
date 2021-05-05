@@ -30,7 +30,6 @@
   - [[#fill-column][Fill column]]
   - [[#sort-imports][Sort imports]]
   - [[#importmagic][Importmagic]]
-  - [[#pyvenv-pyenv-pipenv-and-poetry][Pyvenv, pyenv, pipenv and poetry]]
 - [[#management-of-python-versions-and-virtual-environments][Management of Python versions and virtual environments]]
   - [[#manage-virtual-environments-with-pyvenv][Manage virtual environments with pyvenv]]
     - [[#automatic-activation-of-local-virtual-environment][Automatic activation of local virtual environment]]
@@ -346,20 +345,20 @@ Install importmagic and epc for importmagic functionality.
   pip install importmagic epc
 #+END_SRC
 
-** Pyvenv, pyenv, pipenv and poetry
-Sometimes, it is convenient to be able to use python virtual environments from
-other modes. For this reason, the python layer provides the variables
-=spacemacs--python-pyenv-modes=, =spacemacs--python-pyvenv-modes=,
-=spacemacs--python-poetry-modes= and =spacemacs--python-pipenv-modes=.
-If you wish to be able to access these functionalities from other modes,
-in your user config section, do:
+# ** Pyvenv, pyenv, pipenv and poetry
+# Sometimes, it is convenient to be able to use python virtual environments from
+# other modes. For this reason, the python layer provides the variables
+# =spacemacs--python-pyenv-modes=, =spacemacs--python-pyvenv-modes=,
+# =spacemacs--python-poetry-modes= and =spacemacs--python-pipenv-modes=.
+# If you wish to be able to access these functionalities from other modes,
+# in your user config section, do:
 
-#+BEGIN_SRC elisp
-  (add-to-list 'spacemacs--python-pipenv-modes 'your-mode)
-#+END_SRC
+# #+BEGIN_SRC elisp
+#   (add-to-list 'spacemacs--python-pipenv-modes 'your-mode)
+# #+END_SRC
 
-This will allow you to use [[https://github.com/pwalsh/pipenv.el][pipenv]] bindings from the mode your-mode.
-You can add to the other two lists analogously.
+# This will allow you to use [[https://github.com/pwalsh/pipenv.el][pipenv]] bindings from the mode =your-mode=.
+# You can add to the other two lists analogously.
 
 * Management of Python versions and virtual environments
 ** Manage virtual environments with pyvenv
@@ -371,11 +370,11 @@ location set by the =WORKON_HOME= environment variable.
 Spacemacs integration of virtual environments and virtualenvwrapper is provided
 by the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package. It provides the following key bindings:
 
-| Key binding | Description                                     |
-|-------------+-------------------------------------------------|
-| ~SPC m v a~ | activate a virtual environment in any directory |
-| ~SPC m v d~ | deactivate active virtual environment           |
-| ~SPC m v w~ | work on virtual environment in =WORKON_HOME=    |
+| Key binding   | Description                                     |
+|---------------+-------------------------------------------------|
+| ~SPC m V v a~ | activate a virtual environment in any directory |
+| ~SPC m V v d~ | deactivate active virtual environment           |
+| ~SPC m V v w~ | work on virtual environment in =WORKON_HOME=    |
 
 *** Automatic activation of local virtual environment
 By default Spacemacs uses the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package to manage virtual environments.
@@ -405,10 +404,10 @@ Python versions.
 [[https://www.brianthicks.com/post/2015/04/15/automate-your-python-environment-with-pyenv/][This blogpost]] gives a good overview on how to use the tool. Spacemacs
 integration is provided by [[https://github.com/proofit404/pyenv-mode][pyenv mode]] which has the following key bindings.
 
-| Key binding | Description                          |
-|-------------+--------------------------------------|
-| ~SPC m v s~ | set a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]   |
-| ~SPC m v u~ | unset a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]] |
+| Key binding   | Description                          |
+|---------------+--------------------------------------|
+| ~SPC m V e s~ | set a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]   |
+| ~SPC m V e u~ | unset a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]] |
 
 Pyenv can also manage virtual environments for each of the Python versions it
 has installed. Those will be listed alongside your Python versions.
@@ -434,12 +433,12 @@ It provides the following key bindings:
 
 | Key binding   | Description                                                |
 |---------------+------------------------------------------------------------|
-| ~SPC m v p a~ | activate a pipenv environment with [[https://github.com/pwalsh/pipenv.el][pipenv]]                  |
-| ~SPC m v p d~ | deactivate a pipenv environment with [[https://github.com/pwalsh/pipenv.el][pipenv]]                |
-| ~SPC m v p i~ | install a package into a virtual environment with [[https://github.com/pwalsh/pipenv.el][pipenv]]   |
-| ~SPC m v p o~ | open an installed module in a new buffer with [[https://github.com/pwalsh/pipenv.el][pipenv]]       |
-| ~SPC m v p s~ | open a shell buffer in the current environment with [[https://github.com/pwalsh/pipenv.el][pipenv]] |
-| ~SPC m v p u~ | uninstall a package from a virtual environment with [[https://github.com/pwalsh/pipenv.el][pipenv]] |
+| ~SPC m V p a~ | activate a pipenv environment with [[https://github.com/pwalsh/pipenv.el][pipenv]]                  |
+| ~SPC m V p d~ | deactivate a pipenv environment with [[https://github.com/pwalsh/pipenv.el][pipenv]]                |
+| ~SPC m V p i~ | install a package into a virtual environment with [[https://github.com/pwalsh/pipenv.el][pipenv]]   |
+| ~SPC m V p o~ | open an installed module in a new buffer with [[https://github.com/pwalsh/pipenv.el][pipenv]]       |
+| ~SPC m V p s~ | open a shell buffer in the current environment with [[https://github.com/pwalsh/pipenv.el][pipenv]] |
+| ~SPC m V p u~ | uninstall a package from a virtual environment with [[https://github.com/pwalsh/pipenv.el][pipenv]] |
 
 ** Manage environments and packages with Poetry
 Poetry is a tool for dependency management and packaging in Python.
@@ -451,9 +450,9 @@ It provides the following key bindings:
 
 | Key binding   | Description                                                         |
 |---------------+---------------------------------------------------------------------|
-| ~SPC m v o d~ | De-activate the virtualenv associated to the current poetry project |
-| ~SPC m v o a~ | Activate the virtualenv associated to the current poetry project    |
-| ~SPC m v o t~ | Toggle the virtualenv associated to the current poetry project      |
+| ~SPC m V P d~ | De-activate the virtualenv associated to the current poetry project |
+| ~SPC m V P a~ | Activate the virtualenv associated to the current poetry project    |
+| ~SPC m V P t~ | Toggle the virtualenv associated to the current poetry project      |
 
 * Key bindings
 ** Inferior REPL process
@@ -467,7 +466,6 @@ Send code to inferior process commands:
 
 | Key binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
-| ~SPC m s s~ | send region (or line when region not active) and show output |
 | ~SPC m s b~ | send buffer and keep code buffer focused                     |
 | ~SPC m s B~ | send buffer and switch to REPL in insert mode                |
 | ~SPC m s e~ | send statement and keep code buffer focused                  |
@@ -476,8 +474,10 @@ Send code to inferior process commands:
 | ~SPC m s F~ | send function and switch to REPL in insert mode              |
 | ~SPC m s i~ | start inferior REPL process                                  |
 | ~SPC m s l~ | send line and keep code buffer focused                       |
+| ~SPC m s L~ | send line and switch to REPL in insert mode                  |
 | ~SPC m s r~ | send region and keep code buffer focused                     |
 | ~SPC m s R~ | send region and switch to REPL in insert mode                |
+| ~SPC m s s~ | send region (or line when region not active) and show output |
 | ~CTRL+j~    | next item in REPL history                                    |
 | ~CTRL+k~    | previous item in REPL history                                |
 
@@ -567,6 +567,7 @@ Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][li
 | ~SPC m h P~              | quick documentation using pydoc                                                   |
 | ~SPC m h H~              | open documentation in =firefox= using [[https://github.com/tsgates/pylookup][pylookup]]                                    |
 | ~SPC m S d~              | insert doc-string skeleton using [[https://github.com/naiquevin/sphinx-doc.el][sphinx-doc]]                                       |
+| ~SPC m S s~              | toggle [[https://github.com/naiquevin/sphinx-doc.el][sphinx-doc]] minor mode                                                      |
 | ~SPC m v a~              | activate a virtual environment in any directory                                   |
 | ~SPC m v d~              | deactivate active virtual environment                                             |
 | ~SPC m v s~              | set a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]                                                |
