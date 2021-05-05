@@ -291,7 +291,7 @@
       "L")))
 
 (defun keyboard-layout/pre-init-evil-collection ()
-  (kl|config evil-collection-magit
+  (kl|config evil-collection
     :description
     "Remap `evil-collection-magit' bindings."
     :loader
