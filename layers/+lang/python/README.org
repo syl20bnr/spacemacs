@@ -158,7 +158,7 @@ To setup the pyright language server instead, use:
 You just have to install python language server package:
 
 #+BEGIN_SRC sh
-  pip install python-language-server[all]
+  pip install 'python-language-server[all]'
 #+END_SRC
 
 Additionally you can install the following other packages:
