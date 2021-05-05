@@ -285,6 +285,19 @@ It should only modify the values of Spacemacs settings."
    ;; C-M-m also should work in terminal mode, but not in GUI mode.
    dotspacemacs-major-mode-emacs-leader-key (if window-system "<M-return>" "C-M-m")
 
+
+   ;; Project minor mode leader key is a shortcut key which is the equivalent of
+   ;; pressing `<leader> M`. Set it to `nil` to disable it."
+   dotspacemacs-project-minor-mode-leader-key ";"
+
+   ;; Project minor mode leader key accessible in `emacs state' and
+   ;; `insert state'.
+   ;; (default "S-C-M-m" for terminal mode, "<S-M-return>" for GUI mode).
+   ;; Thus M-RET should work as leader key in both GUI and terminal modes.
+   ;; S-C-M-m also should work in terminal mode, but not in GUI mode.
+   dotspacemacs-project-minor-mode-emacs-leader-key (if window-system "<S-M-return>"
+                                            "S-C-M-m")
+
    ;; These variables control whether separate commands are bound in the GUI to
    ;; the key pairs `C-i', `TAB' and `C-m', `RET'.
    ;; Setting it to a non-nil value, allows for separate commands under `C-i'

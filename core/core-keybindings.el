@@ -61,18 +61,6 @@ sequence. NAME is a string used as the prefix command."
   (apply #'which-key-add-keymap-based-replacements spacemacs-default-map
     prefix name more))
 
-(defun spacemacs/declare-prefix-for-mode (mode prefix name &optional _)
-  "Declare a prefix PREFIX. MODE is the mode in which this prefix command should
-be added. PREFIX is a string describing a key sequence. NAME is a symbol name
-used as the prefix command."
-  (let* ((is-major-mode-prefix (string-prefix-p "m" prefix))
-         (is-minor-mode-prefix (not is-major-mode-prefix))
-         (smap (intern (format "spacemacs-%s-map" mode))))
-    (when (spacemacs//init-leader-mode-map mode smap is-minor-mode-prefix)
-      (which-key-add-keymap-based-replacements (symbol-value smap)
-        (if is-major-mode-prefix (substring prefix 1) prefix) name))))
-(put 'spacemacs/declare-prefix-for-mode 'lisp-indent-function 'defun)
-
 (defun spacemacs/set-leader-keys (key def &rest bindings)
   "Add KEY and DEF as key bindings under
 `dotspacemacs-leader-key' and `dotspacemacs-emacs-leader-key'.
@@ -100,7 +88,22 @@ pairs. For example,
   "Return t if key is a string and non-empty."
   (and (stringp key) (not (string= key ""))))
 
-(defun spacemacs//init-leader-mode-map (mode map &optional minor)
+;; Major mode leader
+
+(defun spacemacs/declare-prefix-for-mode (mode prefix name &optional _)
+  "Declare a prefix PREFIX. MODE is the mode in which this prefix command should
+be added. PREFIX is a string describing a key sequence. NAME is a symbol name
+used as the prefix command."
+  (let* ((is-major-mode-prefix (string-prefix-p "m" prefix))
+         (is-minor-mode-prefix (not is-major-mode-prefix))
+         (smap (intern (format "spacemacs-%s-map" mode))))
+    (when (spacemacs//init-major-mode-leader-mode-map
+           mode smap is-minor-mode-prefix)
+      (which-key-add-keymap-based-replacements (symbol-value smap)
+        (if is-major-mode-prefix (substring prefix 1) prefix) name))))
+(put 'spacemacs/declare-prefix-for-mode 'lisp-indent-function 'defun)
+
+(defun spacemacs//init-major-mode-leader-mode-map (mode map &optional minor)
   "Check for MAP-prefix. If it doesn't exist yet, use `bind-map'
 to create it and bind it to `dotspacemacs-major-mode-leader-key'
 and `dotspacemacs-major-mode-emacs-leader-key'. If MODE is a
@@ -153,7 +156,7 @@ MODE. MODE should be a quoted symbol corresponding to a valid
 major mode. The rest of the arguments are treated exactly like
 they are in `spacemacs/set-leader-keys'."
   (let* ((map (intern (format "spacemacs-%s-map" mode))))
-    (when (spacemacs//init-leader-mode-map mode map)
+    (when (spacemacs//init-major-mode-leader-mode-map mode map)
       (while key
         (define-key (symbol-value map) (kbd key) def)
         (setq key (pop bindings) def (pop bindings))))))
@@ -172,7 +175,7 @@ minor mode. The rest of the arguments are treated exactly like
 they are in `spacemacs/set-leader-keys'. If DEF is string, then
 it is treated as a prefix not a command."
   (let* ((map (intern (format "spacemacs-%s-map" mode))))
-    (when (spacemacs//init-leader-mode-map mode map t)
+    (when (spacemacs//init-major-mode-leader-mode-map mode map t)
       (let ((map-value (symbol-value map)))
         (while key
           (if (stringp def)
@@ -181,16 +184,68 @@ it is treated as a prefix not a command."
           (setq key (pop bindings) def (pop bindings)))))))
 (put 'spacemacs/set-leader-keys-for-minor-mode 'lisp-indent-function 'defun)
 
-(defun spacemacs/declare-prefix-for-minor-mode (mode prefix name)
-  "Declare a prefix PREFIX. MODE is the mode in which this prefix command should
-be added. PREFIX is a string describing a key sequence. NAME is a symbol name
-used as the prefix command.
+;; Project leader
 
-Example:
-  \(spacemacs/declare-prefix-for-minor-mode 'tide-mode \"E\" \"errors\"\)"
+(defun spacemacs/declare-prefix-for-project-minor-mode (mode prefix name)
+  "Declare a project prefix PREFIX. MODE is a minor mode in which this prefix
+command should be added. PREFIX is a string describing a key sequence. NAME is a
+symbol name used as the prefix command.
 
-  (let* ((map (intern (format "spacemacs-%s-map" mode))))
-    (when (spacemacs//init-leader-mode-map mode map t)
-      (which-key-add-keymap-based-replacements (symbol-value map) prefix name))))
+NOTE: only supported by `spacemacs|spacebind' macro. Do not call this macro
+yourself."
+  (let ((smap (intern (format "spacemacs-%s-project-map" mode))))
+    (when (spacemacs//init-major-mode-leader-mode-map mode smap t)
+      (which-key-add-keymap-based-replacements
+        (symbol-value smap) prefix name))))
+(put 'spacemacs/declare-prefix-for-mode 'lisp-indent-function 'defun)
+
+(defun spacemacs//init-project-minor-mode-leader-mode-map (mode map)
+  "Check for MAP-prefix. If it doesn't exist yet, use `bind-map' to create it
+and bind it to `dotspacemacs-project-minor-mode-leader-key' and
+`dotspacemacs-project-minor-mode-emacs-leader-key'."
+  (let* ((prefix (intern (format "%s-project-prefix" map)))
+         (leader1 (when (spacemacs//acceptable-leader-p
+                         dotspacemacs-project-minor-mode-leader-key)
+                    dotspacemacs-project-minor-mode-leader-key))
+         (leader2 (when (spacemacs//acceptable-leader-p
+                         dotspacemacs-leader-key)
+                    (concat dotspacemacs-leader-key " M")))
+         (emacs-leader1 (when (spacemacs//acceptable-leader-p
+                               dotspacemacs-project-minor-mode-emacs-leader-key)
+                          dotspacemacs-project-minor-mode-emacs-leader-key))
+         (emacs-leader2 (when (spacemacs//acceptable-leader-p
+                               dotspacemacs-emacs-leader-key)
+                          (concat dotspacemacs-emacs-leader-key " M")))
+         (leaders (delq nil (list leader1 leader2)))
+         (emacs-leaders (delq nil (list emacs-leader1 emacs-leader2))))
+    (or (boundp prefix)
+        (progn
+          (eval
+           `(bind-map ,map
+              :prefix-cmd ,prefix
+              :minor-modes (,mode)
+              :keys ,emacs-leaders
+              :evil-keys ,leaders
+              :evil-states (normal motion visual evilified)))
+          (boundp prefix)))))
+
+(defun spacemacs/set-leader-keys-for-project-minor-mode (mode key def
+                                                              &rest bindings)
+  "Add KEY and DEF as key bindings under
+`dotspacemacs-project-minor-mode-leader-key' and
+`dotspacemacs-project-minor-mode-emacs-leader-key' for the minor-mode
+MODE. MODE should be a quoted symbol corresponding to a valid
+minor mode. The rest of the arguments are treated exactly like
+they are in `spacemacs/set-leader-keys'. If DEF is string, then
+it is treated as a prefix not a command."
+  (let* ((map (intern (format "spacemacs-%s-project-map" mode))))
+    (when (spacemacs//init-project-minor-mode-leader-mode-map mode map)
+      (let ((map-value (symbol-value map)))
+        (while key
+          (if (stringp def)
+              (which-key-add-keymap-based-replacements map-value key def)
+            (define-key map-value (kbd key) def))
+          (setq key (pop bindings) def (pop bindings)))))))
+(put 'spacemacs/set-leader-keys-for-minor-mode 'lisp-indent-function 'defun)
 
 (provide 'core-keybindings)

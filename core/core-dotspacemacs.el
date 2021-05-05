@@ -341,6 +341,18 @@ pressing `<leader> m`. Set it to `nil` to disable it."
   'string
   'spacemacs-dotspacemacs-init)
 
+(spacemacs|defc dotspacemacs-project-minor-mode-leader-key ";"
+  "Project minor mode leader key is a shortcut key which is the equivalent of
+pressing `<leader> M`. Set it to `nil` to disable it."
+  '(choice (const nil) string)
+  'spacemacs-dotspacemacs-init)
+
+(spacemacs|defc dotspacemacs-project-minor-mode-emacs-leader-key
+  (if window-system "<S-M-return>" "S-C-M-m")
+  "Project minor mode leader key accessible in `emacs state' and `insert state'"
+  'string
+  'spacemacs-dotspacemacs-init)
+
 (spacemacs|defc dotspacemacs-ex-command-key ":"
   "The key used for Vim Ex commands."
   'string
