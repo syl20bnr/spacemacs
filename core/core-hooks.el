@@ -20,8 +20,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-
 (defun spacemacs/run-prog-mode-hooks ()
   "Runs `prog-mode-hook'. Useful for modes that don't derive from
 `prog-mode' but should."

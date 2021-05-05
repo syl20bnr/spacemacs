@@ -113,6 +113,7 @@
     (spacemacs||set-helm-key "hm"   helm-man-woman)
     (spacemacs||set-helm-key "iu"   helm-ucs)
     (spacemacs||set-helm-key "jI"   helm-imenu-in-all-buffers)
+    (spacemacs||set-helm-key "ps"   spacemacs/helm-add-project-type)
     (spacemacs||set-helm-key "rm"   helm-all-mark-rings)
     (spacemacs||set-helm-key "rl"   helm-resume)
     (spacemacs||set-helm-key "rr"   helm-register)

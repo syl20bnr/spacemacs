@@ -52,6 +52,52 @@
   (setq display-buffer-alist spacemacs-display-buffer-alist))
 
 
+;; Spacemacs Project Type Management
+
+(defun spacemacs/helm-add-project-type ()
+  "Add a project type to current project using Helm.
+
+This functions add a project type to the current project using a directory
+local variable in a `.dir-locals.el' file at the root of the project."
+  (interactive)
+  (helm :buffer "*helm: Spacemacs Project Type*"
+        :sources (spacemacs//helm-available-project-types-source)))
+
+(defun spacemacs/helm-remove-project-type ()
+  "Remove an enabled project type in the current project using Helm.
+
+This functions add a project type to the current project using a directory
+local variable in a `.dir-locals.el' file at the root of the project."
+  (interactive)
+  (helm :buffer "*helm: Spacemacs Project Type*"
+        :sources (helm//remove-spacemacs-project-types-source)))
+
+(defun spacemacs//helm-available-project-types-source ()
+  "Construct the helm source for available project types."
+  (helm-build-sync-source "Spacemacs Available Project Types"
+    :candidates spacemacs-available-project-types
+    :persistent-action #'spacemacs//helm-available-project-types-action-add
+    :keymap helm-map
+    :action (helm-make-actions
+             "Add to current project"
+             #'spacemacs//helm-available-project-types-action-add)))
+
+(defun spacemacs//helm-available-project-types-action-add (candidate)
+  "Add selected project type to current project in `.dir-locals.el' variable."
+  ;; do nothing if the type is already set
+  (if (not (memq candidate spacemacs-project-types))
+      (let ((default-directory (if (fboundp 'projectile-project-root)
+                                   (projectile-project-root)
+                                 default-directory))
+            (value (if spacemacs-project-types
+                       (append spacemacs-project-types `(,(intern candidate)))
+                     `(,(intern candidate)))))
+        (add-dir-local-variable nil 'spacemacs-project-types value)
+        (save-buffer)
+        ;; add-dir-local-variable opens the `.dir-locals.el' buffer
+        (kill-buffer))))
+
+
 ;; REPLs integration
 
 (defun helm-available-repls ()
@@ -66,8 +112,6 @@
                          (call-interactively (cdr repl))))))))
     (helm :sources '(helm-available-repls)
           :buffer "*helm repls*")))
-
-
 
 
 ;; Search tools integration
