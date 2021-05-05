@@ -108,7 +108,8 @@
 
 (defun python/post-init-company ()
   ;; backend specific
-  (add-hook 'python-mode-local-vars-hook #'spacemacs//python-setup-company)
+  (spacemacs/add-local-var-hook #'spacemacs//python-setup-company
+                                :major-mode 'python-mode)
   (spacemacs|add-company-backends
     :backends (company-files company-capf)
     :modes inferior-python-mode
@@ -148,10 +149,12 @@
 (defun python/pre-init-dap-mode ()
   (when (eq python-backend 'lsp)
     (add-to-list 'spacemacs--dap-supported-modes 'python-mode))
-  (add-hook 'python-mode-local-vars-hook #'spacemacs//python-setup-dap))
+  (spacemacs/add-local-var-hook #'spacemacs//python-setup-dap
+                                :major-mode 'python-mode))
 
 (defun python/post-init-eldoc ()
-  (add-hook 'python-mode-local-vars-hook #'spacemacs//python-setup-eldoc))
+  (spacemacs/add-local-var-hook #'spacemacs//python-setup-eldoc
+                                :major-mode 'python-mode))
 
 (defun python/post-init-evil-matchit ()
   (add-hook `python-mode-hook `turn-on-evil-matchit-mode))
@@ -168,7 +171,8 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'python-mode))
 
 (defun python/post-init-ggtags ()
-  (add-hook 'python-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (spacemacs/add-local-var-hook #'spacemacs/ggtags-mode-enable
+                                :major-mode 'python-mode))
 
 (defun python/init-helm-pydoc ()
   (use-package helm-pydoc
@@ -212,26 +216,22 @@
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(python . t))))
 
-(defun python/pre-init-pipenv ()
-  (add-to-list 'spacemacs--python-pipenv-modes 'python-mode))
 (defun python/init-pipenv ()
   (use-package pipenv
     :defer t
-    :commands (pipenv-activate
-               pipenv-deactivate
-               pipenv-shell
-               pipenv-open
-               pipenv-install
-               pipenv-uninstall)
     :init
-    (dolist (m spacemacs--python-pipenv-modes)
-      (spacemacs/set-leader-keys-for-major-mode m
-        "vpa" 'pipenv-activate
-        "vpd" 'pipenv-deactivate
-        "vpi" 'pipenv-install
-        "vpo" 'pipenv-open
-        "vps" 'pipenv-shell
-        "vpu" 'pipenv-uninstall))))
+    ;; (spacemacs|spacebind
+    ;;  :minor
+    ;;  (pipenv-mode
+    ;;   "Pipenv key bindings"
+    ;;   ("V" "Environment"
+    ;;    ("'" pipenv-shell "Start a shell")
+    ;;    ("a" pipenv-activate "Activate Python version")
+    ;;    ("d" pipenv-deactivate "Deactivate Python version")
+    ;;    ("i" pipenv-install "Install packages...")
+    ;;    ("o" pipenv-open "View module...")
+    ;;    ("u" pipenv-uninstall "Uninstall package..."))))
+    ))
 
 (defun python/pre-init-poetry ()
   (add-to-list 'spacemacs--python-poetry-modes 'python-mode))
@@ -242,11 +242,16 @@
                poetry-tracking-mode)
     :init
     (dolist (m spacemacs--python-poetry-modes)
-      (spacemacs/set-leader-keys-for-major-mode m
-        "vod" 'poetry-venv-deactivate
-        "vow" 'poetry-venv-workon
-        "vot" 'poetry-venv-toggle))))
-
+      (eval
+       `(spacemacs|spacebind
+         :major
+         (,m
+          "Poetry key bindings"
+          ("V" "Environment"
+           ("P" "Poetry"
+            ("d" poetry-venv-deactivate "Deactivate virtualenv")
+            ("t" poetry-venv-toggle "Toggle virtualenv")
+            ("w" poetry-venv-workon "Activate virtualenv")))))))))
 
 (defun python/init-pip-requirements ()
   (use-package pip-requirements
@@ -266,18 +271,25 @@
     :defer t
     :init
     (add-hook 'before-save-hook 'spacemacs//python-sort-imports)
-    (spacemacs/set-leader-keys-for-major-mode 'python-mode
-      "rI" 'py-isort-buffer)))
+    (spacemacs|spacebind
+     :major
+     (python-mode
+      "Python key bindings"
+      ("r" "Refactor"
+       ("I" py-isort-buffer "Sort imports with 'isort'"))))))
 
 (defun python/init-sphinx-doc ()
   (use-package sphinx-doc
     :defer t
     :init
     (add-hook 'python-mode-hook 'sphinx-doc-mode)
-    (spacemacs/declare-prefix-for-mode 'python-mode "mS" "sphinx-doc")
-    (spacemacs/set-leader-keys-for-major-mode 'python-mode
-      "Se" 'sphinx-doc-mode
-      "Sd" 'sphinx-doc)
+    (spacemacs|spacebind
+     :major
+     (python-mode
+      "Python key bindings"
+      ("S" "Sphinx"
+       ("d" sphinx-doc "Insert function docstring")
+       ("s" sphinx-doc-mode "Toggle sphinx-doc-mode"))))
     :config (spacemacs|hide-lighter sphinx-doc-mode)))
 
 (defun python/init-pydoc ()
@@ -288,54 +300,38 @@
       "hp" 'pydoc-at-point-no-jedi
       "hP" 'pydoc)))
 
-(defun python/pre-init-pyenv-mode ()
-  (add-to-list 'spacemacs--python-pyenv-modes 'python-mode))
 (defun python/init-pyenv-mode ()
   (use-package pyenv-mode
-    :if (executable-find "pyenv")
-    :commands (pyenv-mode-versions)
+    :defer t
+    ;; initialize via `spacemacs//python-setup-version-manager'
     :init
-    (pcase python-auto-set-local-pyenv-version
-      ('on-visit
-       (dolist (m spacemacs--python-pyenv-modes)
-         (add-hook (intern (format "%s-hook" m))
-                   'spacemacs//pyenv-mode-set-local-version)))
-      ('on-project-switch
-       (add-hook 'projectile-after-switch-project-hook
-                 'spacemacs//pyenv-mode-set-local-version)))
-    ;; setup shell correctly on environment switch
-    (dolist (func '(pyenv-mode-set pyenv-mode-unset))
-      (advice-add func :after
-                  (lambda (&optional version)
-                    (spacemacs/python-setup-everything
-                     (when version (pyenv-mode-full-path version))))))
-    (spacemacs/set-leader-keys-for-major-mode 'python-mode
-      "vu" 'pyenv-mode-unset
-      "vs" 'pyenv-mode-set)))
+    (add-hook 'pyenv-mode-hook 'spacemacs//python-setup-pyenv-hook)
+    (spacemacs/add-local-var-hook #'spacemacs//python-setup-version-manager
+                                  :project-type 'python)
+    (spacemacs|spacebind
+     :project-minor
+     (pyenv-mode
+      "Pyenv-mode key bindings"
+      ("V" "Environment"
+       ("v" pyenv-mode-set "Set Python version")
+       ("V" pyenv-mode-unset "Unset Python version"))))))
 
-(defun python/pre-init-pyvenv ()
-  (add-to-list 'spacemacs--python-pyvenv-modes 'python-mode))
 (defun python/init-pyvenv ()
   (use-package pyvenv
     :defer t
+    ;; initialize via `spacemacs//python-setup-version-manager'
     :init
-    (add-hook 'python-mode-hook #'pyvenv-tracking-mode)
-    (pcase python-auto-set-local-pyvenv-virtualenv
-      ('on-visit
-       (dolist (m spacemacs--python-pyvenv-modes)
-         (add-hook (intern (format "%s-hook" m))
-                   'spacemacs//pyvenv-mode-set-local-virtualenv)))
-      ('on-project-switch
-       (add-hook 'projectile-after-switch-project-hook
-                 'spacemacs//pyvenv-mode-set-local-virtualenv)))
-    (dolist (m spacemacs--python-pyvenv-modes)
-      (spacemacs/set-leader-keys-for-major-mode m
-        "va" 'pyvenv-activate
-        "vd" 'pyvenv-deactivate
-        "vw" 'pyvenv-workon))
-    ;; setup shell correctly on environment switch
-    (dolist (func '(pyvenv-activate pyvenv-deactivate))
-      (advice-add func :after 'spacemacs/python-setup-everything))))
+    (add-hook 'pyvenv-mode-hook 'spacemacs//python-setup-pyvenv-hook)
+    (spacemacs/add-local-var-hook #'spacemacs//python-setup-version-manager
+                                  :project-type 'python)
+    (spacemacs|spacebind
+     :project-minor
+     (pyvenv-mode
+      "Pyvenv-mode key bindings"
+      ("V" "Environment"
+       ("a" pyvenv-activate "Activate virtualenv...")
+       ("d" pyvenv-deactivate "Deactivate virtualenv")
+       ("w" pyvenv-workon "Activate virtualenv from $WORKON_HOME..."))))))
 
 (defun python/init-pylookup ()
   (use-package pylookup
@@ -373,39 +369,40 @@
     (spacemacs/register-repl 'python
                              'spacemacs/python-start-or-switch-repl "python")
     (spacemacs//bind-python-repl-keys)
-    (add-hook 'python-mode-local-vars-hook 'spacemacs//python-setup-backend)
     (add-hook 'python-mode-hook 'spacemacs//python-default)
+    (spacemacs/add-local-var-hook #'spacemacs//python-setup-backend
+                                  :major-mode 'python-mode)
     :config
     ;; add support for `ahs-range-beginning-of-defun' for python-mode
     (with-eval-after-load 'auto-highlight-symbol
       (add-to-list 'ahs-plugin-bod-modes 'python-mode))
-
-    (spacemacs/declare-prefix-for-mode 'python-mode "mc" "execute")
-    (spacemacs/declare-prefix-for-mode 'python-mode "md" "debug")
     (spacemacs/declare-prefix-for-mode 'python-mode "mh" "help")
     (spacemacs/declare-prefix-for-mode 'python-mode "mg" "goto")
-    (spacemacs/declare-prefix-for-mode 'python-mode "ms" "REPL")
-    (spacemacs/declare-prefix-for-mode 'python-mode "mr" "refactor")
-    (spacemacs/declare-prefix-for-mode 'python-mode "mv" "virtualenv")
-    (spacemacs/declare-prefix-for-mode 'python-mode "mvp" "pipenv")
-    (spacemacs/declare-prefix-for-mode 'python-mode "mvo" "poetry")
-    (spacemacs/set-leader-keys-for-major-mode 'python-mode
-      "'"  'spacemacs/python-start-or-switch-repl
-      "cc" 'spacemacs/python-execute-file
-      "cC" 'spacemacs/python-execute-file-focus
-      "db" 'spacemacs/python-toggle-breakpoint
-      "ri" 'spacemacs/python-remove-unused-imports
-      "sB" 'spacemacs/python-shell-send-buffer-switch
-      "sb" 'spacemacs/python-shell-send-buffer
-      "sE" 'spacemacs/python-shell-send-statement-switch
-      "se" 'spacemacs/python-shell-send-statement
-      "sF" 'spacemacs/python-shell-send-defun-switch
-      "sf" 'spacemacs/python-shell-send-defun
-      "si" 'spacemacs/python-start-or-switch-repl
-      "sR" 'spacemacs/python-shell-send-region-switch
-      "sr" 'spacemacs/python-shell-send-region
-      "sl" 'spacemacs/python-shell-send-line
-      "ss" 'spacemacs/python-shell-send-with-output)
+    (spacemacs|spacebind
+     :major
+     (python-mode
+      "Python key bindings"
+      ("'"  spacemacs/python-start-or-switch-repl "Start REPL / go toREPL")
+      ("c" "Compile/Execute"
+       ("c" spacemacs/python-execute-file "Compile script (C-u prompts for the command)")
+       ("C" spacemacs/python-execute-file-focus "Compile script and focus (C-u prompts for the command)"))
+      ("d" "Debug"
+       ("b" spacemacs/python-toggle-breakpoint "Insert a breakpoint"))
+      ("r" "Refactor"
+       ("i" spacemacs/python-remove-unused-imports "Remove unused imports"))
+      ("s" "REPL"
+       ("b" spacemacs/python-shell-send-buffer "Send buffer")
+       ("B" spacemacs/python-shell-send-buffer-switch "Send buffer and focus")
+       ("e" spacemacs/python-shell-send-statement "Send statement")
+       ("E" spacemacs/python-shell-send-statement-switch "Send statement and focus")
+       ("f" spacemacs/python-shell-send-defun "Send function")
+       ("F" spacemacs/python-shell-send-defun-switch "Send function and focus")
+       ("i" spacemacs/python-start-or-switch-repl "Start REPL / Go to REPL")
+       ("l" spacemacs/python-shell-send-line "Send line")
+       ("L" spacemacs/python-shell-send-line-switch "Send line and focus")
+       ("r" spacemacs/python-shell-send-region "Send region")
+       ("R" spacemacs/python-shell-send-region-switch "Send region and focus")
+       ("s" spacemacs/python-shell-send-with-output "Send region or line with output"))))
 
     ;; Set `python-indent-guess-indent-offset' to `nil' to prevent guessing `python-indent-offset
     ;; (we call python-indent-guess-indent-offset manually so python-mode does not need to do it)
@@ -433,16 +430,7 @@
 
     ;; add this optional key binding for Emacs user, since it is unbound
     (define-key inferior-python-mode-map
-      (kbd "C-c M-l") 'spacemacs/comint-clear-buffer)
-
-    (setq spacemacs--python-shell-interpreter-origin
-          (eval (car (get 'python-shell-interpreter 'standard-value))))
-    ;; setup the global variables for python shell if no custom value
-    (when (equal python-shell-interpreter spacemacs--python-shell-interpreter-origin)
-      (spacemacs//python-setup-shell default-directory)
-      (setq spacemacs--python-shell-interpreter-origin python-shell-interpreter)
-      (dolist (x '(python-shell-interpreter python-shell-interpreter-args))
-        (set-default-toplevel-value x (symbol-value x))))))
+      (kbd "C-c M-l") 'spacemacs/comint-clear-buffer)))
 
 (defun python/post-init-semantic ()
   (when (configuration-layer/package-used-p 'anaconda-mode)

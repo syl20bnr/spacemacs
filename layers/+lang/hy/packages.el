@@ -27,9 +27,6 @@
         evil-cleverparens
         hy-mode
         ob-hy
-        pyenv-mode
-        pyvenv
-        pipenv
         smartparens))
 
 
@@ -93,15 +90,6 @@
     (use-package ob-hy
       :init (add-to-list 'org-babel-load-languages '(hy . t)))))
 (defun hy/init-ob-hy ())
-
-(defun hy/pre-init-pyenv-mode ()
-  (add-to-list 'spacemacs--python-pyenv-modes 'hy-mode))
-
-(defun hy/pre-init-pyvenv ()
-  (add-to-list 'spacemacs--python-pyvenv-modes 'hy-mode))
-
-(defun hy/pre-init-pipenv ()
-  (add-to-list 'spacemacs--python-pipenv-modes 'hy-mode))
 
 (defun hy/post-init-smartparens ()
   (add-hook 'hy-mode-hook #'spacemacs//activate-smartparens))
