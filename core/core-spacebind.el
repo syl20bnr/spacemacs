@@ -30,18 +30,24 @@ Otherwise binding happens at the next event loop.")
 ;;;; Binding stacks
 (defvar spacebind--bs-minor-mode-replacements '()
   "Binding stack for `spacemacs/add-key-based-replacements-for-minor-mode'.")
+(defvar spacebind--bs-project-minor-mode-replacements '()
+  "Binding stack for `spacemacs/add-key-based-replacements-for-minor-mode'.")
 (defvar spacebind--bs-major-mode-replacements '()
   "Binding stack for `which-key-add-major-mode-key-based-replacements'.")
 (defvar spacebind--bs-declare-prefix '()
   "Binding stack for `spacemacs/declare-prefix'.")
 (defvar spacebind--bs-declare-prefix-for-mode '()
   "Binding stack for `spacemacs/declare-prefix-for-mode'.")
+(defvar spacebind--bs-declare-prefix-for-project-minor-mode '()
+  "Binding stack for `spacemacs/declare-prefix-for-project-minor-mode'.")
 (defvar spacebind--bs-leader-keys '()
   "Binding stack for `spacemacs/set-leader-keys'.")
 (defvar spacebind--bs-leader-keys-for-major-mode '()
   "Binding stack for `spacemacs/set-leader-keys-for-major-mode'.")
 (defvar spacebind--bs-leader-keys-for-minor-mode '()
   "Binding stack for `spacemacs/set-leader-keys-for-minor-mode'.")
+(defvar spacebind--bs-leader-keys-for-project-minor-mode '()
+  "Binding stack for `spacemacs/set-leader-keys-for-project-minor-mode'.")
 (defvar spacebind--bs-global-replacements '()
   "Binding stack for `which-key-add-key-based-replacements'.")
 (defvar spacebind--bs-fn-key-seq-override '()
@@ -58,10 +64,26 @@ Otherwise binding happens at the next event loop.")
         (dolist (args spacebind--bs-minor-mode-replacements)
           (let ((mode (car args))
                 (keys (string-join (append `(,(spacemacs/leader-key))
+                                           `(,(spacemacs/major-mode-prefix))
                                            (cadr args))
                                    " "))
                 (shortcutkeys (string-join
                                (append `(,(spacemacs/major-mode-leader-key))
+                                       (cadr args))
+                               " "))
+                (label (caddr args)))
+            (spacemacs/add-key-based-replacements-for-minor-mode
+             mode keys label)
+            (spacemacs/add-key-based-replacements-for-minor-mode
+             mode shortcutkeys label)))
+        (dolist (args spacebind--bs-project-minor-mode-replacements)
+          (let ((mode (car args))
+                (keys (string-join (append `(,(spacemacs/leader-key))
+                                           `(,(spacemacs/project-minor-mode-prefix))
+                                           (cadr args))
+                                   " "))
+                (shortcutkeys (string-join
+                               (append `(,(spacemacs/project-minor-mode-leader-key))
                                        (cadr args))
                                " "))
                 (label (caddr args)))
@@ -99,6 +121,13 @@ Otherwise binding happens at the next event loop.")
                 (label (caddr args)))
             (spacemacs/declare-prefix-for-mode mode prefix label)))
 
+        ;; `spacemacs/declare-prefix-for-project-minor-mode'
+        (dolist (args spacebind--bs-declare-prefix-for-project-minor-mode)
+          (let ((mode (car args))
+                (prefix (string-join (cadr args) " "))
+                (label (caddr args)))
+            (spacemacs/declare-prefix-for-project-minor-mode mode prefix label)))
+
         ;; `spacemacs/set-leader-keys'
         (dolist (args spacebind--bs-leader-keys)
           (let ((keys (string-join (car args) " "))
@@ -119,6 +148,13 @@ Otherwise binding happens at the next event loop.")
                 (fn-sym (caddr args)))
             (spacemacs/set-leader-keys-for-minor-mode mode keys fn-sym)))
 
+        ;; `spacemacs/set-leader-keys-for-project-minor-mode'
+        (dolist (args spacebind--bs-leader-keys-for-project-minor-mode)
+          (let ((mode (car args))
+                (keys (string-join (cadr args) " "))
+                (fn-sym (caddr args)))
+            (spacemacs/set-leader-keys-for-project-minor-mode mode keys fn-sym)))
+
         ;; `which-key-add-key-based-replacements'
         (dolist (args spacebind--bs-global-replacements)
           (let ((keys (string-join (append `(,(spacemacs/leader-key))
@@ -137,21 +173,28 @@ Otherwise binding happens at the next event loop.")
     ;; Reset stacks
     (setq spacebind--bs-global-replacements nil
           spacebind--bs-leader-keys-for-minor-mode nil
+          spacebind--bs-leader-keys-for-project-minor-mode nil
           spacebind--bs-leader-keys-for-major-mode nil
           spacebind--bs-leader-keys nil
           spacebind--bs-declare-prefix-for-mode nil
+          spacebind--bs-declare-prefix-for-project-minor-mode nil
           spacebind--bs-declare-prefix nil
           spacebind--bs-major-mode-replacements nil
           spacebind--bs-minor-mode-replacements nil
+          spacebind--bs-project-minor-mode-replacements nil
           spacebind--bs-fn-key-seq-override nil
           ;; Reset timer var
           spacebind--timer [t])))
 
-;; TODO: Make this configurable.
 (defun spacemacs/major-mode-prefix ()
   "Get current prefix for major modes.
 NOTE: `dotspacemacs-major-mode-leader-key' isn't the same."
   "m")
+
+(defun spacemacs/project-minor-mode-prefix ()
+  "Get current prefix for project wide minor modes.
+NOTE: `dotspacemacs-project-minor-mode-leader-key' isn't the same."
+  "M")
 
 (defun spacemacs/leader-key ()
   "Returns `dotspacemacs-leader-key'"
@@ -160,6 +203,10 @@ NOTE: `dotspacemacs-major-mode-leader-key' isn't the same."
 (defun spacemacs/major-mode-leader-key ()
   "Returns `dotspacemacs-major-mode-leader-key'"
   dotspacemacs-major-mode-leader-key)
+
+(defun spacemacs/project-minor-mode-leader-key ()
+  "Returns `dotspacemacs-project-minor-mode-leader-key'"
+  dotspacemacs-project-minor-mode-leader-key)
 
 (defun spacebind//strip-docstring (mode-binding-form)
   "Remove second element of MODE-BINDING-FORM if it is a string."
@@ -188,12 +235,15 @@ https://github.com/justbur/emacs-which-key/issues/212"
 CTYPE - current binding type.
 BSTACK - plist of generated key-binding stacks of the shape:
 (:minor-mode-replacements <STACK>
+ :project-minor-mode-replacements <STACK>
  :major-mode-replacements <STACK>
  :declare-prefix <STACK>
  :declare-prefix-for-mode <STACK>
+ :declare-prefix-for-project-minor-mode <STACK>
  :set-leader-keys <STACK>
  :set-leader-keys-for-major-mode <STACK>
  :set-leader-keys-for-minor-mode <STACK>
+ :set-leader-keys-for-project-minor-mode <STACK>
  :global-replacements <STACK>
  :fn-key-seq-override <STACK>)"
   ctype bstack)
@@ -396,6 +446,30 @@ The forms will be concatenated and substituted by `spacebind' macro."
         state
         :declare-prefix-for-mode `(,mode ,key-prefix ,label))))))
 
+(cl-defmethod :project-minor ((state spacemacs--spacebind-state) form)
+  "Interpreter for project wide minor mode binding forms."
+  (let* ((form (spacebind//strip-docstring form))
+         (mode (pop form)))
+    (spacemacs//spacebind-form-walker
+     form
+     (lambda (key-seq key-label fn-symbol label)
+       (spacemacs//spacebind-stack-push
+        state
+        :project-minor-mode-replacements `(,mode ,key-seq ,label))
+       (spacemacs//spacebind-stack-push
+        state
+        :set-leader-keys-for-project-minor-mode `(,mode ,key-seq ,fn-symbol))
+       (when key-label
+         (spacemacs//spacebind-stack-push
+          state
+          :fn-key-seq-override `(,(symbol-name fn-symbol)
+                                 ,key-label
+                                 ,label))))
+     (lambda (key-prefix label)
+       (spacemacs//spacebind-stack-push
+        state
+        :declare-prefix-for-project-minor-mode `(,mode ,key-prefix ,label))))))
+
 (defmacro spacemacs|spacebind (&rest bindings)
   "Bind keys and their prefixes declared via BINDINGS tree like structure.
 BINDINGS format:
@@ -475,18 +549,24 @@ NOTE: You can override key labels and displayed key sequences with :label <TEXT>
             acc))
         `((:minor-mode-replacements
            spacebind--bs-minor-mode-replacements)
+          (:project-minor-mode-replacements
+           spacebind--bs-project-minor-mode-replacements)
           (:major-mode-replacements
            spacebind--bs-major-mode-replacements)
           (:declare-prefix
            spacebind--bs-declare-prefix)
           (:declare-prefix-for-mode
            spacebind--bs-declare-prefix-for-mode)
+          (:declare-prefix-for-project-minor-mode
+           spacebind--bs-declare-prefix-for-project-minor-mode)
           (:set-leader-keys
            spacebind--bs-leader-keys)
           (:set-leader-keys-for-major-mode
            spacebind--bs-leader-keys-for-major-mode)
           (:set-leader-keys-for-minor-mode
            spacebind--bs-leader-keys-for-minor-mode)
+          (:set-leader-keys-for-project-minor-mode
+           spacebind--bs-leader-keys-for-project-minor-mode)
           (:global-replacements
            spacebind--bs-global-replacements)
           (:fn-key-seq-override

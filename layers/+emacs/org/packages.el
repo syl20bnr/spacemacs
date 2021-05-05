@@ -909,7 +909,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
       "n" 'org-journal-next-entry
       "p" 'org-journal-previous-entry)
 
-    (spacemacs//init-leader-mode-map 'org-journal-mode 'spacemacs-org-journal-mode-map)))
+    (spacemacs//init-major-mode-leader-mode-map 'org-journal-mode 'spacemacs-org-journal-mode-map)))
 
 (defun org/init-ox-hugo ()
   (use-package ox-hugo :after ox))
