@@ -247,6 +247,7 @@
   - [[#web-beautify][Web-beautify]]
   - [[#xclipboard][Xclipboard]]
 - [[#vim][Vim]]
+  - [[#evil-better-jumper][Evil-better-jumper]]
   - [[#evil-commentary][Evil-commentary]]
   - [[#evil-snipe][Evil-snipe]]
   - [[#vim-empty-lines][Vim-empty-lines]]
@@ -3161,6 +3162,16 @@ Features:
 - [[https://github.com/redguardtoo/cliphist][cliphist]] package: integration with clipboard managers on Linux and macOS.
 
 * Vim
+** Evil-better-jumper
+[[file:+vim/evil-better-jumper/README.org][+vim/evil-better-jumper/README.org]]
+
+This layer adds support for [[https://github.com/gilbertw1/better-jumper][better-jumper]]. A configurable jump list
+implementation for Emacs that can be used to easily jump back to previous
+locations.
+
+Features:
+- jump back and forth
+
 ** Evil-commentary
 [[file:+vim/evil-commentary/README.org][+vim/evil-commentary/README.org]]
 
