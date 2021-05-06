@@ -28,22 +28,22 @@
         (better-jumper--jumping t))
     (apply orig-fn args)))
 
-(defun evil-better-jumper/set-jump-maybe-a (orig-fn &rest args)
-  "Set a jump point if ORIG-FN returns non-nil."
-  (let ((origin (point-marker))
-        (result
-         (let* ((evil--jumps-jumping t)
-                (better-jumper--jumping t))
-           (apply orig-fn args))))
-    (unless result
-      (with-current-buffer (marker-buffer origin)
-        (better-jumper-set-jump
-         (if (markerp (car args))
-             (car args)
-           origin))))
-    result))
+;; (defun evil-better-jumper/set-jump-maybe-a (orig-fn &rest args)
+;;   "Set a jump point if ORIG-FN returns non-nil."
+;;   (let ((origin (point-marker))
+;;         (result
+;;          (let* ((evil--jumps-jumping t)
+;;                 (better-jumper--jumping t))
+;;            (apply orig-fn args))))
+;;     (unless result
+;;       (with-current-buffer (marker-buffer origin)
+;;         (better-jumper-set-jump
+;;          (if (markerp (car args))
+;;              (car args)
+;;            origin))))
+;;     result))
 
-(defun evil-better-jumper/set-jump-h ()
-  "Run `better-jumper-set-jump' but return nil, for short-circuiting hooks."
-  (better-jumper-set-jump)
-  nil)
+;; (defun evil-better-jumper/set-jump-h ()
+;;   "Run `better-jumper-set-jump' but return nil, for short-circuiting hooks."
+;;   (better-jumper-set-jump)
+;;   nil)
