@@ -61,6 +61,7 @@
   - [[#toggles][Toggles]]
     - [[#configuring-toggles-in-the-dotfile][Configuring toggles in the dotfile]]
 - [[#differences-between-vim-evil-and-spacemacs][Differences between Vim, Evil and Spacemacs]]
+  - [[#search-char-with-f-f-t-and-t-and-repeart-search-char-with--and-][Search char with f, F, t and T and repeart search char with , and ;]]
   - [[#the-vim-surround-case][The vim-surround case]]
 - [[#evil-plugins][Evil plugins]]
 - [[#environment-variables-and-path][Environment variables and PATH]]
@@ -155,6 +156,11 @@
     - [[#location-of-auto-saved-files][Location of auto-saved files]]
     - [[#disable-auto-save][Disable auto-save]]
   - [[#searching][Searching]]
+    - [[#searching-for-a-character-in-the-buffer][Searching for a character in the buffer]]
+      - [[#improved-f-f-t-and-t-search-behavior][Improved f, F, t and T search behavior]]
+      - [[#two-characters-search-with-s-and-s][Two-characters search with s and S]]
+      - [[#available-search-scopes][Available search scopes]]
+      - [[#characters-grouping][Characters grouping]]
     - [[#with-an-external-tool][With an external tool]]
       - [[#useful-key-bindings][Useful key bindings]]
       - [[#searching-in-current-file][Searching in current file]]
@@ -992,12 +998,20 @@ function for each supported major mode like
 #+END_SRC
 
 * Differences between Vim, Evil and Spacemacs
-- The ~​,​~ key does repeat last ~f~, ~t~, ~F~, or ~T~ command in
-  opposite direction in =Vim=, but in Spacemacs it is the major mode specific
-  leader key by default (which can be set on another key binding in the
-  dotfile).
 
-Send a PR to add the differences you found in this section.
+** Search char with f, F, t and T and repeart search char with , and ;
+The ~​,​~ and ~;~ keys don't repeat the last ~f~, ~t~, ~F~, or ~T~ commands in
+Spacemacs because these keys are taken by the major mode leader key and the
+project leader key respectively.
+
+To compensate for this loss of functionality, Spacemacs comes with =evil-snipe=
+plugin which supercharges the keys ~f~, ~F~, ~t~ and ~T~ so they can be repeated
+just after a search to behave like ~,~ and ~;~. For instance ~f n f f~ will go
+to the third occurrence of the =n= character.
+
+Once the search for a char is over, the only way to search for this char again
+is to press ~f~, ~F~, ~t~ or ~T~ again. This is a minor inconvenience but in
+the end it is only one more character to type.
 
 ** The vim-surround case
 There is one obvious visible difference though. It is not between =Evil= and
@@ -1025,18 +1039,19 @@ If you are not convinced, then here is the snippet to revert back to the default
 * Evil plugins
 Spacemacs ships with the following evil plugins:
 
-| Mode                          | Description                                |
-|-------------------------------+--------------------------------------------|
-| [[https://github.com/wcsmith/evil-args][evil-args]]                     | motions and text objects for arguments     |
-| [[https://github.com/Dewdrops/evil-exchange][evil-exchange]]                 | port of [[https://github.com/tommcdo/vim-exchange][vim-exchange]]                       |
-| [[https://github.com/cofi/evil-indent-textobject][evil-indent-textobject]]        | add text object based on indentation level |
-| [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]                  | port of [[http://www.vim.org/scripts/script.php?script_id=39][matchit.vim]]                        |
-| [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]]           | port of [[https://github.com/scrooloose/nerdcommenter][nerdcommenter]]                      |
-| [[https://github.com/cofi/evil-numbers][evil-numbers]]                  | like ~C-a~ and ~C-x~ in vim                |
-| [[https://github.com/juanjux/evil-search-highlight-persist][evil-search-highlight-persist]] | emulation of hlsearch behavior             |
-| [[https://github.com/timcharper/evil-surround][evil-surround]]                 | port of [[https://github.com/tpope/vim-surround][vim-surround]]                       |
-| [[https://github.com/bling/evil-visualstar][evil-visualstar]]               | search for current selection with ~*~      |
-| [[https://github.com/Alexander-Miller/treemacs][Treemacs]]                      | a file explorer like [[https://github.com/scrooloose/nerdtree][NERD Tree]]             |
+| Mode                          | Description                                         |
+|-------------------------------+-----------------------------------------------------|
+| [[https://github.com/wcsmith/evil-args][evil-args]]                     | motions and text objects for arguments              |
+| [[https://github.com/Dewdrops/evil-exchange][evil-exchange]]                 | port of [[https://github.com/tommcdo/vim-exchange][vim-exchange]]                                |
+| [[https://github.com/cofi/evil-indent-textobject][evil-indent-textobject]]        | add text object based on indentation level          |
+| [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]                  | port of [[http://www.vim.org/scripts/script.php?script_id=39][matchit.vim]]                                 |
+| [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]]           | port of [[https://github.com/scrooloose/nerdcommenter][nerdcommenter]]                               |
+| [[https://github.com/cofi/evil-numbers][evil-numbers]]                  | like ~C-a~ and ~C-x~ in vim                         |
+| [[https://github.com/juanjux/evil-search-highlight-persist][evil-search-highlight-persist]] | emulation of hlsearch behavior                      |
+| [[https://github.com/juanjux/evil-search-highlight-persist][evil-snipe                   ]] | replace search char behavior (~f~, ~F~, ~t~ and ~T~ |
+| [[https://github.com/timcharper/evil-surround][evil-surround]]                 | port of [[https://github.com/tpope/vim-surround][vim-surround]]                                |
+| [[https://github.com/bling/evil-visualstar][evil-visualstar]]               | search for current selection with ~*~               |
+| [[https://github.com/Alexander-Miller/treemacs][Treemacs]]                      | a file explorer like [[https://github.com/scrooloose/nerdtree][NERD Tree]]                      |
 
 * Environment variables and PATH
 Environment variables are handled by the function =dotspacemacs/user-env= of
@@ -2751,6 +2766,70 @@ to =nil=.
 You can toggle auto-save in a buffer by calling the command =auto-save-mode=.
 
 ** Searching
+*** Searching for a character in the buffer
+Spacemacs comes with =evil-snipe= preinstalled which supercharges the ~f~, ~F~,
+~t~ and ~T~ commands and add ~s~ and ~S~ to search for two characters instead of
+one.
+
+Key bindings in normal state:
+
+| Key binding | Description                                                                             |
+|-------------+-----------------------------------------------------------------------------------------|
+| ~f~         | search forward for the next entered character and set the cursor to it's position       |
+| ~F~         | search backward for the next entered character and set the cursor to it's position      |
+| ~t~         | search forward for the next entered character and set the cursor before it's position   |
+| ~T~         | search backward for the next entered character and set the cursor before it's position  |
+| ~s~         | search forward for the next entered two characters and set the cursor to it's position  |
+| ~S~         | search backward for the next entered two characters and set the cursor to it's position |
+
+**** Improved f, F, t and T search behavior
+With =evil-snipe= ~f~, ~F~, ~t~ and ~T~ search for a single character in the
+current line (by default). Immediatly after a search the keys ~f~, ~F~, ~t~ and
+~T~ can be repeated to continue searching for the next or previous characters.
+
+**** Two-characters search with s and S
+With the ~s~ and ~S~ keys it is possible to do a simple search like ~f~ and ~t~
+but for two characters. This makes the search a lot more precise than regular
+~f~ and ~t~ searches.
+
+**** Available search scopes
+=evil-snipe= also adds several scope options for searches. Set =evil-snipe-scope=
+and =evil-snipe-repeat-scope= to one of these (the default value is =whole-line=):
+
+| Value         | Description                                                              |
+|---------------+--------------------------------------------------------------------------|
+| buffer        | search in the rest of the buffer after the cursor (=vim-sneak= behavior) |
+| line          | search in the current line after the cursor (=vim-seek= behavior)        |
+| visible       | search in the rest of the visible buffer only                            |
+| whole-line    | same as =line=, but highlight matches on either side of cursor           |
+| whole-buffer  | same as =buffer=, but highlight *all* matches in buffer                  |
+| whole-visible | same as =visible=, but highlight *all* visible matches in buffer         |
+
+**** Characters grouping
+With symbol groups you can let a character stand for a regex, for example a
+group of characters. By adding a pair of =(CHAR REGEX)= to the list
+=evil-snipe-aliases= you can search for a regex very simply:
+- Here we set the ~[~ character to mean =all characters [({= *in all modes* so a
+  search with ~sa[~ would find ~a[~, ~a{~ or ~a(~.
+
+  #+BEGIN_SRC emacs-lisp
+    ;; Alias [ and ] to all types of brackets
+    (push '(?\[ "[[{(]") evil-snipe-aliases)
+    (push '(?\] "[]})]") evil-snipe-aliases)
+  #+END_SRC
+
+- Here we set the char ~:~ to mean "a regex matching python function
+  definitions" (but only in python-mode), so by searching with ~f:fff~ you can
+  quickly cycle through all function definitions in a buffer!
+
+  #+BEGIN_SRC emacs-lisp
+    ;; For python style functions
+    (add-hook 'python-mode-hook
+              (lambda ()
+                (make-variable-buffer-local 'evil-snipe-aliases)
+                (push '(?: "def .+:") evil-snipe-aliases)))
+  #+END_SRC
+
 *** With an external tool
 Spacemacs can be interfaced with different search utilities like:
 - [[https://github.com/BurntSushi/ripgrep][rg]]
