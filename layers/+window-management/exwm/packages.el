@@ -53,16 +53,15 @@
       :evil-leader "TD")
 
     :config
-    (progn
-      ;; We bypass desktop-environment's locking functionality for 2 reasons:
-      ;; 1. s-l is most likely needed for window manipulation
-      ;; 2. desktop-environment's locking mechanism does not support registering as session manager
-      ;; The following line would instead assign their locking command to the default binding:
-      ;; (define-key desktop-environment-mode-map (kbd "<s-pause>") (lookup-key desktop-environment-mode-map (kbd "s-l")))
-      (setq desktop-environment-update-exwm-global-keys :prefix)
-      (define-key desktop-environment-mode-map (kbd "s-l") nil)
-      ;; If we don't enable this, exwm/switch-to-buffer-or-run won't move an X window to the current frame
-      (setq exwm-layout-show-all-buffers t))))
+    ;; We bypass desktop-environment's locking functionality for 2 reasons:
+    ;; 1. s-l is most likely needed for window manipulation
+    ;; 2. desktop-environment's locking mechanism does not support registering as session manager
+    ;; The following line would instead assign their locking command to the default binding:
+    ;; (define-key desktop-environment-mode-map (kbd "<s-pause>") (lookup-key desktop-environment-mode-map (kbd "s-l")))
+    (setq desktop-environment-update-exwm-global-keys :prefix)
+    (define-key desktop-environment-mode-map (kbd "s-l") nil)
+    ;; If we don't enable this, exwm/switch-to-buffer-or-run won't move an X window to the current frame
+    (setq exwm-layout-show-all-buffers t))
 
 (defun exwm/init-helm-exwm ()
   ;; when helm is used activate extra EXWM features
@@ -157,15 +156,7 @@
     (easy-menu-add-item exwm-mode-menu '()
                         ["Move X window to" exwm-workspace-move-window])
 
-    (exwm/exwm-bind-command
-     "s-'"  exwm-terminal-command
-     "<s-return>"  exwm-terminal-command
-     "<XF86MonBrightnessUp>"   "light -A 5"
-     "<XF86MonBrightnessDown>" "light -U 5"
-     "<XF86AudioLowerVolume>" "amixer -D pulse -- sset Master unmute 3%-"
-     "<XF86AudioRaiseVolume>" "amixer -D pulse -- sset Master unmute 3%+"
-     "<XF86AudioMute>"        "amixer -D pulse -- sset Master toggle"
-     "<XF86AudioMicMute>"     "amixer -D pulse -- sset Capture toggle")
+    (exwm/exwm-bind-command "<s-return>" exwm-terminal-command)
 
     ;; Pass all keypresses to emacs in line mode.
     (setq exwm-input-line-mode-passthrough t)
