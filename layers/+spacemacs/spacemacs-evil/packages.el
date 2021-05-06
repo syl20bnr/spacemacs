@@ -38,6 +38,7 @@
         evil-nerd-commenter
         evil-matchit
         evil-numbers
+        evil-snipe
         evil-surround
         evil-textobj-line
         evil-tutor
@@ -327,6 +328,37 @@
       "n=" 'spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt
       "n-" 'spacemacs/evil-numbers-transient-state/evil-numbers/dec-at-pt
       "n_" 'spacemacs/evil-numbers-transient-state/evil-numbers/dec-at-pt)))
+
+(defun spacemacs-evil/init-evil-snipe ()
+  (use-package evil-snipe
+    :defer t
+    :init
+    (progn
+      (setq evil-snipe-scope 'whole-line
+            evil-snipe-repeat-scope 'whole-line
+            evil-snipe-enable-alternate-f-and-t-behaviors t
+            evil-snipe-enable-highlight t
+            evil-snipe-enable-incremental-highlight t
+            evil-snipe-auto-disable-substitute t
+            evil-snipe-show-prompt nil
+            evil-snipe-smart-case t)
+      ;; allows to lazy load evil-snipe
+      (define-key evil-motion-state-map (kbd "f") #'evil-snipe-f)
+      (define-key evil-motion-state-map (kbd "F") #'evil-snipe-F)
+      (define-key evil-motion-state-map (kbd "t") #'evil-snipe-t)
+      (define-key evil-motion-state-map (kbd "T") #'evil-snipe-T)
+      ;; need to override s and S both in the motion and normal states
+      (define-key evil-motion-state-map (kbd "s") #'evil-snipe-s)
+      (define-key evil-motion-state-map (kbd "S") #'evil-snipe-S)
+      (define-key evil-normal-state-map (kbd "s") #'evil-snipe-s)
+      (define-key evil-normal-state-map (kbd "S") #'evil-snipe-S))
+    :config
+    (progn
+      (spacemacs|hide-lighter evil-snipe-local-mode)
+      (evil-snipe-mode 1)
+      (when evil-snipe-enable-alternate-f-and-t-behaviors
+        (evil-snipe-override-mode 1)
+        (turn-on-evil-snipe-override-mode)))))
 
 (defun spacemacs-evil/init-evil-surround ()
   (use-package evil-surround
