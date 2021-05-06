@@ -142,6 +142,10 @@ Available PROPS:
     Provide a title in the header of the transient state
 `:columns INTEGER'
     Automatically generate :doc with this many number of columns.
+`:timeout INTEGER'
+    The :timeout key starts a timer for the corresponding amount
+    of seconds that disables the transient state. Calling any
+    head will refresh the timer.
 `:hint BOOLEAN'
     Whether to display hints. Default is nil.
 `:hint-is-doc BOOLEAN'
@@ -183,6 +187,7 @@ used."
          (title (plist-get props :title))
          (hint-var (intern (format "%s/hint" func)))
          (columns (plist-get props :columns))
+         (timeout (plist-get props :timeout))
          (entry-sexp (plist-get props :on-enter))
          (exit-sexp (plist-get props :on-exit))
          (hint (plist-get props :hint))
