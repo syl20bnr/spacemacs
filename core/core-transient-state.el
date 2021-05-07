@@ -146,6 +146,8 @@ Available PROPS:
     The :timeout key starts a timer for the corresponding amount
     of seconds that disables the transient state. Calling any
     head will refresh the timer.
+`:idle INTEGER'
+    This key can delay the appearance of the hint.
 `:hint BOOLEAN'
     Whether to display hints. Default is nil.
 `:hint-is-doc BOOLEAN'
@@ -188,6 +190,7 @@ used."
          (hint-var (intern (format "%s/hint" func)))
          (columns (plist-get props :columns))
          (timeout (plist-get props :timeout))
+         (idle (plist-get props :idle))
          (entry-sexp (plist-get props :on-enter))
          (exit-sexp (plist-get props :on-exit))
          (hint (plist-get props :hint))
@@ -215,6 +218,8 @@ used."
                 (nil nil
                  :hint ,hint
                  :columns ,columns
+                 :timeout ,timeout
+                 :idle ,idle
                  :foreign-keys ,foreign-keys
                  :body-pre ,entry-sexp
                  :before-exit ,exit-sexp)
