@@ -361,7 +361,7 @@
  :global
  (("f" "Files"
    ("A" spacemacs/find-file-and-replace-buffer "Set another file for buffer...")
-   ("a" spacemacs/save-file-as-and-open "Copy file to new: file and buffer...")
+   ("a" spacemacs/save-file-as-and-open "Save current buffer and open in new buffer...")
    ("c" spacemacs/copy-file "Copy file to new file...")
    ("D" spacemacs/delete-current-buffer-file "Delete...")
    ("i" spacemacs/insert-file "Insert file content...")
@@ -389,8 +389,8 @@
    ("v" "Variables"
     ("d" add-dir-local-variable "Add directory-local variable...")
     ("f" add-file-local-variable "Add bottom file variable...")
-    ("p" add-file-local-variable-prop-line "Add top file property..."))
-
+    ("p" add-file-local-variable-prop-line "Add top file property...")
+    )
    ("y" "Yank/Copy"
     ("c" spacemacs/copy-file-path-with-line-column "File path with line and column")
     ("d" spacemacs/copy-directory-path "Directory path")

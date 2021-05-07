@@ -510,24 +510,6 @@ initialized with the current directory instead of filename."
         (spacemacs/rename-buffer-visiting-a-file arg)
       (spacemacs/rename-buffer-or-save-new-file))))
 
-(defun spacemacs/save-file-as-and-open (filename)
-  "Save current buffer into file FILENAME and open it in a new buffer."
-  (interactive
-   (list (if buffer-file-name
-             (read-file-name "Save file as and open: " buffer-file-name)
-           (read-file-name "Save file as and open: " default-directory))))
-  (or (null filename) (string-equal filename "")
-      (progn
-        (let ((dir (file-name-directory filename)))
-          (when (and (not (file-exists-p dir))
-                     (yes-or-no-p (format "Create directory '%s'?" dir)))
-            (make-directory dir t)))
-        (and (file-exists-p filename)
-             (or (y-or-n-p (format "File `%s' exists; overwrite? " filename))
-                 (error "Canceled")))
-        (write-region (point-min) (point-max) filename)
-        (find-file filename))))
-
 (defun spacemacs/show-hide-helm-or-ivy-prompt-msg (msg sec)
   "Show a MSG at the helm or ivy prompt for SEC.
 With Helm, remember the path, then restore it after SEC.
