@@ -361,7 +361,6 @@
  :global
  (("f" "Files"
    ("A" spacemacs/find-file-and-replace-buffer "Set another file for buffer...")
-   ("a" spacemacs/save-file-as-and-open "Save current buffer and open in new buffer...")
    ("c" spacemacs/copy-file "Copy file to new file...")
    ("D" spacemacs/delete-current-buffer-file "Delete...")
    ("i" spacemacs/insert-file "Insert file content...")
