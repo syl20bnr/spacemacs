@@ -465,15 +465,7 @@
     :colemak-jkhl
     (kl/evil-correct-keys 'visual magit-mode-map
       "j"
-      "k")
-    :colemak-hnei
-    (progn
-      (kl/evil-correct-keys 'normal magit-mode-map
-        "j"
-        "k")
-      (kl/evil-correct-keys 'visual magit-mode-map
-        "j"
-        "k"))))
+      "k")))
 
 (defun keyboard-layout/pre-init-mu4e ()
   (kl|config mu4e
