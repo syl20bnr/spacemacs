@@ -211,7 +211,7 @@
       (setq browse-url-browser-function 'eaf-open-browser)
       (eaf-setq eaf-browser-enable-adblocker "true")
 
-      (define-key eaf-mode-map* (kbd "C-SPC C-SPC") 'counsel-M-x)
+      (define-key eaf-mode-map* (kbd "C-SPC C-SPC") 'execute-extended-command)
       ;;;; TODO need to consider the current pdf view mode which does not need to be pdf view mode
       (spacemacs/set-leader-keys-for-major-mode 'pdf-view-mode "E" 'spacemacs/open-with-eaf)
       (add-to-list 'evil-evilified-state-modes 'eaf-pdf-outline-mode)))
