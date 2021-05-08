@@ -485,6 +485,19 @@ ADDITIONAL-WIDGETS: a function for inserting a widget under the frame."
                                       (concat spacemacs-docs-directory
                                               "VIMUSERS.org") "^" 'all))
                            :mouse-face 'highlight
+                           :follow-link "\C-m"))
+           (widget-insert " ")
+           (add-to-list
+            'spacemacs-buffer--note-widgets
+            (widget-create 'push-button
+                           :tag (propertize "Close note"
+                                            'face '(:foreground "orangeRed"))
+                           :help-echo "Close note"
+                           :action
+                           (lambda (&rest ignore)
+                             (spacemacs-buffer/toggle-note 'quickhelp)
+                             (search-backward "[?"))
+                           :mouse-face 'highlight
                            :follow-link "\C-m")))))
     (spacemacs-buffer//notes-insert-note (concat spacemacs-info-directory
                                                  "quickhelp.txt")
@@ -510,6 +523,19 @@ ADDITIONAL-WIDGETS: a function for inserting a widget under the frame."
                                       (format "Release %s.x"
                                               spacemacs-buffer-version-info)
                                       'subtree))
+                           :mouse-face 'highlight
+                           :follow-link "\C-m"))
+           (widget-insert " ")
+           (add-to-list
+            'spacemacs-buffer--note-widgets
+            (widget-create 'push-button
+                           :tag (propertize "Close note"
+                                            'face '(:foreground "orangeRed"))
+                           :help-echo "Close note"
+                           :action
+                           (lambda (&rest ignore)
+                             (spacemacs-buffer/toggle-note 'release-note)
+                             (search-backward "[Release"))
                            :mouse-face 'highlight
                            :follow-link "\C-m")))))
     (spacemacs-buffer//notes-insert-note (concat spacemacs-release-notes-directory
