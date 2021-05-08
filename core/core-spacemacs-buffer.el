@@ -1213,10 +1213,15 @@ can be adjusted with the variable:
 (defun spacemacs-buffer/jump-to-line-starting-with-nr-space (nr-string)
   "Jump to the line number that starts with NR."
   (let ((prev-point (point)))
-    (goto-char (point-min))
+    (goto-char (window-start))
     (if (not (re-search-forward
               (spacemacs-buffer//re-line-starts-with-nr-space nr-string)
-              nil 'noerror))
+              ;; don't search past two lines above the window-end,
+              ;; because they bottom two lines are hidden by the mode line
+              (save-excursion (goto-char (window-end))
+                              (forward-line -1)
+                              (point))
+              'noerror))
         (progn (goto-char prev-point)
                (let (message-log-max) ; only show in minibuffer
                  (message "Couldn't find startup list number: %s"
