@@ -131,6 +131,7 @@
               ("-" . "insert_or_zoom_out")
               ("=" . "insert_or_zoom_in")
               ("0" . "insert_or_zoom_reset")
+              ;; ("d" . "insert_or_dark_mode")
               ("m" . "insert_or_save_as_bookmark")
               ("o" . "insert_or_open_browser")
               ;; ("y" . "insert_or_download_youtube_video")
@@ -235,11 +236,12 @@
         (lambda (prompt)
           (if (derived-mode-p 'eaf-mode)
               (pcase eaf--buffer-app-name
-                ("browser" (if (string= (eaf-call-sync "call_function" eaf--buffer-id "is_focus") "True")
-                               (kbd "SPC")
-                             (kbd eaf-evil-leader-key)))
-                ("pdf-viewer" (kbd eaf-evil-leader-key))
-                ("image-viewer" (kbd eaf-evil-leader-key))
+                ((or
+                  (and "browser"
+                       (guard (not (string= (eaf-call-sync "call_function" eaf--buffer-id "is_focus") "True"))))
+                  "image-viewer"
+                  "pdf-viewer")
+                 (kbd eaf-evil-leader-key))
                 (_  (kbd "SPC")))
             (kbd "SPC"))))
 
