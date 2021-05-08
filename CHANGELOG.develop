@@ -3529,6 +3529,9 @@ files (thanks to Daniel Nicolai)
 - Defer git-gutter loading (thanks to Aaron Jensen)
 - Remove redundant arg from git-gutter timer (thanks to bmag)
 - Added Git Blame Transient State (thanks to duianto)
+**** Spacemacs-defaults
+- Updated spacemacs/save-as function, see github #8974 and #14754 (thanks to
+  Daniel Nicolai and Lebensterben)
 **** Spotify
 - Replaced helm-spotify package with helm-spotify-plus
   (thanks to Leonard Lausen)
