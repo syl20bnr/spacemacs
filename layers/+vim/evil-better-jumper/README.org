@@ -18,8 +18,17 @@ locations.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =evil-better-jumper= to the existing =dotspacemacs-configuration-layers=
-list in this file.
+add =evil-better-jumper= to the existing =dotspacemacs-configuration-layers= list in
+this file. If =C-i= acts like =TAB= instead of =better-jumper-jump-forward=, please
+use =M-x describe-variable= to check the value of the symbol
+=dotspacemacs-distinguish-gui-tab= and ensure it is set to =t= in the dotspacemacs
+file.
+
+#+begin_src emacs-lisp
+  (defun dotspacemacs/init ()
+    ;; ...
+    dotspacemacs-distinguish-gui-tab t)
+#+end_src
 
 * Key bindings
 
