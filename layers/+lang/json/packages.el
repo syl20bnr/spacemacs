@@ -58,8 +58,7 @@
     :defer t
     :init
     (progn
-      (evilified-state-evilify-map tabulated-list-mode-map
-        :mode special-mode)
+      ;; json-navigator-mode
       (spacemacs/set-leader-keys-for-major-mode 'json-mode
         "Th" 'spacemacs/json-navigator-dwim))))
 
