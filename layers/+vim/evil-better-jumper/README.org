@@ -24,11 +24,11 @@ use =M-x describe-variable= to check the value of the symbol
 =dotspacemacs-distinguish-gui-tab= and ensure it is set to =t= in the dotspacemacs
 file.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun dotspacemacs/init ()
     ;; ...
     dotspacemacs-distinguish-gui-tab t)
-#+end_src
+#+END_SRC
 
 * Key bindings
 
