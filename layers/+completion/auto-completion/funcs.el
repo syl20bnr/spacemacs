@@ -322,15 +322,6 @@ MODE parameter must match the :modes values used in the call to
       (define-key map (kbd "C-p") 'company-select-previous)))))
 
 
-;; Transformers
-
-(defun spacemacs//company-transformer-cancel (candidates)
-  "Cancel completion if prefix is in the list
-`company-mode-completion-cancel-keywords'"
-  (unless (member company-prefix company-mode-completion-cancel-keywords)
-    candidates))
-
-
 
 (defvar-local company-fci-mode-on-p nil)
 
