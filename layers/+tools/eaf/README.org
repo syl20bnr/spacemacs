@@ -54,11 +54,12 @@ If you do want to modify the leader keys, then information about the tricks
 implemented in this layer can be found [[https://github.com/manateelazycat/emacs-application-framework/issues/498][here]] and [[https://github.com/manateelazycat/emacs-application-framework/pull/500][here]].
 
 * Key bindings
-  Except for the few Spacemacs specific modifications listed below, all EAF
-  keybindings are documented [[https://github.com/manateelazycat/emacs-application-framework/wiki/Keybindings][here.]]
+Except for the few Spacemacs specific modifications listed below, all EAF
+keybindings are documented [[https://github.com/manateelazycat/emacs-application-framework/wiki/Keybindings][here.]]
 
-  Use ~SPC t k m~ to [[https://develop.spacemacs.org/doc/DOCUMENTATION.html#which-key-persistent][show the EAF keybindings persistently in which-key]], or use
-  ~SPC h d K~ to show the `eaf-mode-map` in a separate buffer.
+Use ~SPC t k m~ to [[https://develop.spacemacs.org/doc/DOCUMENTATION.html#which-key-persistent][show the EAF key bindings persistently in which-key]], or use
+~SPC h d K~ to show the `eaf-mode-map` in a separate buffer.
+
 ** Global
 *** All EAF-applications
 
