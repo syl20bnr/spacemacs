@@ -317,7 +317,7 @@
   (with-eval-after-load 'semantic
     (semantic-default-elisp-setup)))
 
-(defun emacs-lisp/post-init-srefactor ()
+(defun emacs-lisp/init-srefactor ()
   (add-hook 'emacs-lisp-mode-hook 'spacemacs/load-srefactor)
   (use-package srefactor-lisp
     :commands (srefactor-lisp-format-buffer
