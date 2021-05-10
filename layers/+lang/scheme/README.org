@@ -16,7 +16,8 @@
   - [[#macroexpansion][Macroexpansion]]
   - [[#repl-interaction][REPL interaction]]
   - [[#evaluation][Evaluation]]
-  - [[#repl][REPL]]
+  - [[#repl-mode][REPL-mode]]
+  - [[#geiser-doc-mode][Geiser-doc-mode]]
 
 * Description
 This layer adds support for Scheme via [[http://geiser.nongnu.org][Geiser]]. Note that combined usage of racket-mode and geiser has not been tested.
@@ -129,7 +130,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 
 | Key binding | Description         |
 |-------------+---------------------|
-| ~SPC m g g~ | Goto Definition     |
+| ~SPC m g d~ | Goto Definition     |
 | ~SPC m g b~ | Go Back             |
 | ~SPC m g m~ | Goto Module         |
 | ~SPC m g n~ | Goto next error     |
@@ -183,15 +184,38 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 | ~SPC m e l~ | Evaluate line             |
 | ~SPC m e r~ | Evaluate region           |
 
-** REPL
+** REPL-mode
 
-| Key binding | Description                 |
-|-------------+-----------------------------|
-| ~g j~       | geiser-repl-next-prompt     |
-| ~g k~       | geiser-repl-previous-prompt |
-| ~SPC m h~   | geiser-doc-symbol-at-point  |
-| ~SPC m i~   | geiser-repl-interrupt       |
-| ~SPC m c~   | geiser-repl-clear-buffer    |
-| ~SPC m m~   | geiser-repl-import-module   |
-| ~SPC m u~   | geiser-repl-unload-function |
-| ~SPC m q~   | geiser-repl-exit            |
+*Insert state*
+| Key binding | Description    |
+|-------------+----------------|
+| ~S-RET~     | Insert newline |
+| ~C-l~       | Clear buffer   |
+| ~C-d~       | Exit           |
+
+*Normal state*
+| Key binding  | Description          |
+|--------------+----------------------|
+| ~g j~ / ~]]~ | Goto next prompt     |
+| ~g k~ / ~[[~ | Goto previous prompt |
+
+| ~SPC m h h~ | Show documentation for symbol at point      |
+| ~SPC m C~   | Clear buffer                                |
+| ~SPC m i l~ | Insert lambda                               |
+| ~SPC m i m~ | Import module                               |
+| ~SPC m u~   | Unload function                             |
+| ~SPC m s~   | Toggle surrounding parenthesis <-> brackets |
+| ~SPC m k~   | REPL interrupt                              |
+| ~SPC m q~   | REPL exit                                   |
+
+** Geiser-doc-mode
+| Key binding    | Description           |
+|----------------+-----------------------|
+| ~o~            | Follow link           |
+| ~]]/[[~        | Next/previous-section |
+| ~g p~ / ~<~    | Previous page         |
+| ~g n~ / ~>~    | Next page             |
+| ~g d~          | Goto definition       |
+| ~g z~          | Switch to repl        |
+| ~TAB~ / ~C-j~  | Next button           |
+| S-TAB~ / ~C-k~ | Previous button       |

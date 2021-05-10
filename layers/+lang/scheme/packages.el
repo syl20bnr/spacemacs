@@ -75,7 +75,6 @@
         "el" 'lisp-state-eval-sexp-end-of-line
         "er" 'geiser-eval-region
 
-        "gb" 'geiser-pop-symbol-stack
         "gm" 'geiser-edit-module
         "gn" 'next-error
         "gN" 'previous-error
@@ -90,7 +89,7 @@
 
         "me" 'geiser-expand-last-sexp
         "mf" 'geiser-expand-definition
-        "mx" 'geiser-expand-region
+        "mr" 'geiser-expand-region
 
         "si" 'geiser-mode-switch-to-repl
         "sb" 'geiser-eval-buffer
@@ -102,17 +101,46 @@
         "sR" 'geiser-eval-region-and-go
         "ss" 'geiser-set-scheme)
 
-      (evil-define-key 'normal 'geiser-repl-mode-map
-      "gj" 'geiser-repl-next-prompt
-      "gk" 'geiser-repl-previous-prompt)
+      (evil-define-key 'insert 'geiser-repl-mode-map
+        (kbd "S-<return>") 'geiser-repl--newline-and-indent
+        (kbd "C-l") 'geiser-repl-clear-buffer
+        (kbd "C-d") 'geiser-repl-exit)
 
+      (evil-define-key 'normal 'geiser-repl-mode-map
+        "]]" 'geiser-repl-next-prompt
+        "[[" 'geiser-repl-previous-prompt
+        "gj" 'geiser-repl-next-prompt
+        "gk" 'geiser-repl-previous-prompt)
+
+      (spacemacs/declare-prefix-for-mode 'geiser-repl-mode "mh" "help")
+      (spacemacs/declare-prefix-for-mode 'geiser-repl-mode "mi" "insert")
       (spacemacs/set-leader-keys-for-major-mode 'geiser-repl-mode
-        "q" 'geiser-repl-exit
-        "c" 'geiser-repl-clear-buffer
-        "i" 'geiser-repl-interrupt
-        "m" 'geiser-repl-import-module
+        "C" 'geiser-repl-clear-buffer
+        "k" 'geiser-repl-interrupt
+        "f" 'geiser-load-file
+        "il" 'geiser-insert-lambda
+        "im" 'geiser-repl-import-module
         "u" 'geiser-repl-unload-function
-        "h" 'geiser-doc-symbol-at-point))))
+        "hh" 'geiser-doc-symbol-at-point
+        "s" 'geiser-squarify
+        "q" 'geiser-repl-exit)
+
+      (evilified-state-evilify-map geiser-doc-mode-map
+        :mode geiser-doc-mode
+        :eval-after-load geiser-doc
+        :bindings
+        "o" 'link-hint-open-link
+
+        "]]" 'geiser-doc-next-section
+        "[[" 'geiser-doc-previous-section
+        ">" 'geiser-doc-next
+        "<" 'geiser-doc-previous
+
+        "gp" 'geiser-doc-previous
+        "gn" 'geiser-doc-next
+        "gz" 'geiser-doc-switch-to-repl
+        (kbd "C-j") 'forward-button
+        (kbd "C-k") 'backward-button))))
 
 (defun scheme/post-init-ggtags ()
   (add-hook 'scheme-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
