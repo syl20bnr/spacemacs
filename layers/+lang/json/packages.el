@@ -21,17 +21,17 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq json-packages
-      '(
-        company
-        add-node-modules-path
-        flycheck
-        json-mode
-        json-navigator
-        json-reformat
-        json-snatcher
-        prettier-js
-        web-beautify))
+(defconst json-packages
+  '(
+    company
+    add-node-modules-path
+    flycheck
+    json-mode
+    json-navigator
+    json-reformat
+    json-snatcher
+    prettier-js
+    web-beautify))
 
 (defun json/post-init-company ()
   (spacemacs//json-setup-company))
@@ -58,7 +58,8 @@
     :defer t
     :init
     (progn
-      ;; json-navigator-mode
+      (evilified-state-evilify-map json-navigator-mode-map
+        :mode json-navigator-mode)
       (spacemacs/set-leader-keys-for-major-mode 'json-mode
         "Th" 'spacemacs/json-navigator-dwim))))
 

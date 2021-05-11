@@ -35,29 +35,29 @@
   (when (eq json-backend 'lsp)
     (lsp)))
 
-(defun spacemacs/json-navigator-dwim (arg &optional start end)
+(defun spacemacs/json-navigator-dwim (arg)
   "Display the JSON hierarchy of the whole buffer or the active region.
 If ARG is a universal prefix argument then display the hierarchy after point."
-  (interactive "P\nr")
+  (interactive "P")
   (if arg
       (json-navigator-navigate-after-point)
-    (if (equal start end)
+    (if (not (use-region-p))
         (save-excursion (json-navigator-navigate-region (point-min) (point-max)))
-      (json-navigator-navigate-region start end))))
+      (json-navigator-navigate-region (region-beginning) (region-end)))))
 
-(defun spacemacs/json-reformat-dwim (arg &optional start end)
+(defun spacemacs/json-reformat-dwim (arg)
   "Reformat the whole buffer of the active region.
 If ARG is non-nil (universal prefix argument) then try to decode the strings.
 If ARG is a numerical prefix argument then specify the indentation level."
-  (interactive "P\nr")
+  (interactive "P")
   (let ((json-reformat:indent-width js-indent-level)
         (json-reformat:pretty-string? nil))
     (cond
      ((numberp arg) (setq json-reformat:indent-width arg))
      (arg (setq json-reformat:pretty-string? t)))
-    (if (equal start end)
+    (if (not (use-region-p))
         (save-excursion (json-reformat-region (point-min) (point-max)))
-      (json-reformat-region start end))))
+      (json-reformat-region (region-beginning) (region-end)))))
 
 (defun spacemacs/json-setup-prettier ()
   "Tell prettier the content is to be parsed as JSON regardless of any file
