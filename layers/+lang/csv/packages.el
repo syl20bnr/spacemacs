@@ -26,7 +26,7 @@
 (defun csv/init-csv-mode ()
   (use-package csv-mode
     :defer t
-    :init
+    :config
     (progn
       (spacemacs/declare-prefix-for-mode 'csv-mode "ms" "sort")
       (spacemacs/declare-prefix-for-mode 'csv-mode "mv" "yank")
@@ -44,4 +44,5 @@
         "t"  'csv-transpose
         "u"  'csv-unalign-fields
         "vf" 'csv-yank-fields
-        "vt" 'csv-yank-as-new-table))))
+        "vt" 'csv-yank-as-new-table)
+      (spacemacs/inherit-leader-keys-from-parent-mode 'tsv-mode))))
