@@ -774,6 +774,8 @@ Other:
   - Enabled eager spacebind bindings by default (thanks to JAremko)
   - Add info about requirement to also load additional-package in user-config
     section (thank to Daniel Nicolai)
+  - New function =spacemacs/inherit-leader-keys-from-parent-mode= to
+    inherit leader key bindings from another mode
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -1802,6 +1804,7 @@ Other:
 **** CSV
 - Key bindings:
   - ~SPC m h~ to =csv-header-line= (thanks to Francesc Elies Henar)
+  - All key bindings also implemented in tsv-mode (thanks to Aaron Zeng)
 **** D
 - Fixes:
   - Fixed =d-mode= flycheck imports on dub projects (thanks to Dietrich Daroch)
