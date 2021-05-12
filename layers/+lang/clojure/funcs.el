@@ -207,8 +207,8 @@ If CIDER fails, or not available, falls back to dumb-jump's xref interface."
   (interactive (list (cider-symbol-at-point)))
   (if (and (cider-connected-p) (cider-var-info sym-name))
       (unless (eq 'symbol (type-of (cider-find-var nil sym-name)))
-        (xref-find-definitions))
-    (xref-find-definitions)))
+        (xref-find-definitions sym-name))
+    (xref-find-definitions sym-name)))
 
 (defun spacemacs/clj-describe-missing-refactorings ()
   "Inform the user to add clj-refactor to configuration"
