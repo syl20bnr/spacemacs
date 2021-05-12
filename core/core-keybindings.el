@@ -133,9 +133,9 @@ minor-mode, the third argument should be non nil."
 
 (defun spacemacs/inherit-leader-keys-from-parent-mode (mode &optional parent-mode)
   "Make derived mode MODE inherit leader key bindings from PARENT-MODE.
-
 If omitted, PARENT-MODE defaults to the parent mode of MODE.
-Signal an error if MODE is not a derived mode."
+Signal an error if MODE is not a derived mode (for example if the
+package defining the mode has not yet been loaded)."
   (unless parent-mode
     (setq parent-mode (or (get mode 'derived-mode-parent)
                           (error "Mode %s has no parent" mode))))
