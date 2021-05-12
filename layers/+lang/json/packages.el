@@ -56,12 +56,10 @@
 (defun json/init-json-navigator ()
   (use-package json-navigator
     :defer t
-    :init
-    (progn
-      (evilified-state-evilify-map json-navigator-mode-map
-        :mode json-navigator-mode)
-      (spacemacs/set-leader-keys-for-major-mode 'json-mode
-        "Th" 'spacemacs/json-navigator-dwim))))
+    :init (spacemacs/set-leader-keys-for-major-mode 'json-mode
+            "Th" 'spacemacs/json-navigator-dwim)
+    :config (evilified-state-evilify-map json-navigator-mode-map
+              :mode json-navigator-mode)))
 
 (defun json/init-json-reformat ()
   (use-package json-reformat
