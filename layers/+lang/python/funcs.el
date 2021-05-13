@@ -90,7 +90,7 @@
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
         (require (pcase python-lsp-server
-                   ('pyls 'lsp-pyls)
+                   ('pylsp 'lsp-pylsp)
                    ('mspyls 'lsp-python-ms)
                    ('pyright 'lsp-pyright)
                    (x (user-error "Unknown value for `python-lsp-server': %s" x))))
