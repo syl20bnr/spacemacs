@@ -302,7 +302,7 @@ MODE parameter must match the :modes values used in the call to
    ((or (eq 'vim style)
         (and (eq 'hybrid style)
              hybrid-style-enable-hjkl-bindings))
-    (let ((map company-active-map))
+    (dolist (map (list company-active-map company-search-map))
       (define-key map (kbd "C-j") 'company-select-next)
       (define-key map (kbd "C-k") 'company-select-previous)
       (define-key map (kbd "C-l") 'company-complete-selection))
@@ -317,7 +317,7 @@ MODE parameter must match the :modes values used in the call to
     (add-hook 'company-completion-finished-hook 'spacemacs//restore-C-k-evil-insert-digraph)
     (add-hook 'company-completion-cancelled-hook 'spacemacs//restore-C-k-evil-insert-digraph))
    (t
-    (let ((map company-active-map))
+    (dolist (map (list company-active-map company-search-map))
       (define-key map (kbd "C-n") 'company-select-next)
       (define-key map (kbd "C-p") 'company-select-previous)))))
 
