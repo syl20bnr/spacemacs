@@ -2169,7 +2169,7 @@ Features:
 - Support for the following backends:
   - [[https://github.com/proofit404/anaconda-mode][anaconda]] (default),
   - [[https://github.com/emacs-lsp/lsp-python-ms][Language Server Protocol]] (experimental - 2 implementations),
-    - python-language-server
+    - python-lsp-server
     - Microsoft python language server
 - Auto-completion
 - Code Navigation
