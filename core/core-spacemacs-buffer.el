@@ -334,6 +334,26 @@ WIDTH: current external width of the note's frame."
        (setq ,caption nil
              ,caption-length 0))))
 
+(defvar spacemacs-buffer-note-preview-lines 5
+  "If it's a positive integer, show the notes first number of lines.
+If nil, show the full note.")
+
+(defvar spacemacs-buffer--note-preview-nr-of-removed-lines nil
+  "Store the number of removed lines from the notes:
+Quick Help and Release Notes.")
+
+(defun spacemacs-buffer//if-note-preview-remove-rest-of-note ()
+  "If `spacemacs-buffer-note-preview-lines' is a positive integer,
+remove the rest of the note, after the variables line number."
+  (when (and (integerp spacemacs-buffer-note-preview-lines)
+             (> spacemacs-buffer-note-preview-lines 0))
+    (goto-line (1+ spacemacs-buffer-note-preview-lines))
+    (let* ((first-removed-line (line-number-at-pos (point)))
+           (last-removed-line (line-number-at-pos (point-max))))
+      (setq spacemacs-buffer--note-preview-nr-of-removed-lines
+            (- last-removed-line first-removed-line))
+      (delete-region (point) (point-max)))))
+
 (defun spacemacs-buffer//notes-render-framed-text
     (content &optional topcaption botcaption hpadding max-width min-width)
   "Return a formatted string framed with curved lines.
@@ -356,6 +376,7 @@ MIN-WIDTH is the minimal width of the frame, frame included.  The frame will not
     (if (not (file-exists-p content))
         (insert content)
       (insert-file-contents content)
+      (spacemacs-buffer//if-note-preview-remove-rest-of-note)
       (goto-char (point-max))
       (when (eq ?\n (char-before))    ;; remove additional newline at eof
         (delete-char -1)))
@@ -400,7 +421,6 @@ MIN-WIDTH is the minimal width of the frame, frame included.  The frame will not
                                          'face '(:weight bold)))
        (make-string (max 0 (- width (if botcaption 6 4) botcaption-length)) ?─)
        "─╯" (when botcaption "\n")))))
-
 
 (defun spacemacs-buffer//notes-render-framed-line (line width hpadding)
   "Return a formatted LINE with borders of a frame on each side.
@@ -455,6 +475,35 @@ ADDITIONAL-WIDGETS: a function for inserting a widget under the frame."
   "Insert quickhelp."
   (let ((widget-func
          (lambda ()
+           (when spacemacs-buffer-note-preview-lines
+             (widget-insert "\n")
+             (let ((full-note-link-text
+                    (format "Click to show the full note (%s more lines)"
+                            spacemacs-buffer--note-preview-nr-of-removed-lines)))
+               (add-to-list
+                'spacemacs-buffer--note-widgets
+                (widget-create
+                 'push-button
+                 :tag (propertize
+                       full-note-link-text 'face 'font-lock-warning-face)
+                 :help-echo "Open full note."
+                 :action (lambda (&rest ignore)
+                           (let ((cursor-pos-before-showing-full-note (point))
+                                 (spacemacs-buffer-note-preview-lines nil))
+                             ;; close note
+                             (spacemacs-buffer/toggle-note 'quickhelp)
+                             ;; open full note
+                             (spacemacs-buffer/toggle-note 'quickhelp)
+                             ;; cursor to beg of first line after preview
+                             (goto-char cursor-pos-before-showing-full-note)
+                             (progn (forward-line -2)
+                                    (back-to-indentation)
+                                    (forward-word)
+                                    (backward-word))))
+                 :mouse-face 'highlight
+                 :follow-link "\C-m"))
+               (spacemacs-buffer//center-line)
+               (widget-insert "\n")))
            (add-to-list
             'spacemacs-buffer--note-widgets
             (widget-create 'push-button
@@ -502,7 +551,10 @@ ADDITIONAL-WIDGETS: a function for inserting a widget under the frame."
                              (spacemacs-buffer/toggle-note 'quickhelp)
                              (search-backward "[?"))
                            :mouse-face 'highlight
-                           :follow-link "\C-m")))))
+                           :follow-link "\C-m"))
+           ;; center the buttons: Evil Tutorial, Emacs Tutorial, etc.
+           (spacemacs-buffer//center-line)
+           (widget-insert "\n"))))
     (spacemacs-buffer//notes-insert-note (concat spacemacs-info-directory
                                                  "quickhelp.txt")
                                          "Quick Help"
@@ -513,6 +565,33 @@ ADDITIONAL-WIDGETS: a function for inserting a widget under the frame."
   "Insert release note."
   (let ((widget-func
          (lambda ()
+           (when spacemacs-buffer-note-preview-lines
+             (let ((full-note-link-text
+                    (format "Click to show the full note (%s more lines)"
+                            spacemacs-buffer--note-preview-nr-of-removed-lines)))
+               (add-to-list
+                'spacemacs-buffer--note-widgets
+                (widget-create
+                 'push-button
+                 :tag (propertize
+                       full-note-link-text 'face 'font-lock-warning-face)
+                 :help-echo "Open full note."
+                 :action (lambda (&rest ignore)
+                           (let ((cursor-pos-before-showing-full-note (point))
+                                 (spacemacs-buffer-note-preview-lines nil))
+                             ;; close note
+                             (spacemacs-buffer/toggle-note 'release-note)
+                             ;; open full note
+                             (spacemacs-buffer/toggle-note 'release-note)
+                             ;; cursor to beg of first line after preview
+                             (goto-char cursor-pos-before-showing-full-note)
+                             (progn (back-to-indentation)
+                                    (forward-word)
+                                    (backward-word))))
+                 :mouse-face 'highlight
+                 :follow-link "\C-m"))
+               (spacemacs-buffer//center-line)
+               (widget-insert "\n")))
            (add-to-list
             'spacemacs-buffer--note-widgets
             (widget-create 'push-button
@@ -541,7 +620,10 @@ ADDITIONAL-WIDGETS: a function for inserting a widget under the frame."
                              (spacemacs-buffer/toggle-note 'release-note)
                              (search-backward "[Release"))
                            :mouse-face 'highlight
-                           :follow-link "\C-m")))))
+                           :follow-link "\C-m"))
+           ;; center the buttons: Click here for full change log and Close note
+           (spacemacs-buffer//center-line)
+           (widget-insert "\n"))))
     (spacemacs-buffer//notes-insert-note (concat spacemacs-release-notes-directory
                                                  spacemacs-buffer-version-info
                                                  ".txt")
@@ -554,10 +636,29 @@ ADDITIONAL-WIDGETS: a function for inserting a widget under the frame."
   (spacemacs/dump-vars-to-file '(spacemacs-buffer--release-note-version)
                                spacemacs-buffer--cache-file))
 
+(defun spacemacs-buffer//note-removal-cleanup ()
+  "After removing a home buffer note.
+Remove: additional empty lines (leaving only one),
+and the trailing whitespace."
+  (let ((inhibit-read-only t))
+    (delete-blank-lines)
+    (delete-region (line-beginning-position) (line-end-position))))
+
+(defun spacemacs-buffer//widget-text-note-beg-pos ()
+  (let (pos)
+    (dolist (w spacemacs-buffer--note-widgets)
+     (when (eq (car w) 'text)
+       (setq pos (marker-position (widget-get w :from)))))
+    pos))
+
 (defun spacemacs-buffer//notes-clear-notes-and-widgets ()
   "Remove existing note widgets if exists."
   (when spacemacs-buffer--note-widgets
-    (mapc 'widget-delete spacemacs-buffer--note-widgets)
+    (save-excursion
+      (let ((note-beg-pos (spacemacs-buffer//widget-text-note-beg-pos)))
+        (mapc 'widget-delete spacemacs-buffer--note-widgets)
+        (goto-char note-beg-pos)
+        (spacemacs-buffer//note-removal-cleanup)))
     (setq spacemacs-buffer--note-widgets nil)
     (setq spacemacs-buffer--release-note-version spacemacs-version)
     (spacemacs/dump-vars-to-file
