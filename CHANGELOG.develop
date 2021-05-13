@@ -3136,7 +3136,7 @@ files (thanks to Daniel Nicolai)
 - Added LSP support, which can be enabled by setting the =python= layer's
   =python-backend= variable to =lsp=
   (thanks to Yuan Fu and Sylvain Benner).
-- The LSP backend can use either the =pyls= (default) server or the =mspyls=
+- The LSP backend can use either the =pylsp= (default) server or the =mspyls=
   (Microsoft) implementation, which may be selected by setting the
   =python-lsp-server= layer variable to =mspyls=
   (thanks to Cormac Cannon).
