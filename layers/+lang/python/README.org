@@ -168,7 +168,10 @@ Additionally you can install the following other packages:
   pip install pyls-isort
   # for mypy checking (python 3.4+ is needed)
   pip install pyls-mypy
+  # for formating with black
   pip install pyls-black
+  # for detecting the use of deprecated apis
+  pip install pyls-memestra
 #+END_SRC
 
 If you've installed the language server and related packages as development
