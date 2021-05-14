@@ -225,6 +225,7 @@ Will work on both org-mode and any mode that accepts plain html."
                         ("ms" . "trees/subtrees")
                         ("mT" . "toggles")
                         ("mt" . "tables")
+                        ("mtC" . "cell")
                         ("mtd" . "delete")
                         ("mti" . "insert")
                         ("mtt" . "toggle")
@@ -305,6 +306,10 @@ Will work on both org-mode and any mode that accepts plain html."
         "tdc" 'org-table-delete-column
         "tdr" 'org-table-kill-row
         "te" 'org-table-eval-formula
+        "tCh" 'org-table-move-cell-left
+        "tCj" 'org-table-move-cell-down
+        "tCk" 'org-table-move-cell-up
+        "tCl" 'org-table-move-cell-right
         "tE" 'org-table-export
         "tf" 'org-table-field-info
         "th" 'org-table-previous-field
