@@ -216,6 +216,7 @@ Will work on both org-mode and any mode that accepts plain html."
       (dolist (prefix `(
                         ("mb" . "babel")
                         ("mC" . ,(org-clocks-prefix))
+                        ("mc" . "cell/convert")
                         ("md" . "dates")
                         ("me" . "export")
                         ("mf" . "feeds")
