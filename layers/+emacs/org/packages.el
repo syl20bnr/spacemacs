@@ -301,7 +301,11 @@ Will work on both org-mode and any mode that accepts plain html."
         ;; tables
         "ta" 'org-table-align
         "tb" 'org-table-blank-field
-        "tc" 'org-table-convert
+        "tcc" 'org-table-convert
+        "tch" 'org-table-move-cell-left
+        "tcj" 'org-table-move-cell-down
+        "tck" 'org-table-move-cell-up
+        "tcl" 'org-table-move-cell-right
         "tdc" 'org-table-delete-column
         "tdr" 'org-table-kill-row
         "te" 'org-table-eval-formula
