@@ -85,7 +85,6 @@ you want you can enable it, this layer focuses on less Emacs-y bindings.
 | Key binding           | Description                                    |
 |-----------------------+------------------------------------------------|
 | ~C-q~                 | Send next key pressed to the X window          |
-| ~C-'~                 | Pop shell                                      |
 | ~C-g~                 | Universal GetMeOuttaHere Key from Emacs        |
 | ~C-u~                 | Universal Argument                             |
 | ~C-[0-9]~             | Universal Prefix for [0-9]                     |
@@ -96,7 +95,8 @@ you want you can enable it, this layer focuses on less Emacs-y bindings.
 | ~s-r~                 | Reset window state                             |
 | ~s-SPC~               | App Launcher                                   |
 | ~s-ESC~               | Lock Screen                                    |
-| ~s-:~ and ~s-;~       | Helm M-x (same as ~SCP :~)                     |
+| ~s-RET~               | Pop shell                                      |
+| ~s-:~ and ~s-;~       | Helm M-x (same as ~SPC :~)                     |
 | ~s-u,U~               | Undo, Redo window configurations               |
 | ~s-b~                 | Show all opened buffers                        |
 | ~s-h,j,k,l~           | Switch to left,lower,upper,right window        |
