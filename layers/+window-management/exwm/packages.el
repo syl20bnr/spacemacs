@@ -61,7 +61,7 @@
     (setq desktop-environment-update-exwm-global-keys :prefix)
     (define-key desktop-environment-mode-map (kbd "s-l") nil)
     ;; If we don't enable this, exwm/switch-to-buffer-or-run won't move an X window to the current frame
-    (setq exwm-layout-show-all-buffers t))
+    (setq exwm-layout-show-all-buffers t)))
 
 (defun exwm/init-helm-exwm ()
   ;; when helm is used activate extra EXWM features
