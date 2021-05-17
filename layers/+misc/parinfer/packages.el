@@ -31,10 +31,13 @@
     :hook emacs-lisp-mode clojure-mode scheme-mode common-lisp-mode
     :init
     (progn
-      (setq parinfer-rust-auto-download t)
-      (setq parinfer-rust-library-directory
-            (concat spacemacs-cache-directory
-                    "parinfer-rust/"))
+      (setq parinfer-rust-auto-download parinfer-auto-download)
+      (if parinfer-rust-auto-download
+          (setq parinfer-rust-library-directory
+                (concat spacemacs-cache-directory
+                        "parinfer-rust/"))
+        (when parinfer-library
+          (setq parinfer-rust-library parinfer-library)))
       (spacemacs|add-toggle parinfer-smart-indent
         :evil-leader "tP"
         :documentation "Enable Parinfer Smart Indent Mode."
