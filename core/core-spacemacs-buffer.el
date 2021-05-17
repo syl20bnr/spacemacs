@@ -586,8 +586,8 @@ ADDITIONAL-WIDGETS: a function for inserting a widget under the frame."
                              ;; cursor to beg of first line after preview
                              (goto-char cursor-pos-before-showing-full-note)
                              (progn (back-to-indentation)
-                                    (forward-word)
-                                    (backward-word))))
+                                    (previous-line)
+                                    (forward-char 3))))
                  :mouse-face 'highlight
                  :follow-link "\C-m"))
                (spacemacs-buffer//center-line)
