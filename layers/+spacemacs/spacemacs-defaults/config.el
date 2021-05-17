@@ -76,7 +76,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 (setq ffap-machine-p-known 'reject)
 
 ;; Don't accept SPC as a yes for prompts
-(when dotspacemacs-use-SPC-as-y
+(unless dotspacemacs-use-SPC-as-y
   (define-key query-replace-map (kbd "SPC") nil))
 
 ;; ---------------------------------------------------------------------------
