@@ -35,29 +35,7 @@
     :defer t
     :init
     (progn
-      (spacemacs/declare-prefix "atd" "Docker")
-      (evil-leader/set-key
-        "atdc" 'docker-containers
-        "atdC" 'docker-compose
-        "atdd" 'docker-rmi
-        "atde" 'docker-unpause
-        "atdF" 'docker-pull
-        "atdk" 'docker-rm
-        "atdi" 'docker-images
-        "atdm" 'docker-machines
-        "atdn" 'docker-networks
-        "atdo" 'docker-stop
-        "atdP" 'docker-push
-        "atdp" 'docker-pause
-        "atdr" 'docker-restart
-        "atds" 'docker-start
-        "atdv" 'docker-volumes)))
-  (with-eval-after-load 'docker-containers
-    (evilified-state-evilify-map docker-containers-mode-map
-      :mode docker-containers-mode))
-  (with-eval-after-load 'docker-images
-    (evilified-state-evilify-map docker-images-mode-map
-      :mode docker-images-mode)))
+      (spacemacs/set-leader-keys "atd" #'docker))))
 
 (defun docker/init-docker-tramp ()
   (use-package docker-tramp
