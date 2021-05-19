@@ -31,7 +31,6 @@
 ;; Used for lsp-ui-peek-mode, but may be able to use some spacemacs fn. instead?
 (defun spacemacs/lsp-define-key (keymap key def &rest bindings)
   "Define multiple key bindings with KEYMAP KEY DEF BINDINGS."
-  (interactive)
   (while key
     (define-key keymap (kbd key) def)
     (setq key (pop bindings)
@@ -53,7 +52,18 @@
                 ("w" . "workspace")
                 ("a" . "actions")
                 ("G" . "peek")))
-    (which-key-add-keymap-based-replacements lsp-command-map (car it) (cdr it))))
+    (which-key-add-keymap-based-replacements lsp-command-map (car it) (cdr it)))
+  ;; we still have to bind keys for `lsp-ivy' and `helm-lsp'
+  (cond
+   ((configuration-layer/package-usedp 'ivy)
+    (spacemacs/lsp-define-key lsp-command-map
+                              "gs" #'lsp-ivy-workspace-symbol
+                              "gS" #'lsp-ivy-global-workspace-symbol
+                              "FR" #'lsp-ivy-workspace-folders-remove))
+   ((configuration-layer/package-usedp 'helm)
+    (spacemacs/lsp-define-key lsp-command-map
+                              "gs" #'helm-lsp-workspace-symbol
+                              "gS" #'helm-lsp-global-workspace-symbol))))
 
 (defun spacemacs/lsp-bind-keys ()
   "Define key bindings for the lsp minor mode."
