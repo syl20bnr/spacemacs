@@ -3389,54 +3389,96 @@ Examples:
 ***** Lisp state key bindings
 These commands automatically switch to =lisp state=.
 
+****** Navigation
+
+| Key binding | Description                                                             |
+|-------------+-------------------------------------------------------------------------|
+|             | Forward + Backward pairs                                                |
+|-------------+-------------------------------------------------------------------------|
+| ~SPC k j~   | go forward to next closing parenthesis                                  |
+| ~SPC k k~   | go backward to previous opening parenthesis                             |
+| ~SPC k l~   | go forward to next symbol                                               |
+| ~SPC k h~   | go backward to previous symbol                                          |
+| ~SPC k L~   | go forward to next sexp                                                 |
+| ~SPC k H~   | go backward to previous sexp                                            |
+| ~SPC k $~   | go forward to the end of current sexp                                   |
+| ~SPC k 0~   | go backward to the beginning of current sexp                            |
+|-------------+-------------------------------------------------------------------------|
+|             | Other                                                                   |
+|-------------+-------------------------------------------------------------------------|
+| ~SPC k U~   | go "up": to parent sexp backward                                        |
+| ~SPC k %~   | go to other paren of the same pair                                      |
+| ~SPC k I~   | go back to beginning of current expression and switch to =insert= state |
+
+****** Manipulation
+
+| Key binding | Description                                                  |
+|-------------+--------------------------------------------------------------|
+| ~SPC k s~   | slurp forward: ~a (bs) c~ -> ~a (bs c)~                      |
+| ~SPC k S~   | slurp backward: ~a (bs) c~ -> ~(a bs) c~                     |
+| ~SPC k b~   | barf forward: ~(a bs c)~ -> ~(a bs) c~                       |
+| ~SPC k B~   | barf backward: ~(a bs c)~ -> ~a (bs c)~                      |
+| ~SPC k a~   | absorb: ~(a (bs <point> ..))~ -> ~((bs a <point> ..))~       |
+| ~SPC k c~   | convolute: ~(as (bs <point> ..))~ -> ~(bs (as <point> ..))~  |
+| ~SPC k t~   | transpose: ~(as <point> bs)~ -> ~(bs <point> as)~            |
+| ~SPC k J~   | join: ~(as) <point> (bs)~ -> ~(as <point> bs)~               |
+|-------------+--------------------------------------------------------------|
+|             | Hybrid (= better for non-Lisp languages) commands            |
+|-------------+--------------------------------------------------------------|
+| ~SPC k ` s~ | hybrid slurp forward                                         |
+| ~SPC k ` p~ | hybrid push: ~<point>as bs~ -> ~<point>bs as~                |
+| ~SPC k ` t~ | hybrid transpose: ~as <point> bs~ -> ~bs <point> as~         |
+|-------------+--------------------------------------------------------------|
+| Note 1:     | ~xs~ is one or multiple sexp, ~x~ is a single sexp           |
+| Note 2:     | point is at <point> when presented, or in the list otherwise |
+
+****** Insertion
+
+| Key binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC k (~   | insert sexp before current one |
+| ~SPC k )~   | insert sexp after current one  |
+| ~SPC k w~   | wrap a symbol with parenthesis |
+
+****** Deletion
+
 | Key binding | Description                                                         |
 |-------------+---------------------------------------------------------------------|
-| ~SPC k %~   | evil jump item                                                      |
-| ~SPC k :~   | ex command                                                          |
-| ~SPC k (~   | insert expression before (same level as current one)                |
-| ~SPC k )~   | insert expression after (same level as current one)                 |
-| ~SPC k $~   | go to the end of current sexp                                       |
-| ~SPC k ` k~ | hybrid version of push sexp (can be used in non lisp dialects)      |
-| ~SPC k ` p~ | hybrid version of push sexp (can be used in non lisp dialects)      |
-| ~SPC k ` s~ | hybrid version of slurp sexp (can be used in non lisp dialects)     |
-| ~SPC k ` t~ | hybrid version of transpose sexp (can be used in non lisp dialects) |
-| ~SPC k 0~   | go to the beginning of current sexp                                 |
-| ~SPC k a~   | absorb expression                                                   |
-| ~SPC k b~   | forward barf expression                                             |
-| ~SPC k B~   | backward barf expression                                            |
-| ~SPC k c~   | convolute expression                                                |
 | ~SPC k ds~  | delete symbol                                                       |
-| ~SPC k Ds~  | backward delete symbol                                              |
+| ~SPC k Ds~  | delete symbol backward                                              |
 | ~SPC k dw~  | delete word                                                         |
-| ~SPC k Dw~  | backward delete word                                                |
-| ~SPC k dx~  | delete expression                                                   |
-| ~SPC k Dx~  | backward delete expression                                          |
-| ~SPC k e~   | unwrap current expression and kill all symbols after point          |
-| ~SPC k E~   | unwrap current expression and kill all symbols before point         |
-| ~SPC k h~   | previous symbol                                                     |
-| ~SPC k H~   | go to previous sexp                                                 |
-| ~SPC k i~   | switch to =insert state=                                            |
-| ~SPC k I~   | go to beginning of current expression and switch to =insert state=  |
-| ~SPC k j~   | next closing parenthesis                                            |
-| ~SPC k J~   | join expression                                                     |
-| ~SPC k k~   | previous opening parenthesis                                        |
-| ~SPC k l~   | next symbol                                                         |
-| ~SPC k L~   | go to next sexp                                                     |
-| ~SPC k p~   | paste after                                                         |
-| ~SPC k P~   | paste before                                                        |
-| ~SPC k r~   | raise expression (replace parent expression by current one)         |
-| ~SPC k s~   | forward slurp expression                                            |
-| ~SPC k S~   | backward slurp expression                                           |
-| ~SPC k t~   | transpose expression                                                |
-| ~SPC k u~   | undo                                                                |
-| ~SPC k U~   | got to parent sexp backward                                         |
-| ~SPC k C-r~ | redo                                                                |
-| ~SPC k v~   | switch to =visual state=                                            |
-| ~SPC k V~   | switch to =visual line state=                                       |
-| ~SPC k C-v~ | switch to =visual block state=                                      |
-| ~SPC k w~   | wrap expression with parenthesis                                    |
-| ~SPC k W~   | unwrap expression                                                   |
-| ~SPC k y~   | copy expression                                                     |
+| ~SPC k Dw~  | delete word backward                                                |
+| ~SPC k dx~  | delete sexp: ~(as <point> a ..)~ -> ~(as <point> ..)~               |
+| ~SPC k Dx~  | delete sexp backward: ~(as a <point> ..)~ -> ~(as <point> ..)~      |
+| ~SPC k e~   | splice, killing forward: ~(as (bs <point> cs) ds)~ -> ~(as bs ds)~  |
+| ~SPC k E~   | splice, killing backward: ~(as (bs <point> cs) ds)~ -> ~(as cs ds)~ |
+| ~SPC k r~   | raise: ~(as <point> b ..)~ -> ~<point>b~                            |
+| ~SPC k W~   | unwrap sexp: ~(as)~ -> ~as~                                         |
+|-------------+---------------------------------------------------------------------|
+|             | Hybrid (= better for non-Lisp languages) commands                   |
+|-------------+---------------------------------------------------------------------|
+| ~SPC k ` k~ | hybrid delete sexp                                                  |
+|-------------+---------------------------------------------------------------------|
+| Note 1:     | ~xs~ is one or multiple sexp, ~x~ is a single sexp                  |
+| Note 2:     | point is at ~<point>~ when presented, or in the list otherwise      |
+
+****** Bindings from normal state
+
+For convenience, a number of normal state evil binding are available in lisp state as well:
+
+| Key binding | Description                                                 |
+|-------------+-------------------------------------------------------------|
+| ~SPC k :~   | ex command                                                  |
+| ~SPC k i~   | switch to =insert= state                                    |
+| ~SPC k I~   | switch to =insert= state at beginning of current line       |
+| ~SPC k v~   | switch to =visual= state and begin character-wise selection |
+| ~SPC k V~   | switch to =visual= state and begin line-wise selection      |
+| ~SPC k C-v~ | switch to =visual= state and begin block-wise selection     |
+| ~SPC k u~   | undo                                                        |
+| ~SPC k C-r~ | redo                                                        |
+| ~SPC k y~   | copy expression                                             |
+| ~SPC k p~   | paste after                                                 |
+| ~SPC k P~   | paste before                                                |
 
 ***** Emacs lisp specific key bindings
 
