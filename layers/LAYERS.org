@@ -2437,7 +2437,7 @@ Features:
 ** PDF
 [[file:+readers/pdf/README.org][+readers/pdf/README.org]]
 
-This layer enables support for PDF with the [[https://github.com/politza/pdf-tools][pdf-tools]] package.
+This layer enables support for PDF with the [[https://github.com/vedang/pdf-tools][pdf-tools]] package.
 
 According to the official repository:
 
