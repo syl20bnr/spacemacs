@@ -56,9 +56,11 @@
                p4-revert
                p4-refresh
                p4-resolve
+               p4-shelve
                p4-status
                p4-submit
                p4-toggle-vc-mode
+               p4-unshelve
                p4-user
                p4-users
                p4-version
@@ -107,6 +109,8 @@
         "p4y" 'p4-resolve
         "p4s" 'p4-status
         "p4S" 'p4-submit
+        "p4[" 'p4-shelve
+        "p4]" 'p4-unshelve
         "p4t" 'p4-toggle-vc-mode
         "p4u" 'p4-user
         "p4U" 'p4-users
