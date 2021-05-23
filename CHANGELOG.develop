@@ -291,6 +291,12 @@ In org-agenda-mode
   - Add consistent keybinding ~SPC m .~ to enter transient-state (thanks to Daniel Nicolai)
   - Removed ~C-h~ binding in =org-agenda-mode= (thanks to Ag Ibragimov)
   - Rebind =org-agenda-refile= to ~r~ in transient state (thanks to Muneeb Shaikh)
+***** Perforce
+- Added =p4-shelve= and =p4-unshelve= commands from =p4= package
+  (thanks to Binary-Eater)
+- Key bindings:
+  - New ~SPC p 4 [~ to shelve changes
+  - New ~SPC p 4 ]~ to select a changelist to unshelve
 ***** Python
 - fix/implement pyvenv-tracking-mode (thanks to Daniel Nicolai)
 - Key bindings (thanks to Danny Freeman):
