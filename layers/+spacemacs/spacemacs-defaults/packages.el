@@ -407,7 +407,9 @@
       (add-to-list 'recentf-exclude
                    (recentf-expand-file-name spacemacs-cache-directory))
       (add-to-list 'recentf-exclude (recentf-expand-file-name package-user-dir))
-      (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'"))))
+      (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
+      (unless (null custom-file)
+        (add-to-list 'recentf-exclude custom-file)))))
 
 (defun spacemacs-defaults/init-savehist ()
   (use-package savehist
