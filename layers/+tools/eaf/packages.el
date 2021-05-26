@@ -54,6 +54,8 @@
       (spacemacs/set-leader-keys "aaj" 'eaf-open-jupyter)
       (spacemacs/set-leader-keys "aao" 'eaf-open-office)
       (spacemacs/set-leader-keys "aat" 'eaf-open-terminal)
+      (spacemacs/set-leader-keys "aas" 'eaf-open-system-monitor)
+      (spacemacs/set-leader-keys "aaM" 'eaf-open-music-player)
 
       (spacemacs/declare-prefix "aab" "browser")
       (spacemacs/set-leader-keys "aabo" 'eaf-open-browser)
