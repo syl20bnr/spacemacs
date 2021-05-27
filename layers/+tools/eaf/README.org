@@ -66,6 +66,8 @@ Use ~SPC t k m~ to [[https://develop.spacemacs.org/doc/DOCUMENTATION.html#which-
 | Key binding | Description                                                                   |
 |-------------+-------------------------------------------------------------------------------|
 | ~SPC a a f~ | EAF open file ([[https://github.com/manateelazycat/emacs-application-framework#launch-eaf-applications][see EAF doc for supported file types]])                          |
+| ~SPC a a s~ | EAF open system monitor                                                       |
+| ~SPC a a M~ | EAF open musik player                                                         |
 | ~SPC t k m~ | Show available key commands in which-key (read [[https://develop.spacemacs.org/doc/DOCUMENTATION.html#which-key][here]] for more details)         |
 | ~SPC m d~   | toggle dark-mode (or in browser press ~M-d~ and in pdf-viewer just press ~d~) |
 
