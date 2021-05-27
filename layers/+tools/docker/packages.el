@@ -27,15 +27,19 @@
     docker
     docker-tramp
     dockerfile-mode
-    flycheck
-    ))
+    flycheck))
 
 (defun docker/init-docker ()
   (use-package docker
     :defer t
     :init
     (progn
-      (spacemacs/set-leader-keys "atd" #'docker))))
+      (spacemacs/set-leader-keys "atd" #'docker)
+      (evil-define-key 'normal docker-image-mode-map (kbd "q") 'quit-window)
+      (evil-define-key 'normal docker-container-mode-map (kbd "q") 'quit-window)
+      (evil-define-key 'normal docker-volume-mode-map (kbd "q") 'quit-window)
+      (evil-define-key 'normal docker-network-mode-map (kbd "q") 'quit-window)
+      (evil-define-key 'normal docker-machine-mode-map (kbd "q") 'quit-window))))
 
 (defun docker/init-docker-tramp ()
   (use-package docker-tramp
