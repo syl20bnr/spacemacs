@@ -255,8 +255,8 @@ the scroll transient state.")
      (SYMBOL STRING STRING)"
   (let ((default-mode (use-package-as-mode name)))
     (pcase arg
-      ;; (PATTERN PATTERN ..) when not recursive -> go to recursive case
-      ((and `(,x . ,y)
+      ;; (PATTERN ..) when not recursive -> go to recursive case
+      ((and (or `(,x . ,y) `(,x ,y))
             (guard (and (not recursed)
                         (listp x)
                         (listp y))))
