@@ -454,9 +454,9 @@ cache folder.")
     (setq package-enable-at-startup nil)
     (package-initialize 'noactivate)
     ;; hack to be sure to enable insalled org from Org ELPA repository
-    (when (package-installed-p 'org-plus-contrib)
+    (when (package-installed-p 'org)
       (spacemacs-buffer/message "Initializing Org early...")
-      (configuration-layer//activate-package 'org-plus-contrib))))
+      (configuration-layer//activate-package 'org))))
 
 (defun configuration-layer//configure-quelpa ()
   "Configure `quelpa' package."
@@ -2605,7 +2605,8 @@ Original code from dochang at https://github.com/dochang/elpa-clone"
   (let (package-archive-contents
         (package-archives '(("melpa" . "https://melpa.org/packages/")
                             ("org"   . "https://orgmode.org/elpa/")
-                            ("gnu"   . "https://elpa.gnu.org/packages/"))))
+                            ("gnu"   . "https://elpa.gnu.org/packages/")
+                            ("nongnu" . "https://elpa.nongnu.org/nongnu/"))))
     (package-refresh-contents)
     (package-read-all-archive-contents)
     (let* ((packages (configuration-layer//get-indexed-elpa-package-names))
@@ -2846,40 +2847,6 @@ files."
 ;; (configuration-layer/create-elpa-repository
 ;;  "spacelpa"
 ;;  spacemacs-cache-directory)
-
-(defun configuration-layer//package-install-org (func &rest args)
-  "Advice around `package-install' to patch package name and dependencies at
-install time in order to replace all `org' package installation by
-`org-plus-contrib'. We avoid installing unecessarily both `org' and
-`org-plus-contrib' at the same time (i.e. we always install `org-plus-contrib')"
-  (let* ((pkg (car args))
-         (patched
-          (cond
-           ;; patch symbol name
-           ((and (symbolp pkg) (eq 'org pkg))
-            (setcar args 'org-plus-contrib)
-            t)
-           ;; patch name in package-desc object
-           ((and (package-desc-p pkg)
-                 (eq 'org (package-desc-name pkg)))
-            (setf (package-desc-name pkg) 'org-plus-contrib)
-            t)
-           ;; patch dependencies in package-desc object
-           ((and (package-desc-p pkg)
-                 (assq 'org (package-desc-reqs pkg)))
-            (setf (car (assq 'org (package-desc-reqs pkg))) 'org-plus-contrib)
-            t))))
-    (let ((name (if (package-desc-p pkg)
-                    (package-desc-name pkg)
-                  pkg)))
-      ;; check manually if `org-plus-contrib' is already installed since
-      ;; package.el may install `org-plus-contrib' more than once.
-      ;; Maybe we could hook somewhere else (at transaction computation time?)
-      (if (or patched (eq 'org-plus-contrib name))
-          (unless (package-installed-p name)
-            (apply func args))
-        (apply func args)))))
-(advice-add 'package-install :around #'configuration-layer//package-install-org)
 
 (defun configuration-layer//increment-error-count ()
   "Increment the error counter."

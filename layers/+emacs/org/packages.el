@@ -39,6 +39,7 @@
                 :toggle org-enable-notifications)
     (org-contacts :location built-in
                   :toggle org-enable-org-contacts-support)
+    org-contrib
     (org-vcard :toggle org-enable-org-contacts-support)
     org-brain
     (org-expiry :location built-in)
@@ -854,6 +855,10 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "Cf" 'org-contacts-find-file)
       (spacemacs/set-leader-keys
         "aoCf" 'org-contacts-find-file))))
+
+(defun org/init-org-contrib ()
+  (use-package org-contrib
+    :defer t))
 
 (defun org/init-org-vcard ()
   (use-package org-vcard
