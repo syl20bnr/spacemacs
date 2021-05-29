@@ -144,14 +144,9 @@
 (defun spacemacs/go-run-main ()
   (interactive)
   (shell-command
-   (format (concat go-run-command " ." go-run-args)
-           (shell-quote-argument (or (file-remote-p (buffer-file-name (buffer-base-buffer)) 'localname)
-                                     (buffer-file-name (buffer-base-buffer))))
-           go-run-args)))
-
+   (concat go-run-command " . " go-run-args)))
 
 ;; misc
-
 (defun spacemacs/go-packages-gopkgs ()
   "Return a list of all Go packages, using `gopkgs'."
   (sort (process-lines "gopkgs") #'string<))
