@@ -42,8 +42,8 @@
 (defun spacemacs-org/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'org-mode-hook))
 
-;; dummy init function to force installation of `org-plus-contrib'
-(defun spacemacs-org/init-org-plus-contrib ())
+;; dummy init function to force installation of `org'
+(defun spacemacs-org/init-org ())
 
 (defun spacemacs-org/init-default-org-config ()
   (use-package org
