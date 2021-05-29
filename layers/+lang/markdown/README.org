@@ -141,6 +141,7 @@ In order to use =orgtabl-mode=, add =org= layer to your =~/.spacemacs=.
 | ~SPC m i w~ | insert wiki link                                                  |
 | ~SPC m i i~ | insert image                                                      |
 | ~SPC m i t~ | insert Table of Contents (toc)                                    |
+| ~SPC m i T~ | insert general markdown table                                     |
 | ~SPC m x b~ | make region bold or insert bold                                   |
 | ~SPC m x B~ | insert gfm checkbox                                               |
 | ~SPC m x i~ | make region italic or insert italic                               |

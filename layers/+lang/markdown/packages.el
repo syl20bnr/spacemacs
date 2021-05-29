@@ -129,6 +129,7 @@
           "il"  'markdown-insert-link
           "iw"  'markdown-insert-wiki-link
           "iu"  'markdown-insert-uri
+          "iT"  'markdown-insert-table
           ;; Element removal
           "k"   'markdown-kill-thing-at-point
           ;; List editing
