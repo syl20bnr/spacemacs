@@ -144,7 +144,7 @@
 (defun spacemacs/go-run-main ()
   (interactive)
   (shell-command
-   (format (concat go-run-command " %s %s")
+   (format (concat go-run-command " .")
            (shell-quote-argument (or (file-remote-p (buffer-file-name (buffer-base-buffer)) 'localname)
                                      (buffer-file-name (buffer-base-buffer))))
            go-run-args)))
