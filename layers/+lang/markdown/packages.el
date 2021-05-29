@@ -217,5 +217,4 @@
 (defun markdown/post-init-org ()
   (when (configuration-layer/layer-used-p 'org)
     (add-hook 'markdown-mode-hook 'orgtbl-mode)
-    (spacemacs|diminish orgtbl-mode)
-    (add-hook 'markdown-mode-hook 'spacemacs//cleanup-org-tables-on-save)))
+    (spacemacs|diminish orgtbl-mode)))
