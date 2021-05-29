@@ -34,7 +34,6 @@
     ;; `org' package.
     (default-org-config :location built-in)
     (org :step pre)
-    org-contrib
     org-superstar
     (space-doc :location local)
     toc-org
@@ -74,10 +73,6 @@
                     (3 font-lock-comment-face prepend))))
       ;; Open links and files with RET in normal state
       (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)))))
-
-(defun spacemacs-org/init-org-contrib ()
-  (use-package org-contrib
-    :defer t))
 
 (defun spacemacs-org/init-org-superstar ()
   (use-package org-superstar
