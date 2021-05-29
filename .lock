@@ -3,19 +3,20 @@
 (setq configuration-layer-stable-elpa-name "spacelpa")
 (setq configuration-layer-stable-elpa-version "0.400")
 (setq configuration-layer-stable-elpa-archive (concat configuration-layer-stable-elpa-directory
-                                     "spacelpa-"
-                                     configuration-layer-stable-elpa-version))
+                                                      "spacelpa-"
+                                                      configuration-layer-stable-elpa-version))
 (setq configuration-layer-elpa-subdirectory "develop")
 
 (setq configuration-layer-elpa-archives
-  `(("melpa"    . "melpa.org/packages/")
-    ("org"      . "orgmode.org/elpa/")
-    ("gnu"      . "elpa.gnu.org/packages/")
-    ("spacelpa" . ,(concat configuration-layer-stable-elpa-archive "/packages/"))))
+      `(("melpa"    . "melpa.org/packages/")
+        ("org"      . "orgmode.org/elpa/")
+        ("gnu"      . "elpa.gnu.org/packages/")
+        ("nongnu"   . "elpa.nongnu.org/nongnu/")
+        ("spacelpa" . ,(concat configuration-layer-stable-elpa-archive "/packages/"))))
 
 (setq package-archive-priorities
       '(("spacelpa" . 8)
         ("melpa"    . 4)
-        ("org"      . 2)
+        ("org"      . 3)
+        ("nongnu"   . 2)
         ("gnu"      . 1)))
-
