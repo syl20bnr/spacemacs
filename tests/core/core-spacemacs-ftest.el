@@ -24,7 +24,7 @@
 (require 'core-spacemacs)
 
 (ert-deftest assertion-library-should-work ()
-  "the assertion library should works"
+  "the assertion library should work"
   (mocker-let ((foo (n)
                     ((:input '(1) :output 1)))
                (bar (n m)

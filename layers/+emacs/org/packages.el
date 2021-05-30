@@ -31,7 +31,7 @@
     gnuplot
     (helm-org-rifle :toggle (configuration-layer/layer-used-p 'helm))
     htmlize
-    ;; ob, org, org-agenda and org-contacts are installed by `org-plus-contrib'
+    ;; ob, org, org-agenda and org-contacts are installed by `org-contrib'
     (ob :location built-in)
     (org :location built-in)
     (org-agenda :location built-in)
