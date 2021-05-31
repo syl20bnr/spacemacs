@@ -309,7 +309,7 @@ the scroll transient state.")
   (let ((body (use-package-process-keywords name rest state)))
     (use-package-concat
      `((when (fboundp 'spacemacs|diminish)
-         ,@(if (consp (cadr arg)) ;; e.g. ((MODE1 FOO BAR) (MODE2 BAZ XYZ))
+         ,@(if (consp (car arg)) ;; e.g. ((MODE FOO BAR) ...)
                (mapcar #'(lambda (var) `(spacemacs|diminish ,@var))
                        arg)
              `((spacemacs|diminish ,@arg))))) ;; e.g. (MODE FOO BAR)
