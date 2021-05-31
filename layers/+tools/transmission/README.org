@@ -98,10 +98,10 @@ Add =(transmission :variables transmission-auto-refresh-all t)= to
 
 | Key binding | Description                                                   |
 |-------------+---------------------------------------------------------------|
-| ~SPC g f~   | Visit the file at point with =find-file-read-only=.           |
+| ~SPC m g f~ | Visit the file at point with =find-file-read-only=.           |
 | ~SPC m r~   | Run a command on the file at point.                           |
-| ~SPC g p~   | Open a =transmission-peers-mode= buffer for torrent at point. |
-| ~SPC g i~   | Open a =transmission-info-mode= buffer for torrent at point.  |
+| ~SPC m g p~ | Open a =transmission-peers-mode= buffer for torrent at point. |
+| ~SPC m g i~ | Open a =transmission-info-mode= buffer for torrent at point.  |
 | ~SPC m m~   | Move torrent at point or in region to a new location.         |
 | ~SPC m m u~ | Mark file(s) at point or in region as unwanted.               |
 | ~SPC m m w~ | Mark file(s) at point or in region as wanted.                 |
