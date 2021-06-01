@@ -350,6 +350,17 @@ In org-agenda-mode
   - Changed ~SPC e e~ to ~SPC e b~ for =flycheck-buffer=
 ***** Tabs
 - Add auto hide tabs feature (thanks to Daniel Nicolai)
+***** Transmission
+- Key bindings (thanks to Arif Er):
+  - Organised and corrected in both =packages.el= and =README.org=.
+  - Change ~SPC m s l~ to ~SPC m s r~ for =transmission-set-ratio= and =transmission-set-torrent-ratio=.
+  - Change ~SPC m r~ to ~SPC m R~ for =transmission-remove=.
+  - Change ~SPC m m~ to ~SPC m r~ for =transmission-move=.
+  - Change ~SPC m r~ to ~SPC m X~ for =transmission-files-command=.
+  - Swap ~SPC m a a~ and ~SPC m a t~ for =transmission-add= and =transmission-trackers-add= respectively.
+  - Change ~SPC m s b~ to ~SPC m s p~ for =transmission-set-bandwidth-priority=.
+  - Change ~SPC m g t~ to ~SPC m g f~ for =transmission-files=.
+  - Change ~SPC m m u~ and ~SPC m m w~ to ~SPC m t u~ and ~SPC m t w~ for =transmission-files-unwant= and =trasnmission-files-want= respectively
 ***** Vagrant
 - Key bindings:
   - Vagrant key bindings prefix is now ~SPC a V~.
@@ -3616,6 +3627,18 @@ files (thanks to Daniel Nicolai)
 - Prevent =tmux-command= at GUI mode (thanks to Isaac Zeng)
 - Fixed regression in tmux by setting keybindings using =use-package=
   (thanks to Aaron Jensen)
+**** Transmission
+- Key bindings (thanks to Arif Er):
+  - ~H/L~ is to move torrent to the top/bottom of the queue.
+  - ~J/K~ is to move torrent down/up the queue.
+  - ~SPC m D~ is to remove and delete torrent at point.
+  - ~SPC m m~ is to mark torrent(s) at point or in region.
+  - ~SPC m S~ is to sort the torrents according to the column at point.
+  - ~SPC m s l~ is to set label(s) for marked torrent(s).
+  - ~SPC m t t~ is to toggle =transmission-turtle-mode=.
+  - ~SPC m s D~ is to set days for =transmission-turtle-mode= to be active.
+  - ~SPC m s S~ is to set speed limits for =transmission-turtle-mode=.
+  - ~SPC m s T~ is to set time range for =transmission-turtle-mode to be active.
 **** Treemacs
 - =Treemacs= replaces =NeoTree= as the default sidebar
 - Added missing ~SPC p t~ to =readme.org= (thanks to oo6)
