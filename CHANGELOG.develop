@@ -3817,6 +3817,10 @@ files (thanks to Daniel Nicolai)
   - layers/+lang/python/README.org
     - Corrected typo in python language server install command (thanks to Zach
       Pearson)
+  - layers/+lang/php/README.org
+    - Updated dap debugging manual to cover xdebug options which were changed
+      in xdebug v3. Added a caveat regarding host address usage while debugging
+      inside of docker container (thanks to Alexander Konotop)
 *** Release notes summarized
   Thanks to: Abhishek(Compro) Prasad, Deepak Khidia, Enze Chi, Grant Shangreaux,
   Igor Almeida, Jiahao Jiang, Miciah Dashiel Butler Masters, Songpeng Zu, Ward
