@@ -26,7 +26,7 @@
     company
     evil
     flycheck
-    (flycheck-perl6 :requires flycheck)
+    (flycheck-raku :requires flycheck)
     raku-mode
     ))
 
@@ -41,9 +41,9 @@
 (defun perl6/post-init-flycheck ()
   (spacemacs/enable-flycheck 'perl6-mode))
 
-(defun perl6/init-flycheck-perl6 ()
+(defun perl6/init-flycheck-raku ()
   (with-eval-after-load 'flycheck
-    (require 'flycheck-perl6)))
+    (require 'flycheck-raku)))
 
 (defun perl6/init-raku-mode ()
   (use-package raku-mode
