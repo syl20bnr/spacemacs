@@ -21,4 +21,4 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(spacemacs|define-jump-handlers perl6-mode)
+(spacemacs|define-jump-handlers raku-mode)

@@ -33,19 +33,17 @@
 (defun perl6/post-init-company ()
   (spacemacs|add-company-backends
     :backends company-capf
-    :modes perl6-mode))
+    :modes raku-mode))
 
 (defun perl6/post-init-evil ()
-  (add-to-list 'spacemacs-jump-handlers-perl6-mode 'evil-jump-to-tag))
+  (add-to-list 'spacemacs-jump-handlers-raku-mode 'evil-jump-to-tag))
 
 (defun perl6/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'perl6-mode))
+  (spacemacs/enable-flycheck 'raku-mode))
 
 (defun perl6/init-flycheck-raku ()
-  (with-eval-after-load 'flycheck
-    (require 'flycheck-raku)))
+  (add-hook 'flycheck-mode-hook (lambda () (use-package flycheck-raku))))
 
 (defun perl6/init-raku-mode ()
   (use-package raku-mode
-    :defer t
-    :mode (("/perl6/site/sources/" . perl6-mode))))
+    :defer t))
