@@ -2398,11 +2398,12 @@ depends on it."
 
 (defun configuration-layer//package-delete (pkg-name)
   "Delete package with name PKG-NAME."
-  (let ((p (cadr (assq pkg-name package-alist))))
-    ;; add force flag to ignore dependency checks in Emacs25
-    (if (not (configuration-layer//system-package-p p))
-        (package-delete p t t)
-      (message "Would have removed package %s but this is a system package so it has not been changed." pkg-name))))
+  (if-let ((pkg (car (alist-get pkg-name package-alist))))
+      ;; add force flag to ignore dependency checks in Emacs25
+      (if (configuration-layer//system-package-p pkg)
+          (message "Would have removed package %s but this is a system package so it has not been changed." pkg-name)
+        (package-delete pkg t t))
+    (message "Can't remove package %s since it isn't installed." pkg-name)))
 
 (defun configuration-layer/delete-orphan-packages (packages)
   "Delete PACKAGES if they are orphan."
