@@ -31,6 +31,7 @@
 
 - - -
 
+
 **Quick Install:**
 
 This assumes you don't have an existing Emacs setup and want to run Spacemacs as
