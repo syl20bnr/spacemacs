@@ -30,67 +30,66 @@
 
 (defun ruby-on-rails/init-projectile-rails ()
   (use-package projectile-rails
+    :defer t
+    :init
+    (progn
+      (spacemacs/add-local-var-hook
+       #'spacemacs//ruby-on-rails-setup-projectile-rails
+       :project-type 'ruby-on-rails))
     :config
-    (projectile-rails-global-mode)
     (spacemacs|diminish projectile-rails-mode " ⇋" " RoR")
-
-    ;; Find files
-    (spacemacs/set-leader-keys-for-minor-mode 'projectile-rails-mode
-      "ffa" 'projectile-rails-find-locale
-      "ffb" 'projectile-rails-find-job
-      "ffc" 'projectile-rails-find-controller
-      "ffe" 'projectile-rails-find-environment
-      "fff" 'projectile-rails-find-feature
-      "ffh" 'projectile-rails-find-helper
-      "ffi" 'projectile-rails-find-initializer
-      "ffj" 'projectile-rails-find-javascript
-      "ffl" 'projectile-rails-find-lib
-      "ffm" 'projectile-rails-find-model
-      "ffn" 'projectile-rails-find-migration
-      "ffo" 'projectile-rails-find-log
-      "ffp" 'projectile-rails-find-spec
-      "ffr" 'projectile-rails-find-rake-task
-      "ffs" 'projectile-rails-find-stylesheet
-      "fft" 'projectile-rails-find-test
-      "ffu" 'projectile-rails-find-fixture
-      "ffv" 'projectile-rails-find-view
-      "ffw" 'projectile-rails-find-webpack
-      "ffy" 'projectile-rails-find-layout
-      "ff@" 'projectile-rails-find-mailer
-                                        ;f Goto file
-      "fgc" 'projectile-rails-find-current-controller
-      "fgd" 'projectile-rails-goto-schema
-      "fge" 'projectile-rails-goto-seeds
-      "fgh" 'projectile-rails-find-current-helper
-      "fgj" 'projectile-rails-find-current-javascript
-      "fgg" 'projectile-rails-goto-gemfile
-      "fgm" 'projectile-rails-find-current-model
-      "fgn" 'projectile-rails-find-current-migration
-      "fgp" 'projectile-rails-find-current-spec
-      "fgr" 'projectile-rails-goto-routes
-      "fgs" 'projectile-rails-find-current-stylesheet
-      "fgt" 'projectile-rails-find-current-test
-      "fgu" 'projectile-rails-find-current-fixture
-      "fgv" 'projectile-rails-find-current-view
-      "fgz" 'projectile-rails-goto-spec-helper
-      "fg." 'projectile-rails-goto-file-at-point
-      ;; Rails external commands
-      "f:" 'projectile-rails-rake
-      "fcc" 'projectile-rails-generate
-      "fcd" 'projectile-rails-destroy
-      "fi" 'projectile-rails-console
-      "fxs" 'projectile-rails-server
-      ;; Refactoring 'projectile-rails-mode
-      "fRx" 'projectile-rails-extract-region)
-
-    (dolist (mode '(ruby-mode enh-ruby-mode))
-      (spacemacs/declare-prefix-for-mode mode "mf" "rails")
-      (spacemacs/declare-prefix-for-mode mode "mfc" "generate/destroy")
-      (spacemacs/declare-prefix-for-mode mode "mfR" "extract")
-      (spacemacs/declare-prefix-for-mode mode "mfx" "server")
-      (spacemacs/declare-prefix-for-mode mode "mff" "file")
-      (spacemacs/declare-prefix-for-mode mode "mfg" "goto"))
-
+    (spacemacs|spacebind
+     :project-minor
+     (projectile-rails-mode
+      "Ruby on Rails bindings"
+      ("r" "Rails"
+       ("i" projectile-rails-console "Start console")
+       ("c" "Compile/Execute"
+        ("c" projectile-rails-generate "generate")
+        ("d" projectile-rails-destroy "destroy")
+        ("r" projectile-rails-rake "Rake task...")
+        ("s" projectile-rails-server "server"))
+       ("f" "Files"
+        ("@" projectile-rails-find-mailer "Find mailer")
+        ("a" projectile-rails-find-locale "Find locale file")
+        ("b" projectile-rails-find-job "Find job file")
+        ("c" projectile-rails-find-controller "Find controller file")
+        ("e" projectile-rails-find-environment "Find environment file")
+        ("f" projectile-rails-find-feature "Find feature file")
+        ("h" projectile-rails-find-helper "Find helper")
+        ("i" projectile-rails-find-initializer "Find initializer file")
+        ("j" projectile-rails-find-javascript "Find javascript file")
+        ("l" projectile-rails-find-lib "Find file within lib directory")
+        ("m" projectile-rails-find-model "Find model")
+        ("M" projectile-rails-find-migration "Find migration")
+        ("o" projectile-rails-find-log "Find log file")
+        ("p" projectile-rails-find-spec "Find spec")
+        ("r" projectile-rails-find-rake-task "Find rake task file")
+        ("s" projectile-rails-find-stylesheet "Find stylesheet file")
+        ("t" projectile-rails-find-test "Find test")
+        ("u" projectile-rails-find-fixture "Find fixture file")
+        ("v" projectile-rails-find-view "Find template or partial")
+        ("w" projectile-rails-find-webpack "Find webpack configuration")
+        ("y" projectile-rails-find-layout "Find layout file"))
+       ("g" "Goto"
+        ("c" projectile-rails-find-current-controller "Go to controller")
+        ("d" projectile-rails-goto-schema "Open db/schema.rb")
+        ("e" projectile-rails-goto-seeds "Open db/seed.rb")
+        ("g" projectile-rails-goto-file-at-point "Go to file")
+        ("h" projectile-rails-find-current-helper "Go to helper")
+        ("j" projectile-rails-find-current-javascript "Go to javascript")
+        ("g" projectile-rails-goto-gemfile "Open Gemfile")
+        ("m" projectile-rails-find-current-model "Go to model")
+        ("n" projectile-rails-find-current-migration "Go to migration")
+        ("p" projectile-rails-find-current-spec "Go to spec")
+        ("r" projectile-rails-goto-routes "Open config/routes.rb")
+        ("s" projectile-rails-find-current-stylesheet "Go to stylesheet")
+        ("t" projectile-rails-find-current-test "Go to test")
+        ("u" projectile-rails-find-current-fixture "Go to fixture")
+        ("v" projectile-rails-find-current-view "Go to template")
+        ("z" projectile-rails-goto-spec-helper "Open spec/spec_helper.rb"))
+       ("r" "Refactor"
+        ("x" projectile-rails-extract-region "Extract region to partial...")))))
     ;; Ex-commands
     (evil-ex-define-cmd "A" 'projectile-toggle-between-implementation-and-test)))
 

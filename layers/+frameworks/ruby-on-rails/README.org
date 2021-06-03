@@ -34,61 +34,61 @@ file.
 
 | Key binding   | Description                                                     |
 |---------------+-----------------------------------------------------------------|
-| ~SPC m f f a~ | find localization file                                          |
-| ~SPC m f f b~ | find job                                                        |
-| ~SPC m f f c~ | find controller                                                 |
-| ~SPC m f f e~ | find environment file                                           |
-| ~SPC m f f f~ | find feature                                                    |
-| ~SPC m f f h~ | find helper                                                     |
-| ~SPC m f f i~ | find initializer                                                |
-| ~SPC m f f j~ | find javascript file                                            |
-| ~SPC m f f l~ | find library                                                    |
-| ~SPC m f f m~ | find model                                                      |
-| ~SPC m f f n~ | find migration                                                  |
-| ~SPC m f f o~ | find log                                                        |
-| ~SPC m f f p~ | find spec file                                                  |
-| ~SPC m f f r~ | find rake task                                                  |
-| ~SPC m f f s~ | find stylesheet file                                            |
-| ~SPC m f f S~ | find serializer file                                            |
-| ~SPC m f f t~ | find test                                                       |
-| ~SPC m f f u~ | find fixture                                                    |
-| ~SPC m f f v~ | find view                                                       |
-| ~SPC m f f w~ | find webpack config                                             |
-| ~SPC m f f y~ | find layout                                                     |
-| ~SPC m f f @~ | find mailer                                                     |
-| ~SPC m f g c~ | go to current controller                                        |
-| ~SPC m f g d~ | go to DB schema                                                 |
-| ~SPC m f g e~ | go to DB seeds                                                  |
-| ~SPC m f g h~ | go to current helper                                            |
-| ~SPC m f g j~ | go to current javascript                                        |
-| ~SPC m f g g~ | go to Gemfile                                                   |
-| ~SPC m f g m~ | go to current model                                             |
-| ~SPC m f g n~ | go to current migration                                         |
-| ~SPC m f g p~ | go to current spec                                              |
-| ~SPC m f g r~ | go to routes                                                    |
-| ~SPC m f g s~ | go to current stylesheet                                        |
-| ~SPC m f g t~ | go to current test                                              |
-| ~SPC m f g u~ | go to current fixture                                           |
-| ~SPC m f g v~ | go to current view                                              |
-| ~SPC m f g z~ | go to spec helper                                               |
-| ~SPC m f g .~ | go to file at point (faster but less powerful than ~SPC m g g~) |
+| ~SPC M r f a~ | find localization file                                          |
+| ~SPC M r f b~ | find job                                                        |
+| ~SPC M r f c~ | find controller                                                 |
+| ~SPC M r f e~ | find environment file                                           |
+| ~SPC M r f f~ | find feature                                                    |
+| ~SPC M r f h~ | find helper                                                     |
+| ~SPC M r f i~ | find initializer                                                |
+| ~SPC M r f j~ | find javascript file                                            |
+| ~SPC M r f l~ | find library                                                    |
+| ~SPC M r f m~ | find model                                                      |
+| ~SPC M r f M~ | find migration                                                  |
+| ~SPC M r f o~ | find log                                                        |
+| ~SPC M r f p~ | find spec file                                                  |
+| ~SPC M r f r~ | find rake task                                                  |
+| ~SPC M r f s~ | find stylesheet file                                            |
+| ~SPC M r f S~ | find serializer file                                            |
+| ~SPC M r f t~ | find test                                                       |
+| ~SPC M r f u~ | find fixture                                                    |
+| ~SPC M r f v~ | find view                                                       |
+| ~SPC M r f w~ | find webpack config                                             |
+| ~SPC M r f y~ | find layout                                                     |
+| ~SPC M r f @~ | find mailer                                                     |
+| ~SPC M r g c~ | go to current controller                                        |
+| ~SPC M r g d~ | go to DB schema                                                 |
+| ~SPC M r g e~ | go to DB seeds                                                  |
+| ~SPC M r g g~ | go to file at point (faster but less powerful than ~SPC m g g~) |
+| ~SPC M r g h~ | go to current helper                                            |
+| ~SPC M r g j~ | go to current javascript                                        |
+| ~SPC M r g g~ | go to Gemfile                                                   |
+| ~SPC M r g m~ | go to current model                                             |
+| ~SPC M r g n~ | go to current migration                                         |
+| ~SPC M r g p~ | go to current spec                                              |
+| ~SPC M r g r~ | go to routes                                                    |
+| ~SPC M r g s~ | go to current stylesheet                                        |
+| ~SPC M r g t~ | go to current test                                              |
+| ~SPC M r g u~ | go to current fixture                                           |
+| ~SPC M r g v~ | go to current view                                              |
+| ~SPC M r g z~ | go to spec helper                                               |
 
 ** Refactoring
 
 | Key binding   | Description                 |
 |---------------+-----------------------------|
-| ~SPC m f R x~ | extract region into partial |
+| ~SPC M r r x~ | extract region into partial |
 
 ** RUN commands
 
 | Key binding   | Description          |
 |---------------+----------------------|
-| ~SPC m f :~   | run rake task        |
-| ~SPC m f c c~ | run rails generator  |
-| ~SPC m f c d~ | run rails destroy    |
-| ~SPC m f i~   | start rails console  |
-| ~SPC m f s r~ | reload Rails project |
-| ~SPC m f x s~ | start rails server   |
+| ~SPC M r c c~ | run rails generator  |
+| ~SPC M r c d~ | run rails destroy    |
+| ~SPC M r c r~ | run rake task        |
+| ~SPC M r i~   | start rails console  |
+| ~SPC M r s r~ | reload Rails project |
+| ~SPC M r x s~ | start rails server   |
 
 ** Ex-commands
 
