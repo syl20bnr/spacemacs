@@ -23,7 +23,9 @@
 
 (setq spacemacs-misc-packages
       '(
-        devdocs
+        (devdocs :location local
+                 :toggle (version< emacs-version "27.1"))
+        (devdocs :toggle (not (version< emacs-version "27.1")))
         dumb-jump
         request))
 
