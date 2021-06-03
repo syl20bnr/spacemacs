@@ -71,8 +71,9 @@
 (defun ruby/init-chruby ()
   (use-package chruby
     :defer t
-    ;; initialized via `spacemacs//ruby-setup-version-manager'
-    ))
+    :init
+    (spacemacs/add-local-var-hook #'spacemacs//ruby-setup-version-manager
+                                  :project-type 'ruby)))
 
 (defun ruby/post-init-add-node-modules-path ()
   (spacemacs|eval-for-enabled-ruby-mode
@@ -80,8 +81,8 @@
 
 (defun ruby/post-init-company ()
   (spacemacs|eval-for-enabled-ruby-mode
-    (add-hook 'local-vars-hook
-              #'spacemacs//ruby-setup-company)))
+    (spacemacs/add-local-var-hook #'spacemacs//ruby-setup-company
+                                  :major-mode 'mode)))
 
 (defun ruby/post-init-counsel-gtags ()
   (spacemacs|eval-for-enabled-ruby-mode
@@ -97,11 +98,11 @@
            ("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . enh-ruby-mode)
            ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\|pryrc\\)\\'" . enh-ruby-mode))
     :interpreter "ruby"
-    :hook ((enh-ruby-mode-local-vars . spacemacs//ruby-setup-backend)
-           (enh-ruby-mode-local-vars . spacemacs//ruby-setup-test-runner)
-           (enh-ruby-mode-local-vars . spacemacs//ruby-setup-version-manager)
-           (enh-ruby-mode . spacemacs/ruby-maybe-highlight-debugger-keywords))
     :init
+    (spacemacs/add-local-var-hook #'spacemacs//ruby-setup-backend
+                                  :major-mode 'enh-ruby-mode)
+    (spacemacs/add-local-var-hook #'spacemacs/ruby-maybe-highlight-debugger-keywords
+                                  :major-mode 'enh-ruby-mode)
     (setq enh-ruby-deep-indent-paren nil
           enh-ruby-hanging-paren-deep-indent-level 2)
     :config
@@ -126,17 +127,23 @@
 
 (defun ruby/post-init-ggtags ()
   (spacemacs|eval-for-enabled-ruby-mode
-    (add-hook 'local-vars-hook 'spacemacs/ggtags-mode-enable)))
+    (spacemacs/add-local-var-hook #'spacemacs/ggtags-mode-enable
+                                  :major-mode 'mode)))
 
 (defun ruby/init-minitest ()
   (use-package minitest
     :defer t
     ;; initialized via `spacemacs//ruby-setup-version-manager'
-    :init (spacemacs|eval-for-enabled-ruby-mode
-            ;; remove hooks automatically added by minitest via autoload
-            ;; because we want to be able to control when `minitest-mode' is
-            ;; loaded based on the layer variable `ruby-test-runner'
-            (remove-hook 'hook 'minitest-enable-appropriate-mode))
+    :init
+    (progn
+      (spacemacs|eval-for-enabled-ruby-mode
+        (spacemacs/add-local-var-hook #'spacemacs//ruby-setup-test-runner
+                                      :major-mode 'mode))
+      (spacemacs|eval-for-enabled-ruby-mode
+        ;; remove hooks automatically added by minitest via autoload
+        ;; because we want to be able to control when `minitest-mode' is
+        ;; loaded based on the layer variable `ruby-test-runner'
+        (remove-hook 'hook 'minitest-enable-appropriate-mode)))
     :config
     (spacemacs|hide-lighter minitest-mode)
     (spacemacs|eval-for-enabled-ruby-mode
@@ -195,8 +202,8 @@
 (defun ruby/init-rbenv ()
   (use-package rbenv
     :defer t
-    ;; initialized via `spacemacs//ruby-setup-version-manager'
-    ))
+    :init (spacemacs/add-local-var-hook #'spacemacs//ruby-setup-version-manager
+                                        :project-type 'ruby)))
 
 (defun ruby/init-robe ()
   (use-package robe
@@ -231,11 +238,16 @@
   (use-package rspec-mode
     :defer t
     ;; initialized via `spacemacs//ruby-setup-version-manager'
-    :init (spacemacs|eval-for-enabled-ruby-mode
-            ;; remove hooks automatically added by rspec via autoload
-            ;; because we want to be able to control when `rspec-mode' is
-            ;; loaded based on the layer variable `ruby-test-runner'
-            (remove-hook 'hook 'rspec-enable-appropriate-mode))
+    :init
+    (progn
+      (spacemacs|eval-for-enabled-ruby-mode
+        (spacemacs/add-local-var-hook #'spacemacs//ruby-setup-test-runner
+                                      :major-mode 'mode))
+      (spacemacs|eval-for-enabled-ruby-mode
+        ;; remove hooks automatically added by rspec via autoload
+        ;; because we want to be able to control when `rspec-mode' is
+        ;; loaded based on the layer variable `ruby-test-runner'
+        (remove-hook 'hook 'rspec-enable-appropriate-mode)))
     :config
     (spacemacs|hide-lighter rspec-mode)
     (spacemacs|eval-for-enabled-ruby-mode
@@ -313,13 +325,15 @@
     :mode (("Appraisals\\'" . ruby-mode)
            ("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . ruby-mode)
            ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\|pryrc\\)\\'" . ruby-mode))
-    :hook ((ruby-mode-local-vars . spacemacs//ruby-setup-backend)
-           (ruby-mode-local-vars . spacemacs//ruby-setup-test-runner)
-           (ruby-mode-local-vars . spacemacs//ruby-setup-version-manager)
-           (ruby-mode . spacemacs/ruby-maybe-highlight-debugger-keywords))
     :init
-    ;; This might have been important 10 years ago but now it's frustrating.
-    (setq ruby-insert-encoding-magic-comment nil)
+    (progn
+
+      (spacemacs/add-local-var-hook #'spacemacs//ruby-setup-backend
+                                    :major-mode 'ruby-mode)
+      (spacemacs/add-local-var-hook #'spacemacs/ruby-maybe-highlight-debugger-keywords
+                                    :major-mode 'ruby-mode)
+      ;; This might have been important 10 years ago but now it's frustrating.
+      (setq ruby-insert-encoding-magic-comment nil))
     :config
     (spacemacs|spacebind
      :major
@@ -358,7 +372,9 @@
   "Define keybindings for ruby test mode."
   (use-package ruby-test-mode
     :defer t
-    ;; initialized via `spacemacs//ruby-setup-version-manager'
+    :init (spacemacs|eval-for-enabled-ruby-mode
+            (spacemacs/add-local-var-hook #'spacemacs//ruby-setup-test-runner
+                                          :major-mode 'mode))
     :config
     ;; `ruby-test-mode' adds a hook to enable itself, this hack
     ;; removes it to be sure that we control the loading of the
@@ -394,8 +410,8 @@
 (defun ruby/init-rvm ()
   (use-package rvm
     :defer t
-    ;; initialized via `spacemacs//ruby-setup-version-manager'
-    ))
+    :init (spacemacs/add-local-var-hook #'spacemacs//ruby-setup-version-manager
+                                        :project-type 'ruby)))
 
 (defun ruby/init-seeing-is-believing ()
   (use-package seeing-is-believing
