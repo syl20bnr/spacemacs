@@ -1,9 +1,9 @@
-;;; layers.el --- Ruby on Rails Layer layers File for Spacemacs
+;;; funcs.el --- Ruby Layer functions File
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
-;; Author: Andrea Moretti <axyzxp@gmail.com>
-;; URL: https://github.com/axyz
+;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -20,9 +20,9 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
+;; projectile-rails
 
-;; Prerequisites
-
-(spacemacs/add-available-project-type 'ruby-on-rails)
-
-(configuration-layer/declare-layer-dependencies '(ruby))
+(defun spacemacs//ruby-on-rails-setup-projectile-rails ()
+  "Setup `projectile-rails'."
+  (projectile-rails-mode))
