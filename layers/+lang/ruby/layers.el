@@ -20,6 +20,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+(spacemacs/add-available-project-type 'ruby)
 
 (when (and (boundp 'ruby-backend)
            (eq ruby-backend 'lsp))
@@ -27,3 +28,4 @@
 
 (when (boundp 'ruby-prettier-on-save)
   (configuration-layer/declare-layer-dependencies '(prettier)))
+
