@@ -23,7 +23,7 @@
 
 (setq git-packages
       '(
-        (evil-collection :toggle (spacemacs//support-evilified-buffer-p))
+        evil-collection
         fill-column-indicator
         ;; forge requires a C compiler on Windows so we disable
         ;; it by default on Windows.
