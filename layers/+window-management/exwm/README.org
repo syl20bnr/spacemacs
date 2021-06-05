@@ -2,64 +2,40 @@
 
 #+TAGS: layer|tool
 
-[[file:img/spacemacsOS.jpg]]
+ [[file:img/exwm.jpg]]
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
-  - [[#features][Features:]]
+- [[#features][Features:]]
 - [[#install][Install]]
-  - [[#note-about-display-managers][Note about Display Managers]]
-  - [[#not-having-display-managers][Not having Display Managers]]
-  - [[#osx][OSX]]
   - [[#system-tray-integratios][System Tray Integratios]]
   - [[#xdg-autostart][XDG Autostart]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-The time has arrived when one can finally use Emacs as a Window Manager, long
-ago the concepts of *windows* and *frames* made so much sense when one was
-working in a TTY, and basically that's all the window management you got. In
-these *modern* times though, it sounds silly to have those names. But not
-Anymore!
-
 Thanks to @ch11ng and his [[https://github.com/ch11ng/exwm][EXWM]] project we can now use Emacs as our window
-manager, and all those *windows* that didn't make sense before, now can not only
-hold buffers, but X Windows, that means that you can spawn a Browser Window, or
-your music player, or anything.
+manager, that means that you can spawn a Browser Window, or your music player,
+or anything.
 
-I urge you to read the [[https://github.com/ch11ng/exwm/wiki][EXWM Wiki]] for a more in depth explanation and if you can
-contribute, please do so! The purpose of me making this layer is that I find it
-awesome and having nice defaults would make more people dive into it and the
-project would receive more attention and contributions which will only make it
-more awesome, so if you try it and like it, share it!
-
-** Features:
-- Support for using Spacemacs as window manager
+* Features:
+- Support for using Emacs as window manager
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =exwm= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+To use =exwm= layer, add it to your =~/.spacemacs=.
 
-** Note about Display Managers
-This is most common among Ubuntu and derivative users:
+The default layer variables are:
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((exwm :variables exwm-enable-systray nil
+                                   exwm-autostart-xdg-applications nil
+                                   exwm-terminal-command "xterm"
+                                   exwm-locking-command nil
+                                   exwm-hide-tiling-modeline nil
+                                   exwm-workspace-switch-wrap t
+                                   exwm-randr-command nil)))
+#+END_SRC
 
-LightDM, GDM, and other Display managers that need a session file will need you
-to copy the [[file:files/exwm.desktop][desktop file]] I bundled with this layer to
-~/usr/local/xsessions/exwm.desktop~, that's what I used on my Ubuntu box, but
-make sure the [[file:files/exwm-start][exwm-start script]] is in your PATH, you can put it in
-~/usr/local/bin/exwm-start~ and that should be enough, next time you log out,
-select the EXWM session instead of the Ubuntu one and you should be alright.
-
-** Not having Display Managers
-If you use Arch, Gentoo, or any other Linux, most probably you'll start your
-configurations via a ~.xinitrc~ file, just append ~exwm-start~ to the end of
-that file and you should be fine. I do recommend to check the [[https://github.com/ch11ng/exwm/wiki][EXWM Wiki]] for more
-details.
-
-** OSX
-If you are an OSX user, please report back on whether this works with xQuartz,
-always back up your data before attempting to try stuff like this.
+Please refer to [[https://github.com/ch11ng/exwm/wiki][EXWM Wiki]] for setting up display manager.
 
 ** System Tray Integratios
 To enable system tray integration, set =exwm-enable-systray= to =t=.
@@ -67,9 +43,9 @@ To enable system tray integration, set =exwm-enable-systray= to =t=.
 ** XDG Autostart
 If =exwm-autostart-xdg-applications= is non-nil, =.desktop= files in
 =$XDG_CONFIG_HOME/autostart= and =XDG_CONFIG_DIRS= will be used to run applications at
-startup. (See [[https://specifications.freedesktop.org/autostart-spec/autostart-spec-latest.html][Specification]] for details).
+startup. (See [[https://specifications.freedesktop.org/autostart-spec/autostart-spec-latest.html][Desktop Application Autostart Specification]] for details).
 
-For the purpose of controlling whether an entry should be run under SpacemacsOS,
+For the purpose of controlling whether an entry should be run under Emacs,
 the =OnlyShowIn= and =NotShotIn= keys are checked for the string =EXWM=.
 
 This is disabled per default.
@@ -78,28 +54,25 @@ This is disabled per default.
 As other window managers the ~s~ or *Super* key (Windows Key) is the one that
 is the prefix to every action. We'll use a lot of ~s~.
 
-I have, for convenience, disabled the use of ~C-x~ and ~C-c~ in X windows,
-mainly because that's something we could use for Cutting and Copying text, but if
-you want you can enable it, this layer focuses on less Emacs-y bindings.
+Some emacs keybindings are disabled in X Window, for example ~C-x~ and ~C-c~ are
+disabled so that they can be used for Cutting and Copying text.
 
-| Key binding           | Description                                    |
-|-----------------------+------------------------------------------------|
-| ~C-q~                 | Send next key pressed to the X window          |
-| ~C-g~                 | Universal GetMeOuttaHere Key from Emacs        |
-| ~C-u~                 | Universal Argument                             |
-| ~C-[0-9]~             | Universal Prefix for [0-9]                     |
-| ~M-m~                 | Spacemacs Leader Key                           |
-| ~s-[1 2 3 ... 8 9 0]~ | Switch to workspace [1 2 3 ... 8 9 10]         |
-| ~s-TAB~               | Switch to last workspace                       |
-| ~s-w~                 | Workspace Switch Menu (kinda like micro-state) |
-| ~s-r~                 | Reset window state                             |
-| ~s-SPC~               | App Launcher                                   |
-| ~s-ESC~               | Lock Screen                                    |
-| ~s-RET~               | Pop shell                                      |
-| ~s-:~ and ~s-;~       | Helm M-x (same as ~SPC :~)                     |
-| ~s-u,U~               | Undo, Redo window configurations               |
-| ~s-b~                 | Show all opened buffers                        |
-| ~s-h,j,k,l~           | Switch to left,lower,upper,right window        |
-| ~s-H,J,K,L~           | Move window to far left,down,lower,upper,right |
-| ~M-s-h,j,k,l~         | Resizing (try them, it's too hard to explain)  |
-| ~s-[,]~               | Switch to prev,next workspace                  |
+| Key binding           | Description                            |
+|-----------------------+----------------------------------------|
+| ~M-m~                 | Spacemacs Leader Key                   |
+| ~C-q~                 | Send next key pressed to the X window  |
+| ~s-i~                 | Toggle between line mode and char mode |
+| ~s-l~                 | Lock Screen                            |
+| ~s-r~                 | Reset window state                     |
+| ~s-w~                 | Workspace Switch Menu                  |
+| ~s-[1 2 3 ... 8 9 0]~ | Switch to workspace [1 2 3 ... 8 9 10] |
+| ~s-TAB~               | Switch to last workspace               |
+| ~s-[~ / ~s-]~         | Switch to prev,next workspace          |
+| ~s-SPC~               | App Launcher                           |
+| ~s-RET~               | Spawn terminal                         |
+| ~s-:~ and ~s-;~       | Helm M-x (same as ~SPC :~)             |
+| ~s-u,U~               | Undo, Redo window configurations       |
+| ~s-b~                 | Show all opened buffers                |
+| ~s-[h j k l]~         | Switch to window in the direction      |
+| ~s-[H J K L]~         | Move window to the direction           |
+| ~M-s-[h j k l]~       | Resize window toward the direction     |

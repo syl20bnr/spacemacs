@@ -247,7 +247,7 @@ the scroll transient state.")
 
 (defun use-package-normalize-spacediminish (name label arg &optional recursed)
   "Normalize the arguments to `spacemacs|diminish' to a list of one of six forms:
-     nil
+     t
      SYMBOL
      STRING
      (SYMBOL STRING)
@@ -262,8 +262,8 @@ the scroll transient state.")
                         (listp y))))
        (mapcar #'(lambda (var) (use-package-normalize-spacediminish name label var t))
                arg))
-      ;; () -> (<PKG>-mode)
-      ((pred not)
+      ;; t -> (<PKG>-mode)
+      ('t
        (list default-mode))
       ;; SYMBOL -> (SYMBOL)
       ((pred use-package-non-nil-symbolp)
