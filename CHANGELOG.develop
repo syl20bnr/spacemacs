@@ -172,6 +172,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 - Key bindings;
   - Changed ~SPC g f h~ to ~SPC g f l~ for 'git log' of current file
     (thanks to Ag Ibragimov)
+- Fixed rebase mode displaying incorrect keybindings when using emacs editing style
 ***** gtags
 - Key bindings;
   - Regenerate tags are now under ~SPC m g C~ instead of ~SPC m g c~.
