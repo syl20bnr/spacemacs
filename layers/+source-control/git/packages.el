@@ -57,8 +57,8 @@
     :post-config
     (add-to-list 'golden-ratio-exclude-buffer-names " *transient*")))
 
-(when (spacemacs//support-evilified-buffer-p)
-  (defun git/pre-init-evil-collection ()
+(defun git/pre-init-evil-collection ()
+  (when (spacemacs//support-evilified-buffer-p)
     (add-to-list 'spacemacs-evil-collection-allowed-list 'magit)))
 
 (defun git/post-init-fill-column-indicator ()
