@@ -443,7 +443,7 @@ See [[https://develop.spacemacs.org/doc/FAQ.html#how-to-override-a-layer-package
 
 *** Without a layer
 Sometimes a layer can be an unnecessary overhead, this is the case if you just
-want to install a package with very few configuration associated to it. A good
+want to install a package with very few configurations associated to it. A good
 example is some niche language where you are only interested in syntax
 highlighting.
 
@@ -966,7 +966,7 @@ for the toggle to turn on and off the =which-key= minor mode.
 
 Major mode specific toggles can be turned on by registering a hook on them to
 call the "toggle on" function automatically whenever a buffer using this major
-mode is opened. It can be done convenienty using the function
+mode is opened. It can be done conveniently using the function
 =spacemacs/toggle-NAME-on-register-hooks=. It also exists variants of this
 function for each supported major mode like
 =spacemacs/toggle-NAME-on-register-hook-MODE=.
@@ -1508,7 +1508,7 @@ errors, warnings and info.
 /Flycheck integration in mode-line/
 
 **** Anzu integration
-[[https://github.com/syohex/emacs-anzu][Anzu]] shows the number of occurrence when performing a search. Spacemacs
+[[https://github.com/syohex/emacs-anzu][Anzu]] shows the number of occurrences when performing a search. Spacemacs
 integrates the Anzu status nicely by displaying it temporarily when ~n~ or ~N~
 are being pressed. See the =5/6= segment on the screenshot below.
 
@@ -1568,7 +1568,7 @@ appropriate font).
 The letters displayed in the mode-line correspond to the key bindings used to
 toggle them.
 
-Some toggle have two flavors: local and global. The global version of the toggle
+Some toggles have two flavors: local and global. The global version of the toggle
 can be reached using the =control= key.
 
 Additionally all globally available toggles have a circled unicode symbols like
@@ -2585,7 +2585,7 @@ navigate between =Emacs= and Spacemacs specific files.
 
 **** Browsing files in completion buffer
 In =vim= style and =hybrid= style with the variable
-=hybrid-mode-enable-hjkl-bindings= set to =t=, you can navigation with ~hjkl~.
+=hybrid-mode-enable-hjkl-bindings= set to =t=, you can navigate with ~hjkl~.
 
 | Key binding | Description                       |
 |-------------+-----------------------------------|
