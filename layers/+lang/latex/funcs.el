@@ -32,28 +32,28 @@
      (when (configuration-layer/package-used-p 'company-auctex)
        (if (configuration-layer/package-used-p 'company-math)
            (spacemacs|add-company-backends
-             :backends company-math-symbols-unicode
-                       company-math-symbols-latex
-                       company-auctex-macros
-                       company-auctex-symbols
-                       company-auctex-environments
+             :backends (company-math-symbols-unicode
+                        company-math-symbols-latex
+                        company-auctex-macros
+                        company-auctex-symbols
+                        company-auctex-environments)
              :modes LaTeX-mode)
          (spacemacs|add-company-backends
-           :backends company-auctex-macros
-                     company-auctex-symbols
-                     company-auctex-environments
+           :backends (company-auctex-macros
+                      company-auctex-symbols
+                      company-auctex-environments)
            :modes LaTeX-mode)))
      (when (configuration-layer/package-used-p 'company-reftex)
-      (spacemacs|add-company-backends
-        :backends company-reftex-labels
-                  company-reftex-citations
-        :modes LaTeX-mode)))))
+       (spacemacs|add-company-backends
+         :backends company-reftex-labels
+         company-reftex-citations
+         :modes LaTeX-mode)))))
 
 (defun spacemacs//latex-setup-backend ()
   "Conditionally setup latex backend."
   (when (eq latex-backend 'lsp)
     (require 'lsp-latex)
-    (lsp)))
+    (lsp-deferred)))
 
 (defun latex/build ()
   (interactive)

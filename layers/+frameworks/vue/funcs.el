@@ -43,7 +43,7 @@
         ;; error checking from lsp langserver sucks, turn it off
         ;; so eslint won't be overriden
         (setq-local lsp-diagnostics-provider :none)
-        (lsp))
+        (lsp-deferred))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
 

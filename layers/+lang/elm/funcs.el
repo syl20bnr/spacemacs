@@ -37,7 +37,7 @@
   "Conditionally setup elm backend."
   (spacemacs/init-elm-mode)
   (pcase elm-backend
-    ('lsp (lsp))
+    ('lsp (lsp-deferred))
     ('company-elm (elm-oracle-setup-completion))))
 
 

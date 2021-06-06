@@ -24,7 +24,7 @@
 (defun spacemacs//purescript-setup-backend ()
   "Conditionally setup purescript backend."
   (when (eq purescript-backend 'lsp)
-    (lsp)))
+    (lsp-deferred)))
 
 (defun spacemacs//purescript-setup-company ()
   "Conditionally setup company based on backend."

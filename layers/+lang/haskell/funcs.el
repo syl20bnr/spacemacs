@@ -46,7 +46,7 @@
         ;; top-level code that registers a LSP server type. So we need to load it
         ;; directly and can't rely on it being autoloaded.
         (require 'lsp-haskell)
-        (lsp))
+        (lsp-deferred))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 

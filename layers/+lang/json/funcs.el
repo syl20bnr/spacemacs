@@ -33,7 +33,7 @@
 (defun spacemacs//json-setup-backend ()
   "Conditionally setup json backend."
   (when (eq json-backend 'lsp)
-    (lsp)))
+    (lsp-deferred)))
 
 (defun spacemacs/json-navigator-dwim (arg)
   "Display the JSON hierarchy of the whole buffer or the active region.

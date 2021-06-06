@@ -23,7 +23,7 @@
 
 (defun spacemacs//clojure-setup-backend ()
   "Conditionally setup clojure backend."
-  (when (eq clojure-backend 'lsp) (lsp)))
+  (when (eq clojure-backend 'lsp) (lsp-deferred)))
 
 (defun clojure/fancify-symbols (mode)
   "Pretty symbols for Clojure's anonymous functions and sets,

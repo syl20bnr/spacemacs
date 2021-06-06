@@ -94,7 +94,7 @@
                    ('mspyls 'lsp-python-ms)
                    ('pyright 'lsp-pyright)
                    (x (user-error "Unknown value for `python-lsp-server': %s" x))))
-        (lsp))
+        (lsp-deferred))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//python-setup-lsp-dap ()
@@ -448,22 +448,22 @@ Bind formatter to '==' for LSP and '='for all other backends."
     (python-shell-send-region start end)))
 
 (defun spacemacs/python-shell-send-line ()
-	"Send the current line to shell"
-	(interactive)
-	(let ((python-mode-hook nil)
-	       (start (point-at-bol))
-	       (end (point-at-eol)))
-	      (python-shell-send-region start end)))
+  "Send the current line to shell"
+  (interactive)
+  (let ((python-mode-hook nil)
+        (start (point-at-bol))
+        (end (point-at-eol)))
+    (python-shell-send-region start end)))
 
 (defun spacemacs/python-shell-send-statement ()
-	"Send the current statement to shell, same as `python-shell-send-statement' in Emacs27."
-	(interactive)
+  "Send the current statement to shell, same as `python-shell-send-statement' in Emacs27."
+  (interactive)
   (if (fboundp 'python-shell-send-statement)
       (call-interactively #'python-shell-send-statement)
     (if (region-active-p)
         (call-interactively #'python-shell-send-region)
       (let ((python-mode-hook nil))
-	      (python-shell-send-region
+        (python-shell-send-region
          (save-excursion (python-nav-beginning-of-statement))
          (save-excursion (python-nav-end-of-statement)))))))
 

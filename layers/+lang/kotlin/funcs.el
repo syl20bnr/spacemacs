@@ -33,4 +33,4 @@
 (defun spacemacs//kotlin-setup-backend ()
   "Conditionally setup kotlin backend."
   (when (eq kotlin-backend 'lsp)
-    (lsp)))
+    (lsp-deferred)))

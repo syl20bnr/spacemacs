@@ -50,5 +50,5 @@
                       ('emmy '(lua-language-server lsp-lua-lsp))
                       ('lua-language-server '(emmy-lua lsp-lua-lsp))
                       ('lua-lsp '(emmy-lua lsp-lua-language-server))))
-        (lsp))
+        (lsp-deferred))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))

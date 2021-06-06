@@ -101,7 +101,7 @@
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
         (require 'lsp-java)
-        (lsp))
+        (lsp-deferred))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//java-setup-lsp-dap ()

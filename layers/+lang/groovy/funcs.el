@@ -35,7 +35,7 @@
 (defun spacemacs//groovy-setup-backend ()
   "Conditionally setup groovy backend."
   (when (eq groovy-backend 'lsp)
-    (lsp)))
+    (lsp-deferred)))
 
 
 ;; REPL

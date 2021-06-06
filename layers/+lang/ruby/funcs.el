@@ -35,7 +35,7 @@
   "Configure backend company"
   ;; Company is automatically set up by lsp
   (when (eq ruby-backend 'robe)
-      (spacemacs//ruby-setup-robe-company)))
+    (spacemacs//ruby-setup-robe-company)))
 
 (defun spacemacs//ruby-setup-dap ()
   "Conditionally setup elixir DAP integration."
@@ -49,7 +49,7 @@
 (defun spacemacs//ruby-setup-lsp ()
   "Setup Ruby lsp."
   (if (configuration-layer/layer-used-p 'lsp)
-      (lsp)
+      (lsp-deferred)
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//ruby-setup-lsp-dap ()

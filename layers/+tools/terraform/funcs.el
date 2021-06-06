@@ -36,4 +36,4 @@
 (defun spacemacs//terraform-setup-backend ()
   "Conditionally setup terraform backend."
   (when (eq terraform-backend 'lsp)
-    (lsp)))
+    (lsp-deferred)))

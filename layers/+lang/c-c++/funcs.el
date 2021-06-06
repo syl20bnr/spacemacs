@@ -81,7 +81,7 @@
    "c-c++" "lsp-clangd"
    'clangd-other-file "textDocument/switchSourceHeader" 'buffer-file-name)
   (setq-local lsp-disabled-clients '(ccls))
-  (lsp))
+  (lsp-deferred))
 
 ;; ccls
 
@@ -165,7 +165,7 @@
   (evil-set-initial-state 'ccls-tree-mode 'emacs)
   ;;(evil-make-overriding-map 'ccls-tree-mode-map)
   (setq-local lsp-disabled-clients '(clangd))
-  (lsp))
+  (lsp-deferred))
 
 (defun spacemacs//c-c++-setup-lsp-dap ()
   "Setup DAP integration."
@@ -361,8 +361,8 @@
         (progn
           (clang-format-region (region-beginning) (region-end) style)
           (message "Formatted region"))
-        (clang-format-buffer style)
-        (message "Formatted buffer %s" (buffer-name)))))
+      (clang-format-buffer style)
+      (message "Formatted buffer %s" (buffer-name)))))
 
 (defun spacemacs//clang-format-on-save ()
   "Format the current buffer with clang-format on save when

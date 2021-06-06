@@ -26,15 +26,15 @@
   ;; Activate lsp company explicitly to activate
   ;; standard backends as well
   ;; Eglot and LSP-mode use the same company-backend.
-    (spacemacs|add-company-backends
-      :backends company-capf
-      :modes fsharp-mode
-      :variables company-tooltip-align-annotations t))
+  (spacemacs|add-company-backends
+    :backends company-capf
+    :modes fsharp-mode
+    :variables company-tooltip-align-annotations t))
 
 (defun spacemacs//fsharp-setup-backend ()
   "Conditionally setup fsharp backend."
   (pcase fsharp-backend
-    ('lsp (lsp))
+    ('lsp (lsp-deferred))
     ('eglot (eglot-ensure))))
 
 (defun spacemacs/fsharp-load-buffer-file-focus ()
