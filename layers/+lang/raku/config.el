@@ -1,4 +1,4 @@
-;;; config.el --- perl6 layer configuration file for Spacemacs.
+;;; config.el --- Raku layer configuration file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;

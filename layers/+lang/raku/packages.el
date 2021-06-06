@@ -1,4 +1,4 @@
-;;; packages.el --- perl6 layer packages file for Spacemacs.
+;;; packages.el --- Raku layer packages file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
@@ -21,7 +21,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defconst perl6-packages
+(defconst raku-packages
   '(
     company
     evil
@@ -30,20 +30,21 @@
     raku-mode
     ))
 
-(defun perl6/post-init-company ()
+(defun raku/post-init-company ()
   (spacemacs|add-company-backends
     :backends company-capf
     :modes raku-mode))
 
-(defun perl6/post-init-evil ()
+(defun raku/post-init-evil ()
   (add-to-list 'spacemacs-jump-handlers-raku-mode 'evil-jump-to-tag))
 
-(defun perl6/post-init-flycheck ()
+(defun raku/post-init-flycheck ()
   (spacemacs/enable-flycheck 'raku-mode))
 
-(defun perl6/init-flycheck-raku ()
-  (add-hook 'flycheck-mode-hook (lambda () (use-package flycheck-raku))))
+(defun raku/init-flycheck-raku ()
+  ;; not deferring this load because there are no autoloads
+  (use-package flycheck-raku))
 
-(defun perl6/init-raku-mode ()
+(defun raku/init-raku-mode ()
   (use-package raku-mode
     :defer t))
