@@ -84,7 +84,7 @@ developing carpal tunnel syndrome in the long run.
 
 By contrast, Spacemacs uses modal editing. Modal editing means that different
 modes are used for editing and writing text. While this can sound complicated at
-first, in practice it can be learned quickly and once learned is unparallelled
+first, in practice it can be learned quickly and once learned is unparalleled
 in speed and ergonomy. Our earlier example of deleting a certain line of text (a
 very common edit task) can be achieved in Spacemacs by simply navigating to the
 line in question with the keys ~j~ and ~k~ (navigation keys) and pressing ~d~
@@ -110,7 +110,7 @@ Spacemacs.
 A short instant after the spacebar is pressed a menu pops up. This interactive
 menu shows you what submenus and commands can be accessed by subsequent
 keypresses. Browsing around this menu is a great way of finding new features in
-Spacemacs, so keep on eye on the different options! ~ESC~ usually breaks the
+Spacemacs, so keep an eye on the different options! ~ESC~ usually breaks the
 combination you don't want to use.
 
 ** Buffers, windows and frames
