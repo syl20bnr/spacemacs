@@ -418,7 +418,10 @@ projectile cache and updates recentf list."
   (let* ((old-short-name (buffer-name))
          (old-filename (buffer-file-name))
          (old-dir (file-name-directory old-filename))
-         (new-name (read-file-name "New name: " (if arg old-dir old-filename)))
+         (new-name (let ((path (read-file-name "New name: " (if arg old-dir old-filename))))
+                     (if (string= (file-name-nondirectory path) "")
+                         (concat path old-short-name)
+                       path)))
          (new-dir (file-name-directory new-name))
          (new-short-name (file-name-nondirectory new-name))
          (file-moved-p (not (string-equal new-dir old-dir)))
@@ -444,7 +447,7 @@ projectile cache and updates recentf list."
              (recentf-remove-if-non-kept old-filename))
            (when (and (configuration-layer/package-used-p 'projectile)
                       (projectile-project-p))
-             (call-interactively #'projectile-invalidate-cache))
+             (funcall #'projectile-invalidate-cache nil))
            (message (cond ((and file-moved-p file-renamed-p)
                            (concat "File Moved & Renamed\n"
                                    "From: " old-filename "\n"
