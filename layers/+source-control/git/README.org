@@ -126,10 +126,13 @@ To enable =magit-todos= plugin, add the following to your =dotspacemacs/user-con
 
 ** Global git commit mode
 Spacemacs can be used as the =$EDITOR= (or =$GIT_EDITOR=) for editing git
-commits messages. To enable this you have to add the following line to your
+commits messages. This requires the entire library to be loaded immediately
+which will cost some time, disable it if you run into performance issues.
+To enable it you have to add the following lines to your
 =dotspacemacs/user-config=:
 
 #+BEGIN_SRC emacs-lisp
+  (require 'git-commit)
   (global-git-commit-mode t)
 #+END_SRC
 
