@@ -1,8 +1,6 @@
-#+TITLE: perl6 layer
+#+TITLE: Raku layer
 
 #+TAGS: general|layer|multi-paradigm|programming
-
-[[file:img/camelia-logo.png]]
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
@@ -13,12 +11,12 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer provides an environment for the [[https://perl6.org/][Perl 6 Programming Language]].
+This layer provides an environment for the [[https://www.raku.org/][Raku Programming Language]] that was previously known as Perl 6.
 
 ** Features:
 - Jump to definition & Code completion via [[https://github.com/universal-ctags/ctags][ctags-universal]]
-- Syntax checking via [[https://github.com/hinrik/flycheck-perl6][flycheck-perl6]] and =perl6 -c=
-- Syntax highlighting & Syntax indentation via [[https://github.com/hinrik/perl6-mode][perl6-mode]]
+- Syntax checking via [[https://github.com/Raku/flycheck-raku][flycheck-raku]] and =raku -c=
+- Syntax highlighting & Syntax indentation via [[https://github.com/Raku/raku-mode][raku-mode]]
 - =META6.json= highlighting via [[https://github.com/joshwnj/json-mode][json-mode]]
 - Provides Evil text objects for:
   - double-angle-brackets
@@ -29,7 +27,7 @@ This layer provides an environment for the [[https://perl6.org/][Perl 6 Programm
 * Install
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =perl6= to the existing =dotspacemacs-configuration-layers= list in this
+add =raku= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** Jump to definition
