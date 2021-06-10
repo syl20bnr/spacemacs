@@ -16,6 +16,7 @@
   - [[#transmission-info-mode][=transmission-info-mode=]]
   - [[#transmission-files-mode][=transmission-files-mode=]]
   - [[#transmission-peers-mode][=transmission-peers-mode=]]
+  - [[#transmission-turtle-mode][=transmission-turtle-mode=]]
 
 * Description
 This layer integrates a BitTorrent client into Spacemacs.
@@ -63,52 +64,99 @@ Add =(transmission :variables transmission-auto-refresh-all t)= to
 
 ** =transmission-mode=
 
-| Key binding | Description                                                   |
-|-------------+---------------------------------------------------------------|
-| ~SPC m g t~ | Open a `transmission-files-mode' buffer for torrent at point. |
-| ~SPC m a t~ | Add torrent by filename, URL, magnet link, or info hash.      |
-| ~SPC m s d~ | Set global download speed limit in kB/s.                      |
-| ~SPC m g p~ | Open a =transmission-peers-mode= buffer for torrent at point. |
-| ~SPC m g i~ | Open a =transmission-info-mode= buffer for torrent at point.  |
-| ~SPC m s l~ | Set global seed ratio limit.                                  |
-| ~SPC m m~   | Move torrent at point or in region to a new location.         |
-| ~SPC m r~   | Prompt to remove torrent at point or torrents in region.      |
-| ~SPC m t s~ | Toggle torrent between started and stopped.                   |
-| ~SPC m a a~ | Add announce URLs to torrent or torrents.                     |
-| ~SPC m s u~ | Set global upload speed limit in kB/s.                        |
-| ~SPC m v~   | Verify torrent at point or in region.                         |
-| ~SPC m q~   | Quit and bury the buffer.                                     |
-| ~SPC m s b~ | Set bandwidth priority of torrent(s) at point or in region.   |
+| Key binding  | Description                                                       |
+|--------------+-------------------------------------------------------------------|
+| ~J/K~        | Move torrent down/up the queue by one.                            |
+| ~H/L~        | Move torrent to the top/bottom of the queue.                      |
+| ~SPC m D~    | Delete from disk and remove torrent(s) at point or in region.     |
+| ~SPC m m~    | Toggle mark on torrent(s) at point or in region.                  |
+| ~SPC m q~    | Quit and bury the buffer.                                         |
+| ~SPC m r~    | Relocate torrent save directory at point or in region.            |
+| ~SPC m R~    | Remove torrent(s) at point or in region.                          |
+| ~SPC m S~    | Sort torrents according to the column at point.                   |
+| ~SPC m v~    | Verify torrent at point or in region.                             |
+|--------------+-------------------------------------------------------------------|
+| Add          |                                                                   |
+|--------------+-------------------------------------------------------------------|
+| ~SPC m a a~  | Add torrent by filename, URL, magnet link, or info hash.          |
+| ~SPC m a t~  | Add announce URLs to marked torrent(s) or torrent at point.       |
+|--------------+-------------------------------------------------------------------|
+| Go to mode   |                                                                   |
+|--------------+-------------------------------------------------------------------|
+| ~SPC m g i~  | Open a =transmission-info-mode= buffer for torrent at point.      |
+| ~SPC m g f~  | Open a =transmission-files-mode= buffer for torrent at point.     |
+| ~SPC m g p~  | Open a =transmission-peers-mode= buffer for torrent at point.     |
+|--------------+-------------------------------------------------------------------|
+| Set property |                                                                   |
+|--------------+-------------------------------------------------------------------|
+| ~SPC m s d~  | Set global download speed limit in kB/s.                          |
+| ~SPC m s l~  | Set label(s) for marked torrent(s) or torrent at point.           |
+| ~SPC m s p~  | Set bandwidth priority of torrent(s) at point or in region.       |
+| ~SPC m s r~  | Set global seed ratio limit.                                      |
+| ~SPC m s u~  | Set global upload speed limit in kB/s.                            |
+|--------------+-------------------------------------------------------------------|
+| Toggle       |                                                                   |
+|--------------+-------------------------------------------------------------------|
+| ~SPC m t s~  | Toggle torrent(s) at point or region between started and stopped. |
+| ~SPC m t t~  | Toggle =transmission-turtle-mode=.                                |
 
 ** =transmission-info-mode=
 
-| Key binding | Description                                                   |
-|-------------+---------------------------------------------------------------|
-| ~SPC m c~   | Copy magnet link of current torrent.                          |
-| ~SPC m s d~ | Set download limit of torrent(s) at point in kB/s.            |
-| ~SPC m g p~ | Open a =transmission-peers-mode= buffer for torrent at point. |
-| ~SPC m s l~ | Set seed ratio limit of torrent(s) at point.                  |
-| ~SPC m m~   | Move torrent at point or in region to a new location.         |
-| ~SPC m a a~ | Add announce URLs to torrent or torrents.                     |
-| ~SPC m T~   | Remove trackers from torrent at point by ID or announce URL.  |
-| ~SPC m s u~ | Set upload limit of torrent(s) at point in kB/s.              |
-| ~SPC m s p~ | Set bandwidth priority of torrent(s) at point or in region.   |
+| Key binding  | Description                                                  |
+|--------------+--------------------------------------------------------------|
+| ~SPC m a~    | Add announce URLs to current torrent.                        |
+| ~SPC m c~    | Copy magnet link of current torrent.                         |
+| ~SPC m r~    | Relocate current torrent save directory.                     |
+| ~SPC m T~    | Remove trackers from current torrent by ID or announce URL.  |
+|--------------+--------------------------------------------------------------|
+| Go to mode   |                                                              |
+|--------------+--------------------------------------------------------------|
+| ~SPC m g f~  | Open a =transmission-files-mode= buffer for current torrent. |
+| ~SPC m g p~  | Open a =transmission-peers-mode= buffer for current torrent. |
+|--------------+--------------------------------------------------------------|
+| Set property |                                                              |
+|--------------+--------------------------------------------------------------|
+| ~SPC m s d~  | Set download limit of current torrent in kB/s.               |
+| ~SPC m s l~  | Set label(s) of current torrent.                             |
+| ~SPC m s p~  | Set bandwidth priority of current torrent.                   |
+| ~SPC m s r~  | Set seed ratio limit of current torrent.                     |
+| ~SPC m s u~  | Set upload limit of current torrent in kB/s.                 |
 
 ** =transmission-files-mode=
 
-| Key binding | Description                                                   |
-|-------------+---------------------------------------------------------------|
-| ~SPC m g f~ | Visit the file at point with =find-file-read-only=.           |
-| ~SPC m r~   | Run a command on the file at point.                           |
-| ~SPC m g p~ | Open a =transmission-peers-mode= buffer for torrent at point. |
-| ~SPC m g i~ | Open a =transmission-info-mode= buffer for torrent at point.  |
-| ~SPC m m~   | Move torrent at point or in region to a new location.         |
-| ~SPC m m u~ | Mark file(s) at point or in region as unwanted.               |
-| ~SPC m m w~ | Mark file(s) at point or in region as wanted.                 |
-| ~SPC s p~   | Set bandwidth priority on file(s) at point or in region.      |
+| Key binding  | Description                                                  |
+|--------------+--------------------------------------------------------------|
+| ~SPC m m~    | Toggle mark on the file at point.                            |
+| ~SPC m X~    | Run a command on the file at point.                          |
+|--------------+--------------------------------------------------------------|
+| Go to mode   |                                                              |
+|--------------+--------------------------------------------------------------|
+| ~SPC m g f~  | Visit the file at point with =find-file-read-only=.          |
+| ~SPC m g i~  | Open a =transmission-info-mode= buffer for current torrent.  |
+| ~SPC m g p~  | Open a =transmission-peers-mode= buffer for current torrent. |
+|--------------+--------------------------------------------------------------|
+| Set property |                                                              |
+|--------------+--------------------------------------------------------------|
+| ~SPC m s p~  | Set bandwidth priority on file(s) at point or in region.     |
+|--------------+--------------------------------------------------------------|
+| Toggle       |                                                              |
+|--------------+--------------------------------------------------------------|
+| ~SPC m m u~  | Mark file(s) at point or in region as unwanted.              |
+| ~SPC m m w~  | Mark file(s) at point or in region as wanted.                |
 
 ** =transmission-peers-mode=
 
 | Key binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
+| Go to mode  |                                                              |
+|-------------+--------------------------------------------------------------|
 | ~SPC m g i~ | Open a =transmission-info-mode= buffer for torrent at point. |
+
+** =transmission-turtle-mode=
+| Key binding  | Description                                                 |
+|--------------+-------------------------------------------------------------|
+| Set property |                                                             |
+|--------------+-------------------------------------------------------------|
+| ~SPC m s D~  | Set days for =transmission-turtle-mode= to be active.       |
+| ~SPC m s S~  | Set global speed limits for =transmission-turtle-mode=.     |
+| ~SPC m s T~  | Set time range for =transmission-turtle-mode= to be active. |
