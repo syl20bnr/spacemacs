@@ -508,3 +508,10 @@ Closing doesn't kill buffers inside the layout while killing layouts does."
                     (spacemacs//current-layout-name))
             (persp-names)
             :action 'persp-kill))
+
+(defun spacemacs/ivy-xref-open-in-other-window (candidate)
+  "Open candidate in other window."
+  (let* ((marker (xref-location-marker (cdr candidate)))
+         (buf (marker-buffer marker)))
+    (select-window
+     (xref--show-pos-in-buf marker (switch-to-buffer-other-window buf)))))
