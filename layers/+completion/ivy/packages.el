@@ -332,7 +332,10 @@
                                              spacemacs/jump-to-definition))
 
       ;; Use ivy-xref to display `xref.el' results.
-      (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))))
+      (setq xref-show-xrefs-function #'ivy-xref-show-xrefs)
+      (ivy-set-actions
+       'ivy-xref-show-xrefs
+       '(("j" spacemacs/ivy-xref-open-in-other-window "other window"))))))
 
 (defun ivy/post-init-org ()
   (add-hook 'org-ctrl-c-ctrl-c-hook 'spacemacs//counsel-org-ctrl-c-ctrl-c-org-tag))
