@@ -77,9 +77,7 @@
         "ix" 'dune-insert-executables-form
         "iy" 'dune-insert-ocamlyacc-form
         "tP" 'dune-promote
-        "tp" 'dune-runtest-and-promote)
-      (add-to-list 'auto-mode-alist
-                   '("\\(?:\\`\\|/\\)dune\\(?:\\.inc\\)?\\'" . dune-mode)))))
+        "tp" 'dune-runtest-and-promote))))
 
 (defun ocaml/post-init-flycheck ()
   (spacemacs/enable-flycheck 'tuareg-mode))
@@ -142,8 +140,8 @@
     :defer t
     :init
     (progn
-     (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
-       "re" 'merlin-iedit-occurrences))))
+      (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+        "re" 'merlin-iedit-occurrences))))
 
 (defun ocaml/post-init-imenu ()
   (add-hook 'merlin-mode-hook #'merlin-use-merlin-imenu))
