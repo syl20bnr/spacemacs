@@ -154,22 +154,17 @@
     :config
     (progn
       ;; key bindings
-      (dolist (prefix '(("ma" . "actionable")
-                        ("mc" . "compile/create")
-                        ("mg" . "goto")
-                        ("mr" . "refactor")
+      (dolist (prefix '(("mc" . "compile/create")
+                        ("mgk" . "type hierarchy")
                         ("mra" . "add/assign")
                         ("mrc" . "create/convert")
                         ("mrg" . "generate")
                         ("mre" . "extract")
-                        ("mp" . "project")
-                        ("mq" . "lsp")
-                        ("mt" . "test")
-                        ("mx" . "execute")))
+                        ("mt" . "test")))
         (spacemacs/declare-prefix-for-mode
           'java-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'java-mode
-        "pu"  'lsp-java-update-project-configuration
+        "wu"  'lsp-java-update-project-configuration
 
         ;; refactoring
         "ro" 'lsp-java-organize-imports
@@ -199,7 +194,12 @@
         "cc"  'lsp-java-build-project
         "cp"  'lsp-java-spring-initializr
 
-        "an"  'lsp-java-actionable-notifications))))
+        "gkk" 'lsp-java-type-hierarchy
+        "gku" 'spacemacs/lsp-java-super-type
+        "gks" 'spacemacs/lsp-java-sub-type
+
+        ;; test
+        "tb" 'lsp-jt-browser))))
 
 (defun java/init-mvn ()
   (use-package mvn

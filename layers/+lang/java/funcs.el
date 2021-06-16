@@ -120,3 +120,13 @@
   "Setup LSP Java syntax checking."
   (unless (configuration-layer/layer-used-p 'lsp)
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+(defun spacemacs/lsp-java-super-type ()
+  "Show super type hierarchy."
+  (interactive)
+  (lsp-java-type-hierarchy 1))
+
+(defun spacemacs/lsp-java-sub-type ()
+  "Show sub type hierarchy."
+  (interactive)
+  (lsp-java-type-hierarchy 0))
