@@ -366,9 +366,9 @@ by the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package. It provides
 
 | Key binding | Description                                     |
 |-------------+-------------------------------------------------|
-| ~SPC m V a~ | activate a virtual environment in any directory |
-| ~SPC m V d~ | deactivate active virtual environment           |
-| ~SPC m V w~ | work on virtual environment in =WORKON_HOME=    |
+| ~SPC m v a~ | activate a virtual environment in any directory |
+| ~SPC m v d~ | deactivate active virtual environment           |
+| ~SPC m v w~ | work on virtual environment in =WORKON_HOME=    |
 
 *** Automatic activation of local virtual environment
 By default Spacemacs uses the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package to manage virtual environments.
