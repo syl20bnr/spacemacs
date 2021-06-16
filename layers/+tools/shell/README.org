@@ -287,22 +287,25 @@ Some advanced configuration is setup for =eshell= in this layer:
 
 * Key bindings
 
-| Key binding   | Description                                                |
-|---------------+------------------------------------------------------------|
-| ~SPC '​~       | Open, close or go to the default shell                     |
-| ~SPC "​~       | Open external terminal emulator in current directory       |
-| ~SPC p '​~     | Open a shell in the project's root                         |
-| ~SPC p "​~     | Open external terminal emulator in project root            |
-| ~SPC a t s e~ | Open, close or go to an =eshell=                           |
-| ~SPC a t s i~ | Open, close or go to a =shell=                             |
-| ~SPC a t s m~ | Open, close or go to a =multi-term=                        |
-| ~SPC a t s t~ | Open, close or go to a =ansi-term=                         |
-| ~SPC a t s T~ | Open, close or go to a =term=                              |
-| ~TAB~         | browse completion with =helm=                              |
-| ~SPC m H~     | browse history with =helm= (works in =eshell= and =shell=) |
-| ~SPC a t s v~ | Open, close or go to a =vterm=                             |
-| ~C-j~         | next item in history                                       |
-| ~C-k~         | previous item in history                                   |
+| Key binding   | Description                                              |
+|---------------+----------------------------------------------------------|
+| ~SPC '​~       | Toggle pop-shell with your default shell                 |
+| ~SPC "​~       | Open external terminal emulator in current directory     |
+| ~SPC a t s e~ | Toggle pop-shell with =eshell=                           |
+| ~SPC a t s i~ | Toggle pop-shell with =shell=                            |
+| ~SPC a t s m~ | Toggle pop-shell with =multi-term=                       |
+| ~SPC a t s t~ | Toggle pop-shell with =ansi-term=                        |
+| ~SPC a t s T~ | Toggle pop-shell with =term=                             |
+| ~SPC a t s v~ | Toggle pop-shell with =vterm=                            |
+|---------------+----------------------------------------------------------|
+| ~SPC p '​~     | Toggle pop-shell with your default shell in project root |
+| ~SPC p "​~     | Open external terminal emulator in project root          |
+| ~SPC p $~     | Open a new buffer with default shell in project root     |
+|---------------+----------------------------------------------------------|
+| ~TAB~         | In a shell buffer, browse completions                    |
+| ~SPC m H~     | In =shell= or =eshell=, browse history                   |
+| ~C-j~         | Next item in history                                     |
+| ~C-k~         | Previous item in history                                 |
 
 *Note:* You can open multiple shells using a numerical prefix argument,
 for instance pressing ~2 SPC '​~ will a second default shell, the
@@ -313,24 +316,29 @@ in the current buffer instead of a popup.
 
 ** Multi-term
 
-| Key binding            | Description                    |
-|------------------------+--------------------------------|
-| ~SPC m c~              | create a new multi-term        |
-| ~SPC m C~              | switch multi-term char mode    |
-| ~SPC m l~              | switch multi-term to line mode |
-| ~SPC m n~              | go to next multi-term          |
-| ~SPC m N~ or ~SPC m p~ | go to previous multi-term      |
-| ~SPC p $ t~            | run multi-term shell in root   |
+| Key binding            | Description                          |
+|------------------------+--------------------------------------|
+| ~SPC m c~              | create a new multi-term              |
+| ~SPC m C~              | switch multi-term char mode          |
+| ~SPC m l~              | switch multi-term to line mode       |
+| ~SPC m n~              | go to next multi-term                |
+| ~SPC m N~ or ~SPC m p~ | go to previous multi-term            |
 
 ** Eshell
 
-| Key binding        | Description                                       |
-|--------------------+---------------------------------------------------|
-| ~SPC m H~ or ~M-l~ | shell commands history using a helm or ivy buffer |
+| Key binding        | Description                   |
+|--------------------+-------------------------------|
+| ~SPC m H~ or ~M-l~ | search shell command history |
 
 ** vterm
-~M-r~ will be bound to search for the command history when the variable
-=spacemacs-vterm-history-file-location= is set to the path to your shell history file.
+
+| Key binding | Description                     |
+|-------------+---------------------------------|
+| ~M-r~       | search shell command history*   |
+
+Note*: ~M-r~ will only be bound to search for the command history when the
+variable =spacemacs-vterm-history-file-location= is set to the path to your
+shell history file.
 
 For example with bash
 
