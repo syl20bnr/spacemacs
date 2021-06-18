@@ -27,6 +27,13 @@
   (let ((default-directory (projectile-project-root)))
     (call-interactively 'spacemacs/default-pop-shell)))
 
+(defun spacemacs/projectile-shell ()
+  (interactive)
+  (call-interactively
+   (or (and (eq shell-default-shell 'multi-term) #'projectile-multi-term-in-root)
+       (intern-soft (format "projectile-run-%s" shell-default-shell))
+       #'projectile-run-shell)))
+
 (defun spacemacs/disable-hl-line-mode ()
   "Locally disable global-hl-line-mode"
   (interactive)
