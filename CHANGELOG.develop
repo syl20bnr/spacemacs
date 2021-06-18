@@ -103,6 +103,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 **** Layers
 ***** Spacemacs distribution layers
 - Key bindings:
+  - ~SPC p $~ to open the default shell in the project root (thanks to Ryan Prior)
   - Changed ~SPC b B~ to ~SPC b I~ for =ibuffer= (thanks to Thomas de Beauchêne)
   - Changed ~SPC B b~ to ~SPC b B~ for non restricted buffer list
     (thanks to Thomas de Beauchêne)
