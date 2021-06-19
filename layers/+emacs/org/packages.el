@@ -160,9 +160,6 @@
                     (naive-auto #'spacemacs/org-summary-todo-naive-auto)
                     (semiauto #'spacemacs/org-summary-todo-semiauto))))
 
-      (with-eval-after-load 'org-agenda
-        (add-to-list 'org-modules 'org-habit))
-
       (with-eval-after-load 'org-indent
         (spacemacs|hide-lighter org-indent-mode))
 
@@ -488,6 +485,8 @@ Will work on both org-mode and any mode that accepts plain html."
     :init
     (progn
       (setq org-agenda-restore-windows-after-quit t)
+      (with-eval-after-load 'org
+        (add-to-list 'org-modules 'org-habit))
       (dolist (prefix `(("mC" . ,(org-clocks-prefix))
                         ("md" . "dates")
                         ("mi" . "insert")
