@@ -1,8 +1,8 @@
-;;; layers.el --- Ivy Layer layers File for Spacemacs
+;;; config.el --- compleseus configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
-;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; Author: Thanh Vuong <thanhvg@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
@@ -21,9 +21,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(configuration-layer/declare-shadow-relation 'ivy 'helm 'compleseus)
+(defvar compleseus-engine 'vertico
+  "Options are `selectrum', and `vertico' to use as completion
+  engine.")
 
-;; smex is handled by the `ivy' layer and we don't want
-;; to use the ownership mechanism of layers because it is dependent
-;; on the order of layer declaration
-(configuration-layer/remove-layer 'smex)

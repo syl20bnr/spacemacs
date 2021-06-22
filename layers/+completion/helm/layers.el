@@ -21,4 +21,4 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(configuration-layer/declare-shadow-relation 'helm 'ivy)
+(configuration-layer/declare-shadow-relation 'helm 'ivy 'compleseus)
