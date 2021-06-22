@@ -101,12 +101,12 @@
         "sR" 'geiser-eval-region-and-go
         "ss" 'geiser-set-scheme)
 
-      (evil-define-key 'insert 'geiser-repl-mode-map
+      (evil-define-key 'insert geiser-repl-mode-map
         (kbd "S-<return>") 'geiser-repl--newline-and-indent
         (kbd "C-l") 'geiser-repl-clear-buffer
         (kbd "C-d") 'geiser-repl-exit)
 
-      (evil-define-key 'normal 'geiser-repl-mode-map
+      (evil-define-key 'normal geiser-repl-mode-map
         "]]" 'geiser-repl-next-prompt
         "[[" 'geiser-repl-previous-prompt
         "gj" 'geiser-repl-next-prompt
