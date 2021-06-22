@@ -933,6 +933,21 @@ containing the buffer."
         (eyebrowse--rename-window-config-buffers window-config old new)))
     new))
 
+
+
+;; consult compleseus stuff
+(defun spacemacs/compleseus-pers-switch-project (arg)
+  "Select a project layout using consult."
+  (interactive "P")
+  (let ((project (completing-read
+                  "Switch to Project Perspective: "
+                  (if (projectile-project-p)
+                      (cons (abbreviate-file-name (projectile-project-root))
+                            (projectile-relevant-known-projects))
+                    projectile-known-projects))))
+    (spacemacs||switch-project-persp project
+      (projectile-switch-project-by-name project arg))))
+
 
 ;; layout local variables
 
