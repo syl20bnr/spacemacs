@@ -269,14 +269,7 @@
       (evil-define-key 'normal magit-section-mode-map (kbd "M-6") 'spacemacs/winum-select-window-6)
       (evil-define-key 'normal magit-section-mode-map (kbd "M-7") 'spacemacs/winum-select-window-7)
       (evil-define-key 'normal magit-section-mode-map (kbd "M-8") 'spacemacs/winum-select-window-8)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-9") 'spacemacs/winum-select-window-9)
-      ;; Remove inherited bindings from evil-mc and evil-easymotion
-      ;; do this after the config to make sure the keymap is available
-      (which-key-add-keymap-based-replacements magit-mode-map
-        "<normal-state> g r" nil
-        "<visual-state> g r" nil
-        "<normal-state> g s" nil
-        "<visual-state> g s" nil))))
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-9") 'spacemacs/winum-select-window-9))))
 
 (defun git/init-magit-delta ()
   (use-package magit-delta

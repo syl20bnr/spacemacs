@@ -144,9 +144,7 @@
     (evil-define-key 'normal dired-mode-map (kbd "N") 'evil-ex-search-previous))
   (when (eq 'hybrid dotspacemacs-editing-style)
     (evil-define-key 'normal dired-mode-map (kbd "n") 'evil-search-next)
-    (evil-define-key 'normal dired-mode-map (kbd "N") 'evil-search-previous))
-  (add-hook 'spacemacs-post-user-config-hook
-            'spacemacs/dired-remove-evil-mc-gr-which-key-entry))
+    (evil-define-key 'normal dired-mode-map (kbd "N") 'evil-search-previous)))
 
 (defun spacemacs-defaults/init-dired-x ()
   (use-package dired-x
