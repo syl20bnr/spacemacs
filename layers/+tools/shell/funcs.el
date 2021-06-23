@@ -28,7 +28,7 @@ buffer you create. This function will pop-up a full-width buffer
 and move your focus to it; to switch the current buffer view, use
 `spacemacs/projectile-shell'."
   (interactive)
-  (let ((default-directory (projectile-project-root)))
+  (let ((default-directory (projectile-acquire-root)))
     (call-interactively 'spacemacs/default-pop-shell)))
 
 (defun spacemacs/projectile-shell ()
