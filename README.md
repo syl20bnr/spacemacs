@@ -416,31 +416,15 @@ lines in the `~/.emacs.d/init.el` file:
 
 ### Ubuntu users
 
-You need to create a `.desktop` file that starts Emacs using the Spacemacs logo instead. In summary:
+You need to create a `.desktop` file that starts Emacs using the Spacemacs logo instead
+of default icon.
 
-Create a new file in `~/.local/share/applications/spacemacs.desktop` with the contents
+You can find the default `.desktop` file example in the [emacs repository][desktop_file_example].
 
-```
-[Desktop Entry]
-Name=Spacemacs
-GenericName=Text Editor
-Comment=Edit text
-MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
-Exec=emacs %F
-Icon=/PATH/TO/.emacs.d/core/banners/img/spacemacs.png
-Type=Application
-Terminal=false
-Categories=Development;TextEditor;
-StartupWMClass=Emacs
-```
-
-where the icon path directs to your `.emacs.d` directory.
-
-As a reference, you can use [this example][desktop_file_example] from the
-[emacs main repository][emacs_main].
+In this file, you must change `Icon` section to `Icon=/PATH/TO/.emacs.d/core/banners/img/spacemacs.png`,
+where `/PATH/TO` represents path to `.emacs.d` in your filesystem.
 
 [desktop_file_example]: https://github.com/emacs-mirror/emacs/blob/3af9e84ff59811734dcbb5d55e04e1fdb7051e77/etc/emacs.desktop
-[emacs_main]: https://github.com/emacs-mirror/emacs
 
 Kudos to [@cpaulik](https://github.com/cpaulik) for writing the original guide.
 
