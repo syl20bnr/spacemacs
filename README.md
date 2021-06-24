@@ -436,6 +436,12 @@ StartupWMClass=Emacs
 
 where the icon path directs to your `.emacs.d` directory.
 
+As a reference, you can use [this example][desktop_file_example] from the
+[emacs main repository][emacs_main].
+
+[desktop_file_example]: https://github.com/emacs-mirror/emacs/blob/3af9e84ff59811734dcbb5d55e04e1fdb7051e77/etc/emacs.desktop
+[emacs_main]: https://github.com/emacs-mirror/emacs
+
 Kudos to [@cpaulik](https://github.com/cpaulik) for writing the original guide.
 
 ### MacOS users
