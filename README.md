@@ -413,8 +413,32 @@ lines in the `~/.emacs.d/init.el` file:
 ```
 
 ## Spacemacs logo
-For Ubuntu users, follow this guide to
-[change the logo in Unity][cpaulik-unity-icon].
+
+### Ubuntu users
+
+You need to create a `.desktop` file that starts Emacs using the Spacemacs logo instead. In summary:
+
+Create a new file in `~/.local/share/applications/spacemacs.desktop` with the contents
+
+```
+[Desktop Entry]
+Name=Spacemacs
+GenericName=Text Editor
+Comment=Edit text
+MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
+Exec=emacs %F
+Icon=/PATH/TO/.emacs.d/core/banners/img/spacemacs.png
+Type=Application
+Terminal=false
+Categories=Development;TextEditor;
+StartupWMClass=Emacs
+```
+
+where the icon path directs to your `.emacs.d` directory.
+
+Kudos to [@cpaulik](https://github.com/cpaulik) for writing the original guide.
+
+### MacOS users
 
 For macOS users, you need to [download the .icns version of the logo][icon-repository],
 then [change the logo on the Dock][icon-mac-instructions].
