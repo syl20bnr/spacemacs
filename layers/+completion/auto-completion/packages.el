@@ -350,4 +350,7 @@
 
     :config (spacemacs|diminish yas-minor-mode " ⓨ" " y")))
 
-(defun auto-completion/init-yasnippet-snippets ())
+(defun auto-completion/init-yasnippet-snippets ()
+  (use-package yasnippet-snippets
+    :after yasnippet
+    :config (yasnippet-snippets-initialize)))
