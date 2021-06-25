@@ -420,11 +420,15 @@ You need to create a `.desktop` file that starts Emacs using the Spacemacs logo 
 of default icon.
 
 You can find the default `.desktop` file example in the [emacs repository][desktop_file_example].
+This file should be put into `~/.local/share/applications`.
 
-In this file, you must change `Icon` section to `Icon=/PATH/TO/.emacs.d/core/banners/img/spacemacs.png`,
+In this file, you must change `Icon` field to `Icon=/PATH/TO/.emacs.d/core/banners/img/spacemacs.png`,
 where `/PATH/TO` represents path to `.emacs.d` in your filesystem.
 
-[desktop_file_example]: https://github.com/emacs-mirror/emacs/blob/3af9e84ff59811734dcbb5d55e04e1fdb7051e77/etc/emacs.desktop
+Additionally, you may want to change `Name` field to `Spacemacs` in order to distinguish this entry
+from the `.desktop` entry of the vanilla Emacs.
+
+[desktop_file_example]: https://github.com/emacs-mirror/emacs/blob/master/etc/emacs.desktop 
 
 Kudos to [@cpaulik](https://github.com/cpaulik) for writing the original guide.
 
