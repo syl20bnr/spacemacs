@@ -352,7 +352,7 @@ running Emacs in terminal."
 
 (spacemacs|defc dotspacemacs-folding-method 'evil
   "Code folding method. Possible values are `evil', `origami' and `vimish'."
-  '(choice (cosnt evil) (const origami) (const vimish))
+  '(choice (const evil) (const origami) (const vimish))
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-default-layout-name "Default"
