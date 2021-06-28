@@ -28,7 +28,9 @@
     (ivy-bibtex :requires ivy)
     markdown-mode
     org
-    org-ref))
+    org-ref
+    biblio
+    (ebib :toggle bibtex-enable-ebib-support)))
 
 (defun bibtex/post-init-auctex ()
   (spacemacs/set-leader-keys-for-major-mode 'latex-mode
@@ -110,3 +112,52 @@
         "ld" 'doi-utils-add-bibtex-entry-from-doi
         "li" 'isbn-to-bibtex
         "lp" 'pubmed-insert-bibtex-from-pmid))))
+
+(defun bibtex/init-ebib ()
+  (use-package ebib
+    :defer t
+    :init
+    (spacemacs/set-leader-keys "ate" 'ebib)
+    :config
+    (setq ebib-bibtex-dialect 'biblatex)
+
+    (evilified-state-evilify-map ebib-index-mode-map
+      :mode ebib-index-mode
+      :bindings
+      "j" 'ebib-next-entry
+      "k" 'ebib-prev-entry
+      "J" 'evil-scroll-page-down
+      "K" 'evil-scroll-page-up
+
+      "gj" 'ebib-jump-to-entry
+      "/" 'ebib-search
+      "n" 'ebib-search-next)
+
+    (spacemacs/set-leader-keys-for-major-mode 'ebib-index-mode
+      "j" 'ebib-jump-to-entry
+      "k" 'ebib-kill-entry
+      "b" 'biblio-lookup)
+
+    (evilified-state-evilify-map ebib-entry-mode-map
+      :mode ebib-entry-mode)
+
+    (evilified-state-evilify-map ebib-log-mode-map
+      :mode ebib-log-mode)
+
+    (require 'ebib-biblio)
+    (evilified-state-evilify-map biblio-selection-mode-map
+      :mode biblio-selection-mode
+      :bindings
+      "e" 'ebib-biblio-selection-import
+      (kbd "C-j") 'biblio--selection-next
+      (kbd "C-k") 'biblio--selection-previous)))
+
+(defun bibtex/init-biblio()
+  (use-package biblio
+    :defer t
+    :config
+    (evilified-state-evilify-map biblio-selection-mode-map
+      :mode biblio-selection-mode
+      :bindings
+      (kbd "C-j") 'biblio--selection-next
+      (kbd "C-k") 'biblio--selection-previous)))
