@@ -32,8 +32,8 @@ file.
 
 | Key binding   | Description      | Function         |
 |---------------+------------------+------------------|
-| ~SPC a t e e~ | Start eww        | eww              |
-| ~SPC a t e w~ | List eww buffers | eww-list-buffers |
+| ~SPC a w e e~ | Start eww        | eww              |
+| ~SPC a w e w~ | List eww buffers | eww-list-buffers |
 
 ** Eww
 
