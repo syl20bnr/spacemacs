@@ -12,7 +12,7 @@
 
 skip_when_non_official_repo
 
-built_in_manifest="~/.emacs.d/.ci/built_in_manifest"
+built_in_manifest="./.ci/built_in_manifest"
 lines=$(cat "${built_in_manifest}")
 while read line; do
     url=$(echo $line | cut -f1 -d " ")
