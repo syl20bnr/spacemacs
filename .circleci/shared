@@ -16,7 +16,6 @@ dev_b="develop"
 mst_b="master"
 prj_owner="syl20bnr"
 prj_repo="spacemacs"
-bot_login="emacspace"
 api_URL_root="https://api.github.com"
 
 upstream_data_URL_root="${api_URL_root}/"
@@ -42,6 +41,18 @@ echo_headline () {
 	printf "\n$1\n"
 	printf '=%.0s' {1..80}
 	echo
+}
+
+init_hub () {
+    mkdir -p ~/.ssh
+    printf  "Host  github.com\n" > ~/.ssh/config
+    printf  "  StrictHostKeyChecking no\n" >> ~/.ssh/config
+    printf  "  UserKnownHostsFile=/dev/null\n" >> ~/.ssh/config
+    git config --global user.name $UPD_BOT_LONIG
+    git config --global user.email "not@an.actual.email.beep.boop"
+    git config --global push.default simple
+    git config --global hub.protocol https
+    export GITHUB_TOKEN=$UPD_BOT_GIT_TK
 }
 
 select_changed_orgs () {
@@ -72,6 +83,14 @@ skip_when_branch_update () {
     fi
 }
 
+skip_when_non_official_repo () {
+    if [[ "${CIRCLE_PROJECT_REPONAME}" != "${prj_repo}" || \
+          "${CIRCLE_PROJECT_USERNAME}" != "${prj_owner}" ]]; then
+        echo "Skipping for non official repository."
+        exit 0
+    fi
+}
+
 cleanup () {
-	rm -rf ~/.emacs.d/elpa ~/.emacs.d/.cache ~/.spacemacs
+	rm -rf ~/.emacs.d/elpa ~/.emacs.d/.cache /tmp/* ~/.spacemacs
 }
