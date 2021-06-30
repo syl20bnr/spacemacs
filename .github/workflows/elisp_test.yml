@@ -11,6 +11,9 @@ env:
   TEST_SCRIPT: ./.github/workflows/scripts/test
   TESTELPA_REPO: JAremko/testelpa-develop
   GITHUB_WORKSPACE: ${{ github.workspace }}
+  CORE_TR: core
+  BASE_TR: layers/+distribution/spacemacs-base
+  LAYER_TR: layers/+distribution/spacemacs
 
 defaults:
   run:
@@ -24,10 +27,6 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         emacs_version: [26.3, 27.1, snapshot]
-        test_root:
-          - core
-          - layers/+distribution/spacemacs-base
-          - layers/+distribution/spacemacs
     steps:
 # Installing Emacs on Unix
     - name: Install Emacs on UNIX
@@ -91,9 +90,23 @@ jobs:
     - name: Unpack elpa mirror
       run: unzip /tmp/elpa.zip -d ../testelpa_mirror
 
-    - name: Dependencies installation
-      run: ${{ env.TEST_SCRIPT }} ${{ matrix.test_root }} installation
-    - name: Unit testing
-      run: ${{ env.TEST_SCRIPT }} ${{ matrix.test_root }} unit_tests
-    - name: Functional testing
-      run: ${{ env.TEST_SCRIPT }} ${{ matrix.test_root }} func_tests
+    - name: Dependencies installation for core tests
+      run: ${{ env.TEST_SCRIPT }} ${{ env.CORE_TR }} installation
+    - name: Core unit testing
+      run: ${{ env.TEST_SCRIPT }} ${{ env.CORE_TR }} unit_tests
+    - name: Core functional testing
+      run: ${{ env.TEST_SCRIPT }} ${{ env.CORE_TR }} func_tests
+
+    - name: Dependencies installation for Base tests
+      run: ${{ env.TEST_SCRIPT }} ${{ env.BASE_TR }} installation
+    - name: Base unit testing
+      run: ${{ env.TEST_SCRIPT }} ${{ env.BASE_TR }} unit_tests
+    - name: Base functional testing
+      run: ${{ env.TEST_SCRIPT }} ${{ env.BASE_TR }} func_tests
+
+    - name: Dependencies installation for Layers tests
+      run: ${{ env.TEST_SCRIPT }} ${{ env.LAYER_TR }} installation
+    - name: Layers unit testing
+      run: ${{ env.TEST_SCRIPT }} ${{ env.LAYER_TR }} unit_tests
+    - name: Layers functional testing
+      run: ${{ env.TEST_SCRIPT }} ${{ env.LAYER_TR }} func_tests
