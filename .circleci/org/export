@@ -17,7 +17,7 @@ fail_when_undefined_pr_number
 select_changed_orgs
 if [ ${#changed_f_as_args[@]} -ne 0 ]; then
     emacs -batch -l /opt/spacetools/spacedoc/sdnize/sdnize.el -no-site-file \
-          -q /root/.emacs.d/ /tmp/exported/ \
+          -q ~/.emacs.d/ /tmp/exported/ \
           $(printf "%s " "${changed_f_as_args[@]}")
     if [ $? -ne 0 ]; then
         echo "Documentation needs some fixing ;)"

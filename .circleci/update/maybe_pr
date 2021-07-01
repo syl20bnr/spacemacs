@@ -17,9 +17,6 @@ if [ ! -f /tmp/built_in.patch ]; then
     exit 0
 fi
 
-echo_headline "Setting up bot account"
-hub_init
-
 echo_headline "Cloning target repository"
 target_URL="https://github.com/${prj_owner}/${prj_repo}.git"
 git clone "${target_URL}" -b "${CIRCLE_BRANCH}" "/tmp/${PUBLISH}"
