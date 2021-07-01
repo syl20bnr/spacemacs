@@ -39,6 +39,9 @@ jobs:
       - BASH_ENV: ".circleci/shared"
       - PUBLISH: "spacemacs_built_in"
     steps:
+      - run:
+          name: Initialize bot account
+          command: .circleci/update/bot_init
       - checkout
       - run:
           name: Make patch file
