@@ -12,9 +12,7 @@
 
 skip_when_non_official_repo
 
-echo_headline "Setting up bot account"
-hub_init
-
+echo_headline "Downloading and replacing files"
 built_in_manifest=".ci/built_in_manifest"
 lines=$(cat "${built_in_manifest}")
 while read line; do
