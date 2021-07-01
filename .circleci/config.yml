@@ -41,7 +41,7 @@ jobs:
     steps:
       - run:
           name: Initialize bot account
-          command: .circleci/update/bot_init
+          command: .circleci/bot_init
       - checkout
       - run:
           name: Make patch file
