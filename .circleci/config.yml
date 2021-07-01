@@ -8,47 +8,44 @@ jobs:
       - image: jare/spacemacs-circleci:latest
     environment:
       BASH_ENV: ".circleci/shared"
-    working_directory: ~/.emacs.d
     steps:
       - checkout
       - run:
           name: Make sure that this PR targets develop branch
-          command: ./.circleci/PR_base
+          command: .circleci/PR_base
       - run:
           name: Make sure that this PR doesn't need rebase
-          command: ./.circleci/PR_rebased
+          command: .circleci/PR_rebased
   "Validate Documentation":
     docker:
       - image: jare/spacemacs-circleci:latest
     environment:
       BASH_ENV: ".circleci/shared"
-    working_directory: ~/.emacs.d
     steps:
       - checkout
       - run:
           name: Select changed files
-          command: ./.circleci/select_pr_changed
+          command: .circleci/select_pr_changed
       - run:
           name: export changed documentation files for validation
-          command: ./.circleci/org/export
+          command: .circleci/org/export
       - run:
           name: validating changed documentation files
-          command: ./.circleci/org/validate
+          command: .circleci/org/validate
   "Update built-in files":
     docker:
       - image: jare/spacemacs-circleci:latest
     environment:
       - BASH_ENV: ".circleci/shared"
       - PUBLISH: "spacemacs_built_in"
-    working_directory: ~/.emacs.d
     steps:
       - checkout
       - run:
           name: Make patch file
-          command: ./.circleci/update/upd_built_in
+          command: .circleci/update/upd_built_in
       - run:
           name: Open PR if built in files must be updated
-          command: ./.circleci/update/maybe_pr
+          command: .circleci/update/maybe_pr
 
 workflows:
   version: 2

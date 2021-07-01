@@ -12,15 +12,18 @@
 
 skip_when_non_official_repo
 
-built_in_manifest="./.ci/built_in_manifest"
+echo_headline "Setting up bot account"
+hub_init
+
+built_in_manifest=".ci/built_in_manifest"
 lines=$(cat "${built_in_manifest}")
 while read line; do
     url=$(echo $line | cut -f1 -d " ")
     target=$(echo $line | cut -f2 -d " ")
-    curl "${url}" --output "~/.emacs.d/${target}"
+    curl "${url}" --output "${target}"
     if [ $? -ne 0 ]; then
         echo "Failed to update built in file: ${target} from url: ${url}"
-        echo "Please update manifest file: .emacs.d/.ci/built_in_manifest"
+        echo "Please update manifest file: ~/.emacs.d/.ci/built_in_manifest"
         exit 2
     fi
 done <"${built_in_manifest}"

@@ -16,7 +16,7 @@ fail_when_undefined_pr_number
 
 select_changed_orgs
 if [ ${#changed_f_as_args[@]} -ne 0 ]; then
-    spacedoc validate -c"./.ci/spacedoc-cfg.edn" /tmp/exported/
+    spacedoc validate -c".ci/spacedoc-cfg.edn" /tmp/exported/
     if [ $? -ne 0 ]; then
         echo "Documentation validation failed."
         exit 1
