@@ -39,24 +39,27 @@ else
 
 fi
 
-echo_headline "Pushing changes to bot repository"
+echo_headline "Forking target repository"
+export GITHUB_TOKEN=$UPD_BOT_GIT_TK
 hub fork
 if [ $? -ne 0 ]; then
     echo "hub fork failed"
     exit 2
 fi
-fork_url="https://${UPD_BOT_LONIG}:${UPD_BOT_GIT_TK}"
-fork_url+="@github.com/${UPD_BOT_LONIG}/${PUBLISH}.git"
-git remote set-url "${UPD_BOT_LONIG}" "${fork_url}"
-hub push -f "${UPD_BOT_LONIG}" "${CIRCLE_BRANCH}" > /dev/null 2>&1
+fork_url="https://${UPD_BOT_LOGIN}:${UPD_BOT_GIT_TK}"
+fork_url+="@github.com/${UPD_BOT_LOGIN}/${PUBLISH}.git"
+git remote set-url "${UPD_BOT_LOGIN}" "${fork_url}"
+
+echo_headline "Pushing changes"
+hub push -f "${UPD_BOT_LOGIN}" "${CIRCLE_BRANCH}" > /dev/null 2>&1
 #                                     prevent token leak ^^^^^^^^^^^^^^
 if [ $? -ne 0 ]; then
-    echo "hub push to \"${BOT_NAME}\" failed"
+    echo "hub push to \"${UPD_BOT_LOGIN}\" failed"
     exit 2
 fi
 
 echo_headline "Opening PR to Spacemacs repo"
-echo "[bot] Auto-update" > msg
+echo "[bot] Built-in auto-update" > msg
 echo >> msg
 echo "Merge with care - I'm just a stupid bot. Beep boop." >> msg
 hub pull-request -b "${CIRCLE_BRANCH}" -F msg
