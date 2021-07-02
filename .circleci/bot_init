@@ -21,9 +21,7 @@ printf  "Host  github.com\n" > ~/.ssh/config
 printf  "  StrictHostKeyChecking no\n" >> ~/.ssh/config
 printf  "  UserKnownHostsFile=/dev/null\n" >> ~/.ssh/config
 
-git config --global user.name $UPD_BOT_LONIG
+git config --global user.name "${UPD_BOT_LOGIN}"
 git config --global user.email "not@an.actual.email.beep.boop"
 git config --global push.default simple
 git config --global hub.protocol https
-
-export GITHUB_TOKEN=$UPD_BOT_GIT_TK
