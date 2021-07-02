@@ -375,7 +375,7 @@ is used instead."
 (defun package-build--create-tar (name version directory)
   "Create a tar file containing the contents of VERSION of package NAME."
   (let ((tar (expand-file-name (concat name "-" version ".tar")
-                                package-build-archive-dir))
+                               package-build-archive-dir))
         (dir (concat name "-" version)))
     (when (eq system-type 'windows-nt)
       (setq tar (replace-regexp-in-string "^\\([a-z]\\):" "/\\1" tar)))

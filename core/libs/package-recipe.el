@@ -1,6 +1,6 @@
 ;;; package-recipe.el --- Package recipes as EIEIO objects  -*- lexical-binding: t -*-
 
-;; Copyright (C) 2018-2020  Jonas Bernoulli
+;; Copyright (C) 2018-2021  Jonas Bernoulli
 
 ;; Author: Jonas Bernoulli <jonas@bernoul.li>
 
@@ -153,7 +153,10 @@ file is invalid, then raise an error."
       (dolist (key string-keys)
         (let ((val (plist-get plist key)))
           (when val
-            (cl-assert (stringp val) nil "%s must be a string but is %S" key val)))))
+            (cl-assert (stringp val) nil "%s must be a string but is %S" key val))))
+      ;; Silence byte compiler of Emacs 28.  It appears that uses
+      ;; inside cl-assert sometimes, but not always, do not count.
+      (list name ident all-keys))
     recipe))
 
 ;;; _
