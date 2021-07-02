@@ -40,7 +40,7 @@ else
 fi
 
 echo_headline "Pushing changes to bot repository"
-/tmp/hub fork
+hub fork
 if [ $? -ne 0 ]; then
     echo "hub fork failed"
     exit 2
@@ -48,7 +48,7 @@ fi
 fork_url="https://${UPD_BOT_LONIG}:${UPD_BOT_GIT_TK}"
 fork_url+="@github.com/${UPD_BOT_LONIG}/${PUBLISH}.git"
 git remote set-url "${UPD_BOT_LONIG}" "${fork_url}"
-/tmp/hub push -f "${UPD_BOT_LONIG}" "${CIRCLE_BRANCH}" > /dev/null 2>&1
+hub push -f "${UPD_BOT_LONIG}" "${CIRCLE_BRANCH}" > /dev/null 2>&1
 #                                     prevent token leak ^^^^^^^^^^^^^^
 if [ $? -ne 0 ]; then
     echo "hub push to \"${BOT_NAME}\" failed"
@@ -59,7 +59,7 @@ echo_headline "Opening PR to Spacemacs repo"
 echo "[bot] Auto-update" > msg
 echo >> msg
 echo "Merge with care - I'm just a stupid bot. Beep boop." >> msg
-/tmp/hub pull-request -b "${CIRCLE_BRANCH}" -F msg
+hub pull-request -b "${CIRCLE_BRANCH}" -F msg
 if [ $? -ne 0 ]; then
     echo "Seems like PR already exists (not a problem)"
 fi
