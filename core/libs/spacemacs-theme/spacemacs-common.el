@@ -746,7 +746,7 @@ to 'auto, tags may not be properly aligned. "
      `(org-block-end-line ((,class (:background ,cblk-ln-bg :foreground ,cblk-ln :extend t))))
      `(org-clock-overlay ((,class (:foreground ,comp))))
      `(org-code ((,class (:foreground ,cyan))))
-     `(org-column ((,class (:background ,highlight))))
+     `(org-column ((,class (:background ,highlight :inherit ,(if spacemacs-theme-org-height 'default)))))
      `(org-column-title ((,class (:background ,highlight))))
      `(org-date ((,class (:underline t :foreground ,var))))
      `(org-date-selected ((,class (:background ,func :foreground ,bg1))))
