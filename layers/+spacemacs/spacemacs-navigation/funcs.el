@@ -174,7 +174,7 @@ If the universal prefix argument is used then kill also the window."
                                (cond ((string= plighter "HS")  "Display")
                                      ((string= plighter "HSA") "Buffer")
                                      ((string= plighter "HSD") "Function"))))
-               (face (cond ((string= plighter "HS")  ahs-plugin-defalt-face)
+               (face (cond ((string= plighter "HS")  ahs-plugin-default-face)
                            ((string= plighter "HSA") ahs-plugin-whole-buffer-face)
                            ((string= plighter "HSD") ahs-plugin-bod-face))))
           (while (not (string= overlay current-overlay))
