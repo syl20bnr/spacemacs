@@ -38,6 +38,8 @@ jobs:
     environment:
       - BASH_ENV: ".circleci/shared"
       - PUBLISH: "spacemacs_built_in"
+      - UPD_BOT_LOGIN: "SpacemacsBot"
+      - UPD_BOT_REPO: "spacemacs"
     steps:
       - checkout
       - run:
