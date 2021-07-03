@@ -513,7 +513,10 @@ still be renamed."
             :kind       (or type 'single)
             :url        (lm-homepage)
             :keywords   (lm-keywords-list)
-            :maintainer (lm-maintainer)
+            :maintainer (if (fboundp 'lm-maintainers)
+                            (car (lm-maintainers))
+                          (with-no-warnings
+                            (lm-maintainer)))
             :authors    (lm-authors)
             :commit     commit)))))
 
