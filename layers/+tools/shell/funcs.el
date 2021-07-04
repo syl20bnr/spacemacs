@@ -22,10 +22,26 @@
 
 
 (defun spacemacs/projectile-shell-pop ()
-  "Open a term buffer at projectile project root."
+  "Pop-up a shell buffer at the project root.
+Customize `shell-default-shell' to control what type of shell
+buffer you create. This function will pop-up a full-width buffer
+and move your focus to it; to switch the current buffer view, use
+`spacemacs/projectile-shell'."
   (interactive)
-  (let ((default-directory (projectile-project-root)))
+  (let ((default-directory (projectile-acquire-root)))
     (call-interactively 'spacemacs/default-pop-shell)))
+
+(defun spacemacs/projectile-shell ()
+  "Create a shell buffer at the project root and switch to it.
+Customize `shell-default-shell' to control what type of shell
+buffer you create. This function switches the current buffer
+view; to pop-up a full width buffer, use
+`spacemacs/projectile-shell-pop'."
+  (interactive)
+  (call-interactively
+   (or (and (eq shell-default-shell 'multi-term) #'projectile-multi-term-in-root)
+       (intern-soft (format "projectile-run-%s" shell-default-shell))
+       #'projectile-run-shell)))
 
 (defun spacemacs/disable-hl-line-mode ()
   "Locally disable global-hl-line-mode"
