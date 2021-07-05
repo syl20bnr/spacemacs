@@ -11,7 +11,7 @@
 ## License: GPLv3
 
 if [ ! -f "/tmp/${PUBLISH}.patch" ]; then
-    echo "No /tmp/${PUBLISH}.patch file. Aborting."
+    echo "No \"/tmp/${PUBLISH}.patch\" file. Aborting."
     exit 0
 else
     echo_headline "Cloning target repository"
@@ -25,9 +25,9 @@ else
     cd "/tmp/${PUBLISH}"
 
     echo_headline "Patching"
-    git am < /tmp/spacemacs.patch
+    git am < "/tmp/${PUBLISH}.patch"
     if [ $? -ne 0 ]; then
-        echo "Failed to apply /tmp/${PUBLISH}.patch."
+        echo "Failed to apply \"/tmp/${PUBLISH}.patch\"."
         exit 2
     fi
 fi
