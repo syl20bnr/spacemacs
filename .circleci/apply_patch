@@ -13,21 +13,29 @@
 if [ ! -f "/tmp/${PUBLISH}.patch" ]; then
     echo "No \"/tmp/${PUBLISH}.patch\" file. Aborting."
     exit 0
-else
-    echo_headline "Cloning target repository"
-    target_URL="https://github.com/${prj_owner}/${prj_repo}.git"
-    git clone "${target_URL}" -b "${CIRCLE_BRANCH}" "/tmp/${PUBLISH}"
-    if [ $? -ne 0 ]; then
-        echo "Failed to clone \"${target_URL}\""
-        exit 2
-    fi
+fi
 
-    cd "/tmp/${PUBLISH}"
+echo_headline "Cloning target repository"
+target_URL="https://github.com/${prj_owner}/${prj_repo}.git"
+git clone "${target_URL}" -b "${CIRCLE_BRANCH}" "/tmp/${PUBLISH}"
+if [ $? -ne 0 ]; then
+    echo "Failed to clone \"${target_URL}\""
+    exit 2
+fi
 
-    echo_headline "Patching"
-    git apply --reject --whitespace=fix "/tmp/${PUBLISH}.patch"
-    if [ $? -ne 0 ]; then
-        echo "Failed to apply \"/tmp/${PUBLISH}.patch\"."
-        exit 2
-    fi
+cd "/tmp/${PUBLISH}"
+
+echo_headline "Patching"
+git apply --reject --whitespace=fix "/tmp/${PUBLISH}.patch"
+if [ $? -ne 0 ]; then
+    echo "Failed to apply \"/tmp/${PUBLISH}.patch\"."
+    exit 2
+fi
+
+echo_headline "Creating commit"
+git add --all
+git commit -m "[bot] \"${PUBLISH}\" $(date -u)"
+if [ $? -ne 0 ]; then
+    echo "Faild to create commit."
+    exit 2
 fi
