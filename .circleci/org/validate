@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-## Script for validating exported(org->sdn) documentation files.
+## Script for validating documentation files.
 ##
 ## Copyright (c) 2012-2014 Sylvain Benner
-## Copyright (c) 2014-2018 Sylvain Benner & Contributors
+## Copyright (c) 2014-2021 Sylvain Benner & Contributors
 ##
 ## Author: Eugene Yaremenko
 ## URL: https://github.com/syl20bnr/spacemacs
@@ -11,14 +11,33 @@
 ##
 ## License: GPLv3
 
-skip_when_branch_update
 fail_when_undefined_pr_number
 
 select_changed_orgs
+
+echo_headline "Exporting changed org fils"
+if [ ${#changed_f_as_args[@]} -ne 0 ]; then
+    emacs -batch \
+          -l /opt/spacetools/spacedoc/sdnize/sdnize \
+          -no-site-file \
+          -q \
+          ~/.emacs.d/ \
+          /tmp/exported/ \
+          $(printf "%s " "${changed_f_as_args[@]}")
+    if [ $? -ne 0 ]; then
+        echo "Documentation needs some fixing ;)"
+        exit 1
+    fi
+else
+    echo "This commit doesn't change documentation files."
+    exit 0
+fi
+
+echo_headline "Validating changed org fils"
 if [ ${#changed_f_as_args[@]} -ne 0 ]; then
     spacedoc validate -c".ci/spacedoc-cfg.edn" /tmp/exported/
     if [ $? -ne 0 ]; then
-        echo "Documentation validation failed."
+        echo "Documentation is invalid."
         exit 1
     fi
 else

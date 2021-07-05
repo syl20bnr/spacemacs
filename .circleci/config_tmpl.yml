@@ -1,0 +1,141 @@
+#### Circle CI YAML file
+version: 2.1
+parameters:
+  prj_owner:
+    type: string
+    default: "syl20bnr"
+  prj_repo:
+    type: string
+    default: "spacemacs"
+  prj_url:
+    type: string
+    default: "https://github.com/syl20bnr/spacemacs"
+  is_branch_update:
+    type: string
+    default: "{{ IS_BRANCH_UDATE }}"
+
+jobs:
+  "Validate PR":
+    docker:
+      - image: jare/spacemacs-circleci:latest
+    environment:
+      - PRJ_OWNER: << pipeline.parameters.prj_owner >>
+      - PRJ_REPO: << pipeline.parameters.prj_repo >>
+      - BASH_ENV: ".circleci/shared"
+    working_directory: ~/.emacs.d
+    steps:
+      - checkout
+      - run:
+          name: Make sure that this PR targets develop branch
+          command: .circleci/PR_base
+      - run:
+          name: Make sure that this PR doesn't need rebase
+          command: .circleci/PR_rebased
+  "Validate Documentation":
+    docker:
+      - image: jare/spacemacs-circleci:latest
+    environment:
+      - PRJ_OWNER: << pipeline.parameters.prj_owner >>
+      - PRJ_REPO: << pipeline.parameters.prj_repo >>
+      - BASH_ENV: ".circleci/shared"
+    working_directory: ~/.emacs.d
+    steps:
+      - checkout
+      - run:
+          name: Select changed files
+          command: .circleci/select_pr_changed
+      - run:
+          name: validate changed documentation files
+          command: .circleci/org/validate
+  "Update built-in files":
+    docker:
+      - image: jare/spacemacs-circleci:latest
+    environment:
+      - PRJ_OWNER: << pipeline.parameters.prj_owner >>
+      - PRJ_REPO: << pipeline.parameters.prj_repo >>
+      - BASH_ENV: ".circleci/shared"
+      - PUBLISH: "spacemacs_built_in"
+      - UPD_BOT_LOGIN: "SpacemacsBot"
+      - UPD_BOT_REPO: "spacemacs"
+    working_directory: ~/.emacs.d
+    steps:
+      - checkout
+      - run:
+          name: Initialize bot account
+          command: .circleci/bot_init
+      - run:
+          name: Download latest versions
+          command: .circleci/built_in/upd_built_in
+      - run:
+          name: Create patch file with the updates
+          command: .circleci/built_in/make_patch
+      - run:
+          name: Apply the patch file
+          command: .circleci/apply_patch
+      - run:
+          name: Push changes to Spacemacs Bot account
+          command: .circleci/push
+      - run:
+          name: Open PR if built in files must be updated
+          command: .circleci/built_in/maybe_pr
+  "Update documentation files":
+    docker:
+      - image: jare/spacemacs-circleci:latest
+    environment:
+      - PRJ_OWNER: << pipeline.parameters.prj_owner >>
+      - PRJ_REPO: << pipeline.parameters.prj_repo >>
+      - BASH_ENV: ".circleci/shared"
+      - PUBLISH: "spacemacs_fix_org"
+      - UPD_BOT_LOGIN: "SpacemacsBot"
+      - UPD_BOT_REPO: "spacemacs"
+    working_directory: ~/.emacs.d
+    steps:
+      - checkout
+      - run:
+          name: Initialize bot account
+          command: .circleci/bot_init
+      - run:
+          name: Export documentation files
+          command: .circleci/org/sdnize
+      - run:
+          name: Update documentation files
+          command: .circleci/org/update_docs
+      - run:
+          name: Create patch file with the updates
+          command: .circleci/org/make_patch
+      - run:
+          name: Apply the patch file
+          command: .circleci/apply_patch
+      - run:
+          name: Push changes to Spacemacs Bot account
+          command: .circleci/push
+      - run:
+          name: Open PR if documentation needs fixes
+          command: .circleci/org/maybe_pr
+
+workflows:
+  version: 2.1
+  validate-pr-files:
+    when:
+      not:
+        equal: [ << pipeline.parameters.is_branch_update >>, "yes"]
+    jobs:
+      - "Validate PR"
+      - "Validate Documentation"
+  update-documentation:
+    when:
+      equal: [ << pipeline.parameters.is_branch_update >>, "yes"]
+    jobs:
+      - "Update documentation files"
+  update-built-in:
+    when:
+      equal: [ << pipeline.parameters.is_branch_update >>, "yes"]
+    triggers:
+      - schedule:
+          cron: "0 0,6,12,18 * * *"
+          filters:
+            branches:
+              only:
+                - develop
+    jobs:
+      - "Update built-in files"
