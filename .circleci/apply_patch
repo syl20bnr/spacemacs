@@ -25,7 +25,7 @@ else
     cd "/tmp/${PUBLISH}"
 
     echo_headline "Patching"
-    git am < "/tmp/${PUBLISH}.patch"
+    git apply --reject --whitespace=fix "/tmp/${PUBLISH}.patch"
     if [ $? -ne 0 ]; then
         echo "Failed to apply \"/tmp/${PUBLISH}.patch\"."
         exit 2
