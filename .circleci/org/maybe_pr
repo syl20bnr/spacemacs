@@ -10,6 +10,8 @@
 ##
 ## License: GPLv3
 
+cd "/tmp/${PUBLISH}"
+
 export GITHUB_TOKEN=$UPD_BOT_GIT_TK
 echo_headline "Opening PR to ${UPD_BOT_LOGIN}/${UPD_BOT_REPO} repo"
 echo "[bot] Documentation fixes" > msg

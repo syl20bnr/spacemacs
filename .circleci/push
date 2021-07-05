@@ -10,6 +10,8 @@
 ##
 ## License: GPLv3
 
+cd "/tmp/${PUBLISH}"
+
 echo_headline "Creating fork under bot account"
 export GITHUB_TOKEN=$UPD_BOT_GIT_TK
 git checkout -b "${PUBLISH}"
