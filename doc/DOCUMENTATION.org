@@ -3389,7 +3389,7 @@ Examples:
 ***** Lisp state key bindings
 These commands automatically switch to =lisp state=.
 
-****** Navigation
+Navigation:
 
 | Key binding | Description                                                             |
 |-------------+-------------------------------------------------------------------------|
@@ -3410,7 +3410,7 @@ These commands automatically switch to =lisp state=.
 | ~SPC k %~   | go to other paren of the same pair                                      |
 | ~SPC k I~   | go back to beginning of current expression and switch to =insert= state |
 
-****** Manipulation
+Manipulation:
 
 | Key binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
@@ -3432,7 +3432,7 @@ These commands automatically switch to =lisp state=.
 | Note 1:     | ~xs~ is one or multiple sexp, ~x~ is a single sexp           |
 | Note 2:     | point is at <point> when presented, or in the list otherwise |
 
-****** Insertion
+Insertion:
 
 | Key binding | Description                    |
 |-------------+--------------------------------|
@@ -3440,7 +3440,7 @@ These commands automatically switch to =lisp state=.
 | ~SPC k )~   | insert sexp after current one  |
 | ~SPC k w~   | wrap a symbol with parenthesis |
 
-****** Deletion
+Deletion:
 
 | Key binding | Description                                                         |
 |-------------+---------------------------------------------------------------------|
@@ -3462,7 +3462,7 @@ These commands automatically switch to =lisp state=.
 | Note 1:     | ~xs~ is one or multiple sexp, ~x~ is a single sexp                  |
 | Note 2:     | point is at ~<point>~ when presented, or in the list otherwise      |
 
-****** Bindings from normal state
+Bindings from normal state:
 
 For convenience, a number of normal state evil binding are available in lisp state as well:
 
