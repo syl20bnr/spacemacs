@@ -68,7 +68,7 @@ jobs:
           command: .circleci/built_in/upd_built_in
       - run:
           name: Create patch file with the updates
-          command: .circleci/built_in/make_patch
+          command: .circleci/make_patch
       - run:
           name: Apply the patch file
           command: .circleci/apply_patch
@@ -102,7 +102,7 @@ jobs:
           command: .circleci/org/update_docs
       - run:
           name: Create patch file with the updates
-          command: .circleci/org/make_patch
+          command: .circleci/make_patch
       - run:
           name: Apply the patch file
           command: .circleci/apply_patch
