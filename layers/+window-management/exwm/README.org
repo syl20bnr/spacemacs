@@ -2,11 +2,11 @@
 
 #+TAGS: layer|tool
 
- [[file:img/exwm.jpg]]
+[[file:img/exwm.jpg]]
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
-- [[#features][Features:]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#system-tray-integratios][System Tray Integratios]]
   - [[#xdg-autostart][XDG Autostart]]
@@ -24,6 +24,7 @@ or anything.
 To use =exwm= layer, add it to your =~/.spacemacs=.
 
 The default layer variables are:
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '((exwm :variables exwm-enable-systray nil
@@ -54,7 +55,7 @@ This is disabled per default.
 As other window managers the ~s~ or *Super* key (Windows Key) is the one that
 is the prefix to every action. We'll use a lot of ~s~.
 
-Some emacs keybindings are disabled in X Window, for example ~C-x~ and ~C-c~ are
+Some emacs key bindings are disabled in X Window, for example ~C-x~ and ~C-c~ are
 disabled so that they can be used for Cutting and Copying text.
 
 | Key binding           | Description                            |

@@ -153,6 +153,7 @@ Add =(transmission :variables transmission-auto-refresh-all t)= to
 | ~SPC m g i~ | Open a =transmission-info-mode= buffer for torrent at point. |
 
 ** =transmission-turtle-mode=
+
 | Key binding  | Description                                                 |
 |--------------+-------------------------------------------------------------|
 | Set property |                                                             |

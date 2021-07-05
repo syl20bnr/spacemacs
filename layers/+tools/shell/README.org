@@ -316,25 +316,25 @@ in the current buffer instead of a popup.
 
 ** Multi-term
 
-| Key binding            | Description                          |
-|------------------------+--------------------------------------|
-| ~SPC m c~              | create a new multi-term              |
-| ~SPC m C~              | switch multi-term char mode          |
-| ~SPC m l~              | switch multi-term to line mode       |
-| ~SPC m n~              | go to next multi-term                |
-| ~SPC m N~ or ~SPC m p~ | go to previous multi-term            |
+| Key binding            | Description                    |
+|------------------------+--------------------------------|
+| ~SPC m c~              | create a new multi-term        |
+| ~SPC m C~              | switch multi-term char mode    |
+| ~SPC m l~              | switch multi-term to line mode |
+| ~SPC m n~              | go to next multi-term          |
+| ~SPC m N~ or ~SPC m p~ | go to previous multi-term      |
 
 ** Eshell
 
-| Key binding        | Description                   |
-|--------------------+-------------------------------|
+| Key binding        | Description                  |
+|--------------------+------------------------------|
 | ~SPC m H~ or ~M-l~ | search shell command history |
 
 ** vterm
 
-| Key binding | Description                     |
-|-------------+---------------------------------|
-| ~M-r~       | search shell command history*   |
+| Key binding | Description                   |
+|-------------+-------------------------------|
+| ~M-r~       | search shell command history* |
 
 Note*: ~M-r~ will only be bound to search for the command history when the
 variable =spacemacs-vterm-history-file-location= is set to the path to your

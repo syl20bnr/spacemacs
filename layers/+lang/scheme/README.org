@@ -185,8 +185,8 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 | ~SPC m e r~ | Evaluate region           |
 
 ** REPL-mode
-
 *Insert state*
+
 | Key binding | Description    |
 |-------------+----------------|
 | ~S-RET~     | Insert newline |
@@ -194,6 +194,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 | ~C-d~       | Exit           |
 
 *Normal state*
+
 | Key binding  | Description          |
 |--------------+----------------------|
 | ~g j~ / ~]]~ | Goto next prompt     |
@@ -209,6 +210,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 | ~SPC m q~   | REPL exit                                   |
 
 ** Geiser-doc-mode
+
 | Key binding    | Description           |
 |----------------+-----------------------|
 | ~o~            | Follow link           |
