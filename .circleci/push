@@ -10,6 +10,8 @@
 ##
 ## License: GPLv3
 
+exit_if_no_changes
+
 cd "/tmp/${PUBLISH}"
 
 echo_headline "Creating fork under bot account"
