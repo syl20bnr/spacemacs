@@ -10,10 +10,7 @@
 ##
 ## License: GPLv3
 
-if [ ! -f "/tmp/${PUBLISH}.patch" ]; then
-    echo "No \"/tmp/${PUBLISH}.patch\" file. Aborting."
-    exit 0
-fi
+exit_if_no_changes
 
 echo_headline "Cloning target repository"
 target_URL="https://github.com/${prj_owner}/${prj_repo}.git"

@@ -77,7 +77,7 @@ jobs:
           command: .circleci/push
       - run:
           name: Open PR if built in files must be updated
-          command: .circleci/built_in/maybe_pr
+          command: .circleci/maybe_pr
   "Update documentation files":
     docker:
       - image: jare/spacemacs-circleci:latest
@@ -111,7 +111,7 @@ jobs:
           command: .circleci/push
       - run:
           name: Open PR if documentation needs fixes
-          command: .circleci/org/maybe_pr
+          command: .circleci/maybe_pr
 
 workflows:
   version: 2.1
@@ -124,7 +124,9 @@ workflows:
       - "Validate Documentation"
   update-documentation:
     when:
-      equal: [ << pipeline.parameters.is_branch_update >>, "yes"]
+      and:
+        - equal: [ << pipeline.parameters.is_branch_update >>, "yes"]
+        - equal: [ << pipeline.git.branch >>, "develop"]
     jobs:
       - "Update documentation files"
   update-built-in:
