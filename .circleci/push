@@ -12,6 +12,7 @@
 
 echo_headline "Creating fork under bot account"
 export GITHUB_TOKEN=$UPD_BOT_GIT_TK
+git checkout -b "${PUBLISH}"
 hub fork
 if [ $? -ne 0 ]; then
     echo "hub fork failed"
@@ -21,8 +22,7 @@ fork_url="https://${UPD_BOT_LOGIN}:${UPD_BOT_GIT_TK}"
 fork_url+="@github.com/${UPD_BOT_LOGIN}/${UPD_BOT_REPO}.git"
 git remote set-url "${UPD_BOT_LOGIN}" "${fork_url}"
 echo_headline "Pushing changes"
-hub push -f "${UPD_BOT_LOGIN}" "${PUBLISH}" > /dev/null 2>&1
-#                          prevent token leak ^^^^^^^^^^^^^^
+hub push -f "${UPD_BOT_LOGIN}" "${PUBLISH}"
 if [ $? -ne 0 ]; then
     echo "hub push failed"
     exit 2
