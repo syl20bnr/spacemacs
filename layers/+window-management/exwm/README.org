@@ -17,7 +17,7 @@ Thanks to @ch11ng and his [[https://github.com/ch11ng/exwm][EXWM]] project we ca
 manager, that means that you can spawn a Browser Window, or your music player,
 or anything.
 
-* Features:
+** Features:
 - Support for using Emacs as window manager
 
 * Install
