@@ -12,10 +12,8 @@
 ## License: GPLv3
 
 # Vars
-dev_b="develop"
-mst_b="master"
-prj_owner="syl20bnr"
-prj_repo="spacemacs"
+prj_owner="${PRJ_OWNER}"
+prj_repo="${PRJ_REPO}"
 api_URL_root="https://api.github.com"
 
 upstream_data_URL_root="${api_URL_root}/"
@@ -62,23 +60,4 @@ fail_when_undefined_pr_number () {
         echo "Job restart sometimes helps."
         exit 1
     fi
-}
-
-skip_when_branch_update () {
-    if [[ "${IS_BRANCH_UPDATE}" == "yes" ]]; then
-        echo "Skipping for branch update."
-        exit 0
-    fi
-}
-
-skip_when_non_official_repo () {
-    if [[ "${CIRCLE_PROJECT_REPONAME}" != "${prj_repo}" || \
-          "${CIRCLE_PROJECT_USERNAME}" != "${prj_owner}" ]]; then
-        echo "Skipping for non official repository."
-        exit 0
-    fi
-}
-
-cleanup () {
-	rm -rf ~/.emacs.d/elpa ~/.emacs.d/.cache /tmp/* ~/.spacemacs
 }

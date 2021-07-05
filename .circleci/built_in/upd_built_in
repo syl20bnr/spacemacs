@@ -10,8 +10,6 @@
 ##
 ## License: GPLv3
 
-skip_when_non_official_repo
-
 echo_headline "Downloading and replacing files"
 built_in_manifest=".ci/built_in_manifest"
 lines=$(cat "${built_in_manifest}")
@@ -25,18 +23,3 @@ while read line; do
         exit 2
     fi
 done <"${built_in_manifest}"
-
-git add --all
-git commit -m "Built-in files auto-update: $(date -u)"
-if [ $? -ne 0 ]; then
-    echo "Built-in files don't need an update."
-    exit 0
-else
-    git format-patch -1 HEAD --stdout > /tmp/built_in.patch
-    if [ $? -ne 0 ]; then
-        echo "Failed to create built-in patch file."
-        exit 2
-    fi
-    git reset --hard HEAD~1
-    cat /tmp/built_in.patch
-fi

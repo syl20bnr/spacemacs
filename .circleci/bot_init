@@ -11,8 +11,6 @@
 ##
 ## License: GPLv3
 
-skip_when_non_official_repo
-
 echo_headline "Setting up bot account"
 
 mkdir -p ~/.ssh

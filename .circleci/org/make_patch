@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+## make_patch Generate patch file with Spacemacs documentation updates.
+##
+## Copyright (c) 2014-2021 Sylvain Benner & Contributors
+##
+## Author: Eugene Yaremenko
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
+
+git add --all
+git commit -m "documentation formatting: $(date -u)"
+if [ $? -ne 0 ]; then
+    echo "Documentation is up to date."
+    exit 0
+else
+    git format-patch -1 HEAD --stdout > "/tmp/${PUBLISH}.patch"
+    if [ $? -ne 0 ]; then
+        echo "Failed to create documentation patch file."
+        exit 2
+    fi
+    git reset --hard HEAD~1
+    cat "/tmp/${PUBLISH}.patch"
+fi

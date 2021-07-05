@@ -1,70 +1,23 @@
----
-# Circle CI YAML file
-version: 2.0
-
+#### Config generator for CircleCI.
+version: 2.1
+setup: true
+orbs:
+  continuation: circleci/continuation@0.1.0
 jobs:
-  "Validate PR":
-    docker:
-      - image: jare/spacemacs-circleci:latest
-    environment:
-      BASH_ENV: ".circleci/shared"
+  "Generate config":
+    executor: continuation/default
     steps:
       - checkout
-      - run:
-          name: Make sure that this PR targets develop branch
-          command: .circleci/PR_base
-      - run:
-          name: Make sure that this PR doesn't need rebase
-          command: .circleci/PR_rebased
-  "Validate Documentation":
-    docker:
-      - image: jare/spacemacs-circleci:latest
-    environment:
-      BASH_ENV: ".circleci/shared"
-    steps:
-      - checkout
-      - run:
-          name: Select changed files
-          command: .circleci/select_pr_changed
-      - run:
-          name: export changed documentation files for validation
-          command: .circleci/org/export
-      - run:
-          name: validating changed documentation files
-          command: .circleci/org/validate
-  "Update built-in files":
-    docker:
-      - image: jare/spacemacs-circleci:latest
-    environment:
-      - BASH_ENV: ".circleci/shared"
-      - PUBLISH: "spacemacs_built_in"
-      - UPD_BOT_LOGIN: "SpacemacsBot"
-      - UPD_BOT_REPO: "spacemacs"
-    steps:
-      - checkout
-      - run:
-          name: Initialize bot account
-          command: .circleci/bot_init
-      - run:
-          name: Make patch file
-          command: .circleci/update/upd_built_in
-      - run:
-          name: Open PR if built in files must be updated
-          command: .circleci/update/maybe_pr
-
+      - run: 
+          name: "Render config_tmpl.yml"
+          command: |
+            cd .circleci/
+            cp config_tmpl.yml circleci.yml
+            sed -i "s/{{ IS_BRANCH_UDATE }}/${IS_BRANCH_UPDATE}/g" circleci.yml
+      - continuation/continue:
+          parameters: '{}'
+          configuration_path: ".circleci/circleci.yml"
 workflows:
-  version: 2
-  validate_pr_files:
+  setup-workflow:
     jobs:
-      - "Validate PR"
-      - "Validate Documentation"
-  update_built_in:
-    triggers:
-      - schedule:
-          cron: "0 0,6,12,18 * * *"
-          filters:
-            branches:
-              only:
-                - develop
-    jobs:
-      - "Update built-in files"
+      - "Generate config"
