@@ -253,7 +253,9 @@ is used instead."
       (when (file-exists-p dir)
         (delete-directory dir t))
       (package-build--message "Cloning %s to %s" url dir)
-      (package-build--run-process nil nil "git" "clone" url dir)))
+      (package-build--run-process nil nil "git" "clone"
+                                  "--filter=blob:none" "--no-checkout"
+                                  url dir)))
     (if package-build-stable
         (cl-destructuring-bind (tag . version)
             (or (package-build--find-version-newest
@@ -373,7 +375,7 @@ is used instead."
 (defun package-build--create-tar (name version directory)
   "Create a tar file containing the contents of VERSION of package NAME."
   (let ((tar (expand-file-name (concat name "-" version ".tar")
-                                package-build-archive-dir))
+                               package-build-archive-dir))
         (dir (concat name "-" version)))
     (when (eq system-type 'windows-nt)
       (setq tar (replace-regexp-in-string "^\\([a-z]\\):" "/\\1" tar)))
@@ -511,7 +513,10 @@ still be renamed."
             :kind       (or type 'single)
             :url        (lm-homepage)
             :keywords   (lm-keywords-list)
-            :maintainer (lm-maintainer)
+            :maintainer (if (fboundp 'lm-maintainers)
+                            (car (lm-maintainers))
+                          (with-no-warnings
+                            (lm-maintainer)))
             :authors    (lm-authors)
             :commit     commit)))))
 

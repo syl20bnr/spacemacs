@@ -1,13 +1,25 @@
 ;;; packages.el --- spacemacs-org layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Boris Buliga <d12frosted@d12frosted.local>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 ;;; Commentary:
 
@@ -21,7 +33,6 @@
     ;; layer. So it is easier for users to steal the ownership of the
     ;; `org' package.
     (default-org-config :location built-in)
-    (org-plus-contrib :step pre)
     org-superstar
     (space-doc :location local)
     toc-org
@@ -29,9 +40,6 @@
 
 (defun spacemacs-org/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'org-mode-hook))
-
-;; dummy init function to force installation of `org-plus-contrib'
-(defun spacemacs-org/init-org-plus-contrib ())
 
 (defun spacemacs-org/init-default-org-config ()
   (use-package org
@@ -52,15 +60,15 @@
             ;; this is consistent with the value of
             ;; `helm-org-headings-max-depth'.
             org-imenu-depth 8)
-    :config
-    (progn
-      ;; (font-lock-add-keywords
-      ;;  'org-mode '(("\\(@@html:<kbd>@@\\) \\(.*\\) \\(@@html:</kbd>@@\\)"
-      ;;               (1 font-lock-comment-face prepend)
-      ;;               (2 font-lock-function-name-face)
-      ;;               (3 font-lock-comment-face prepend))))
-      ;; Open links and files with RET in normal state
-      (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)))))
+      :config
+      (progn
+        (font-lock-add-keywords
+         'org-mode '(("\\(@@html:<kbd>@@\\) \\(.*\\) \\(@@html:</kbd>@@\\)"
+                      (1 font-lock-comment-face prepend)
+                      (2 font-lock-function-name-face)
+                      (3 font-lock-comment-face prepend))))
+        ;; Open links and files with RET in normal state
+        (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)))))
 
 (defun spacemacs-org/init-org-superstar ()
   (use-package org-superstar

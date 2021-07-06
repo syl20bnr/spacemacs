@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+## Bot_init initialization script for bot account CircleCI
+##
+## Copyright (c) 2012-2014 Sylvain Benner
+## Copyright (c) 2014-2021 Sylvain Benner & Contributors
+##
+## Author: Eugene Yaremenko
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
+
+echo_headline "Setting up bot account"
+
+mkdir -p ~/.ssh
+
+printf  "Host  github.com\n" > ~/.ssh/config
+printf  "  StrictHostKeyChecking no\n" >> ~/.ssh/config
+printf  "  UserKnownHostsFile=/dev/null\n" >> ~/.ssh/config
+
+git config --global user.name "${UPD_BOT_LOGIN}"
+git config --global user.email "not@an.actual.email.beep.boop"
+git config --global push.default simple
+git config --global hub.protocol https

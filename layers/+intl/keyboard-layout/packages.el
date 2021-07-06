@@ -1,13 +1,25 @@
 ;;; packages.el --- keyboard-layout Layer Packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Fabien Dubosson <fabien.dubosson@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst keyboard-layout-packages
   '(
@@ -18,11 +30,11 @@
     ediff
     elfeed
     evil
+    evil-collection
     evil-cleverparens
     evil-escape
     evil-evilified-state
     evil-lisp-state
-    evil-magit
     evil-surround
     eyebrowse
     flycheck
@@ -278,22 +290,22 @@
       "K"
       "L")))
 
-(defun keyboard-layout/pre-init-evil-magit ()
-  (kl|config evil-magit
+(defun keyboard-layout/pre-init-evil-collection ()
+  (kl|config evil-collection
     :description
-    "Remap `evil-magit' bindings."
+    "Remap `evil-collection-magit' bindings."
     :loader
-    (with-eval-after-load 'evil-magit BODY)
+    (with-eval-after-load 'evil-collection-magit BODY)
     :common
-    (dolist (state (if evil-magit-use-y-for-yank
-                       (list evil-magit-state 'visual)
-                     (list evil-magit-state)))
+    (dolist (state (if evil-collection-magit-use-y-for-yank
+                       (list evil-collection-magit-state 'visual)
+                     (list evil-collection-magit-state)))
       (kl/evil-correct-keys state magit-mode-map
         "j"
         "k"
         "C-j"
         "C-k"))
-    (kl/evil-correct-keys 'normal evil-magit-toggle-text-minor-mode-map
+    (kl/evil-correct-keys 'normal evil-collection-magit-toggle-text-minor-mode-map
       "C-j")))
 
 (defun keyboard-layout/pre-init-evil-surround ()
@@ -453,15 +465,7 @@
     :colemak-jkhl
     (kl/evil-correct-keys 'visual magit-mode-map
       "j"
-      "k")
-    :colemak-hnei
-    (progn
-      (kl/evil-correct-keys 'normal magit-mode-map
-        "j"
-        "k")
-      (kl/evil-correct-keys 'visual magit-mode-map
-        "j"
-        "k"))))
+      "k")))
 
 (defun keyboard-layout/pre-init-mu4e ()
   (kl|config mu4e

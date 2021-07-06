@@ -13,7 +13,7 @@
 - [[#backends][Backends]]
   - [[#anaconda][Anaconda]]
   - [[#language-server-protocol][Language Server Protocol]]
-    - [[#python-language-server][python-language-server]]
+    - [[#python-lsp-server][python-lsp-server]]
     - [[#microsoft-python-language-server][Microsoft python language server]]
     - [[#microsoft-pyright-language-server][Microsoft pyright language server]]
 - [[#additional-tools][Additional tools]]
@@ -54,7 +54,7 @@ This layer adds support for the Python language.
 - Support for the following backends:
   - [[https://github.com/proofit404/anaconda-mode][anaconda]] (default),
   - [[https://github.com/emacs-lsp/lsp-python-ms][Language Server Protocol]] (experimental - 2 implementations),
-    - python-language-server
+    - python-lsp-server
     - Microsoft python language server
 - Auto-completion
 - Code Navigation
@@ -102,10 +102,10 @@ Backend can be chosen on a per project basis using directory local variables
 
 The available options are:
 
-| symbol    | description                    |
-|-----------+--------------------------------|
-| 'anaconda | Default                        |
-| 'lsp      | python-language-server package |
+| symbol    | description               |
+|-----------+---------------------------|
+| 'anaconda | Default                   |
+| 'lsp      | python-lsp-server package |
 
 * Backends
 ** Anaconda
@@ -135,13 +135,13 @@ setting your =PYTHONPATH= as explained at
 ** Language Server Protocol
 The =lsp= backend can use either of the following language server implementations:
 
-| symbol   | description                              |
-|----------+------------------------------------------|
-| 'pyls    | python-language-server package (default) |
-| 'mspyls  | Microsoft python language server         |
-| 'pyright | Microsoft pyright language server        |
+| symbol   | description                         |
+|----------+-------------------------------------|
+| 'pylsp   | [[https://pypi.org/project/python-lsp-server/][python-lsp-server package]] (default) |
+| 'mspyls  | [[https://github.com/emacs-lsp/lsp-python-ms][Microsoft python language server]]    |
+| 'pyright | [[https://github.com/emacs-lsp/lsp-pyright][Microsoft pyright language server]]   |
 
-=pyls= is used by default - to use the Microsoft python language server, set the
+=pylsp= is used by default - to use the Microsoft python language server, set the
 =python-lsp-server= layer variable as follows:
 
 #+BEGIN_SRC elisp
@@ -154,11 +154,11 @@ To setup the pyright language server instead, use:
   (python :variables python-backend 'lsp python-lsp-server 'pyright)
 #+END_SRC
 
-*** python-language-server
+*** python-lsp-server
 You just have to install python language server package:
 
 #+BEGIN_SRC sh
-  pip install python-language-server[all]
+  pip install 'python-language-server[all]'
 #+END_SRC
 
 Additionally you can install the following other packages:
@@ -168,7 +168,10 @@ Additionally you can install the following other packages:
   pip install pyls-isort
   # for mypy checking (python 3.4+ is needed)
   pip install pyls-mypy
+  # for formating with black
   pip install pyls-black
+  # for detecting the use of deprecated apis
+  pip install pyls-memestra
 #+END_SRC
 
 If you've installed the language server and related packages as development
@@ -363,9 +366,9 @@ by the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package. It provides
 
 | Key binding | Description                                     |
 |-------------+-------------------------------------------------|
-| ~SPC m V a~ | activate a virtual environment in any directory |
-| ~SPC m V d~ | deactivate active virtual environment           |
-| ~SPC m V w~ | work on virtual environment in =WORKON_HOME=    |
+| ~SPC m v a~ | activate a virtual environment in any directory |
+| ~SPC m v d~ | deactivate active virtual environment           |
+| ~SPC m v w~ | work on virtual environment in =WORKON_HOME=    |
 
 *** Automatic activation of local virtual environment
 By default Spacemacs uses the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package to manage virtual environments.

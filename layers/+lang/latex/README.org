@@ -228,53 +228,54 @@ By default, the underlying latex code is echoed in the echo area.
 
 * Key bindings
 
-| Key binding                       | Description                                |
-|-----------------------------------+--------------------------------------------|
-| ~SPC m -~                         | recenter output buffer                     |
-| ~SPC m ,​~                         | TeX command on master file                 |
-| ~SPC m .~                         | mark LaTeX environment                     |
-| ~SPC m *~                         | mark LaTeX section                         |
-| ~SPC m %~                         | comment or uncomment a paragraph           |
-| ~SPC m ;~                         | comment or uncomment a region              |
-| ~SPC m a~ or with LSP ~SPC m a u~ | run all commands (compile and open viewer) |
-| ~SPC m b~ or with LSP ~SPC m c~   | build the document (compile)               |
-| ~SPC m c~ or with LSP ~SPC m i c~ | close LaTeX environment                    |
-| ~SPC m e~ or with LSP ~SPC m i e~ | insert LaTeX environment                   |
-| ~SPC m i i~                       | insert =\item=                             |
-| ~SPC m k~                         | kill TeX job                               |
-| ~SPC m l~                         | recenter output buffer                     |
-| ~SPC m m~                         | insert LaTeX macro                         |
-| ~SPC m n~                         | goto next error                            |
-| ~SPC m N~                         | goto previous error                        |
-| ~SPC m s~                         | insert LaTeX section                       |
-| ~SPC m v~                         | view output                                |
-| ~SPC m h d~                       | TeX documentation, can be very slow        |
-| ~SPC m f e~                       | fill LaTeX environment                     |
-| ~SPC m f p~                       | fill LaTeX paragraph                       |
-| ~SPC m f r~                       | fill LaTeX region                          |
-| ~SPC m f s~                       | fill LaTeX section                         |
-| ~SPC m p r~                       | preview region                             |
-| ~SPC m p b~                       | preview buffer                             |
-| ~SPC m p d~                       | preview document                           |
-| ~SPC m p e~                       | preview environment                        |
-| ~SPC m p s~                       | preview section                            |
-| ~SPC m p p~                       | preview at point                           |
-| ~SPC m p f~                       | cache preamble for preview                 |
-| ~SPC m p c~                       | clear previews                             |
-| ~SPC m v~                         | view                                       |
-| ~SPC m x b~                       | make font bold                             |
-| ~SPC m x B~                       | make font medium weight                    |
-| ~SPC m x c~                       | make font monospaced (for code)            |
-| ~SPC m x e~                       | make font emphasised                       |
-| ~SPC m x i~                       | make font italic                           |
-| ~SPC m x o~                       | make font oblique                          |
-| ~SPC m x r~                       | remove font properties                     |
-| ~SPC m x f a~                     | use calligraphic font                      |
-| ~SPC m x f c~                     | use small-caps font                        |
-| ~SPC m x f f~                     | use sans serif font                        |
-| ~SPC m x f n~                     | use normal font                            |
-| ~SPC m x f r~                     | use serif font                             |
-| ~SPC m x f u~                     | use upright font                           |
+| Key binding                         | Description                                |
+|-------------------------------------+--------------------------------------------|
+| ~SPC m -~                           | recenter output buffer                     |
+| ~SPC m ,​~                           | TeX command on master file                 |
+| ~SPC m .~                           | mark LaTeX environment                     |
+| ~SPC m *~                           | mark LaTeX section                         |
+| ~SPC m %~                           | comment or uncomment a paragraph           |
+| ~SPC m ;~                           | comment or uncomment a region              |
+| ~SPC m a~ or with LSP ~SPC m a u~   | run all commands (compile and open viewer) |
+| ~SPC m b~ or with LSP ~SPC m c~     | build the document (compile)               |
+| ~SPC m c~ or with LSP ~SPC m i c~   | close LaTeX environment                    |
+| ~SPC m i c~ or with LSP ~SPC m i C~ | insert cite key                            |
+| ~SPC m e~ or with LSP ~SPC m i e~   | insert LaTeX environment                   |
+| ~SPC m i i~                         | insert =\item=                             |
+| ~SPC m k~                           | kill TeX job                               |
+| ~SPC m l~                           | recenter output buffer                     |
+| ~SPC m m~                           | insert LaTeX macro                         |
+| ~SPC m n~                           | goto next error                            |
+| ~SPC m N~                           | goto previous error                        |
+| ~SPC m s~                           | insert LaTeX section                       |
+| ~SPC m v~                           | view output                                |
+| ~SPC m h d~                         | TeX documentation, can be very slow        |
+| ~SPC m f e~                         | fill LaTeX environment                     |
+| ~SPC m f p~                         | fill LaTeX paragraph                       |
+| ~SPC m f r~                         | fill LaTeX region                          |
+| ~SPC m f s~                         | fill LaTeX section                         |
+| ~SPC m p r~                         | preview region                             |
+| ~SPC m p b~                         | preview buffer                             |
+| ~SPC m p d~                         | preview document                           |
+| ~SPC m p e~                         | preview environment                        |
+| ~SPC m p s~                         | preview section                            |
+| ~SPC m p p~                         | preview at point                           |
+| ~SPC m p f~                         | cache preamble for preview                 |
+| ~SPC m p c~                         | clear previews                             |
+| ~SPC m v~                           | view                                       |
+| ~SPC m x b~                         | make font bold                             |
+| ~SPC m x B~                         | make font medium weight                    |
+| ~SPC m x c~                         | make font monospaced (for code)            |
+| ~SPC m x e~                         | make font emphasised                       |
+| ~SPC m x i~                         | make font italic                           |
+| ~SPC m x o~                         | make font oblique                          |
+| ~SPC m x r~                         | remove font properties                     |
+| ~SPC m x f a~                       | use calligraphic font                      |
+| ~SPC m x f c~                       | use small-caps font                        |
+| ~SPC m x f f~                       | use sans serif font                        |
+| ~SPC m x f n~                       | use normal font                            |
+| ~SPC m x f r~                       | use serif font                             |
+| ~SPC m x f u~                       | use upright font                           |
 
 ** Folding
 Available only when =latex-enable-folding= is non nil.

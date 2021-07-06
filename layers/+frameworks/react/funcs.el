@@ -1,27 +1,39 @@
 ;;; funcs.el --- react layer funcs file for Spacemacs. -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Muneeb Shaikh <muneeb@reversehack.in>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 
 ;; Backend
 (defun spacemacs//react-setup-backend ()
   "Conditionally setup react backend."
   (pcase javascript-backend
-    (`tern (spacemacs/tern-setup-tern))
-    (`tide (spacemacs//tide-setup))
-    (`lsp (spacemacs//react-setup-lsp))))
+    ('tern (spacemacs/tern-setup-tern))
+    ('tide (spacemacs//tide-setup))
+    ('lsp (spacemacs//react-setup-lsp))))
 
 (defun spacemacs//react-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase javascript-backend
-    (`tide (spacemacs//tide-setup-company 'rjsx-mode))))
+  (when (eq javascript-backend 'tide)
+    (spacemacs//tide-setup-company 'rjsx-mode)))
 
 (defun spacemacs//react-setup-next-error-fn ()
   "If the `syntax-checking' layer is enabled, disable `rjsx-mode''s
@@ -34,9 +46,9 @@
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        (when (not javascript-lsp-linter)
+        (unless javascript-lsp-linter
           (setq-local lsp-diagnostics-provider :none))
-        (lsp))
+        (lsp-deferred))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 
@@ -48,23 +60,18 @@
 
 
 ;; Others
-(defun spacemacs//react-inside-string-q ()
-  "Returns non-nil if inside string, else nil.
-Result depends on syntax table's string quote character."
-  (let ((result (nth 3 (syntax-ppss))))
-    result))
-
-(defun spacemacs//react-inside-comment-q ()
-  "Returns non-nil if inside comment, else nil.
-Result depends on syntax table's comment character."
-  (let ((result (nth 4 (syntax-ppss))))
-    result))
-
-(defun spacemacs//react-inside-string-or-comment-q ()
-  "Return non-nil if point is inside string, documentation string or a comment.
-If optional argument P is present, test this instead of point."
-  (or (spacemacs//react-inside-string-q)
-      (spacemacs//react-inside-comment-q)))
+(defun spacemacs//javascript-jsx-file-p ()
+  "Enable rjsx mode by using magic-mode-alist."
+  (when buffer-file-name
+    (and (member (file-name-extension buffer-file-name) '("js" "jsx"))
+         (re-search-forward "\\(^\\s-*import React\\|\\( from \\|require(\\)[\"']react\\)"
+                            magic-mode-regexp-match-limit t)
+         (save-excursion
+           (goto-char (match-beginning 1))
+           (let ((sexp (syntax-ppss)))
+             ;; not inside string or comment
+             (not (or (nth 3 sexp)
+                      (nth 4 sexp))))))))
 
 (defun spacemacs//react-setup-yasnippet ()
   (yas-activate-extra-mode 'js-mode))

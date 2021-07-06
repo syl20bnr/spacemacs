@@ -1,13 +1,25 @@
 ;;; packages.el --- ocaml Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst ocaml-packages
   '(
@@ -20,7 +32,9 @@
     helm-gtags
     imenu
     merlin
+    merlin-company
     merlin-eldoc
+    merlin-iedit
     ocamlformat
     ocp-indent
     smartparens
@@ -28,7 +42,8 @@
     utop))
 
 (defun ocaml/post-init-company ()
-  (when (configuration-layer/package-used-p 'merlin)
+  (when (and (configuration-layer/package-used-p 'merlin)
+             (configuration-layer/package-used-p 'merlin-company))
     (spacemacs|add-company-backends
       :backends merlin-company-backend
       :modes merlin-mode
@@ -62,9 +77,7 @@
         "ix" 'dune-insert-executables-form
         "iy" 'dune-insert-ocamlyacc-form
         "tP" 'dune-promote
-        "tp" 'dune-runtest-and-promote)
-      (add-to-list 'auto-mode-alist
-                   '("\\(?:\\`\\|/\\)dune\\(?:\\.inc\\)?\\'" . dune-mode)))))
+        "tp" 'dune-runtest-and-promote))))
 
 (defun ocaml/post-init-flycheck ()
   (spacemacs/enable-flycheck 'tuareg-mode))
@@ -96,9 +109,6 @@
                    'spacemacs/merlin-locate)
       (add-hook 'tuareg-mode-hook 'merlin-mode)
 
-      ;; Actively load merline-iedit
-      (require 'merlin-iedit)
-
       (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
         "cp" 'merlin-project-check
         "cv" 'merlin-goto-project-file
@@ -114,13 +124,24 @@
         "hh" 'merlin-document
         "ht" 'merlin-type-enclosing
         "hT" 'merlin-type-expr
-        "rd" 'merlin-destruct
-        "re" 'merlin-iedit-occurrences)
+        "rd" 'merlin-destruct)
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mc" "compile/check")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mE" "errors")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mh" "help")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mr" "refactor"))))
+
+(defun ocaml/init-merlin-company ()
+  (use-package merlin-company
+    :defer t))
+
+(defun ocaml/init-merlin-iedit ()
+  (use-package merlin-iedit
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+        "re" 'merlin-iedit-occurrences))))
 
 (defun ocaml/post-init-imenu ()
   (add-hook 'merlin-mode-hook #'merlin-use-merlin-imenu))
@@ -134,7 +155,7 @@
   (use-package ocamlformat
     :defer t
     :init
-    (when ocaml-format-before-save
+    (when ocaml-format-on-save
       (add-hook 'before-save-hook 'ocamlformat-before-save))))
 
 (defun ocaml/init-ocp-indent ()

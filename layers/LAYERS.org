@@ -49,7 +49,7 @@
   - [[#dtrt-indent][Dtrt-indent]]
   - [[#ietf][Ietf]]
   - [[#multiple-cursors][Multiple-cursors]]
-  - [[#nlinum][Nlinum]]
+  - [[#nav-flash][Nav-flash]]
   - [[#parinfer][Parinfer]]
   - [[#spacemacs-completion][Spacemacs-completion]]
   - [[#spacemacs-defaults][Spacemacs-defaults]]
@@ -214,6 +214,8 @@
   - [[#dap][DAP]]
   - [[#debug][Debug]]
   - [[#docker][Docker]]
+  - [[#eww][Eww]]
+  - [[#exwm][EXWM]]
   - [[#fasd][Fasd]]
   - [[#finance][Finance]]
   - [[#geolocation][Geolocation]]
@@ -245,6 +247,7 @@
   - [[#web-beautify][Web-beautify]]
   - [[#xclipboard][Xclipboard]]
 - [[#vim][Vim]]
+  - [[#evil-better-jumper][Evil-better-jumper]]
   - [[#evil-commentary][Evil-commentary]]
   - [[#evil-snipe][Evil-snipe]]
   - [[#vim-empty-lines][Vim-empty-lines]]
@@ -253,6 +256,7 @@
   - [[#confluence][Confluence]]
   - [[#eaf][Eaf]]
   - [[#evernote][Evernote]]
+  - [[#pocket][Pocket]]
   - [[#search-engine][Search Engine]]
   - [[#twitter][Twitter]]
   - [[#wakatime][Wakatime]]
@@ -750,20 +754,15 @@ Features:
 Features:
 - support for multiple cursors.
 
-** Nlinum
-[[file:+misc/nlinum/README.org][+misc/nlinum/README.org]]
+** Nav-flash
+[[file:+misc/nav-flash/README.org][+misc/nav-flash/README.org]]
 
-This layer provides various styles of line numbering in Spacemacs. It replaces
-=linum= and =linum-relative= with the improved =nlinum= and =nlinum-relative=
-packages.
-
-Please note that on Emacs 26 and newer, this layer also replaces the new native
-line numbers mode (=display-line-numbers-mode=), and because of that it is not
-recommended to use =nlinum= layer on Emacs 26 or newer.
+This layer adds [[https://github.com/rolandwalker/nav-flash][nav-flash]] package which temporarily highlights the line
+containing the point, which is sometimes useful for orientation after a
+navigation command.
 
 Features:
-- Support for classic ascending line numbering.
-- Support for line numbering relative to the current cursor position.
+- Fancy flashing line on navigation.
 
 ** Parinfer
 [[file:+misc/parinfer/README.org][+misc/parinfer/README.org]]
@@ -821,6 +820,7 @@ Features:
   - package-menu
   - page-break-lines
   - process-menu
+  - quickrun
   - recentf
   - savehist
   - saveplace
@@ -1461,7 +1461,8 @@ as support for batch files.
 
 Features:
 - Syntax highlighting of powershell =.ps1= files via [[https://github.com/jschaf/powershell.el][powershell.el]]
-- Syntax highlighting of batch =.bat= files via [[https://www.emacswiki.org/emacs/DosMode][dos.el]]
+- Syntax highlighting of batch =.bat= files via [[https://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/progmodes/bat-mode.el][bat-mode]]
+- Auto-completion, code-navigation and refactoring capabilities of batch files via [[https://github.com/josteink/bmx-mode][bmx-mode]]
 
 *** Coq
 [[file:+lang/coq/README.org][+lang/coq/README.org]]
@@ -2168,7 +2169,7 @@ Features:
 - Support for the following backends:
   - [[https://github.com/proofit404/anaconda-mode][anaconda]] (default),
   - [[https://github.com/emacs-lsp/lsp-python-ms][Language Server Protocol]] (experimental - 2 implementations),
-    - python-language-server
+    - python-lsp-server
     - Microsoft python language server
 - Auto-completion
 - Code Navigation
@@ -2282,6 +2283,7 @@ This layer adds support for the zig programming language [[https://ziglang.org/]
 
 Features:
 - Syntax Highlighting
+- LSP support via =zls= (see [[file:+lang/zig/README.org][LSP]])
 
 *** Purely functional
 **** Agda
@@ -2435,7 +2437,7 @@ Features:
 ** PDF
 [[file:+readers/pdf/README.org][+readers/pdf/README.org]]
 
-This layer enables support for PDF with the [[https://github.com/politza/pdf-tools][pdf-tools]] package.
+This layer enables support for PDF with the [[https://github.com/vedang/pdf-tools][pdf-tools]] package.
 
 According to the official repository:
 
@@ -2777,6 +2779,40 @@ Features:
 - =docker-compose= integration via [[https://github.com/Silex/docker.el][docker.el]]
 - Syntax checking via [[https://github.com/hadolint/hadolint][hadolint]]
 - Code-Completion via =lsp=
+
+** Eww
+[[file:+web/eww/README.org][+web/eww/README.org]]
+
+Ewww.. So ergonomic!
+
+Features:
+- Adds evil key bindings support to eww-mode (including
+  eww-buffers/bookmarks/history-mode)
+- Adds spacemacs functionality to eww-mode
+- Adds ability to easily navigate eww buffers
+
+** EXWM
+[[file:+window-management/exwm/README.org][+window-management/exwm/README.org]]
+
+The time has arrived when one can finally use Emacs as a Window Manager, long
+ago the concepts of *windows* and *frames* made so much sense when one was
+working in a TTY, and basically that's all the window management you got. In
+these *modern* times though, it sounds silly to have those names. But not
+Anymore!
+
+Thanks to @ch11ng and his [[https://github.com/ch11ng/exwm][EXWM]] project we can now use Emacs as our window
+manager, and all those *windows* that didn't make sense before, now can not only
+hold buffers, but X Windows, that means that you can spawn a Browser Window, or
+your music player, or anything.
+
+I urge you to read the [[https://github.com/ch11ng/exwm/wiki][EXWM Wiki]] for a more in depth explanation and if you can
+contribute, please do so! The purpose of me making this layer is that I find it
+awesome and having nice defaults would make more people dive into it and the
+project would receive more attention and contributions which will only make it
+more awesome, so if you try it and like it, share it!
+
+Features:
+- Support for using Spacemacs as window manager
 
 ** Fasd
 [[file:+tools/fasd/README.org][+tools/fasd/README.org]]
@@ -3126,6 +3162,16 @@ Features:
 - [[https://github.com/redguardtoo/cliphist][cliphist]] package: integration with clipboard managers on Linux and macOS.
 
 * Vim
+** Evil-better-jumper
+[[file:+vim/evil-better-jumper/README.org][+vim/evil-better-jumper/README.org]]
+
+This layer adds support for [[https://github.com/gilbertw1/better-jumper][better-jumper]]. A configurable jump list
+implementation for Emacs that can be used to easily jump back to previous
+locations.
+
+Features:
+- jump back and forth
+
 ** Evil-commentary
 [[file:+vim/evil-commentary/README.org][+vim/evil-commentary/README.org]]
 
@@ -3213,6 +3259,19 @@ Features:
 - Create notes in markdown and sync with [[https://evernote.com/][Evernote]] via [[http://www.geeknote.me][geeknote]].
 - Search for notes using keywords
 - Move notes between notebooks
+
+** Pocket
+[[file:+web-services/pocket/README.org][+web-services/pocket/README.org]]
+
+This layer adds [[https://getpocket.com/][Pocket]] support to Spacemacs via the package
+[[https://github.com/alphapapa/pocket-reader.el][pocket-reader]].
+
+Features:
+- Manage reading list: add, remove, delete, tag, view, favorite, etc.
+- Open links in Emacs or external browser
+- Sort views by date, title, domain, tags, favorite, etc.
+- Search items by keywords, tags, favorite status, unread/archived
+  status, etc.
 
 ** Search Engine
 [[file:+web-services/search-engine/README.org][+web-services/search-engine/README.org]]

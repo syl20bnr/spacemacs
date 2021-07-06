@@ -1,13 +1,25 @@
 ;;; core-keybindings.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (require 'core-funcs)
 
@@ -118,6 +130,20 @@ minor-mode, the third argument should be non nil."
               :evil-keys ,leaders
               :evil-states (normal motion visual evilified)))
           (boundp prefix)))))
+
+(defun spacemacs/inherit-leader-keys-from-parent-mode (mode &optional parent-mode)
+  "Make derived mode MODE inherit leader key bindings from PARENT-MODE.
+If omitted, PARENT-MODE defaults to the parent mode of MODE.
+Signal an error if MODE is not a derived mode (for example if the
+package defining the mode has not yet been loaded)."
+  (unless parent-mode
+    (setq parent-mode (or (get mode 'derived-mode-parent)
+                          (error "Mode %s has no parent" mode))))
+  (let ((map (intern (format "spacemacs-%s-map" mode)))
+        (parent-map (intern (format "spacemacs-%s-map" parent-mode))))
+    (when (and (spacemacs//init-leader-mode-map mode map)
+               (spacemacs//init-leader-mode-map parent-mode parent-map))
+      (set-keymap-parent (symbol-value map) (symbol-value parent-map)))))
 
 (defun spacemacs/set-leader-keys-for-major-mode (mode key def &rest bindings)
   "Add KEY and DEF as key bindings under

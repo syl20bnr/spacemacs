@@ -1,19 +1,47 @@
 ;;; funcs.el --- Shell Layer functions File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defun spacemacs/projectile-shell-pop ()
-  "Open a term buffer at projectile project root."
+  "Pop-up a shell buffer at the project root.
+Customize `shell-default-shell' to control what type of shell
+buffer you create. This function will pop-up a full-width buffer
+and move your focus to it; to switch the current buffer view, use
+`spacemacs/projectile-shell'."
   (interactive)
-  (let ((default-directory (projectile-project-root)))
+  (let ((default-directory (projectile-acquire-root)))
     (call-interactively 'spacemacs/default-pop-shell)))
+
+(defun spacemacs/projectile-shell ()
+  "Create a shell buffer at the project root and switch to it.
+Customize `shell-default-shell' to control what type of shell
+buffer you create. This function switches the current buffer
+view; to pop-up a full width buffer, use
+`spacemacs/projectile-shell-pop'."
+  (interactive)
+  (call-interactively
+   (or (and (eq shell-default-shell 'multi-term) #'projectile-multi-term-in-root)
+       (intern-soft (format "projectile-run-%s" shell-default-shell))
+       #'projectile-run-shell)))
 
 (defun spacemacs/disable-hl-line-mode ()
   "Locally disable global-hl-line-mode"

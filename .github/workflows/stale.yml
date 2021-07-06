@@ -8,7 +8,7 @@ jobs:
   stale:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/stale@v1
+    - uses: actions/stale@v3
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         stale-issue-message: >
@@ -23,5 +23,7 @@ jobs:
         exempt-issue-label: 'High Priority'
         stale-pr-label: 'stale'
         exempt-pr-label: 'High Priority'
+        exempt-all-pr-assignees: true
+        remove-stale-when-updated: true
         days-before-stale: 365
         days-before-close: 90

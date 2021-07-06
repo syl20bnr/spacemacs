@@ -97,11 +97,24 @@ installation command: =<M-x> dap-php-setup=.
 After that You can try to debug something. For example add a breakpoint to any
 of Your phpunit tests with =SPC m d b a=. And start debugging with =SPC m d d d=
 and selecting a debug template. Now run the test to ensure everything is
-working. The command to run the test while debugging could look like this:
+working. You may refer to one of the following examples to run Your tests.
+
+For xdebug v2:
 
 #+BEGIN_SRC sh
   php -d xdebug.idekey=PHPSTORM -d xdebug.remote_autostart=1 -d xdebug.remote_enable=1 -d xdebug.remote_host=127.0.0.1 -d xdebug.remote_port=9000 bin/phpunit ./path/to/Test.php
 #+END_SRC
+
+For xdebug v3:
+
+#+BEGIN_SRC sh
+  php -d xdebug.idekey=PHPSTORM -d xdebug.start_with_request=yes -d xdebug.mode=debug -d xdebug.client_host=127.0.0.1 -d xdebug.client_port=9000 bin/phpunit ./path/to/Test.php
+#+END_SRC
+
+Make sure You use the proper host. For example both =localhost= and =127.0.0.1=
+most likely will not work while debugging inside of docker. You have to use either
+=host.docker.internal= or Your machine's external IP if it doesn't work.
+See [[https://github.com/docker/for-linux/issues/264][this docker issue]] for reasons of troubles with =host.docker.internal=.
 
 The test is now expected to be paused by emacs/dap when it catches code at the
 breakpoint.

@@ -18,6 +18,8 @@
 - [[#key-bindings][Key bindings]]
   - [[#hjkl-navigation][hjkl navigation]]
   - [[#transient-state][Transient state]]
+  - [[#files][Files]]
+  - [[#buffers][Buffers]]
   - [[#bookmarks][Bookmarks]]
   - [[#colorsfaces][Colors/Faces]]
   - [[#c-z-and-tab-switch][C-z and Tab switch]]
@@ -137,7 +139,7 @@ Helm buffers with ~hjkl~.
 | ~C-H~       | describe key (replace ~C-h~) |
 | ~C-j~       | go to previous candidate     |
 | ~C-k~       | go to next candidate         |
-| ~C-l~       | same as ~return~             |
+| ~C-l~       | same as ~<return>~           |
 
 ** Transient state
 Spacemacs defines a transient state for =Helm= to make it work like [[https://github.com/Shougo/unite.vim][Vim's Unite]]
@@ -171,15 +173,29 @@ Initiate the transient state with ~M-SPC~ or ~s-M-SPC~ while in a =Helm= buffer.
 | ~T~                  | mark all candidates                                  |
 | ~v~                  | execute persistent action                            |
 
+** Files
+In the =helm-files= buffer:
+
+| Key binding  | Description                            |
+|--------------+----------------------------------------|
+| ~S-<return>~ | open the selected file in other window |
+
+** Buffers
+In the =helm-buffers= buffer:
+
+| Key binding  | Description                              |
+|--------------+------------------------------------------|
+| ~S-<return>~ | open the selected buffer in other window |
+
 ** Bookmarks
 In the =helm-bookmarks= buffer:
 
-| Key binding | Description                                  |
-|-------------+----------------------------------------------|
-| ~C-d~       | delete the selected bookmark                 |
-| ~C-e~       | edit the selected bookmark                   |
-| ~C-f~       | toggle filename location                     |
-| ~C-o~       | open the selected bookmark in another window |
+| Key binding  | Description                                |
+|--------------+--------------------------------------------|
+| ~C-d~        | delete the selected bookmark               |
+| ~C-e~        | edit the selected bookmark                 |
+| ~C-f~        | toggle filename location                   |
+| ~S-<return>~ | open the selected bookmark in other window |
 
 ** Colors/Faces
 
@@ -214,7 +230,7 @@ modifications to the buffer.
 ** Universal argument
 ~SPC u~ is not working before =helm-M-x= (~SPC SPC~). Instead, call =helm-M-x=
 first, select the command you want to run, and press ~C-u~ before pressing
-~RETURN~. For instance: ~SPC SPC org-reload C-u RET~
+~<return>~. For instance: ~SPC SPC org-reload C-u RET~
 
 ** Replacing text in several files
 If you have =rg=, =ag=, =pt= or =ack= installed, replacing an occurrence of text

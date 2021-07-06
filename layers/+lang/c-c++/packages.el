@@ -1,13 +1,25 @@
 ;;; packages.el --- C/C++ Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst c-c++-packages
   '(
@@ -109,8 +121,8 @@
     :defer t
     :init
     (progn
-      (when c++-enable-organize-includes-on-save
-        (add-hook 'c++-mode-hook #'spacemacs/c++-organize-includes-on-save))
+      (when c-c++-enable-organize-includes-on-save
+        (add-hook 'c++-mode-hook #'spacemacs/c-c++-organize-includes-on-save))
 
       (spacemacs/declare-prefix-for-mode 'c++-mode
         "mr" "refactor")
@@ -118,10 +130,10 @@
         "ri" #'spacemacs/c++-organize-includes))))
 
 (defun c-c++/pre-init-dap-mode ()
-  (pcase (spacemacs//c-c++-backend)
-    (`lsp-clangd (add-to-list 'spacemacs--dap-supported-modes 'c-mode)
+  (pcase c-c++-backend
+    ('lsp-clangd (add-to-list 'spacemacs--dap-supported-modes 'c-mode)
                  (add-to-list 'spacemacs--dap-supported-modes 'c++-mode))
-    (`lsp-ccls (add-to-list 'spacemacs--dap-supported-modes 'c-mode)
+    ('lsp-ccls (add-to-list 'spacemacs--dap-supported-modes 'c-mode)
                (add-to-list 'spacemacs--dap-supported-modes 'c++-mode)))
   (add-hook 'c-mode-local-vars-hook #'spacemacs//c-c++-setup-dap)
   (add-hook 'c++-mode-local-vars-hook #'spacemacs//c-c++-setup-dap))

@@ -1,0 +1,46 @@
+#+TITLE: Raku layer
+
+#+TAGS: general|layer|multi-paradigm|programming
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#jump-to-definition][Jump to definition]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer provides an environment for the [[https://www.raku.org/][Raku Programming Language]] that was previously known as Perl 6.
+
+** Features:
+- Jump to definition & Code completion via [[https://github.com/universal-ctags/ctags][ctags-universal]]
+- Syntax checking via [[https://github.com/Raku/flycheck-raku][flycheck-raku]] and =raku -c=
+- Syntax highlighting & Syntax indentation via [[https://github.com/Raku/raku-mode][raku-mode]]
+- =META6.json= highlighting via [[https://github.com/joshwnj/json-mode][json-mode]]
+- Provides Evil text objects for:
+  - double-angle-brackets
+  - corner-brackets
+  - single-quotation-marks
+  - double-quotation-marks
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =raku= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+** Jump to definition
+Jump to definition requires [[https://github.com/universal-ctags/ctags][ctags-universal]] to be be installed.
+Then you can generate the =TAGS= file for your projects like this:
+
+#+BEGIN_SRC shell
+  ctags -e -Ra lib t/
+  ctags -e -Ra --language-force=Perl6 bin/ $YOUR_PERL_PATH/share/perl6/site/sources/
+#+END_SRC
+
+* Key bindings
+
+| Key binding | Description                                    |
+|-------------+------------------------------------------------|
+| ~SPC m g g~ | Jump to definition (requires =ctags-universal= |

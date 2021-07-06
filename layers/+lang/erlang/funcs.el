@@ -1,42 +1,44 @@
 ;;; funcs.el --- Erlang Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Carlos F. Clavijo <arkan1313@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defun spacemacs//erlang-backend ()
-  "Returns selected backend."
-  (if erlang-backend
-      erlang-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'company-erlang))))
 
 (defun spacemacs//erlang-setup-backend ()
   "Conditionally setup erlang backend."
-  (pcase (spacemacs//erlang-backend)
-    (`lsp (spacemacs//erlang-setup-lsp)))
-  )
+  (when (eq erlang-backend 'lsp) (spacemacs//erlang-setup-lsp)))
 
 (defun spacemacs//erlang-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//erlang-backend)
-    ;; Activate lsp company explicitly to activate
-    ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
-            :backends company-capf
-            :modes erlang-mode
-            :append-hooks t))))
+  ;; Activate lsp company explicitly to activate
+  ;; standard backends as well
+  (when (eq erlang-backend 'lsp)
+    (spacemacs|add-company-backends
+      :backends company-capf
+      :modes erlang-mode
+      :append-hooks t)))
 
 (defun spacemacs//erlang-setup-lsp ()
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
-      (lsp)
+      (lsp-deferred)
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//erlang-default ()

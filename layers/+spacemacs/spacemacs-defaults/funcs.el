@@ -1,13 +1,25 @@
 ;;; funcs.el --- Spacemacs Defaults Layer functions File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (require 'cl-lib)
 
@@ -120,14 +132,6 @@ If not in such a search box, fall back on `Custom-newline'."
 (defalias 'spacemacs/insert-file 'insert-file)
 (defalias 'spacemacs/display-buffer-other-frame 'display-buffer-other-frame)
 (defalias 'spacemacs/find-file-and-replace-buffer 'find-alternate-file)
-
-(defun spacemacs/dired-remove-evil-mc-gr-which-key-entry ()
-  ;; Remove inherited bindings from evil-mc
-  ;; do this after the config to make sure the keymap is available
-  (with-eval-after-load 'dired
-    (which-key-add-keymap-based-replacements dired-mode-map
-      "<normal-state> g r" nil
-      "<visual-state> g r" nil)))
 
 (defun spacemacs/indent-region-or-buffer ()
   "Indent a region if selected, otherwise the whole buffer."
@@ -813,6 +817,11 @@ variable."
   (interactive)
   (find-file-existing user-init-file))
 
+(defun spacemacs/find-user-early-init-file ()
+  "Edit the `early-init-file', in the current window."
+  (interactive)
+  (find-file-existing early-init-file))
+
 (defun spacemacs/find-dotfile ()
   "Edit the `dotfile', in the current window."
   (interactive)
@@ -1161,12 +1170,12 @@ toggling fullscreen."
   (cond
    ((eq window-system 'x)
     (set-frame-parameter nil 'fullscreen
-                         (when (not (frame-parameter nil 'fullscreen))
+                         (unless (frame-parameter nil 'fullscreen)
                            'fullboth)))
    ((eq window-system 'mac)
     (set-frame-parameter
      nil 'fullscreen
-     (when (not (frame-parameter nil 'fullscreen)) 'fullscreen)))))
+     (unless (frame-parameter nil 'fullscreen)) 'fullscreen))))
 
 (defun spacemacs/toggle-frame-fullscreen-non-native ()
   "Toggle full screen using the `fullboth' frame parameter.
@@ -1421,6 +1430,30 @@ using a visual block/rectangle selection."
   (interactive)
   (spacemacs/sort-lines-by-column -1))
 
+;; Show scroll bar when using the mouse wheel
+(defun spacemacs//scroll-bar-hide ()
+  " Hide the scroll bar."
+  (scroll-bar-mode -1))
+
+(defun spacemacs//scroll-bar-show-delayed-hide (&rest _ignore)
+  "Show the scroll bar for a couple of seconds, before hiding it.
+
+This can be used to temporarily show the scroll bar when mouse wheel scrolling.
+(advice-add 'mwheel-scroll :after #'spacemacs//scroll-bar-show-delayed-hide)
+
+The advice can be removed with:
+(advice-remove 'mwheel-scroll #'spacemacs//scroll-bar-show-delayed-hide)"
+  (scroll-bar-mode 1)
+  (run-with-idle-timer
+   (if (numberp dotspacemacs-scroll-bar-while-scrolling)
+       dotspacemacs-scroll-bar-while-scrolling
+     3)
+   nil
+   #'spacemacs//scroll-bar-hide))
+(when (and (fboundp 'scroll-bar-mode)
+           dotspacemacs-scroll-bar-while-scrolling)
+  (advice-add 'mwheel-scroll :after #'spacemacs//scroll-bar-show-delayed-hide))
+
 ;; BEGIN linum mouse helpers
 
 (defvar spacemacs-linum-mdown-line nil
@@ -1434,8 +1467,8 @@ using a visual block/rectangle selection."
           (line-move-visual t))
       (goto-char (window-start))
       (next-line (1- click-y))
-      (1+ (line-number-at-pos))
-      )))
+      (1+ (line-number-at-pos)))))
+
 
 (defun spacemacs/md-select-linum (event)
   "Set point as spacemacs-linum-mdown-line"
@@ -1740,6 +1773,14 @@ Decision is based on `dotspacemacs-line-numbers'."
           disabled-for-modes
           (not disabled-for-parent)))))
 
+
+;; quick run
+(defun spacemacs/quickrun ()
+  "Call `quickrun' or `quickrun-region'"
+  (interactive)
+  (if (region-active-p)
+      (call-interactively 'quickrun-region)
+    (quickrun)))
 
 ;; randomize region
 

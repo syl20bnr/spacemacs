@@ -1,13 +1,25 @@
 ;;; core-dotspacemacs.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (require 'core-customization)
 
@@ -340,7 +352,7 @@ running Emacs in terminal."
 
 (spacemacs|defc dotspacemacs-folding-method 'evil
   "Code folding method. Possible values are `evil', `origami' and `vimish'."
-  '(choice (cosnt evil) (const origami) (const vimish))
+  '(choice (const evil) (const origami) (const vimish))
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-default-layout-name "Default"
@@ -400,7 +412,7 @@ elements in the `kill-ring'."
 the which-key buffer will be shown if you have not completed a
 key sequence. Setting this variable is equivalent to setting
 `which-key-idle-delay'."
-  'float
+  'number
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-which-key-position 'bottom
@@ -477,7 +489,7 @@ can be toggled through `toggle-transparency'."
   "If non nil unicode symbols are displayed in the mode-line (eg. for lighters).
 If you use Emacs as a daemon and wants unicode characters only in GUI set
 the value to quoted `display-graphic-p'. (default t)"
-  '(choice boolean (connst display-graphic-p))
+  '(choice boolean (const display-graphic-p))
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-smooth-scrolling t
@@ -486,6 +498,12 @@ Smooth scrolling overrides the default behavior of Emacs which
 recenters point when it reaches the top or bottom of the
 screen."
   'boolean
+  'spacemacs-dotspacemacs-init)
+
+(spacemacs|defc dotspacemacs-scroll-bar-while-scrolling t
+  "Show the scroll bar while scrolling. The auto hide time can be configured by
+setting this variable to a number."
+  '(choice boolean number)
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-line-numbers nil
@@ -611,6 +629,16 @@ number of recent files to show in each project."
   'boolean
   'spacemacs-dotspacemacs-init)
 
+(spacemacs|defc dotspacemacs-show-startup-list-numbers t
+  "Show numbers before the startup list lines."
+  'boolean
+  'spacemacs-dotspacemacs-init)
+
+(spacemacs|defc dotspacemacs-startup-buffer-multi-digit-delay 0.4
+  "The minimum delay in seconds between number key presses."
+  'number
+  'spacemacs-dotspacemacs-init)
+
 (spacemacs|defc dotspacemacs-excluded-packages '()
   "A list of packages that will not be installed and loaded."
   '(repeat symbol)
@@ -639,6 +667,11 @@ If non nil activate `clean-aindent-mode' which tries to correct
 virtual indentation of simple modes. This can interfere with mode specific
 indent handling like has been reported for `go-mode'.
 If it does deactivate it here. (default t)"
+  'boolean
+  'spacemacs-dotspacemacs-init)
+
+(spacemacs|defc dotspacemacs-use-SPC-as-y nil
+  "Accept SPC as y for prompts if non nil. (default nil)"
   'boolean
   'spacemacs-dotspacemacs-init)
 
@@ -972,18 +1005,17 @@ If ARG is non nil then ask questions to the user before installing the dotfile."
             (when (string-match-p "%t" title-format)
               (if (boundp 'spacemacs--buffer-project-name)
                   spacemacs--buffer-project-name
-                (set (make-local-variable 'spacemacs--buffer-project-name)
-                     (if (fboundp 'projectile-project-name)
-                         (projectile-project-name)
-                       "-")))))
+                (setq-local spacemacs--buffer-project-name
+                            (if (fboundp 'projectile-project-name)
+                                (projectile-project-name)
+                              "-")))))
            (abbreviated-file-name
             (when (string-match-p "%a" title-format)
               (if (boundp 'spacemacs--buffer-abbreviated-filename)
                   spacemacs--buffer-abbreviated-filename
-                (set (make-local-variable
-                      'spacemacs--buffer-abbreviated-filename)
-                     (abbreviate-file-name (or (buffer-file-name)
-                                               (buffer-name)))))))
+                (setq-local spacemacs--buffer-abbreviated-filename
+                            (abbreviate-file-name (or (buffer-file-name)
+                                                      (buffer-name)))))))
            (fs (format-spec-make
                 ?a abbreviated-file-name
                 ?t project-name
@@ -1084,7 +1116,11 @@ error recovery."
 (defmacro dotspacemacs||let-init-test (&rest body)
   "Macro to protect dotspacemacs variables"
   `(let ((fpath dotspacemacs-filepath)
-         ,@(dotspacemacs/get-variable-list)
+         ,@(mapcar (lambda (symbol)
+                     `(,symbol ,(let ((v (symbol-value symbol)))
+                                  (if (or (symbolp v) (listp v))
+                                      `',v v))))
+                   (dotspacemacs/get-variable-list))
          (passed-tests 0) (total-tests 0))
      (setq dotspacemacs-filepath fpath)
      (load dotspacemacs-filepath)
