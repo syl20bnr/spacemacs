@@ -215,7 +215,12 @@ to 'auto, tags may not be properly aligned. "
 
 ;;;;; ahs
      `(ahs-face ((,class (:background ,highlight))))
+     `(ahs-face-unfocused ((,class (:background ,highlight))))
+     `(ahs-definition-face ((,class (:background ,highlight))))
+     `(ahs-definition-face-unfocused ((,class (:background ,highlight))))
      `(ahs-plugin-whole-buffer-face ((,class (:background ,mat :foreground ,bg1))))
+     `(ahs-plugin-default-face ((,class (:background ,highlight))))
+     `(ahs-plugin-default-face-unfocused ((,class (:background ,highlight))))
 
 ;;;;; anzu-mode
      `(anzu-mode-line ((,class (:foreground ,yellow :inherit bold))))
