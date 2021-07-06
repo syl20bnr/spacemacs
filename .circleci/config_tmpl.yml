@@ -130,7 +130,15 @@ workflows:
         - equal: [<< pipeline.parameters.prj_url >>, << pipeline.project.git_url >>]
     jobs:
       - "Update documentation files"
-  update-built-in:
+  update-built-in-on-push:
+    when:
+      and:
+        - equal: [<< pipeline.parameters.is_branch_update >>, "yes"]
+        - equal: [<< pipeline.git.branch >>, "develop"]
+        - equal: [<< pipeline.parameters.prj_url >>, << pipeline.project.git_url >>]
+    jobs:
+      - "Update built-in files"
+  update-built-in-cron:
     when:
       equal: [<< pipeline.parameters.prj_url >>, << pipeline.project.git_url >>]
     triggers:
