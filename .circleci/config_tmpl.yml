@@ -118,20 +118,21 @@ workflows:
   validate-pr-files:
     when:
       not:
-        equal: [ << pipeline.parameters.is_branch_update >>, "yes"]
+        equal: [<< pipeline.parameters.is_branch_update >>, "yes"]
     jobs:
       - "Validate PR"
       - "Validate Documentation"
   update-documentation:
     when:
       and:
-        - equal: [ << pipeline.parameters.is_branch_update >>, "yes"]
-        - equal: [ << pipeline.git.branch >>, "develop"]
+        - equal: [<< pipeline.parameters.is_branch_update >>, "yes"]
+        - equal: [<< pipeline.git.branch >>, "develop"]
+        - equal: [<< pipeline.parameters.prj_url >>, << pipeline.project.git_url >>]
     jobs:
       - "Update documentation files"
   update-built-in:
     when:
-      equal: [ << pipeline.parameters.is_branch_update >>, "yes"]
+      equal: [<< pipeline.parameters.prj_url >>, << pipeline.project.git_url >>]
     triggers:
       - schedule:
           cron: "0 0,6,12,18 * * *"
