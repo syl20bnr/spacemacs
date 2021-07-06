@@ -33,6 +33,7 @@
                               (eq 'hybrid dotspacemacs-editing-style)))
         (dired :location built-in)
         (dired-x :location built-in)
+        (image-dired :location built-in)
         (display-line-numbers :location built-in
                               :toggle (version<= "26" emacs-version))
         (electric-indent-mode :location built-in)
@@ -151,6 +152,20 @@
     :commands (dired-jump
                dired-jump-other-window
                dired-omit-mode)))
+
+(defun spacemacs-defaults/init-image-dired ()
+  (use-package image-dired
+    :defer t
+    :config
+    (evilified-state-evilify-map image-dired-thumbnail-mode-map
+      :mode image-dired-thumbnail-mode
+      :bindings
+      "j" 'image-dired-next-line
+      "k" 'image-dired-previous-line
+      "l" 'image-dired-forward-image
+      "h" 'image-dired-backward-image)
+    (evilified-state-evilify-map image-dired-display-image-mode-map
+      :mode image-dired-display-image-mode)))
 
 (defun spacemacs-defaults/init-electric-indent-mode ()
   (electric-indent-mode))
