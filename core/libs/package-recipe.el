@@ -38,7 +38,7 @@
 (defclass package-recipe ()
   ((url-format      :allocation :class       :initform nil)
    (repopage-format :allocation :class       :initform nil)
-   (tag-regexp      :allocation :class       :initform nil)
+   (time-regexp     :allocation :class       :initform nil)
    (stable-p        :allocation :class       :initform nil)
    (name            :initarg :name           :initform nil)
    (url             :initarg :url            :initform nil)
@@ -66,7 +66,7 @@
 ;;;; Git
 
 (defclass package-git-recipe (package-recipe)
-  ((tag-regexp      :initform "\
+  ((time-regexp     :initform "\
 \\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\} \
 [0-9]\\{2\\}:[0-9]\\{2\\}:[0-9]\\{2\\}\\( [+-][0-9]\\{4\\}\\)?\\)")))
 
@@ -81,7 +81,7 @@
 ;;;; Mercurial
 
 (defclass package-hg-recipe (package-recipe)
-  ((tag-regexp      :initform "\
+  ((time-regexp     :initform "\
 \\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\} \
 [0-9]\\{2\\}:[0-9]\\{2\\}\\( [+-][0-9]\\{4\\}\\)?\\)")))
 
