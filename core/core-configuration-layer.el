@@ -1,14 +1,26 @@
 ;; -*- nameless-current-name: "configuration-layer" -*-
 ;;; core-configuration-layer.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (require 'cl-lib)
 (require 'epg)
@@ -442,9 +454,9 @@ cache folder.")
     (setq package-enable-at-startup nil)
     (package-initialize 'noactivate)
     ;; hack to be sure to enable insalled org from Org ELPA repository
-    (when (package-installed-p 'org-plus-contrib)
+    (when (package-installed-p 'org)
       (spacemacs-buffer/message "Initializing Org early...")
-      (configuration-layer//activate-package 'org-plus-contrib))))
+      (configuration-layer//activate-package 'org))))
 
 (defun configuration-layer//configure-quelpa ()
   "Configure `quelpa' package."
@@ -2113,6 +2125,7 @@ LAYER must not be the owner of PKG."
 If called with a prefix argument or NO-CONFIRMATION is non-nil then assume yes
 to update."
   (interactive "P")
+  (switch-to-buffer spacemacs-buffer-name)
   (spacemacs-buffer/insert-page-break)
   (spacemacs-buffer/append "\nUpdating package archives, please wait...\n")
   (configuration-layer/retrieve-package-archives nil 'force)
@@ -2385,17 +2398,12 @@ depends on it."
 
 (defun configuration-layer//package-delete (pkg-name)
   "Delete package with name PKG-NAME."
-  (cond
-   ((version<= "25.0.50" emacs-version)
-    (let ((p (cadr (assq pkg-name package-alist))))
+  (if-let ((pkg (car (alist-get pkg-name package-alist))))
       ;; add force flag to ignore dependency checks in Emacs25
-      (if (not (configuration-layer//system-package-p p))
-          (package-delete p t t)
-        (message "Would have removed package %s but this is a system package so it has not been changed." pkg-name))))
-   (t (let ((p (cadr (assq pkg-name package-alist))))
-        (if (not (configuration-layer//system-package-p p))
-            (package-delete p)
-          (message "Would have removed package %s but this is a system package so it has not been changed." pkg-name))))))
+      (if (configuration-layer//system-package-p pkg)
+          (message "Would have removed package %s but this is a system package so it has not been changed." pkg-name)
+        (package-delete pkg t t))
+    (message "Can't remove package %s since it isn't installed." pkg-name)))
 
 (defun configuration-layer/delete-orphan-packages (packages)
   "Delete PACKAGES if they are orphan."
@@ -2598,7 +2606,8 @@ Original code from dochang at https://github.com/dochang/elpa-clone"
   (let (package-archive-contents
         (package-archives '(("melpa" . "https://melpa.org/packages/")
                             ("org"   . "https://orgmode.org/elpa/")
-                            ("gnu"   . "https://elpa.gnu.org/packages/"))))
+                            ("gnu"   . "https://elpa.gnu.org/packages/")
+                            ("nongnu" . "https://elpa.nongnu.org/nongnu/"))))
     (package-refresh-contents)
     (package-read-all-archive-contents)
     (let* ((packages (configuration-layer//get-indexed-elpa-package-names))
@@ -2722,6 +2731,10 @@ continue with the stable ELPA repository installation."
           (error (setq verification-err
                        (format "GnuPGP doesn't seem to be available. %s"
                                (cdr error)))))
+        (when package-gnupghome-dir
+          (with-file-modes 448
+            (make-directory package-gnupghome-dir t))
+          (setf (epg-context-home-directory context) package-gnupghome-dir))
         (unless verification-err
           (condition-case error
               (epg-import-keys-from-file
@@ -2835,40 +2848,6 @@ files."
 ;; (configuration-layer/create-elpa-repository
 ;;  "spacelpa"
 ;;  spacemacs-cache-directory)
-
-(defun configuration-layer//package-install-org (func &rest args)
-  "Advice around `package-install' to patch package name and dependencies at
-install time in order to replace all `org' package installation by
-`org-plus-contrib'. We avoid installing unecessarily both `org' and
-`org-plus-contrib' at the same time (i.e. we always install `org-plus-contrib')"
-  (let* ((pkg (car args))
-         (patched
-          (cond
-           ;; patch symbol name
-           ((and (symbolp pkg) (eq 'org pkg))
-            (setcar args 'org-plus-contrib)
-            t)
-           ;; patch name in package-desc object
-           ((and (package-desc-p pkg)
-                 (eq 'org (package-desc-name pkg)))
-            (setf (package-desc-name pkg) 'org-plus-contrib)
-            t)
-           ;; patch dependencies in package-desc object
-           ((and (package-desc-p pkg)
-                 (assq 'org (package-desc-reqs pkg)))
-            (setf (car (assq 'org (package-desc-reqs pkg))) 'org-plus-contrib)
-            t))))
-    (let ((name (if (package-desc-p pkg)
-                    (package-desc-name pkg)
-                  pkg)))
-      ;; check manually if `org-plus-contrib' is already installed since
-      ;; package.el may install `org-plus-contrib' more than once.
-      ;; Maybe we could hook somewhere else (at transaction computation time?)
-      (if (or patched (eq 'org-plus-contrib name))
-          (unless (package-installed-p name)
-            (apply func args))
-        (apply func args)))))
-(advice-add 'package-install :around #'configuration-layer//package-install-org)
 
 (defun configuration-layer//increment-error-count ()
   "Increment the error counter."

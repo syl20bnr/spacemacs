@@ -1,13 +1,25 @@
 ;;; packages.el --- Rust Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Chris Hoeppner <me@mkaito.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst rust-packages
   '(
@@ -31,9 +43,12 @@
     :init
     (progn
       (spacemacs/declare-prefix-for-mode 'rust-mode "mc" "cargo")
+      (spacemacs/declare-prefix-for-mode 'rust-mode "mt" "tests")
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-        "c." 'cargo-process-repeat
-        "ca" 'cargo-process-add
+        "c." 'spacemacs/cargo-process-repeat
+        "c/" 'cargo-process-search
+        "c=" 'cargo-process-fmt
+        "ca" 'spacemacs/cargo-process-add
         "cA" 'cargo-process-audit
         "cc" 'cargo-process-build
         "cC" 'cargo-process-clean
@@ -41,20 +56,19 @@
         "cD" 'cargo-process-doc-open
         "ce" 'cargo-process-bench
         "cE" 'cargo-process-run-example
-        "cf" 'cargo-process-fmt
         "ci" 'cargo-process-init
         "cl" 'cargo-process-clippy
         "cn" 'cargo-process-new
-        "co" 'cargo-process-current-file-tests
-        "cr" 'cargo-process-rm
-        "cs" 'cargo-process-search
-        "ct" 'cargo-process-current-test
+        "co" 'cargo-process-outdated
+        "cr" 'spacemacs/cargo-process-rm
         "cu" 'cargo-process-update
-        "cU" 'cargo-process-upgrade
+        "cU" 'spacemacs/cargo-process-upgrade
+        "cv" 'cargo-process-check
         "cx" 'cargo-process-run
         "cX" 'cargo-process-run-bin
-        "cv" 'cargo-process-check
-        "t" 'cargo-process-test))))
+        "ta" 'cargo-process-test
+        "tt" 'cargo-process-current-test
+        "tb" 'cargo-process-current-file-tests))))
 
 (defun rust/post-init-company ()
   ;; backend specific
@@ -64,9 +78,9 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'rust-mode))
 
 (defun rust/pre-init-dap-mode ()
-  (pcase (spacemacs//rust-backend)
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'rust-mode)))
-  (add-hook 'rust-mode-local-vars-hook #'spacemacs//rust-setup-dap))
+  (when (eq rust-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'rust-mode)
+    (add-hook 'rust-mode-local-vars-hook #'spacemacs//rust-setup-dap)))
 
 (defun rust/post-init-flycheck ()
   (spacemacs/enable-flycheck 'rust-mode))

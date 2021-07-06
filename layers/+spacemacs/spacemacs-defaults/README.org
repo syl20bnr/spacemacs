@@ -33,6 +33,7 @@ defaults.
   - package-menu
   - page-break-lines
   - process-menu
+  - quickrun
   - recentf
   - savehist
   - saveplace

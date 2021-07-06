@@ -26,7 +26,9 @@ file.
 
 * Configuration
 This package comes preconfigured to auto install the native library in your cache
-directory. It uses the new =smart-mode= instead of the =indent-mode= traditionally
+directory. If this is not desired set the variables =parinfer-auto-download= to =nil=
+and set =parinfer-library= to the path of your local installation.
+This mode uses the new =smart-mode= instead of the =indent-mode= traditionally
 used with =parinfer=. For the autoinstallation =curl= is required to be in your
 path.
 

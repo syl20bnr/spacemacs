@@ -143,6 +143,7 @@
       - [[#frame-manipulation-key-bindings][Frame manipulation key bindings]]
       - [[#emacs-and-spacemacs-files][Emacs and Spacemacs files]]
       - [[#browsing-files-in-completion-buffer][Browsing files in completion buffer]]
+      - [[#popup-buffers][Popup buffers]]
     - [[#ido][Ido]]
     - [[#ido-transient-state][Ido transient state]]
     - [[#bookmarks][Bookmarks]]
@@ -212,6 +213,7 @@
     - [[#error-transient-state][Error transient state]]
     - [[#custom-fringe-bitmaps][Custom fringe bitmaps]]
   - [[#compiling][Compiling]]
+  - [[#quickrun][Quickrun]]
 - [[#editorconfig][EditorConfig]]
 - [[#emacs-server][Emacs Server]]
   - [[#connecting-to-the-emacs-server][Connecting to the Emacs server]]
@@ -437,11 +439,11 @@ Example:
 #+END_SRC
 
 **** Overriding a layer package
-See [[https://www.spacemacs.org/doc/FAQ.html#how-to-override-a-layer-package][this answer in the FAQ's]].
+See [[https://develop.spacemacs.org/doc/FAQ.html#how-to-override-a-layer-package][this answer in the FAQ's]].
 
 *** Without a layer
 Sometimes a layer can be an unnecessary overhead, this is the case if you just
-want to install a package with very few configuration associated to it. A good
+want to install a package with very few configurations associated to it. A good
 example is some niche language where you are only interested in syntax
 highlighting.
 
@@ -964,7 +966,7 @@ for the toggle to turn on and off the =which-key= minor mode.
 
 Major mode specific toggles can be turned on by registering a hook on them to
 call the "toggle on" function automatically whenever a buffer using this major
-mode is opened. It can be done convenienty using the function
+mode is opened. It can be done conveniently using the function
 =spacemacs/toggle-NAME-on-register-hooks=. It also exists variants of this
 function for each supported major mode like
 =spacemacs/toggle-NAME-on-register-hook-MODE=.
@@ -1506,7 +1508,7 @@ errors, warnings and info.
 /Flycheck integration in mode-line/
 
 **** Anzu integration
-[[https://github.com/syohex/emacs-anzu][Anzu]] shows the number of occurrence when performing a search. Spacemacs
+[[https://github.com/syohex/emacs-anzu][Anzu]] shows the number of occurrences when performing a search. Spacemacs
 integrates the Anzu status nicely by displaying it temporarily when ~n~ or ~N~
 are being pressed. See the =5/6= segment on the screenshot below.
 
@@ -1566,7 +1568,7 @@ appropriate font).
 The letters displayed in the mode-line correspond to the key bindings used to
 toggle them.
 
-Some toggle have two flavors: local and global. The global version of the toggle
+Some toggles have two flavors: local and global. The global version of the toggle
 can be reached using the =control= key.
 
 Additionally all globally available toggles have a circled unicode symbols like
@@ -2037,6 +2039,7 @@ thusly:
 | ~SPC h d t~ | describe text properties                                  |
 | ~SPC h d T~ | describe a theme                                          |
 | ~SPC h d v~ | describe a variable                                       |
+| ~SPC h d x~ | describe an evil ex-command                               |
 
 Other help key bindings:
 
@@ -2254,7 +2257,6 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 | ~SPC j j~   | jump to one or more characters in the buffer (works as an evil motion)            |
 | ~SPC j k~   | jump to next line and indent it using auto-indent rules                           |
 | ~SPC j l~   | jump to a line with avy (works as an evil motion)                                 |
-| ~SPC j q~   | show the dumb-jump quick look tooltip                                             |
 | ~SPC j u~   | jump to a URL in the current buffer                                               |
 | ~SPC j U~   | select a URL in the current buffer and follow it                                  |
 | ~SPC j v~   | jump to the definition/declaration of an Emacs Lisp variable                      |
@@ -2574,6 +2576,7 @@ navigate between =Emacs= and Spacemacs specific files.
 | ~SPC f e E~   | reload the environment variables by executing the function =dotspacemacs/user-env=                      |
 | ~SPC f e C-e~ | reinitialize the =~/.spacemacs.env= file by importing system and shell environment variables            |
 | ~SPC f e i~   | open the all mighty =init.el=                                                                           |
+| ~SPC f e I~   | open the =early-init.el=                                                                                |
 | ~SPC f e l~   | locate an Emacs library                                                                                 |
 | ~SPC f e R~   | resync the dotfile with spacemacs                                                                       |
 | ~SPC f e U~   | update packages                                                                                         |
@@ -2582,7 +2585,7 @@ navigate between =Emacs= and Spacemacs specific files.
 
 **** Browsing files in completion buffer
 In =vim= style and =hybrid= style with the variable
-=hybrid-mode-enable-hjkl-bindings= set to =t=, you can navigation with ~hjkl~.
+=hybrid-mode-enable-hjkl-bindings= set to =t=, you can navigate with ~hjkl~.
 
 | Key binding | Description                       |
 |-------------+-----------------------------------|
@@ -2591,6 +2594,11 @@ In =vim= style and =hybrid= style with the variable
 | ~C-j~       | go to previous candidate          |
 | ~C-k~       | go to next candidate              |
 | ~C-l~       | enter current directory           |
+
+**** Popup buffers
+=popwin= is used to manage buffers such as ~*Help*~, ~*Completions*~,
+~*compilation*~, and etc. Use =C-g= to close them or most of the time you can
+close them with =q= also. Use ~SPC-r-w~ to view the last closed popup buffer.
 
 *** Ido
 Spacemacs displays the =ido= minibuffer vertically thanks to the
@@ -3381,54 +3389,96 @@ Examples:
 ***** Lisp state key bindings
 These commands automatically switch to =lisp state=.
 
+Navigation:
+
+| Key binding | Description                                                             |
+|-------------+-------------------------------------------------------------------------|
+|             | Forward + Backward pairs                                                |
+|-------------+-------------------------------------------------------------------------|
+| ~SPC k j~   | go forward to next closing parenthesis                                  |
+| ~SPC k k~   | go backward to previous opening parenthesis                             |
+| ~SPC k l~   | go forward to next symbol                                               |
+| ~SPC k h~   | go backward to previous symbol                                          |
+| ~SPC k L~   | go forward to next sexp                                                 |
+| ~SPC k H~   | go backward to previous sexp                                            |
+| ~SPC k $~   | go forward to the end of current sexp                                   |
+| ~SPC k 0~   | go backward to the beginning of current sexp                            |
+|-------------+-------------------------------------------------------------------------|
+|             | Other                                                                   |
+|-------------+-------------------------------------------------------------------------|
+| ~SPC k U~   | go "up": to parent sexp backward                                        |
+| ~SPC k %~   | go to other paren of the same pair                                      |
+| ~SPC k I~   | go back to beginning of current expression and switch to =insert= state |
+
+Manipulation:
+
+| Key binding | Description                                                  |
+|-------------+--------------------------------------------------------------|
+| ~SPC k s~   | slurp forward: ~a (bs) c~ -> ~a (bs c)~                      |
+| ~SPC k S~   | slurp backward: ~a (bs) c~ -> ~(a bs) c~                     |
+| ~SPC k b~   | barf forward: ~(a bs c)~ -> ~(a bs) c~                       |
+| ~SPC k B~   | barf backward: ~(a bs c)~ -> ~a (bs c)~                      |
+| ~SPC k a~   | absorb: ~(a (bs <point> ..))~ -> ~((bs a <point> ..))~       |
+| ~SPC k c~   | convolute: ~(as (bs <point> ..))~ -> ~(bs (as <point> ..))~  |
+| ~SPC k t~   | transpose: ~(as <point> bs)~ -> ~(bs <point> as)~            |
+| ~SPC k J~   | join: ~(as) <point> (bs)~ -> ~(as <point> bs)~               |
+|-------------+--------------------------------------------------------------|
+|             | Hybrid (= better for non-Lisp languages) commands            |
+|-------------+--------------------------------------------------------------|
+| ~SPC k ` s~ | hybrid slurp forward                                         |
+| ~SPC k ` p~ | hybrid push: ~<point>as bs~ -> ~<point>bs as~                |
+| ~SPC k ` t~ | hybrid transpose: ~as <point> bs~ -> ~bs <point> as~         |
+|-------------+--------------------------------------------------------------|
+| Note 1:     | ~xs~ is one or multiple sexp, ~x~ is a single sexp           |
+| Note 2:     | point is at <point> when presented, or in the list otherwise |
+
+Insertion:
+
+| Key binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC k (~   | insert sexp before current one |
+| ~SPC k )~   | insert sexp after current one  |
+| ~SPC k w~   | wrap a symbol with parenthesis |
+
+Deletion:
+
 | Key binding | Description                                                         |
 |-------------+---------------------------------------------------------------------|
-| ~SPC k %~   | evil jump item                                                      |
-| ~SPC k :~   | ex command                                                          |
-| ~SPC k (~   | insert expression before (same level as current one)                |
-| ~SPC k )~   | insert expression after (same level as current one)                 |
-| ~SPC k $~   | go to the end of current sexp                                       |
-| ~SPC k ` k~ | hybrid version of push sexp (can be used in non lisp dialects)      |
-| ~SPC k ` p~ | hybrid version of push sexp (can be used in non lisp dialects)      |
-| ~SPC k ` s~ | hybrid version of slurp sexp (can be used in non lisp dialects)     |
-| ~SPC k ` t~ | hybrid version of transpose sexp (can be used in non lisp dialects) |
-| ~SPC k 0~   | go to the beginning of current sexp                                 |
-| ~SPC k a~   | absorb expression                                                   |
-| ~SPC k b~   | forward barf expression                                             |
-| ~SPC k B~   | backward barf expression                                            |
-| ~SPC k c~   | convolute expression                                                |
 | ~SPC k ds~  | delete symbol                                                       |
-| ~SPC k Ds~  | backward delete symbol                                              |
+| ~SPC k Ds~  | delete symbol backward                                              |
 | ~SPC k dw~  | delete word                                                         |
-| ~SPC k Dw~  | backward delete word                                                |
-| ~SPC k dx~  | delete expression                                                   |
-| ~SPC k Dx~  | backward delete expression                                          |
-| ~SPC k e~   | unwrap current expression and kill all symbols after point          |
-| ~SPC k E~   | unwrap current expression and kill all symbols before point         |
-| ~SPC k h~   | previous symbol                                                     |
-| ~SPC k H~   | go to previous sexp                                                 |
-| ~SPC k i~   | switch to =insert state=                                            |
-| ~SPC k I~   | go to beginning of current expression and switch to =insert state=  |
-| ~SPC k j~   | next closing parenthesis                                            |
-| ~SPC k J~   | join expression                                                     |
-| ~SPC k k~   | previous opening parenthesis                                        |
-| ~SPC k l~   | next symbol                                                         |
-| ~SPC k L~   | go to next sexp                                                     |
-| ~SPC k p~   | paste after                                                         |
-| ~SPC k P~   | paste before                                                        |
-| ~SPC k r~   | raise expression (replace parent expression by current one)         |
-| ~SPC k s~   | forward slurp expression                                            |
-| ~SPC k S~   | backward slurp expression                                           |
-| ~SPC k t~   | transpose expression                                                |
-| ~SPC k u~   | undo                                                                |
-| ~SPC k U~   | got to parent sexp backward                                         |
-| ~SPC k C-r~ | redo                                                                |
-| ~SPC k v~   | switch to =visual state=                                            |
-| ~SPC k V~   | switch to =visual line state=                                       |
-| ~SPC k C-v~ | switch to =visual block state=                                      |
-| ~SPC k w~   | wrap expression with parenthesis                                    |
-| ~SPC k W~   | unwrap expression                                                   |
-| ~SPC k y~   | copy expression                                                     |
+| ~SPC k Dw~  | delete word backward                                                |
+| ~SPC k dx~  | delete sexp: ~(as <point> a ..)~ -> ~(as <point> ..)~               |
+| ~SPC k Dx~  | delete sexp backward: ~(as a <point> ..)~ -> ~(as <point> ..)~      |
+| ~SPC k e~   | splice, killing forward: ~(as (bs <point> cs) ds)~ -> ~(as bs ds)~  |
+| ~SPC k E~   | splice, killing backward: ~(as (bs <point> cs) ds)~ -> ~(as cs ds)~ |
+| ~SPC k r~   | raise: ~(as <point> b ..)~ -> ~<point>b~                            |
+| ~SPC k W~   | unwrap sexp: ~(as)~ -> ~as~                                         |
+|-------------+---------------------------------------------------------------------|
+|             | Hybrid (= better for non-Lisp languages) commands                   |
+|-------------+---------------------------------------------------------------------|
+| ~SPC k ` k~ | hybrid delete sexp                                                  |
+|-------------+---------------------------------------------------------------------|
+| Note 1:     | ~xs~ is one or multiple sexp, ~x~ is a single sexp                  |
+| Note 2:     | point is at ~<point>~ when presented, or in the list otherwise      |
+
+Bindings from normal state:
+
+For convenience, a number of normal state evil binding are available in lisp state as well:
+
+| Key binding | Description                                                 |
+|-------------+-------------------------------------------------------------|
+| ~SPC k :~   | ex command                                                  |
+| ~SPC k i~   | switch to =insert= state                                    |
+| ~SPC k I~   | switch to =insert= state at beginning of current line       |
+| ~SPC k v~   | switch to =visual= state and begin character-wise selection |
+| ~SPC k V~   | switch to =visual= state and begin line-wise selection      |
+| ~SPC k C-v~ | switch to =visual= state and begin block-wise selection     |
+| ~SPC k u~   | undo                                                        |
+| ~SPC k C-r~ | redo                                                        |
+| ~SPC k y~   | copy expression                                             |
+| ~SPC k p~   | paste after                                                 |
+| ~SPC k P~   | paste before                                                |
 
 ***** Emacs lisp specific key bindings
 
@@ -3688,6 +3738,14 @@ Spacemacs binds a few commands to support compiling a project.
 | ~SPC c m~   | =helm-make=                    |
 | ~SPC c r~   | recompile                      |
 
+** Quickrun
+Spacemacs can execute current buffer or region.
+
+| Key binding | Description                                       |
+|-------------+---------------------------------------------------|
+| ~SPC x x~   | smart =quickrun= or =quickrun-region=             |
+| ~C-g~       | to dismiss a quickrun buffer without selecting it |
+
 * EditorConfig
 Spacemacs has support for [[http://editorconfig.org/][EditorConfig]], a configuration file to "define and
 maintain consistent coding styles between different editors and IDEs."
@@ -3855,7 +3913,7 @@ retested.
 | [[https://github.com/syl20bnr/spacemacs/issues/5000][5000th issue (too many issues)]] | [[https://github.com/justbur][justbur]]      |
 | [[https://github.com/syl20bnr/spacemacs/pull/6000][6000th issue (PR)]]              | [[https://github.com/d12frosted][d12frosted]]   |
 | [[https://github.com/syl20bnr/spacemacs/pull/7000][7000th issue (PR)]]              | [[https://github.com/deb0ch][deb0ch]]       |
-| [[https://github.com/syl20bnr/spacemacs/issues/8000][8000th issue (bug)]]             | [[https://github.com/jonbash][jonbash]]      |
+| [[https://github.com/syl20bnr/spacemacs/issues/8000][8000th issue (bug)]]             | jonbash      |
 | [[https://github.com/syl20bnr/spacemacs/issues/9000][9000th issue (bug)]]             | [[https://github.com/shaunpatel][shaunpatel]]   |
 | [[https://github.com/syl20bnr/spacemacs/pull/10000][10000th issue (PR)]]             | [[https://github.com/nikital][nikital]]      |
 

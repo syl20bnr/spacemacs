@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+## Export script for documentation files.
+##
+## Copyright (c) 2012-2014 Sylvain Benner
+## Copyright (c) 2014-2022 Sylvain Benner & Contributors
+##
+## Author: Eugene Yaremenko
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
+
+mkdir -p "/tmp/sdn/"
+echo_headline "Extract data out of documentation files into .sdn"
+emacs -batch \
+      -l /opt/spacetools/spacedoc/sdnize/sdnize \
+      -no-site-file \
+      -q \
+      ~/.emacs.d/ \
+      /tmp/sdn/

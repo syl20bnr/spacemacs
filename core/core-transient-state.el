@@ -1,14 +1,26 @@
 ;;; -*- lexical-binding: t -*-
 ;;; core-transient-state.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Justin Burkett <justin@burkett.cc>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defun spacemacs//transient-state-func-name (name)
   "Return the name of the transient state function."
@@ -106,8 +118,8 @@ effect if called after that point."
                                :columns ,prop-columns
                                :foreign-keys ,prop-foreign-keys
                                :body-pre ,prop-entry-sexp
-                               :before-exit ,prop-exit-sexp)))
-                 'append))))
+                               :before-exit ,prop-exit-sexp)))))
+             'append))
 
 (defface spacemacs-transient-state-title-face
   `((t :inherit mode-line))
@@ -130,6 +142,12 @@ Available PROPS:
     Provide a title in the header of the transient state
 `:columns INTEGER'
     Automatically generate :doc with this many number of columns.
+`:timeout INTEGER'
+    The :timeout key starts a timer for the corresponding amount
+    of seconds that disables the transient state. Calling any
+    head will refresh the timer.
+`:idle INTEGER'
+    This key can delay the appearance of the hint.
 `:hint BOOLEAN'
     Whether to display hints. Default is nil.
 `:hint-is-doc BOOLEAN'
@@ -171,6 +189,8 @@ used."
          (title (plist-get props :title))
          (hint-var (intern (format "%s/hint" func)))
          (columns (plist-get props :columns))
+         (timeout (plist-get props :timeout))
+         (idle (plist-get props :idle))
          (entry-sexp (plist-get props :on-enter))
          (exit-sexp (plist-get props :on-exit))
          (hint (plist-get props :hint))
@@ -198,6 +218,8 @@ used."
                 (nil nil
                  :hint ,hint
                  :columns ,columns
+                 :timeout ,timeout
+                 :idle ,idle
                  :foreign-keys ,foreign-keys
                  :body-pre ,entry-sexp
                  :before-exit ,exit-sexp)

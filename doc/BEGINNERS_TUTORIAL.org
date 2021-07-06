@@ -110,7 +110,7 @@ Spacemacs.
 A short instant after the spacebar is pressed a menu pops up. This interactive
 menu shows you what submenus and commands can be accessed by subsequent
 keypresses. Browsing around this menu is a great way of finding new features in
-Spacemacs, so keep on eye on the different options! ~ESC~ usually breaks the
+Spacemacs, so keep an eye on the different options! ~ESC~ usually breaks the
 combination you don't want to use.
 
 ** Buffers, windows and frames

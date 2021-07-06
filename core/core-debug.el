@@ -1,13 +1,25 @@
 ;;; core-debug.el --- Spacemacs Core File  -*- lexical-binding: t; -*-
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defun spacemacs/display-and-copy-version ()
   "Echo the current spacemacs version and copy it."
@@ -131,7 +143,7 @@ seconds to load")
                 (with-current-buffer "*load-times*"
                   (goto-char (point-max))
                   (insert (format "[%.3f] Spacemacs finished initializing\n\n"
-                                  (float-time (time-since emacs-start-time)) )))))
+                                  (float-time (time-since emacs-start-time)))))))
 
     (advice-add 'load :around #'spacemacs//load-timer)
     (advice-add 'require :around #'spacemacs//load-timer)
@@ -167,8 +179,7 @@ seconds to load")
            "- Editing style: %s\n"
            "- Completion: %s\n"
            "- Layers:\n```elisp\n%s```\n"
-           (when (version<= "25.1" emacs-version)
-             "- System configuration features: %s\n"))
+           "- System configuration features: %s\n")
    system-type
    emacs-version
    spacemacs-version
@@ -223,6 +234,20 @@ seconds to load")
                       'face 'font-lock-warning-face)
                      "You can paste it in the gitter chat.\n"
                      "Check the *Messages* buffer if you need to review it"))))
+
+(defun spacemacs/describe-ex-command (ex-command)
+  (interactive (list (completing-read "Describe ex-command: " evil-ex-commands)))
+  (let* ((func (alist-get ex-command evil-ex-commands nil nil 'string=))
+         (prompt (if (stringp func)
+                     "The ex-command :%s is an alias for the ex-command :%s. Describe :%s?"
+                   "The ex-command :%s calls %s. Describe %s?")))
+    (when (y-or-n-p (format prompt
+                            ex-command
+                            func
+                            func))
+      (if (stringp func)
+          (spacemacs/describe-ex-command func)
+        (describe-function func)))))
 
 (defun spacemacs/report-issue (arg)
   "Open a spacemacs/report-issue-mode buffer prepopulated with

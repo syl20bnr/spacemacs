@@ -1,13 +1,25 @@
 ;;; packages.el --- Spacemacs Layouts Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (setq spacemacs-layouts-packages
       '(eyebrowse
@@ -45,35 +57,35 @@
         :dynamic-hint (spacemacs//workspaces-ts-hint)
         :bindings
         ("?" spacemacs//workspaces-ts-toggle-hint)
-        ("0" eyebrowse-switch-to-window-config-0 :exit t)
-        ("1" eyebrowse-switch-to-window-config-1 :exit t)
-        ("2" eyebrowse-switch-to-window-config-2 :exit t)
-        ("3" eyebrowse-switch-to-window-config-3 :exit t)
-        ("4" eyebrowse-switch-to-window-config-4 :exit t)
-        ("5" eyebrowse-switch-to-window-config-5 :exit t)
-        ("6" eyebrowse-switch-to-window-config-6 :exit t)
-        ("7" eyebrowse-switch-to-window-config-7 :exit t)
-        ("8" eyebrowse-switch-to-window-config-8 :exit t)
-        ("9" eyebrowse-switch-to-window-config-9 :exit t)
-        ("C-0" eyebrowse-switch-to-window-config-0)
-        ("C-1" eyebrowse-switch-to-window-config-1)
-        ("C-2" eyebrowse-switch-to-window-config-2)
-        ("C-3" eyebrowse-switch-to-window-config-3)
-        ("C-4" eyebrowse-switch-to-window-config-4)
-        ("C-5" eyebrowse-switch-to-window-config-5)
-        ("C-6" eyebrowse-switch-to-window-config-6)
-        ("C-7" eyebrowse-switch-to-window-config-7)
-        ("C-8" eyebrowse-switch-to-window-config-8)
-        ("C-9" eyebrowse-switch-to-window-config-9)
+        ("0" spacemacs/eyebrowse-switch-to-window-config-0 :exit t)
+        ("1" spacemacs/eyebrowse-switch-to-window-config-1 :exit t)
+        ("2" spacemacs/eyebrowse-switch-to-window-config-2 :exit t)
+        ("3" spacemacs/eyebrowse-switch-to-window-config-3 :exit t)
+        ("4" spacemacs/eyebrowse-switch-to-window-config-4 :exit t)
+        ("5" spacemacs/eyebrowse-switch-to-window-config-5 :exit t)
+        ("6" spacemacs/eyebrowse-switch-to-window-config-6 :exit t)
+        ("7" spacemacs/eyebrowse-switch-to-window-config-7 :exit t)
+        ("8" spacemacs/eyebrowse-switch-to-window-config-8 :exit t)
+        ("9" spacemacs/eyebrowse-switch-to-window-config-9 :exit t)
+        ("C-0" spacemacs/eyebrowse-switch-to-window-config-0)
+        ("C-1" spacemacs/eyebrowse-switch-to-window-config-1)
+        ("C-2" spacemacs/eyebrowse-switch-to-window-config-2)
+        ("C-3" spacemacs/eyebrowse-switch-to-window-config-3)
+        ("C-4" spacemacs/eyebrowse-switch-to-window-config-4)
+        ("C-5" spacemacs/eyebrowse-switch-to-window-config-5)
+        ("C-6" spacemacs/eyebrowse-switch-to-window-config-6)
+        ("C-7" spacemacs/eyebrowse-switch-to-window-config-7)
+        ("C-8" spacemacs/eyebrowse-switch-to-window-config-8)
+        ("C-9" spacemacs/eyebrowse-switch-to-window-config-9)
         ("<tab>" eyebrowse-last-window-config)
         ("<return>" nil :exit t)
         ("TAB" eyebrowse-last-window-config)
         ("RET" nil :exit t)
-        ("c" eyebrowse-create-window-config :exit t)
-        ("C" eyebrowse-create-window-config)
+        ("c" spacemacs/clone-workspace :exit t)
+        ("C" spacemacs/clone-workspace)
         ("C-h" eyebrowse-prev-window-config)
         ("C-l" eyebrowse-next-window-config)
-        ("d" eyebrowse-close-window-config)
+        ("d" spacemacs/eyebrowse-close-window-config)
         ("l" spacemacs/layouts-transient-state/body :exit t)
         ("n" eyebrowse-next-window-config)
         ("N" eyebrowse-prev-window-config)

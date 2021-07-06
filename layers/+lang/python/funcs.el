@@ -1,29 +1,25 @@
 ;;; funcs.el --- Python Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defun spacemacs//python-backend ()
-  "Returns selected backend."
-  (if python-backend
-      python-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'anaconda))))
-
-(defun spacemacs//python-formatter ()
-  "Returns selected backend."
-  (if python-formatter
-      python-formatter
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'yapf))))
 
 (defun spacemacs//poetry-activate ()
   "Attempt to activate Poetry only if its configuration file is found."
@@ -35,28 +31,29 @@
 
 (defun spacemacs//python-setup-backend ()
   "Conditionally setup python backend."
-  (when python-pipenv-activate (pipenv-activate)
-        python-poetry-activate (spacemacs//poetry-activate))
-  (pcase (spacemacs//python-backend)
-    (`anaconda (spacemacs//python-setup-anaconda))
-    (`lsp (spacemacs//python-setup-lsp))))
+  (when python-pipenv-activate (pipenv-activate))
+  (when python-poetry-activate (spacemacs//poetry-activate))
+  (pcase python-backend
+    ('anaconda (spacemacs//python-setup-anaconda))
+    ('lsp (spacemacs//python-setup-lsp))))
 
 (defun spacemacs//python-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//python-backend)
-    (`anaconda (spacemacs//python-setup-anaconda-company))))
+  (when (eq python-backend 'anaconda)
+    (spacemacs//python-setup-anaconda-company)))
 
 (defun spacemacs//python-setup-dap ()
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase (spacemacs//python-backend)
-    (`lsp (spacemacs//python-setup-lsp-dap))))
+  (when (eq python-backend 'lsp)
+    (spacemacs//python-setup-lsp-dap)))
 
 (defun spacemacs//python-setup-eldoc ()
   "Conditionally setup eldoc based on backend."
-  (pcase (spacemacs//python-backend)
+  (when (eq python-backend 'anaconda)
     ;; lsp setup eldoc on its own
-    (`anaconda (spacemacs//python-setup-anaconda-eldoc))))
+    (spacemacs//python-setup-anaconda-eldoc)))
+
 
 ;; anaconda
 
@@ -92,9 +89,12 @@
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        (cond ((eq python-lsp-server 'mspyls)  (require 'lsp-python-ms))
-              ((eq python-lsp-server 'pyright) (require 'lsp-pyright)))
-        (lsp))
+        (require (pcase python-lsp-server
+                   ('pylsp 'lsp-pylsp)
+                   ('mspyls 'lsp-python-ms)
+                   ('pyright 'lsp-pyright)
+                   (x (user-error "Unknown value for `python-lsp-server': %s" x))))
+        (lsp-deferred))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//python-setup-lsp-dap ()
@@ -114,10 +114,6 @@
   (when python-spacemacs-indent-guess
     (python-indent-guess-indent-offset))
 
-  (when (version< emacs-version "24.5")
-    ;; auto-indent on colon doesn't work well with if statement
-    ;; should be fixed in 24.5 and above
-    (setq electric-indent-chars (delq ?: electric-indent-chars)))
   (setq-local comment-inline-offset 2)
   (spacemacs/python-annotate-pdb)
   ;; make C-j work the same way as RET
@@ -392,17 +388,18 @@ to be called for each testrunner. "
   "Bind the python formatter keys.
 Bind formatter to '==' for LSP and '='for all other backends."
   (spacemacs/set-leader-keys-for-major-mode 'python-mode
-    (if (eq (spacemacs//python-backend) 'lsp)
+    (if (eq python-backend 'lsp)
         "=="
-      "=") 'spacemacs/python-format-buffer))
+      "=")
+    'spacemacs/python-format-buffer))
 
 (defun spacemacs/python-format-buffer ()
   "Bind possible python formatters."
   (interactive)
-  (pcase (spacemacs//python-formatter)
-    (`yapf (yapfify-buffer))
-    (`black (blacken-buffer))
-    (`lsp (lsp-format-buffer))
+  (pcase python-formatter
+    ('yapf (yapfify-buffer))
+    ('black (blacken-buffer))
+    ('lsp (lsp-format-buffer))
     (code (message "Unknown formatter: %S" code))))
 
 
@@ -451,22 +448,22 @@ Bind formatter to '==' for LSP and '='for all other backends."
     (python-shell-send-region start end)))
 
 (defun spacemacs/python-shell-send-line ()
-	"Send the current line to shell"
-	(interactive)
-	(let ((python-mode-hook nil)
-	       (start (point-at-bol))
-	       (end (point-at-eol)))
-	      (python-shell-send-region start end)))
+  "Send the current line to shell"
+  (interactive)
+  (let ((python-mode-hook nil)
+        (start (point-at-bol))
+        (end (point-at-eol)))
+    (python-shell-send-region start end)))
 
 (defun spacemacs/python-shell-send-statement ()
-	"Send the current statement to shell, same as `python-shell-send-statement' in Emacs27."
-	(interactive)
+  "Send the current statement to shell, same as `python-shell-send-statement' in Emacs27."
+  (interactive)
   (if (fboundp 'python-shell-send-statement)
       (call-interactively #'python-shell-send-statement)
     (if (region-active-p)
         (call-interactively #'python-shell-send-region)
       (let ((python-mode-hook nil))
-	      (python-shell-send-region
+        (python-shell-send-region
          (save-excursion (python-nav-beginning-of-statement))
          (save-excursion (python-nav-end-of-statement)))))))
 
@@ -520,11 +517,6 @@ Bind formatter to '==' for LSP and '='for all other backends."
   (switch-to-buffer-other-window "*compilation*")
   (end-of-buffer)
   (evil-insert-state))
-
-;; fix for issue #2569 (https://github.com/syl20bnr/spacemacs/issues/2569)
-(when (version< emacs-version "25")
-  (advice-add 'wisent-python-default-setup :after
-              #'spacemacs//python-imenu-create-index-use-semantic-maybe))
 
 (defun spacemacs//bind-python-repl-keys ()
   "Bind the keys for testing in Python."

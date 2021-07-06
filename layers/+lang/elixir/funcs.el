@@ -1,38 +1,40 @@
 ;;; funcs.el --- Elixir Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defun spacemacs//elixir-backend ()
-  "Returns selected backend."
-  (if elixir-backend
-      elixir-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'alchemist))))
 
 (defun spacemacs//elixir-setup-backend ()
   "Conditionally setup elixir backend."
-  (pcase (spacemacs//elixir-backend)
-    (`alchemist (spacemacs//elixir-setup-alchemist))
-    (`lsp (spacemacs//elixir-setup-lsp))))
+  (pcase elixir-backend
+    ('alchemist (spacemacs//elixir-setup-alchemist))
+    ('lsp (spacemacs//elixir-setup-lsp))))
 
 (defun spacemacs//elixir-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//elixir-backend)
-    (`alchemist (spacemacs//elixir-setup-alchemist-company))))
+  (when (eq elixir-backend 'alchemist) (spacemacs//elixir-setup-alchemist-company)))
 
 (defun spacemacs//elixir-setup-dap ()
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase (spacemacs//elixir-backend)
-    (`lsp (spacemacs//elixir-setup-lsp-dap))))
+  (when (eq elixir-backend 'lsp) (spacemacs//elixir-setup-lsp-dap)))
 
 
 ;;alchemist
@@ -42,11 +44,10 @@
 
 (defun spacemacs//elixir-setup-alchemist-company ()
   (when (configuration-layer/package-used-p 'alchemist)
-    (progn
-      (spacemacs|add-company-backends
-        :backends alchemist-company
-        :modes elixir-mode alchemist-iex-mode)
-      (company-mode))))
+    (spacemacs|add-company-backends
+      :backends alchemist-company
+      :modes elixir-mode alchemist-iex-mode)
+    (company-mode)))
 
 
 ;;lsp
@@ -54,7 +55,7 @@
 (defun spacemacs//elixir-setup-lsp ()
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
-      (progn (add-to-list 'exec-path elixir-ls-path) (lsp))
+      (progn (add-to-list 'exec-path elixir-ls-path) (lsp-deferred))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//elixir-setup-lsp-dap ()

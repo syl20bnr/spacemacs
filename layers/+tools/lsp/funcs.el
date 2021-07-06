@@ -1,13 +1,25 @@
 ;;; funcs.el --- Language Server Protocol Layer functions file for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Fangrui Song <i@maskray.me>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defun spacemacs//setup-lsp-jump-handler ()
   "Set jump handler for LSP with the given MODE."
@@ -19,11 +31,39 @@
 ;; Used for lsp-ui-peek-mode, but may be able to use some spacemacs fn. instead?
 (defun spacemacs/lsp-define-key (keymap key def &rest bindings)
   "Define multiple key bindings with KEYMAP KEY DEF BINDINGS."
-  (interactive)
   (while key
     (define-key keymap (kbd key) def)
     (setq key (pop bindings)
           def (pop bindings))))
+
+(defun spacemacs/lsp-bind-upstream-keys ()
+  "Bind upstream `lsp-command-map' behind \"SPC m\" and the likes."
+  (bind-map lsp-command-map
+    :minor-modes (lsp-mode)
+    :keys ((concat dotspacemacs-emacs-leader-key " m") dotspacemacs-major-mode-emacs-leader-key)
+    :evil-keys ((concat dotspacemacs-leader-key " m") dotspacemacs-major-mode-leader-key)
+    :evil-states (normal motion visual evilified))
+  (dolist (it '(("=" . "format")
+                ("F" . "folder")
+                ("T" . "toggle")
+                ("g" . "goto")
+                ("h" . "help")
+                ("r" . "refactor")
+                ("w" . "workspace")
+                ("a" . "actions")
+                ("G" . "peek")))
+    (which-key-add-keymap-based-replacements lsp-command-map (car it) (cdr it)))
+  ;; we still have to bind keys for `lsp-ivy' and `helm-lsp'
+  (cond
+   ((configuration-layer/package-usedp 'ivy)
+    (spacemacs/lsp-define-key lsp-command-map
+                              "gs" #'lsp-ivy-workspace-symbol
+                              "gS" #'lsp-ivy-global-workspace-symbol
+                              "FR" #'lsp-ivy-workspace-folders-remove))
+   ((configuration-layer/package-usedp 'helm)
+    (spacemacs/lsp-define-key lsp-command-map
+                              "gs" #'helm-lsp-workspace-symbol
+                              "gS" #'helm-lsp-global-workspace-symbol))))
 
 (defun spacemacs/lsp-bind-keys ()
   "Define key bindings for the lsp minor mode."
@@ -262,6 +302,10 @@ EXTRA is an additional parameter that's passed to the LSP function"
 (defun spacemacs//lsp-action-placeholder ()
   (interactive)
   (message "Not supported yet... (to be implemented in 'lsp-mode')"))
+
+(defun spacemacs//lsp-client-server-id ()
+  "Return the ID of the LSP server associated with current project."
+  (mapcar 'lsp--client-server-id (mapcar 'lsp--workspace-client (lsp-workspaces))))
 
 
 ;; ivy integration

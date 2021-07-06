@@ -1,13 +1,25 @@
 ;;; packages.el --- react layer packages file for Spacemacs. -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Andrea Moretti <axyzxp@gmail.com>
 ;; URL: https://github.com/axyz
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst react-packages
   '(
@@ -57,17 +69,8 @@
   (use-package rjsx-mode
     :defer t
     :init
-    ;; enable rjsx mode by using magic-mode-alist
-    (defun +javascript-jsx-file-p ()
-      (and buffer-file-name
-           (or (equal (file-name-extension buffer-file-name) "js")
-               (equal (file-name-extension buffer-file-name) "jsx"))
-           (re-search-forward "\\(^\\s-*import React\\|\\( from \\|require(\\)[\"']react\\)"
-                              magic-mode-regexp-match-limit t)
-           (progn (goto-char (match-beginning 1))
-                  (not (spacemacs//react-inside-string-or-comment-q)))))
 
-    (add-to-list 'magic-mode-alist (cons #'+javascript-jsx-file-p 'rjsx-mode))
+    (add-to-list 'magic-mode-alist (cons #'spacemacs//javascript-jsx-file-p 'rjsx-mode))
 
     ;; setup rjsx backend
     (add-hook 'rjsx-mode-local-vars-hook #'spacemacs//react-setup-backend)

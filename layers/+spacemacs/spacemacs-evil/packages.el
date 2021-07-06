@@ -1,13 +1,25 @@
 ;;; packages.el --- Spacemacs Evil Layer packages File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (setq spacemacs-evil-packages
       '(
@@ -36,7 +48,6 @@
         evil-visual-mark-mode
         evil-visualstar
         (hs-minor-mode :location built-in)
-        (linum-relative :toggle (version< emacs-version "26"))
         vi-tilde-fringe
         eldoc))
 
@@ -110,7 +121,14 @@
     :config
     (setq evil-collection-mode-list spacemacs-evil-collection-allowed-list)
     (setq evil-collection-want-unimpaired-p nil)
-    (evil-collection-init)))
+    (evil-collection-init)
+    ;; replace `dired-goto-file' with equivalent helm and ivy functions:
+    ;; `spacemacs/helm-find-files' fuzzy matching and other features
+    ;; `spacemacs/counsel-find-file' more `M-o' actions
+    (with-eval-after-load 'dired
+      (evil-define-key 'normal dired-mode-map "J"
+        (cond ((configuration-layer/layer-used-p 'helm) 'spacemacs/helm-find-files)
+              ((configuration-layer/layer-used-p 'ivy) 'spacemacs/counsel-find-file))))))
 
 (defun spacemacs-evil/init-evil-escape ()
   (use-package evil-escape
@@ -384,18 +402,6 @@
 
 (defun spacemacs-evil/init-hs-minor-mode ()
   (add-hook 'prog-mode-hook 'spacemacs//enable-hs-minor-mode))
-
-(defun spacemacs-evil/init-linum-relative ()
-  (use-package linum-relative
-    :commands (linum-relative-toggle linum-relative-on)
-    :init
-    (progn
-      (when (or (spacemacs/visual-line-numbers-p)
-                (spacemacs/relative-line-numbers-p))
-        (add-hook 'spacemacs-post-user-config-hook 'linum-relative-on))
-      (spacemacs/set-leader-keys "tr" 'spacemacs/linum-relative-toggle))
-    :config
-    (setq linum-relative-current-symbol "")))
 
 (defun spacemacs-evil/init-vi-tilde-fringe ()
   (spacemacs|do-after-display-system-init

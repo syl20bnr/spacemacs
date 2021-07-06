@@ -1,13 +1,25 @@
 ;;; packages.el --- Helm Layer packages File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (setq helm-packages
       '(
@@ -121,16 +133,22 @@
       ;; various key bindings
       (spacemacs||set-helm-key "fel" helm-locate-library)
       (spacemacs||set-helm-key "hdm" describe-mode)
+      (spacemacs||set-helm-key "hdx" spacemacs/describe-ex-command)
       (spacemacs||set-helm-key "swg" helm-google-suggest)
       (with-eval-after-load 'helm-files
         (define-key helm-find-files-map
           (kbd "C-c C-e") 'spacemacs/helm-find-files-edit)
+        (define-key helm-find-files-map
+          (kbd "S-<return>") 'helm-ff-run-switch-other-window)
         (defun spacemacs//add-action-helm-find-files-edit ()
           (helm-add-action-to-source
            "Edit files in dired `C-c C-e'" 'spacemacs//helm-find-files-edit
            helm-source-find-files))
         (add-hook 'helm-find-files-before-init-hook
                   'spacemacs//add-action-helm-find-files-edit))
+      (with-eval-after-load 'helm-buffers
+        (define-key helm-buffer-map
+          (kbd "S-<return>") 'helm-buffer-switch-other-window))
       ;; Add minibuffer history with `helm-minibuffer-history'
       (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
       ;; Delay this key bindings to override the defaults
@@ -184,7 +202,7 @@
         (define-key helm-bookmark-map
           (kbd "C-f") 'helm-bookmark-toggle-filename)
         (define-key helm-bookmark-map
-          (kbd "C-o") 'helm-bookmark-run-jump-other-window)
+          (kbd "S-<return>") 'helm-bookmark-run-jump-other-window)
         (define-key helm-bookmark-map (kbd "C-/") 'helm-bookmark-help))
       (with-eval-after-load 'helm-bookmark
         (simpler-helm-bookmark-keybindings))

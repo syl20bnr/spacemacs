@@ -1,13 +1,25 @@
 ;;; packages.el --- search-engine Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 ;; List of all packages to install and/or initialize. Built-in packages
 ;; which require an initialization must be listed explicitly in the list.
@@ -26,7 +38,9 @@
       (setq search-engine-alist
             `((amazon
                :name "Amazon"
-               :url "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%%3Daps&field-keywords=%s")
+               :url (concat "https://www.amazon."
+                            search-engine-amazon-tld
+                            "/s/ref=nb_sb_noss?url=search-alias%%3Daps&field-keywords=%s"))
               (bing
                :name "Bing"
                :url "https://www.bing.com/search?q=%s")
@@ -96,6 +110,12 @@
               (wolfram-alpha
                :name "Wolfram Alpha"
                :url "https://www.wolframalpha.com/input/?i=%s")
+              (debian-packages
+               :name "Debian Package Search"
+               :url "https://packages.debian.org/search?keywords=%s")
+              (ubuntu-packages
+               :name "Ubuntu Package Search"
+               :url "https://packages.ubuntu.com/search?keywords=%s")
               (melpa
                :name "Melpa Package Search"
                :url "https://melpa.org/#/?q=%s")

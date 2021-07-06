@@ -1,13 +1,25 @@
 ;;; packages.el --- Python Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst python-packages
   '(
@@ -54,7 +66,7 @@
 
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
-    :if (eq (spacemacs//python-backend) 'anaconda)
+    :if (eq python-backend 'anaconda)
     :defer t
     :init
     (setq anaconda-mode-installation-directory
@@ -98,7 +110,7 @@
 
 (defun python/init-company-anaconda ()
   (use-package company-anaconda
-    :if (eq (spacemacs//python-backend) 'anaconda)
+    :if (eq python-backend 'anaconda)
     :defer t))
 ;; see `spacemacs//python-setup-anaconda-company'
 
@@ -109,7 +121,7 @@
     (progn
       (spacemacs//bind-python-formatter-keys)
       (when (and python-format-on-save
-                 (eq 'black (spacemacs//python-formatter)))
+                 (eq 'black python-formatter))
         (add-hook 'python-mode-hook 'blacken-mode)))
     :config (spacemacs|hide-lighter blacken-mode)))
 
@@ -117,14 +129,14 @@
   (use-package cython-mode
     :defer t
     :config
-    (when (eq (spacemacs//python-backend) 'anaconda)
+    (when (eq python-backend 'anaconda)
       (spacemacs/set-leader-keys-for-major-mode 'cython-mode
         "hh" 'anaconda-mode-show-doc
         "gu" 'anaconda-mode-find-references))))
 
 (defun python/pre-init-dap-mode ()
-  (pcase (spacemacs//python-backend)
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'python-mode)))
+  (when (eq python-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'python-mode))
   (add-hook 'python-mode-local-vars-hook #'spacemacs//python-setup-dap))
 
 (defun python/post-init-eldoc ()
@@ -275,11 +287,11 @@
     :init
     (progn
       (pcase python-auto-set-local-pyenv-version
-        (`on-visit
+        ('on-visit
          (dolist (m spacemacs--python-pyenv-modes)
            (add-hook (intern (format "%s-hook" m))
                      'spacemacs//pyenv-mode-set-local-version)))
-        (`on-project-switch
+        ('on-project-switch
          (add-hook 'projectile-after-switch-project-hook
                    'spacemacs//pyenv-mode-set-local-version)))
       ;; setup shell correctly on environment switch
@@ -298,11 +310,11 @@
     (progn
       (add-hook 'python-mode-hook #'pyvenv-tracking-mode)
       (pcase python-auto-set-local-pyvenv-virtualenv
-        (`on-visit
+        ('on-visit
          (dolist (m spacemacs--python-pyvenv-modes)
            (add-hook (intern (format "%s-hook" m))
                      'spacemacs//pyvenv-mode-set-local-virtualenv)))
-        (`on-project-switch
+        ('on-project-switch
          (add-hook 'projectile-after-switch-project-hook
                    'spacemacs//pyvenv-mode-set-local-virtualenv)))
       (dolist (m spacemacs--python-pyvenv-modes)
@@ -352,9 +364,8 @@
       (spacemacs/register-repl 'python
                                'spacemacs/python-start-or-switch-repl "python")
       (spacemacs//bind-python-repl-keys)
-      (spacemacs/add-to-hook 'python-mode-hook
-                             '(spacemacs//python-setup-backend
-                               spacemacs//python-default))
+      (add-hook 'python-mode-local-vars-hook 'spacemacs//python-setup-backend)
+      (add-hook 'python-mode-hook 'spacemacs//python-default)
       ;; call `spacemacs//python-setup-shell' once, don't put it in a hook
       ;; (see issue #5988)
       (spacemacs//python-setup-shell))
@@ -464,7 +475,7 @@ fix this issue."
     (progn
       (spacemacs//bind-python-formatter-keys)
       (when (and python-format-on-save
-                 (eq 'yapf (spacemacs//python-formatter)))
+                 (eq 'yapf python-formatter))
         (add-hook 'python-mode-hook 'yapf-mode)))
     :config (spacemacs|hide-lighter yapf-mode)))
 

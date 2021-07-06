@@ -1,13 +1,25 @@
 ;;; packages.el --- Spacemacs UI Visual Layer packages File
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (setq spacemacs-visual-packages
       '(
@@ -20,8 +32,8 @@
         hl-todo
         popup
         popwin
-        (zoom-frm :location local)
-        ))
+        (zoom-frm :location local)))
+
 
 (defun spacemacs-visual/init-ansi-colors ()
   (add-hook 'compilation-filter-hook
@@ -53,6 +65,7 @@
 (defun spacemacs-visual/init-fill-column-indicator ()
   (use-package fill-column-indicator
     :defer t
+    :spacediminish ((fci-mode " ⓕ" " f"))
     :init
     (progn
       (setq fci-rule-width 1)
@@ -64,9 +77,7 @@
         :on (turn-on-fci-mode)
         :off (turn-off-fci-mode)
         :documentation "Display the fill column indicator."
-        :evil-leader "tf"))
-    :config
-    (spacemacs|diminish fci-mode " ⓕ" " f")))
+        :evil-leader "tf"))))
 
 (defun spacemacs-visual/init-hl-todo ()
   (use-package hl-todo
@@ -85,11 +96,13 @@
       (popwin-mode 1)
       (spacemacs/set-leader-keys "wpm" 'popwin:messages)
       (spacemacs/set-leader-keys "wpp" 'popwin:close-popup-window)
+      (spacemacs/set-leader-keys "rw" 'spacemacs/last-popwin)
 
       ;; don't use default value but manage it ourselves
       (setq popwin:special-display-config nil)
 
       ;; buffers that we manage
+      (push '("*quickrun*"             :dedicated t :position bottom :stick t :noselect t   :height 0.3) popwin:special-display-config)
       (push '("*Help*"                 :dedicated t :position bottom :stick t :noselect t   :height 0.4) popwin:special-display-config)
       (push '("*Process List*"         :dedicated t :position bottom :stick t :noselect nil :height 0.4) popwin:special-display-config)
       (push '(compilation-mode         :dedicated nil :position bottom :stick t :noselect t   :height 0.4) popwin:special-display-config)
@@ -102,7 +115,9 @@
       (push '("*grep*"                 :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
       (push '("*nosetests*"            :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
       (push '("^\*WoMan.+\*$" :regexp t             :position bottom                                   ) popwin:special-display-config)
-      (push '("*Google Translate*"     :dedicated t :position bottom :stick t :noselect t   :height 0.4) popwin:special-display-config))))
+      (push '("*Google Translate*"     :dedicated t :position bottom :stick t :noselect t   :height 0.4) popwin:special-display-config)
+
+      (advice-add 'popwin:match-config :around #'spacemacs/advice-popwin))))
 
 (defun spacemacs-visual/init-zoom-frm ()
   (use-package zoom-frm

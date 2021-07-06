@@ -40,6 +40,8 @@ Don't forget to setup the environment variables:
 | ~SPC p 4 r~ | revert a file                                                |
 | ~SPC p 4 R~ | refresh content of an file. =sync -f=                        |
 | ~SPC p 4 S~ | submit CL                                                    |
+| ~SPC p 4 [~ | shelve CL                                                    |
+| ~SPC p 4 ]~ | unshelve specified CL                                        |
 | ~SPC p 4 b~ | create, modify, or delete a branch view specification        |
 | ~SPC p 4 B~ | display list of branch specifications                        |
 | ~SPC p 4 c~ | create or edit a client workspace specification and its view |

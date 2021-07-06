@@ -1,20 +1,32 @@
 ;;; config.el --- C/C++ Layer config File for Spacemacs
 ;;
-;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 ;; variables
 
 (spacemacs|define-jump-handlers c++-mode)
 (spacemacs|define-jump-handlers c-mode)
 
-(defvar c-c++-backend nil
+(defvar c-c++-backend (when (configuration-layer/layer-used-p 'lsp) 'lsp-clangd)
   "The backend to use for IDE features.
 Possible values are `lsp-ccls', `lsp-clangd', `rtags' and `ycmd'.")
 
@@ -60,8 +72,8 @@ Add `dap-gdb-lldb' for the WebFreak Native Debug extension.")
 
 
 ;; style
-
-(defvar c++-enable-organize-includes-on-save nil
+(define-obsolete-variable-alias 'c++-enable-organize-includes-on-save 'c-c++-enable-organize-includes-on-save nil)
+(defvar c-c++-enable-organize-includes-on-save nil
   "If non-nil then automatically organize the includes on save C++ buffer.")
 
 (defvar c-c++-enable-auto-newline nil
@@ -78,7 +90,7 @@ Add `dap-gdb-lldb' for the WebFreak Native Debug extension.")
 
 ;; misc
 
-(defvar c-c++-default-mode-for-headers (when (not (functionp 'c-or-c++-mode)) 'c-mode)
+(defvar c-c++-default-mode-for-headers (unless (functionp 'c-or-c++-mode) 'c-mode)
   "Default mode to open header files. Can be `c-mode' or `c++-mode', or `c-or-c++-mode' for Emacs > 26+.")
 
 (defvar c-c++-adopt-subprojects nil

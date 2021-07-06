@@ -11,14 +11,13 @@
 ##
 ## License: GPLv3
 
-skip_when_branch_update
 fail_when_undefined_pr_number
 
 pr_base=$(curl -s "${pr_data_URL}" | jq '.base.ref')
-if [[ "${pr_base}" == "\"${dev_b}\"" ]]; then
+if [[ "${pr_base}" == "\"develop\"" ]]; then
     echo "You are PRing to the develop branch. This is good."
     exit 0
-elif [[ "${pr_base}" == "\"${mst_b}\"" ]]; then
+elif [[ "${pr_base}" == "\"master\"" ]]; then
     printf '=%.0s' {1..80}
     printf "\n       し(*･∀･)／   Thanks for the contribution!  ＼(･∀･*)ノ\n"
     printf '=%.0s' {1..80}

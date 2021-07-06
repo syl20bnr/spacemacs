@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+## fix_docs Fixed(formats) Spacemacs' documentation files.
+##
+## Copyright (c) 2014-2021 Sylvain Benner & Contributors
+##
+## Author: Eugene Yaremenko
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
+
+echo_headline "Generating new layers indext file data"
+spacedoc layers \
+         -c".ci/spacedoc-cfg.edn" \
+         "/tmp/sdn/"
+if [ $? -ne 0 ]; then
+    echo "Layers index generation failed."
+    exit 2
+fi
+
+echo_headline "Generating new .org files from .sdn representation"
+spacedoc orgify \
+         -c".ci/spacedoc-cfg.edn" \
+         /tmp/sdn/ \
+         ~/.emacs.d/
+if [ $? -ne 0 ]; then
+    echo "Documentation generation failed."
+    exit 2
+fi
