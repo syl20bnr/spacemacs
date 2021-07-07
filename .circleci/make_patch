@@ -10,9 +10,10 @@
 ##
 ## License: GPLv3
 
-git add --all
-
 if [[ -z "$(git status --porcelain)" ]]; then
+    echo "No changes. Exiting."
+    exit 0
+else
     git diff HEAD > "/tmp/${PUBLISH}.patch"
     echo "Changed files:"
     git status --porcelain
@@ -24,7 +25,4 @@ if [[ -z "$(git status --porcelain)" ]]; then
         echo "\"/tmp/${PUBLISH}.patch\" is empty while the repo has changes."
         exit 0
     fi
-else
-    echo "No changes. Exiting."
-    exit 0
 fi
