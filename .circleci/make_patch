@@ -23,6 +23,6 @@ else
     echo "============================"
     if [[ -z $(grep '[^[:space:]]' "/tmp/${PUBLISH}.patch") ]]; then
         echo "\"/tmp/${PUBLISH}.patch\" is empty while the repo has changes."
-        exit 0
+        exit 2
     fi
 fi
