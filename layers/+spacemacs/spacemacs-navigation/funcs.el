@@ -59,7 +59,7 @@ If the universal prefix argument is used then kill also the window."
   (if spacemacs-last-ahs-highlight-p
       (progn (goto-char (nth 1 spacemacs-last-ahs-highlight-p))
              (spacemacs/symbol-highlight-transient-state/body)
-             (spacemacs/ahs-highlight-now-wrapper))
+             (ahs-highlight-now))
     (message "No symbol has been searched for now.")))
 
 (defun spacemacs/integrate-evil-search (forward)
@@ -87,10 +87,6 @@ If the universal prefix argument is used then kill also the window."
         (setq evil-ex-last-was-search nil
               evil-ex-substitute-pattern `(,(concat isearch-string "\\C")
                                            nil (0 0))))
-
-(defun spacemacs/ahs-highlight-now-wrapper ()
-  "Safe wrapper for ahs-highlight-now"
-  (eval '(ahs-highlight-now) nil))
 
 (defun spacemacs/enter-ahs-forward ()
   "Go to the next occurrence of symbol under point with
@@ -126,22 +122,25 @@ If the universal prefix argument is used then kill also the window."
         (spacemacs/integrate-evil-search t)
         (evil-set-jump)
         (spacemacs/symbol-highlight-transient-state/body)
-        (spacemacs/ahs-highlight-now-wrapper)
+        (ahs-highlight-now)
         (ahs-forward))
     (progn
       (spacemacs/integrate-evil-search nil)
       (evil-set-jump)
       (spacemacs/symbol-highlight-transient-state/body)
-      (spacemacs/ahs-highlight-now-wrapper)
+      (ahs-highlight-now)
       (ahs-backward))))
 
 (defun spacemacs/symbol-highlight ()
   "Highlight the symbol under point with `auto-highlight-symbol'."
   (interactive)
-  (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
+  (spacemacs//remember-last-ahs-highlight)
   (spacemacs/symbol-highlight-transient-state/body)
-  (spacemacs/ahs-highlight-now-wrapper)
+  (ahs-highlight-now)
   (spacemacs/integrate-evil-search t))
+
+(defun spacemacs//remember-last-ahs-highlight ()
+  (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p)))
 
 (defvar-local spacemacs//ahs-was-disabled t)
 

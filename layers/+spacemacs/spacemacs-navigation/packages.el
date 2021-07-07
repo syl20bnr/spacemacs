@@ -73,13 +73,11 @@
 (defun spacemacs-navigation/init-auto-highlight-symbol ()
   (use-package auto-highlight-symbol
     :defer t
+    :commands (ahs-highlight-p)
     :init
     (progn
       (setq ahs-case-fold-search nil
             ahs-default-range 'ahs-range-whole-buffer
-            ;; by default disable auto-highlight of symbol
-            ;; current symbol can always be highlighted with `SPC s h'
-            ahs-idle-timer 0
             ahs-idle-interval 0.25
             ahs-inhibit-face-list nil)
 
@@ -103,8 +101,7 @@
         ("p" spacemacs/quick-ahs-backward)
         ("R" ahs-back-to-start)
         ("r" ahs-change-range)
-        ("z" (progn (recenter-top-bottom)
-                    (spacemacs/symbol-highlight)))
+        ("z" recenter-top-bottom)
         ("q" nil :exit t))
 
       ;; since we are creating our own maps,
@@ -126,19 +123,14 @@
         "sh" 'spacemacs/symbol-highlight
         "sH" 'spacemacs/goto-last-searched-ahs-symbol)
 
-      ;; micro-state to easily jump from a highlighted symbol to the others
+      ;; Advice ahs jump functions to remember the last highlighted symbol
       (dolist (sym '(ahs-forward
                      ahs-forward-definition
                      ahs-backward
                      ahs-backward-definition
                      ahs-back-to-start
                      ahs-change-range))
-        (let* ((advice (intern (format "spacemacs/%s" (symbol-name sym)))))
-          (eval `(defadvice ,sym (around ,advice activate)
-                   (spacemacs/ahs-highlight-now-wrapper)
-                   ad-do-it
-                   (spacemacs/ahs-highlight-now-wrapper)
-                   (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p)))))))
+        (advice-add sym :after #'spacemacs//remember-last-ahs-highlight)))
     :config
     (progn
       (spacemacs|hide-lighter auto-highlight-symbol-mode)
