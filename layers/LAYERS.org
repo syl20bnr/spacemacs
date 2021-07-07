@@ -155,10 +155,10 @@
       - [[#ocaml][Ocaml]]
       - [[#pact][Pact]]
       - [[#perl5][Perl5]]
-      - [[#perl6][Perl6]]
       - [[#php][PHP]]
       - [[#python][Python]]
       - [[#racket][Racket]]
+      - [[#raku][Raku]]
       - [[#reasonml][ReasonML]]
       - [[#ruby][Ruby]]
       - [[#rust][Rust]]
@@ -2126,22 +2126,6 @@ Features:
 - Interactive debug via [[https://github.com/realgud/realgud][realgud]] with [[http://search.cpan.org/~rocky/Devel-Trepan-0.73/lib/Devel/Trepan.pm][trepan.pl]]
 - LSP and DAP support
 
-**** Perl6
-[[file:+lang/perl6/README.org][+lang/perl6/README.org]]
-
-This layer provides an environment for the [[https://perl6.org/][Perl 6 Programming Language]].
-
-Features:
-- Jump to definition & Code completion via [[https://github.com/universal-ctags/ctags][ctags-universal]]
-- Syntax checking via [[https://github.com/hinrik/flycheck-perl6][flycheck-perl6]] and =perl6 -c=
-- Syntax highlighting & Syntax indentation via [[https://github.com/hinrik/perl6-mode][perl6-mode]]
-- =META6.json= highlighting via [[https://github.com/joshwnj/json-mode][json-mode]]
-- Provides Evil text objects for:
-  - double-angle-brackets
-  - corner-brackets
-  - single-quotation-marks
-  - double-quotation-marks
-
 **** PHP
 [[file:+lang/php/README.org][+lang/php/README.org]]
 
@@ -2197,6 +2181,22 @@ Features:
 - Interactive REPL
 - Code navigation with =gtags=
 - Structurally safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
+
+**** Raku
+[[file:+lang/raku/README.org][+lang/raku/README.org]]
+
+This layer provides an environment for the [[https://www.raku.org/][Raku Programming Language]] that was previously known as Perl 6.
+
+Features:
+- Jump to definition & Code completion via [[https://github.com/universal-ctags/ctags][ctags-universal]]
+- Syntax checking via [[https://github.com/Raku/flycheck-raku][flycheck-raku]] and =raku -c=
+- Syntax highlighting & Syntax indentation via [[https://github.com/Raku/raku-mode][raku-mode]]
+- =META6.json= highlighting via [[https://github.com/joshwnj/json-mode][json-mode]]
+- Provides Evil text objects for:
+  - double-angle-brackets
+  - corner-brackets
+  - single-quotation-marks
+  - double-quotation-marks
 
 **** ReasonML
 [[file:+lang/reasonml/README.org][+lang/reasonml/README.org]]
@@ -2350,7 +2350,7 @@ Features:
 This layer adds support for the dotnet cli package.
 
 Features:
-- dotnet operations
+- dotnet project operations
 
 *** IPython Notebook
 [[file:+tools/ipython-notebook/README.org][+tools/ipython-notebook/README.org]]
@@ -2794,25 +2794,12 @@ Features:
 ** EXWM
 [[file:+window-management/exwm/README.org][+window-management/exwm/README.org]]
 
-The time has arrived when one can finally use Emacs as a Window Manager, long
-ago the concepts of *windows* and *frames* made so much sense when one was
-working in a TTY, and basically that's all the window management you got. In
-these *modern* times though, it sounds silly to have those names. But not
-Anymore!
-
 Thanks to @ch11ng and his [[https://github.com/ch11ng/exwm][EXWM]] project we can now use Emacs as our window
-manager, and all those *windows* that didn't make sense before, now can not only
-hold buffers, but X Windows, that means that you can spawn a Browser Window, or
-your music player, or anything.
-
-I urge you to read the [[https://github.com/ch11ng/exwm/wiki][EXWM Wiki]] for a more in depth explanation and if you can
-contribute, please do so! The purpose of me making this layer is that I find it
-awesome and having nice defaults would make more people dive into it and the
-project would receive more attention and contributions which will only make it
-more awesome, so if you try it and like it, share it!
+manager, that means that you can spawn a Browser Window, or your music player,
+or anything.
 
 Features:
-- Support for using Spacemacs as window manager
+- Support for using Emacs as window manager
 
 ** Fasd
 [[file:+tools/fasd/README.org][+tools/fasd/README.org]]
