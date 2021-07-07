@@ -58,8 +58,8 @@ If the universal prefix argument is used then kill also the window."
   (interactive)
   (if spacemacs-last-ahs-highlight-p
       (progn (goto-char (nth 1 spacemacs-last-ahs-highlight-p))
-             (spacemacs/ahs-highlight-now-wrapper)
-             (spacemacs/symbol-highlight-transient-state/body))
+             (spacemacs/symbol-highlight-transient-state/body)
+             (spacemacs/ahs-highlight-now-wrapper))
     (message "No symbol has been searched for now.")))
 
 (defun spacemacs/integrate-evil-search (forward)
@@ -88,18 +88,9 @@ If the universal prefix argument is used then kill also the window."
               evil-ex-substitute-pattern `(,(concat isearch-string "\\C")
                                            nil (0 0))))
 
-(defun spacemacs/ensure-ahs-enabled-locally ()
-  "Ensures ahs is enabled for the local buffer."
-  (unless
-      (bound-and-true-p ahs-mode-line)
-    (auto-highlight-symbol-mode)
-    ))
-
 (defun spacemacs/ahs-highlight-now-wrapper ()
   "Safe wrapper for ahs-highlight-now"
-  (eval '(progn
-           (spacemacs/ensure-ahs-enabled-locally)
-           (ahs-highlight-now)) nil))
+  (eval '(ahs-highlight-now) nil))
 
 (defun spacemacs/enter-ahs-forward ()
   "Go to the next occurrence of symbol under point with
@@ -133,23 +124,23 @@ If the universal prefix argument is used then kill also the window."
   (if (eq forward spacemacs--ahs-searching-forward)
       (progn
         (spacemacs/integrate-evil-search t)
-        (spacemacs/ahs-highlight-now-wrapper)
         (evil-set-jump)
         (spacemacs/symbol-highlight-transient-state/body)
+        (spacemacs/ahs-highlight-now-wrapper)
         (ahs-forward))
     (progn
       (spacemacs/integrate-evil-search nil)
-      (spacemacs/ahs-highlight-now-wrapper)
       (evil-set-jump)
       (spacemacs/symbol-highlight-transient-state/body)
+      (spacemacs/ahs-highlight-now-wrapper)
       (ahs-backward))))
 
 (defun spacemacs/symbol-highlight ()
   "Highlight the symbol under point with `auto-highlight-symbol'."
   (interactive)
-  (spacemacs/ahs-highlight-now-wrapper)
   (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
   (spacemacs/symbol-highlight-transient-state/body)
+  (spacemacs/ahs-highlight-now-wrapper)
   (spacemacs/integrate-evil-search t))
 
 (defvar-local spacemacs//ahs-was-disabled t)

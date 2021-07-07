@@ -112,16 +112,7 @@
       (setq auto-highlight-symbol-mode-map (make-sparse-keymap))
 
       (spacemacs|add-toggle automatic-symbol-highlight
-        :status (timerp ahs-idle-timer)
-        :on (progn
-              (auto-highlight-symbol-mode)
-              (setq ahs-idle-timer
-                    (run-with-idle-timer ahs-idle-interval t
-                                         'ahs-idle-function)))
-        :off (when (timerp ahs-idle-timer)
-               (auto-highlight-symbol-mode -1)
-               (cancel-timer ahs-idle-timer)
-               (setq ahs-idle-timer 0))
+        :mode auto-highlight-symbol-mode
         :documentation "Automatic highlight of current symbol."
         :evil-leader "tha")
 
