@@ -47,7 +47,7 @@ exit_if_no_changes () {
         exit 0
     fi
     if [[ -z $(grep '[^[:space:]]' "/tmp/${PUBLISH}.patch") ]]; then
-        echo "\"/tmp/${PUBLISH}.patch\" patch file is empty. Exiting."
+        echo "\"/tmp/${PUBLISH}.patch\" file is empty. Exiting."
         exit 0
     fi
 }

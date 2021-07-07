@@ -10,6 +10,8 @@
 ##
 ## License: GPLv3
 
+git add --all
+
 if [[ -z "$(git status --porcelain)" ]]; then
     git diff HEAD > "/tmp/${PUBLISH}.patch"
     echo "Changed files:"
@@ -18,6 +20,10 @@ if [[ -z "$(git status --porcelain)" ]]; then
     echo "Patch:"
     cat "/tmp/${PUBLISH}.patch"
     echo "============================"
+    if [[ -z $(grep '[^[:space:]]' "/tmp/${PUBLISH}.patch") ]]; then
+        echo "\"/tmp/${PUBLISH}.patch\" is empty while the repo has changes."
+        exit 0
+    fi
 else
     echo "No changes. Exiting."
     exit 0
