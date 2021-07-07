@@ -94,8 +94,13 @@
       'package-build-get-tag-version
     'package-build-get-timestamp-version)
   "The function used to determine the version of a package.
-Called with one argument, the recipe object.  The default
-depends on the value of option `package-build-stable'."
+
+The default depends on the value of option `package-build-stable'.
+
+Called with one argument, the recipe object.  In Git repositories
+the latest commit isn't necessarily checked out, but is available
+as \"origin/HEAD\".  In Mercurial repositories the latest commit
+is checked out."
   :group 'package-build
   :set-after '(package-build-stable)
   :type 'function)
@@ -166,10 +171,11 @@ Otherwise do nothing.  FORMAT-STRING and ARGS are as per that function."
           version)))
 
 (defun package-build-get-timestamp-version (rcp)
-  (cons (package-build--get-commit rcp)
-        (package-build--parse-time
-         (package-build--get-timestamp rcp)
-         (oref rcp time-regexp))))
+  (let ((rev (and (cl-typep rcp 'package-git-recipe) "origin/HEAD")))
+    (cons (package-build--get-commit rcp rev)
+          (package-build--parse-time
+           (package-build--get-timestamp rcp rev)
+           (oref rcp time-regexp)))))
 
 ;;;; Internal
 
@@ -272,7 +278,8 @@ is used instead."
       ;; We later checkout "origin/HEAD".  Sadly "git fetch" cannot
       ;; be told to keep it up-to-date, so we have to make a second
       ;; request.
-      (package-build--run-process dir nil "git" "remote" "set-head" "--auto"))
+      (package-build--run-process dir nil "git" "remote" "set-head"
+                                  "origin" "--auto"))
      (t
       (when (file-exists-p dir)
         (delete-directory dir t))
@@ -306,11 +313,11 @@ is used instead."
   (let ((default-directory (package-recipe--working-tree rcp)))
     (process-lines "git" "tag")))
 
-(cl-defmethod package-build--get-timestamp ((rcp package-git-recipe))
+(cl-defmethod package-build--get-timestamp ((rcp package-git-recipe) rev)
   (let ((default-directory (package-recipe--working-tree rcp)))
     (car (apply #'process-lines
                 "git" "log" "--first-parent" "-n1" "--pretty=format:'\%ci'"
-                (package-build--expand-source-file-list rcp)))))
+                rev "--" (package-build--expand-source-file-list rcp)))))
 
 (cl-defmethod package-build--used-url ((rcp package-git-recipe))
   (let ((default-directory (package-recipe--working-tree rcp)))
@@ -354,11 +361,12 @@ is used instead."
               (match-string 0))
             (process-lines "hg" "tags"))))
 
-(cl-defmethod package-build--get-timestamp ((rcp package-hg-recipe))
+(cl-defmethod package-build--get-timestamp ((rcp package-hg-recipe) rev)
   (let ((default-directory (package-recipe--working-tree rcp)))
     (car (apply #'process-lines
                 "hg" "log" "--style" "compact" "-l1"
-                (package-build--expand-source-file-list rcp)))))
+                `(,@(and rev (list "--rev" rev))
+                  ,@(package-build--expand-source-file-list rcp))))))
 
 (cl-defmethod package-build--used-url ((rcp package-hg-recipe))
   (let ((default-directory (package-recipe--working-tree rcp)))
