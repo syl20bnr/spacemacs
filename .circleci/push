@@ -26,7 +26,8 @@ fork_url="https://${UPD_BOT_LOGIN}:${UPD_BOT_GIT_TK}"
 fork_url+="@github.com/${UPD_BOT_LOGIN}/${UPD_BOT_REPO}.git"
 git remote set-url "${UPD_BOT_LOGIN}" "${fork_url}"
 echo_headline "Pushing changes"
-hub push -f "${UPD_BOT_LOGIN}" "${PUBLISH}"
+hub push -f "${UPD_BOT_LOGIN}" "${PUBLISH}" > /dev/null 2>&1
+#                         prevents token leak ^^^^^^^^^^^^^^
 if [ $? -ne 0 ]; then
     echo "hub push failed"
     exit 2
