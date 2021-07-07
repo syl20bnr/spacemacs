@@ -10,6 +10,15 @@
 ##
 ## License: GPLv3
 
-if [[ `git status --porcelain` ]]; then
+if [[ -z "$(git status --porcelain)" ]]; then
     git diff HEAD > "/tmp/${PUBLISH}.patch"
+    echo "Changed files:"
+    git status --porcelain
+    echo "============================"
+    echo "Patch:"
+    cat "/tmp/${PUBLISH}.patch"
+    echo "============================"
+else
+    echo "No changes. Exiting."
+    exit 0
 fi
