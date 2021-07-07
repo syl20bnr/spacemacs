@@ -13,7 +13,7 @@
 echo_headline "Generating new layers indext file data"
 spacedoc layers \
          -c".ci/spacedoc-cfg.edn" \
-         "/tmp/sdn/"
+         /tmp/sdn/layers
 if [ $? -ne 0 ]; then
     echo "Layers index generation failed."
     exit 2

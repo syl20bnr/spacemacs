@@ -14,7 +14,7 @@ exit_if_no_changes
 
 echo_headline "Cloning target repository"
 target_URL="https://github.com/${prj_owner}/${prj_repo}.git"
-git clone "${target_URL}" -b "${CIRCLE_BRANCH}" "/tmp/${PUBLISH}"
+git clone "${target_URL}" -b "${PR_BRANCH}" "/tmp/${PUBLISH}"
 if [ $? -ne 0 ]; then
     echo "Failed to clone \"${target_URL}\""
     exit 2
