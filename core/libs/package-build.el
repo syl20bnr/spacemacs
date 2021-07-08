@@ -712,7 +712,7 @@ are subsequently dumped."
       (package-build--message "Built %s in %.3fs, finished at %s"
                               name
                               (float-time (time-since start-time))
-                              (current-time-string))))
+                              (format-time-string "%FT%T%z" nil t))))
   (when dump-archive-contents
     (package-build-dump-archive-contents)))
 
