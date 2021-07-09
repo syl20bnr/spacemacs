@@ -175,9 +175,10 @@ If the universal prefix argument is used then kill also the window."
 ;; transient state
 (defun spacemacs//symbol-highlight-doc ()
         (let* ((i 0)
-               (overlay-count (length ahs-overlay-list))
-               (overlay (format "%s" (nth i ahs-overlay-list)))
-               (current-overlay (format "%s" ahs-current-overlay))
+               (overlay-list (ahs-overlay-list-window))
+               (overlay-count (length overlay-list))
+               (overlay (format "%s" (nth i overlay-list)))
+               (current-overlay (format "%s" (ahs-current-overlay-window)))
                (st (ahs-stat))
                (plighter (ahs-current-plugin-prop 'lighter))
                (plugin (format "%s"
@@ -189,7 +190,7 @@ If the universal prefix argument is used then kill also the window."
                            ((string= plighter "HSD") ahs-plugin-bod-face))))
           (while (not (string= overlay current-overlay))
             (setq i (1+ i))
-            (setq overlay (format "%s" (nth i ahs-overlay-list))))
+            (setq overlay (format "%s" (nth i overlay-list))))
           (let* ((x/y (format "[%s/%s]" (- overlay-count i) overlay-count))
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" "")))
             (concat
