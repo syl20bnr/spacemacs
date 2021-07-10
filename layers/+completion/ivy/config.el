@@ -25,6 +25,9 @@
 
 ;; Layer Variables
 
+(defvar ivy-enable-icons nil
+  "If non-nil, enable icons in `ivy-rich-mode'.")
+
 (defvar ivy-enable-advanced-buffer-information nil
   "If non-nil, enable `ivy-rich' which adds information on buffers.")
 

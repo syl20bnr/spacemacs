@@ -9,6 +9,7 @@
 - [[#configuration][Configuration]]
   - [[#general][General]]
   - [[#advanced-buffer-information][Advanced buffer information]]
+  - [[#icons][Icons]]
 - [[#key-bindings][Key bindings]]
   - [[#transient-state][Transient state]]
   - [[#colorsfaces][Colors/Faces]]
@@ -74,6 +75,24 @@ is disabled by default.
   (setq-default dotspacemacs-configuration-layers '(
     (ivy :variables ivy-enable-advanced-buffer-information t)))
 #+END_SRC
+
+** Icons
+To display icons with [[https://github.com/seagle0128/all-the-icons-ivy-rich][all-the-icons-ivy-rich]], set the layer variable
+=ivy-enable-icons= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (ivy :variables ivy-enable-icons t)))
+#+END_SRC
+
+Because =all-the-icons-ivy-rich= depends on =ivy-rich=, the layer variable
+=ivy-enable-advanced-buffer-information= is automatically set to =t= when ivy
+icon display is enabled.
+
+To display icons correctly, you should run =M-x all-the-icons-install-fonts=
+to install the necessary fonts.
+
+More information about customizing =all-the-icons-ivy-rich= can be found [[=all-the-icons-ivy-rich=][here]].
 
 * Key bindings
 If you choose =ivy= as completion system, make sure to read the [[http://oremacs.com/swiper/][official manual]].
