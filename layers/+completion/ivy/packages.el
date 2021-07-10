@@ -23,6 +23,7 @@
 
 (setq ivy-packages
       '(
+        (all-the-icons-ivy-rich :toggle ivy-enable-icons)
         auto-highlight-symbol
         bookmark
         counsel
@@ -34,7 +35,10 @@
         ivy
         ivy-avy
         ivy-hydra
-        (ivy-rich :toggle ivy-enable-advanced-buffer-information)
+        (ivy-rich :toggle (progn
+                            (when ivy-enable-icons
+                              (setq ivy-enable-advanced-buffer-information t)
+                              ivy-enable-advanced-buffer-information)))
         (ivy-spacemacs-help :location local)
         ivy-xref
         org
@@ -45,6 +49,12 @@
         swiper
         wgrep
         ))
+
+(defun ivy/init-all-the-icons-ivy-rich ()
+  (use-package all-the-icons-ivy-rich
+    :after ivy-rich
+    :config
+    (all-the-icons-ivy-rich-mode)))
 
 (defun ivy/pre-init-auto-highlight-symbol ()
   (spacemacs|use-package-add-hook auto-highlight-symbol
