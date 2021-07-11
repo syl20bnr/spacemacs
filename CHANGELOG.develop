@@ -446,6 +446,7 @@ In org-agenda-mode
 - outshine (thanks to Langston Barrett)
 **** Readers
 - epub (thanks to Jeremy Dormitzer and André Peric Tavares)
+- djvu (thanks to Daniel Nicolai)
 **** Spacemacs
 - spacemacs-defaults
 - spacemacs-modeline
@@ -478,7 +479,8 @@ In org-agenda-mode
 - xclipboard (thanks to Charles Weill, Sylvain Benner, and Alex Palaistras)
 **** WEB services
 - confluence
-- for reddit
+- reddit
+- eww (thanks to Colton Kopsa, Maximilian Wolff and Daniel Nicolai)
 *** Renamed layers
 - =extra-langs= renamed to =major-modes= (thanks to Eivind Fonn)
 - =pdf-tools= renamed to =pdf=
