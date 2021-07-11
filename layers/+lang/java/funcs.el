@@ -114,7 +114,8 @@
     "dtc" 'dap-java-debug-test-class
     ;; run
     "tt" 'dap-java-run-test-method
-    "tc" 'dap-java-run-test-class))
+    "tc" 'dap-java-run-test-class
+    "tl" 'dap-java-run-last-test))
 
 (defun spacemacs//java-setup-lsp-flycheck ()
   "Setup LSP Java syntax checking."

@@ -150,6 +150,16 @@ at the root of your project first.
 Using the =dap= layer you'll get access to all the DAP key bindings, see the
 complete list of key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
 
+**** Tests
+
+| Key binding   | Description                    |
+|---------------+--------------------------------|
+| ~SPC m d t c~ | Debug test class around point  |
+| ~SPC m d t t~ | Debug test method around point |
+| ~SPC m t c~   | Run test class around point    |
+| ~SPC m t t~   | Run test method around point   |
+| ~SPC m t l~   | Run last test                  |
+
 ** Meghanada
 *** Server
 
