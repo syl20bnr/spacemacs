@@ -41,7 +41,7 @@
                   :toggle org-enable-org-contacts-support)
     org-contrib
     (org-vcard :toggle org-enable-org-contacts-support)
-    org-brain
+    (org-brain :toggle org-enable-org-brain-support)
     (org-expiry :location built-in)
     ; temporarily point org-journal to dalanicolai fork until dalanicolai's
     ; PR's https://github.com/bastibe/org-journal/pulls get merged

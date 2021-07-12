@@ -119,3 +119,6 @@ If `semiauto', prompt to change entry state when the state of the subentries
 imply it. This assumes next to nothing about your workflow states, but may
 result in additional, possibly surprising, prompting of the user; and it has no
 intelligence to attempt to determine the destination state.")
+
+(defvar org-enable-org-brain-support nil
+  "If non-nil, enable org-brain")
