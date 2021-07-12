@@ -1577,7 +1577,7 @@ squared symbols like =🅿=.
 
 | Key binding   | Unicode | ASCII | Mode                                                                 |
 |---------------+---------+-------+----------------------------------------------------------------------|
-| ~SPC t -~     | =⊝=     | -     | [[https://www.emacswiki.org/emacs/centered-cursor-mode.el][centered-cursor]] mode                                                 |
+| ~SPC t -~     | =⊝=     | -     | [[https://github.com/emacsmirror/centered-cursor-mode][centered-cursor]] mode                                                 |
 | ~SPC t 8~     | =⑧=     | 8     | toggle highlight of characters for long lines                        |
 | ~SPC t C-8~   | =⑧=     | 8     | global toggle highlight of characters for long lines                 |
 | ~SPC t C--~   | =⊝=     | -     | global centered cursor                                               |
