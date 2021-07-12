@@ -32,7 +32,7 @@ echo_headline "Pushing changes"
 #       so in this case bot token shouldn't leak. But be careful.
 #       I had to unmask the command output because it's too hard to debug
 #       without logs - a lot of different things may fail.
-hub push -f "${UPD_BOT_LOGIN}" "${PUBLISH}" > /dev/null 2>&1
+hub push -f "${UPD_BOT_LOGIN}" "${PUBLISH}"
 if [ $? -ne 0 ]; then
     echo "hub push failed"
     exit 2
