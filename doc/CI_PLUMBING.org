@@ -1,6 +1,6 @@
 #+TITLE: Continuous Integration
 
-* Table of Contents                     :TOC_5_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
 - [[#overview][Overview]]
   - [[#tldr][TLDR]]
@@ -18,7 +18,7 @@ it solves. =It is works in progress.=
 * Overview
 ** TLDR
 Spacemacs is big - the active maintainers team is small. The more we can
-automate - the better. We use [[https://circleci.com/][CircleCI]], [[https://github.com/features/actions][GitHub Actions]] and [[https://www.docker.com/][Docker]] to test PRs,
+automate - the better. We use  [[https://circleci.com/][CircleCI]], [[https://github.com/features/actions][GitHub Actions]] and [[https://www.docker.com/][Docker]] to test PRs,
 update/fixi documentation and exporting it to [[https://develop.spacemacs.org/]].
 
 Most of the code is just a bunch of bash/ELisp scripts and yml files, but
