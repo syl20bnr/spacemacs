@@ -1,0 +1,74 @@
+#+TITLE: Continuous Integration
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+- [[#overview][Overview]]
+  - [[#tldr][TLDR]]
+  - [[#current-stack][Current stack:]]
+    - [[#circleci][CircleCI]]
+    - [[#github-actions][GitHub Actions]]
+    - [[#docker][Docker]]
+    - [[#clojure][Clojure]]
+- [[#to-be-continued][To be continued]]
+
+* Description
+This file explains how our continuous integration operates and what problems
+it solves. =It is works in progress.=
+
+* Overview
+** TLDR
+Spacemacs is big - the active maintainers team is small. The more we can
+automate - the better. We use [[https://circleci.com/][CircleCI]], [[https://github.com/features/actions][GitHub Actions]] and [[https://www.docker.com/][Docker]] to test PRs,
+update/fixi documentation and exporting it to [[https://develop.spacemacs.org/]].
+
+Most of the code is just a bunch of bash/ELisp scripts and yml files, but
+some of the documentation tools are written in Clojure.
+Check out [[https://github.com/syl20bnr/spacemacs/tree/develop/.circleci][CircleCI]] and [[https://github.com/syl20bnr/spacemacs/tree/develop/.github/workflows][GitHub Actions]] directories, the code is pretty much
+self-explanatory but will be examined in depth below.
+
+** Current stack:
+Wait, what? Why Clojure, why 2 CI providers?
+I knew you would ask this question, dear reader, so here we go:
+
+*** CircleCI
+It has a cool set of features and a generous quota for open source projects.
+But most importantly, unlike GitHub Actions, there is a straight forward way
+to cache build dependencies between runs and using it in tandem with
+GH Actions provides us with even more concurrency. It means that PR authors
+have to wait less time for feed back. This is crucial since we have a lot of
+test and platforms to cover. Also, CircleCI can run jobs on user provided Docker
+images that it caches, so we do not hit the DockerHub pull quota.
+On the downside, the CircleCI configuration file can be pretty involved,
+has unexpected limitations that can leave you puzzled for quite a while.
+
+*** GitHub Actions
+Oh man, that's good. It is clear that GH team had the benefit of hindsight
+when developed their CI platform. And it runs rely fast (at least for now).
+Maybe one day we'll fully switch to Actions. The biggest concern here is
+the vendor lock-in since all the good stuff is highly specific. While CircleCI
+allows you to run a job locally for free. And run whole CI on your own
+hardware with "strings attached".
+
+*** Docker
+Having a stable pre-build environment for jobs reduces headaches and
+improves set up time. Duh!
+Also DockerHub used to be a cool place to store and build huge images for
+free, but now it has all sorts of quotas + RAM is pretty limited for memory
+hungry JVM builds (((foreshadowing))).
+
+*** Clojure
+Besides the obvious fact that Rich Hickey's talks are the best.
+Before we started with automation, Spacemacs already had a huge set of
+documentation files that couldn't be fixed by a bunch of regular expressions
+wrapped into bash/ELisp code.
+The options were to either fix all README.org files by hand and keep fixing
+them forever, since contributors often forget to format stuff properly and
+nagging them constantly both wastes PR reviewer time and makes the
+contributor less likely to stick. Or go all-in and create a system that
+can extract data out of documentation files and rebuild them from scratch.
+Clojure designed to push data around and it has specs that can be used
+to validate files, generate test data and constructors for org-mode
+elements. The code is compiled to [[https://www.graalvm.org/reference-manual/native-image/][native-image]] so pretty much all of
+the JVM drawbacks are mitigated, for the particular use case anyway.
+
+* TODO To be continued
