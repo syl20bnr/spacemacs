@@ -56,11 +56,11 @@ If the universal prefix argument is used then kill also the window."
   "Go to the last known occurrence of the last symbol searched with
 `auto-highlight-symbol'."
   (interactive)
-  (if spacemacs-last-ahs-highlight-p
+  (if (bound-and-true-p spacemacs-last-ahs-highlight-p)
       (progn (goto-char (nth 1 spacemacs-last-ahs-highlight-p))
-             (spacemacs/symbol-highlight-transient-state/body)
-             (ahs-highlight-now))
-    (message "No symbol has been searched for now.")))
+             (spacemacs//ahs-setup)
+             (spacemacs/symbol-highlight-transient-state/body))
+    (message "No previously searched for symbol found")))
 
 (defun spacemacs/integrate-evil-search (forward)
         ;; isearch-string is last searched item.  Next time
@@ -87,6 +87,14 @@ If the universal prefix argument is used then kill also the window."
         (setq evil-ex-last-was-search nil
               evil-ex-substitute-pattern `(,(concat isearch-string "\\C")
                                            nil (0 0))))
+
+(defun spacemacs//ahs-setup ()
+  "Remember the `auto-highlight-symbol-mode' state,
+before highlighting a symbol."
+  (unless (bound-and-true-p auto-highlight-symbol-mode)
+    (setq-local spacemacs//ahs-was-disabled t))
+  (auto-highlight-symbol-mode)
+  (ahs-highlight-now))
 
 (defun spacemacs/enter-ahs-forward ()
   "Go to the next occurrence of symbol under point with
@@ -117,55 +125,71 @@ If the universal prefix argument is used then kill also the window."
 (defun spacemacs//quick-ahs-move (forward)
   "Go to the next occurrence of symbol under point with
  `auto-highlight-symbol'"
+  (evil-set-jump)
+  (spacemacs//ahs-setup)
   (if (eq forward spacemacs--ahs-searching-forward)
       (progn
         (spacemacs/integrate-evil-search t)
-        (evil-set-jump)
-        (spacemacs/symbol-highlight-transient-state/body)
-        (ahs-highlight-now)
         (ahs-forward))
-    (progn
-      (spacemacs/integrate-evil-search nil)
-      (evil-set-jump)
-      (spacemacs/symbol-highlight-transient-state/body)
-      (ahs-highlight-now)
-      (ahs-backward))))
+    (spacemacs/integrate-evil-search nil)
+    (ahs-backward))
+  (spacemacs/symbol-highlight-transient-state/body))
 
 (defun spacemacs/symbol-highlight ()
   "Highlight the symbol under point with `auto-highlight-symbol'."
   (interactive)
+  (spacemacs/integrate-evil-search t)
   (spacemacs//remember-last-ahs-highlight)
-  (spacemacs/symbol-highlight-transient-state/body)
-  (ahs-highlight-now)
-  (spacemacs/integrate-evil-search t))
+  (spacemacs//ahs-setup)
+  (spacemacs/symbol-highlight-transient-state/body))
 
 (defun spacemacs//remember-last-ahs-highlight ()
   (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p)))
 
-(defvar-local spacemacs//ahs-was-disabled t)
-
-(defun spacemacs//ahs-ts-on-enter ()
-  ;; Only remember the `auto-highlight-symbol-mode' state,
-  ;; when entering the Symbol Highlight Transient State,
-  ;; Not when the TS is open and one is navigating
-  ;; to the next or previous symbol.
-  ;; Because the TS is closed and reopened, when navigating
-  ;; to a symbol. With the following commands.
-  (unless (memq this-command '(spacemacs/quick-ahs-forward
-                               spacemacs/quick-ahs-backward))
-    (setq-local spacemacs//ahs-was-disabled
-          (not (bound-and-true-p auto-highlight-symbol-mode))))
-  (auto-highlight-symbol-mode))
+(defvar-local spacemacs//ahs-was-disabled t
+  "This is used to disable `auto-highlight-symbol-mode',
+when the Symbol Highlight Transient State is closed.
+If ahs mode was disabled before a symbol was highlighted.")
 
 (defun spacemacs//ahs-ts-on-exit ()
   ;; Restore user search direction state as ahs has exitted in a state
   ;; good for <C-s>, but not for 'n' and 'N'"
   (setq isearch-forward spacemacs--ahs-searching-forward)
-  ;; Don't disable `auto-highlight-symbol-mode', when navigating between symbols
-  (unless (memq this-command '(spacemacs/quick-ahs-forward
-                               spacemacs/quick-ahs-backward))
-    (when spacemacs//ahs-was-disabled
-      (auto-highlight-symbol-mode -1))))
+  (spacemacs//disable-symbol-highlight-after-ahs-ts-closed))
+
+(defun spacemacs//disable-symbol-highlight-after-ahs-ts-closed ()
+  "Disable `auto-highlight-symbol-mode', when the
+Symbol Highlight Transient State buffer isn't found.
+
+This occurs when the Symbol Highlight Transient State wasn't restarted.
+It is restarted when navigating to the next or previous symbol."
+  (run-with-idle-timer
+   0 nil
+   (lambda ()
+     (unless (string= (spacemacs//transient-state-buffer-title)
+                      "Symbol Highlight")
+       (spacemacs//disable-symbol-highlight)))))
+
+(defun spacemacs//disable-symbol-highlight ()
+  "Disable `auto-highlight-symbol-mode',
+if it was disabled before a symbol was highlighted."
+  (when spacemacs//ahs-was-disabled
+    (auto-highlight-symbol-mode -1)
+    (setq-local spacemacs//ahs-was-disabled nil)))
+
+(defun spacemacs//transient-state-buffer-title ()
+  (let ((transient-state-buffer-name " *LV*"))
+    (when (spacemacs/buffer-exists transient-state-buffer-name)
+      (with-current-buffer transient-state-buffer-name
+        (buffer-substring-no-properties
+         (point-min)
+         (string-match "Transient State" (buffer-string)))))))
+
+(defun spacemacs/buffer-exists (name-of-buffer)
+  (catch 'buffer-found
+    (dolist (win (window-list))
+      (when (string= name-of-buffer (buffer-name (window-buffer win)))
+        (throw 'buffer-found t)))))
 
 (defun spacemacs/symbol-highlight-reset-range ()
   "Reset the range for `auto-highlight-symbol'."

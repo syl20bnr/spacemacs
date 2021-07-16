@@ -90,7 +90,6 @@
         :title "Symbol Highlight Transient State"
         :hint-is-doc t
         :dynamic-hint (spacemacs//symbol-highlight-ts-doc)
-        :on-enter (spacemacs//ahs-ts-on-enter)
         :on-exit (spacemacs//ahs-ts-on-exit)
         :bindings
         ("d" ahs-forward-definition)
