@@ -464,7 +464,7 @@ To install support for [[https://github.com/org-roam/org-roam-server][org-roam-s
 to =t=.
 
 *** Org-roam-protocol support
-To enable support for [[https://www.orgroam.com/manual.html#Roam-Protocol][Org Roam Protocol]] set the variable
+To enable support for [[https://www.orgroam.com/manual.html#Org_002droam-Protocol][Org Roam Protocol]] set the variable
 =org-enable-roam-protocol= to =t=.
 
 #+BEGIN_SRC emacs-lisp
@@ -473,7 +473,7 @@ To enable support for [[https://www.orgroam.com/manual.html#Roam-Protocol][Org R
          org-enable-roam-protocol t)))
 #+END_SRC
 
-And create a desktop file as described in the [[https://www.orgroam.com/manual.html#Roam-Protocol][org-roam manual]].
+And create a desktop file as described in the [[https://www.orgroam.com/manual.html#Org_002droam-Protocol][org-roam manual]].
 
 ** Mode line support
 To temporarily enable mode line display of org clock, press ~SPC t m c~.
@@ -1116,16 +1116,15 @@ Key binding prefixes:
 | Key binding   | Description                           |
 |---------------+---------------------------------------|
 | ~SPC m r l~   | Toggle org-roam links visibility      |
-| ~SPC m r f~   | Find file in org-roam                 |
-| ~SPC m r i~   | Insert file into org-roam             |
-| ~SPC m r I~   | Immediately insert file into org-roam |
+| ~SPC m r f~   | Find node in org-roam             |
+| ~SPC m r i~   | Insert node into org-roam         |
 | ~SPC m r g~   | Visualize org-roam graph              |
 | ~SPC m r b~   | Switch org-roam buffer                |
 | ~SPC m r d y~ | Open yesterday's daily note           |
 | ~SPC m r d t~ | Open today's daily note               |
 | ~SPC m r d T~ | Open tomorrow's daily note            |
 | ~SPC m r d d~ | Open daily note via calendar view     |
-| ~SPC m r t a~ | Add org-roam tag to file              |
-| ~SPC m r t d~ | Delete org-roam tag from file         |
+| ~SPC m r t a~ | Add a tag to file                     |
+| ~SPC m r t r~ | Remove a tag from file          |
 | ~SPC m r a~   | Add org-roam alias to file            |
 | ~SPC m r s~   | Start org-roam server mode            |
