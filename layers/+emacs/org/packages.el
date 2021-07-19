@@ -935,11 +935,11 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "aordt" 'org-roam-dailies-find-today
         "aordT" 'org-roam-dailies-find-tomorrow
         "aordd" 'org-roam-dailies-find-date
-        "aorf" 'org-roam-find-file
+        "aorf" 'org-roam-node-find
+        "aorn" 'org-roam-node-find
         "aorg" 'org-roam-graph
-        "aori" 'org-roam-insert
-        "aorI" 'org-roam-insert-immediate
-        "aorl" 'org-roam-buffer-toggle-display
+        "aori" 'org-roam-node-insert
+        "aorl" 'org-roam-buffer-toggle
         "aorta" 'org-roam-tag-add
         "aortd" 'org-roam-tag-delete
         "aora" 'org-roam-alias-add)
@@ -953,11 +953,11 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "rdt" 'org-roam-dailies-find-today
         "rdT" 'org-roam-dailies-find-tomorrow
         "rdd" 'org-roam-dailies-find-date
-        "rf" 'org-roam-find-file
+        "rf" 'org-roam-node-find
+        "rn" 'org-roam-node-find
         "rg" 'org-roam-graph
-        "ri" 'org-roam-insert
-        "rI" 'org-roam-insert-immediate
-        "rl" 'org-roam-buffer-toggle-display
+        "ri" 'org-roam-node-insert
+        "rl" 'org-roam-buffer-toggle
         "rta" 'org-roam-tag-add
         "rtd" 'org-roam-tag-delete
         "ra" 'org-roam-alias-add))
