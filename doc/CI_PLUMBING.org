@@ -91,14 +91,37 @@ the JVM drawbacks are mitigated, for the particular use case anyway.
 
 * Workflows (groups of CI jobs)
 ** Pull request jobs
-*** TODO Emacs Lisp Tests
+*** Emacs Lisp Tests
+    Code tests are handled by GitHub Actions. See the [[https://github.com/syl20bnr/spacemacs/blob/develop/.github/workflows/elisp_test.yml][workflow]] file.
+    The stages are:
+    1. Emacs installation with [[https://github.com/purcell/setup-emacs][purcell/setup-emacs]] - for UNIX and
+       [[https://github.com/jcs090218/setup-emacs-windows][jcs090218/setup-emacs-windows]] for Windows. The step is configured
+       by the job matrix. With two keys =os= and =emacs_version=. CI runs test
+       for every possible combination. The stage ends up seriously bloated with
+       repetition since the actions sometimes fail (especially for MacOS)
+       so I added 3 sets of retires for the both actions. Currently GitHub
+       [[https://github.community/t/how-to-retry-a-failed-step-in-github-actions-workflow/125880][doesn't provide a better way to implement this]].
+    2. Checkout - clones the repo.
+    3. Installation of a local ELPA mirror with packages used be the tests.
+       The archive is build daily in [[https://github.com/JAremko/testelpa-develop][JAremko/testelpa-develop]] repository and
+       configured by .spacemacs files used in test. The mirror is set as a top
+       priority package repository via [[https://github.com/syl20bnr/spacemacs/blob/develop/.github/workflows/scripts/dot_lock.el][Spacemacs lock file]] this way we actually
+       install the packages (it is important to test that the system works) and
+       if some packages are missing (for example, the mirror can be outdated)
+       then they will be installed from a remote repository.
+    4. Run the tests! CI run core, base and layer tests sequentially because
+       heaving 20+ CI results in PRs makes people ignore them. And this way
+       they start faster since we cut on setup time. But the tests have to
+       =always= clean after themselves to avoid affecting the next ones. 
+       
 
 *** TODO Documentation validation
 
 *** TODO PR validation
 
 ** Branch updates (runs on merge)
-*** TODO Emacs Lisp Tests
+*** Emacs Lisp Tests
+See [[#emacs-lisp-tests][Emacs Lisp Tests]] it is the same.
 
 *** TODO Project files updates
 **** TODO General concepts
@@ -119,6 +142,18 @@ the JVM drawbacks are mitigated, for the particular use case anyway.
   and schedule documentation testing job only if it does.
 - PR validation job can be moved to CircleCI config generation stage. If
   it isn't valid all CircleCI jobs can be skipped.
+- Web site repo becomes too heavy and PR diffs are meaningless. Removing update
+  dates that are embedded into each exported HTML files would reduce the
+  patch size drastically.
+- Figure out how to retry installation of Emacs for EmacsLisp tests in more
+  concise manner. 
+- Emacs Lisp tests step that runs the test isn't DRY.
+- Emacs Install retries can use some delay between the attempts since it is
+  likely that a failed upstream repo will fail again if you don't give it any
+  time to recover/change state. But it shouldn't add delay to runs without
+  failures since they vastly  outnumber failed ones.
+- See if we actually properly clean all they side effects between running
+  EmacsLisp tests.
 
 * Side notes
 ** We used to have TravisCI (3 CI providers at the same time)
