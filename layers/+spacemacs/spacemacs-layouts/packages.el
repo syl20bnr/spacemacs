@@ -27,6 +27,7 @@
         ivy
         persp-mode
         spaceline
+        consult
         (counsel-projectile :requires ivy)))
 
 
@@ -261,3 +262,7 @@
     :config (ivy-set-actions
              'spacemacs/ivy-persp-switch-project
              '(("d" spacemacs/ivy-switch-project-open-dired "dired")))))
+
+(defun spacemacs-layouts/post-init-consult ()
+  (spacemacs/set-leader-keys
+    "pl" 'spacemacs/compleseus-pers-switch-project))
