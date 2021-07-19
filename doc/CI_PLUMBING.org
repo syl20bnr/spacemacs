@@ -4,15 +4,16 @@
 - [[#description][Description]]
 - [[#overview][Overview]]
   - [[#tldr][TLDR]]
-  - [[#current-stack][Current stack:]]
+  - [[#current-stack][Current stack]]
     - [[#circleci][CircleCI]]
     - [[#github-actions][GitHub Actions]]
     - [[#docker][Docker]]
     - [[#clojure][Clojure]]
+- [[#ci-files-and-directories][CI files and directories]]
 - [[#workflows-groups-of-ci-jobs][Workflows (groups of CI jobs)]]
   - [[#pull-request-jobs][Pull request jobs]]
     - [[#emacs-lisp-tests][Emacs Lisp Tests]]
-    - [[#documentation-validation][Documentation validation]]
+    -  [[#documentation-validation][Documentation validation]]
     - [[#pr-validation][PR validation]]
   - [[#branch-updates-runs-on-merge][Branch updates (runs on merge)]]
     - [[#emacs-lisp-tests-1][Emacs Lisp Tests]]
@@ -21,9 +22,7 @@
       - [[#built-in-updates][Built-in updates]]
       - [[#documentation-updates][Documentation updates]]
       - [[#web-site-updates][Web site updates]]
-  - [[#scheduled-jobs][Scheduled jobs:]]
-    - [[#general-concepts-1][General concepts]]
-    - [[#built-in-files-updates][Built-in files updates]]
+  - [[#scheduled-jobs][Scheduled jobs]]
 - [[#potential-improvements-pr-ideas][Potential improvements (PR ideas)]]
 - [[#side-notes][Side notes]]
   - [[#we-used-to-have-travisci-3-ci-providers-at-the-same-time][We used to have TravisCI (3 CI providers at the same time)]]
@@ -44,7 +43,7 @@ some of the documentation tools are written in Clojure.
 Check out [[https://github.com/syl20bnr/spacemacs/tree/develop/.circleci][CircleCI]] and [[https://github.com/syl20bnr/spacemacs/tree/develop/.github/workflows][GitHub Actions]] directories, the code is pretty much
 self-explanatory but will be examined in depth below.
 
-** Current stack:
+** Current stack
 Wait, what? Why Clojure, why 2 CI providers?
 I knew you would ask this question, dear reader, so here's my rationale:
 
@@ -89,10 +88,35 @@ to validate files, generate test data and constructors for org-mode
 elements. The code is compiled to [[https://www.graalvm.org/reference-manual/native-image/][native-image]] so pretty much all of
 the JVM drawbacks are mitigated, for the particular use case anyway.
 
+* CI files and directories
+  - [[https://github.com/syl20bnr/spacemacs/tree/develop/.ci][.ci]] is a shared CI directory that holds two config files:
+    1. [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/built_in_manifest][built_in_manifest]] list of upstream URL and target locations for
+       built-in files.
+    2. [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][spacedoc-cfg.edn]] configuration file for Spacemacs documentation tools.
+       More details in [[#documentation-updates][Documentation updates]].
+  - [[https://github.com/syl20bnr/spacemacs/tree/develop/.github/workflows][.github/workflows]] place where GitHub workflow files live:
+    - =workflows/scripts/test= runner script for EmacsLisp tests.
+    - =workflows/scripts/dot_lock.el= package lock file that adds local ELPA
+      mirror.
+    - =elisp_test.yml= runs EmacsLisp tests on PR and branch updates.
+    - =rebase.yml= we don't really use it :) It rebases PR onto current HEAD,
+      it doesn't always work and requires personal token to run automatically.
+    - =stale.yml= manages stale issues and PR.
+  - [[https://github.com/syl20bnr/spacemacs/tree/develop/.circleci][.circleci]] everything specific for CircleCI. Documentation related files
+    stored in the =org= sub folder, =web= is where HTML export stuff hides and
+    =built_in= is all about updating built-in files. The rest is a bunch of
+    shared script files. The specific cases are =shared= file that loads before
+    each script run for every job, =config.yml= - CircleCI bootstrap script that
+    generates the config that CircleCI will run by populating =config_tmpl.yml=
+    file - actual config. We need the bootstrap step to inject =IS_BRANCH_UDATE=
+    environment variable value into generated config file that CircleCI will run
+    because it used to choose which jobs should be executed but environment
+    variables aren't loaded soon enough.
+
 * Workflows (groups of CI jobs)
 ** Pull request jobs
 *** Emacs Lisp Tests
-    Code tests are handled by GitHub Actions. See the [[https://github.com/syl20bnr/spacemacs/blob/develop/.github/workflows/elisp_test.yml][workflow]] file.
+    Code tests are handled by GitHub Actions exclusively.
     The stages are:
     1. Emacs installation with [[https://github.com/purcell/setup-emacs][purcell/setup-emacs]] - for UNIX and
        [[https://github.com/jcs090218/setup-emacs-windows][jcs090218/setup-emacs-windows]] for Windows. The step is configured
@@ -114,10 +138,21 @@ the JVM drawbacks are mitigated, for the particular use case anyway.
        they start faster since we cut on setup time. But the tests have to
        =always= clean after themselves to avoid affecting the next ones. 
        
+For more details see the [[https://github.com/syl20bnr/spacemacs/blob/develop/.github/workflows/elisp_test.yml][workflow]] file
+       
 
-*** TODO Documentation validation
+***  Documentation validation
+This job uses [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/select_pr_changed][.circleci/select_pr_changed]] to find out what files are changed in
+the tested PR and if any of them are .org files it will check that they can be
+processed by exporting and validating them. The process will be explored further
+in the [[#documentation-updates][Documentation updates]] section.
 
-*** TODO PR validation
+
+*** PR validation
+There are only two jobs here.[[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/PR_base][ .circleci/PR_base]] makes sure that the PR
+is against develop branch and [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/PR_rebased][.circleci/PR_rebased]] checks if the PR
+needs a rebase (only when it's updated, so Spacemacs HEAD can actually get,
+well... Ahead).
 
 ** Branch updates (runs on merge)
 *** Emacs Lisp Tests
@@ -132,10 +167,11 @@ See [[#emacs-lisp-tests][Emacs Lisp Tests]] it is the same.
 
 **** TODO Web site updates
 
-** Scheduled jobs:
-*** TODO General concepts
-
-*** TODO Built-in files updates
+** Scheduled jobs
+We have 2 cron(scheduled) jobs: [[https://github.com/syl20bnr/spacemacs/blob/develop/.github/workflows/stale.yml][Managing stale issues]] with [[https://github.com/actions/stale][actions/stale]] and
+running built-in update job. The last one is managed by CircleCI and currently
+doesn't run since CircleCI [[https://discuss.circleci.com/t/setup-workflow-and-scheduled-workflow-in-the-same-configuration/39932/6][doesn't support cron jobs with setup configs]]. Instead
+built-in files are updated every time Spacemacs develop branch is pushed.
 
 * Potential improvements (PR ideas)
 - CircleCI config generation stage can test if a PR changes any .org file
@@ -154,6 +190,10 @@ See [[#emacs-lisp-tests][Emacs Lisp Tests]] it is the same.
   failures since they vastly  outnumber failed ones.
 - See if we actually properly clean all they side effects between running
   EmacsLisp tests.
+- CircleCI script files can have better names. Also =.circleci= directory gets
+  a bit crowded. Some of them should be moved into separate directory. It can
+  be called "shared" since most of the scripts are reused across different
+  jobs. 
 
 * Side notes
 ** We used to have TravisCI (3 CI providers at the same time)
