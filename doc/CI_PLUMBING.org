@@ -28,7 +28,6 @@
 - [[#side-notes][Side notes]]
   - [[#we-used-to-have-travisci-3-ci-providers-at-the-same-time][We used to have TravisCI (3 CI providers at the same time)]]
   - [[#circleci-setup-config-and-cron-jobs][CircleCI setup config and cron jobs]]
-- [[#to-be-continued][To be continued]]
 
 * Description
 This file explains how our continuous integration operates and what problems
@@ -93,17 +92,26 @@ the JVM drawbacks are mitigated, for the particular use case anyway.
 * Workflows (groups of CI jobs)
 ** Pull request jobs
 *** TODO Emacs Lisp Tests
+
 *** TODO Documentation validation
+
 *** TODO PR validation
+
 ** Branch updates (runs on merge)
 *** TODO Emacs Lisp Tests
+
 *** TODO Project files updates
 **** TODO General concepts
+
 **** TODO Built-in updates
+
 **** TODO Documentation updates
+
 **** TODO Web site updates
+
 ** Scheduled jobs:
 *** TODO General concepts
+
 *** TODO Built-in files updates
 
 * Potential improvements (PR ideas)
@@ -118,12 +126,13 @@ We ran long running jobs there but ended up dropping the CI since TravisCI
 doesn't allow collaborators to read/set environment variables anymore,
 [[https://pbs.twimg.com/media/Eoq3OnWW4AIy7ih?format=jpg&name=large][the could be in some kind of trouble]] or [[https://blog.travis-ci.com/oss-announcement][maybe not]]. Anyway, when TravisCI
 stopped running jobs on their old domain (as a part of the migration from
-https://travis-ci.org/ to https://www.travis-ci.com/) I decided to use it
+[[https://travis-ci.org/]] to [[https://www.travis-ci.com/]]) I decided to use it
 as an opportunity to have fewer kinds of configs. Still, it's good environment
 for building heavy (both in build time and RAM) Docker images.
+
 ** CircleCI setup config and cron jobs
 - Currently configs with setup step [[https://discuss.circleci.com/t/setup-workflow-and-scheduled-workflow-in-the-same-configuration/39932/6][don't run cron jobs]].
 - We have setup config because environment variables aren't accessible at the
-  top level of config files. But we need  =IS_BRANCH_UDATE= environment variable
+  top level of config files. But we need =IS_BRANCH_UDATE= environment variable
   to figure out if CI runs on PR or branch update. So config generation step
   bakes it into the config that CircleCI will use. 
