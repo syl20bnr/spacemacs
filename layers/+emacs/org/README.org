@@ -445,8 +445,9 @@ the following snippet.
 #+END_SRC
 
 ** Org-brain support
-For Emacs 25 or later, support for [[https://kungsgeten.github.io/org-brain.html][org-brain]] is included. See the [[https://github.com/Kungsgeten/org-brain][org-brain
-package documentation]] for more information.
+For Emacs 25 or later, to install [[https://kungsgeten.github.io/org-brain.html][org-brain]] set the variable =org-enable-org-brain-support= to =t=.
+
+See the [[https://github.com/Kungsgeten/org-brain][org-brain package documentation]] for more information.
 
 ** Org-roam support
 To install org-roam support set the variable =org-enable-roam-support= to =t=.
