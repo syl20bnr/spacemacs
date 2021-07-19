@@ -216,17 +216,11 @@ in the window where the Symbol Highlight Transient State was closed."
 
 (defun spacemacs//transient-state-buffer-title ()
   (let ((transient-state-buffer-name " *LV*"))
-    (when (spacemacs/buffer-exists transient-state-buffer-name)
+    (when (get-buffer transient-state-buffer-name)
       (with-current-buffer transient-state-buffer-name
         (buffer-substring-no-properties
          (point-min)
          (string-match "Transient State" (buffer-string)))))))
-
-(defun spacemacs/buffer-exists (name-of-buffer)
-  (catch 'buffer-found
-    (dolist (win (window-list))
-      (when (string= name-of-buffer (buffer-name (window-buffer win)))
-        (throw 'buffer-found t)))))
 
 (defun spacemacs/symbol-highlight-reset-range ()
   "Reset the range for `auto-highlight-symbol'."
