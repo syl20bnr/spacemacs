@@ -98,7 +98,8 @@ current contents of the file will be overwritten."
           "\n"
           "# Environment variables:\n"
           "# ----------------------\n"))
-        (let ((env-point (point)))
+        (let ((process-environment initial-environment)
+              (env-point (point)))
           (dolist (shell-command-switch shell-command-switches)
             (call-process-shell-command
              (concat executable " > " (shell-quote-argument tmpfile)))
