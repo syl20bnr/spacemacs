@@ -9,6 +9,25 @@
     - [[#github-actions][GitHub Actions]]
     - [[#docker][Docker]]
     - [[#clojure][Clojure]]
+- [[#workflows-groups-of-ci-jobs][Workflows (groups of CI jobs)]]
+  - [[#pull-request-jobs][Pull request jobs]]
+    - [[#emacs-lisp-tests][Emacs Lisp Tests]]
+    - [[#documentation-validation][Documentation validation]]
+    - [[#pr-validation][PR validation]]
+  - [[#branch-updates-runs-on-merge][Branch updates (runs on merge)]]
+    - [[#emacs-lisp-tests-1][Emacs Lisp Tests]]
+    - [[#project-files-updates][Project files updates]]
+      - [[#general-concepts][General concepts]]
+      - [[#built-in-updates][Built-in updates]]
+      - [[#documentation-updates][Documentation updates]]
+      - [[#web-site-updates][Web site updates]]
+  - [[#scheduled-jobs][Scheduled jobs:]]
+    - [[#general-concepts-1][General concepts]]
+    - [[#built-in-files-updates][Built-in files updates]]
+- [[#potential-improvements-pr-ideas][Potential improvements (PR ideas)]]
+- [[#side-notes][Side notes]]
+  - [[#we-used-to-have-travisci-3-ci-providers-at-the-same-time][We used to have TravisCI (3 CI providers at the same time)]]
+  - [[#circleci-setup-config-and-cron-jobs][CircleCI setup config and cron jobs]]
 - [[#to-be-continued][To be continued]]
 
 * Description
@@ -28,7 +47,7 @@ self-explanatory but will be examined in depth below.
 
 ** Current stack:
 Wait, what? Why Clojure, why 2 CI providers?
-I knew you would ask this question, dear reader, so here we go:
+I knew you would ask this question, dear reader, so here's my rationale:
 
 *** CircleCI
 It has a cool set of features and a generous quota for open source projects.
@@ -71,4 +90,40 @@ to validate files, generate test data and constructors for org-mode
 elements. The code is compiled to [[https://www.graalvm.org/reference-manual/native-image/][native-image]] so pretty much all of
 the JVM drawbacks are mitigated, for the particular use case anyway.
 
-* TODO To be continued
+* Workflows (groups of CI jobs)
+** Pull request jobs
+*** TODO Emacs Lisp Tests
+*** TODO Documentation validation
+*** TODO PR validation
+** Branch updates (runs on merge)
+*** TODO Emacs Lisp Tests
+*** TODO Project files updates
+**** TODO General concepts
+**** TODO Built-in updates
+**** TODO Documentation updates
+**** TODO Web site updates
+** Scheduled jobs:
+*** TODO General concepts
+*** TODO Built-in files updates
+
+* Potential improvements (PR ideas)
+- CircleCI config generation stage can test if a PR changes any .org file
+  and schedule documentation testing job only if it does.
+- PR validation job can be moved to CircleCI config generation stage. If
+  it isn't valid all CircleCI jobs can be skipped.
+
+* Side notes
+** We used to have TravisCI (3 CI providers at the same time)
+We ran long running jobs there but ended up dropping the CI since TravisCI
+doesn't allow collaborators to read/set environment variables anymore,
+[[https://pbs.twimg.com/media/Eoq3OnWW4AIy7ih?format=jpg&name=large][the could be in some kind of trouble]] or [[https://blog.travis-ci.com/oss-announcement][maybe not]]. Anyway, when TravisCI
+stopped running jobs on their old domain (as a part of the migration from
+https://travis-ci.org/ to https://www.travis-ci.com/) I decided to use it
+as an opportunity to have fewer kinds of configs. Still, it's good environment
+for building heavy (both in build time and RAM) Docker images.
+** CircleCI setup config and cron jobs
+- Currently configs with setup step [[https://discuss.circleci.com/t/setup-workflow-and-scheduled-workflow-in-the-same-configuration/39932/6][don't run cron jobs]].
+- We have setup config because environment variables aren't accessible at the
+  top level of config files. But we need  =IS_BRANCH_UDATE= environment variable
+  to figure out if CI runs on PR or branch update. So config generation step
+  bakes it into the config that CircleCI will use. 
