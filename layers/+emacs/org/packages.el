@@ -931,35 +931,32 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (spacemacs/declare-prefix "aord" "org-roam-dailies")
       (spacemacs/declare-prefix "aort" "org-roam-tags")
       (spacemacs/set-leader-keys
-        "aordy" 'org-roam-dailies-find-yesterday
-        "aordt" 'org-roam-dailies-find-today
-        "aordT" 'org-roam-dailies-find-tomorrow
-        "aordd" 'org-roam-dailies-find-date
-        "aorf" 'org-roam-find-file
+        "aordy" 'org-roam-dailies-goto-yesterday
+        "aordt" 'org-roam-dailies-goto-today
+        "aordT" 'org-roam-dailies-goto-tomorrow
+        "aordd" 'org-roam-dailies-goto-date
+        "aorf" 'org-roam-node-find
         "aorg" 'org-roam-graph
-        "aori" 'org-roam-insert
-        "aorI" 'org-roam-insert-immediate
-        "aorl" 'org-roam-buffer-toggle-display
+        "aori" 'org-roam-node-insert
+        "aorl" 'org-roam-buffer-toggle
         "aorta" 'org-roam-tag-add
-        "aortd" 'org-roam-tag-delete
+        "aortd" 'org-roam-tag-remove
         "aora" 'org-roam-alias-add)
 
       (spacemacs/declare-prefix-for-mode 'org-mode "mr" "org-roam")
       (spacemacs/declare-prefix-for-mode 'org-mode "mrd" "org-roam-dailies")
       (spacemacs/declare-prefix-for-mode 'org-mode "mrt" "org-roam-tags")
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
-        "rb" 'org-roam-switch-to-buffer
-        "rdy" 'org-roam-dailies-find-yesterday
-        "rdt" 'org-roam-dailies-find-today
-        "rdT" 'org-roam-dailies-find-tomorrow
-        "rdd" 'org-roam-dailies-find-date
-        "rf" 'org-roam-find-file
+        "rdy" 'org-roam-dailies-goto-yesterday
+        "rdt" 'org-roam-dailies-goto-today
+        "rdT" 'org-roam-dailies-goto-tomorrow
+        "rdd" 'org-roam-dailies-goto-date
+        "rf" 'org-roam-node-find
         "rg" 'org-roam-graph
-        "ri" 'org-roam-insert
-        "rI" 'org-roam-insert-immediate
-        "rl" 'org-roam-buffer-toggle-display
+        "ri" 'org-roam-node-insert
+        "rl" 'org-roam-buffer-toggle
         "rta" 'org-roam-tag-add
-        "rtd" 'org-roam-tag-delete
+        "rtd" 'org-roam-tag-remove
         "ra" 'org-roam-alias-add))
     :config
     (progn
@@ -1023,14 +1020,6 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (setq org-appear-autolinks t
             org-appear-autoemphasis t
             org-appear-autosubmarkers t))))
-
-(defun org/init-org-roam-server()
-  (use-package org-roam-server
-    :defer t
-    :init
-    (progn
-      (spacemacs/set-leader-keys "aors" 'org-roam-server-mode)
-      (spacemacs/set-leader-keys-for-major-mode 'org-mode "rs" 'org-roam-server-mode))))
 
 (defun org/init-ox-asciidoc ()
   (use-package ox-asciidoc
