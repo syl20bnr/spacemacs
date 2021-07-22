@@ -186,7 +186,7 @@ configured in the [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci
 The PRs are merged manually.
 
 **** Built-in updates
-The setup is really simple. We have [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/built_in/upd_built_in][.circleci/built_in/upd_built_in]]  bash
+The setup is really simple. We have [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/built_in/upd_built_in][.circleci/built_in/upd_built_in]] bash
 script that reads [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/built_in_manifest][.ci/built_in_manifest]] file line by line and downloads every
 file into the specified location.
 
@@ -202,6 +202,7 @@ The steps are:
 1. parse and validate .sdn files
 2. Generae LAYERS.sdn file.
 3. Generate new set of .org files and replace old ones.
+
 The tool is configured by [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][.ci/spacedoc-cfg.edn]] file. For details on how
 LAYERS.org generation works see [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#readmeorg-tags]["README.org tags" section of CONTRIBUTING.org]]
 The rest of configs(and their default values) are listed [[https://github.com/JAremko/spacetools/blob/master/components/spacedoc/src/spacetools/spacedoc/config.clj][here]].
