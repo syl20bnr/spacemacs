@@ -18,7 +18,7 @@
   - [[#branch-updates-runs-on-merge][Branch updates (runs on merge)]]
     - [[#emacs-lisp-tests-1][Emacs Lisp Tests]]
     - [[#project-files-updates][Project files updates]]
-      - [[#general-concepts][General concepts]]
+      - [[#how-updates-end-up-in-spacemacs-repositories][How updates end up in Spacemacs repositories]]
       - [[#built-in-updates][Built-in updates]]
       - [[#documentation-updates][Documentation updates]]
       - [[#web-site-updates][Web site updates]]
@@ -30,7 +30,7 @@
 
 * Description
 This file explains how our continuous integration operates and what problems
-it solves. =It is works in progress.=
+it solves.
 
 * Overview
 ** TLDR
@@ -156,14 +156,66 @@ well... Ahead).
 *** Emacs Lisp Tests
 See [[#emacs-lisp-tests][Emacs Lisp Tests]] it is the same.
 
-*** TODO Project files updates
-**** TODO General concepts
+*** Project files updates
+All updates are handled by CircleCI. There are two config files:
+[[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/config.yml][.circleci/config.yml]] that injects =IS_BRANCH_UDATE= environment variable into
+the second file [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/config_tmpl.yml][.circleci/config_tmpl.yml]] - actual config that CI will use.
+It has to be done this way because environment variables aren't accessible
+outside workflows, but CI needs =IS_BRANCH_UDATE= to choose what workflows
+to run.
+[[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/config_tmpl.yml][.circleci/config_tmpl.yml]] begins with declarations of =parameters= (they
+are used to configure jobs) and =spacetools= executor. Every job runs inside of
+a freshly spawned =jare/spacemacs-circleci:latest= container that has Emacs and
+documentation tools, hub CLI and some other stuff. Here's its [[https://github.com/JAremko/spacemacs-circleci/blob/master/Dockerfile][docker file]] and
+its base image's [[https://github.com/JAremko/spacetools/blob/master/Dockerfile.noemacs][docker file]].
+The middle section of the config defines jobs and their names. At the end of the
+file we have workflow definitions that aggregate jobs by names. Here you can see
+how =is_branch_update= parameter is used to select which workflows should be
+ran. Its value is set by inlined =IS_BRANCH_UDATE= environment variable that
+comes from environment variables page under CircleCI project settings.
+
+**** How updates end up in Spacemacs repositories
+Merging updates is semi-automatic. Bot (specified by =UPD_BOT_LOGIN= job
+environment variable) uses GitHub token (stored in CircleCI project settings) to
+push updated version of Spacemacs develop branch into its fork (=UPD_BOT_REPO=)
+then it opens pull request to =PRJ_REPO= owned by =PRJ_OWNER= (the fork is based
+on it). =PUBLISH= variable also used as a name for fork repo branch while
+=PR_BRANCH= is the branch against which PR will be opened. See [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/push][.circleci/push]]
+and [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/maybe_pr][.circleci/maybe_pr]] files for inner works. Most of bash variables are
+configured in the [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/shared][.circleci/shared]] file.
+The PRs are merged manually.
 
 **** TODO Built-in updates
+The setup is really simple. We have [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/built_in/upd_built_in][.circleci/built_in/upd_built_in]]  bash
+script that reads [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/built_in_manifest][.ci/built_in_manifest]] file line by line and downloads every
+file into the specified location.
 
 **** TODO Documentation updates
+First files are exported into [[https://github.com/edn-format/edn][edn]]. File extension is .sdn "Spacemacs
+Documentation Notation" if you will, it's done to avoid collisions with config
+.edn files that can be in exported directories. The exporting is done by Emacs
+Lisp program based of [[https://github.com/emacsmirror/org/blob/master/lisp/ox.el][ox.el]]. [[https://github.com/JAremko/sdnize.el][Here's repository]]. The program extracts data and
+perform basic validations.
+The resulting .sdn files then process by [[https://github.com/JAremko/spacetools][spacetools]] (I'll work on
+documentation).
+The steps are:
+1. parse and validate .sdn files
+2. Generae LAYERS.sdn file.
+3. Generate new set of .org files and replace old ones.
+The tool is configured by [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][.ci/spacedoc-cfg.edn]] file. For details on how
+LAYERS.org generation works see [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#readmeorg-tags]["README.org tags" section of CONTRIBUTING.org]]
+The rest of configs(and their default values) are listed [[https://github.com/JAremko/spacetools/blob/master/components/spacedoc/src/spacetools/spacedoc/config.clj][here]].
 
 **** TODO Web site updates
+HTML generation handled by [[https://github.com/syl20bnr/spacemacs/blob/develop/core/core-documentation.el][core/core-documentation.el]] the entry function is
+=spacemacs/publish-doc= all the interesting parts are in preprocessors. Search
+for =Add preprocessors here= comment. Overall - pretty basic. When I finish with
+documenting/refactoring =spacetools= I'll probably use it to generate HTML
+similarly to how it generates .org files.
+What makes this job special is that CircleCI caches EmacsLisp dependencies of
+the HTML exporter script. See =save_cache= and =restore_cache= sections
+in [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/config_tmpl.yml][config file]]. Even with this export is pretty slow since it processes files
+sequentially one by one.
 
 ** Scheduled jobs
 We have 2 cron(scheduled) jobs: [[https://github.com/syl20bnr/spacemacs/blob/develop/.github/workflows/stale.yml][Managing stale issues]] with [[https://github.com/actions/stale][actions/stale]] and
