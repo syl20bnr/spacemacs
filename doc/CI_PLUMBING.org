@@ -35,7 +35,7 @@ solves.
 ** TLDR
 Spacemacs is big - the active maintainers team is small. The more we can
 automate - the better. We use  [[https://circleci.com/][CircleCI]], [[https://github.com/features/actions][GitHub Actions]] and [[https://www.docker.com/][Docker]] to test PRs,
-update built-in files, fix documentation and export it to [[develop.spacemacs.org]].
+update built-in files, fix documentation and export it to [[https://develop.spacemacs.org/][develop.spacemacs.org]].
 Most of the code is just a bunch of bash/EmacsLisp scripts and yml files, but
 some of the documentation tools are written in Clojure.
 If you prefer reading code instead of documentation, checkout out [[https://github.com/syl20bnr/spacemacs/tree/develop/.circleci][CircleCI]] and
