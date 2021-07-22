@@ -185,12 +185,12 @@ and [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/maybe_pr][.ci
 configured in the [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/shared][.circleci/shared]] file.
 The PRs are merged manually.
 
-**** TODO Built-in updates
+**** Built-in updates
 The setup is really simple. We have [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/built_in/upd_built_in][.circleci/built_in/upd_built_in]]  bash
 script that reads [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/built_in_manifest][.ci/built_in_manifest]] file line by line and downloads every
 file into the specified location.
 
-**** TODO Documentation updates
+**** Documentation updates
 First files are exported into [[https://github.com/edn-format/edn][edn]]. File extension is .sdn "Spacemacs
 Documentation Notation" if you will, it's done to avoid collisions with config
 .edn files that can be in exported directories. The exporting is done by Emacs
@@ -206,7 +206,7 @@ The tool is configured by [[https://github.com/syl20bnr/spacemacs/blob/develop/.
 LAYERS.org generation works see [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#readmeorg-tags]["README.org tags" section of CONTRIBUTING.org]]
 The rest of configs(and their default values) are listed [[https://github.com/JAremko/spacetools/blob/master/components/spacedoc/src/spacetools/spacedoc/config.clj][here]].
 
-**** TODO Web site updates
+**** Web site updates
 HTML generation handled by [[https://github.com/syl20bnr/spacemacs/blob/develop/core/core-documentation.el][core/core-documentation.el]] the entry function is
 =spacemacs/publish-doc= all the interesting parts are in preprocessors. Search
 for =Add preprocessors here= comment. Overall - pretty basic. When I finish with
