@@ -36,6 +36,11 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =ivy= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+Make sure that the other completion layers: =compleseus= and =helm= are removed
+or commented out in the =dotspacemacs-configuration-layers= list. Or add =ivy=
+below the other completion layers. Spacemacs uses the completion layer that's
+listed last.
+
 * Configuration
 ** General
 You can customize ivy with the following variables:
