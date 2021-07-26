@@ -377,6 +377,7 @@ In org-agenda-mode
 - The =ycmd= layer has been deleted and moved to the =c-c++= layer.
 *** New layers
 **** Completion
+- compleseus (thanks to thanhvg)
 - templates (thanks to YasuharuIida and Eivind Fonn)
 **** Emacs
 - helpful (thanks to Johnson Denen, Andriy Kmit)
