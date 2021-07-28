@@ -12,6 +12,7 @@
   - [[#syntax-checking][Syntax Checking]]
 - [[#completion][Completion]]
   - [[#auto-completion][Auto-completion]]
+  - [[#compleseus][Compleseus]]
   - [[#helm][Helm]]
   - [[#ivy][Ivy]]
   - [[#templates][Templates]]
@@ -356,6 +357,21 @@ Features:
 - Integration with [[https://github.com/capitaomorte/yasnippet][yasnippet]] and [[https://github.com/abo-abo/auto-yasnippet][auto-yasnippet]]
 - Automatic configuration of [[https://www.emacswiki.org/emacs/HippieExpand][hippie-expand]]
 - Automatic docstring tooltips are provided by [[https://github.com/expez/company-quickhelp][company-quickhelp]]
+
+** Compleseus
+[[file:+completion/compleseus/README.org][+completion/compleseus/README.org]]
+
+This layer adds a new way of completion provided by the following core packages:
+- =consult=
+- =embark=
+- =marginalia=
+- =orderless=
+- =selectrum= or =vertico=
+
+This is an WIP and only supports emacs 27 or later. Please contribute.
+
+Features:
+- Same features as =ivy= or =helm=
 
 ** Helm
 [[file:+completion/helm/README.org][+completion/helm/README.org]]
