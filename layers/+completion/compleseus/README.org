@@ -1,7 +1,8 @@
 #+TITLE: compleseus layer
+
 #+TAGS: completion|layer
 
-* Table of Contents                                       :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -18,7 +19,7 @@ This layer adds a new way of completion provided by the following core packages:
 This is an WIP and only supports emacs 27 or later. Please contribute.
 
 ** Features:
-  - Same features as =ivy= or =helm=
+- Same features as =ivy= or =helm=
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -32,8 +33,7 @@ layer that's listed last.
 
 * Key bindings
 
-| Key Binding | Description   |
+| Key binding | Description   |
 |-------------+---------------|
 | ~M-o~       | embark-action |
 | ~C-r~       | history       |
-
