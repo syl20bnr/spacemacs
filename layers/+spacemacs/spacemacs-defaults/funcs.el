@@ -1663,7 +1663,7 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
 ;; Line number
 
 (defun spacemacs/no-linum (&rest ignore)
-  "Disable linum if current buffer."
+  "Disable linum in current buffer."
   (when (or 'linum-mode global-linum-mode)
     (linum-mode 0)))
 
