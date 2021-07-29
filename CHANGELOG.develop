@@ -838,6 +838,9 @@ Other:
   - Added =string-edit= package to =spacemacs-editing= layer
     (thanks to Ivan Yonchovski)
 - Key bindings:
+  - Toggle line numbers (i.e. toggle =display-line-numbers-mode=) via ~SPC t n n~
+    without having to think about which variant of line numbers you have turned
+    on (thanks to Keith Pinson)
   - Evilify =Custom-mode= (thanks to Keith Pinson)
   - Fixed ~M-x~ prefix visualization for ~dotspacemacs-emacs-command-key~
   - New ~SPC a Q~ prefix for dispatching quickurl
