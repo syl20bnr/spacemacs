@@ -62,6 +62,15 @@
                       (region-beginning) (region-end))
                    (thing-at-point 'symbol t))))
 
+(defun spacemacs/consult-line-multi ()
+  (interactive)
+  (consult-line-multi
+   nil
+   (if (region-active-p)
+                     (buffer-substring-no-properties
+                      (region-beginning) (region-end))
+                   (thing-at-point 'symbol t))))
+
 (defun spacemacs/compleseus-search-auto ()
   "Choose folder to search."
   (interactive)
