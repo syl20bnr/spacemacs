@@ -2836,6 +2836,7 @@ files (thanks to Daniel Nicolai)
   (thanks to jupl)
 - Disabled add-node-modules-path by default (thanks to Eivind Fonn)
 **** Notmuch
+- Added support for scrolling the message pane in notmuch-tree, originally bound to SPC/BKSPC (thanks to inwit).
 - Fixed a bug in notmuch-tree which was preventing ~d~/~D~ bindings to work (thanks to Daniel Nicolai, alexey0308, inwit)
 - Try harder to find GitHub patch URL (thanks to Miciah Masters)
 - Open GitHub patches fullscreen
