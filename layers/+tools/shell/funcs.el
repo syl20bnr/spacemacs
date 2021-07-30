@@ -70,7 +70,9 @@ view; to pop-up a full width buffer, use
                                 (delete-window)))))))
 
 (defun spacemacs/default-pop-shell ()
-  "Open the default shell in a popup."
+  "Open the default shell in a popup using `shell-pop'.
+Additionally changes to working directory when the value of
+`shell-pop-autocd-to-working-dir' is non-nil (default)."
   (interactive)
   (let ((shell (cl-case shell-default-shell
                  ('multi-term 'multiterm)
