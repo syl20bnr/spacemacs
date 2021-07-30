@@ -188,6 +188,8 @@ Refer to the official notmuch website for more information:
 | ~+~         | [Message] Add tags       |
 | ~-~         | [Message] Remove tags    |
 | ~a~         | [Message] Archive        |
+| ~M-d~       | [Message] Scroll down the message pane |
+| ~M-u~       | [Message] Scroll up the message pane |
 
 * Spacemacs layout integration
 This layer defines a [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#layouts-and-workspaces][Spacemacs custom layout]] and automatically adds notmuch
