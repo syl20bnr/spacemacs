@@ -140,6 +140,8 @@
       "fr" #'consult-recent-file
       "jm" #'consult-mark
       "jM" #'consult-global-mark
+      "sb" #'consult-line-multi
+      "sB" #'spacemacs/consult-line-multi
       "ss" #'consult-line
       "sS" #'spacemacs/consult-line
       "sk" #'consult-keep-lines
