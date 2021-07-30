@@ -36,6 +36,11 @@
   (use-package google-translate
     :commands (spacemacs/set-google-translate-languages)
     :init
+    ;; fix search fail ',ttk'
+    ;; (see https://github.com/atykhonov/google-translate/issues/52#issuecomment-727920888)
+    (with-eval-after-load 'google-translate-tk
+      (defun google-translate--search-tkk () "Search TKK." (list 430675 2721866130)))
+
     (progn
       (defun spacemacs/set-google-translate-languages (&optional override-p)
         "Set source language for google translate.
