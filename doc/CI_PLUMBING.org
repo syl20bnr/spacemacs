@@ -102,12 +102,13 @@ the JVM drawbacks are mitigated, for the particular use case anyway.
     it doesn't always work and requires personal token to run automatically.
   - =stale.yml= manages stale issues and PRs.
 - [[https://github.com/syl20bnr/spacemacs/tree/develop/.circleci][.circleci]] everything specific for CircleCI. Documentation related files
-  stored in the =org= sub folder, =web= is where HTML export stuff hides and
-  =built_in= is all about updating built-in files. The rest is a bunch of
+  stored in the =org= sub folder, =web= is where HTML export stuff hides,
+  =built_in= is all about updating built-in files and =update= contains helpers
+  related to making patches and pushing changes. The rest is a bunch of
   shared script files. The specific cases are =shared= file that loads before
   each script run for every job, =config.yml= - CircleCI bootstrap script that
-  generates the config that CircleCI will run by populating =config_tmpl.yml=
-  file - actual config.
+  generates the config that CircleCI runs for actual jobs. It does so by
+  rendering =config_tmpl.yml= template file.
 
 * Workflows (groups of CI jobs)
 ** Pull request jobs
@@ -176,8 +177,8 @@ environment variable) uses GitHub token (stored in CircleCI project settings) to
 push updated version of Spacemacs develop branch into its fork (=UPD_BOT_REPO=)
 then it opens pull request to =PRJ_REPO= owned by =PRJ_OWNER= (the fork is based
 on it). =PUBLISH= variable also used as a name for the fork repo branch while
-=PR_BRANCH= is the branch against which PR will be opened. See [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/push][.circleci/push]]
-and [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/maybe_pr][.circleci/maybe_pr]] files for inner-works. Most of bash variables are
+=PR_BRANCH= is the branch against which PR will be opened. See [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/update/push][.circleci/update/push]]
+and [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/update/maybe_pr][.circleci/update/maybe_pr]] files for inner-works. Most of bash variables are
 configured in the [[https://github.com/syl20bnr/spacemacs/blob/develop/.circleci/shared][.circleci/shared]] file. The PRs are merged manually.
 
 **** Built-in updates
@@ -235,8 +236,9 @@ develop branch is pushed.
   failures since they vastly outnumber failed ones.
 - See if we actually properly clean all they side effects between running
   EmacsLisp tests.
-- CircleCI script files can have better names. Also =.circleci= directory gets
-  a bit crowded.
+- CircleCI script files can have better names.
+- Better error reporting in scripts. It is hard to debug CI so knowing what
+  exactly went wrong would help a lot.
 
 * Side notes
 ** We used to have TravisCI (3 CI providers at the same time)

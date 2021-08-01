@@ -10,7 +10,7 @@
 ##
 ## License: GPLv3
 
-exit_if_no_changes
+exit_if_no_patchfile
 
 echo_headline "Cloning target repository"
 target_URL="https://github.com/${prj_owner}/${prj_repo}.git"
@@ -29,10 +29,17 @@ if [ $? -ne 0 ]; then
     exit 2
 fi
 
-echo_headline "Creating commit"
 git add --all
-git commit -m "[bot] \"${PUBLISH}\" $(date -u)"
-if [ $? -ne 0 ]; then
-    echo "Faild to create commit."
-    exit 2
+
+if [[ $(git diff --stat) != '' ]]; then
+    echo_headline "Creating commit"
+    git commit -m "[bot] \"${PUBLISH}\" $(date -u)"
+    if [ $? -ne 0 ]; then
+        echo "Failed to create commit."
+        exit 2
+    fi
+else
+    echo "Nothing to commit."
+    rm "/tmp/${PUBLISH}.patch"
+    exit 0
 fi

@@ -78,16 +78,16 @@ jobs:
           command: .circleci/built_in/upd_built_in
       - run:
           name: Create patch file with the updates
-          command: .circleci/make_patch
+          command: .circleci/update/make_patch
       - run:
           name: Apply the patch file
-          command: .circleci/apply_patch
+          command: .circleci/update/apply_patch
       - run:
           name: Push changes to Spacemacs Bot account
-          command: .circleci/push
+          command: .circleci/update/push
       - run:
           name: Open PR if built in files must be updated
-          command: .circleci/maybe_pr
+          command: .circleci/update/maybe_pr
   "Update documentation files":
     executor: spacetools
     environment:
@@ -110,16 +110,16 @@ jobs:
           command: .circleci/org/update_docs
       - run:
           name: Create patch file with the updates
-          command: .circleci/make_patch
+          command: .circleci/update/make_patch
       - run:
           name: Apply the patch file
-          command: .circleci/apply_patch
+          command: .circleci/update/apply_patch
       - run:
           name: Push changes to Spacemacs Bot account
-          command: .circleci/push
+          command: .circleci/update/push
       - run:
           name: Open PR if documentation needs fixes
-          command: .circleci/maybe_pr
+          command: .circleci/update/maybe_pr
   "Update website documentation":
     executor: spacetools
     environment:
@@ -158,16 +158,18 @@ jobs:
           command: rsync -avh ~/.emacs.d/export/ "/tmp/${PUBLISH}_old"
       - run:
           name: Create patch file with the updates
-          command: cd "/tmp/${PUBLISH}_old" && ~/.emacs.d/.circleci/make_patch
+          command: |
+            cd "/tmp/${PUBLISH}_old" && \
+            ~/.emacs.d/.circleci/update/make_patch
       - run:
           name: Apply the patch file
-          command: .circleci/apply_patch
+          command: .circleci/update/apply_patch
       - run:
           name: Push changes to Spacemacs Bot account
-          command: .circleci/push
+          command: .circleci/update/push
       - run:
           name: Open PR if web documentation needs fixes
-          command: .circleci/maybe_pr
+          command: .circleci/update/maybe_pr
 
 workflows:
   version: 2.1
