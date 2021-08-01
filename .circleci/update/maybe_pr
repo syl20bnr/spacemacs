@@ -10,7 +10,7 @@
 ##
 ## License: GPLv3
 
-exit_if_no_changes
+exit_if_no_patchfile
 
 cd "/tmp/${PUBLISH}"
 

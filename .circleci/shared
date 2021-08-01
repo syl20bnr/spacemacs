@@ -41,7 +41,7 @@ echo_headline () {
 	echo
 }
 
-exit_if_no_changes () {
+exit_if_no_patchfile () {
     if [ ! -f "/tmp/${PUBLISH}.patch" ]; then
         echo "\"/tmp/${PUBLISH}.patch\" file doesn't exists. Exiting."
         exit 0
