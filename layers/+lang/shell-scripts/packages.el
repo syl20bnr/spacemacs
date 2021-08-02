@@ -33,6 +33,7 @@
         insert-shebang
         org
         (sh-script :location built-in)
+        (shfmt :toggle shell-scripts-format-on-save)
         ))
 
 (defun shell-scripts/init-company-shell ()
@@ -98,6 +99,11 @@
           (sh-set-shell "zsh")))
       (add-hook 'sh-mode-hook 'spacemacs//setup-shell)
       (add-hook 'sh-mode-hook 'spacemacs//shell-scripts-setup-backend))))
+
+(defun shell-scripts/init-shfmt ()
+  (use-package shfmt
+    :defer t
+    :init (add-hook 'sh-mode-hook 'shfmt-on-save-mode)))
 
 (defun shell-scripts/post-init-ggtags ()
   (add-hook 'sh-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

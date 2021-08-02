@@ -28,3 +28,6 @@
 (defvar shell-scripts-backend (when (configuration-layer/layer-used-p 'lsp) 'lsp)
   "The backend to use for IDE features.
 When `lsp' layer is used, defaults to `lsp'.")
+
+(defvar shell-scripts-format-on-save nil
+  "If non-nil, automatically format code with shfmt on save.")

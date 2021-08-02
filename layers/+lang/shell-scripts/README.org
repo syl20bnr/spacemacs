@@ -4,7 +4,7 @@
 
 [[file:img/fish.png]]
 
-* Table of Contents                     :TOC_5_gh:noexport:
+* Table of Contents                                       :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -30,6 +30,7 @@ Supported scripting files:
 - =Sh= scripts linting using [[https://www.shellcheck.net/][shellcheck]]
 - =Sh= scripts style checking using [[https://github.com/openstack-dev/bashate][bashate]]
 - Support for the [[https://langserver.org/][Language Server Protocol]] (experimental)
+- Automatic formatting via [[https://github.com/mvdan/sh][shfmt]]
 
 * Install
 ** Layer
