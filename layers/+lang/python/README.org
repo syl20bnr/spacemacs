@@ -458,20 +458,21 @@ search path by activating a virtual environment.
 
 Send code to inferior process commands:
 
-| Key binding | Description                                      |
-|-------------+--------------------------------------------------|
-| ~SPC m s b~ | send buffer and keep code buffer focused         |
-| ~SPC m s B~ | send buffer and switch to REPL in insert mode    |
-| ~SPC m s e~ | send statement and keep code buffer focused      |
-| ~SPC m s E~ | send statement and switch to REPL in insert mode |
-| ~SPC m s f~ | send function and keep code buffer focused       |
-| ~SPC m s F~ | send function and switch to REPL in insert mode  |
-| ~SPC m s i~ | start inferior REPL process                      |
-| ~SPC m s l~ | send line and keep code buffer focused           |
-| ~SPC m s r~ | send region and keep code buffer focused         |
-| ~SPC m s R~ | send region and switch to REPL in insert mode    |
-| ~CTRL+j~    | next item in REPL history                        |
-| ~CTRL+k~    | previous item in REPL history                    |
+| Key binding | Description                                                  |
+|-------------+--------------------------------------------------------------|
+| ~SPC m s s~ | send region (or line when region not active) and show output |
+| ~SPC m s b~ | send buffer and keep code buffer focused                     |
+| ~SPC m s B~ | send buffer and switch to REPL in insert mode                |
+| ~SPC m s e~ | send statement and keep code buffer focused                  |
+| ~SPC m s E~ | send statement and switch to REPL in insert mode             |
+| ~SPC m s f~ | send function and keep code buffer focused                   |
+| ~SPC m s F~ | send function and switch to REPL in insert mode              |
+| ~SPC m s i~ | start inferior REPL process                                  |
+| ~SPC m s l~ | send line and keep code buffer focused                       |
+| ~SPC m s r~ | send region and keep code buffer focused                     |
+| ~SPC m s R~ | send region and switch to REPL in insert mode                |
+| ~CTRL+j~    | next item in REPL history                                    |
+| ~CTRL+k~    | previous item in REPL history                                |
 
 ** Running Python Script in shell
 To run a Python script like you would in the shell press ~SPC m c c~
