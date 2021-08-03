@@ -1128,3 +1128,6 @@ Key binding prefixes:
 | ~SPC m r d d~ | Open daily note via calendar view |
 | ~SPC m r t a~ | Add a tag to file                 |
 | ~SPC m r t r~ | Remove a tag from file            |
+
+*org-roam buffer*
+| ~o~ | Follow link |
