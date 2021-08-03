@@ -242,6 +242,7 @@
      ("\\.[gj]sp\\'"     . web-mode)
      ("\\.as[cp]x?\\'"   . web-mode)
      ("\\.eex\\'"        . web-mode)
+     ("\\.leex\\'"       . web-mode)
      ("\\.erb\\'"        . web-mode)
      ("\\.mustache\\'"   . web-mode)
      ("\\.handlebars\\'" . web-mode)
