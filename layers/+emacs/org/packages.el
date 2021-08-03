@@ -959,12 +959,18 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "rta" 'org-roam-tag-add
         "rtr" 'org-roam-tag-remove
         "ra" 'org-roam-alias-add))
+
     :config
     (progn
       (spacemacs|hide-lighter org-roam-mode)
       (when org-enable-roam-protocol
           (add-hook 'org-roam-mode-hook (lambda ()
-                                          (require 'org-roam-protocol)))))))
+                                          (require 'org-roam-protocol))))
+
+      (evilified-state-evilify-map org-roam-mode-map
+        :mode org-roam-mode
+        :bindings
+        "o" 'link-hint-open-link))))
 
 (defun org/init-org-sticky-header ()
   (use-package org-sticky-header
