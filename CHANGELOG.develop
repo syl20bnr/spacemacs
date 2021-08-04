@@ -477,6 +477,7 @@ In org-agenda-mode
 - xclipboard (thanks to Charles Weill, Sylvain Benner, and Alex Palaistras)
 **** WEB services
 - confluence
+- reddit
 *** Renamed layers
 - =extra-langs= renamed to =major-modes= (thanks to Eivind Fonn)
 - =pdf-tools= renamed to =pdf=
