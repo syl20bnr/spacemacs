@@ -410,7 +410,8 @@
    ("B" spacemacs/display-buffer-other-frame "Display buffer other frame...")
    ("o" other-frame "Switch to other frame")
    ("O" spacemacs/dired-other-frame "Dired other frame...")
-   ("n" make-frame "Make frame"))))
+   ("n" make-frame "Make frame")
+   ("s" spacemacs/switch-frame-by-buffers "Switch frame by displayed buffer names") )))
 ;; help -----------------------------------------------------------------------
 (defalias 'emacs-tutorial 'help-with-tutorial)
 (spacemacs/set-leader-keys

@@ -838,6 +838,7 @@ Other:
   - Added =string-edit= package to =spacemacs-editing= layer
     (thanks to Ivan Yonchovski)
 - Key bindings:
+  - Switch frames by displayed buffer names via ~SPC F s~ (thanks to Keith Pinson)
   - Toggle line numbers (i.e. toggle =display-line-numbers-mode=) via ~SPC t n n~
     without having to think about which variant of line numbers you have turned
     on (thanks to Keith Pinson)

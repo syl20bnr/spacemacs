@@ -2565,6 +2565,7 @@ Frame manipulation commands (start with ~F~):
 | ~SPC F o~   | cycle focus between frames                          |
 | ~SPC F O~   | open a dired buffer in another frame                |
 | ~SPC F n~   | create a new frame                                  |
+| ~SPC F s~   | switch to frame by displayed buffers names          |
 
 **** Emacs and Spacemacs files
 Convenient key bindings are located under the prefix ~SPC f e~ to quickly
