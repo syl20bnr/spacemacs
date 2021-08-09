@@ -25,7 +25,7 @@
   '(reddigg))
 
 (defun reddit/init-reddigg ()
-  (use-package spotify
+  (use-package reddigg
     :defer t
     :init (progn
             (spacemacs/declare-prefix "awr" "reddit")
