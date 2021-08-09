@@ -483,6 +483,7 @@ In org-agenda-mode
 - eww (thanks to Colton Kopsa, Maximilian Wolff and Daniel Nicolai)
 - lobsters
 - hackernews
+- streamlink
 *** Renamed layers
 - =extra-langs= renamed to =major-modes= (thanks to Eivind Fonn)
 - =pdf-tools= renamed to =pdf=
