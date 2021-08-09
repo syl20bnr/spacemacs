@@ -484,6 +484,7 @@ In org-agenda-mode
 - lobsters
 - hackernews
 - streamlink
+- twitch
 *** Renamed layers
 - =extra-langs= renamed to =major-modes= (thanks to Eivind Fonn)
 - =pdf-tools= renamed to =pdf=
