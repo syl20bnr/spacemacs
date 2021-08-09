@@ -1,0 +1,53 @@
+#+TITLE: twitch layer
+#+TAGS: layer|web service
+
+* Table of Contents                                       :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+- [[#key-bindings][Key bindings]]
+  - [[#twitch-helm][Twitch helm]]
+
+* Description
+This layer adds support for twitch. You can search for streamers and open the stream in the browser.
+If the =erc= layer is enabled you are able to connect to twitch irc and join the streamer channel.
+If the =streamlink= layer is enabled the streams are opened with streamlink.
+
+** Features:
+  - Connect to Twitch irc via erc
+  - Join streamer channel
+  - Start watching stream via streamlink
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =twitch= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Configuration
+You can get an OAUTH token for twitch [[http://twitchapps.com/tmi/][here]]. Remove =oauth:= from the token.
+
+#+BEGIN_SRC emacs-lisp
+  erc ;; optional
+  streamlink ;; optional
+  (twitch :variables
+          twitch-api-username "USERNAME"
+          twitch-api-oauth-token "TOKEN") ;; remove oauth: prefix
+#+END_SRC
+
+* Key bindings
+
+| Key Binding   | Description                              |
+|---------------+------------------------------------------|
+| ~SPC a c i t~ | Connect to Twitch irc via erc            |
+| ~SPC a w s h~ | Start twitch helm and search for streams |
+
+** Twitch helm
+When enabling =erc= and =streamlink= layers helm-twitch has the following keybindings.
+   
+| Key Binding   | Description                             |
+|---------------+-----------------------------------------|
+| ~SPC a w s h~ | Start twitch helm                       |
+| ~F1~ or ~RET~ | Open stream in streamlink               |
+| ~F2~          | Join this stream in irc Twitch channel  |
+| ~F3~          | Open this stream in a browser (default) |
