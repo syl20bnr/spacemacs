@@ -9,6 +9,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
+  - [[#format-on-save][Format on save]]
 - [[#configuration][Configuration]]
 - [[#key-bindings][Key bindings]]
   - [[#nixos-options][NixOS Options]]
@@ -27,6 +28,14 @@ This layer adds tools for better integration of Emacs in NixOS.
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =nixos= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+** Format on save
+To enable automatic formatting on save, set the layer variable
+~nixos-format-on-save~ to ~t~:
+
+#+begin_src elisp
+  (nixos :variables nixos-format-on-save t)
+#+end_src
 
 * Configuration
 On some systems, =company-nixos-options= may be very slow. If this is the case,
