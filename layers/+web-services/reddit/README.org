@@ -1,10 +1,8 @@
-#+TITLE: Reddit layer
+#+TITLE: Layer for reddit
 
 #+TAGS: layer|web service
 
-[[file:img/reddit.png]]
-
-* Table of Contents                     :TOC_5_gh:noexport:
+* Table of Contents                                       :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
