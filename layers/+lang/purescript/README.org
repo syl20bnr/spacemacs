@@ -9,6 +9,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
+  - [[#formatting][Formatting]]
   - [[#add-import-on-completion][Add import on completion]]
   - [[#node-modules][Node Modules]]
   - [[#error-popup][Error popup]]
@@ -17,6 +18,7 @@
   - [[#purescript][Purescript]]
     - [[#imports][Imports]]
     - [[#psc-ide][psc-ide]]
+    - [[#formatting-1][Formatting]]
   - [[#repl][REPL]]
 
 * Description
@@ -39,6 +41,33 @@ binaries (psc-ide-server, psci,...) are on your path. Installation instructions
 can be found [[https://github.com/purescript/documentation/blob/master/guides/Getting-Started.md][here]].
 
 * Configuration
+  
+** Formatting
+   
+The following formatting tools are currently supported:
+- =purs-tidy= (default): [https://github.com/natefaubion/purescript-tidy][Purs-tidy]]
+
+You can choose the formatting tool by setting =purescript-fmt-tool=
+variable in your =purescript= config section:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (purescript :variables
+                purescript-fmt-tool 'purs-tidy)))
+#+END_SRC
+
+You can run the formatter manually with either `M-x spacemacs/purescript-format`
+or with the shortcut `SPC m =`.
+
+To enable automatic formatting of the buffer on save, enable =purescript-fmt-on-save=
+variable in your =purescript= config section:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (purescript :variables
+                purescript-fmt-on-save t)))
+#+END_SRC
+
 ** Add import on completion
 Set =purescript-add-import-on-completion= to nil to make =psc-ide= stop adding
 imports on completion. Default value is =t=.
@@ -112,6 +141,12 @@ intellisense config for LSP.
 | ~SPC m m i s~ | Inserts a suggestion for the warning/error at the current cursor position |
 | ~SPC m h t~   | Show type at point                                                        |
 | ~SPC m g g~   | Goto definition for identifier at point                                   |
+
+*** Formatting
+
+| Key binding   | Description                                                               |
+|---------------+---------------------------------------------------------------------------|
+| ~SPC m =~     | Format the buffer                                                         |
 
 ** REPL
 [[https://github.com/ardumont/emacs-psci][psci]] provides a very basic REPL for purescript. The following key
