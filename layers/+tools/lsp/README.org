@@ -52,10 +52,6 @@ Enabling this layer will set the used backend for all supported languages to
 The LSP ecosystem is based on two packages: [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] and [[https://github.com/emacs-lsp/lsp-ui][lsp-ui]].
 Please check out their documentation.
 
-If you add =lsp-**-enable= to major mode hooks for auto initialization of
-language clients, customize ~lsp-project-whitelist~ and ~lsp-project-blacklist~ to
-disable projects you don't want to enable LSP.
-
 ** Variables
 A number of configuration variables have been exposed via the LSP layer =config.el=.
 Sensible defaults have been provided, however they may all be overridden in your .spacemacs, or dynamically using the bindings added
