@@ -49,7 +49,7 @@
     :init
     (progn
       (spacemacs/declare-prefix "aa" "application-framework")
-      (spacemacs/set-leader-keys "aac" 'eaf-camera)
+      (spacemacs/set-leader-keys "aac" 'eaf-open-camera)
       (spacemacs/set-leader-keys "aaf" 'eaf-open)
       (spacemacs/set-leader-keys "aaj" 'eaf-open-jupyter)
       (spacemacs/set-leader-keys "aao" 'eaf-open-office)
