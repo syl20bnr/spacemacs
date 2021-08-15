@@ -48,6 +48,30 @@
     :defer t
     :init
     (progn
+      (with-eval-after-load 'eaf
+                    (let ((eaf-apps (list 'eaf-jupyter
+                                          'eaf-browser
+                                          'eaf-airshare
+                                          'eaf-file-browser
+                                          'eaf-file-manager
+                                          'eaf-file-sender
+                                          'eaf-music-player
+                                          'eaf-system-monitor
+                                          'eaf-mindmap
+                                          'eaf-org-previewer
+                                          'eaf-terminal
+                                          'eaf-netease-cloud-music
+                                          'eaf-video-player
+                                          'eaf-js-video-player
+                                          'eaf-image-viewer
+                                          'eaf-demo
+                                          'eaf-vue-demo
+                                          'eaf-pdf-viewer
+                                          'eaf-markdown-previewer
+                                          'eaf-camera
+                                          )))
+                      (dolist (app eaf-apps)
+                        (require app nil 'noerror))))
       (spacemacs/declare-prefix "aa" "application-framework")
       (spacemacs/set-leader-keys "aac" 'eaf-open-camera)
       (spacemacs/set-leader-keys "aaf" 'eaf-open)
