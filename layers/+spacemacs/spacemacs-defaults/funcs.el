@@ -415,8 +415,8 @@ projectile cache and updates recentf list."
 
 ;; originally from magnars
 (defun spacemacs/rename-buffer-visiting-a-file (&optional arg)
-  (let* ((old-short-name (buffer-name))
-         (old-filename (buffer-file-name))
+  (let* ((old-filename (buffer-file-name))
+         (old-short-name (file-name-nondirectory (buffer-file-name)))
          (old-dir (file-name-directory old-filename))
          (new-name (let ((path (read-file-name "New name: " (if arg old-dir old-filename))))
                      (if (string= (file-name-nondirectory path) "")
