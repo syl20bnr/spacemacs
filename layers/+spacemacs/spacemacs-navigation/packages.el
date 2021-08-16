@@ -31,7 +31,7 @@
         (view :location built-in)
         golden-ratio
         (grep :location built-in)
-        (info+ :location local)
+        (info+ :location (recipe :fetcher wiki))
         open-junk-file
         paradox
         restart-emacs
@@ -323,6 +323,7 @@
     :defer t
     :init
     (progn
+      (spacemacs/set-leader-keys "hj" 'info-display-manual)
       (setq Info-fontify-angle-bracketed-flag nil)
       (add-hook 'Info-mode-hook (lambda () (require 'info+))))))
 
