@@ -71,11 +71,9 @@
                     (goto-char p)
                     (message "formatted.")
                     (kill-buffer outputbuf))
-                (progn
-                  (message "Formatting failed!")
-                  (display-buffer outputbuf)))
-              (progn
-                (delete-file tmpfile)))))
+                (message "Formatting failed!")
+                (display-buffer outputbuf)))
+            (delete-file tmpfile)))
     (error "purs-tidy not found. Run \"npm install -g purs-tidy\"")))
 
 (defun spacemacs/purescript-fmt-before-save-hook ()
