@@ -5,6 +5,7 @@
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds general navigation functions to all supported layers.
@@ -21,3 +22,8 @@ This layer adds general navigation functions to all supported layers.
 - Support for =paradox= a modern emacs package manager
 - Shortcuts for restarting =emacs=
 - Shortcuts for easily switching between windows
+
+* Key bindings
+| Key Binding | Description    |
+|-------------+----------------|
+| ~SPC h j~   | jump to manual |

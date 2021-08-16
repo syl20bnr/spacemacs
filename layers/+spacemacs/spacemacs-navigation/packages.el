@@ -323,6 +323,7 @@
     :defer t
     :init
     (progn
+      (spacemacs/set-leader-keys "hj" 'info-display-manual)
       (setq Info-fontify-angle-bracketed-flag nil)
       (add-hook 'Info-mode-hook (lambda () (require 'info+))))))
 
