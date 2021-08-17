@@ -2007,6 +2007,10 @@ Other:
 - erc-view-log related changes (thanks to Mpho Jele)
   - Modified erc-log transient state to open in erc-view-log-mode
   - Added utility to open log buffer/file from erc channel
+**** Erlang
+- Added =lsp= support through erlang-ls backend (thanks to cfclavijo)
+- Added =dap= support through els_dap backend (thanks to cfclavijo)
+- =lsp= layer is a dependency when backend is set to ='lsp= (thanks to cfclavijo)
 **** ESS
 - Key bindings:
   - Change ~SPC m s t~ to ~SPC m s f~ to respect convention (thanks to Yi Liu)
