@@ -31,7 +31,7 @@
         (view :location built-in)
         golden-ratio
         (grep :location built-in)
-        (info+ :location local)
+        (info+ :location (recipe :fetcher wiki))
         open-junk-file
         paradox
         restart-emacs
