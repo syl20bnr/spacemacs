@@ -50,14 +50,16 @@
       (add-hook 'purescript-mode-hook 'turn-on-purescript-indentation)
       (add-hook 'purescript-mode-hook 'purescript-decl-scan-mode)
       (add-hook 'purescript-mode-hook #'spacemacs//purescript-setup-backend)
+      (when purescript-fmt-on-save
+        (add-hook 'purescript-mode-hook 'spacemacs/purescript-fmt-before-save-hook))
       (spacemacs/declare-prefix-for-mode 'purescript-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'purescript-mode "mi" "imports")
       (spacemacs/set-leader-keys-for-major-mode 'purescript-mode
         "i="  'purescript-mode-format-imports
         "i`"  'purescript-navigate-imports-return
         "ia"  'purescript-align-imports
-        "in"  'purescript-navigate-imports))))
-
+        "in"  'purescript-navigate-imports
+        "=" 'spacemacs/purescript-format))))
 
 (defun purescript/init-psci ()
   (use-package psci
