@@ -111,4 +111,4 @@
     :mode "\\.wl\\'"))
 
 (defun major-modes/post-init-evil-matchit ()
-  (add-hook `matlab-mode-hook `turn-on-evil-matchit-mode))
+  (add-hook 'matlab-mode-hook 'turn-on-evil-matchit-mode))
