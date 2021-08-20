@@ -96,6 +96,12 @@
   (interactive)
   (spacemacs/compleseus-search nil (projectile-project-root)))
 
+(defun spacemacs/compleseus-find-file ()
+  "This solves the problem:
+Binding a key to: `find-file' calls: `ido-find-file'"
+  (interactive)
+  (call-interactively 'find-file))
+
 ;; persp-mode stuff
 (defun spacemacs/compleseus-spacemacs-layout-layouts ()
   (interactive)

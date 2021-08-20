@@ -136,8 +136,10 @@
       "/" #'spacemacs/compleseus-search-projectile-auto
       "bb" #'spacemacs/compleseus-switch-to-buffer
       "bB" #'consult-buffer
-      "ff" #'find-file
+      "fb" #'consult-bookmark
+      "ff" #'spacemacs/compleseus-find-file
       "fr" #'consult-recent-file
+      "hda" #'consult-apropos
       "jm" #'consult-mark
       "jM" #'consult-global-mark
       "sb" #'consult-line-multi
@@ -223,6 +225,7 @@
      ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
 
     :init
+    (spacemacs/set-leader-keys "?" #'embark-bindings)
     ;; Optionally replace the key help with a completing-read interface
     (setq prefix-help-command #'embark-prefix-help-command)
 
