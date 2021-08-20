@@ -56,7 +56,9 @@
     (progn
       (add-to-list 'spacemacs-indent-sensitive-modes 'nix-mode)
       (spacemacs/set-leader-keys-for-major-mode 'nix-mode
-        "==" 'nix-format-buffer))
+        "==" 'nix-format-buffer)
+      (when nixos-format-on-save
+        (add-hook 'before-save-hook 'nix-format-before-save)))
     :config
     (electric-indent-mode -1)))
 

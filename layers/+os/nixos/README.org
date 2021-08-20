@@ -4,11 +4,12 @@
 
 [[file:img/nixos.png]]
 
-* Table of Contents                     :TOC_5_gh:noexport:
+* Table of Contents                                       :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
+  - [[#format-on-save][Format on save]]
 - [[#configuration][Configuration]]
 - [[#key-bindings][Key bindings]]
   - [[#nixos-options][NixOS Options]]
@@ -18,6 +19,7 @@ This layer adds tools for better integration of Emacs in NixOS.
 
 ** Features:
 - Nix-mode using [[https://github.com/NixOS/nix-mode][nix-mode]]
+- Automatic formatting via [[https://github.com/serokell/nixfmt][nixfmt]]
 - Auto-completion of NixOS Options using [[https://github.com/travisbhartwell/nix-emacs/blob/master/company-nixos-options.el][company-nixos-options]]
 - Helm Lookup for NixOS Options [[https://github.com/travisbhartwell/nix-emacs/blob/master/helm-nixos-options.el][helm-nixos-options]]
 
@@ -27,6 +29,14 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =nixos= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+** Format on save
+To enable automatic formatting on save, set the layer variable
+~nixos-format-on-save~ to ~t~:
+
+#+begin_src elisp
+  (nixos :variables nixos-format-on-save t)
+#+end_src
+
 * Configuration
 On some systems, =company-nixos-options= may be very slow. If this is the case,
 see the section on disabling the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#disabling-layer-services-in-other-layers][disabling auto-complete]] for the =nixos= layer.
@@ -34,6 +44,7 @@ see the section on disabling the [[https://github.com/syl20bnr/spacemacs/blob/de
 * Key bindings
 ** NixOS Options
 
-| Key binding | Description             |
-|-------------+-------------------------|
-| ~SPC h >~   | Call helm-nixos-options |
+| Key binding | Description                |
+|-------------+----------------------------|
+| ~SPC h >~   | Call helm-nixos-options    |
+| ~SPC m = =~ | Format buffer using nixfmt |
