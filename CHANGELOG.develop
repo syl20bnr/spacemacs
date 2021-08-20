@@ -3126,6 +3126,7 @@ files (thanks to Daniel Nicolai)
 - Enabled =purescript-decl-scan-mode= when loading =purescript-mode=
   (thanks to Bjarke Vad Andersen)
 - Allow adding node_modules/.bin path to exec-path (thanks to Anupam Jain)
+- Added support for purescript formatters (thanks to Anupam Jain)
 - Improved purescript keybinding discoverability & ergonomics.
   (thanks to Jason Walker)
 - Added =purescript-mode= to =spacemacs-indent-sensitive-modes=
