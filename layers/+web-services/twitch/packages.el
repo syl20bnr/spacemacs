@@ -29,8 +29,7 @@
                                   :repo "benediktbroich/twitch-api"))
     (helm-twitch :location (recipe :fetcher github
                                    :repo "benediktbroich/helm-twitch")
-                 ;; :toggle (configuration-layer/package-usedp 'helm)
-                 )))
+                 :requires helm)))
 
 (defun twitch/init-twitch-api ()
   (use-package twitch-api
