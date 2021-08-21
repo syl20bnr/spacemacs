@@ -35,7 +35,7 @@ add =eaf= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 Currently the command =SPC SPC eaf-install-dependencies= no longer works, please
-refer to [[https://github.com/emacs-eaf/emacs-application-framework#dependency-list][install the required dependencies manually]].
+refer to [[https://github.com/emacs-eaf/emacs-application-framework#2-installupdate-eaf-applications-and-dependencies][install the required dependencies manually]].
 
 * Usage
 ** Configuring applications
