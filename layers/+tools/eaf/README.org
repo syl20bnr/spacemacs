@@ -61,7 +61,7 @@ By default, all applications provided by eaf package are loaded, including:
 - eaf-markdown-previewer
 - eaf-camera
 
-To customise applications, please set =eaf=app=
+To customise applications, please set the variable =eaf-apps=
 
 ** Configuring key bindings
 Configuration of EAF key bindings works in a different way than normally in Spacemacs.
