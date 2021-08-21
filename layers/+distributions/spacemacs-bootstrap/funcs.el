@@ -140,6 +140,14 @@ current major mode."
                (< 0 shift-width))
       (setq-local evil-shift-width shift-width))))
 
+(defun spacemacs//evil-ex-search-start-session ()
+  (add-hook 'mouse-leave-buffer-hook 'spacemacs//evil-ex-search-stop-session))
+
+(defun spacemacs//evil-ex-search-stop-session ()
+  (remove-hook 'mouse-leave-buffer-hook
+               'spacemacs//evil-ex-search-stop-session)
+  (evil-ex-search-abort))
+
 (defmacro spacemacs|define-text-object (key name start end)
   "Define a text object and a surround pair.
 START and END are strings (not regular expressions) that define
