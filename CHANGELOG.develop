@@ -762,6 +762,7 @@ Other:
   - Fixed duplicate quick help and release notes in home buffer
     (thanks to mark30247)
   - Fixed evil undo in =spacemacs-base= (thanks to duianto)
+  - Fix macOS GUI full screen button wreck caused by GUI setup in early-init.el
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)
