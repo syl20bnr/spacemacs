@@ -32,11 +32,6 @@
     :defer t
     :init
     (progn
-      (with-eval-after-load
-        'eaf
-        (dolist (app eaf-apps)
-          (require app nil 'noerror))
-      )
       (spacemacs/declare-prefix "aa" "application-framework")
       (spacemacs/set-leader-keys "aac" 'eaf-open-camera)
       (spacemacs/set-leader-keys "aaf" 'eaf-open)
@@ -199,6 +194,8 @@
     ;; ("<C-iso-lefttab>" . "select_right_tab")
     :config
     (progn
+      (dolist (app eaf-apps)
+        (require app nil 'noerror))
       (setq browse-url-browser-function 'eaf-open-browser)
       (setq eaf-browser-enable-adblocker "true")
 
