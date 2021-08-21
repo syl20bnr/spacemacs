@@ -7,6 +7,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#usage][Usage]]
+  - [[#configuring-applications][Configuring applications]]
   - [[#configuring-key-bindings][Configuring key bindings]]
 - [[#key-bindings][Key bindings]]
   - [[#global][Global]]
@@ -33,13 +34,35 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =eaf= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-Subsequently install the required dependencies with =SPC SPC
-  eaf-install-dependencies=. This command only works for Ubuntu and Fedora based
-distributions. Users of Arch (based) distributions can run the script manually
-in their terminal. If the script does not work for you then [[https://github.com/manateelazycat/emacs-application-framework#dependency-list][install the
-required dependencies manually]].
+Currently the command =SPC SPC eaf-install-dependencies= no longer works, please
+refer to [[https://github.com/manateelazycat/emacs-application-framework#dependency-list][install the required dependencies manually]].
 
 * Usage
+** Configuring applications
+By default, all applications provided by eaf package are loaded, including:
+
+- eaf-jupyter
+- eaf-browser
+- eaf-airshare
+- eaf-file-browser
+- eaf-file-manager
+- eaf-file-sender
+- eaf-music-player
+- eaf-system-monitor
+- eaf-mindmap
+- eaf-org-previewer
+- eaf-terminal
+- eaf-netease-cloud-music
+- eaf-video-player
+- eaf-image-viewer
+- eaf-demo
+- eaf-vue-demo
+- eaf-pdf-viewer
+- eaf-markdown-previewer
+- eaf-camera
+
+To customise applications, please set =eaf=app=
+
 ** Configuring key bindings
 Configuration of EAF key bindings works in a different way than normally in Spacemacs.
 
@@ -48,7 +71,7 @@ required to make leader keys in EAF buffers behave as expected in Spacemacs.
 Therefore it is recommended to keep these default (major-mode-)leader
 keybindings.
 
-For information about configuration of other key bindings for EAF, see [[https://github.com/manateelazycat/emacs-application-framework/wiki/Keybindings][here]]. 
+For information about configuration of other key bindings for EAF, see [[https://github.com/manateelazycat/emacs-application-framework/wiki/Keybindings][here]].
 
 If you do want to modify the leader keys, then information about the tricks
 implemented in this layer can be found [[https://github.com/manateelazycat/emacs-application-framework/issues/498][here]] and [[https://github.com/manateelazycat/emacs-application-framework/pull/500][here]].
