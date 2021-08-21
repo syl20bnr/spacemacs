@@ -31,47 +31,16 @@
                     :repo  "manateelazycat/emacs-application-framework"
                     :files ("*")))))
 
-(defun eaf/init-ctable ()
-  (use-package ctable))
-
-(defun eaf/init-deferred ()
-  (use-package deferred))
-
-(defun eaf/init-epc ()
-  (use-package epc))
-
-;; (defun eaf/init-s ()
-;;   (use-package s))
-
 (defun eaf/init-eaf ()
   (use-package eaf
     :defer t
     :init
     (progn
-      (with-eval-after-load 'eaf
-                    (let ((eaf-apps (list 'eaf-jupyter
-                                          'eaf-browser
-                                          'eaf-airshare
-                                          'eaf-file-browser
-                                          'eaf-file-manager
-                                          'eaf-file-sender
-                                          'eaf-music-player
-                                          'eaf-system-monitor
-                                          'eaf-mindmap
-                                          'eaf-org-previewer
-                                          'eaf-terminal
-                                          'eaf-netease-cloud-music
-                                          'eaf-video-player
-                                          'eaf-js-video-player
-                                          'eaf-image-viewer
-                                          'eaf-demo
-                                          'eaf-vue-demo
-                                          'eaf-pdf-viewer
-                                          'eaf-markdown-previewer
-                                          'eaf-camera
-                                          )))
-                      (dolist (app eaf-apps)
-                        (require app nil 'noerror))))
+      (with-eval-after-load
+        'eaf
+        (dolist (app eaf-apps)
+          (require app nil 'noerror))
+      )
       (spacemacs/declare-prefix "aa" "application-framework")
       (spacemacs/set-leader-keys "aac" 'eaf-open-camera)
       (spacemacs/set-leader-keys "aaf" 'eaf-open)
@@ -235,7 +204,7 @@
     :config
     (progn
       (setq browse-url-browser-function 'eaf-open-browser)
-      (eaf-setq eaf-browser-enable-adblocker "true")
+      (setq eaf-browser-enable-adblocker "true")
 
       (define-key eaf-mode-map* (kbd "C-SPC C-SPC") 'execute-extended-command)
       ;;;; TODO need to consider the current pdf view mode which does not need to be pdf view mode
