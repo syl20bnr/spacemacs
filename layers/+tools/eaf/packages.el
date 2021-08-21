@@ -22,11 +22,7 @@
 
 
 (defconst eaf-packages
-  '(ctable
-    deferred
-    epc
-    ;; s
-    (eaf :location (recipe
+  '((eaf :location (recipe
                     :fetcher github
                     :repo  "manateelazycat/emacs-application-framework"
                     :files ("*")))))

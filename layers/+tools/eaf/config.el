@@ -20,9 +20,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defcustom eaf-apps "Eaf Applications"
-  :group eaf
-  :type (symbol)
+(defcustom eaf-apps
   '(eaf-jupyter
     eaf-browser
     eaf-airshare
@@ -43,4 +41,7 @@
     eaf-markdown-previewer
     eaf-camera
     )
+  "Eaf Applications"
+  :group 'eaf
+  :type '(symbol)
 )
