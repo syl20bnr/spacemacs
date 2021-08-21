@@ -1,6 +1,6 @@
-;;; packages.el --- eaf configuration file
+;;; config.el --- (const eaf configuration file
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Leslie Huang <lesliebinbin19900129@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,7 +20,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defcustom eaf-apps
+(spacemacs|defc eaf-apps
   '(eaf-jupyter
     eaf-browser
     eaf-airshare
@@ -39,9 +39,26 @@
     eaf-vue-demo
     eaf-pdf-viewer
     eaf-markdown-previewer
-    eaf-camera
-    )
-  "Eaf Applications"
-  :group 'eaf
-  :type '(symbol)
-)
+    eaf-camera)
+  "The applications loaded from EAF package"
+  '(set
+    (const eaf-jupyter)
+    (const eaf-browser)
+    (const eaf-airshare)
+    (const eaf-file-browser)
+    (const eaf-file-manager)
+    (const eaf-file-sender)
+    (const eaf-music-player)
+    (const eaf-system-monitor)
+    (const eaf-mindmap)
+    (const eaf-org-previewer)
+    (const eaf-terminal)
+    (const eaf-netease-cloud-music)
+    (const eaf-video-player)
+    (const eaf-image-viewer)
+    (const eaf-demo)
+    (const eaf-vue-demo)
+    (const eaf-pdf-viewer)
+    (const eaf-markdown-previewer)
+    (const eaf-camera))
+  'eaf)
