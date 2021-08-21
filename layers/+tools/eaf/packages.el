@@ -40,7 +40,6 @@
 
 (defun eaf/init-eaf ()
   (use-package eaf
-    :defer t
     :init
     (progn
       (spacemacs/declare-prefix "aa" "application-framework")
