@@ -20,12 +20,23 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 (defconst eaf-packages
-  '((eaf :location (recipe
+  '(ctable
+    deferred
+    epc
+    (eaf :location (recipe
                     :fetcher github
-                    :repo  "manateelazycat/emacs-application-framework"
+                    :repo  "emacs-eaf/emacs-application-framework"
                     :files ("*")))))
+
+(defun eaf/init-ctable ()
+  (use-package ctable))
+
+(defun eaf/init-deferred ()
+  (use-package deferred))
+
+(defun eaf/init-epc ()
+  (use-package epc))
 
 (defun eaf/init-eaf ()
   (use-package eaf
