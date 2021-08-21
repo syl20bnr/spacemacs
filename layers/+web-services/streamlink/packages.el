@@ -23,9 +23,7 @@
 ;;; Code:
 
 (defconst streamlink-packages
-  '(
-    (streamlink :location (recipe :fetcher github
-                                  :repo "benediktbroich/streamlink"))))
+  '(streamlink))
 
 (defun streamlink/init-streamlink ()
   (use-package streamlink
