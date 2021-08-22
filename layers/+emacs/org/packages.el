@@ -970,7 +970,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (evilified-state-evilify-map org-roam-mode-map
         :mode org-roam-mode
         :bindings
-        "o" 'link-hint-open-link))))
+        "o" 'link-hint-open-link
+        "r" 'org-roam-buffer-refresh))))
 
 (defun org/init-org-sticky-header ()
   (use-package org-sticky-header

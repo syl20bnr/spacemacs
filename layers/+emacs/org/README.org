@@ -1130,4 +1130,7 @@ Key binding prefixes:
 | ~SPC m r t r~ | Remove a tag from file            |
 
 *org-roam buffer*
-| ~o~ | Follow link |
+| Key binding | Description             |
+|-------------+-------------------------|
+| ~o~         | Follow link             |
+| ~r~         | Refresh org-roam buffer |
