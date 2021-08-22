@@ -143,15 +143,15 @@ shown below.
 =auctex= and =auctex-latexmk= have default rules to determine build command
 and build options according to the buffer-local variable =TeX-engine=.
 
-It should be one of the symbol defined in =TeX-engine-alise=. The default valid
+It should be one of the symbol defined in =TeX-engine-alist=. The default valid
 symbols are:
-- ~'default~
-- ~'luatex~
-- ~'omega~
-- ~'xetex~
+- ~default~
+- ~luatex~
+- ~omega~
+- ~xetex~
 
 An appropriate =TeX-engine= is required for high-quality typesetting in certain
-languages. For convenience, ~'xetex~ is chosen when it's found on PATH and when
+languages. For convenience, ~xetex~ is chosen when it's found on PATH and when
 either =chinese= or =japanese= layer is enabled.
 
 You can choose the engine on a per file basis, by setting file-local
@@ -159,11 +159,16 @@ variable. For example, you can append these code to the end of a =.tex= file:
 
 #+BEGIN_SRC tex
   %%% Local Variables:
-  %%% TeX-engine: 'xetex
+  %%% TeX-engine: xetex
   %%% End:
 #+END_SRC
 
-If you predominantly works with one specific engine, you can set it as a layer
+Should you use AUCTeX's keystroke ~C-c C-c~ for compilation instead of
+Spacemacs' ~SPC m b~, the minibuffer will still show ~LaTeX~ as compilation
+command, however ~xetex~ will be used on the background and no specific
+~Xe(La)TeX~ command is needed. Likewise for the other engines.
+
+If you predominantly work with one specific engine, you can set it as a layer
 variable.
 
 #+BEGIN_SRC emacs-lisp
