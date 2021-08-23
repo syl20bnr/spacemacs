@@ -24,7 +24,6 @@
 
 (defconst twitch-packages
   '(
-    ;; (erc-twitch :toggle (configuration-layer/package-usedp 'erc))
     (twitch-api :location (recipe :fetcher github
                                   :repo "benediktbroich/twitch-api"))
     (helm-twitch :location (recipe :fetcher github
