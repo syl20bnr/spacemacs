@@ -482,6 +482,7 @@ In org-agenda-mode
 - reddit
 - eww (thanks to Colton Kopsa, Maximilian Wolff and Daniel Nicolai)
 - lobsters
+- hackernews
 *** Renamed layers
 - =extra-langs= renamed to =major-modes= (thanks to Eivind Fonn)
 - =pdf-tools= renamed to =pdf=
