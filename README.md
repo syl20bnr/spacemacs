@@ -1,21 +1,21 @@
 <a name="top" id="fork-destination-box"></a>
-<a href="https://spacemacs.org"><img src="https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg" alt="Made with Spacemacs"><a href="https://www.gnu.org/licenses/gpl-3.0.en.html"><img src="https://github.com/syl20bnr/spacemacs/blob/655e2886d88f79f4da01d607d29342e7447cad65/assets/gplv3.png" alt="GPLv3 Software" align="right" width="70" height="28"></a></a><a href="https://www.twitter.com/spacemacs"><img src="https://i.imgur.com/tXSoThF.png" alt="Twitter" align="right"></a><br>
+<a href="https://develop.spacemacs.org"><img src="https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg" alt="Made with Spacemacs"><a href="https://www.gnu.org/licenses/gpl-3.0.en.html"><img src="https://github.com/syl20bnr/spacemacs/blob/655e2886d88f79f4da01d607d29342e7447cad65/assets/gplv3.png" alt="GPLv3 Software" align="right" width="70" height="28"></a></a><a href="https://www.twitter.com/spacemacs"><img src="https://i.imgur.com/tXSoThF.png" alt="Twitter" align="right"></a><br>
 - - -
 <p align="center"><img src="/doc/img/title2.png" alt="Spacemacs"/></p>
 <p align="center">
-<b><a href="https://spacemacs.org/doc/DOCUMENTATION#core-pillars">philosophy</a></b>
+<b><a href="https://develop.spacemacs.org/doc/DOCUMENTATION#core-pillars">philosophy</a></b>
 |
-<b><a href="https://spacemacs.org/doc/DOCUMENTATION#who-can-benefit-from-this">for whom?</a></b>
+<b><a href="https://develop.spacemacs.org/doc/DOCUMENTATION#who-can-benefit-from-this">for whom?</a></b>
 |
-<b><a href="https://spacemacs.org/doc/DOCUMENTATION#screenshots">screenshots</a></b>
+<b><a href="https://develop.spacemacs.org/doc/DOCUMENTATION#screenshots">screenshots</a></b>
 |
-<b><a href="https://spacemacs.org/doc/DOCUMENTATION.html">documentation</a></b>
+<b><a href="https://develop.spacemacs.org/doc/DOCUMENTATION.html">documentation</a></b>
 |
 <b><a href="CONTRIBUTING.org">contribute</a></b>
 |
-<b><a href="https://spacemacs.org/doc/DOCUMENTATION#achievements">achievements</a></b>
+<b><a href="https://develop.spacemacs.org/doc/DOCUMENTATION#achievements">achievements</a></b>
 |
-<b><a href="https://spacemacs.org/doc/FAQ">FAQ</a></b>
+<b><a href="https://develop.spacemacs.org/doc/FAQ">FAQ</a></b>
 </p>
 
 - - -
@@ -561,42 +561,42 @@ If you want to show your support financially, then you can contribute to
 [Paypal badge](#top).
 
 If you used spacemacs in a project, and you want to show that fact, you can use
-the spacemacs badge: [![Built with Spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg)](https://spacemacs.org)
+the spacemacs badge: [![Built with Spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg)](https://develop.spacemacs.org)
 
 - For Markdown:
 
    ```markdown
-   [![Built with Spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg)](https://spacemacs.org)
+   [![Built with Spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg)](https://develop.spacemacs.org)
    ```
 
 - For HTML:
 
    ```html
-   <a href="https://spacemacs.org"><img alt="Built with Spacemacs" src="https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg" /></a>
+   <a href="https://develop.spacemacs.org"><img alt="Built with Spacemacs" src="https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg" /></a>
    ```
 
 - For Org-mode:
 
    ```org
-   [[https://spacemacs.org][file:https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg]]
+   [[https://develop.spacemacs.org][file:https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg]]
    ```
 
 Thank you!
 
 [Twitter]: https://i.imgur.com/tXSoThF.png
 [CONTRIBUTING.org]: CONTRIBUTING.org
-[CONVENTIONS.org]: https://spacemacs.org/doc/CONVENTIONS
-[DOCUMENTATION.org]: https://spacemacs.org/doc/DOCUMENTATION
-[QUICK_START.org]: https://spacemacs.org/doc/QUICK_START
-[FAQ.org]: https://spacemacs.org/doc/FAQ
-[VIMUSERS.org]: https://spacemacs.org/doc/VIMUSERS
-[dotfile]: https://spacemacs.org/doc/DOCUMENTATION#dotfile-configuration
-[osx layer]: https://spacemacs.org/layers/+os/osx/README.html
+[CONVENTIONS.org]: https://develop.spacemacs.org/doc/CONVENTIONS
+[DOCUMENTATION.org]: https://develop.spacemacs.org/doc/DOCUMENTATION
+[QUICK_START.org]: https://develop.spacemacs.org/doc/QUICK_START
+[FAQ.org]: https://develop.spacemacs.org/doc/FAQ
+[VIMUSERS.org]: https://develop.spacemacs.org/doc/VIMUSERS
+[dotfile]: https://develop.spacemacs.org/doc/DOCUMENTATION#dotfile-configuration
+[osx layer]: https://develop.spacemacs.org/layers/+os/osx/README.html
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
 [Gitter Chat IRC server]: https://irc.gitter.im/
 [Homebrew]: https://brew.sh
 [emacs-plus]: https://github.com/d12frosted/homebrew-emacs-plus
-[powerline documentation]: https://spacemacs.org/doc/DOCUMENTATION.html#powerline-separators
+[powerline documentation]: https://develop.spacemacs.org/doc/DOCUMENTATION.html#powerline-separators
 [emacs-for-windows]: https://ftp.gnu.org/gnu/emacs/windows/
 [gzip-for-windows]: http://gnuwin32.sourceforge.net/packages/gzip.htm
 [the platinum searcher]: https://github.com/monochromegane/the_platinum_searcher
