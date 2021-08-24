@@ -263,7 +263,7 @@
         (kbd "T")   'cider-stacktrace-toggle-tooling)
 
       ;; open cider-doc directly and close it with q
-      (setq cider-prompt-for-symbol nil)
+      (setq cider-prompt-for-symbol t)
 
       (evilified-state-evilify cider-docview-mode cider-docview-mode-map
         (kbd "q") 'cider-popup-buffer-quit)
@@ -286,6 +286,19 @@
         (kbd "t")   'cider-test-run-test
         (kbd "T")   'cider-test-run-ns-tests)
 
+      (evilified-state-evilify-map cider-repl-history-mode-map
+        :mode cider-repl-history-mode
+        :bindings
+        "j" 'cider-repl-history-forward
+        "k" 'cider-repl-history-previous
+        "s" (cond ((featurep 'helm-swoop) 'helm-swoop)
+                  ((featurep 'swiper) 'swiper)
+                  (t 'cider-repl-history-occur))
+        "r" 'cider-repl-history-update)
+
+      (spacemacs/set-leader-keys-for-major-mode 'cider-repl-history-mode
+        "s" 'cider-repl-history-save)
+
       (evil-define-key 'normal cider-repl-mode-map
         (kbd "C-j") 'cider-repl-next-input
         (kbd "C-k") 'cider-repl-previous-input
@@ -300,7 +313,8 @@
           (kbd "C-k") 'cider-repl-previous-input))
 
       (evil-define-key 'insert cider-repl-mode-map
-        (kbd "<C-return>") 'cider-repl-newline-and-indent)
+        (kbd "<C-return>") 'cider-repl-newline-and-indent
+        (kbd "C-r") 'cider-repl-history)
 
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)
