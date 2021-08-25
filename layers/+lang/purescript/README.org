@@ -41,11 +41,9 @@ binaries (psc-ide-server, psci,...) are on your path. Installation instructions
 can be found [[https://github.com/purescript/documentation/blob/master/guides/Getting-Started.md][here]].
 
 * Configuration
-  
 ** Formatting
-   
 The following formatting tools are currently supported:
-- =purs-tidy= (default): [https://github.com/natefaubion/purescript-tidy][Purs-tidy]]
+- =purs-tidy= (default): [ [[https://github.com/natefaubion/purescript-tidy]] ][Purs-tidy]]
 
 You can choose the formatting tool by setting =purescript-fmt-tool=
 variable in your =purescript= config section:
@@ -144,9 +142,9 @@ intellisense config for LSP.
 
 *** Formatting
 
-| Key binding   | Description                                                               |
-|---------------+---------------------------------------------------------------------------|
-| ~SPC m =~     | Format the buffer                                                         |
+| Key binding | Description       |
+|-------------+-------------------|
+| ~SPC m =~   | Format the buffer |
 
 ** REPL
 [[https://github.com/ardumont/emacs-psci][psci]] provides a very basic REPL for purescript. The following key

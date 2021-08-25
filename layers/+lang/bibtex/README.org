@@ -56,18 +56,20 @@ to use Zathura:
 #+END_SRC
 
 More configuration options are available and are detailed in the =org-ref=,
-=helm-bibtex=, =ivy-bibtex= and [[https://github.com/cpitclaudel/biblio.el][biblio]]  package documentations.
+=helm-bibtex=, =ivy-bibtex= and [[https://github.com/cpitclaudel/biblio.el][biblio]] package documentations.
 
 ** Ebib and biblio
-   To enable installation of the [[https://joostkremers.github.io/ebib/ebib-manual.html][ebib reference manager]] set the variable
-   =bibtex-enable-ebib-support= as shown in the following code block:
-#+begin_src emacs-lisp :tangle yes
-         (bibtex :variables
-                 bibtex-enable-ebib-support t
-                 ebib-preload-bib-files '("path-to-bib-file.bib")
-                 ebib-file-search-dirs '("/path-to-documents-directory")
-                 ebib-import-directory "path-to-e.g.-download-directory")
-#+end_src   
+To enable installation of the [[https://joostkremers.github.io/ebib/ebib-manual.html][ebib reference manager]] set the variable
+=bibtex-enable-ebib-support= as shown in the following code block:
+
+#+BEGIN_SRC emacs-lisp
+  (bibtex :variables
+          bibtex-enable-ebib-support t
+          ebib-preload-bib-files '("path-to-bib-file.bib")
+          ebib-file-search-dirs '("/path-to-documents-directory")
+          ebib-import-directory "path-to-e.g.-download-directory")
+#+END_SRC
+
 The code block also shows how to set some optional [[https://joostkremers.github.io/ebib/ebib-manual.html][ebib]] variables.
 
 With the installation of the =ebib= package, Spacemacs automatically loads the
@@ -105,7 +107,8 @@ key binding added:
 *EBIB*
 
 *Index buffer*
-| Key Binding | Description                                           |
+
+| Key binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~J/K~       | scroll page down/up                                   |
 | ~g j~       | jump to entry (searches only author and title fields) |
@@ -118,9 +121,11 @@ key binding added:
 | ~q~         | quit ebib                                             |
 
 *Entry buffer*
+
 | ~q~ | quit entry buffer |
 
 *Biblio selection buffer*
+
 | ~e~   | import entry to current database (requires 'active' database in ebib index buffer) |
 | ~C-j~ | Next entry                                                                         |
 | ~C-k~ | Previous entry                                                                     |
