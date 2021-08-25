@@ -31,7 +31,7 @@ fi
 
 git add --all
 
-if [[ $(git diff --stat) != '' ]]; then
+if [[ -z $(git status -s) ]]; then
     echo_headline "Creating commit"
     git commit -m "[bot] \"${PUBLISH}\" $(date -u)"
     if [ $? -ne 0 ]; then
