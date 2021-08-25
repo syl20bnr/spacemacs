@@ -37,8 +37,8 @@
         ivy-hydra
         (ivy-rich :toggle (progn
                             (when ivy-enable-icons
-                              (setq ivy-enable-advanced-buffer-information t)
-                              ivy-enable-advanced-buffer-information)))
+                              (setq ivy-enable-advanced-buffer-information t))
+                            ivy-enable-advanced-buffer-information))
         (ivy-spacemacs-help :location local)
         ivy-xref
         org
