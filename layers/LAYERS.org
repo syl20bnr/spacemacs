@@ -1102,6 +1102,7 @@ This layer adds tools for better integration of Emacs in NixOS.
 
 Features:
 - Nix-mode using [[https://github.com/NixOS/nix-mode][nix-mode]]
+- Automatic formatting via [[https://github.com/serokell/nixfmt][nixfmt]]
 - Auto-completion of NixOS Options using [[https://github.com/travisbhartwell/nix-emacs/blob/master/company-nixos-options.el][company-nixos-options]]
 - Helm Lookup for NixOS Options [[https://github.com/travisbhartwell/nix-emacs/blob/master/helm-nixos-options.el][helm-nixos-options]]
 
@@ -1229,6 +1230,7 @@ Features:
 - Syntax highlighting for BibTeX and BibLaTeX files.
 - Utilities for automatically adding entries from different data sources.
 - Support for inserting citations in various other modes.
+- Optionally install full fledged [[https://joostkremers.github.io/ebib/ebib-manual.html][ebib reference manager]]
 
 **** CSV
 [[file:+lang/csv/README.org][+lang/csv/README.org]]
@@ -1458,6 +1460,7 @@ Features:
 - =Sh= scripts linting using [[https://www.shellcheck.net/][shellcheck]]
 - =Sh= scripts style checking using [[https://github.com/openstack-dev/bashate][bashate]]
 - Support for the [[https://langserver.org/][Language Server Protocol]] (experimental)
+- Automatic formatting via [[https://github.com/mvdan/sh][shfmt]]
 
 **** Vimscript language
 [[file:+lang/vimscript/README.org][+lang/vimscript/README.org]]
@@ -1965,6 +1968,7 @@ Features:
 - Outline
 - Workspace Symbols
 - Code Folding
+- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
 **** F#
 [[file:+lang/fsharp/README.org][+lang/fsharp/README.org]]

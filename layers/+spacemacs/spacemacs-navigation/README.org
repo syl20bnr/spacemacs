@@ -24,6 +24,7 @@ This layer adds general navigation functions to all supported layers.
 - Shortcuts for easily switching between windows
 
 * Key bindings
-| Key Binding | Description    |
+
+| Key binding | Description    |
 |-------------+----------------|
 | ~SPC h j~   | jump to manual |

@@ -4,7 +4,7 @@
 
 [[file:img/nixos.png]]
 
-* Table of Contents                                       :TOC_5_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -33,9 +33,9 @@ file.
 To enable automatic formatting on save, set the layer variable
 ~nixos-format-on-save~ to ~t~:
 
-#+begin_src elisp
+#+BEGIN_SRC elisp
   (nixos :variables nixos-format-on-save t)
-#+end_src
+#+END_SRC
 
 * Configuration
 On some systems, =company-nixos-options= may be very slow. If this is the case,

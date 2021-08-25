@@ -4,7 +4,7 @@
 
 [[file:img/fish.png]]
 
-* Table of Contents                                       :TOC_5_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -49,9 +49,9 @@ In order to enable =sh= scripts style checking, install [[https://github.com/ope
 To enable automatic formatting on save, set the layer variable
 ~shell-scripts-format-on-save~ to ~t~:
 
-#+begin_src elisp
+#+BEGIN_SRC elisp
   (shell-scripts :variables shell-scripts-format-on-save t)
-#+end_src
+#+END_SRC
 
 ** Backends
 You have the choice between two different backends
