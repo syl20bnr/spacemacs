@@ -103,3 +103,4 @@ You can find further information about the project at its [[https://github.com/m
 | ~SPC m i s~ | insert select loop if supported by shell                  |
 | ~SPC m i u~ | insert until loop if supported by shell                   |
 | ~SPC m i g~ | insert a getopts while loop if supported by shell         |
+| ~SPC m =~   | format the buffer using shfmt                             |

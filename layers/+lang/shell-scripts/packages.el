@@ -103,7 +103,11 @@
 (defun shell-scripts/init-shfmt ()
   (use-package shfmt
     :defer t
-    :init (add-hook 'sh-mode-hook 'shfmt-on-save-mode)))
+    :init
+    (progn
+      (add-hook 'sh-mode-hook 'shfmt-on-save-mode)
+      (spacemacs/set-leader-keys-for-major-mode 'sh-mode
+        "=" 'shfmt-buffer))))
 
 (defun shell-scripts/post-init-ggtags ()
   (add-hook 'sh-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
