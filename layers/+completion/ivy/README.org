@@ -92,7 +92,7 @@ icon display is enabled.
 To display icons correctly, you should run =M-x all-the-icons-install-fonts=
 to install the necessary fonts.
 
-More information about customizing =all-the-icons-ivy-rich= can be found [[=all-the-icons-ivy-rich=][here]].
+More information about customizing =all-the-icons-ivy-rich= can be found [[https://github.com/seagle0128/all-the-icons-ivy-rich][here]].
 
 * Key bindings
 If you choose =ivy= as completion system, make sure to read the [[http://oremacs.com/swiper/][official manual]].
