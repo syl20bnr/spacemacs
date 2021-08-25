@@ -155,6 +155,7 @@
 (defun git/init-magit ()
   (use-package magit
     :defer (spacemacs/defer)
+    :custom (magit-bury-buffer-function #'magit-restore-window-configuration)
     :init
     (progn
       (push "magit: .*" spacemacs-useless-buffers-regexp)
