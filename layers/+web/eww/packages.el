@@ -32,9 +32,9 @@
     :defer t
     :init
     (spacemacs//eww-setup-transient-state)
-    (spacemacs/declare-prefix "ate" "eww")
-    (spacemacs/set-leader-keys "atee" 'eww)
-    (spacemacs/set-leader-keys "atew" 'eww-switch-to-buffer)
+    (spacemacs/declare-prefix "awe" "eww")
+    (spacemacs/set-leader-keys "awee" 'eww)
+    (spacemacs/set-leader-keys "awew" 'eww-switch-to-buffer)
     :config
     (progn
       (define-key eww-link-keymap "f" 'eww-follow-link)
