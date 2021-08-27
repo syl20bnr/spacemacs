@@ -93,6 +93,7 @@
     "gk" #'spacemacs/lsp-avy-goto-word
     "gK" #'spacemacs/lsp-avy-goto-symbol
     "gM" #'lsp-ui-imenu
+    "gh" #'lsp-treemacs-call-hierarchy
     ;; help
     "h" "help"
     "hh" #'lsp-describe-thing-at-point
