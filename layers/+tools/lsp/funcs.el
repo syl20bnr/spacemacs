@@ -93,7 +93,6 @@
     "gk" #'spacemacs/lsp-avy-goto-word
     "gK" #'spacemacs/lsp-avy-goto-symbol
     "gM" #'lsp-ui-imenu
-    "gh" #'lsp-treemacs-call-hierarchy
     ;; help
     "h" "help"
     "hh" #'lsp-describe-thing-at-point
@@ -125,7 +124,11 @@
     "x" "text/code"
     "xh" #'lsp-document-highlight
     "xl" #'lsp-lens-show
-    "xL" #'lsp-lens-hide))
+    "xL" #'lsp-lens-hide)
+  (when (configuration-layer/package-used-p 'treemacs)
+    (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+      "gh" #'lsp-treemacs-call-hierarchy))
+  )
 
 (defun spacemacs//lsp-bind-simple-navigation-functions (prefix-char)
   (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
