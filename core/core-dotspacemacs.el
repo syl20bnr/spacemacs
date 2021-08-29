@@ -1085,11 +1085,11 @@ error recovery."
                    "[[file:%s::dotspacemacs/layers][Show in File]]\n")
            dotspacemacs-filepath))
   ;; protect global values of these variables
-  (let (dotspacemacs-additional-packages
-        dotspacemacs-configuration-layer-path
-        dotspacemacs-configuration-layers
-        dotspacemacs-excluded-packages
-        dotspacemacs-install-packages
+  (let ((dotspacemacs-additional-packages dotspacemacs-additional-packages)
+        (dotspacemacs-configuration-layer-path dotspacemacs-configuration-layer-path)
+        (dotspacemacs-configuration-layers dotspacemacs-configuration-layers)
+        (dotspacemacs-excluded-packages dotspacemacs-excluded-packages)
+        (dotspacemacs-install-packages dotspacemacs-install-packages)
         (passed-tests 0)
         (total-tests 0))
     (load dotspacemacs-filepath)
