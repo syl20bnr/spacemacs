@@ -220,8 +220,18 @@ Last but not least there are a lot of high class tutorials available on YouTube:
       brew install emacs-plus --with-spacemacs-icon --with-native-comp
       ```
 
-   2. [Emacs Mac Port][] adds native GUI support to Emacs 28. And the full list
-      of features is available [here][Emacs Mac Port features].
+   <!-- 2. [Emacs Mac Port][] adds native GUI support to Emacs 28. And the full list -->
+   <!--    of features is available [here][Emacs Mac Port features]. -->
+
+[Railwaycat's Emacs version](railwaycat) might be the best choice for MacOS
+users. It supports gestures, it feels faster and has less graphical glitches.
+
+```shell
+brew tap railwaycat/emacsmacport
+brew install --cask emacs-mac-spacemacs-icon
+brew link emacs-mac
+```
+>>>>>>> 57325a8ae ([doc] Update README for installation of Railwaycat's Emacs)
 
       ```sh
       brew tap railwaycat/emacsmacport
@@ -593,6 +603,21 @@ Thank you!
 
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
 [Gitter Chat IRC server]: https://irc.gitter.im/
+[Homebrew]: https://brew.sh
+[emacs-plus]: https://github.com/d12frosted/homebrew-emacs-plus
+[powerline documentation]: https://develop.spacemacs.org/doc/DOCUMENTATION.html#powerline-separators
+[railwaycat]: https://github.com/railwaycat/homebrew-emacsmacport
+[emacs-for-windows]: https://ftp.gnu.org/gnu/emacs/windows/
+[gzip-for-windows]: http://gnuwin32.sourceforge.net/packages/gzip.htm
+[ripgrep]: https://github.com/BurntSushi/ripgrep
+[so-server-unsafe]: https://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
+[Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
+[Nasser Alshammari]: https://github.com/nashamri
+[compilation-warnings]: https://github.com/quelpa/quelpa/issues/90#issuecomment-137982713
+[cpaulik-unity-icon]: http://splendidabacus.com/posts/2015/03/spacemacs-unity-icon/
+[icon-mac-instructions]: https://www.idownloadblog.com/2014/07/16/how-to-change-app-icon-mac/
+[latest tags]: https://github.com/syl20bnr/spacemacs/tags
+[icon-repository]: https://github.com/nashamri/spacemacs-logo
 [Stack Exchange]: https://emacs.stackexchange.com/questions/tagged/spacemacs
 [Reddit]: https://www.reddit.com/r/spacemacs
 [jack-of-some]: https://www.youtube.com/watch?v=r-BHx7VNX5s&list=PLd_Oyt6lAQ8Rxb0HUnGbRrn6R4Cdt2yoI
