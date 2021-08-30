@@ -33,6 +33,7 @@
         (grep :location built-in)
         (info+ :location (recipe :fetcher wiki))
         open-junk-file
+        (outline :location built-in)
         paradox
         restart-emacs
         (smooth-scrolling :location built-in)
@@ -340,6 +341,21 @@
       ;; Since this is not really useful to add hooks to open-junk-files lets remove
       ;; it
       (remove-hook 'find-file-hook 'find-file-hook--open-junk-file))))
+
+(defun spacemacs-navigation/init-outline ()
+  (use-package outline
+    :defer t
+    :init
+    (spacemacs/set-leader-keys
+      "to" 'outline-minor-mode)
+    :config
+    (spacemacs/set-leader-keys-for-minor-mode 'outline-minor-mode
+      "oo"      'outline-cycle-buffer
+      "o <tab>" 'outline-cycle
+      "oj"      'outline-next-visible-heading
+      "ok"      'outline-previous-visible-heading
+      "oJ"      'outline-next-heading
+      "oK"      'outline-previous-heading)))
 
 (defun spacemacs-navigation/init-paradox ()
   (use-package paradox

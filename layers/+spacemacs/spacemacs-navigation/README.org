@@ -25,6 +25,15 @@ This layer adds general navigation functions to all supported layers.
 
 * Key bindings
 
-| Key binding | Description    |
-|-------------+----------------|
-| ~SPC h j~   | jump to manual |
+| Key binding | Description               |
+|-------------+---------------------------|
+| ~SPC h j~   | jump to manual            |
+| ~SPC t o~   | toggle outline-minor-mode |
+
+*Outline minor mode*
+| ~SPC m o o~   | outline cycle buffer             |
+| ~SPC m o TAB~ | outline cycle (heading)          |
+| ~SPC m o j~   | outline next visible heading     |
+| ~SPC m o k~   | outline previous visible heading |
+| ~SPC m o J~   | outline next heading             |
+| ~SPC m o K~   | outline previous heading         |
