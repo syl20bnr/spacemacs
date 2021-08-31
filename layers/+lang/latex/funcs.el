@@ -55,6 +55,15 @@
     (require 'lsp-latex)
     (lsp-deferred)))
 
+(defun spacemacs//latex-setup-pdf-tools ()
+  "Conditionally setup pdf-tools."
+  (when latex-view-with-pdf-tools
+    (setf (alist-get 'output-pdf TeX-view-program-selection) (list "PDF Tools"))
+
+    (when latex-view-pdf-in-split-window
+      (require 'pdf-sync)
+      (setq pdf-sync-forward-display-action t))))
+
 (defun latex/build ()
   (interactive)
   (progn
