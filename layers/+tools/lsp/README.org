@@ -179,13 +179,6 @@ The key bindings are grouped under the following prefixes:
 | ~SPC m T l~ | lsp           | Toggle LSP backend features (documentation / symbol info overlays etc.)    |
 | ~SPC m x~   | text (source) | Text (source) document related bindings                                    |
 
-Some navigation key bindings (i.e. ~SPC m g~ / ~SPC m G~) use an additional level of grouping:
-
-| prefix          | name             | functional area                                           |
-|-----------------+------------------+-----------------------------------------------------------|
-| ~SPC m <g/G> h~ | hierarchy        | Hierarchy (i.e. call/inheritance hierarchy etc. )         |
-| ~SPC m <g/G> m~ | member hierarchy | Class/namespace members (functions, nested classes, vars) |
-
 ** Core key bindings
 The lsp minor mode bindings are:
 
@@ -206,6 +199,7 @@ The lsp minor mode bindings are:
 | ~SPC m g K~   | goto viewport symbol (=avy=) (See Note 1)                                        |
 | ~SPC m g e~   | browse flycheck errors (=lsp-treemacs=)                                          |
 | ~SPC m g M~   | browse file symbols (=lsp-ui-imenu=)                                             |
+| ~SPC m g h~   | goto call hierachy (=lsp-mode=)                                                  |
 |---------------+----------------------------------------------------------------------------------|
 | Note          | /Replaced by the lsp-ui-peek equivalents when ~lsp-navigation~ is ~'peek~ /      |
 | ~SPC m g i~   | find implementations (=lsp-mode=)                                                |
