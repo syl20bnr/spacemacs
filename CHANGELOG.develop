@@ -2647,6 +2647,8 @@ files (thanks to Daniel Nicolai)
   to Lucius Hu)
 - Added layer variable =latex-refresh-preview= to refresh the preview buffer when
   compiled PDF is changed (thanks to Lucius Hu)
+- Automatically configure =pdf-tools= as pdf viewer for =TeX-view= command (by default) (Thanks to Daniel Nicolai)
+- Add layer variable to open =pdf-tools= in split window (Thanks to Daniel Nicolai)
 **** Lua
 - Added support for auto-completion with =company= (thanks to halfcrazy)
 - Added support for =LSP= (EmmyLua-LS-all, lua-language-server, lua-lsp) (thanks to Lin.Sun)

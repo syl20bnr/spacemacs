@@ -31,6 +31,17 @@
 ;; ...but AUCTeX runs LaTeX-mode-hook rather than latex-mode-hook, so:
 (add-to-list 'spacemacs-jump-handlers-latex-mode 'LaTeX-mode-hook)
 
+(defvar latex-view-with-pdf-tools (configuration-layer/layer-used-p 'pdf)
+  "Use pdf-tools for viewing latex output pdf's.
+When the pdf layer is installed, then automatically configure
+Spacemacs to view latex output pdf's with pdf-tools. For using a
+different viewer set this value to `nil' and configure the
+output-pdf viewer in `TeX-view-program-selection'.")
+
+(defvar latex-view-pdf-in-split-window nil
+  "If non-nil then open pdf in split window.
+Requires pdf-tools to be configured as output-pdf viewer.")
+
 (defvar latex-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'company-auctex)
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-auctex'.
