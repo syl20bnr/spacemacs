@@ -2862,6 +2862,7 @@ files (thanks to Daniel Nicolai)
 - Fixed flycheck-ocaml not initialized warning (thanks to Artur Juraszek)
 - Added =dune= support via =dune-mode= (thanks to Lyman Gillispie)
 - Fixed ocamlformat not properly initialized by following do (thanks to Nicolas Raymond)
+- Allow new OPAM share commandline syntax (thanks to Cody McKenzie)
 **** Org
 - Provide some sane default strategies for enforcing =TODO= dependencies via
   =org-todo-dependencies-strategy=. (thanks to Keith Pinson)
