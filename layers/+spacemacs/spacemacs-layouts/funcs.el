@@ -74,6 +74,12 @@ Cancels autosave on exiting perspectives mode."
   "Return non-nil if current layout doesn't contain BUFFER."
   (not (persp-contain-buffer-p buffer)))
 
+(defun spacemacs//ediff-in-comparison-buffer-p (&optional buffer)
+  "Return non-nil if BUFFER is part of an ediff comparison."
+  (with-current-buffer (or buffer (current-buffer))
+    (and (boundp 'ediff-this-buffer-ediff-sessions)
+         ediff-this-buffer-ediff-sessions)))
+
 (defun spacemacs/jump-to-last-layout ()
   "Open the previously selected layout, if it exists."
   (interactive)
