@@ -319,15 +319,7 @@
 
   ;; ignore repeat
   (evil-declare-ignore-repeat 'spacemacs/next-error)
-  (evil-declare-ignore-repeat 'spacemacs/previous-error)
-
-  ;; Fix for issue: Evil search bug breaks Spacemacs #10410
-  ;; https://github.com/syl20bnr/spacemacs/issues/10410
-  ;; This fix can be removed when/if the upstream PR is merged:
-  ;; Exit search prompt on mouse leave minibuffer
-  ;; https://github.com/emacs-evil/evil/pull/1330
-  (advice-add 'evil-ex-search-start-session
-              :after 'spacemacs//evil-ex-search-start-session))
+  (evil-declare-ignore-repeat 'spacemacs/previous-error))
 
 (defun spacemacs-bootstrap/init-hydra ()
   (require 'hydra)
