@@ -80,6 +80,12 @@ Cancels autosave on exiting perspectives mode."
     (and (boundp 'ediff-this-buffer-ediff-sessions)
          ediff-this-buffer-ediff-sessions)))
 
+(defun spacemacs/ediff-balance-windows ()
+  "Balance the width of ediff windows."
+  (interactive)
+  (ediff-toggle-split)
+  (ediff-toggle-split))
+
 (defun spacemacs/jump-to-last-layout ()
   "Open the previously selected layout, if it exists."
   (interactive)
