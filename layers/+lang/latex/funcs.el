@@ -56,7 +56,7 @@
     (lsp-deferred)))
 
 (defun spacemacs//latex-setup-pdf-tools ()
-  "Conditionally setup pdf-tools"
+  "Conditionally setup pdf-tools."
   (when latex-view-with-pdf-tools
     (setf (alist-get 'output-pdf TeX-view-program-selection) (list "PDF Tools"))
 
