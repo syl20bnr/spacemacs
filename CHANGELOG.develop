@@ -1560,12 +1560,14 @@ Other:
   - Fixed the =c-c++-default-mode-for-headers= should not affect the default
     behavior that opening a .h file will turn C or C++ mode depending on
     language used in Emacs > 26.1+ (thanks to Lin Sun)
+  - Added =Doxygen= doc comment generation using =gendoxy= (thanks to Cormac Cannon)
 - Key bindings:
   - ~SPC m = =~ clang-format current region or buffer (thanks to Dela Anthonio)
   - ~SPC m = f~ clang-format current function (thanks to Dela Anthonio)
   - Declare =mg= prefix as =goto= (thanks to Dela Anthonio)
   - Support =rtags=, available under ~SPC m g~ prefix
     (thanks to Alexander Dalshov and Sylvain Benner)
+  - =Doxygen=/=gendoxy= keybindings under ~SPC m i~ prefix
 - Fixes:
   - Fixed a typo by moving one closing parenthesis :-) (thanks to Richard Kim)
   - Fixed clang format on save (thanks to Dela Anthonio and Silver Chan)
