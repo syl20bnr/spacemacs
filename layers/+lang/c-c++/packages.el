@@ -127,7 +127,7 @@
       (spacemacs/declare-prefix-for-mode 'c++-mode
         "mr" "refactor")
       (spacemacs/set-leader-keys-for-major-mode 'c++-mode
-        "ri" #'spacemacs/c++-organize-includes))))
+        "ri" #'spacemacs/c-c++-organize-includes))))
 
 (defun c-c++/pre-init-dap-mode ()
   (pcase c-c++-backend
