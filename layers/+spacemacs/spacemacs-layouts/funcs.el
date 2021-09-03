@@ -19,6 +19,12 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;;
+;; Parts of this file are used with permission under the terms of other
+;; GPL-compatible licenses. Specifically, the functions
+;; `spacemacs//ediff-in-comparison-buffer-p' and
+;; `spacemacs/ediff-balance-windows' are included under the terms of the MIT
+;; license: <https://github.com/roman/golden-ratio.el/blob/master/LICENSE>
 
 
 
