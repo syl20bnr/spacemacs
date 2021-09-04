@@ -25,7 +25,7 @@ add =reddit= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Configuration
-You can add sub Reddits to you main page by them to =reddigg-subs=. You have to
+You can add sub Reddits to your main page by adding them to =reddigg-subs=. You have to
 write the sub Reddit name in small letters and replace =SPC= with =_=.
 
 Example:
