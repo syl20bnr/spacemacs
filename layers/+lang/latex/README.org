@@ -117,7 +117,7 @@ use =company-auctex= for math symbols completion set the following in your
 
 ** PDF viewer
    If the =pdf= layer is used, then the layer automatically configures =pdf-tools=
-   as the 'output-pdf' viewer, see [[PDF viewer]]. To additionally make =pdf-tools=
+   as the 'output-pdf' viewer, see [[#pdf-viewer]]. To additionally make =pdf-tools=
    open in a split window, set the layer variable =latex-view-pdf-in-split-window=
    to =t=.
 
