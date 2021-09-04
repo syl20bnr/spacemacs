@@ -48,7 +48,7 @@ file.
 Most layer configurations can be done by setting layer variables in your
 dotfile. Some however require adding lines to your user-config. If the =pdf=
 layer is used, then the layer automatically configures =pdf-tools= as the
-'output-pdf' viewer, see [[PDF viewer]].
+'output-pdf' viewer, see [[#pdf-viewer]].
 
 ** Variables
 A number of configuration variables have been exposed via the layer =config.el=.
