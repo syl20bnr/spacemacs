@@ -307,8 +307,12 @@
                    " *which-key*"))
         (add-to-list 'golden-ratio-exclude-buffer-names n))
 
-      (add-to-list 'golden-ratio-inhibit-functions
-                   'spacemacs/no-golden-ratio-guide-key)
+      ;; golden-ratio-inhibit-functions
+      (dolist (f '(spacemacs/no-golden-ratio-guide-key
+                   spacemacs//ediff-in-comparison-buffer-p))
+        (add-to-list 'golden-ratio-inhibit-functions f))
+
+      (add-hook 'ediff-startup-hook 'spacemacs/ediff-balance-windows)
 
       (spacemacs|diminish golden-ratio-mode " ⓖ" " g"))))
 
