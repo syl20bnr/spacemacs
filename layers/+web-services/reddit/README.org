@@ -2,7 +2,7 @@
 
 #+TAGS: layer|web service
 
-* Table of Contents                                       :TOC_5_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -31,11 +31,10 @@ write the sub Reddit name in small letters and replace =SPC= with =_=.
 Example:
 
 #+BEGIN_SRC emacs-lisp
-      (reddit :variables
-              reddigg-subs '(spacemacs
-                             trymacs_discord))
+  (reddit :variables
+          reddigg-subs '(spacemacs
+                         trymacs_discord))
 #+END_SRC
-
 
 * Key bindings
 

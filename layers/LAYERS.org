@@ -257,6 +257,7 @@
   - [[#confluence][Confluence]]
   - [[#eaf][Eaf]]
   - [[#evernote][Evernote]]
+  - [[#layer-for-reddit][Layer for reddit]]
   - [[#pocket][Pocket]]
   - [[#search-engine][Search Engine]]
   - [[#twitter][Twitter]]
@@ -1873,7 +1874,8 @@ Features:
 - Auto-completion via company (=auto-completion= layer required)
 - Support code reformatting with [[http://clang.llvm.org/docs/ClangFormat.html][clang-format]].
 - Support for disassembly of code with [[https://github.com/jart/disaster][disaster]].
-- =sematic= layer integration:
+- [[https://www.doxygen.nl][Doxygen]] code documentation comment generation (using [[https://github.com/mp81ss/gendoxy][gendoxy]]).
+- =semantic= layer integration:
   - Function or variable definition at the bottom
   - Current function cursor is at the top. See [[https://github.com/tuhdo/semantic-stickyfunc-enhance][stickyfunc-demos]] for
     demos in some programming languages.
@@ -3266,6 +3268,18 @@ Features:
 - Create notes in markdown and sync with [[https://evernote.com/][Evernote]] via [[http://www.geeknote.me][geeknote]].
 - Search for notes using keywords
 - Move notes between notebooks
+
+** Layer for reddit
+[[file:+web-services/reddit/README.org][+web-services/reddit/README.org]]
+
+This layer adds Reddit support to Spacemacs via the package [[https://github.com/thanhvg/emacs-reddigg][reddigg]].
+This package allows you to browse reddit in org-mode.
+
+Features:
+- Activities on Reddit
+  - Viewing main
+  - Viewing sub
+  - Viewing comments
 
 ** Pocket
 [[file:+web-services/pocket/README.org][+web-services/pocket/README.org]]

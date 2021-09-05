@@ -70,7 +70,7 @@ Sensible defaults have been provided, however they may all be overridden in your
 | ~latex-view-pdf-in-split-window~ | ~nil~ setting is neglected if ~latex-view-with-pdf-tools~ is ~nil~ | When non-nil, open =pdf-tools= in split window (when using =TeX-view= command) |
 
 ** Choosing a backend
-   This layer provides two alternative backends to choose from. 
+This layer provides two alternative backends to choose from.
 
 *** LSP
 This is the default backend if =LSP= layer is enabled.
@@ -116,14 +116,14 @@ use =company-auctex= for math symbols completion set the following in your
 #+END_SRC
 
 ** PDF viewer
-   If the =pdf= layer is used, then the layer automatically configures =pdf-tools=
-   as the 'output-pdf' viewer, see [[#pdf-viewer]]. To additionally make =pdf-tools=
-   open in a split window, set the layer variable =latex-view-pdf-in-split-window=
-   to =t=.
+If the =pdf= layer is used, then the layer automatically configures =pdf-tools=
+as the 'output-pdf' viewer, see [[#pdf-viewer]]. To additionally make =pdf-tools=
+open in a split window, set the layer variable =latex-view-pdf-in-split-window=
+to =t=.
 
-   If, despite using the pdf layer, you prefer to use another pdf viewer to preview
-   the output pdf's, set the layer variable =latex-view-with-pdf-tools= to =nil=.
-   
+If, despite using the pdf layer, you prefer to use another pdf viewer to preview
+the output pdf's, set the layer variable =latex-view-with-pdf-tools= to =nil=.
+
 ** Previewing
 =LaTex= layer support full-document previews and inline preview (via ~SPC m p~).
 
