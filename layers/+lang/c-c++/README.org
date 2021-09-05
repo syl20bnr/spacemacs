@@ -501,14 +501,13 @@ A ~[ccls]~ suffix indicates that the binding is for the indicated backend only.
 
 | Key binding | Description                                                         |
 |-------------+---------------------------------------------------------------------|
-| ~SPC m i h~ | document this file (i.e. insert header comment)                    |
+| ~SPC m i h~ | document this file (i.e. insert header comment)                     |
 | ~SPC m i d~ | document declaration at point (function, struct etc.)               |
 | ~SPC m i D~ | document declaration at point (header only, omit e.g. enum members) |
 | ~SPC m i g~ | document group of declarations at point                             |
 | ~SPC m i G~ | document group of declarations at point (header only)               |
 | ~SPC m i s~ | document start of declaration group                                 |
 | ~SPC m i e~ | document end of declaration group                                   |
-
 
 ** Additional key bindings
 *** Disassemble
