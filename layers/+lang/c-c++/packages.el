@@ -27,9 +27,7 @@
     clang-format
     company
     (company-c-headers :requires company)
-    (cpp-auto-include
-     :location (recipe :fetcher github
-                       :repo "syohex/emacs-cpp-auto-include"))
+    cpp-auto-include
     disaster
     eldoc
     flycheck
