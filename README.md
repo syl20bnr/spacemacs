@@ -253,10 +253,18 @@ packages may fail. In this case it is possible to install using
 be transferred using http, use at your own risk.
 
 You might also have some issues when doing some search on your projects, you
-probably want to install grep through homebrew with default names:
+probably want to install GNU [grep](https://formulae.brew.sh/formula/grep)
+through homebrew:
 
 ```sh
-$ brew install grep --with-default-names
+$ brew install grep
+```
+
+By default, all commands are installed with the prefix `g`. To use them with
+their normal names, you should add a `gnubin` directory to your PATH:
+
+```
+$ PATH="$(brew --prefix)/opt/grep/libexec/gnubin:$PATH"
 ```
 
 ### Windows
