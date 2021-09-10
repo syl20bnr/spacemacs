@@ -211,12 +211,12 @@ Use ~SPC g .~ to enter a transient state for quickly navigating between hunks in
 ** Smerge Mode Transient-state
 Movement:
 
-| Key binding                | Description                              |
-|----------------------------+------------------------------------------|
-| ~SPC g r n~                | Next conflict (possibly in another file) |
-| ~SPC g r N~ or ~SPC g r p~ | Previous conflict                        |
-| ~SPC g r j~                | Go to next line                          |
-| ~SPC g r k~                | Go to previous line                      |
+| Key binding                | Description                                  |
+|----------------------------+----------------------------------------------|
+| ~SPC g r n~                | Next conflict (possibly in another file)     |
+| ~SPC g r N~ or ~SPC g r p~ | Previous conflict (possibly in another file) |
+| ~SPC g r j~                | Go to next line                              |
+| ~SPC g r k~                | Go to previous line                          |
 
 Merge Actions:
 
