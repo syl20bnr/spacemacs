@@ -123,11 +123,11 @@ See `spacemacs//fetch-docs-from-root'"
 (defun spacemacs//format-content (&rest r)
   (let* ((content (car r))
          (div-string "<div id=\"content\">")
-	 ;; onclick below tries to send user to the same path but at a different domain
-	 ;; the href attribute is a fallback in case javascript is disabled
+         ;; onclick below tries to send user to the same path but at a different domain
+         ;; the href attribute is a fallback in case javascript is disabled
          (doc-warning "<div class=\"admonition warning\">
 <p class=\"first last\">
-You are viewing the documentation for the develop branch. 
+You are viewing the documentation for the develop branch.
 The documentation for the release version is
 <a href=\"https://www.spacemacs.org/doc/DOCUMENTATION.html\"
 onclick=\"location='https://www.spacemacs.org'+location.pathname+location.search+location.hash;return false;\">here</a>
@@ -226,10 +226,10 @@ exported org files should be processed with
                                         (string-suffix-p
                                          "COMMUNITY.org"
                                          bfn))
-                                      (file-name-directory
-                                       (directory-file-name
-                                        bfnd))
-                                      bfnd)))
+                                       (file-name-directory
+                                        (directory-file-name
+                                         bfnd))
+                                     bfnd)))
                      nil t nil 2)
       (replace-match ".html" nil t nil 3))))
 
