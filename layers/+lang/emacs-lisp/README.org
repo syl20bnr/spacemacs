@@ -112,7 +112,7 @@ function or press ~o~ to go out of it.
 
 ** Using the inspector
    This layer adds the [[https://github.com/mmontone/emacs-inspector][inspector]] package to provide an easy way for inspecting
-   data structures. Find more information about its usage [[https://github.com/mmontone/emacs-inspector][here]] and see keybindings [ 
+   data structures. Find more information about its usage [[https://github.com/mmontone/emacs-inspector][here]] and see keybindings.
 
 * Nameless
 Nameless hides package namespaces in your emacs-lisp code, and replaces it by
