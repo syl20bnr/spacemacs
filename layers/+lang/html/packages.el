@@ -209,7 +209,9 @@
     (progn
       (spacemacs//web-setup-transient-state)
       (when html-enable-lsp
-        (add-hook 'web-mode-hook #'spacemacs//setup-lsp-for-html-buffer t)))
+        (add-hook 'web-mode-hook #'spacemacs//setup-lsp-for-html-buffer t))
+      (when html-enable-leex-support
+        (add-to-list 'auto-mode-alist '("\\.leex\\'" . web-mode))))
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'web-mode "m=" "format")
@@ -231,7 +233,6 @@
         "rw" 'web-mode-element-wrap
         "z" 'web-mode-fold-or-unfold))
     ;; TODO element close would be nice but broken with evil.
-
     :mode
     (("\\.phtml\\'"      . web-mode)
      ("\\.tpl\\.php\\'"  . web-mode)
@@ -242,7 +243,6 @@
      ("\\.[gj]sp\\'"     . web-mode)
      ("\\.as[cp]x?\\'"   . web-mode)
      ("\\.eex\\'"        . web-mode)
-     ("\\.leex\\'"       . web-mode)
      ("\\.erb\\'"        . web-mode)
      ("\\.mustache\\'"   . web-mode)
      ("\\.handlebars\\'" . web-mode)
