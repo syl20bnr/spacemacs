@@ -11,6 +11,7 @@
 .emacs.desktop
 .emacs.desktop.lock
 .extension
+.lsp-session-*
 .mc-lists.el
 .places
 .python-environments/
