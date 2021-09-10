@@ -35,7 +35,8 @@
   (use-package lsp-mode
     :defer t
     :init
-    (setq lsp-session-file (concat lsp-server-install-dir (file-name-nondirectory ".lsp-session-v1"))
+    (setq lsp-server-install-dir (concat spacemacs-cache-directory "lsp/")
+          lsp-session-file (concat lsp-server-install-dir (file-name-nondirectory ".lsp-session-v1"))
           lsp-eslint-library-choices-file (concat lsp-server-install-dir ".lsp-eslint-choices")
           lsp-yaml-schema-store-local-db (concat lsp-server-install-dir "lsp-yaml-schemas.json")
           lsp-vetur-global-snippets-dir (concat spacemacs-start-directory "snippets/vetur"))
