@@ -1,4 +1,4 @@
-;;; packages.el --- lobsters layer packages file for Spacemacs.
+;;; packages.el --- Lobsters Layer Packages File For Spacemacs.
 ;;
 ;; Copyright (c) 2021 Sylvain Benner & Contributors
 ;;
@@ -20,8 +20,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; Code:
-
 (defconst lobsters-packages
   '((ivy-lobsters :requires ivy)
     (helm-lobsters :requires helm)))
@@ -29,13 +27,11 @@
 (defun lobsters/init-ivy-lobsters()
   (use-package ivy-lobsters
     :defer t
-    :init (progn
-            (spacemacs/set-leader-keys
-              "awl" 'ivy-lobsters))))
+    :init (spacemacs/set-leader-keys
+            "awl" 'ivy-lobsters)))
 
 (defun lobsters/init-helm-lobsters()
   (use-package helm-lobsters
     :defer t
-    :init (progn
-            (spacemacs/set-leader-keys
-              "awl" 'helm-lobsters))))
+    :init (spacemacs/set-leader-keys
+            "awl" 'helm-lobsters)))
