@@ -1,6 +1,6 @@
-;;; packages.el --- twitch layer packages file for Spacemacs.
+;;; packages.el --- twitch Layer Packages File For Spacemacs.
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Benedikt Broich <b.broich@posteo.de>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,11 +20,8 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; Code:
-
 (defconst twitch-packages
-  '(
-    (twitch-api :location (recipe :fetcher github
+  '((twitch-api :location (recipe :fetcher github
                                   :repo "benediktbroich/twitch-api"))
     (helm-twitch :location (recipe :fetcher github
                                    :repo "benediktbroich/helm-twitch")
@@ -32,19 +29,14 @@
 
 (defun twitch/init-twitch-api ()
   (use-package twitch-api
-    :init (progn
-            (when (configuration-layer/package-usedp 'erc)
-              (spacemacs/set-leader-keys
-                "acit" 'twitch-api-erc-tls)))))
+    :init (spacemacs/set-leader-keys
+            "acit" 'twitch-api-erc-tls)))
 
 (defun twitch/init-helm-twitch ()
   (use-package helm-twitch
     :defer t
     :init (progn
-            (spacemacs/declare-prefix "aws" "stream")
             (spacemacs/set-leader-keys
               "awst" 'helm-twitch)
-            (when (configuration-layer/package-usedp 'streamlink)
-              (setq helm-twitch-enable-livestreamer-actions t))
-            (when (configuration-layer/package-usedp 'erc)
-              (setq helm-twitch-enable-chat-actions t)))))
+            (setq helm-twitch-enable-livestreamer-actions t
+                  helm-twitch-enable-chat-actions t))))
