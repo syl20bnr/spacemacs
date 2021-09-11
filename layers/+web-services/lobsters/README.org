@@ -1,7 +1,8 @@
 #+TITLE: lobsters layer
+
 #+TAGS: layer|web service
 
-* Table of Contents                                       :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -11,7 +12,7 @@
 This layer adds support for reading [[https://lobste.rs/][lobsters]].
 
 ** Features:
-  - Read Lobsters news
+- Read Lobsters news
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -20,6 +21,6 @@ file.
 
 * Key bindings
 
-| Key Binding | Description                        |
-|-------------+------------------------------------|
-| ~SPC a w l~ | ~helm-lobsters~  or ~ivy-lobsters~ |
+| Key binding | Description                       |
+|-------------+-----------------------------------|
+| ~SPC a w l~ | ~helm-lobsters~ or ~ivy-lobsters~ |

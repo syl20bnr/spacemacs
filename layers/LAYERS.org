@@ -181,6 +181,7 @@
 - [[#readers][Readers]]
   - [[#dash][Dash]]
   - [[#deft][Deft]]
+  - [[#djvu][Djvu]]
   - [[#elfeed][Elfeed]]
   - [[#epub][Epub]]
   - [[#pdf][PDF]]
@@ -257,9 +258,13 @@
   - [[#confluence][Confluence]]
   - [[#eaf][Eaf]]
   - [[#evernote][Evernote]]
+  - [[#hacker-news][Hacker News]]
   - [[#layer-for-reddit][Layer for reddit]]
+  - [[#lobsters][Lobsters]]
   - [[#pocket][Pocket]]
   - [[#search-engine][Search Engine]]
+  - [[#streamlink][Streamlink]]
+  - [[#twitch][Twitch]]
   - [[#twitter][Twitter]]
   - [[#wakatime][Wakatime]]
 
@@ -2429,6 +2434,25 @@ Features:
 - Configurable list of extensions to recognize as notes.
 - Zettelkasten system with [[https://github.com/EFLS/zetteldeft][zetteldeft]]
 
+** Djvu
+[[file:+readers/djvu/README.org][+readers/djvu/README.org]]
+
+This layer adds support for reading djvu files with spacemacs.
+
+Because of some difficulties, the layer does not lazy load the =djvu.el= and
+=djvu3.el= packages.
+
+Features:
+
+This layer provides a full featured djvu editor by implementing the [[https://github.com/dalanicolai/djvu2.el][djvu.el
+package]] along with the [[https://github.com/dalanicolai/djvu3][djvu3]] extension (a newer alternative to [[https://github.com/dalanicolai/djvu2.el][djvu2.el]]).
+- flexible annotation editing and rendering, covering most (but not all) of
+  [[https://linux.die.net/man/1/djvused][djvused]] annotation definitions
+- fast navigation with imenu
+- fast search with djvu-occur
+- remember last view with djvu-restore
+- dark mode
+
 ** Elfeed
 [[file:+readers/elfeed/README.org][+readers/elfeed/README.org]]
 
@@ -3269,6 +3293,14 @@ Features:
 - Search for notes using keywords
 - Move notes between notebooks
 
+** Hacker News
+[[file:+web-services/hackernews/README.org][+web-services/hackernews/README.org]]
+
+This layer adds support for reading [[https://news.ycombinator.com/][Hacker News]].
+
+Features:
+- Read Hacker News
+
 ** Layer for reddit
 [[file:+web-services/reddit/README.org][+web-services/reddit/README.org]]
 
@@ -3280,6 +3312,14 @@ Features:
   - Viewing main
   - Viewing sub
   - Viewing comments
+
+** Lobsters
+[[file:+web-services/lobsters/README.org][+web-services/lobsters/README.org]]
+
+This layer adds support for reading [[https://lobste.rs/][lobsters]].
+
+Features:
+- Read Lobsters news
 
 ** Pocket
 [[file:+web-services/pocket/README.org][+web-services/pocket/README.org]]
@@ -3301,6 +3341,25 @@ This layer adds support for the [[https://github.com/hrs/engine-mode][Search Eng
 
 Features:
 - Browser search integration
+
+** Streamlink
+[[file:+web-services/streamlink/README.org][+web-services/streamlink/README.org]]
+
+This layer adds support for opening URLs in streamlink.
+
+Features:
+- Open URL with streamlink
+
+** Twitch
+[[file:+web-services/twitch/README.org][+web-services/twitch/README.org]]
+
+This layer adds support for twitch. You can search for streamers and open the stream in the browser.
+You are also able to connect to twitch irc and join the streamer channel.
+
+Features:
+- Connect to Twitch irc via erc
+- Join streamer channel
+- Start watching stream via streamlink
 
 ** Twitter
 [[file:+web-services/twitter/README.org][+web-services/twitter/README.org]]
