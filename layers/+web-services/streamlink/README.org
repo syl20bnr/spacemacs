@@ -23,4 +23,4 @@ file.
 
 | Key Binding   | Description              |
 |---------------+--------------------------|
-| ~SPC a w s o~ | Open URL with streamlink |
+| ~SPC a w s s~ | Open URL with streamlink |

@@ -1,4 +1,4 @@
-;;; packages.el --- streamlink layer packages file for Spacemacs.
+;;; packages.el --- Streamlink Layer Packages File For Spacemacs.
 ;;
 ;; Copyright (c) 2021 Sylvain Benner & Contributors
 ;;
@@ -20,8 +20,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; Code:
-
 (defconst streamlink-packages
   '(streamlink))
 
@@ -31,4 +29,4 @@
     :init (progn
             (spacemacs/declare-prefix "aws" "stream")
             (spacemacs/set-leader-keys
-              "awso" 'streamlink-open-url))))
+              "awss" 'streamlink-open-url))))
