@@ -2,7 +2,7 @@
 #+TAGS: layer|reader
 
 #+CAPTION: source: https://commons.wikimedia.org/wiki/File:DjVu-logo.svg
-[[img/djvu-logo.svg]]
+[[file:img/djvu-logo.svg]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
