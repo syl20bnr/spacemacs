@@ -23,9 +23,10 @@ file.
 
 | Key Binding | Description |
 |-------------+-------------|
-| ~SPC a r h~ | hackernews  |
+| ~SPC a w h~ | hackernews  |
 
 ** Major mode key bindings
+
 | Key Binding | Description                                  |
 |-------------+----------------------------------------------|
 | ~RET~       | Open link in default (external) browser      |

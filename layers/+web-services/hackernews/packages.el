@@ -1,4 +1,4 @@
-;;; packages.el --- hackernews layer packages file for Spacemacs.
+;;; packages.el --- Hackernews Layer Packages File For Spacemacs.
 ;;
 ;; Copyright (c) 2021 Sylvain Benner & Contributors
 ;;
@@ -20,14 +20,11 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; Code:
-
 (defconst hackernews-packages
   '(hackernews))
 
 (defun hackernews/init-hackernews()
   (use-package hackernews
     :defer t
-    :init (progn
-            (spacemacs/set-leader-keys
-              "awh" 'hackernews))))
+    :init (spacemacs/set-leader-keys
+            "awh" 'hackernews)))
