@@ -21,13 +21,6 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun djvu-toggle-semi-continuous-scrolling ()
-  (interactive)
-  (setq djvu-semi-continuous-scrolling (not djvu-semi-continuous-scrolling))
-  (message "Djvu alternative scrolling %s" (if djvu-semi-continuous-scrolling
-                                               "enabled"
-                                             "disabled")))
-
 (defun spacemacs/djvu-advise-image-toggle (_file &rest args)
   (djvu-image-toggle))
 
@@ -67,30 +60,44 @@ Use the command `djvu-search-forward-continue' to continue the search."
   (interactive "sQuery: ")
   (setq djvu-last-search-re query)
   (unless (eq (djvu-ref page) (djvu-ref pagemax))
-              (search-forward query nil t))
-      (djvu-goto-page (let ((page (djvu-ref page))
-                            (return 1))
-                        (while (and (/= return 0) (< page (+ (djvu-ref pagemax) 1)))
-                          (setq page (1+ page))
-                          (setq return (call-process-shell-command
-                                        (format "djvused %s -e 'select %s; print-pure-txt' | grep -i '%s'"
-                                                (shell-quote-argument buffer-file-name)
-                                                page
-                                                query))))
-                        page))
-      (search-forward query nil t))
+    (search-forward query nil t))
+  (djvu-goto-page (let ((page (djvu-ref page))
+                        (return 1))
+                    (while (and (/= return 0) (< page (+ (djvu-ref pagemax) 1)))
+                      (setq page (1+ page))
+                      (setq return (call-process-shell-command
+                                    (format "djvused %s -e 'select %s; print-pure-txt' | grep -i '%s'"
+                                            (shell-quote-argument buffer-file-name)
+                                            page
+                                            query))))
+                    page))
+  (search-forward query nil t))
 
 (defun spacemacs/djvu-re-search-forward-continue ()
   "Continue search forward for match for `djvu-last-search-re'."
   (interactive)
   (spacemacs/djvu-search-forward djvu-last-search-re))
 
-(defun djvu-occur-next-entry-and-follow ()
+(defun spacemacs//djvu-set-imenu-create-index-function ()
+  (setq imenu-create-index-function #'djvu-imenu-create-index))
+
+(defun spacemacs//djvu-set-imenu-goto-function ()
+  (setq imenu-default-goto-function (lambda (title page)
+                                      (djvu-goto-page page djvu-doc))))
+
+(defun spacemacs/djvu-toggle-semi-continuous-scrolling ()
+  (interactive)
+  (setq djvu-semi-continuous-scrolling (not djvu-semi-continuous-scrolling))
+  (message "Djvu alternative scrolling %s" (if djvu-semi-continuous-scrolling
+                                               "enabled"
+                                             "disabled")))
+
+(defun spacemacs/djvu-occur-next-entry-and-follow ()
   (interactive)
   (evil-next-visual-line)
   (call-interactively 'djvu-occur-show-entry))
 
-(defun djvu-occur-previous-entry-and-follow ()
+(defun spacemacs/djvu-occur-previous-entry-and-follow ()
   (interactive)
   (evil-previous-visual-line)
   (call-interactively 'djvu-occur-show-entry))
