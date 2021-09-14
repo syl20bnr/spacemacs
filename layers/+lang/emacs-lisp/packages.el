@@ -80,7 +80,7 @@
           (lisp-indent-line))))))
 
 (defun emacs-lisp/post-init-company ()
-  (spacemacs|add-company-backends :backends company-capf
+  (spacemacs|add-company-backends :backends (company-capf company-dabbrev-code)
                                   :modes emacs-lisp-mode)
   (spacemacs|add-company-backends :backends (company-files company-capf)
                                   :modes ielm-mode))
