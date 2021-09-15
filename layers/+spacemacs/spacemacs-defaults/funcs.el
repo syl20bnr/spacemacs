@@ -1345,10 +1345,55 @@ the right."
   (interactive)
   (set-buffer-file-coding-system 'undecided-dos nil))
 
-(defun spacemacs/copy-file ()
-  "Write the file under new name."
-  (interactive)
-  (call-interactively 'write-file))
+(defun spacemacs/save-as (filename &optional visit)
+  "Save current buffer or active region as specified file.
+When called interactively, it first prompts for FILENAME, and then asks
+whether to VISIT it, and if so, whether to show it in current window or
+another window. When prefixed with a universal-argument \\[universal-argument], include
+filename in prompt.
+
+FILENAME  a non-empty string as the name of the saved file.
+VISIT     When it's `:current', open FILENAME in current window. When it's
+          `:other', open FILENAME in another window. When it's nil, only
+          save to FILENAME but does not visit it. (Default to `:current'
+          when called from a LISP program.)
+
+When FILENAME already exists, it also asks the user whether to
+overwrite it."
+  (interactive (let* ((filename (expand-file-name (read-file-name "Save buffer as: " nil nil nil
+                                                                  (when current-prefix-arg (buffer-name)))))
+                      (choices  '("Current window"
+                                  "Other window"
+                                  "Don't open"))
+                      (actions  '(:current :other nil))
+                      (visit    (let ((completion-ignore-case t))
+                                  (nth (cl-position
+                                        (completing-read "Do you want to open the file? "
+                                                         choices nil t)
+                                        choices
+                                        :test #'equal)
+                                       actions))))
+                 (list filename visit)))
+  (unless (called-interactively-p 'any)
+    (cl-assert (and (stringp filename)
+                    (not (string-empty-p filename))
+                    (not (directory-name-p filename)))
+               t "Expect a non-empty filepath, found: %s")
+    (setq filename (expand-file-name filename)
+          visit (or visit :other))
+    (let ((choices '(:current :other nil)))
+      (cl-assert (memq visit choices)
+                 t "Found %s, expect one of %s")))
+  (let ((dir (file-name-directory filename)))
+    (unless (file-directory-p dir)
+      (make-directory dir t)))
+  (if (use-region-p)
+      (write-region (region-beginning) (region-end) filename nil nil nil t)
+    (write-region nil nil filename nil nil nil t))
+  (pcase visit
+    (:current (find-file filename))
+    (:other   (funcall-interactively 'find-file-other-window filename))))
+
 
 ;; from https://www.emacswiki.org/emacs/CopyingWholeLines
 (defun spacemacs/duplicate-line-or-region (&optional n)
