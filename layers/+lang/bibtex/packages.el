@@ -131,7 +131,10 @@
 
       "gj" 'ebib-jump-to-entry
       "/" 'ebib-search
-      "n" 'ebib-search-next)
+      "n" 'ebib-search-next
+      ;; the following binding is a simple workaround for
+      ;; https://github.com/joostkremers/ebib/issues/213
+      [remap spacemacs/kill-this-buffer] 'ebib-quit)
 
     (spacemacs/set-leader-keys-for-major-mode 'ebib-index-mode
       "j" 'ebib-jump-to-entry
