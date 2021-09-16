@@ -90,6 +90,10 @@ It is recommended to make sure that ~q~ allows to leave the transient-state.
 /Evilifying/ a buffer is to set the =evilified state= as the default
 state for the major mode of the buffer.
 
+Except for =eww-mode= buffers, all buffers with major-modes derived from
+=special-mode= are evilified by default. To exclude buffers of such major-modes
+from getting evilified, add a regexp to =evil-buffer-regexps=.
+
 The =evilified state= is derived from the =emacs state= and modify the
 map to:
 - add ~hjkl~ navigation

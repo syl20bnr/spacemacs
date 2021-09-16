@@ -893,6 +893,9 @@ In addition to this, =C-g=, being an important escape key in Emacs, is skipped.
 So anything bound to =g= originally will be found on =C-G=, since =g=, =G= and
 =C-g= are all reserved.
 
+Except for =eww-mode= buffers, all buffers with major modes derived from
+=special-mode= are evilified by default.
+
 ** Evil leader
 Spacemacs uses a leader key to bind almost all its key bindings.
 
