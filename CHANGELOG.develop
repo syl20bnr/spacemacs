@@ -805,6 +805,8 @@ Other:
     section (thank to Daniel Nicolai)
   - New function =spacemacs/inherit-leader-keys-from-parent-mode= to
     inherit leader key bindings from another mode
+  - Evilify buffer with major-mode derived from =special-mode= by default
+    (thanks to Daniel Nicolai)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:

@@ -31,6 +31,7 @@
   (use-package eww
     :defer t
     :init
+    (add-to-list 'evil-buffer-regexps '("\\*eww\\*" . normal))
     (spacemacs//eww-setup-transient-state)
     (spacemacs/declare-prefix "awe" "eww")
     (spacemacs/set-leader-keys "awee" 'eww)
