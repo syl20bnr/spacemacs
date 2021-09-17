@@ -36,7 +36,6 @@ Then after (re-)loading the dotfile, run =M-x eaf-install= to automatically
 install required dependencies, and to select the eaf applications you would like
 to get installed. The script let's you select from the following list
 of applications:
-
 - eaf-jupyter
 - eaf-browser
 - eaf-airshare
@@ -56,7 +55,7 @@ of applications:
 - eaf-pdf-viewer
 - eaf-markdown-previewer
 - eaf-camera
-  
+
 * Usage
 ** Configuring applications
 By default, all applications that were selected to be installed when running
@@ -82,7 +81,7 @@ implemented in this layer can be found [[https://github.com/emacs-eaf/emacs-appl
 Except for the few Spacemacs specific modifications listed below, all EAF
 keybindings are documented [[https://github.com/emacs-eaf/emacs-application-framework/wiki/Keybindings][here.]]
 
-Eaf provides some keybindings only conditionally, so if some keybinding does not
+Eaf provides some key bindings only conditionally, so if some key binding does not
 work, then be sure that the relevant eaf application has been correctly
 installed.
 

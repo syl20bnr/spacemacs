@@ -3273,14 +3273,14 @@ Features:
 ** Eaf
 [[file:+tools/eaf/README.org][+tools/eaf/README.org]]
 
-This layer adds support for the [[https://github.com/manateelazycat/emacs-application-framework][Emacs Application Framework (EAF)]].
+This layer adds support for the [[https://github.com/emacs-eaf/emacs-application-framework][Emacs Application Framework (EAF)]].
 
 Features:
 - Browse using a full-fledged browser within Emacs
 - PDF viewer (with continuous scroll)
 - Video player
 - Image viewer
-- See [[https://github.com/manateelazycat/emacs-application-framework#launch-eaf-applications][EAF documentation]] for many more features
+- See [[https://github.com/emacs-eaf/emacs-application-framework#launch-eaf-applications][EAF documentation]] for many more features
 
 ** Evernote
 [[file:+web-services/evernote/README.org][+web-services/evernote/README.org]]
