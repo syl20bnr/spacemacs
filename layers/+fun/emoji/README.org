@@ -38,11 +38,11 @@ Linux user could install [[https://zhm.github.io/symbola/][Symbola]] font to get
 By default, company-emoji is configured only for =text-mode= and inserts
 unicode. To insert short-names set =company-emoji-insert-unicode= to =nil= as
 follows:
+
 #+BEGIN_SRC emacs-lisp
   (auto-completion :variables
                    company-emoji-insert-unicode nil)
 #+END_SRC
-
 
 * Key bindings
 
