@@ -20,36 +20,18 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 (defconst eaf-packages
-  '(ctable
-    deferred
-    epc
-    ;; s
-    (eaf :location (recipe
+  '((eaf :location (recipe
                     :fetcher github
-                    :repo  "manateelazycat/emacs-application-framework"
-                    :files ("*")))))
-
-(defun eaf/init-ctable ()
-  (use-package ctable))
-
-(defun eaf/init-deferred ()
-  (use-package deferred))
-
-(defun eaf/init-epc ()
-  (use-package epc))
-
-;; (defun eaf/init-s ()
-;;   (use-package s))
+                    :repo  "emacs-eaf/emacs-application-framework"
+                    :files ("*" "core/*.el" "extension/*.el")))))
 
 (defun eaf/init-eaf ()
   (use-package eaf
-    :defer t
     :init
     (progn
       (spacemacs/declare-prefix "aa" "application-framework")
-      (spacemacs/set-leader-keys "aac" 'eaf-camera)
+      (spacemacs/set-leader-keys "aac" 'eaf-open-camera)
       (spacemacs/set-leader-keys "aaf" 'eaf-open)
       (spacemacs/set-leader-keys "aaj" 'eaf-open-jupyter)
       (spacemacs/set-leader-keys "aao" 'eaf-open-office)
@@ -210,8 +192,10 @@
     ;; ("<C-iso-lefttab>" . "select_right_tab")
     :config
     (progn
+      (dolist (app eaf-apps)
+        (require app nil 'noerror))
       (setq browse-url-browser-function 'eaf-open-browser)
-      (eaf-setq eaf-browser-enable-adblocker "true")
+      (setq eaf-browser-enable-adblocker "true")
 
       (define-key eaf-mode-map* (kbd "C-SPC C-SPC") 'execute-extended-command)
       ;;;; TODO need to consider the current pdf view mode which does not need to be pdf view mode
