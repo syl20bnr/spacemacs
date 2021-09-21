@@ -23,6 +23,7 @@
 
 (defconst perl5-packages
   '(
+    company
     (company-plsense :requires company)
     (cperl-mode :location built-in)
     flycheck

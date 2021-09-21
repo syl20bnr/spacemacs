@@ -21,12 +21,11 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq emoji-packages
-      '(
-        emoji-cheat-sheet-plus
-        emojify
-        (company-emoji :requires company)
-        ))
+(defconst emoji-packages
+  '(
+    emoji-cheat-sheet-plus
+    emojify
+    (company-emoji :requires company)))
 
 (defun emoji/init-emoji-cheat-sheet-plus ()
   (use-package emoji-cheat-sheet-plus
@@ -59,7 +58,8 @@
       ;; Hook for when a frame is created with emacsclient
       (spacemacs|do-after-display-system-init
        (spacemacs//set-emoji-font-for-current-frame))
-      (spacemacs|add-company-backends :backends company-emoji
-                                      :modes text-mode))
+      (spacemacs|add-company-backends
+        :backends company-emoji
+        :modes text-mode))
     :config
     (advice-add 'emoji-cheat-sheet-plus--insert-selection :after #'spacemacs/emoji-insert-and-possibly-complete)))
