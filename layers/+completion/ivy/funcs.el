@@ -361,18 +361,27 @@ To prevent this error we just wrap `describe-mode' to defeat the
       (call-interactively 'describe-mode))))
 
 (defun spacemacs//counsel-with-git-grep (func x)
+  "This function should be kept in sync with `counsel-git-grep-action'.
+
+We copy exactly that function and modify it a bit which allows us
+to programatically add extra actions to counsel git-grep based
+commands."
   (when (string-match "\\`\\(.*?\\):\\([0-9]+\\):\\(.*\\)\\'" x)
-    (with-ivy-window
-      (let ((file-name (match-string-no-properties 1 x))
-            (line-number (match-string-no-properties 2 x)))
-        (funcall func
-                 (expand-file-name file-name (ivy-state-directory ivy-last)))
-        (goto-char (point-min))
-        (forward-line (1- (string-to-number line-number)))
-        (re-search-forward (ivy--regex ivy-text t) (line-end-position) t)
-        (unless (eq ivy-exit 'done)
-          (swiper--cleanup)
-          (swiper--add-overlays (ivy--regex ivy-text)))))))
+    (let ((file-name (match-string-no-properties 1 x))
+          (line-number (match-string-no-properties 2 x)))
+      ;; this line is the difference to `counsel-git-grep-action'
+      (funcall func
+               (expand-file-name file-name (ivy-state-directory ivy-last)))
+      (goto-char (point-min))
+      (forward-line (1- (string-to-number line-number)))
+      (when (re-search-forward (ivy--regex ivy-text t) (line-end-position) t)
+        (when swiper-goto-start-of-match
+          (goto-char (match-beginning 0))))
+      (swiper--ensure-visible)
+      (run-hooks 'counsel-grep-post-action-hook)
+      (unless (eq ivy-exit 'done)
+        (swiper--cleanup)
+        (swiper--add-overlays (ivy--regex ivy-text))))))
 
 ;;; org
 

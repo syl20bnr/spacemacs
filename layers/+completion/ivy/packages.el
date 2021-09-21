@@ -156,6 +156,11 @@
        'counsel-find-file
        spacemacs--ivy-file-actions)
 
+      (dolist (action '(spacemacs/counsel-search counsel-rg counsel-ag))
+        (ivy-set-actions
+         action
+         spacemacs--ivy-grep-actions))
+
       (when (or (eq 'vim dotspacemacs-editing-style)
                 (and (eq 'hybrid dotspacemacs-editing-style)
                      hybrid-style-enable-hjkl-bindings))
