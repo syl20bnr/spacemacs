@@ -13,6 +13,7 @@
 - [[#key-bindings][Key bindings]]
   - [[#transient-state][Transient state]]
   - [[#colorsfaces][Colors/Faces]]
+  - [[#search-files-with-ivy][Search files with ivy]]
 
 * Description
 This layer enables Ivy for completion. It will replace the default completion by
@@ -140,3 +141,37 @@ are found in [[https://oremacs.com/swiper/#minibuffer-key-bindings][the Hydra se
 | ~SPC C f~   | =counsel-colors-faces=  |
 | ~SPC C w~   | =counsel-colors-web=    |
 | ~SPC h d F~ | =counsel-describe-face= |
+
+** Search files with ivy
+=ripgrep= is recommended and =Spacemacs= will pick it up as the default seach
+app if found. To pass parameters to =ripgrep= use double dash then everything
+after it is treated as parameters for search app.
+
+For example:
+#+begin_src 
+phrase I want to search -- -tlisp
+#+end_src
+will search only on lisp files.
+
+Commands available while browsing the search result:
+
+| Key binding      | Description                      |
+|------------------+----------------------------------|
+| ~C-SPC~ or ~C-l~ | Preview result                   |
+| ~C-x C-d~        | Change search folder             |
+| ~M-q~            | =counsel-git-grep-query-replace= |
+| ~C-c C-o~        | =ivy-occur=                      |
+| ~C-c C-e~        | Spacemacs's =counsel-edit=       |
+
+When you =M-o= on the result list of =counsel-find-file= and file search result
+you have these following extra actions:
+
+| Key binding | Description                     |
+|-------------+---------------------------------|
+| ~f~         | =find-file-other-frame=         |
+| ~j~         | =find-file-other-window=        |
+| ~v~         | =spacemacs/find-file-vsplit=    |
+| ~s~         | =spacemacs/find-file-split=     |
+| ~l~         | =find-file-literally=           |
+| ~d~         | =spacemacs/delete-file-confirm= |
+| ~r~         | =spacemacs/rename-file=         |
