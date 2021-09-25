@@ -633,7 +633,7 @@ To prevent package from being installed or uninstalled set the variable
   (configuration-layer//declare-used-packages configuration-layer--used-layers)
   ;; then load the functions and finally configure the layers
   (configuration-layer//load-layers-files configuration-layer--used-layers
-                                          '("funcs.el"))
+                                          '("funcs"))
   (configuration-layer//configure-layers configuration-layer--used-layers)
   ;; load layers lazy settings
   (configuration-layer/load-auto-layer-file)
@@ -673,7 +673,7 @@ To prevent package from being installed or uninstalled set the variable
   ;; packages configuration above
   (configuration-layer//set-layers-variables configuration-layer--used-layers)
   (configuration-layer//load-layers-files configuration-layer--used-layers
-                                          '("keybindings.el"))
+                                          '("keybindings"))
   (when (spacemacs-is-dumping-p)
     ;; dump stuff in layers
     (dolist (layer-name configuration-layer--used-layers)
@@ -794,10 +794,10 @@ If USEDP or `configuration-layer--load-packages-files' is non-nil then the
                        (memq :can-shadow layer-specs))
                   (spacemacs/mplist-get-values layer-specs :can-shadow)
                 'unspecified))
-             (packages-file (concat dir "packages.el"))
+             (packages-file (locate-file "packages" (list dir) load-suffixes))
              (packages (when (and (null packages)
                                   (or usedp configuration-layer--load-packages-files)
-                                  (file-exists-p packages-file))
+                                  packages-file)
                          (configuration-layer/load-file packages-file)
                          (symbol-value (intern (format "%S-packages"
                                                        layer-name)))))
@@ -1372,14 +1372,13 @@ Possible return values:
                (directory-file-name
                 (concat configuration-layer-directory path))))
         'category
-      (let ((files (directory-files path)))
-        ;; most frequent files encoutered in a layer are tested first
-        (when (or (member "packages.el" files)
-                  (member "layers.el" files)
-                  (member "config.el" files)
-                  (member "keybindings.el" files)
-                  (member "funcs.el" files))
-          'layer)))))
+      ;; most frequent files encoutered in a layer are tested first
+      (when (or (locate-file "packages" (list path) load-suffixes)
+                (locate-file "layers" (list path) load-suffixes)
+                (locate-file "config" (list path) load-suffixes)
+                (locate-file "keybindings" (list path) load-suffixes)
+                (locate-file "funcs" (list path) load-suffixes))
+        'layer))))
 
 (defun configuration-layer//get-category-from-path (dirpath)
   "Return a category symbol from the given DIRPATH.
@@ -1508,14 +1507,14 @@ If `SKIP-LAYER-DEPS' is non nil then skip loading of layer dependenciesl"
                      (not (oref layer :deps-loaded))
                      (or usedp configuration-layer--load-packages-files))
             (oset layer :deps-loaded t)
-            (configuration-layer//load-layer-files layer-name '("layers.el"))))
+            (configuration-layer//load-layer-files layer-name '("layers"))))
       (configuration-layer//warning "Unknown declared layer %s." layer-name))))
 
 (defun configuration-layer/declare-layer-dependencies (layer-names)
   "Function to be used in `layers.el' files to declare dependencies."
   (dolist (x layer-names)
     (add-to-list 'configuration-layer--layers-dependencies x)
-    (configuration-layer//load-layer-files x '("layers.el"))))
+    (configuration-layer//load-layer-files x '("layers"))))
 
 (defun configuration-layer//declare-used-layers (layers-specs)
   "Declare used layers from LAYERS-SPECS list."
@@ -1665,7 +1664,7 @@ RNAME is the name symbol of another existing layer."
              (spacemacs-customization//create-layer-group
               layer-name
               (configuration-layer//get-layer-parent-category layer-name))))
-        (configuration-layer//load-layer-files layer-name '("config.el"))))))
+        (configuration-layer//load-layer-files layer-name '("config"))))))
 
 (defun configuration-layer//declare-used-packages (layers)
   "Declare used packages contained in LAYERS."
@@ -1692,8 +1691,7 @@ RNAME is the name symbol of another existing layer."
     (when obj
       (dolist (file files)
         (let ((file (concat (oref obj :dir) file)))
-          (if (file-exists-p file)
-              (configuration-layer/load-file file)))))))
+          (configuration-layer/load-file file t))))))
 
 (defun configuration-layer/configured-packages-stats (packages)
   "Return a statistics alist regarding the number of configured PACKAGES."
@@ -1784,7 +1782,7 @@ RNAME is the name symbol of another existing layer."
         (goto-char (point-max))
         (configuration-layer//install-packages sorted-pkg)
         (configuration-layer//configure-packages sorted-pkg)
-        (configuration-layer//load-layer-files layer '("keybindings.el"))
+        (configuration-layer//load-layer-files layer '("keybindings"))
         (oset layer :lazy-install nil)
         (switch-to-buffer last-buffer)))))
 
@@ -2861,9 +2859,9 @@ files."
 ARGS: format string arguments."
   (message "(Spacemacs) %s" (apply 'format msg args)))
 
-(defun configuration-layer/load-file (file)
+(defun configuration-layer/load-file (file &optional noerror)
   "Load file silently except if in debug mode."
-  (load file nil (not init-file-debug)))
+  (load file noerror (not init-file-debug)))
 
 (provide 'core-configuration-layer)
 
