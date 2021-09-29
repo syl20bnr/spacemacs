@@ -26,8 +26,8 @@
   (let ((root-path (locate-dominating-file default-directory "pyproject.toml")))
     (when root-path
       (message "Poetry configuration file found. Activating virtual environment.")
-      (poetry-venv-workon))
-    ))
+      (poetry-venv-workon))))
+
 
 (defun spacemacs//python-setup-backend ()
   "Conditionally setup python backend."
@@ -152,13 +152,19 @@ as the pyenv version then also return nil. This works around https://github.com/
 
 (defun spacemacs//python-setup-shell (&rest args)
   (if (spacemacs/pyenv-executable-find "ipython")
-      (progn (setq python-shell-interpreter "ipython")
-             (if (version< (replace-regexp-in-string "\\(\\.dev\\)?[\r\n|\n]$" "" (shell-command-to-string (format "\"%s\" --version" (string-trim (spacemacs/pyenv-executable-find "ipython"))))) "5")
-                 (setq python-shell-interpreter-args "-i")
-               (setq python-shell-interpreter-args "--simple-prompt -i")))
+      (progn
+        (setq python-shell-interpreter "ipython")
+        (let ((version (replace-regexp-in-string "\\(\\.dev\\)?[\r\n|\n]$" ""
+                                                 (shell-command-to-string
+                                                  (format "\"%s\" --version"
+                                                          (string-trim (spacemacs/pyenv-executable-find "ipython")))))))
+          (if (or (version< version "5")
+                  (string-blank-p version))
+              (setq python-shell-interpreter-args "-i")
+            (setq python-shell-interpreter-args "--simple-prompt -i"))))
     (progn
-      (setq python-shell-interpreter-args "-i")
-      (setq python-shell-interpreter "python"))))
+      (setq python-shell-interpreter-args "-i"
+            python-shell-interpreter "python"))))
 
 
 (defun spacemacs//python-setup-checkers (&rest args)
