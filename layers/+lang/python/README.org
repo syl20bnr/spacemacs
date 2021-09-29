@@ -556,6 +556,8 @@ Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][li
 | ~SPC m g u~              | navigate between usages with =anaconda-mode-find-references=                      |
 | ~SPC m h d~              | look for documentation using =helm-pydoc=                                         |
 | ~SPC m h h~              | quick documentation using anaconda                                                |
+| ~SPC m h p~              | quick documentation using pydoc (no-jedi, as =pydoc-at-point= seems broken)       |
+| ~SPC m h P~              | quick documentation using pydoc                                                   |
 | ~SPC m h H~              | open documentation in =firefox= using [[https://github.com/tsgates/pylookup][pylookup]]                                    |
 | ~SPC m S d~              | insert doc-string skeleton using [[https://github.com/naiquevin/sphinx-doc.el][sphinx-doc]]                                       |
 | ~SPC m v a~              | activate a virtual environment in any directory                                   |
