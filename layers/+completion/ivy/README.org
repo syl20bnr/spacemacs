@@ -148,9 +148,9 @@ app if found. To pass parameters to =ripgrep= use double dash then everything
 after it is treated as parameters for search app.
 
 For example:
-#+BEGIN_SRC
+#+BEGIN_EXAMPLE
     phrase I want to search -- -t lisp
-#+END_SRC
+#+END_EXAMPLE
 
 will search only on lisp files.
 
