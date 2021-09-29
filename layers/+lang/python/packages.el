@@ -26,8 +26,6 @@
     blacken
     company
     counsel-gtags
-    ;; package is broken, use simply pydoc instead
-    ;; (counsel-pydoc :requires counsel) 
     cython-mode
     dap-mode
     eldoc
@@ -159,12 +157,6 @@
 (defun python/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'python-mode))
 
-;; (defun python/init-counsel-pydoc ()
-;;   (use-package counsel-pydoc
-;;     :defer t
-;;     :init
-;;     (spacemacs/set-leader-keys-for-major-mode 'python-mode "hd" 'counsel-pydoc)))
-
 (defun python/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'python-mode))
 
@@ -293,8 +285,8 @@
     :init
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
-        "hp" 'pydoc-at-point-no-jedi))
-        "hP" 'pydoc))
+        "hp" 'pydoc-at-point-no-jedi
+        "hP" 'pydoc))))
 
 (defun python/pre-init-pyenv-mode ()
   (add-to-list 'spacemacs--python-pyenv-modes 'python-mode))
