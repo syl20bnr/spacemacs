@@ -40,6 +40,9 @@
     counsel-gtags
     helm-gtags
     (ielm :location built-in)
+    (inspector :location (recipe
+                          :fetcher github
+                          :repo "mmontone/emacs-inspector"))
     macrostep
     nameless
     overseer
@@ -371,3 +374,10 @@
       "rdd" #'emr-el-delete-unused-definition
 
       "ew"  #'emr-el-eval-and-replace)))
+
+(defun emacs-lisp/init-inspector ()
+  (use-package inspector
+    :commands (inspect-expression inspect-last-sexp)
+    :config
+    (evilified-state-evilify-map inspector-mode-map
+      :mode inspector-mode)))

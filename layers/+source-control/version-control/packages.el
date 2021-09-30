@@ -32,8 +32,8 @@
         (git-gutter+        :toggle (eq 'git-gutter+ version-control-diff-tool))
         (git-gutter-fringe+ :toggle (eq 'git-gutter+ version-control-diff-tool))
         (smerge-mode :location built-in)
-        (vc :location built-in)
-        ))
+        (vc :location built-in)))
+
 
 (defun version-control/init-vc ()
   (use-package vc
@@ -192,22 +192,22 @@
         "..X...."
         "XXXXX.."
         "..X...."
-        "..X...."
-        )
+        "..X....")
+
       (fringe-helper-define 'git-gutter-fr:deleted nil
         "......."
         "......."
         "XXXXX.."
         "......."
-        "......."
-        )
+        ".......")
+
       (fringe-helper-define 'git-gutter-fr:modified nil
         "..X...."
         ".XXX..."
         "XX.XX.."
         ".XXX..."
-        "..X...."
-        ))))
+        "..X...."))))
+
 
 (defun version-control/init-git-gutter+ ()
   (use-package git-gutter+
@@ -228,8 +228,8 @@
        git-gutter+-hide-gutter t))
     ;; identify magit changes
     :config
-    (spacemacs|hide-lighter git-gutter+-mode)
-    ))
+    (spacemacs|hide-lighter git-gutter+-mode)))
+
 
 (defun version-control/init-git-gutter-fringe+ ()
   (use-package git-gutter-fringe+
@@ -249,22 +249,22 @@
         "..X...."
         "XXXXX.."
         "..X...."
-        "..X...."
-        )
+        "..X....")
+
       (fringe-helper-define 'git-gutter-fr+-deleted nil
         "......."
         "......."
         "XXXXX.."
         "......."
-        "......."
-        )
+        ".......")
+
       (fringe-helper-define 'git-gutter-fr+-modified nil
         "..X...."
         ".XXX..."
         "XX.XX.."
         ".XXX..."
-        "..X...."
-        ))))
+        "..X...."))))
+
 
 
 (defun version-control/init-smerge-mode ()
@@ -279,21 +279,21 @@
       (spacemacs|transient-state-format-hint smerge
         spacemacs--smerge-ts-full-hint
         "\n
- Movement^^^^         Merge Action^^      Diff^^            Other
- ---------------^^^^  ----------------^^  --------------^^  ---------------------------^^
- [_n_]^^   next hunk  [_b_] keep base     [_<_] base/mine   [_C_] combine curr/next hunks
- [_N_/_p_] prev hunk  [_m_] keep mine     [_=_] mine/other  [_u_] undo
- [_j_]^^   next line  [_a_] keep all      [_>_] base/other  [_q_] quit
- [_k_]^^   prev line  [_o_] keep other    [_r_] refine
- ^^^^                 [_c_] keep current  [_e_] ediff       [_?_]^^ toggle help
- ^^^^                 [_K_] kill current")
+ Movement^^^^             Merge Action^^      Diff^^            Other
+ -------------------^^^^  ----------------^^  --------------^^  -------------------------------^^
+ [_n_]^^   next conflict  [_b_] keep base     [_<_] base/mine   [_C_] combine curr/next conflicts
+ [_N_/_p_] prev conflict  [_m_] keep mine     [_=_] mine/other  [_u_] undo
+ [_j_]^^   next line      [_a_] keep all      [_>_] base/other  [_q_] quit
+ [_k_]^^   prev line      [_o_] keep other    [_r_] refine
+ ^^^^                     [_c_] keep current  [_e_] ediff       [_?_]^^ toggle help
+ ^^^^                     [_K_] kill current")
       (spacemacs|define-transient-state smerge
         :title "Smerge Transient State"
         :hint-is-doc t
         :dynamic-hint (spacemacs//smerge-ts-hint)
         :bindings
         ;; move
-        ("n" smerge-next)
+        ("n" (if (version< emacs-version "27") (smerge-next) (smerge-vc-next-conflict)))
         ("N" smerge-prev)
         ("p" smerge-prev)
         ("j" evil-next-line)

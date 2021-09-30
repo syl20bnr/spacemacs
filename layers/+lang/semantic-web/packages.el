@@ -21,12 +21,11 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq semantic-web-packages
-      '(
-        ttl-mode
-        sparql-mode
-        org
-        ))
+(defconst semantic-web-packages
+  '(
+    ttl-mode
+    sparql-mode
+    org))
 
 (defun semantic-web/init-ttl-mode ()
   (use-package ttl-mode

@@ -26,8 +26,8 @@
   (let ((root-path (locate-dominating-file default-directory "pyproject.toml")))
     (when root-path
       (message "Poetry configuration file found. Activating virtual environment.")
-      (poetry-venv-workon))
-    ))
+      (poetry-venv-workon))))
+
 
 (defun spacemacs//python-setup-backend ()
   "Conditionally setup python backend."
@@ -152,13 +152,19 @@ as the pyenv version then also return nil. This works around https://github.com/
 
 (defun spacemacs//python-setup-shell (&rest args)
   (if (spacemacs/pyenv-executable-find "ipython")
-      (progn (setq python-shell-interpreter "ipython")
-             (if (version< (replace-regexp-in-string "\\(\\.dev\\)?[\r\n|\n]$" "" (shell-command-to-string (format "\"%s\" --version" (string-trim (spacemacs/pyenv-executable-find "ipython"))))) "5")
-                 (setq python-shell-interpreter-args "-i")
-               (setq python-shell-interpreter-args "--simple-prompt -i")))
+      (progn
+        (setq python-shell-interpreter "ipython")
+        (let ((version (replace-regexp-in-string "\\(\\.dev\\)?[\r\n|\n]$" ""
+                                                 (shell-command-to-string
+                                                  (format "\"%s\" --version"
+                                                          (string-trim (spacemacs/pyenv-executable-find "ipython")))))))
+          (if (or (version< version "5")
+                  (string-blank-p version))
+              (setq python-shell-interpreter-args "-i")
+            (setq python-shell-interpreter-args "--simple-prompt -i"))))
     (progn
-      (setq python-shell-interpreter-args "-i")
-      (setq python-shell-interpreter "python"))))
+      (setq python-shell-interpreter-args "-i"
+            python-shell-interpreter "python"))))
 
 
 (defun spacemacs//python-setup-checkers (&rest args)
@@ -185,6 +191,9 @@ as the pyenv version then also return nil. This works around https://github.com/
                      ((spacemacs/pyenv-executable-find "pudb3") "import pudb; pudb.set_trace()")
                      ((spacemacs/pyenv-executable-find "python3.7") "breakpoint()")
                      ((spacemacs/pyenv-executable-find "python3.8") "breakpoint()")
+                     ((spacemacs/pyenv-executable-find "python3.9") "breakpoint()")
+                     ((spacemacs/pyenv-executable-find "python3.10") "breakpoint()")
+                     ((spacemacs/pyenv-executable-find "python3.11") "breakpoint()")
                      (t "import pdb; pdb.set_trace()")))
         (line (thing-at-point 'line)))
     (if (and line (string-match trace line))
@@ -473,6 +482,19 @@ Bind formatter to '==' for LSP and '='for all other backends."
   (call-interactively #'spacemacs/python-shell-send-statement)
   (python-shell-switch-to-shell)
   (evil-insert-state))
+
+(defun spacemacs/python-shell-send-with-output(start end)
+  "Send region content to shell and show output in comint buffer.
+If region is not active then send line."
+  (interactive "r")
+  (let ((python-mode-hook nil)
+        (process-buffer (python-shell-get-process))
+        (line-start (point-at-bol))
+        (line-end (point-at-eol)))
+    (if (region-active-p)
+        (comint-send-region process-buffer start end)
+      (comint-send-region process-buffer line-start line-end))
+    (comint-simple-send process-buffer "\r")))
 
 (defun spacemacs/python-start-or-switch-repl ()
   "Start and/or switch to the REPL."

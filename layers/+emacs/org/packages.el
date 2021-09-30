@@ -41,7 +41,7 @@
                   :toggle org-enable-org-contacts-support)
     org-contrib
     (org-vcard :toggle org-enable-org-contacts-support)
-    org-brain
+    (org-brain :toggle org-enable-org-brain-support)
     (org-expiry :location built-in)
     ; temporarily point org-journal to dalanicolai fork until dalanicolai's
     ; PR's https://github.com/bastibe/org-journal/pulls get merged
@@ -71,7 +71,6 @@
     (org-roam :toggle org-enable-roam-support)
     (valign :toggle org-enable-valign)
     (org-appear :toggle org-enable-appear-support)
-    (org-roam-server :require org-roam :toggle org-enable-roam-server)
     (ox-asciidoc :toggle org-enable-asciidoc-support)))
 
 (defun org/post-init-company ()
@@ -932,49 +931,69 @@ Headline^^            Visit entry^^               Filter^^                    Da
 (defun org/init-org-roam ()
   (use-package org-roam
     :defer t
-    :hook (after-init . org-roam-mode)
+    :hook (after-init . org-roam-setup)
     :init
     (progn
       (spacemacs/declare-prefix "aor" "org-roam")
       (spacemacs/declare-prefix "aord" "org-roam-dailies")
       (spacemacs/declare-prefix "aort" "org-roam-tags")
       (spacemacs/set-leader-keys
-        "aordy" 'org-roam-dailies-find-yesterday
-        "aordt" 'org-roam-dailies-find-today
-        "aordT" 'org-roam-dailies-find-tomorrow
-        "aordd" 'org-roam-dailies-find-date
-        "aorf" 'org-roam-find-file
+        "aordy" 'org-roam-dailies-goto-yesterday
+        "aordt" 'org-roam-dailies-goto-today
+        "aordT" 'org-roam-dailies-goto-tomorrow
+        "aordd" 'org-roam-dailies-goto-date
+        "aorc" 'org-roam-capture
+        "aorf" 'org-roam-node-find
         "aorg" 'org-roam-graph
-        "aori" 'org-roam-insert
-        "aorI" 'org-roam-insert-immediate
-        "aorl" 'org-roam-buffer-toggle-display
+        "aori" 'org-roam-node-insert
+        "aorl" 'org-roam-buffer-toggle
         "aorta" 'org-roam-tag-add
-        "aortd" 'org-roam-tag-delete
+        "aortr" 'org-roam-tag-remove
         "aora" 'org-roam-alias-add)
 
       (spacemacs/declare-prefix-for-mode 'org-mode "mr" "org-roam")
       (spacemacs/declare-prefix-for-mode 'org-mode "mrd" "org-roam-dailies")
       (spacemacs/declare-prefix-for-mode 'org-mode "mrt" "org-roam-tags")
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
-        "rb" 'org-roam-switch-to-buffer
-        "rdy" 'org-roam-dailies-find-yesterday
-        "rdt" 'org-roam-dailies-find-today
-        "rdT" 'org-roam-dailies-find-tomorrow
-        "rdd" 'org-roam-dailies-find-date
-        "rf" 'org-roam-find-file
+        "rdy" 'org-roam-dailies-goto-yesterday
+        "rdt" 'org-roam-dailies-goto-today
+        "rdT" 'org-roam-dailies-goto-tomorrow
+        "rdd" 'org-roam-dailies-goto-date
+        "rc" 'org-roam-capture
+        "rf" 'org-roam-node-find
         "rg" 'org-roam-graph
-        "ri" 'org-roam-insert
-        "rI" 'org-roam-insert-immediate
-        "rl" 'org-roam-buffer-toggle-display
+        "ri" 'org-roam-node-insert
+        "rl" 'org-roam-buffer-toggle
         "rta" 'org-roam-tag-add
-        "rtd" 'org-roam-tag-delete
+        "rtr" 'org-roam-tag-remove
         "ra" 'org-roam-alias-add))
+
     :config
     (progn
       (spacemacs|hide-lighter org-roam-mode)
       (when org-enable-roam-protocol
           (add-hook 'org-roam-mode-hook (lambda ()
-                                          (require 'org-roam-protocol)))))))
+                                          (require 'org-roam-protocol))))
+
+      (evilified-state-evilify-map org-roam-mode-map
+        :mode org-roam-mode
+        :bindings
+        "o" 'link-hint-open-link
+        "r" 'org-roam-buffer-refresh))
+
+      ; Workaround an upstream issue with evil, as described in https://github.com/syl20bnr/spacemacs/issues/14137
+      (defadvice org-roam-node-insert (around append-if-in-evil-normal-mode activate compile)
+        "If in evil normal mode and cursor is on a whitespace character, then go into
+         append mode first before inserting the link. This is to put the link after the
+         space rather than before."
+        (let ((is-in-evil-normal-mode (and (bound-and-true-p evil-mode)
+                                          (not (bound-and-true-p evil-insert-state-minor-mode))
+                                          (looking-at "[[:blank:]]"))))
+          (if (not is-in-evil-normal-mode)
+              ad-do-it
+            (evil-append 0)
+            ad-do-it
+            (evil-normal-state))))))
 
 (defun org/init-org-sticky-header ()
   (use-package org-sticky-header
@@ -1031,14 +1050,6 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (setq org-appear-autolinks t
             org-appear-autoemphasis t
             org-appear-autosubmarkers t))))
-
-(defun org/init-org-roam-server()
-  (use-package org-roam-server
-    :defer t
-    :init
-    (progn
-      (spacemacs/set-leader-keys "aors" 'org-roam-server-mode)
-      (spacemacs/set-leader-keys-for-major-mode 'org-mode "rs" 'org-roam-server-mode))))
 
 (defun org/init-ox-asciidoc ()
   (use-package ox-asciidoc

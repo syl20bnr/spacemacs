@@ -10,12 +10,17 @@
 ##
 ## License: GPLv3
 
-echo_headline "Generating new layers indext file data"
+echo_headline "Generating new layers index file"
 spacedoc layers \
          -c".ci/spacedoc-cfg.edn" \
-         "/tmp/sdn/"
+         /tmp/sdn/layers
 if [ $? -ne 0 ]; then
     echo "Layers index generation failed."
+    exit 2
+fi
+
+if [ ! -f /tmp/sdn/layers/LAYERS.sdn ]; then
+    echo " /tmp/sdn/layers/LAYERS.sdn doesn't exist"
     exit 2
 fi
 

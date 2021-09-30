@@ -56,6 +56,11 @@ If you want/need to explicitly install Helm then add it to your =~/.spacemacs=.
 You will need to add =helm= to the existing =dotspacemacs-configuration-layers=
 list in this file.
 
+Make sure that the other completion layers: =compleseus= and =ivy= are removed
+or commented out in the =dotspacemacs-configuration-layers= list. Or add =helm=
+below the other completion layers. Spacemacs uses the completion layer that's
+listed last.
+
 ** Alternative layers
 Ivy layer is a replacement layer for Helm. When you add =ivy= to the existing
 == list in your dotfile, it will completely replace the =helm= layer.

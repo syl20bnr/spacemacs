@@ -52,10 +52,6 @@ Enabling this layer will set the used backend for all supported languages to
 The LSP ecosystem is based on two packages: [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] and [[https://github.com/emacs-lsp/lsp-ui][lsp-ui]].
 Please check out their documentation.
 
-If you add =lsp-**-enable= to major mode hooks for auto initialization of
-language clients, customize ~lsp-project-whitelist~ and ~lsp-project-blacklist~ to
-disable projects you don't want to enable LSP.
-
 ** Variables
 A number of configuration variables have been exposed via the LSP layer =config.el=.
 Sensible defaults have been provided, however they may all be overridden in your .spacemacs, or dynamically using the bindings added
@@ -183,13 +179,6 @@ The key bindings are grouped under the following prefixes:
 | ~SPC m T l~ | lsp           | Toggle LSP backend features (documentation / symbol info overlays etc.)    |
 | ~SPC m x~   | text (source) | Text (source) document related bindings                                    |
 
-Some navigation key bindings (i.e. ~SPC m g~ / ~SPC m G~) use an additional level of grouping:
-
-| prefix          | name             | functional area                                           |
-|-----------------+------------------+-----------------------------------------------------------|
-| ~SPC m <g/G> h~ | hierarchy        | Hierarchy (i.e. call/inheritance hierarchy etc. )         |
-| ~SPC m <g/G> m~ | member hierarchy | Class/namespace members (functions, nested classes, vars) |
-
 ** Core key bindings
 The lsp minor mode bindings are:
 
@@ -210,6 +199,7 @@ The lsp minor mode bindings are:
 | ~SPC m g K~   | goto viewport symbol (=avy=) (See Note 1)                                        |
 | ~SPC m g e~   | browse flycheck errors (=lsp-treemacs=)                                          |
 | ~SPC m g M~   | browse file symbols (=lsp-ui-imenu=)                                             |
+| ~SPC m g h~   | goto call hierachy (=lsp-mode=)                                                  |
 |---------------+----------------------------------------------------------------------------------|
 | Note          | /Replaced by the lsp-ui-peek equivalents when ~lsp-navigation~ is ~'peek~ /      |
 | ~SPC m g i~   | find implementations (=lsp-mode=)                                                |

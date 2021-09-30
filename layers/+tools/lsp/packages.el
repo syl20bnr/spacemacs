@@ -34,6 +34,13 @@
 (defun lsp/init-lsp-mode ()
   (use-package lsp-mode
     :defer t
+    :init
+    (setq lsp-server-install-dir (concat spacemacs-cache-directory "lsp/")
+          lsp-session-file (concat lsp-server-install-dir (file-name-nondirectory ".lsp-session-v1"))
+          lsp-eslint-library-choices-file (concat lsp-server-install-dir ".lsp-eslint-choices")
+          lsp-yaml-schema-store-local-db (concat lsp-server-install-dir "lsp-yaml-schemas.json")
+          lsp-vetur-global-snippets-dir (concat spacemacs-start-directory "snippets/vetur"))
+    ;; If you find something else should be ignored, you could also set them here
     :config
     (progn
       (if lsp-use-upstream-bindings
@@ -58,9 +65,9 @@
        "h" #'lsp-ui-peek--select-prev-file
        "j" #'lsp-ui-peek--select-next
        "k" #'lsp-ui-peek--select-prev
-       "l" #'lsp-ui-peek--select-next-file
-       )
-      )))
+       "l" #'lsp-ui-peek--select-next-file))))
+
+
 
 (defun lsp/init-helm-lsp ()
   (use-package helm-lsp :defer t))

@@ -89,6 +89,31 @@
   :group 'package-build
   :type 'boolean)
 
+(defcustom package-build-get-version-function
+  (if package-build-stable
+      'package-build-get-tag-version
+    'package-build-get-timestamp-version)
+  "The function used to determine the revision and version of a package.
+
+The default depends on the value of option `package-build-stable'.
+
+This function is called with one argument, the recipe object, and
+must return (REVISION . VERSION), where REVISION is the \"current\"
+revision according to some definition of the authors choosing and
+VERSION is the version string corresponding to that.
+
+REVISION should be determined first.  If it is necessary for that
+to be checked out to determine VERSION, then this function has to
+do so by calling `package-build--checkout-1'.  If not, then this
+step can be omitted.  Note that a helper functions might call the
+checkout function themselves; `package-build--get-timestamp' does.
+
+It might be appropriate to respect the `commit' and `branch' slots
+of the recipe."
+  :group 'package-build
+  :set-after '(package-build-stable)
+  :type 'function)
+
 (defcustom package-build-timeout-executable "timeout"
   "Path to a GNU coreutils \"timeout\" command if available.
 This must be a version which supports the \"-k\" option.
@@ -131,6 +156,13 @@ The string in the capture group should be parsed as valid by `version-to-list'."
   :group 'package-build
   :type 'string)
 
+(defcustom package-build-allowed-git-protocols '("https" "file" "ssh")
+  "Protocols that can be used to fetch from upstream with git.
+By default insecure protocols, such as \"http\" or \"git\", are
+disallowed."
+  :group 'package-build
+  :type '(repeat string))
+
 ;;; Generic Utilities
 
 (defun package-build--message (format-string &rest args)
@@ -140,6 +172,32 @@ Otherwise do nothing.  FORMAT-STRING and ARGS are as per that function."
     (apply 'message format-string args)))
 
 ;;; Version Handling
+;;;; Public
+
+(defun package-build-get-tag-version (rcp)
+  (pcase-let ((`(,tag . ,version)
+               (package-build--find-version-newest
+                (package-build--list-tags rcp)
+                (oref rcp version-regexp))))
+    (unless tag
+      (error "No valid stable versions found for %s" (oref rcp name)))
+    (when (cl-typep rcp 'package-git-recipe)
+      (setq tag (concat "tags/" tag)))
+    (cons (package-build--get-commit rcp tag)
+          version)))
+
+(defun package-build-get-timestamp-version (rcp)
+  (let ((rev (and (cl-typep rcp 'package-git-recipe)
+                  (or (oref rcp commit)
+                      (when-let ((branch (oref rcp branch)))
+                        (concat "origin/" branch))
+                      "origin/HEAD"))))
+    (cons (package-build--get-commit rcp rev)
+          (package-build--parse-time
+           (package-build--get-timestamp rcp rev)
+           (oref rcp time-regexp)))))
+
+;;;; Internal
 
 (defun package-build--parse-time (str &optional regexp)
   "Parse STR as a time, and format as a YYYYMMDD.HHMM string.
@@ -219,18 +277,6 @@ is used instead."
             (error "Command '%s' exited with non-zero status %d: %s"
                    argv exit-code (buffer-string)))))))
 
-(defun package-build--run-process-match (regexp directory command &rest args)
-  (with-temp-buffer
-    (apply 'package-build--run-process directory t command args)
-    (goto-char (point-min))
-    (re-search-forward regexp)
-    (match-string-no-properties 1)))
-
-(defun package-build--process-lines (directory command &rest args)
-  (with-temp-buffer
-    (apply 'package-build--run-process directory t command args)
-    (split-string (buffer-string) "\n" t)))
-
 ;;; Checkout
 ;;;; Common
 
@@ -239,65 +285,71 @@ is used instead."
   (package-build--message "Fetcher: %s" (package-recipe--fetcher rcp))
   (package-build--message "Source:  %s\n" (package-recipe--upstream-url rcp)))
 
+(cl-defmethod package-build--checkout-1 :before ((_rcp package-recipe) rev)
+  (when rev
+    (package-build--message "Checking out %s" rev)))
+
 ;;;; Git
 
 (cl-defmethod package-build--checkout ((rcp package-git-recipe))
   (let ((dir (package-recipe--working-tree rcp))
-        (url (package-recipe--upstream-url rcp)))
+        (url (package-recipe--upstream-url rcp))
+        (protocol (package-recipe--upstream-protocol rcp)))
+    (unless (member protocol package-build-allowed-git-protocols)
+      (error "Fetching using the %s protocol is not allowed" protocol))
     (cond
      ((and (file-exists-p (expand-file-name ".git" dir))
            (string-equal (package-build--used-url rcp) url))
       (package-build--message "Updating %s" dir)
-      (package-build--run-process dir nil "git" "fetch" "-f" "--all" "--tags"))
+      (package-build--run-process dir nil "git" "fetch" "-f" "--all" "--tags")
+      ;; We might later checkout "origin/HEAD". Sadly "git fetch"
+      ;; cannot be told to keep it up-to-date, so we have to make
+      ;; a second request.
+      (package-build--run-process dir nil "git" "remote" "set-head"
+                                  "origin" "--auto"))
      (t
       (when (file-exists-p dir)
         (delete-directory dir t))
       (package-build--message "Cloning %s to %s" url dir)
-      (package-build--run-process nil nil "git" "clone"
-                                  "--filter=blob:none" "--no-checkout"
-                                  url dir)))
-    (if package-build-stable
-        (cl-destructuring-bind (tag . version)
-            (or (package-build--find-version-newest
-                 (let ((default-directory (package-recipe--working-tree rcp)))
-                   (process-lines "git" "tag"))
-                 (oref rcp version-regexp))
-                (error "No valid stable versions found for %s" (oref rcp name)))
-          (package-build--checkout-1 rcp (concat "tags/" tag))
-          version)
-      (package-build--checkout-1 rcp)
-      (package-build--parse-time
-       (car (apply #'package-build--process-lines dir
-                   "git" "log" "--first-parent" "-n1" "--pretty=format:'\%ci'"
-                   (package-build--expand-source-file-list rcp)))
-       (oref rcp tag-regexp)))))
+      (apply #'package-build--run-process nil nil "git" "clone" url dir
+             ;; This can dramatically reduce the size of large repos.
+             ;; But we can only do this when using a version function
+             ;; that is known not to require a checkout and history.
+             ;; See #52.
+             (and (eq package-build-get-version-function
+                      'package-build-get-tag-version)
+                  (list "--filter=blob:none" "--no-checkout")))))
+    (pcase-let ((`(,rev . ,version)
+                 (funcall package-build-get-version-function rcp)))
+      (package-build--checkout-1 rcp rev)
+      version)))
 
-(cl-defmethod package-build--checkout-1 ((rcp package-git-recipe) &optional rev)
+(cl-defmethod package-build--checkout-1 ((rcp package-git-recipe) rev)
   (let ((dir (package-recipe--working-tree rcp)))
-    (unless rev
-      (setq rev (or (oref rcp commit)
-                    (concat "origin/"
-                            (or (oref rcp branch)
-                                (ignore-errors
-                                  (package-build--run-process-match
-                                   "HEAD branch: \\(.*\\)" dir
-                                   "git" "remote" "show" "origin"))
-                                "master")))))
     (package-build--run-process dir nil "git" "reset" "--hard" rev)
     (package-build--run-process dir nil "git" "submodule" "sync" "--recursive")
     (package-build--run-process dir nil "git" "submodule" "update"
                                 "--init" "--recursive")))
 
+(cl-defmethod package-build--list-tags ((rcp package-git-recipe))
+  (let ((default-directory (package-recipe--working-tree rcp)))
+    (process-lines "git" "tag")))
+
+(cl-defmethod package-build--get-timestamp ((rcp package-git-recipe) rev)
+  (let ((default-directory (package-recipe--working-tree rcp)))
+    ;; package-build--expand-source-file-list expects REV to be checked out.
+    (package-build--checkout-1 rcp rev)
+    (car (apply #'process-lines
+                "git" "log" "--first-parent" "-n1" "--pretty=format:'\%ci'"
+                rev "--" (package-build--expand-source-file-list rcp)))))
+
 (cl-defmethod package-build--used-url ((rcp package-git-recipe))
   (let ((default-directory (package-recipe--working-tree rcp)))
     (car (process-lines "git" "config" "remote.origin.url"))))
 
-(cl-defmethod package-build--get-commit ((rcp package-git-recipe))
-  (ignore-errors
-    (package-build--run-process-match
-     "\\(.*\\)"
-     (package-recipe--working-tree rcp)
-     "git" "rev-parse" "HEAD")))
+(cl-defmethod package-build--get-commit ((rcp package-git-recipe) &optional rev)
+  (let ((default-directory (package-recipe--working-tree rcp)))
+    (car (process-lines "git" "rev-parse" (or rev "HEAD")))))
 
 ;;;; Hg
 
@@ -315,35 +367,41 @@ is used instead."
         (delete-directory dir t))
       (package-build--message "Cloning %s to %s" url dir)
       (package-build--run-process nil nil "hg" "clone" url dir)))
-    (if package-build-stable
-        (cl-destructuring-bind (tag . version)
-            (or (package-build--find-version-newest
-                 (mapcar (lambda (line)
-                           ;; Remove space and rev that follow ref.
-                           (string-match "\\`[^ ]+" line)
-                           (match-string 0))
-                         (process-lines "hg" "tags"))
-                 (oref rcp version-regexp))
-                (error "No valid stable versions found for %s" (oref rcp name)))
-          (package-build--run-process dir nil "hg" "update" tag)
-          version)
-      (package-build--parse-time
-       (car (apply #'package-build--process-lines dir
-                   "hg" "log" "--style" "compact" "-l1"
-                   (package-build--expand-source-file-list rcp)))
-       (oref rcp tag-regexp)))))
+    (pcase-let ((`(,rev . ,version)
+                 (funcall package-build-get-version-function rcp)))
+      (package-build--checkout-1 rcp rev)
+      version)))
+
+(cl-defmethod package-build--checkout-1 ((rcp package-hg-recipe) rev)
+  (when rev
+    (package-build--run-process (package-recipe--working-tree rcp)
+                                nil "hg" "update" rev)))
+
+(cl-defmethod package-build--list-tags ((rcp package-hg-recipe))
+  (let ((default-directory (package-recipe--working-tree rcp)))
+    (mapcar (lambda (line)
+              ;; Remove space and rev that follow ref.
+              (string-match "\\`[^ ]+" line)
+              (match-string 0))
+            (process-lines "hg" "tags"))))
+
+(cl-defmethod package-build--get-timestamp ((rcp package-hg-recipe) rev)
+  (let ((default-directory (package-recipe--working-tree rcp)))
+    (car (apply #'process-lines
+                "hg" "log" "--style" "compact" "-l1"
+                `(,@(and rev (list "--rev" rev))
+                  ,@(package-build--expand-source-file-list rcp))))))
 
 (cl-defmethod package-build--used-url ((rcp package-hg-recipe))
-  (package-build--run-process-match "default = \\(.*\\)"
-                                    (package-recipe--working-tree rcp)
-                                    "hg" "paths"))
+  (let ((default-directory (package-recipe--working-tree rcp)))
+    (car (process-lines "hg" "paths" "default"))))
 
-(cl-defmethod package-build--get-commit ((rcp package-hg-recipe))
-  (ignore-errors
-    (package-build--run-process-match
-     "changeset:[[:space:]]+[[:digit:]]+:\\([[:xdigit:]]+\\)"
-     (package-recipe--working-tree rcp)
-     "hg" "log" "--debug" "--limit=1")))
+(cl-defmethod package-build--get-commit ((rcp package-hg-recipe) &optional rev)
+  (let ((default-directory (package-recipe--working-tree rcp)))
+    ;; "--debug" is needed to get the full hash.
+    (car (apply #'process-lines "hg" "--debug" "id" "-i"
+                (and rev (list rev))))))
+
 
 ;;; Generate Files
 
@@ -678,7 +736,7 @@ are subsequently dumped."
       (package-build--message "Built %s in %.3fs, finished at %s"
                               name
                               (float-time (time-since start-time))
-                              (current-time-string))))
+                              (format-time-string "%FT%T%z" nil t))))
   (when dump-archive-contents
     (package-build-dump-archive-contents)))
 

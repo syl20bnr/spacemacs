@@ -196,6 +196,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
     to follow the keybindings convention (thanks to Magnus Therning)
   - Use ~lsp-ivy~ when ~ivy~ layer is present.
   - added  ~lsp-use-lsp-ui~ variable to control whether ~lsp-ui~ is installed or not.
+  - added ~SPC m g h~ to go to call hierarchy.
 ***** IPython notebook
 - Key bindings;
   - Change prefix from ~SPC a i~ to ~SPC a y~ (thanks to Swaroop C H)
@@ -377,6 +378,7 @@ In org-agenda-mode
 - The =ycmd= layer has been deleted and moved to the =c-c++= layer.
 *** New layers
 **** Completion
+- compleseus (thanks to thanhvg)
 - templates (thanks to YasuharuIida and Eivind Fonn)
 **** Emacs
 - helpful (thanks to Johnson Denen, Andriy Kmit)
@@ -444,6 +446,7 @@ In org-agenda-mode
 - outshine (thanks to Langston Barrett)
 **** Readers
 - epub (thanks to Jeremy Dormitzer and André Peric Tavares)
+- djvu (thanks to Daniel Nicolai)
 **** Spacemacs
 - spacemacs-defaults
 - spacemacs-modeline
@@ -476,6 +479,12 @@ In org-agenda-mode
 - xclipboard (thanks to Charles Weill, Sylvain Benner, and Alex Palaistras)
 **** WEB services
 - confluence
+- reddit
+- eww (thanks to Colton Kopsa, Maximilian Wolff and Daniel Nicolai)
+- lobsters
+- hackernews
+- streamlink
+- twitch
 *** Renamed layers
 - =extra-langs= renamed to =major-modes= (thanks to Eivind Fonn)
 - =pdf-tools= renamed to =pdf=
@@ -660,6 +669,7 @@ Other:
   - Add toggles for persistent which-key keymaps, (full)-major/minor mode
     keymaps and top-level keymap, under prefix ~SPC t k~ (thanks to Daniel Nicolai)
   - Add =describe-ex-command= on ~SPC h d x~ (thanks to Daniel Nicolai)
+  - Support packing elisp to *.elc and *.el.gz (thanks to Lin Sun)
 - Fixes:
   - Avoid non-idempotent use of push in init code (thanks to Miciah Masters)
   - Moved Spacemacs startup progress bar to =core-progress-bar.el=, removed
@@ -761,6 +771,7 @@ Other:
   - Fixed duplicate quick help and release notes in home buffer
     (thanks to mark30247)
   - Fixed evil undo in =spacemacs-base= (thanks to duianto)
+  - Fix macOS GUI full screen button wreck caused by GUI setup in early-init.el
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)
@@ -795,6 +806,8 @@ Other:
     section (thank to Daniel Nicolai)
   - New function =spacemacs/inherit-leader-keys-from-parent-mode= to
     inherit leader key bindings from another mode
+  - Evilify buffer with major-mode derived from =special-mode= by default
+    (thanks to Daniel Nicolai)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -837,6 +850,9 @@ Other:
   - Added =string-edit= package to =spacemacs-editing= layer
     (thanks to Ivan Yonchovski)
 - Key bindings:
+  - Toggle line numbers (i.e. toggle =display-line-numbers-mode=) via ~SPC t n n~
+    without having to think about which variant of line numbers you have turned
+    on (thanks to Keith Pinson)
   - Evilify =Custom-mode= (thanks to Keith Pinson)
   - Fixed ~M-x~ prefix visualization for ~dotspacemacs-emacs-command-key~
   - New ~SPC a Q~ prefix for dispatching quickurl
@@ -1161,6 +1177,7 @@ Other:
     (thanks to Tristan Harmer)
   - Added ~s~ =hydra-dired-quick-sort/body= (thanks to duianto)
 - Improvements:
+  - Inhibited golden-ratio mode from interfering with ediff windows
   - Rewrote window layout functions for ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and
     ~SPC w 4~ (thanks to Codruț Constantin Gușoi):
     - Added =spacemacs-window-split-delete-function= variable, which can be used
@@ -1518,6 +1535,7 @@ Other:
 - Key bindings:
   - Replaced =org-ref-helm-insert-cite-link= with =org-ref-insert-link=
     (thanks to Tianshu Wang)
+  - Add [[https://joostkremers.github.io/ebib/ebib-manual.html][ebib]] support (thanks to Daniel Nicolai)
 **** C-C++
 - Breaking changes:
   - Moved =cmake-ide= and cmake script support to separate =cmake= layer
@@ -1553,12 +1571,14 @@ Other:
   - Fixed the =c-c++-default-mode-for-headers= should not affect the default
     behavior that opening a .h file will turn C or C++ mode depending on
     language used in Emacs > 26.1+ (thanks to Lin Sun)
+  - Added =Doxygen= doc comment generation using =gendoxy= (thanks to Cormac Cannon)
 - Key bindings:
   - ~SPC m = =~ clang-format current region or buffer (thanks to Dela Anthonio)
   - ~SPC m = f~ clang-format current function (thanks to Dela Anthonio)
   - Declare =mg= prefix as =goto= (thanks to Dela Anthonio)
   - Support =rtags=, available under ~SPC m g~ prefix
     (thanks to Alexander Dalshov and Sylvain Benner)
+  - =Doxygen=/=gendoxy= keybindings under ~SPC m i~ prefix
 - Fixes:
   - Fixed a typo by moving one closing parenthesis :-) (thanks to Richard Kim)
   - Fixed clang format on save (thanks to Dela Anthonio and Silver Chan)
@@ -2003,6 +2023,10 @@ Other:
 - erc-view-log related changes (thanks to Mpho Jele)
   - Modified erc-log transient state to open in erc-view-log-mode
   - Added utility to open log buffer/file from erc channel
+**** Erlang
+- Added =lsp= support through erlang-ls backend (thanks to cfclavijo)
+- Added =dap= support through els_dap backend (thanks to cfclavijo)
+- =lsp= layer is a dependency when backend is set to ='lsp= (thanks to cfclavijo)
 **** ESS
 - Key bindings:
   - Change ~SPC m s t~ to ~SPC m s f~ to respect convention (thanks to Yi Liu)
@@ -2478,6 +2502,7 @@ Other:
 - Fixed =cl= package deprecated =letf*= (thanks to duianto)
 - Fixed counsel find-file functions to use Spacemacs check for opening large
 files (thanks to Daniel Nicolai)
+- Add option to configure =all-the-icons-ivy-rich= (thanks to Daniel Nicolai)
 **** Imenu-list
 - Changed ~SPC b i~ to ~SPC b t~ for =imenu= tree view
   (thansk to Sylvain Benner)
@@ -2636,6 +2661,8 @@ files (thanks to Daniel Nicolai)
   to Lucius Hu)
 - Added layer variable =latex-refresh-preview= to refresh the preview buffer when
   compiled PDF is changed (thanks to Lucius Hu)
+- Automatically configure =pdf-tools= as pdf viewer for =TeX-view= command (by default) (Thanks to Daniel Nicolai)
+- Add layer variable to open =pdf-tools= in split window (Thanks to Daniel Nicolai)
 **** Lua
 - Added support for auto-completion with =company= (thanks to halfcrazy)
 - Added support for =LSP= (EmmyLua-LS-all, lua-language-server, lua-lsp) (thanks to Lin.Sun)
@@ -2832,6 +2859,7 @@ files (thanks to Daniel Nicolai)
   (thanks to jupl)
 - Disabled add-node-modules-path by default (thanks to Eivind Fonn)
 **** Notmuch
+- Added support for scrolling the message pane in notmuch-tree, originally bound to SPC/BKSPC (thanks to inwit).
 - Fixed a bug in notmuch-tree which was preventing ~d~/~D~ bindings to work (thanks to Daniel Nicolai, alexey0308, inwit)
 - Try harder to find GitHub patch URL (thanks to Miciah Masters)
 - Open GitHub patches fullscreen
@@ -2849,6 +2877,7 @@ files (thanks to Daniel Nicolai)
 - Fixed flycheck-ocaml not initialized warning (thanks to Artur Juraszek)
 - Added =dune= support via =dune-mode= (thanks to Lyman Gillispie)
 - Fixed ocamlformat not properly initialized by following do (thanks to Nicolas Raymond)
+- Allow new OPAM share commandline syntax (thanks to Cody McKenzie)
 **** Org
 - Provide some sane default strategies for enforcing =TODO= dependencies via
   =org-todo-dependencies-strategy=. (thanks to Keith Pinson)
@@ -3038,6 +3067,7 @@ files (thanks to Daniel Nicolai)
   =org-insert-drawer=, =org-insert-heading=, =org-insert-item= and
   =org-insert-structure-template= commands (thanks to Andriy Kmit')
 - Added =ox-asciidoc= as org export backend (thanks to Christian "West" Westrom)
+- Fix org-roam v2 compatibility (thanks to Alex Kapranoff and Caleb Rogers)
 **** Osx
 - Key bindings:
   - Added key bindings to use ~command-1..9~ for selecting window
@@ -3120,6 +3150,7 @@ files (thanks to Daniel Nicolai)
 - Enabled =purescript-decl-scan-mode= when loading =purescript-mode=
   (thanks to Bjarke Vad Andersen)
 - Allow adding node_modules/.bin path to exec-path (thanks to Anupam Jain)
+- Added support for purescript formatters (thanks to Anupam Jain)
 - Improved purescript keybinding discoverability & ergonomics.
   (thanks to Jason Walker)
 - Added =purescript-mode= to =spacemacs-indent-sensitive-modes=
@@ -3515,6 +3546,10 @@ files (thanks to Daniel Nicolai)
 - Defer git-gutter loading (thanks to Aaron Jensen)
 - Remove redundant arg from git-gutter timer (thanks to bmag)
 - Added Git Blame Transient State (thanks to duianto)
+- Switch default version diff tool to git-gutter (thanks to Lin Sun)
+**** Spacemacs-defaults
+- Updated spacemacs/save-as function, see github #8974 and #14754 (thanks to
+  Daniel Nicolai and Lebensterben)
 **** Spotify
 - Replaced helm-spotify package with helm-spotify-plus
   (thanks to Leonard Lausen)
@@ -3850,4 +3885,3 @@ files (thanks to Daniel Nicolai)
   Thanks to: Abhishek(Compro) Prasad, Deepak Khidia, Enze Chi, Grant Shangreaux,
   Igor Almeida, Jiahao Jiang, Miciah Dashiel Butler Masters, Songpeng Zu, Ward
   Harris
-  

@@ -123,6 +123,17 @@ See `spacemacs//fetch-docs-from-root'"
 (defun spacemacs//format-content (&rest r)
   (let* ((content (car r))
          (div-string "<div id=\"content\">")
+         ;; onclick below tries to send user to the same path but at a different domain
+         ;; the href attribute is a fallback in case javascript is disabled
+         (doc-warning "<div class=\"admonition warning\">
+<p class=\"first last\">
+You are viewing the documentation for the develop branch.
+The documentation for the release version is
+<a href=\"https://www.spacemacs.org/doc/DOCUMENTATION.html\"
+onclick=\"location='https://www.spacemacs.org'+location.pathname+location.search+location.hash;return false;\">here</a>
+.
+</p>
+</div>")
          (toc-string "<div id=\"toggle-sidebar\"><a href=\"#table-of-contents\"><h2>Table of Contents</h2></a></div>")
          (has-toc (s-index-of "Table of Contents" content))
          (beginning-of-content-div-pos (+ (length div-string)
@@ -131,8 +142,9 @@ See `spacemacs//fetch-docs-from-root'"
                                           0 beginning-of-content-div-pos))
          (rest-of-content (substring content beginning-of-content-div-pos)))
     (if (not (null has-toc))
-        (format "%s\n%s%s" beginning-of-content toc-string rest-of-content)
+        (format "%s\n%s\n%s%s" beginning-of-content doc-warning toc-string rest-of-content)
       content)))
+
 
 (defun spacemacs//toc-org-unhrefify-toc ()
   "Make TOC classical org-mode TOC."
@@ -214,10 +226,10 @@ exported org files should be processed with
                                         (string-suffix-p
                                          "COMMUNITY.org"
                                          bfn))
-                                      (file-name-directory
-                                       (directory-file-name
-                                        bfnd))
-                                      bfnd)))
+                                       (file-name-directory
+                                        (directory-file-name
+                                         bfnd))
+                                     bfnd)))
                      nil t nil 2)
       (replace-match ".html" nil t nil 3))))
 

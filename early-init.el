@@ -39,5 +39,8 @@
               "core/core-early-funcs.el")
       nil (not init-file-debug))
 
-;; Remove GUI elements early to avoid some possible grapical glitches.
-(spacemacs/removes-gui-elements)
+;; Remove GUI elements soon after GUI being initialized to avoid some possible grapical glitches.
+;; This has to be done use these hooks,
+;; see https://www.gnu.org/software/emacs/manual/html_node/emacs/Early-Init-File.html
+(add-hook 'window-setup-hook 'spacemacs/removes-gui-elements)
+(add-hook 'tty-setup-hook 'spacemacs/removes-gui-elements)

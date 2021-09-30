@@ -25,7 +25,7 @@ add =tidalcycles= to the existing =dotspacemacs-configuration-layers= list in
 this file.
 
 * Usage
-After installing TidalCycles and starting SuperDirt as described [[https://tidalcycles.org/index.php/Userbase][in the wiki]],
+After installing TidalCycles and starting SuperDirt as described [[https://tidalcycles.org/docs/][in the docs]],
 open a file with the =.tidal= extension and start TidalCycles with =SPC m t s=.
 
 You can evaluate a piece of code with =SPC m RET= or the original key binding

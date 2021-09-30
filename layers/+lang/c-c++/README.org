@@ -37,6 +37,7 @@
   - [[#enable-google-set-c-style][Enable google-set-c-style]]
   - [[#newlines][Newlines]]
   - [[#projectile-sub-project-adoption][Projectile sub-project adoption]]
+  - [[#source-code-documentation-using-doxygen][Source code documentation using Doxygen]]
 - [[#key-bindings][Key bindings]]
   - [[#lsp-1][LSP]]
     - [[#ccls][ccls]]
@@ -46,6 +47,7 @@
       - [[#gotomember][goto/member]]
     - [[#debugger][debugger]]
   - [[#rtags-1][RTags]]
+  - [[#doxygen][Doxygen]]
   - [[#additional-key-bindings][Additional key bindings]]
     - [[#disassemble][Disassemble]]
     - [[#formatting-clang-format][Formatting (clang-format)]]
@@ -65,7 +67,8 @@ This layer adds configuration for C/C++ language.
 - Auto-completion via company (=auto-completion= layer required)
 - Support code reformatting with [[http://clang.llvm.org/docs/ClangFormat.html][clang-format]].
 - Support for disassembly of code with [[https://github.com/jart/disaster][disaster]].
-- =sematic= layer integration:
+- [[https://www.doxygen.nl][Doxygen]] code documentation comment generation (using [[https://github.com/mp81ss/gendoxy][gendoxy]]).
+- =semantic= layer integration:
   - Function or variable definition at the bottom
   - Current function cursor is at the top. See [[https://github.com/tuhdo/semantic-stickyfunc-enhance][stickyfunc-demos]] for
     demos in some programming languages.
@@ -323,7 +326,7 @@ may want =google-c-style= enabled and added to your common hooks.
 To get =google-c-style= actually install itself into your C/C++ common hooks,
 you need to have =c-c++-enable-google-style= defined to true when you load the
 C-C++ lang in Spacemacs. In your =~/.spacemacs= file, a possible way that this
-would look is that in your list of =dostpacemacs-configuration-layers= you have
+would look is that in your list of =dotspacemacs-configuration-layers= you have
 an entry like
 
 #+BEGIN_SRC emacs-lisp
@@ -357,6 +360,9 @@ set =c-c++-adopt-subprojects= to =t=.
 
 This is based on a recommendation on the =ccls= wikis, but should be more
 generally applicable.
+
+** Source code documentation using Doxygen
+The =gendoxy= package allows automatic generation of structured code documentation comments suitable for post-processing using [[https://www.doxygen.nl][Doxygen]]. Key bindings have been provided to insert a file header comment, to document a definition (function, struct, enum etc.) or a group. See the [[https://github.com/mp81ss/gendoxy][gendoxy documentation]] for further information.
 
 * Key bindings
 ** LSP
@@ -490,6 +496,18 @@ A ~[ccls]~ suffix indicates that the binding is for the indicated backend only.
 | ~SPC m g V~ | print enum value at point       |
 | ~SPC m g X~ | fix fixit at point              |
 | ~SPC m g Y~ | cycle overlays on screen        |
+
+** Doxygen
+
+| Key binding | Description                                                         |
+|-------------+---------------------------------------------------------------------|
+| ~SPC m i h~ | document this file (i.e. insert header comment)                     |
+| ~SPC m i d~ | document declaration at point (function, struct etc.)               |
+| ~SPC m i D~ | document declaration at point (header only, omit e.g. enum members) |
+| ~SPC m i g~ | document group of declarations at point                             |
+| ~SPC m i G~ | document group of declarations at point (header only)               |
+| ~SPC m i s~ | document start of declaration group                                 |
+| ~SPC m i e~ | document end of declaration group                                   |
 
 ** Additional key bindings
 *** Disassemble

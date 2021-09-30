@@ -124,7 +124,10 @@
     "x" "text/code"
     "xh" #'lsp-document-highlight
     "xl" #'lsp-lens-show
-    "xL" #'lsp-lens-hide))
+    "xL" #'lsp-lens-hide)
+  (when (configuration-layer/package-used-p 'lsp-treemacs)
+    (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+      "gh" #'lsp-treemacs-call-hierarchy)))
 
 (defun spacemacs//lsp-bind-simple-navigation-functions (prefix-char)
   (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode

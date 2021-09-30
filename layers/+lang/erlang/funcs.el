@@ -41,6 +41,12 @@
       (lsp-deferred)
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
+(defun spacemacs//erlang-setup-dap ()
+  "Conditionally setup erlang DAP integration."
+  (if (configuration-layer/layer-used-p 'dap)
+      (require 'dap-erlang)
+    (message "`dsp' layer is not installed, please add `dap' layer to your dotfile.")))
+
 (defun spacemacs//erlang-default ()
   "Default settings for erlang buffers"
 

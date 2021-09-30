@@ -33,6 +33,7 @@
                               (eq 'hybrid dotspacemacs-editing-style)))
         (dired :location built-in)
         (dired-x :location built-in)
+        (image-dired :location built-in)
         (display-line-numbers :location built-in
                               :toggle (version<= "26" emacs-version))
         (electric-indent-mode :location built-in)
@@ -151,6 +152,20 @@
     :commands (dired-jump
                dired-jump-other-window
                dired-omit-mode)))
+
+(defun spacemacs-defaults/init-image-dired ()
+  (use-package image-dired
+    :defer t
+    :config
+    (evilified-state-evilify-map image-dired-thumbnail-mode-map
+      :mode image-dired-thumbnail-mode
+      :bindings
+      "j" 'image-dired-next-line
+      "k" 'image-dired-previous-line
+      "l" 'image-dired-forward-image
+      "h" 'image-dired-backward-image)
+    (evilified-state-evilify-map image-dired-display-image-mode-map
+      :mode image-dired-display-image-mode)))
 
 (defun spacemacs-defaults/init-electric-indent-mode ()
   (electric-indent-mode))
@@ -272,18 +287,17 @@
 
       (spacemacs/declare-prefix "tn" "line-numbers")
 
-      ;; backwards compatibility of symbols:
-      ;; keep the spacemacs/toggle-line-numbers & friends around
       (spacemacs|add-toggle line-numbers
         :status (and (featurep 'display-line-numbers)
                      display-line-numbers-mode
-                     (eq display-line-numbers t))
+                     (eq display-line-numbers dotspacemacs-line-numbers))
         :on (prog1 (display-line-numbers-mode)
-              (setq display-line-numbers t))
+              (setq display-line-numbers dotspacemacs-line-numbers))
         :off (display-line-numbers-mode -1)
-        :on-message "Absolute line numbers enabled."
+        :on-message "Line numbers enabled per dotspacemacs-line-numbers."
         :off-message "Line numbers disabled."
-        :documentation "Show the line numbers.")
+        :documentation "Show line numbers as configured in .spacemacs."
+        :evil-leader "tnn")
       (spacemacs|add-toggle absolute-line-numbers
         :status (and (featurep 'display-line-numbers)
                      display-line-numbers-mode
@@ -293,7 +307,7 @@
         :off (display-line-numbers-mode -1)
         :on-message "Absolute line numbers enabled."
         :off-message "Line numbers disabled."
-        :documentation "Show the line numbers."
+        :documentation "Show absolute line numbers."
         :evil-leader "tna")
       (spacemacs|add-toggle relative-line-numbers
         :status (and (featurep 'display-line-numbers)

@@ -25,6 +25,7 @@
       '(
         company
         erlang
+        dap-mode
         ggtags
         counsel-gtags
         helm-gtags
@@ -56,6 +57,9 @@
       ;;             ))
       (setq erlang-compile-extra-opts '(debug_info)))
     :config (require 'erlang-start)))
+
+(defun erlang/pre-init-dap-mode ()
+  (add-hook 'erlang-mode-local-vars-hook #'spacemacs//erlang-setup-dap))
 
 (defun erlang/post-init-flycheck ()
   (spacemacs/enable-flycheck 'erlang-mode))

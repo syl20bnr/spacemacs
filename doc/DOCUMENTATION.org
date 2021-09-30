@@ -893,6 +893,9 @@ In addition to this, =C-g=, being an important escape key in Emacs, is skipped.
 So anything bound to =g= originally will be found on =C-G=, since =g=, =G= and
 =C-g= are all reserved.
 
+Except for =eww-mode= buffers, all buffers with major modes derived from
+=special-mode= are evilified by default.
+
 ** Evil leader
 Spacemacs uses a leader key to bind almost all its key bindings.
 
@@ -1279,8 +1282,10 @@ and ~T~):
 | ~SPC t l~   | toggle truncate lines                                             |
 | ~SPC t L~   | toggle visual lines                                               |
 | ~SPC t n~   | toggle line numbers                                               |
-| ~SPC t r~   | toggle relative line numbers                                      |
-| ~SPC t v~   | toggle smooth scrolling                                           |
+| ~SPC t n n~ | toggle line numbers as configured in .spacemacs                   |
+| ~SPC t n a~ | toggle absolute line numbers                                      |
+| ~SPC t n r~ | toggle relative line numbers                                      |
+| ~SPC t n v~ | toggle smooth scrolling                                           |
 | ~SPC t V~   | toggle visual line numbers                                        |
 | ~SPC t z~   | toggle 0/1 based column indexing                                  |
 
@@ -1577,7 +1582,7 @@ squared symbols like =🅿=.
 
 | Key binding   | Unicode | ASCII | Mode                                                                 |
 |---------------+---------+-------+----------------------------------------------------------------------|
-| ~SPC t -~     | =⊝=     | -     | [[https://www.emacswiki.org/emacs/centered-cursor-mode.el][centered-cursor]] mode                                                 |
+| ~SPC t -~     | =⊝=     | -     | [[https://github.com/emacsmirror/centered-cursor-mode][centered-cursor]] mode                                                 |
 | ~SPC t 8~     | =⑧=     | 8     | toggle highlight of characters for long lines                        |
 | ~SPC t C-8~   | =⑧=     | 8     | global toggle highlight of characters for long lines                 |
 | ~SPC t C--~   | =⊝=     | -     | global centered cursor                                               |

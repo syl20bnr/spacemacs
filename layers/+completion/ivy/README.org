@@ -9,9 +9,11 @@
 - [[#configuration][Configuration]]
   - [[#general][General]]
   - [[#advanced-buffer-information][Advanced buffer information]]
+  - [[#icons][Icons]]
 - [[#key-bindings][Key bindings]]
   - [[#transient-state][Transient state]]
   - [[#colorsfaces][Colors/Faces]]
+  - [[#search-files-with-ivy][Search files with ivy]]
 
 * Description
 This layer enables Ivy for completion. It will replace the default completion by
@@ -35,6 +37,11 @@ Mastering your choice of completion system will make you a Spacemacs power user.
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =ivy= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+Make sure that the other completion layers: =compleseus= and =helm= are removed
+or commented out in the =dotspacemacs-configuration-layers= list. Or add =ivy=
+below the other completion layers. Spacemacs uses the completion layer that's
+listed last.
 
 * Configuration
 ** General
@@ -70,6 +77,24 @@ is disabled by default.
     (ivy :variables ivy-enable-advanced-buffer-information t)))
 #+END_SRC
 
+** Icons
+To display icons with [[https://github.com/seagle0128/all-the-icons-ivy-rich][all-the-icons-ivy-rich]], set the layer variable
+=ivy-enable-icons= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (ivy :variables ivy-enable-icons t)))
+#+END_SRC
+
+Because =all-the-icons-ivy-rich= depends on =ivy-rich=, the layer variable
+=ivy-enable-advanced-buffer-information= is automatically set to =t= when ivy
+icon display is enabled.
+
+To display icons correctly, you should run =M-x all-the-icons-install-fonts=
+to install the necessary fonts.
+
+More information about customizing =all-the-icons-ivy-rich= can be found [[https://github.com/seagle0128/all-the-icons-ivy-rich][here]].
+
 * Key bindings
 If you choose =ivy= as completion system, make sure to read the [[http://oremacs.com/swiper/][official manual]].
 In case you don't want to read everything, at least familiarise with
@@ -93,7 +118,7 @@ Some useful key bindings are presented in the following table.
 | ~C-M-k~     | kill buffer (in =ivy-reverse-i-search= (~C-r~ at a prompt))                                                                                         |
 
 ** Transient state
-Press ~M-SPC~ (~m-M-SPC~ [[https://github.com/syl20bnr/spacemacs/blob/cb48ec74c1f401bd2945760799633c0e81e69088/doc/CONVENTIONS.org#transient-state][on macOS]]) anytime in Ivy to get into the transient state. Additional actions
+Press ~M-SPC~ (~s-M-SPC~ [[https://github.com/syl20bnr/spacemacs/blob/cb48ec74c1f401bd2945760799633c0e81e69088/doc/CONVENTIONS.org#transient-state][on macOS]]) anytime in Ivy to get into the transient state. Additional actions
 are found in [[https://oremacs.com/swiper/#minibuffer-key-bindings][the Hydra section of the official manual]].
 
 | Key binding | Description                                             |
@@ -116,3 +141,38 @@ are found in [[https://oremacs.com/swiper/#minibuffer-key-bindings][the Hydra se
 | ~SPC C f~   | =counsel-colors-faces=  |
 | ~SPC C w~   | =counsel-colors-web=    |
 | ~SPC h d F~ | =counsel-describe-face= |
+
+** Search files with ivy
+=ripgrep= is recommended and =Spacemacs= will pick it up as the default seach
+app if found. To pass parameters to =ripgrep= use double dash then everything
+after it is treated as parameters for search app.
+
+For example:
+#+BEGIN_EXAMPLE
+    phrase I want to search -- -t lisp
+#+END_EXAMPLE
+
+will search only on lisp files.
+
+Commands available while browsing the search result:
+
+| Key binding      | Description                      |
+|------------------+----------------------------------|
+| ~C-SPC~ or ~C-l~ | Preview result                   |
+| ~C-x C-d~        | Change search folder             |
+| ~M-q~            | =counsel-git-grep-query-replace= |
+| ~C-c C-o~        | =ivy-occur=                      |
+| ~C-c C-e~        | Spacemacs's =counsel-edit=       |
+
+When you =M-o= on the result list of =counsel-find-file= and file search result
+you have these following extra actions:
+
+| Key binding | Description                     |
+|-------------+---------------------------------|
+| ~f~         | =find-file-other-frame=         |
+| ~j~         | =find-file-other-window=        |
+| ~v~         | =spacemacs/find-file-vsplit=    |
+| ~s~         | =spacemacs/find-file-split=     |
+| ~l~         | =find-file-literally=           |
+| ~d~         | =spacemacs/delete-file-confirm= |
+| ~r~         | =spacemacs/rename-file=         |

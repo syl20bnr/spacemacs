@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+## make_patch Creates patch file with the current changes.
+##
+## Copyright (c) 2014-2021 Sylvain Benner & Contributors
+##
+## Author: Eugene Yaremenko
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
+
+if [[ -z "$(git status --porcelain)" ]]; then
+    echo "No changes. Exiting."
+    exit 0
+else
+    git diff HEAD > "/tmp/${PUBLISH}.patch"
+    echo "Changed files:"
+    git status --porcelain
+    echo "============================"
+    echo "Patch:"
+    cat "/tmp/${PUBLISH}.patch"
+    echo "============================"
+    if [[ -z $(grep '[^[:space:]]' "/tmp/${PUBLISH}.patch") ]]; then
+        echo "\"/tmp/${PUBLISH}.patch\" is empty while the repo has changes."
+        exit 2
+    fi
+fi

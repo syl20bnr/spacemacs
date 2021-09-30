@@ -44,6 +44,7 @@
     poetry
     pippel
     py-isort
+    pydoc
     pyenv-mode
     (pylookup :location local)
     pytest
@@ -278,6 +279,15 @@
         "Sd" 'sphinx-doc))
     :config (spacemacs|hide-lighter sphinx-doc-mode)))
 
+(defun python/init-pydoc ()
+  (use-package pydoc
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'python-mode
+        "hp" 'pydoc-at-point-no-jedi
+        "hP" 'pydoc))))
+
 (defun python/pre-init-pyenv-mode ()
   (add-to-list 'spacemacs--python-pyenv-modes 'python-mode))
 (defun python/init-pyenv-mode ()
@@ -399,7 +409,8 @@
         "si" 'spacemacs/python-start-or-switch-repl
         "sR" 'spacemacs/python-shell-send-region-switch
         "sr" 'spacemacs/python-shell-send-region
-        "sl" 'spacemacs/python-shell-send-line)
+        "sl" 'spacemacs/python-shell-send-line
+        "ss" 'spacemacs/python-shell-send-with-output)
 
       ;; Set `python-indent-guess-indent-offset' to `nil' to prevent guessing `python-indent-offset
       ;; (we call python-indent-guess-indent-offset manually so python-mode does not need to do it)

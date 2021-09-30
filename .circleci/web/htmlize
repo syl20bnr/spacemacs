@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+## htmlize HTML export script for documentation files.
+##
+## Copyright (c) 2012-2014 Sylvain Benner
+## Copyright (c) 2014-2022 Sylvain Benner & Contributors
+##
+## Author: Eugene Yaremenko
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
+
+emacs -batch \
+      -l ~/.emacs.d/init.el \
+      -l ~/.emacs.d/core/core-documentation.el \
+      -f spacemacs/publish-doc
+if [ $? -ne 0 ]; then
+    echo "spacemacs/publish-doc failed"
+    exit 2
+fi
+
+if [ -d ~/.emacs.d/export/ ]
+then
+    echo "Export succeeded"
+else
+    echo "~/.emacs.d/export/ doesn't exist"
+    exit 2
+fi

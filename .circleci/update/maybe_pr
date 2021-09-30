@@ -10,16 +10,16 @@
 ##
 ## License: GPLv3
 
-exit_if_no_changes
+exit_if_no_patchfile
 
 cd "/tmp/${PUBLISH}"
 
 export GITHUB_TOKEN=$UPD_BOT_GIT_TK
-echo_headline "Opening PR to ${UPD_BOT_LOGIN}/${UPD_BOT_REPO} repo"
-echo "[bot] ${PUBLISH} updates" > msg
+echo_headline "Opening PR"
+echo "[bot] ${PUBLISH}" > msg
 echo >> msg
 echo "Merge with care - I'm just a stupid bot. Beep boop." >> msg
-hub pull-request -h "${PUBLISH}" -b "${CIRCLE_BRANCH}" -F msg
+hub pull-request -h "${PUBLISH}" -b "${PR_BRANCH}" -F msg
 if [ $? -ne 0 ]; then
     echo "Seems like PR already exists (not a problem)"
 fi

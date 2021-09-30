@@ -12,6 +12,7 @@
   - [[#web-beautify][web-beautify]]
   - [[#prettier][prettier]]
   - [[#choosing-a-formatter][Choosing a formatter]]
+  - [[#activate-leex-support][Activate leex support]]
 - [[#backends][Backends]]
   - [[#language-server-protocol][Language Server Protocol]]
 - [[#live-display-in-browser][Live display in browser]]
@@ -77,6 +78,14 @@ Formatter can be chosen on a per project basis using directory local variables
 #+END_SRC
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
+
+** Activate leex support
+To activate support for ~.leex~ files set below config variable to a
+non-nil value.
+
+#+BEGIN_SRC elisp
+  (html :variables html-enable-leex-support t)
+#+END_SRC
 
 * Backends
 ** Language Server Protocol

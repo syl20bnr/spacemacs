@@ -9,6 +9,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
+  - [[#ebib-and-biblio][Ebib and biblio]]
 - [[#key-bindings][Key bindings]]
 
 * Description
@@ -22,6 +23,7 @@ This layer adds support to manipulate BibTeX and BibLaTeX files in Spacemacs.
 - Syntax highlighting for BibTeX and BibLaTeX files.
 - Utilities for automatically adding entries from different data sources.
 - Support for inserting citations in various other modes.
+- Optionally install full fledged [[https://joostkremers.github.io/ebib/ebib-manual.html][ebib reference manager]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -54,7 +56,26 @@ to use Zathura:
 #+END_SRC
 
 More configuration options are available and are detailed in the =org-ref=,
-=helm-bibtex= and =ivy-bibtex= package documentations.
+=helm-bibtex=, =ivy-bibtex= and [[https://github.com/cpitclaudel/biblio.el][biblio]] package documentations.
+
+** Ebib and biblio
+To enable installation of the [[https://joostkremers.github.io/ebib/ebib-manual.html][ebib reference manager]] set the variable
+=bibtex-enable-ebib-support= as shown in the following code block:
+
+#+BEGIN_SRC emacs-lisp
+  (bibtex :variables
+          bibtex-enable-ebib-support t
+          ebib-preload-bib-files '("path-to-bib-file.bib")
+          ebib-file-search-dirs '("/path-to-documents-directory")
+          ebib-import-directory "path-to-e.g.-download-directory")
+#+END_SRC
+
+The code block also shows how to set some optional [[https://joostkremers.github.io/ebib/ebib-manual.html][ebib]] variables.
+
+With the installation of the =ebib= package, Spacemacs automatically loads the
+[[https://joostkremers.github.io/ebib/ebib-manual.html#integration-with-the-biblio-package][ebib-biblio]] package that uses the [[https://github.com/cpitclaudel/biblio.el][biblio]] package to provide an easy way of
+fetching citations from the web into the database (follow the links to the
+packages additional descriptions and usage instructions).
 
 * Key bindings
 In a Bib(La)TeX file, the following key bindings are added:
@@ -82,3 +103,29 @@ key binding added:
 | Key binding | Description     |
 |-------------+-----------------|
 | ~SPC m i c~ | Insert citation |
+
+*EBIB*
+
+*Index buffer*
+
+| Key binding | Description                                           |
+|-------------+-------------------------------------------------------|
+| ~J/K~       | scroll page down/up                                   |
+| ~g j~       | jump to entry (searches only author and title fields) |
+| ~SPC u g j~ | jump to entry (only) in current database              |
+| ~/~         | ebib-search (searches in all fields)                  |
+| ~n~         | ebib-search-next                                      |
+| ~e~         | switch to entry buffer                                |
+| ~SPC m k~   | delete current entry                                  |
+| ~SPC m b~   | fetch current entry bibtex from web                   |
+| ~q~         | quit ebib                                             |
+
+*Entry buffer*
+
+| ~q~ | quit entry buffer |
+
+*Biblio selection buffer*
+
+| ~e~   | import entry to current database (requires 'active' database in ebib index buffer) |
+| ~C-j~ | Next entry                                                                         |
+| ~C-k~ | Previous entry                                                                     |

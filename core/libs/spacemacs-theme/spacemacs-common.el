@@ -215,7 +215,12 @@ to 'auto, tags may not be properly aligned. "
 
 ;;;;; ahs
      `(ahs-face ((,class (:background ,highlight))))
+     `(ahs-face-unfocused ((,class (:background ,highlight))))
+     `(ahs-definition-face ((,class (:background ,highlight))))
+     `(ahs-definition-face-unfocused ((,class (:background ,highlight))))
      `(ahs-plugin-whole-buffer-face ((,class (:background ,mat :foreground ,bg1))))
+     `(ahs-plugin-default-face ((,class (:background ,highlight))))
+     `(ahs-plugin-default-face-unfocused ((,class (:background ,highlight))))
 
 ;;;;; anzu-mode
      `(anzu-mode-line ((,class (:foreground ,yellow :inherit bold))))
@@ -755,6 +760,8 @@ to 'auto, tags may not be properly aligned. "
      `(org-done ((,class (:foreground ,suc :inherit bold :background ,green-bg))))
      `(org-ellipsis ((,class (:foreground ,keyword))))
      `(org-footnote  ((,class (:underline t :foreground ,base))))
+     `(org-headline-done ((,class (:foreground ,aqua))))
+     `(org-headline-todo ((,class (:foreground ,meta))))
      `(org-hide ((,class (:foreground ,base))))
      `(org-kbd ((,class (:inherit region :foreground ,base :box (:line-width 1 :style released-button)))))
      `(org-level-1 ((,class (:inherit bold :bold ,(if spacemacs-theme-org-bold 'unspecified nil) :foreground ,head1 :height ,(if spacemacs-theme-org-height 1.3 1.0) :background ,(when spacemacs-theme-org-highlight head1-bg)))))
@@ -1024,7 +1031,9 @@ to 'auto, tags may not be properly aligned. "
                                ("FIXME"       . ,war)
                                ("XXX+"        . ,war)
                                ("\\?\\?\\?+"  . ,war)))
-
+;;;;; org
+     `(org-fontify-done-headline nil)
+     `(org-fontify-todo-headline nil)
 
 ;;;;; pdf-tools
     `(pdf-view-midnight-colors '(,base . ,bg1)))

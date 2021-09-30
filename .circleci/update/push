@@ -10,7 +10,7 @@
 ##
 ## License: GPLv3
 
-exit_if_no_changes
+exit_if_no_patchfile
 
 cd "/tmp/${PUBLISH}"
 
@@ -26,6 +26,12 @@ fork_url="https://${UPD_BOT_LOGIN}:${UPD_BOT_GIT_TK}"
 fork_url+="@github.com/${UPD_BOT_LOGIN}/${UPD_BOT_REPO}.git"
 git remote set-url "${UPD_BOT_LOGIN}" "${fork_url}"
 echo_headline "Pushing changes"
+# hub push -f "${UPD_BOT_LOGIN}" "${PUBLISH}" > /dev/null 2>&1
+#                         prevents token leak ^^^^^^^^^^^^^^
+# NOTE: CircleCI masks environment variables from web GUI thingy
+#       so in this case bot token shouldn't leak. But be careful.
+#       I had to unmask the command output because it's too hard to debug
+#       without logs - a lot of different things may fail.
 hub push -f "${UPD_BOT_LOGIN}" "${PUBLISH}"
 if [ $? -ne 0 ]; then
     echo "hub push failed"
