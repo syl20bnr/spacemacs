@@ -670,6 +670,7 @@ Other:
     keymaps and top-level keymap, under prefix ~SPC t k~ (thanks to Daniel Nicolai)
   - Add =describe-ex-command= on ~SPC h d x~ (thanks to Daniel Nicolai)
   - Support packing elisp to *.elc and *.el.gz (thanks to Lin Sun)
+  - Add option to select and update only some packages (thanks to Daniel Nicolai)
 - Fixes:
   - Avoid non-idempotent use of push in init code (thanks to Miciah Masters)
   - Moved Spacemacs startup progress bar to =core-progress-bar.el=, removed
