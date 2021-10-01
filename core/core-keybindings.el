@@ -54,7 +54,7 @@ LONG-NAME if given is stored in `spacemacs/prefix-titles'."
                                  (kbd full-prefix-emacs))))
     ;; define the prefix command only if it does not already exist
     (unless long-name (setq long-name name))
-    (which-key-declare-prefixes
+    (which-key-add-key-based-replacements
       full-prefix-emacs (cons name long-name)
       full-prefix (cons name long-name))))
 (put 'spacemacs/declare-prefix 'lisp-indent-function 'defun)
@@ -74,13 +74,13 @@ used as the prefix command."
                   " " (substring prefix 1))))
     (unless long-name (setq long-name name))
     (let ((prefix-name (cons name long-name)))
-      (which-key-declare-prefixes-for-mode mode
+      (which-key-add-major-mode-key-based-replacements mode
         full-prefix-emacs prefix-name
         full-prefix prefix-name)
       (when (and is-major-mode-prefix dotspacemacs-major-mode-leader-key)
-        (which-key-declare-prefixes-for-mode mode major-mode-prefix prefix-name))
+        (which-key-add-major-mode-key-based-replacements mode major-mode-prefix prefix-name))
       (when (and is-major-mode-prefix dotspacemacs-major-mode-emacs-leader-key)
-        (which-key-declare-prefixes-for-mode
+        (which-key-add-major-mode-key-based-replacements
           mode major-mode-prefix-emacs prefix-name)))))
 (put 'spacemacs/declare-prefix-for-mode 'lisp-indent-function 'defun)
 

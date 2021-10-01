@@ -322,7 +322,7 @@
       (concat leader-key " m")    "major mode commands"
       (concat leader-key " " dotspacemacs-emacs-command-key) "M-x"))
 
-  (which-key-declare-prefixes
+  (which-key-add-key-based-replacements
     dotspacemacs-leader-key '("root" . "Spacemacs root")
     dotspacemacs-emacs-leader-key '("root" . "Spacemacs root")
     (concat dotspacemacs-leader-key " m")
