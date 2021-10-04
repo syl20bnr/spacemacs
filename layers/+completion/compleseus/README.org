@@ -1,4 +1,4 @@
-#+TITLE: compleseus layer
+#+TITLE: Compleseus layer
 
 #+TAGS: completion|layer
 
@@ -33,7 +33,7 @@ layer that's listed last.
 
 * Key bindings
 
-| Key binding | Description   |
-|-------------+---------------|
-| ~M-o~       | embark-action |
-| ~C-r~       | history       |
+| Key binding | Description       |
+|-------------+-------------------|
+| ~M-o~       | embark-action     |
+| ~C-r~       | history           |

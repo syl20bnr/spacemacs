@@ -96,6 +96,15 @@
   (interactive)
   (spacemacs/compleseus-search nil (projectile-project-root)))
 
+(defun spacemacs/compleseus-search-from (input)
+  "Embark action to start ripgrep search from candidate's directory."
+  (interactive "s")
+  (message "The first input %s." input)
+  (let ((dir (if (file-directory-p input)
+                 input
+               (file-name-directory input))))
+    (consult-ripgrep dir)))
+
 (defun spacemacs/compleseus-find-file ()
   "This solves the problem:
 Binding a key to: `find-file' calls: `ido-find-file'"
@@ -118,13 +127,13 @@ Binding a key to: `find-file' calls: `ido-find-file'"
         (embark-dwim)))))
 
 (defun spacemacs/next-candidate-preview (&optional n)
-  "Go forward N candidates and preivew"
+  "Go forward N candidates and preview"
   (interactive)
   (vertico-next (or n 1))
   (spacemacs/embark-preview))
 
 (defun spacemacs/previous-candidate-preview (&optional n)
-  "Go backward N candidates and preivew"
+  "Go backward N candidates and preview"
   (interactive)
   (selec-previous (or n 1))
   (spacemacs/embark-preview))
@@ -132,13 +141,13 @@ Binding a key to: `find-file' calls: `ido-find-file'"
 ;; selectrum
 
 (defun spacemacs/selectrum-next-candidate-preview (&optional n)
-  "Go forward N candidates and preivew"
+  "Go forward N candidates and preview"
   (interactive)
   (selectrum-next-candidate (or n 1))
   (spacemacs/embark-preview))
 
 (defun spacemacs/selectrum-previous-candidate-preview (&optional n)
-  "Go backward N candidates and preivew"
+  "Go backward N candidates and preview"
   (interactive)
   (selectrum-previous-candidate (or n 1))
   (spacemacs/embark-preview))
