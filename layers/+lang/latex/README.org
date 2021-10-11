@@ -250,7 +250,7 @@ By default, the underlying latex code is echoed in the echo area.
 | Key binding                         | Description                                |
 |-------------------------------------+--------------------------------------------|
 | ~SPC m -~                           | recenter output buffer                     |
-| ~SPC m ,​~                           | TeX command on master file                 |
+| ~SPC m ,~                           | TeX command on master file                 |
 | ~SPC m .~                           | mark LaTeX environment                     |
 | ~SPC m *~                           | mark LaTeX section                         |
 | ~SPC m %~                           | comment or uncomment a paragraph           |
