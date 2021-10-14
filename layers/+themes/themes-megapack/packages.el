@@ -123,11 +123,14 @@
     white-sand-theme
     zen-and-art-theme
     zenburn-theme
+    (zonokai-emacs :location (recipe
+                              :fetcher github
+                              :repo "ZehCnaS34/zonokai-emacs"))
     ))
 
 ;; define programmatically the init functions
 (dolist (pkg themes-megapack-packages)
-  (eval `(defun ,(intern (format "themes-megapack/init-%S" pkg)) nil)))
+  (eval `(defun ,(intern (format "themes-megapack/init-%S" (if (listp pkg) (car pkg) pkg))) nil)))
 
 (defun themes-megapack/init-darkokai-theme ()
   (setq darkokai-mode-line-padding 1))
