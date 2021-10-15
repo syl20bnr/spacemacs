@@ -23,39 +23,12 @@
 
 (setq github-packages
       '(
-        gist
         github-clone
         github-search
         grip-mode
         ;; this package does not exits, we need it to wrap
         ;; the call to spacemacs/declare-prefix.
-        (spacemacs-github :location built-in)
-        ))
-
-(defun github/init-gist ()
-  (use-package gist
-    :defer t
-    :init
-    (progn
-      (spacemacs/declare-prefix "gg" "github gist")
-      (spacemacs/set-leader-keys
-        "ggb" 'gist-buffer
-        "ggB" 'gist-buffer-private
-        "ggl" 'gist-list
-        "ggr" 'gist-region
-        "ggR" 'gist-region-private))
-    :config
-    (progn
-      (evilified-state-evilify-map gist-list-menu-mode-map
-        :mode gist-list-mode
-        :bindings
-        "f" 'gist-fetch-current
-        "K" 'gist-kill-current
-        "o" 'gist-browse-current-url)
-      (evilified-state-evilify-map gist-list-mode-map
-        :mode gist-list-mode
-        :bindings
-        (kbd "gr") 'gist-list-reload))))
+        (spacemacs-github :location built-in)))
 
 (defun github/init-github-clone ()
   (use-package github-clone
