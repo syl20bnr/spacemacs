@@ -84,7 +84,7 @@ and add it to your =PATH=. If your go environment is properly
 prepared you can simply run below command to install:
 
 #+BEGIN_SRC sh
-  GO111MODULE=on go get -v golang.org/x/tools/gopls@latest
+  GO111MODULE=on go install golang.org/x/tools/gopls@latest
 #+END_SRC
 
 **** Debugger
@@ -105,8 +105,8 @@ To choose it nevertheless set the layer variable =go-backend=:
 You will also need the following dependencies for auto-completion:
 
 #+BEGIN_SRC sh
-  go get -u -v github.com/mdempsky/gocode
-  go get -u -v github.com/zmb3/gogetdoc
+  go install github.com/mdempsky/gocode@latest
+  go install github.com/zmb3/gogetdoc@latest
 #+END_SRC
 
 **** Documentation lookup binary
@@ -140,18 +140,18 @@ This section lists dependencies which are independent of the
 language backend, most are installed directly via =go get=:
 
 #+BEGIN_SRC sh
-  GO111MODULE=on CGO_ENABLED=0 go get -v -trimpath -ldflags '-s -w' github.com/golangci/golangci-lint/cmd/golangci-lint
-  go get -u -v golang.org/x/tools/cmd/godoc
-  go get -u -v golang.org/x/tools/cmd/goimports
-  go get -u -v golang.org/x/tools/cmd/gorename
-  go get -u -v golang.org/x/tools/cmd/guru
-  go get -u -v github.com/cweill/gotests/...
-  go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
-  go get -u -v github.com/fatih/gomodifytags
-  go get -u -v github.com/godoctor/godoctor
-  go get -u -v github.com/haya14busa/gopkgs/cmd/gopkgs
-  go get -u -v github.com/josharian/impl
-  go get -u -v github.com/rogpeppe/godef
+  GO111MODULE=on CGO_ENABLED=0 go install -v -trimpath -ldflags '-s -w' github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+  go install golang.org/x/tools/cmd/godoc@latest
+  go install golang.org/x/tools/cmd/goimports@latest
+  go install golang.org/x/tools/cmd/gorename@latest
+  go install golang.org/x/tools/cmd/guru@latest
+  go install github.com/cweill/gotests/...@latest
+  go install github.com/davidrjenni/reftools/cmd/fillstruct@latest
+  go install github.com/fatih/gomodifytags@latest
+  go install github.com/godoctor/godoctor@latest
+  go install github.com/haya14busa/gopkgs/cmd/gopkgs@latest
+  go install github.com/josharian/impl@latest
+  go install github.com/rogpeppe/godef@latest
 #+END_SRC
 
 * Configuration
