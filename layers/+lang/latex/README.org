@@ -65,7 +65,6 @@ Sensible defaults have been provided, however they may all be overridden in your
 | ~latex-enable-magic~             | ~nil~                                                              | When non-nil, enable magic symbols                                             |
 | ~latex-nofill-env~               | See [[#auto-fill][details below]]                                                  | A list of LaTeX environment name where ~auto-fill-mode~ is disabled            |
 | ~latex-refresh-preview~          | ~nil~                                                              | When non-nil, enable refresh preview buffer when file changes                  |
-| ~latex-refresh-preview~          | ~nil~                                                              | When non-nil, enable refresh preview buffer when file changes                  |
 | ~latex-view-with-pdf-tools~      | ~t~ if pdf layer is installed, else ~nil~                          | When non-nil, use =pdf-tools= for viewing output pdf files                     |
 | ~latex-view-pdf-in-split-window~ | ~nil~ setting is neglected if ~latex-view-with-pdf-tools~ is ~nil~ | When non-nil, open =pdf-tools= in split window (when using =TeX-view= command) |
 
