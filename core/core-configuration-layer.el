@@ -1656,6 +1656,13 @@ RNAME is the name symbol of another existing layer."
   (let ((obj (configuration-layer/get-package name)))
     (when obj (oref obj :lazy-install))))
 
+(defmacro configuration-layer/with-dynamic-modules (&rest args)
+  "A check to see if tree-sitter can be used by emacs."
+  `(when (and
+           (functionp 'module-load)
+           (not (null module-file-suffix)))
+     ,@args))
+
 (defun configuration-layer//configure-layers (layer-names)
   "Configure layers with LAYER-NAMES."
   (let ((warning-minimum-level :error))
@@ -2279,6 +2286,7 @@ to select one."
                 (configuration-layer//package-delete pkg)
                 (copy-directory src-dir dest-dir
                                 'keeptime 'create 'copy-content)))
+
             (spacemacs//redisplay)))
         (spacemacs-buffer/append
          (format "\n--> %s packages rolled back.\n" rollbacked-count))

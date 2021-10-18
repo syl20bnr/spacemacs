@@ -26,14 +26,16 @@
     tree-sitter-langs))
 
 (defun tree-sitter/init-tree-sitter ()
-  (use-package tree-sitter
-    :defer (eq tree-sitter-toggle 'on-demand)
-    :init
-    (when (eq tree-sitter-toggle 'global)
-      (progn
-        (global-tree-sitter-mode)
-        (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)))))
+  (configuration-layer/with-dynamic-modules
+    (use-package tree-sitter
+     :defer (eq tree-sitter-toggle 'on-demand)
+     :init
+     (when (eq tree-sitter-toggle 'global)
+       (progn
+         (global-tree-sitter-mode)
+         (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))))))
 
 (defun tree-sitter/init-tree-sitter-langs ()
-  (use-package tree-sitter-langs
-    :defer (eq tree-sitter-toggle 'on-demand)))
+  (configuration-layer/with-dynamic-modules
+    (use-package tree-sitter-langs
+     :defer (eq tree-sitter-toggle 'on-demand))))
