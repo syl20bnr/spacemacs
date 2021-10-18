@@ -28,12 +28,12 @@
 (defun tree-sitter/init-tree-sitter ()
   (configuration-layer/with-dynamic-modules
     (use-package tree-sitter
-     :defer (eq tree-sitter-toggle 'on-demand)
-     :init
-     (when (eq tree-sitter-toggle 'global)
-       (progn
-         (global-tree-sitter-mode)
-         (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))))))
+      :defer (eq tree-sitter-toggle 'on-demand)
+      :init
+      (when (eq tree-sitter-toggle 'global)
+        (global-tree-sitter-mode))
+      :config
+      (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))))
 
 (defun tree-sitter/init-tree-sitter-langs ()
   (configuration-layer/with-dynamic-modules

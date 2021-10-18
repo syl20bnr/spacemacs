@@ -316,6 +316,14 @@
       (add-hook 'ruby-mode-hook #'spacemacs//ruby-setup-backend)
       (add-hook 'ruby-mode-local-vars-hook
                 #'spacemacs/ruby-maybe-highlight-debugger-keywords))
+      ;; Tree-sitter on demand.
+      (configuration-layer/with-dynamic-modules
+        (when (and
+                (configuration-layer/layer-used-p 'tree-sitter)
+                (eq tree-sitter-toggle 'on-demand)
+                (eq ruby-syntax-backend 'tree-sitter))
+          (message "RUBY AND EMACS SITTING IN A TREE!")
+          (add-hook 'ruby-mode-hook #'tree-sitter-mode)))
     :config
     (progn
       ;; This might have been important 10 years ago but now it's frustrating.

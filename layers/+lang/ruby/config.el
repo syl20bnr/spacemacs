@@ -31,6 +31,10 @@
 Possible values are `robe', and `lsp'.
 If `nil' then `robe' is the default backend unless `lsp' layer is used.")
 
+(defvar ruby-syntax-backend 'emacs
+  "Defines the backend for syntax highliting, defaulting to `emacs'
+Possible values are `emacs', and `tree-sitter'.")
+
 (defvar ruby-enable-enh-ruby-mode nil
   "If non-nil, use `enh-ruby-mode' package instead of the built-in Ruby Mode.")
 
