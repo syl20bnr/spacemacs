@@ -289,6 +289,11 @@
     (list (point-min) (point-max)))
   (define-key evil-inner-text-objects-map "g" 'evil-inner-buffer)
 
+  ;; special-mode buffers are read-only and therefore should open in
+  ;; motion-state (evilified state is too aggressive, e.g. evil-local-set-key
+  ;; has no effect)
+  (add-to-list 'evil-motion-state-modes 'special-mode)
+
   ;; turn off evil in corelv buffers
   (add-to-list 'evil-buffer-regexps '("\\*LV\\*"))
 
@@ -585,9 +590,7 @@ Press \\[which-key-toggle-persistent] to hide."
 ;; pre packages
 
 (defun spacemacs-bootstrap/init-evil-evilified-state ()
-  (use-package evil-evilified-state
-    :config
-    (add-to-list 'evil-evilified-state-modes 'special-mode))
+  (use-package evil-evilified-state)
   (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
     spacemacs-default-map))
 
