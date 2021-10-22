@@ -28,9 +28,8 @@
         ;; forge requires a C compiler on Windows so we disable
         ;; it by default on Windows.
         (forge :toggle (not (spacemacs/system-is-mswindows)))
-        gitattributes-mode
-        gitconfig-mode
-        gitignore-mode
+        ;; include the old git{attributes,config,ignore}-mode
+        git-modes
         gitignore-templates
         git-commit
         git-link
@@ -131,16 +130,8 @@
         ("Y" git-timemachine-kill-revision)
         ("q" nil :exit t)))))
 
-(defun git/init-gitattributes-mode ()
-  (use-package gitattributes-mode
-    :defer t))
-
-(defun git/init-gitconfig-mode ()
-  (use-package gitconfig-mode
-    :defer t))
-
-(defun git/init-gitignore-mode ()
-  (use-package gitignore-mode
+(defun git/init-git-modes ()
+  (use-package git-modes
     :defer t))
 
 (defun git/init-gitignore-templates ()
