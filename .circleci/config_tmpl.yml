@@ -136,12 +136,12 @@ jobs:
           command: .circleci/bot_init
       - restore_cache:
           keys:
-            - webe-dps-{{ .Branch }}-{{ checksum ".circleci/web/.spacemacs" }}
+            - webe-dps-v2-{{ .Branch }}-{{ checksum ".circleci/web/.spacemacs" }}
       - run:
           name: Install dependencies
           command: .circleci/web/install_deps
       - save_cache:
-          key: webe-dps-{{ .Branch }}-{{ checksum ".circleci/web/.spacemacs" }}
+          key: webe-dps-v2-{{ .Branch }}-{{ checksum ".circleci/web/.spacemacs" }}
           paths:
             - ~/.emacs.d/elpa
       - run:
