@@ -32,15 +32,9 @@
     persp-mode
     (selectrum :toggle (eq compleseus-engine 'selectrum))
     (vertico
-     :toggle (eq compleseus-engine 'vertico)
-     ;; TODO remove when `vertico-repeat' on ELPA
-     :location (recipe :fetcher github
-                       :repo "minad/vertico"))
+     :toggle (eq compleseus-engine 'vertico))
     (vertico-repeat
-     :toggle (eq compleseus-engine 'vertico)
-     ;; TODO remove when it's on ELPA
-     :location (recipe :fetcher url
-                       :url "https://raw.githubusercontent.com/minad/vertico/main/extensions/vertico-repeat.el"))
+     :toggle (eq compleseus-engine 'vertico))
     (grep :location built-in)
     wgrep))
 
