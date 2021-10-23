@@ -2798,7 +2798,7 @@ Improve loading robustness:
 
   (thanks to StreakyCobra)
 - Update evilified state rebinding conventions:
-  ~SPC~ to ~​'​~, ~/~ to ~\~ and ~:~ to ~|~
+  ~SPC~ to ~​'​ ~, ~/~ to ~\~ and ~:~ to ~|~
 
 *** New Layers
 - bepo in =keyboard-layouts= (thanks to StreakyCobra)
