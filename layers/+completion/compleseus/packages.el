@@ -34,7 +34,10 @@
     (vertico
      :toggle (eq compleseus-engine 'vertico))
     (vertico-repeat
-     :toggle (eq compleseus-engine 'vertico))
+     :toggle (eq compleseus-engine 'vertico)
+     ;; TODO: Remove when https://github.com/minad/vertico/issues/83 solved.
+     :location (recipe :fetcher url
+                       :url "https://raw.githubusercontent.com/minad/vertico/main/extensions/vertico-repeat.el"))
     (grep :location built-in)
     wgrep))
 
