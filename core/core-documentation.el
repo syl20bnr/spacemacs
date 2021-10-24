@@ -284,7 +284,8 @@ preprocessors for the exported .org files."
   (advice-add 'org-html-toc :filter-return #'spacemacs//format-toc)
   (advice-add 'org-html-template :filter-return #'spacemacs//format-content)
   (advice-add 'org-html-publish-to-html :around #'spacemacs//pub-doc-html-advice)
-  (let* ((header
+  (let* ((org-mode-hook '())
+         (header
           "<link rel=\"stylesheet\" type=\"text/css\"
                  href=\"http://www.pirilampo.org/styles/readtheorg/css/htmlize.css\"/>
           <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js\"></script>
