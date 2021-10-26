@@ -141,6 +141,7 @@
           "Tt"  'markdown-toggle-gfm-checkbox
           "Tw"  'markdown-toggle-wiki-links
           ;; Table
+          "ta"  'markdown-table-align
           "tp"  'markdown-table-move-row-up
           "tn"  'markdown-table-move-row-down
           "tf"  'markdown-table-move-column-right

@@ -164,6 +164,7 @@ In order to use =orgtabl-mode=, add =org= layer to your =~/.spacemacs=.
 
 | Key binding | Description             |
 |-------------+-------------------------|
+| ~SPC m t a~ | align table             |
 | ~SPC m t p~ | move row up             |
 | ~SPC m t n~ | move row down           |
 | ~SPC m t f~ | move column right       |

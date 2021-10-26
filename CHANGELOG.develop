@@ -215,6 +215,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   - Removed ~SPC m i L~ for =markdown-insert-reference-link-dwim=
     (folded into ~SPC m i l~)
   - Added ~SPC m x k~ for =markdown-insert-kbd= (thanks to Ben Swift)
+  - Added ~SPC m t a~ for =markdown-table-align= in consistency with Org layer (thanks to deb0ch)
 ***** nlinum
 - The =nlinum= layer is deprecated on Emacs 26.1 and newer in favor of native
   line number support (thanks to bmag)
