@@ -45,7 +45,6 @@ This layers adds extensive support for [[http://git-scm.com/][git]] to Spacemacs
 - quick in buffer last commit message per line with [[https://github.com/syohex/emacs-git-messenger][git-messenger]]
 - colorize buffer line by age of commit with [[https://github.com/syohex/emacs-smeargle][smeargle]]
 - git grep with [[https://github.com/yasuyk/helm-git-grep][helm-git-grep]]
-- gitignore generator with [[https://github.com/jupl/helm-gitignore][helm-gitignore]]
 - org integration with magit via [[https://github.com/magit/orgit][orgit]]
 
 New to Magit? Checkout the [[https://magit.vc/about/][official intro]].
@@ -168,7 +167,6 @@ Git commands (start with ~g~):
 | ~SPC g H h~ | highlight regions by age of commits                 |
 | ~SPC g H t~ | highlight regions by last updated time              |
 | ~SPC g i~   | initialize a new git repository                     |
-| ~SPC g I~   | open =helm-gitignore=                               |
 | ~SPC g L~   | open magit-repolist                                 |
 | ~SPC g s~   | open a =magit= status window                        |
 | ~SPC g S~   | stage current file                                  |

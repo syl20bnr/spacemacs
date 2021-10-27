@@ -38,7 +38,6 @@
         git-timemachine
         golden-ratio
         (helm-git-grep :requires helm)
-        (helm-gitignore :requires helm)
         magit
         (magit-delta :toggle git-enable-magit-delta-plugin)
         (magit-gitflow :toggle git-enable-magit-gitflow-plugin)
@@ -70,11 +69,6 @@
     :init (spacemacs/set-leader-keys
             "g/" 'helm-git-grep
             "g*" 'helm-git-grep-at-point)))
-
-(defun git/init-helm-gitignore ()
-  (use-package helm-gitignore
-    :defer t
-    :init (spacemacs/set-leader-keys "gI" 'helm-gitignore)))
 
 (defun git/init-git-commit ()
   (use-package git-commit
