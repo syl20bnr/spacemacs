@@ -40,9 +40,11 @@
 
       (global-fasd-mode 1)
       (spacemacs/declare-prefix "fa" "fasd-find")
-      (spacemacs/set-leader-keys "fad" 'fasd-find-directory-only)
-      (spacemacs/set-leader-keys "faf" 'fasd-find-file-only)
-      (spacemacs/set-leader-keys "fas" 'fasd-find-file)
+      (spacemacs/set-leader-keys
+        "fad" 'fasd-find-directory-only
+        "faf" 'fasd-find-file-only
+        "fas" 'fasd-find-file
+        "fal" 'fasd-find-file-make-persp)
 
       (when (configuration-layer/layer-used-p 'ivy)
         (ivy-set-actions
