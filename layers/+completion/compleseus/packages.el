@@ -234,7 +234,8 @@
     (spacemacs/set-leader-keys "?" #'embark-bindings)
     ;; Optionally replace the key help with a completing-read interface
     (setq prefix-help-command #'embark-prefix-help-command)
-
+    ;; same key binding as ivy-occur
+    (define-key minibuffer-local-map (kbd "C-c C-o") #'embark-export)
     :config
     (define-key embark-file-map "s" 'spacemacs/compleseus-search-from)))
 ;; Hide the mode line of the Embark live/completions buffers
