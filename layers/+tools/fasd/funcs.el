@@ -24,12 +24,10 @@
     (message "Selected item is not a directory path")))
 
 (defun fasd-find-file-make-persp ()
-  "Use fasd to open file or directory in a Spacemacs
-layout (persp).
+  "Use fasd to open file or directory in a Spacemacs layout (persp).
 
- If fasd item's project root already in a layout, switches to
-that layout. If multiple layouts contain the same project root -
-lets you choose one of them."
+ If fasd item's project root already in a layout, switches to that layout. If
+multiple layouts contain the same project root - lets you choose one of them."
   (interactive)
   (let* ((lexical-binding t)
          (query (if fasd-enable-initial-prompt
@@ -57,21 +55,19 @@ lets you choose one of them."
          (persps (or (seq-filter
                       (lambda (p)
                         (when p
-                          (->> p persp-buffers
-                               (seq-map get-fname)
-                               (seq-remove 'null)
-                               (seq-filter
-                                (lambda (f)
-                                  (when (and proj-dir f)
-                                    (string=
-                                     proj-dir
-                                     (projectile-project-root f))))))))
+                          (seq-filter
+                           (lambda (f)
+                             (when (and proj-dir f)
+                               (string=
+                                proj-dir
+                                (projectile-project-root f))))
+                           (seq-remove 'null (seq-map get-fname (persp-buffers p))))))
                       (persp-persps))
                      ;; if there isn't a single persp that matches - create a new one
                      (let ((new-persp (persp-add-new
-                                       (-> (or proj-dir fpath)
-                                           directory-file-name
-                                           file-name-nondirectory))))
+                                       (file-name-nondirectory
+                                        (directory-file-name
+                                         (or proj-dir fpath))))))
                        (list new-persp))))
          ;; if multiple matching persps found - prompt to choose
          (layout-name (if (< 1 (length persps))
@@ -84,4 +80,4 @@ lets you choose one of them."
       ;; flash layouts transient for a moment, to indicate the layout switch
       (let ((spacemacs--layouts-ts-full-hint-toggle nil))
         (spacemacs/layouts-transient-state/body)
-        (run-at-time "1.5 sec" nil #'spacemacs/layouts-transient-state/nil)))))
+        (run-at-time "1 sec" nil #'spacemacs/layouts-transient-state/nil)))))
