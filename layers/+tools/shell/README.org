@@ -304,8 +304,8 @@ Some advanced configuration is setup for =eshell= in this layer:
 |---------------+----------------------------------------------------------|
 | ~TAB~         | In a shell buffer, browse completions                    |
 | ~SPC m H~     | In =shell= or =eshell=, browse history                   |
-| ~C-j~         | Next item in history                                     |
-| ~C-k~         | Previous item in history                                 |
+| ~M-n~         | Next item in history                                     |
+| ~M-p~         | Previous item in history                                 |
 
 *Note:* You can open multiple shells using a numerical prefix argument,
 for instance pressing ~2 SPC '​~ will a second default shell, the
