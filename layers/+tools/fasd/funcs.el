@@ -46,9 +46,10 @@ multiple layouts contain the same project root - lets you choose one of them."
                   (completing-read "Fasd query: " results nil t)))
          (proj-dir (projectile-project-root fpath))
          (get-fname (lambda (buf)
-                      (with-current-buffer buf
-                        (cond ((eq major-mode 'dired-mode) (dired-get-filename nil :no-error))
-                              (t (buffer-file-name))))))
+                      (when (buffer-live-p buf)
+                        (with-current-buffer buf
+                          (cond ((eq major-mode 'dired-mode) (dired-get-filename nil :no-error))
+                                (t (buffer-file-name)))))))
          ;; find the perspective with a matching project-root by traversing every
          ;; persp and analyzing every buffer (if buffer's file belongs to the project
          ;; directory - that's the persp we need)
