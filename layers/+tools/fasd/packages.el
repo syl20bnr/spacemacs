@@ -53,7 +53,11 @@
            ("s" ivy-search-from-action "search-from"))))
 
       ;; we will fall back to using the default completing-read function, which is helm once helm is loaded.
-      (setq fasd-completing-read-function 'nil))))
+      (setq fasd-completing-read-function 'nil))
+    :config
+    (with-eval-after-load 'marginalia
+      (add-to-list 'marginalia-prompt-categories '("\\<fasd\\>" . file)))))
+
 
 (defun fasd/init-helm-fasd ()
   "initializes fasd-emacs and adds a key binding to `SPC f z'"
