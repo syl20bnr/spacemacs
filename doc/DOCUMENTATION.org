@@ -55,7 +55,11 @@
   - [[#states][States]]
   - [[#special-mode-and-its-derived-modes-buffers][Special mode (and its derived modes) buffers]]
   - [[#evilified-modes][Evilified modes]]
-  - [[#evil-leader][Evil leader]]
+  - [[#leader-keys][Leader keys]]
+    - [[#top-leader-key][Top leader key]]
+    - [[#major-mode-leader-keys][Major mode leader keys]]
+    - [[#major-mode-leader-key][Major Mode leader key]]
+    - [[#project-type-leader-key][Project Type leader key]]
   - [[#universal-argument][Universal argument]]
   - [[#transient-states][Transient-states]]
   - [[#toggles][Toggles]]
@@ -111,7 +115,6 @@
     - [[#escaping][Escaping]]
     - [[#executing-vim-and-emacs-exm-x-commands][Executing Vim and Emacs ex/M-x commands]]
     - [[#leader-key][Leader key]]
-    - [[#major-mode-leader-key][Major Mode leader key]]
     - [[#additional-text-objects][Additional text objects]]
   - [[#reserved-prefix-command-for-user][Reserved prefix command for user]]
   - [[#completion][Completion]]
@@ -911,21 +914,90 @@ In addition to this, =C-g=, being an important escape key in Emacs, is skipped.
 So anything bound to =g= originally will be found on =C-G=, since =g=, =G= and
 =C-g= are all reserved.
 
-** Evil leader
-Spacemacs uses a leader key to bind almost all its key bindings.
+Except for =eww-mode= buffers, all buffers with major modes derived from
+=special-mode= are evilified by default.
 
-This leader key is commonly set to ~​,​~ by Vim users. In Spacemacs the leader
-key is set on ~SPC~ (the space bar, hence the name =spacemacs=). This key is the
-most accessible key on a keyboard and it is pressed with the thumb which is a
-good choice to lower the risk of [[https://en.wikipedia.org/wiki/Repetitive_strain_injury][RSI]]. It can be customized to any other key
-using the variable =dotspacemacs-leader-key= and =dotspacemacs-emacs-leader-key=.
+** Leader keys
+Spacemacs uses several leader keys to be able to bind thousands of key bindings:
+- the top leader key ~SPC~
+- the major mode leader keys ~,~ or ~SPC m~
+- the project types leader keys ~;~ or ~SPC M~
 
-With Spacemacs there is no need to remap your keyboard modifiers to attempt
-to reduce the risk of RSI, every command can be executed very easily while you
-are in =normal= mode by pressing the ~SPC~ leader key, here are a few examples:
+*** Top leader key
+The top leader key is ~SPC~ (the space bar, hence the name =Spacemacs=). This
+key is the most accessible key on a keyboard and it is pressed with the thumb
+which is a good choice to lower the risk of [[https://en.wikipedia.org/wiki/Repetitive_strain_injury][RSI]]. It can be customized to any
+other key using the variable =dotspacemacs-leader-key= and
+=dotspacemacs-emacs-leader-key=.
+
+Under the ~SPC~ leader key we can find all the global commands accessible from
+anywhere in Emacs as well as the to other leader keys for the current major mode
+and project types.
+
+Every command are executed very easily in =normal= mode by pressing the ~SPC~
+leader key followed by a key sequence. Some examples:
 - Save a buffer: ~SPC f s~
 - Save all opened buffers: ~SPC f S~
 - Open (switch) to a buffer: ~SPC b b~
+
+A command key sequence following the leader key are most of the time a mnemonic
+sequence which is easier to remember.
+
+*** Major mode leader keys
+Commands relative to the currently enabled [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Major-Modes.html][major mode]] are under the leader key
+~,~. Internally ~,~ is a shortcut for the sequence ~SPC m~ (remember that all
+Spacemacs commands start with ~SPC~. Pessing ~,~ or ~SPC m~ is therefore
+identical.
+SPC m~. For
+ convenience a shortcut key called the major mode leader key is set by default
+ on ~​,​~ which saves one keystroke.
+
+
+
+
+
+
+
+
+
+
+
+*** Major Mode leader key
+Key bindings specific to the current =major mode= start with ~SPC m~. For
+convenience a shortcut key called the major mode leader key is set by default on
+~​,​~ which saves one keystroke.
+
+It is possible to change the major mode leader key by defining the variable
+=dotspacemacs-major-mode-leader-key= in your =~/.spacemacs=. For example to
+setup the key on tabulation:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-major-mode-leader-key "<tab>")
+#+END_SRC
+
+*** Project Type leader key
+Key bindings specific to the current =project type= start with ~SPC M~. For
+convenience a shortcut key called the project type leader key is set by
+default on ~;~ which saves one keystroke.
+
+It is possible to change the major mode leader key by defining the variable
+=dotspacemacs-project-minor-mode-leader-key= in your =~/.spacemacs=. For example
+to setup the key on tabulation:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-project-minor-mode-leader-key "<tab>")
+#+END_SRC
+
+
+
+
+
+
+
+
+
+
+
 
 ** Universal argument
 The universal argument ~C-u~ is an important command in Emacs but it is also a
@@ -1699,6 +1771,7 @@ In the transient state:
 | ~T~           | toggle background transparency on and off |
 | ~q~           | quit transient state                      |
 
+
 * Layouts and workspaces
 Layouts are window configurations with buffer isolation. Each layout can define
 several workspaces (think of them as sub-layouts), sharing the same list of
@@ -1967,21 +2040,7 @@ with the variable =dotspacemacs-emacs-command-key= of your =~/.spacemacs=.
 *** Leader key
 On top of =Vim= modes (modes are called states in Spacemacs) there is a
 special key called the leader key which once pressed gives a whole new keyboard
-layer. The leader key is by default ~SPC~ (space). It is possible to change this
-key with the variable =dotspacemacs-leader-key=.
-
-*** Major Mode leader key
-Key bindings specific to the current =major mode= start with ~SPC m~. For
-convenience a shortcut key called the major mode leader key is set by default on
-~​,​~ which saves one precious keystroke.
-
-It is possible to change the major mode leader key by defining the variable
-=dotspacemacs-major-mode-leader-key= in your =~/.spacemacs=. For example to
-setup the key on tabulation:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-major-mode-leader-key "<tab>")
-#+END_SRC
+layer. For more information on leader keys see the [[#leader-keys][Concepts documentation]].
 
 *** Additional text objects
 Additional text objects are defined in Spacemacs:
