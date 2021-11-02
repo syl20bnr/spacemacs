@@ -33,12 +33,15 @@ commented out in the =dotspacemacs-configuration-layers= list. Or add
 layer that's listed last.
 
 ** Configuration
-
-You can configure the completion engine by setting =compleseus-engine= to either =vertico= (default) or =selectrum=  by editing the =compleseus-engine= variable like below to use =selectrun as opposed to the default of =vertico=:
+You can configure the completion engine by setting =compleseus-engine= to either
+=vertico= (default) or =selectrum= by editing the =compleseus-engine= variable
+like below to use =selectrum= as opposed to the default of =vertico=:
 
 #+BEGIN_SRC emacs-lisp
-  (compleseus :variables compleseus-engine 'selectrum)
+  (compleseus :variables
+              compleseus-engine 'selectrum)
 #+END_SRC
+
 * Key bindings
 
 | Key binding | Description   |
