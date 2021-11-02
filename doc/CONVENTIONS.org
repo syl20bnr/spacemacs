@@ -87,7 +87,7 @@ macOS since ~M-SPC~ is used by the OS for spotlight.
 
 It is recommended to make sure that ~q~ allows to leave the transient-state.
 
-** Special-mode buffers 
+** Special-mode buffers
 Except for =eww-mode= and evilified buffers (see next section), all buffers with
 major-modes derived from =special-mode= open in motion-state by default. To
 exclude buffers of such major-modes from getting evilified, add a regexp to

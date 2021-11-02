@@ -874,11 +874,11 @@ Spacemacs has 10 states:
 *Note*: Technically speaking there is also the =operator= evil state.
 
 ** Special mode (and its derived modes) buffers
-   Special-mode is a [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Basic-Major-Modes.html][basic major mode]] that sets buffers to read-only. Evil
-   defines an evil-specific (i.e. no vim equivalent) [[https://evil.readthedocs.io/en/latest/overview.html?highlight=motion-state#modes-and-states][motion-state]] for read-only
-   buffers, and Spacemacs opens special-mode buffers, or buffer with major modes
-   derived from special-mode, in motion-state by default.
-   
+Special-mode is a [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Basic-Major-Modes.html][basic major mode]] that sets buffers to read-only. Evil
+defines an evil-specific (i.e. no vim equivalent) [[https://evil.readthedocs.io/en/latest/overview.html?highlight=motion-state#modes-and-states][motion-state]] for read-only
+buffers, and Spacemacs opens special-mode buffers, or buffer with major modes
+derived from special-mode, in motion-state by default.
+
 ** Evilified modes
 Some buffers are not for editing text and provide their own key bindings for
 certain operations. These often conflict with Vim bindings. To make such buffers
