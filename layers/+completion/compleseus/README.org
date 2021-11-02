@@ -44,7 +44,7 @@ like below to use =selectrum= as opposed to the default of =vertico=:
 
 * Key bindings
 
-| Key binding | Description       |
-|-------------+-------------------|
-| ~M-o~       | embark-action     |
-| ~C-r~       | history           |
+| Key binding | Description   |
+|-------------+---------------|
+| ~M-o~       | embark-action |
+| ~C-r~       | history       |
