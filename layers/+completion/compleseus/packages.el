@@ -26,9 +26,7 @@
     marginalia
     (compleseus-spacemacs-help :location local)
     consult
-    ;; remove recipe when available on Melpa (should be soon)
-    (consult-yasnippet :location (recipe :fetcher github
-                                         :repo "mohkale/consult-yasnippet"))
+    consult-yasnippet
     embark
     embark-consult
     orderless
@@ -208,15 +206,15 @@
     (setq consult-project-root-function
           (lambda ()
             (when-let (project (project-current))
-              (car (project-roots project)))))
+              (car (project-roots project)))))))
   ;;;; 2. projectile.el (projectile-project-root)
-    ;; (autoload 'projectile-project-root "projectile")
-    ;; (setq consult-project-root-function #'projectile-project-root)
+;; (autoload 'projectile-project-root "projectile")
+;; (setq consult-project-root-function #'projectile-project-root)
   ;;;; 3. vc.el (vc-root-dir)
-    ;; (setq consult-project-root-function #'vc-root-dir)
+;; (setq consult-project-root-function #'vc-root-dir)
   ;;;; 4. locate-dominating-file
-    ;; (setq consult-project-root-function (lambda () (locate-dominating-file "." ".git")))
-    ))
+;; (setq consult-project-root-function (lambda () (locate-dominating-file "." ".git")))
+
 
 (defun compleseus/init-consult-yasnippet ()
   (use-package consult-yasnippet
@@ -238,13 +236,13 @@
     (setq prefix-help-command #'embark-prefix-help-command)
 
     :config
-    (define-key embark-file-map "s" 'spacemacs/compleseus-search-from)
-    ;; Hide the mode line of the Embark live/completions buffers
-    ;; (add-to-list 'display-buffer-alist
-    ;;              '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-    ;;                nil
-    ;;                (window-parameters (mode-line-format . none))))
-    ))
+    (define-key embark-file-map "s" 'spacemacs/compleseus-search-from)))
+;; Hide the mode line of the Embark live/completions buffers
+;; (add-to-list 'display-buffer-alist
+;;              '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+;;                nil
+;;                (window-parameters (mode-line-format . none))))
+
 
 (defun compleseus/init-embark-consult ()
   (use-package embark-consult
