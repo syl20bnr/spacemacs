@@ -168,7 +168,7 @@ You may also be interested in installing all optional dependencies with
 #+END_SRC
 
 For more information on optional dependencies, as well as 3rd-party plugins, see
-https://github.com/python-lsp/python-lsp-server][python-lsp-server repository]].
+[[https://github.com/python-lsp/python-lsp-server][python-lsp-server repository]].
 
 If you've installed the language server and related packages as development
 dependencies in a pipenv environment, you'll want to set the ~python-pipenv-activate~
