@@ -95,7 +95,7 @@ The Meghanada server will be installed automatically whenever a Java file
 is opened.
 
 If you get issues with the auto-installation you can either download the last
-version of the server manually [[https://dl.bintray.com/mopemope/meghanada/][there]] or build from source hosted on [[https://github.com/mopemope/meghanada-server][the GitHub
+version of the server manually or build from source hosted on [[https://github.com/mopemope/meghanada-server][the GitHub
 repository]] and copy the =jar= file to =.emacs.d/.cache/meghanada= folder.
 
 No additional configuration is necessary!
