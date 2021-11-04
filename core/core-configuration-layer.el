@@ -452,11 +452,7 @@ cache folder.")
                             configuration-layer-elpa-archives))
     ;; optimization, no need to activate all the packages so early
     (setq package-enable-at-startup nil)
-    (package-initialize 'noactivate)
-    ;; hack to be sure to enable insalled org from Org ELPA repository
-    (when (package-installed-p 'org)
-      (spacemacs-buffer/message "Initializing Org early...")
-      (configuration-layer//activate-package 'org))))
+    (package-initialize 'noactivate)))
 
 (defun configuration-layer//configure-quelpa ()
   "Configure `quelpa' package."
@@ -2603,7 +2599,6 @@ Original code from dochang at https://github.com/dochang/elpa-clone"
   (configuration-layer/make-all-packages 'no-discover)
   (let (package-archive-contents
         (package-archives '(("melpa" . "https://melpa.org/packages/")
-                            ("org"   . "https://orgmode.org/elpa/")
                             ("gnu"   . "https://elpa.gnu.org/packages/")
                             ("nongnu" . "https://elpa.nongnu.org/nongnu/"))))
     (package-refresh-contents)
