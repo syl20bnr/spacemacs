@@ -35,7 +35,6 @@ file.
 
 * Key bindings
 Django related key bindings uses [[https://github.com/davidmiller/pony-mode][pony-mode]] and are behind the prefix ~SPC m j~ in =Python-mode=.
-Various configuration options for =pony-mode= are documented at [[http://www.deadpansincerity.com/docs/pony/configuration.html][deadpansincerity.com]].
 
 ** General Managment
 

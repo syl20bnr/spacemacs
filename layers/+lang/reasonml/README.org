@@ -84,4 +84,4 @@ The main key bindings, see =packages.el= for the main list.
 | ~SPC m = r m~ | Refmt: convert re syntax to ml syntax |
 
 * Thanks
-Special thanks to [[https://github.com/fredyr/][fredyr]] who wrote the initial version of this layer.
+Special thanks to [[https://github.com/fredyr][fredyr]] who wrote the initial version of this layer.
