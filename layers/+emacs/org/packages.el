@@ -33,7 +33,7 @@
     htmlize
     ;; ob, org, org-agenda and org-contacts are installed by `org-contrib'
     (ob :location built-in)
-    (org :location built-in)
+    (org :location elpa :min-version "9.5")
     (org-agenda :location built-in)
     (org-wild-notifier
                 :toggle org-enable-notifications)
