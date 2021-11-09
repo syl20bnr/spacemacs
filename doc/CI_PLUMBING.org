@@ -100,7 +100,7 @@ image size and startup delay are mitigated.
     mirror.
   - =elisp_test.yml= runs EmacsLisp tests on PR and branch updates.
   - =rebase.yml= Rebases PR onto current HEAD, it doesn't always work and
-     requires personal token to run automatically so we rarely use it.
+    requires personal token to run automatically so we rarely use it.
   - =stale.yml= manages stale issues and PRs.
 - [[https://github.com/syl20bnr/spacemacs/tree/develop/.circleci][.circleci]] everything specific for CircleCI. Documentation related files
   stored in the =org= sub folder, =web= is where HTML export stuff hides,
