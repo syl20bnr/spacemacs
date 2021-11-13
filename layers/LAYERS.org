@@ -124,6 +124,7 @@
     - [[#phoenix][Phoenix]]
     - [[#react][React]]
     - [[#ruby-on-rails][Ruby on Rails]]
+    - [[#svelte][Svelte]]
     - [[#vue][Vue]]
   - [[#general-purpose][General-purpose]]
     - [[#imperative][Imperative]]
@@ -1739,6 +1740,26 @@ Features:
 - Run generators
 - Rake runner
 - Interactive Rails console
+
+*** Svelte
+[[file:+frameworks/svelte/README.org][+frameworks/svelte/README.org]]
+
+Layer for Svelte, for working with =.svelte= files.
+
+Note: This layer creates a derived mode called =svelte-mode= on the fly out of
+=web-mode= to handle svelte files. It will conflict with the [[https://github.com/AdamNiederer/svelte-mode][svelte-mode package]], make sure
+you don't use that package together with this layer.
+
+Features:
+- Wholesome features from =web-mode=, especially on template part
+- Better performance
+- On-the-fly syntax checking with =eslint=
+- Proper syntax highlight and indentation with =svelte-mode=
+- Two options for backend support for autocompletion and code analysis: =lsp= and =dumb=
+- Code autocompletion with =company-mode=
+- Formatting code with =prettier= layer
+- =evil-matchit= =%= to jump between open and close tags
+- =emmet-mode= and =yasnippet= for code expanding with the =TAB= key
 
 *** Vue
 [[file:+frameworks/vue/README.org][+frameworks/vue/README.org]]
