@@ -1,9 +1,9 @@
-;;; layers.el --- react Layer layers File for Spacemacs
+;;; layers.el --- svelte Layer layers File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
-;; Author: Thanh Vuong <thanhvg@gmail.com>
-;; URL: https://github.com/thanhvg
+;; Author: Marco Süß <msuess@mailbox.org>
+;; URL: https://github.com/msuess
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -20,5 +20,8 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 (configuration-layer/declare-layers '(node html prettier javascript))
+
+(when (and (boundp 'svelte-backend)
+           (eq svelte-backend 'lsp))
+  (configuration-layer/declare-layer-dependencies '(lsp)))

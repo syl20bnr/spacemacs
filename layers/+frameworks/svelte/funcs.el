@@ -2,8 +2,8 @@
 ;;
 ;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
-;; Author: Thanh Vuong <thanhvg@gmail.com>
-;; URL: https://github.com/thanhvg
+;; Author: Marco Süß <msuess@mailbox.org>
+;; URL: https://github.com/msuess
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -23,33 +23,34 @@
 
 
 ;; backend
+(defun spacemacs//svelte-setup-company ()
+  "Conditionally setup company based on backend."
+  (pcase svelte-backend
+    ('dumb
+     (spacemacs|add-company-backends :backends (company-web-html company-css company-files company-dabbrev)
+                                     :modes svelte-mode))
+    ('lsp
+     (spacemacs|add-company-backends
+       :backends company-capf
+       :modes svelte-mode))))
+
 (defun spacemacs//svelte-setup-backend ()
   "Conditionally setup svelte backend."
   (pcase svelte-backend
     ('dumb (spacemacs//svelte-setup-dumb))
     ('lsp (spacemacs//svelte-setup-lsp))))
 
-(defun spacemacs//svelte-setup-company ()
-  "Conditionally setup company based on backend."
-  (when (eq svelte-backend 'dumb)
-    (spacemacs//svelte-setup-dumb-company)))
-
 
 ;; lsp
 (defun spacemacs//svelte-setup-lsp ()
   "Setup lsp backend."
-  (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        ;; error checking from lsp langserver sucks, turn it off
-        ;; so eslint won't be overriden
-        (setq-local lsp-diagnostics-provider :none)
-        (lsp-deferred))
-    (message (concat "`lsp' layer is not installed, "
-                     "please add `lsp' layer to your dotfile."))))
+  ;; error checking from lsp langserver sucks, turn it off
+  ;; so eslint won't be overriden
+  (setq-local lsp-diagnostics-provider :none)
+  (lsp-deferred))
 
 
 ;; dumb
-
 (defun spacemacs//svelte-setup-dumb ()
   (setq imenu-generic-expression '(("html" "^<template>$" 0)
                                    ("js" "^<script>$" 0)
@@ -64,12 +65,6 @@
                                    ("js" "^\\s-*\\(props\\):\\s-?{" 1)
                                    ("css" "^<css>$" 0))
         imenu-create-index-function #'imenu-default-create-index-function))
-
-(defun spacemacs//svelte-setup-dumb-company ()
-  (spacemacs|add-company-backends :backends (company-web-html company-css company-files company-dabbrev)
-                                  :modes svelte-mode
-                                  :variables company-minimum-prefix-length 2)
-  (company-mode))
 
 
 ;; Others

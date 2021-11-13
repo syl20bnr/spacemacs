@@ -20,8 +20,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-
 (defconst svelte-packages
   '(web-mode
     add-node-modules-path
@@ -36,7 +34,7 @@
   (define-derived-mode svelte-mode web-mode "Svelte")
   (add-to-list 'auto-mode-alist '("\\.svelte\\'" . svelte-mode))
   (spacemacs/add-to-hook 'svelte-mode-hook '(spacemacs//svelte-setup-editor-style
-                                          spacemacs//svelte-setup-keybindings))
+                                             spacemacs//svelte-setup-keybindings))
   (add-hook 'svelte-mode-local-vars-hook #'spacemacs//svelte-setup-backend)
   (spacemacs//svelte-setup-transient-state))
 

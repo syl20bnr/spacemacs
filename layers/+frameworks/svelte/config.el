@@ -1,9 +1,9 @@
-;;; config.el --- vue layer config file for Spacemacs. -*- lexical-binding: t -*-
+;;; config.el --- svelte layer config file for Spacemacs. -*- lexical-binding: t -*-
 ;;
 ;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
-;; Author: Thanh Vuong <thanhvg@gmail.com>
-;; URL: https://github.com/thanhvg
+;; Author: Marco Süß <msuess@mailbox.org>
+;; URL: https://github.com/msuess
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -21,8 +21,11 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+;; Variables
 
-(defvar svelte-backend 'dumb
-  "The backend to use for IDE features. Possible values are `dumb' and `lsp'.")
+(defvar svelte-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'dump)
+  "The backend to use for IDE features.
+Possible values are `dump' and `lsp'.
+If `nil' then `dump' is the default backend unless `lsp' layer is used")
 
 (spacemacs|define-jump-handlers svelte-mode)
