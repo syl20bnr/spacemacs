@@ -255,11 +255,11 @@
     (embark-collect-mode . consult-preview-at-point-mode)))
 
 (defun compleseus/init-orderless ()
-  (use-package orderless)
+  (use-package orderless
   :init
   (setq completion-styles '(basic partial-completion orderless)
         completion-category-defaults nil
-        completion-category-overrides '((file (styles . (partial-completion))))))
+        completion-category-overrides '((file (styles . (partial-completion)))))))
 
 (defun compleseus/init-selectrum ()
   (use-package selectrum
