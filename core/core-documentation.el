@@ -281,10 +281,11 @@ preprocessors for the exported .org files."
 (defun spacemacs/publish-doc ()
   "Publish the documentation to doc/export/."
   (interactive)
+  (make-directory (concat spacemacs-cache-directory ".org-timestamps") t)
   (advice-add 'org-html-toc :filter-return #'spacemacs//format-toc)
   (advice-add 'org-html-template :filter-return #'spacemacs//format-content)
   (advice-add 'org-html-publish-to-html :around #'spacemacs//pub-doc-html-advice)
-  (let* ((org-mode-hook '())
+  (let* ((org-mode-hook (remove 'spacemacs//evil-org-mode org-mode-hook))
          (header
           "<link rel=\"stylesheet\" type=\"text/css\"
                  href=\"http://www.pirilampo.org/styles/readtheorg/css/htmlize.css\"/>
