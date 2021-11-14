@@ -173,10 +173,14 @@ daemon. To start the notification daemon automatically on Spacemacs startup, set
 the variable =org-start-notification-daemon-on-startup= to =t= as shown in the
 code snippet above.
 
-Documentation for how org-wild-notifier can be configured is provided [[https://github.com/akhramov/org-wild-notifier.el#configuration][here]]
+Check the [[https://github.com/akhramov/org-wild-notifier.el#configuration][documentation for how org-wild-notifier can be configured]]
 (org-wild-notifier uses the [[https://melpa.org/#/alert][alert]] package for showing notifications. On
 GNU/linux and Windows, using alert's [[https://github.com/jwiegley/alert#builtin-alert-styles][notifications]] style is recommended. Note
-also [[https://github.com/jwiegley/alert/pull/94][this issue]]).
+also [[https://github.com/jwiegley/alert/pull/94][this issue]]). Add [[https://github.com/jwiegley/alert#builtin-alert-styles][your preferred alert style]] to =dotspacemacs/user-config= with:
+
+#+BEGIN_SRC emacs-lisp
+(setq alert-default-style 'notifications)
+#+END_SRC
 
 Press =M-S RET= to enter a todo headline and then press =, d t= to add a
 timestamp to the headline (using =, d t= requires the =diary-file= variable to
