@@ -179,7 +179,7 @@ GNU/linux and Windows, using alert's [[https://github.com/jwiegley/alert#builtin
 also [[https://github.com/jwiegley/alert/pull/94][this issue]]). Add [[https://github.com/jwiegley/alert#builtin-alert-styles][your preferred alert style]] to =dotspacemacs/user-config= with:
 
 #+BEGIN_SRC emacs-lisp
-(setq alert-default-style 'notifications)
+  (setq alert-default-style 'notifications)
 #+END_SRC
 
 Press =M-S RET= to enter a todo headline and then press =, d t= to add a
