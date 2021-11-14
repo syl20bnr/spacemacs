@@ -11,6 +11,9 @@
 ##
 ## License: GPLv3
 
+## TODO: Figure out why it doesn't get created automatically
+mkdir -p ~/.emacs.d/.cache/.org-timestamps
+
 emacs -batch \
       -l ~/.emacs.d/init.el \
       -l ~/.emacs.d/core/core-documentation.el \
