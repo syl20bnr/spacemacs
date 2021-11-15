@@ -122,7 +122,11 @@ See `spacemacs//fetch-docs-from-root'"
 
 (defun spacemacs//format-content (&rest r)
   (let* ((content (car r))
-         (div-string "<div id=\"content\">")
+         ;; FIXME:  This string has changed and we got a hard to catch bug
+         ;;         Total number of times we got owned by the div: 1
+         ;;         Increase the counter next time or find a better way to look
+         ;;         up beginning of content.
+         (div-string "<div id=\"content\" class=\"content\">")
          ;; onclick below tries to send user to the same path but at a different domain
          ;; the href attribute is a fallback in case javascript is disabled
          (doc-warning "<div class=\"admonition warning\">
@@ -137,7 +141,7 @@ onclick=\"location='https://www.spacemacs.org'+location.pathname+location.search
          (toc-string "<div id=\"toggle-sidebar\"><a href=\"#table-of-contents\"><h2>Table of Contents</h2></a></div>")
          (has-toc (s-index-of "Table of Contents" content))
          (beginning-of-content-div-pos (+ (length div-string)
-                                          (s-index-of div-string content)))
+                                          (s-index-of div-string content t)))
          (beginning-of-content (substring content
                                           0 beginning-of-content-div-pos))
          (rest-of-content (substring content beginning-of-content-div-pos)))
@@ -284,7 +288,7 @@ preprocessors for the exported .org files."
   (advice-add 'org-html-toc :filter-return #'spacemacs//format-toc)
   (advice-add 'org-html-template :filter-return #'spacemacs//format-content)
   (advice-add 'org-html-publish-to-html :around #'spacemacs//pub-doc-html-advice)
-  (let* ((org-mode-hook (remove 'spacemacs//evil-org-mode org-mode-hook))
+  (let* ((org-mode-hook nil)
          (header
           "<link rel=\"stylesheet\" type=\"text/css\"
                  href=\"http://www.pirilampo.org/styles/readtheorg/css/htmlize.css\"/>
