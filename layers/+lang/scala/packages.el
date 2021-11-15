@@ -58,7 +58,10 @@
       (spacemacs/declare-prefix-for-mode 'scala-mode "mg" "goto")
       (spacemacs/set-leader-keys-for-major-mode 'scala-mode
         "b." 'sbt-hydra
-        "bb" 'sbt-command))))
+        "bb" 'sbt-command
+        "bc" #'spacemacs/scala-sbt-compile
+        "bt" #'spacemacs/scala-sbt-test
+        "b=" #'spacemacs/scala-sbt-scalafmt-all))))
 
 (defun scala/init-scala-mode ()
   (use-package scala-mode
