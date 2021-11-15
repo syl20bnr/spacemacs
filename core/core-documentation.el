@@ -140,8 +140,9 @@ onclick=\"location='https://www.spacemacs.org'+location.pathname+location.search
 </div>")
          (toc-string "<div id=\"toggle-sidebar\"><a href=\"#table-of-contents\"><h2>Table of Contents</h2></a></div>")
          (has-toc (s-index-of "Table of Contents" content))
-         (beginning-of-content-div-pos (+ (length div-string)
-                                          (s-index-of div-string content t)))
+         (indx-of-div-str (or (s-index-of div-string content t)
+                              (signal 'search-failed "Can't find content div")))
+         (beginning-of-content-div-pos (+ (length div-string) indx-of-div-str))
          (beginning-of-content (substring content
                                           0 beginning-of-content-div-pos))
          (rest-of-content (substring content beginning-of-content-div-pos)))
