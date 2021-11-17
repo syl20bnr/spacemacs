@@ -11,6 +11,7 @@
   - [[#advanced-buffer-information][Advanced buffer information]]
   - [[#icons][Icons]]
 - [[#key-bindings][Key bindings]]
+  - [[#markunmark-candidates][Mark/unmark candidates]]
   - [[#transient-state][Transient state]]
   - [[#colorsfaces][Colors/Faces]]
   - [[#search-files-with-ivy][Search files with ivy]]
@@ -116,10 +117,17 @@ Some useful key bindings are presented in the following table.
 | ~<ESC>~     | close minibuffer                                                                                                                                    |
 | ~C-M-k~     | kill buffer (in =ivy-switch-buffer= (~SPC b b~))                                                                                                    |
 | ~C-M-k~     | kill buffer (in =ivy-reverse-i-search= (~C-r~ at a prompt))                                                                                         |
+** Mark/unmark candidates
+
+| Key binding | Description                                             |
+|-------------+---------------------------------------------------------|
+| ~C-.~       | Mark candidate and move to next line                    |
+| ~C ,~       | Unmark the selected candidate and move to the next one. |
+| ~C-<~       | Move to the previous candidate and unmark it.           |
+| ~C->~       | Toggle mark for all narrowed candidates.                |
 
 ** Transient state
-Press ~M-SPC~ (~s-M-SPC~ [[https://github.com/syl20bnr/spacemacs/blob/cb48ec74c1f401bd2945760799633c0e81e69088/doc/CONVENTIONS.org#transient-state][on macOS]]) anytime in Ivy to get into the transient state. Additional actions
-are found in [[https://oremacs.com/swiper/#minibuffer-key-bindings][the Hydra section of the official manual]].
+Press ~M-SPC~ (~s-M-SPC~ [[https://github.com/syl20bnr/spacemacs/blob/cb48ec74c1f401bd2945760799633c0e81e69088/doc/CONVENTIONS.org#transient-state][on macOS]]) or ~C-o~ anytime in Ivy to get into the transient state. Additional actions are found in [[https://oremacs.com/swiper/#minibuffer-key-bindings][the Hydra section of the official manual]].
 
 | Key binding | Description                                             |
 |-------------+---------------------------------------------------------|
