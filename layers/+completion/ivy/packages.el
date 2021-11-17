@@ -262,6 +262,10 @@
       (define-key ivy-minibuffer-map [escape] 'minibuffer-keyboard-quit)
       (define-key ivy-minibuffer-map (kbd "M-SPC") 'hydra-ivy/body)
       (define-key ivy-minibuffer-map (kbd "C-<return>") #'ivy-alt-done)
+      (define-key ivy-minibuffer-map (kbd "C-.") #'ivy-mark)
+      (define-key ivy-minibuffer-map (kbd "C-,") #'ivy-unmark)
+      (define-key ivy-minibuffer-map (kbd "C-<") #'ivy-unmark-backward)
+      (define-key ivy-minibuffer-map (kbd "C->") #'ivy-toggle-marks)
       (define-key ivy-minibuffer-map (kbd "C-SPC") #'ivy-call-and-recenter)
 
       (when ivy-ret-visits-directory
