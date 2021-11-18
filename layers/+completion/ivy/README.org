@@ -117,6 +117,7 @@ Some useful key bindings are presented in the following table.
 | ~<ESC>~     | close minibuffer                                                                                                                                    |
 | ~C-M-k~     | kill buffer (in =ivy-switch-buffer= (~SPC b b~))                                                                                                    |
 | ~C-M-k~     | kill buffer (in =ivy-reverse-i-search= (~C-r~ at a prompt))                                                                                         |
+
 ** Mark/unmark candidates
 
 | Key binding | Description                                             |
