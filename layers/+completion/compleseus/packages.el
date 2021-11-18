@@ -341,6 +341,7 @@
   (use-package vertico-repeat
     :after vertico
     :init
+    (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
     (spacemacs/set-leader-keys
       "rl" 'vertico-repeat
       "sl" 'vertico-repeat)))
