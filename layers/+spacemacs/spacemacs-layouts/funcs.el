@@ -959,10 +959,14 @@ containing the buffer."
   (interactive "P")
   (let ((project (completing-read
                   "Switch to Project Perspective: "
+                  projectile-known-projects
+                  nil
+                  nil
+                  nil
+                  nil
                   (if (projectile-project-p)
-                      (cons (abbreviate-file-name (projectile-project-root))
-                            (projectile-relevant-known-projects))
-                    projectile-known-projects))))
+                      (abbreviate-file-name (projectile-project-root))
+                    nil))))
     (spacemacs||switch-project-persp project
       (projectile-switch-project-by-name project arg))))
 
