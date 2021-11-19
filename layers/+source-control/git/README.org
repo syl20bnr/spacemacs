@@ -388,17 +388,17 @@ In a =magit-status= buffer (~SPC g s~):
 
 | Key binding | Description                                               |
 |-------------+-----------------------------------------------------------|
-| ~b Y~       | create branch from pull-request                           |
-| ~b y~       | create and check out branch from pull-request             |
-| ~F f~       | fetch issues and pull-requests                            |
-| ~F n~       | fetch notifications                                       |
-| ~F p~       | create pull-request                                       |
-| ~F i~       | create issue                                              |
-| ~F F~       | list notifications                                        |
-| ~F P~       | list pull-requests                                        |
-| ~F I~       | list issues                                               |
-| ~p y~       | pull pull-requests and issues for the current repository  |
-| ~p Y~       | pull all notifications for the current repository's forge |
+| ~b N~       | create branch from pull-request                           |
+| ~b F~       | create and check out branch from pull-request             |
+| ~@ f f~     | fetch issues and pull-requests                            |
+| ~@ f n~     | fetch notifications                                       |
+| ~@ c p~     | create pull-request                                       |
+| ~@ c i~     | create issue                                              |
+| ~@ l n~     | list notifications                                        |
+| ~@ l p~     | list pull-requests                                        |
+| ~@ l i~     | list issues                                               |
+| ~f n~       | pull pull-requests and issues for the current repository  |
+| ~f N~       | pull all notifications for the current repository's forge |
 
 In a =forge-topic= buffer:
 
