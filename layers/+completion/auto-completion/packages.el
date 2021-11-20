@@ -335,7 +335,9 @@
         (when auto-completion-private-snippets-directory
           (if (listp auto-completion-private-snippets-directory)
               (setq yas-snippet-dirs (append yas-snippet-dirs auto-completion-private-snippets-directory))
-            (add-to-list 'yas-snippet-dirs auto-completion-private-snippets-directory))))
+            (add-to-list 'yas-snippet-dirs auto-completion-private-snippets-directory)))
+        ;; initialize again yasnippet-snippets, see PR #15171
+        (yasnippet-snippets-initialize))
       (spacemacs|add-toggle yasnippet
         :mode yas-minor-mode
         :documentation "Enable snippets."
