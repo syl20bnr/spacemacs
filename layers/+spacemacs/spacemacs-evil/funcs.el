@@ -73,6 +73,17 @@ Otherwise, revert to the default behavior (i.e. enable `evil-insert-state')."
       (evil-escape-mode t)
     (evil-escape-mode -1)))
 
+(defun evil-redirect-digit-argument (_ _ _)
+  "This is a temporary fix.
+This is a temporary fix until the PR at URL
+ `https://github.com/syl20bnr/evil-iedit-state/pull/37' gets
+ merged. Please remove this function as soon as the mentioned PR
+ gets merged."
+  (message "This is a temporary fix until
+https://github.com/syl20bnr/evil-iedit-state/pull/37 gets merged.
+Please remove this function as soon as the mentioned PR gets
+merged."))
+
 
 ;; vi-tilde-fringe
 
