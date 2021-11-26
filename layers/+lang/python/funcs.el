@@ -133,7 +133,7 @@
 If the executable is a system executable and not in the same path
 as the pyenv version then also return nil. This works around https://github.com/pyenv/pyenv-which-ext
 "
-  (if (executable-find "pyenv")
+  (if (and (not (and (boundp 'pyvenv-virtual-env) pyvenv-virtual-env)) (executable-find "pyenv"))
       (progn
         (let ((pyenv-string (shell-command-to-string (concat "pyenv which " command)))
               (pyenv-version-names (split-string (string-trim (shell-command-to-string "pyenv version-name")) ":"))
