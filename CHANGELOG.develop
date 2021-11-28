@@ -437,6 +437,7 @@ In org-agenda-mode
 - yang (thanks to Christian Hopps)
 - zig (thanks to Michael Hauser-Raspe)
 **** Misc
+- tree-sitter
 - copy-as-format (thanks to Ruslan Kamashev)
 - dtrt-indent (thanks to Kevin Doherty)
 - ietf (thanks to Christian Hopps and Robby O'Connor)
