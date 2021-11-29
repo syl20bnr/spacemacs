@@ -49,8 +49,7 @@
 (defun tree-sitter/init-tree-sitter-indent ()
   (use-package tree-sitter-indent
     :if tree-sitter-indent-enable
-    ;; missing autoload https://codeberg.org/FelipeLema/tree-sitter-indent.el/pulls/15
-    ;; :defer t
+    :defer t
     :init
     (progn
       (add-hook 'rust-mode-hook #'tree-sitter-indent-mode))))
