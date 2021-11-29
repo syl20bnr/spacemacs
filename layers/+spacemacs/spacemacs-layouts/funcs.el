@@ -101,7 +101,7 @@ Cancels autosave on exiting perspectives mode."
     (persp-switch spacemacs--last-selected-layout)))
 
 (defun spacemacs-layouts/non-restricted-buffer-list-helm ()
-  "Show all buffers accross all layouts."
+  "Show all buffers across all layouts."
   (interactive)
   (let ((helm-buffer-list-reorder-fn #'helm-buffers-reorder-buffer-list))
     (helm-mini)))
@@ -112,7 +112,7 @@ Cancels autosave on exiting perspectives mode."
     (ivy-switch-buffer)))
 
 (defun spacemacs-layouts//advice-with-persp-buffer-list (orig-fun &rest args)
-  "Advice to provide perp buffer list."
+  "Advice to provide persp buffer list."
   (with-persp-buffer-list () (apply orig-fun args)))
 
 
