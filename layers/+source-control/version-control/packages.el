@@ -20,20 +20,18 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-(setq version-control-packages
-      '(
-        browse-at-remote
-        (diff-hl            :toggle (eq 'diff-hl version-control-diff-tool))
-        diff-mode
-        evil-unimpaired
-        (git-gutter         :toggle (eq 'git-gutter version-control-diff-tool))
-        (git-gutter-fringe  :toggle (eq 'git-gutter version-control-diff-tool))
-        (git-gutter+        :toggle (eq 'git-gutter+ version-control-diff-tool))
-        (git-gutter-fringe+ :toggle (eq 'git-gutter+ version-control-diff-tool))
-        (smerge-mode :location built-in)
-        (vc :location built-in)))
-
+(defconst version-control-packages
+  '(
+    browse-at-remote
+    (diff-hl            :toggle (eq 'diff-hl version-control-diff-tool))
+    diff-mode
+    evil-unimpaired
+    (git-gutter         :toggle (eq 'git-gutter version-control-diff-tool))
+    (git-gutter-fringe  :toggle (eq 'git-gutter version-control-diff-tool))
+    (git-gutter+        :toggle (eq 'git-gutter+ version-control-diff-tool))
+    (git-gutter-fringe+ :toggle (eq 'git-gutter+ version-control-diff-tool))
+    (smerge-mode :location built-in)
+    (vc :location built-in)))
 
 (defun version-control/init-vc ()
   (use-package vc
@@ -96,7 +94,6 @@
         "H" 'vc-annotate-toggle-annotation-visibility
         "a" 'vc-annotate-revision-at-line
         "p" 'vc-annotate-revision-previous-to-line))))
-
 
 (defun version-control/init-diff-mode ()
   (use-package diff-mode
@@ -172,7 +169,10 @@
             git-gutter:handled-backends '(git hg bzr svn)
             git-gutter:hide-gutter t))
     :config
-    (spacemacs|hide-lighter git-gutter-mode)))
+    (spacemacs|hide-lighter git-gutter-mode)
+    ;; Do not activate git-gutter in pdf-view-mode, see #15106
+    (when (configuration-layer/layer-used-p 'pdf)
+      (add-to-list 'git-gutter:disabled-modes 'pdf-view-mode))))
 
 (defun version-control/init-git-gutter-fringe ()
   (use-package git-gutter-fringe
@@ -208,7 +208,6 @@
         ".XXX..."
         "..X...."))))
 
-
 (defun version-control/init-git-gutter+ ()
   (use-package git-gutter+
     :if (eq version-control-diff-tool 'git-gutter+)
@@ -228,8 +227,10 @@
        git-gutter+-hide-gutter t))
     ;; identify magit changes
     :config
-    (spacemacs|hide-lighter git-gutter+-mode)))
-
+    (spacemacs|hide-lighter git-gutter+-mode)
+    ;; Do not activate git-gutter in pdf-view-mode, see #15106
+    (when (configuration-layer/layer-used-p 'pdf)
+      (add-to-list 'git-gutter+-disabled-modes 'pdf-view-mode))))
 
 (defun version-control/init-git-gutter-fringe+ ()
   (use-package git-gutter-fringe+
@@ -264,8 +265,6 @@
         "XX.XX.."
         ".XXX..."
         "..X...."))))
-
-
 
 (defun version-control/init-smerge-mode ()
   (use-package smerge-mode
