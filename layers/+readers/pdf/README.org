@@ -213,8 +213,9 @@ Note that you can use also typical Vim keys such as ~j~ and ~G~.
 
 ** Occur mode
 
-| Key binding | Description    |
-|-------------+----------------|
-| ~q~         | Quit           |
-| ~g~         | Refresh buffer |
-| ~r~         | Refresh buffer |
+| Key binding | Description                                       |
+|-------------+---------------------------------------------------|
+| ~q~         | Quit                                              |
+| ~g~         | Refresh buffer                                    |
+| ~r~         | Refresh buffer                                    |
+| ~SPC m t f~ | Toggle follow mode (next-error-follow-minor-mode) |
