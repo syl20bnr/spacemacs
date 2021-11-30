@@ -658,7 +658,7 @@ Please see the [[https://github.com/Somelauw/evil-org-mode/blob/master/doc/keyth
 
 *Insert state*
 In evil insert-state, use the introspection functions under =M-m
-h d= and =M-RET= to discover keybindings. The following table shows keybindings
+h d= and =M-RET= to discover key bindings. The following table shows keybindings
 for some of the most frequently used commands
 
 | Key binding   | Description                                       |
@@ -667,6 +667,7 @@ for some of the most frequently used commands
 | ~M-h/l~       | org-meta-left/right (e.g. promote/demote heading) |
 
 *Normal state*
+
 | Key binding   | Description                     |
 |---------------+---------------------------------|
 | ~gj~ / ~gk~   | Next/previous element (heading) |
@@ -783,34 +784,34 @@ are also available.
 | ~SPC m x o~ | org-open-at-point |
 
 ** Babel / Source Blocks
-Besides the keybindings mentioned here it is recommended to use the
-[[https://develop.spacemacs.org/layers/+completion/auto-completion/README.html][auto-completion layer]] and its [[https://develop.spacemacs.org/layers/+completion/auto-completion/README.html#yasnippet][yasnippet keybindings]] in particular.
+Besides the key bindings mentioned here it is recommended to use the
+[[https://develop.spacemacs.org/layers/+completion/auto-completion/README.html][auto-completion layer]] and its [[https://develop.spacemacs.org/layers/+completion/auto-completion/README.html#yasnippet][yasnippet key bindings]] in particular.
 
-| Key binding | Description                                    |
-|-------------+------------------------------------------------|
-| ~SPC m b .~ | Enter Babel Transient State                    |
-| ~SPC m b a~ | org-babel-sha1-hash                            |
-| ~SPC m b b~ | org-babel-execute-buffer                       |
-| ~SPC m b c~ | org-babel-check-src-block                      |
-| ~SPC m b d~ | org-babel-demarcate-block                      |
-| ~SPC m b e~ | org-babel-execute-maybe                        |
-| ~SPC m b f~ | org-babel-tangle-file                          |
-| ~SPC m b g~ | org-babel-goto-named-src-block                 |
-| ~SPC m b i~ | org-babel-lob-ingest                           |
-| ~SPC m b I~ | org-babel-view-src-block-info                  |
-| ~SPC m b j~ | org-babel-insert-header-arg                    |
-| ~SPC m b l~ | org-babel-load-in-session                      |
-| ~SPC m b n~ | org-babel-next-src-block                       |
-| ~SPC m b o~ | org-babel-open-src-block-result                |
-| ~SPC m b p~ | org-babel-previous-src-block                   |
-| ~SPC m b r~ | org-babel-goto-named-result                    |
-| ~SPC m b s~ | org-babel-execute-subtree                      |
-| ~SPC m b t~ | org-babel-tangle                               |
-| ~SPC m b u~ | org-babel-goto-src-block-head                  |
-| ~SPC m b v~ | org-babel-expand-src-block                     |
-| ~SPC m b x~ | org-babel-do-key-sequence-in-edit-buffer       |
-| ~SPC m b z~ | org-babel-switch-to-session                    |
-| ~SPC m b Z~ | org-babel-switch-to-session-with-code          |
+| Key binding | Description                              |
+|-------------+------------------------------------------|
+| ~SPC m b .~ | Enter Babel Transient State              |
+| ~SPC m b a~ | org-babel-sha1-hash                      |
+| ~SPC m b b~ | org-babel-execute-buffer                 |
+| ~SPC m b c~ | org-babel-check-src-block                |
+| ~SPC m b d~ | org-babel-demarcate-block                |
+| ~SPC m b e~ | org-babel-execute-maybe                  |
+| ~SPC m b f~ | org-babel-tangle-file                    |
+| ~SPC m b g~ | org-babel-goto-named-src-block           |
+| ~SPC m b i~ | org-babel-lob-ingest                     |
+| ~SPC m b I~ | org-babel-view-src-block-info            |
+| ~SPC m b j~ | org-babel-insert-header-arg              |
+| ~SPC m b l~ | org-babel-load-in-session                |
+| ~SPC m b n~ | org-babel-next-src-block                 |
+| ~SPC m b o~ | org-babel-open-src-block-result          |
+| ~SPC m b p~ | org-babel-previous-src-block             |
+| ~SPC m b r~ | org-babel-goto-named-result              |
+| ~SPC m b s~ | org-babel-execute-subtree                |
+| ~SPC m b t~ | org-babel-tangle                         |
+| ~SPC m b u~ | org-babel-goto-src-block-head            |
+| ~SPC m b v~ | org-babel-expand-src-block               |
+| ~SPC m b x~ | org-babel-do-key-sequence-in-edit-buffer |
+| ~SPC m b z~ | org-babel-switch-to-session              |
+| ~SPC m b Z~ | org-babel-switch-to-session-with-code    |
 
 *** Org Babel Transient State
 Use ~SPC m b .~ to enter a transient state for quick source block navigation and
