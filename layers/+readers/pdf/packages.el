@@ -132,7 +132,10 @@
         "g"              'pdf-occur-revert-buffer-with-args
         "r"              'pdf-occur-revert-buffer-with-args
         "*"              'spacemacs/enter-ahs-forward
-        "?"              'evil-search-backward))))
+        "?"              'evil-search-backward)
+      (spacemacs/declare-prefix-for-mode 'pdf-occur-buffer-mode "mt" "toggles")
+      (spacemacs/set-leader-keys-for-major-mode 'pdf-occur-buffer-mode
+        "tf" 'next-error-follow-minor-mode))))
 
 (defun pdf/init-pdf-view-restore ()
   (use-package pdf-view-restore
