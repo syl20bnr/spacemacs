@@ -1498,7 +1498,7 @@ This layer adds support for the [[https://coq.inria.fr/][Coq]] proof assistant (
 Features:
 - Syntax highlighting
 - Syntax-checking
-- Auto-completion
+- Auto-completion (requires the [[https://develop.spacemacs.org/layers/+completion/auto-completion/README.html][auto-completion layer]] to be installed)
 - Debugging of mathematical proofs from within Emacs using a special proof layout
 - Replacement of certain constants with the correct mathematical signs
 - Inserting of certain preconfigured proof elements
