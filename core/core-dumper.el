@@ -170,7 +170,7 @@ When universal prefix argument is passed then display the process buffer."
            :command
            (list dotspacemacs-emacs-pdumper-executable-file
                  "--batch"
-                 "-l" (concat spacemacs-start-directory "dump-init.el")
+                 "-l" (concat spacemacs-start-directory "dump-init")
                  "-eval" (concat "(dump-emacs-portable \"" dump-file-temp "\")"))))
     (when (equal '(4) display-buffer)
       (pop-to-buffer spacemacs-dump-buffer-name))))
