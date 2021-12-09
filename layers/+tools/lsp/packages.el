@@ -25,6 +25,7 @@
   '(
     lsp-mode
     (lsp-ui :toggle lsp-use-lsp-ui)
+    (consult-lsp :requires consult)
     (helm-lsp :requires helm)
     (lsp-ivy :requires ivy)
     (lsp-treemacs :requires treemacs)
@@ -67,13 +68,18 @@
        "k" #'lsp-ui-peek--select-prev
        "l" #'lsp-ui-peek--select-next-file))))
 
-
-
 (defun lsp/init-helm-lsp ()
   (use-package helm-lsp :defer t))
 
 (defun lsp/init-lsp-ivy ()
   (use-package lsp-ivy :defer t))
+
+(defun lsp/init-consult-lsp ()
+  (use-package consult-lsp
+    :defer t
+    :after (lsp-mode)
+    :config
+     (consult-lsp-marginalia-mode 1)))
 
 (defun lsp/init-lsp-treemacs ()
   (use-package lsp-treemacs :defer t))
