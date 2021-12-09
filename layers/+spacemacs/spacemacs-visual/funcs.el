@@ -25,7 +25,7 @@
 ;; ansi-colors
 
 (defun spacemacs-visual//compilation-buffer-apply-ansi-colors ()
-  (when (eq major-mode 'compilation-mode)
+  (when (memq 'compilation-mode (parent-mode-list major-mode))
     (let ((inhibit-read-only t))
       (goto-char compilation-filter-start)
       (ansi-color-apply-on-region (line-beginning-position) (point-max)))))
