@@ -53,7 +53,7 @@
                 ("a" . "actions")
                 ("G" . "peek")))
     (which-key-add-keymap-based-replacements lsp-command-map (car it) (cdr it)))
-  ;; we still have to bind keys for `lsp-ivy' and `helm-lsp'
+  ;; we still have to bind keys for `lsp-ivy', `consult-lsp' and `helm-lsp'
   (cond
    ((configuration-layer/package-usedp 'ivy)
     (spacemacs/lsp-define-key lsp-command-map
@@ -63,7 +63,14 @@
    ((configuration-layer/package-usedp 'helm)
     (spacemacs/lsp-define-key lsp-command-map
                               "gs" #'helm-lsp-workspace-symbol
-                              "gS" #'helm-lsp-global-workspace-symbol))))
+                              "gS" #'helm-lsp-global-workspace-symbol))
+   ((configuration-layer/package-usedp 'consult)
+    (define-key lsp-mode-map
+      [remap lsp-treemacs-errors-list]
+      #'consult-lsp-diagnostics)
+    (spacemacs/lsp-define-key lsp-command-map
+                              "gs" #'consult-lsp-symbols
+                              "gf" #'consult-lsp-file-symbols))))
 
 (defun spacemacs/lsp-bind-keys ()
   "Define key bindings for the lsp minor mode."
@@ -352,8 +359,8 @@ EXTRA is an additional parameter that's passed to the LSP function"
                (setq line l1 col c1)
                (push `((,point0 . ,point1) . ,w) candidates)))
     (avy-with avy-document-symbol
-      (avy--process candidates
-                    (avy--style-fn avy-style)))))
+              (avy--process candidates
+                            (avy--style-fn avy-style)))))
 
 (defun spacemacs/lsp-avy-goto-word ()
   (interactive)
