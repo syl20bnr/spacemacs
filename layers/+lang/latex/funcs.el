@@ -60,6 +60,7 @@
   (when latex-view-with-pdf-tools
     (if (configuration-layer/layer-used-p 'pdf)
         (progn
+          (require 'tex)
           (setf (alist-get 'output-pdf TeX-view-program-selection) '("PDF Tools"))
           (when latex-view-pdf-in-split-window
             (require 'pdf-sync)
