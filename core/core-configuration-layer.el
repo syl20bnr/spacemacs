@@ -2160,12 +2160,19 @@ to update."
                          "%s\n") x) t))
             (sort (mapcar 'symbol-name update-packages) 'string<))
       (unless no-confirmation
-        (let ((answer (let ((read-answer-short t))
-                        (read-answer (format "Do you want to update %s package(s)? "
-                                             upgrade-count)
-                                     '(("yes"  ?y "upgrade all listed packages")
-                                       ("some" ?s "select packages to upgrade")
-                                       ("no"   ?n "don't upgrade packages"))))))
+        (let ((answer (if (version<= emacs-version "26.1")
+                          (if (and (not no-confirmation)
+                                   (not (yes-or-no-p
+                                         (format "Do you want to update %s package(s)? "
+                                                 upgrade-count))))
+                              "no"
+                            "yes")
+                        (let ((read-answer-short t))
+                          (read-answer (format "Do you want to update %s package(s)? "
+                                               upgrade-count)
+                                       '(("yes"  ?y "upgrade all listed packages")
+                                         ("some" ?s "select packages to upgrade")
+                                         ("no"   ?n "don't upgrade packages")))))))
           (if (string= answer "no")
               (progn (spacemacs-buffer/append "Packages update has been cancelled.\n" t)
                      (user-error "Packages update has been cancelled.\n"))
