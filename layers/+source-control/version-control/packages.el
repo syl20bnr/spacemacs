@@ -183,30 +183,7 @@
        (with-eval-after-load 'git-gutter
          (require 'git-gutter-fringe)))
       (setq git-gutter-fr:side (if (eq version-control-diff-side 'left)
-                                   'left-fringe 'right-fringe)))
-    :config
-    (progn
-      ;; custom graphics that works nice with half-width fringes
-      (fringe-helper-define 'git-gutter-fr:added nil
-        "..X...."
-        "..X...."
-        "XXXXX.."
-        "..X...."
-        "..X....")
-
-      (fringe-helper-define 'git-gutter-fr:deleted nil
-        "......."
-        "......."
-        "XXXXX.."
-        "......."
-        ".......")
-
-      (fringe-helper-define 'git-gutter-fr:modified nil
-        "..X...."
-        ".XXX..."
-        "XX.XX.."
-        ".XXX..."
-        "..X...."))))
+                                   'left-fringe 'right-fringe)))))
 
 (defun version-control/init-git-gutter+ ()
   (use-package git-gutter+
