@@ -77,24 +77,24 @@
                          language))
              ;; LanguageTool format for language codes is inconsistent
              (langtool-code (cadr (assoc locale
-                                         '(("cs_CZ" nil)
-                                           ("da_DK" "da-DK")
-                                           ("de_DE" "de")
-                                           ("en_GB" "en-GB")
-                                           ("en_US" "en-US")
-                                           ("eo" "eo")
-                                           ("es_ES" "es")
-                                           ("fi_FI" nil)
-                                           ("fr_FR" "fr")
-                                           ("he_IL" nil)
-                                           ("it_IT" "it")
-                                           ("nl_NL" "nl")
-                                           ("nn_NO" nil)
-                                           ("pl_PL" "pl-PL")
-                                           ("pt_BR" "pt-BR")
-                                           ("pt_PT" "pt-PT")
-                                           ("ru_RU" "ru-RU")
-                                           ("sk_SK" "sk-SK")
-                                           ("sl_SI" "sl-SI")
-                                           ("sv_SE" "sv"))))))
+                                         '(("es_ES" "es"
+                                            "en_US" "en-US"
+                                            "en_GB" "en-GB"
+                                            "pt_BR" "pt-BR"
+                                            "pt_PT" "pt-PT"
+                                            "ru_RU" "ru-RU"
+                                            "fr_FR" "fr"
+                                            "de_DE" "de"
+                                            "it_IT" "it"
+                                            "nl_NL" "nl"
+                                            "da_DK" "da-DK"
+                                            "pl_PL" "pl-PL"
+                                            "sk_SK" "sk-SK"
+                                            "sl_SI" "sl-SI"
+                                            "sv_SE" "sv"
+                                            "eo" "eo"
+                                            "cs_CZ" nil
+                                            "fi_FI" nil
+                                            "he_IL" nil
+                                            "nn_NO" nil))))))
         langtool-code))))
