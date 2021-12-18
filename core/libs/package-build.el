@@ -227,24 +227,25 @@ parses the first match group instead of STR."
   "Find the newest version in TAGS matching REGEXP.
 If optional REGEXP is nil, then `package-build-version-regexp'
 is used instead."
-  (let ((ret '(nil 0)))
-    (dolist (tag tags)
-      (string-match (or regexp package-build-version-regexp) tag)
-      (let ((version (ignore-errors (version-to-list (match-string 1 tag)))))
-        (when (and version (version-list-<= (cdr ret) version))
-          (setq ret (cons tag version))))
-      ;; Some version tags use "_" as version separator instead of
-      ;; the default ".", e.g. "1_4_5".  Check for valid versions
-      ;; again, this time using "_" as a `version-separator'.
-      ;; Since "_" is otherwise treated as a snapshot separator by
-      ;; `version-regexp-alist', we don't have to worry about the
-      ;; incorrect version list above `(1 -4 4 -4 5)' since it will
-      ;; always be treated as smaller by `version-list-<'.
-      (string-match (or regexp package-build-version-regexp) tag)
-      (let* ((version-separator "_")
-             (version (ignore-errors (version-to-list (match-string 1 tag)))))
-        (when (and version (version-list-<= (cdr ret) version))
-          (setq ret (cons tag version)))))
+  (let ((ret '(nil 0))
+        (regexp (or regexp package-build-version-regexp)))
+    (cl-flet ((match (regexp separator tag)
+                (let* ((version-string (and (string-match regexp tag)
+                                            (match-string 1 tag)))
+                       (version-seperator separator)
+                       (version (ignore-errors (version-to-list version-string))))
+                  (when (and version (version-list-<= (cdr ret) version))
+                    (setq ret (cons tag version))))))
+      (dolist (tag tags)
+        (match regexp "." tag)
+        ;; Some version tags use "_" as version separator instead of
+        ;; the default ".", e.g. "1_4_5".  Check for valid versions
+        ;; again, this time using "_" as a `version-separator'.
+        ;; Since "_" is otherwise treated as a snapshot separator by
+        ;; `version-regexp-alist', we don't have to worry about the
+        ;; incorrect version list above `(1 -4 4 -4 5)' since it will
+        ;; always be treated as smaller by `version-list-<'.
+        (match regexp "_" tag)))
     (and (car ret)
          (cons (car ret)
                (package-version-join (cdr ret))))))
