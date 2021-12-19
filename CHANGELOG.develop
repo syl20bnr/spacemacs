@@ -77,8 +77,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   Andriy Kmit)
 *** Breaking Changes
 **** Major
-- Support for Emacs 25 has been dropped, the minimal Emacs version is now
-  =26.1=.
+- Support for Emacs 25 or Emacs 26 has been dropped, the minimal Emacs version
+  is now =27.1=.
 **** Core
 - Change loading order of layers init functions. Previously the =pre-init=,
   =init= and =post-init= function were called in a row for each package. Now

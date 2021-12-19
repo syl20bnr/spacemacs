@@ -34,8 +34,7 @@
         (dired :location built-in)
         (dired-x :location built-in)
         (image-dired :location built-in)
-        (display-line-numbers :location built-in
-                              :toggle (version<= "26" emacs-version))
+        (display-line-numbers :location built-in)
         (electric-indent-mode :location built-in)
         (ediff :location built-in)
         (eldoc :location built-in)

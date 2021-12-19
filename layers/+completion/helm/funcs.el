@@ -656,5 +656,5 @@ to buffers)."
   "Helm M-x with fuzzy matching enabled"
   (interactive)
   (let ((completion-styles completion-styles))
-    (add-to-list 'completion-styles `,(if (version< emacs-version "27") 'helm-flex 'flex) t)
+    (add-to-list 'completion-styles 'flex t)
     (call-interactively 'helm-M-x)))
