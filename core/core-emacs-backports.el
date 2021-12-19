@@ -25,15 +25,4 @@
 
 (provide 'core-emacs-backports)
 
-(when (version< emacs-version "26.3")
-  ;; Hack to prevent TLS error with Emacs 26.1 and 26.2 and gnutls 3.6.4 and
-  ;; above see https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
-  (message (concat "Testing if your Emacs version %s and GnuTLS version "
-                   "need the TLS work-around...")
-           emacs-version)
-  (message "More info at https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341")
-  (unless (<= libgnutls-version 30603)
-    (message (concat "Your Emacs version %s and GnutTLS version %s "
-                     "need the work-around, applying it...")
-             emacs-version libgnutls-version)
-    (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")))
+;; currently there's no backports

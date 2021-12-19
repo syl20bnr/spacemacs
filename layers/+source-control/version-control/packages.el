@@ -292,7 +292,7 @@
         :dynamic-hint (spacemacs//smerge-ts-hint)
         :bindings
         ;; move
-        ("n" (if (version< emacs-version "27") (smerge-next) (smerge-vc-next-conflict)))
+        ("n" smerge-vc-next-conflict)
         ("N" smerge-prev)
         ("p" smerge-prev)
         ("j" evil-next-line)
