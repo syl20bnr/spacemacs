@@ -196,10 +196,11 @@ that directory."
   (interactive)
   (require 'counsel)
   (cl-letf* ((initial-input (if use-initial-input
-                                (if (region-active-p)
-                                    (buffer-substring-no-properties
-                                     (region-beginning) (region-end))
-                                  (thing-at-point 'symbol t))
+                                (rxt-quote-pcre
+                                 (if (region-active-p)
+                                     (buffer-substring-no-properties
+                                      (region-beginning) (region-end))
+                                   (or (thing-at-point 'symbol t) "")))
                               ""))
              (tool (catch 'tool
                      (dolist (tool tools)
