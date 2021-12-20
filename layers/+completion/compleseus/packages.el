@@ -250,13 +250,16 @@
     ;; same key binding as ivy-occur
     (define-key minibuffer-local-map (kbd "C-c C-o") #'embark-export)
     :config
-    (define-key embark-file-map "s" 'spacemacs/compleseus-search-from)))
-;; Hide the mode line of the Embark live/completions buffers
-;; (add-to-list 'display-buffer-alist
-;;              '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-;;                nil
-;;                (window-parameters (mode-line-format . none))))
+    (define-key embark-file-map "s" 'spacemacs/compleseus-search-from)
 
+    ;; which key integration setup
+    ;; https://github.com/oantolin/embark/wiki/Additional-Configuration#use-which-key-like-a-key-menu-prompt
+    (setq embark-indicators
+          '(spacemacs/embark-which-key-indicator
+            embark-highlight-indicator
+            embark-isearch-highlight-indicator))
+    (advice-add #'embark-completing-read-prompter
+                :around #'spacemacs/embark-hide-which-key-indicator)))
 
 (defun compleseus/init-embark-consult ()
   (use-package embark-consult
