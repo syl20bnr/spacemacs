@@ -957,18 +957,22 @@ containing the buffer."
 (defun spacemacs/compleseus-pers-switch-project (arg)
   "Select a project layout using consult."
   (interactive "P")
-  (let ((project (completing-read
-                  "Switch to Project Perspective: "
-                  projectile-known-projects
-                  nil
-                  nil
-                  nil
-                  nil
-                  (if (projectile-project-p)
-                      (abbreviate-file-name (projectile-project-root))
-                    nil))))
+  (let* ((current-project-maybe (if (projectile-project-p)
+                                    (abbreviate-file-name (projectile-project-root))
+                                  nil))
+         (project (completing-read
+                   "Switch to Project Perspective: "
+                   projectile-known-projects
+                   nil
+                   nil
+                   nil
+                   nil
+                   current-project-maybe)))
     (spacemacs||switch-project-persp project
-      (projectile-switch-project-by-name project arg))))
+      (let ((projectile-switch-project-action (if (string= project current-project-maybe)
+                                                  (lambda () nil)
+                                                projectile-switch-project-action)))
+        (projectile-switch-project-by-name project arg)))))
 
 
 ;; layout local variables
