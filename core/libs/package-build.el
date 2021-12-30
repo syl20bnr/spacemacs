@@ -232,7 +232,7 @@ is used instead."
     (cl-flet ((match (regexp separator tag)
                 (let* ((version-string (and (string-match regexp tag)
                                             (match-string 1 tag)))
-                       (version-seperator separator)
+                       (version-separator separator)
                        (version (ignore-errors (version-to-list version-string))))
                   (when (and version (version-list-<= (cdr ret) version))
                     (setq ret (cons tag version))))))
