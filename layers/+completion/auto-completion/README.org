@@ -14,13 +14,11 @@
   - [[#sort-results-by-usage][Sort results by usage]]
   - [[#disable-auto-completion-in-specific-layers][Disable auto-completion in specific layers]]
   - [[#enable-company-globally][Enable company globally]]
-  - [[#replacing-company-by-auto-complete][Replacing company by auto-complete]]
   - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
   - [[#completion-back-ends][Completion back ends]]
   - [[#improved-faces][Improved faces]]
 - [[#key-bindings-1][Key bindings]]
   - [[#company][Company]]
-  - [[#auto-complete][Auto-complete]]
   - [[#yasnippet][Yasnippet]]
   - [[#auto-yasnippet][Auto-yasnippet]]
 
@@ -28,7 +26,7 @@
 This layer adds auto-completion to all supported language layers.
 
 ** Features:
-- Support for code completion with [[http://company-mode.github.io/][company]] or [[https://github.com/auto-complete/auto-complete][auto-complete]] for various language layers
+- Support for code completion with [[http://company-mode.github.io/][company]]
 - Frequency-based suggestions via [[https://github.com/company-mode/company-statistics][company-statistics]] for =company=
 - Integration with [[https://github.com/capitaomorte/yasnippet][yasnippet]] and [[https://github.com/abo-abo/auto-yasnippet][auto-yasnippet]]
 - Automatic configuration of [[https://www.emacswiki.org/emacs/HippieExpand][hippie-expand]]
@@ -163,10 +161,6 @@ for the major-modes where it is missing.
 If you choose to use =(global-company-mode)= then you would lose some advantages
 provided by the layer system like [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#disabling-layer-services-in-other-layers][disabling auto-completion for specific layers]].
 
-** Replacing company by auto-complete
-You can disable =company= by adding it to the =dotspacemacs-excluded-packages=
-variable, then you are free to enable =auto-complete= globally.
-
 ** Add auto-completion in a layer
 Here is an example to add =company= auto-completion to python buffers via the
 package =company-anaconda=.
@@ -239,16 +233,6 @@ Emacs style:
 |-------------+------------------------------------------------|
 | ~C-n~       | (emacs style) go down in company dropdown menu |
 | ~C-p~       | (emacs style) go up in company dropdown menu   |
-
-** Auto-complete
-
-| Key binding | Description                                                          |
-|-------------+----------------------------------------------------------------------|
-| ~C-j~       | select next candidate                                                |
-| ~C-k~       | select previous candidate                                            |
-| ~TAB~       | expand selection or select next candidate                            |
-| ~S-TAB~     | select previous candidate                                            |
-| ~RET~       | complete word, if word is already completed insert a carriage return |
 
 ** Yasnippet
 
