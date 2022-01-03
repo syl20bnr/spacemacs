@@ -11,9 +11,9 @@
 - [[#who-can-benefit-from-this][Who can benefit from this?]]
 - [[#update-and-rollback][Update and Rollback]]
   - [[#update-spacemacs-repository][Update Spacemacs repository]]
-    - [[#automatic-updates][Automatic Updates]]
-    - [[#updating-from-the-spacemacs-buffer][Updating from the Spacemacs Buffer]]
-    - [[#updating-manually-with-git][Updating Manually with git]]
+    - [[#updating-manually-with-git-for-develop][Updating Manually with git (for develop)]]
+    - [[#automatic-updates-for-master][Automatic Updates (for master)]]
+    - [[#updating-from-the-spacemacs-buffer-for-master][Updating from the Spacemacs Buffer (for master)]]
   - [[#update-packages][Update packages]]
 - [[#configuration-layers][Configuration layers]]
   - [[#purpose][Purpose]]
@@ -306,30 +306,34 @@ project.
 * Update and Rollback
 ** Update Spacemacs repository
 There are several methods of updating the core files and layer information for
-Spacemacs. It is recommended to update the packages first; see the next section.
+Spacemacs. However afterwards you should always update all your packages; see the next section.
 
-*** Automatic Updates
+Spacemacs supports two different update schemes, the default is a rolling update scheme based
+on the latest version of packages available. This version can be found on the =develop= branch
+and is updated by a simple git pull.
+
+The second depreciated one is a fixed version scheme which is based on a stable set
+of packages. This version can be found on the =master= branch and will show a notification when
+a new version is available. Be warned this has not been updated in a long time now so packages
+will be very old.
+
+*** Updating Manually with git (for develop)
+To update manually close Emacs and update the git repository:
+
+#+BEGIN_SRC sh
+  $ git pull --rebase
+#+END_SRC
+
+*** Automatic Updates (for master)
 Spacemacs will automatically check for a new version periodically. When it
 detects that a new version is available an arrow will appear in the modeline.
 Click it to update Spacemacs. You must restart Emacs after updating.
 [[file:img/powerline-update.png]]
 /Update Button/
 
-*Note*: If you use the =develop= branch of Spacemacs, automatic update is
-disabled---you have to update manually using git.
-
-*** Updating from the Spacemacs Buffer
+*** Updating from the Spacemacs Buffer (for master)
 Use the button labeled "Update Spacemacs" in the Spacemacs buffer. You will be
 prompted for the version you would like to use.
-
-*Note*: If you use the =develop= branch of Spacemacs, you cannot use this method.
-
-*** Updating Manually with git
-To update manually close Emacs and update the git repository:
-
-#+BEGIN_SRC sh
-  $ git pull origin master
-#+END_SRC
 
 *Note*: The master branch is considered to be immutable in the sense that you
 must not modify it by adding your own commit. If you do so you will break the
