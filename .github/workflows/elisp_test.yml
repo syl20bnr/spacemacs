@@ -26,7 +26,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        emacs_version: [26.3, 27.1, snapshot]
+        emacs_version: [27.1, snapshot]
     steps:
 # Installing Emacs on Unix
     - name: Install Emacs on UNIX
