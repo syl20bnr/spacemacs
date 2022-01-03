@@ -22,8 +22,9 @@
 
 
 (defconst semantic-web-packages
-  '(
-    ttl-mode
+  '((ttl-mode :location (recipe
+                         :fetcher github
+                         :repo "jeeger/ttl-mode"))
     sparql-mode
     org))
 
