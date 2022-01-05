@@ -387,16 +387,6 @@ be transferred using http, use at your own risk.
    font settings.
 
 4. Launch Emacs. Spacemacs will automatically install the packages it requires.
-   There is a well-known issue with some GPG keys having expired end of 2019.
-   This can be fixed by upgrading to Emacs 26.3 or above or by manually adding
-   the new keys using something like:
-   ```sh
-   gpg --homedir ~/.emacs.d/elpa/gnupg --receive-keys 066DAFCB81E42C40
-   ```
-   If you have a restrictive firewall it may help to manually specify the keyserver:
-   ```sh
-   gpg --keyserver keyserver.ubuntu.com --homedir ~/.emacs.d/elpa/gnupg/ --receive-keys 066DAFCB81E42C40
-   ```
 
 5. Launch Emacs, and answer the questions in the Dotfile wizard installer. If
    you are new to Emacs and Spacemacs, then it's fine to just accept the default
