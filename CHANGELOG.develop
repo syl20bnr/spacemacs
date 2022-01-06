@@ -814,6 +814,8 @@ Other:
     inherit leader key bindings from another mode
   - Open buffers with major-mode derived from =special-mode= in motion-state by
     default (thanks to Daniel Nicolai)
+  - Add evil-jump-backward/forward (=C-o=/=C-i=) keybindings to
+    evil-evilified-state-map (thanks to Daniel Nicolai)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:

@@ -889,8 +889,8 @@ certain operations. These often conflict with Vim bindings. To make such buffers
 behave more like Vim in a consistent manner, they use a special state called
 /evilified/ state. In evilified state, a handful of keys work as in Evil, namely
 =/=, =:=, =h=, =j=, =k=, =l=, =n=, =N=, =v=, =V=, =gg=, =G=, =C-f=, =C-b=,
-=C-d=, =C-e=, =C-u=, =C-y= and =C-z=. All other keys work as intended by the
-underlying mode.
+=C-d=, =C-e=, =C-o=, =C-i=, =C-u=, =C-y= and =C-z=. All other keys work as
+intended by the underlying mode.
 
 Shadowed keys are moved according to the pattern: =a= → =A= → =C-a= → =C-A=
 
