@@ -25,7 +25,7 @@
 ;;
 ;;; Code:
 
-(defconst spacemacs-buffer-version-info "0.300"
+(defconst spacemacs-buffer-version-info "0.999"
   "Current version used to display addition release information.")
 
 (defconst spacemacs-buffer-name "*spacemacs*"
@@ -853,16 +853,9 @@ REAL-WIDTH: the real width of the line.  If the line contains an image, the size
                 (line-beginning-position))))
     (spacemacs-buffer//center-line)
     (setq spacemacs-buffer--buttons-position (- (line-end-position)
-                                  (line-beginning-position)
-                                  len)))
+                                              (line-beginning-position)
+                                              len)))
   (insert "\n")
-  (widget-create 'push-button
-                 :help-echo "Update Spacemacs core and layers."
-                 :action (lambda (&rest ignore) (spacemacs/switch-to-version))
-                 :mouse-face 'highlight
-                 :follow-link "\C-m"
-                 (propertize "Update Spacemacs" 'face 'font-lock-keyword-face))
-  (insert " ")
   (widget-create 'push-button
                  :help-echo "Update all ELPA packages to the latest versions."
                  :action (lambda (&rest ignore)
