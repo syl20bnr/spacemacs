@@ -276,7 +276,7 @@
       (global-set-key (kbd "C-c C-r") 'ivy-resume)
       (global-set-key (kbd "<f6>") 'ivy-resume)
       ;; Occur
-      (evil-set-initial-state 'ivy-occur-grep-mode 'normal)
+      (evil-make-overriding-map ivy-occur-grep-mode-map)
       (evil-make-overriding-map ivy-occur-mode-map 'normal)
       (dolist (mode-map (list ivy-occur-mode-map ivy-occur-grep-mode-map))
         (define-key mode-map "g" nil)
