@@ -4,9 +4,7 @@
 
        ╰───────────────────────────────────────────────────────────╯
 
-This is the current live branch of Spacemacs (develop) on this branch we do
-not longer provide curated versions of packages but instead follow a rolling
-release schedule. Version upgrades are done by just pulling the git repo.
-
-After each pull its is adviced to also upgrade your emacs packages to avoid
-compatibility issues.
+This branch contains the current version of Spacemacs which is actively
+developed following a rolling release schedule. Version upgrades are done
+by just pulling the git repo. The previously made stable releases on master
+are now deprecated, as we do not have the resources to keep this going.
