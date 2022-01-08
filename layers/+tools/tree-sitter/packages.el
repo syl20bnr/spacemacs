@@ -54,7 +54,7 @@
     (progn
       (add-hook 'rust-mode-hook #'tree-sitter-indent-mode))))
 
-(defconst tree-sitter//ts-fold-supported-major-mode-hooks
+(defconst tree-sitter--ts-fold-supported-major-mode-hooks
   '(agda-mode-hook
     sh-mode-hook
     c-mode-hook
@@ -89,7 +89,7 @@
     :init
     (progn
       (when tree-sitter-fold-enable
-        (dolist (mode-hook tree-sitter//ts-fold-supported-major-mode-hooks)
+        (dolist (mode-hook tree-sitter--ts-fold-supported-major-mode-hooks)
           (when (boundp mode-hook)
             (add-hook mode-hook #'ts-fold-mode)
             (when tree-sitter-fold-indicators-enable
