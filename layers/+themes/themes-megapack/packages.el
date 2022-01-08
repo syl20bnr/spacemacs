@@ -74,8 +74,7 @@
     majapahit-theme
     material-theme
     minimal-theme
-    modus-operandi-theme
-    modus-vivendi-theme
+    modus-themes
     moe-theme
     molokai-theme
     monokai-theme
