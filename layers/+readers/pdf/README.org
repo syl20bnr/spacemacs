@@ -125,11 +125,11 @@ If you use Emacs editing style, check the key bindings at the [[https://github.c
 | ~C-u~                | Scroll up                                 |
 | ~C-d~                | Scroll down                               |
 | ~``~                 | Go to last page in the history            |
+| ~[~                  | History back                              |
+| ~]~                  | History forward                           |
 | ~m~                  | Set mark                                  |
 | ~'~                  | Go to mark                                |
 | ~y~                  | Yank selected region                      |
-| ~C-o~ or ~[~         | History back                              |
-| ~C-i~ or ~]~         | History forward                           |
 |----------------------+-------------------------------------------|
 | *Search*             |                                           |
 |----------------------+-------------------------------------------|

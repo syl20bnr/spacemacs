@@ -814,6 +814,8 @@ Other:
     inherit leader key bindings from another mode
   - Open buffers with major-mode derived from =special-mode= in motion-state by
     default (thanks to Daniel Nicolai)
+  - Add evil-jump-backward/forward (=C-o=/=C-i=) keybindings to
+    evil-evilified-state-map (thanks to Daniel Nicolai)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -3108,8 +3110,6 @@ files (thanks to Daniel Nicolai)
 - Fixed ~'~ =pdf-view-jump-to-register= (thanks to duianto)
 - Key bindings:
   - Added to pdf-view mode and transient state
-    - ~C-o~ history-backward (previous view)
-    - ~C-i~ history-forward (next view)
     - ~[~ history-backward (previous view)
     - ~]~ history-forward (next view)
     - ~?~ toggle transient sate documentation hint (shown by default)

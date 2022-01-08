@@ -102,6 +102,7 @@ map to:
 - add ~hjkl~ navigation
 - add scrolling feature on ~C-f~, ~C-b~, ~C-d~ and ~C-u~
 - ~G~ and ~gg~ to go to the end and beginning of the buffer
+- add jump back-forward in history on ~C-o~ and ~C-i~ respectively
 - add incremental search with ~/~, ~n~ and ~N~
 - enabling =evil-ex= on ~:~
 - add =visual state= and =visual line state= on ~v~ and ~V~
