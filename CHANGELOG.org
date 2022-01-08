@@ -1,4 +1,8 @@
 * Release 0.200.x
+** 0.200.14 (2022/01/08)
+*** Fixes
+- Small bug fixes
+- Depreciate curated releases
 ** 0.200.13 (2018/01/25)
 *** Fixes
 - Remove =ess-R-object-popup= from =ess= layer (thanks to NGaffney)
