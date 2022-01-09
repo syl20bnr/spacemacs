@@ -32,7 +32,7 @@ there's no need to separately disable regexp-based syntax highlighting, and in
 general you do not need to update key bindings to point to new tree-sitter-based
 commands.
 
-Set =tree-sitter-syntax-highlight-enable t= for syntax highlighting, provided
+Set =tree-sitter-syntax-highlight-enable t=  for syntax highlighting, provided
 by =tree-sitter-hl-mode= which is bundled with [[https://github.com/emacs-tree-sitter/elisp-tree-sitter][=tree-sitter-mode=]].
 Default: =t=.
 
@@ -45,3 +45,14 @@ you use a =dotspacemacs-editing-style= other than ='vim= or a
 =dotspacemacs-folding-method= other than ='evil=, it's likely that you'll find
 the integration with =ts-fold= wanting. Contributions are encouraged!
 Default: =nil=.
+
+Set =spacemacs-tree-sitter-hl-black-list= for a list of modes that should
+not enable highlight by =tree-sitter=. =js2-mode= and =rjsx-mode= are examples.
+
+#+begin_src elisp
+     (tree-sitter :variables
+                  spacemacs-tree-sitter-hl-black-list '(js2-mode rjsx-mode)
+                  tree-sitter-syntax-highlight-enable t
+                  tree-sitter-fold-enable t
+                  tree-sitter-fold-indicators-enable nil)
+#+end_src
