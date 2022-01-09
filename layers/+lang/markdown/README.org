@@ -14,7 +14,6 @@
   - [[#automatic-mmm-mode-generation][Automatic MMM-Mode Generation]]
 - [[#usage][Usage]]
   - [[#generate-a-toc][Generate a TOC]]
-  - [[#editing-tables][Editing tables]]
 - [[#key-bindings][Key bindings]]
   - [[#element-insertion][Element insertion]]
   - [[#element-removal][Element removal]]
@@ -112,12 +111,6 @@ new languages instead of overriding the variable in your dotfile.
 ** Generate a TOC
 To generate a table of contents type on top of the buffer:
 ~SPC SPC markdown-toc-generate-toc RET~
-
-** Editing tables
-While =markdown-mode= provides functionality to edit tables, users of =org=
-layer benefit from more sophisticated =orgtbl-mode=.
-
-In order to use =orgtabl-mode=, add =org= layer to your =~/.spacemacs=.
 
 * Key bindings
 ** Element insertion
