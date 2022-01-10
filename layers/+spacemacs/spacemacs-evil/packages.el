@@ -31,7 +31,9 @@
         evil-escape
         evil-exchange
         evil-goggles
-        evil-iedit-state
+        (evil-iedit-state :location (recipe
+                                     :fetcher github
+                                     :repo "kassick/evil-iedit-state"))
         evil-indent-plus
         evil-lion
         evil-lisp-state
