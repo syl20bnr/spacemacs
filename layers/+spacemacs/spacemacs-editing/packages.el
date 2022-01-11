@@ -43,7 +43,7 @@
         (spacemacs-whitespace-cleanup :location local)
         string-edit
         string-inflection
-        (if (not (>= 29 (string-to-number emacs-version)))
+        (if (not (>= (string-to-number emacs-version) 29))
             'multi-line
           (multi-line :location (recipe
                                  :fetcher github
