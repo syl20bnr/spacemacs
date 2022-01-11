@@ -1,8 +1,8 @@
 ;;; package-build.el --- Tools for assembling a package archive  -*- lexical-binding: t -*-
 
-;; Copyright (C) 2011-2021 Donald Ephraim Curtis <dcurtis@milkbox.net>
-;; Copyright (C) 2012-2021 Steve Purcell <steve@sanityinc.com>
-;; Copyright (C) 2016-2021 Jonas Bernoulli <jonas@bernoul.li>
+;; Copyright (C) 2011-2022 Donald Ephraim Curtis <dcurtis@milkbox.net>
+;; Copyright (C) 2012-2022 Steve Purcell <steve@sanityinc.com>
+;; Copyright (C) 2016-2022 Jonas Bernoulli <jonas@bernoul.li>
 ;; Copyright (C) 2009 Phil Hagelberg <technomancy@gmail.com>
 
 ;; Author: Donald Ephraim Curtis <dcurtis@milkbox.net>
@@ -163,6 +163,12 @@ disallowed."
   :group 'package-build
   :type '(repeat string))
 
+(defvar package-build-use-hg-purge
+  "Whether `package-build--package' runs \"hg purge\" in mercurial repos."
+  (let ((value (ignore-errors
+                 (car (process-lines "hg" "config" "extensions.purge")))))
+    (and value (not (string-prefix-p "!" value)))))
+
 ;;; Generic Utilities
 
 (defun package-build--message (format-string &rest args)
@@ -253,12 +259,14 @@ is used instead."
 ;;; Run Process
 
 (defun package-build--run-process (directory destination command &rest args)
+  (setq directory (file-name-as-directory (or directory default-directory)))
   (with-current-buffer
       (if (eq destination t)
           (current-buffer)
         (or destination (get-buffer-create "*package-build-checkout*")))
-    (let ((default-directory
-            (file-name-as-directory (or directory default-directory)))
+    (unless destination
+      (setq default-directory directory))
+    (let ((default-directory directory)
           (argv (nconc (unless (eq system-type 'windows-nt)
                          (list "env" "LC_ALL=C"))
                        (if (and package-build-timeout-secs
@@ -271,8 +279,8 @@ is used instead."
                          (cons command args)))))
       (unless (file-directory-p default-directory)
         (error "Can't run process in non-existent directory: %s" default-directory))
-      (let ((exit-code (apply 'process-file
-                              (car argv) nil (current-buffer) t
+      (let ((exit-code (apply #'call-process
+                              (car argv) nil (current-buffer) nil
                               (cdr argv))))
         (or (zerop exit-code)
             (error "Command '%s' exited with non-zero status %d: %s"
@@ -492,23 +500,22 @@ SOURCE-DIR and TARGET-DIR respectively."
   (pcase-dolist (`(,src . ,tmp) files)
     (let ((extension (file-name-extension tmp)))
       (when (member extension '("info" "texi" "texinfo"))
-        (setq src (expand-file-name src source-dir))
-        (setq tmp (expand-file-name tmp target-dir))
-        (let ((info tmp))
+        (let* ((src (expand-file-name src source-dir))
+               (tmp (expand-file-name tmp target-dir))
+               (texi src)
+               (info tmp))
           (when (member extension '("texi" "texinfo"))
-            (unwind-protect
-                (progn
-                  (setq info (concat (file-name-sans-extension tmp) ".info"))
-                  (unless (file-exists-p info)
-                    ;; If the info file is located in a subdirectory
-                    ;; and contains relative includes, then it is
-                    ;; necessary to run makeinfo in the subdirectory.
-                    (with-demoted-errors "Error: %S"
-                      (package-build--run-process
-                       (file-name-directory src) nil
-                       "makeinfo" src "-o" info))
-                    (package-build--message "Created %s" info)))
-              (delete-file tmp)))
+            (delete-file tmp)
+            (setq info (concat (file-name-sans-extension tmp) ".info"))
+            (unless (file-exists-p info)
+              (package-build--message "Generating %s" info)
+              ;; If the info file is located in a subdirectory
+              ;; and contains relative includes, then it is
+              ;; necessary to run makeinfo in the subdirectory.
+              (with-demoted-errors "Error: %S"
+                (package-build--run-process
+                 (file-name-directory texi) nil
+                 "makeinfo" "--no-split" texi "-o" info))))
           (with-demoted-errors "Error: %S"
             (package-build--run-process
              target-dir nil "install-info" "--dir=dir" info)))))))
@@ -746,26 +753,35 @@ are subsequently dumped."
   "Create version VERSION of the package specified by RCP.
 Return the archive entry for the package and store the package
 in `package-build-archive-dir'."
-  (let* ((source-dir (package-recipe--working-tree rcp))
-         (file-specs (package-build--config-file-list rcp))
-         (files (package-build-expand-file-specs source-dir file-specs))
-         (commit (package-build--get-commit rcp))
-         (name (oref rcp name)))
-    (unless (equal file-specs package-build-default-files-spec)
-      (when (equal files (package-build-expand-file-specs
-                          source-dir package-build-default-files-spec nil t))
-        (package-build--message
-         "Note: %s :files spec is equivalent to the default." name)))
-    (cond
-     ((not version)
-      (error "Unable to check out repository for %s" name))
-     ((= 1 (length files))
-      (package-build--build-single-file-package
-       rcp version commit files source-dir))
-     ((< 1 (length  files))
-      (package-build--build-multi-file-package
-       rcp version commit files source-dir))
-     (t (error "Unable to find files matching recipe patterns")))))
+  (let ((source-dir (package-recipe--working-tree rcp)))
+    (unwind-protect
+        (let* ((file-specs (package-build--config-file-list rcp))
+               (files (package-build-expand-file-specs source-dir file-specs))
+               (commit (package-build--get-commit rcp))
+               (name (oref rcp name)))
+          (unless (equal file-specs package-build-default-files-spec)
+            (when (equal files (package-build-expand-file-specs
+                                source-dir
+                                package-build-default-files-spec
+                                nil t))
+              (package-build--message
+               "Note: %s :files spec is equivalent to the default." name)))
+          (cond
+           ((not version)
+            (error "Unable to check out repository for %s" name))
+           ((= (length files) 1)
+            (package-build--build-single-file-package
+             rcp version commit files source-dir))
+           ((> (length files) 1)
+            (package-build--build-multi-file-package
+             rcp version commit files source-dir))
+           (t (error "Unable to find files matching recipe patterns"))))
+      (cond ((cl-typep rcp 'package-git-recipe)
+             (package-build--run-process
+              source-dir nil "git" "clean" "-f" "-d" "-x"))
+            ((and (cl-typep rcp 'package-hg-recipe)
+                  package-build-use-hg-purge)
+             (package-build--run-process source-dir nil "hg" "purge"))))))
 
 (defun package-build--build-single-file-package (rcp version commit files source-dir)
   (let* ((name (oref rcp name))
@@ -951,7 +967,7 @@ line per entry."
        (package-recipe-recipes))))))
 
 (defun package-build--pkg-info-for-json (info)
-  "Convert INFO into a data structure which will serialize to JSON in the desired shape."
+  "Convert INFO so that it can be serialize to JSON in the desired shape."
   (pcase-let ((`(,ver ,deps ,desc ,type . (,props)) (append info nil)))
     (list :ver ver
           :deps (cl-mapcan (lambda (dep)
