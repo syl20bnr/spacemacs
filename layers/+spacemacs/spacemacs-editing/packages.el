@@ -43,7 +43,12 @@
         (spacemacs-whitespace-cleanup :location local)
         string-edit
         string-inflection
-        multi-line
+        (if (version< emacs-version "29")
+            (multi-line :location (recipe
+                                   :fetcher github
+                                   :repo "IvanMalison/multi-line"
+                                   :commit "d5ae863ced0adeb7032ada398005f27a6c669d79"))
+          'multi-line)
         undo-tree
         (unkillable-scratch :toggle dotspacemacs-scratch-buffer-unkillable)
         uuidgen

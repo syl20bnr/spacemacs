@@ -130,6 +130,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 - Other:
   - Support for multiple cursors using =evil-mc= is now encapsulated in the
     =multiple-cursors= layer (thanks to Codruț Constantin Gușoi)
+  - =multi-line= package is now frozen to [[https://github.com/IvanMalison/multi-line/commit/d5ae863ced0adeb7032ada398005f27a6c669d79][d5ae863]] on versions of Emacs prior to 29 to fix byte-compile warnings (bryce-carson).
 ***** C-C++
 - CMake support has been extracted from the =c-c++= layer into the new =cmake=
   layer.
