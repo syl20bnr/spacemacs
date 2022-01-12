@@ -43,6 +43,7 @@
                                              clojure-enable-linters
                                            (list clojure-enable-linters))))
     ggtags
+    (kaocha-runner :toggle clojure-enable-kaocha-runner)
     counsel-gtags
     helm-gtags
     org
@@ -361,6 +362,24 @@
               sayid--key-binding-prefixes)
         (spacemacs/set-leader-keys-for-major-mode m
           "hc" 'helm-cider-cheatsheet)))))
+
+(defun clojure/init-kaocha-runner ()
+  (use-package kaocha-runner
+    :defer t
+    :init
+    (progn
+      (setq kaocha--key-binding-prefixes
+            '(("mtk" . "kaocha")))
+      (spacemacs|forall-clojure-modes m
+        (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
+                            m (car x) (cdr x)))
+              kaocha--key-binding-prefixes)
+        (spacemacs/set-leader-keys-for-major-mode m
+          "tka" 'kaocha-runner-run-all-tests
+          "tkt" 'kaocha-runner-run-test-at-point
+          "tkn" 'kaocha-runner-run-tests
+          "tkw" 'kaocha-runner-show-warnings
+          "tkh" 'kaocha-runner-hide-windows)))))
 
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
