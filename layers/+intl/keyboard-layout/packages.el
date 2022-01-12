@@ -581,7 +581,7 @@
         :post-config
         (evil-define-key 'normal evil-org-mode-map
           "d" 'evil-backward-char
-          "h" 'evil-org-delete)))
+          "j" 'evil-org-delete)))
     :neo
     (progn
       (spacemacs|use-package-add-hook evil-org
