@@ -21,6 +21,7 @@
     - [[#enable-multiple-linters][Enable multiple linters]]
     - [[#enable-clojure-fancify-symbols][Enable Clojure fancify Symbols]]
     - [[#enabling-sayid-or-clj-refactor][Enabling sayid or clj-refactor]]
+  - [[#enabling-kaocha-runner][Enabling Kaocha Runner]]
 - [[#usage][Usage]]
   - [[#starting-a-repl-from-spacemacs][Starting a REPL from Spacemacs]]
     - [[#troubleshooting][Troubleshooting]]
@@ -311,6 +312,37 @@ injected when jacking in CIDER.
 
 If you are experiencing issues when running a REPL, try disabling these
 packages first and restart Spacemacs to see if the error persists.
+
+
+** Enabling Kaocha Runner
+Run unit tests with Kaocha via CIDER.
+
+Enable the Kaocha feature via setting the =clojure-enable-kaocha-runner= variable
+in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+  '((clojure :variables clojure-enable-kaocha-runner t)))
+#+END_SRC
+
+The kaocha library must be included when starting a REPL, either through
+Leiningen dev profile dependency
+
+
+#+BEGIN_SRC emacs-lisp
+  :profiles {:dev {:dependencies [[lambdaisland/kaocha "1.60.977"]]}}
+#+END_SRC
+
+
+or a Clojure CLI alias in a project deps.edn or user wide deps.edn file
+
+#+BEGIN_SRC emacs-lisp
+  :lib/kaocha {:extra-deps {lambdaisland/kaocha {:mvn/version "1.60.977"}}}
+#+END_SRC
+
+
+
+[[https://github.com/practicalli/clojure-deps-edn][practicalli/clojure-deps-edn]] contains an example =:lib/kaocha= alias
 
 * Usage
 Read the key bindings section to see all the functionality available, or simply

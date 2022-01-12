@@ -1631,6 +1631,7 @@ Other:
   - Added =flycheck-clojure= linters (thanks to Eugene Yaremenko)
   - Added =clj-kondo= to Clojure linters (thanks to Luo Tian and John Stevenson)
   - Added =flycheck-joker= to Clojure linters (thanks to didibus)
+  - Added =kaocha-runner= to Clojure linters (thanks to practicalli-john)
 - Improvements:
   - Stored cider REPL history in spacemacs cache (thanks to Ryan Fowler)
   - Removed backtick from smartparens pairs for Clojure
