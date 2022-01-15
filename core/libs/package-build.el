@@ -175,7 +175,7 @@ disallowed."
   "Behave like `message' if `package-build-verbose' is non-nil.
 Otherwise do nothing.  FORMAT-STRING and ARGS are as per that function."
   (when package-build-verbose
-    (apply 'message format-string args)))
+    (apply #'message format-string args)))
 
 ;;; Version Handling
 ;;;; Public
@@ -282,9 +282,12 @@ is used instead."
       (let ((exit-code (apply #'call-process
                               (car argv) nil (current-buffer) nil
                               (cdr argv))))
-        (or (zerop exit-code)
-            (error "Command '%s' exited with non-zero status %d: %s"
-                   argv exit-code (buffer-string)))))))
+        (unless (zerop exit-code)
+          (message "\nCommand '%s' exited with non-zero exit-code: %d\n"
+                   (mapconcat #'shell-quote-argument argv " ")
+                   exit-code)
+          (message "%s" (buffer-string))
+          (error "Command exited with non-zero exit-code: %d" exit-code))))))
 
 ;;; Checkout
 ;;;; Common
@@ -326,7 +329,7 @@ is used instead."
              ;; that is known not to require a checkout and history.
              ;; See #52.
              (and (eq package-build-get-version-function
-                      'package-build-get-tag-version)
+                      #'package-build-get-tag-version)
                   (list "--filter=blob:none" "--no-checkout")))))
     (pcase-let ((`(,rev . ,version)
                  (funcall package-build-get-version-function rcp)))
@@ -595,7 +598,7 @@ still be renamed."
          (let ((form (with-temp-buffer
                        (insert-file-contents file)
                        (read (current-buffer)))))
-           (unless (eq (car form) 'define-package)
+           (unless (eq (car form) #'define-package)
              (error "No define-package found in %s" file))
            (pcase-let*
                ((`(,_ ,_ ,_ ,summary ,deps . ,extra) form)
@@ -666,8 +669,8 @@ for ALLOW-EMPTY to prevent this error."
                     (cl-nset-difference lst
                                         (package-build-expand-file-specs
                                          dir (cdr entry) nil t)
-                                        :key 'car
-                                        :test 'equal)
+                                        :key #'car
+                                        :test #'equal)
                   (nconc lst
                          (package-build-expand-file-specs
                           dir
@@ -698,7 +701,7 @@ for ALLOW-EMPTY to prevent this error."
       file-list))))
 
 (defun package-build--expand-source-file-list (rcp)
-  (mapcar 'car
+  (mapcar #'car
           (package-build-expand-file-specs
            (package-recipe--working-tree rcp)
            (package-build--config-file-list rcp))))
@@ -1013,7 +1016,7 @@ line per entry."
 ;;; _
 
 (define-obsolete-function-alias 'package-build--archive-entries
-  'package-build-dump-archive-contents "Package-Build 3.0")
+  #'package-build-dump-archive-contents "Package-Build 3.0")
 
 (provide 'package-build)
 
