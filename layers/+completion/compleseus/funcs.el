@@ -96,6 +96,15 @@
   (interactive)
   (spacemacs/compleseus-search nil (projectile-project-root)))
 
+(defun spacemacs/compleseus-search-from (input)
+  "Embark action to start ripgrep search from candidate's directory."
+  (interactive "s")
+  (message "The first input %s." input)
+  (let ((dir (if (file-directory-p input)
+                 input
+               (file-name-directory input))))
+    (consult-ripgrep dir)))
+
 (defun spacemacs/compleseus-find-file ()
   "This solves the problem:
 Binding a key to: `find-file' calls: `ido-find-file'"
@@ -118,27 +127,59 @@ Binding a key to: `find-file' calls: `ido-find-file'"
         (embark-dwim)))))
 
 (defun spacemacs/next-candidate-preview (&optional n)
-  "Go forward N candidates and preivew"
+  "Go forward N candidates and preview"
   (interactive)
   (vertico-next (or n 1))
   (spacemacs/embark-preview))
 
 (defun spacemacs/previous-candidate-preview (&optional n)
-  "Go backward N candidates and preivew"
+  "Go backward N candidates and preview"
   (interactive)
-  (selec-previous (or n 1))
+  (vertico-previous (or n 1))
   (spacemacs/embark-preview))
 
 ;; selectrum
 
 (defun spacemacs/selectrum-next-candidate-preview (&optional n)
-  "Go forward N candidates and preivew"
+  "Go forward N candidates and preview"
   (interactive)
   (selectrum-next-candidate (or n 1))
   (spacemacs/embark-preview))
 
 (defun spacemacs/selectrum-previous-candidate-preview (&optional n)
-  "Go backward N candidates and preivew"
+  "Go backward N candidates and preview"
   (interactive)
   (selectrum-previous-candidate (or n 1))
   (spacemacs/embark-preview))
+
+;; which-key integration functions for embark
+;; https://github.com/oantolin/embark/wiki/Additional-Configuration#use-which-key-like-a-key-menu-prompt
+(defun spacemacs/embark-which-key-indicator ()
+  "An embark indicator that displays keymaps using which-key.
+The which-key help message will show the type and value of the
+current target followed by an ellipsis if there are further
+targets."
+  (lambda (&optional keymap targets prefix)
+    (if (null keymap)
+        (which-key--hide-popup-ignore-command)
+      (which-key--show-keymap
+       (if (eq (plist-get (car targets) :type) 'embark-become)
+           "Become"
+         (format "Act on %s '%s'%s"
+                 (plist-get (car targets) :type)
+                 (embark--truncate-target (plist-get (car targets) :target))
+                 (if (cdr targets) "…" "")))
+       (if prefix
+           (pcase (lookup-key keymap prefix 'accept-default)
+             ((and (pred keymapp) km) km)
+             (_ (key-binding prefix 'accept-default)))
+         keymap)
+       nil nil t (lambda (binding)
+                   (not (string-suffix-p "-argument" (cdr binding))))))))
+
+(defun spacemacs/embark-hide-which-key-indicator (fn &rest args)
+  "Hide the which-key indicator immediately when using the completing-read prompter."
+  (which-key--hide-popup-ignore-command)
+  (let ((embark-indicators
+         (remq #'spacemacs/embark-which-key-indicator embark-indicators)))
+      (apply fn args)))

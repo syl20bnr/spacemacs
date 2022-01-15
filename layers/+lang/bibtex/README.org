@@ -36,9 +36,9 @@ configuration, add this to your =~/.spacemacs= inside
 =dotspacemacs/user-config=:
 
 #+BEGIN_SRC emacs-lisp
-  (setq org-ref-default-bibliography '("~/Papers/references.bib")
-        org-ref-pdf-directory "~/Papers/"
-        org-ref-bibliography-notes "~/Papers/notes.org")
+  (setq bibtex-completion-bibliography '("~/Papers/references.bib")
+        bibtex-completion-library-path "~/Papers/"
+        bibtex-completion-notes-path "~/Papers/notes.org")
 #+END_SRC
 
 Certain modes, such as =latex-mode= with AucTeX, will automatically lookup

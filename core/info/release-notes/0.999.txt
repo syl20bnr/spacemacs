@@ -1,0 +1,10 @@
+       ╭───────────────────────────────────────────────────────────╮
+
+                    This is the current rolling release
+
+       ╰───────────────────────────────────────────────────────────╯
+
+This branch contains the current version of Spacemacs which is actively
+developed following a rolling release schedule. Version upgrades are done
+by just pulling the git repo. The previously made stable releases on master
+are now deprecated, as we do not have the resources to keep this going.

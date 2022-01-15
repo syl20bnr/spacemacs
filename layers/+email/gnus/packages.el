@@ -94,6 +94,7 @@
 
       (require 'browse-url)
       (require 'nnrss)
+
       (defun spacemacs/gnus-flame-on ()
         "Most important email function, for RFC1855 compliance."
         ;; https://tools.ietf.org/html/rfc1855
@@ -102,6 +103,7 @@
         (insert "FLAME OFF\n")
         (forward-line -2)
         (end-of-line))
+
       (defun spacemacs/browse-nnrss-url (arg)
         "Open RSS Article directy in the browser"
         (interactive "p")
@@ -117,16 +119,30 @@
             (gnus-summary-scroll-up arg))))
       (add-to-list 'nnmail-extra-headers nnrss-url-field)
 
-      (evilified-state-evilify gnus-group-mode gnus-group-mode-map
-        (kbd "g r") 'gnus-group-get-new-news
-        (kbd "O") 'gnus-group-group-map)
-      (evilified-state-evilify gnus-server-mode gnus-server-mode-map)
-      (evilified-state-evilify gnus-browse-mode gnus-browse-mode-map)
-      (evilified-state-evilify gnus-article-mode gnus-article-mode-map)
-      (evilified-state-evilify gnus-summary-mode gnus-summary-mode-map
-        (kbd "J") 'gnus-summary-next-article
-        (kbd "K") 'gnus-summary-prev-article
-        (kbd "<RET>") 'spacemacs/browse-nnrss-url))))
+      ;; Use the more modern macro to enable shadowing
+      ;; Make sure this is only run after the keymaps
+      ;; have been loaded.
+      (with-eval-after-load 'gnus-group
+        (evilified-state-evilify-map gnus-group-mode-map
+          :mode gnus-group-mode
+          :bindings
+          (kbd "g r") 'gnus-group-get-new-news
+          (kbd "O") 'gnus-group-group-map))
+      (with-eval-after-load 'gnus-srvr
+        (evilified-state-evilify-map gnus-server-mode-map
+          :mode gnus-server-mode)
+        (evilified-state-evilify-map gnus-browse-mode-map
+          :mode gnus-browse-mode))
+      (with-eval-after-load 'gnus-art
+        (evilified-state-evilify-map gnus-article-mode-map
+          :mode gnus-article-mode))
+      (with-eval-after-load 'gnus-sum
+        (evilified-state-evilify-map gnus-summary-mode-map
+          :mode gnus-summary-mode
+          :bindings
+          (kbd "J") 'gnus-summary-next-article
+          (kbd "K") 'gnus-summary-prev-article
+          (kbd "<RET>") 'spacemacs/browse-nnrss-url)))))
 
 (defun gnus/post-init-window-purpose ()
   (purpose-set-extension-configuration

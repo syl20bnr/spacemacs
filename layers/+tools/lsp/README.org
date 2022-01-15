@@ -199,7 +199,8 @@ The lsp minor mode bindings are:
 | ~SPC m g K~   | goto viewport symbol (=avy=) (See Note 1)                                        |
 | ~SPC m g e~   | browse flycheck errors (=lsp-treemacs=)                                          |
 | ~SPC m g M~   | browse file symbols (=lsp-ui-imenu=)                                             |
-| ~SPC m g h~   | goto call hierachy (=lsp-mode=)                                                  |
+| ~SPC m g h~   | goto call hierachy (=lsp-treemacs=)                                              |
+| ~SPC m g T~   | goto type hierachy (=lsp-treemacs=)                                              |
 |---------------+----------------------------------------------------------------------------------|
 | Note          | /Replaced by the lsp-ui-peek equivalents when ~lsp-navigation~ is ~'peek~ /      |
 | ~SPC m g i~   | find implementations (=lsp-mode=)                                                |

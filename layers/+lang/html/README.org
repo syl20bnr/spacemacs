@@ -41,9 +41,8 @@ file.
 SCSS linting requires SCSS-Lint version >= 0.43.0. You can get it from GitHub:
 
 #+BEGIN_SRC command-line
-  gem install specific_install
-  gem specific_install https://github.com/brigade/scss-lint.git
-  gem specific_install https://github.com/Sweetchuck/scss_lint_reporter_checkstyle.git
+  gem install scss_lint_reporter_checkstyle
+  gem install scss_lint
 #+END_SRC
 
 ** LSP

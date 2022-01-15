@@ -914,7 +914,7 @@ a display strng and the value is the actual value to return."
       (configuration-layer/load))))
 
 (defun dotspacemacs/install (arg)
-  "Install the dotfile, return non nil if the doftile has been installed.
+  "Install the dotfile, return non nil if the dotfile has been installed.
 
 If ARG is non nil then ask questions to the user before installing the dotfile."
   (interactive "P")

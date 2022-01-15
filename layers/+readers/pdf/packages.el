@@ -85,8 +85,6 @@
         (kbd "C-u") 'pdf-view-scroll-down-or-previous-page
         (kbd "C-d") 'pdf-view-scroll-up-or-next-page
         (kbd "``")  'pdf-history-backward
-        (kbd "C-o") 'pdf-history-backward
-        (kbd "C-i") 'pdf-history-forward
         "["  'pdf-history-backward
         "]"  'pdf-history-forward
         "'" 'pdf-view-jump-to-register
@@ -132,7 +130,10 @@
         "g"              'pdf-occur-revert-buffer-with-args
         "r"              'pdf-occur-revert-buffer-with-args
         "*"              'spacemacs/enter-ahs-forward
-        "?"              'evil-search-backward))))
+        "?"              'evil-search-backward)
+      (spacemacs/declare-prefix-for-mode 'pdf-occur-buffer-mode "mt" "toggles")
+      (spacemacs/set-leader-keys-for-major-mode 'pdf-occur-buffer-mode
+        "tf" 'next-error-follow-minor-mode))))
 
 (defun pdf/init-pdf-view-restore ()
   (use-package pdf-view-restore

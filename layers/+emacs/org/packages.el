@@ -33,7 +33,7 @@
     htmlize
     ;; ob, org, org-agenda and org-contacts are installed by `org-contrib'
     (ob :location built-in)
-    (org :location built-in)
+    (org :location elpa :min-version "9.5")
     (org-agenda :location built-in)
     (org-wild-notifier
                 :toggle org-enable-notifications)
@@ -979,21 +979,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
         :mode org-roam-mode
         :bindings
         "o" 'link-hint-open-link
-        "r" 'org-roam-buffer-refresh))
-
-      ; Workaround an upstream issue with evil, as described in https://github.com/syl20bnr/spacemacs/issues/14137
-      (defadvice org-roam-node-insert (around append-if-in-evil-normal-mode activate compile)
-        "If in evil normal mode and cursor is on a whitespace character, then go into
-         append mode first before inserting the link. This is to put the link after the
-         space rather than before."
-        (let ((is-in-evil-normal-mode (and (bound-and-true-p evil-mode)
-                                          (not (bound-and-true-p evil-insert-state-minor-mode))
-                                          (looking-at "[[:blank:]]"))))
-          (if (not is-in-evil-normal-mode)
-              ad-do-it
-            (evil-append 0)
-            ad-do-it
-            (evil-normal-state))))))
+        "r" 'org-roam-buffer-refresh))))
 
 (defun org/init-org-sticky-header ()
   (use-package org-sticky-header

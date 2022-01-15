@@ -129,8 +129,8 @@ are located under the ~SPC b~ prefix.
 | ~SPC b n~ or ~:bnext~     | Switch to the next buffer. (See [[#special-buffers][Special buffers]])     |
 | ~SPC b p~ or ~:bprevious~ | Switch to the previous buffer. (See [[#special-buffers][Special buffers]]) |
 | ~SPC b d~ or ~:bdelete~   | Kill current buffer.                                 |
-| ~SPC b C-d~               | Kill buffers using a regular expression.             |
-| ~SPC b m~                 | Kill all buffers except the current buffer.          |
+| ~SPC b C-S-d~             | Kill buffers using a regular expression.             |
+| ~SPC b C-d~               | Kill all buffers except the current buffer.          |
 | ~SPC b .~                 | Buffer transient-state.                              |
 
 **** Special buffers

@@ -36,7 +36,7 @@
 (setq package-enable-at-startup nil)
 
 (load (concat (file-name-directory load-file-name)
-              "core/core-early-funcs.el")
+              "core/core-early-funcs")
       nil (not init-file-debug))
 
 ;; Remove GUI elements soon after GUI being initialized to avoid some possible grapical glitches.

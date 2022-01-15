@@ -297,7 +297,7 @@
     :config
     (progn
       (advice-add 'helm-ag--save-results :after 'spacemacs//gne-init-helm-ag)
-      (evil-define-key 'normal helm-ag-map "SPC" spacemacs-default-map)
+      (evil-define-key 'normal helm-ag-map (kbd dotspacemacs-leader-key) spacemacs-default-map)
       (evilified-state-evilify helm-ag-mode helm-ag-mode-map
         (kbd "gr") 'helm-ag--update-save-results
         (kbd "q") 'quit-window))))

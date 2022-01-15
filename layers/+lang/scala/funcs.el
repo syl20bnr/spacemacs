@@ -67,3 +67,18 @@ point to the position of the join."
 
     (when join-pos
       (goto-char join-pos))))
+
+(defun spacemacs/scala-sbt-scalafmt-all ()
+  "Run `scalafmtAll' via SBT"
+  (interactive)
+  (sbt-command "scalafmtAll"))
+
+(defun spacemacs/scala-sbt-compile ()
+  "Run `compile' via SBT"
+  (interactive)
+  (sbt-command "compile"))
+
+(defun spacemacs/scala-sbt-test ()
+  "Run `test' via SBT"
+  (interactive)
+  (sbt-command "test"))

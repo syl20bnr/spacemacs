@@ -1,4 +1,4 @@
-#+TITLE: compleseus layer
+#+TITLE: Compleseus layer
 
 #+TAGS: completion|layer
 
@@ -6,10 +6,11 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#configuration][Configuration]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds a new way of completion provided by the following core packages: 
+This layer adds a new way of completion provided by the following core packages:
 - =consult=
 - =embark=
 - =marginalia=
@@ -30,6 +31,16 @@ Make sure that the other completion layers: =helm= and =ivy= are removed or
 commented out in the =dotspacemacs-configuration-layers= list. Or add
 =compleseus= below the other completion layers. Spacemacs uses the completion
 layer that's listed last.
+
+** Configuration
+You can configure the completion engine by setting =compleseus-engine= to either
+=vertico= (default) or =selectrum= by editing the =compleseus-engine= variable
+like below to use =selectrum= as opposed to the default of =vertico=:
+
+#+BEGIN_SRC emacs-lisp
+  (compleseus :variables
+              compleseus-engine 'selectrum)
+#+END_SRC
 
 * Key bindings
 

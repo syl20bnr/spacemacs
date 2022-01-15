@@ -155,24 +155,20 @@ To setup the pyright language server instead, use:
 #+END_SRC
 
 *** python-lsp-server
-You just have to install python language server package:
+You need to install python language server:
 
 #+BEGIN_SRC sh
-  pip install 'python-language-server[all]'
+  pip install python-lsp-server
 #+END_SRC
 
-Additionally you can install the following other packages:
+You may also be interested in installing all optional dependencies with
 
 #+BEGIN_SRC sh
-  # for import sorting
-  pip install pyls-isort
-  # for mypy checking (python 3.4+ is needed)
-  pip install pyls-mypy
-  # for formating with black
-  pip install pyls-black
-  # for detecting the use of deprecated apis
-  pip install pyls-memestra
+  pip install 'python-lsp-server[all]'
 #+END_SRC
+
+For more information on optional dependencies, as well as 3rd-party plugins, see
+[[https://github.com/python-lsp/python-lsp-server][python-lsp-server repository]].
 
 If you've installed the language server and related packages as development
 dependencies in a pipenv environment, you'll want to set the ~python-pipenv-activate~

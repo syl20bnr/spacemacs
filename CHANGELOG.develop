@@ -77,8 +77,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   Andriy Kmit)
 *** Breaking Changes
 **** Major
-- Support for Emacs 25 has been dropped, the minimal Emacs version is now
-  =26.1=.
+- Support for Emacs 25 or Emacs 26 has been dropped, the minimal Emacs version
+  is now =27.1=.
 **** Core
 - Change loading order of layers init functions. Previously the =pre-init=,
   =init= and =post-init= function were called in a row for each package. Now
@@ -197,6 +197,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   - Use ~lsp-ivy~ when ~ivy~ layer is present.
   - added  ~lsp-use-lsp-ui~ variable to control whether ~lsp-ui~ is installed or not.
   - added ~SPC m g h~ to go to call hierarchy.
+  - added ~SPC m g T~ to go to type hierarchy.
 ***** IPython notebook
 - Key bindings;
   - Change prefix from ~SPC a i~ to ~SPC a y~ (thanks to Swaroop C H)
@@ -214,6 +215,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   - Removed ~SPC m i L~ for =markdown-insert-reference-link-dwim=
     (folded into ~SPC m i l~)
   - Added ~SPC m x k~ for =markdown-insert-kbd= (thanks to Ben Swift)
+  - Added ~SPC m t a~ for =markdown-table-align= in consistency with Org layer (thanks to deb0ch)
 ***** nlinum
 - The =nlinum= layer is deprecated on Emacs 26.1 and newer in favor of native
   line number support (thanks to bmag)
@@ -372,6 +374,7 @@ In org-agenda-mode
   - Changed ~SPC g h o~ to ~SPC g o~ for =browse-at-remote= (thanks to Codruț
     Constantin Gușoi)
   - Add ~SPC g f m~ for ~magit-file-dispatch~ (thanks to Ag Ibragimov and Ilya Grigoriev)
+- Removed [[https://github.com/defunkt/gist.el][gist.el]] due to it being broken and unmaintained (thanks to Robby O'Connor)
 ***** YAML
 - Added LSP support (thanks to Seong Yong-ju)
 ***** ycmd
@@ -396,6 +399,7 @@ In org-agenda-mode
 - emberjs (thanks to Robert O'Connor)
 - phoenix (thanks to Lyuben Petrov)
 - vue (thanks to Thanh Vuong)
+- svelte (thanks to Marco Süß)
 **** Intl
 - japanese (thanks to Kenji Miyazaki)
 **** Languages
@@ -433,6 +437,7 @@ In org-agenda-mode
 - yang (thanks to Christian Hopps)
 - zig (thanks to Michael Hauser-Raspe)
 **** Misc
+- tree-sitter
 - copy-as-format (thanks to Ruslan Kamashev)
 - dtrt-indent (thanks to Kevin Doherty)
 - ietf (thanks to Christian Hopps and Robby O'Connor)
@@ -670,6 +675,7 @@ Other:
     keymaps and top-level keymap, under prefix ~SPC t k~ (thanks to Daniel Nicolai)
   - Add =describe-ex-command= on ~SPC h d x~ (thanks to Daniel Nicolai)
   - Support packing elisp to *.elc and *.el.gz (thanks to Lin Sun)
+  - Add option to select and update only some packages (thanks to Daniel Nicolai)
 - Fixes:
   - Avoid non-idempotent use of push in init code (thanks to Miciah Masters)
   - Moved Spacemacs startup progress bar to =core-progress-bar.el=, removed
@@ -806,8 +812,10 @@ Other:
     section (thank to Daniel Nicolai)
   - New function =spacemacs/inherit-leader-keys-from-parent-mode= to
     inherit leader key bindings from another mode
-  - Evilify buffer with major-mode derived from =special-mode= by default
-    (thanks to Daniel Nicolai)
+  - Open buffers with major-mode derived from =special-mode= in motion-state by
+    default (thanks to Daniel Nicolai)
+  - Add evil-jump-backward/forward (=C-o=/=C-i=) keybindings to
+    evil-evilified-state-map (thanks to Daniel Nicolai)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -1623,6 +1631,7 @@ Other:
   - Added =flycheck-clojure= linters (thanks to Eugene Yaremenko)
   - Added =clj-kondo= to Clojure linters (thanks to Luo Tian and John Stevenson)
   - Added =flycheck-joker= to Clojure linters (thanks to didibus)
+  - Added =kaocha-runner= to Clojure linters (thanks to practicalli-john)
 - Improvements:
   - Stored cider REPL history in spacemacs cache (thanks to Ryan Fowler)
   - Removed backtick from smartparens pairs for Clojure
@@ -2066,6 +2075,7 @@ Other:
   Factor versions
 **** FASD
 - Add ~search from~ ivy action (thanks to Daniel Nicolai)
+- fasd & find layout. Initiates fasd search and opens the item in a layout (thanks to Ag Ibragimov)
 **** Finance
 - Remove key-bindings pointing to removed commands (thanks to Alexander Baier)
 - Added =evil-ledger= package (thanks to Alexander Miller)
@@ -3101,8 +3111,6 @@ files (thanks to Daniel Nicolai)
 - Fixed ~'~ =pdf-view-jump-to-register= (thanks to duianto)
 - Key bindings:
   - Added to pdf-view mode and transient state
-    - ~C-o~ history-backward (previous view)
-    - ~C-i~ history-forward (next view)
     - ~[~ history-backward (previous view)
     - ~]~ history-forward (next view)
     - ~?~ toggle transient sate documentation hint (shown by default)
@@ -3413,6 +3421,8 @@ files (thanks to Daniel Nicolai)
     - ~SPC c s d~ Copy rpms to the phone
     - ~SPC c s i~ Install rpms into target
 **** Scala
+- Shortcut keys for common/standard SBT commands (~scalafmtAll~, ~compile~ and ~test~)
+  (thanks to Keith Pinson)
 - Remove long-deprecated Ensime support (thanks to Keith Pinson)
 - Provide an easy way to configure SBT to use a small buffer at the bottom of
   the frame by setting =scala-sbt-window-position= to =bottom= (thanks to Keith

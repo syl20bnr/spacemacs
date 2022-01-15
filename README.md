@@ -83,10 +83,10 @@ the [full installation instructions](#install) for other options.
         - [Modify spacemacs-start-directory variable](#modify-spacemacs-start-directory-variable)
     - [Spacemacs logo](#spacemacs-logo)
 - [Update](#update)
+    - [Rolling update (on develop)](#rolling-update-on-develop)
     - [Automatic update (on master branch)](#automatic-update-on-master-branch)
     - [Manual update (on master branch)](#manual-update-on-master-branch)
-    - [On develop branch](#on-develop-branch)
-    - [Revert to a specific version](#revert-to-a-specific-version)
+    - [Revert to a specific version (on master branch)](#revert-to-a-specific-version-on-master-branch)
 - [Quotes](#quotes)
 - [Contributions](#contributions)
 - [Communities](#communities)
@@ -152,7 +152,7 @@ to first install base Emacs and then download the Spacemacs extension files with
 Git.
 
 ## Emacs
-Spacemacs requires Emacs 25.1 or above. The development version of Emacs is not
+Spacemacs requires Emacs 27.1 or above. The development version of Emacs is not
 *officially* supported, but it should nevertheless be expected to work.
 
 Some modes require third-party tools that you'll have to install via your
@@ -166,9 +166,8 @@ an old fork of Emacs. The X in its name is unrelated to X11.
 
 Emacs has graphical support.
 
-**Note:** The Ubuntu LTS 12.04 and 14.04 repositories only have Emacs version
-24.3 available. Version 25.1 or greater needs to be [built from source][build_source].
-This might also be true for other linux distributions.
+**Note:** Some linux distributions support only emacs versions older than 27.1.
+In this case you should [built from source][build_source] instead.
 
 ### macOS
 
@@ -178,8 +177,6 @@ This might also be true for other linux distributions.
 
 ```
 brew tap d12frosted/emacs-plus
-# to install Emacs 26
-brew install emacs-plus
 # or to install Emacs 27
 brew install emacs-plus@27 --with-spacemacs-icon
 # or to install Emacs 28
@@ -390,16 +387,6 @@ be transferred using http, use at your own risk.
    font settings.
 
 4. Launch Emacs. Spacemacs will automatically install the packages it requires.
-   There is a well-known issue with some GPG keys having expired end of 2019.
-   This can be fixed by upgrading to Emacs 26.3 or above or by manually adding
-   the new keys using something like:
-   ```sh
-   gpg --homedir ~/.emacs.d/elpa/gnupg --receive-keys 066DAFCB81E42C40
-   ```
-   If you have a restrictive firewall it may help to manually specify the keyserver:
-   ```sh
-   gpg --keyserver keyserver.ubuntu.com --homedir ~/.emacs.d/elpa/gnupg/ --receive-keys 066DAFCB81E42C40
-   ```
 
 5. Launch Emacs, and answer the questions in the Dotfile wizard installer. If
    you are new to Emacs and Spacemacs, then it's fine to just accept the default
@@ -468,9 +455,23 @@ For macOS users, you need to [download the .icns version of the logo][icon-repos
 then [change the logo on the Dock][icon-mac-instructions].
 
 # Update
-Spacemacs shows a notification when a new version is available (only when you
-are on the default `master` branch). If you are on the `develop` branch then
-you'll have to update the Spacemacs repository manually.
+Spacemacs supports two different update schemes, the default is a rolling update scheme based
+on the latest version of packages available. This version can be found on the `develop` branch
+and is updated by a simple git pull.
+
+The second depreciated one is a fixed version scheme which is based on a stable set
+of packages. This version can be found on the `master` branch and will show a notification when
+a new version is available. Be warned this has not been updated in a long time now so packages
+will be very old.
+
+## Rolling update (on develop)
+1. Close Emacs and update the git repository:
+
+   ```sh
+   git pull --rebase
+   ```
+
+2. Restart Emacs to complete the upgrade.
 
 ## Automatic update (on master branch)
 When a new version is available then a little arrow appears in the mode-line.
@@ -493,16 +494,7 @@ git fetch
 git reset --hard <tag version which you are updating to>
 ```
 
-## On develop branch
-1. Close Emacs and update the git repository:
-
-   ```sh
-   git pull --rebase
-   ```
-
-2. Restart Emacs to complete the upgrade.
-
-## Revert to a specific version
+## Revert to a specific version (on master branch)
 To revert to a specific version, just checkout the corresponding branch. For
 instance to revert to version `0.200`, type the following command:
 

@@ -5,7 +5,7 @@
 ;; Author: Nasser Alshammari
 ;; URL: <https://github.com/nashamri/spacemacs-theme>
 ;;
-;; Version: 0.1
+;; Version: 0.2
 ;; Keywords: color, theme
 ;; Package-Requires: ((emacs "24"))
 

@@ -124,6 +124,7 @@
     - [[#phoenix][Phoenix]]
     - [[#react][React]]
     - [[#ruby-on-rails][Ruby on Rails]]
+    - [[#svelte][Svelte]]
     - [[#vue][Vue]]
   - [[#general-purpose][General-purpose]]
     - [[#imperative][Imperative]]
@@ -245,6 +246,7 @@
   - [[#tide-layer][Tide Layer]]
   - [[#tmux][Tmux]]
   - [[#transmission][Transmission]]
+  - [[#tree-sitter][Tree-sitter]]
   - [[#vagrant][Vagrant]]
   - [[#web-beautify][Web-beautify]]
   - [[#xclipboard][Xclipboard]]
@@ -1497,7 +1499,7 @@ This layer adds support for the [[https://coq.inria.fr/][Coq]] proof assistant (
 Features:
 - Syntax highlighting
 - Syntax-checking
-- Auto-completion
+- Auto-completion (requires the [[https://develop.spacemacs.org/layers/+completion/auto-completion/README.html][auto-completion layer]] to be installed)
 - Debugging of mathematical proofs from within Emacs using a special proof layout
 - Replacement of certain constants with the correct mathematical signs
 - Inserting of certain preconfigured proof elements
@@ -1739,6 +1741,26 @@ Features:
 - Run generators
 - Rake runner
 - Interactive Rails console
+
+*** Svelte
+[[file:+frameworks/svelte/README.org][+frameworks/svelte/README.org]]
+
+Layer for Svelte, for working with =.svelte= files.
+
+Note: This layer creates a derived mode called =svelte-mode= on the fly out of
+=web-mode= to handle svelte files. It will conflict with the [[https://github.com/AdamNiederer/svelte-mode][svelte-mode package]], make sure
+you don't use that package together with this layer.
+
+Features:
+- Wholesome features from =web-mode=, especially on template part
+- Better performance
+- On-the-fly syntax checking with =eslint=
+- Proper syntax highlight and indentation with =svelte-mode=
+- Two options for backend support for autocompletion and code analysis: =lsp= and =dumb=
+- Code autocompletion with =company-mode=
+- Formatting code with =prettier= layer
+- =evil-matchit= =%= to jump between open and close tags
+- =emmet-mode= and =yasnippet= for code expanding with the =TAB= key
 
 *** Vue
 [[file:+frameworks/vue/README.org][+frameworks/vue/README.org]]
@@ -2531,7 +2553,6 @@ Features:
 - quick in buffer last commit message per line with [[https://github.com/syohex/emacs-git-messenger][git-messenger]]
 - colorize buffer line by age of commit with [[https://github.com/syohex/emacs-smeargle][smeargle]]
 - git grep with [[https://github.com/yasuyk/helm-git-grep][helm-git-grep]]
-- gitignore generator with [[https://github.com/jupl/helm-gitignore][helm-gitignore]]
 - org integration with magit via [[https://github.com/magit/orgit][orgit]]
 
 New to Magit? Checkout the [[https://magit.vc/about/][official intro]].
@@ -2543,7 +2564,6 @@ This layers adds support for [[http://github.com][GitHub]].
 
 Features:
 - [[https://github.com/magit/forge][forge]]: integration with various forges, such as GitHub and GitLab.
-- [[https://github.com/defunkt/gist.el][gist.el]]: full-featured mode to browse and post GitHub gists.
 - [[https://github.com/sshaw/git-link][git-link]]: quickly generate URLs for commits or files.
 - [[https://github.com/dgtized/github-clone.el][github-clone]] allows for easy cloning and forking of repositories.
 - [[https://github.com/seagle0128/grip-mode][grip-mode]] Github-flavored Markdown/Org preview using [[https://github.com/joeyespo/grip][Grip]].
@@ -3165,6 +3185,21 @@ This layer integrates a BitTorrent client into Spacemacs.
 
 Features:
 - Integration of [[https://transmissionbt.com/][Transmission]] into Emacs.
+
+** Tree-sitter
+[[file:+tools/tree-sitter/README.org][+tools/tree-sitter/README.org]]
+
+This layer integrates [[https://github.com/emacs-tree-sitter/elisp-tree-sitter][=Emacs Tree-sitter=]] and a few packages built around it.
+An Emacs build supporting dynamic modules is required.
+
+Language (i.e. major-mode) support is somewhat limited and varies by feature.
+Refer to the README/documentation of the package providing the feature for
+specifics.
+
+Features:
+- Syntax highlighting
+- Indentation (experimental)
+- Folding (experimental)
 
 ** Vagrant
 [[file:+tools/vagrant/README.org][+tools/vagrant/README.org]]

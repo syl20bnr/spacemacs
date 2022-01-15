@@ -54,12 +54,12 @@ gui, translate to [C-i]. Otherwise, [9] (TAB)."
 ;;     [C-m] [?\C-m]))
 ;; (define-key key-translation-map [?\C-m] 'spacemacs/translate-C-m)
 
-(defun spacemacs/declare-prefix (prefix name &optional _)
+(defun spacemacs/declare-prefix (prefix name &rest more)
   "Declare a prefix PREFIX. PREFIX is a string describing a key
 sequence. NAME is a string used as the prefix command."
-  (which-key-add-keymap-based-replacements spacemacs-default-map
-    prefix name))
-(put 'spacemacs/declare-prefix 'lisp-indent-function 'defun)
+  (declare (indent defun))
+  (apply #'which-key-add-keymap-based-replacements spacemacs-default-map
+    prefix name more))
 
 (defun spacemacs/declare-prefix-for-mode (mode prefix name &optional _)
   "Declare a prefix PREFIX. MODE is the mode in which this prefix command should

@@ -114,6 +114,7 @@
     (progn
       (spacemacs|diminish company-mode " ⓐ" " a")
 
+      (spacemacs|add-company-backends :modes text-mode)
       ;; key bindings
       (defun spacemacs//company-complete-common-or-cycle-backward ()
         "Complete common prefix or cycle backward."

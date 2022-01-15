@@ -40,6 +40,7 @@
 (require 'face-remap)
 (require 'org)
 (require 'org-compat)
+(require 'org-indent)
 
 (defgroup space-doc nil "Minor mode for viewing Spacemacs documentation files."
   :group 'spacemacs)

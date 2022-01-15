@@ -256,9 +256,7 @@
 
 (defun latex/init-lsp-latex ()
   (use-package lsp-latex
-    :defer t
-    :config
-    (spacemacs//latex-setup-pdf-tools)))
+    :defer t))
 
 (defun latex/init-math-symbol-lists ()
   (use-package math-symbol-lists

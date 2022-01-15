@@ -226,6 +226,7 @@
     (doom-tomorrow-night              . doom-themes)
     (doom-vibrant                     . doom-themes)
     (doom-wilmersdorf                 . doom-themes)
+    (doom-xcode                       . doom-themes)
     (doom-zenburn                     . doom-themes)
     (dorsey                           . sublime-themes)
     (eziam-dark                       . eziam-theme)
