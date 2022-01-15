@@ -242,7 +242,14 @@
     (progn
       (add-hook 'prog-mode-hook 'spacemacs//load-evil-lisp-state)
       (setq evil-lisp-state-global t))
-    :config (spacemacs/set-leader-keys "k" evil-lisp-state-map)))
+    :config
+    (progn
+      (spacemacs/set-leader-keys "k" evil-lisp-state-map)
+      (spacemacs/declare-prefix
+        "k" "lisp"
+        "kd" "delete"
+        "kD" "delete-backward"
+        "k`" "hybrid"))))
 
 ;; other commenting functions in funcs.el with keybinds in keybindings.el
 (defun spacemacs-evil/init-evil-nerd-commenter ()
