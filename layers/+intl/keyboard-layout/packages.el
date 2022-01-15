@@ -575,6 +575,13 @@
             "E" 'org-forward-element
             "I" 'org-backward-element
             "N" 'org-backward-heading-same-level))))
+    :dvp
+    (progn
+      (spacemacs|use-package-add-hook evil-org
+        :post-config
+        (evil-define-key 'normal evil-org-mode-map
+          "d" 'evil-backward-char
+          "j" 'evil-org-delete)))
     :neo
     (progn
       (spacemacs|use-package-add-hook evil-org
