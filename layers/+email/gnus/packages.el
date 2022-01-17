@@ -43,7 +43,7 @@
     :commands gnus
     :init
     (progn
-      (spacemacs/declare-prefix "aeg" "gnus" "Gnus newsreader")
+      (spacemacs/declare-prefix "aeg" "gnus")
       (spacemacs/set-leader-keys
         "aegg" 'gnus
         "aegs" 'gnus-slave
