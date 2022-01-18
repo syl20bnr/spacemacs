@@ -115,7 +115,7 @@
                         "dw" "debug windows")))
 
         ;; Set global prefixes
-        (spacemacs/declare-prefix prefixes)
+        (apply #'spacemacs/declare-prefix prefixes)
 
         ;; Set global key bindings
         (apply #'spacemacs/set-leader-keys bindings)
@@ -128,7 +128,7 @@
           (spacemacs/set-leader-keys-for-major-mode mode "dd" nil)
 
           ;; Set prefixes
-          (cl-do* ((x (prefixes) (cddr x))
+          (cl-do* ((x prefixes (cddr x))
                    (y (cdr x) (cdr x)))
               ((or (null x) (null y)))
             (spacemacs/declare-prefix-for-mode mode
