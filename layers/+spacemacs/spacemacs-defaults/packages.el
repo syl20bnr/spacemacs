@@ -21,45 +21,45 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq spacemacs-defaults-packages
-      '(
-        (abbrev :location built-in)
-        (archive-mode :location built-in)
-        (bookmark :location built-in)
-        (buffer-menu :location built-in)
-        (conf-mode :location built-in)
-        (cus-edit :location built-in
-                  :toggle (or (eq 'vim dotspacemacs-editing-style)
-                              (eq 'hybrid dotspacemacs-editing-style)))
-        (dired :location built-in)
-        (dired-x :location built-in)
-        (image-dired :location built-in)
-        (display-line-numbers :location built-in)
-        (electric-indent-mode :location built-in)
-        (ediff :location built-in)
-        (eldoc :location built-in)
-        (help-fns+ :location local)
-        (hi-lock :location built-in)
-        (image-mode :location built-in)
-        (imenu :location built-in)
-        (occur-mode :location built-in)
-        (package-menu :location built-in)
-        ;; page-break-lines is shipped with spacemacs core
-        (page-break-lines :location built-in)
-        (process-menu :location built-in)
-        quickrun
-        (recentf :location built-in)
-        (savehist :location built-in)
-        (saveplace :location built-in)
-        (subword :location built-in)
-        (tar-mode :location built-in)
-        (uniquify :location built-in)
-        (url :location built-in)
-        (visual-line-mode :location built-in)
-        (whitespace :location built-in)
-        (winner :location built-in)
-        (xref :location built-in)
-        (zone :location built-in)))
+(defconst spacemacs-defaults-packages
+  '(
+    (abbrev :location built-in)
+    (archive-mode :location built-in)
+    (bookmark :location built-in)
+    (buffer-menu :location built-in)
+    (conf-mode :location built-in)
+    (cus-edit :location built-in
+              :toggle (or (eq 'vim dotspacemacs-editing-style)
+                          (eq 'hybrid dotspacemacs-editing-style)))
+    (dired :location built-in)
+    (dired-x :location built-in)
+    (image-dired :location built-in)
+    (display-line-numbers :location built-in)
+    (electric-indent-mode :location built-in)
+    (ediff :location built-in)
+    (eldoc :location built-in)
+    (help-fns+ :location local)
+    (hi-lock :location built-in)
+    (image-mode :location built-in)
+    (imenu :location built-in)
+    (occur-mode :location built-in)
+    (package-menu :location built-in)
+    ;; page-break-lines is shipped with spacemacs core
+    (page-break-lines :location built-in)
+    (process-menu :location built-in)
+    quickrun
+    (recentf :location built-in)
+    (savehist :location built-in)
+    (saveplace :location built-in)
+    (subword :location built-in)
+    (tar-mode :location built-in)
+    (uniquify :location built-in)
+    (url :location built-in)
+    (visual-line-mode :location built-in)
+    (whitespace :location built-in)
+    (winner :location built-in)
+    (xref :location built-in)
+    (zone :location built-in)))
 
 
 ;; Initialization of packages

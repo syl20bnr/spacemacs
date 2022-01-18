@@ -21,14 +21,13 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq pass-packages
-      '(
-        (ivy-pass :requires ivy)
-        (helm-pass :requires helm)
-        auth-source-pass
-        password-store
-        password-store-otp
-        ))
+(defconst pass-packages
+  '(
+    (ivy-pass :requires ivy)
+    (helm-pass :requires helm)
+    auth-source-pass
+    password-store
+    password-store-otp))
 
 (defun pass/init-helm-pass ()
   (use-package helm-pass

@@ -20,8 +20,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-(setq spell-checking-packages
+(defconst spell-checking-packages
   '(
     auto-dictionary
     flyspell
@@ -30,8 +29,7 @@
     (flyspell-correct-helm :toggle (configuration-layer/layer-used-p 'helm))
     (flyspell-correct-popup :toggle (and (not (configuration-layer/layer-used-p 'ivy))
                                          (not (configuration-layer/layer-used-p 'helm))))
-    (flyspell-popup :toggle enable-flyspell-auto-completion)
-    ))
+    (flyspell-popup :toggle enable-flyspell-auto-completion)))
 
 (defun spell-checking/init-auto-dictionary ()
   (use-package auto-dictionary
@@ -100,8 +98,9 @@ Spell Commands^^            Add To Dictionary^^               Other
         :documentation "Enable automatic spell checking."
         :evil-leader "tS")
 
-      (spacemacs/declare-prefix "S" "spelling")
-      (spacemacs/declare-prefix "Sa" "add word to dict")
+      (spacemacs/declare-prefix
+        "S"  "spelling"
+        "Sa" "add word to dict")
       (spacemacs/set-leader-keys
         "Sab" 'spacemacs/add-word-to-dict-buffer
         "Sag" 'spacemacs/add-word-to-dict-global

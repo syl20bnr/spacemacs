@@ -21,33 +21,33 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq git-packages
-      '(
-        evil-collection
-        fill-column-indicator
-        ;; forge requires a C compiler on Windows so we disable
-        ;; it by default on Windows.
-        (forge :toggle (not (spacemacs/system-is-mswindows)))
-        ;; include the old git{attributes,config,ignore}-mode
-        git-modes
-        gitignore-templates
-        git-commit
-        git-link
-        git-messenger
-        git-timemachine
-        golden-ratio
-        (helm-git-grep :requires helm)
-        magit
-        (magit-delta :toggle git-enable-magit-delta-plugin)
-        (magit-gitflow :toggle git-enable-magit-gitflow-plugin)
-        magit-section
-        (magit-svn :toggle git-enable-magit-svn-plugin)
-        (magit-todos :toggle git-enable-magit-todos-plugin)
-        org
-        (orgit :requires org)
-        (orgit-forge :requires (org forge))
-        smeargle
-        transient))
+(defconst git-packages
+  '(
+    evil-collection
+    fill-column-indicator
+    ;; forge requires a C compiler on Windows so we disable
+    ;; it by default on Windows.
+    (forge :toggle (not (spacemacs/system-is-mswindows)))
+    ;; include the old git{attributes,config,ignore}-mode
+    git-modes
+    gitignore-templates
+    git-commit
+    git-link
+    git-messenger
+    git-timemachine
+    golden-ratio
+    (helm-git-grep :requires helm)
+    magit
+    (magit-delta :toggle git-enable-magit-delta-plugin)
+    (magit-gitflow :toggle git-enable-magit-gitflow-plugin)
+    magit-section
+    (magit-svn :toggle git-enable-magit-svn-plugin)
+    (magit-todos :toggle git-enable-magit-todos-plugin)
+    org
+    (orgit :requires org)
+    (orgit-forge :requires (org forge))
+    smeargle
+    transient))
 
 
 (defun git/pre-init-golden-ratio ()

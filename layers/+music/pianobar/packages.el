@@ -21,22 +21,23 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq pianobar-packages
+(defconst pianobar-packages
   '(
-    pianobar
-    ))
+    pianobar))
+
 
 (defun pianobar/init-pianobar ()
   (use-package pianobar
     :defer t
-    :init (progn
-            (spacemacs/declare-prefix "am" "music")
-            (spacemacs/declare-prefix "amp" "Pianobar")
-            (spacemacs/set-leader-keys
-              "ampp" 'pianobar-play-or-pause
-              "ampn" 'pianobar-next-song
-              "amp+" 'pianobar-love-current-song
-              "amp-" 'pianobar-ban-current-song
-              "ampt" 'pianobar-shelve-current-song
-              "amps" 'pianobar-change-station
-              ))))
+    :init
+    (progn
+      (spacemacs/declare-prefix
+        "am"  "music"
+        "amp" "Pianobar")
+      (spacemacs/set-leader-keys
+        "ampp" 'pianobar-play-or-pause
+        "ampn" 'pianobar-next-song
+        "amp+" 'pianobar-love-current-song
+        "amp-" 'pianobar-ban-current-song
+        "ampt" 'pianobar-shelve-current-song
+        "amps" 'pianobar-change-station))))

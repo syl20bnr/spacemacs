@@ -22,11 +22,10 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-(setq multiple-cursors-packages
-      '(
-        (evil-mc :toggle (eq multiple-cursors-backend 'evil-mc))
-        (multiple-cursors :toggle (eq multiple-cursors-backend 'mc))))
+(defconst multiple-cursors-packages
+  '(
+    (evil-mc :toggle (eq multiple-cursors-backend 'evil-mc))
+    (multiple-cursors :toggle (eq multiple-cursors-backend 'mc))))
 
 (defun multiple-cursors/init-evil-mc ()
   (use-package evil-mc
@@ -57,8 +56,9 @@
     :defer t
     :init
     (progn
-      (spacemacs/declare-prefix "sm" "multiple-cursors")
-      (spacemacs/declare-prefix "sms" "specials")
+      (spacemacs/declare-prefix
+        "sm"  "multiple-cursors"
+        "sms" "specials")
       (spacemacs/set-leader-keys
         "sma" 'mc/mark-all-dwim
         "smb" 'mc/mark-all-like-this

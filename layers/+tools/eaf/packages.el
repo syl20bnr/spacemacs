@@ -30,7 +30,12 @@
   (use-package eaf
     :init
     (progn
-      (spacemacs/declare-prefix "aa" "application-framework")
+      (spacemacs/declare-prefix
+        "aa"  "application-framework"
+        "aab" "browser"
+        "aabq" "quick-launch-website"
+        "aam" "mindmap")
+
       (spacemacs/set-leader-keys "aac" 'eaf-open-camera)
       (spacemacs/set-leader-keys "aaf" 'eaf-open)
       (spacemacs/set-leader-keys "aaj" 'eaf-open-jupyter)
@@ -39,18 +44,14 @@
       (spacemacs/set-leader-keys "aas" 'eaf-open-system-monitor)
       (spacemacs/set-leader-keys "aaM" 'eaf-open-music-player)
 
-      (spacemacs/declare-prefix "aab" "browser")
       (spacemacs/set-leader-keys "aabo" 'eaf-open-browser)
       (spacemacs/set-leader-keys "aabs" 'eaf-search-it)
       (spacemacs/set-leader-keys "aabb" 'eaf-open-bookmark)
       (spacemacs/set-leader-keys "aabh" 'eaf-open-browser-with-history)
 
-      (spacemacs/declare-prefix "aabq" "quick-launch-website")
       (spacemacs/set-leader-keys "aabqd" 'duckduckgo)
       (spacemacs/set-leader-keys "aabqw" 'wikipedia)
       (spacemacs/set-leader-keys "aabqy" 'youtube)
-
-      (spacemacs/declare-prefix "aam" "mindmap")
       (spacemacs/set-leader-keys "aamc" 'eaf-create-mindmap)
       (spacemacs/set-leader-keys "aamm" 'eaf-open-mindmap)
 
@@ -141,7 +142,6 @@
               ("<f5>" . "refresh_page")
               ("<f12>" . "open_devtools")
               ("<C-return>" . "eaf-send-ctrl-return-sequence")))
-
 
       (setq eaf-pdf-viewer-keybinding
             '(("j" . "scroll_up")

@@ -21,7 +21,8 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq perforce-packages '(p4))
+(defconst perforce-packages
+  '(p4))
 
 (defun perforce/init-p4 ()
   (use-package p4

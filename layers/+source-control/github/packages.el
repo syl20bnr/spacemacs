@@ -21,14 +21,14 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq github-packages
-      '(
-        github-clone
-        github-search
-        grip-mode
-        ;; this package does not exits, we need it to wrap
-        ;; the call to spacemacs/declare-prefix.
-        (spacemacs-github :location built-in)))
+(defconst github-packages
+  '(
+    github-clone
+    github-search
+    grip-mode
+    ;; this package does not exits, we need it to wrap
+    ;; the call to spacemacs/declare-prefix.
+    (spacemacs-github :location built-in)))
 
 (defun github/init-github-clone ()
   (use-package github-clone

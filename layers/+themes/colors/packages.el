@@ -21,15 +21,14 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq colors-packages
+(defconst colors-packages
   '(
     ;; not working well for now
     ;; rainbow-blocks
     (nyan-mode :location local)
     color-identifiers-mode
     rainbow-identifiers
-    rainbow-mode
-    ))
+    rainbow-mode))
 
 ;; (defun colors/init-rainbow-blocks ()
 ;;   (use-package rainbow-blocks
