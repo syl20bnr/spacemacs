@@ -14,6 +14,7 @@ if [[ -z "$(git status --porcelain)" ]]; then
     echo "No changes. Exiting."
     exit 0
 else
+    git add -N
     git diff HEAD > "/tmp/${PUBLISH}.patch"
     echo "Changed files:"
     git status --porcelain
