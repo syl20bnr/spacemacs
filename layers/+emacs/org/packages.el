@@ -1025,6 +1025,12 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :init
     (progn
       (add-hook 'org-mode-hook 'org-appear-mode)
+      (when (and (eq org-appear-trigger 'manual)
+                 (memq dotspacemacs-editing-style '(vim hybrid)))
+        (add-hook 'org-mode-hook
+                  (lambda ()
+                    (add-hook 'evil-insert-state-entry-hook #'org-appear-manual-start nil t)
+                    (add-hook 'evil-insert-state-exit-hook #'org-appear-manual-stop nil t))))
       (setq org-appear-autolinks t
             org-appear-autoemphasis t
             org-appear-autosubmarkers t))))
