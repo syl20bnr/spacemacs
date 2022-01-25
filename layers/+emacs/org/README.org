@@ -549,7 +549,7 @@ To install [[https://github.com/awth13/org-appear][org-appear]], which toggles v
 #+END_SRC
 
 If you set =org-appear-trigger= to =manual= and your editing style is =vim= or =hybrid=,
-=org-appear= will be on in insert mode but off in normal mode.
+=org-appear= is turned on in insert mode but not in normal mode.
 
 ** Verb support
 To install [[https://github.com/federicotdn/verb][Verb]], an HTTP client based on Org mode, set the
