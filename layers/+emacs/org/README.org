@@ -548,6 +548,9 @@ To install [[https://github.com/awth13/org-appear][org-appear]], which toggles v
    '((org :variables org-enable-appear-support t)))
 #+END_SRC
 
+If you set =org-appear-trigger= to =manual= and your editing style is =vim= or =hybrid=,
+=org-appear= is turned on in insert mode but not in normal mode.
+
 ** Verb support
 To install [[https://github.com/federicotdn/verb][Verb]], an HTTP client based on Org mode, set the
 =org-enable-verb-support= variable to =t=:
