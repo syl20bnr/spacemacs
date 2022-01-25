@@ -2890,7 +2890,7 @@ files (thanks to Daniel Nicolai)
 - Allow new OPAM share commandline syntax (thanks to Cody McKenzie)
 **** Org
 - When =org-appear= is set to be triggered manually and Spacemacs' editing mode is
-  Vim or hybrid, register relevant =org-appear= functions in Evil hooks for Org
+  Vim or hybrid, register relevant =org-appear= commands in Evil hooks for Org
   buffers (thanks to Keith Pinson).
 - Provide some sane default strategies for enforcing =TODO= dependencies via
   =org-todo-dependencies-strategy= (thanks to Keith Pinson).
