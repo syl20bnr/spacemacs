@@ -747,6 +747,7 @@ are also available.
 | ~SPC m s b~   | org-tree-to-indirect-buffer     |
 | ~SPC m s d~   | org-cut-subtree                 |
 | ~SPC m s y~   | org-copy-subtree                |
+| ~SPC m s p~   | org-paste-subtree               |
 | ~SPC m s l~   | org-demote-subtree              |
 | ~SPC m s h~   | org-promote-subtree             |
 | ~SPC m s k~   | org-move-subtree-up             |
