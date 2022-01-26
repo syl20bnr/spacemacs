@@ -482,6 +482,7 @@ In org-agenda-mode
 - transmission (thanks to Eugene Yaremenko)
 - web-beautify (thanks to Sylvain Benner and Juuso Valkeejärvi)
 - xclipboard (thanks to Charles Weill, Sylvain Benner, and Alex Palaistras)
+- journalctl (thanks to Benedikt Broich)
 **** WEB services
 - confluence
 - reddit

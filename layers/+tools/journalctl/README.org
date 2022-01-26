@@ -1,0 +1,31 @@
+#+TITLE: journalctl layer
+
+#+TAGS: layer|tool
+
+* Table of Contents                                       :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds support for viewing log files with =journalctl= in Spacemacs. This is a major-mode for emacs to view systemd's journalctl output in emacs. The output is split into chunks for performance reasons. Fontification is provided and may be customized.
+
+** Features:
+  - Viewing system unit
+  - Viewing user unit
+  - Filter options
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =journalctl= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding   | Description                                     |
+|---------------+-------------------------------------------------|
+| ~SPC a t j b~ | Select and show boot-log.                       |
+| ~SPC a t j j~ | Run =journalctl= with custom option             |
+| ~SPC a t j s~ | Select and show journal for UNIT.               |
+| ~SPC a t j u~ | Select and show journal for the user-unit UNIT. |
