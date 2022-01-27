@@ -25,6 +25,7 @@
   '(
     flycheck
     systemd
+    journalctl-mode
     )
   "The list of Lisp packages required by the systemd layer.")
 
@@ -39,5 +40,17 @@
     :config (spacemacs/set-leader-keys-for-major-mode 'systemd-mode
               "hd" 'systemd-doc-directives
               "ho" 'systemd-doc-open)))
+
+(defun journalctl/init-journalctl-mode ()
+  (use-package journalctl-mode
+    :ensure t
+    :init (progn
+            (spacemacs/declare-prefix "atj"  "journalctl")
+            (spacemacs/set-leader-keys
+              "atjj" 'journalctl
+              "atjs" 'journalctl-unit
+              "atju" 'journalctl-user-unit
+              "atjb" 'journalctl-boot
+              ))))
 
 ;;; packages.el ends here
