@@ -621,6 +621,9 @@ it means this package comes with your distribution's package manager and is not 
 Spacemacs. You can suppress this by adding the package to =dotspacemacs-additional-packages=
 in your =.spacemacs= file.
 
+In addition, you also need to add the said package to =dotspacemacs-frozen-packages= in your
+=.spacemacs=, so that you will be able to update your Emacs packages successfully.
+
 * Windows
 ** Why do the fonts look crappy on Windows?
 You can install [[https://code.google.com/archive/p/gdipp/][GDIPP]] (simplest) or [[https://code.google.com/p/mactype/][MacType]] (more complete) on Windows to get
