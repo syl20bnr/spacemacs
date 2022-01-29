@@ -668,6 +668,29 @@ If the universal prefix argument is used then kill the windows too."
     (when (equal '(4) arg) (delete-other-windows))
     (message "Buffers deleted!")))
 
+(defun spacemacs//confirm-kill-buffer ()
+  "Prompt the user to save a buffer to a file before killing it.
+
+This skips the following buffers:
+- A buffer with non-nil value of variable `buffer-file-name'.
+  Or in other words, a buffer who has a file associated with.
+  Emacs by default prompts the user to save it if it's modified.
+- A buffer which is derived from `special-mode'.
+- A buffer with special name that starts with whitespace(s)
+  and/or have buffer name surrounded by asterisks \"*\". Except
+  for the scratch buffer, namely \"*scratch*\"."
+  (when (and (not buffer-file-name)
+             (buffer-modified-p)
+             (not (derived-mode-p 'special-mode)))
+    (let ((name (buffer-name))
+          (regexp "\\*[[:print:]]+\\*"))
+      (when (and (not (string-equal name ""))     ;; skip empty buffer name
+                 (/= (aref name 0) ?\s)           ;; buffer name starts with whitespace is special
+                 (or (string-equal "*scratch*" name) ;; *BUFFER_NAME* is skipped, except *scratch*
+                     (not (string-match regexp name)))
+                 (not (yes-or-no-p (format "Buffer %S modified; kill anyway? " (buffer-name)))))
+        (save-buffer)))))
+
 ;; from http://dfan.org/blog/2009/02/19/emacs-dedicated-windows/
 (defun spacemacs/toggle-current-window-dedication ()
   "Toggle dedication state of a window. Commands that change the buffer that a
