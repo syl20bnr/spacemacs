@@ -944,8 +944,12 @@ to 'auto, tags may not be properly aligned. "
 ;;;;; tab-bar-mode
      `(tab-bar ((,class (:foreground ,base :background ,bg1))))
      `(tab-bar-tab ((,class (:foreground ,base :background ,bg1 :weight bold))))
-     `(tab-line ((,class (:foreground ,base :background ,bg1))))
      `(tab-bar-tab-inactive ((,class (:foreground ,base-dim :background ,bg2 :weight light))))
+
+;;;;; tab-line-mode
+     `(tab-line ((,class (:foreground ,base :background ,bg1))))
+     `(tab-line-tab-current ((,class (:foreground ,base :background ,bg1 :weight bold))))
+     `(tab-line-tab-inactive ((,class (:foreground ,base-dim :background ,bg2 :weight light))))
 
 ;;;;; web-mode
      `(web-mode-builtin-face ((,class (:inherit ,font-lock-builtin-face))))
