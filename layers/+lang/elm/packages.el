@@ -55,7 +55,7 @@
     :config
     (progn
       ;; Bind non-lsp keys
-      (when (eq (spacemacs//elm-backend) 'company-elm)
+      (when (eq elm-backend 'company-elm)
         (spacemacs/set-leader-keys-for-major-mode 'elm-mode
           ;; format
           "=b" 'elm-format-buffer

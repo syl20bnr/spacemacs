@@ -15,13 +15,15 @@
       - [[#switch-to-another-lsp-server][Switch to another LSP server]]
       - [[#autocompletion][Autocompletion]]
       - [[#debugger-dap-integration][Debugger (dap integration)]]
+      - [[#automatically-reload-workspace][Automatically Reload Workspace]]
   - [[#cargo][Cargo]]
     - [[#cargo-edit][cargo-edit]]
     - [[#cargo-audit][cargo-audit]]
+    - [[#cargo-outdated][cargo-outdated]]
   - [[#rustfmt][Rustfmt]]
   - [[#clippy][Clippy]]
 - [[#key-bindings][Key bindings]]
-  - [[#debugger][debugger]]
+  - [[#debugger][Debugger]]
 
 * Description
 This layer supports [[https://www.rust-lang.org][Rust]] development in Spacemacs.
@@ -77,7 +79,8 @@ The default LSP server for Rust is [[https://github.com/rust-lang/rls][rls]], i.
 To choose the experimental [[https://github.com/rust-analyzer/rust-analyzer][rust-analyzer]], you need to set the layer variable =lsp-rust-server= of =lsp= layer:
 
 #+BEGIN_SRC elisp
-  (lsp :variables lsp-rust-server 'rust-analyzer)
+  (setq-default dotspacemacs-configuration-layers
+                 '(lsp :variables lsp-rust-server 'rust-analyzer))
 #+END_SRC
 
 **** Switch to another LSP server
@@ -90,6 +93,22 @@ By default, currently [[https://github.com/phildawes/racer][Racer]] is the only 
 
 **** Debugger (dap integration)
 To install the debug adapter you may run =M-x dap-gdb-lldb-setup= when you are on Linux or download it manually from [[https://marketplace.visualstudio.com/items?itemName=webfreak.debug][Native Debug]] and adjust =dap-gdb-lldb-path=.
+
+**** Automatically Reload Workspace
+When the LSP server is =rust-analyzer=, it may needs to reload the workspace to pickup changes made in =Cargo.toml=.
+You can call =spacemacs/lsp-rust-analyzer-reload-workspace=, which would be faster than restarting the LSP backend.
+
+You can also set =cargo-process-reload-on-modify= to =t=, then it will automatically reload the workspace after
+one of the following is run:
+- =cargo-process-add=
+- =cargo-process-rm=
+- =cargo-process-upgrade=
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+                 '(lsp :variables lsp-rust-server 'rust-analyzer
+                                  cargo-process-reload-on-modify t))
+#+END_SRC
 
 ** Cargo
 [[http://doc.crates.io/index.html][Cargo]] is a project management command line tool for Rust. Installation
@@ -107,6 +126,13 @@ instructions can be found on the main page of [[http://doc.crates.io/index.html]
 
 #+BEGIN_SRC sh
   cargo install cargo-audit
+#+END_SRC
+
+*** cargo-outdated
+[[https://github.com/kbknapp/cargo-outdated][cargo-outdated]] displays dependencies that have new version available.
+
+#+BEGIN_SRC sh
+  cargo install cargo-outdated
 #+END_SRC
 
 ** Rustfmt
@@ -132,32 +158,33 @@ To enable automatic buffer formatting on save, set the variable =rust-format-on-
 | ~SPC m = =~ | reformat the buffer                                         |
 | ~SPC m b R~ | reload Rust-Analyzer workspace                              |
 | ~SPC m c .~ | repeat the last Cargo command                               |
+| ~SPC m c /~ | search for packages on crates.io with Cargo                 |
+| ~SPC m c =~ | format all project files with rustfmt                       |
 | ~SPC m c a~ | add a new dependency with cargo-edit                        |
 | ~SPC m c A~ | audit dependencies for known vulnerability with cargo-audit |
-| ~SPC m c C~ | remove build artifacts                                      |
 | ~SPC m c c~ | compile project                                             |
-| ~SPC m c D~ | generate documentation and open it in default browser       |
+| ~SPC m c C~ | remove build artifacts                                      |
 | ~SPC m c d~ | generate documentation                                      |
-| ~SPC m c E~ | run a project example                                       |
+| ~SPC m c D~ | generate documentation and open it in default browser       |
 | ~SPC m c e~ | run benchmarks                                              |
-| ~SPC m c f~ | format all project files with rustfmt                       |
+| ~SPC m c E~ | run a project example                                       |
 | ~SPC m c i~ | initialise a new project with Cargo (init)                  |
 | ~SPC m c l~ | run linter ([[https://github.com/arcnmx/cargo-clippy][cargo-clippy]])                                   |
 | ~SPC m c n~ | create a new project with Cargo (new)                       |
-| ~SPC m c o~ | run all tests in current file with Cargo                    |
+| ~SPC m c o~ | display outdated dependencies ([[https://github.com/kbknapp/cargo-outdated][cargo-outdated]])              |
 | ~SPC m c r~ | remove a dependency with cargo-edit                         |
-| ~SPC m c s~ | search for packages on crates.io with Cargo                 |
-| ~SPC m c t~ | run the current test with Cargo                             |
 | ~SPC m c u~ | update dependencies with Cargo                              |
 | ~SPC m c U~ | upgrade dependencies to LATEST version with cargo-edit      |
 | ~SPC m c v~ | check (verify) a project with Cargo                         |
-| ~SPC m c X~ | execute a specific binary                                   |
 | ~SPC m c x~ | execute the default binary                                  |
+| ~SPC m c X~ | execute a specific binary                                   |
 | ~SPC m g g~ | jump to definition                                          |
 | ~SPC m h h~ | describe symbol at point                                    |
 | ~SPC m s s~ | switch to other LSP server backend                          |
-| ~SPC m t~   | run tests with Cargo                                        |
+| ~SPC m t a~ | test current project                                        |
+| ~SPC m t t~ | run the current test                                        |
+| ~SPC m t b~ | run all tests in current buffe                              |
 
-** debugger
+** Debugger
 Using the =dap= layer you'll get access to all the DAP key bindings, see the
 complete list of key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].

@@ -43,8 +43,8 @@
 (defun spacemacs/current-state-face ()
   "Return the face associated to the current state."
   (let ((state (if (eq evil-state 'operator)
-                    evil-previous-state
-                  evil-state)))
+                   evil-previous-state
+                 evil-state)))
     (spacemacs/state-color-face state)))
 
 (defun spacemacs/add-evil-cursor (state color shape)
@@ -128,7 +128,7 @@ current major mode."
                (when (or (and (symbolp mode) (derived-mode-p mode))
                          (and (listp mode) (apply 'derived-mode-p mode))
                          (eq 't mode))
-                 (when (not (listp val))
+                 (unless (listp val)
                    (setq val (list val)))
                  (dolist (v val)
                    (cond
@@ -242,6 +242,78 @@ the scroll transient state.")
       (use-package-concat
        body
        `((spacemacs|spacebind ,@args))))))
+
+
+
+(defun use-package-normalize-spacediminish (name label arg &optional recursed)
+  "Normalize the arguments to `spacemacs|diminish' to a list of one of six forms:
+     t
+     SYMBOL
+     STRING
+     (SYMBOL STRING)
+     (STRING STRING)
+     (SYMBOL STRING STRING)"
+  (let ((default-mode (use-package-as-mode name)))
+    (pcase arg
+      ;; (PATTERN ..) when not recursive -> go to recursive case
+      ((and (or `(,x . ,y) `(,x ,y))
+            (guard (and (not recursed)
+                        (listp x)
+                        (listp y))))
+       (mapcar #'(lambda (var) (use-package-normalize-spacediminish name label var t))
+               arg))
+      ;; t -> (<PKG>-mode)
+      ('t
+       (list default-mode))
+      ;; SYMBOL -> (SYMBOL)
+      ((pred use-package-non-nil-symbolp)
+       (list arg))
+      ;; STRING -> (<PKG>-mode STRING)
+      ((pred stringp)
+       (list default-mode arg))
+      ;; (SYMBOL) when recursed -> (SYMBOL)
+      ((and `(,x)
+            (guard (and recursed (use-package-non-nil-symbolp x))))
+       arg)
+      ;; (STRING) when recursed -> (<PKG>-mode STRING))
+      ((and `(,x)
+            (guard (and recursed (stringp x))))
+       (cons default-mode arg))
+      ;; (SYMBOL STRING) -> (SYMBOL STRING)
+      ((and `(,x ,y)
+            (guard (and (use-package-non-nil-symbolp x) (stringp y))))
+       arg)
+      ;; (STRING STRING) -> (<PKG>-mode STRING STRING)
+      ((and `(,x ,y)
+            (guard (and (stringp x) (stringp y))))
+       (cons default-mode arg))
+      ;; (SYMBOL STRING STRING) -> (SYMBOL STRING STRING)
+      ((and `(,x ,y ,z)
+            (guard (and (use-package-non-nil-symbolp x)
+                        (stringp y)
+                        (stringp z))))
+       arg)
+      (_
+       (use-package-error
+        (format
+         "%s wants a symbol, string, (symbol string), (string string), (symbol string string) or list of these: %S"
+         label arg))))))
+
+;;;###autoload
+(defun use-package-normalize/:spacediminish (name keyword args)
+  (use-package-as-one (symbol-name keyword) args
+    (apply-partially #'use-package-normalize-spacediminish name) t))
+
+;;;###autoload
+(defun use-package-handler/:spacediminish (name _keyword arg rest state)
+  (let ((body (use-package-process-keywords name rest state)))
+    (use-package-concat
+     `((when (fboundp 'spacemacs|diminish)
+         ,@(if (consp (car arg)) ;; e.g. ((MODE FOO BAR) ...)
+               (mapcar #'(lambda (var) `(spacemacs|diminish ,@var))
+                       arg)
+             `((spacemacs|diminish ,@arg))))) ;; e.g. (MODE FOO BAR)
+     body)))
 
 
 

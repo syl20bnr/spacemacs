@@ -24,25 +24,16 @@
 
 ;; Completion setup functions
 
-(defun spacemacs//haskell-backend ()
-  "Returns selected backend."
-  (if haskell-completion-backend
-      haskell-completion-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'dante))))
-
 (defun spacemacs-haskell//setup-backend ()
   "Conditionally setup haskell backend."
-  (pcase (spacemacs//haskell-backend)
-    (`lsp (spacemacs-haskell//setup-lsp))
-    (`dante (spacemacs-haskell//setup-dante))))
+  (pcase haskell-completion-backend
+    ('lsp (spacemacs-haskell//setup-lsp))
+    ('dante (spacemacs-haskell//setup-dante))))
 
 (defun spacemacs-haskell//setup-company ()
   "Conditionally setup haskell completion backend."
-  (pcase (spacemacs//haskell-backend)
-    (`lsp nil) ;; nothing to do, auto-configured by lsp-mode
-    (`dante (spacemacs-haskell//setup-dante-company))))
+  (when (eq haskell-completion-backend 'dante)
+    (spacemacs-haskell//setup-dante-company)))
 
 
 ;; LSP functions
@@ -55,7 +46,7 @@
         ;; top-level code that registers a LSP server type. So we need to load it
         ;; directly and can't rely on it being autoloaded.
         (require 'lsp-haskell)
-        (lsp))
+        (lsp-deferred))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 

@@ -38,7 +38,9 @@
       (setq search-engine-alist
             `((amazon
                :name "Amazon"
-               :url "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%%3Daps&field-keywords=%s")
+               :url (concat "https://www.amazon."
+                            search-engine-amazon-tld
+                            "/s/ref=nb_sb_noss?url=search-alias%%3Daps&field-keywords=%s"))
               (bing
                :name "Bing"
                :url "https://www.bing.com/search?q=%s")
@@ -108,6 +110,12 @@
               (wolfram-alpha
                :name "Wolfram Alpha"
                :url "https://www.wolframalpha.com/input/?i=%s")
+              (debian-packages
+               :name "Debian Package Search"
+               :url "https://packages.debian.org/search?keywords=%s")
+              (ubuntu-packages
+               :name "Ubuntu Package Search"
+               :url "https://packages.ubuntu.com/search?keywords=%s")
               (melpa
                :name "Melpa Package Search"
                :url "https://melpa.org/#/?q=%s")

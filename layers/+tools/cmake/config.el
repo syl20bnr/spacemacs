@@ -29,7 +29,7 @@
 (defvar cmake-enable-cmake-ide-support nil
   "If non nil CMake related packages and configuration are enabled.")
 
-(defvar cmake-backend nil
+(defvar cmake-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'company-cmake)
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-cmake'.
 If `nil' then 'company-cmake` is the default backend unless `lsp' layer is used")

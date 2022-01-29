@@ -11,7 +11,9 @@
 - [[#important-note][Important Note]]
 - [[#install][Install]]
   - [[#layer][Layer]]
+  - [[#todo-dependencies][=TODO= dependencies]]
   - [[#agenda-notifications][Agenda notifications]]
+  - [[#agenda-recommendations][Agenda recommendations]]
   - [[#github-support][GitHub support]]
   - [[#twitter-bootstrap-support][Twitter Bootstrap support]]
   - [[#gnuplot-support][Gnuplot support]]
@@ -25,6 +27,8 @@
   - [[#project-support][Project support]]
   - [[#org-brain-support][Org-brain support]]
   - [[#org-roam-support][Org-roam support]]
+    - [[#org-roam-server-support][Org-roam-server support]]
+    - [[#org-roam-protocol-support][Org-roam-protocol support]]
   - [[#mode-line-support][Mode line support]]
   - [[#sticky-header-support][Sticky header support]]
   - [[#epub-support][Epub support]]
@@ -32,6 +36,7 @@
   - [[#valign-support][Valign support]]
   - [[#org-appear-support][Org-appear support]]
   - [[#verb-support][Verb support]]
+  - [[#asciidoc-support][AsciiDoc support]]
   - [[#spacemacs-layout-integration][Spacemacs layout integration]]
 - [[#key-bindings][Key bindings]]
   - [[#starting-org-mode][Starting org-mode]]
@@ -85,15 +90,15 @@ For more extensive support of references through BibTeX files, have a look at
 the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+lang/bibtex/README.org][BibTeX layer]].
 
 * Important Note
-Since version 0.104, spacemacs uses the =org= version from the =org= ELPA
-repository instead of the one shipped with emacs. Then, any =org= related code
-should not be loaded before =dotspacemacs/user-config=, otherwise both versions
-will be loaded and will conflict.
+Since version 0.300, spacemacs uses the =org= version from the ELPA repository
+instead of the one shipped with emacs. Then, any =org= related code should not
+be loaded before =dotspacemacs/user-config=, otherwise both versions will be
+loaded and will conflict.
 
 Because of autoloading, calling to =org= functions will trigger the loading up
-of the =org= shipped with emacs which will induce conflicts.
-One way to avoid conflict is to wrap your =org= config code in a
-=with-eval-after-load= block like this:
+of the =org= shipped with emacs which will induce conflicts. One way to avoid
+conflict is to wrap your =org= config code in a =with-eval-after-load= block
+like this:
 
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load 'org
@@ -114,6 +119,43 @@ To use this configuration layer: in the main Spacemacs configuration
 file (=~/.spacemacs=), to the existing =dotspacemacs-configuration-layers= list
 add the =org= entry.
 
+** =TODO= dependencies
+If you would like to enforce dependencies in your =TODO= hierarchy, this layer has
+some sane default configurations to try via its ~org-todo-dependencies-strategy~
+configuration variable.
+
+Setting it to ~'naive-auto~, will cause an entry to switch to =DONE= when all its
+subentries are done, and to =TODO= otherwise. This does not result in extra
+prompts for the user, but doesn't work well with more workflow states because of
+the literal =DONE= and =TODO=; it is an excellent place for beginners and
+minimalists:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (org :variables
+         org-todo-dependencies-strategy 'naive-auto)))
+#+END_SRC
+
+Setting it to ~'semiauto~, will cause the user to be prompted to change an entry's
+state when the state of the subentries imply it: that is, when they are either
+all done while it is still a todo, or the when they are all still todo's while
+it is done. This assumes next to nothing about your workflow states (it does not
+use literal =TODO= and =DONE=), but may result in additional, possibly surprising,
+prompting for the user; and it has no intelligence to attempt to determine the
+destination state. It is a good thing to try if ~'naive-auto~ does not accomplish
+what you need:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (org :variables
+         org-todo-dependencies-strategy 'naive-auto)))
+#+END_SRC
+
+If neither of these suffice for you, =org-mode= can be configured directly by
+setting ~org-enforce-todo-dependencies~ to ~t~ and writing your own function to
+register on the ~org-after-todo-statistics-hook~. The layer implementation is a
+good reference.
+
 ** Agenda notifications
 To enable notifications for agenda events, set the variable
 =org-enable-notifications= to =t=.
@@ -125,28 +167,60 @@ To enable notifications for agenda events, set the variable
          org-start-notification-daemon-on-startup t)))
 #+END_SRC
 
-This will install and configure the [[https://github.com/akhramov/org-wild-notifier.el][org-wild-notifier]] package. After install run
-the =org-wild-notifier-mode= to start the =org-wild-notifier= notification daemon. To
-start the notification daemon automatically on Spacemacs startup, set the
-variable =org-start-notification-daemon-on-startup= to =t= as shown in the code
-snippet above.
+This will install and configure the [[https://github.com/akhramov/org-wild-notifier.el][org-wild-notifier]] package. After install,
+run the =org-wild-notifier-mode= to start the =org-wild-notifier= notification
+daemon. To start the notification daemon automatically on Spacemacs startup, set
+the variable =org-start-notification-daemon-on-startup= to =t= as shown in the
+code snippet above.
 
-Documentation for how the notifications system can be configured is provided
-[[https://github.com/akhramov/org-wild-notifier.el#configuration][here]] (on GNU/linux and Windows, using the =notifications= style is recommended.
-Note also [[https://github.com/jwiegley/alert/pull/94][this issue]]).
+Check the [[https://github.com/akhramov/org-wild-notifier.el#configuration][documentation for how org-wild-notifier can be configured]]
+(org-wild-notifier uses the [[https://melpa.org/#/alert][alert]] package for showing notifications. On
+GNU/linux and Windows, using alert's [[https://github.com/jwiegley/alert#builtin-alert-styles][notifications]] style is recommended. Note
+also [[https://github.com/jwiegley/alert/pull/94][this issue]]). Add [[https://github.com/jwiegley/alert#builtin-alert-styles][your preferred alert style]] to =dotspacemacs/user-config= with:
+
+#+BEGIN_SRC emacs-lisp
+  (setq alert-default-style 'notifications)
+#+END_SRC
 
 Press =M-S RET= to enter a todo headline and then press =, d t= to add a
-timestamp to the headline (or use the =org-journal-new-scheduled-entry= that
-becomes available by enabling =Org-journal support=. By default, the
-=org-wild-notifier= package will scan your =org-agenda-files= (every minute) for
-=TODO= headlines that include a timestamp (configuration options are documented
-[[https://github.com/akhramov/org-wild-notifier.el#configuration][here]]). The default configuration shows a notification 10 minutes before the
-event using the [[https://melpa.org/#/alert][alert]] package. The default behavior can be configured via the
-=org-wild-notifier-alert-time= variable. The notification type can be configured
-via the [[https://github.com/jwiegley/alert#for-users][the alert package its configuration settings]]. Additional notification
-times can be added using the [[https://github.com/akhramov/org-wild-notifier.el#configuration][:WILD_NOTIFIER_NOTIFY_BEFORE:]] keyword (*note* that
-[[https://github.com/akhramov/org-wild-notifier.el/issues/46][this additionally requires a =SCHEDULED:= stamp)]]. Properties can be added with
-=, i p=.
+timestamp to the headline (using =, d t= requires the =diary-file= variable to
+point to an existing file, see [[#agenda-recommendations][Agenda recommendations]]. You can also use the
+=org-journal-new-scheduled-entry= that becomes available by enabling [[#org-journal-support][org-journal
+support]]). By default, the =org-wild-notifier= package will scan your
+=org-agenda-files= (every minute) for =TODO= headlines that include a timestamp
+(configuration options are documented [[https://github.com/akhramov/org-wild-notifier.el#configuration][here]]). The default configuration shows a
+notification 10 minutes before the event using the [[https://melpa.org/#/alert][alert]] package. The default
+behavior can be configured via the =org-wild-notifier-alert-time= variable. The
+notification type can be configured via the [[https://github.com/jwiegley/alert#for-users][the alert package its configuration
+settings]]. Additional notification times can be added using the
+[[https://github.com/akhramov/org-wild-notifier.el#configuration][:WILD_NOTIFIER_NOTIFY_BEFORE:]] keyword (*note* that [[https://github.com/akhramov/org-wild-notifier.el/issues/46][this additionally requires a
+=SCHEDULED:= stamp)]]. Properties can be added with =, i p=.
+
+** Agenda recommendations
+Emacs comes with its own diary package included. It is recommended not to use
+the diary directly. Instead of [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Format-of-Diary-File.html][creating a diary file]], create a =diary.org=
+file and set the =diary-file= variable to point to that file. To make the
+holidays, birthdays etc. from the diary show up in the agenda, add the
+diary-style expression entries to your =diary.org= file as shown in the code
+block of the =Calendar/Diary integration= section [[https://orgmode.org/manual/Weekly_002fdaily-agenda.html][here]].
+
+Subsequently, to add appointments to the agenda you could use the following
+syntax:
+
+#+BEGIN_SRC org
+  * Friday, 04/02/2021
+    ** Appointment 1
+    <2021-04-02 Fri 10:10>
+    ** TODO Appointment 2
+    <2021-04-02 Fri 10:11>
+#+END_SRC
+
+or just use the [[#org-journal-support][org journal system]]. Outside =org-journal= you can still use
+=org-journal-insert-header-at-point= to create the date headers. In the source
+block above, the first appointment will just show up in the agenda. If
+=org-wild-notifier= is configured, then the second appointment will also trigger
+a notification 10 minutes (by default) before its due time (see [[#agenda-notifications][Agenda
+notifications]]).
 
 ** GitHub support
 To install GitHub related extensions like [[https://github.com/larstvei/ox-gfm][ox-gfm]] to export to GitHub
@@ -375,8 +449,9 @@ the following snippet.
 #+END_SRC
 
 ** Org-brain support
-For Emacs 25 or later, support for [[https://kungsgeten.github.io/org-brain.html][org-brain]] is included. See the [[https://github.com/Kungsgeten/org-brain][org-brain
-package documentation]] for more information.
+For Emacs 25 or later, to install [[https://kungsgeten.github.io/org-brain.html][org-brain]] set the variable =org-enable-org-brain-support= to =t=.
+
+See the [[https://github.com/Kungsgeten/org-brain][org-brain package documentation]] for more information.
 
 ** Org-roam support
 To install org-roam support set the variable =org-enable-roam-support= to =t=.
@@ -388,6 +463,22 @@ To install org-roam support set the variable =org-enable-roam-support= to =t=.
 #+END_SRC
 
 More information about org-roam package (including manual) can be found at [[https://www.orgroam.com/][Org-roam]] website.
+
+*** Org-roam-server support
+To install support for [[https://github.com/org-roam/org-roam-server][org-roam-server]] set the variable =org-enable-roam-server=
+to =t=.
+
+*** Org-roam-protocol support
+To enable support for [[https://www.orgroam.com/manual.html#Org_002droam-Protocol][Org Roam Protocol]] set the variable
+=org-enable-roam-protocol= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (org :variables
+         org-enable-roam-protocol t)))
+#+END_SRC
+
+And create a desktop file as described in the [[https://www.orgroam.com/manual.html#Org_002droam-Protocol][org-roam manual]].
 
 ** Mode line support
 To temporarily enable mode line display of org clock, press ~SPC t m c~.
@@ -457,6 +548,9 @@ To install [[https://github.com/awth13/org-appear][org-appear]], which toggles v
    '((org :variables org-enable-appear-support t)))
 #+END_SRC
 
+If you set =org-appear-trigger= to =manual= and your editing style is =vim= or =hybrid=,
+=org-appear= is turned on in insert mode but not in normal mode.
+
 ** Verb support
 To install [[https://github.com/federicotdn/verb][Verb]], an HTTP client based on Org mode, set the
 =org-enable-verb-support= variable to =t=:
@@ -464,6 +558,15 @@ To install [[https://github.com/federicotdn/verb][Verb]], an HTTP client based o
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
    '((org :variables org-enable-verb-support t)))
+#+END_SRC
+
+** AsciiDoc support
+To install Org exporter [[https://github.com/yashi/org-asciidoc][ox-asciidoc]], that generates AsciiDoc documents, set the
+variable =org-enable-asciidoc-support= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((org :variables org-enable-asciidoc-support t)))
 #+END_SRC
 
 ** Spacemacs layout integration
@@ -556,6 +659,18 @@ A [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#lay
 Please see the [[https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org][evil-org documentation]] for additional instructions on customizing
 =evil-org-mode=.
 
+*Insert state*
+In evil insert-state, use the introspection functions under =M-m
+h d= and =M-RET= to discover key bindings. The following table shows keybindings
+for some of the most frequently used commands
+
+| Key binding   | Description                                       |
+|---------------+---------------------------------------------------|
+| ~M-RET M-RET~ | org-meta-return (dwim retrun)                     |
+| ~M-h/l~       | org-meta-left/right (e.g. promote/demote heading) |
+
+*Normal state*
+
 | Key binding   | Description                     |
 |---------------+---------------------------------|
 | ~gj~ / ~gk~   | Next/previous element (heading) |
@@ -632,6 +747,7 @@ are also available.
 | ~SPC m s b~   | org-tree-to-indirect-buffer     |
 | ~SPC m s d~   | org-cut-subtree                 |
 | ~SPC m s y~   | org-copy-subtree                |
+| ~SPC m s p~   | org-paste-subtree               |
 | ~SPC m s l~   | org-demote-subtree              |
 | ~SPC m s h~   | org-promote-subtree             |
 | ~SPC m s k~   | org-move-subtree-up             |
@@ -672,6 +788,8 @@ are also available.
 | ~SPC m x o~ | org-open-at-point |
 
 ** Babel / Source Blocks
+Besides the key bindings mentioned here it is recommended to use the
+[[https://develop.spacemacs.org/layers/+completion/auto-completion/README.html][auto-completion layer]] and its [[https://develop.spacemacs.org/layers/+completion/auto-completion/README.html#yasnippet][yasnippet key bindings]] in particular.
 
 | Key binding | Description                              |
 |-------------+------------------------------------------|
@@ -1018,18 +1136,24 @@ Key binding prefixes:
 - ~SPC a o r~ (anywhere)
 - ~SPC m r~ (in an org-mode buffer)
 
-| Key binding      | Description                           |
-|------------------+---------------------------------------|
-| ~[prefix] r l~   | Toggle org-roam links visibility      |
-| ~[prefix] r f~   | Find file in org-roam                 |
-| ~[prefix] r i~   | Insert file into org-roam             |
-| ~[prefix] r I~   | Immediately insert file into org-roam |
-| ~[prefix] r g~   | Visualize org-roam graph              |
-| ~[prefix] r b~   | Switch org-roam buffer                |
-| ~[prefix] r d y~ | Open yesterday's daily note           |
-| ~[prefix] r d t~ | Open today's daily note               |
-| ~[prefix] r d T~ | Open tomorrow's daily note            |
-| ~[prefix] r d d~ | Open daily note via calendar view     |
-| ~[prefix] r t a~ | add org-roam tag to file              |
-| ~[prefix] r t d~ | delete org-roam tag from file         |
-| ~[prefix] r a~   | add org-roam alias to file            |
+| Key binding   | Description                       |
+|---------------+-----------------------------------|
+| ~SPC m r c~   | Capture                           |
+| ~SPC m r l~   | Toggle org-roam links visibility  |
+| ~SPC m r f~   | Find node in org-roam             |
+| ~SPC m r i~   | Insert node into org-roam         |
+| ~SPC m r g~   | Visualize org-roam graph          |
+| ~SPC m r a~   | Add org-roam alias to file        |
+| ~SPC m r d y~ | Open yesterday's daily note       |
+| ~SPC m r d t~ | Open today's daily note           |
+| ~SPC m r d T~ | Open tomorrow's daily note        |
+| ~SPC m r d d~ | Open daily note via calendar view |
+| ~SPC m r t a~ | Add a tag to file                 |
+| ~SPC m r t r~ | Remove a tag from file            |
+
+*org-roam buffer*
+
+| Key binding | Description             |
+|-------------+-------------------------|
+| ~o~         | Follow link             |
+| ~r~         | Refresh org-roam buffer |

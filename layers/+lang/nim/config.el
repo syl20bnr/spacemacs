@@ -25,7 +25,7 @@
 
 (spacemacs|define-jump-handlers nim-mode)
 
-(defvar nim-backend nil
+(defvar nim-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'company-nim)
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-nim'.
 If `nil' then 'company-nim` is the default backend unless `lsp' layer is used")

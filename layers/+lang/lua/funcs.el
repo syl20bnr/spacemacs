@@ -21,28 +21,22 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//lua-backend ()
-  "Returns selected backend."
-  (if lua-backend
-      lua-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'lua-mode))))
-
 (defun spacemacs//lua-setup-backend ()
   "Conditionally setup lua backend."
-  (pcase (spacemacs//lua-backend)
-    (`lsp (spacemacs//lua-setup-lsp))))
+  (when (eq lua-backend 'lsp)
+    (spacemacs//lua-setup-lsp)))
 
 (defun spacemacs//lua-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//lua-backend)
-    (`lua-mode (spacemacs|add-company-backends
-                 :backends company-lua
-                 :modes lua-mode))
-    (`lsp (spacemacs|add-company-backends
-            :backends company-capf
-            :modes lua-mode))))
+  (pcase lua-backend
+    ('lua-mode
+     (spacemacs|add-company-backends
+       :backends company-lua
+       :modes lua-mode))
+    ('lsp
+     (spacemacs|add-company-backends
+       :backends company-capf
+       :modes lua-mode))))
 
 
 ;; LSP Lua
@@ -51,8 +45,10 @@
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        (cond ((eq lua-lsp-server 'emmy)  (setq-local lsp-disabled-clients '(lua-language-server lsp-lua-lsp)))
-              ((eq lua-lsp-server 'lua-language-server) (setq-local lsp-disabled-clients '(emmy-lua lsp-lua-lsp)))
-              ((eq lua-lsp-server 'lua-lsp) (setq-local lsp-disabled-clients '(emmy-lua lsp-lua-language-server))))
-        (lsp))
+        (setq-local lsp-disabled-clients
+                    (pcase lua-lsp-server
+                      ('emmy '(lua-language-server lsp-lua-lsp))
+                      ('lua-language-server '(emmy-lua lsp-lua-lsp))
+                      ('lua-lsp '(emmy-lua lsp-lua-language-server))))
+        (lsp-deferred))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))

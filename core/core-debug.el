@@ -94,8 +94,7 @@ seconds to load")
                                              (profiler-report)
                                              (profiler-stop))))))
 
-  (when (version<= "27.0" emacs-version)
-    (require 'time-date))
+  (require 'time-date)
   (when spacemacs-debug-with-timed-requires
     (with-current-buffer (get-buffer-create "*load-times*")
       (insert (format "Threshold set at %.3f seconds\n\n"
@@ -143,7 +142,7 @@ seconds to load")
                 (with-current-buffer "*load-times*"
                   (goto-char (point-max))
                   (insert (format "[%.3f] Spacemacs finished initializing\n\n"
-                                  (float-time (time-since emacs-start-time)) )))))
+                                  (float-time (time-since emacs-start-time)))))))
 
     (advice-add 'load :around #'spacemacs//load-timer)
     (advice-add 'require :around #'spacemacs//load-timer)
@@ -179,8 +178,7 @@ seconds to load")
            "- Editing style: %s\n"
            "- Completion: %s\n"
            "- Layers:\n```elisp\n%s```\n"
-           (when (version<= "25.1" emacs-version)
-             "- System configuration features: %s\n"))
+           "- System configuration features: %s\n")
    system-type
    emacs-version
    spacemacs-version
@@ -235,6 +233,20 @@ seconds to load")
                       'face 'font-lock-warning-face)
                      "You can paste it in the gitter chat.\n"
                      "Check the *Messages* buffer if you need to review it"))))
+
+(defun spacemacs/describe-ex-command (ex-command)
+  (interactive (list (completing-read "Describe ex-command: " evil-ex-commands)))
+  (let* ((func (alist-get ex-command evil-ex-commands nil nil 'string=))
+         (prompt (if (stringp func)
+                     "The ex-command :%s is an alias for the ex-command :%s. Describe :%s?"
+                   "The ex-command :%s calls %s. Describe %s?")))
+    (when (y-or-n-p (format prompt
+                            ex-command
+                            func
+                            func))
+      (if (stringp func)
+          (spacemacs/describe-ex-command func)
+        (describe-function func)))))
 
 (defun spacemacs/report-issue (arg)
   "Open a spacemacs/report-issue-mode buffer prepopulated with

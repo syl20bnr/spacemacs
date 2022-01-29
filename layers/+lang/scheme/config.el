@@ -24,3 +24,9 @@
 ;; variables
 
 (spacemacs|define-jump-handlers scheme-mode geiser-edit-symbol-at-point)
+
+(defvar scheme-implementations nil
+  "List of scheme implementations for which support should get enabled.
+The symbols of the list can be any multiple of the by geiser
+  supported scheme implementations: chez, chibi, chicken, gambit,
+  gauche, guile, kawa, mit and/or racket.")

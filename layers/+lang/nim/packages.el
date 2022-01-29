@@ -42,11 +42,14 @@
 (defun nim/init-nim-mode ()
   (use-package nim-mode
     :defer t
-    :init (add-hook 'nim-mode-hook #'spacemacs//nim-setup-backend)
+    :init
+    (progn
+      (add-hook 'nim-mode-hook #'spacemacs//nim-setup-backend)
+      (add-to-list 'spacemacs-jump-handlers-nim-mode 'nimsuggest-find-definition))
     :config
     (progn
       ;; Set non lsp bindings
-      (when (eq (spacemacs//nim-backend) 'company-nim)
+      (when (eq nim-backend 'company-nim)
         (spacemacs/declare-prefix-for-mode 'nim-mode "mg" "goto")
         (spacemacs/declare-prefix-for-mode 'nim-mode "mh" "help")
         (spacemacs/set-leader-keys-for-major-mode 'nim-mode

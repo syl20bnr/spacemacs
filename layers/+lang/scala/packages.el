@@ -58,7 +58,10 @@
       (spacemacs/declare-prefix-for-mode 'scala-mode "mg" "goto")
       (spacemacs/set-leader-keys-for-major-mode 'scala-mode
         "b." 'sbt-hydra
-        "bb" 'sbt-command))))
+        "bb" 'sbt-command
+        "bc" #'spacemacs/scala-sbt-compile
+        "bt" #'spacemacs/scala-sbt-test
+        "b=" #'spacemacs/scala-sbt-scalafmt-all))))
 
 (defun scala/init-scala-mode ()
   (use-package scala-mode
@@ -81,9 +84,9 @@
 
       (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
 
-      (pcase scala-sbt-window-position
-        ('bottom (setq sbt:display-buffer-action
-                       (list #'spacemacs//scala-display-sbt-at-bottom))))
+      (when (eq scala-sbt-window-position 'bottom)
+        (setq sbt:display-buffer-action
+              (list #'spacemacs//scala-display-sbt-at-bottom)))
 
       ;; Compatibility with `aggressive-indent'
       (setq scala-indent:align-forms t

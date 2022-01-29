@@ -21,50 +21,50 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//latex-backend ()
-  "Returns selected backend."
-  (if latex-backend
-      latex-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'company-auctex))))
-
 (defun spacemacs//latex-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//latex-backend)
-    ;; Activate lsp company explicitly to activate
-    ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
-            :backends company-capf
-            :modes LaTeX-mode))
-    (_ (when (configuration-layer/package-used-p 'company-auctex)
-         (if (configuration-layer/package-used-p 'company-math)
-             (spacemacs|add-company-backends
-               :backends
-               company-math-symbols-unicode
-               company-math-symbols-latex
-               (company-auctex-macros)
-               company-auctex-symbols
-               company-auctex-environments
-               :modes LaTeX-mode)
+  (pcase latex-backend
+    ('lsp
+     (spacemacs|add-company-backends ;; Activate lsp company explicitly to activate
+       :backends company-capf        ;; standard backends as well
+       :modes LaTeX-mode))
+    ('company-auctex
+     (when (configuration-layer/package-used-p 'company-auctex)
+       (if (configuration-layer/package-used-p 'company-math)
            (spacemacs|add-company-backends
-             :backends
-             (company-auctex-macros)
-             company-auctex-symbols
-             company-auctex-environments
-             :modes LaTeX-mode)))
-       (when (configuration-layer/package-used-p 'company-reftex)
+             :backends (company-math-symbols-unicode
+                        company-math-symbols-latex
+                        company-auctex-macros
+                        company-auctex-symbols
+                        company-auctex-environments)
+             :modes LaTeX-mode)
          (spacemacs|add-company-backends
-           :backends
-           company-reftex-labels
-           company-reftex-citations
-           :modes LaTeX-mode)))))
+           :backends (company-auctex-macros
+                      company-auctex-symbols
+                      company-auctex-environments)
+           :modes LaTeX-mode)))
+     (when (configuration-layer/package-used-p 'company-reftex)
+       (spacemacs|add-company-backends
+         :backends company-reftex-labels
+         company-reftex-citations
+         :modes LaTeX-mode)))))
 
 (defun spacemacs//latex-setup-backend ()
   "Conditionally setup latex backend."
-  (pcase (spacemacs//latex-backend)
-    (`lsp (require 'lsp-latex)
-          (lsp))))
+  (when (eq latex-backend 'lsp)
+    (require 'lsp-latex)
+    (lsp-deferred)))
+
+(defun spacemacs//latex-setup-pdf-tools ()
+  "Conditionally setup pdf-tools."
+  (when latex-view-with-pdf-tools
+    (if (configuration-layer/layer-used-p 'pdf)
+        (progn
+          (setf (alist-get 'output-pdf TeX-view-program-selection) '("PDF Tools"))
+          (when latex-view-pdf-in-split-window
+            (require 'pdf-sync)
+            (setq pdf-sync-forward-display-action t)))
+      (spacemacs-buffer/warning "Latex Layer: latex-view-with-pdf-tools is non-nil but pdf layer is not installed, this setting will have no effect."))))
 
 (defun latex/build ()
   (interactive)

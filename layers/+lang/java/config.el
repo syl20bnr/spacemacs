@@ -25,7 +25,7 @@
 
 (spacemacs|define-jump-handlers java-mode)
 
-(defvar java-backend nil
+(defvar java-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'meghanada)
   "The backend to use for IDE features.
 Possible values are `lsp' and `meghanada'.
 If `nil' then `meghanada' is the default backend unless `lsp' layer is used.")

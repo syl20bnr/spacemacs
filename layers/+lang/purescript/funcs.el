@@ -21,27 +21,60 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//purescript-backend ()
-  "Returns selected backend."
-  (if purescript-backend
-      purescript-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'psc-ide))))
-
 (defun spacemacs//purescript-setup-backend ()
   "Conditionally setup purescript backend."
-  (pcase (spacemacs//purescript-backend)
-    ('lsp (lsp))))
+  (when (eq purescript-backend 'lsp)
+    (lsp-deferred)))
 
 (defun spacemacs//purescript-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//purescript-backend)
-    ;; Activate lsp company explicitly to activate
-    ;; standard backends as well
-    ('lsp (spacemacs|add-company-backends
-            :backends company-capf
-            :modes purescript-mode))
-    ('psc-ide (spacemacs|add-company-backends
-                :backends company-psc-ide-backend
-                :modes purescript-mode))))
+  (pcase purescript-backend
+    ('lsp
+     (spacemacs|add-company-backends ;; Activate lsp company explicitly to activate
+       :backends company-capf        ;; standard backends as well
+       :modes purescript-mode))
+    ('psc-ide
+     (spacemacs|add-company-backends
+       :backends company-psc-ide-backend
+       :modes purescript-mode))))
+
+(defun spacemacs/purescript-format ()
+  "Call formatting tool specified in `purescript-fmt-tool'."
+  (interactive)
+  (call-interactively
+   (pcase purescript-fmt-tool
+     ('purs-tidy 'spacemacs/purescript-purs-tidy-format-buffer)
+     (_ (user-error
+         "%s isn't a valid purescript formatter. Possible values are 'purs-tidy"
+         purescript-fmt-tool)))))
+
+(defun spacemacs/purescript-purs-tidy-format-buffer ()
+  "Format buffer with purs-tidy."
+  (interactive)
+  (if (executable-find "purs-tidy")
+      (let*  ((extension (file-name-extension (or buffer-file-name "tmp.purs") t))
+              (tmpfile (make-temp-file "~fmt-tmp" nil extension))
+              (coding-system-for-read 'utf-8)
+              (coding-system-for-write 'utf-8)
+              (outputbuf (get-buffer-create "*~fmt-tmp.purs*")))
+        (unwind-protect
+            (progn
+              (with-current-buffer outputbuf (erase-buffer))
+              (write-region nil nil tmpfile)
+              (if (zerop (apply #'call-process-region nil nil "purs-tidy" nil
+                                `(,outputbuf ,tmpfile) nil
+                                `("format")))
+                  (let ((p (point)))
+                    (save-excursion
+                      (with-current-buffer (current-buffer)
+                        (replace-buffer-contents outputbuf)))
+                    (goto-char p)
+                    (message "formatted.")
+                    (kill-buffer outputbuf))
+                (message "Formatting failed!")
+                (display-buffer outputbuf)))
+            (delete-file tmpfile)))
+    (error "purs-tidy not found. Run \"npm install -g purs-tidy\"")))
+
+(defun spacemacs/purescript-fmt-before-save-hook ()
+  (add-hook 'before-save-hook 'spacemacs/purescript-format t t))

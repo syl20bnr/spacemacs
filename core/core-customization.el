@@ -53,7 +53,7 @@
     spacemacs-dotspacemacs-layers)
   "List of variable groups that can't be customized.")
 
-(defmacro spacemacs|defc (symbol standard doc type &optional group-override)
+(defmacro spacemacs|defc (symbol standard doc type &optional group-override safe)
   "Spacemacs flavored `defcustom' for .spacemacs configurations.
 SYMBOL         is the variable name; it should not be quoted.
 STANDARD       is an expression specifying the variable's standard value.
@@ -63,6 +63,9 @@ TYPE           should be a widget type for editing the symbol's value.
                base types and useful composite types.
 GROUP-OVERRIDE should be provided if you don't want Spacemacs to infer the
                configuration group from the currently configured layer name.
+SAFE           should either be a function or t to be set to
+               safe-local-variable property. When it's t, use TYPE to determine
+               the safety.
 
 NOTE: Use interactive function `spacemacs/customization-valid-p' to test if a
       variable has a proper type. In interactive mode it will also `message'
@@ -89,6 +92,11 @@ NOTE: Variables defined with a group listed in
       ,(format "%s\n\nTYPE: %s\n" doc type)
       :type ,type
       :group group)
+     (pcase ,safe
+       ('t (put ',symbol 'safe-local-variable
+                (apply-partially 'spacemacs-customization//get-variable-validator
+                                 ',symbol)))
+       ((pred functionp) (put ',symbol 'safe-local-variable ,safe)))
      (when (memq group spacemacs-customization-uncustomizable-groups)
        ;; HACK: This will make `custom-variable-p' return nil
        ;; so the `describe-variable' function won't add customization
@@ -97,7 +105,7 @@ NOTE: Variables defined with a group listed in
        (put ',symbol 'custom-autoload nil))))
 
 (defun spacemacs/customization-valid-p (var-symbol)
-  "returns true if symbol refers spacemacs custom variable with valid value.
+  "Return t if VAR-SYMBOL is a spacemacs custom variable with valid value.
 Emits message with the result when called interactively."
   (interactive "v")
   (let* ((defc? (get var-symbol 'spacemacs-customization--variable))
@@ -112,6 +120,25 @@ Emits message with the result when called interactively."
             (condition-case err (validate-value val type) (error (message err)))
           (message "%s is not Spacemacs customization variable" var-symbol))))
     valid?))
+
+(defun spacemacs-customization//get-variable-validator (var-symbol val)
+  "Check the validity of VAL for the spacemacs custom variable VAR-SYMBOL.
+
+Return t if VAL is valid, and return an error when VAL is invalid or when
+VAR-SYMBOL is not a spacemacs custom variable.
+
+This function should be used with `apply-partially', and be set to the
+`safe-local-variable' perperty of VAR-SYMBOL. `apply-partially' returns a
+validation function that takes one argument and validate it against the scheme
+of VAR-SYMBOL.
+
+When loading local variables, `safe-local-variable-p' would call the validation
+function, and it would demote any error to a message and a nil return value.
+Thus it returns t when VAL is valid and nil otherwise."
+  (if-let* ((_ (get var-symbol 'spacemacs-customization--variable))
+            (type (custom-variable-type var-symbol)))
+      (or (validate-value val type nil) t)
+    (user-error "%s is not a Spacemacs customization variable" var-symbol)))
 
 (defun spacemacs-customization//group-variables (group-symbol)
   "Given customization group symbol get its variables."

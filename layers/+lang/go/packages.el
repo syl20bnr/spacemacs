@@ -56,15 +56,15 @@
   (add-hook 'go-mode-local-vars-hook #'spacemacs//go-setup-company))
 
 (defun go/pre-init-dap-mode ()
-  (pcase (spacemacs//go-backend)
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'go-mode)))
+  (when (eq go-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'go-mode))
   (add-hook 'go-mode-local-vars-hook #'spacemacs//go-setup-dap))
 
 (defun go/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'go-mode))
 
 (defun go/post-init-eldoc ()
-  (add-hook 'go-mode-hook #'spacemacs//go-setup-eldoc))
+  (add-hook 'go-mode-local-vars-hook #'spacemacs//go-setup-eldoc))
 
 (defun go/post-init-flycheck ()
   (spacemacs/enable-flycheck 'go-mode))
@@ -72,7 +72,7 @@
 (defun go/init-flycheck-golangci-lint ()
   (use-package flycheck-golangci-lint
     :defer t
-    :init (add-hook 'go-mode-hook 'spacemacs//go-enable-flycheck-golangci-lint t)))
+    :init (add-hook 'go-mode-local-vars-hook 'spacemacs//go-enable-flycheck-golangci-lint)))
 
 (defun go/post-init-ggtags ()
   (add-hook 'go-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
@@ -81,7 +81,8 @@
   (spacemacs/helm-gtags-define-keys-for-mode 'go-mode))
 
 (defun go/init-go-eldoc ()
-  (use-package go-eldoc :defer t))
+  (use-package go-eldoc
+    :defer t))
 
 (defun go/init-go-fill-struct ()
   (use-package go-fill-struct
@@ -128,17 +129,13 @@
 
 (defun go/init-go-mode ()
   (use-package go-mode
-    :defer t
+    :hook ((go-mode-local-vars . spacemacs//go-set-tab-width)
+           (go-mode-local-vars . spacemacs//go-setup-backend)
+           (go-mode-local-vars . spacemacs//go-setup-format))
     :init
     (progn
       ;; get go packages much faster
       (setq go-packages-function 'spacemacs/go-packages-gopkgs)
-      (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width)
-      (add-hook 'go-mode-local-vars-hook
-                #'spacemacs//go-setup-backend)
-      (dolist (value '(lsp go-mode))
-        (add-to-list 'safe-local-variable-values
-                     (cons 'go-backend value)))
       (spacemacs|add-toggle go-test-verbose
         :documentation "Enable verbose test output."
         :status go-test-verbose
@@ -147,8 +144,6 @@
         :evil-leader-for-mode (go-mode . "tv")))
     :config
     (progn
-      (when go-format-before-save
-        (add-hook 'before-save-hook 'gofmt-before-save))
       (spacemacs/declare-prefix-for-mode 'go-mode "me" "playground")
       (spacemacs/declare-prefix-for-mode 'go-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'go-mode "mh" "help")

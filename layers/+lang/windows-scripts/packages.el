@@ -23,49 +23,72 @@
 
 (defconst windows-scripts-packages
   '(
-    (dos :location local)
+    (bat-mode :location built-in)
+    bmx-mode
+    (counsel-gtags :if (configuration-layer/package-used-p 'counsel))
     ggtags
-    counsel-gtags
-    helm-gtags
+    (helm-gtags :if (configuration-layer/package-used-p 'helm))
     powershell))
 
-(defun windows-scripts/init-dos ()
-  (use-package dos
-    :commands dos-mode
-    :mode (("\\.bat\\'" . dos-mode)
-           ("\\.cmd\\'" . dos-mode))
+(defun windows-scripts/init-bat-mode()
+  (use-package bat-mode
+    :commands (bat-cmd-help bat-run bat-run-args bat-template)
+    :mode (("\\.bat\\'" . bat-mode)
+           ("\\.cmd\\'" . bat-mode))
     :init
     (progn
-      (defun windows-scripts/dos-outline-hook ()
-        (defun outline-mouse-select ()
-          "Select position and return to `dos-mode'."
-          (interactive)
-          (dos-mode)
-          (beginning-of-line)))
-      (defun windows-scripts/dos-outline ()
-        "Set a local binding to be able to return easily in dos-mode."
-        (interactive)
-        (dos-outline)
-        (define-key evil-normal-state-local-map (kbd "SPC m z") 'dos-mode))
-      (add-hook 'outline-mode-hook 'windows-scripts/dos-outline-hook))
-    :config
-    (spacemacs/set-leader-keys-for-major-mode 'dos-mode
-      "hD" 'dos-help-cmd
-      "eb" 'dos-run
-      "eB" 'dos-run-args
-      "s"  'dos-sep
-      "t"  'dos-template-mini
-      "T"  'dos-template
-      "z"  'windows-scripts/dos-outline)))
+      (spacemacs/declare-prefix-for-mode 'bat-mode "me" "eval")
+      (spacemacs/declare-prefix-for-mode 'bat-mode "mh" "help")
+      (spacemacs/declare-prefix-for-mode 'bat-mode "mi" "insert"))
+    :spacebind
+    (:major
+     (bat-mode
+      ("e" "eval"
+       ("b" bat-run "eval buffer")
+       ("B" bat-run-args "eval buffer with args"))
+      ("h" "help"
+       ("h" bat-cmd-help "show help of cmd"))
+      ("i" "insert"
+       ("t" bat-template "insert minimal template"))
+      ("z" windows-scripts/bat-outline "batch file outline")))))
+
+(defun windows-scripts/init-bmx-mode()
+  (use-package bmx-mode
+    :commands (bmx-insert-colon-and-complete
+               bmx-fixup-labels
+               bmx-insert-percentage-and-complete
+               bmx-fixup-variable
+               bmx-find-references-at-point
+               bmx-navigate-to-symbol-at-point
+               bmx-rename-symbol-at-point
+               bmx-fixup-labels-and-variables)
+    :hook bat-mode
+    :spacebind
+    (:minor
+     (bmx-mode
+      ("g" "goto"
+       ("d" bmx-navigate-to-symbol-at-point "go to definition")
+       ("r" bmx-find-references-at-point "find references"))
+      ("r" "refactor"
+       ("r" bmx-rename-symbol-at-point "rename symbol")
+       ("f" bmx-fixup-labels-and-variables ("ensure all symbols has consistent casing/syntax"
+                                            :label "bmx-fixup")))))))
+
+(defun windows-scripts/post-init-company ()
+  (when (configuration-layer/package-used-p 'company)
+    (add-hook 'company-completion-finished-hook #'bmx--company-completion-finished-hook)
+    (spacemacs|add-company-backends
+      :backends (bmx--company-label-backend bmx--company-variable-backend company-files company-capf)
+      :modes bat-mode)))
 
 (defun windows-scripts/post-init-ggtags ()
-  (add-hook 'dos-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'bat-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun windows-scripts/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'dos-mode))
+  (spacemacs/counsel-gtags-define-keys-for-mode 'bat-mode))
 
 (defun windows-scripts/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'dos-mode))
+  (spacemacs/helm-gtags-define-keys-for-mode 'bat-mode))
 
 (defun windows-scripts/init-powershell ()
   (use-package powershell
@@ -80,9 +103,8 @@
       (spacemacs/set-leader-keys
         "atsp" 'powershell)
       (spacemacs/set-leader-keys-for-major-mode 'powershell-mode
-        "rr" 'powershell-regexp-to-regex)
-      ;; TODO
-      ;; - split out powershell
-      ;; - get help output with mgg (Get-Help) or Get-Help -online
-      ;; -
-      )))
+        "rr" 'powershell-regexp-to-regex))))
+;; TODO
+;; - split out powershell
+;; - get help output with mgg (Get-Help) or Get-Help -online
+;; -

@@ -69,17 +69,8 @@
   (use-package rjsx-mode
     :defer t
     :init
-    ;; enable rjsx mode by using magic-mode-alist
-    (defun +javascript-jsx-file-p ()
-      (and buffer-file-name
-           (or (equal (file-name-extension buffer-file-name) "js")
-               (equal (file-name-extension buffer-file-name) "jsx"))
-           (re-search-forward "\\(^\\s-*import React\\|\\( from \\|require(\\)[\"']react\\)"
-                              magic-mode-regexp-match-limit t)
-           (progn (goto-char (match-beginning 1))
-                  (not (spacemacs//react-inside-string-or-comment-q)))))
 
-    (add-to-list 'magic-mode-alist (cons #'+javascript-jsx-file-p 'rjsx-mode))
+    (add-to-list 'magic-mode-alist (cons #'spacemacs//javascript-jsx-file-p 'rjsx-mode))
 
     ;; setup rjsx backend
     (add-hook 'rjsx-mode-local-vars-hook #'spacemacs//react-setup-backend)

@@ -133,14 +133,6 @@ If not in such a search box, fall back on `Custom-newline'."
 (defalias 'spacemacs/display-buffer-other-frame 'display-buffer-other-frame)
 (defalias 'spacemacs/find-file-and-replace-buffer 'find-alternate-file)
 
-(defun spacemacs/dired-remove-evil-mc-gr-which-key-entry ()
-  ;; Remove inherited bindings from evil-mc
-  ;; do this after the config to make sure the keymap is available
-  (with-eval-after-load 'dired
-    (which-key-add-keymap-based-replacements dired-mode-map
-      "<normal-state> g r" nil
-      "<visual-state> g r" nil)))
-
 (defun spacemacs/indent-region-or-buffer ()
   "Indent a region if selected, otherwise the whole buffer."
   (interactive)
@@ -423,10 +415,13 @@ projectile cache and updates recentf list."
 
 ;; originally from magnars
 (defun spacemacs/rename-buffer-visiting-a-file (&optional arg)
-  (let* ((old-short-name (buffer-name))
-         (old-filename (buffer-file-name))
+  (let* ((old-filename (buffer-file-name))
+         (old-short-name (file-name-nondirectory (buffer-file-name)))
          (old-dir (file-name-directory old-filename))
-         (new-name (read-file-name "New name: " (if arg old-dir old-filename)))
+         (new-name (let ((path (read-file-name "New name: " (if arg old-dir old-filename))))
+                     (if (string= (file-name-nondirectory path) "")
+                         (concat path old-short-name)
+                       path)))
          (new-dir (file-name-directory new-name))
          (new-short-name (file-name-nondirectory new-name))
          (file-moved-p (not (string-equal new-dir old-dir)))
@@ -452,7 +447,7 @@ projectile cache and updates recentf list."
              (recentf-remove-if-non-kept old-filename))
            (when (and (configuration-layer/package-used-p 'projectile)
                       (projectile-project-p))
-             (call-interactively #'projectile-invalidate-cache))
+             (funcall #'projectile-invalidate-cache nil))
            (message (cond ((and file-moved-p file-renamed-p)
                            (concat "File Moved & Renamed\n"
                                    "From: " old-filename "\n"
@@ -825,6 +820,11 @@ variable."
   (interactive)
   (find-file-existing user-init-file))
 
+(defun spacemacs/find-user-early-init-file ()
+  "Edit the `early-init-file', in the current window."
+  (interactive)
+  (find-file-existing early-init-file))
+
 (defun spacemacs/find-dotfile ()
   "Edit the `dotfile', in the current window."
   (interactive)
@@ -1173,12 +1173,12 @@ toggling fullscreen."
   (cond
    ((eq window-system 'x)
     (set-frame-parameter nil 'fullscreen
-                         (when (not (frame-parameter nil 'fullscreen))
+                         (unless (frame-parameter nil 'fullscreen)
                            'fullboth)))
    ((eq window-system 'mac)
     (set-frame-parameter
      nil 'fullscreen
-     (when (not (frame-parameter nil 'fullscreen)) 'fullscreen)))))
+     (unless (frame-parameter nil 'fullscreen)) 'fullscreen))))
 
 (defun spacemacs/toggle-frame-fullscreen-non-native ()
   "Toggle full screen using the `fullboth' frame parameter.
@@ -1345,10 +1345,55 @@ the right."
   (interactive)
   (set-buffer-file-coding-system 'undecided-dos nil))
 
-(defun spacemacs/copy-file ()
-  "Write the file under new name."
-  (interactive)
-  (call-interactively 'write-file))
+(defun spacemacs/save-as (filename &optional visit)
+  "Save current buffer or active region as specified file.
+When called interactively, it first prompts for FILENAME, and then asks
+whether to VISIT it, and if so, whether to show it in current window or
+another window. When prefixed with a universal-argument \\[universal-argument], include
+filename in prompt.
+
+FILENAME  a non-empty string as the name of the saved file.
+VISIT     When it's `:current', open FILENAME in current window. When it's
+          `:other', open FILENAME in another window. When it's nil, only
+          save to FILENAME but does not visit it. (Default to `:current'
+          when called from a LISP program.)
+
+When FILENAME already exists, it also asks the user whether to
+overwrite it."
+  (interactive (let* ((filename (expand-file-name (read-file-name "Save buffer as: " nil nil nil
+                                                                  (when current-prefix-arg (buffer-name)))))
+                      (choices  '("Current window"
+                                  "Other window"
+                                  "Don't open"))
+                      (actions  '(:current :other nil))
+                      (visit    (let ((completion-ignore-case t))
+                                  (nth (cl-position
+                                        (completing-read "Do you want to open the file? "
+                                                         choices nil t)
+                                        choices
+                                        :test #'equal)
+                                       actions))))
+                 (list filename visit)))
+  (unless (called-interactively-p 'any)
+    (cl-assert (and (stringp filename)
+                    (not (string-empty-p filename))
+                    (not (directory-name-p filename)))
+               t "Expect a non-empty filepath, found: %s")
+    (setq filename (expand-file-name filename)
+          visit (or visit :other))
+    (let ((choices '(:current :other nil)))
+      (cl-assert (memq visit choices)
+                 t "Found %s, expect one of %s")))
+  (let ((dir (file-name-directory filename)))
+    (unless (file-directory-p dir)
+      (make-directory dir t)))
+  (if (use-region-p)
+      (write-region (region-beginning) (region-end) filename nil nil nil t)
+    (write-region nil nil filename nil nil nil t))
+  (pcase visit
+    (:current (find-file filename))
+    (:other   (funcall-interactively 'find-file-other-window filename))))
+
 
 ;; from https://www.emacswiki.org/emacs/CopyingWholeLines
 (defun spacemacs/duplicate-line-or-region (&optional n)
@@ -1433,6 +1478,30 @@ using a visual block/rectangle selection."
   (interactive)
   (spacemacs/sort-lines-by-column -1))
 
+;; Show scroll bar when using the mouse wheel
+(defun spacemacs//scroll-bar-hide ()
+  " Hide the scroll bar."
+  (scroll-bar-mode -1))
+
+(defun spacemacs//scroll-bar-show-delayed-hide (&rest _ignore)
+  "Show the scroll bar for a couple of seconds, before hiding it.
+
+This can be used to temporarily show the scroll bar when mouse wheel scrolling.
+(advice-add 'mwheel-scroll :after #'spacemacs//scroll-bar-show-delayed-hide)
+
+The advice can be removed with:
+(advice-remove 'mwheel-scroll #'spacemacs//scroll-bar-show-delayed-hide)"
+  (scroll-bar-mode 1)
+  (run-with-idle-timer
+   (if (numberp dotspacemacs-scroll-bar-while-scrolling)
+       dotspacemacs-scroll-bar-while-scrolling
+     3)
+   nil
+   #'spacemacs//scroll-bar-hide))
+(when (and (fboundp 'scroll-bar-mode)
+           dotspacemacs-scroll-bar-while-scrolling)
+  (advice-add 'mwheel-scroll :after #'spacemacs//scroll-bar-show-delayed-hide))
+
 ;; BEGIN linum mouse helpers
 
 (defvar spacemacs-linum-mdown-line nil
@@ -1446,8 +1515,8 @@ using a visual block/rectangle selection."
           (line-move-visual t))
       (goto-char (window-start))
       (next-line (1- click-y))
-      (1+ (line-number-at-pos))
-      )))
+      (1+ (line-number-at-pos)))))
+
 
 (defun spacemacs/md-select-linum (event)
   "Set point as spacemacs-linum-mdown-line"
@@ -1642,7 +1711,7 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
 ;; Line number
 
 (defun spacemacs/no-linum (&rest ignore)
-  "Disable linum if current buffer."
+  "Disable linum in current buffer."
   (when (or 'linum-mode global-linum-mode)
     (linum-mode 0)))
 
@@ -1752,6 +1821,14 @@ Decision is based on `dotspacemacs-line-numbers'."
           disabled-for-modes
           (not disabled-for-parent)))))
 
+
+;; quick run
+(defun spacemacs/quickrun ()
+  "Call `quickrun' or `quickrun-region'"
+  (interactive)
+  (if (region-active-p)
+      (call-interactively 'quickrun-region)
+    (quickrun)))
 
 ;; randomize region
 

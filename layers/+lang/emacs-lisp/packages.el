@@ -21,35 +21,36 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq emacs-lisp-packages
-      '(
-        auto-compile
-        company
-        (debug :location built-in)
-        (edebug :location built-in)
-        eldoc
-        elisp-slime-nav
-        (emacs-lisp :location built-in)
-        evil
-        evil-cleverparens
-        eval-sexp-fu
-        flycheck
-        flycheck-elsa
-        flycheck-package
-        ggtags
-        counsel-gtags
-        helm-gtags
-        (ielm :location built-in)
-        macrostep
-        nameless
-        overseer
-        parinfer
-        rainbow-identifiers
-        semantic
-        smartparens
-        srefactor
-        emr
-        ))
+(defconst emacs-lisp-packages
+  '(
+    auto-compile
+    company
+    (debug :location built-in)
+    (edebug :location built-in)
+    eldoc
+    elisp-slime-nav
+    (emacs-lisp :location built-in)
+    evil
+    evil-cleverparens
+    eval-sexp-fu
+    flycheck
+    flycheck-elsa
+    flycheck-package
+    ggtags
+    counsel-gtags
+    helm-gtags
+    (ielm :location built-in)
+    (inspector :location (recipe
+                          :fetcher github
+                          :repo "mmontone/emacs-inspector"))
+    macrostep
+    nameless
+    overseer
+    rainbow-identifiers
+    semantic
+    smartparens
+    srefactor
+    emr))
 
 (defun emacs-lisp/init-ielm ()
   (use-package ielm
@@ -79,7 +80,7 @@
           (lisp-indent-line))))))
 
 (defun emacs-lisp/post-init-company ()
-  (spacemacs|add-company-backends :backends company-capf
+  (spacemacs|add-company-backends :backends (company-capf company-dabbrev-code)
                                   :modes emacs-lisp-mode)
   (spacemacs|add-company-backends :backends (company-files company-capf)
                                   :modes ielm-mode))
@@ -224,40 +225,40 @@
         "dm" 'spacemacs/macrostep-transient-state/body))))
 
 (defun emacs-lisp/init-nameless ()
-    (use-package nameless
-      :defer (spacemacs/defer)
-      :init
-      (progn
-        (spacemacs|require-when-dumping 'nameless)
-        (setq
-         ;; always show the separator since it can have a semantic purpose
-         ;; like in Spacemacs where - is variable and / is a function.
-         ;; moreover it makes nameless work for all kind of separators.
-         nameless-separator nil
-         ;; Use > as the defautl prefix : is already used for
-         ;; keywords
-         nameless-prefix ">")
-        ;; some default aliases for Spacemacs source code
-        (setq nameless-global-aliases '(("SB" . "spacemacs-buffer")
-                                        ("S"  . "spacemacs")
-                                        (".S"  . "dotspacemacs")
-                                        ("CL" . "configuration-layer")))
-        ;; make `nameless-current-name' safe as a local variable for string
-        ;; values
-        (put 'nameless-current-name 'safe-local-variable #'stringp)
-        (spacemacs|diminish nameless-mode " 🅽" " [n]")
-        (spacemacs|add-toggle nameless
-          :status nameless-mode
-          :on (nameless-mode)
-          :off (nameless-mode -1)
-          :documentation "Hide package namespaces in your emacs-lisp code."
-          :evil-leader-for-mode (emacs-lisp-mode . "Tn"))
-        ;; activate nameless only when in a GUI
-        ;; in a terminal nameless triggers all sorts of graphical glitches.
-        (spacemacs|unless-dumping-and-eval-after-loaded-dump nameless
-          (spacemacs|do-after-display-system-init
-           (when emacs-lisp-hide-namespace-prefix
-             (spacemacs/toggle-nameless-on-register-hook-emacs-lisp-mode)))))))
+  (use-package nameless
+    :defer (spacemacs/defer)
+    :init
+    (progn
+      (spacemacs|require-when-dumping 'nameless)
+      (setq
+       ;; always show the separator since it can have a semantic purpose
+       ;; like in Spacemacs where - is variable and / is a function.
+       ;; moreover it makes nameless work for all kind of separators.
+       nameless-separator nil
+       ;; Use > as the defautl prefix : is already used for
+       ;; keywords
+       nameless-prefix ">")
+      ;; some default aliases for Spacemacs source code
+      (setq nameless-global-aliases '(("SB" . "spacemacs-buffer")
+                                      ("S"  . "spacemacs")
+                                      (".S"  . "dotspacemacs")
+                                      ("CL" . "configuration-layer")))
+      ;; make `nameless-current-name' safe as a local variable for string
+      ;; values
+      (put 'nameless-current-name 'safe-local-variable #'stringp)
+      (spacemacs|diminish nameless-mode " 🅽" " [n]")
+      (spacemacs|add-toggle nameless
+        :status nameless-mode
+        :on (nameless-mode)
+        :off (nameless-mode -1)
+        :documentation "Hide package namespaces in your emacs-lisp code."
+        :evil-leader-for-mode (emacs-lisp-mode . "Tn"))
+      ;; activate nameless only when in a GUI
+      ;; in a terminal nameless triggers all sorts of graphical glitches.
+      (spacemacs|unless-dumping-and-eval-after-loaded-dump nameless
+        (spacemacs|do-after-display-system-init
+         (when emacs-lisp-hide-namespace-prefix
+           (spacemacs/toggle-nameless-on-register-hook-emacs-lisp-mode)))))))
 
 (defun emacs-lisp/init-overseer ()
   (use-package overseer
@@ -310,9 +311,6 @@
 
 (defun emacs-lisp/post-init-ggtags ()
   (add-hook 'emacs-lisp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
-
-(defun emacs-lisp/post-init-parinfer ()
-  (add-hook 'emacs-lisp-mode-hook 'parinfer-mode))
 
 (defun emacs-lisp/post-init-rainbow-identifiers ()
   (add-hook 'emacs-lisp-mode-hook #'colors//rainbow-identifiers-ignore-keywords))
@@ -376,3 +374,10 @@
       "rdd" #'emr-el-delete-unused-definition
 
       "ew"  #'emr-el-eval-and-replace)))
+
+(defun emacs-lisp/init-inspector ()
+  (use-package inspector
+    :commands (inspect-expression inspect-last-sexp)
+    :config
+    (evilified-state-evilify-map inspector-mode-map
+      :mode inspector-mode)))

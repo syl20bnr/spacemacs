@@ -42,10 +42,10 @@
   ;; Bug exists in Racket company backend that opens docs in new window when
   ;; company-quickhelp calls it. Note hook is appendended for proper ordering.
   (add-hook 'company-mode-hook
-            '(lambda ()
-               (when (and (equal major-mode 'racket-mode)
-                          (bound-and-true-p company-quickhelp-mode))
-                 (company-quickhelp-mode -1))) t))
+            (lambda ()
+              (when (and (equal major-mode 'racket-mode)
+                         (bound-and-true-p company-quickhelp-mode))
+                (company-quickhelp-mode -1))) t))
 
 (defun racket/post-init-ggtags ()
   (add-hook 'racket-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
@@ -70,6 +70,9 @@
       (add-hook 'racket-mode-hook 'racket-xp-mode))
     :config
     (progn
+      (add-to-list 'evil-evilified-state-modes 'racket-describe-mode)
+      (evil-define-key 'evilified 'racket-describe-mode-map
+        "o" 'link-hint-open-link)
       ;; smartparens configuration
       (with-eval-after-load 'smartparens
         (add-to-list 'sp--lisp-modes 'racket-mode)

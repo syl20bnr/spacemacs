@@ -45,6 +45,7 @@
 (require 'core-spacemacs-buffer)
 (require 'core-keybindings)
 (require 'core-toggle)
+(require 'core-early-funcs)
 (require 'core-funcs)
 (require 'core-micro-state)
 (require 'core-transient-state)
@@ -73,7 +74,7 @@ the final step of executing code in `emacs-startup-hook'.")
   (setq ad-redefinition-action 'accept)
   ;; this is for a smoother UX at startup (i.e. less graphical glitches)
   (hidden-mode-line-mode)
-  (spacemacs//removes-gui-elements)
+  (spacemacs/removes-gui-elements)
   (spacemacs//setup-ido-vertical-mode)
   ;; explicitly set the preferred coding systems to avoid annoying prompt
   ;; from emacs (especially on Microsoft Windows)
@@ -137,7 +138,10 @@ the final step of executing code in `emacs-startup-hook'.")
    ;; believe me? Go ahead, try it. After you'll have notice that this was true,
    ;; increase the counter bellow so next people will give it more confidence.
    ;; Counter = 1
-   (spacemacs-buffer/message "Setting the font...")
+   (let ((init-file-debug)) ;; without this font size is ignored in daemon
+     (when (daemonp)
+       (setq init-file-debug t))
+    (spacemacs-buffer/message "Setting the font..."))
    (unless (spacemacs/set-default-font dotspacemacs-default-font)
      (spacemacs-buffer/warning
       "Cannot find any of the specified fonts (%s)! Font settings may not be correct."
@@ -173,20 +177,6 @@ the final step of executing code in `emacs-startup-hook'.")
     (spacemacs/load-spacemacs-env))
   ;; install the dotfile if required
   (dotspacemacs/maybe-install-dotfile))
-
-(defun spacemacs//removes-gui-elements ()
-  "Remove the menu bar, tool bar and scroll bars."
-  ;; removes the GUI elements
-  (when (and (fboundp 'scroll-bar-mode) (not (eq scroll-bar-mode -1)))
-    (scroll-bar-mode -1))
-  (when (and (fboundp 'tool-bar-mode) (not (eq tool-bar-mode -1)))
-    (tool-bar-mode -1))
-  (unless (spacemacs/window-system-is-mac)
-    (when (and (fboundp 'menu-bar-mode) (not (eq menu-bar-mode -1)))
-      (menu-bar-mode -1)))
-  ;; tooltips in echo-aera
-  (when (and (fboundp 'tooltip-mode) (not (eq tooltip-mode -1)))
-    (tooltip-mode -1)))
 
 (defun spacemacs//setup-ido-vertical-mode ()
   "Setup `ido-vertical-mode'."
@@ -262,8 +252,7 @@ Note: the hooked function is not executed when in dumped mode."
      (setq spacemacs-initialized t)
      (setq gc-cons-threshold (car dotspacemacs-gc-cons)
            gc-cons-percentage (cadr dotspacemacs-gc-cons))
-     (unless (version< emacs-version "27")
-       (setq read-process-output-max dotspacemacs-read-process-output-max))))
+     (setq read-process-output-max dotspacemacs-read-process-output-max)))
 
   (let ((default-directory spacemacs-start-directory))
     (if dotspacemacs-byte-compile

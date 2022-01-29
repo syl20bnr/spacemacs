@@ -31,10 +31,10 @@
     ggtags
     counsel-gtags
     helm-gtags
-    php-auto-yasnippets
+    (php-auto-yasnippets :location (recipe :fetcher github :repo "emacs-php/php-auto-yasnippets"))
     (php-extras :location (recipe :fetcher github :repo "arnested/php-extras") :toggle (not (eq php-backend 'lsp)))
     php-mode
-    phpcbf
+    (phpcbf :location (recipe :fetcher github :repo "nishimaki10/emacs-phpcbf"))
     phpunit
     (phpactor :toggle (not (eq php-backend 'lsp)))
     (company-phpactor :requires company :toggle (not (eq php-backend 'lsp)))
@@ -42,8 +42,8 @@
     (geben :toggle (not (eq php-backend 'lsp)))))
 
 (defun php/pre-init-dap-mode ()
-  (pcase php-backend
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'php-mode)))
+  (when (eq php-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'php-mode))
   (add-hook 'php-mode-local-vars-hook #'spacemacs//php-setup-dap))
 
 (defun php/init-drupal-mode ()

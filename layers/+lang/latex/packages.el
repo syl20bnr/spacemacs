@@ -73,6 +73,13 @@
         (add-hook 'doc-view-mode-hook 'auto-revert-mode)))
     :config
     (progn
+      ;; otherwise `, p` preview commands doesn't work
+      (require 'preview)
+      ;; when `latex-view-with-pdf-tools' is non-nil, configure pdf-tools for
+
+      ;; viewing output pdf's
+      (spacemacs//latex-setup-pdf-tools)
+
       ;; Key bindings for plain TeX
       (dolist (mode '(tex-mode latex-mode context-mode))
         (spacemacs/set-leader-keys-for-major-mode mode
@@ -99,7 +106,7 @@
           "xff" 'latex/font-sans-serif
           "xfr" 'latex/font-serif)
         (spacemacs/declare-prefix-for-mode mode "mxf" "fonts")
-        (unless (and (eq (spacemacs//latex-backend) 'lsp)
+        (unless (and (eq latex-backend 'lsp)
                      (eq mode 'latex-mode))
           (spacemacs/declare-prefix-for-mode mode "mh" "help")
           (spacemacs/declare-prefix-for-mode mode "mx" "text/fonts")
@@ -154,10 +161,11 @@
         "xfu" 'latex/font-upright)
 
       ;; Rebind latex keys to avoid conflicts with lsp mode
-      (if (eq (spacemacs//latex-backend) 'lsp)
+      (if (eq latex-backend 'lsp)
           (spacemacs/set-leader-keys-for-major-mode 'latex-mode
             "au"   'TeX-command-run-all
-            "c"   'latex/build
+            "c"    'latex/build
+            "iC"   'org-ref-insert-cite-key
             "ic"   'LaTeX-close-environment ;; C-c ]
             "ie"   'LaTeX-environment)       ;; C-c C-e
         (spacemacs/set-leader-keys-for-major-mode 'latex-mode
@@ -192,7 +200,7 @@
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
   (setq reftex-plug-into-AUCTeX '(nil nil t t t)
         reftex-use-fonts t)
-  (let ((prefix (if (eq (spacemacs//latex-backend) 'lsp) "R" "r")))
+  (let ((prefix (if (eq latex-backend 'lsp) "R" "r")))
     (spacemacs/declare-prefix-for-mode 'latex-mode (concat "m" prefix) "reftex")
     (spacemacs/set-leader-keys-for-major-mode 'latex-mode
       (concat prefix "c")    'reftex-citation

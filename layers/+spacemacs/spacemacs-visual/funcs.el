@@ -25,7 +25,7 @@
 ;; ansi-colors
 
 (defun spacemacs-visual//compilation-buffer-apply-ansi-colors ()
-  (when (eq major-mode 'compilation-mode)
+  (when (derived-mode-p 'compilation-mode)
     (let ((inhibit-read-only t))
       (goto-char compilation-filter-start)
       (ansi-color-apply-on-region (line-beginning-position) (point-max)))))
@@ -40,6 +40,19 @@
                                  (string-match str (car x))))
                  popwin:special-display-config)))
 
+(defun spacemacs/advice-popwin (orig-fun &rest args)
+  "Advice to `popwin:match-config' around to save the buffer active."
+  (let ((result (apply orig-fun args)))
+    (when result
+      (setq spacemacs-popwin--last-buffer (car args)))
+    result))
+
+(defun spacemacs/last-popwin ()
+  "Resume last popwin buffer."
+  (interactive)
+  (if (buffer-live-p spacemacs-popwin--last-buffer)
+      (select-window (display-buffer spacemacs-popwin--last-buffer))
+    (message "Last popwin buffer not found or killed.")))
 
 ;; zoom
 

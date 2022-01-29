@@ -27,11 +27,22 @@
 ;; will still be bound to 'latex-mode (since AUCTeX uses an advice to override
 ;; latex-mode with TeX-latex-mode), so the keymap's name should use the
 ;; lowercase form, since bind-map uses the value of major-mode...
-(spacemacs|define-jump-handlers latex-mode dumb-jump-go)
+(spacemacs|define-jump-handlers latex-mode)
 ;; ...but AUCTeX runs LaTeX-mode-hook rather than latex-mode-hook, so:
-(add-hook 'LaTeX-mode-hook #'spacemacs//init-jump-handlers-latex-mode)
+(add-to-list 'spacemacs-jump-handlers-latex-mode 'LaTeX-mode-hook)
 
-(defvar latex-backend nil
+(defvar latex-view-with-pdf-tools (configuration-layer/layer-used-p 'pdf)
+  "Use pdf-tools for viewing latex output pdf's.
+When the pdf layer is installed, then automatically configure
+Spacemacs to view latex output pdf's with pdf-tools. For using a
+different viewer set this value to `nil' and configure the
+output-pdf viewer in `TeX-view-program-selection'.")
+
+(defvar latex-view-pdf-in-split-window nil
+  "If non-nil then open pdf in split window.
+Requires pdf-tools to be configured as output-pdf viewer.")
+
+(defvar latex-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'company-auctex)
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-auctex'.
 If `nil' then 'company-auctex` is the default backend unless `lsp' layer is used")

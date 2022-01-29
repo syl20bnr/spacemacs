@@ -26,7 +26,7 @@
 (defvar terraform-auto-format-on-save nil
   "If non-nil then call `terraform fmt' before saving the terraform buffer.")
 
-(defvar terraform-backend nil
+(defvar terraform-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'company-terraform)
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-terraform'.
 If `nil' then 'company-terraform` is the default backend unless `lsp' layer is used")

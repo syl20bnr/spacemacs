@@ -29,7 +29,7 @@
     org))
 
 (defun groovy/post-init-company ()
-  (spacemacs//groovy-setup-company))
+  (add-hook 'groovy-mode-local-vars-hook 'spacemacs//groovy-setup-company))
 
 (defun groovy/post-init-flycheck ()
   (spacemacs/enable-flycheck 'groovy-mode))
@@ -46,6 +46,7 @@
 (defun groovy/init-groovy-mode ()
   (use-package groovy-mode
     :defer t
+    :hook (groovy-mode-local-vars . spacemacs//groovy-setup-backend)
     :init
     (progn
       (setq lsp-groovy-server-file groovy-lsp-jar-path)
@@ -58,8 +59,7 @@
         "sf" 'groovy-send-definition
         "si" 'run-groovy
         "sR" 'spacemacs/groovy-send-region-switch
-        "sr" 'groovy-send-region)
-      (add-hook 'groovy-mode-hook #'spacemacs//groovy-setup-backend))))
+        "sr" 'groovy-send-region))))
 
 (defun groovy/pre-init-org ()
   (spacemacs|use-package-add-hook org

@@ -138,7 +138,7 @@
     :config
     (progn
       ;; (set-input-method "latin-1-prefix")
-      (set (make-local-variable 'scroll-conservatively) 8192)
+      (setq-local scroll-conservatively 8192)
 
       ;; Exclude rcirc properties when yanking, in order to be able to send mails
       ;; for example.

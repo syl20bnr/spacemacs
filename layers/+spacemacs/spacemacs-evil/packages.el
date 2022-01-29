@@ -48,7 +48,6 @@
         evil-visual-mark-mode
         evil-visualstar
         (hs-minor-mode :location built-in)
-        (linum-relative :toggle (version< emacs-version "26"))
         vi-tilde-fringe
         eldoc))
 
@@ -122,7 +121,14 @@
     :config
     (setq evil-collection-mode-list spacemacs-evil-collection-allowed-list)
     (setq evil-collection-want-unimpaired-p nil)
-    (evil-collection-init)))
+    (evil-collection-init)
+    ;; replace `dired-goto-file' with equivalent helm and ivy functions:
+    ;; `spacemacs/helm-find-files' fuzzy matching and other features
+    ;; `spacemacs/counsel-find-file' more `M-o' actions
+    (with-eval-after-load 'dired
+      (evil-define-key 'normal dired-mode-map "J"
+        (cond ((configuration-layer/layer-used-p 'helm) 'spacemacs/helm-find-files)
+              ((configuration-layer/layer-used-p 'ivy) 'spacemacs/counsel-find-file))))))
 
 (defun spacemacs-evil/init-evil-escape ()
   (use-package evil-escape
@@ -236,7 +242,14 @@
     (progn
       (add-hook 'prog-mode-hook 'spacemacs//load-evil-lisp-state)
       (setq evil-lisp-state-global t))
-    :config (spacemacs/set-leader-keys "k" evil-lisp-state-map)))
+    :config
+    (progn
+      (spacemacs/set-leader-keys "k" evil-lisp-state-map)
+      (spacemacs/declare-prefix
+        "k" "lisp"
+        "kd" "delete"
+        "kD" "delete-backward"
+        "k`" "hybrid"))))
 
 ;; other commenting functions in funcs.el with keybinds in keybindings.el
 (defun spacemacs-evil/init-evil-nerd-commenter ()
@@ -396,18 +409,6 @@
 
 (defun spacemacs-evil/init-hs-minor-mode ()
   (add-hook 'prog-mode-hook 'spacemacs//enable-hs-minor-mode))
-
-(defun spacemacs-evil/init-linum-relative ()
-  (use-package linum-relative
-    :commands (linum-relative-toggle linum-relative-on)
-    :init
-    (progn
-      (when (or (spacemacs/visual-line-numbers-p)
-                (spacemacs/relative-line-numbers-p))
-        (add-hook 'spacemacs-post-user-config-hook 'linum-relative-on))
-      (spacemacs/set-leader-keys "tr" 'spacemacs/linum-relative-toggle))
-    :config
-    (setq linum-relative-current-symbol "")))
 
 (defun spacemacs-evil/init-vi-tilde-fringe ()
   (spacemacs|do-after-display-system-init

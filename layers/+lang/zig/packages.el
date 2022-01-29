@@ -22,17 +22,9 @@
 
 
 (defconst zig-packages
-  '(
-    zig-mode
-    )
+  '(zig-mode)
   "The list of Lisp packages required by the zig layer.")
 
 (defun zig/init-zig-mode ()
   (use-package zig-mode
-    :defer t
-    :init
-    (progn
-      ;; config goes here.
-      )))
-
-;;; packages.el ends here
+    :hook (zig-mode-hook . spacemacs//zig-setup-backend)))

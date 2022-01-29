@@ -23,6 +23,7 @@
 
 (defconst perl5-packages
   '(
+    company
     (company-plsense :requires company)
     (cperl-mode :location built-in)
     flycheck
@@ -32,9 +33,9 @@
     smartparens))
 
 (defun perl5/pre-init-dap-mode ()
-  (pcase (spacemacs//perl5-backend)
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'cperl-mode)
-          (add-hook 'cperl-mode-hook #'dap-mode))))
+  (when (eq perl5-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'cperl-mode)
+    (add-hook 'cperl-mode-hook #'dap-mode)))
 
 (defun perl5/post-init-company ()
   (spacemacs//perl5-setup-company))
@@ -121,7 +122,7 @@
       (add-hook 'cperl-mode-hook
                 (lambda () (local-set-key (kbd "<tab>") 'indent-for-tab-command)))
 
-      (unless (eq (spacemacs//perl5-backend) 'lsp)
+      (unless (eq perl5-backend 'lsp)
         (spacemacs/declare-prefix-for-mode 'cperl-mode "m=" "format")
         (spacemacs/declare-prefix-for-mode 'cperl-mode "mg" "find-symbol")
         (spacemacs/declare-prefix-for-mode 'cperl-mode "mh" "perldoc"))

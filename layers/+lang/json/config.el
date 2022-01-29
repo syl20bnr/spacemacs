@@ -29,7 +29,7 @@
 (defvar json-fmt-on-save nil
   "Run formatter on buffer save.")
 
-(defvar json-backend nil
+(defvar json-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'company-json)
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-json'.
 If `nil' then 'company-json` is the default backend unless `lsp' layer is used")

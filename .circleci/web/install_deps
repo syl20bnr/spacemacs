@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+## install_deps dependency installation for HTML export.
+##
+## Copyright (c) 2012-2014 Sylvain Benner
+## Copyright (c) 2014-2022 Sylvain Benner & Contributors
+##
+## Author: Eugene Yaremenko
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
+
+cp .circleci/web/.spacemacs ~/
+emacs -batch -l ~/.emacs.d/init.el
+if [ $? -ne 0 ]; then
+    echo "Dependencies installation failed."
+    exit 2
+fi

@@ -26,14 +26,16 @@
 (spacemacs|define-jump-handlers python-mode)
 (spacemacs|define-jump-handlers cython-mode anaconda-mode-goto)
 
-(defvar python-backend 'nil
+(defvar python-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'anaconda)
   "The backend to use for IDE features.
 Possible values are `anaconda'and `lsp'.
 If `nil' then `anaconda' is the default backend unless `lsp' layer is used.")
+(put 'python-backend 'safe-local-variable #'symbolp)
 
-(defvar python-lsp-server 'pyls
-  "Language server to use for lsp backend. Possible values are `pyls', `pyright'
+(defvar python-lsp-server 'pylsp
+  "Language server to use for lsp backend. Possible values are `pylsp', `pyright'
 and `mspyls'")
+(put 'python-lsp-server 'safe-local-variable #'symbolp)
 
 (defvar python-lsp-git-root nil
   "If non-nil, use a development version of the language server in this folder")
@@ -44,9 +46,9 @@ and `mspyls'")
 (defvar python-poetry-activate nil
   "If non-nil, activate poetry before enabling backend")
 
-(defvar python-formatter nil
-  "The formatter to use. Possible values are `yapf',
-  `black' and `lsp'.")
+(defvar python-formatter (if (configuration-layer/layer-used-p 'lsp) 'lsp 'yapf)
+  "The formatter to use. Possible values are `yapf', `black' and `lsp'.
+If nil then `yapf' is the default formatter unless `lsp' layer is used.")
 
 (defvar python-format-on-save nil
   "If non-nil, automatically format code with formatter selected
@@ -54,6 +56,7 @@ and `mspyls'")
 
 (defvar python-test-runner 'nose
   "Test runner to use. Possible values are `nose' or `pytest'.")
+(put 'python-test-runner 'safe-local-variable #'symbolp)
 
 (defvar python-save-before-test t
   "If non nil, current buffer will be save before call a test function")

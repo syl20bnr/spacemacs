@@ -30,11 +30,11 @@
     ediff
     elfeed
     evil
+    evil-collection
     evil-cleverparens
     evil-escape
     evil-evilified-state
     evil-lisp-state
-    evil-magit
     evil-surround
     eyebrowse
     flycheck
@@ -290,22 +290,22 @@
       "K"
       "L")))
 
-(defun keyboard-layout/pre-init-evil-magit ()
-  (kl|config evil-magit
+(defun keyboard-layout/pre-init-evil-collection ()
+  (kl|config evil-collection
     :description
-    "Remap `evil-magit' bindings."
+    "Remap `evil-collection-magit' bindings."
     :loader
-    (with-eval-after-load 'evil-magit BODY)
+    (with-eval-after-load 'evil-collection-magit BODY)
     :common
-    (dolist (state (if evil-magit-use-y-for-yank
-                       (list evil-magit-state 'visual)
-                     (list evil-magit-state)))
+    (dolist (state (if evil-collection-magit-use-y-for-yank
+                       (list evil-collection-magit-state 'visual)
+                     (list evil-collection-magit-state)))
       (kl/evil-correct-keys state magit-mode-map
         "j"
         "k"
         "C-j"
         "C-k"))
-    (kl/evil-correct-keys 'normal evil-magit-toggle-text-minor-mode-map
+    (kl/evil-correct-keys 'normal evil-collection-magit-toggle-text-minor-mode-map
       "C-j")))
 
 (defun keyboard-layout/pre-init-evil-surround ()
@@ -465,15 +465,7 @@
     :colemak-jkhl
     (kl/evil-correct-keys 'visual magit-mode-map
       "j"
-      "k")
-    :colemak-hnei
-    (progn
-      (kl/evil-correct-keys 'normal magit-mode-map
-        "j"
-        "k")
-      (kl/evil-correct-keys 'visual magit-mode-map
-        "j"
-        "k"))))
+      "k")))
 
 (defun keyboard-layout/pre-init-mu4e ()
   (kl|config mu4e
@@ -583,6 +575,13 @@
             "E" 'org-forward-element
             "I" 'org-backward-element
             "N" 'org-backward-heading-same-level))))
+    :dvp
+    (progn
+      (spacemacs|use-package-add-hook evil-org
+        :post-config
+        (evil-define-key 'normal evil-org-mode-map
+          "d" 'evil-backward-char
+          "j" 'evil-org-delete)))
     :neo
     (progn
       (spacemacs|use-package-add-hook evil-org

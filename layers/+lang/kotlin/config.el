@@ -25,7 +25,7 @@
 
 (spacemacs|define-jump-handlers kotlin-mode)
 
-(defvar kotlin-backend nil
+(defvar kotlin-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'company-kotlin)
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-kotlin'.
 If `nil' then 'company-kotlin` is the default backend unless `lsp' layer is used")

@@ -77,7 +77,7 @@ are configured.")
 (defvar org-enable-verb-support nil
   "If non-nil, Verb (https://github.com/federicotdn/verb) is configured.")
 
-(defvar org-enable-roam-support nil
+(defvar org-enable-roam-support (bound-and-true-p org-enable-roam-server)
   "If non-nil, org-roam (https://www.orgroam.com/) is configured")
 
 (defvar org-persp-startup-org-file nil
@@ -92,3 +92,33 @@ ATTENTION: `valign-mode' will be laggy working with tables contain more than 100
 
 (defvar org-enable-appear-support nil
   "If non-nil, enable org-appear in org-mode buffers.")
+
+(defvar org-enable-roam-server nil
+  "If non-nil, enable org-roam-server support.")
+
+(defvar org-enable-roam-protocol nil
+  "If non-nil, enable org-roam-protocol.
+See https://www.orgroam.com/manual.html#Roam-Protocol.")
+
+(defvar org-enable-asciidoc-support nil
+  "If non-nil, enable ox-asciidoc.")
+
+(defvar org-todo-dependencies-strategy nil
+  "The strategy for enforcing dependencies in the TODO hierarchy.
+
+If nil, do nothing; i.e. if dependencies are configured to be enforced
+separately, they will be, otherwise not. If non-nil, set
+`org-enforce-todo-dependencies' to true, and add to the
+`org-after-todo-statistics-hook' as described below.
+
+If `naive-auto', switch the parent entry to DONE when all subentries are done,
+and to TODO otherwise. This does not result in extra prompts for the user, but
+doesn't work well with more workflow states.
+
+If `semiauto', prompt to change entry state when the state of the subentries
+imply it. This assumes next to nothing about your workflow states, but may
+result in additional, possibly surprising, prompting of the user; and it has no
+intelligence to attempt to determine the destination state.")
+
+(defvar org-enable-org-brain-support nil
+  "If non-nil, enable org-brain")

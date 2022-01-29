@@ -25,13 +25,20 @@
 
 (spacemacs|define-jump-handlers purescript-mode)
 
+(defvar purescript-fmt-on-save nil
+  "Run formatter on buffer save.")
+
+(defvar purescript-fmt-tool 'purs-tidy
+  "The name of the tool to be used for Purescript source code formatting.
+Possible values are 'purs-tidy (default).")
+
 (defvar purescript-add-import-on-completion t
   "If non-nil adds imports for completed identifiers")
 
 (defvar purescript-enable-rebuild-on-save nil
   "If non-nil rebuild on save is enabled")
 
-(defvar purescript-backend nil
+(defvar purescript-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'psc-ide)
   "The backend to use for IDE features.
 Possible values are `lsp' and `psc-ide'.
 If `nil' then `psc-ide' is the default backend unless `lsp' layer is used.")

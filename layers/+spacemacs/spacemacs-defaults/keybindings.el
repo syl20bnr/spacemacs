@@ -26,81 +26,80 @@
 ;; ---------------------------------------------------------------------------
 
 ;; We define prefix commands only for the sake of which-key
-(setq spacemacs/key-binding-prefixes `((,dotspacemacs-emacs-command-key "M-x")
-                                       ("!"   "shell cmd")
-                                       ("*"   "search project w/input")
-                                       ("/"   "search project")
-                                       ("?"   "show keybindings")
-                                       ("a"   "applications")
-                                       ("ac"   "chat")
-                                       ("ae"   "email")
-                                       ("af"   "fun")
-                                       ("ar"   "readers")
-                                       ("am"   "music")
-                                       ("at"  "tools")
-                                       ("ats"  "shells")
-                                       ("aw"  "web-services")
-                                       ("c"   "compile/comments")
-                                       ("C"   "capture/colors")
-                                       ("e"   "errors")
-                                       ("g"   "git/versions-control")
-                                       ("h"   "help")
-                                       ("hd"  "help-describe")
-                                       ("hP"  "profiler")
-                                       ("hT"  "tutorials")
-                                       ("i"   "insertion")
-                                       ("j"   "jump/join/split")
-                                       ("jj"  "avy timer")
-                                       ("jl"  "avy line")
-                                       ("js"  "split sexp")
-                                       ("jw"  "avy word")
-                                       ("k"   "lisp")
-                                       ("kd"  "delete")
-                                       ("kD"  "delete-backward")
-                                       ("k`"  "hybrid")
-                                       ("m"   "major mode commands")
-                                       ("n"   "narrow/numbers")
-                                       ("N"   "navigation")
-                                       ("o"   "user bindings")
-                                       ("p"   "projects")
-                                       ("q"   "quit")
-                                       ("r"   "registers/rings/resume")
-                                       ("s"   "search/symbol")
-                                       ("sa"  "ag")
-                                       ("sg"  "grep")
-                                       ("sk"  "ack")
-                                       ("sp"  "search project")
-                                       ("sP"  "search project w/input")
-                                       ("sr"  "ripgrep")
-                                       ("st"  "pt")
-                                       ("sw"  "web")
-                                       ("t"   "toggles")
-                                       ("tC"  "colors")
-                                       ("tE"  "editing-styles")
-                                       ("tEe" "emacs (holy-mode)")
-                                       ("tEh" "hybrid (hybrid-mode)")
-                                       ("th"  "highlight")
-                                       ("tm"  "modeline")
-                                       ("tt"  "timeclock")
-                                       ("T"   "UI toggles/themes")
-                                       ("C-t" "other toggles")
-                                       ("u"   "universal arg")
-                                       ("v"   "expand region")
-                                       ("w"   "windows")
-                                       ("wc"  "centered")
-                                       ("wp"  "popup")
-                                       ("x"   "text")
-                                       ("xa"  "align")
-                                       ("xd"  "delete")
-                                       ("xg"  "google-translate")
-                                       ("xj"  "justification")
-                                       ("xl"  "lines")
-                                       ("xR"  "Randomize")
-                                       ("xt"  "transpose")
-                                       ("xw"  "words")
-                                       ("z"   "zoom")))
-(mapc (lambda (x) (apply #'spacemacs/declare-prefix x))
-      spacemacs/key-binding-prefixes)
+(setq spacemacs/key-binding-prefixes `(,dotspacemacs-emacs-command-key "M-x"
+                                       "!"   "shell cmd"
+                                       "*"   "search project w/input"
+                                       "/"   "search project"
+                                       "?"   "show keybindings"
+                                       "a"   "applications"
+                                       "ac"  "chat"
+                                       "ae"  "email"
+                                       "af"  "fun"
+                                       "ar"  "readers"
+                                       "am"  "music"
+                                       "at"  "tools"
+                                       "ats" "shells"
+                                       "aw"  "web-services"
+                                       "c"   "compile/comments"
+                                       "C"   "capture/colors"
+                                       "e"   "errors"
+                                       "g"   "git/versions-control"
+                                       "h"   "help"
+                                       "hd"  "help-describe"
+                                       "hP"  "profiler"
+                                       "hT"  "tutorials"
+                                       "i"   "insertion"
+                                       "j"   "jump/join/split"
+                                       "jj"  "avy timer"
+                                       "jl"  "avy line"
+                                       "js"  "split sexp"
+                                       "jw"  "avy word"
+                                       "k"   "lisp"
+                                       "kd"  "delete"
+                                       "kD"  "delete-backward"
+                                       "k`"  "hybrid"
+                                       "m"   "major mode commands"
+                                       "n"   "narrow/numbers"
+                                       "N"   "navigation"
+                                       "o"   "user bindings"
+                                       "p"   "projects"
+                                       "q"   "quit"
+                                       "r"   "registers/rings/resume"
+                                       "s"   "search/symbol"
+                                       "sa"  "ag"
+                                       "sg"  "grep"
+                                       "sk"  "ack"
+                                       "sp"  "search project"
+                                       "sP"  "search project w/input"
+                                       "sr"  "ripgrep"
+                                       "st"  "pt"
+                                       "sw"  "web"
+                                       "t"   "toggles"
+                                       "tC"  "colors"
+                                       "tE"  "editing-styles"
+                                       "tEe" "emacs (holy-mode)"
+                                       "tEh" "hybrid (hybrid-mode)"
+                                       "th"  "highlight"
+                                       "tm"  "modeline"
+                                       "tt"  "timeclock"
+                                       "T"   "UI toggles/themes"
+                                       "C-t" "other toggles"
+                                       "u"   "universal arg"
+                                       "v"   "expand region"
+                                       "w"   "windows"
+                                       "wc"  "centered"
+                                       "wp"  "popup"
+                                       "x"   "text"
+                                       "xa"  "align"
+                                       "xd"  "delete"
+                                       "xg"  "google-translate"
+                                       "xj"  "justification"
+                                       "xl"  "lines"
+                                       "xR"  "Randomize"
+                                       "xt"  "transpose"
+                                       "xw"  "words"
+                                       "z"   "zoom"))
+(apply #'spacemacs/declare-prefix spacemacs/key-binding-prefixes)
 
 ;; instantly display current keystrokes in mini buffer
 (setq echo-keystrokes 0.02)
@@ -361,7 +360,7 @@
  :global
  (("f" "Files"
    ("A" spacemacs/find-file-and-replace-buffer "Set another file for buffer...")
-   ("c" spacemacs/copy-file "Copy file to new file...")
+   ("c" spacemacs/save-as "Save file or active region as a new file...")
    ("D" spacemacs/delete-current-buffer-file "Delete...")
    ("i" spacemacs/insert-file "Insert file content...")
    ("l" find-file-literally "Open file literally...")
@@ -377,6 +376,7 @@
     ("C-e" spacemacs/force-init-spacemacs-env "Recreate env. variables file")
     ("c" spacemacs/recompile-elpa "Recompile packages")
     ("i" spacemacs/find-user-init-file "Open Emacs \"init.el\"")
+    ("I" spacemacs/find-user-early-init-file "Open Emacs \"early-init.el\"")
     ("d" spacemacs/find-dotfile "Open Spacemacs dotfile")
     ("D" spacemacs/ediff-dotfile-and-template "Diff. with dotfile template")
     ("e" spacemacs/edit-env "Open \".spacemacs.env\"")
@@ -387,8 +387,8 @@
    ("v" "Variables"
     ("d" add-dir-local-variable "Add directory-local variable...")
     ("f" add-file-local-variable "Add bottom file variable...")
-    ("p" add-file-local-variable-prop-line "Add top file property...")
-    )
+    ("p" add-file-local-variable-prop-line "Add top file property..."))
+
    ("y" "Yank/Copy"
     ("c" spacemacs/copy-file-path-with-line-column "File path with line and column")
     ("d" spacemacs/copy-directory-path "Directory path")
@@ -607,7 +607,7 @@ respond to this toggle."
   "ttg" 'timeclock-workday-remaining-string
   "tti" 'timeclock-in
   "ttl" 'timeclock-when-to-leave-string
-  "ttm" 'timeclock-modeline-display
+  "ttm" 'timeclock-mode-line-display
   "tto" 'timeclock-out
   "ttr" 'timeclock-reread-log
   "tts" 'timeclock-status-string

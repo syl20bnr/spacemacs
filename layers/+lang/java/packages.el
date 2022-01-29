@@ -31,7 +31,7 @@
     helm-gtags
     (java-mode :location built-in)
     maven-test-mode
-    (meghanada :toggle (not (version< emacs-version "25.1")))
+    (meghanada :toggle (eq java-backend 'meghanada))
     mvn
     (lsp-java :requires lsp-mode)
     org
@@ -41,8 +41,8 @@
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-company))
 
 (defun java/pre-init-dap-mode ()
-  (pcase (spacemacs//java-backend)
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'java-mode)))
+  (when (eq java-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'java-mode))
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-dap))
 
 (defun java/post-init-flycheck ()
@@ -97,7 +97,6 @@
 (defun java/init-meghanada ()
   (use-package meghanada
     :defer t
-    :if (eq java-backend 'meghanada)
     :init
     (progn
       (setq meghanada-server-install-dir (concat spacemacs-cache-directory
@@ -151,26 +150,21 @@
 (defun java/init-lsp-java ()
   (use-package lsp-java
     :defer t
-    :if (eq (spacemacs//java-backend) 'lsp)
+    :if (eq java-backend 'lsp)
     :config
     (progn
       ;; key bindings
-      (dolist (prefix '(("ma" . "actionable")
-                        ("mc" . "compile/create")
-                        ("mg" . "goto")
-                        ("mr" . "refactor")
+      (dolist (prefix '(("mc" . "compile/create")
+                        ("mgk" . "type hierarchy")
                         ("mra" . "add/assign")
                         ("mrc" . "create/convert")
                         ("mrg" . "generate")
                         ("mre" . "extract")
-                        ("mp" . "project")
-                        ("mq" . "lsp")
-                        ("mt" . "test")
-                        ("mx" . "execute")))
+                        ("mt" . "test")))
         (spacemacs/declare-prefix-for-mode
           'java-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'java-mode
-        "pu"  'lsp-java-update-project-configuration
+        "wu"  'lsp-java-update-project-configuration
 
         ;; refactoring
         "ro" 'lsp-java-organize-imports
@@ -200,7 +194,12 @@
         "cc"  'lsp-java-build-project
         "cp"  'lsp-java-spring-initializr
 
-        "an"  'lsp-java-actionable-notifications))))
+        "gkk" 'lsp-java-type-hierarchy
+        "gku" 'spacemacs/lsp-java-super-type
+        "gks" 'spacemacs/lsp-java-sub-type
+
+        ;; test
+        "tb" 'lsp-jt-browser))))
 
 (defun java/init-mvn ()
   (use-package mvn

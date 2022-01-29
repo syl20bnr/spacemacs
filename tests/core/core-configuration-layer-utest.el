@@ -7,7 +7,20 @@
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
 (require 'mocker)
 (require 'core-command-line)
 (require 'core-configuration-layer)
@@ -730,8 +743,8 @@
     (helper--add-packages
      (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))
            (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2) :requires '(pkg1))
-           (cfgl-package "pkg3" :name 'pkg3 :owners '(layer3) :requires '(pkg2))
-           )
+           (cfgl-package "pkg3" :name 'pkg3 :owners '(layer3) :requires '(pkg2)))
+
      'used)
     (should (configuration-layer/package-used-p 'pkg3))))
 
@@ -892,12 +905,6 @@
     (should (equal '(("melpa" . "http://melpa.org/packages/"))
                    (configuration-layer//resolve-package-archives input)))))
 
-(ert-deftest test-resolve-package-archives--org-supports-https ()
-  (let ((input '(("org"   . "orgmode.org/elpa/")))
-        (dotspacemacs-elpa-https t))
-    (should (equal '(("org" . "https://orgmode.org/elpa/"))
-                   (configuration-layer//resolve-package-archives input)))))
-
 (ert-deftest test-resolve-package-archives--idempotent-when-already-http-prefix ()
   (let ((input '(("melpa"   . "http://melpa.org/packages/")))
         (dotspacemacs-elpa-https t))
@@ -919,9 +926,9 @@
         (configuration-layer--package-archives-refreshed nil)
         (dotspacemacs-elpa-timeout -1))
     (mocker-let
-        ((message (format-string &rest args)
-                  ((:record-cls 'mocker-stub-record :output nil))))
-      (configuration-layer/retrieve-package-archives))))
+     ((message (format-string &rest args)
+               ((:record-cls 'mocker-stub-record :output nil))))
+     (configuration-layer/retrieve-package-archives))))
 
 (ert-deftest test-retrieve-package-archives--catch-connection-errors ()
   (let ((package-archives '(("gnu" . "https://elpa.gnu.org/packages/")))
@@ -1031,7 +1038,9 @@
         (layer-packages '(pkg1 pkg2 pkg3))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (mocker-let
-     ((file-exists-p (f) ((:output t :occur 2)))
+     ((locate-file
+       (filename path &optional suffixes predicate)
+       ((:record-cls 'mocker-stub-record :output "packages.el" :occur 1)))
       (load (f &optional noerr nomsg) ((:output nil :occur 1))))
      (should (equal (cfgl-layer "layer"
                                 :name 'layer
@@ -1040,7 +1049,7 @@
                                 :packages '(pkg1 pkg2 pkg3)
                                 :selected-packages 'all
                                 :dir spacemacs-start-directory)
-              (configuration-layer/make-layer 'layer layer 'used))))))
+                    (configuration-layer/make-layer 'layer layer 'used))))))
 
 (ert-deftest test-make-layer--make-layer-force-load-packages-file-with-var ()
   (let ((layer (cfgl-layer "layer"
@@ -1050,7 +1059,8 @@
         (configuration-layer--load-packages-files t)
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (mocker-let
-     ((file-exists-p (f) ((:output t :occur 2)))
+     ((locate-file (filename path &optional suffixes predicate)
+                   ((:record-cls 'mocker-stub-record :output t)))
       (load (f &optional noerr nomsg) ((:output nil :occur 1))))
      (should (equal (cfgl-layer "layer"
                                 :name 'layer
@@ -1083,7 +1093,8 @@
         (layer-packages '(pkg1 pkg2 pkg3))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (mocker-let
-     ((file-exists-p (f) ((:output t :occur 2)))
+     ((locate-file (filename path &optional suffixes predicate)
+                   ((:record-cls 'mocker-stub-record :output t :occur 1)))
       (load (f &optional noerr nomsg) ((:output nil :occur 1))))
      (should (equal (cfgl-layer "layer"
                                 :name 'layer
@@ -1126,7 +1137,9 @@
         (layer-packages '(pkg1 pkg2 pkg3))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (mocker-let
-     ((file-exists-p (f) ((:output t :occur 2)))
+     ((locate-file
+       (filename path &optional suffixes predicate)
+       ((:record-cls 'mocker-stub-record :output t :occur 1)))
       (load (f &optional noerr nomsg) ((:output nil :occur 1))))
      (should (equal (cfgl-layer "layer"
                                 :name 'layer
@@ -1534,8 +1547,8 @@
     ;; (message "%s" (configuration-layer/make-package input 'layer-make-pkg-13))
     (should
      (not (equal
-       expected
-       (configuration-layer/make-package input 'layer-make-pkg-13))))))
+           expected
+           (configuration-layer/make-package input 'layer-make-pkg-13))))))
 
 (ert-deftest test-make-package--make-package-requires-list-when-multiple-symbols ()
   (let* (configuration-layer--used-layers
@@ -1927,10 +1940,10 @@
          (layer18 (cfgl-layer "layer18"
                               :name 'layer18
                               :dir "/path/"
-                              :packages '((pkg1 :excluded t))
-                              ))
-        configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+                              :packages '((pkg1 :excluded t))))
+
+         configuration-layer--used-layers
+         (configuration-layer--indexed-layers (make-hash-table :size 1024))
          configuration-layer--used-packages
          (configuration-layer--indexed-packages (make-hash-table :size 2048))
          (mocker-mock-default-record-cls 'mocker-stub-record))
@@ -2117,9 +2130,9 @@
 
 (ert-deftest test-make-packages-from-dotfile--dotfile-declares-and-owns-one-additional-package ()
   (let* ((layer-dotfile-1 (cfgl-layer "layer-dotfile-1"
-                              :name 'layer-dotfile-1
-                              :dir "/path/"
-                              :packages '(pkg1 pkg2)))
+                                      :name 'layer-dotfile-1
+                                      :dir "/path/"
+                                      :packages '(pkg1 pkg2)))
          (dotspacemacs-additional-packages '(pkg3))
          configuration-layer--used-layers
          (configuration-layer--indexed-layers (make-hash-table :size 1024))
@@ -2158,9 +2171,9 @@
 
 (ert-deftest test-make-packages-from-dotfile--dotfile-excludes-pkg2-in-layer-11 ()
   (let* ((layer-dotfile-3 (cfgl-layer "layer-dotfile-3"
-                              :name 'layer-dotfile-3
-                              :dir "/path/"
-                              :packages '(pkg1 pkg2 pkg3)))
+                                      :name 'layer-dotfile-3
+                                      :dir "/path/"
+                                      :packages '(pkg1 pkg2 pkg3)))
          (dotspacemacs-excluded-packages '(pkg2))
          configuration-layer--used-layers
          (configuration-layer--indexed-layers (make-hash-table :size 1024))
@@ -2831,10 +2844,10 @@
                                 :owners '(layer-filter-4))
                   (cfgl-package "pkg8" :name 'pkg8
                                 :owners '(layer-filter-4)))
-      (configuration-layer/filter-objects
-       pkgs (lambda (x)
-              (or (not (eq 'local (oref x :location)))
-                  (not (oref x :excluded)))))))))
+            (configuration-layer/filter-objects
+             pkgs (lambda (x)
+                    (or (not (eq 'local (oref x :location)))
+                        (not (oref x :excluded)))))))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//directory-type
@@ -2861,9 +2874,8 @@
     (mocker-let
      ((file-directory-p (f)
                         ((:record-cls 'mocker-stub-record :output t :occur 1)))
-      (directory-files
-       (directory &optional full match nosort)
-       ((:record-cls 'mocker-stub-record :output nil :occur 1))))
+      (locate-file (filename path &optional suffixes predicate)
+                   ((:record-cls 'mocker-stub-record :output nil :max-occur 5))))
      (should (null (configuration-layer//directory-type input))))))
 
 (ert-deftest test-directory-type--input-is-directory-and-not-a-layer ()
@@ -2871,11 +2883,8 @@
     (mocker-let
      ((file-directory-p (f)
                         ((:record-cls 'mocker-stub-record :output t :occur 1)))
-      (directory-files
-       (directory &optional full match nosort)
-       ((:record-cls 'mocker-stub-record
-                     :output '("toto.el" "tata.el")
-                     :occur 1))))
+      (locate-file (filename path &optional suffixes predicate)
+                   ((:record-cls 'mocker-stub-record :output nil :max-occur 5))))
      (should (null (configuration-layer//directory-type input))))))
 
 (ert-deftest test-directory-type--layer-with-packages.el ()
@@ -2883,9 +2892,11 @@
     (mocker-let
      ((file-directory-p (f)
                         ((:record-cls 'mocker-stub-record :output t :occur 1)))
-      (directory-files
-       (directory &optional full match nosort)
-       ((:record-cls 'mocker-stub-record :output '("packages.el") :occur 1))))
+      (locate-file
+       (filename path &optional suffixes predicate)
+       ((:record-cls 'mocker-stub-record
+                     :output (expand-file-name "packages.el" input)
+                     :occur 1))))
      (should (eq 'layer (configuration-layer//directory-type input))))))
 
 (ert-deftest test-directory-type--layer-with-config.el ()
@@ -2893,9 +2904,11 @@
     (mocker-let
      ((file-directory-p (f)
                         ((:record-cls 'mocker-stub-record :output t :occur 1)))
-      (directory-files
-       (directory &optional full match nosort)
-       ((:record-cls 'mocker-stub-record :output '("config.el") :occur 1))))
+      (locate-file
+       (filename path &optional suffixes predicate)
+       ((:record-cls 'mocker-stub-record
+                     :output (expand-file-name "config.el" input)
+                     :occur 1))))
      (should (eq 'layer (configuration-layer//directory-type input))))))
 
 (ert-deftest test-directory-type--layer-with-keybindings.el ()
@@ -2903,10 +2916,10 @@
     (mocker-let
      ((file-directory-p (f)
                         ((:record-cls 'mocker-stub-record :output t :occur 1)))
-      (directory-files
-       (directory &optional full match nosort)
+      (locate-file
+       (filename path &optional suffixes predicate)
        ((:record-cls 'mocker-stub-record
-                     :output '("keybindings.el")
+                     :output (expand-file-name "keybindings.el" input)
                      :occur 1))))
      (should (eq 'layer (configuration-layer//directory-type input))))))
 
@@ -2915,9 +2928,11 @@
     (mocker-let
      ((file-directory-p (f)
                         ((:record-cls 'mocker-stub-record :output t :occur 1)))
-      (directory-files
-       (directory &optional full match nosort)
-       ((:record-cls 'mocker-stub-record :output '("funcs.el") :occur 1))))
+      (locate-file
+       (filename path &optional suffixes predicate)
+       ((:record-cls 'mocker-stub-record
+                     :output (expand-file-name "funcs.el" input)
+                     :occur 1))))
      (should (eq 'layer (configuration-layer//directory-type input))))))
 
 ;; ---------------------------------------------------------------------------
@@ -3070,126 +3085,6 @@
                         (cadr (assq 'recipe stats))
                         (cadr (assq 'local stats))
                         (cadr (assq 'built-in stats)))))))
-
-;; ---------------------------------------------------------------------------
-;; configuration-layer//package-install-org
-;; ---------------------------------------------------------------------------
-
-(defun --test-package-install-org--symbol-name (pkg-name)
-  (mocker-let
-   ((package-installed-p (org-plus-contrib)
-                         ((:record-cls 'mocker-stub-record
-                                       :output nil :occur 1)))
-    (identity (x) ((:input '(org-plus-contrib) :output nil :occur 1))))
-   (configuration-layer//package-install-org 'identity pkg-name)))
-
-(defun --package-install-org--symbol-name-already-installed (pkg-name)
-  (mocker-let
-   ((package-installed-p (org-plus-contrib)
-                         ((:record-cls 'mocker-stub-record
-                                       :output t :occur 1))))
-   (configuration-layer//package-install-org 'identity pkg-name)))
-
-(defun --test-package-install-org--package-desc-name (pkg-desc)
-  (mocker-let
-   ((package-installed-p (org-plus-contrib)
-                         ((:record-cls 'mocker-stub-record
-                                       :output nil :occur 1)))
-    (identity (x) ((:input `(,pkg-desc) :output nil :occur 1))))
-   (configuration-layer//package-install-org 'identity pkg-desc)))
-
-(defun --package-install-org--package-desc-name-already-installed (pkg-desc)
-  (mocker-let
-   ((package-installed-p (org-plus-contrib)
-                         ((:record-cls 'mocker-stub-record
-                                       :output t :occur 1))))
-   (configuration-layer//package-install-org 'identity pkg-desc)))
-
-(defun --test-package-install-org--package-desc-reqs (pkg-desc)
-  (mocker-let
-   ((package-installed-p (x) ((:record-cls 'mocker-stub-record
-                                           :output nil :occur 1))))
-   (configuration-layer//package-install-org 'identity pkg-desc)))
-
-(ert-deftest test-package-install-org--symbol-name-org ()
-  (--test-package-install-org--symbol-name 'org))
-
-(ert-deftest test-package-install-org--symbol-name-org-plus-contrib ()
-  (--test-package-install-org--symbol-name 'org-plus-contrib))
-
-(ert-deftest test-package-install-org--symbol-name-org-already-installed ()
-  (should (null (--package-install-org--symbol-name-already-installed 'org))))
-
-(ert-deftest
-    test-package-install-org--symbol-name-org-plus-contrib-already-installed ()
-  (should (null (--package-install-org--symbol-name-already-installed
-                 'org-plus-contrib))))
-
-(ert-deftest test-package-install-org--no-effect-on-symbol-name-other-packages ()
-  (let ((pkg (configuration-layer//package-install-org 'identity 'foo)))
-    (should (eq 'foo pkg ))))
-
-(ert-deftest test-package-install-org--package-desc-name-org ()
-  (let ((pkg (package-desc-create :name 'org
-                                  :version '(7)
-                                  :summary "Dummy Org package desc"
-                                  :reqs nil)))
-    (--test-package-install-org--package-desc-name pkg)))
-
-(ert-deftest test-package-install-org--package-desc-name-org-already-installed ()
-  (let ((pkg (package-desc-create :name 'org
-                                  :version '(7)
-                                  :summary "Dummy Org package desc"
-                                  :reqs nil)))
-    (--package-install-org--package-desc-name-already-installed pkg)))
-
-(ert-deftest test-package-install-org--package-desc-name-org-plus-contrib ()
-  (let ((pkg (package-desc-create :name 'org-plus-contrib
-                                  :version '(7)
-                                  :summary "Dummy org-plus-contrib package desc"
-                                  :reqs nil)))
-    (--test-package-install-org--package-desc-name pkg)))
-
-(ert-deftest
-    test-package-install-org--package-desc-name-org-plus-contrib-already-installed ()
-  (let ((pkg (package-desc-create :name 'org-plus-contrib
-                                  :version '(7)
-                                  :summary "Dummy org-plus-contrib package desc"
-                                  :reqs nil)))
-    (--package-install-org--package-desc-name-already-installed pkg)))
-
-(ert-deftest test-package-install-org--package-desc-reqs-org ()
-  (let ((pkg (package-desc-create :name 'dummy
-                                  :version '(7)
-                                  :summary "Dummy package desc"
-                                  :reqs '((org 7)))))
-    (mocker-let
-     ((package-installed-p (x) ((:record-cls 'mocker-stub-record
-                                             :output nil :occur 1))))
-     (let ((patched-pkg (configuration-layer//package-install-org
-                         'identity pkg)))
-       (should (equal
-                (package-desc-create :name 'dummy
-                                     :version '(7)
-                                     :summary "Dummy package desc"
-                                     :reqs '((org-plus-contrib 7)))
-                patched-pkg))))))
-
-(ert-deftest test-package-install-org--package-desc-reqs-org-contrib-plus ()
-  (let ((pkg (package-desc-create :name 'dummy
-                                  :version '(7)
-                                  :summary "Dummy package desc"
-                                  :reqs '((org-plus-contrib 7)))))
-    (let ((patched-pkg (configuration-layer//package-install-org 'identity pkg)))
-      (should (equal pkg patched-pkg)))))
-
-(ert-deftest test-package-install-org--no-effect-on-package-desc-other-packages ()
-  (let ((pkg (package-desc-create :name 'dummy
-                                  :version '(7)
-                                  :summary "Dummy package desc"
-                                  :reqs '((foo 7)))))
-    (let ((patched-pkg (configuration-layer//package-install-org 'identity pkg)))
-      (should (equal pkg patched-pkg)))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//stable-elpa-verify-archive

@@ -24,7 +24,6 @@
 (setq spacemacs-editing-packages
       '(aggressive-indent
         avy
-        (bracketed-paste :toggle (version<= emacs-version "25.0.92"))
         (clean-aindent-mode :toggle dotspacemacs-use-clean-aindent-mode)
         dired-quick-sort
         drag-stuff
@@ -100,13 +99,6 @@
         (save-excursion
           (spacemacs/avy-goto-url)
           (browse-url-at-point))))))
-
-(defun spacemacs-editing/init-bracketed-paste ()
-  (use-package bracketed-paste
-    :defer t
-    :init
-    ;; Enable bracketed-paste for tty
-    (add-hook 'tty-setup-hook 'bracketed-paste-enable)))
 
 (defun spacemacs-editing/init-clean-aindent-mode ()
   (use-package clean-aindent-mode
@@ -585,38 +577,39 @@
     :defer t
     :init
     (progn
-      (pcase dotspacemacs-swap-number-row
-        (`qwerty-us (setq evil-swap-keys-number-row-keys  '(("1" . "!")
-                                                            ("2" . "@")
-                                                            ("3" . "#")
-                                                            ("4" . "$")
-                                                            ("5" . "%")
-                                                            ("6" . "^")
-                                                            ("7" . "&")
-                                                            ("8" . "*")
-                                                            ("9" . "(")
-                                                            ("0" . ")"))))
-        (`qwertz-de (setq evil-swap-keys-number-row-keys  '(("1" . "!")
-                                                            ("2" . "\"")
-                                                            ("3" . "§")
-                                                            ("4" . "$")
-                                                            ("5" . "%")
-                                                            ("6" . "&")
-                                                            ("7" . "/")
-                                                            ("8" . "(")
-                                                            ("9" . ")")
-                                                            ("0" . "="))))
-        (`qwerty-ca-fr (setq evil-swap-keys-number-row-keys  '(("1" . "!")
-                                                               ("2" . "@")
-                                                               ("3" . "#")
-                                                               ("4" . "$")
-                                                               ("5" . "%")
-                                                               ("6" . "?")
-                                                               ("7" . "&")
-                                                               ("8" . "*")
-                                                               ("9" . "(")
-                                                               ("0" . ")"))))
-        (_ (message "dotspacemacs-swap-number-row %s is not supported." dotspacemacs-swap-number-row)))
+      (setq evil-swap-keys-number-row-keys
+            (pcase dotspacemacs-swap-number-row
+              ('qwerty-us '(("1" . "!")
+                            ("2" . "@")
+                            ("3" . "#")
+                            ("4" . "$")
+                            ("5" . "%")
+                            ("6" . "^")
+                            ("7" . "&")
+                            ("8" . "*")
+                            ("9" . "(")
+                            ("0" . ")")))
+              ('qwertz-de '(("1" . "!")
+                            ("2" . "\"")
+                            ("3" . "§")
+                            ("4" . "$")
+                            ("5" . "%")
+                            ("6" . "&")
+                            ("7" . "/")
+                            ("8" . "(")
+                            ("9" . ")")
+                            ("0" . "=")))
+              ('qwerty-ca-fr '(("1" . "!")
+                               ("2" . "@")
+                               ("3" . "#")
+                               ("4" . "$")
+                               ("5" . "%")
+                               ("6" . "?")
+                               ("7" . "&")
+                               ("8" . "*")
+                               ("9" . "(")
+                               ("0" . ")")))
+              (x (message "dotspacemacs-swap-number-row %s is not supported." x))))
       (add-hook 'prog-mode-hook #'evil-swap-keys-swap-number-row))))
 
 (defun spacemacs-editing/init-persistent-scratch ()

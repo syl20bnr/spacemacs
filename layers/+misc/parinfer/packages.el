@@ -31,20 +31,13 @@
     :hook emacs-lisp-mode clojure-mode scheme-mode common-lisp-mode
     :init
     (progn
-      (setq parinfer-rust-auto-download t)
-      ;;; TODO smile13241324 07-03-2021
-      ;;; Needed to duplicate the lib name algorithm to safely change the lib
-      ;;; install directory to our cache folder. This is caused by the folders
-      ;;; not having been separated from the system dependent library name.
-      ;;; A PR has been opened see here
-      ;;; https://github.com/justinbarclay/parinfer-rust-mode/pull/39
-      (setq parinfer-rust-library
-            (concat spacemacs-cache-directory
-                    "parinfer-rust/"
-                    (cond
-                     ((eq system-type 'darwin) "parinfer-rust-darwin.so")
-                     ((eq system-type 'gnu/linux) "parinfer-rust-linux.so")
-                     ((eq system-type 'windows-nt) "parinfer-rust-windows.dll"))))
+      (setq parinfer-rust-auto-download parinfer-auto-download)
+      (if parinfer-rust-auto-download
+          (setq parinfer-rust-library-directory
+                (concat spacemacs-cache-directory
+                        "parinfer-rust/"))
+        (when parinfer-library
+          (setq parinfer-rust-library parinfer-library)))
       (spacemacs|add-toggle parinfer-smart-indent
         :evil-leader "tP"
         :documentation "Enable Parinfer Smart Indent Mode."

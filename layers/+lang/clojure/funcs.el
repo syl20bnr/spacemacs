@@ -21,18 +21,9 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//clojure-backend ()
-  "Return selected backend."
-  (if clojure-backend
-      clojure-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'cider))))
-
 (defun spacemacs//clojure-setup-backend ()
   "Conditionally setup clojure backend."
-  (pcase (spacemacs//clojure-backend)
-    (`lsp (lsp))))
+  (when (eq clojure-backend 'lsp) (lsp-deferred)))
 
 (defun clojure/fancify-symbols (mode)
   "Pretty symbols for Clojure's anonymous functions and sets,
@@ -212,12 +203,12 @@ If called with a prefix argument, uses the other-window instead."
 (defun spacemacs/clj-find-var (sym-name &optional arg)
   "Attempts to jump-to-definition of the symbol-at-point.
 
-If CIDER fails, or not available, falls back to dumb-jump."
+If CIDER fails, or not available, falls back to dumb-jump's xref interface."
   (interactive (list (cider-symbol-at-point)))
   (if (and (cider-connected-p) (cider-var-info sym-name))
-      (unless (eq 'symbol (type-of (cider-find-var nil sym-name)))
-        (dumb-jump-go))
-    (dumb-jump-go)))
+      (unless (symbolp (cider-find-var nil sym-name))
+        (xref-find-definitions sym-name))
+    (xref-find-definitions sym-name)))
 
 (defun spacemacs/clj-describe-missing-refactorings ()
   "Inform the user to add clj-refactor to configuration"

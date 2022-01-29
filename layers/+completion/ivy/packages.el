@@ -23,6 +23,7 @@
 
 (setq ivy-packages
       '(
+        (all-the-icons-ivy-rich :toggle ivy-enable-icons)
         auto-highlight-symbol
         bookmark
         counsel
@@ -34,7 +35,10 @@
         ivy
         ivy-avy
         ivy-hydra
-        (ivy-rich :toggle ivy-enable-advanced-buffer-information)
+        (ivy-rich :toggle (progn
+                            (when ivy-enable-icons
+                              (setq ivy-enable-advanced-buffer-information t))
+                            ivy-enable-advanced-buffer-information))
         (ivy-spacemacs-help :location local)
         ivy-xref
         org
@@ -45,6 +49,12 @@
         swiper
         wgrep
         ))
+
+(defun ivy/init-all-the-icons-ivy-rich ()
+  (use-package all-the-icons-ivy-rich
+    :after ivy-rich
+    :config
+    (all-the-icons-ivy-rich-mode)))
 
 (defun ivy/pre-init-auto-highlight-symbol ()
   (spacemacs|use-package-add-hook auto-highlight-symbol
@@ -81,6 +91,7 @@
         "hdF" 'counsel-describe-face
         "hdm" 'spacemacs/describe-mode
         "hdv" 'counsel-describe-variable
+        "hdx" 'spacemacs/describe-ex-command
         "hi"  'counsel-info-lookup-symbol
         "hm"  (if (spacemacs/system-is-mswindows) 'woman 'man)
         "hR"  'spacemacs/counsel-search-docs
@@ -144,6 +155,11 @@
       (ivy-set-actions
        'counsel-find-file
        spacemacs--ivy-file-actions)
+
+      (dolist (action '(spacemacs/counsel-search counsel-rg counsel-ag))
+        (ivy-set-actions
+         action
+         spacemacs--ivy-grep-actions))
 
       (when (or (eq 'vim dotspacemacs-editing-style)
                 (and (eq 'hybrid dotspacemacs-editing-style)
@@ -246,6 +262,10 @@
       (define-key ivy-minibuffer-map [escape] 'minibuffer-keyboard-quit)
       (define-key ivy-minibuffer-map (kbd "M-SPC") 'hydra-ivy/body)
       (define-key ivy-minibuffer-map (kbd "C-<return>") #'ivy-alt-done)
+      (define-key ivy-minibuffer-map (kbd "C-.") #'ivy-mark)
+      (define-key ivy-minibuffer-map (kbd "C-,") #'ivy-unmark)
+      (define-key ivy-minibuffer-map (kbd "C-<") #'ivy-unmark-backward)
+      (define-key ivy-minibuffer-map (kbd "C->") #'ivy-toggle-marks)
       (define-key ivy-minibuffer-map (kbd "C-SPC") #'ivy-call-and-recenter)
 
       (when ivy-ret-visits-directory
@@ -256,7 +276,7 @@
       (global-set-key (kbd "C-c C-r") 'ivy-resume)
       (global-set-key (kbd "<f6>") 'ivy-resume)
       ;; Occur
-      (evil-set-initial-state 'ivy-occur-grep-mode 'normal)
+      (evil-make-overriding-map ivy-occur-grep-mode-map)
       (evil-make-overriding-map ivy-occur-mode-map 'normal)
       (dolist (mode-map (list ivy-occur-mode-map ivy-occur-grep-mode-map))
         (define-key mode-map "g" nil)
@@ -331,7 +351,10 @@
                                              spacemacs/jump-to-definition))
 
       ;; Use ivy-xref to display `xref.el' results.
-      (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))))
+      (setq xref-show-xrefs-function #'ivy-xref-show-xrefs)
+      (ivy-set-actions
+       'ivy-xref-show-xrefs
+       '(("j" spacemacs/ivy-xref-open-in-other-window "other window"))))))
 
 (defun ivy/post-init-org ()
   (add-hook 'org-ctrl-c-ctrl-c-hook 'spacemacs//counsel-org-ctrl-c-ctrl-c-org-tag))

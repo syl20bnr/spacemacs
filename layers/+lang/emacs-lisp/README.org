@@ -11,6 +11,7 @@
 - [[#auto-compile][Auto-compile]]
 - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
 - [[#debugging-elisp][Debugging Elisp]]
+  - [[#using-the-inspector][Using the inspector]]
 - [[#nameless][Nameless]]
   - [[#aliases][Aliases]]
 - [[#structurally-safe-editing][Structurally safe editing]]
@@ -20,6 +21,7 @@
   - [[#format-code][Format code]]
   - [[#debugging][Debugging]]
   - [[#refactoring-with-emr][Refactoring with emr]]
+  - [[#inspector][Inspector]]
 
 * Description
 This layer gathers all the configuration related to emacs-lisp. This should
@@ -107,6 +109,10 @@ displayed in the mode line.
 
 function or press ~o~ to go out of it.
 6) Press ~a~ to stop debugging.
+
+** Using the inspector
+This layer adds the [[https://github.com/mmontone/emacs-inspector][inspector]] package to provide an easy way for inspecting
+data structures. Find more information about its usage [[https://github.com/mmontone/emacs-inspector][here]] and see key bindings.
 
 * Nameless
 Nameless hides package namespaces in your emacs-lisp code, and replaces it by
@@ -306,3 +312,16 @@ line)
 | ~SPC m r d l~ | delete let binding form   |
 | ~SPC m r d d~ | delete unused definition  |
 | ~SPC m e w~   | eval and replace          |
+
+** Inspector
+*inspector buffer*
+
+| Key binding | Description                 |
+|-------------+-----------------------------|
+| ~RET~       | inspect object              |
+| ~L~         | navigate to previous object |
+| ~q~         | quit inspector              |
+
+*backtrace buffer*
+
+| ~i~ | inspect object |

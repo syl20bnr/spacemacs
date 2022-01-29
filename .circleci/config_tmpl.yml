@@ -1,0 +1,209 @@
+#### Circle CI YAML file
+version: 2.1
+
+parameters:
+  prj_owner:
+    type: string
+    default: "syl20bnr"
+  prj_repo:
+    type: string
+    default: "spacemacs"
+  website_owner:
+    type: string
+    default: "syl20bnr"
+  website_repo:
+    type: string
+    default: "develop.spacemacs.org"
+  bot_login:
+    type: string
+    default: "SpacemacsBot"
+# Will be filled by setup script:
+  is_branch_update:
+    type: string
+    default: "{{ IS_BRANCH_UDATE }}"
+
+executors:
+  spacetools:
+    docker:
+      - image: jare/spacemacs-circleci:latest
+    working_directory: ~/.emacs.d
+    environment:
+      - BASH_ENV: ".circleci/shared"
+
+jobs:
+  "Validate PR":
+    executor: spacetools
+    environment:
+      - UPD_BOT_LOGIN: << pipeline.parameters.bot_login >>
+      - PRJ_OWNER: << pipeline.parameters.prj_owner >>
+      - PRJ_REPO: << pipeline.parameters.prj_repo >>
+    steps:
+      - checkout
+      - run:
+          name: Make sure that this PR targets develop branch
+          command: .circleci/PR_base
+      - run:
+          name: Make sure that this PR doesn't need rebase
+          command: .circleci/PR_rebased
+  "Validate Documentation":
+    executor: spacetools
+    environment:
+      - UPD_BOT_LOGIN: << pipeline.parameters.bot_login >>
+      - PRJ_OWNER: << pipeline.parameters.prj_owner >>
+      - PRJ_REPO: << pipeline.parameters.prj_repo >>
+    steps:
+      - checkout
+      - run:
+          name: Select changed files
+          command: .circleci/select_pr_changed
+      - run:
+          name: validate changed documentation files
+          command: .circleci/org/validate
+  "Update built-in files":
+    executor: spacetools
+    environment:
+      - PUBLISH: "built_in_updates"
+      - PRJ_OWNER: << pipeline.parameters.prj_owner >>
+      - PRJ_REPO: << pipeline.parameters.prj_repo >>
+      - UPD_BOT_LOGIN: << pipeline.parameters.bot_login >>
+      - UPD_BOT_REPO: << pipeline.parameters.prj_repo >>
+      - PR_BRANCH: "develop"
+    steps:
+      - checkout
+      - run:
+          name: Initialize bot account
+          command: .circleci/bot_init
+      - run:
+          name: Download latest versions
+          command: .circleci/built_in/upd_built_in
+      - run:
+          name: Create patch file with the updates
+          command: .circleci/update/make_patch
+      - run:
+          name: Apply the patch file
+          command: .circleci/update/apply_patch
+      - run:
+          name: Push changes to Spacemacs Bot account
+          command: .circleci/update/push
+      - run:
+          name: Open PR if built in files must be updated
+          command: .circleci/update/maybe_pr
+  "Update documentation files":
+    executor: spacetools
+    environment:
+      - PUBLISH: "documentation_updates"
+      - PRJ_OWNER: << pipeline.parameters.prj_owner >>
+      - PRJ_REPO: << pipeline.parameters.prj_repo >>
+      - UPD_BOT_LOGIN: << pipeline.parameters.bot_login >>
+      - UPD_BOT_REPO: << pipeline.parameters.prj_repo >>
+      - PR_BRANCH: "develop"
+    steps:
+      - checkout
+      - run:
+          name: Initialize bot account
+          command: .circleci/bot_init
+      - run:
+          name: Export documentation files
+          command: .circleci/org/sdnize
+      - run:
+          name: Update documentation files
+          command: .circleci/org/update_docs
+      - run:
+          name: Create patch file with the updates
+          command: .circleci/update/make_patch
+      - run:
+          name: Apply the patch file
+          command: .circleci/update/apply_patch
+      - run:
+          name: Push changes to Spacemacs Bot account
+          command: .circleci/update/push
+      - run:
+          name: Open PR if documentation needs fixes
+          command: .circleci/update/maybe_pr
+  "Update website documentation":
+    executor: spacetools
+    environment:
+      - PUBLISH: "website_documentation_updates"
+      - PRJ_OWNER: << pipeline.parameters.website_owner >>
+      - PRJ_REPO: << pipeline.parameters.website_repo >>
+      - UPD_BOT_LOGIN: << pipeline.parameters.bot_login >>
+      - UPD_BOT_REPO: << pipeline.parameters.website_repo >>
+      - PR_BRANCH: "gh-pages"
+    steps:
+      - checkout
+      - run:
+          name: Initialize bot account
+          command: .circleci/bot_init
+      - restore_cache:
+          keys:
+            - webe-dps-v2-{{ .Branch }}-{{ checksum ".circleci/web/.spacemacs" }}
+      - run:
+          name: Install dependencies
+          command: .circleci/web/install_deps
+      - save_cache:
+          key: webe-dps-v2-{{ .Branch }}-{{ checksum ".circleci/web/.spacemacs" }}
+          paths:
+            - ~/.emacs.d/elpa
+      - run:
+          name: Export documentation files
+          command: .circleci/web/htmlize
+      - run:
+          name: Clone website repo
+          command: |
+            git clone -b "${PR_BRANCH}" \
+              https://github.com/${PRJ_OWNER}/${PRJ_REPO} \
+              "/tmp/${PUBLISH}_old"
+      - run:
+          name: Replace old web files
+          command: rsync -avh ~/.emacs.d/export/ "/tmp/${PUBLISH}_old"
+      - run:
+          name: Create patch file with the updates
+          command: |
+            cd "/tmp/${PUBLISH}_old" && \
+            ~/.emacs.d/.circleci/update/make_patch
+      - run:
+          name: Apply the patch file
+          command: .circleci/update/apply_patch
+      - run:
+          name: Push changes to Spacemacs Bot account
+          command: .circleci/update/push
+      - run:
+          name: Open PR if web documentation needs fixes
+          command: .circleci/update/maybe_pr
+
+workflows:
+  version: 2.1
+  validate-pr-files:
+    when:
+      not:
+        equal: [<< pipeline.parameters.is_branch_update >>, "yes"]
+    jobs:
+      - "Validate PR"
+      - "Validate Documentation"
+  update-documentation:
+    when:
+      and:
+        - equal: [<< pipeline.parameters.is_branch_update >>, "yes"]
+        - equal: [<< pipeline.git.branch >>, "develop"]
+    jobs:
+      - "Update documentation files"
+      - "Update website documentation"
+  update-built-in-on-push:
+    when:
+      and:
+        - equal: [<< pipeline.parameters.is_branch_update >>, "yes"]
+        - equal: [<< pipeline.git.branch >>, "develop"]
+    jobs:
+      - "Update built-in files"
+  update-built-in-on-schedule:
+    when:
+      equal: [<< pipeline.parameters.is_branch_update >>, "yes"]
+    triggers:
+      - schedule:
+          cron: "0 0,6,12,18 * * *"
+          filters:
+            branches:
+              only:
+                - develop
+    jobs:
+      - "Update built-in files"

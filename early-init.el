@@ -34,3 +34,13 @@
 ;; the package manager before loading the init file, so this file is neither
 ;; needed nor loaded on those versions.
 (setq package-enable-at-startup nil)
+
+(load (concat (file-name-directory load-file-name)
+              "core/core-early-funcs")
+      nil (not init-file-debug))
+
+;; Remove GUI elements soon after GUI being initialized to avoid some possible grapical glitches.
+;; This has to be done use these hooks,
+;; see https://www.gnu.org/software/emacs/manual/html_node/emacs/Early-Init-File.html
+(add-hook 'window-setup-hook 'spacemacs/removes-gui-elements)
+(add-hook 'tty-setup-hook 'spacemacs/removes-gui-elements)

@@ -352,7 +352,7 @@ running Emacs in terminal."
 
 (spacemacs|defc dotspacemacs-folding-method 'evil
   "Code folding method. Possible values are `evil', `origami' and `vimish'."
-  '(choice (cosnt evil) (const origami) (const vimish))
+  '(choice (const evil) (const origami) (const vimish))
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-default-layout-name "Default"
@@ -500,6 +500,12 @@ screen."
   'boolean
   'spacemacs-dotspacemacs-init)
 
+(spacemacs|defc dotspacemacs-scroll-bar-while-scrolling t
+  "Show the scroll bar while scrolling. The auto hide time can be configured by
+setting this variable to a number."
+  '(choice boolean number)
+  'spacemacs-dotspacemacs-init)
+
 (spacemacs|defc dotspacemacs-line-numbers nil
   "Control line numbers activation.
 If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
@@ -623,6 +629,16 @@ number of recent files to show in each project."
   'boolean
   'spacemacs-dotspacemacs-init)
 
+(spacemacs|defc dotspacemacs-show-startup-list-numbers t
+  "Show numbers before the startup list lines."
+  'boolean
+  'spacemacs-dotspacemacs-init)
+
+(spacemacs|defc dotspacemacs-startup-buffer-multi-digit-delay 0.4
+  "The minimum delay in seconds between number key presses."
+  'number
+  'spacemacs-dotspacemacs-init)
+
 (spacemacs|defc dotspacemacs-excluded-packages '()
   "A list of packages that will not be installed and loaded."
   '(repeat symbol)
@@ -651,6 +667,11 @@ If non nil activate `clean-aindent-mode' which tries to correct
 virtual indentation of simple modes. This can interfere with mode specific
 indent handling like has been reported for `go-mode'.
 If it does deactivate it here. (default t)"
+  'boolean
+  'spacemacs-dotspacemacs-init)
+
+(spacemacs|defc dotspacemacs-use-SPC-as-y nil
+  "Accept SPC as y for prompts if non nil. (default nil)"
   'boolean
   'spacemacs-dotspacemacs-init)
 
@@ -893,7 +914,7 @@ a display strng and the value is the actual value to return."
       (configuration-layer/load))))
 
 (defun dotspacemacs/install (arg)
-  "Install the dotfile, return non nil if the doftile has been installed.
+  "Install the dotfile, return non nil if the dotfile has been installed.
 
 If ARG is non nil then ask questions to the user before installing the dotfile."
   (interactive "P")
@@ -984,18 +1005,17 @@ If ARG is non nil then ask questions to the user before installing the dotfile."
             (when (string-match-p "%t" title-format)
               (if (boundp 'spacemacs--buffer-project-name)
                   spacemacs--buffer-project-name
-                (set (make-local-variable 'spacemacs--buffer-project-name)
-                     (if (fboundp 'projectile-project-name)
-                         (projectile-project-name)
-                       "-")))))
+                (setq-local spacemacs--buffer-project-name
+                            (if (fboundp 'projectile-project-name)
+                                (projectile-project-name)
+                              "-")))))
            (abbreviated-file-name
             (when (string-match-p "%a" title-format)
               (if (boundp 'spacemacs--buffer-abbreviated-filename)
                   spacemacs--buffer-abbreviated-filename
-                (set (make-local-variable
-                      'spacemacs--buffer-abbreviated-filename)
-                     (abbreviate-file-name (or (buffer-file-name)
-                                               (buffer-name)))))))
+                (setq-local spacemacs--buffer-abbreviated-filename
+                            (abbreviate-file-name (or (buffer-file-name)
+                                                      (buffer-name)))))))
            (fs (format-spec-make
                 ?a abbreviated-file-name
                 ?t project-name
@@ -1096,7 +1116,11 @@ error recovery."
 (defmacro dotspacemacs||let-init-test (&rest body)
   "Macro to protect dotspacemacs variables"
   `(let ((fpath dotspacemacs-filepath)
-         ,@(dotspacemacs/get-variable-list)
+         ,@(mapcar (lambda (symbol)
+                     `(,symbol ,(let ((v (symbol-value symbol)))
+                                  (if (or (symbolp v) (listp v))
+                                      `',v v))))
+                   (dotspacemacs/get-variable-list))
          (passed-tests 0) (total-tests 0))
      (setq dotspacemacs-filepath fpath)
      (load dotspacemacs-filepath)

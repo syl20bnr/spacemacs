@@ -24,12 +24,12 @@
 
 (defun spacemacs//julia-setup-backend ()
   "Conditionally setup julia backend."
-  (pcase julia-backend
-    ('lsp (spacemacs//julia-setup-lsp))))
+  (when (eq julia-backend 'lsp)
+    (spacemacs//julia-setup-lsp)))
 
 (defun spacemacs//julia-setup-buffer ()
   "Configure julia-mode"
-  (when (not julia-mode-enable-ess)
+  (unless julia-mode-enable-ess
     (spacemacs//julia-setup-repl)))
 
 
@@ -38,7 +38,7 @@
 (defun spacemacs//julia-setup-lsp ()
   "Start lsp-mode and configure for buffer."
   (if (configuration-layer/layer-used-p 'lsp)
-      (lsp)
+      (lsp-deferred)
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 

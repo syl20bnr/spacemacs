@@ -43,8 +43,7 @@
         helm-gtags
         (helm-hoogle :requires helm)
         hindent
-        hlint-refactor
-        ))
+        hlint-refactor))
 
 (defun haskell/init-lsp-haskell ()
   (use-package lsp-haskell
@@ -98,8 +97,8 @@
   (progn
     (add-hook 'dante-mode-hook
               (lambda () (flycheck-add-next-checker 'haskell-dante '(warning . haskell-hlint))))
-    (spacemacs/enable-flycheck 'haskell-mode))
-  )
+    (spacemacs/enable-flycheck 'haskell-mode)))
+
 
 (defun haskell/init-flycheck-haskell ()
   (use-package flycheck-haskell
@@ -216,7 +215,7 @@
           "dt"  'haskell-debug/trace
 
           "ri"  'spacemacs/haskell-format-imports)
-        (if (eq (spacemacs//haskell-backend) 'lsp)
+        (if (eq haskell-completion-backend 'lsp)
             (spacemacs/set-leader-keys-for-major-mode mode
               "gl"  'haskell-navigate-imports
               "S"   'haskell-mode-stylish-buffer
