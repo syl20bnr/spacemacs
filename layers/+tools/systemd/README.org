@@ -7,8 +7,8 @@
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
-- [[#journalctl-mode][Journalctl-mode]]
-  - [[#key-bindings-1][Key Bindings]]
+  - [[#systemd][Systemd]]
+  - [[#journalctl-mode][Journalctl-mode]]
 
 * Description
 This layer adds support for editing =systemd= configuration files in Spacemacs.
@@ -17,8 +17,8 @@ This layer adds support for editing =systemd= configuration files in Spacemacs.
 - Syntax highlighting
 - Auto completion
 - Syntax checking via =systemd-analyze=
-- Viewing systemd unit via =journalctl-mode=
-- Viewing systemd user unit via =journalctl-mode=
+- Viewing systemd unit via [[https://github.com/SebastianMeisel/journalctl-mode][journalctl-mode]]
+- Viewing systemd user unit via  [[https://github.com/SebastianMeisel/journalctl-mode][journalctl-mode]]
   
 * Install
 To use this contribution add it to your =~/.spacemacs=
@@ -28,19 +28,20 @@ To use this contribution add it to your =~/.spacemacs=
 #+END_SRC
 
 * Key bindings
+** Systemd
 
 | Key binding   | Description                                                              |
 |---------------+--------------------------------------------------------------------------|
 | ~SPC m h d~   | Systemd open the directives documentation                                |
 | ~SPC m h o~   | Systemd open documentation (if a =\=Documentation= directive is provided |
 
-* Journalctl-mode
-This is a major-mode for emacs to view systemd's journalctl output in emacs. The output is split into chunks for performance reasons. Fontification is provided and may be customized.
+** Journalctl-mode
 
-** Key Bindings
 | Key binding   | Description                                                              |
 |---------------+--------------------------------------------------------------------------|
 | ~SPC a t j b~ | Select and show boot-log with =journalctl-mode=.                         |
 | ~SPC a t j j~ | Run =journalctl-mode= with custom option                                 |
 | ~SPC a t j s~ | Select and show journal for UNIT in =journalctl-mode=.                   |
 | ~SPC a t j u~ | Select and show journal for the user-unit UNIT in =journalctl-mode=.     |
+
+
