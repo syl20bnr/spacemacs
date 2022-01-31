@@ -3137,6 +3137,7 @@ Features:
 - Syntax highlighting
 - Auto completion
 - Syntax checking via =systemd-analyze=
+- Viewing systemd system and user unit via [[https://github.com/SebastianMeisel/journalctl-mode][journalctl-mode]]
 
 ** Tern
 [[file:+tools/tern/README.org][+tools/tern/README.org]]
