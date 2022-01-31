@@ -3629,6 +3629,7 @@ files (thanks to Daniel Nicolai)
 **** Systemd
 - Added support for syntax checking with =flycheck= (thanks to Steven Allen)
 - Added support for lazy installation (thanks to Wieland Hoffmann)
+- Added support for =journalctl-mode= (thanks to Benedikt Broich)
 **** Terraform
 - Added opt-in layer variable =terraform-fmt-on-save= to format buffers on save
   with =terraform fmt= (thanks to Harry Hull)
