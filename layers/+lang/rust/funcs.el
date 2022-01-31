@@ -58,7 +58,7 @@
         (spacemacs/declare-prefix-for-mode 'rust-mode "ms" "switch")
         (spacemacs/set-leader-keys-for-major-mode 'rust-mode
           "ss" 'spacemacs/lsp-rust-switch-server
-          "bR" 'spacemacs/lsp-rust-analyzer-reload-workspace))
+          (if lsp-use-upstream-bindings "wR" "bR") 'spacemacs/lsp-rust-analyzer-reload-workspace))
     (spacemacs//lsp-layer-not-installed-message)))
 
 (defun spacemacs//rust-setup-lsp-dap ()
