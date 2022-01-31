@@ -649,6 +649,7 @@ still be renamed."
   '("*.el" "*.el.in" "dir"
     "*.info" "*.texi" "*.texinfo"
     "doc/dir" "doc/*.info" "doc/*.texi" "doc/*.texinfo"
+    "docs/dir" "docs/*.info" "docs/*.texi" "docs/*.texinfo"
     (:exclude ".dir-locals.el" "test.el" "tests.el" "*-test.el" "*-tests.el"))
   "Default value for :files attribute in recipes.")
 
