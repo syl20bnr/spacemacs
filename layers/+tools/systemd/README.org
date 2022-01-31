@@ -17,8 +17,7 @@ This layer adds support for editing =systemd= configuration files in Spacemacs.
 - Syntax highlighting
 - Auto completion
 - Syntax checking via =systemd-analyze=
-- Viewing systemd unit via [[https://github.com/SebastianMeisel/journalctl-mode][journalctl-mode]]
-- Viewing systemd user unit via  [[https://github.com/SebastianMeisel/journalctl-mode][journalctl-mode]]
+- Viewing systemd system and user unit via [[https://github.com/SebastianMeisel/journalctl-mode][journalctl-mode]]
   
 * Install
 To use this contribution add it to your =~/.spacemacs=
