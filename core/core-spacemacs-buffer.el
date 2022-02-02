@@ -1188,7 +1188,13 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
 (defun spacemacs-buffer//insert-recent-files (list-size)
   (unless recentf-mode (recentf-mode))
   (setq spacemacs-buffer//recent-files-list
-        (spacemacs//subseq recentf-list 0 list-size))
+        (cl-delete-if (lambda (x)
+                        (or (when (and org-directory (file-exists-p org-directory))
+                              (member x (directory-files org-directory t)))
+                            (member x (mapcar #'expand-file-name org-agenda-files))))
+                      recentf-list))
+  (setq spacemacs-buffer//recent-files-list
+        (spacemacs//subseq spacemacs-buffer//recent-files-list 0 list-size))
   (when (spacemacs-buffer//insert-file-list
          "Recent Files:"
          spacemacs-buffer//recent-files-list)
