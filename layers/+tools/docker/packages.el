@@ -27,37 +27,19 @@
     docker
     docker-tramp
     dockerfile-mode
-    flycheck
-    ))
+    flycheck))
 
 (defun docker/init-docker ()
   (use-package docker
     :defer t
     :init
     (progn
-      (spacemacs/declare-prefix "atd" "Docker")
-      (evil-leader/set-key
-        "atdc" 'docker-containers
-        "atdC" 'docker-compose
-        "atdd" 'docker-rmi
-        "atde" 'docker-unpause
-        "atdF" 'docker-pull
-        "atdk" 'docker-rm
-        "atdi" 'docker-images
-        "atdm" 'docker-machines
-        "atdn" 'docker-networks
-        "atdo" 'docker-stop
-        "atdP" 'docker-push
-        "atdp" 'docker-pause
-        "atdr" 'docker-restart
-        "atds" 'docker-start
-        "atdv" 'docker-volumes)))
-  (with-eval-after-load 'docker-containers
-    (evilified-state-evilify-map docker-containers-mode-map
-      :mode docker-containers-mode))
-  (with-eval-after-load 'docker-images
-    (evilified-state-evilify-map docker-images-mode-map
-      :mode docker-images-mode)))
+      (spacemacs/set-leader-keys "atd" #'docker)
+      (evil-define-key 'normal docker-image-mode-map (kbd "q") 'quit-window)
+      (evil-define-key 'normal docker-container-mode-map (kbd "q") 'quit-window)
+      (evil-define-key 'normal docker-volume-mode-map (kbd "q") 'quit-window)
+      (evil-define-key 'normal docker-network-mode-map (kbd "q") 'quit-window)
+      (evil-define-key 'normal docker-machine-mode-map (kbd "q") 'quit-window))))
 
 (defun docker/init-docker-tramp ()
   (use-package docker-tramp

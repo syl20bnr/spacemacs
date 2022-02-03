@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+## open_pr Opens PR to Spacemacs repository with updates (if any)
+##
+## Copyright (c) 2014-2021 Sylvain Benner & Contributors
+##
+## Author: Eugene Yaremenko
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
+
+exit_if_no_patchfile
+
+cd "/tmp/${PUBLISH}"
+
+export GITHUB_TOKEN=$UPD_BOT_GIT_TK
+echo_headline "Opening PR"
+echo "[bot] ${PUBLISH}" > msg
+echo >> msg
+echo "Merge with care - I'm just a stupid bot. Beep boop." >> msg
+hub pull-request -h "${PUBLISH}" -b "${PR_BRANCH}" -F msg
+if [ $? -ne 0 ]; then
+    echo "Seems like PR already exists (not a problem)"
+fi

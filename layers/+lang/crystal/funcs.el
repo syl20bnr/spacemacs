@@ -48,4 +48,4 @@
 
 (defun spacemacs//crystal-setup-backend ()
   "Conditionally setup crystal backend."
-  (when (eq crystal-backend 'lsp) (lsp)))
+  (when (eq crystal-backend 'lsp) (lsp-deferred)))

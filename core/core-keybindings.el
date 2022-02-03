@@ -54,12 +54,12 @@ gui, translate to [C-i]. Otherwise, [9] (TAB)."
 ;;     [C-m] [?\C-m]))
 ;; (define-key key-translation-map [?\C-m] 'spacemacs/translate-C-m)
 
-(defun spacemacs/declare-prefix (prefix name &optional _)
+(defun spacemacs/declare-prefix (prefix name &rest more)
   "Declare a prefix PREFIX. PREFIX is a string describing a key
 sequence. NAME is a string used as the prefix command."
-  (which-key-add-keymap-based-replacements spacemacs-default-map
-    prefix name))
-(put 'spacemacs/declare-prefix 'lisp-indent-function 'defun)
+  (declare (indent defun))
+  (apply #'which-key-add-keymap-based-replacements spacemacs-default-map
+    prefix name more))
 
 (defun spacemacs/declare-prefix-for-mode (mode prefix name &optional _)
   "Declare a prefix PREFIX. MODE is the mode in which this prefix command should
@@ -130,6 +130,20 @@ minor-mode, the third argument should be non nil."
               :evil-keys ,leaders
               :evil-states (normal motion visual evilified)))
           (boundp prefix)))))
+
+(defun spacemacs/inherit-leader-keys-from-parent-mode (mode &optional parent-mode)
+  "Make derived mode MODE inherit leader key bindings from PARENT-MODE.
+If omitted, PARENT-MODE defaults to the parent mode of MODE.
+Signal an error if MODE is not a derived mode (for example if the
+package defining the mode has not yet been loaded)."
+  (unless parent-mode
+    (setq parent-mode (or (get mode 'derived-mode-parent)
+                          (error "Mode %s has no parent" mode))))
+  (let ((map (intern (format "spacemacs-%s-map" mode)))
+        (parent-map (intern (format "spacemacs-%s-map" parent-mode))))
+    (when (and (spacemacs//init-leader-mode-map mode map)
+               (spacemacs//init-leader-mode-map parent-mode parent-map))
+      (set-keymap-parent (symbol-value map) (symbol-value parent-map)))))
 
 (defun spacemacs/set-leader-keys-for-major-mode (mode key def &rest bindings)
   "Add KEY and DEF as key bindings under

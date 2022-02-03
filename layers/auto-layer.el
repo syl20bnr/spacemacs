@@ -54,7 +54,7 @@
 (configuration-layer/lazy-install 'html :extensions '("\\(\\.sass\\'\\)" sass-mode))
 (configuration-layer/lazy-install 'html :extensions '("\\(\\.scss\\'\\)" scss-mode))
 (configuration-layer/lazy-install 'html :extensions '("\\(\\.slim\\'\\)" slim-mode))
-(configuration-layer/lazy-install 'html :extensions '("\\(\\.phtml\\'\\|\\.tpl\\.php\\'\\|\\.twig\\'\\|\\.html\\'\\|\\.htm\\'\\|\\.[gj]sp\\'\\|\\.as[cp]x?\\'\\|\\.eex\\'\\|\\.erb\\'\\|\\.mustache\\'\\|\\.handlebars\\'\\|\\.hbs\\'\\|\\.eco\\'\\|\\.ejs\\'\\|\\.djhtml\\'\\)" web-mode))
+(configuration-layer/lazy-install 'html :extensions '("\\(\\.phtml\\'\\|\\.tpl\\.php\\'\\|\\.twig\\'\\|\\.html\\'\\|\\.htm\\'\\|\\.[gj]sp\\'\\|\\.as[cp]x?\\'\\|\\.eex\\'\\|\\.leex\\'\\|\\.erb\\'\\|\\.mustache\\'\\|\\.handlebars\\'\\|\\.hbs\\'\\|\\.eco\\'\\|\\.ejs\\'\\|\\.djhtml\\'\\)" web-mode))
 (configuration-layer/lazy-install 'idris :extensions '("\\(\\.idr$\\|\\.lidr$\\)" idris-mode))
 ;; javascript
 (configuration-layer/lazy-install 'javascript :extensions '("\\(\\.coffee\\'\\|\\.iced\\'\\|Cakefile\\'\\|\\.cson\\'\\)" coffee-mode))

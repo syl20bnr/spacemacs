@@ -31,11 +31,46 @@
 ;; Used for lsp-ui-peek-mode, but may be able to use some spacemacs fn. instead?
 (defun spacemacs/lsp-define-key (keymap key def &rest bindings)
   "Define multiple key bindings with KEYMAP KEY DEF BINDINGS."
-  (interactive)
   (while key
     (define-key keymap (kbd key) def)
     (setq key (pop bindings)
           def (pop bindings))))
+
+(defun spacemacs/lsp-bind-upstream-keys ()
+  "Bind upstream `lsp-command-map' behind \"SPC m\" and the likes."
+  (bind-map lsp-command-map
+    :minor-modes (lsp-mode)
+    :keys ((concat dotspacemacs-emacs-leader-key " m") dotspacemacs-major-mode-emacs-leader-key)
+    :evil-keys ((concat dotspacemacs-leader-key " m") dotspacemacs-major-mode-leader-key)
+    :evil-states (normal motion visual evilified))
+  (dolist (it '(("=" . "format")
+                ("F" . "folder")
+                ("T" . "toggle")
+                ("g" . "goto")
+                ("h" . "help")
+                ("r" . "refactor")
+                ("w" . "workspace")
+                ("a" . "actions")
+                ("G" . "peek")))
+    (which-key-add-keymap-based-replacements lsp-command-map (car it) (cdr it)))
+  ;; we still have to bind keys for `lsp-ivy', `consult-lsp' and `helm-lsp'
+  (cond
+   ((configuration-layer/package-usedp 'ivy)
+    (spacemacs/lsp-define-key lsp-command-map
+                              "gs" #'lsp-ivy-workspace-symbol
+                              "gS" #'lsp-ivy-global-workspace-symbol
+                              "FR" #'lsp-ivy-workspace-folders-remove))
+   ((configuration-layer/package-usedp 'helm)
+    (spacemacs/lsp-define-key lsp-command-map
+                              "gs" #'helm-lsp-workspace-symbol
+                              "gS" #'helm-lsp-global-workspace-symbol))
+   ((configuration-layer/package-usedp 'consult)
+    (define-key lsp-mode-map
+      [remap lsp-treemacs-errors-list]
+      #'consult-lsp-diagnostics)
+    (spacemacs/lsp-define-key lsp-command-map
+                              "gs" #'consult-lsp-symbols
+                              "gf" #'consult-lsp-file-symbols))))
 
 (defun spacemacs/lsp-bind-keys ()
   "Define key bindings for the lsp minor mode."
@@ -96,7 +131,11 @@
     "x" "text/code"
     "xh" #'lsp-document-highlight
     "xl" #'lsp-lens-show
-    "xL" #'lsp-lens-hide))
+    "xL" #'lsp-lens-hide)
+  (when (configuration-layer/package-used-p 'lsp-treemacs)
+    (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+      "gh" #'lsp-treemacs-call-hierarchy
+      "gT" #'lsp-treemacs-type-hierarchy)))
 
 (defun spacemacs//lsp-bind-simple-navigation-functions (prefix-char)
   (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
@@ -320,8 +359,8 @@ EXTRA is an additional parameter that's passed to the LSP function"
                (setq line l1 col c1)
                (push `((,point0 . ,point1) . ,w) candidates)))
     (avy-with avy-document-symbol
-      (avy--process candidates
-                    (avy--style-fn avy-style)))))
+              (avy--process candidates
+                            (avy--style-fn avy-style)))))
 
 (defun spacemacs/lsp-avy-goto-word ()
   (interactive)

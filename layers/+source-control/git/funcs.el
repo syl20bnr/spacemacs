@@ -73,11 +73,10 @@
   (let (git-link-open-in-browser)
     (call-interactively 'git-link-commit)))
 
-
-(defun spacemacs//support-evilified-buffer-p (style)
-  "Return non-nil if evil navigation should be enabled for STYLE."
-  (or (eq style 'vim)
-      (and (eq style 'hybrid)
+(defun spacemacs//support-evilified-buffer-p ()
+  "Return non-nil if evil navigation should be enabled."
+  (or (eq dotspacemacs-editing-style 'vim)
+      (and (eq dotspacemacs-editing-style 'hybrid)
            hybrid-style-enable-evilified-state)))
 
 

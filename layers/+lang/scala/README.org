@@ -129,7 +129,10 @@ Additional major mode key bindings are populated by LSP and DAP.
 
 ** sbt
 
-| Key binding | Description         |
-|-------------+---------------------|
-| ~SPC m b .~ | sbt transient state |
-| ~SPC m b b~ | sbt command         |
+| Key binding | Description              |
+|-------------+--------------------------|
+| ~SPC m b .~ | SBT transient state      |
+| ~SPC m b b~ | SBT command              |
+| ~SPC m b c~ | Run ~compile~ in SBT     |
+| ~SPC m b t~ | Run ~test~ in SBT        |
+| ~SPC m b =~ | Run ~scalafmtAll~ in SBT |

@@ -32,7 +32,7 @@
 (defun spacemacs//ess-setup-r-lsp ()
   "Setup LSP backend."
   (if (configuration-layer/layer-used-p 'lsp)
-      (lsp)
+      (lsp-deferred)
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 

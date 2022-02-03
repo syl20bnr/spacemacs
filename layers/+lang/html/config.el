@@ -40,3 +40,6 @@
 
 (defvar html-enable-lsp nil
   "If non-nil, enable lsp-mode in web-mode html buffers having.")
+
+(defvar html-enable-leex-support nil
+  "If non nil, enable support for `.leex' files.")

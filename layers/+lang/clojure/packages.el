@@ -43,6 +43,7 @@
                                              clojure-enable-linters
                                            (list clojure-enable-linters))))
     ggtags
+    (kaocha-runner :toggle clojure-enable-kaocha-runner)
     counsel-gtags
     helm-gtags
     org
@@ -263,7 +264,7 @@
         (kbd "T")   'cider-stacktrace-toggle-tooling)
 
       ;; open cider-doc directly and close it with q
-      (setq cider-prompt-for-symbol nil)
+      (setq cider-prompt-for-symbol t)
 
       (evilified-state-evilify cider-docview-mode cider-docview-mode-map
         (kbd "q") 'cider-popup-buffer-quit)
@@ -286,6 +287,19 @@
         (kbd "t")   'cider-test-run-test
         (kbd "T")   'cider-test-run-ns-tests)
 
+      (evilified-state-evilify-map cider-repl-history-mode-map
+        :mode cider-repl-history-mode
+        :bindings
+        "j" 'cider-repl-history-forward
+        "k" 'cider-repl-history-previous
+        "s" (cond ((featurep 'helm-swoop) 'helm-swoop)
+                  ((featurep 'swiper) 'swiper)
+                  (t 'cider-repl-history-occur))
+        "r" 'cider-repl-history-update)
+
+      (spacemacs/set-leader-keys-for-major-mode 'cider-repl-history-mode
+        "s" 'cider-repl-history-save)
+
       (evil-define-key 'normal cider-repl-mode-map
         (kbd "C-j") 'cider-repl-next-input
         (kbd "C-k") 'cider-repl-previous-input
@@ -300,7 +314,8 @@
           (kbd "C-k") 'cider-repl-previous-input))
 
       (evil-define-key 'insert cider-repl-mode-map
-        (kbd "<C-return>") 'cider-repl-newline-and-indent)
+        (kbd "<C-return>") 'cider-repl-newline-and-indent
+        (kbd "C-r") 'cider-repl-history)
 
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)
@@ -347,6 +362,24 @@
               sayid--key-binding-prefixes)
         (spacemacs/set-leader-keys-for-major-mode m
           "hc" 'helm-cider-cheatsheet)))))
+
+(defun clojure/init-kaocha-runner ()
+  (use-package kaocha-runner
+    :defer t
+    :init
+    (progn
+      (setq kaocha--key-binding-prefixes
+            '(("mtk" . "kaocha")))
+      (spacemacs|forall-clojure-modes m
+        (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
+                            m (car x) (cdr x)))
+              kaocha--key-binding-prefixes)
+        (spacemacs/set-leader-keys-for-major-mode m
+          "tka" 'kaocha-runner-run-all-tests
+          "tkt" 'kaocha-runner-run-test-at-point
+          "tkn" 'kaocha-runner-run-tests
+          "tkw" 'kaocha-runner-show-warnings
+          "tkh" 'kaocha-runner-hide-windows)))))
 
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode

@@ -138,7 +138,10 @@ the final step of executing code in `emacs-startup-hook'.")
    ;; believe me? Go ahead, try it. After you'll have notice that this was true,
    ;; increase the counter bellow so next people will give it more confidence.
    ;; Counter = 1
-   (spacemacs-buffer/message "Setting the font...")
+   (let ((init-file-debug)) ;; without this font size is ignored in daemon
+     (when (daemonp)
+       (setq init-file-debug t))
+    (spacemacs-buffer/message "Setting the font..."))
    (unless (spacemacs/set-default-font dotspacemacs-default-font)
      (spacemacs-buffer/warning
       "Cannot find any of the specified fonts (%s)! Font settings may not be correct."
@@ -249,8 +252,7 @@ Note: the hooked function is not executed when in dumped mode."
      (setq spacemacs-initialized t)
      (setq gc-cons-threshold (car dotspacemacs-gc-cons)
            gc-cons-percentage (cadr dotspacemacs-gc-cons))
-     (unless (version< emacs-version "27")
-       (setq read-process-output-max dotspacemacs-read-process-output-max))))
+     (setq read-process-output-max dotspacemacs-read-process-output-max)))
 
   (let ((default-directory spacemacs-start-directory))
     (if dotspacemacs-byte-compile

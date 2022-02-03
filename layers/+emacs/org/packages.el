@@ -31,16 +31,17 @@
     gnuplot
     (helm-org-rifle :toggle (configuration-layer/layer-used-p 'helm))
     htmlize
-    ;; ob, org, org-agenda and org-contacts are installed by `org-plus-contrib'
+    ;; ob, org, org-agenda and org-contacts are installed by `org-contrib'
     (ob :location built-in)
-    (org :location built-in)
+    (org :location elpa :min-version "9.5")
     (org-agenda :location built-in)
     (org-wild-notifier
                 :toggle org-enable-notifications)
     (org-contacts :location built-in
                   :toggle org-enable-org-contacts-support)
+    org-contrib
     (org-vcard :toggle org-enable-org-contacts-support)
-    org-brain
+    (org-brain :toggle org-enable-org-brain-support)
     (org-expiry :location built-in)
     ; temporarily point org-journal to dalanicolai fork until dalanicolai's
     ; PR's https://github.com/bastibe/org-journal/pulls get merged
@@ -70,7 +71,6 @@
     (org-roam :toggle org-enable-roam-support)
     (valign :toggle org-enable-valign)
     (org-appear :toggle org-enable-appear-support)
-    (org-roam-server :require org-roam :toggle org-enable-roam-server)
     (ox-asciidoc :toggle org-enable-asciidoc-support)))
 
 (defun org/post-init-company ()
@@ -152,8 +152,12 @@
             ;; `helm-org-headings-max-depth'.
             org-imenu-depth 8)
 
-      (with-eval-after-load 'org-agenda
-        (add-to-list 'org-modules 'org-habit))
+      (when org-todo-dependencies-strategy
+        (setq org-enforce-todo-dependencies t)
+        (add-hook 'org-after-todo-statistics-hook
+                  (case org-todo-dependencies-strategy
+                    (naive-auto #'spacemacs/org-summary-todo-naive-auto)
+                    (semiauto #'spacemacs/org-summary-todo-semiauto))))
 
       (with-eval-after-load 'org-indent
         (spacemacs|hide-lighter org-indent-mode))
@@ -281,6 +285,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "sb" 'org-tree-to-indirect-buffer
         "sd" 'org-cut-subtree
         "sy" 'org-copy-subtree
+        "sp" 'org-paste-subtree
         "sh" 'org-promote-subtree
         "sj" 'org-move-subtree-down
         "sk" 'org-move-subtree-up
@@ -480,6 +485,8 @@ Will work on both org-mode and any mode that accepts plain html."
     :init
     (progn
       (setq org-agenda-restore-windows-after-quit t)
+      (with-eval-after-load 'org
+        (add-to-list 'org-modules 'org-habit))
       (dolist (prefix `(("mC" . ,(org-clocks-prefix))
                         ("md" . "dates")
                         ("mi" . "insert")
@@ -848,6 +855,10 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (spacemacs/set-leader-keys
         "aoCf" 'org-contacts-find-file))))
 
+(defun org/init-org-contrib ()
+  (use-package org-contrib
+    :defer t))
+
 (defun org/init-org-vcard ()
   (use-package org-vcard
     :defer t))
@@ -913,49 +924,55 @@ Headline^^            Visit entry^^               Filter^^                    Da
 (defun org/init-org-roam ()
   (use-package org-roam
     :defer t
-    :hook (after-init . org-roam-mode)
+    :hook (after-init . org-roam-setup)
     :init
     (progn
       (spacemacs/declare-prefix "aor" "org-roam")
       (spacemacs/declare-prefix "aord" "org-roam-dailies")
       (spacemacs/declare-prefix "aort" "org-roam-tags")
       (spacemacs/set-leader-keys
-        "aordy" 'org-roam-dailies-find-yesterday
-        "aordt" 'org-roam-dailies-find-today
-        "aordT" 'org-roam-dailies-find-tomorrow
-        "aordd" 'org-roam-dailies-find-date
-        "aorf" 'org-roam-find-file
+        "aordy" 'org-roam-dailies-goto-yesterday
+        "aordt" 'org-roam-dailies-goto-today
+        "aordT" 'org-roam-dailies-goto-tomorrow
+        "aordd" 'org-roam-dailies-goto-date
+        "aorc" 'org-roam-capture
+        "aorf" 'org-roam-node-find
         "aorg" 'org-roam-graph
-        "aori" 'org-roam-insert
-        "aorI" 'org-roam-insert-immediate
-        "aorl" 'org-roam-buffer-toggle-display
+        "aori" 'org-roam-node-insert
+        "aorl" 'org-roam-buffer-toggle
         "aorta" 'org-roam-tag-add
-        "aortd" 'org-roam-tag-delete
+        "aortr" 'org-roam-tag-remove
         "aora" 'org-roam-alias-add)
 
       (spacemacs/declare-prefix-for-mode 'org-mode "mr" "org-roam")
       (spacemacs/declare-prefix-for-mode 'org-mode "mrd" "org-roam-dailies")
       (spacemacs/declare-prefix-for-mode 'org-mode "mrt" "org-roam-tags")
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
-        "rb" 'org-roam-switch-to-buffer
-        "rdy" 'org-roam-dailies-find-yesterday
-        "rdt" 'org-roam-dailies-find-today
-        "rdT" 'org-roam-dailies-find-tomorrow
-        "rdd" 'org-roam-dailies-find-date
-        "rf" 'org-roam-find-file
+        "rdy" 'org-roam-dailies-goto-yesterday
+        "rdt" 'org-roam-dailies-goto-today
+        "rdT" 'org-roam-dailies-goto-tomorrow
+        "rdd" 'org-roam-dailies-goto-date
+        "rc" 'org-roam-capture
+        "rf" 'org-roam-node-find
         "rg" 'org-roam-graph
-        "ri" 'org-roam-insert
-        "rI" 'org-roam-insert-immediate
-        "rl" 'org-roam-buffer-toggle-display
+        "ri" 'org-roam-node-insert
+        "rl" 'org-roam-buffer-toggle
         "rta" 'org-roam-tag-add
-        "rtd" 'org-roam-tag-delete
+        "rtr" 'org-roam-tag-remove
         "ra" 'org-roam-alias-add))
+
     :config
     (progn
       (spacemacs|hide-lighter org-roam-mode)
       (when org-enable-roam-protocol
           (add-hook 'org-roam-mode-hook (lambda ()
-                                          (require 'org-roam-protocol)))))))
+                                          (require 'org-roam-protocol))))
+
+      (evilified-state-evilify-map org-roam-mode-map
+        :mode org-roam-mode
+        :bindings
+        "o" 'link-hint-open-link
+        "r" 'org-roam-buffer-refresh))))
 
 (defun org/init-org-sticky-header ()
   (use-package org-sticky-header
@@ -1008,18 +1025,17 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :defer t
     :init
     (progn
-      (add-hook 'org-mode-hook 'org-appear-mode)
+      (add-hook 'org-mode-hook 'org-appear-mode)      
       (setq org-appear-autolinks t
             org-appear-autoemphasis t
-            org-appear-autosubmarkers t))))
-
-(defun org/init-org-roam-server()
-  (use-package org-roam-server
-    :defer t
-    :init
-    (progn
-      (spacemacs/set-leader-keys "aors" 'org-roam-server-mode)
-      (spacemacs/set-leader-keys-for-major-mode 'org-mode "rs" 'org-roam-server-mode))))
+            org-appear-autosubmarkers t))
+    :config
+    (when (and (eq org-appear-trigger 'manual)
+               (memq dotspacemacs-editing-style '(vim hybrid)))
+      (add-hook 'org-mode-hook
+                (lambda ()
+                  (add-hook 'evil-insert-state-entry-hook #'org-appear-manual-start nil t)
+                  (add-hook 'evil-insert-state-exit-hook #'org-appear-manual-stop nil t))))))
 
 (defun org/init-ox-asciidoc ()
   (use-package ox-asciidoc

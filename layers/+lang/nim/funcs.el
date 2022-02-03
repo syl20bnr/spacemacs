@@ -36,7 +36,7 @@
 (defun spacemacs//nim-setup-backend ()
   "Conditionally setup nim backend."
   (pcase nim-backend
-    ('lsp (lsp))
+    ('lsp (lsp-deferred))
     ('company-nim (nimsuggest-mode)
                   (add-to-list 'spacemacs-jump-handlers-nim-mode 'nimsuggest-find-definition))))
 

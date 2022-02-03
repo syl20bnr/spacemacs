@@ -23,7 +23,7 @@
 
 (defconst dap-packages
   '(dap-mode
-    (posframe (not (version< emacs-version "26.1")))))
+    posframe))
 
 (defun dap/init-dap-mode ()
   (use-package dap-mode
@@ -47,12 +47,11 @@
       (when dap-enable-mouse-support
         (spacemacs/toggle-dap-mouse-on))
 
-      (unless (version< emacs-version "26.1")
-        (spacemacs|add-toggle dap-ui-controls
-          :status dap-ui-controls-mode
-          :on (dap-ui-controls-mode)
-          :off (dap-ui-controls-mode -1)
-          :documentation "Enable dap-ui-controls-mode"))
+      (spacemacs|add-toggle dap-ui-controls
+        :status dap-ui-controls-mode
+        :on (dap-ui-controls-mode)
+        :off (dap-ui-controls-mode -1)
+        :documentation "Enable dap-ui-controls-mode")
 
       (when dap-enable-ui-controls
         (spacemacs/toggle-dap-ui-controls-on))
@@ -141,5 +140,4 @@
 
 
 (defun dap/init-posframe ()
-  (unless (version< emacs-version "26.1")
-    (use-package posframe)))
+  (use-package posframe))

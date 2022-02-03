@@ -30,7 +30,6 @@
     markdown-mode
     markdown-toc
     mmm-mode
-    org
     smartparens
     valign
     (vmd-mode :toggle (eq 'vmd markdown-live-preview-engine))))
@@ -129,6 +128,7 @@
           "il"  'markdown-insert-link
           "iw"  'markdown-insert-wiki-link
           "iu"  'markdown-insert-uri
+          "iT"  'markdown-insert-table
           ;; Element removal
           "k"   'markdown-kill-thing-at-point
           ;; List editing
@@ -140,6 +140,7 @@
           "Tt"  'markdown-toggle-gfm-checkbox
           "Tw"  'markdown-toggle-wiki-links
           ;; Table
+          "ta"  'markdown-table-align
           "tp"  'markdown-table-move-row-up
           "tn"  'markdown-table-move-row-down
           "tf"  'markdown-table-move-column-right
@@ -212,9 +213,3 @@
     (dolist (mode markdown--key-bindings-modes)
       (spacemacs/set-leader-keys-for-major-mode mode
         "cP" 'vmd-mode))))
-
-(defun markdown/post-init-org ()
-  (when (configuration-layer/layer-used-p 'org)
-    (add-hook 'markdown-mode-hook 'orgtbl-mode)
-    (spacemacs|diminish orgtbl-mode)
-    (add-hook 'markdown-mode-hook 'spacemacs//cleanup-org-tables-on-save)))

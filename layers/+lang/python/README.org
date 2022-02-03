@@ -13,7 +13,7 @@
 - [[#backends][Backends]]
   - [[#anaconda][Anaconda]]
   - [[#language-server-protocol][Language Server Protocol]]
-    - [[#python-language-server][python-language-server]]
+    - [[#python-lsp-server][python-lsp-server]]
     - [[#microsoft-python-language-server][Microsoft python language server]]
     - [[#microsoft-pyright-language-server][Microsoft pyright language server]]
 - [[#additional-tools][Additional tools]]
@@ -54,7 +54,7 @@ This layer adds support for the Python language.
 - Support for the following backends:
   - [[https://github.com/proofit404/anaconda-mode][anaconda]] (default),
   - [[https://github.com/emacs-lsp/lsp-python-ms][Language Server Protocol]] (experimental - 2 implementations),
-    - python-language-server
+    - python-lsp-server
     - Microsoft python language server
 - Auto-completion
 - Code Navigation
@@ -102,10 +102,10 @@ Backend can be chosen on a per project basis using directory local variables
 
 The available options are:
 
-| symbol    | description                    |
-|-----------+--------------------------------|
-| 'anaconda | Default                        |
-| 'lsp      | python-language-server package |
+| symbol    | description               |
+|-----------+---------------------------|
+| 'anaconda | Default                   |
+| 'lsp      | python-lsp-server package |
 
 * Backends
 ** Anaconda
@@ -135,13 +135,13 @@ setting your =PYTHONPATH= as explained at
 ** Language Server Protocol
 The =lsp= backend can use either of the following language server implementations:
 
-| symbol   | description                              |
-|----------+------------------------------------------|
-| 'pyls    | python-language-server package (default) |
-| 'mspyls  | [[https://github.com/emacs-lsp/lsp-python-ms][Microsoft python language server]]         |
-| 'pyright | [[https://github.com/emacs-lsp/lsp-pyright][Microsoft pyright language server]]        |
+| symbol   | description                         |
+|----------+-------------------------------------|
+| 'pylsp   | [[https://pypi.org/project/python-lsp-server/][python-lsp-server package]] (default) |
+| 'mspyls  | [[https://github.com/emacs-lsp/lsp-python-ms][Microsoft python language server]]    |
+| 'pyright | [[https://github.com/emacs-lsp/lsp-pyright][Microsoft pyright language server]]   |
 
-=pyls= is used by default - to use the Microsoft python language server, set the
+=pylsp= is used by default - to use the Microsoft python language server, set the
 =python-lsp-server= layer variable as follows:
 
 #+BEGIN_SRC elisp
@@ -154,22 +154,21 @@ To setup the pyright language server instead, use:
   (python :variables python-backend 'lsp python-lsp-server 'pyright)
 #+END_SRC
 
-*** python-language-server
-You just have to install python language server package:
+*** python-lsp-server
+You need to install python language server:
 
 #+BEGIN_SRC sh
-  pip install python-language-server[all]
+  pip install python-lsp-server
 #+END_SRC
 
-Additionally you can install the following other packages:
+You may also be interested in installing all optional dependencies with
 
 #+BEGIN_SRC sh
-  # for import sorting
-  pip install pyls-isort
-  # for mypy checking (python 3.4+ is needed)
-  pip install pyls-mypy
-  pip install pyls-black
+  pip install 'python-lsp-server[all]'
 #+END_SRC
+
+For more information on optional dependencies, as well as 3rd-party plugins, see
+[[https://github.com/python-lsp/python-lsp-server][python-lsp-server repository]].
 
 If you've installed the language server and related packages as development
 dependencies in a pipenv environment, you'll want to set the ~python-pipenv-activate~
@@ -363,9 +362,9 @@ by the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package. It provides
 
 | Key binding | Description                                     |
 |-------------+-------------------------------------------------|
-| ~SPC m V a~ | activate a virtual environment in any directory |
-| ~SPC m V d~ | deactivate active virtual environment           |
-| ~SPC m V w~ | work on virtual environment in =WORKON_HOME=    |
+| ~SPC m v a~ | activate a virtual environment in any directory |
+| ~SPC m v d~ | deactivate active virtual environment           |
+| ~SPC m v w~ | work on virtual environment in =WORKON_HOME=    |
 
 *** Automatic activation of local virtual environment
 By default Spacemacs uses the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package to manage virtual environments.
@@ -455,20 +454,21 @@ search path by activating a virtual environment.
 
 Send code to inferior process commands:
 
-| Key binding | Description                                      |
-|-------------+--------------------------------------------------|
-| ~SPC m s b~ | send buffer and keep code buffer focused         |
-| ~SPC m s B~ | send buffer and switch to REPL in insert mode    |
-| ~SPC m s e~ | send statement and keep code buffer focused      |
-| ~SPC m s E~ | send statement and switch to REPL in insert mode |
-| ~SPC m s f~ | send function and keep code buffer focused       |
-| ~SPC m s F~ | send function and switch to REPL in insert mode  |
-| ~SPC m s i~ | start inferior REPL process                      |
-| ~SPC m s l~ | send line and keep code buffer focused           |
-| ~SPC m s r~ | send region and keep code buffer focused         |
-| ~SPC m s R~ | send region and switch to REPL in insert mode    |
-| ~CTRL+j~    | next item in REPL history                        |
-| ~CTRL+k~    | previous item in REPL history                    |
+| Key binding | Description                                                  |
+|-------------+--------------------------------------------------------------|
+| ~SPC m s s~ | send region (or line when region not active) and show output |
+| ~SPC m s b~ | send buffer and keep code buffer focused                     |
+| ~SPC m s B~ | send buffer and switch to REPL in insert mode                |
+| ~SPC m s e~ | send statement and keep code buffer focused                  |
+| ~SPC m s E~ | send statement and switch to REPL in insert mode             |
+| ~SPC m s f~ | send function and keep code buffer focused                   |
+| ~SPC m s F~ | send function and switch to REPL in insert mode              |
+| ~SPC m s i~ | start inferior REPL process                                  |
+| ~SPC m s l~ | send line and keep code buffer focused                       |
+| ~SPC m s r~ | send region and keep code buffer focused                     |
+| ~SPC m s R~ | send region and switch to REPL in insert mode                |
+| ~CTRL+j~    | next item in REPL history                                    |
+| ~CTRL+k~    | previous item in REPL history                                |
 
 ** Running Python Script in shell
 To run a Python script like you would in the shell press ~SPC m c c~
@@ -552,6 +552,8 @@ Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][li
 | ~SPC m g u~              | navigate between usages with =anaconda-mode-find-references=                      |
 | ~SPC m h d~              | look for documentation using =helm-pydoc=                                         |
 | ~SPC m h h~              | quick documentation using anaconda                                                |
+| ~SPC m h p~              | quick documentation using pydoc (no-jedi, as =pydoc-at-point= seems broken)       |
+| ~SPC m h P~              | quick documentation using pydoc                                                   |
 | ~SPC m h H~              | open documentation in =firefox= using [[https://github.com/tsgates/pylookup][pylookup]]                                    |
 | ~SPC m S d~              | insert doc-string skeleton using [[https://github.com/naiquevin/sphinx-doc.el][sphinx-doc]]                                       |
 | ~SPC m v a~              | activate a virtual environment in any directory                                   |

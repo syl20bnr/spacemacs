@@ -47,6 +47,8 @@
   - [[#use-helm-ag-to-search-only-in-files-of-a-certain-type][Use =helm-ag= to search only in files of a certain type?]]
   - [[#modify-spacemacs-documentation-look-space-doc-mode][Modify spacemacs documentation look (space-doc-mode)]]
   - [[#remap-paste-key-to-be-able-to-paste-copied-text-multiple-times][Remap paste key to be able to paste copied text multiple times]]
+- [[#linux][Linux]]
+  - [[#error-on-deleting-a-system-package][Error on deleting a system package]]
 - [[#windows][Windows]]
   - [[#why-do-the-fonts-look-crappy-on-windows][Why do the fonts look crappy on Windows?]]
   - [[#why-is-there-no-spacemacs-logo-in-the-startup-buffer][Why is there no Spacemacs logo in the startup buffer?]]
@@ -157,10 +159,10 @@ will be read before =user-config= is executed. (Hence to yield consistent
 behaviour, mode hooks should be set in =user-init=.)
 
 ** Why do some of my =org=-related settings cause problems?
-Since version 0.104, spacemacs uses the =org= version from the org ELPA
-repository instead of the one shipped with emacs. Then, any =org= related code
-should not be loaded before =dotspacemacs/user-config=, otherwise both versions
-will be loaded and will conflict.
+Since version 0.300, spacemacs uses the =org= version from the ELPA repository
+instead of the one shipped with emacs. Then, any =org= related code should not
+be loaded before =dotspacemacs/user-config=, otherwise both versions will be
+loaded and will conflict.
 
 Because of autoloading, calling to =org= functions will trigger the loading up
 of the =org= shipped with emacs which will induce conflicts. One way to avoid
@@ -605,6 +607,22 @@ To fix this, add the following snippet to your ~user-config~:
 
   (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
 #+END_SRC
+
+* Linux
+** Error on deleting a system package
+If you see the an error message when either Spacemacs is trying to delete an orphaned package,
+or when you are trying to a package manually:
+
+#+BEGIN_EXAMPLE
+  Package ‘PACKAGE-NAME’ is a system package, not deleting
+#+END_EXAMPLE
+
+it means this package comes with your distribution's package manager and is not installed by
+Spacemacs. You can suppress this by adding the package to =dotspacemacs-additional-packages=
+in your =.spacemacs= file.
+
+In addition, you also need to add the said package to =dotspacemacs-frozen-packages= in your
+=.spacemacs=, so that you will be able to update your Emacs packages successfully.
 
 * Windows
 ** Why do the fonts look crappy on Windows?

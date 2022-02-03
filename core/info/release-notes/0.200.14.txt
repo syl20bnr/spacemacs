@@ -1,0 +1,14 @@
+       ╭───────────────────────────────────────────────────────────╮
+
+                        VERSION 0.200.14 (deprecated)
+
+       ╰───────────────────────────────────────────────────────────╯
+
+This is version 0.200.14 of the currently unmaintained master branch. The master
+branch is using curated version of packages for increased stability.
+
+However this approach proofed to be very work intensive and we have therefore
+stopped supplying those versions for now.
+
+As these packages are not longer updated you should consider migrating to the
+maintained "develop" branch.

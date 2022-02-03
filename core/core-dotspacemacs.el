@@ -352,7 +352,7 @@ running Emacs in terminal."
 
 (spacemacs|defc dotspacemacs-folding-method 'evil
   "Code folding method. Possible values are `evil', `origami' and `vimish'."
-  '(choice (cosnt evil) (const origami) (const vimish))
+  '(choice (const evil) (const origami) (const vimish))
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-default-layout-name "Default"
@@ -629,6 +629,11 @@ number of recent files to show in each project."
   'boolean
   'spacemacs-dotspacemacs-init)
 
+(spacemacs|defc dotspacemacs-show-startup-list-numbers t
+  "Show numbers before the startup list lines."
+  'boolean
+  'spacemacs-dotspacemacs-init)
+
 (spacemacs|defc dotspacemacs-startup-buffer-multi-digit-delay 0.4
   "The minimum delay in seconds between number key presses."
   'number
@@ -662,6 +667,11 @@ If non nil activate `clean-aindent-mode' which tries to correct
 virtual indentation of simple modes. This can interfere with mode specific
 indent handling like has been reported for `go-mode'.
 If it does deactivate it here. (default t)"
+  'boolean
+  'spacemacs-dotspacemacs-init)
+
+(spacemacs|defc dotspacemacs-use-SPC-as-y nil
+  "Accept SPC as y for prompts if non nil. (default nil)"
   'boolean
   'spacemacs-dotspacemacs-init)
 
@@ -904,7 +914,7 @@ a display strng and the value is the actual value to return."
       (configuration-layer/load))))
 
 (defun dotspacemacs/install (arg)
-  "Install the dotfile, return non nil if the doftile has been installed.
+  "Install the dotfile, return non nil if the dotfile has been installed.
 
 If ARG is non nil then ask questions to the user before installing the dotfile."
   (interactive "P")

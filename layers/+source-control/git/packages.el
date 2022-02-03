@@ -28,9 +28,8 @@
         ;; forge requires a C compiler on Windows so we disable
         ;; it by default on Windows.
         (forge :toggle (not (spacemacs/system-is-mswindows)))
-        gitattributes-mode
-        gitconfig-mode
-        gitignore-mode
+        ;; include the old git{attributes,config,ignore}-mode
+        git-modes
         gitignore-templates
         git-commit
         git-link
@@ -38,7 +37,6 @@
         git-timemachine
         golden-ratio
         (helm-git-grep :requires helm)
-        (helm-gitignore :requires helm)
         magit
         (magit-delta :toggle git-enable-magit-delta-plugin)
         (magit-gitflow :toggle git-enable-magit-gitflow-plugin)
@@ -58,7 +56,11 @@
     (add-to-list 'golden-ratio-exclude-buffer-names " *transient*")))
 
 (defun git/pre-init-evil-collection ()
-  (add-to-list 'spacemacs-evil-collection-allowed-list 'magit))
+  (when (spacemacs//support-evilified-buffer-p)
+    (add-to-list 'spacemacs-evil-collection-allowed-list 'magit)
+    ;; See `git-packages' form in this file.
+    (unless (spacemacs/system-is-mswindows)
+      (add-to-list 'spacemacs-evil-collection-allowed-list 'forge))))
 
 (defun git/post-init-fill-column-indicator ()
   (add-hook 'git-commit-mode-hook 'fci-mode))
@@ -69,11 +71,6 @@
     :init (spacemacs/set-leader-keys
             "g/" 'helm-git-grep
             "g*" 'helm-git-grep-at-point)))
-
-(defun git/init-helm-gitignore ()
-  (use-package helm-gitignore
-    :defer t
-    :init (spacemacs/set-leader-keys "gI" 'helm-gitignore)))
 
 (defun git/init-git-commit ()
   (use-package git-commit
@@ -130,16 +127,8 @@
         ("Y" git-timemachine-kill-revision)
         ("q" nil :exit t)))))
 
-(defun git/init-gitattributes-mode ()
-  (use-package gitattributes-mode
-    :defer t))
-
-(defun git/init-gitconfig-mode ()
-  (use-package gitconfig-mode
-    :defer t))
-
-(defun git/init-gitignore-mode ()
-  (use-package gitignore-mode
+(defun git/init-git-modes ()
+  (use-package git-modes
     :defer t))
 
 (defun git/init-gitignore-templates ()
@@ -154,6 +143,7 @@
 (defun git/init-magit ()
   (use-package magit
     :defer (spacemacs/defer)
+    :custom (magit-bury-buffer-function #'magit-restore-window-configuration)
     :init
     (progn
       (push "magit: .*" spacemacs-useless-buffers-regexp)
@@ -242,7 +232,7 @@
       (define-key magit-status-mode-map (kbd "C-S-w")
         'spacemacs/magit-toggle-whitespace)
       ;; Add missing which-key prefixes using the new keymap api
-      (when (spacemacs//support-evilified-buffer-p dotspacemacs-editing-style)
+      (when (spacemacs//support-evilified-buffer-p)
         (which-key-add-keymap-based-replacements magit-status-mode-map
           "gf"  "jump-to-unpulled"
           "gp"  "jump-to-unpushed"))
@@ -268,14 +258,7 @@
       (evil-define-key 'normal magit-section-mode-map (kbd "M-6") 'spacemacs/winum-select-window-6)
       (evil-define-key 'normal magit-section-mode-map (kbd "M-7") 'spacemacs/winum-select-window-7)
       (evil-define-key 'normal magit-section-mode-map (kbd "M-8") 'spacemacs/winum-select-window-8)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-9") 'spacemacs/winum-select-window-9)
-      ;; Remove inherited bindings from evil-mc and evil-easymotion
-      ;; do this after the config to make sure the keymap is available
-      (which-key-add-keymap-based-replacements magit-mode-map
-        "<normal-state> g r" nil
-        "<visual-state> g r" nil
-        "<normal-state> g s" nil
-        "<visual-state> g s" nil))))
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-9") 'spacemacs/winum-select-window-9))))
 
 (defun git/init-magit-delta ()
   (use-package magit-delta

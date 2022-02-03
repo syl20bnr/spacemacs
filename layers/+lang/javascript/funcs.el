@@ -56,7 +56,7 @@
       (progn
         (unless javascript-lsp-linter
           (setq-local lsp-diagnostics-provider :none))
-        (lsp))
+        (lsp-deferred))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
 
@@ -147,8 +147,8 @@
     ('prettier (call-interactively 'prettier-js))
     ('web-beautify (call-interactively 'web-beautify-js))
     (_ (error (concat "%s isn't valid javascript-fmt-tool value."
-                    " It should be 'web-beutify or 'prettier.")
-            (symbol-name javascript-fmt-tool)))))
+                      " It should be 'web-beutify or 'prettier.")
+              (symbol-name javascript-fmt-tool)))))
 
 (defun spacemacs/javascript-fmt-before-save-hook ()
   (add-hook 'before-save-hook 'spacemacs/javascript-format t t))

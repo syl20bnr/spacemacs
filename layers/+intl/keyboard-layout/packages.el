@@ -291,7 +291,7 @@
       "L")))
 
 (defun keyboard-layout/pre-init-evil-collection ()
-  (kl|config evil-collection-magit
+  (kl|config evil-collection
     :description
     "Remap `evil-collection-magit' bindings."
     :loader
@@ -465,15 +465,7 @@
     :colemak-jkhl
     (kl/evil-correct-keys 'visual magit-mode-map
       "j"
-      "k")
-    :colemak-hnei
-    (progn
-      (kl/evil-correct-keys 'normal magit-mode-map
-        "j"
-        "k")
-      (kl/evil-correct-keys 'visual magit-mode-map
-        "j"
-        "k"))))
+      "k")))
 
 (defun keyboard-layout/pre-init-mu4e ()
   (kl|config mu4e
@@ -583,6 +575,13 @@
             "E" 'org-forward-element
             "I" 'org-backward-element
             "N" 'org-backward-heading-same-level))))
+    :dvp
+    (progn
+      (spacemacs|use-package-add-hook evil-org
+        :post-config
+        (evil-define-key 'normal evil-org-mode-map
+          "d" 'evil-backward-char
+          "j" 'evil-org-delete)))
     :neo
     (progn
       (spacemacs|use-package-add-hook evil-org

@@ -24,4 +24,4 @@
 (defun spacemacs//docker-dockerfile-setup-backend ()
   "Conditionally setup docker backend."
   (when (eq docker-dockerfile-backend 'lsp)
-    (lsp)))
+    (lsp-deferred)))

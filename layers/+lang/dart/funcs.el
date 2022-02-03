@@ -27,4 +27,4 @@
 (defun spacemacs//dart-setup-backend ()
   (pcase dart-backend
     ('analyzer (dart-server))
-    ('lsp (lsp))))
+    ('lsp (lsp-deferred))))

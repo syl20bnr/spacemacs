@@ -40,9 +40,11 @@
 
       (global-fasd-mode 1)
       (spacemacs/declare-prefix "fa" "fasd-find")
-      (spacemacs/set-leader-keys "fad" 'fasd-find-directory-only)
-      (spacemacs/set-leader-keys "faf" 'fasd-find-file-only)
-      (spacemacs/set-leader-keys "fas" 'fasd-find-file)
+      (spacemacs/set-leader-keys
+        "fad" 'fasd-find-directory-only
+        "faf" 'fasd-find-file-only
+        "fas" 'fasd-find-file
+        "fal" 'fasd-find-file-make-persp)
 
       (when (configuration-layer/layer-used-p 'ivy)
         (ivy-set-actions
@@ -51,7 +53,11 @@
            ("s" ivy-search-from-action "search-from"))))
 
       ;; we will fall back to using the default completing-read function, which is helm once helm is loaded.
-      (setq fasd-completing-read-function 'nil))))
+      (setq fasd-completing-read-function 'nil))
+    :config
+    (with-eval-after-load 'marginalia
+      (add-to-list 'marginalia-prompt-categories '("\\<fasd\\>" . file)))))
+
 
 (defun fasd/init-helm-fasd ()
   "initializes fasd-emacs and adds a key binding to `SPC f z'"

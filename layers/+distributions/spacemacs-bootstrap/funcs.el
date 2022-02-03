@@ -247,7 +247,7 @@ the scroll transient state.")
 
 (defun use-package-normalize-spacediminish (name label arg &optional recursed)
   "Normalize the arguments to `spacemacs|diminish' to a list of one of six forms:
-     nil
+     t
      SYMBOL
      STRING
      (SYMBOL STRING)
@@ -255,15 +255,15 @@ the scroll transient state.")
      (SYMBOL STRING STRING)"
   (let ((default-mode (use-package-as-mode name)))
     (pcase arg
-      ;; (PATTERN PATTERN ..) when not recursive -> go to recursive case
-      ((and `(,x . ,y)
+      ;; (PATTERN ..) when not recursive -> go to recursive case
+      ((and (or `(,x . ,y) `(,x ,y))
             (guard (and (not recursed)
                         (listp x)
                         (listp y))))
        (mapcar #'(lambda (var) (use-package-normalize-spacediminish name label var t))
                arg))
-      ;; () -> (<PKG>-mode)
-      ((pred not)
+      ;; t -> (<PKG>-mode)
+      ('t
        (list default-mode))
       ;; SYMBOL -> (SYMBOL)
       ((pred use-package-non-nil-symbolp)
@@ -309,7 +309,7 @@ the scroll transient state.")
   (let ((body (use-package-process-keywords name rest state)))
     (use-package-concat
      `((when (fboundp 'spacemacs|diminish)
-         ,@(if (consp (cadr arg)) ;; e.g. ((MODE1 FOO BAR) (MODE2 BAZ XYZ))
+         ,@(if (consp (car arg)) ;; e.g. ((MODE FOO BAR) ...)
                (mapcar #'(lambda (var) `(spacemacs|diminish ,@var))
                        arg)
              `((spacemacs|diminish ,@arg))))) ;; e.g. (MODE FOO BAR)

@@ -44,4 +44,4 @@
 (defun spacemacs//sql-setup-backend ()
   "Conditionally setup sql backend."
   (when (eq sql-backend 'lsp)
-    (lsp)))
+    (lsp-deferred)))

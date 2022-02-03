@@ -289,6 +289,11 @@
     (list (point-min) (point-max)))
   (define-key evil-inner-text-objects-map "g" 'evil-inner-buffer)
 
+  ;; special-mode buffers are read-only and therefore should open in
+  ;; motion-state (evilified state is too aggressive, e.g. evil-local-set-key
+  ;; has no effect)
+  (add-to-list 'evil-motion-state-modes 'special-mode)
+
   ;; turn off evil in corelv buffers
   (add-to-list 'evil-buffer-regexps '("\\*LV\\*"))
 

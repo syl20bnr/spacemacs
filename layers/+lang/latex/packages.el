@@ -75,6 +75,11 @@
     (progn
       ;; otherwise `, p` preview commands doesn't work
       (require 'preview)
+      ;; when `latex-view-with-pdf-tools' is non-nil, configure pdf-tools for
+
+      ;; viewing output pdf's
+      (spacemacs//latex-setup-pdf-tools)
+
       ;; Key bindings for plain TeX
       (dolist (mode '(tex-mode latex-mode context-mode))
         (spacemacs/set-leader-keys-for-major-mode mode
@@ -159,7 +164,8 @@
       (if (eq latex-backend 'lsp)
           (spacemacs/set-leader-keys-for-major-mode 'latex-mode
             "au"   'TeX-command-run-all
-            "c"   'latex/build
+            "c"    'latex/build
+            "iC"   'org-ref-insert-cite-key
             "ic"   'LaTeX-close-environment ;; C-c ]
             "ie"   'LaTeX-environment)       ;; C-c C-e
         (spacemacs/set-leader-keys-for-major-mode 'latex-mode
