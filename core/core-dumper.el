@@ -104,17 +104,26 @@ the end of the loading of the dump file."
   (declare (indent defun))
   (if (eq 'dumping spacemacs-dump-mode)
       (let ((funcname2 (intern (format "spacemacs//after-dump-%S" funcname))))
-            `(progn
-               (defun ,funcname2 nil ,@body)
-               (add-to-list 'spacemacs-dump-delayed-functions ',funcname2)))
+        `(progn
+           (defun ,funcname2 nil ,@body)
+           (add-to-list 'spacemacs-dump-delayed-functions ',funcname2)))
     `(progn ,@body)))
 
 (defun spacemacs/emacs-with-pdumper-set-p ()
-  "Return non-nil if a portable dumper capable emacs executable is set."
+  "Return non-nil if a portable dumper capable Emacs executable is set and
+native compilation is not in effect."
   (and dotspacemacs-enable-emacs-pdumper
        (file-exists-p
         (locate-file (or dotspacemacs-emacs-pdumper-executable-file "emacs")
-                     exec-path exec-suffixes 'file-executable-p))))
+                     exec-path exec-suffixes 'file-executable-p))
+       (not (spacemacs/emacs-with-native-compilation-enabled-p))))
+
+(defun spacemacs/emacs-with-native-compilation-enabled-p ()
+  "Return non-nill if native compilation is enabled."
+  (and (featurep 'native-compile)
+       (fboundp 'native-compile-available-p)
+       (native-compile-available-p)
+       (not (eql comp-speed -1))))
 
 (defun spacemacs/dump-modes (modes)
   "Load given MODES in order to be dumped."
