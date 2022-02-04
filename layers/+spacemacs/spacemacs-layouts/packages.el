@@ -21,14 +21,14 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq spacemacs-layouts-packages
-      '(eyebrowse
-        helm
-        ivy
-        persp-mode
-        spaceline
-        consult
-        (counsel-projectile :requires ivy)))
+(defconst spacemacs-layouts-packages
+  '(eyebrowse
+    helm
+    ivy
+    persp-mode
+    spaceline
+    consult
+    (counsel-projectile :requ ires ivy)))
 
 
 

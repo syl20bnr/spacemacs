@@ -22,11 +22,10 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq deft-packages
-      '(
-        deft
-        (zetteldeft :toggle (eq deft-zetteldeft t))
-        ))
+(defconst deft-packages
+  '(
+    deft
+    (zetteldeft :toggle (eq deft-zetteldeft t))))
 
 (defun deft/init-zetteldeft ()
   (use-package zetteldeft
@@ -39,8 +38,7 @@
       ;; zetteldeft actions in deft mode
       (spacemacs/set-leader-keys-for-major-mode 'deft-mode
         "zT" 'zetteldeft-tag-buffer
-        "zn" 'zetteldeft-new-file
-        )
+        "zn" 'zetteldeft-new-file)
       ;; zetteldeft actions in org mode
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "zc" 'zetteldeft-search-current-id
@@ -53,16 +51,14 @@
         "zs" 'zetteldeft-search-at-point
         "zl" 'zetteldeft-avy-link-search
         "zF" 'zetteldeft-avy-file-search-ace-window
-        "zo" 'zetteldeft-find-file
-        )
+        "zo" 'zetteldeft-find-file)
       ;; new zetteldeft file under capture
       (spacemacs/set-leader-keys "Cz" 'zetteldeft-new-file)
       ;; actions under applications/deft/zetteldeft
       (spacemacs/set-leader-keys "ardzn" 'zetteldeft-new-file)
       (spacemacs/set-leader-keys "ardzT" 'zetteldeft-tag-buffer)
       (spacemacs/set-leader-keys "ardzs" 'zetteldeft-search-at-point)
-      (spacemacs/set-leader-keys "ardzo" 'zetteldeft-find-file)
-    )))
+      (spacemacs/set-leader-keys "ardzo" 'zetteldeft-find-file))))
 
 (defun deft/init-deft ()
   (use-package deft
@@ -80,23 +76,13 @@
             (spacemacs/set-leader-keys "ardn" 'spacemacs/deft))
         (spacemacs/set-leader-keys "ard" 'spacemacs/deft))
       ;; put in capture prefix
-      (spacemacs/set-leader-keys "Cd" 'deft-new-file)
-
-      (defun spacemacs/deft ()
-        "Helper to call deft and then fix things so that it is nice and works"
-        (interactive)
-        (deft)
-        ;; Hungry delete wrecks deft's DEL override
-        (when (fboundp 'hungry-delete-mode)
-          (hungry-delete-mode -1))
-        ;; When opening it you always want to filter right away
-        (evil-insert-state nil)))
+      (spacemacs/set-leader-keys "Cd" 'deft-new-file))
     :config (spacemacs/set-leader-keys-for-major-mode 'deft-mode
-        "c" 'deft-filter-clear
-        "d" 'deft-delete-file
-        "i" 'deft-toggle-incremental-search
-        "n" 'deft-new-file
-        "N" 'deft-new-file-named
-        "q" 'quit-window
-        "o" 'deft-open-file-other-window
-        "r" 'deft-rename-file)))
+             "c" 'deft-filter-clear
+             "d" 'deft-delete-file
+             "i" 'deft-toggle-incremental-search
+             "n" 'deft-new-file
+             "N" 'deft-new-file-named
+             "q" 'quit-window
+             "o" 'deft-open-file-other-window
+             "r" 'deft-rename-file)))

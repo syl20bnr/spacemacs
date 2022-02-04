@@ -22,12 +22,11 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq ranger-packages
-      '(
-        (dired :location built-in)
-        golden-ratio
-        ranger
-        ))
+(defconst ranger-packages
+  '(
+    (dired :location built-in)
+    golden-ratio
+    ranger))
 
 (defun ranger//set-leader-keys ()
   (spacemacs/declare-prefix "atr" "ranger/deer")

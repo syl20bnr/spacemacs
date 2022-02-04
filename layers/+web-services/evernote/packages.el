@@ -20,10 +20,9 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(setq evernote-packages
+(defconst evernote-packages
   '(
-    geeknote
-    ))
+    geeknote))
 
 (defun evernote/init-geeknote ()
   "Initializes geeknote and adds keybindings for its exposed functionalities."

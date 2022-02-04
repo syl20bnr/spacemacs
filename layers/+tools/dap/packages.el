@@ -105,19 +105,17 @@
                        "dwl" #'dap-ui-locals
                        "dws" #'dap-ui-sessions
                        "dwb" #'dap-ui-breakpoints))
-            (prefixes '(("d"  . "debug")
-                        ("db" . "breakpoints")
-                        ("dd" . "debugging")
-                        ("de" . "eval")
-                        ("dI" . "inspect")
-                        ("dS" . "switch")
-                        ("dT" . "toggles")
-                        ("dw" . "debug windows"))))
+            (prefixes '("d"  "debug"
+                        "db" "breakpoints"
+                        "dd" "debugging"
+                        "de" "eval"
+                        "dI" "inspect"
+                        "dS" "switch"
+                        "dT" "toggles"
+                        "dw" "debug windows")))
 
         ;; Set global prefixes
-        (mapc (lambda (cons)
-                (spacemacs/declare-prefix (car cons) (cdr cons)))
-              prefixes)
+        (apply #'spacemacs/declare-prefix prefixes)
 
         ;; Set global key bindings
         (apply #'spacemacs/set-leader-keys bindings)
@@ -130,13 +128,14 @@
           (spacemacs/set-leader-keys-for-major-mode mode "dd" nil)
 
           ;; Set prefixes
-          (mapc (lambda (cons)
-                  (spacemacs/declare-prefix-for-mode mode (concat "m" (car cons)) (cdr cons)))
-                prefixes)
+          (cl-do* ((x prefixes (cddr x))
+                   (y (cdr x) (cdr x)))
+              ((or (null x) (null y)))
+            (spacemacs/declare-prefix-for-mode mode
+              (concat "m" (car x)) (car y)))
 
           ;; Set bindings
           (apply #'spacemacs/set-leader-keys-for-major-mode mode bindings))))))
-
 
 
 (defun dap/init-posframe ()

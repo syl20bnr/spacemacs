@@ -21,36 +21,36 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq spacemacs-editing-packages
-      '(aggressive-indent
-        avy
-        (clean-aindent-mode :toggle dotspacemacs-use-clean-aindent-mode)
-        dired-quick-sort
-        drag-stuff
-        editorconfig
-        eval-sexp-fu
-        expand-region
-        (hexl :location built-in)
-        hungry-delete
-        link-hint
-        lorem-ipsum
-        (origami :toggle (eq 'origami dotspacemacs-folding-method))
-        password-generator
-        (persistent-scratch :toggle dotspacemacs-scratch-buffer-persistent)
-        pcre2el
-        (smartparens :toggle dotspacemacs-activate-smartparens-mode)
-        (evil-swap-keys :toggle dotspacemacs-swap-number-row)
-        (spacemacs-whitespace-cleanup :location local)
-        string-edit
-        string-inflection
-        multi-line
-        undo-tree
-        (unkillable-scratch :toggle dotspacemacs-scratch-buffer-unkillable)
-        uuidgen
-        (vimish-fold :toggle (eq 'vimish dotspacemacs-folding-method))
-        (evil-vimish-fold :toggle (eq 'vimish dotspacemacs-folding-method))
-        (evil-easymotion :toggle (memq dotspacemacs-editing-style '(vim hybrid)))
-        ws-butler))
+(defconst spacemacs-editing-packages
+  '(aggressive-indent
+    avy
+    (clean-aindent-mode :toggle dotspacemacs-use-clean-aindent-mode)
+    dired-quick-sort
+    drag-stuff
+    editorconfig
+    eval-sexp-fu
+    expand-region
+    (hexl :location built-in)
+    hungry-delete
+    link-hint
+    lorem-ipsum
+    (origami :toggle (eq 'origami dotspacemacs-folding-method))
+    password-generator
+    (persistent-scratch :toggle dotspacemacs-scratch-buffer-persistent)
+    pcre2el
+    (smartparens :toggle dotspacemacs-activate-smartparens-mode)
+    (evil-swap-keys :toggle dotspacemacs-swap-number-row)
+    (spacemacs-whitespace-cleanup :location local)
+    string-edit
+    string-inflection
+    multi-line
+    undo-tree
+    (unkillable-scratch :toggle dotspacemacs-scratch-buffer-unkillable)
+    uuidgen
+    (vimish-fold :toggle (eq 'vimish dotspacemacs-folding-method))
+    (evil-vimish-fold :toggle (eq 'vimish dotspacemacs-folding-method))
+    (evil-easymotion :toggle (memq dotspacemacs-editing-style '(vim hybrid)))
+    ws-butler))
 
 ;; Initialization of packages
 (defun spacemacs-editing/init-aggressive-indent ()
@@ -379,9 +379,10 @@
         "ipn" 'password-generator-numeric))))
 
 (defun spacemacs-editing/post-init-pcre2el ()
-  (spacemacs/declare-prefix "xr" "regular expressions")
-  (spacemacs/declare-prefix "xre" "elisp")
-  (spacemacs/declare-prefix "xrp" "pcre")
+  (spacemacs/declare-prefix
+    "xr"  "regular expressions"
+    "xre" "elisp"
+    "xrp" "pcre")
   (spacemacs/set-leader-keys
     "xr/"  'rxt-explain
     "xr'"  'rxt-convert-to-strings

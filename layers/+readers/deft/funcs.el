@@ -1,8 +1,8 @@
-;;; keybindings.el --- Quickurl dispatch layer.
+;;; funcs.el --- Deft Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
-;; Author: Spenser Truex <web@spensertruex.com>
+;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
@@ -20,14 +20,12 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-;; Keybindings to use Quickurl, including mode-local ones for the listing.
-
-(spacemacs/declare-prefix "atq" "quickurl")
-(spacemacs/set-leader-keys
-  "atql" 'quickurl-list
-  "atqq" 'quickurl
-  "atqi" 'quickurl-ask
-  "atqe" 'quickurl-edit-urls
-  "atqa" 'quickurl-add-url
-  "atqb" 'quickurl-browse-url-ask)
+(defun spacemacs/deft ()
+  "Helper to call deft and then fix things so that it is nice and works"
+  (interactive)
+  (deft)
+  ;; Hungry delete wrecks deft's DEL override
+  (when (fboundp 'hungry-delete-mode)
+    (hungry-delete-mode -1))
+  ;; When opening it you always want to filter right away
+  (evil-insert-state nil))

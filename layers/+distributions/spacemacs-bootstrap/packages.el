@@ -21,29 +21,27 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq spacemacs-bootstrap-packages
-      '(
-        ;; bootstrap packages,
-        ;; `use-package' cannot be used for bootstrap packages configuration
-        (async :step bootstrap)
-        (bind-map :step bootstrap)
-        (bind-key :step bootstrap)
-        (diminish :step bootstrap)
-        (evil :step bootstrap)
-        (hydra :step bootstrap)
-        (use-package :step bootstrap)
-        (which-key :step bootstrap)
-        ;; pre packages, initialized after the bootstrap packages
-        ;; these packages can use use-package
-        (dotenv-mode :step pre)
-        (evil-evilified-state :location local :step pre :protected t)
-        (pcre2el :step pre)
-        (holy-mode :location local :step pre)
-        (hybrid-mode :location (recipe :fetcher local) :step pre)
-        (spacemacs-theme :location built-in)
-        dash))
-
-
+(defconst spacemacs-bootstrap-packages
+  '(
+    ;; bootstrap packages,
+    ;; `use-package' cannot be used for bootstrap packages configuration
+    (async :step bootstrap)
+    (bind-map :step bootstrap)
+    (bind-key :step bootstrap)
+    (diminish :step bootstrap)
+    (evil :step bootstrap)
+    (hydra :step bootstrap)
+    (use-package :step bootstrap)
+    (which-key :step bootstrap)
+    ;; pre packages, initialized after the bootstrap packages
+    ;; these packages can use use-package
+    (dotenv-mode :step pre)
+    (evil-evilified-state :location local :step pre :protected t)
+    (pcre2el :step pre)
+    (holy-mode :location local :step pre)
+    (hybrid-mode :location (recipe :fetcher local) :step pre)
+    (spacemacs-theme :location built-in)
+    dash))
 
 ;; bootstrap packages
 

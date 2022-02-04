@@ -1,8 +1,8 @@
-;;; packages.el --- Reddit Layer packages File for Spacemacs
+;;; funcs.el --- Floobits Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
-;; Author: Benedikt Broich <b.broich@posteo.de>
+;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
@@ -20,16 +20,11 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+(defun spacemacs/floobits-rclocation ()
+  "Return the absolute path to the floobits dotfile."
+  (concat user-home-directory ".floorc.json"))
 
-(defconst reddit-packages
-  '(reddigg))
-
-(defun reddit/init-reddigg ()
-  (use-package reddigg
-    :defer t
-    :init
-    (progn
-      (spacemacs/declare-prefix "awr" "reddit")
-      (spacemacs/set-leader-keys
-        "awrm" 'reddigg-view-main
-        "awrs" 'reddigg-view-sub))))
+(defun spacemacs/floobits-load-rcfile ()
+  "Load ~/.floobitsrc if it exists."
+  (let ((floobitsrc (spacemacs/floobits-rclocation)))
+    (if (file-exists-p floobitsrc) (load floobitsrc))))

@@ -21,10 +21,9 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq pandoc-packages
-      '(pandoc-mode
-        ox-pandoc
-        ))
+(defconst pandoc-packages
+  '(pandoc-mode
+    ox-pandoc))
 
 (defun pandoc/init-pandoc-mode ()
   "Initialize my package"
