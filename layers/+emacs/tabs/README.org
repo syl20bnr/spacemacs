@@ -24,15 +24,15 @@ add =tabs= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Configuration
-
 ** Selected tab bar
 To display a bar in the given direction to the selected tab, set =tabs-highlight-current-tab= to
 one of =left= (default), =under=, =over=.
 
 For example,
+
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-              '(tabs :variables tabs-highlight-current-tab 'left))
+  (setq-default dotspacemacs-configuration-layers
+                '(tabs :variables tabs-highlight-current-tab 'left))
 #+END_SRC
 
 Note that this has no effect when Emacs is running in daemon mode.
@@ -45,10 +45,10 @@ Alternatively you can set =tabs-auto-hide= to =t= to auto hide tabs after some
 delay =tabs-auto-hide-delay= via the :variables keyword in your =.spacemacs=:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-              '(tabs :variables
-                     tabs-auto-hide t
-                     tabs-auto-hide-delay 3))
+  (setq-default dotspacemacs-configuration-layers
+                '(tabs :variables
+                       tabs-auto-hide t
+                       tabs-auto-hide-delay 3))
 #+END_SRC
 
 * Key bindings
