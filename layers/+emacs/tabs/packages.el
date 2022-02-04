@@ -27,27 +27,34 @@
 (defun tabs/init-centaur-tabs ()
   (use-package centaur-tabs
     :demand
+    :custom
+    (centaur-tabs-set-icons t)
+    (centaur-tabs-set-modified-marker t)
+    (centaur-tabs-modified-marker "⚠")
+    (centaur-tabs-cycle-scope 'tabs)
     :config
-    (setq tabs-show-icons t
-          tabs-set-modified-marker t
-          tabs-modified-marker "⚠"
-          tabs-set-bar 'left)
-    (when tabs-headline-match
-      (centaur-tabs-headline-match))
-    (if tabs-group-by-project
-        (centaur-tabs-group-by-projectile-project)
-      (centaur-tabs-group-buffer-groups))
-    (centaur-tabs-mode t)
+    (progn
+      (unless (daemonp)
+        (setq centaur-tabs-set-bar tabs-selected-tab-bar))
+      (when tabs-headline-match
+        (centaur-tabs-headline-match))
+      (if tabs-group-by-project
+          (centaur-tabs-group-by-projectile-project)
+        (centaur-tabs-group-buffer-groups))
+      (centaur-tabs-mode t)
 
-    (when tabs-auto-hide
-      (add-hook 'window-setup-hook 'spacemacs//tabs-timer-hide)
-      (add-hook 'find-file-hook 'spacemacs//tabs-timer-hide)
-      (add-hook 'change-major-mode-hook 'spacemacs//tabs-timer-hide))
+      (when tabs-auto-hide
+        (add-hook 'window-setup-hook 'spacemacs//tabs-timer-hide)
+        (add-hook 'find-file-hook 'spacemacs//tabs-timer-hide)
+        (add-hook 'change-major-mode-hook 'spacemacs//tabs-timer-hide))
+
+      (which-key-add-keymap-based-replacements evil-normal-state-map  "C-c t" "tab"))
     :bind
-    ("C-{" . spacemacs/tabs-backward)
-    ("C-}" . spacemacs/tabs-forward)
-    ("C-M-{" . centaur-tabs-move-current-tab-to-left)
-    ("C-M-}" . centaur-tabs-move-current-tab-to-right)
+    (:map evil-normal-state-map
+          ("g t"     . spacemacs/tabs-forward)
+          ("g T"     . spacemacs/tabs-backward)
+          ("g C-t"   . centaur-tabs-move-current-tab-to-right)
+          ("g C-S-t" . centaur-tabs-move-current-tab-to-left))
     ("C-c t s" . centaur-tabs-counsel-switch-group)
     ("C-c t p" . centaur-tabs-group-by-projectile-project)
     ("C-c t g" . centaur-tabs-group-buffer-groups)))
