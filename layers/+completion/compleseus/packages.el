@@ -177,9 +177,12 @@
     ;; This adds thin lines, sorting and hides the mode line of the window.
     (advice-add #'register-preview :override #'consult-register-window)
 
+    ;; Replace `completing-read-multiple' with an enhanced version.
+    (advice-add #'completing-read-multiple :override #'consult-completing-read-multiple)
+
     ;; Use Consult to select xref locations with preview
-    (setq xref-show-xrefs-function #'consult-xref
-          xref-show-definitions-function #'consult-xref)
+    (setq xref-show-xrefs-function #'consult-xref)
+
     ;; Configure other variables and modes in the :config section,
     ;; after lazily loading the package.
     :config
@@ -214,19 +217,10 @@
     ;; (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
 
     ;; Optionally configure a function which returns the project root directory.
-    ;; There are multiple reasonable alternatives to chose from.
-  ;;;; 1. project.el (project-roots)
     (setq consult-project-root-function
           (lambda ()
             (when-let (project (project-current))
               (car (project-roots project)))))))
-  ;;;; 2. projectile.el (projectile-project-root)
-;; (autoload 'projectile-project-root "projectile")
-;; (setq consult-project-root-function #'projectile-project-root)
-  ;;;; 3. vc.el (vc-root-dir)
-;; (setq consult-project-root-function #'vc-root-dir)
-  ;;;; 4. locate-dominating-file
-;; (setq consult-project-root-function (lambda () (locate-dominating-file "." ".git")))
 
 
 (defun compleseus/init-consult-yasnippet ()
@@ -274,7 +268,13 @@
 (defun compleseus/init-orderless ()
   (use-package orderless
   :init
-  (setq completion-styles '(basic partial-completion orderless)
+  ;; https://github.com/oantolin/orderless/issues/48#issuecomment-856750410
+  (define-advice company-capf
+      (:around (orig-fun &rest args) set-completion-styles)
+    (let ((completion-styles '(basic partial-completion orderless)))
+      (apply orig-fun args)))
+
+  (setq completion-styles '(orderless)
         completion-category-defaults nil
         completion-category-overrides '((file (styles . (partial-completion)))))))
 
