@@ -45,10 +45,11 @@
 
 (defun spacemacs/compleseus-search (use-initial-input initial-directory)
   (let* ((initial-input (if use-initial-input
-                            (if (region-active-p)
-                                (buffer-substring-no-properties
-                                 (region-beginning) (region-end))
-                              (thing-at-point 'symbol t))
+                            (rxt-quote-pcre
+                             (if (region-active-p)
+                                 (buffer-substring-no-properties
+                                  (region-beginning) (region-end))
+                               (or (thing-at-point 'symbol t) "")))
                           ""))
          (default-directory
            (or initial-directory (read-directory-name "Start from directory: "))))
@@ -182,4 +183,4 @@ targets."
   (which-key--hide-popup-ignore-command)
   (let ((embark-indicators
          (remq #'spacemacs/embark-which-key-indicator embark-indicators)))
-      (apply fn args)))
+    (apply fn args)))
