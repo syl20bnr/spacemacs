@@ -70,5 +70,8 @@ manually.")
 (defvar auto-completion-use-company-box nil
   "If non nil company-box is used.")
 
+(defvar auto-completion-use-company-posframe nil
+  "If non nil company-box is used.")
+
 (defvar auto-completion-private-snippets-directory nil
   "Configurable private snippets directory.")
