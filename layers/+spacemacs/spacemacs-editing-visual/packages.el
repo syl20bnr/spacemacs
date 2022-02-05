@@ -33,6 +33,7 @@
         highlight-numbers
         highlight-parentheses
         indent-guide
+        mixed-pitch
         rainbow-delimiters
         volatile-highlights
         writeroom-mode
@@ -158,6 +159,16 @@
         :evil-leader "t TAB"))
     :config
     (spacemacs|diminish indent-guide-mode " ⓘ" " i")))
+
+(defun spacemacs-editing-visual/init-mixed-pitch ()
+  (use-package mixed-pitch
+    :defer t
+    :init
+    (spacemacs|add-toggle mixed-pitch
+      :mode mixed-pitch-mode
+      :documentation "Mixing fixed-pitch and variable-pitch fonts."
+      :evil-leader "tM")
+    (spacemacs/add-to-hooks 'mixed-pitch-mode spacemacs-mixed-pitch-enabled-mode-hooks)))
 
 (defun spacemacs-editing-visual/init-rainbow-delimiters ()
   (use-package rainbow-delimiters

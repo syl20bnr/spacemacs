@@ -37,6 +37,7 @@
   - [[#org-appear-support][Org-appear support]]
   - [[#verb-support][Verb support]]
   - [[#asciidoc-support][AsciiDoc support]]
+  - [[#mixed-pitched-support][Mixed pitched support]]
   - [[#spacemacs-layout-integration][Spacemacs layout integration]]
 - [[#key-bindings][Key bindings]]
   - [[#starting-org-mode][Starting org-mode]]
@@ -568,6 +569,9 @@ variable =org-enable-asciidoc-support= to =t=.
   (setq-default dotspacemacs-configuration-layers
     '((org :variables org-enable-asciidoc-support t)))
 #+END_SRC
+
+** Mixed pitched support
+Set the variable =org-enable-mixed-pitch= to =t=.
 
 ** Spacemacs layout integration
 A [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#layouts-and-workspaces][Spacemacs custom layout]] =@Org= is defined by the layer and accessible via =SPC l o=. The startup behavior can be customized with the following layer variables:

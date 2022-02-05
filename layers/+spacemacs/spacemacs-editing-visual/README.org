@@ -5,6 +5,7 @@
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
+- [[#mixed-pitch-fonts-support][Mixed pitch fonts support]]
 
 * Description
 This layer defines a lot of functions used to visually enhance the currently
@@ -17,3 +18,24 @@ edited line in Spacemacs.
 - Highlighting of different indentations
 - Automatic highlighting of numbers
 - Automatic highlighting of parentheses
+* Mixed pitch fonts support
+This is a nice feature but it's not everyone's taste so it is off by default.
+
+[[https://gitlab.com/jabranham/mixed-pitch][Mixed pitch]] is a minor mode that enables mixing fixed-pitch (also known as
+fixed-width or monospace) and variable-pitch (AKA “proportional”) fonts. It
+tries to be smart about which fonts get which face. Fonts that look like code,
+org-tables, and such remain fixed-pitch and everything else becomes
+variable-pitch. 
+
+Toggle on the fly: ~SPC t M~
+
+Some layers such as ~org~, ~markdown~, and ~asciidoc~ provide a corresponding variable
+for you to enable this feature.
+
+For other modes you'll need to tell Spacemacs to link it to the mode hook by
+setting the ~spacemacs-mixed-pitch-enabled-mode-hooks~ variable in your
+~dotspacemacs-configuration-layers~. For example, to enable for ~eww~ and ~rst~
+#+begin_src elisp
+     (spacemacs-editing-visual :variables
+                               spacemacs-mixed-pitch-enabled-mode-hooks '(eww-mode-hook rst-mode-hook))
+#+end_src

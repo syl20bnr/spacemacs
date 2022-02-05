@@ -29,6 +29,7 @@
     gh-md
     markdown-mode
     markdown-toc
+    mixed-pitch
     mmm-mode
     smartparens
     valign
@@ -195,6 +196,11 @@
     (dolist (mode markdown--key-bindings-modes)
       (spacemacs/set-leader-keys-for-major-mode mode
         "it" 'markdown-toc-generate-toc))))
+
+
+(defun markdown/post-init-mixed-pitch ()
+  (when markdown-enable-mixed-pitch
+    (add-hook 'markdown-mode-hook 'mixed-pitch-mode)))
 
 (defun markdown/init-mmm-mode ()
   (use-package mmm-mode

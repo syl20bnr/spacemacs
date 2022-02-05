@@ -31,6 +31,7 @@
     gnuplot
     (helm-org-rifle :toggle (configuration-layer/layer-used-p 'helm))
     htmlize
+    mixed-pitch
     ;; ob, org, org-agenda and org-contacts are installed by `org-contrib'
     (ob :location built-in)
     (org :location elpa :min-version "9.5")
@@ -113,6 +114,10 @@
 (defun org/init-htmlize ()
   (use-package htmlize
     :defer t))
+
+(defun org/post-init-mixed-pitch ()
+  (when org-enable-mixed-pitch
+   (add-hook 'org-mode-hook 'mixed-pitch-mode)))
 
 (defun org/init-ob ()
   (use-package ob

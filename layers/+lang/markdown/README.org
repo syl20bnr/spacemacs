@@ -12,6 +12,7 @@
 - [[#configuration][Configuration]]
   - [[#live-preview][Live preview]]
   - [[#automatic-mmm-mode-generation][Automatic MMM-Mode Generation]]
+  - [[#mixed-pitched-support][Mixed pitched support]]
 - [[#usage][Usage]]
   - [[#generate-a-toc][Generate a TOC]]
 - [[#key-bindings][Key bindings]]
@@ -107,6 +108,8 @@ list of `("language" "mode")`:
 bunch of languages. Consider opening a PR on the Spacemacs repository to add
 new languages instead of overriding the variable in your dotfile.
 
+** Mixed pitched support
+Set the variable =markdown-enable-mixed-pitch= to =t=.
 * Usage
 ** Generate a TOC
 To generate a table of contents type on top of the buffer:

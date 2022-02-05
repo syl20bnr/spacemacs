@@ -22,7 +22,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq asciidoc-packages '(adoc-mode))
+(setq asciidoc-packages '(adoc-mode mixed-pitch))
 
 (defun asciidoc/init-adoc-mode ()
   (use-package adoc-mode
@@ -56,3 +56,7 @@
       (define-key adoc-mode-map (kbd "M-h") 'adoc-demote)
       ;; see the comment about  adoc-demote above
       (define-key adoc-mode-map (kbd "M-l") 'adoc-promote))))
+
+(defun asciidoc/post-init-mixed-pitch ()
+  (when asciidoc-enable-mixed-pitch
+    (add-hook 'asciidoc-mode-hook 'mixed-pitch-mode)))
