@@ -23,8 +23,7 @@
 
 (defconst exwm-packages
   '((xdg :location built-in)
-    (desktop-environment :location (recipe :fetcher github
-                                           :repo "DamienCassou/desktop-environment"))
+    desktop-environment
     (helm-exwm :toggle (configuration-layer/package-used-p 'helm))
     (evil-exwm-state :toggle (configuration-layer/package-used-p 'evil)
                      :location (recipe :fetcher github
