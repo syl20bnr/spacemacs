@@ -1,4 +1,4 @@
-;;; funcs.el --- tree-sitter layer packages file for Spacemacs.
+;;; funcs.el --- tree-sitter layer funcs file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
