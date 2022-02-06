@@ -32,7 +32,7 @@ there's no need to separately disable regexp-based syntax highlighting, and in
 general you do not need to update key bindings to point to new tree-sitter-based
 commands.
 
-Set =tree-sitter-syntax-highlight-enable t=  for syntax highlighting, provided
+Set =tree-sitter-syntax-highlight-enable t= for syntax highlighting, provided
 by =tree-sitter-hl-mode= which is bundled with [[https://github.com/emacs-tree-sitter/elisp-tree-sitter][=tree-sitter-mode=]].
 Default: =t=.
 
