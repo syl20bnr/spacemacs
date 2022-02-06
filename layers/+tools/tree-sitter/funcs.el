@@ -22,5 +22,5 @@
 
 (defun spacemacs//tree-sitter-hl-maybe ()
   "Turn on `tree-sitter-hl-mode' if allowed."
-  (unless (member major-mode spacemacs-tree-sitter-hl-black-list)
+  (unless (memq major-mode spacemacs-tree-sitter-hl-black-list)
     (tree-sitter-hl-mode +1)))
