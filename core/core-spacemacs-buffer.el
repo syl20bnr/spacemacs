@@ -1451,7 +1451,8 @@ If a prefix argument is given, switch to it in an other, possibly new window."
             (progn (goto-char (point-min))
                    (forward-line (1- save-line))
                    (forward-to-indentation 0))
-          (spacemacs-buffer/goto-link-line)))
+          (spacemacs-buffer/goto-link-line))
+        (setq-local inhibit-read-only t))
       (if current-prefix-arg
           (switch-to-buffer-other-window spacemacs-buffer-name)
         (switch-to-buffer spacemacs-buffer-name))
