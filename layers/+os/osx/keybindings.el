@@ -94,10 +94,7 @@ default."
   (global-set-key (kbd-mac-command "n") 'make-frame)
   (global-set-key (kbd-mac-command "`") 'other-frame)
   (global-set-key (kbd-mac-command "z") 'undo-tree-undo)
-  (global-set-key (kbd-mac-command "s")
-                  (lambda ()
-                    (interactive)
-                    (call-interactively (key-binding "\C-x\C-s"))))
+  (global-set-key (kbd-mac-command "s") 'save-buffer)
 
   ;; window manipulation with command key
   (global-set-key (kbd-mac-command "1") 'spacemacs/winum-select-window-1)
