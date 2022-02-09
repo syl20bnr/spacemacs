@@ -51,7 +51,7 @@
     (defalias 'describe-function 'helpful-callable)
     (defalias 'describe-variable 'helpful-variable)
     (defalias 'describe-key 'helpful-key)
-    (add-hook 'helpful-mode (lambda () (setq-local tab-width 8)))
+    (add-hook 'helpful-mode-hook (lambda () (setq-local tab-width 8)))
     (when (featurep 'counsel)
       (setq counsel-describe-function-function #'helpful-callable)
       (setq counsel-describe-variable-function #'helpful-variable))))
