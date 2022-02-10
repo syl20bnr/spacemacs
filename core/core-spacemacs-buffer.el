@@ -1344,7 +1344,10 @@ can be adjusted with the variable:
   (interactive)
   (when spacemacs-buffer--idle-numbers-timer
     (cancel-timer spacemacs-buffer--idle-numbers-timer))
-  (let* ((key-pressed-string (string last-input-event)))
+  (let* ((key-pressed-string (string-trim-left (if (characterp last-input-event)
+                                                   (string last-input-event)
+                                                 (format "%s" last-input-event))
+                                               "kp-")))
     (setq spacemacs-buffer--startup-list-number
           (concat spacemacs-buffer--startup-list-number key-pressed-string))
     (let (message-log-max) ; only show in minibuffer
