@@ -994,10 +994,11 @@ GROUPED-LIST: a list of string pathnames made interactive in this function."
                                (when dotspacemacs-show-startup-list-numbers
                                  (format "%2s " (number-to-string spacemacs-buffer--startup-list-nr)))
                                " "
-                               (if (or group-remote-p
-                                       (file-remote-p (concat (car group) el)))
-                                   (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust -0.05)
-                                 (all-the-icons-icon-for-file (file-name-nondirectory el) :height 0.8 :v-adjust -0.05))
+                               (when dotspacemacs-startup-buffer-show-icons
+                                 (if (or group-remote-p
+                                         (file-remote-p (concat (car group) el)))
+                                     (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust -0.05)
+                                   (all-the-icons-icon-for-file (file-name-nondirectory el) :height 0.8 :v-adjust -0.05)))
                                " "))
                              (button-text-filename (abbreviate-file-name el)))
                         (insert button-prefix)
