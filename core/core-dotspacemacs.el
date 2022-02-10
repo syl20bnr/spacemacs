@@ -216,6 +216,12 @@ Spacemacs buffer."
   'boolean
   'spacemacs-dotspacemacs-init)
 
+(spacemacs|defc dotspacemacs-startup-buffer-show-icons t
+  "If true, show file icons for entries and headings on spacmeacs buffer.
+This has no effect in terminal or if \"all-the-icons\" is not installed."
+  'boolean
+  'spacemacs-dotspacemacs-init)
+
 (spacemacs|defc dotspacemacs-scratch-mode 'text-mode
   "Default major mode of the scratch buffer."
   'symbol

@@ -60,10 +60,6 @@
   (concat spacemacs-banner-directory "img/spacemacs-badge.png")
   "Spacemacs official badge image.")
 
-(defconst spacemacs-purple-heart-png
-  (concat spacemacs-banner-directory "img/heart.png")
-  "Purple heart emoji.")
-
 (defconst spacemacs-gplv3-official-png
   (concat spacemacs-banner-directory "img/gplv3.png")
   "GPLv3 official badge image.")
