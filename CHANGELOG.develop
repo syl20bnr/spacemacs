@@ -2889,6 +2889,8 @@ files (thanks to Daniel Nicolai)
 - Fixed ocamlformat not properly initialized by following do (thanks to Nicolas Raymond)
 - Allow new OPAM share commandline syntax (thanks to Cody McKenzie)
 **** Org
+- Add initial =org-transclusion= support behind =org-enable-transclusion-support=
+  flag (thanks to Keith Pinson).
 - When =org-appear= is set to be triggered manually and Spacemacs' editing mode is
   Vim or hybrid, register relevant =org-appear= commands in Evil hooks for Org
   buffers (thanks to Keith Pinson).

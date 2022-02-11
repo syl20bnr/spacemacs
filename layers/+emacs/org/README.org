@@ -35,6 +35,7 @@
   - [[#jira-support][Jira support]]
   - [[#valign-support][Valign support]]
   - [[#org-appear-support][Org-appear support]]
+  - [[#transclusion-support][Transclusion support]]
   - [[#verb-support][Verb support]]
   - [[#asciidoc-support][AsciiDoc support]]
   - [[#spacemacs-layout-integration][Spacemacs layout integration]]
@@ -70,6 +71,7 @@
     - [[#verb-response-body-mode-bindings][Verb-response-body-mode bindings]]
     - [[#verb-response-headers-mode-bindings][Verb-response-headers-mode bindings]]
   - [[#org-roam][Org-roam]]
+  - [[#transclusion][Transclusion]]
 
 * Description
 This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
@@ -84,6 +86,7 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 - Easy insert of URLs from clipboard with org format via [[https://github.com/rexim/org-cliplink][org-cliplink]]
 - Rich insert of code (into a source block with highlighting, and a link) from other buffers via [[https://github.com/unhammer/org-rich-yank][org-rich-yank]]
 - Pixel-perfect visual alignment for Org and Markdown tables via [[https://github.com/casouri/valign][valign]]
+- Text transclusion via [[https://nobiot.github.io/org-transclusion][org-transclusion]]
 
 * BibTeX
 For more extensive support of references through BibTeX files, have a look at
@@ -550,6 +553,15 @@ To install [[https://github.com/awth13/org-appear][org-appear]], which toggles v
 
 If you set =org-appear-trigger= to =manual= and your editing style is =vim= or =hybrid=,
 =org-appear= is turned on in insert mode but not in normal mode.
+
+** Transclusion support
+To install [[https://github.com/nobiot/org-transclusion][org-transclusion]], which includes a read-only copy of textual content
+via a file or ID link toggles, set the =org-enable-transclusion-support= to =t=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+   '((org :variables org-enable-transclusion-support t)))
+#+END_SRC
 
 ** Verb support
 To install [[https://github.com/federicotdn/verb][Verb]], an HTTP client based on Org mode, set the
@@ -1157,3 +1169,15 @@ Key binding prefixes:
 |-------------+-------------------------|
 | ~o~         | Follow link             |
 | ~r~         | Refresh org-roam buffer |
+
+** Transclusion
+| Key binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC m u u~ | Transclude under cursor        |
+| ~SPC m u U~ | Transclude all in buffer       |
+| ~SPC m u d~ | De-transclude under cursor     |
+| ~SPC m u D~ | De-transclude all in buffer    |
+| ~SPC m u l~ | Demote transcluded subtree     |
+| ~SPC m u h~ | Promote transcluded subtree    |
+| ~SPC m u r~ | Refresh transclusion in buffer |
+| ~SPC m u g~ | Go to transclusion source      |
