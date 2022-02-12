@@ -1171,6 +1171,7 @@ Key binding prefixes:
 | ~r~         | Refresh org-roam buffer |
 
 ** Transclusion
+
 | Key binding | Description                    |
 |-------------+--------------------------------|
 | ~SPC m u u~ | Transclude under cursor        |
