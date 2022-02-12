@@ -1509,6 +1509,7 @@ Other:
   - Added =yasnippet-snippets= package (thanks to Jack Kamm)
   - Added =ivy-yasnippet= (thanks to Kalle Lindqvist)
   - Added =company-box= (thanks to Tianyao Chou)
+  - Added =company-postframe= (thanks to Thanh Vuong)
 - Improvements:
   - Added =autocomplete-idle-delay= layer variable, which Spacemacs uses to set
     =company-idle-delay= or =ac-delay= (thanks to Benjamin Hipple)
