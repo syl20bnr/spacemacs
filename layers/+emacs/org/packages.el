@@ -1045,7 +1045,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
   (use-package org-transclusion
     :defer t
     :init
-    (prog
+    (progn
      (spacemacs/declare-prefix-for-mode 'org-mode "mu" "org-transclusion")
      (spacemacs/set-leader-keys-for-major-mode 'org-mode
        "uu" #'org-transclusion-add
