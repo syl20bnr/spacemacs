@@ -555,8 +555,8 @@ If you set =org-appear-trigger= to =manual= and your editing style is =vim= or =
 =org-appear= is turned on in insert mode but not in normal mode.
 
 ** Transclusion support
-To install [[https://github.com/nobiot/org-transclusion][org-transclusion]], which includes a read-only copy of textual content
-via a file or ID link toggles, set the =org-enable-transclusion-support= to =t=:
+To install [[https://github.com/nobiot/org-transclusion][org-transclusion]], which allows you to include a view of another file
+via a file link or an ID lin, set the =org-enable-transclusion-support= to =t=:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers

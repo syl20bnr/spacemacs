@@ -1045,16 +1045,17 @@ Headline^^            Visit entry^^               Filter^^                    Da
   (use-package org-transclusion
     :defer t
     :init
-    (spacemacs/declare-prefix-for-mode 'org-mode "mu" "org-transclusion")
-    (spacemacs/set-leader-keys-for-major-mode 'org-mode
-      "uu" #'org-transclusion-add
-      "uU" #'org-transclusion-add-all
-      "ud" #'org-transclusion-remove
-      "uD" #'org-transclusion-remove-all
-      "ul" #'org-transclusion-demote-subtree
-      "uh" #'org-transclusion-promote-subtree
-      "ur" #'org-transclusion-refresh
-      "ug" #'org-transclusion-move-to-source)))
+    (prog
+     (spacemacs/declare-prefix-for-mode 'org-mode "mu" "org-transclusion")
+     (spacemacs/set-leader-keys-for-major-mode 'org-mode
+       "uu" #'org-transclusion-add
+       "uU" #'org-transclusion-add-all
+       "ud" #'org-transclusion-remove
+       "uD" #'org-transclusion-remove-all
+       "ul" #'org-transclusion-demote-subtree
+       "uh" #'org-transclusion-promote-subtree
+       "ur" #'org-transclusion-refresh
+       "ug" #'org-transclusion-move-to-source))))
 
 (defun org/init-ox-asciidoc ()
   (use-package ox-asciidoc
