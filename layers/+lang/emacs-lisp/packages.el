@@ -28,6 +28,7 @@
     (debug :location built-in)
     (edebug :location built-in)
     eldoc
+    elisp-def
     elisp-slime-nav
     (emacs-lisp :location built-in)
     evil
@@ -160,6 +161,10 @@
       (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
         "cl" 'auto-compile-display-log))))
 
+(defun emacs-lisp/init-elisp-def ()
+  (use-package elisp-def
+    :defer t))
+
 (defun emacs-lisp/init-elisp-slime-nav ()
   ;; Elisp go-to-definition with M-. and back again with M-,
   (use-package elisp-slime-nav
@@ -181,6 +186,7 @@
           (spacemacs/set-leader-keys-for-major-mode mode
             "hh" 'elisp-slime-nav-describe-elisp-thing-at-point))
         (let ((jumpl (intern (format "spacemacs-jump-handlers-%S" mode))))
+          (add-to-list jumpl 'elisp-def)
           (add-to-list jumpl 'elisp-slime-nav-find-elisp-thing-at-point))))
     :config (spacemacs|hide-lighter elisp-slime-nav-mode)))
 
