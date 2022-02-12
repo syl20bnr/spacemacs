@@ -71,6 +71,7 @@
     (org-roam :toggle org-enable-roam-support)
     (valign :toggle org-enable-valign)
     (org-appear :toggle org-enable-appear-support)
+    (org-transclusion :toggle org-enable-transclusion-support)
     (ox-asciidoc :toggle org-enable-asciidoc-support)))
 
 (defun org/post-init-company ()
@@ -1023,12 +1024,12 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :config
     (spacemacs|diminish valign-mode " ㊣" " E")))
 
-(defun org/init-org-appear()
+(defun org/init-org-appear ()
   (use-package org-appear
     :defer t
     :init
     (progn
-      (add-hook 'org-mode-hook 'org-appear-mode)      
+      (add-hook 'org-mode-hook 'org-appear-mode)
       (setq org-appear-autolinks t
             org-appear-autoemphasis t
             org-appear-autosubmarkers t))
@@ -1039,6 +1040,22 @@ Headline^^            Visit entry^^               Filter^^                    Da
                 (lambda ()
                   (add-hook 'evil-insert-state-entry-hook #'org-appear-manual-start nil t)
                   (add-hook 'evil-insert-state-exit-hook #'org-appear-manual-stop nil t))))))
+
+(defun org/init-org-transclusion ()
+  (use-package org-transclusion
+    :defer t
+    :init
+    (prog
+     (spacemacs/declare-prefix-for-mode 'org-mode "mu" "org-transclusion")
+     (spacemacs/set-leader-keys-for-major-mode 'org-mode
+       "uu" #'org-transclusion-add
+       "uU" #'org-transclusion-add-all
+       "ud" #'org-transclusion-remove
+       "uD" #'org-transclusion-remove-all
+       "ul" #'org-transclusion-demote-subtree
+       "uh" #'org-transclusion-promote-subtree
+       "ur" #'org-transclusion-refresh
+       "ug" #'org-transclusion-move-to-source))))
 
 (defun org/init-ox-asciidoc ()
   (use-package ox-asciidoc
