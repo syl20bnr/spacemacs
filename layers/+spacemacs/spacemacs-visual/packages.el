@@ -23,6 +23,7 @@
 
 (setq spacemacs-visual-packages
       '(
+        all-the-icons
         (ansi-colors :location built-in)
         desktop
         ;; `display-fill-column-indicator' is available in Emacs 27+
@@ -34,6 +35,9 @@
         popwin
         (zoom-frm :location local)))
 
+(defun spacemacs-visual/init-all-the-icons ()
+  (use-package all-the-icons
+    :defer t))
 
 (defun spacemacs-visual/init-ansi-colors ()
   (add-hook 'compilation-filter-hook
