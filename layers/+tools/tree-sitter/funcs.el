@@ -1,6 +1,6 @@
-;;; config.el --- tree-sitter layer config file for Spacemacs.
+;;; funcs.el --- tree-sitter layer funcs file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Elliott Shugerman <eeshugerman@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,17 +20,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defvar tree-sitter-syntax-highlight-enable t
-  "If non nil, use tree-sitter for syntax highlighting where supported.")
-
-(defvar tree-sitter-indent-enable nil
-  "If non nil, use tree-sitter for indentation where supported.")
-
-(defvar tree-sitter-fold-enable nil
-  "If non nil, use tree-sitter for code folding where supported.")
-
-(defvar tree-sitter-fold-indicators-enable t
-  "If non nil, and `tree-sitter-fold-enable' is non nil, show fold indicators in fringe.")
-
-(defvar spacemacs-tree-sitter-hl-black-list nil
-  "List of major modes where `tree-sitter-hl-mode' is disabled.")
+(defun spacemacs//tree-sitter-hl-maybe ()
+  "Turn on `tree-sitter-hl-mode' if allowed."
+  (unless (memq major-mode spacemacs-tree-sitter-hl-black-list)
+    (tree-sitter-hl-mode +1)))

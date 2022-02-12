@@ -37,7 +37,7 @@
     :init
     (progn
       (when tree-sitter-syntax-highlight-enable
-       (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)))
+        (add-hook 'tree-sitter-after-on-hook #'spacemacs//tree-sitter-hl-maybe)))
     :config
     (progn
       (global-tree-sitter-mode))))
