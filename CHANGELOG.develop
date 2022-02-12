@@ -2016,6 +2016,7 @@ Other:
     - ~SPC m r d l~ for  =emr-delete-let-binding-form=
     - ~SPC m r d d~ for  =emr-delete-unused-definition=
     - ~SPC m e w~   for   =emr-eval-and-replace=
+- Added =elisp-def= integration (thanks to Thanh Vuong)
 **** Emoji
 - Added support for Emoji fonts on macOS and Linux (thanks to CodeFalling)
 - Setup =emojify= cache directory (thanks to Boris Buliga)
