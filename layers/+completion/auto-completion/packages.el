@@ -230,9 +230,8 @@
 (defun auto-completion/init-company-posframe ()
   (use-package company-posframe
     :hook '(company-mode . company-posframe-mode)
-    :config
-    (progn
-      (spacemacs|hide-lighter company-posframe-mode))))
+    :if (not (auto-completion-use-company-box))
+    :config (spacemacs|hide-lighter company-posframe-mode)))
 
 (defun auto-completion/init-helm-c-yasnippet ()
   (use-package helm-c-yasnippet
