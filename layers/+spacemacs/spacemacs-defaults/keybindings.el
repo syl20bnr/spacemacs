@@ -661,9 +661,9 @@ respond to this toggle."
   "wl"  'evil-window-right
   "w <right>"  'evil-window-right
   "wm"  'spacemacs/toggle-maximize-buffer
-  "wcc"  'spacemacs/toggle-centered-buffer
-  "wcC"  'spacemacs/toggle-distraction-free
-  "wc."  'spacemacs/centered-buffer-transient-state
+  ;; "wcc"  'spacemacs/toggle-centered-buffer
+  ;; "wcC"  'spacemacs/toggle-distraction-free
+  ;; "wc."  'spacemacs/centered-buffer-transient-state
   "wo"  'other-frame
   "wr"  'spacemacs/rotate-windows-forward
   "wR"  'spacemacs/rotate-windows-backward
