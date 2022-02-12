@@ -31,7 +31,12 @@
         evil-escape
         evil-exchange
         evil-goggles
-        evil-iedit-state
+        ;; This is a temporary fix until the PR at URL
+        ;; `https://github.com/syl20bnr/evil-iedit-state/pull/37' gets
+        ;; merged.
+        (evil-iedit-state :location (recipe
+                                     :fetcher github
+                                     :repo "kassick/evil-iedit-state"))
         evil-indent-plus
         evil-lion
         evil-lisp-state
