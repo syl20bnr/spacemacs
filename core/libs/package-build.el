@@ -840,9 +840,11 @@ in `package-build-archive-dir'."
          (success 0)
          invalid failed)
     (dolist (name recipes)
-      (let ((rcp (with-demoted-errors (package-recipe-lookup name))))
+      (let ((rcp (with-demoted-errors "Build error: %S"
+                   (package-recipe-lookup name))))
         (if rcp
-            (if (with-demoted-errors (package-build-archive name) t)
+            (if (with-demoted-errors "Build error: %S"
+                  (package-build-archive name) t)
                 (cl-incf success)
               (push name failed))
           (push name invalid))))
