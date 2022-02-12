@@ -1,6 +1,6 @@
 ;;; funcs.el --- EWW Layer funcs File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Colton Kopsa <coljamkop@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,46 +20,45 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defvar spacemacs--eww-buffers nil)
+;;; Commentary:
 
-(defun spacemacs/eww-render-latex ()
+;;; Code:
+
+;;;; Misc
+(defun spacemacs/eww-toggle-render-latex ()
+  "Toggle rendering of LaTeX fraagments."
   (interactive)
   (call-interactively #'texfrag-mode)
   (when texfrag-mode
     (eww-reload)))
 
+
+;;;; Transient State
+
+(defun spacemacs//eww-ts-toggle-hint ()
+  "Toggle full hint docstring for EWW transient state."
+  (interactive)
+  (setq spacemacs--eww-ts-full-hint-toggle
+        (not spacemacs--eww-ts-full-hint-toggle)))
+
+(defun spacemacs//eww-ts-hint ()
+  "Return a condensed/full hint for the eww transient state"
+  (concat
+   " "
+   (if spacemacs--eww-ts-full-hint-toggle
+       spacemacs--eww-ts-full-hint
+     (concat "[" (propertize "?" 'face 'hydra-face-red) "] help"))))
+
 (defun spacemacs//eww-setup-transient-state ()
-  "Setup eww transient state with toggleable help hint.
+  "Setup EWW transient state with toggleable help hint.
 
 Beware: due to transient state's implementation details this
 function must be called in the :init section of `use-package' or
 full hint text will not show up!"
-  (defvar spacemacs--eww-ts-full-hint-toggle t
-    "Toggle the state of the eww transient state documentation.")
-
-  (defvar spacemacs--eww-ts-full-hint nil
-    "Display full pdf transient state documentation.")
-
-  (defvar spacemacs--eww-ts-minified-hint nil
-    "Display minified pdf transient state documentation.")
-
-  (defun spacemacs//eww-ts-toggle-hint ()
-    "Toggle the full hint docstring for the eww transient state."
-    (interactive)
-    (setq spacemacs--eww-ts-full-hint-toggle
-          (not spacemacs--eww-ts-full-hint-toggle)))
-
-  (defun spacemacs//eww-ts-hint ()
-    "Return a condensed/full hint for the eww transient state"
-    (concat
-     " "
-     (if spacemacs--eww-ts-full-hint-toggle
-         spacemacs--eww-ts-full-hint
-       (concat "[" (propertize "?" 'face 'hydra-face-red) "] help"))))
-
   (spacemacs|transient-state-format-hint eww
     spacemacs--eww-ts-full-hint
-    (format "\n[_?_] toggle help
+    "
+[_?_] toggle help
  Navigation^^^^^^^^                Layout/Appearance^^            Zoom^^              List/view^^          Other^^
  ----------^^^^^^^^--------------- ---------^^------------------  -----------^^------ -------^^----------- -----^^-----------------------
   [_h_/_j_/_k_/_l_] scroll l/d/u/r [_v_] toggle visual-line-mode  [_+_] zoom-in       [_W_] list buffers   [_r_] reload page
@@ -67,7 +66,7 @@ full hint text will not show up!"
   [_<_/_>_] history back/forw^^^^  [_c_] toggle colors            [_=_] unzoom        [_B_] list bookmarks [_d_] download
   [_[_/_]_] page previous/next^^^^ [_t_] toggle latex             ^^                  [_V_] view source    [_B_] add bookmark
   [_u_] page up^^^^^^              [_C_] cycle theme              ^^                  ^^                   [_q_] quit
-  [_t_] top url^^^^^^"))
+  [_t_] top url^^^^^^")
   (spacemacs|define-transient-state eww
     :title "Eww Transient State"
     :hint-is-doc t
@@ -78,10 +77,10 @@ full hint text will not show up!"
     :bindings
     ("?" spacemacs//eww-ts-toggle-hint)
     ;; Navigation
-    ("j" evil-next-line)
-    ("k" evil-previous-line)
-    ("h" evil-backward-char)
-    ("l" evil-forward-char)
+    ;; ("j" evil-next-line)
+    ;; ("k" evil-previous-line)
+    ;; ("h" evil-backward-char)
+    ;; ("l" evil-forward-char)
     ("<" eww-back-url)
     (">" eww-forward-url)
     ("[" eww-previous-url)
@@ -91,16 +90,16 @@ full hint text will not show up!"
     ("u" eww-up-url)
     ("t" eww-top-url)
     ;; Layout/Appearance
-    ("w" writeroom-mode)
+    ;; ("w" writeroom-mode)
     ("v" visual-line-mode)
     ("c" eww-toggle-colors)
-    ("t" spacemacs/eww-render-latex)
+    ("t" spacemacs/eww-toggle-render-latex)
     ("C" spacemacs/cycle-spacemacs-theme)
     ;; Zoom
-    ("+" zoom-frm-in)
-    ("-" zoom-frm-out)
-    ("=" zoom-frm-unzoom)
-    ;; Lit/view
+    ;; ("+" zoom-frm-in)
+    ;; ("-" zoom-frm-out)
+    ;; ("=" zoom-frm-unzoom)
+    ;; ;; Lit/view
     ("W" eww-list-buffers)
     ("S" eww-list-histories)
     ("B" eww-list-bookmarks)
@@ -112,39 +111,52 @@ full hint text will not show up!"
     ("B" eww-add-bookmark)
     ("q" nil :exit t)))
 
-(defun spacemacs//eww-get-buffers ()
-  (dolist (buffer (buffer-list))
-    (with-current-buffer buffer
-      (when (and (derived-mode-p 'eww-mode)
-                 (not (memq buffer spacemacs--eww-buffers)))
-        (push buffer
-              spacemacs--eww-buffers))))
-  (unless spacemacs--eww-buffers
-    (error "No eww buffers"))
-  ;; remove deleted buffers maintaining order
-  (dolist (buffer spacemacs--eww-buffers)
-    (if (not (memq buffer (buffer-list)))
-        (delq buffer spacemacs--eww-buffers)))
-  spacemacs--eww-buffers)
+
+;;;; EWW Buffers
 
-(defun spacemacs//eww-next-buffer (buff)
+(defun spacemacs//eww-get-buffers ()
+  "Update and return the list of EWW buffers."
+  (let ((current-buffers (buffer-list))
+        (current-eww-buffers))
+    ;; add new eww buffers to a temporary list
+    (dolist (buffer current-buffers)
+      (with-current-buffer buffer
+        (when (and (derived-mode-p 'eww-mode)
+                   (not (memq buffer spacemacs--eww-buffers)))
+          (push buffer current-eww-buffers))))
+    (unless (or current-eww-buffers spacemacs--eww-buffers)
+      (user-error "No EWW buffers"))
+    ;; remove deleted buffers
+    (dolist (buffer spacemacs--eww-buffers)
+      (when (not (memq buffer current-buffers))
+        (delq buffer spacemacs--eww-buffers)))
+    ;; append new buffers
+    (nconc spacemacs--eww-buffers current-eww-buffers)))
+
+(defun spacemacs//eww-next-buffer ()
+  "Return the next EWW buffer or cycle to the oldest one."
   (let* ((eww-buffers (spacemacs//eww-get-buffers))
-         (eww-buffer-pos (seq-position eww-buffers buff)))
-    (if (eq eww-buffer-pos (1- (length eww-buffers)))
+         (eww-buffer-pos (seq-position eww-buffers (current-buffer))))
+    (if (eql eww-buffer-pos (1- (length eww-buffers)))
         (car eww-buffers)
       (nth (1+ eww-buffer-pos) eww-buffers))))
 
-(defun spacemacs//eww-previous-buffer (buff)
+(defun spacemacs//eww-previous-buffer ()
+  "Return the previous EWW buffer or cycle to the latest one."
   (let* ((eww-buffers (spacemacs//eww-get-buffers))
-         (eww-buffer-pos (seq-position eww-buffers buff)))
+         (eww-buffer-pos (seq-position eww-buffers (current-buffer))))
     (if (zerop eww-buffer-pos)
         (car (last eww-buffers))
       (nth (1- eww-buffer-pos) eww-buffers))))
 
 (defun spacemacs/eww-jump-next-buffer ()
+  "Open the next EWW buffer or cycle to the oldest one."
   (interactive)
-  (pop-to-buffer-same-window (spacemacs//eww-next-buffer (current-buffer))))
+  (pop-to-buffer-same-window (spacemacs//eww-next-buffer)))
 
 (defun spacemacs/eww-jump-previous-buffer ()
+  "Open the previous EWW buffer or cycle to the latest one."
   (interactive)
-  (pop-to-buffer-same-window (spacemacs//eww-previous-buffer (current-buffer))))
+  (pop-to-buffer-same-window (spacemacs//eww-previous-buffer)))
+
+;;; funcs.el ends here
