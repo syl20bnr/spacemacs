@@ -32,6 +32,5 @@
 (defvar tree-sitter-fold-indicators-enable t
   "If non nil, and `tree-sitter-fold-enable' is non nil, show fold indicators in fringe.")
 
-(defvar spacemacs-tree-sitter-hl-black-list
-  '()
-  "List of major modes not allow tree sitter highlight mode.")
+(defvar spacemacs-tree-sitter-hl-black-list nil
+  "List of major modes where `tree-sitter-hl-mode' is disabled.")
