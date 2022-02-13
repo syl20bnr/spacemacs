@@ -1,0 +1,50 @@
+#+TITLE: mixed-pitch layer
+
+#+TAGS: font|layer
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features]]
+- [[#install][Install]]
+
+* Description
+This layer adds support for [[https://gitlab.com/jabranham/mixed-pitch][mixed-pitch]] package, which enables mixing
+fixed-pitch and variable-pitch font faces according to the role of the text.
+For example, source code and org-tables are displayed in fixed-pitch font face
+while everything else becomes variable-pitch.
+
+** Features
+- Display text in fixed-pitch or variable-pitch depending on its role.
+- Enable =mixed-pitch= mode automatically for major modes listed in
+  =mixed-pitch-enabled-modes=.
+- Toggle =mixed-pitch= mode on-the-flye.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =mixed-pitch= to the existing =dotspacemacs-configuration-layers= list in
+this file.
+
+You can modify the variable =mixed-pitch-enabled-modes= to select the major
+modes where =mixed-pitch= is enabled. By default, it's enabled for =org-mode=,
+=markdown-mode=, and =adoc-mode= (AsciiDoc).
+
+For example,
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+                (mixed-pitch :variables
+                             mixed-pitch-enabled-modes '(org-mode markdown-mode adoc-mode)))
+#+END_SRC
+
+Alternatively, you may want to enable =mixed-pitch= for =text-mode= and all
+modes derived from it, which includes =org-mode=, =markdown-mode=, and
+=adoc-mode= already mentioned above, then you can set
+=mixed-pitch-enabled-modes= to ='(text-mode)=.
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+                (mixed-pitch :variables
+                             mixed-pitch-enabled-modes '(text-mode)))
+#+END_SRC
+
+In addition, you may toggle =mixed-pitch= on-the-fly via a toggle =SPC t M=.
