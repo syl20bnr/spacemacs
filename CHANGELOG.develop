@@ -2855,6 +2855,7 @@ files (thanks to Daniel Nicolai)
   function (thanks to Profpatsch)
 - Associate nix-mode with .nix files (thanks to jpathy)
 - Updated layer banner (thanks to kalium)
+- Added experimental LSP support (thanks to LuisChDev)
 **** Nim
 - Added key binding ~SPC m h h~ to show symbol documentation
   (thanks to Valts Liepiņš)

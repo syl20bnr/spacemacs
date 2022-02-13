@@ -11,6 +11,7 @@
   - [[#layer][Layer]]
   - [[#format-on-save][Format on save]]
 - [[#configuration][Configuration]]
+  - [[#enabling-lsp-experimental][Enabling LSP (Experimental)]]
 - [[#key-bindings][Key bindings]]
   - [[#nixos-options][NixOS Options]]
 
@@ -22,6 +23,7 @@ This layer adds tools for better integration of Emacs in NixOS.
 - Automatic formatting via [[https://github.com/serokell/nixfmt][nixfmt]]
 - Auto-completion of NixOS Options using [[https://github.com/travisbhartwell/nix-emacs/blob/master/company-nixos-options.el][company-nixos-options]]
 - Helm Lookup for NixOS Options [[https://github.com/travisbhartwell/nix-emacs/blob/master/helm-nixos-options.el][helm-nixos-options]]
+- WIP support for LSP backend using ~rnix-lsp~
 
 * Install
 ** Layer
@@ -40,6 +42,16 @@ To enable automatic formatting on save, set the layer variable
 * Configuration
 On some systems, =company-nixos-options= may be very slow. If this is the case,
 see the section on disabling the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#disabling-layer-services-in-other-layers][disabling auto-complete]] for the =nixos= layer.
+
+** Enabling LSP (Experimental)
+Change =nixos= to =(nixos :variables nix-backend 'lsp)= in your =~./spacemacs=.
+
+To install [[https://github.com/nix-community/rnix-lsp][rnix-lsp]] from nix, run this command:
+
+#+BEGIN_SRC bash
+  nix-env -i -f https://github.com/nix-community/rnix-lsp/archive/master.tar.gz
+#+END_SRC
+
 
 * Key bindings
 ** NixOS Options
