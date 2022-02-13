@@ -35,12 +35,12 @@ file.
 * Configuration
 ** Enabling LSP (Experimental)
 To use the /experimental/ LSP backend, set variable =nix-backend= to =lsp= in
-your =~./spacemacs=. (You would also need to enable [[../../+tools/lsp/README.org][LSP]] layer).
+your =~./spacemacs=. (You would also need to enable [[file:../../+tools/lsp/README.org][LSP]] layer).
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 (nixos :variables nixos-backend 'lsp))
-#+end_src
+#+END_SRC
 
 To install [[https://github.com/nix-community/rnix-lsp][rnix-lsp]] from =nix=, run the following command in shell:
 
@@ -58,7 +58,6 @@ To enable automatic formatting on save, set the layer variable
 #+END_SRC
 
 ** Opt-out from =auto-complete=
-
 On some systems, =company-nixos-options= may be very slow. If this is the case,
 see the section on disabling the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#disabling-layer-services-in-other-layers][disabling auto-complete]] for the =nixos= layer.
 

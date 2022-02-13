@@ -1115,6 +1115,7 @@ Features:
 - Automatic formatting via [[https://github.com/serokell/nixfmt][nixfmt]]
 - Auto-completion of NixOS Options using [[https://github.com/travisbhartwell/nix-emacs/blob/master/company-nixos-options.el][company-nixos-options]]
 - Helm Lookup for NixOS Options [[https://github.com/travisbhartwell/nix-emacs/blob/master/helm-nixos-options.el][helm-nixos-options]]
+- WIP support for LSP backend using =rnix-lsp=
 
 ** OSX
 [[file:+os/osx/README.org][+os/osx/README.org]]
