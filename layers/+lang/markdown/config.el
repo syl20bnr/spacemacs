@@ -49,6 +49,3 @@ generate mmm classes.")
 
 (defvar markdown--key-bindings-modes '(markdown-mode gfm-mode)
   "Modes using markdown key bindings.")
-
-(defvar markdown-enable-mixed-pitch nil
-  "If non-nil, enable mixed-pitch.")

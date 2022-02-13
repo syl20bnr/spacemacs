@@ -122,6 +122,3 @@ intelligence to attempt to determine the destination state.")
 
 (defvar org-enable-org-brain-support nil
   "If non-nil, enable org-brain")
-
-(defvar org-enable-mixed-pitch nil
-  "If non-nil, enable mixed-pitch.")

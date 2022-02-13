@@ -6,7 +6,6 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-  - [[#mixed-pitched-support][Mixed pitched support]]
 - [[#key-bindings][Key bindings]]
   - [[#element-insertion][Element insertion]]
   - [[#promotion-demotion][Promotion, Demotion]]
@@ -22,9 +21,6 @@ This layer adds [[https://asciidoctor.org][AsciiDoc]] markup language support to
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =asciidoc= to the existing =dotspacemacs-configuration-layers= list in this
 file.
-
-** Mixed pitched support
-Set the variable =asciidoc-enable-mixed-pitch= to =t=.
 
 * Key bindings
 ** Element insertion
