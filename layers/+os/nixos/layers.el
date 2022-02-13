@@ -1,6 +1,6 @@
-;;; config.el --- nixos Layer Configuration File for Spacemacs
+;;; layers.el --- NixOS Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,11 +20,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-;; variables
-
-(defvar nixos-format-on-save nil
-  "If non-nil, nixfmt before saving.")
-
-(defvar nix-backend nil
-  "The backend used for completion. possible values are `lsp' or `nil'.")
+(when (and (boundp 'nix-backend)
+           (eq nix-backend 'lsp))
+  (configuration-layer/declare-layer-dependencies '(lsp)))
