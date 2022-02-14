@@ -31,30 +31,33 @@
   (use-package helpful
     :defer t
     :init
-    (spacemacs/declare-prefix-for-mode 'helpful-mode "mg" "goto")
-    (add-hook 'emacs-startup-hook
-              (lambda ()
-                (spacemacs/set-leader-keys
-                  "hdk" #'helpful-key
-                  "hdf" #'helpful-callable
-                  "hdv" #'helpful-variable)
-                (global-set-key (kbd "C-h k") 'helpful-key)
-                (global-set-key (kbd "C-h f") 'helpful-callable)
-                (global-set-key (kbd "C-h v") 'helpful-variable))
-              'append)
+    (progn
+      (spacemacs/declare-prefix-for-mode 'helpful-mode "mg" "goto")
+      (add-hook 'emacs-startup-hook
+                (lambda ()
+                  (spacemacs/set-leader-keys
+                    "hdk" #'helpful-key
+                    "hdf" #'helpful-callable
+                    "hdv" #'helpful-variable)
+                  (global-set-key (kbd "C-h k") 'helpful-key)
+                  (global-set-key (kbd "C-h f") 'helpful-callable)
+                  (global-set-key (kbd "C-h v") 'helpful-variable))
+                'append))
     :config
-    (evil-set-initial-state 'helpful-mode 'normal)
-    (spacemacs/set-leader-keys-for-major-mode 'helpful-mode
-      (kbd "q") 'helpful-kill-buffers)
-    (evil-define-key 'normal helpful-mode-map (kbd "gr") 'helpful-update)
-    (evil-define-key 'normal helpful-mode-map (kbd "q") 'quit-window)
-    (defalias 'describe-function 'helpful-callable)
-    (defalias 'describe-variable 'helpful-variable)
-    (defalias 'describe-key 'helpful-key)
-    (add-hook 'helpful-mode-hook (lambda () (setq-local tab-width 8)))
-    (when (featurep 'counsel)
-      (setq counsel-describe-function-function #'helpful-callable)
-      (setq counsel-describe-variable-function #'helpful-variable))))
+    (progn
+      (evil-set-initial-state 'helpful-mode 'normal)
+      (spacemacs/set-leader-keys-for-major-mode 'helpful-mode
+        (kbd "q") 'helpful-kill-buffers)
+      (evil-define-key 'normal helpful-mode-map (kbd "gr") 'helpful-update)
+      (evil-define-key 'normal helpful-mode-map (kbd "q") 'quit-window)
+      (defalias 'describe-function 'helpful-callable)
+      (defalias 'describe-variable 'helpful-variable)
+      (defalias 'describe-key 'helpful-key)
+      (add-hook 'helpful-mode-hook (lambda () (setq-local tab-width 8)))
+      (advice-add 'helpful--navigate :after (lambda (_) (setq-local tab-width 8)))
+      (when (featurep 'counsel)
+        (setq counsel-describe-function-function #'helpful-callable)
+        (setq counsel-describe-variable-function #'helpful-variable)))))
 
 (defun helpful/post-init-link-hint ()
   (with-eval-after-load 'helpful

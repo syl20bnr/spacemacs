@@ -232,8 +232,10 @@
 (defun spacemacs-defaults/init-help-fns+ ()
   (use-package help-fns+
     :commands (describe-keymap)
-    :init (spacemacs/set-leader-keys "hdK" 'describe-keymap)
-    :config (add-hook 'help-mode-hook (lambda () (setq-local tab-width 8)))))
+    :init
+    (progn
+      (spacemacs/set-leader-keys "hdK" 'describe-keymap)
+      (advice-add 'help-do-xref :after (lambda (_pos _func _args) (setq-local tab-width 8))))))
 
 (defun spacemacs-defaults/init-hi-lock ()
   (with-eval-after-load 'hi-lock
