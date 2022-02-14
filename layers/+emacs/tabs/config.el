@@ -20,7 +20,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(spacemacs|defc tabs-selected-tab-baar 'left
+(spacemacs|defc tabs-selected-tab-bar 'left
   "When non-nil, display a bar next to the current selected tab in the given direction.
 
 If Emacs is running in daemon mode, this is turned off regardless of the setting."
