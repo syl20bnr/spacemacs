@@ -133,8 +133,8 @@ To enable manual non-automatic invocation of docstring tooltips, set it to
 #+END_SRC
 
 However the tooltip may overlap on text on macOS, you can use =company-box= or
-=company-postframe= on by setting =auto-completion-use-company-box= or
-=auto-completion-use-company-postframe= to =t=, respectively.
+=company-posframe= on by setting =auto-completion-use-company-box= or
+=auto-completion-use-company-posframe= to =t=, respectively.
 
 ** Sort results by usage
 To enable sorting auto-completion results by their usage frequency set
