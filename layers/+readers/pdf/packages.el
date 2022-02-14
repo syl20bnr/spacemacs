@@ -108,7 +108,7 @@
         "gh"               'pdf-outline-up-heading
         "gg"               'beginning-of-buffer
         "G"                'pdf-outline-end-of-buffer
-        "TAB"              'outline-toggle-children
+        (kbd "<tab>")      'outline-toggle-children
         "RET"              'pdf-outline-follow-link
         (kbd "M-RET")      'pdf-outline-follow-link-and-quit
         "f"                'pdf-outline-display-link
