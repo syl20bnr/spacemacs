@@ -1,6 +1,6 @@
 ;;; packages.el --- Auto-completion Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -21,12 +21,13 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq auto-completion-packages
+(defconst auto-completion-packages
       '(
         auto-yasnippet
         auto-complete
         ac-ispell
         company
+        (company-posframe :toggle auto-completion-use-company-posframe)
         (company-box :toggle auto-completion-use-company-box)
         (all-the-icons :toggle auto-completion-use-company-box)
         (company-quickhelp :toggle auto-completion-enable-help-tooltip)
@@ -114,6 +115,7 @@
     (progn
       (spacemacs|diminish company-mode " ⓐ" " a")
 
+      (spacemacs|add-company-backends :modes text-mode)
       ;; key bindings
       (defun spacemacs//company-complete-common-or-cycle-backward ()
         "Complete common prefix or cycle backward."
@@ -224,6 +226,12 @@
         ('manual (define-key company-active-map
                    (kbd "M-h") #'company-box-doc-manually))
         ('t (setq company-box-doc-enable t))))))
+
+(defun auto-completion/init-company-posframe ()
+  (use-package company-posframe
+    :hook '(company-mode . company-posframe-mode)
+    :if (not auto-completion-use-company-box)
+    :config (spacemacs|hide-lighter company-posframe-mode)))
 
 (defun auto-completion/init-helm-c-yasnippet ()
   (use-package helm-c-yasnippet

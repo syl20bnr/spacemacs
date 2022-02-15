@@ -22,10 +22,8 @@
 
 
 (setq typography-packages
-      '(
-        (tildify :toggle (version<= "25" emacs-version))
-        typo
-        ))
+      '(tildify
+        typo))
 
 (defun typography/init-typo ()
   (use-package typo

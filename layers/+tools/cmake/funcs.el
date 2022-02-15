@@ -36,4 +36,4 @@
 (defun spacemacs//cmake-setup-backend ()
   "Conditionally setup cmake backend."
   (when (eq cmake-backend 'lsp)
-    (lsp)))
+    (lsp-deferred)))

@@ -133,14 +133,6 @@ If not in such a search box, fall back on `Custom-newline'."
 (defalias 'spacemacs/display-buffer-other-frame 'display-buffer-other-frame)
 (defalias 'spacemacs/find-file-and-replace-buffer 'find-alternate-file)
 
-(defun spacemacs/dired-remove-evil-mc-gr-which-key-entry ()
-  ;; Remove inherited bindings from evil-mc
-  ;; do this after the config to make sure the keymap is available
-  (with-eval-after-load 'dired
-    (which-key-add-keymap-based-replacements dired-mode-map
-      "<normal-state> g r" nil
-      "<visual-state> g r" nil)))
-
 (defun spacemacs/indent-region-or-buffer ()
   "Indent a region if selected, otherwise the whole buffer."
   (interactive)
@@ -293,7 +285,6 @@ Dedicated (locked) windows are left untouched."
   (interactive "p")
   (spacemacs/rotate-windows-forward (* -1 count)))
 
-
 (if (configuration-layer/package-used-p 'winum)
     (progn
       (defun spacemacs/move-buffer-to-window (windownum follow-focus-p)
@@ -423,10 +414,13 @@ projectile cache and updates recentf list."
 
 ;; originally from magnars
 (defun spacemacs/rename-buffer-visiting-a-file (&optional arg)
-  (let* ((old-short-name (buffer-name))
-         (old-filename (buffer-file-name))
+  (let* ((old-filename (buffer-file-name))
+         (old-short-name (file-name-nondirectory (buffer-file-name)))
          (old-dir (file-name-directory old-filename))
-         (new-name (read-file-name "New name: " (if arg old-dir old-filename)))
+         (new-name (let ((path (read-file-name "New name: " (if arg old-dir old-filename))))
+                     (if (string= (file-name-nondirectory path) "")
+                         (concat path old-short-name)
+                       path)))
          (new-dir (file-name-directory new-name))
          (new-short-name (file-name-nondirectory new-name))
          (file-moved-p (not (string-equal new-dir old-dir)))
@@ -452,7 +446,7 @@ projectile cache and updates recentf list."
              (recentf-remove-if-non-kept old-filename))
            (when (and (configuration-layer/package-used-p 'projectile)
                       (projectile-project-p))
-             (call-interactively #'projectile-invalidate-cache))
+             (funcall #'projectile-invalidate-cache nil))
            (message (cond ((and file-moved-p file-renamed-p)
                            (concat "File Moved & Renamed\n"
                                    "From: " old-filename "\n"
@@ -673,6 +667,19 @@ If the universal prefix argument is used then kill the windows too."
     (when (equal '(4) arg) (delete-other-windows))
     (message "Buffers deleted!")))
 
+(defun spacemacs//confirm-kill-buffer ()
+  "Prompt the user to save a buffer to a file before killing it.
+This skips the following buffers:
+- A buffer with non-nil value of variable `buffer-file-name'.
+  Or in other words, a buffer who has a file associated with.
+  Emacs by default prompts the user to save it if it's modified.
+- A buffer derived from `special-mode'."
+  (when (and (not buffer-file-name)
+             (buffer-modified-p)
+             (not (derived-mode-p 'special-mode))
+             (not (yes-or-no-p (format "Buffer %S modified; kill anyway? " (buffer-name)))))
+    (save-buffer)))
+
 ;; from http://dfan.org/blog/2009/02/19/emacs-dedicated-windows/
 (defun spacemacs/toggle-current-window-dedication ()
   "Toggle dedication state of a window. Commands that change the buffer that a
@@ -842,13 +849,12 @@ variable."
                (concat dotspacemacs-template-directory ".spacemacs.template")))
 
 (defun spacemacs/new-empty-buffer (&optional split)
-  "Create a new buffer called: untitled<n>
+  "Create a new buffer called: \"untitled\".
 
-The SPLIT argument decides where the buffer opens:
-Value                                Buffer
-`nil'                                current window
-`left', `below', `above' or `right'  split window
-`frame'                              new frame
+SPLIT decides where the buffer opens:
+- nil, open in current window.
+- `left', `below', `above' or `right', split the window in the given direction.
+- `frame', open in new frame.
 
 If the variable `dotspacemacs-new-empty-buffer-major-mode' has been set,
 then apply that major mode to the new buffer."
@@ -863,6 +869,9 @@ then apply that major mode to the new buffer."
     ;; Prompt to save on `save-some-buffers' with positive PRED
     (with-current-buffer newbuf
       (setq-local buffer-offer-save t)
+      (add-hook 'kill-buffer-hook
+                #'spacemacs//confirm-kill-buffer
+                nil t)
       (when dotspacemacs-new-empty-buffer-major-mode
         (funcall dotspacemacs-new-empty-buffer-major-mode)))
     ;; pass non-nil force-same-window to prevent `switch-to-buffer' from
@@ -1350,10 +1359,55 @@ the right."
   (interactive)
   (set-buffer-file-coding-system 'undecided-dos nil))
 
-(defun spacemacs/copy-file ()
-  "Write the file under new name."
-  (interactive)
-  (call-interactively 'write-file))
+(defun spacemacs/save-as (filename &optional visit)
+  "Save current buffer or active region as specified file.
+When called interactively, it first prompts for FILENAME, and then asks
+whether to VISIT it, and if so, whether to show it in current window or
+another window. When prefixed with a universal-argument \\[universal-argument], include
+filename in prompt.
+
+FILENAME  a non-empty string as the name of the saved file.
+VISIT     When it's `:current', open FILENAME in current window. When it's
+          `:other', open FILENAME in another window. When it's nil, only
+          save to FILENAME but does not visit it. (Default to `:current'
+          when called from a LISP program.)
+
+When FILENAME already exists, it also asks the user whether to
+overwrite it."
+  (interactive (let* ((filename (expand-file-name (read-file-name "Save buffer as: " nil nil nil
+                                                                  (when current-prefix-arg (buffer-name)))))
+                      (choices  '("Current window"
+                                  "Other window"
+                                  "Don't open"))
+                      (actions  '(:current :other nil))
+                      (visit    (let ((completion-ignore-case t))
+                                  (nth (cl-position
+                                        (completing-read "Do you want to open the file? "
+                                                         choices nil t)
+                                        choices
+                                        :test #'equal)
+                                       actions))))
+                 (list filename visit)))
+  (unless (called-interactively-p 'any)
+    (cl-assert (and (stringp filename)
+                    (not (string-empty-p filename))
+                    (not (directory-name-p filename)))
+               t "Expect a non-empty filepath, found: %s")
+    (setq filename (expand-file-name filename)
+          visit (or visit :other))
+    (let ((choices '(:current :other nil)))
+      (cl-assert (memq visit choices)
+                 t "Found %s, expect one of %s")))
+  (let ((dir (file-name-directory filename)))
+    (unless (file-directory-p dir)
+      (make-directory dir t)))
+  (if (use-region-p)
+      (write-region (region-beginning) (region-end) filename nil nil nil t)
+    (write-region nil nil filename nil nil nil t))
+  (pcase visit
+    (:current (find-file filename))
+    (:other   (funcall-interactively 'find-file-other-window filename))))
+
 
 ;; from https://www.emacswiki.org/emacs/CopyingWholeLines
 (defun spacemacs/duplicate-line-or-region (&optional n)
@@ -1619,11 +1673,14 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
     (if arg
         (switch-to-buffer-other-window (get-buffer-create "*scratch*"))
       (switch-to-buffer (get-buffer-create "*scratch*")))
-    (when (and (not exists)
-               (not (eq major-mode dotspacemacs-scratch-mode))
-               (fboundp dotspacemacs-scratch-mode))
-      (funcall dotspacemacs-scratch-mode)
-      (run-hooks 'spacemacs-scratch-mode-hook))))
+    (when (not exists)
+      (add-hook 'kill-buffer-hook
+                #'spacemacs//confirm-kill-buffer
+                nil t)
+      (when (and (not (eq major-mode dotspacemacs-scratch-mode))
+                 (fboundp dotspacemacs-scratch-mode))
+        (funcall dotspacemacs-scratch-mode)
+        (run-hooks 'spacemacs-scratch-mode-hook)))))
 
 (defvar spacemacs--killed-buffer-list nil
   "List of recently killed buffers.")
@@ -1671,7 +1728,7 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
 ;; Line number
 
 (defun spacemacs/no-linum (&rest ignore)
-  "Disable linum if current buffer."
+  "Disable linum in current buffer."
   (when (or 'linum-mode global-linum-mode)
     (linum-mode 0)))
 

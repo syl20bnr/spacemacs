@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+## This script selects changed files.
+##
+## Copyright (c) 2012-2014 Sylvain Benner
+## Copyright (c) 2014-2018 Sylvain Benner & Contributors
+##
+## Author: Eugene Yaremenko
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
+
+fail_when_undefined_pr_number
+
+files_json=$(curl "${pr_file_list_URL}" --silent)
+
+for file_name in $(echo "${files_json}" | jq -r '.[].filename'); do
+    echo "${file_name}" >> /tmp/changed_files
+done
+
+echo_headline "CHANGED FILES:"
+cat /tmp/changed_files

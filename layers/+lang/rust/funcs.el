@@ -54,11 +54,11 @@
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        (lsp)
+        (lsp-deferred)
         (spacemacs/declare-prefix-for-mode 'rust-mode "ms" "switch")
         (spacemacs/set-leader-keys-for-major-mode 'rust-mode
           "ss" 'spacemacs/lsp-rust-switch-server
-          "bR" 'spacemacs/lsp-rust-analyzer-reload-workspace))
+          (if lsp-use-upstream-bindings "wR" "bR") 'spacemacs/lsp-rust-analyzer-reload-workspace))
     (spacemacs//lsp-layer-not-installed-message)))
 
 (defun spacemacs//rust-setup-lsp-dap ()
@@ -84,7 +84,7 @@ When one of the following is true, it won't reload:
     (when (and cargo-process-reload-on-modify
                (eq rust-backend 'lsp)
                (member 'rust-analyzer (spacemacs//lsp-client-server-id)))
-       (lsp-rust-analyzer-reload-workspace)))
+      (lsp-rust-analyzer-reload-workspace)))
 
   (defun spacemacs/cargo-process-repeat ()
     "Run last cargo process command, and conditionally reload the workspace."

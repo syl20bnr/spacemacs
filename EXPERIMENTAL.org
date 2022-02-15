@@ -23,6 +23,10 @@ The portable dumper is a feature that will be available with Emacs 27. This new
 dumper should theoretically work on all the three major OSes: GNU/Linux, macOS
 and Windows.
 
+WARNING: pdumper does not work with Native Compilation, so if you get an error
+like: =emacs: Trying to load incoherent dumped eln file=, make sure you disable
+this.
+
 ** Setup
 To test the portable dumper with Spacemacs, follow these steps:
 

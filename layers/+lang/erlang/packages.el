@@ -25,6 +25,7 @@
       '(
         company
         erlang
+        dap-mode
         ggtags
         counsel-gtags
         helm-gtags
@@ -40,7 +41,7 @@
     :defer t
     ;; explicitly run prog-mode hooks since erlang mode does is not
     ;; derived from prog-mode major-mode
-    :hook (erlang-mode . spacemacs//run-prog-mode-hooks)
+    :hook (erlang-mode . spacemacs/run-prog-mode-hooks)
           (erlang-mode . spacemacs//erlang-default)
           (erlang-mode-local-vars . spacemacs//erlang-setup-backend)
     :init
@@ -56,6 +57,9 @@
       ;;             ))
       (setq erlang-compile-extra-opts '(debug_info)))
     :config (require 'erlang-start)))
+
+(defun erlang/pre-init-dap-mode ()
+  (add-hook 'erlang-mode-local-vars-hook #'spacemacs//erlang-setup-dap))
 
 (defun erlang/post-init-flycheck ()
   (spacemacs/enable-flycheck 'erlang-mode))

@@ -1812,7 +1812,12 @@ So here we replace that with `insert-file-contents' for non-tar files."
                   (lambda (file)
                     (if (string-match "\\.tar\\'" file)
                         (funcall insert-file-contents-literally-orig file)
-                      (insert-file-contents file)))))
+                      (insert-file-contents file))))
+                 (kill-buffer-orig (symbol-function 'kill-buffer))
+                 ((symbol-function 'kill-buffer)
+                  (lambda (&rest args)
+                    (set-buffer-modified-p nil)
+                    (apply kill-buffer-orig args))))
         (package-install-file file))
     (package-install-file file)))
 

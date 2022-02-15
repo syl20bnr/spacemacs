@@ -94,8 +94,7 @@ seconds to load")
                                              (profiler-report)
                                              (profiler-stop))))))
 
-  (when (version<= "27.0" emacs-version)
-    (require 'time-date))
+  (require 'time-date)
   (when spacemacs-debug-with-timed-requires
     (with-current-buffer (get-buffer-create "*load-times*")
       (insert (format "Threshold set at %.3f seconds\n\n"
@@ -179,8 +178,7 @@ seconds to load")
            "- Editing style: %s\n"
            "- Completion: %s\n"
            "- Layers:\n```elisp\n%s```\n"
-           (when (version<= "25.1" emacs-version)
-             "- System configuration features: %s\n"))
+           "- System configuration features: %s\n")
    system-type
    emacs-version
    spacemacs-version

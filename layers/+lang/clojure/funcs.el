@@ -23,7 +23,7 @@
 
 (defun spacemacs//clojure-setup-backend ()
   "Conditionally setup clojure backend."
-  (when (eq clojure-backend 'lsp) (lsp)))
+  (when (eq clojure-backend 'lsp) (lsp-deferred)))
 
 (defun clojure/fancify-symbols (mode)
   "Pretty symbols for Clojure's anonymous functions and sets,
@@ -206,9 +206,9 @@ If called with a prefix argument, uses the other-window instead."
 If CIDER fails, or not available, falls back to dumb-jump's xref interface."
   (interactive (list (cider-symbol-at-point)))
   (if (and (cider-connected-p) (cider-var-info sym-name))
-      (unless (eq 'symbol (type-of (cider-find-var nil sym-name)))
-        (xref-find-definitions))
-    (xref-find-definitions)))
+      (unless (symbolp (cider-find-var nil sym-name))
+        (xref-find-definitions sym-name))
+    (xref-find-definitions sym-name)))
 
 (defun spacemacs/clj-describe-missing-refactorings ()
   "Inform the user to add clj-refactor to configuration"

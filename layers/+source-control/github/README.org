@@ -12,7 +12,6 @@
   - [[#git-configuration][Git configuration]]
   - [[#grip-mode][grip-mode]]
 - [[#key-bindings][Key bindings]]
-  - [[#gistel][gist.el]]
   - [[#clone-repositories][Clone repositories]]
   - [[#grip-mode-1][Grip-mode]]
 
@@ -21,7 +20,6 @@ This layers adds support for [[http://github.com][GitHub]].
 
 ** Features:
 - [[https://github.com/magit/forge][forge]]: integration with various forges, such as GitHub and GitLab.
-- [[https://github.com/defunkt/gist.el][gist.el]]: full-featured mode to browse and post GitHub gists.
 - [[https://github.com/sshaw/git-link][git-link]]: quickly generate URLs for commits or files.
 - [[https://github.com/dgtized/github-clone.el][github-clone]] allows for easy cloning and forking of repositories.
 - [[https://github.com/seagle0128/grip-mode][grip-mode]] Github-flavored Markdown/Org preview using [[https://github.com/joeyespo/grip][Grip]].
@@ -50,37 +48,6 @@ on debian based systems make sure you use the python 3 version
 of pip, it is normally called =pip3=.
 
 * Key bindings
-** gist.el
-
-| Key binding | Description                                   |
-|-------------+-----------------------------------------------|
-| ~SPC g g b~ | create a public gist with the buffer content  |
-| ~SPC g g B~ | create a private gist with the buffer content |
-| ~SPC g g l~ | open the gist list buffer                     |
-| ~SPC g g r~ | create a public gist with the region content  |
-| ~SPC g g R~ | create a private gist with the region content |
-
-In the gist list buffer:
-
-| Key binding | Description                  |
-|-------------+------------------------------|
-| ~/~         | evil search                  |
-| ~+~         | add buffer to gist           |
-| ~-~         | remove file for gist         |
-| ~b~ or ~o~  | open current gist in browser |
-| ~f~         | fetch current gist           |
-| ~g~         | refresh the list             |
-| ~h~         | go left                      |
-| ~j~         | go down                      |
-| ~k~         | go up                        |
-| ~K~         | kill current gist            |
-| ~l~         | go right                     |
-| ~n~         | next search occurrence       |
-| ~N~         | next previous occurrence     |
-| ~v~         | =visual state=               |
-| ~V~         | =visual-line state=          |
-| ~y~         | print URL and copy it        |
-
 ** Clone repositories
 
 | Key binding   | Description                                              |

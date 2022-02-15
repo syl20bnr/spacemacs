@@ -13,9 +13,11 @@
 - [[#configuration][Configuration]]
   - [[#erlang-mode][erlang-mode]]
   - [[#lsp][LSP]]
+  - [[#debugger][Debugger]]
 - [[#key-bindings][Key bindings]]
   - [[#erlang-mode-1][erlang-mode]]
   - [[#lsp-1][LSP]]
+  - [[#dap][DAP]]
 
 * Description
 This layer adds support for [[https://erlang.org/][Erlang]].
@@ -40,6 +42,7 @@ features following =Language Server Protocol=, through [[https://erlang-ls.githu
 - Outline
 - Workspace Symbols
 - Code Folding
+- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
 * Install
 ** Layer
@@ -90,6 +93,29 @@ You can install it:
   make install
 #+END_SRC
 
+** Debugger
+The =dap= backend uses [[https://erlang-ls.github.io/][erlang_ls-dap]] implementation. Information about configuring
+a project to use the debugger can be found [[https://erlang-ls.github.io/articles/tutorial-debugger/][here]].
+
+If you are using =erlang_ls= backend, probably you have =els_dap= already
+installed, otherwise, follow the instructions.
+
+Clone the project to your system and compile it to produce the =els_dap= escript:
+
+#+BEGIN_SRC bash
+  rebar3 as dap escriptize
+#+END_SRC
+
+or
+
+#+BEGIN_SRC bash
+  make
+#+END_SRC
+
+=els_dap= will be found at "erlang_ls/_build/dap/bin/"
+
+*Note:* Ensure you have =els_dap= in your =PATH=...
+
 * Key bindings
 ** erlang-mode
 
@@ -109,3 +135,6 @@ You can install it:
 
 ** LSP
 You will find an overview of all the key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/lsp#key-bindings][lsp layer description]].
+
+** DAP
+You will find an overview of all the key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].

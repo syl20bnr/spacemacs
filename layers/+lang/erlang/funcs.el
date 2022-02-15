@@ -30,16 +30,22 @@
   ;; Activate lsp company explicitly to activate
   ;; standard backends as well
   (when (eq erlang-backend 'lsp)
-        (spacemacs|add-company-backends
-           :backends company-capf
-           :modes erlang-mode
-           :append-hooks t)))
+    (spacemacs|add-company-backends
+      :backends company-capf
+      :modes erlang-mode
+      :append-hooks t)))
 
 (defun spacemacs//erlang-setup-lsp ()
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
-      (lsp)
+      (lsp-deferred)
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+(defun spacemacs//erlang-setup-dap ()
+  "Conditionally setup erlang DAP integration."
+  (if (configuration-layer/layer-used-p 'dap)
+      (require 'dap-erlang)
+    (message "`dsp' layer is not installed, please add `dap' layer to your dotfile.")))
 
 (defun spacemacs//erlang-default ()
   "Default settings for erlang buffers"

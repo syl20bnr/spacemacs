@@ -109,6 +109,10 @@
 
 (defun julia/init-lsp-julia ()
   (use-package lsp-julia
+    :defer t
+    :init
+    (with-eval-after-load 'lsp-mode
+      (require 'lsp-julia))
     :config
     (progn
       (push 'xref-find-definitions spacemacs-jump-handlers-julia-mode))))

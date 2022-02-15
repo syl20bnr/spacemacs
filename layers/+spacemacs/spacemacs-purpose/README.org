@@ -79,11 +79,9 @@ changes.
 See [[https://github.com/bmag/emacs-purpose/wiki][window-purpose wiki]] to learn more about window-purpose.
 
 ** Allocate purposes in layers
-Layers can allocated buffers, which have been created by their
-packages, to certain purposes. This can either be done
-by a simple mode mapping or according to the buffer's name.
-This follows the same idea as the autocomplete and
-syntax-checking layers.
+Layers may assign purposes to buffers that have been created by their packages.
+This can either be done by a simple mode mapping or according to the buffer's
+name. This follows the same idea as the autocomplete and syntax-checking layers.
 
 This means the configuration is not centralised in this layer but
 spread among the individual language layers. To ensure

@@ -132,8 +132,9 @@ To enable manual non-automatic invocation of docstring tooltips, set it to
                       auto-completion-enable-help-tooltip 'manual)))
 #+END_SRC
 
-However the tooltip may overlap on text on macOS, you can use =company-box= on
-Emacs 26+ by setting =auto-completion-use-company-box= to =t=.
+However the tooltip may overlap on text on macOS, you can use =company-box= or
+=company-posframe= on by setting =auto-completion-use-company-box= or
+=auto-completion-use-company-posframe= to =t=, respectively.
 
 ** Sort results by usage
 To enable sorting auto-completion results by their usage frequency set
@@ -160,7 +161,7 @@ It can be done by adding =(global-company-mode)= in the
 to do so, you should instead open an issue to ask for auto-completion support
 for the major-modes where it is missing.
 
-If you choose to use =(global-company-mode)= then you loose some advantages
+If you choose to use =(global-company-mode)= then you would lose some advantages
 provided by the layer system like [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#disabling-layer-services-in-other-layers][disabling auto-completion for specific layers]].
 
 ** Replacing company by auto-complete

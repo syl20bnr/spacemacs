@@ -57,7 +57,6 @@ Here is an example of such a file (note the usage of org tags to tag your feeds)
   ** [[http://orgmode.org][Org Mode Links supported as well]]
   ** Software Development                                                 :dev:
   *** Emacs                                                    :emacs:mustread:
-  **** http://www.terminally-incoherent.com/blog/feed/
   **** http://nullprogram.com/feed/
   **** entry-title: \(emacs\|org-mode\)
   **** https://planet.emacslife.com/atom.xml

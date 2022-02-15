@@ -33,7 +33,6 @@
     ;; layer. So it is easier for users to steal the ownership of the
     ;; `org' package.
     (default-org-config :location built-in)
-    (org-plus-contrib :step pre)
     org-superstar
     (space-doc :location local)
     toc-org
@@ -41,9 +40,6 @@
 
 (defun spacemacs-org/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'org-mode-hook))
-
-;; dummy init function to force installation of `org-plus-contrib'
-(defun spacemacs-org/init-org-plus-contrib ())
 
 (defun spacemacs-org/init-default-org-config ()
   (use-package org
@@ -64,15 +60,15 @@
             ;; this is consistent with the value of
             ;; `helm-org-headings-max-depth'.
             org-imenu-depth 8)
-    :config
-    (progn
-      (font-lock-add-keywords
-       'org-mode '(("\\(@@html:<kbd>@@\\) \\(.*\\) \\(@@html:</kbd>@@\\)"
-                    (1 font-lock-comment-face prepend)
-                    (2 font-lock-function-name-face)
-                    (3 font-lock-comment-face prepend))))
-      ;; Open links and files with RET in normal state
-      (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)))))
+      :config
+      (progn
+        (font-lock-add-keywords
+         'org-mode '(("\\(@@html:<kbd>@@\\) \\(.*\\) \\(@@html:</kbd>@@\\)"
+                      (1 font-lock-comment-face prepend)
+                      (2 font-lock-function-name-face)
+                      (3 font-lock-comment-face prepend))))
+        ;; Open links and files with RET in normal state
+        (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)))))
 
 (defun spacemacs-org/init-org-superstar ()
   (use-package org-superstar

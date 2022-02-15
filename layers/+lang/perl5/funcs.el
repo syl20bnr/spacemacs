@@ -36,7 +36,7 @@
 (defun spacemacs//perl5-setup-backend ()
   "Conditionally setup perl5 backend."
   (when (eq perl5-backend 'lsp)
-    (lsp)))
+    (lsp-deferred)))
 
 (defun spacemacs//perl5-setup-dap ()
   "Conditionally setup perl5 DAP integration."

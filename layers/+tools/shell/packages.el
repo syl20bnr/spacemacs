@@ -206,9 +206,8 @@
 
 (defun shell/post-init-projectile ()
   (spacemacs/set-leader-keys
-    "p'" 'spacemacs/projectile-shell-pop
-    "p$t" 'projectile-multi-term-in-root)
-  (spacemacs/declare-prefix "p$" "projects/shell"))
+    "p'" #'spacemacs/projectile-shell-pop
+    "p$" #'spacemacs/projectile-shell))
 
 (defun shell/init-shell ()
   (spacemacs/register-repl 'shell 'shell)

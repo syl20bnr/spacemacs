@@ -8,6 +8,8 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#configuration][Configuration]]
+    - [[#unicode-or-short-names][Unicode or short-names]]
 - [[#key-bindings][Key bindings]]
   - [[#emoji-dedicated-buffer][Emoji dedicated buffer]]
 
@@ -29,6 +31,17 @@ Linux user could install [[https://zhm.github.io/symbola/][Symbola]] font to get
 
 #+BEGIN_SRC shell
   apt-get install ttf-ancient-fonts
+#+END_SRC
+
+** Configuration
+*** Unicode or short-names
+By default, company-emoji is configured only for =text-mode= and inserts
+unicode. To insert short-names set =company-emoji-insert-unicode= to =nil= as
+follows:
+
+#+BEGIN_SRC emacs-lisp
+  (auto-completion :variables
+                   company-emoji-insert-unicode nil)
 #+END_SRC
 
 * Key bindings

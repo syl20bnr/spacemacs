@@ -25,6 +25,7 @@
       '(
         arduino-mode
         (ebuild-mode :location (recipe :fetcher github :repo "emacsmirror/ebuild-mode"))
+        evil-matchit
         (hoon-mode :location (recipe :fetcher github :repo "urbit/hoon-mode.el"))
         (logcat :location (recipe :fetcher github :repo "dcolascione/logcat-mode"))
         matlab-mode
@@ -108,3 +109,6 @@
     :defer t
     :interpreter "\\(Wolfram\\|Mathematica\\)Script\\( -script\\)?"
     :mode "\\.wl\\'"))
+
+(defun major-modes/post-init-evil-matchit ()
+  (add-hook 'matlab-mode-hook 'turn-on-evil-matchit-mode))

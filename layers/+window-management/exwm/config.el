@@ -23,20 +23,32 @@
 (defvar exwm-terminal-command "xterm"
   "Terminal command to run.")
 
-(defvar exwm-locking-command "slock"
+(defvar exwm-locking-command nil
   "Command to run when locking session")
 
 (defvar exwm-hide-tiling-modeline nil
   "Whether to hide modeline.")
 
-(defvar exwm-leader-key nil
-  "Key to use for EXWM global commands")
+;; (defvar exwm-leader-key nil
+;;   "Key to use for EXWM global commands")
+
+(defvar exwm-enable-systray nil
+  "When non-nil, enable system tray integration for EXWM.")
+
+(defvar exwm-autostart-xdg-applications nil
+  "When non-nil, autostart applications in  $XDG_USER_HOME/autostart directory.")
 
 (defvar exwm-workspace-switch-wrap t
-  "Whether `exwm/exwm-workspace-next' and `exwm/exwm-workspace-prev' should wrap.")
+  "When non-nil, `exwm/exwm-workspace-next' and `exwm/exwm-workspace-prev' should wrap.")
 
-(defvar exwm-workspace-number nil
-  "Number of workspaces. Defaults to the number of connected displays if `nil'.")
+(defvar exwm--randr-displays (thread-first
+                                 "xrandr --listmonitors | grep \"[0-9]\\+:\" | cut -d' ' -f2,6 "
+                               (shell-command-to-string)
+                               (string-trim)
+                               (split-string ": "))
+  "List of defined monitors.")
 
 (defvar exwm-randr-command nil
-  "`xrandr' command to set up displays prior to EXWM init.")
+  "`xrandr' command to set up displays prior to EXWM init.
+For example,
+  \"xrandr --output VGA1 --left-of LVDS1 --auto\".")

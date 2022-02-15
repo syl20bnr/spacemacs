@@ -36,9 +36,10 @@
     (progn
       (spacemacs|hide-lighter outline-minor-mode)
       (spacemacs|hide-lighter outshine-mode)
-      (spacemacs/declare-prefix "aO" "out(line/org/shine)")
-      (spacemacs/declare-prefix "aOg" "goto")
-      (spacemacs/declare-prefix "aOi" "insert")
+      (spacemacs/declare-prefix
+        "aO"  "out(line/org/shine)"
+        "aOg" "goto"
+        "aOi" "insert")
       (spacemacs/set-leader-keys
         "aO."  'spacemacs/outshine-transient-state/body
         "aOS"  'outline-show-all

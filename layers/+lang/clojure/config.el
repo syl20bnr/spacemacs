@@ -38,6 +38,10 @@
 (defvar clojure-enable-clj-refactor nil
   "If non-nil, the clj-refactor is enabled.")
 
+(defvar clojure-enable-kaocha-runner nil
+  "If non-nil, the Kaocha runner is enabled.
+Kaocha should be a dev-dependency or alias in a Clojure project.")
+
 (defvar clojure-enable-linters nil
   "If non-nil, enable clojure linters.")
 

@@ -55,7 +55,7 @@
 (defun spacemacs//elixir-setup-lsp ()
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
-      (progn (add-to-list 'exec-path elixir-ls-path) (lsp))
+      (progn (add-to-list 'exec-path elixir-ls-path) (lsp-deferred))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//elixir-setup-lsp-dap ()

@@ -23,7 +23,7 @@
 
 (defconst dap-packages
   '(dap-mode
-    (posframe (not (version< emacs-version "26.1")))))
+    posframe))
 
 (defun dap/init-dap-mode ()
   (use-package dap-mode
@@ -47,12 +47,11 @@
       (when dap-enable-mouse-support
         (spacemacs/toggle-dap-mouse-on))
 
-      (unless (version< emacs-version "26.1")
-        (spacemacs|add-toggle dap-ui-controls
-          :status dap-ui-controls-mode
-          :on (dap-ui-controls-mode)
-          :off (dap-ui-controls-mode -1)
-          :documentation "Enable dap-ui-controls-mode"))
+      (spacemacs|add-toggle dap-ui-controls
+        :status dap-ui-controls-mode
+        :on (dap-ui-controls-mode)
+        :off (dap-ui-controls-mode -1)
+        :documentation "Enable dap-ui-controls-mode")
 
       (when dap-enable-ui-controls
         (spacemacs/toggle-dap-ui-controls-on))
@@ -106,19 +105,17 @@
                        "dwl" #'dap-ui-locals
                        "dws" #'dap-ui-sessions
                        "dwb" #'dap-ui-breakpoints))
-            (prefixes '(("d"  . "debug")
-                        ("db" . "breakpoints")
-                        ("dd" . "debugging")
-                        ("de" . "eval")
-                        ("dI" . "inspect")
-                        ("dS" . "switch")
-                        ("dT" . "toggles")
-                        ("dw" . "debug windows"))))
+            (prefixes '("d"  "debug"
+                        "db" "breakpoints"
+                        "dd" "debugging"
+                        "de" "eval"
+                        "dI" "inspect"
+                        "dS" "switch"
+                        "dT" "toggles"
+                        "dw" "debug windows")))
 
         ;; Set global prefixes
-        (mapc (lambda (cons)
-                (spacemacs/declare-prefix (car cons) (cdr cons)))
-              prefixes)
+        (apply #'spacemacs/declare-prefix prefixes)
 
         ;; Set global key bindings
         (apply #'spacemacs/set-leader-keys bindings)
@@ -131,15 +128,15 @@
           (spacemacs/set-leader-keys-for-major-mode mode "dd" nil)
 
           ;; Set prefixes
-          (mapc (lambda (cons)
-                  (spacemacs/declare-prefix-for-mode mode (concat "m" (car cons)) (cdr cons)))
-                prefixes)
+          (cl-do* ((x prefixes (cddr x))
+                   (y (cdr x) (cdr x)))
+              ((or (null x) (null y)))
+            (spacemacs/declare-prefix-for-mode mode
+              (concat "m" (car x)) (car y)))
 
           ;; Set bindings
           (apply #'spacemacs/set-leader-keys-for-major-mode mode bindings))))))
 
 
-
 (defun dap/init-posframe ()
-  (unless (version< emacs-version "26.1")
-    (use-package posframe)))
+  (use-package posframe))

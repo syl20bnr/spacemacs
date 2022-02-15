@@ -1,0 +1,26 @@
+#+TITLE: lobsters layer
+
+#+TAGS: layer|web service
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds support for reading [[https://lobste.rs/][lobsters]].
+
+** Features:
+- Read Lobsters news
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =lobsters= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key binding | Description                       |
+|-------------+-----------------------------------|
+| ~SPC a w l~ | ~helm-lobsters~ or ~ivy-lobsters~ |

@@ -27,9 +27,7 @@
     clang-format
     company
     (company-c-headers :requires company)
-    (cpp-auto-include
-     :location (recipe :fetcher github
-                       :repo "syohex/emacs-cpp-auto-include"))
+    cpp-auto-include
     disaster
     eldoc
     flycheck
@@ -58,7 +56,26 @@
     ;; ycmd
     (company-ycmd :requires company)
     (flycheck-ycmd :requires flycheck)
+    (gendoxy :location (recipe
+                        :fetcher github
+                        :repo "cormacc/gendoxy"
+                        :branch "provides"))
     ycmd))
+
+(defun c-c++/init-gendoxy ()
+  "Initialise gendoxy (doxygen package)"
+  (use-package gendoxy
+    :defer t
+    :init (dolist (mode c-c++-modes)
+              (spacemacs/declare-prefix-for-mode mode "mi" "insert")
+              (spacemacs/set-leader-keys-for-major-mode mode
+                "ih" 'gendoxy-header
+                "id" 'gendoxy-tag
+                "iD" 'gendoxy-tag-header
+                "ig" 'gendoxy-group
+                "iG" 'gendoxy-group-header
+                "is" 'gendoxy-group-start
+                "ie" 'gendoxy-group-end))))
 
 (defun c-c++/init-cc-mode ()
   (use-package cc-mode
@@ -126,8 +143,9 @@
 
       (spacemacs/declare-prefix-for-mode 'c++-mode
         "mr" "refactor")
+
       (spacemacs/set-leader-keys-for-major-mode 'c++-mode
-        "ri" #'spacemacs/c++-organize-includes))))
+        "ri" #'spacemacs/c-c++-organize-includes))))
 
 (defun c-c++/pre-init-dap-mode ()
   (pcase c-c++-backend

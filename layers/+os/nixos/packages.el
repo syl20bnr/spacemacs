@@ -53,7 +53,13 @@
     :defer t
     :mode "\\.nix\\'"
     :init
-    (add-to-list 'spacemacs-indent-sensitive-modes 'nix-mode)
+    (progn
+      (spacemacs/add-to-hook 'nix-mode-hook '(spacemacs//nix-setup-backend))
+      (add-to-list 'spacemacs-indent-sensitive-modes 'nix-mode)
+      (spacemacs/set-leader-keys-for-major-mode 'nix-mode
+        "==" 'nix-format-buffer)
+      (when nixos-format-on-save
+        (add-hook 'before-save-hook 'nix-format-before-save)))
     :config
     (electric-indent-mode -1)))
 

@@ -21,29 +21,27 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq spacemacs-bootstrap-packages
-      '(
-        ;; bootstrap packages,
-        ;; `use-package' cannot be used for bootstrap packages configuration
-        (async :step bootstrap)
-        (bind-map :step bootstrap)
-        (bind-key :step bootstrap)
-        (diminish :step bootstrap)
-        (evil :step bootstrap)
-        (hydra :step bootstrap)
-        (use-package :step bootstrap)
-        (which-key :step bootstrap)
-        ;; pre packages, initialized after the bootstrap packages
-        ;; these packages can use use-package
-        (dotenv-mode :step pre)
-        (evil-evilified-state :location local :step pre :protected t)
-        (pcre2el :step pre)
-        (holy-mode :location local :step pre)
-        (hybrid-mode :location (recipe :fetcher local) :step pre)
-        (spacemacs-theme :location built-in)
-        dash))
-
-
+(defconst spacemacs-bootstrap-packages
+  '(
+    ;; bootstrap packages,
+    ;; `use-package' cannot be used for bootstrap packages configuration
+    (async :step bootstrap)
+    (bind-map :step bootstrap)
+    (bind-key :step bootstrap)
+    (diminish :step bootstrap)
+    (evil :step bootstrap)
+    (hydra :step bootstrap)
+    (use-package :step bootstrap)
+    (which-key :step bootstrap)
+    ;; pre packages, initialized after the bootstrap packages
+    ;; these packages can use use-package
+    (dotenv-mode :step pre)
+    (evil-evilified-state :location local :step pre :protected t)
+    (pcre2el :step pre)
+    (holy-mode :location local :step pre)
+    (hybrid-mode :location (recipe :fetcher local) :step pre)
+    (spacemacs-theme :location built-in)
+    dash))
 
 ;; bootstrap packages
 
@@ -288,6 +286,11 @@
   (evil-define-text-object evil-inner-buffer (count &optional beg end type)
     (list (point-min) (point-max)))
   (define-key evil-inner-text-objects-map "g" 'evil-inner-buffer)
+
+  ;; special-mode buffers are read-only and therefore should open in
+  ;; motion-state (evilified state is too aggressive, e.g. evil-local-set-key
+  ;; has no effect)
+  (add-to-list 'evil-motion-state-modes 'special-mode)
 
   ;; turn off evil in corelv buffers
   (add-to-list 'evil-buffer-regexps '("\\*LV\\*"))

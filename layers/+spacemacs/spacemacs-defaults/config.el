@@ -75,6 +75,10 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Don't try to ping things that look like domain names
 (setq ffap-machine-p-known 'reject)
 
+;; Don't accept SPC as a yes for prompts
+(unless dotspacemacs-use-SPC-as-y
+  (define-key query-replace-map (kbd "SPC") nil))
+
 ;; ---------------------------------------------------------------------------
 ;; Mouse
 ;; ---------------------------------------------------------------------------
@@ -154,11 +158,11 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Fullscreen/maximize frame on startup
 (when (and (not spacemacs-initialized)
            dotspacemacs-fullscreen-at-startup)
-    ;; spacemacs/toggle-fullscreen-frame-on is NOT available during the startup,
-    ;; but IS available during the subsequent config reloads
-    (if (fboundp 'spacemacs/toggle-fullscreen-frame-on)
-        (spacemacs/toggle-fullscreen-frame-on)
-      (spacemacs/toggle-frame-fullscreen)))
+  ;; spacemacs/toggle-fullscreen-frame-on is NOT available during the startup,
+  ;; but IS available during the subsequent config reloads
+  (if (fboundp 'spacemacs/toggle-fullscreen-frame-on)
+      (spacemacs/toggle-fullscreen-frame-on)
+    (spacemacs/toggle-frame-fullscreen)))
 
 (setq ns-use-native-fullscreen (not dotspacemacs-fullscreen-use-non-native))
 

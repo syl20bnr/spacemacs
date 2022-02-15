@@ -17,7 +17,7 @@ a major-mode for [[http://plantuml.com][plantuml]]. PlantUML is a tool to genera
 
 For help with how to use plantuml, see the [[http://plantuml.com][plantuml website]] and the [[http://plantuml.com/guide][reference guide]].
 
-The official file extension supported by this layer is =.pum=. If you want something else,
+The official file extension supported by this layer is =.pum=. and =.puml=. If you want something else,
 set it in your =user-config= function of your =~/.spacemacs= file.
 
 For example, the following diagram can be defined as follows:

@@ -1,6 +1,6 @@
 ;;; packages.el --- games Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -21,16 +21,16 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq games-packages
-      '(
-        2048-game
-        (helm-games :location local
-                    :requires helm)
-        pacmacs
-        (tetris :location built-in)
-        sudoku
-        typit
-        ))
+(defconst games-packages
+  '(
+    2048-game
+    (helm-games :location local
+                :requires helm)
+    pacmacs
+    (tetris :location built-in)
+    sudoku
+    typit))
+
 
 (defun games/init-2048-game ()
   (use-package 2048-mode
@@ -38,7 +38,8 @@
     :init
     (progn
       (push '("2048" . (2048-game :quit (kill-buffer-ask (get-buffer "2048"))
-                                  :reset 2048-init)) helm-games-list)
+                                  :reset 2048-init))
+            helm-games-list)
       (evilified-state-evilify 2048-mode 2048-mode-map
         "j" '2048-down
         "k" '2048-up
@@ -59,7 +60,8 @@
     :init
     (push '("pacmacs" . (pacmacs-start
                          :quit (kill-buffer-ask (get-buffer "*Pacmacs*"))
-                         :reset pacmacs-start)) helm-games-list)
+                         :reset pacmacs-start))
+          helm-games-list)
     (evilified-state-evilify pacmacs-mode pacmacs-mode-map
       "h" 'pacmacs-left
       "j" 'pacmacs-down
@@ -72,7 +74,8 @@
     :init
     (progn
       (push '("Tetris" . (tetris :quit spacemacs/tetris-quit-game
-                                 :reset tetris-start-game)) helm-games-list)
+                                 :reset tetris-start-game))
+            helm-games-list)
       (setq tetris-score-file (concat spacemacs-games-cache-directory
                                       "tetris-scores.txt")))
     :config
@@ -91,7 +94,8 @@
     :init
     (progn
       (push '("sudoku" . (sudoku :quit (kill-buffer-ask (get-buffer "*Sudoku*"))
-                                 :reset sudoku-restart)) helm-games-list)
+                                 :reset sudoku-restart))
+            helm-games-list)
       (evilified-state-evilify sudoku-mode sudoku-mode-map
         ;; Movement
         "j" 'sudoku-move-point-down

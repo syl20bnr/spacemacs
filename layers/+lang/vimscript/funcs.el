@@ -33,4 +33,4 @@
 (defun spacemacs//vimscript-setup-backend ()
   "Conditionally setup vimscript backend."
   (when (eq vimscript-backend 'lsp)
-    (lsp)))
+    (lsp-deferred)))

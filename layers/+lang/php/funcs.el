@@ -24,7 +24,7 @@
 (defun spacemacs//php-setup-backend ()
   "Conditionally setup php backend."
   (when (eq php-backend 'lsp)
-    (lsp)))
+    (lsp-deferred)))
 
 (defun spacemacs//php-setup-dap ()
   "Conditionally setup elixir DAP integration."

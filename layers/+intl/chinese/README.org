@@ -2,7 +2,7 @@
 
 #+TAGS: i18n|layer
 
-[[file:img/China.png]] [[file:img/Chinese.png]]
+[[file:img/Chinese.png]]
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
@@ -25,6 +25,7 @@
 - [[#key-bindings][Key bindings]]
   - [[#youdao-dictionary][Youdao Dictionary]]
   - [[#find-by-pinyin-dired][Find-by-pinyin-dired]]
+- [[#additional-notes][Additional Notes]]
 
 * Description
 This layer adds support for traditional Chinese script to Spacemacs.
@@ -190,3 +191,15 @@ Bind ~SPC o y~ to =youdao-dictionary-search-at-point+=.
 
 ** Find-by-pinyin-dired
 Bind ~SPC o d~ to =find-by-pinyin-dired=
+
+* Additional Notes
+If default ELPA repositories are slow in your network repository, you may try to use mirror sites.
+Add the following in =dotspacemacs-user-config=
+
+#+BEGIN_SRC emacs-lisp
+  (setq configuration-layer-elpa-archives
+        '(("melpa-cn" . "http://mirrors.bfsu.edu.cn/elpa/melpa/")
+          ("org-cn" . "http://mirrors.bfsu.edu.cn/elpa/org/")
+          ("gnu-cn" . "http://mirrors.bfsu.edu.cn/elpa/gnu/")
+          ("non-gnu" . "https://elpa.nongnu.org/nongnu/")))
+#+END_SRC

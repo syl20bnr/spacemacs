@@ -73,12 +73,6 @@ Otherwise, revert to the default behavior (i.e. enable `evil-insert-state')."
       (evil-escape-mode t)
     (evil-escape-mode -1)))
 
-(defun spacemacs/linum-relative-toggle ()
-  (interactive)
-  (if (not (bound-and-true-p linum-relative-mode))
-      (linum-mode))
-  (linum-relative-toggle))
-
 
 ;; vi-tilde-fringe
 

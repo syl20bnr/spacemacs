@@ -135,9 +135,7 @@ used."
                   (spacemacs//micro-state-set-minibuffer-height doc)
                   (apply ',msg-func (list (spacemacs//micro-state-propertize-doc
                                            (format "%S: %s" ',name doc))))))
-              (,(if (version< emacs-version "24.4")
-                    'set-temporary-overlay-map
-                  'set-transient-map)
+              (set-transient-map
                (let ((map (make-sparse-keymap)))
                  ,@keymap-body map) ',(spacemacs//micro-state-create-exit-func
                                        name wrappers persistent on-exit)))

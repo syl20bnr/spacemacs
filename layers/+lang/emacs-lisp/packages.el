@@ -28,6 +28,7 @@
     (debug :location built-in)
     (edebug :location built-in)
     eldoc
+    elisp-def
     elisp-slime-nav
     (emacs-lisp :location built-in)
     evil
@@ -40,6 +41,9 @@
     counsel-gtags
     helm-gtags
     (ielm :location built-in)
+    (inspector :location (recipe
+                          :fetcher github
+                          :repo "mmontone/emacs-inspector"))
     macrostep
     nameless
     overseer
@@ -77,7 +81,7 @@
           (lisp-indent-line))))))
 
 (defun emacs-lisp/post-init-company ()
-  (spacemacs|add-company-backends :backends company-capf
+  (spacemacs|add-company-backends :backends (company-capf company-dabbrev-code)
                                   :modes emacs-lisp-mode)
   (spacemacs|add-company-backends :backends (company-files company-capf)
                                   :modes ielm-mode))
@@ -157,6 +161,10 @@
       (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
         "cl" 'auto-compile-display-log))))
 
+(defun emacs-lisp/init-elisp-def ()
+  (use-package elisp-def
+    :defer t))
+
 (defun emacs-lisp/init-elisp-slime-nav ()
   ;; Elisp go-to-definition with M-. and back again with M-,
   (use-package elisp-slime-nav
@@ -178,6 +186,7 @@
           (spacemacs/set-leader-keys-for-major-mode mode
             "hh" 'elisp-slime-nav-describe-elisp-thing-at-point))
         (let ((jumpl (intern (format "spacemacs-jump-handlers-%S" mode))))
+          (add-to-list jumpl 'elisp-def)
           (add-to-list jumpl 'elisp-slime-nav-find-elisp-thing-at-point))))
     :config (spacemacs|hide-lighter elisp-slime-nav-mode)))
 
@@ -371,3 +380,10 @@
       "rdd" #'emr-el-delete-unused-definition
 
       "ew"  #'emr-el-eval-and-replace)))
+
+(defun emacs-lisp/init-inspector ()
+  (use-package inspector
+    :commands (inspect-expression inspect-last-sexp)
+    :config
+    (evilified-state-evilify-map inspector-mode-map
+      :mode inspector-mode)))
