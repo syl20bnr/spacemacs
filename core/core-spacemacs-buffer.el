@@ -241,7 +241,8 @@ If ALL is non-nil then truly all banners can be selected."
            (count (length files))
            ;; -2 to remove the two last ones (easter eggs)
            (choice (random (- count (if all 0 2)))))
-      (setq spacemacs-buffer--random-banner (nth choice files)))))
+      (setq spacemacs-buffer--random-banner (nth choice files))))
+  spacemacs-buffer--random-banner)
 
 (defun spacemacs-buffer//get-banner-path (index)
   "Return the full path to banner with index INDEX."
