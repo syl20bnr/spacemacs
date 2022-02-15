@@ -1,21 +1,53 @@
 ;;; packages.el --- ESS (R) Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(setq ess-packages
-      '(
-        ess
-        ess-R-data-view
-        golden-ratio
-        org
-        ))
+
+(defconst ess-packages
+  '(
+    company
+    flycheck
+    ess
+    ess-R-data-view
+    golden-ratio
+    org))
+
+(defun ess/post-init-company ()
+  ;; Julia
+  (spacemacs|add-company-backends
+    :backends company-ess-julia-objects
+    :modes ess-julia-mode inferior-ess-julia-mode)
+  ;; R
+  (spacemacs|add-company-backends
+    :backends (company-R-library company-R-args company-R-objects :separate)
+    :modes inferior-ess-r-mode)
+
+  ;; Set R company to lsp manually to include file completion
+  (unless (eq ess-r-backend 'lsp)
+    (spacemacs|add-company-backends
+      :backends (company-R-library company-R-args company-R-objects :separate)
+      :modes ess-r-mode)))
+
+(defun ess/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'ess-r-mode))
 
 (defun ess/init-ess ()
   (use-package ess-site
@@ -49,103 +81,43 @@
     :commands (R stata julia SAS ess-julia-mode)
     :init
     (progn
-      (spacemacs/register-repl 'ess-site 'julia)
-      (spacemacs/register-repl 'ess-site 'R)
-      (spacemacs/register-repl 'ess-site 'SAS)
-      (spacemacs/register-repl 'ess-site 'stata)
+      (setq ess-use-company nil
+            ess-offset-continued 'straight
+            ess-nuke-trailing-whitespace-p t
+            ess-default-style 'DEFAULT)
+
+      ;; add support for evil states
+      (evil-set-initial-state 'ess-help-mode 'motion)
+
+      (spacemacs/register-repl 'ess-site #'spacemacs/ess-start-repl)
+
+      (add-hook 'ess-r-mode-hook #'spacemacs//ess-may-setup-r-lsp)
       (add-hook 'inferior-ess-mode-hook
                 'spacemacs//ess-fix-read-only-inferior-ess-mode)
-      (when (configuration-layer/package-used-p 'company)
-        (add-hook 'ess-r-mode-hook 'company-mode))))
 
-  ;; R --------------------------------------------------------------------------
-  (setq spacemacs/ess-config
-        '(progn
-           ;; Follow Hadley Wickham's R style guide
-           (setq ess-first-continued-statement-offset 2
-                 ess-continued-statement-offset 0
-                 ess-expression-offset 2
-                 ess-nuke-trailing-whitespace-p t
-                 ess-default-style 'DEFAULT)
-
-           ;; add support for evil states
-           (evil-set-initial-state 'ess-help-mode 'motion)
-
-           (define-key ess-doc-map "h" 'ess-display-help-on-object)
-           (define-key ess-doc-map "p" 'ess-R-dv-pprint)
-           (define-key ess-doc-map "t" 'ess-R-dv-ctable)
-           (dolist (mode '(ess-julia-mode ess-r-mode))
-             (spacemacs/declare-prefix-for-mode mode "ms" "repl")
-             (spacemacs/declare-prefix-for-mode mode "mh" "help")
-             (spacemacs/declare-prefix-for-mode mode "mr" "extra")
-             (spacemacs/declare-prefix-for-mode mode "mw" "pkg")
-             (spacemacs/declare-prefix-for-mode mode "md" "dev")
-             (spacemacs/declare-prefix-for-mode mode "mc" "noweb")
-             (spacemacs/set-leader-keys-for-major-mode
-               mode
-               ","  'ess-eval-region-or-function-or-paragraph-and-step
-               "'"  'spacemacs/ess-start-repl
-               "si" 'spacemacs/ess-start-repl
-               "ss" 'ess-switch-to-inferior-or-script-buffer
-               "sS" 'ess-switch-process
-               ;; REPL
-               "sB" 'ess-eval-buffer-and-go
-               "sb" 'ess-eval-buffer
-               "sd" 'ess-eval-region-or-line-and-step
-               "sD" 'ess-eval-function-or-paragraph-and-step
-               "sL" 'ess-eval-line-and-go
-               "sl" 'ess-eval-line
-               "sR" 'ess-eval-region-and-go
-               "sr" 'ess-eval-region
-               "sF" 'ess-eval-function-and-go
-               "sf" 'ess-eval-function
-               ;; predefined keymaps
-               "h" 'ess-doc-map
-               "r" 'ess-extra-map
-               "w" 'ess-r-package-dev-map
-               "d" 'ess-dev-map
-               ;; noweb
-               "cC" 'ess-eval-chunk-and-go
-               "cc" 'ess-eval-chunk
-               "cd" 'ess-eval-chunk-and-step
-               "cm" 'ess-noweb-mark-chunk
-               "cN" 'ess-noweb-previous-chunk
-               "cn" 'ess-noweb-next-chunk))
-           (dolist (mode '(inferior-ess-mode))
-             (spacemacs/declare-prefix-for-mode mode "ms" "repl")
-             (spacemacs/declare-prefix-for-mode mode "me" "eval")
-             (spacemacs/declare-prefix-for-mode mode "mg" "xref")
-             (spacemacs/declare-prefix-for-mode mode "mh" "help")
-             (spacemacs/declare-prefix-for-mode mode "mr" "extra")
-             (spacemacs/declare-prefix-for-mode mode "mw" "pkg")
-             (spacemacs/declare-prefix-for-mode mode "md" "dev")
-             (spacemacs/set-leader-keys-for-major-mode
-               mode
-               ","  'ess-smart-comma
-               "ss" 'ess-switch-to-inferior-or-script-buffer
-               ;; predefined keymaps
-               "h" 'ess-doc-map
-               "r" 'ess-extra-map
-               "w" 'ess-r-package-dev-map
-               "d" 'ess-dev-map))
-           (define-key ess-mode-map (kbd "<s-return>") 'ess-eval-line)
-           (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
-           (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input)
-
-           (when ess-assign-key
-             (define-key ess-r-mode-map          ess-assign-key #'ess-insert-assign)
-             (define-key inferior-ess-r-mode-map ess-assign-key #'ess-insert-assign))))
-
-  (eval-after-load "ess-r-mode" spacemacs/ess-config)
-  (eval-after-load "ess-julia" spacemacs/ess-config)
+      (with-eval-after-load 'ess-julia
+        (spacemacs/ess-bind-keys-for-julia))
+      (with-eval-after-load 'ess-r-mode
+        (spacemacs/ess-bind-keys-for-r)
+        (unless (eq ess-r-backend 'lsp)
+          (spacemacs/declare-prefix-for-mode 'ess-r-mode "mg" "goto")
+          (define-key ess-doc-map "h" #'ess-display-help-on-object)))
+      (with-eval-after-load 'ess-inf-mode
+        (spacemacs/ess-bind-keys-for-inferior)))
+    :config
+    (define-key ess-mode-map (kbd "<s-return>") #'ess-eval-line))
 
   ;; xref integration added with #96ef5a6
   (spacemacs|define-jump-handlers ess-mode 'xref-find-definitions))
 
-(defun ess/init-ess-help ()
-  (evilified-state-evilify-map ess-help-mode-map))
-
-(defun ess/init-ess-R-data-view ())
+(defun ess/init-ess-R-data-view ()
+  (use-package ess-R-data-view
+    :defer t
+    :config
+    (dolist (mode '(ess-julia-mode ess-r-mode inferior-ess-mode))
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "hp" #'ess-R-dv-pprint
+        "ht" #'ess-R-dv-ctable))))
 
 (defun ess/pre-init-golden-ratio ()
   (spacemacs|use-package-add-hook golden-ratio

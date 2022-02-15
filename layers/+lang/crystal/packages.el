@@ -1,17 +1,28 @@
 ;;; packages.el --- Crystal Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Brantou <brantou89@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst crystal-packages
-  '(
-    (ameba :location (recipe :fetcher github
+  '((ameba :location (recipe :fetcher github
                              :repo "veelenga/ameba.el"
                              :files ("ameba.el")))
     company
@@ -20,38 +31,35 @@
     (flycheck-crystal :requires flycheck)
     inf-crystal
     ob-crystal
-    play-crystal
-    ))
+    play-crystal))
 
-(defun crystal/init-ameba()
+(defun crystal/post-init-company ()
+  (spacemacs//crystal-setup-company))
+
+(defun crystal/init-ameba ()
   (use-package ameba
     :defer t
-    :init (add-hook 'crystal-mode-hook 'ameba-mode)
-    :config
+    :init
     (progn
-      (spacemacs/declare-prefix-for-mode 'crystal-mode "ma" "ameba")
+      (add-hook 'crystal-mode-hook 'ameba-mode)
+      (spacemacs/declare-prefix-for-mode 'crystal-mode "mua" "ameba")
       (spacemacs/set-leader-keys-for-major-mode 'crystal-mode
-        "ad" 'ameba-check-directory
-        "af" 'ameba-check-current-file
-        "ap" 'ameba-check-project))))
+        "uad" 'ameba-check-directory
+        "uaf" 'ameba-check-current-file
+        "uap" 'ameba-check-project))))
 
-(defun crystal/post-init-company()
-  (spacemacs|add-company-backends
-    :backends company-capf
-    :modes crystal-mode
-    :variables company-tooltip-align-annotations t))
-
-(defun crystal/init-crystal-mode()
+(defun crystal/init-crystal-mode ()
   (use-package crystal-mode
     :defer t
-    :config
+    :init
     (progn
       (add-hook 'crystal-mode-hook 'spacemacs//crystal-auto-format-setup)
-
-      (spacemacs/declare-prefix-for-mode 'crystal-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'crystal-mode "mt" "test")
+      (add-hook 'crystal-mode-hook #'spacemacs//crystal-setup-backend)
       (spacemacs/declare-prefix-for-mode 'crystal-mode "mu" "tool")
-      (spacemacs/declare-prefix-for-mode 'crystal-mode "mx" "execute")
+      (unless (eq crystal-backend 'lsp)
+        (spacemacs/declare-prefix-for-mode 'crystal-mode "mg" "goto")
+        (spacemacs/declare-prefix-for-mode 'crystal-mode "mt" "test")
+        (spacemacs/declare-prefix-for-mode 'crystal-mode "ma" "action"))
       (spacemacs/set-leader-keys-for-major-mode 'crystal-mode
         "ga" 'crystal-spec-switch
         "tb" 'crystal-spec-buffer
@@ -60,25 +68,21 @@
         "ue" 'crystal-tool-expand
         "uf" 'crystal-tool-format
         "ui" 'crystal-tool-imp
-        "xx" 'spacemacs/crystal-run-main))))
+        "ax" 'spacemacs/crystal-run-main))))
 
-(defun crystal/post-init-flycheck()
+(defun crystal/post-init-flycheck ()
   (spacemacs/enable-flycheck 'crystal-mode))
 
 (defun crystal/init-flycheck-crystal ()
-  (use-package flycheck-crystal
-    :defer t
-    :init (add-hook 'crystal-mode-hook 'flycheck-mode)))
+  (use-package flycheck-crystal))
 
-(defun crystal/init-inf-crystal()
+(defun crystal/init-inf-crystal ()
   (use-package inf-crystal
     :defer t
     :init
     (progn
       (spacemacs/register-repl 'inf-crystal 'inf-crystal "inf-crystal")
-      (add-hook 'crystal-mode-hook 'inf-crystal-minor-mode))
-    :config
-    (progn
+      (add-hook 'crystal-mode-hook 'inf-crystal-minor-mode)
       (spacemacs/declare-prefix-for-mode 'crystal-mode "ms" "repl")
       (spacemacs/set-leader-keys-for-major-mode 'crystal-mode
         "'" 'inf-crystal
@@ -98,7 +102,7 @@
       :init (add-to-list 'org-babel-load-languages '(crystal . t)))))
 (defun crystal/init-ob-crystal ())
 
-(defun crystal/init-play-crystal()
+(defun crystal/init-play-crystal ()
   (use-package play-crystal
     :defer t
     :init
@@ -109,4 +113,3 @@
         "ee" 'play-crystal-browse
         "ei" 'play-crystal-insert
         "er" 'play-crystal-submit-region))))
-

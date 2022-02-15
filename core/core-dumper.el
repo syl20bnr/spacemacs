@@ -1,13 +1,27 @@
-;;; core-dumper.el --- Spacemacs Core File
+;;; core-dumper.el --- Spacemacs Core File -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+(require 'spinner)
 
 (defvar spacemacs-dump-mode 'not-dumped
   "Spacemacs dump mode, can be `not-dumped', `dumped' or `dumping'.")
@@ -21,10 +35,19 @@
 (defvar spacemacs-dump-load-path nil
   "Variable to backup the `load-path' variable built during the dump creation.")
 
+(defvar spacemacs-dump-spinner nil
+  "Spinner curently being displayed on the `global-mode-string'.")
+
+(defvar spacemacs--dump-old-global-mode-string nil
+  "Copy of `global-mode-string' before the spinner is created")
+
 (defconst spacemacs-dump-directory
   (concat spacemacs-cache-directory "dumps/"))
 
 (defconst spacemacs-dump-buffer-name "*spacemacs-dumper*")
+
+(defconst spacemacs--dump-spinner-construct
+  '("" (:eval (spinner-print spacemacs-dump-spinner))))
 
 (defun spacemacs/dump-save-load-path ()
   "Save `load-path' variable."
@@ -41,7 +64,7 @@
   (when (eq 'not-dumped spacemacs-dump-mode)
     (or idle-time t)))
 
-(defmacro spacemacs|require (&rest args)
+(defmacro spacemacs|require-when-dumping (&rest args)
   "Require feature if dumping."
   (spacemacs|when-dumping-strict `(require ,@args)))
 
@@ -81,17 +104,26 @@ the end of the loading of the dump file."
   (declare (indent defun))
   (if (eq 'dumping spacemacs-dump-mode)
       (let ((funcname2 (intern (format "spacemacs//after-dump-%S" funcname))))
-            `(progn
-               (defun ,funcname2 nil ,@body)
-               (add-to-list 'spacemacs-dump-delayed-functions ',funcname2)))
+        `(progn
+           (defun ,funcname2 nil ,@body)
+           (add-to-list 'spacemacs-dump-delayed-functions ',funcname2)))
     `(progn ,@body)))
 
 (defun spacemacs/emacs-with-pdumper-set-p ()
-  "Return non-nil if a portable dumper capable emacs executable is set."
+  "Return non-nil if a portable dumper capable Emacs executable is set and
+native compilation is not in effect."
   (and dotspacemacs-enable-emacs-pdumper
        (file-exists-p
         (locate-file (or dotspacemacs-emacs-pdumper-executable-file "emacs")
-                     exec-path exec-suffixes 'file-executable-p))))
+                     exec-path exec-suffixes 'file-executable-p))
+       (not (spacemacs/emacs-with-native-compilation-enabled-p))))
+
+(defun spacemacs/emacs-with-native-compilation-enabled-p ()
+  "Return non-nill if native compilation is enabled."
+  (and (featurep 'native-compile)
+       (fboundp 'native-compile-available-p)
+       (native-compile-available-p)
+       (not (eql comp-speed -1))))
 
 (defun spacemacs/dump-modes (modes)
   "Load given MODES in order to be dumped."
@@ -101,27 +133,56 @@ the end of the loading of the dump file."
         (message "Loading mode %S..." mode)
         (funcall-interactively mode)))))
 
-(defun spacemacs/dump-emacs ()
-  "Dump emacs in a subprocess."
-  (interactive)
+(defun spacemacs/dump-emacs (&optional display-buffer)
+  "Dump emacs in a subprocess.
+When universal prefix argument is passed then display the process buffer."
+  (interactive "P")
   (when spacemacs-dump-process
     (message "Cancel running dumping process to start a new one.")
-    (delete-process spacemacs-dump-process)
-    (with-current-buffer spacemacs-dump-buffer-name
+    (spinner-stop)
+    (delete-process spacemacs-dump-process))
+  (when-let ((buf (get-buffer spacemacs-dump-buffer-name)))
+    (with-current-buffer buf
       (erase-buffer)))
   (make-directory spacemacs-dump-directory t)
-  (setq spacemacs-dump-process
-        (make-process
-         :name "spacemacs-dumper"
-         :buffer spacemacs-dump-buffer-name
-         :command
-         (list dotspacemacs-emacs-pdumper-executable-file
-               "--batch"
-               "-l" "~/.emacs.d/dump-init.el"
-               "-eval" (concat "(dump-emacs-portable \""
-                               (concat spacemacs-dump-directory
-                                       dotspacemacs-emacs-dumper-dump-file)
-                               "\")")))))
+  (let* ((dump-file (concat spacemacs-dump-directory
+                            dotspacemacs-emacs-dumper-dump-file))
+         (dump-file-temp (concat dump-file ".new")))
+    (unless (equal global-mode-string spacemacs--dump-spinner-construct)
+      (setq spacemacs--dump-old-global-mode-string global-mode-string))
+    (setq spacemacs-dump-spinner (make-spinner 'progress-bar nil 1))
+    (spinner-start spacemacs-dump-spinner)
+    (setq global-mode-string spacemacs--dump-spinner-construct)
+    (setq spacemacs-dump-process
+          (make-process
+           :name "spacemacs-dumper"
+           :buffer spacemacs-dump-buffer-name
+           :sentinel
+           (lambda (proc event)
+             (when (not (process-live-p proc))
+               (if (and (eq (process-status proc) 'exit)
+                        (= (process-exit-status proc) 0))
+                   (with-current-buffer spacemacs-dump-buffer-name
+                     (rename-file dump-file-temp dump-file t)
+                     (goto-char (point-max))
+                     (message "Successfully dumped Spacemacs!")
+                     (insert (format "Done!\n" dump-file-temp dump-file)))
+                 (with-current-buffer spacemacs-dump-buffer-name
+                   (delete-file dump-file-temp nil)
+                   (goto-char (point-max))
+                   (message "Error while dumping Spacemacs!")
+                   (insert "Failed!\n")))
+               (spinner-stop)
+               (setq global-mode-string spacemacs--dump-old-global-mode-string)
+               (delete-process spacemacs-dump-process)
+               (setq spacemacs-dump-process nil)))
+           :command
+           (list dotspacemacs-emacs-pdumper-executable-file
+                 "--batch"
+                 "-l" (concat spacemacs-start-directory "dump-init")
+                 "-eval" (concat "(dump-emacs-portable \"" dump-file-temp "\")"))))
+    (when (equal '(4) display-buffer)
+      (pop-to-buffer spacemacs-dump-buffer-name))))
 
 (defun spacemacs/dump-eval-delayed-functions ()
   "Evaluate delayed functions."

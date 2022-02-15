@@ -28,7 +28,6 @@
     - [[#refactoring][Refactoring]]
     - [[#tasks][Tasks]]
   - [[#maven][Maven]]
-  - [[#gradle][Gradle]]
 
 * Description
 This layer adds support for the Java language.
@@ -39,7 +38,7 @@ This layer adds support for the Java language.
   - [[https://github.com/mopemope/meghanada-emacs][Meghanada]] client/server
 - Auto-completion using company
 - Linting using flycheck integration
-- Maven and Gradle integration
+- Maven integration
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
 * Layer Installation
@@ -79,7 +78,7 @@ It integrates with =company= and =flycheck=. In addition it also provides
 full graphical debugging support via =DAP mode=.
 
 LSP is the default backend used by this layer, see [[#choosing-a-backend][Choosing a backend]] in
-order to lean how to select a different backend.
+order to learn how to select a different backend.
 
 *** Installation
 The lsp server will be installed automatically whenever a Java file
@@ -96,7 +95,7 @@ The Meghanada server will be installed automatically whenever a Java file
 is opened.
 
 If you get issues with the auto-installation you can either download the last
-version of the server manually [[https://dl.bintray.com/mopemope/meghanada/][there]] or build from source hosted on [[https://github.com/mopemope/meghanada-server][the GitHub
+version of the server manually or build from source hosted on [[https://github.com/mopemope/meghanada-server][the GitHub
 repository]] and copy the =jar= file to =.emacs.d/.cache/meghanada= folder.
 
 No additional configuration is necessary!
@@ -112,38 +111,43 @@ at the root of your project first.
 
 | Key binding   | Description                              |
 |---------------+------------------------------------------|
-| ~SPC m g g~   | Go to definition                         |
-| ~SPC m g r~   | Find references                          |
-| ~SPC m g R~   | Peek references using ~lsp-ui~           |
-| ~SPC m g d~   | Goto type definition                     |
-| ~SPC m g a~   | Search type in project                   |
-| ~SPC m g A~   | Search type in project using ~lsp-ui~    |
-| ~SPC m h h~   | Describe thing at point                  |
-| ~SPC m e l~   | List project errors/warnings             |
-| ~SPC m p u~   | Refresh user settings                    |
+| ~SPC m =~     | Format code                              |
+| ~SPC m c c~   | Build project                            |
+| ~SPC m c p~   | Create spring boot project               |
 | ~SPC m e a~   | Execute code action                      |
+| ~SPC m e l~   | List project errors/warnings             |
+| ~SPC m g A~   | Search type in project using ~lsp-ui~    |
+| ~SPC m g R~   | Peek references using ~lsp-ui~           |
+| ~SPC m g a~   | Search type in project                   |
+| ~SPC m g d~   | Goto type definition                     |
+| ~SPC m g g~   | Go to definition                         |
+| ~SPC m g k k~ | Show type hierarchy                      |
+| ~SPC m g k s~ | Show sub type hierarchy                  |
+| ~SPC m g k u~ | Show super type hierarchy                |
+| ~SPC m g r~   | Find references                          |
+| ~SPC m h h~   | Describe thing at point                  |
 | ~SPC m q r~   | Restart workspace                        |
-| ~SPC m r o i~ | Organize imports                         |
-| ~SPC m r r~   | Rename symbol                            |
+| ~SPC m r a F~ | Assign statement to field                |
+| ~SPC m r a a~ | Assign all parameters to fields          |
+| ~SPC m r a f~ | Assign parameter to field                |
 | ~SPC m r a i~ | Add import                               |
+| ~SPC m r a l~ | Assign statement to local                |
 | ~SPC m r a m~ | Add unimplemented methods                |
-| ~SPC m r c p~ | Create parameter                         |
+| ~SPC m r a t~ | Add throws exception                     |
 | ~SPC m r c f~ | Create field                             |
+| ~SPC m r c i~ | Convert to static import                 |
+| ~SPC m r c p~ | Create parameter                         |
 | ~SPC m r e c~ | Extract constant                         |
 | ~SPC m r e l~ | Extract local                            |
 | ~SPC m r e m~ | Extract method                           |
-| ~SPC m r c i~ | Convert to static import                 |
-| ~SPC m r a t~ | Add throws exception                     |
-| ~SPC m r a a~ | Assign all parameters to fields          |
-| ~SPC m r a f~ | Assign parameter to field                |
-| ~SPC m r g g~ | Generate getters/setters                 |
 | ~SPC m r g e~ | Generate =equals= and =hashCode= methods |
-| ~SPC m r g t~ | Generate =toString= method               |
+| ~SPC m r g g~ | Generate getters/setters                 |
 | ~SPC m r g o~ | Generate method overrides                |
-| ~SPC m c c~   | Build project                            |
-| ~SPC m c p~   | Create spring boot project               |
-| ~SPC m a n~   | Actionable notifications                 |
-| ~SPC m =~     | Format code                              |
+| ~SPC m r g t~ | Generate =toString= method               |
+| ~SPC m r o i~ | Organize imports                         |
+| ~SPC m r r~   | Rename symbol                            |
+| ~SPC m t b~   | test browser                             |
+| ~SPC m w u~   | Refresh user settings                    |
 
 *** Debugger
 Using the =dap= layer you'll get access to all the DAP key bindings, see the
@@ -217,15 +221,3 @@ complete list of key bindings on the [[https://github.com/syl20bnr/spacemacs/tre
 | ~SPC m m t b~   | Run current buffer tests                             |
 | ~SPC m m t i~   | Test and install                                     |
 | ~SPC m m t t~   | Run a specific test                                  |
-
-** Gradle
-
-| Key binding   | Description              |
-|---------------+--------------------------|
-| ~SPC m l c c~ | Compile                  |
-| ~SPC m l c C~ | Clean                    |
-| ~SPC m l c r~ | Clean and compile        |
-| ~SPC m l t a~ | Run all tests            |
-| ~SPC m l t b~ | Run current buffer tests |
-| ~SPC m l t t~ | Run a specific test      |
-| ~SPC m l x~   | Execute a Gradle task    |

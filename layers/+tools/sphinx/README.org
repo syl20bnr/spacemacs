@@ -31,19 +31,23 @@ in this file.
 ** Sphinx target
 To use the layer's Sphinx feature, the following variables should be set.
 
-A parent directory is needed for all Sphinx projects' builds.
+A parent directory is needed for all your Sphinx project builds:
 
 #+BEGIN_SRC emacs-lisp
-  (setq rst-sphinx-target-parent "/your/path/of/build/")
+  (sphinx :variables
+          rst-sphinx-target-parent "~/MyProjects/")
 #+END_SRC
 
-Set a directory in the parent directory for each Sphinx project.
+Create a directory in the parent directory for each Sphinx project.
+This will be used as the project name for the layer. In addition
+you need to define where the output folder should be for each project.
 
 #+BEGIN_SRC emacs-lisp
-  (setq rst-sphinx-target-projects
-        '(("project1" . (latex "folder/in/target/parent" t))
-          ("project2" . (html  "folder/in/target/parent" nil))
-          ))
+  (sphinx :variables
+          rst-sphinx-target-parent "~/MyProjects/"
+          rst-sphinx-target-projects
+          '(("project1" . (latex "project1/_build"))
+            ("project2" . (html  "project2/_build"))))
 #+END_SRC
 
 ** Web browser
@@ -51,15 +55,16 @@ Set the browser for viewing the HTML page of current rst file. This one
 is optional. If not set, the default browser will be used.
 
 #+BEGIN_SRC emacs-lisp
-  (setq rst-slides-program "chromium")
+  (sphinx :variables
+          rst-slides-program "chromium")
 #+END_SRC
 
 * Key bindings
 
-| Key binding   | Description                             |
-|---------------+-----------------------------------------|
-| ~<SPC> m c c~ | compile projects                        |
-| ~<SPC> m c C~ | clean projects                          |
-| ~<SPC> m c r~ | rebuild projects                        |
-| ~<SPC> m g c~ | open =conf.py= of current project       |
-| ~<SPC> m o~   | open compiled HTML page of current page |
+| Key binding | Description                             |
+|-------------+-----------------------------------------|
+| ~SPC m c c~ | compile projects                        |
+| ~SPC m c C~ | clean projects                          |
+| ~SPC m c r~ | rebuild projects                        |
+| ~SPC m g c~ | open =conf.py= of current project       |
+| ~SPC m o~   | open compiled HTML page of current page |

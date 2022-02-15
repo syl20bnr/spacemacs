@@ -1,24 +1,35 @@
 ;;; packages.el --- geolocation configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Uri Sharf <uri.sharf@me.com>
 ;; URL: https://github.com/usharf/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(setq geolocation-packages
-      '(
-        (osx-location :toggle (and geolocation-enable-location-service
-                                   (spacemacs/system-is-mac)))
-        popwin
-        (rase :toggle (and geolocation-enable-location-service
-                           (spacemacs/system-is-mac)))
-        (sunshine :toggle geolocation-enable-weather-forecast)
-        (theme-changer :toggle geolocation-enable-automatic-theme-changer)
-        ))
+
+(defconst geolocation-packages
+  '(
+    (osx-location :toggle (and geolocation-enable-location-service
+                               (spacemacs/system-is-mac)))
+    popwin
+    (rase :toggle (and geolocation-enable-location-service
+                       (spacemacs/system-is-mac)))
+    (sunshine :toggle geolocation-enable-weather-forecast)
+    (theme-changer :toggle geolocation-enable-automatic-theme-changer)))
 
 (defun geolocation/init-osx-location ()
   "Initialize osx-location"
@@ -57,9 +68,10 @@ to not have to set these variables manually when enabling this layer."
     :commands (sunshine-forecast sunshine-quick-forecast)
     :init
     (progn
+      (spacemacs/declare-prefix "atg" "geolocation")
       (spacemacs/set-leader-keys
-        "aw" 'sunshine-forecast
-        "aW" 'sunshine-quick-forecast))
+        "atgw" 'sunshine-forecast
+        "atgW" 'sunshine-quick-forecast))
     :config
     (progn
       (evilified-state-evilify-map sunshine-mode-map
@@ -83,7 +95,9 @@ to not have to set these variables manually when enabling this layer."
     (progn
       (spacemacs/defer-until-after-user-config #'geolocation//activate-theme-changer))))
 
-(defun geolocation/post-init-popwin ()
-  ;; Pin the weather forecast to the bottom window
-  (push '("*Sunshine*" :dedicated t :position bottom)
-        popwin:special-display-config))
+(defun geolocation/pre-init-popwin ()
+  "Pin the weather forecast to the bottom window"
+  (spacemacs|use-package-add-hook popwin
+    :post-config
+    (push '("*Sunshine*" :dedicated t :position bottom)
+          popwin:special-display-config)))

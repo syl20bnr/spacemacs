@@ -1,13 +1,25 @@
 ;;; funcs.el --- keyboard-layout Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Fabien Dubosson <fabien.dubosson@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 ;; Map multiple states at once. Courtesy of Michael Markert;
 ;; http://permalink.gmane.org/gmane.emacs.vim-emulation/1674
@@ -46,12 +58,14 @@ the given MAPS."
   "Define keys to the associated definitions of other ones. All
 remapping are done atomically, i.e. if `a' -> `b' and `c' -> `a',
 then `c' will be defined to the old `a' function, not to `b'."
-  (declare (indent 1))
-  (let ((map-original (copy-tree map)))
-    (dolist (binding bindings)
-      (let ((key1 (kbd (car binding)))
-            (key2 (kbd (cdr binding))))
-        (define-key map key1 (lookup-key map-original key2))))))
+  (if (keymapp map)
+      (progn
+        (declare (indent 1))
+        (let ((map-original (copy-tree map)))
+          (dolist (binding bindings)
+            (let ((key1 (kbd (car binding)))
+                  (key2 (kbd (cdr binding))))
+              (define-key map key1 (lookup-key map-original key2))))))))
 
 (defun kl//replace-in-list-rec (lst elem repl)
   "Replace recursively all occurrences of `elem' by `repl' in the
@@ -75,7 +89,7 @@ key."
          (prefix nil)
          (rebinding-map (cdr (assoc kl-layout kl--rebinding-maps))))
     ;; If key not existing as-is in the kl--rebinding-maps, try on last letter.
-    (when (not (assoc key1 rebinding-map))
+    (unless (assoc key1 rebinding-map)
       (setq key1 (substring key -1))
       (setq prefix (substring key 0 -1)))
     (let* ((key2 (cdr (assoc key1 rebinding-map)))
@@ -185,16 +199,16 @@ before or after the keyboard-layout's configurations."
                   (when (fboundp ',preconf) (funcall ',preconf))
                   ,common
                   ,specific
-                  (when (fboundp ',postconf) (funcall ',postconf))
-                  )))
+                  (when (fboundp ',postconf) (funcall ',postconf)))))
+
     ;; Use loader if defined
     (when loader
       (kl//replace-in-list-rec loader 'BODY body)
       (setq body loader))
     ;; If the configuration is not disabled
-    (when (not disable)
+    (unless disable
       ;; If the configuration is not in disabled-list
-      (when (not (member name kl-disabled-configurations))
+      (unless (member name kl-disabled-configurations)
         ;; If the package is in enabled-list, if any.
         (when (or (not kl-enabled-configurations) (member name kl-enabled-configurations))
           (when init-file-debug
@@ -203,5 +217,4 @@ before or after the keyboard-layout's configurations."
              ,functions
              ,body
              ,special
-             ,description
-             ))))))
+             ,description))))))

@@ -1,13 +1,25 @@
 ;;; packages.el --- sql Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Brian Hicks <brian@brianthicks.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (setq sql-packages
       '(
@@ -30,7 +42,11 @@
 (defun sql/init-sql ()
   (use-package sql
     :defer t
-    :init (spacemacs/register-repl 'sql 'spacemacs/sql-start "sql")
+    :init
+    (progn
+      (spacemacs/register-repl 'sql 'spacemacs/sql-start "sql")
+      (add-hook 'sql-mode-hook
+                'spacemacs//sql-setup-backend))
     :config
     (progn
       (setq
@@ -40,7 +56,6 @@
       (advice-add 'sql-add-product :after #'spacemacs/sql-populate-products-list)
       (advice-add 'sql-del-product :after #'spacemacs/sql-populate-products-list)
       (spacemacs/sql-populate-products-list)
-
       (defun spacemacs//sql-source (products)
         "return a source for helm selection"
         `((name . "SQL Products")
@@ -133,7 +148,7 @@
       (spacemacs/declare-prefix-for-mode 'sql-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'sql-mode "mh" "dialects")
       (spacemacs/declare-prefix-for-mode 'sql-mode "ml" "listing")
-      (spacemacs/declare-prefix-for-mode 'sql-mode "ms" "interactivity")
+      (spacemacs/declare-prefix-for-mode 'sql-mode "ms" "REPL")
       (spacemacs/set-leader-keys-for-major-mode 'sql-mode
         "'" 'spacemacs/sql-start
 
@@ -145,7 +160,7 @@
         ;; dialects
         "hk" 'spacemacs/sql-highlight
 
-        ;; interactivity
+        ;; repl
         "sb" 'sql-send-buffer
         "sB" 'spacemacs/sql-send-buffer-and-focus
         "si" 'spacemacs/sql-start
@@ -172,7 +187,14 @@
         "bS" 'sql-save-connection)
 
       (add-hook 'sql-interactive-mode-hook
-                (lambda () (toggle-truncate-lines t))))))
+                (lambda () (toggle-truncate-lines t)))
+
+      ;; lsp-sqls
+      (let ((path-config (cond
+                          ((equal sql-lsp-sqls-workspace-config-path 'workspace) "workspace")
+                          ((equal sql-lsp-sqls-workspace-config-path 'root) "root")
+                          (t nil))))
+        (setq lsp-sqls-workspace-config-path path-config)))))
 
 (defun sql/init-sql-indent ()
   (use-package sql-indent
@@ -185,8 +207,10 @@
   (use-package sqlfmt
     :commands sqlfmt-buffer
     :init
+    (spacemacs/declare-prefix-for-mode 'sql-mode "m=" "formatting")
     (spacemacs/set-leader-keys-for-major-mode 'sql-mode
-      "=" 'sqlfmt-buffer)))
+      "=r" 'sqlfmt-region
+      "==" 'sqlfmt-buffer)))
 
 (defun sql/init-sqlup-mode ()
   (use-package sqlup-mode
@@ -205,9 +229,7 @@
                                     sql-capitalize-keywords-blacklist)))))
 
 (defun sql/post-init-company ()
-  (spacemacs|add-company-backends
-    :backends company-capf
-    :modes sql-mode))
+  (spacemacs//sql-setup-company))
 
 (defun sql/pre-init-org ()
   (spacemacs|use-package-add-hook org

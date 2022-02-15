@@ -1,13 +1,25 @@
 ;;; funcs.el --- Spacemacs Bootstrap Layer functions File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 
 
@@ -31,8 +43,8 @@
 (defun spacemacs/current-state-face ()
   "Return the face associated to the current state."
   (let ((state (if (eq evil-state 'operator)
-                    evil-previous-state
-                  evil-state)))
+                   evil-previous-state
+                 evil-state)))
     (spacemacs/state-color-face state)))
 
 (defun spacemacs/add-evil-cursor (state color shape)
@@ -116,7 +128,7 @@ current major mode."
                (when (or (and (symbolp mode) (derived-mode-p mode))
                          (and (listp mode) (apply 'derived-mode-p mode))
                          (eq 't mode))
-                 (when (not (listp val))
+                 (unless (listp val)
                    (setq val (list val)))
                  (dolist (v val)
                    (cond
@@ -231,3 +243,107 @@ the scroll transient state and restore its initial state upon exit.")
   (when spacemacs--scroll-ts-on-enter-centered-cursor-was-active
     (setq spacemacs--scroll-ts-on-enter-centered-cursor-was-active nil)
     (centered-cursor-mode 1)))
+
+
+(defun use-package-normalize/:spacebind (name-symbol keyword args)
+  (use-package-only-one (symbol-name keyword) args
+    (lambda (label arg)
+      (if (and (listp arg) (keywordp (car arg)))
+          arg
+        (use-package-error
+         ":spacebind wants an arg list compatible with `spacebind' macro")))))
+
+(defun use-package-handler/:spacebind (name-symbol keyword args rest state)
+  (let ((body (use-package-process-keywords name-symbol rest state)))
+    (if (null args)
+        body
+      (use-package-concat
+       body
+       `((spacemacs|spacebind ,@args))))))
+
+
+
+(defun use-package-normalize-spacediminish (name label arg &optional recursed)
+  "Normalize the arguments to `spacemacs|diminish' to a list of one of six forms:
+     t
+     SYMBOL
+     STRING
+     (SYMBOL STRING)
+     (STRING STRING)
+     (SYMBOL STRING STRING)"
+  (let ((default-mode (use-package-as-mode name)))
+    (pcase arg
+      ;; (PATTERN ..) when not recursive -> go to recursive case
+      ((and (or `(,x . ,y) `(,x ,y))
+            (guard (and (not recursed)
+                        (listp x)
+                        (listp y))))
+       (mapcar #'(lambda (var) (use-package-normalize-spacediminish name label var t))
+               arg))
+      ;; t -> (<PKG>-mode)
+      ('t
+       (list default-mode))
+      ;; SYMBOL -> (SYMBOL)
+      ((pred use-package-non-nil-symbolp)
+       (list arg))
+      ;; STRING -> (<PKG>-mode STRING)
+      ((pred stringp)
+       (list default-mode arg))
+      ;; (SYMBOL) when recursed -> (SYMBOL)
+      ((and `(,x)
+            (guard (and recursed (use-package-non-nil-symbolp x))))
+       arg)
+      ;; (STRING) when recursed -> (<PKG>-mode STRING))
+      ((and `(,x)
+            (guard (and recursed (stringp x))))
+       (cons default-mode arg))
+      ;; (SYMBOL STRING) -> (SYMBOL STRING)
+      ((and `(,x ,y)
+            (guard (and (use-package-non-nil-symbolp x) (stringp y))))
+       arg)
+      ;; (STRING STRING) -> (<PKG>-mode STRING STRING)
+      ((and `(,x ,y)
+            (guard (and (stringp x) (stringp y))))
+       (cons default-mode arg))
+      ;; (SYMBOL STRING STRING) -> (SYMBOL STRING STRING)
+      ((and `(,x ,y ,z)
+            (guard (and (use-package-non-nil-symbolp x)
+                        (stringp y)
+                        (stringp z))))
+       arg)
+      (_
+       (use-package-error
+        (format
+         "%s wants a symbol, string, (symbol string), (string string), (symbol string string) or list of these: %S"
+         label arg))))))
+
+;;;###autoload
+(defun use-package-normalize/:spacediminish (name keyword args)
+  (use-package-as-one (symbol-name keyword) args
+    (apply-partially #'use-package-normalize-spacediminish name) t))
+
+;;;###autoload
+(defun use-package-handler/:spacediminish (name _keyword arg rest state)
+  (let ((body (use-package-process-keywords name rest state)))
+    (use-package-concat
+     `((when (fboundp 'spacemacs|diminish)
+         ,@(if (consp (car arg)) ;; e.g. ((MODE FOO BAR) ...)
+               (mapcar #'(lambda (var) `(spacemacs|diminish ,@var))
+                       arg)
+             `((spacemacs|diminish ,@arg))))) ;; e.g. (MODE FOO BAR)
+     body)))
+
+
+
+;; As suggested in the Emacs wiki https://www.emacswiki.org/emacs/HideShow#toc5
+(defun spacemacs/toggle-selective-display (column)
+  "Toggle selective display by column, a.k.a. folding by indentation.
+
+Invokes `set-selective-display', but if a prefix argument is not supplied and
+`selective-display' is not already true, source the prefix argument from the
+column."
+  (interactive "P")
+  (set-selective-display
+   (or column
+       (unless selective-display
+         (1+ (current-column))))))

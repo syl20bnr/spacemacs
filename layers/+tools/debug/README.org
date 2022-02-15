@@ -30,7 +30,7 @@ file.
 ** Enable additional debuggers
 Language specific debuggers are added by the respective layers. If you want to
 add additional debuggers, add them to the =debug-additional-debuggers= variable.
-Make sure that your debugger is compatible by checking [[https://github.com/realgud/realgud/wiki/Debuggers-Supported][here]].
+Make sure that your debugger is compatible by checking [[https://github.com/realgud/realgud/wiki/Debuggers-Available][here]].
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers

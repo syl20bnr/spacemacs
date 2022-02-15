@@ -1,13 +1,25 @@
 ;;; auto-layer.el --- auto-mode-alist entries for layer installation
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 ;; TODO comments placeholder means the utility function to insert form has failed
 
@@ -42,7 +54,7 @@
 (configuration-layer/lazy-install 'html :extensions '("\\(\\.sass\\'\\)" sass-mode))
 (configuration-layer/lazy-install 'html :extensions '("\\(\\.scss\\'\\)" scss-mode))
 (configuration-layer/lazy-install 'html :extensions '("\\(\\.slim\\'\\)" slim-mode))
-(configuration-layer/lazy-install 'html :extensions '("\\(\\.phtml\\'\\|\\.tpl\\.php\\'\\|\\.twig\\'\\|\\.html\\'\\|\\.htm\\'\\|\\.[gj]sp\\'\\|\\.as[cp]x?\\'\\|\\.eex\\'\\|\\.erb\\'\\|\\.mustache\\'\\|\\.handlebars\\'\\|\\.hbs\\'\\|\\.eco\\'\\|\\.ejs\\'\\|\\.djhtml\\'\\)" web-mode))
+(configuration-layer/lazy-install 'html :extensions '("\\(\\.phtml\\'\\|\\.tpl\\.php\\'\\|\\.twig\\'\\|\\.html\\'\\|\\.htm\\'\\|\\.[gj]sp\\'\\|\\.as[cp]x?\\'\\|\\.eex\\'\\|\\.leex\\'\\|\\.erb\\'\\|\\.mustache\\'\\|\\.handlebars\\'\\|\\.hbs\\'\\|\\.eco\\'\\|\\.ejs\\'\\|\\.djhtml\\'\\)" web-mode))
 (configuration-layer/lazy-install 'idris :extensions '("\\(\\.idr$\\|\\.lidr$\\)" idris-mode))
 ;; javascript
 (configuration-layer/lazy-install 'javascript :extensions '("\\(\\.coffee\\'\\|\\.iced\\'\\|Cakefile\\'\\|\\.cson\\'\\)" coffee-mode))
@@ -57,6 +69,7 @@
 (configuration-layer/lazy-install 'ocaml :extensions '("\\(\\.ml[ip]?\\'\\|\\.eliomi?\\'\\)" tuareg-mode))
 (configuration-layer/lazy-install 'perl5 :extensions '("\\.\\(p[lm]x?\\|P[LM]X?\\)\\'" cperl-mode))
 (configuration-layer/lazy-install 'php :extensions '("\\(\\.amk\\'\\|/Amkfile\\'\\|\\.phtml\\'\\|\\.php[s345t]?\\'\\|[^/]\\.\\(module\\|test\\|install\\|profile\\|tpl\\.php\\|theme\\|inc\\)\\'\\|\\.php\\'\\)" php-mode))
+(configuration-layer/lazy-install 'protobuf :extensions '("\\(\\.proto\\'\\)" protobuf-mode))
 (configuration-layer/lazy-install 'makepkg :extensions '("\\`PKGBUILD\\'" pkgbuild-mode))
 (configuration-layer/lazy-install 'purescript :extensions '("\\(\\.purs\\'\\)" purescript-mode))
 (configuration-layer/lazy-install 'python :extensions '("\\(\\.pyx\\'\\|\\.pxd\\'\\|\\.pxi\\'\\)" cython-mode))

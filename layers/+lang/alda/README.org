@@ -1,6 +1,6 @@
 #+TITLE: Alda Layer
 
-#+TAGS: layer|music
+#+TAGS: layer|music|programming
 
 [[file:img/alda.png]]
 

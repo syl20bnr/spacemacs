@@ -1,13 +1,25 @@
 ;;; packages.el --- Spacemacs Navigation Layer packages File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (setq spacemacs-navigation-packages
       '(ace-link
@@ -16,9 +28,11 @@
         centered-cursor-mode
         (compile :location built-in)
         (doc-view :location built-in)
+        (view :location built-in)
         golden-ratio
         (grep :location built-in)
-        (info+ :location local)
+        (info+ :location (recipe :fetcher github
+                                 :repo "emacsmirror/info-plus"))
         open-junk-file
         paradox
         restart-emacs
@@ -36,6 +50,8 @@
         (define-key Info-mode-map "o" 'ace-link-info))
       (with-eval-after-load 'help-mode
         (define-key help-mode-map "o" 'ace-link-help))
+      (with-eval-after-load 'woman
+        (define-key woman-mode-map "o" 'link-hint-open-link))
       (with-eval-after-load 'eww
         (define-key eww-link-keymap "o" 'ace-link-eww)
         (define-key eww-mode-map "o" 'ace-link-eww)))))
@@ -58,45 +74,44 @@
 (defun spacemacs-navigation/init-auto-highlight-symbol ()
   (use-package auto-highlight-symbol
     :defer t
+    :commands (ahs-highlight-p)
     :init
     (progn
       (setq ahs-case-fold-search nil
             ahs-default-range 'ahs-range-whole-buffer
-            ;; by default disable auto-highlight of symbol
-            ;; current symbol can always be highlighted with `SPC s h'
-            ahs-idle-timer 0
             ahs-idle-interval 0.25
-            ahs-inhibit-face-list nil
-            spacemacs--symbol-highlight-transient-state-doc "
+            ahs-inhibit-face-list nil)
+
+      ;; transient state
+      (setq spacemacs--symbol-highlight-transient-state-doc "
  %s
  [_n_] next   [_N_/_p_] prev  [_d_/_D_] next/prev def  [_r_] range  [_R_] reset  [_z_] recenter
  [_e_] iedit")
+      (spacemacs|define-transient-state symbol-highlight
+        :title "Symbol Highlight Transient State"
+        :hint-is-doc t
+        :dynamic-hint (spacemacs//symbol-highlight-ts-doc)
+        :on-exit (spacemacs//ahs-ts-on-exit)
+        :bindings
+        ("d" ahs-forward-definition)
+        ("D" ahs-backward-definition)
+        ("e" spacemacs/ahs-to-iedit :exit t)
+        ("n" spacemacs/quick-ahs-forward)
+        ("N" spacemacs/quick-ahs-backward)
+        ("p" spacemacs/quick-ahs-backward)
+        ("R" ahs-back-to-start)
+        ("r" ahs-change-range)
+        ("z" recenter-top-bottom)
+        ("q" nil :exit t))
 
       ;; since we are creating our own maps,
       ;; prevent the default keymap from getting created
       (setq auto-highlight-symbol-mode-map (make-sparse-keymap))
 
       (spacemacs|add-toggle automatic-symbol-highlight
-        :status (timerp ahs-idle-timer)
-        :on (progn
-              (auto-highlight-symbol-mode)
-              (setq ahs-idle-timer
-                    (run-with-idle-timer ahs-idle-interval t
-                                         'ahs-idle-function)))
-        :off (when (timerp ahs-idle-timer)
-               (auto-highlight-symbol-mode)
-               (cancel-timer ahs-idle-timer)
-               (setq ahs-idle-timer 0))
+        :mode auto-highlight-symbol-mode
         :documentation "Automatic highlight of current symbol."
         :evil-leader "tha")
-      (spacemacs/add-to-hooks 'auto-highlight-symbol-mode '(prog-mode-hook
-                                                            markdown-mode-hook)))
-    :config
-    (progn
-      (spacemacs|hide-lighter auto-highlight-symbol-mode)
-      (defvar-local spacemacs-last-ahs-highlight-p nil
-        "Info on the last searched highlighted symbol.")
-      (defvar-local spacemacs--ahs-searching-forward t)
 
       (with-eval-after-load 'evil
         (define-key evil-motion-state-map (kbd "*")
@@ -108,38 +123,20 @@
         "sh" 'spacemacs/symbol-highlight
         "sH" 'spacemacs/goto-last-searched-ahs-symbol)
 
-      ;; micro-state to easily jump from a highlighted symbol to the others
+      ;; Advice ahs jump functions to remember the last highlighted symbol
       (dolist (sym '(ahs-forward
                      ahs-forward-definition
                      ahs-backward
                      ahs-backward-definition
                      ahs-back-to-start
                      ahs-change-range))
-        (let* ((advice (intern (format "spacemacs/%s" (symbol-name sym)))))
-          (eval `(defadvice ,sym (around ,advice activate)
-                   (spacemacs/ahs-highlight-now-wrapper)
-                   ad-do-it
-                   (spacemacs/ahs-highlight-now-wrapper)
-                   (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))))))
-
-      ;; transient state
-      (spacemacs|define-transient-state symbol-highlight
-        :title "Symbol Highlight Transient State"
-        :hint-is-doc t
-        :dynamic-hint (spacemacs//symbol-highlight-ts-doc)
-        :before-exit (spacemacs//ahs-ts-on-exit)
-        :bindings
-        ("d" ahs-forward-definition)
-        ("D" ahs-backward-definition)
-        ("e" spacemacs/ahs-to-iedit :exit t)
-        ("n" spacemacs/quick-ahs-forward)
-        ("N" spacemacs/quick-ahs-backward)
-        ("p" spacemacs/quick-ahs-backward)
-        ("R" ahs-back-to-start)
-        ("r" ahs-change-range)
-        ("z" (progn (recenter-top-bottom)
-                    (spacemacs/symbol-highlight)))
-        ("q" nil :exit t)))))
+        (advice-add sym :after #'spacemacs//remember-last-ahs-highlight)))
+    :config
+    (progn
+      (spacemacs|hide-lighter auto-highlight-symbol-mode)
+      (defvar-local spacemacs-last-ahs-highlight-p nil
+        "Info on the last searched highlighted symbol.")
+      (defvar-local spacemacs--ahs-searching-forward t))))
 
 (defun spacemacs-navigation/init-centered-cursor-mode ()
   (use-package centered-cursor-mode
@@ -206,6 +203,16 @@
               (text-mode)
               (doc-view-minor-mode))
           ad-do-it)))))
+
+(defun spacemacs-navigation/init-view ()
+  (use-package view
+    :defer t
+    :init
+    ;; Add binding via mode symbole to have a local binding set
+    ;; after loading view mode. If not done this way the new bindings
+    ;; will only be affective after the user pressing `q' once.
+    (evil-define-key 'normal 'view-mode
+      "q" #'View-quit)))
 
 (defun spacemacs-navigation/init-golden-ratio ()
   (use-package golden-ratio
@@ -301,8 +308,12 @@
                    " *which-key*"))
         (add-to-list 'golden-ratio-exclude-buffer-names n))
 
-      (add-to-list 'golden-ratio-inhibit-functions
-                   'spacemacs/no-golden-ratio-guide-key)
+      ;; golden-ratio-inhibit-functions
+      (dolist (f '(spacemacs/no-golden-ratio-guide-key
+                   spacemacs//ediff-in-comparison-buffer-p))
+        (add-to-list 'golden-ratio-inhibit-functions f))
+
+      (add-hook 'ediff-startup-hook 'spacemacs/ediff-balance-windows)
 
       (spacemacs|diminish golden-ratio-mode " ⓖ" " g"))))
 
@@ -317,6 +328,7 @@
     :defer t
     :init
     (progn
+      (spacemacs/set-leader-keys "hj" 'info-display-manual)
       (setq Info-fontify-angle-bracketed-flag nil)
       (add-hook 'Info-mode-hook (lambda () (require 'info+))))))
 
@@ -420,7 +432,7 @@
     (progn
       (setq winum-auto-assign-0-to-minibuffer nil
             winum-auto-setup-mode-line nil
-            winum-ignored-buffers '(" *which-key*"))
+            winum-ignored-buffers '(" *LV*" " *which-key*"))
       (spacemacs/set-leader-keys
         "`" 'winum-select-window-by-number
         "²" 'winum-select-window-by-number

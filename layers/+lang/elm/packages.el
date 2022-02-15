@@ -1,31 +1,41 @@
 ;;; packages.el --- elm Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(setq elm-packages
-    '(
-      company
-      elm-mode
-      elm-test-runner
-      flycheck
-      (flycheck-elm :requires flycheck)
-      popwin
-      smartparens
-      ))
+
+(defconst elm-packages
+  '(
+    company
+    elm-mode
+    elm-test-runner
+    flycheck
+    (flycheck-elm :requires flycheck)
+    popwin
+    smartparens))
 
 (defun elm/post-init-company ()
-  (spacemacs|add-company-backends :backends company-elm :modes elm-mode)
-  (add-hook 'elm-mode-hook 'elm-oracle-setup-completion))
+  (spacemacs//elm-setup-company))
 
 (defun elm/post-init-flycheck ()
-  (add-hook 'elm-mode-hook 'flycheck-mode))
+  (spacemacs/enable-flycheck 'elm-mode))
 
 (defun elm/init-flycheck-elm ()
   "Initialize flycheck-elm"
@@ -37,28 +47,31 @@
   "Initialize elm-mode"
   (use-package elm-mode
     :mode ("\\.elm\\'" . elm-mode)
+    :defer t
     :init
     (progn
       (spacemacs/register-repl 'elm-mode 'elm-repl-load "elm")
-
-      (defun spacemacs/init-elm-mode ()
-        "Disable electric-indent-mode and let indentation cycling feature work"
-        (if (fboundp 'electric-indent-local-mode)
-            (electric-indent-local-mode -1)))
-
-      (add-hook 'elm-mode-hook 'spacemacs/init-elm-mode))
+      (add-hook 'elm-mode-hook 'spacemacs//elm-setup-backend))
     :config
     (progn
+      ;; Bind non-lsp keys
+      (when (eq elm-backend 'company-elm)
+        (spacemacs/set-leader-keys-for-major-mode 'elm-mode
+          ;; format
+          "=b" 'elm-format-buffer
+          ;; oracle
+          "hh" 'elm-oracle-doc-at-point
+          "ht" 'elm-oracle-type-at-point)
+
+        ;; Bind prefixes
+        (dolist (x '(("m=" . "format")
+                     ("mh" . "help")
+                     ("mg" . "goto")
+                     ("mr" . "refactor")))
+          (spacemacs/declare-prefix-for-mode 'elm-mode (car x) (cdr x))))
+
+      ;; Bind general keys
       (spacemacs/set-leader-keys-for-major-mode 'elm-mode
-        ;; format
-        "=b" 'elm-mode-format-buffer
-        ;; make
-        "cb" 'elm-compile-buffer
-        "cB" 'spacemacs/elm-compile-buffer-output
-        "cm" 'elm-compile-main
-        ;; oracle
-        "hh" 'elm-oracle-doc-at-point
-        "ht" 'elm-oracle-type-at-point
         ;; refactoring
         "ri" 'elm-sort-imports
         ;; repl
@@ -68,6 +81,10 @@
         "sF" 'spacemacs/elm-repl-push-decl-focus
         "sr" 'elm-repl-push
         "sR" 'spacemacs/elm-repl-push-focus
+        ;; make
+        "cb" 'elm-compile-buffer
+        "cB" 'spacemacs/elm-compile-buffer-output
+        "cm" 'elm-compile-main
         ;; reactor
         "Rn" 'elm-preview-buffer
         "Rm" 'elm-preview-main
@@ -76,12 +93,10 @@
         "pc" 'elm-package-catalog
         "pd" 'elm-documentation-lookup)
 
-      (dolist (x '(("m=" . "format")
+      ;; Bind prefixes
+      (dolist (x '(("mp" . "package")
                    ("mc" . "compile")
-                   ("mh" . "help")
-                   ("mp" . "package")
                    ("mR" . "reactor")
-                   ("mr" . "refactor")
                    ("ms" . "repl")))
         (spacemacs/declare-prefix-for-mode 'elm-mode (car x) (cdr x)))
 
@@ -105,8 +120,7 @@
         "tp" 'elm-test-runner-run-project
         "tr" 'elm-test-runner-rerun
         "tw" 'elm-test-runner-watch
-        "t TAB" 'elm-test-runner-toggle-test-and-target
-        ))))
+        "t TAB" 'elm-test-runner-toggle-test-and-target))))
 
 (defun elm/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
@@ -115,6 +129,4 @@
     (push '("*elm-make*" :tail t :noselect t) popwin:special-display-config)))
 
 (defun elm/post-init-smartparens ()
-  (if dotspacemacs-smartparens-strict-mode
-      (add-hook 'elm-mode-hook #'smartparens-strict-mode)
-    (add-hook 'elm-mode-hook #'smartparens-mode)))
+  (add-hook 'elm-mode-hook #'spacemacs//activate-smartparens))

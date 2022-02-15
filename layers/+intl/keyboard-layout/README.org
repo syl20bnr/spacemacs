@@ -24,7 +24,7 @@
 
 * Description
 This layer configures some key bindings in Spacemacs, to make it compatible with
-keyboard layouts that differs from the traditional =en-us= =QWERTY= layout.
+keyboard layouts that differ from the traditional =en-us= =QWERTY= layout.
 
 ** Features:
 - Support alternative keyboard layouts within Spacemacs
@@ -83,7 +83,7 @@ that the =keyboard-layout= layer is placed *after* it in the
 =dotspacemacs-configuration-layers= list.
 
 * Concept
-This package first switches the traditional ~hjkl~ movement keys, with their
+This package first swaps the traditional ~hjkl~ movement keys, with their
 equivalent keys in the destination layout. It then tries to correct the bugs,
 that were introduced by these changes in other parts of Spacemacs. This layer
 only tries to make these changes when the letters are used for *movements*.
@@ -197,12 +197,14 @@ the [[https://colemak.com/][Colemak website]].
 
 [[file:img/colemak-layout.png]]
 
-This layer offers three flavors of Colemak bindings:
+This layer offers four flavors of Colemak bindings:
 - =colemak-hnei= remaps ~HJKL~ to ~HNEI~, keeping the same key location; useful
   for people used to the ~HJKL~ scheme on a Qwerty keyboard.
-- =colemak-neio= remaps ~HJKL~ to ~NEIO~, shifted one key to the right for
-  easier access.
-- =colemak-jkhl= remaps ~HJKL~ to ~JKHL~, permuting the direction of the keys
+- =colemak-neio-literal= remaps ~HJKL~ to ~NEIO~, shifted one key to the right for
+  easier access. It has easier access to new line mode (~o~).
+- =colemak-neio-inverted= remaps ~HJKL~ to ~NEIO~, shifted one key to the right for
+  easier access. It has easier access to insert mode (~i~) (~L~, instead of ~K~).
+- =colemak-jkhl= remaps ~HJKL~ to ~JKHL~, switching the direction of the keys
   without disturbing any other binding.
 
 *Note*: for technical reasons (see [[https://github.com/syl20bnr/spacemacs/pull/7178#issuecomment-249360301][GH-7178]]), when using =colemak-jkhl=, the
@@ -243,6 +245,7 @@ The available configurations are:
 - avy
 - comint
 - company
+- ediff
 - elfeed
 - evil
 - evil-escape

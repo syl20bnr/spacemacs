@@ -1,18 +1,30 @@
 ;;; funcs.el --- Ivy Layer functions File for Spacemacs -*- lexical-binding: t; -*-
 ;;
-;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 
 ;; Counsel
 
-;; async
+;;; async
 
 (defvar spacemacs--counsel-initial-cands-shown nil)
 
@@ -61,7 +73,42 @@
           (ivy--insert-prompt))))
     (setq counsel--async-time (current-time))))
 
-;; search
+;;; find-file functions, leaving large file check to `spacemacs/check-large-file'
+
+(defun spacemacs//counsel-find-file-action (x)
+  "Find file X."
+  (with-ivy-window
+    (cond ((and counsel-find-file-speedup-remote
+                (file-remote-p ivy--directory))
+           (let ((find-file-hook nil))
+             (find-file (expand-file-name x ivy--directory))))
+          ((member (file-name-extension x) counsel-find-file-extern-extensions)
+           (counsel-find-file-extern x))
+          (t
+           (switch-to-buffer (find-file-noselect (expand-file-name x ivy--directory) t nil t))))))
+
+(defun spacemacs/counsel-find-file (&optional initial-input)
+  "Forward to `find-file'.
+When INITIAL-INPUT is non-nil, use it in the minibuffer during completion."
+  (interactive)
+  (counsel--find-file-1
+   "Find file: " initial-input
+   #'spacemacs//counsel-find-file-action
+   'counsel-find-file))
+
+(defun spacemacs/counsel-recentf ()
+  "Find a file on `recentf-list'."
+  (interactive)
+  (require 'recentf)
+  (recentf-mode)
+  (ivy-read "Recentf: " (counsel-recentf-candidates)
+            :action (lambda (f)
+                      (with-ivy-window
+                        (switch-to-buffer (find-file-noselect f t nil t))))
+            :require-match t
+            :caller 'counsel-recentf))
+
+;;; search
 
 (defvar spacemacs--counsel-search-cmd)
 
@@ -148,29 +195,30 @@ around point as the initial input. If DIR is non nil start in
 that directory."
   (interactive)
   (require 'counsel)
-  (letf* ((initial-input (if use-initial-input
-                             (if (region-active-p)
-                                 (buffer-substring-no-properties
-                                  (region-beginning) (region-end))
-                               (thing-at-point 'symbol t))
-                           ""))
-          (tool (catch 'tool
-                  (dolist (tool tools)
-                    (when (and (assoc-string tool spacemacs--counsel-commands)
-                               (executable-find tool))
-                      (throw 'tool tool)))
-                  (throw 'tool "grep")))
-          (default-directory
-            (or initial-directory (read-directory-name "Start from directory: ")))
-          (display-directory
-           (if (< (length default-directory)
-                  spacemacs--counsel-search-max-path-length)
-               default-directory
-             (concat
-              "..." (substring default-directory
-                               (- (length default-directory)
-                                  spacemacs--counsel-search-max-path-length)
-                               (length default-directory))))))
+  (cl-letf* ((initial-input (if use-initial-input
+                                (rxt-quote-pcre
+                                 (if (region-active-p)
+                                     (buffer-substring-no-properties
+                                      (region-beginning) (region-end))
+                                   (or (thing-at-point 'symbol t) "")))
+                              ""))
+             (tool (catch 'tool
+                     (dolist (tool tools)
+                       (when (and (assoc-string tool spacemacs--counsel-commands)
+                                  (executable-find tool))
+                         (throw 'tool tool)))
+                     (throw 'tool "grep")))
+             (default-directory
+               (or initial-directory (read-directory-name "Start from directory: ")))
+             (display-directory
+              (if (< (length default-directory)
+                     spacemacs--counsel-search-max-path-length)
+                  default-directory
+                (concat
+                 "..." (substring default-directory
+                                  (- (length default-directory)
+                                     spacemacs--counsel-search-max-path-length)
+                                  (length default-directory))))))
     (cond ((string= tool "ag")
            (counsel-ag initial-input default-directory nil
                        (format "ag from [%s]: " display-directory)))
@@ -193,7 +241,7 @@ that directory."
                       (counsel-delete-process)
                       (swiper--cleanup)))))))
 
-;; Define search functions for each tool
+;;; Define search functions for each tool
 (cl-loop
  for (tools tool-name) in '((dotspacemacs-search-tools "auto")
                             ((list "rg") "rg")
@@ -314,20 +362,29 @@ To prevent this error we just wrap `describe-mode' to defeat the
       (call-interactively 'describe-mode))))
 
 (defun spacemacs//counsel-with-git-grep (func x)
-  (when (string-match "\\`\\(.*?\\):\\([0-9]+\\):\\(.*\\)\\'" x)
-    (with-ivy-window
-      (let ((file-name (match-string-no-properties 1 x))
-            (line-number (match-string-no-properties 2 x)))
-        (funcall func
-                 (expand-file-name file-name (ivy-state-directory ivy-last)))
-        (goto-char (point-min))
-        (forward-line (1- (string-to-number line-number)))
-        (re-search-forward (ivy--regex ivy-text t) (line-end-position) t)
-        (unless (eq ivy-exit 'done)
-          (swiper--cleanup)
-          (swiper--add-overlays (ivy--regex ivy-text)))))))
+  "This function should be kept in sync with `counsel-git-grep-action'.
 
-;; org
+We copy exactly that function and modify it a bit which allows us
+to programatically add extra actions to counsel git-grep based
+commands."
+  (when (string-match "\\`\\(.*?\\):\\([0-9]+\\):\\(.*\\)\\'" x)
+    (let ((file-name (match-string-no-properties 1 x))
+          (line-number (match-string-no-properties 2 x)))
+      ;; this line is the difference to `counsel-git-grep-action'
+      (funcall func
+               (expand-file-name file-name (ivy-state-directory ivy-last)))
+      (goto-char (point-min))
+      (forward-line (1- (string-to-number line-number)))
+      (when (re-search-forward (ivy--regex ivy-text t) (line-end-position) t)
+        (when swiper-goto-start-of-match
+          (goto-char (match-beginning 0))))
+      (swiper--ensure-visible)
+      (run-hooks 'counsel-grep-post-action-hook)
+      (unless (eq ivy-exit 'done)
+        (swiper--cleanup)
+        (swiper--add-overlays (ivy--regex ivy-text))))))
+
+;;; org
 
 ;; see https://github.com/abo-abo/swiper/issues/177
 (defun spacemacs//counsel-org-ctrl-c-ctrl-c-org-tag ()
@@ -373,7 +430,7 @@ To prevent this error we just wrap `describe-mode' to defeat the
     (t 'counsel-imenu))))
 
 
-;; Ivy
+;;; Ivy
 
 (defun spacemacs//ivy-command-not-implemented-yet (key)
   (let ((-key key))
@@ -399,7 +456,7 @@ To prevent this error we just wrap `describe-mode' to defeat the
   (ivy-wgrep-change-to-wgrep-mode)
   (evil-normal-state))
 
-;; Evil
+;;; Evil
 
 (defun spacemacs/ivy-evil-registers ()
   "Show evil registers"
@@ -418,7 +475,7 @@ To prevent this error we just wrap `describe-mode' to defeat the
   (insert (replace-regexp-in-string "\\^J" "\n"
                                     (substring-no-properties candidate 4))))
 
-;; Layouts
+;;; Layouts
 
 (defun spacemacs/ivy-spacemacs-layouts ()
   "Control Panel for Spacemacs layouts. Has many actions.
@@ -462,30 +519,9 @@ Closing doesn't kill buffers inside the layout while killing layouts does."
             (persp-names)
             :action 'persp-kill))
 
-
-;; Swiper
-
-(defun spacemacs//counsel-current-region-or-symbol ()
-  "Return contents of the region or symbol at point.
-
-If region is active, mark will be deactivated in order to prevent region
-expansion when jumping around the buffer with counsel. See `deactivate-mark'."
-  (if (region-active-p)
-      (prog1
-          (buffer-substring-no-properties (region-beginning) (region-end))
-        (deactivate-mark))
-    (thing-at-point 'symbol t)))
-
-(defun spacemacs/swiper-region-or-symbol ()
-  "Run `swiper' with the selected region or the symbol
-around point as the initial input."
-  (interactive)
-  (let ((input (spacemacs//counsel-current-region-or-symbol)))
-    (swiper input)))
-
-(defun spacemacs/swiper-all-region-or-symbol ()
-  "Run `swiper-all' with the selected region or the symbol
-around point as the initial input."
-  (interactive)
-  (let ((input (spacemacs//counsel-current-region-or-symbol)))
-    (swiper-all input)))
+(defun spacemacs/ivy-xref-open-in-other-window (candidate)
+  "Open candidate in other window."
+  (let* ((marker (xref-location-marker (cdr candidate)))
+         (buf (marker-buffer marker)))
+    (select-window
+     (xref--show-pos-in-buf marker (switch-to-buffer-other-window buf)))))

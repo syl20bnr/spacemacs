@@ -1,78 +1,73 @@
 ;;; funcs.el --- C/C++ Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (require 'cl-lib)
 (require 'subr-x)
 
-(defun spacemacs//c-c++-backend ()
-  "Returns selected backend."
-  (if c-c++-backend
-      c-c++-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp-clangd)
-     (t nil))))
-
 (defun spacemacs//c-c++-setup-backend ()
   "Conditionally setup c-c++ backend."
-  (pcase (spacemacs//c-c++-backend)
-    (`lsp-clangd (spacemacs//c-c++-setup-lsp-clangd))
-    (`lsp-ccls (spacemacs//c-c++-setup-lsp-ccls))
-    (`lsp-cquery (spacemacs//c-c++-setup-lsp-cquery))
-    (`rtags (spacemacs//c-c++-setup-rtags))
-    (`ycmd (spacemacs//c-c++-setup-ycmd))))
+  (pcase c-c++-backend
+    ('lsp-clangd (spacemacs//c-c++-setup-lsp-clangd))
+    ('lsp-ccls (spacemacs//c-c++-setup-lsp-ccls))
+    ('rtags (spacemacs//c-c++-setup-rtags))
+    ('ycmd (spacemacs//c-c++-setup-ycmd))))
 
 (defun spacemacs//c-c++-setup-company ()
   "Conditionally setup C/C++ company integration based on backend."
-  (pcase (spacemacs//c-c++-backend)
-    (`lsp-clangd (spacemacs//c-c++-setup-lsp-company))
-    (`lsp-ccls (spacemacs//c-c++-setup-lsp-company))
-    (`lsp-cquery (spacemacs//c-c++-setup-lsp-company))
-    (`rtags (spacemacs//c-c++-setup-rtags-company))
-    (`ycmd (spacemacs//c-c++-setup-ycmd-company))))
+  (pcase c-c++-backend
+    ('rtags (spacemacs//c-c++-setup-rtags-company))
+    ('ycmd (spacemacs//c-c++-setup-ycmd-company))))
 
 (defun spacemacs//c-c++-setup-dap ()
   "Conditionally setup C/C++ DAP integration based on backend."
   ;; currently DAP is only available using LSP
-  (pcase (spacemacs//c-c++-backend)
-    (`lsp-clangd (spacemacs//c-c++-setup-lsp-dap))
-    (`lsp-ccls (spacemacs//c-c++-setup-lsp-dap))
-    (`lsp-cquery (spacemacs//c-c++-setup-lsp-dap))))
+  (pcase c-c++-backend
+    ('lsp-clangd (spacemacs//c-c++-setup-lsp-dap))
+    ('lsp-ccls (spacemacs//c-c++-setup-lsp-dap))))
 
 (defun spacemacs//c-c++-setup-eldoc ()
   "Conditionally setup C/C++ eldoc integration based on backend."
-  (pcase (spacemacs//c-c++-backend)
-    ;; lsp setup eldoc on its own
-    (`ycmd (spacemacs//c-c++-setup-ycmd-eldoc))))
+  ;; lsp setup eldoc on its own
+  (when (eq c-c++-backend 'ycmd)
+    (spacemacs//c-c++-setup-ycmd-eldoc)))
 
 (defun spacemacs//c-c++-setup-flycheck ()
   "Conditionally setup C/C++ flycheck integration based on backend."
-  (pcase (spacemacs//c-c++-backend)
-    (`lsp-clangd (spacemacs//c-c++-setup-lsp-flycheck))
-    (`lsp-ccls (spacemacs//c-c++-setup-lsp-flycheck))
-    (`lsp-cquery (spacemacs//c-c++-setup-lsp-flycheck))
-    (`rtags (spacemacs//c-c++-setup-rtags-flycheck))
-    (`ycmd (spacemacs//c-c++-setup-ycmd-flycheck))))
+  (pcase c-c++-backend
+    ('rtags (spacemacs//c-c++-setup-rtags-flycheck))
+    ('ycmd (spacemacs//c-c++-setup-ycmd-flycheck))))
 
 (defun spacemacs//c-c++-setup-format ()
   "Conditionally setup format based on backend."
-  (pcase (spacemacs//c-c++-backend)
-    (`lsp-clangd (spacemacs//c-c++-setup-clang-format))
-    (`lsp-ccls (spacemacs//c-c++-setup-clang-format))
-    (`lsp-cquery (spacemacs//c-c++-setup-clang-format))))
+  (pcase c-c++-backend
+    ('lsp-clangd (spacemacs//c-c++-setup-clang-format))
+    ('lsp-ccls (spacemacs//c-c++-setup-clang-format))))
 
 (defun spacemacs//c-c++-setup-semantic ()
   "Conditionally setup semantic based on backend."
-  (pcase (spacemacs//c-c++-backend)
-    (`rtags (spacemacs//c-c++-setup-rtags-semantic))
-    (`ycmd (spacemacs//c-c++-setup-ycmd-semantic))))
+  (pcase c-c++-backend
+    ('rtags (spacemacs//c-c++-setup-rtags-semantic))
+    ('ycmd (spacemacs//c-c++-setup-ycmd-semantic))))
 
 
 ;; lsp
@@ -85,8 +80,8 @@
   (spacemacs/lsp-define-extensions
    "c-c++" "lsp-clangd"
    'clangd-other-file "textDocument/switchSourceHeader" 'buffer-file-name)
-  (set (make-local-variable 'lsp-disabled-clients) '(cquery ccls))
-  (lsp))
+  (setq-local lsp-disabled-clients '(ccls))
+  (lsp-deferred))
 
 ;; ccls
 
@@ -120,7 +115,6 @@
    "c-c++" "lsp-ccls"
    'base "$ccls/inheritance")
 
-  ;; ccls features without a cquery analogue...
   (spacemacs/lsp-define-extensions
    "c-c++" "lsp-ccls"
    'derived "$ccls/inheritance" '(:derived t))
@@ -168,106 +162,14 @@
      "mf" 'member-functions
      "mv" 'member-vars))
 
-  ;;(evil-set-initial-state 'ccls--tree-mode 'emacs)
-  ;;evil-record-macro keybinding clobbers q in cquery-tree-mode-map for some reason?
+  (evil-set-initial-state 'ccls-tree-mode 'emacs)
   ;;(evil-make-overriding-map 'ccls-tree-mode-map)
-  (set (make-local-variable 'lsp-disabled-clients) '(clangd cquery))
-  (lsp))
-
-;; cquery
-
-(defun spacemacs//c-c++-setup-lsp-cquery ()
-  "Setup LSP cquery."
-  (require 'cquery)
-  ;; configuration
-  (setq cquery-cache-dir
-        (if (null c-c++-lsp-cquery-cache-directory)
-            (concat spacemacs-cache-directory "lsp-cquery")
-          (concat (file-truename (file-name-as-directory
-                                  c-c++-lsp-cquery-cache-directory)))))
-
-  ;; semantic highlight
-  (when c-c++-lsp-enable-semantic-highlight
-    (setq cquery-sem-highlight-method c-c++-lsp-semantic-highlight-method)
-    (when (eq 'rainbow c-c++-lsp-enable-semantic-highlight)
-      (cquery-use-default-rainbow-sem-highlight)))
-
-  ;; extensions
-  (spacemacs/lsp-define-extensions
-   "c-c++" "lsp-cquery"
-   'refs-address "textDocument/references"
-   '(plist-put (lsp--text-document-position-params) :context '(:role 128)))
-  (spacemacs/lsp-define-extensions
-   "c-c++" "lsp-cquery"
-   'refs-read "textDocument/references"
-   '(plist-put (lsp--text-document-position-params) :context '(:role 8)))
-  (spacemacs/lsp-define-extensions
-   "c-c++" "lsp-cquery"
-   'refs-write "textDocument/references"
-   '(plist-put (lsp--text-document-position-params) :context '(:role 16)))
-  (spacemacs/lsp-define-extensions
-   "c-c++" "lsp-cquery"
-   'callers "$cquery/callers")
-  (spacemacs/lsp-define-extensions
-   "c-c++" "lsp-cquery"
-   'callees "$cquery/callers" '(:callee t))
-  (spacemacs/lsp-define-extensions
-   "c-c++" "lsp-cquery"
-   'base "$cquery/base")
-
-  ;; key bindings
-  (dolist (mode c-c++-modes)
-    (spacemacs/set-leader-keys-for-major-mode mode
-      ;; backend
-      "bf" 'cquery-freshen-index
-      "bp" 'cquery-preprocess-file
-      ;; goto
-      "gf" 'find-file-at-point
-      "gF" 'ffap-other-window
-      ;; hierarchy
-      "ghc" 'cquery-call-hierarchy
-      "ghC" 'spacemacs/c-c++-lsp-cquery-call-hierarchy-inv
-      "ghi" 'cquery-inheritance-hierarchy
-      "ghI" 'spacemacs/c-c++-lsp-cquery-inheritance-hierarchy-inv
-      ;; members
-      "gmh" 'cquery-member-hierarchy)
-
-    (spacemacs/lsp-bind-extensions-for-mode
-     mode "c-c++" "lsp-cquery"
-     "&" 'refs-address
-     "R" 'refs-read
-     "W" 'refs-write
-     "c" 'callers
-     "C" 'callees
-     "v" 'vars
-     "hb" 'base))
-
-  ;;(evil-set-initial-state 'ccls--tree-mode 'emacs)
-  ;;evil-record-macro keybinding clobbers q in cquery-tree-mode-map for some reason?
-  ;;(evil-make-overriding-map 'ccls-tree-mode-map)
-  (set (make-local-variable 'lsp-disabled-clients) '(ccls changd))
-  (lsp))
-
-(defun spacemacs//c-c++-setup-lsp-company ()
-  "Setup lsp auto-completion."
-  (spacemacs|add-company-backends
-    :backends company-lsp
-    :modes c-mode c++-mode
-    :append-hooks nil
-    :call-hooks t)
-  (company-mode))
+  (setq-local lsp-disabled-clients '(clangd))
+  (lsp-deferred))
 
 (defun spacemacs//c-c++-setup-lsp-dap ()
   "Setup DAP integration."
-  (require 'dap-gdb-lldb))
-
-(defun spacemacs//c-c++-setup-lsp-flycheck ()
-  "Setup LSP syntax checking."
-  (when (or (spacemacs/enable-flycheck 'c-mode)
-            (spacemacs/enable-flycheck 'c++-mode))
-    (require 'lsp-ui-flycheck)
-    (lsp-ui-flycheck-enable nil)
-    (flycheck-mode)))
+  (mapc #'require c-c++-dap-adapters))
 
 
 ;; rtags
@@ -299,6 +201,7 @@
       "gD" 'rtags-diagnostics
       "ge" 'rtags-reparse-file
       "gE" 'rtags-preprocess-file
+      "gf" 'rtags-find-dead-functions
       "gF" 'rtags-fixit
       "gG" 'rtags-guess-function-at-point
       "gh" 'rtags-print-class-hierarchy
@@ -307,10 +210,13 @@
       "gM" 'rtags-symbol-info
       "gO" 'rtags-goto-offset
       "gp" 'rtags-set-current-project
+      "gr" 'rtags-references-tree
       "gR" 'rtags-rename-symbol
       "gs" 'rtags-print-source-arguments
       "gS" 'rtags-display-summary
+      "gt" 'rtags-symbol-type
       "gT" 'rtags-taglist
+      "gu" 'rtags-dependency-tree
       "gv" 'rtags-find-virtuals-at-point
       "gV" 'rtags-print-enum-value-at-point
       "gX" 'rtags-fix-fixit-at-point
@@ -318,12 +224,13 @@
 
 (defun spacemacs//c-c++-setup-rtags-company ()
   "Setup rtags auto-completion."
-  (setq rtags-completions-enabled t)
-  (spacemacs|add-company-backends
-    :backends company-rtags
-    :modes c-mode-common
-    :append-hooks nil
-    :call-hooks t))
+  (when c-c++-enable-rtags-completion
+    (setq rtags-completions-enabled t)
+    (spacemacs|add-company-backends
+      :backends company-rtags
+      :modes c-mode-common
+      :append-hooks nil
+      :call-hooks t)))
 
 (defun spacemacs//c-c++-setup-rtags-flycheck ()
   "Setup rtags syntax checking."
@@ -454,9 +361,8 @@
         (progn
           (clang-format-region (region-beginning) (region-end) style)
           (message "Formatted region"))
-      (progn
-        (clang-format-buffer style)
-        (message "Formatted buffer %s" (buffer-name))))))
+      (clang-format-buffer style)
+      (message "Formatted buffer %s" (buffer-name)))))
 
 (defun spacemacs//clang-format-on-save ()
   "Format the current buffer with clang-format on save when
@@ -480,28 +386,17 @@
   (ccls-inheritance-hierarchy t))
 
 
-;; cquery
-
-(defun spacemacs/c-c++-lsp-cquery-call-hierarchy-inv ()
-  (interactive)
-  (cquery-call-hierarchy t))
-
-(defun spacemacs/c-c++-lsp-cquery-inheritance-hierarchy-inv ()
-  (interactive)
-  (cquery-inheritance-hierarchy t))
-
-
 ;; cpp-auto-include
 
-(defalias 'spacemacs/c++-organize-includes 'cpp-auto-include)
+(defalias 'spacemacs/c-c++-organize-includes 'cpp-auto-include)
 
-(defun spacemacs//c++-organize-includes-on-save ()
-  "Organize the includes on save when `c++-enable-organize-includes-on-save'
+(defun spacemacs//c-c++-organize-includes-on-save ()
+  "Organize the includes on save when `c-c++-enable-organize-includes-on-save'
 is non-nil."
-  (when c++-enable-organize-includes-on-save
-    (spacemacs/c++-organize-includes)))
+  (when c-c++-enable-organize-includes-on-save
+    (spacemacs/c-c++-organize-includes)))
 
-(defun spacemacs/c++-organize-includes-on-save ()
-  "Add before-save hook for c++-organize-includes."
+(defun spacemacs/c-c++-organize-includes-on-save ()
+  "Add before-save hook for c-c++-organize-includes."
   (add-hook 'before-save-hook
-            #'spacemacs//c++-organize-includes-on-save nil t))
+            #'spacemacs//c-c++-organize-includes-on-save nil t))

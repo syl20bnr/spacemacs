@@ -43,6 +43,9 @@ This layer adds support for the [[https://github.com/hrs/engine-mode][Search Eng
 - Python Package Index
 - Python Docs
 - C++ Reference
+- Melpa
+- Debian Packages
+- Ubuntu Packages
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -51,9 +54,9 @@ file.
 
 * Key bindings
 
-| Evil      | Holy    | Command                                   |
-|-----------+---------+-------------------------------------------|
-| ~SPC a /~ | ~C-c /~ | Summon a Helm buffer to select any engine |
+| Evil        | Holy    | Command                                   |
+|-------------+---------+-------------------------------------------|
+| ~SPC a w /~ | ~C-c /~ | Summon a Helm buffer to select any engine |
 
 * Customize it!
 If you'd rather have emacs use chrome, or firefox or any other thing (=eww=) you
@@ -64,6 +67,14 @@ your =dotspacemacs/user-config=:
   (setq browse-url-browser-function 'browse-url-generic
         engine/browser-function 'browse-url-generic
         browse-url-generic-program "google-chrome")
+#+END_SRC
+
+The Amazon search engine defaults to use the =.com= [[https://en.wikipedia.org/wiki/TLD][TLD]]. If you want it to search on
+another country's website, you can specify a different one:
+
+#+BEGIN_SRC emacs-lisp
+  ;; Use amazon.es site (Spain)
+  (setq-default search-engine-amazon-tld "es")
 #+END_SRC
 
 If you want more control of how various search engines are handled

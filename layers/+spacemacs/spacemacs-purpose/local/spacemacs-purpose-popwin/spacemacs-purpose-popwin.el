@@ -110,9 +110,9 @@ Display BUFFER as a popup buffer, according to the settings in
 
 See `purpose-special-action-sequences' for a description of BUFFER and
 ALIST."
-  (do ((display-fns (pupo//actions (cdr (popwin:match-config buffer)))
-                    (cdr display-fns))
-       (window nil (and display-fns (funcall (car display-fns) buffer alist))))
+  (cl-do ((display-fns (pupo//actions (cdr (popwin:match-config buffer)))
+                       (cdr display-fns))
+          (window nil (and display-fns (funcall (car display-fns) buffer alist))))
       ((or window (null display-fns)) window)))
 
 (defun pupo/after-display (window)

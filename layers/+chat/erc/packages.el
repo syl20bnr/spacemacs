@@ -1,13 +1,25 @@
 ;;; packages.el --- erc Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst erc-packages
   '(
@@ -49,11 +61,11 @@
     :init
     (progn
       (spacemacs/set-leader-keys
-        "aie" 'erc
-        "aiE" 'erc-tls
-        "aii" 'erc-track-switch-buffer
-        "aiD" 'erc/default-servers)
-      (spacemacs/declare-prefix "ai"  "irc")
+        "acie" 'erc
+        "aciE" 'erc-tls
+        "acii" 'erc-track-switch-buffer
+        "aciD" 'erc/default-servers)
+      (spacemacs/declare-prefix "aci"  "irc")
       ;; utf-8 always and forever
       (setq erc-server-coding-system '(utf-8 . utf-8)))
     :config
@@ -224,7 +236,7 @@
         "find current erc channel's log file in `erc-view-log-mode'"
         (interactive)
         (when (erc-logging-enabled)
-            (find-file-existing (erc-current-logfile)))))))
+          (find-file-existing (erc-current-logfile)))))))
 
 (defun erc/init-erc-image ()
   (use-package erc-image
@@ -256,6 +268,7 @@
               (erc/default-servers)
             (call-interactively 'erc)))))))
 
-(defun erc/pre-init-window-purpose ()
-  (spacemacs|use-package-add-hook window-purpose
-    :pre-config (add-to-list 'purpose-user-mode-purposes '(erc-mode . chat))))
+(defun erc/post-init-window-purpose ()
+  (purpose-set-extension-configuration
+   :erc-layer
+   (purpose-conf :mode-purposes '((erc-mode . chat)))))

@@ -9,10 +9,15 @@
   - [[#features][Features:]]
 - [[#bibtex][BibTeX]]
 - [[#install][Install]]
-  - [[#layer][Layer]]
-  - [[#auto-completion][Auto-completion]]
+- [[#configuration][Configuration]]
+  - [[#variables][Variables]]
+  - [[#choosing-a-backend][Choosing a backend]]
+    - [[#lsp][LSP]]
+    - [[#company-auctex][Company-auctex]]
+  - [[#pdf-viewer][PDF viewer]]
   - [[#previewing][Previewing]]
   - [[#build-command][Build command]]
+  - [[#tex-engine][TeX Engine]]
   - [[#auto-fill][Auto-fill]]
   - [[#folding][Folding]]
   - [[#magic-latex-buffer][Magic latex buffer]]
@@ -25,7 +30,8 @@ This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects
 
 ** Features:
 - Auto-build with [[https://github.com/tom-tan/auctex-latexmk/][auctex-latexmk]]
-- Auto-completion with [[https://github.com/alexeyr/company-auctex][company-auctex]]
+- Syntax highlighting
+- Auto-completion
 - Tags navigation on ~%~ with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Labels, references, citations and index entries management with [[http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html][RefTeX]]
 
@@ -34,60 +40,187 @@ For more extensive support of BibTeX files than RefTeX provides, have a look at
 the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Blang/bibtex/README.org][BibTeX layer]].
 
 * Install
-** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =latex= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-** Auto-completion
-Add the layer =auto-completion= to the variable
-=dotspacemacs-configuration-layers= of your dotfile =~/.spacemacs=.
+* Configuration
+Most layer configurations can be done by setting layer variables in your
+dotfile. Some however require adding lines to your user-config. If the =pdf=
+layer is used, then the layer automatically configures =pdf-tools= as the
+'output-pdf' viewer, see [[#pdf-viewer]].
 
-** Previewing
-To perform full-document previews (that is, aside from the inline previewing
-under ~SPC m p~), add the following to your =.spacemacs= under
-=dotspacemacs/user-config=:
+** Variables
+A number of configuration variables have been exposed via the layer =config.el=.
+Sensible defaults have been provided, however they may all be overridden in your
+.spacemacs.
+
+| Variable Name                    | Default                                                            | Description                                                                    |
+|----------------------------------+--------------------------------------------------------------------+--------------------------------------------------------------------------------|
+| ~latex-backend~                  | ~nil~                                                              | Use LSP backend, unless it's `company-auctex` or =LSP= layer isn't enabled     |
+| ~latex-build-command~            | ~'latexmk~ if it's found                                           | Default command to use with ~SPC m b~                                          |
+| ~latex-build-engine~             | ~'xetex~ if it's found and =chinese= / =japanese= layer is enabled | Default TeX engine to use with ~SPC m b~                                       |
+| ~latex-enable-auto-fill~         | ~t~                                                                | When non-nil, enable ~auto-fill-mode~                                          |
+| ~latex-enable-folding~           | ~nil~                                                              | When non-nil, enable ~TeX-fold-mode~                                           |
+| ~latex-enable-magic~             | ~nil~                                                              | When non-nil, enable magic symbols                                             |
+| ~latex-nofill-env~               | See [[#auto-fill][details below]]                                                  | A list of LaTeX environment name where ~auto-fill-mode~ is disabled            |
+| ~latex-refresh-preview~          | ~nil~                                                              | When non-nil, enable refresh preview buffer when file changes                  |
+| ~latex-view-with-pdf-tools~      | ~t~ if pdf layer is installed, else ~nil~                          | When non-nil, use =pdf-tools= for viewing output pdf files                     |
+| ~latex-view-pdf-in-split-window~ | ~nil~ setting is neglected if ~latex-view-with-pdf-tools~ is ~nil~ | When non-nil, open =pdf-tools= in split window (when using =TeX-view= command) |
+
+** Choosing a backend
+This layer provides two alternative backends to choose from.
+
+*** LSP
+This is the default backend if =LSP= layer is enabled.
+It provides proper IDE support and is recommended over =company-auctex=.
+
+Currently, the LaTeX LSP backend depends on =TexLab=. You may built it from
+source, install it in your package manager, or get the
+[[https://github.com/latex-lsp/texlab/releases][pre-compiled binaries]]. You also need to enable =LSP= layer in your
+=~/.spacemacs=.
+
+To explicitly choose LSP backend for =LaTeX= layer, add the following:
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+  (setq-default dotspacemacs-configuration-layers
+                '((latex :variables latex-backend 'lsp)))
 #+END_SRC
 
-Then when you open up a compiled PDF, the preview will update automatically when
-you recompile.
+*** Company-auctex
+This would be the backend if =LSP= layer is not enabled, and =latex-backend= is
+not set.
+
+This mode only provides very limited IDE capabilities and only recommended best
+for infrequent LaTeX editing needs.
+
+To explicitly choose =company-auctex= as the backend, set the following in your
+=~/.spacemacs=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((latex :variables latex-backend 'company-auctex)))
+#+END_SRC
+
+When =company-auctex= is chosen as the backend, it uses =company-math= for the
+completion of math symbols. =company-math= displays a unicode representation of
+symbols proposed for completion. It is supposed to have a better coverage of
+latex symbols than the default counter-part in =company-auctex=. If you prefer to
+use =company-auctex= for math symbols completion set the following in your
+=~/.spacemacs=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((latex :packages (not company-math))))
+#+END_SRC
+
+** PDF viewer
+If the =pdf= layer is used, then the layer automatically configures =pdf-tools=
+as the 'output-pdf' viewer, see [[#pdf-viewer]]. To additionally make =pdf-tools=
+open in a split window, set the layer variable =latex-view-pdf-in-split-window=
+to =t=.
+
+If, despite using the pdf layer, you prefer to use another pdf viewer to preview
+the output pdf's, set the layer variable =latex-view-with-pdf-tools= to =nil=.
+
+** Previewing
+=LaTex= layer support full-document previews and inline preview (via ~SPC m p~).
+
+To update the preview buffer whenever the compiled PDF file changes, set
+=latex-refresh-preview= to =t= in your =~/.spacemacs=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((latex :variables latex-refresh-preview t)))
+#+END_SRC
+
+=TexLab= also supports more sophisticated previewing setup, which is documented
+[[https://texlab.netlify.app/docs/installation/previewing][here]].
 
 ** Build command
 A build command can be specified via the layer variable =latex-build-command=.
+This variable can be set to any of the entities in =TeX-command-list=, including
+any custom entries you may have added there.
 
-If =LatexMk= is specified, the appropriate =LatexMk= configuration will be
-applied. (the default on systems with =latexmk= in the path) This variable can
-be set to any of the entities in =TeX-command-list=, including any custom
-entries you may have added there. To use the regular =AucTeX= command set
-=latex-build-command= to =LaTeX= as shown below.
+If =latexmk= is found on your system =PATH=, =LatexMk= will be chosen as your
+=latex-build-command=, unless if it's not set.
+
+To use the regular =AucTeX= command, set =latex-build-command= to =LaTeX= as
+shown below.
 
 #+BEGIN_SRC emacs-lisp
-  dotspacemacs-configuration-layers '(
-    (latex :variables latex-build-command "LaTeX"))
+  (setq-default dotspacemacs-configuration-layers
+                '((latex :variables latex-build-command "LaTeX")))
 #+END_SRC
+
+** TeX Engine
+=auctex= and =auctex-latexmk= have default rules to determine build command
+and build options according to the buffer-local variable =TeX-engine=.
+
+It should be one of the symbol defined in =TeX-engine-alist=. The default valid
+symbols are:
+- ~default~
+- ~luatex~
+- ~omega~
+- ~xetex~
+
+An appropriate =TeX-engine= is required for high-quality typesetting in certain
+languages. For convenience, ~xetex~ is chosen when it's found on PATH and when
+either =chinese= or =japanese= layer is enabled.
+
+You can choose the engine on a per file basis, by setting file-local
+variable. For example, you can append these code to the end of a =.tex= file:
+
+#+BEGIN_SRC tex
+  %%% Local Variables:
+  %%% TeX-engine: xetex
+  %%% End:
+#+END_SRC
+
+Should you use AUCTeX's keystroke ~C-c C-c~ for compilation instead of
+Spacemacs' ~SPC m b~, the minibuffer will still show ~LaTeX~ as compilation
+command, however ~xetex~ will be used on the background and no specific
+~Xe(La)TeX~ command is needed. Likewise for the other engines.
+
+If you predominantly work with one specific engine, you can set it as a layer
+variable.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((latex :variables latex-build-engine 'xetex)))
+#+END_SRC
+
+More information on TeX engine and languages support can be found in =auctex=
+[[https://www.gnu.org/software/auctex/manual/auctex/Internationalization.html#Internationalization][manual page]].
 
 ** Auto-fill
 To disable auto-fill (which is on by default) set the variable
 =latex-enable-auto-fill= to =nil=.
 
-The variable =latex-nofill-env= provide the list of environment names where
-=auto-fill-mode= will be inhibited.
-
 #+BEGIN_SRC emacs-lisp
-  dotspacemacs-configuration-layers '(
-    (latex :variables latex-enable-auto-fill nil))
+  (setq-default dotspacemacs-configuration-layers
+                '((latex :variables latex-enable-auto-fill nil)))
 #+END_SRC
+
+The variable =latex-nofill-env= provides the list of environment names where
+=auto-fill-mode= will be inhibited. By default it includes:
+- "equation"
+- "equation*"
+- "align"
+- "align*"
+- "tabular"
+- "tabular*"
+- "tabu"
+- "tabu*"
+- "tikzpicture"
 
 ** Folding
 Enable folding of text by setting =latex-enable-folding= to =t=. Default value
 is nil.
 
 #+BEGIN_SRC emacs-lisp
-  dotspacemacs-configuration-layers '(
-    (latex :variables latex-enable-folding t))
+  (setq-default dotspacemacs-configuration-layers
+                '((latex :variables latex-enable-folding t)))
 #+END_SRC
 
 ** Magic latex buffer
@@ -95,8 +228,8 @@ To enable "magic" symbols in latex buffers, set the variable
 =latex-enable-magic= to =t=.
 
 #+BEGIN_SRC emacs-lisp
-  dotspacemacs-configuration-layers '(
-    (latex :variables latex-enable-magic t))
+  (setq-default dotspacemacs-configuration-layers
+                '((latex :variables latex-enable-magic t)))
 #+END_SRC
 
 The precise effect of this feature can be modified by adjusting the following
@@ -114,53 +247,54 @@ By default, the underlying latex code is echoed in the echo area.
 
 * Key bindings
 
-| Key binding   | Description                                |
-|---------------+--------------------------------------------|
-| ~SPC m -~     | recenter output buffer                     |
-| ~SPC m ​,​~     | TeX command on master file                 |
-| ~SPC m .~     | mark LaTeX environment                     |
-| ~SPC m *~     | mark LaTeX section                         |
-| ~SPC m %~     | comment or uncomment a paragraph           |
-| ~SPC m ;~     | comment or uncomment a region              |
-| ~SPC m a~     | run all commands (compile and open viewer) |
-| ~SPC m b~     | build                                      |
-| ~SPC m c~     | close LaTeX environment                    |
-| ~SPC m e~     | insert LaTeX environment                   |
-| ~SPC m i i~   | insert =\item=                             |
-| ~SPC m k~     | kill TeX job                               |
-| ~SPC m l~     | recenter output buffer                     |
-| ~SPC m m~     | insert LaTeX macro                         |
-| ~SPC m n~     | goto next error                            |
-| ~SPC m N~     | goto previous error                        |
-| ~SPC m s~     | insert LaTeX section                       |
-| ~SPC m v~     | view output                                |
-| ~SPC m h d~   | TeX documentation, can be very slow        |
-| ~SPC m f e~   | fill LaTeX environment                     |
-| ~SPC m f p~   | fill LaTeX paragraph                       |
-| ~SPC m f r~   | fill LaTeX region                          |
-| ~SPC m f s~   | fill LaTeX section                         |
-| ~SPC m p r~   | preview region                             |
-| ~SPC m p b~   | preview buffer                             |
-| ~SPC m p d~   | preview document                           |
-| ~SPC m p e~   | preview environment                        |
-| ~SPC m p s~   | preview section                            |
-| ~SPC m p p~   | preview at point                           |
-| ~SPC m p f~   | cache preamble for preview                 |
-| ~SPC m p c~   | clear previews                             |
-| ~SPC m v~     | view                                       |
-| ~SPC m x b~   | make font bold                             |
-| ~SPC m x B~   | make font medium weight                    |
-| ~SPC m x c~   | make font monospaced (for code)            |
-| ~SPC m x e~   | make font emphasised                       |
-| ~SPC m x i~   | make font italic                           |
-| ~SPC m x o~   | make font oblique                          |
-| ~SPC m x r~   | remove font properties                     |
-| ~SPC m x f a~ | use calligraphic font                      |
-| ~SPC m x f c~ | use small-caps font                        |
-| ~SPC m x f f~ | use sans serif font                        |
-| ~SPC m x f n~ | use normal font                            |
-| ~SPC m x f r~ | use serif font                             |
-| ~SPC m x f u~ | use upright font                           |
+| Key binding                         | Description                                |
+|-------------------------------------+--------------------------------------------|
+| ~SPC m -~                           | recenter output buffer                     |
+| ~SPC m ,~                           | TeX command on master file                 |
+| ~SPC m .~                           | mark LaTeX environment                     |
+| ~SPC m *~                           | mark LaTeX section                         |
+| ~SPC m %~                           | comment or uncomment a paragraph           |
+| ~SPC m ;~                           | comment or uncomment a region              |
+| ~SPC m a~ or with LSP ~SPC m a u~   | run all commands (compile and open viewer) |
+| ~SPC m b~ or with LSP ~SPC m c~     | build the document (compile)               |
+| ~SPC m c~ or with LSP ~SPC m i c~   | close LaTeX environment                    |
+| ~SPC m i c~ or with LSP ~SPC m i C~ | insert cite key                            |
+| ~SPC m e~ or with LSP ~SPC m i e~   | insert LaTeX environment                   |
+| ~SPC m i i~                         | insert =\item=                             |
+| ~SPC m k~                           | kill TeX job                               |
+| ~SPC m l~                           | recenter output buffer                     |
+| ~SPC m m~                           | insert LaTeX macro                         |
+| ~SPC m n~                           | goto next error                            |
+| ~SPC m N~                           | goto previous error                        |
+| ~SPC m s~                           | insert LaTeX section                       |
+| ~SPC m v~                           | view output                                |
+| ~SPC m h d~                         | TeX documentation, can be very slow        |
+| ~SPC m f e~                         | fill LaTeX environment                     |
+| ~SPC m f p~                         | fill LaTeX paragraph                       |
+| ~SPC m f r~                         | fill LaTeX region                          |
+| ~SPC m f s~                         | fill LaTeX section                         |
+| ~SPC m p r~                         | preview region                             |
+| ~SPC m p b~                         | preview buffer                             |
+| ~SPC m p d~                         | preview document                           |
+| ~SPC m p e~                         | preview environment                        |
+| ~SPC m p s~                         | preview section                            |
+| ~SPC m p p~                         | preview at point                           |
+| ~SPC m p f~                         | cache preamble for preview                 |
+| ~SPC m p c~                         | clear previews                             |
+| ~SPC m v~                           | view                                       |
+| ~SPC m x b~                         | make font bold                             |
+| ~SPC m x B~                         | make font medium weight                    |
+| ~SPC m x c~                         | make font monospaced (for code)            |
+| ~SPC m x e~                         | make font emphasised                       |
+| ~SPC m x i~                         | make font italic                           |
+| ~SPC m x o~                         | make font oblique                          |
+| ~SPC m x r~                         | remove font properties                     |
+| ~SPC m x f a~                       | use calligraphic font                      |
+| ~SPC m x f c~                       | use small-caps font                        |
+| ~SPC m x f f~                       | use sans serif font                        |
+| ~SPC m x f n~                       | use normal font                            |
+| ~SPC m x f r~                       | use serif font                             |
+| ~SPC m x f u~                       | use upright font                           |
 
 ** Folding
 Available only when =latex-enable-folding= is non nil.
@@ -175,18 +309,18 @@ Available only when =latex-enable-folding= is non nil.
 
 ** RefTeX
 
-| Key binding   | Description                           |
-|---------------+---------------------------------------|
-| ~SPC m r c~   | reftex-citation                       |
-| ~SPC m r g~   | reftex-grep-document                  |
-| ~SPC m r i~   | reftex-index-selection-or-word        |
-| ~SPC m r I~   | reftex-display-index                  |
-| ~SPC m r TAB~ | reftex-index                          |
-| ~SPC m r l~   | reftex-label                          |
-| ~SPC m r p~   | reftex-index-phrase-selection-or-word |
-| ~SPC m r P~   | reftex-index-visit-phrases-buffer     |
-| ~SPC m r r~   | reftex-reference                      |
-| ~SPC m r s~   | reftex-search-document                |
-| ~SPC m r t~   | reftex-toc                            |
-| ~SPC m r T~   | reftex-toc-recenter                   |
-| ~SPC m r v~   | reftex-view-crossref                  |
+| Key binding                             | Description                           |
+|-----------------------------------------+---------------------------------------|
+| ~SPC m r c~ or with LSP ~SPC m R c~     | reftex-citation                       |
+| ~SPC m r g~ or with LSP ~SPC m R g~     | reftex-grep-document                  |
+| ~SPC m r i~ or with LSP ~SPC m R i~     | reftex-index-selection-or-word        |
+| ~SPC m r I~ or with LSP ~SPC m R I~     | reftex-display-index                  |
+| ~SPC m r TAB~ or with LSP ~SPC m R TAB~ | reftex-index                          |
+| ~SPC m r l~ or with LSP ~SPC m R l~     | reftex-label                          |
+| ~SPC m r p~ or with LSP ~SPC m R p~     | reftex-index-phrase-selection-or-word |
+| ~SPC m r P~ or with LSP ~SPC m R P~     | reftex-index-visit-phrases-buffer     |
+| ~SPC m r r~ or with LSP ~SPC m R r~     | reftex-reference                      |
+| ~SPC m r s~ or with LSP ~SPC m R s~     | reftex-search-document                |
+| ~SPC m r t~ or with LSP ~SPC m R t~     | reftex-toc                            |
+| ~SPC m r T~ or with LSP ~SPC m R T~     | reftex-toc-recenter                   |
+| ~SPC m r v~ or with LSP ~SPC m R v~     | reftex-view-crossref                  |

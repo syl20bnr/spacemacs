@@ -15,7 +15,6 @@
   - [[#flycheck][Flycheck]]
     - [[#credo][Credo]]
     - [[#dogma][Dogma]]
-    - [[#mix-compile][mix compile]]
   - [[#language-server-protocol][Language server protocol]]
   - [[#debugger][Debugger]]
 - [[#key-bindings][Key bindings]]
@@ -55,7 +54,6 @@ As Alchemist is no longer maintained, elixir-ls is a preferred solution, even th
 - Smart code completion
 - Elixir project management
 - Integration with [[http://company-mode.github.io/][company-mode]]
-- Flycheck support for mix compile
 - Flycheck support for [[https://github.com/rrrene/credo][credo]]
 - Flycheck support for test results
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
@@ -151,38 +149,6 @@ Then run in your shell:
 #+BEGIN_SRC shell
   $ mix deps.get
 #+END_SRC
-
-*** mix compile
-*Important:*
-
-Elixir compiler is based on macros and can execute arbitrary during compilation.
-Therefore Spacemacs disable flycheck compilation checker by default.
-
-To enable flycheck support for compilation errors *globally* the variable
-=elixir-enable-compilation-checking= can be set explicitly to =t= in your
-dotfile but it is not recommended to do so because of the limitation described
-above.
-
-Instead you should use directory local variables in order to enable the flycheck
-checker only for certain projects. Directory local variables are stored in a
-file named =.dir-locals.el= usually at the root of a project. To easily add a
-directory local variable use the key binding ~SPC f v d~ then choose the
-=elixir-mode= and the variable name =elixir-enable-compilation-checking= with a
-value of t. The result is a new file =.dir-locals.el= with the following
-contents:
-
-#+BEGIN_SRC elisp
-  ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
-
-  ((elixir-mode
-    (elixir-enable-compilation-checking . t)))
-#+END_SRC
-
-Spacemacs marks the variable =elixir-enable-compilation-checking= as safe so
-Emacs won't ask you if the variable is safe whenever an elixir file is opened.
-
-Remember that you can verify the flycheck checkers status with ~SPC e v~.
 
 ** Language server protocol
 The =lsp= backend uses [[https://github.com/JakeBecker/elixir-ls][elixir-ls]] as its language server implementation

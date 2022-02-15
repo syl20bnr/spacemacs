@@ -94,13 +94,13 @@ Refer to the official notmuch website for more information:
 * Key bindings
 ** Global bindings
 
-| Key binding | Command                                      |
-|-------------+----------------------------------------------|
-| ~SPC a N N~ | Start notmuch                                |
-| ~SPC a N n~ | Start helm notmuch                           |
-| ~SPC a N j~ | Start a notmuch jump search                  |
-| ~SPC a N s~ | Start a notmuch search                       |
-| ~SPC l o n~ | Start notmuch in a custom layout, "@Notmuch" |
+| Key binding   | Command                                      |
+|---------------+----------------------------------------------|
+| ~SPC a e n N~ | Start notmuch                                |
+| ~SPC a e n n~ | Start helm/counsil notmuch                   |
+| ~SPC a e n j~ | Start a notmuch jump search                  |
+| ~SPC a e n s~ | Start a notmuch search                       |
+| ~SPC l o n~   | Start notmuch in a custom layout, "@Notmuch" |
 
 ** Show mode
 
@@ -132,10 +132,20 @@ Refer to the official notmuch website for more information:
 ** Evilified key bindings
 *** Hello mode
 
-| Key binding | Command                     |
-|-------------+-----------------------------|
-| ~J~         | Jump to a saved search      |
-| ~s~         | Show threads matching QUERY |
+| Key binding | Command                              |
+|-------------+--------------------------------------|
+| ~TAB~       | Jump to next widget                  |
+| ~S-TAB~     | Jump to previous widget              |
+| ~J~         | Jump to a saved search               |
+| ~s~         | Show threads matching QUERY          |
+| ~=~ or ~g~  | Refresh buffer                       |
+| ~M-=~       | Refresh all open notmuch buffers     |
+| ~?~         | Open notmuch help buffer             |
+| ~G~         | Pull new messages and refresh buffer |
+| ~m~         | Open new mail buffer                 |
+| ~q~         | Kill notmuch buffer                  |
+| ~v~         | Show current notmuch version         |
+| ~z~         | Open notmuch tree buffer             |
 
 *** Search mode
 
@@ -172,12 +182,14 @@ Refer to the official notmuch website for more information:
 
 *** Tree mode
 
-| Key binding | Command                  |
-|-------------+--------------------------|
-| ~*~         | [Thread] Add/Remove tags |
-| ~+~         | [Message] Add tags       |
-| ~-~         | [Message] Remove tags    |
-| ~a~         | [Message] Archive        |
+| Key binding | Command                                |
+|-------------+----------------------------------------|
+| ~*~         | [Thread] Add/Remove tags               |
+| ~+~         | [Message] Add tags                     |
+| ~-~         | [Message] Remove tags                  |
+| ~a~         | [Message] Archive                      |
+| ~M-d~       | [Message] Scroll down the message pane |
+| ~M-u~       | [Message] Scroll up the message pane   |
 
 * Spacemacs layout integration
 This layer defines a [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#layouts-and-workspaces][Spacemacs custom layout]] and automatically adds notmuch

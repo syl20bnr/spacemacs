@@ -1,6 +1,8 @@
+;; -*- no-byte-compile: t -*-
 (setq spacemacs-dump-mode 'dumping)
 ;; load init.el
-(load (concat (file-name-directory load-file-name) "init.el"))
+(setq spacemacs-start-directory (file-name-directory load-file-name))
+(load (concat spacemacs-start-directory "init"))
 ;; prepare the dump
 (spacemacs/dump-save-load-path)
 ;; disable undo-tree to prevent from segfaulting when loading the dump

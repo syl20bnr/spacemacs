@@ -1,13 +1,25 @@
 ;;; packages.el --- dart layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Bruno Tavares <connect+spacemacs@bltavares.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst dart-packages
   '(
@@ -15,6 +27,7 @@
     (dart-server :toggle (eq dart-backend 'analyzer))
     (flutter (eq dart-backend 'analyzer))
     flycheck
+    (lsp-dart (eq dart-backend 'lsp))
     ))
 
 (defun dart/show-buffer ()
@@ -74,6 +87,10 @@
       (spacemacs/declare-prefix-for-mode 'dart-mode "mx" "flutter")
       (spacemacs/set-leader-keys-for-major-mode 'dart-mode
         "xx" 'flutter-run-or-hot-reload))))
+
+(defun dart/init-lsp-dart ()
+  (use-package lsp-dart
+    :defer t))
 
 (defun dart/post-init-flycheck ()
   (spacemacs/enable-flycheck 'dart-mode))

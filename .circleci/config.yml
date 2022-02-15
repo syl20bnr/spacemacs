@@ -1,186 +1,23 @@
----
-# Circle CI YAML file
-version: 2.0
-
-references:
-  steps_core_steps: &steps_core_steps
-    steps:
-      - checkout
-      - run:
-          name: core tests installation
-          command:
-            ./.circleci/test core installation
-      - run:
-          name: core unit tests
-          command:
-            ./.circleci/test core unit_tests
-      - run:
-          name: core functional tests
-          command:
-            ./.circleci/test core func_tests
-  spacemacs_base_steps: &spacemacs_base_steps
-    steps:
-      - checkout
-      - run:
-          name: spacemacs-base distribution tests installation
-          command:
-            ./.circleci/test layers/+distribution/spacemacs-base installation
-      - run:
-          name: spacemacs-base distribution unit tests
-          command:
-            ./.circleci/test layers/+distribution/spacemacs-base unit_tests
-      - run:
-          name: spacemacs-base distribution functional tests
-          command:
-            ./.circleci/test layers/+distribution/spacemacs-base func_tests
-  spacemacs_steps: &spacemacs_steps
-    steps:
-      - checkout
-      - run:
-          name: spacemacs distribution tests installation
-          command:
-            ./.circleci/test layers/+distribution/spacemacs installation
-      - run:
-          name: spacemac distribution unit tests
-          command:
-            ./.circleci/test layers/+distribution/spacemacs unit_tests
-      - run:
-          name: spacemacs distribution functional tests
-          command:
-            ./.circleci/test layers/+distribution/spacemacs func_tests
-
+#### Config generator for CircleCI.
+version: 2.1
+setup: true
+orbs:
+  continuation: circleci/continuation@0.1.0
 jobs:
-  "Validate PR":
-    docker:
-      - image: jare/spacemacs-circleci:latest
-    working_directory: ~/.emacs.d
+  "Generate config":
+    executor: continuation/default
     steps:
       - checkout
-      - run:
-          name: Make sure that this PR targets develop branch
-          command: ./.circleci/PR_base
-      - run:
-          name: Make sure that this PR doesn't need rebase
-          command: ./.circleci/PR_rebased
-
-  # Emacs 25
-  "core Emacs25 (required)":
-    docker:
-      - image: jare/spacemacs-circleci:emacs25
-    working_directory: ~/.emacs.d
-    <<: *steps_core_steps
-
-  "spacemacs-base dist. Emacs25 (required)":
-    docker:
-      - image: jare/spacemacs-circleci:emacs25
-    working_directory: ~/.emacs.d
-    <<: *spacemacs_base_steps
-
-  "spacemacs dist. Emacs25 (required)":
-    docker:
-      - image: jare/spacemacs-circleci:emacs25
-    working_directory: ~/.emacs.d
-    <<: *spacemacs_steps
-
-  # Emacs 26
-  "core Emacs26 (required)":
-    docker:
-      - image: jare/spacemacs-circleci:latest
-    working_directory: ~/.emacs.d
-    <<: *steps_core_steps
-
-  "spacemacs-base dist. Emacs26 (required)":
-    docker:
-      - image: jare/spacemacs-circleci:latest
-    working_directory: ~/.emacs.d
-    <<: *spacemacs_base_steps
-
-  "spacemacs dist. Emacs26 (required)":
-    docker:
-      - image: jare/spacemacs-circleci:latest
-    working_directory: ~/.emacs.d
-    <<: *spacemacs_steps
-
-  # Emacs snapshot
-  "core Emacs snapshot (optional)":
-    docker:
-      - image: jare/spacemacs-circleci:emacs-snapshot
-    working_directory: ~/.emacs.d
-    <<: *steps_core_steps
-
-  "spacemacs-base dist. Emacs snapshot (optional)":
-    docker:
-      - image: jare/spacemacs-circleci:emacs-snapshot
-    working_directory: ~/.emacs.d
-    <<: *spacemacs_base_steps
-
-  "spacemacs dist. Emacs snapshot (optional)":
-    docker:
-      - image: jare/spacemacs-circleci:emacs-snapshot
-    working_directory: ~/.emacs.d
-    <<: *spacemacs_steps
-
-  "CHANGELOG.develop updated (optional)":
-    docker:
-      - image: jare/spacemacs-circleci:latest
-    working_directory: ~/.emacs.d
-    steps:
-      - checkout
-      - run:
-          name: Select changed files
-          command: ./.circleci/select
-      - run:
-          name: Check CHANGELOG.develop
-          command: ./.circleci/PR_changelong
-
-  "Validate Documentation (required)":
-    docker:
-      - image: jare/spacemacs-circleci:latest
-    working_directory: ~/.emacs.d
-    steps:
-      - checkout
-      - run:
-          name: Select changed files
-          command: ./.circleci/select
-      - run:
-          name: export changed documentation files for validation
-          command: ./.circleci/validoc/export
-      - run:
-          name: validating changed documentation files
-          command: ./.circleci/validoc/validate
-
+      - run: 
+          name: "Render config_tmpl.yml"
+          command: |
+            cd .circleci/
+            cp config_tmpl.yml circleci.yml
+            sed -i "s/{{ IS_BRANCH_UDATE }}/${IS_BRANCH_UPDATE}/g" circleci.yml
+      - continuation/continue:
+          parameters: '{}'
+          configuration_path: ".circleci/circleci.yml"
 workflows:
-  version: 2
-  build:
+  setup-workflow:
     jobs:
-      - "Validate PR"
-      - "core Emacs25 (required)":
-          requires:
-            - "Validate PR"
-      - "spacemacs-base dist. Emacs25 (required)":
-          requires:
-            - "Validate PR"
-      - "core Emacs26 (required)":
-          requires:
-            - "Validate PR"
-      - "spacemacs-base dist. Emacs26 (required)":
-          requires:
-            - "Validate PR"
-      - "spacemacs dist. Emacs25 (required)":
-          requires:
-            - "Validate PR"
-      - "core Emacs snapshot (optional)":
-          requires:
-            - "Validate PR"
-      - "spacemacs-base dist. Emacs snapshot (optional)":
-          requires:
-            - "Validate PR"
-      - "spacemacs dist. Emacs snapshot (optional)":
-          requires:
-            - "Validate PR"
-      - "Validate Documentation (required)":
-          requires:
-            - "Validate PR"
-      - "CHANGELOG.develop updated (optional)":
-          requires:
-            - "Validate PR"
+      - "Generate config"

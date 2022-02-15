@@ -1,13 +1,25 @@
 ;;; config.el --- keyboard-layout Layer configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Fabien Dubosson <fabien.dubosson@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 ;;------------------------------------------------------------------------------
 ;; PUBLIC VARIABLES
@@ -15,8 +27,8 @@
 
 (defvar kl-layout 'dvorak
   "The keyboard-layout to use. Possible values are `bepo', `dvp',
-`dvorak', `workman', `neo', `colemak-neio', `colemak-hnei' and
-`colemak-jkhl'.")
+`dvorak', `workman', `neo', `colemak-neio-literal', `colemak-neio-inverted',
+ `colemak-hnei' and `colemak-jkhl'.")
 
 (defvar kl-enabled-configurations nil
   "If non nil, `keyboard-layout' will enable configurations only
@@ -83,7 +95,7 @@ case.")
         ("j" . "n")
         ("h" . "r")
         ("k" . "t")))
-    (colemak-neio
+    (colemak-neio-literal
      . (("n" . "h")
         ("e" . "j")
         ("i" . "k")
@@ -91,8 +103,18 @@ case.")
         ;;
         ("h" . "n")
         ("j" . "e")
-        ("k" . "i")
-        ("l" . "o")))
+        ("k" . "i")   ;;
+        ("l" . "o"))) ;; easier access to "New Line Mode"
+    (colemak-neio-inverted
+     . (("n" . "h")
+        ("e" . "j")
+        ("i" . "k")
+        ("o" . "l")
+        ;;
+        ("h" . "n")
+        ("j" . "e")
+        ("l" . "i")   ;; easier access to "Insert Mode"
+        ("k" . "o"))) ;;
     (colemak-hnei
      . (("h" . "h")
         ("n" . "j")

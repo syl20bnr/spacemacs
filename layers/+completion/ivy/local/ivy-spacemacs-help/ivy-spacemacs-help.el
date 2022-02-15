@@ -27,7 +27,6 @@
 ;;; Code:
 
 (require 'cl-lib)
-(require 'ht)
 (require 'ivy)
 (require 'core-configuration-layer)
 
@@ -42,7 +41,7 @@
 
 (defun ivy-spacemacs-help//init (&optional arg)
   (when (or arg (null ivy-spacemacs--initialized))
-    (configuration-layer/make-all-packages)
+    (configuration-layer/make-all-packages nil t)
     (setq ivy-spacemacs--initialized t)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

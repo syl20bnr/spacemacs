@@ -1,24 +1,37 @@
 ;;; packages.el --- Auto-completion Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(setq auto-completion-packages
+
+(defconst auto-completion-packages
       '(
         auto-yasnippet
         auto-complete
         ac-ispell
         company
+        (company-posframe :toggle auto-completion-use-company-posframe)
         (company-box :toggle auto-completion-use-company-box)
         (all-the-icons :toggle auto-completion-use-company-box)
         (company-quickhelp :toggle auto-completion-enable-help-tooltip)
-        company-statistics
+        (company-statistics :toggle auto-completion-enable-sort-by-usage)
         counsel
         fuzzy
         (helm-company :requires helm)
@@ -27,8 +40,8 @@
         (ivy-yasnippet :requires ivy)
         smartparens
         yasnippet
-        yasnippet-snippets
-        ))
+        yasnippet-snippets))
+
 
 ;; TODO replace by company-ispell which comes with company
 ;; to be moved to spell-checking layer as well
@@ -39,9 +52,9 @@
     (progn
       (setq ac-ispell-requires 4)
       (with-eval-after-load 'auto-complete
-        (ac-ispell-setup))
-      ;; (add-hook 'markdown-mode-hook 'ac-ispell-ac-setup)
-      )))
+        (ac-ispell-setup)))))
+;; (add-hook 'markdown-mode-hook 'ac-ispell-ac-setup)
+
 
 (defun auto-completion/init-auto-complete ()
   (use-package auto-complete
@@ -90,7 +103,7 @@
     :init
     (progn
       (setq company-idle-delay auto-completion-idle-delay
-            company-minimum-prefix-length 2
+            company-minimum-prefix-length auto-completion-minimum-prefix-length
             company-require-match nil
             company-dabbrev-ignore-case nil
             company-dabbrev-downcase nil)
@@ -102,6 +115,7 @@
     (progn
       (spacemacs|diminish company-mode " ⓐ" " a")
 
+      (spacemacs|add-company-backends :modes text-mode)
       ;; key bindings
       (defun spacemacs//company-complete-common-or-cycle-backward ()
         "Complete common prefix or cycle backward."
@@ -117,14 +131,10 @@
         (define-key map (kbd "C-d")   'company-show-doc-buffer))
       (add-hook 'spacemacs-editing-style-hook 'spacemacs//company-active-navigation)
       ;; ensure that the correct bindings are set at startup
-      (spacemacs//company-active-navigation dotspacemacs-editing-style)
-
-      (setq company-transformers '(spacemacs//company-transformer-cancel
-                                   company-sort-by-occurrence)))))
+      (spacemacs//company-active-navigation dotspacemacs-editing-style))))
 
 (defun auto-completion/init-company-statistics ()
   (use-package company-statistics
-    :if auto-completion-enable-sort-by-usage
     :defer t
     :init
     (progn
@@ -133,9 +143,9 @@
       (add-hook 'company-mode-hook 'company-statistics-mode))))
 
 (defun auto-completion/pre-init-counsel ()
-    (spacemacs|use-package-add-hook company
-      :post-config
-      (define-key company-active-map (kbd "C-/") 'counsel-company)))
+  (spacemacs|use-package-add-hook company
+    :post-config
+    (define-key company-active-map (kbd "C-/") 'counsel-company)))
 
 (defun auto-completion/init-fuzzy ()
   (use-package fuzzy :defer t))
@@ -217,13 +227,19 @@
                    (kbd "M-h") #'company-box-doc-manually))
         ('t (setq company-box-doc-enable t))))))
 
+(defun auto-completion/init-company-posframe ()
+  (use-package company-posframe
+    :hook '(company-mode . company-posframe-mode)
+    :if (not auto-completion-use-company-box)
+    :config (spacemacs|hide-lighter company-posframe-mode)))
+
 (defun auto-completion/init-helm-c-yasnippet ()
   (use-package helm-c-yasnippet
     :defer t
     :init
     (progn
       (spacemacs/set-leader-keys "is" 'spacemacs/helm-yas)
-      (setq helm-c-yas-space-match-any-greedy t))))
+      (setq helm-yas-space-match-any-greedy t))))
 
 (defun auto-completion/pre-init-helm-company ()
   (spacemacs|use-package-add-hook company
@@ -302,11 +318,11 @@
       (let* ((spacemacs--auto-completion-dir
               (configuration-layer/get-layer-local-dir 'auto-completion))
              (emacs-directory-snippets-dir (concat
-                                          spacemacs-private-directory
-                                          "snippets/"))
+                                            spacemacs-private-directory
+                                            "snippets/"))
              (spacemacs-layer-snippets-dir (expand-file-name
-                                      "snippets"
-                                      spacemacs--auto-completion-dir))
+                                            "snippets"
+                                            spacemacs--auto-completion-dir))
              (dotspacemacs-directory-snippets-dir
               (when dotspacemacs-directory
                 (let ((snippet-dir (expand-file-name
@@ -335,11 +351,11 @@
        'spacemacs/force-yasnippet-off '(term-mode-hook
                                         shell-mode-hook
                                         eshell-mode-hook))
-      (spacemacs|require 'yasnippet)
+      (spacemacs|require-when-dumping 'yasnippet)
       (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
                                                           markdown-mode-hook
-                                                          org-mode-hook))
-      )
+                                                          org-mode-hook)))
+
     :config (spacemacs|diminish yas-minor-mode " ⓨ" " y")))
 
 (defun auto-completion/init-yasnippet-snippets ())

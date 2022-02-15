@@ -1,13 +1,25 @@
-;;; packages.el --- Neotree Layer packages File
+;;; packages.el --- Neotree Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst neotree-packages
   '(
@@ -116,10 +128,11 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
 (defun neotree/pre-init-winum ()
   (spacemacs|use-package-add-hook winum
     :post-config
-    ;; `0', `M-0' and `C-x w 0' are bound to `winum-select-window-0-or-10'
-    (define-key winum-keymap [remap winum-select-window-0-or-10] #'neotree-show)
-    ;; replace the which-key name
-    (push '((nil . "winum-select-window-0-or-10") . (nil . "neotree-show"))
-          which-key-replacement-alist)
-    (add-to-list 'winum-assign-functions
-                 #'spacemacs//winum-neotree-assign-func)))
+    (when (configuration-layer/package-used-p 'winum)
+      ;; `0', `M-0' and `C-x w 0' are bound to `winum-select-window-0-or-10'
+      (define-key winum-keymap [remap winum-select-window-0-or-10] #'neotree-show)
+      ;; replace the which-key name
+      (push '((nil . "winum-select-window-0-or-10") . (nil . "neotree-show"))
+            which-key-replacement-alist)
+      (add-to-list 'winum-assign-functions
+                   #'spacemacs//winum-neotree-assign-func))))

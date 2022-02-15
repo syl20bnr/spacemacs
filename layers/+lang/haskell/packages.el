@@ -1,29 +1,31 @@
 ;;; packages.el --- Haskell Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (setq haskell-packages
       '(
         cmm-mode
         company
         (company-cabal :requires company)
-
-        ;; ghci completion backend
-        (company-ghci :requires company)
-
-        ;; ghc-mod completion backend
-        (company-ghc :requires company)
-        ghc
-
-        ;; intero completion backend
-        (intero :requires company)
 
         ;; dante completion backend
         (dante :requires company)
@@ -41,10 +43,9 @@
         helm-gtags
         (helm-hoogle :requires helm)
         hindent
-        hlint-refactor
-        ))
+        hlint-refactor))
 
-(defun haskell/init-lsp-haskell()
+(defun haskell/init-lsp-haskell ()
   (use-package lsp-haskell
     :defer t))
 
@@ -54,6 +55,8 @@
 
 (defun haskell/post-init-company ()
   (add-hook 'haskell-mode-local-vars-hook #'spacemacs-haskell//setup-company)
+  (add-hook 'haskell-literate-mode-local-vars-hook #'spacemacs-haskell//setup-company)
+  ;; renamed as of 04/2020, delete in due course
   (add-hook 'literate-haskell-mode-local-vars-hook #'spacemacs-haskell//setup-company))
 
 (defun haskell/init-company-cabal ()
@@ -63,75 +66,6 @@
     (spacemacs|add-company-backends
       :backends company-cabal
       :modes haskell-cabal-mode)))
-
-(defun haskell/init-company-ghci ()
-  (use-package company-ghci
-    :defer t))
-
-(defun haskell/init-company-ghc ()
-  (use-package company-ghc
-    :defer t))
-
-(defun haskell/init-ghc ()
-  (use-package ghc
-    :defer t
-    :config
-    (progn
-      (dolist (mode haskell-modes)
-        (spacemacs/declare-prefix-for-mode mode "mm" "haskell/ghc-mod")
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "mt" 'ghc-insert-template-or-signature
-          "mu" 'ghc-initial-code-from-signature
-          "ma" 'ghc-auto
-          "mf" 'ghc-refine
-          "me" 'ghc-expand-th
-          "mn" 'ghc-goto-next-hole
-          "mp" 'ghc-goto-prev-hole
-          "m>" 'ghc-make-indent-deeper
-          "m<" 'ghc-make-indent-shallower
-          "hi" 'ghc-show-info
-          "ht" 'ghc-show-type))
-      (when (configuration-layer/package-used-p 'flycheck)
-        ;; remove overlays from ghc-check.el if flycheck is enabled
-        (set-face-attribute 'ghc-face-error nil :underline nil)
-        (set-face-attribute 'ghc-face-warn nil :underline nil)))))
-
-(defun haskell/init-intero ()
-  (use-package intero
-    :defer t
-    :config
-    (progn
-      (spacemacs|diminish intero-mode " λ" " \\")
-      (advice-add 'intero-repl-load
-                  :around #'haskell-intero//preserve-focus)
-
-      (dolist (mode haskell-modes)
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "gb" 'xref-pop-marker-stack
-          "hi" 'intero-info
-          "ht" 'intero-type-at
-          "hT" 'haskell-intero/insert-type
-          "rs" 'intero-apply-suggestions
-          "sb" 'intero-repl-load))
-
-      (dolist (mode (cons 'haskell-cabal-mode haskell-modes))
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "sc"  nil
-          "sS"  'haskell-intero/display-repl
-          "ss"  'haskell-intero/pop-to-repl))
-
-      (dolist (mode (append haskell-modes '(haskell-cabal-mode intero-repl-mode)))
-        (spacemacs/declare-prefix-for-mode mode "mi" "haskell/intero")
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "ic"  'intero-cd
-          "id"  'intero-devel-reload
-          "ik"  'intero-destroy
-          "il"  'intero-list-buffers
-          "ir"  'intero-restart
-          "it"  'intero-targets))
-
-      (evil-define-key '(insert normal) intero-mode-map
-        (kbd "M-.") 'intero-goto-definition))))
 
 (defun haskell/init-dante ()
   (use-package dante
@@ -160,7 +94,11 @@
       (spacemacs/set-leader-keys-for-major-mode mode "hf" 'helm-hoogle))))
 
 (defun haskell/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'haskell-mode))
+  (progn
+    (add-hook 'dante-mode-hook
+              (lambda () (flycheck-add-next-checker 'haskell-dante '(warning . haskell-hlint))))
+    (spacemacs/enable-flycheck 'haskell-mode)))
+
 
 (defun haskell/init-flycheck-haskell ()
   (use-package flycheck-haskell
@@ -169,6 +107,8 @@
 
 (defun haskell/post-init-ggtags ()
   (add-hook 'haskell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
+  (add-hook 'haskell-literate-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
+  ;; renamed as of 04/2020, delete in due course
   (add-hook 'literate-haskell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun haskell/init-haskell-mode ()
@@ -177,6 +117,8 @@
     :init
     (progn
       (add-hook 'haskell-mode-local-vars-hook #'spacemacs-haskell//setup-backend)
+      (add-hook 'haskell-literate-mode-local-vars-hook #'spacemacs-haskell//setup-backend)
+      ;; renamed as of 04/2020, delete in due course
       (add-hook 'literate-haskell-mode-local-vars-hook #'spacemacs-haskell//setup-backend)
 
       (defun spacemacs//force-haskell-mode-loading ()
@@ -225,7 +167,6 @@
         (spacemacs/declare-prefix-for-mode mode "mr" "haskell/refactor"))
       (spacemacs/declare-prefix-for-mode 'haskell-interactive-mode "ms" "haskell/repl")
       (spacemacs/declare-prefix-for-mode 'haskell-cabal-mode "ms" "haskell/repl")
-      (spacemacs/declare-prefix-for-mode 'intero-repl-mode "ms" "haskell/repl")
 
       ;; key bindings
       (defun spacemacs/haskell-process-do-type-on-prev-line ()
@@ -244,13 +185,11 @@
 
       (dolist (mode haskell-modes)
         (spacemacs/set-leader-keys-for-major-mode mode
-          "gi"  'haskell-navigate-imports
-          "F"   'haskell-mode-stylish-buffer
-
           "sb"  'haskell-process-load-file
           "sc"  'haskell-interactive-mode-clear
           "sS"  'spacemacs/haskell-interactive-bring
           "ss"  'haskell-interactive-switch
+          "st"  'haskell-session-change-target
           "'"   'haskell-interactive-switch
 
           "ca"  'haskell-process-cabal
@@ -259,12 +198,9 @@
           "cv"  'haskell-cabal-visit-file
 
           "hd"  'inferior-haskell-find-haddock
-          "hh"  'hoogle
-          "hH"  'haskell-hoogle-lookup-from-local
           "hi"  'haskell-process-do-info
           "ht"  'haskell-process-do-type
           "hT"  'spacemacs/haskell-process-do-type-on-prev-line
-          "hy"  'hayoo
 
           "da"  'haskell-debug/abandon
           "db"  'haskell-debug/break-on-function
@@ -278,7 +214,20 @@
           "ds"  'haskell-debug/step
           "dt"  'haskell-debug/trace
 
-          "ri"  'spacemacs/haskell-format-imports))
+          "ri"  'spacemacs/haskell-format-imports)
+        (if (eq haskell-completion-backend 'lsp)
+            (spacemacs/set-leader-keys-for-major-mode mode
+              "gl"  'haskell-navigate-imports
+              "S"   'haskell-mode-stylish-buffer
+
+              "hg"  'hoogle
+              "hG"  'haskell-hoogle-lookup-from-local)
+          (spacemacs/set-leader-keys-for-major-mode mode
+            "gi"  'haskell-navigate-imports
+            "F"   'haskell-mode-stylish-buffer
+
+            "hh"  'hoogle
+            "hG"  'haskell-hoogle-lookup-from-local)))
 
       (evilified-state-evilify haskell-debug-mode haskell-debug-mode-map
         "RET" 'haskell-debug/select
@@ -299,8 +248,6 @@
       ;; Switch back to editor from REPL
       (spacemacs/set-leader-keys-for-major-mode 'haskell-interactive-mode
         "ss"  'haskell-interactive-switch-back)
-      (spacemacs/set-leader-keys-for-major-mode 'intero-repl-mode
-        "ss"  'intero-repl-switch-back)
 
       ;; Compile
       (spacemacs/set-leader-keys-for-major-mode 'haskell-cabal
@@ -370,7 +317,7 @@
   (spacemacs/helm-gtags-define-keys-for-mode 'haskell-mode))
 
 
-;; doesn't support literate-haskell-mode :(
+;; doesn't support haskell-literate-mode :(
 (defun haskell/init-hindent ()
   (use-package hindent
     :defer t

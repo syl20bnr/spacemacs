@@ -1,13 +1,25 @@
 ;;; funcs.el --- rcirc Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 
 (defun spacemacs/rcirc (arg)
@@ -81,7 +93,7 @@
         ;; Append the line to the appropriate logfile.
         (let ((coding-system-for-write 'no-conversion)
               (logfile (concat rcirc-log-directory  (downcase target))))
-          (when (not (file-directory-p (file-name-directory logfile)))
+          (unless (file-directory-p (file-name-directory logfile))
             (make-directory (file-name-directory logfile)))
           (write-region (point-min) (point-max)
                         logfile
@@ -120,9 +132,9 @@ This doesn't support the chanserv auth method. "
 
 (defun spacemacs//znc-auth-source-fetch-password (server)
   "Given a server with at least :host :port :login, return the :password"
-  (destructuring-bind (&key host auth &allow-other-keys)
+  (cl-destructuring-bind (&key host auth &allow-other-keys)
       (cdr server)
-    (destructuring-bind (&key secret &allow-other-keys)
+    (cl-destructuring-bind (&key secret &allow-other-keys)
         (car (auth-source-search :host host
                                  :port "irc"
                                  :user auth
@@ -150,21 +162,21 @@ This doesn't support the chanserv auth method. "
   (cl-loop
    for s in rcirc-server-alist
    collect
-   (destructuring-bind (&key host
-                             (port rcirc-default-port)
-                             (nick rcirc-default-nick)
-                             (user-name rcirc-default-user-name)
-                             (full-name rcirc-default-full-name)
-                             channels
-                             password
-                             encryption
-                             &allow-other-keys
-                             &aux contact (server (car s)))
+   (cl-destructuring-bind (&key host
+                                (port rcirc-default-port)
+                                (nick rcirc-default-nick)
+                                (user-name rcirc-default-user-name)
+                                (full-name rcirc-default-full-name)
+                                channels
+                                password
+                                encryption
+                                &allow-other-keys
+                                &aux contact (server (car s)))
        (cdr s)
      (let ((host (or host server)) ; catter with server without :host
            (connected
             (cl-loop for p in (rcirc-process-list)
-                  thereis (string= server (process-get p :rcirc-server)))))
+                     thereis (string= server (process-get p :rcirc-server)))))
        (unless connected
          (let ((process
                 (rcirc-connect host port nick user-name

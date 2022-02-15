@@ -1,13 +1,25 @@
-;;; init.el --- Spacemacs Initialization File
+;;; init.el --- Spacemacs Initialization File -*- no-byte-compile: t -*-
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 ;; Without this comment emacs25 adds (package-initialize) here
 ;; (package-initialize)
@@ -17,13 +29,25 @@
 (defconst emacs-start-time (current-time))
 (setq gc-cons-threshold 402653184 gc-cons-percentage 0.6)
 (load (concat (file-name-directory load-file-name)
-              "core/core-versions.el")
+              "core/core-versions")
       nil (not init-file-debug))
 (load (concat (file-name-directory load-file-name)
-              "core/core-load-paths.el")
+              "core/core-load-paths")
       nil (not init-file-debug))
-(load (concat spacemacs-core-directory "core-dumper.el")
+(load (concat spacemacs-core-directory "core-dumper")
       nil (not init-file-debug))
+
+;; Remove compiled core files if they become stale or Emacs version has changed.
+(load (concat spacemacs-core-directory "core-compilation")
+      nil (not init-file-debug))
+(load spacemacs--last-emacs-version-file t (not init-file-debug))
+(when (or (not (string= spacemacs--last-emacs-version emacs-version))
+          (spacemacs//dir-contains-stale-byte-compiled-files-p
+           spacemacs-core-directory))
+  (spacemacs//remove-byte-compiled-files-in-dir spacemacs-core-directory))
+;; Update saved Emacs version.
+(unless (string= spacemacs--last-emacs-version emacs-version)
+  (spacemacs//update-last-emacs-version))
 
 (if (not (version<= spacemacs-emacs-min-version emacs-version))
     (error (concat "Your version of Emacs (%s) is too old. "

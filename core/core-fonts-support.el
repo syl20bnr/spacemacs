@@ -1,13 +1,25 @@
 ;;; core-fonts-support.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 (require 'core-funcs)
 (require 'core-spacemacs-buffer)
 
@@ -101,6 +113,11 @@ The return value is nil if no font was found, truthy otherwise."
 `dotspacemacs-mode-line-unicode-symbols'.
 If ASCII is not provided then UNICODE is used instead. If neither are provided,
 the mode will not show in the mode line."
+  (when (and unicode
+             (not (display-graphic-p)) ; terminal
+             ;; the new indicator is 3 chars (including the space), ex: " Ⓔh"
+             (= (length unicode) 3))
+    (setq unicode (spacemacs/terminal-fix-mode-line-indicator-overlap unicode)))
   `(let ((cell (assq ',mode spacemacs--diminished-minor-modes)))
      (if cell
          (setcdr cell '(,unicode ,ascii))

@@ -1,49 +1,66 @@
 ;;; packages.el --- Spacemacs Defaults Layer packages File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(setq spacemacs-defaults-packages
-      '(
-        (abbrev :location built-in)
-        (archive-mode :location built-in)
-        (bookmark :location built-in)
-        (conf-mode :location built-in)
-        (dired :location built-in)
-        (dired-x :location built-in)
-        (display-line-numbers :location built-in
-                              :toggle (version<= "26" emacs-version))
-        (electric-indent-mode :location built-in)
-        (ediff :location built-in)
-        (eldoc :location built-in)
-        (help-fns+ :location local)
-        (hi-lock :location built-in)
-        (image-mode :location built-in)
-        (imenu :location built-in)
-        (linum :location built-in :toggle (version< emacs-version "26"))
-        (occur-mode :location built-in)
-        (package-menu :location built-in)
-        ;; page-break-lines is shipped with spacemacs core
-        (page-break-lines :location built-in)
-        (process-menu :location built-in)
-        (recentf :location built-in)
-        (savehist :location built-in)
-        (saveplace :location built-in)
-        (subword :location built-in)
-        (tar-mode :location built-in)
-        (uniquify :location built-in)
-        (url :location built-in)
-        (visual-line-mode :location built-in)
-        (whitespace :location built-in)
-        (winner :location built-in)
-        (zone :location built-in)
-        ))
+
+(defconst spacemacs-defaults-packages
+  '(
+    (abbrev :location built-in)
+    (archive-mode :location built-in)
+    (bookmark :location built-in)
+    (buffer-menu :location built-in)
+    (conf-mode :location built-in)
+    (cus-edit :location built-in
+              :toggle (or (eq 'vim dotspacemacs-editing-style)
+                          (eq 'hybrid dotspacemacs-editing-style)))
+    (dired :location built-in)
+    (dired-x :location built-in)
+    (image-dired :location built-in)
+    (display-line-numbers :location built-in)
+    (electric-indent-mode :location built-in)
+    (ediff :location built-in)
+    (eldoc :location built-in)
+    (help-fns+ :location local)
+    (hi-lock :location built-in)
+    (image-mode :location built-in)
+    (imenu :location built-in)
+    (occur-mode :location built-in)
+    (package-menu :location built-in)
+    ;; page-break-lines is shipped with spacemacs core
+    (page-break-lines :location built-in)
+    (process-menu :location built-in)
+    quickrun
+    (recentf :location built-in)
+    (savehist :location built-in)
+    (saveplace :location built-in)
+    (subword :location built-in)
+    (tar-mode :location built-in)
+    (uniquify :location built-in)
+    (url :location built-in)
+    (visual-line-mode :location built-in)
+    (whitespace :location built-in)
+    (winner :location built-in)
+    (xref :location built-in)
+    (zone :location built-in)))
+
 
 ;; Initialization of packages
 
@@ -54,6 +71,11 @@
   (evilified-state-evilify-map archive-mode-map
     :mode archive-mode
     :eval-after-load archive-mode))
+
+(defun spacemacs-defaults/init-buffer-menu ()
+  (with-eval-after-load 'evil-collection
+    (add-to-list
+     'spacemacs-evil-collection-allowed-list '(buff-menu "buff-menu"))))
 
 (defun spacemacs-defaults/init-bookmark ()
   (use-package bookmark
@@ -69,6 +91,47 @@
   :init
   ;; explicitly derive conf-mode from text-mode major-mode
   (add-hook 'conf-mode-hook 'spacemacs/run-text-mode-hooks))
+
+(defun spacemacs-defaults/init-cus-edit ()
+  ;; Arguably a Vim user's first expectation for such a buffer would be a kind
+  ;; of normal mode; besides, `evilified' conflicts with text insertion for
+  ;; search.
+  (evil-set-initial-state 'Custom-mode 'normal)
+  ;; Notes on how this effects the default `custom-mode-map':
+  ;; - `TAB' works as `widget-forward' without modification
+  ;; - `<S-TAB>' works as `widget-backward' without modification
+  ;; - `n' as `widget-forward' is redundant with `TAB' and collides with the
+  ;; - `evil-ex-search-next' mapping which is useful here. Omitting
+  ;;   intensionally.
+  ;; - `p' doesn't make any sense without `n' and is redundant with `<S-TAB>'.
+  ;;   Omitting intensionally.
+  ;; - `q' as `Custom-buffer-done' conflicts with the Evil record macro
+  ;;   binding, which is, however, of questionable value in a Custom buffer;
+  ;;   and there is precedent in many other Spacemacs contexts to bind it to
+  ;;   quit actions rather than default evil one; choosing to restore.
+  ;; - `SPC' as `scroll-up-command' conflicts with the all-important Spacemacs
+  ;;   menu. Omitting intensionally. Evil `C-u' works instead.
+  ;; - `S-SPC' as `scroll-down-command' makes no sense without `SPC' as
+  ;;   `scroll-up-command'. Evil `C-d' works instead.
+  ;; - `C-x' as a prefix command still works.
+  ;; - `C-c' as a prefix command still works.
+  ;; - Activating normal-mode makes evil override the custom-mode-map normal-state
+  ;;   its mouse button bindings. So we bind them explicitly in normal-state
+  (evil-define-key 'normal 'custom-mode-map [down-mouse-1] 'widget-button-click)
+  ;; - `u' as `Custom-goto-parent' conflicts with Evil undo. However it is
+  ;;   questionable whether this will work properly in a Custom buffer;
+  ;;   choosing to restore this binding.
+  (evil-define-key 'normal custom-mode-map (kbd "q") 'Custom-buffer-done)
+  (evil-define-key 'normal custom-mode-map (kbd "u") 'Custom-goto-parent)
+  ;; `RET' does not work well in the search field. Fix:
+  (evil-define-key '(insert normal) custom-mode-map (kbd "RET") 'spacemacs/custom-newline)
+  ;; There is a separate map for links, oddly enough. Separate it from the
+  ;; `custom-mode-map' bindings, which is its parent by default.
+  (set-keymap-parent custom-mode-link-map nil)
+  ;; Evil doesn't seem to be properly in control of what is going on in these
+  ;; widget-induced keymaps, so just use base bindings to sort this out
+  (define-key custom-mode-link-map (kbd "q") 'Custom-buffer-done)
+  (define-key custom-mode-link-map (kbd "u") 'Custom-goto-parent))
 
 (defun spacemacs-defaults/init-dired ()
   (spacemacs/set-leader-keys
@@ -91,6 +154,20 @@
     :commands (dired-jump
                dired-jump-other-window
                dired-omit-mode)))
+
+(defun spacemacs-defaults/init-image-dired ()
+  (use-package image-dired
+    :defer t
+    :config
+    (evilified-state-evilify-map image-dired-thumbnail-mode-map
+      :mode image-dired-thumbnail-mode
+      :bindings
+      "j" 'image-dired-next-line
+      "k" 'image-dired-previous-line
+      "l" 'image-dired-forward-image
+      "h" 'image-dired-backward-image)
+    (evilified-state-evilify-map image-dired-display-image-mode-map
+      :mode image-dired-display-image-mode)))
 
 (defun spacemacs-defaults/init-electric-indent-mode ()
   (electric-indent-mode))
@@ -135,7 +212,7 @@
 (defun spacemacs-defaults/init-eldoc ()
   (use-package eldoc
     :defer (spacemacs/defer)
-    :init (spacemacs|require 'eldoc)
+    :init (spacemacs|require-when-dumping 'eldoc)
     :config
     (progn
       ;; enable eldoc in `eval-expression'
@@ -155,7 +232,10 @@
 (defun spacemacs-defaults/init-help-fns+ ()
   (use-package help-fns+
     :commands (describe-keymap)
-    :init (spacemacs/set-leader-keys "hdK" 'describe-keymap)))
+    :init
+    (progn
+      (spacemacs/set-leader-keys "hdK" 'describe-keymap)
+      (advice-add 'help-do-xref :after (lambda (_pos _func _args) (setq-local tab-width 8))))))
 
 (defun spacemacs-defaults/init-hi-lock ()
   (with-eval-after-load 'hi-lock
@@ -210,7 +290,20 @@
             (t
              (setq display-line-numbers-type t)))
 
+      (spacemacs/declare-prefix "tn" "line-numbers")
+
       (spacemacs|add-toggle line-numbers
+        :status (and (featurep 'display-line-numbers)
+                     display-line-numbers-mode
+                     (eq display-line-numbers dotspacemacs-line-numbers))
+        :on (prog1 (display-line-numbers-mode)
+              (setq display-line-numbers dotspacemacs-line-numbers))
+        :off (display-line-numbers-mode -1)
+        :on-message "Line numbers enabled per dotspacemacs-line-numbers."
+        :off-message "Line numbers disabled."
+        :documentation "Show line numbers as configured in .spacemacs."
+        :evil-leader "tnn")
+      (spacemacs|add-toggle absolute-line-numbers
         :status (and (featurep 'display-line-numbers)
                      display-line-numbers-mode
                      (eq display-line-numbers t))
@@ -219,8 +312,8 @@
         :off (display-line-numbers-mode -1)
         :on-message "Absolute line numbers enabled."
         :off-message "Line numbers disabled."
-        :documentation "Show the line numbers."
-        :evil-leader "tn")
+        :documentation "Show absolute line numbers."
+        :evil-leader "tna")
       (spacemacs|add-toggle relative-line-numbers
         :status (and (featurep 'display-line-numbers)
                      display-line-numbers-mode
@@ -231,7 +324,8 @@
         :documentation "Show relative line numbers."
         :on-message "Relative line numbers enabled."
         :off-message "Line numbers disabled."
-        :evil-leader "tr")
+        :evil-leader "tnr")
+
       (spacemacs|add-toggle visual-line-numbers
         :status (and (featurep 'display-line-numbers)
                      display-line-numbers-mode
@@ -242,7 +336,7 @@
         :documentation "Show relative visual line numbers."
         :on-message "Visual line numbers enabled."
         :off-message "Line numbers disabled."
-        :evil-leader "tV")
+        :evil-leader "tnv")
 
       (when (spacemacs//linum-backward-compabitility)
         (add-hook 'prog-mode-hook 'display-line-numbers-mode)
@@ -301,13 +395,21 @@
 (defun spacemacs-defaults/init-process-menu ()
   (evilified-state-evilify process-menu-mode process-menu-mode-map))
 
+(defun spacemacs-defaults/init-quickrun ()
+  (use-package quickrun
+    :defer t
+    :init
+    (setq quickrun-focus-p nil)
+    (spacemacs/set-leader-keys
+      "xx" 'spacemacs/quickrun)))
+
 (defun spacemacs-defaults/init-recentf ()
   (use-package recentf
     :defer (spacemacs/defer)
     :commands (recentf-save-list)
     :init
     (progn
-      (spacemacs|require 'recentf)
+      (spacemacs|require-when-dumping 'recentf)
       (when (spacemacs/defer)
         (add-hook 'find-file-hook (lambda () (unless recentf-mode
                                                (recentf-mode)
@@ -322,7 +424,9 @@
       (add-to-list 'recentf-exclude
                    (recentf-expand-file-name spacemacs-cache-directory))
       (add-to-list 'recentf-exclude (recentf-expand-file-name package-user-dir))
-      (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'"))))
+      (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
+      (when custom-file
+        (add-to-list 'recentf-exclude custom-file)))))
 
 (defun spacemacs-defaults/init-savehist ()
   (use-package savehist
@@ -336,7 +440,8 @@
                                             global-mark-ring
                                             search-ring
                                             regexp-search-ring
-                                            extended-command-history)
+                                            extended-command-history
+                                            kill-ring)
             savehist-autosave-interval 60)
       (savehist-mode t))))
 
@@ -402,15 +507,11 @@
     :defer t
     :init
     (progn
-      (setq spacemacs-show-trailing-whitespace t)
-      (defun spacemacs//show-trailing-whitespace ()
-        (when spacemacs-show-trailing-whitespace
-          (set-face-attribute 'trailing-whitespace nil
-                              :background
-                              (face-attribute 'font-lock-comment-face
-                                              :foreground))
-          (setq show-trailing-whitespace 1)))
-      (add-hook 'prog-mode-hook 'spacemacs//show-trailing-whitespace)
+      (when dotspacemacs-show-trailing-whitespace
+        (set-face-attribute
+         'trailing-whitespace nil
+         :background (face-attribute 'font-lock-comment-face :foreground)))
+      (add-hook 'prog-mode-hook 'spacemacs//trailing-whitespace)
 
       (spacemacs|add-toggle whitespace
         :mode whitespace-mode
@@ -421,18 +522,6 @@
         :documentation "Display whitespace globally."
         :evil-leader "t C-w")
 
-      (defun spacemacs//set-whitespace-style-for-diff ()
-        "Whitespace configuration for `diff-mode'"
-        (setq-local whitespace-style '(face
-                                       tabs
-                                       tab-mark
-                                       spaces
-                                       space-mark
-                                       trailing
-                                       indentation::space
-                                       indentation::tab
-                                       newline
-                                       newline-mark)))
       (add-hook 'diff-mode-hook 'whitespace-mode)
       (add-hook 'diff-mode-hook 'spacemacs//set-whitespace-style-for-diff))
     :config
@@ -462,10 +551,15 @@
                                               "*cvs*"
                                               "*Buffer List*"
                                               "*Ibuffer*"
-                                              "*esh command on file*"
-                                              ))
+                                              "*esh command on file*"))
+
       (setq winner-boring-buffers
             (append winner-boring-buffers spacemacs/winner-boring-buffers)))))
+
+(defun spacemacs-defaults/init-xref ()
+  (evilified-state-evilify-map xref--xref-buffer-mode-map
+    :mode xref--xref-buffer-mode
+    :eval-after-load xref))
 
 (defun spacemacs-defaults/init-zone ()
   (use-package zone
@@ -492,11 +586,10 @@
                            ;; zone-pgm-five-oclock-swan-dive
                            ;; zone-pgm-martini-swan-dive
                            zone-pgm-rat-race
-                           zone-pgm-paragraph-spaz
-                           ;; zone-pgm-stress
-                           ;; zone-pgm-stress-destress
-                           ;; zone-pgm-random-life
-                           ])
+                           zone-pgm-paragraph-spaz])
+      ;; zone-pgm-stress
+      ;; zone-pgm-stress-destress
+      ;; zone-pgm-random-life
       (spacemacs/set-leader-keys "TZ" 'zone))
     :config
     ;; be sure to disable running zone if the user does not want it

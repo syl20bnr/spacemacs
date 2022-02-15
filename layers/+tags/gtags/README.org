@@ -8,6 +8,7 @@
 - [[#install][Install]]
   - [[#gnu-global-gtags][GNU Global (gtags)]]
     - [[#install-on-ubuntu][Install on Ubuntu]]
+    - [[#install-on-arch-linux][Install on Arch Linux]]
     - [[#install-on-macos-using-homebrew][Install on macOS using Homebrew]]
     - [[#install-on-nix-from-source][Install on *nix from source]]
       - [[#install-recommended-dependencies][Install recommended dependencies]]
@@ -64,6 +65,11 @@ recommend installing from source.
   sudo apt-get install global
 #+END_SRC
 
+*** Install on Arch Linux
+#+BEGIN_SRC sh
+  yay -S global
+#+END_SRC
+
 *** Install on macOS using Homebrew
 #+BEGIN_SRC sh
   brew install global
@@ -86,12 +92,36 @@ or e.g. Archlinux:
 #+END_SRC
 
 **** Install with recommended features
-Download the latest tar.gz archive, then run these commands:
+Download the latest tar.gz archive from [[https://www.gnu.org/software/global/download.html][GNU Global Download page]].
+
+Also check which version of gcc your system is using by default as this will influence the next steps:
+
+#+BEGIN_SRC sh
+  gcc --version
+#+END_SRC
+
+Then run these commands:
 
 #+BEGIN_SRC sh
   tar xvf global-<version>.tar.gz
   cd global-<version>
+#+END_SRC
+
+If you have gcc version 10 then you will have to force building with an earlier version of gcc like so:
+
+#+BEGIN_SRC sh
+  ./configure CC=gcc-8 --with-exuberant-ctags=/usr/bin/ctags
+#+END_SRC
+
+Otherwise do not need to specify a CC flag
+
+#+BEGIN_SRC sh
   ./configure --with-exuberant-ctags=/usr/bin/ctags
+#+END_SRC
+
+And finally:
+
+#+BEGIN_SRC sh
   make
   sudo make install
 #+END_SRC

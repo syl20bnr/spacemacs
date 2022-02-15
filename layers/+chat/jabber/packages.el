@@ -1,18 +1,30 @@
 ;;; packages.el --- jabber Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Tosh Lyons <tosh.lyons@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(setq jabber-packages '(
-                        jabber
-                        window-purpose
-                        ))
+
+(defconst jabber-packages
+  '(
+    jabber
+    window-purpose))
 
 (defun jabber/init-jabber ()
   (use-package jabber
@@ -20,7 +32,7 @@
     :init
     (progn
       (add-hook 'jabber-post-connect-hooks 'spacemacs/jabber-connect-hook)
-      (spacemacs/set-leader-keys "aj" 'jabber-connect-all))
+      (spacemacs/set-leader-keys "acj" 'jabber-connect-all))
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'jabber-roster-mode
@@ -40,11 +52,10 @@
         "j" 'jabber-go-to-next-roster-item
         "k" 'jabber-go-to-previous-roster-item))))
 
-(defun jabber/pre-init-window-purpose ()
-  (spacemacs|use-package-add-hook window-purpose
-    :pre-config
-    (dolist (mode '(jabber-browse-mode
-                    jabber-chat-mode
-                    jabber-console-mode
-                    jabber-roster-mode))
-      (add-to-list 'purpose-user-mode-purposes (cons mode 'chat)))))
+(defun jabber/post-init-window-purpose ()
+  (purpose-set-extension-configuration
+   :jabber-layer
+   (purpose-conf :mode-purposes '((jabber-browse-mode . chat)
+                                  (jabber-chat-mode . chat)
+                                  (jabber-console-mode . chat)
+                                  (jabber-roster-mode . chat)))))

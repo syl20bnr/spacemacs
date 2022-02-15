@@ -1,52 +1,69 @@
 ;;; packages.el --- Python Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(setq python-packages
-      '(
-        blacken
-        company
-        counsel-gtags
-        cython-mode
-        dap-mode
-        eldoc
-        evil-matchit
-        flycheck
-        ggtags
-        helm-cscope
-        helm-gtags
-        (helm-pydoc :requires helm)
-        importmagic
-        live-py-mode
-        (nose :location local)
-        org
-        pip-requirements
-        pipenv
-        pippel
-        py-isort
-        pyenv-mode
-        (pylookup :location local)
-        pytest
-        (python :location built-in)
-        pyvenv
-        semantic
-        smartparens
-        stickyfunc-enhance
-        xcscope
-        yapfify
-        ;; packages for anaconda backend
-        anaconda-mode
-        (company-anaconda :requires company)
-        ;; packages for Microsoft LSP backend
-        (lsp-python-ms :requires lsp-mode)
-        ))
+
+(defconst python-packages
+  '(
+    blacken
+    company
+    counsel-gtags
+    cython-mode
+    dap-mode
+    eldoc
+    evil-matchit
+    flycheck
+    ggtags
+    helm-cscope
+    helm-gtags
+    (helm-pydoc :requires helm)
+    importmagic
+    live-py-mode
+    (nose :location (recipe :fetcher github :repo "syl20bnr/nose.el"))
+    org
+    pip-requirements
+    pipenv
+    poetry
+    pippel
+    py-isort
+    pydoc
+    pyenv-mode
+    (pylookup :location local)
+    pytest
+    (python :location built-in)
+    pyvenv
+    semantic
+    sphinx-doc
+    smartparens
+    stickyfunc-enhance
+    xcscope
+    window-purpose
+    yapfify
+    ;; packages for anaconda backend
+    anaconda-mode
+    (company-anaconda :requires company)
+    ;; packages for Microsoft LSP backend
+    (lsp-python-ms :requires lsp-mode)
+    ;; packages for Microsoft's pyright language server
+    (lsp-pyright :requires lsp-mode)))
 
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
@@ -95,9 +112,8 @@
 (defun python/init-company-anaconda ()
   (use-package company-anaconda
     :if (eq python-backend 'anaconda)
-    :defer t
-    ;; see `spacemacs//python-setup-anaconda-company'
-    ))
+    :defer t))
+;; see `spacemacs//python-setup-anaconda-company'
 
 (defun python/init-blacken ()
   (use-package blacken
@@ -106,7 +122,7 @@
     (progn
       (spacemacs//bind-python-formatter-keys)
       (when (and python-format-on-save
-                 (eq 'black (spacemacs//python-formatter)))
+                 (eq 'black python-formatter))
         (add-hook 'python-mode-hook 'blacken-mode)))
     :config (spacemacs|hide-lighter blacken-mode)))
 
@@ -120,7 +136,8 @@
         "gu" 'anaconda-mode-find-references))))
 
 (defun python/pre-init-dap-mode ()
-  (add-to-list 'spacemacs--dap-supported-modes 'python-mode)
+  (when (eq python-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'python-mode))
   (add-hook 'python-mode-local-vars-hook #'spacemacs//python-setup-dap))
 
 (defun python/post-init-eldoc ()
@@ -212,6 +229,22 @@
           "vps" 'pipenv-shell
           "vpu" 'pipenv-uninstall)))))
 
+(defun python/pre-init-poetry ()
+  (add-to-list 'spacemacs--python-poetry-modes 'python-mode))
+(defun python/init-poetry ()
+  (use-package poetry
+    :defer t
+    :commands (poetry-venv-toggle
+               poetry-tracking-mode)
+    :init
+    (progn
+      (dolist (m spacemacs--python-poetry-modes)
+        (spacemacs/set-leader-keys-for-major-mode m
+          "vod" 'poetry-venv-deactivate
+          "vow" 'poetry-venv-workon
+          "vot" 'poetry-venv-toggle)))))
+
+
 (defun python/init-pip-requirements ()
   (use-package pip-requirements
     :defer t))
@@ -234,6 +267,27 @@
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "rI" 'py-isort-buffer))))
 
+(defun python/init-sphinx-doc ()
+  (use-package sphinx-doc
+    :defer t
+    :init
+    (progn
+      (add-hook 'python-mode-hook 'sphinx-doc-mode)
+      (spacemacs/declare-prefix-for-mode 'python-mode "mS" "sphinx-doc")
+      (spacemacs/set-leader-keys-for-major-mode 'python-mode
+        "Se" 'sphinx-doc-mode
+        "Sd" 'sphinx-doc))
+    :config (spacemacs|hide-lighter sphinx-doc-mode)))
+
+(defun python/init-pydoc ()
+  (use-package pydoc
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'python-mode
+        "hp" 'pydoc-at-point-no-jedi
+        "hP" 'pydoc))))
+
 (defun python/pre-init-pyenv-mode ()
   (add-to-list 'spacemacs--python-pyenv-modes 'python-mode))
 (defun python/init-pyenv-mode ()
@@ -243,11 +297,11 @@
     :init
     (progn
       (pcase python-auto-set-local-pyenv-version
-        (`on-visit
+        ('on-visit
          (dolist (m spacemacs--python-pyenv-modes)
            (add-hook (intern (format "%s-hook" m))
                      'spacemacs//pyenv-mode-set-local-version)))
-        (`on-project-switch
+        ('on-project-switch
          (add-hook 'projectile-after-switch-project-hook
                    'spacemacs//pyenv-mode-set-local-version)))
       ;; setup shell correctly on environment switch
@@ -264,12 +318,13 @@
     :defer t
     :init
     (progn
+      (add-hook 'python-mode-hook #'pyvenv-tracking-mode)
       (pcase python-auto-set-local-pyvenv-virtualenv
-        (`on-visit
+        ('on-visit
          (dolist (m spacemacs--python-pyvenv-modes)
            (add-hook (intern (format "%s-hook" m))
                      'spacemacs//pyvenv-mode-set-local-virtualenv)))
-        (`on-project-switch
+        ('on-project-switch
          (add-hook 'projectile-after-switch-project-hook
                    'spacemacs//pyvenv-mode-set-local-virtualenv)))
       (dolist (m spacemacs--python-pyvenv-modes)
@@ -303,6 +358,8 @@
                pytest-pdb-one
                pytest-all
                pytest-pdb-all
+               pytest-last-failed
+               pytest-pdb-last-failed
                pytest-module
                pytest-pdb-module)
     :init (spacemacs//bind-python-testing-keys)
@@ -317,9 +374,8 @@
       (spacemacs/register-repl 'python
                                'spacemacs/python-start-or-switch-repl "python")
       (spacemacs//bind-python-repl-keys)
-      (spacemacs/add-to-hook 'python-mode-hook
-                             '(spacemacs//python-setup-backend
-                               spacemacs//python-default))
+      (add-hook 'python-mode-local-vars-hook 'spacemacs//python-setup-backend)
+      (add-hook 'python-mode-hook 'spacemacs//python-default)
       ;; call `spacemacs//python-setup-shell' once, don't put it in a hook
       ;; (see issue #5988)
       (spacemacs//python-setup-shell))
@@ -337,6 +393,7 @@
       (spacemacs/declare-prefix-for-mode 'python-mode "mr" "refactor")
       (spacemacs/declare-prefix-for-mode 'python-mode "mv" "virtualenv")
       (spacemacs/declare-prefix-for-mode 'python-mode "mvp" "pipenv")
+      (spacemacs/declare-prefix-for-mode 'python-mode "mvo" "poetry")
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "'"  'spacemacs/python-start-or-switch-repl
         "cc" 'spacemacs/python-execute-file
@@ -345,11 +402,15 @@
         "ri" 'spacemacs/python-remove-unused-imports
         "sB" 'spacemacs/python-shell-send-buffer-switch
         "sb" 'spacemacs/python-shell-send-buffer
+        "sE" 'spacemacs/python-shell-send-statement-switch
+        "se" 'spacemacs/python-shell-send-statement
         "sF" 'spacemacs/python-shell-send-defun-switch
         "sf" 'spacemacs/python-shell-send-defun
         "si" 'spacemacs/python-start-or-switch-repl
         "sR" 'spacemacs/python-shell-send-region-switch
-        "sr" 'spacemacs/python-shell-send-region)
+        "sr" 'spacemacs/python-shell-send-region
+        "sl" 'spacemacs/python-shell-send-line
+        "ss" 'spacemacs/python-shell-send-with-output)
 
       ;; Set `python-indent-guess-indent-offset' to `nil' to prevent guessing `python-indent-offset
       ;; (we call python-indent-guess-indent-offset manually so python-mode does not need to do it)
@@ -407,7 +468,7 @@ fix this issue."
             ad-do-it
           (call-interactively 'sp-backward-delete-char))))))
 (defun python/post-init-smartparens ()
-  (add-hook 'inferior-python-mode-hook 'smartparens-mode))
+  (add-hook 'inferior-python-mode-hook #'spacemacs//activate-smartparens))
 
 (defun python/post-init-stickyfunc-enhance ()
   (add-hook 'python-mode-hook 'spacemacs/load-stickyfunc-enhance))
@@ -425,7 +486,7 @@ fix this issue."
     (progn
       (spacemacs//bind-python-formatter-keys)
       (when (and python-format-on-save
-                 (eq 'yapf (spacemacs//python-formatter)))
+                 (eq 'yapf python-formatter))
         (add-hook 'python-mode-hook 'yapf-mode)))
     :config (spacemacs|hide-lighter yapf-mode)))
 
@@ -443,6 +504,27 @@ fix this issue."
       (message "lsp-python-ms: Using version at `%s'" lsp-python-ms-dir)
       ;; Use a precompiled exe
       (setq lsp-python-ms-executable (concat lsp-python-ms-dir
+                                             (pcase system-type
+                                               ('gnu/linux "linux-x64/publish/")
+                                               ('darwin "osx-x64/publish/")
+                                               ('windows-nt "win-x64/publish/"))
                                              "Microsoft.Python.LanguageServer"
                                              (and (eq system-type 'windows-nt)
                                                   ".exe"))))))
+
+(defun python/init-lsp-pyright ()
+  (use-package lsp-pyright
+    :if (eq python-lsp-server 'pyright)
+    :ensure nil
+    :defer t))
+
+(defun python/post-init-window-purpose ()
+  (purpose-set-extension-configuration
+   :python-layer
+   (purpose-conf
+    :mode-purposes '((inferior-python-mode . repl))
+    :name-purposes '(("*compilation*" . logs)
+                     ("*Pylookup Completions*" . help))
+    :regexp-purposes '(("^\\*Anaconda" . help)
+                       ("^\\*Pydoc" . help)
+                       ("^\\*live-py" . logs)))))

@@ -1,0 +1,44 @@
+#+TITLE: Layer for reddit
+
+#+TAGS: layer|web service
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds Reddit support to Spacemacs via the package [[https://github.com/thanhvg/emacs-reddigg][reddigg]].
+This package allows you to browse reddit in org-mode.
+
+** Features:
+- Activities on Reddit
+  - Viewing main
+  - Viewing sub
+  - Viewing comments
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =reddit= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Configuration
+You can add sub Reddits to your main page by adding them to =reddigg-subs=. You have to
+write the sub Reddit name in small letters and replace =SPC= with =_=.
+
+Example:
+
+#+BEGIN_SRC emacs-lisp
+  (reddit :variables
+          reddigg-subs '(spacemacs
+                         trymacs_discord))
+#+END_SRC
+
+* Key bindings
+
+| Key binding   | Description |
+|---------------+-------------|
+| ~SPC a w r m~ | View main   |
+| ~SPC a w r s~ | View sub    |

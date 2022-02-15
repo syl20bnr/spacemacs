@@ -1,13 +1,25 @@
 ;;; packages.el --- HTML Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (setq html-packages
       '(
@@ -32,8 +44,8 @@
         tagedit
         web-mode
         yasnippet
-        web-beautify
-        ))
+        web-beautify))
+
 
 (defun html/post-init-add-node-modules-path ()
   (add-hook 'css-mode-hook #'add-node-modules-path)
@@ -77,11 +89,6 @@
         (add-hook 'css-mode-hook
                   #'spacemacs//setup-lsp-for-web-mode-buffers t))
 
-      ;; Explicitly run prog-mode hooks since css-mode does not derive from
-      ;; prog-mode major-mode in Emacs 24 and below.
-      (when (version< emacs-version "25")
-        (add-hook 'css-mode-hook 'spacemacs/run-prog-mode-hooks))
-
       (spacemacs/declare-prefix-for-mode 'css-mode "m=" "format")
       (spacemacs/declare-prefix-for-mode 'css-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'css-mode "mz" "foldz")
@@ -100,13 +107,11 @@
                                                 web-mode-hook))
     :config
     (progn
-      (evil-define-key 'insert emmet-mode-keymap (kbd "TAB") 'spacemacs/emmet-expand)
-      (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") 'spacemacs/emmet-expand)
-      (evil-define-key 'hybrid emmet-mode-keymap (kbd "TAB") 'spacemacs/emmet-expand)
-      (evil-define-key 'hybrid emmet-mode-keymap (kbd "<tab>") 'spacemacs/emmet-expand)
+      (define-key emmet-mode-keymap (kbd "<C-return>") 'spacemacs/emmet-expand)
       (spacemacs|hide-lighter emmet-mode))))
 
 (defun html/post-init-evil-matchit ()
+  (evilmi-load-plugin-rules '(web-mode) '(simple template html))
   (add-hook 'web-mode-hook 'turn-on-evil-matchit-mode))
 
 (defun html/post-init-flycheck ()
@@ -184,12 +189,9 @@
 
 (defun html/post-init-smartparens ()
   (spacemacs/add-to-hooks
-   (if dotspacemacs-smartparens-strict-mode
-       'smartparens-strict-mode
-     'smartparens-mode)
+   #'spacemacs//activate-smartparens
    '(css-mode-hook scss-mode-hook sass-mode-hook less-css-mode-hook))
-
-  (add-hook 'web-mode-hook 'spacemacs/toggle-smartparens-off))
+  (add-hook 'web-mode-hook #'spacemacs//deactivate-smartparens))
 
 (defun html/init-tagedit ()
   (use-package tagedit
@@ -207,7 +209,9 @@
     (progn
       (spacemacs//web-setup-transient-state)
       (when html-enable-lsp
-        (add-hook 'web-mode-hook #'spacemacs//setup-lsp-for-html-buffer t)))
+        (add-hook 'web-mode-hook #'spacemacs//setup-lsp-for-html-buffer t))
+      (when html-enable-leex-support
+        (add-to-list 'auto-mode-alist '("\\.leex\\'" . web-mode))))
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'web-mode "m=" "format")
@@ -227,9 +231,8 @@
         "rk" 'web-mode-element-kill
         "rr" 'web-mode-element-rename
         "rw" 'web-mode-element-wrap
-        "z" 'web-mode-fold-or-unfold
-        ;; TODO element close would be nice but broken with evil.
-        ))
+        "z" 'web-mode-fold-or-unfold))
+    ;; TODO element close would be nice but broken with evil.
     :mode
     (("\\.phtml\\'"      . web-mode)
      ("\\.tpl\\.php\\'"  . web-mode)
@@ -247,6 +250,7 @@
      ("\\.eco\\'"        . web-mode)
      ("\\.ejs\\'"        . web-mode)
      ("\\.svelte\\'"     . web-mode)
+     ("\\.ctp\\'"        . web-mode)
      ("\\.djhtml\\'"     . web-mode))))
 
 (defun html/post-init-yasnippet ()

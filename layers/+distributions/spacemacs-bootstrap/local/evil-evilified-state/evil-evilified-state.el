@@ -1,6 +1,6 @@
 ;;; evil-evilified-state.el --- A minimalistic evil state
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience editing evil spacemacs
@@ -45,13 +45,17 @@
 (require 'evil)
 (require 'bind-map)
 
-(defvar evilified-state--evil-surround nil
-  "Evil surround mode variable backup.")
-(make-variable-buffer-local 'evilified-state--evil-surround)
-
 (defvar evilified-state--normal-state-map nil
   "Local backup of normal state keymap.")
 (make-variable-buffer-local 'evilified-state--normal-state-map)
+
+(defvar evilified-state--visual-state-map nil
+  "Local backup of visual state keymap.")
+(make-variable-buffer-local 'evilified-state--visual-state-map)
+
+(defvar evilified-state--evil-surround-was-enabled nil
+  "Used to restore evil-surround-mode when exiting evilified state.")
+(make-variable-buffer-local 'evilified-state--evil-surround-was-enabled)
 
 (evil-define-state evilified
   "Evilified state.
@@ -101,7 +105,9 @@ Needed to bypass keymaps set as text properties."
 
 (defun evilified-state--restore-normal-state-keymap ()
   "Restore the normal state keymap."
-  (setq-local evil-normal-state-map evilified-state--normal-state-map))
+  (setq-local evil-normal-state-map evilified-state--normal-state-map)
+  (define-key evil-normal-state-map [escape] 'evil-force-normal-state)
+  (evil-normal-state))
 
 (defun evilified-state--clear-normal-state-keymap ()
   "Clear the normal state keymap."
@@ -109,10 +115,20 @@ Needed to bypass keymaps set as text properties."
   (evil-normalize-keymaps))
 
 (defun evilified-state--setup-visual-state-keymap ()
-  "Setup the normal state keymap."
+  "Setup the visual state keymap."
+  (unless evilified-state--visual-state-map
+    (setq-local evilified-state--visual-state-map
+                (copy-keymap evil-visual-state-map)))
   (setq-local evil-visual-state-map
-              (cons 'keymap (list (cons ?y 'evil-yank)
+              (cons 'keymap (list (cons ?a evil-outer-text-objects-map)
+                                  (cons ?i evil-inner-text-objects-map)
+                                  (cons ?o 'exchange-point-and-mark)
+                                  (cons ?y 'evil-yank)
                                   (cons 'escape 'evil-exit-visual-state)))))
+
+(defun evilified-state--restore-visual-state-keymap ()
+  "Restore the visual state keymap."
+  (setq-local evil-visual-state-map evilified-state--visual-state-map))
 
 (defun evilified-state--evilified-state-on-entry ()
   "Setup evilified state."
@@ -122,6 +138,7 @@ Needed to bypass keymaps set as text properties."
     ;; annoying ;; and introduces possible bugs
     (remove-hook 'activate-mark-hook 'evil-visual-activate-hook t))
   (when (bound-and-true-p evil-surround-mode)
+    (setq evilified-state--evil-surround-was-enabled t)
     (make-local-variable 'evil-surround-mode)
     (evil-surround-mode -1))
   (evilified-state--setup-normal-state-keymap)
@@ -132,6 +149,21 @@ Needed to bypass keymaps set as text properties."
   (add-hook 'evil-visual-state-exit-hook
             'evilified-state--visual-state-on-exit nil 'local))
 
+(defun evilified-state--evilified-state-on-exit ()
+  "Restore evil normal and visual states."
+  (when evilified-state--evil-surround-was-enabled
+    (evil-surround-mode 1)
+    (setq evilified-state--evil-surround-was-enabled nil))
+  (evilified-state--restore-normal-state-keymap)
+  (evilified-state--restore-visual-state-keymap)
+  (remove-hook 'pre-command-hook 'evilified-state--pre-command-hook 'local)
+  (remove-hook 'evil-visual-state-entry-hook
+               'evilified-state--visual-state-on-entry 'local)
+  (remove-hook 'evil-visual-state-exit-hook
+               'evilified-state--visual-state-on-exit 'local))
+
+(defalias 'evil-evilified-state-exit 'evilified-state--evilified-state-on-exit)
+
 (defun evilified-state--visual-state-on-entry ()
   "Setup visual state."
   ;; we need to clear temporarily the normal state keymap in order to reach
@@ -141,7 +173,7 @@ Needed to bypass keymaps set as text properties."
 
 (defun evilified-state--visual-state-on-exit ()
   "Clean visual state"
-  (evilified-state--restore-normal-state-keymap))
+  (evilified-state--restore-visual-state-keymap))
 
 (add-hook 'evil-evilified-state-entry-hook
           'evilified-state--evilified-state-on-entry)
@@ -165,7 +197,10 @@ Needed to bypass keymaps set as text properties."
 (define-key evil-evilified-state-map (kbd "C-y") 'evil-scroll-line-up)
 (define-key evil-evilified-state-map (kbd "C-d") 'evil-scroll-down)
 (define-key evil-evilified-state-map (kbd "C-u") 'evil-scroll-up)
+(define-key evil-evilified-state-map (kbd "C-o") 'evil-jump-backward)
+(define-key evil-evilified-state-map (kbd "C-i") 'evil-jump-forward)
 (define-key evil-evilified-state-map (kbd "C-z") 'evil-emacs-state)
+(define-key evil-evilified-state-map (kbd "C-w") 'evil-window-map)
 (setq evil-evilified-state-map-original (copy-keymap evil-evilified-state-map))
 
 ;; old macro

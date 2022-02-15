@@ -12,7 +12,8 @@
   - [[#show-snippets-in-auto-completion-popup][Show snippets in auto-completion popup]]
   - [[#tooltips][Tooltips]]
   - [[#sort-results-by-usage][Sort results by usage]]
-  - [[#enable-company-or-auto-complete-globally][Enable company or auto-complete globally]]
+  - [[#disable-auto-completion-in-specific-layers][Disable auto-completion in specific layers]]
+  - [[#enable-company-globally][Enable company globally]]
   - [[#replacing-company-by-auto-complete][Replacing company by auto-complete]]
   - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
   - [[#completion-back-ends][Completion back ends]]
@@ -64,6 +65,10 @@ layer variables:
 5. =auto-completion-idle-delay= is the number of seconds to wait before suggesting
    completions. The default value is 0.2 seconds. Set to =nil= to disable
    automatic suggestions (the ~TAB~ key will still perform completion).
+   Set to 0.0 for optimal results with lsp mode.
+6. =auto-completion-minimum-prefix-length= is the minimum number of characters
+   which must be entered before completions will be suggested automatically.
+   Set to 1 for optimal results with lsp mode.
 
 The default configuration of the layer is:
 
@@ -74,6 +79,7 @@ The default configuration of the layer is:
                      auto-completion-tab-key-behavior 'cycle
                      auto-completion-complete-with-key-sequence nil
                      auto-completion-complete-with-key-sequence-delay 0.1
+                     auto-completion-minimum-prefix-length 2
                      auto-completion-idle-delay 0.2
                      auto-completion-private-snippets-directory nil
                      auto-completion-enable-snippets-in-popup nil
@@ -126,8 +132,9 @@ To enable manual non-automatic invocation of docstring tooltips, set it to
                       auto-completion-enable-help-tooltip 'manual)))
 #+END_SRC
 
-However the tooltip may overlap on text on macOS, you can use =company-box= on
-Emacs 26+ by setting =auto-completion-use-company-box= to =t=.
+However the tooltip may overlap on text on macOS, you can use =company-box= or
+=company-posframe= on by setting =auto-completion-use-company-box= or
+=auto-completion-use-company-posframe= to =t=, respectively.
 
 ** Sort results by usage
 To enable sorting auto-completion results by their usage frequency set
@@ -135,25 +142,27 @@ To enable sorting auto-completion results by their usage frequency set
 This feature is provided by the [[https://github.com/company-mode/company-statistics][company-statistics]] package when =company=
 is used. The variable has no effect when =auto-complete= is used.
 
+Beware: Sorting completion results is often done already by the
+completion backend, doing it again in company may degrate
+performance.
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
     '((auto-completion :variables
                       auto-completion-enable-sort-by-usage t)))
 #+END_SRC
 
-** Enable company or auto-complete globally
-By default Spacemacs enables auto-completion explicitly for each supported
-major-mode, it means that =company= and =auto-complete= are not enabled
-globally, it allows more flexibility to choose an auto-completion engine
-for a given mode.
+** Disable auto-completion in specific layers
+See general documentation on how to [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#disabling-layer-services-in-other-layers][disable a layer for specific layers]].
 
-You may want to enable company globally to get auto-completion
-everywhere even in the modes which are not configured by Spacemacs. To do
-so, you just have to add =(global-company-mode)= in the
-=dotspacemacs/user-config= function of your dotfile.
+** Enable company globally
+It can be done by adding =(global-company-mode)= in the
+=dotspacemacs/user-config= function of your dotfile. But it is not recommended
+to do so, you should instead open an issue to ask for auto-completion support
+for the major-modes where it is missing.
 
-Note that if you want to enable =auto-complete= globally you will have to
-disable =company= first, see the next section to do so.
+If you choose to use =(global-company-mode)= then you would lose some advantages
+provided by the layer system like [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#disabling-layer-services-in-other-layers][disabling auto-completion for specific layers]].
 
 ** Replacing company by auto-complete
 You can disable =company= by adding it to the =dotspacemacs-excluded-packages=

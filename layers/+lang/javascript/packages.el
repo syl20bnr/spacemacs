@@ -1,38 +1,50 @@
 ;;; packages.el --- Javascript Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(setq javascript-packages
-      '(
-        add-node-modules-path
-        company
-        counsel-gtags
-        dap-mode
-        evil-matchit
-        flycheck
-        ggtags
-        helm-gtags
-        imenu
-        impatient-mode
-        import-js
-        js-doc
-        js2-mode
-        js2-refactor
-        livid-mode
-        nodejs-repl
-        org
-        prettier-js
-        skewer-mode
-        tern
-        web-beautify
-        ))
+
+(defconst javascript-packages
+  '(
+    add-node-modules-path
+    company
+    counsel-gtags
+    dap-mode
+    evil-matchit
+    flycheck
+    ggtags
+    helm-gtags
+    imenu
+    npm-mode
+    impatient-mode
+    import-js
+    js-doc
+    js2-mode
+    js2-refactor
+    livid-mode
+    nodejs-repl
+    org
+    prettier-js
+    skewer-mode
+    tern
+    web-beautify))
 
 (defun javascript/post-init-add-node-modules-path ()
   (spacemacs/add-to-hooks #'add-node-modules-path '(css-mode-hook
@@ -45,7 +57,8 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'js2-mode))
 
 (defun javascript/pre-init-dap-mode ()
-  (add-to-list 'spacemacs--dap-supported-modes 'js2-mode)
+  (when (eq javascript-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'js2-mode))
   (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-dap))
 
 (defun javascript/post-init-evil-matchit ()
@@ -65,6 +78,23 @@
   ;; Required to make imenu functions work correctly
   (add-hook 'js2-mode-hook 'js2-imenu-extras-mode))
 
+(defun javascript/init-npm-mode ()
+  (use-package npm-mode
+    :defer t
+    :init (add-hook 'js2-mode-hook #'npm-mode)
+    :config
+    (progn
+      (spacemacs/declare-prefix-for-mode 'js2-mode "mn" "npm")
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+        "ni" 'npm-mode-npm-install
+        "nr" 'npm-mode-npm-run
+        "ns" 'npm-mode-npm-install-save
+        "nd" 'npm-mode-npm-install-save-dev
+        "nn" 'npm-mode-npm-init
+        "nu" 'npm-mode-npm-uninstall
+        "nl" 'npm-mode-npm-list
+        "np" 'npm-mode-visit-project-file))))
+
 (defun javascript/post-init-impatient-mode ()
   (spacemacs/set-leader-keys-for-major-mode 'js2-mode
     "I" 'spacemacs/impatient-mode))
@@ -76,7 +106,8 @@
 (defun javascript/init-js-doc ()
   (use-package js-doc
     :defer t
-    :init (spacemacs/js-doc-set-key-bindings 'js2-mode)))
+    :init (spacemacs/js-doc-set-key-bindings 'js2-mode)
+    (add-hook 'js2-mode-hook 'spacemacs/js-doc-require)))
 
 (defun javascript/init-js2-mode ()
   (use-package js2-mode
@@ -87,7 +118,7 @@
       (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-backend)
       (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-next-error-fn)
       ;; safe values for backend to be used in directory file variables
-      (dolist (value '(lsp tern))
+      (dolist (value '(lsp tern tide))
         (add-to-list 'safe-local-variable-values
                      (cons 'javascript-backend value))))
     :config
@@ -219,8 +250,8 @@
         (spacemacs/declare-prefix-for-mode 'js2-mode
           "msL" "nodejs-send-line-and-focus")
         (spacemacs/declare-prefix-for-mode 'js2-mode
-          "msR" "nodejs-send-region-and-focus")
-        ))))
+          "msR" "nodejs-send-region-and-focus")))))
+
 
 (defun javascript/pre-init-org ()
   (spacemacs|use-package-add-hook org

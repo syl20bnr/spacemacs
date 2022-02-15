@@ -1,43 +1,47 @@
 ;;; funcs.el --- Ruby Layer functions File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 
 ;; backend
 
-(defun spacemacs//ruby-backend ()
-  "Returns selected backend."
-  (if ruby-backend
-      ruby-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'robe))))
-
 (defun spacemacs//ruby-setup-backend ()
   "Conditionally configure Ruby backend"
   (spacemacs//ruby-setup-version-manager)
-  (pcase (spacemacs//ruby-backend)
-    (`lsp (spacemacs//ruby-setup-lsp))
-    (`robe (spacemacs//ruby-setup-robe))))
+  (pcase ruby-backend
+    ('lsp (spacemacs//ruby-setup-lsp))
+    ('robe (spacemacs//ruby-setup-robe))))
 
 (defun spacemacs//ruby-setup-company ()
   "Configure backend company"
-  (pcase (spacemacs//ruby-backend)
-    (`robe (spacemacs//ruby-setup-robe-company))
-    (`lsp nil))) ;; Company is automatically set up by lsp
+  ;; Company is automatically set up by lsp
+  (when (eq ruby-backend 'robe)
+    (spacemacs//ruby-setup-robe-company)))
 
 (defun spacemacs//ruby-setup-dap ()
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase (spacemacs//ruby-backend)
-    (`lsp (spacemacs//ruby-setup-lsp-dap))))
+  (when (eq ruby-backend 'lsp)
+    (spacemacs//ruby-setup-lsp-dap)))
 
 
 ;; lsp
@@ -45,7 +49,7 @@
 (defun spacemacs//ruby-setup-lsp ()
   "Setup Ruby lsp."
   (if (configuration-layer/layer-used-p 'lsp)
-      (lsp)
+      (lsp-deferred)
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//ruby-setup-lsp-dap ()
@@ -73,8 +77,8 @@
 
 (defun spacemacs//ruby-setup-version-manager ()
   "Setup ruby version manager."
-  (pcase ruby-version-manager
-    (`rbenv (spacemacs//enable-rbenv))))
+  (when (eq ruby-version-manager 'rbenv)
+    (spacemacs//enable-rbenv)))
 
 
 ;; rbenv
@@ -137,3 +141,28 @@ Called interactively it prompts for a directory."
     (highlight-lines-matching-regexp "byebug")
     (highlight-lines-matching-regexp "binding.irb")
     (highlight-lines-matching-regexp "binding.pry")))
+
+
+;; Insert text
+
+(defun spacemacs/ruby-insert-frozen-string-literal-comment ()
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (insert "# frozen_string_literal: true\n")))
+
+(defun spacemacs/ruby-insert-shebang ()
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (insert "#!/usr/bin/env ruby\n")))
+
+
+;; Prettier
+
+(defun spacemacs/ruby-format ()
+  (interactive)
+  (call-interactively 'prettier-js))
+
+(defun spacemacs/ruby-fmt-before-save-hook ()
+  (add-hook 'before-save-hook 'spacemacs/ruby-format t t))

@@ -8,8 +8,11 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-  - [[#layer][Layer]]
-  - [[#auto-completion-plsense][Auto-completion: PlSense]]
+- [[#configuration][Configuration]]
+  - [[#choosing-a-backend][Choosing a backend]]
+    - [[#company-plsense][Company-plsense]]
+      - [[#auto-completion-plsense][Auto-completion: PlSense]]
+    - [[#lsp][LSP]]
 - [[#key-bindings][Key bindings]]
   - [[#perldoc][Perldoc]]
   - [[#pod-and-here-doc][POD and HERE doc]]
@@ -21,19 +24,65 @@ This layer adds support for the Perl5 language.
 
 ** Features:
 - Syntactic and semantic checking using [[https://github.com/flycheck/flycheck][flycheck]]
-- Auto-completion using [[https://github.com/CeleritasCelery/company-plsense][company-plsense]]
+- Auto-completion
 - Format code with =perltidy=
 - Jump to symbol definition
 - Interactive debug via [[https://github.com/realgud/realgud][realgud]] with [[http://search.cpan.org/~rocky/Devel-Trepan-0.73/lib/Devel/Trepan.pm][trepan.pl]]
+- LSP and DAP support
 
 * Install
-** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =perl5= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-** Auto-completion: PlSense
+* Configuration
+All layer configurations can be done by setting layer variables in your dotfile.
+No custom user config lines are necessary
+
+** Choosing a backend
+This layer provides two alternative backends to choose from.
+
+*** Company-plsense
+This is the default choice if nothing is set and no lsp layer
+is loaded in your dotfile. This mode only provides very
+limited IDE capabilities. Used best if only small files
+are edited. To set explicitly set the following in your
+dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (perl5 :variables perl5-backend 'company-plsense)
+#+END_SRC
+
+**** Auto-completion: PlSense
 =company-plsense= requires installation of the =plsense= server from [[https://github.com/aki2o/plsense#install][here]].
+
+*** LSP
+For proper IDE support this backend should be used. It is
+based on an external server which will be started automatically
+by emacs, once a perl5 file is opened. The key bindings are
+the same for all lsp modes so if you are already familiar with
+one you should be able to work the same in all modes.
+
+To set explicitly do the following in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (perl5 :variables
+         perl5-backend 'lsp)
+#+END_SRC
+
+For this to work you will also need to obtain
+the latest version of the lsp server from [[https://github.com/richterger/Perl-LanguageServer][here]].
+
+Alternatively the server can be installed with:
+
+#+BEGIN_SRC sh
+  cpan Perl::LanguageServer
+#+END_SRC
+
+NOTE: Key bindings for LSP are defined in the
+LSP layer. Also it is advisable to have a look
+at the autocomplete layer for an optimal
+intellisense config for LSP.
 
 * Key bindings
 ** Perldoc

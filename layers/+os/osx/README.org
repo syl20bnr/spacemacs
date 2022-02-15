@@ -40,7 +40,7 @@ add =osx= to the existing =dotspacemacs-configuration-layers= list in this file.
 The different modifier keys can be set as follows:
 
 #+BEGIN_SRC emacs-lisp
-  (setq-defaults dotspacemacs-configuration-layers '(
+  (setq-default dotspacemacs-configuration-layers '(
      (osx :variables osx-command-as       'hyper
                      osx-option-as        'meta
                      osx-control-as       'control
@@ -48,7 +48,7 @@ The different modifier keys can be set as follows:
                      osx-right-command-as 'left
                      osx-right-option-as  'left
                      osx-right-control-as 'left
-                     osx-swap-option-and-command nil))
+                     osx-swap-option-and-command nil)))
 #+END_SRC
 
 These are also the default values. Setting the right modifier to =left=

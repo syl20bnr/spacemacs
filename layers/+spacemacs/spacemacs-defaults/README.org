@@ -16,10 +16,12 @@ defaults.
   - archive-mode
   - bookmark
   - conf-mode
+  - cus-edit
   - dired
   - dired-x
   - display-line-numbers (only in Emacs 26.x and newer)
   - electric-indent-mode
+  - easypg
   - ediff
   - eldoc
   - help-fns+
@@ -31,6 +33,7 @@ defaults.
   - package-menu
   - page-break-lines
   - process-menu
+  - quickrun
   - recentf
   - savehist
   - saveplace

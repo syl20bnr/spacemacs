@@ -1,13 +1,25 @@
 ;;; packages.el --- cfengine layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Nick Anderson <nick@cmdln.org>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst cfengine-packages
   '(
@@ -17,6 +29,7 @@
     flycheck
     (ob-cfengine3 :requires org)
     org
+    mustache-mode
     ))
 
 (defun cfengine/init-cfengine3-mode ()
@@ -43,3 +56,8 @@
   (when (configuration-layer/layer-used-p 'org)
     (spacemacs|use-package-add-hook org
       :post-config (add-to-list 'org-babel-load-languages '(cfengine3 . t)))))
+
+(defun cfengine/init-mustache-mode ()
+  (use-package mustache-mode
+    :init (add-to-list 'auto-mode-alist '("\\.mustache\\'" . mustache-mode))
+    :defer t))

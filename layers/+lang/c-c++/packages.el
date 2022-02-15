@@ -1,52 +1,81 @@
 ;;; packages.el --- C/C++ Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(setq c-c++-packages
-      '(
-        cc-mode
-        clang-format
-        (company-c-headers :requires company)
-        (cpp-auto-include
-         :location (recipe :fetcher github
-                           :repo "syohex/emacs-cpp-auto-include"))
-        disaster
-        eldoc
-        flycheck
-        gdb-mi
-        google-c-style
-        helm-cscope
-        org
-        projectile
-        realgud
-        semantic
-        srefactor
-        stickyfunc-enhance
-        xcscope
-        ;; lsp
-        (ccls :requires lsp-mode)
-        (cquery :requires lsp-mode)
-        dap-mode
-        ;; rtags
-        (company-rtags :requires (company rtags))
-        counsel-gtags
-        (flycheck-rtags :requires (flycheck rtags))
-        ggtags
-        helm-gtags
-        (helm-rtags :requires (helm rtags))
-        (ivy-rtags :requires (ivy rtags))
-        rtags
-        ;; ycmd
-        (company-ycmd :requires company)
-        (flycheck-ycmd :requires flycheck)
-        ycmd))
+
+(defconst c-c++-packages
+  '(
+    cc-mode
+    clang-format
+    company
+    (company-c-headers :requires company)
+    cpp-auto-include
+    disaster
+    eldoc
+    flycheck
+    gdb-mi
+    google-c-style
+    helm-cscope
+    org
+    projectile
+    realgud
+    semantic
+    srefactor
+    stickyfunc-enhance
+    xcscope
+    ;; lsp
+    (ccls :requires lsp-mode)
+    dap-mode
+    ;; rtags
+    (company-rtags :requires (company rtags))
+    counsel-gtags
+    (flycheck-rtags :requires (flycheck rtags))
+    ggtags
+    helm-gtags
+    (helm-rtags :requires (helm rtags))
+    (ivy-rtags :requires (ivy rtags))
+    rtags
+    ;; ycmd
+    (company-ycmd :requires company)
+    (flycheck-ycmd :requires flycheck)
+    (gendoxy :location (recipe
+                        :fetcher github
+                        :repo "cormacc/gendoxy"
+                        :branch "provides"))
+    ycmd))
+
+(defun c-c++/init-gendoxy ()
+  "Initialise gendoxy (doxygen package)"
+  (use-package gendoxy
+    :defer t
+    :init (dolist (mode c-c++-modes)
+              (spacemacs/declare-prefix-for-mode mode "mi" "insert")
+              (spacemacs/set-leader-keys-for-major-mode mode
+                "ih" 'gendoxy-header
+                "id" 'gendoxy-tag
+                "iD" 'gendoxy-tag-header
+                "ig" 'gendoxy-group
+                "iG" 'gendoxy-group-header
+                "is" 'gendoxy-group-start
+                "ie" 'gendoxy-group-end))))
 
 (defun c-c++/init-cc-mode ()
   (use-package cc-mode
@@ -109,21 +138,21 @@
     :defer t
     :init
     (progn
-      (when c++-enable-organize-includes-on-save
-        (add-hook 'c++-mode-hook #'spacemacs/c++-organize-includes-on-save))
+      (when c-c++-enable-organize-includes-on-save
+        (add-hook 'c++-mode-hook #'spacemacs/c-c++-organize-includes-on-save))
 
       (spacemacs/declare-prefix-for-mode 'c++-mode
         "mr" "refactor")
-      (spacemacs/set-leader-keys-for-major-mode 'c++-mode
-        "ri" #'spacemacs/c++-organize-includes))))
 
-(defun c-c++/init-cquery ()
-  (use-package cquery
-    :defer t))
+      (spacemacs/set-leader-keys-for-major-mode 'c++-mode
+        "ri" #'spacemacs/c-c++-organize-includes))))
 
 (defun c-c++/pre-init-dap-mode ()
-  (add-to-list 'spacemacs--dap-supported-modes 'c-mode)
-  (add-to-list 'spacemacs--dap-supported-modes 'c++-mode)
+  (pcase c-c++-backend
+    ('lsp-clangd (add-to-list 'spacemacs--dap-supported-modes 'c-mode)
+                 (add-to-list 'spacemacs--dap-supported-modes 'c++-mode))
+    ('lsp-ccls (add-to-list 'spacemacs--dap-supported-modes 'c-mode)
+               (add-to-list 'spacemacs--dap-supported-modes 'c++-mode)))
   (add-hook 'c-mode-local-vars-hook #'spacemacs//c-c++-setup-dap)
   (add-hook 'c++-mode-local-vars-hook #'spacemacs//c-c++-setup-dap))
 
@@ -205,15 +234,9 @@
   (spacemacs|use-package-add-hook projectile
     :post-config
     (progn
-      (when c-c++-lsp-cquery-cache-directory
-        ;; Ignore lsp cache dir, in case user has opted for cache within project
-        ;; source tree
-        (add-to-list 'projectile-globally-ignored-directories
-                     c-c++-lsp-cquery-cache-directory))
       (when c-c++-adopt-subprojects
         (setq projectile-project-root-files-top-down-recurring
               (append '("compile_commands.json"
-                        ".cquery"
                         ".ccls")
                       projectile-project-root-files-top-down-recurring))))))
 
@@ -222,7 +245,7 @@
   (use-package rtags
     :defer t))
 
-(defun c-c++/post-init-realgud()
+(defun c-c++/post-init-realgud ()
   (dolist (mode c-c++-modes)
     (spacemacs/add-realgud-debugger mode "gdb")))
 

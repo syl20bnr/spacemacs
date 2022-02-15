@@ -28,7 +28,7 @@ document with \\[rst-sphinx]."
 
 (defvar rst-sphinx-builder
   '((html . "html")
-    (latex . "xelatex"))
+    (latex . "latex"))
   "Table describing the builder used to compile.")
 
 (defvar rst-sphinx-source nil
@@ -75,16 +75,17 @@ document with \\[rst-sphinx]."
   "Return path to conf.py or nil if not found."
   ;; (interactive)
   (let* ((file-name "conf.py")
-        (buffer-file (buffer-file-name))
-        (dir (file-name-directory buffer-file))
-        (conf-py (concat dir file-name)))
+         (buffer-file (buffer-file-name))
+         (dir (file-name-directory buffer-file))
+         (conf-py (concat dir file-name)))
+
     ;; Move up in the dir hierarchy to find conf.py
-    (while (or (not buffer-file)
-               (not (file-exists-p conf-py)))
+    ;; Make sure to stop if root is reached
+    (while (and (not (string= dir (directory-file-name dir)))
+                (not (file-readable-p conf-py)))
       ;; Move up to the parent dir and try again.
-      (setq buffer-file (directory-file-name
-                         (file-name-directory buffer-file)))
       (setq dir (file-name-directory buffer-file))
+      (setq buffer-file (directory-file-name dir))
       (setq conf-py (concat dir file-name)))
     (if buffer-file
         conf-py
@@ -121,15 +122,11 @@ If CLEAN is non-nil then clean the project before compiling."
 (defun rst-sphinx-clean ()
   "Clean Sphinx project."
   (interactive)
-  (let* ((conf (rst-sphinx-find-conf-py-path))
-         (build (when conf (concat (file-name-directory conf)
-                                   rst-sphinx-target-parent))))
-    (if (file-exists-p build)
-        (progn
-          (delete-directory build t)
-          (message "Project cleaned successfully."))
-      (message "Cannot find build directory \"%s\"" rst-sphinx-target-parent))))
-
+  (if (rst-sphinx-set-variables)
+      (progn
+        (delete-directory rst-sphinx-target t)
+        (message "Project cleaned successfully."))
+    (message "Cannot find build directory \"%s\"" rst-sphinx-target-parent)))
 
 (defun rst-sphinx-rebuild ()
   "Clean and compile Sphinx project."

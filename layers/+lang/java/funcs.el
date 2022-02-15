@@ -1,45 +1,48 @@
-;;; packages.el --- Java functions File for Spacemacs
+;;; funcs.el --- Java functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Lukasz Klich <klich.lukasz@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defun spacemacs//java-backend ()
-  "Returns selected backend."
-  (if java-backend
-      java-backend
-    (cond
-     ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'meghanada))))
 
 (defun spacemacs//java-setup-backend ()
   "Conditionally setup java backend."
-  (pcase (spacemacs//java-backend)
-    (`meghanada (spacemacs//java-setup-meghanada))
-    (`lsp (spacemacs//java-setup-lsp))))
+  (pcase java-backend
+    ('meghanada (spacemacs//java-setup-meghanada))
+    ('lsp (spacemacs//java-setup-lsp))))
 
 (defun spacemacs//java-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//java-backend)
-    (`meghanada (spacemacs//java-setup-meghanada-company))
-    (`lsp (spacemacs//java-setup-lsp-company))))
+  (when (eq java-backend 'meghanada)
+    (spacemacs//java-setup-meghanada-company)))
 
 (defun spacemacs//java-setup-dap ()
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase (spacemacs//java-backend)
-    (`lsp (spacemacs//java-setup-lsp-dap))))
+  (when (eq java-backend 'lsp)
+    (spacemacs//java-setup-lsp-dap)))
 
 (defun spacemacs//java-setup-flycheck ()
   "Conditionally setup flycheck based on backend."
-  (pcase (spacemacs//java-backend)
-    (`meghanada (spacemacs//java-setup-meghanada-flycheck))
-    (`lsp (spacemacs//java-setup-lsp-flycheck))))
+  (pcase java-backend
+    ('meghanada (spacemacs//java-setup-meghanada-flycheck))
+    ('lsp (spacemacs//java-setup-lsp-flycheck))))
 
 
 ;; meghanada
@@ -83,24 +86,6 @@
   (mvn-compile))
 
 
-;; Gradle
-
-(defun spacemacs/gradle-clean ()
-  "Execute 'gradle clean' command."
-  (interactive)
-  (gradle-execute "clean"))
-
-(defun spacemacs/gradle-clean-build ()
-  "Execute 'gradle clean build' command."
-  (interactive)
-  (gradle-execute "clean build"))
-
-(defun spacemacs/gradle-test-buffer ()
-  "Execute 'gradle test' command against current buffer tests."
-  (interactive)
-  (gradle-single-test (file-name-base (buffer-file-name))))
-
-
 ;; Misc
 
 (defun spacemacs//java-delete-horizontal-space ()
@@ -116,19 +101,7 @@
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
         (require 'lsp-java)
-        (lsp))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
-
-(defun spacemacs//java-setup-lsp-company ()
-  "Setup lsp auto-completion."
-  (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (spacemacs|add-company-backends
-          :backends company-lsp
-          :modes java-mode
-          :append-hooks nil
-          :call-hooks t)
-        (company-mode))
+        (lsp-deferred))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//java-setup-lsp-dap ()
@@ -145,9 +118,15 @@
 
 (defun spacemacs//java-setup-lsp-flycheck ()
   "Setup LSP Java syntax checking."
-  (if (configuration-layer/layer-used-p 'lsp)
-      (when (spacemacs/enable-flycheck 'java-mode)
-        (require 'lsp-ui-flycheck)
-        (lsp-ui-flycheck-enable nil)
-        (flycheck-mode))
+  (unless (configuration-layer/layer-used-p 'lsp)
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+(defun spacemacs/lsp-java-super-type ()
+  "Show super type hierarchy."
+  (interactive)
+  (lsp-java-type-hierarchy 1))
+
+(defun spacemacs/lsp-java-sub-type ()
+  "Show sub type hierarchy."
+  (interactive)
+  (lsp-java-type-hierarchy 0))

@@ -1,13 +1,25 @@
 ;;; funcs.el --- Spacemacs Navigation Layer functions File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 
 ;; ace-window
@@ -44,11 +56,11 @@ If the universal prefix argument is used then kill also the window."
   "Go to the last known occurrence of the last symbol searched with
 `auto-highlight-symbol'."
   (interactive)
-  (if spacemacs-last-ahs-highlight-p
+  (if (bound-and-true-p spacemacs-last-ahs-highlight-p)
       (progn (goto-char (nth 1 spacemacs-last-ahs-highlight-p))
-             (spacemacs/ahs-highlight-now-wrapper)
+             (spacemacs//ahs-setup)
              (spacemacs/symbol-highlight-transient-state/body))
-    (message "No symbol has been searched for now.")))
+    (message "No previously searched for symbol found")))
 
 (defun spacemacs/integrate-evil-search (forward)
         ;; isearch-string is last searched item.  Next time
@@ -76,18 +88,13 @@ If the universal prefix argument is used then kill also the window."
               evil-ex-substitute-pattern `(,(concat isearch-string "\\C")
                                            nil (0 0))))
 
-(defun spacemacs/ensure-ahs-enabled-locally ()
-  "Ensures ahs is enabled for the local buffer."
-  (unless
-      (bound-and-true-p ahs-mode-line)
-    (auto-highlight-symbol-mode)
-    ))
-
-(defun spacemacs/ahs-highlight-now-wrapper ()
-  "Safe wrapper for ahs-highlight-now"
-  (eval '(progn
-           (spacemacs/ensure-ahs-enabled-locally)
-           (ahs-highlight-now)) nil))
+(defun spacemacs//ahs-setup ()
+  "Remember the `auto-highlight-symbol-mode' state,
+before highlighting a symbol."
+  (unless (bound-and-true-p auto-highlight-symbol-mode)
+    (setq-local spacemacs//ahs-was-disabled t))
+  (auto-highlight-symbol-mode)
+  (ahs-highlight-now))
 
 (defun spacemacs/enter-ahs-forward ()
   "Go to the next occurrence of symbol under point with
@@ -118,32 +125,102 @@ If the universal prefix argument is used then kill also the window."
 (defun spacemacs//quick-ahs-move (forward)
   "Go to the next occurrence of symbol under point with
  `auto-highlight-symbol'"
+  (evil-set-jump)
+  (spacemacs//ahs-setup)
   (if (eq forward spacemacs--ahs-searching-forward)
       (progn
         (spacemacs/integrate-evil-search t)
-        (spacemacs/ahs-highlight-now-wrapper)
-        (evil-set-jump)
-        (spacemacs/symbol-highlight-transient-state/body)
         (ahs-forward))
-    (progn
-      (spacemacs/integrate-evil-search nil)
-      (spacemacs/ahs-highlight-now-wrapper)
-      (evil-set-jump)
-      (spacemacs/symbol-highlight-transient-state/body)
-      (ahs-backward))))
+    (spacemacs/integrate-evil-search nil)
+    (ahs-backward))
+  (spacemacs/symbol-highlight-transient-state/body))
 
 (defun spacemacs/symbol-highlight ()
   "Highlight the symbol under point with `auto-highlight-symbol'."
   (interactive)
-  (spacemacs/ahs-highlight-now-wrapper)
-  (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
-  (spacemacs/symbol-highlight-transient-state/body)
-  (spacemacs/integrate-evil-search nil))
+  (spacemacs/integrate-evil-search t)
+  (spacemacs//remember-last-ahs-highlight)
+  (spacemacs//ahs-setup)
+  (spacemacs/symbol-highlight-transient-state/body))
+
+(defun spacemacs//remember-last-ahs-highlight ()
+  (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p)))
+
+(defvar-local spacemacs//ahs-was-disabled t
+  "This is used to disable `auto-highlight-symbol-mode',
+when the Symbol Highlight Transient State is closed.
+If ahs mode was disabled before a symbol was highlighted.")
+
+(defun spacemacs//ahs-was-disabled-in-ahs-ts-exit-window-p ()
+  (let ((prev-win (selected-window)))
+    (select-window spacemacs//ahs-ts-exit-window)
+    (prog1 spacemacs//ahs-was-disabled
+      (select-window prev-win))))
+
+(defvar spacemacs//ahs-ts-exit-window nil
+  "Remember the selected window when the
+Symbol Highlight Transient State is closed.
+
+This is used to disable `auto-highlight-symbol-mode',
+in the window where the Symbol Highlight Transient State was closed,
+when the TS was closed by opening a prompt. For example:
+ SPC SPC (or M-x)       ;; spacemacs/helm-M-x-fuzzy-matching
+ SPC ?                  ;; helm-descbinds
+ M-:                    ;; eval-expression
+ :                      ;; evil-ex
+
+ahs mode is only disabled if it was disabled before a symbol was highlighted.")
 
 (defun spacemacs//ahs-ts-on-exit ()
+  (setq spacemacs//ahs-ts-exit-window (selected-window))
   ;; Restore user search direction state as ahs has exitted in a state
   ;; good for <C-s>, but not for 'n' and 'N'"
-  (setq isearch-forward spacemacs--ahs-searching-forward))
+  (setq isearch-forward spacemacs--ahs-searching-forward)
+  (spacemacs//disable-symbol-highlight-after-ahs-ts-exit))
+
+(defun spacemacs//disable-symbol-highlight-after-ahs-ts-exit ()
+  "Disable `auto-highlight-symbol-mode', when the
+Symbol Highlight Transient State buffer isn't found.
+This occurs when the TS wasn't restarted.
+It is restarted when navigating to the next or previous symbol.
+
+ahs mode is only disabled if it was disabled before a symbol was highlighted."
+  (run-with-idle-timer
+   0 nil
+   (lambda ()
+     (unless (string= (spacemacs//transient-state-buffer-title)
+                      "Symbol Highlight")
+       (cond ((and (spacemacs//prompt-opened-from-ahs-ts-p)
+                   (spacemacs//ahs-was-disabled-in-ahs-ts-exit-window-p))
+              (spacemacs//disable-ahs-mode-in-ahs-ts-exit-window))
+             (spacemacs//ahs-was-disabled
+              (spacemacs//disable-symbol-highlight)))))))
+
+(defun spacemacs//prompt-opened-from-ahs-ts-p ()
+  "Was a prompt opened (for example: M-x),
+from the Symbol Highlight Transient State?"
+  (not (eq spacemacs//ahs-ts-exit-window (selected-window))))
+
+(defun spacemacs//disable-ahs-mode-in-ahs-ts-exit-window ()
+  "Disable `auto-highlight-symbol-mode',
+in the window where the Symbol Highlight Transient State was closed."
+  (let ((prev-win (selected-window)))
+    (select-window spacemacs//ahs-ts-exit-window)
+    (spacemacs//disable-symbol-highlight)
+    (setq spacemacs//ahs-ts-exit-window nil)
+    (select-window prev-win)))
+
+(defun spacemacs//disable-symbol-highlight ()
+  (auto-highlight-symbol-mode -1)
+  (setq-local spacemacs//ahs-was-disabled nil))
+
+(defun spacemacs//transient-state-buffer-title ()
+  (let ((transient-state-buffer-name " *LV*"))
+    (when (get-buffer transient-state-buffer-name)
+      (with-current-buffer transient-state-buffer-name
+        (buffer-substring-no-properties
+         (point-min)
+         (string-match "Transient State" (buffer-string)))))))
 
 (defun spacemacs/symbol-highlight-reset-range ()
   "Reset the range for `auto-highlight-symbol'."
@@ -153,21 +230,22 @@ If the universal prefix argument is used then kill also the window."
 ;; transient state
 (defun spacemacs//symbol-highlight-doc ()
         (let* ((i 0)
-               (overlay-count (length ahs-overlay-list))
-               (overlay (format "%s" (nth i ahs-overlay-list)))
-               (current-overlay (format "%s" ahs-current-overlay))
+               (overlay-list (ahs-overlay-list-window))
+               (overlay-count (length overlay-list))
+               (overlay (format "%s" (nth i overlay-list)))
+               (current-overlay (format "%s" (ahs-current-overlay-window)))
                (st (ahs-stat))
                (plighter (ahs-current-plugin-prop 'lighter))
                (plugin (format "%s"
                                (cond ((string= plighter "HS")  "Display")
                                      ((string= plighter "HSA") "Buffer")
                                      ((string= plighter "HSD") "Function"))))
-               (face (cond ((string= plighter "HS")  ahs-plugin-defalt-face)
+               (face (cond ((string= plighter "HS")  ahs-plugin-default-face)
                            ((string= plighter "HSA") ahs-plugin-whole-buffer-face)
                            ((string= plighter "HSD") ahs-plugin-bod-face))))
           (while (not (string= overlay current-overlay))
             (setq i (1+ i))
-            (setq overlay (format "%s" (nth i ahs-overlay-list))))
+            (setq overlay (format "%s" (nth i overlay-list))))
           (let* ((x/y (format "[%s/%s]" (- overlay-count i) overlay-count))
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" "")))
             (concat
@@ -258,16 +336,17 @@ If the universal prefix argument is used then kill also the window."
 
 ;; ace-link
 
-(defvar spacemacs--link-pattern "~?/.+\\|\s\\[")
-
 (defun spacemacs//collect-spacemacs-buffer-links ()
-  (let ((end (window-end))
-        points)
+  "Return a list of widget-button positions."
+  (let (widget-button-positions)
     (save-excursion
       (goto-char (window-start))
-      (while (re-search-forward spacemacs--link-pattern end t)
-        (push (+ (match-beginning 0) 1) points))
-      (nreverse points))))
+      (while (< (point) (window-end))
+        (when (eq (car (get-char-property-and-overlay (point) 'face))
+                  'widget-button)
+          (push (point) widget-button-positions))
+        (goto-char (next-overlay-change (point)))))
+    (nreverse widget-button-positions)))
 
 (defun spacemacs/ace-buffer-links ()
   "Ace jump to links in `spacemacs' buffer."
@@ -306,22 +385,43 @@ If the universal prefix argument is used then kill also the window."
 ;; junk-file
 
 (defun spacemacs/open-junk-file (&optional arg)
-  "Open junk file using helm or ivy.
+  "Create a junk file with the initial name that's based on the variable
+`open-junk-file-format'
+`~/.emacs.d/.cache/junk/%Y/%m/%d-%H%M%S.'
 
-Interface choice depends on whether the `ivy' layer is used or
-not.
+Or erase the name and open an existing junk file.
 
-When ARG is non-nil search in junk files."
+When ARG is non-nil, search in the junk files.
+
+The interface depends on the current completion layer:
+compleseus
+helm
+ivy"
   (interactive "P")
   (let* ((fname (format-time-string open-junk-file-format (current-time)))
          (rel-fname (file-name-nondirectory fname))
          (junk-dir (file-name-directory fname))
          (default-directory junk-dir))
-    (cond ((and arg (configuration-layer/layer-used-p 'ivy))
+    (make-directory junk-dir t)
+    (cond ((and arg (configuration-layer/layer-used-p 'compleseus))
+           (cond ((executable-find "rg") (consult-ripgrep junk-dir))
+                 ((executable-find "grep") (consult-grep junk-dir))
+                 (t (message "Couldn't find either executable: rg or grep"))))
+          ((configuration-layer/layer-used-p 'compleseus)
+           (find-file
+            (completing-read
+             junk-dir
+             (directory-files junk-dir nil directory-files-no-dot-files-regexp)
+             nil nil rel-fname)))
+          ((and arg (configuration-layer/layer-used-p 'ivy))
            (spacemacs/counsel-search dotspacemacs-search-tools nil junk-dir))
           ((configuration-layer/layer-used-p 'ivy)
            (require 'counsel)
-           (counsel-find-file rel-fname))
+           ;; HACK: If major-mode is dired, counsel will use
+           ;; (dired-current-directory) instead of default-directory. So, trick
+           ;; counsel by shadowing major-mode.
+           (let ((major-mode nil))
+             (counsel-find-file rel-fname)))
           (arg
            (require 'helm)
            (let (helm-ff-newfile-prompt-p)

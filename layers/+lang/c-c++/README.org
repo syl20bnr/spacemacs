@@ -15,17 +15,19 @@
       - [[#external-dependencies][External dependencies]]
         - [[#clangd][clangd]]
         - [[#ccls-server][ccls server]]
-        - [[#cquery-server][cquery server]]
       - [[#configuration][Configuration]]
         - [[#basic][Basic]]
         - [[#selecting-an-alternate-lsp-server][Selecting an alternate LSP server]]
         - [[#path-to-lsp-server-executables][Path to LSP server executables]]
         - [[#semantic-highlighting][Semantic highlighting]]
         - [[#cache-directory-absolute-or-relative][Cache directory (absolute or relative)]]
-        - [[#additional-configuration-options][Additional configuration options]]
         - [[#example-dotspacemacs-configuration-layers-entry][Example dotspacemacs-configuration-layers entry]]
       - [[#completion][Completion]]
       - [[#debugger-dap-integration][Debugger (dap integration)]]
+        - [[#adapter-selection][Adapter selection]]
+        - [[#microsoft-adapter-installation][Microsoft adapter installation]]
+        - [[#codefreak-adapter-installation][CodeFreak adapter installation]]
+        - [[#lldb-adapter-installation][LLDB adapter installation]]
     - [[#rtags][rtags]]
       - [[#external-dependencies-1][External dependencies]]
       - [[#configuration-1][Configuration]]
@@ -35,15 +37,17 @@
   - [[#enable-google-set-c-style][Enable google-set-c-style]]
   - [[#newlines][Newlines]]
   - [[#projectile-sub-project-adoption][Projectile sub-project adoption]]
+  - [[#source-code-documentation-using-doxygen][Source code documentation using Doxygen]]
 - [[#key-bindings][Key bindings]]
   - [[#lsp-1][LSP]]
-    - [[#cquery--ccls][cquery / ccls]]
+    - [[#ccls][ccls]]
       - [[#backend-language-server][backend (language server)]]
       - [[#goto][goto]]
       - [[#gotohierarchy][goto/hierarchy]]
       - [[#gotomember][goto/member]]
     - [[#debugger][debugger]]
   - [[#rtags-1][RTags]]
+  - [[#doxygen][Doxygen]]
   - [[#additional-key-bindings][Additional key bindings]]
     - [[#disassemble][Disassemble]]
     - [[#formatting-clang-format][Formatting (clang-format)]]
@@ -55,7 +59,7 @@ This layer adds configuration for C/C++ language.
 
 ** Features:
 - Multiple backends support:
-  - LSP with either =clangd=, [[https://github.com/cquery-project/cquery][cquery]] or [[https://github.com/MaskRay/ccls][ccls]]
+  - LSP with either =clangd= or [[https://github.com/MaskRay/ccls][ccls]]
   - [[https://github.com/Andersbakken/rtags][rtags]] (gtags)
   - [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]]
 - Support for debuggers [[https://github.com/realgud/realgud][realgud]] and [[https://github.com/emacs-lsp/dap-mode][dap]] (with LSP backend)
@@ -63,7 +67,8 @@ This layer adds configuration for C/C++ language.
 - Auto-completion via company (=auto-completion= layer required)
 - Support code reformatting with [[http://clang.llvm.org/docs/ClangFormat.html][clang-format]].
 - Support for disassembly of code with [[https://github.com/jart/disaster][disaster]].
-- =sematic= layer integration:
+- [[https://www.doxygen.nl][Doxygen]] code documentation comment generation (using [[https://github.com/mp81ss/gendoxy][gendoxy]]).
+- =semantic= layer integration:
   - Function or variable definition at the bottom
   - Current function cursor is at the top. See [[https://github.com/tuhdo/semantic-stickyfunc-enhance][stickyfunc-demos]] for
     demos in some programming languages.
@@ -82,14 +87,13 @@ file.
 Supported backends are:
 - =lsp-clangd= using clangd LSP server
 - =lsp-ccls= using ccls LSP server
-- =lsp-cquery= using cquery LSP server
 - =rtags= using [[https://github.com/Andersbakken/rtags][rtags]]
 - =ycmd= using [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]]
 
 To choose a default backend set the layer variable =c-c++-backend=:
 
 #+BEGIN_SRC elisp
-  (c-c++ :variables =c-c++-backend= 'lsp-clangd)
+  (c-c++ :variables c-c++-backend 'lsp-clangd)
 #+END_SRC
 
 Alternatively the =lsp-clangd= backend will be automatically chosen if the layer
@@ -111,10 +115,9 @@ The backend can be chosen on a per project basis using directory local variables
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
 
 *** LSP
-LSP support is provided via the [[file:../../+tools/lsp/README.org][LSP layer]], using one of three available backends
+LSP support is provided via the [[file:../../+tools/lsp/README.org][LSP layer]], using one of two available backends
 (all based on libclang).
 - [[https://clang.llvm.org/extra/clangd/][clangd]]
-- [[https://github.com/cquery-project/cquery][cquery]]
 - [[https://github.com/MaskRay/ccls][ccls]]
 
 They claim to be more efficient than existing tools at indexing large code bases.
@@ -122,9 +125,8 @@ They claim to be more efficient than existing tools at indexing large code bases
 **** Features
 - Cross references (definitions, references, base/derived classes/methods, type instances, ...)
 - Diagnostics
-- Completion with =company-lsp=
-- Semantic highlighting (=cquery=, =ccls=)
-- See more on [[https://github.com/cquery-project/cquery/wiki/Emacs]]
+- Completion with =lsp=
+- Semantic highlighting (=ccls= or =clangd=)
 - Cross-platform - functional on Windows, Linux and macOS.
 
 **** External dependencies
@@ -142,14 +144,6 @@ featured implementation, including semantic highlighting and some navigation/
 introspection features that are not provided by clangd.
 
 Note that prebuild binaries exist for most Linux distros and MacOS using
-Homebrew.
-
-***** cquery server
-Install the =cquery= server. See [[https://github.com/cquery-project/cquery/wiki][instructions]]. This implementation appears to be
-unmaintained and continued support is provided here purely for existing users.
-It is recommended to use the =lsp-ccls= backend instead if you can.
-
-Note that prebuilt binaries exist for most Linux distros and MacOS using
 Homebrew.
 
 **** Configuration
@@ -180,10 +174,9 @@ variable:
 |--------+---------------------------------|
 | clangd | =lsp-clients-clangd-executable= |
 | ccls   | =ccls-executable=               |
-| cquery | =cquery-executable=             |
 
 ***** Semantic highlighting
-Currently only available for =lsp-ccls= and =lps-cquery=. Semantic highlighting
+Currently only available for =lsp-ccls= and =clangd=. Semantic highlighting
 can precisely highlight identifiers.
 
 Semantic highlighting is disabled by default. To enable it set the layer
@@ -201,16 +194,8 @@ the layer variable =c-c++-lsp-semantic-highlight-method= to ='overlay=.
 =ccls= default directory is =.ccls-cache=, it can be changed by setting the
 =:cache= option in the variable =ccls-initialization-options=.
 
-=cquery= cache directory is set by default to be
-=<emacs_config_directory>/.cache/lsp-cquery=. You can change this setting by
-setting the layer variable =c-c++-lsp-cquery-cache-directory= to either an
-absolute or relative directory. Relative directory is relative to the current
-project root directory.
-
-***** Additional configuration options
 See the full list of configuration options you can set at:
 - [[https://github.com/MaskRay/ccls/wiki/Emacs][Emacs section of =ccls= wiki]]
-- [[https://github.com/cquery-project/cquery/wiki/Emacs][Emacs section of =cquery= wiki]]
 
 ***** Example dotspacemacs-configuration-layers entry
 #+BEGIN_SRC emacs-lisp
@@ -222,14 +207,44 @@ See the full list of configuration options you can set at:
 #+END_SRC
 
 **** Completion
-=company-lsp= provides completion functionality. Client-side cache and sorting
+=company-capf= provides completion functionality. Client-side cache and sorting
 have been disabled in favour of server,
-as recommended by =cquery=/=ccls= wikis.
+as recommended by =ccls= wikis.
 
 **** Debugger (dap integration)
+***** Adapter selection
+To select the active adapters, configure the =c-c++-dap-adapters= layer variable.
+By default only the Microsoft extension is available.
+
+| Adapter      | Supported debuggers               | DAP mode       |
+|--------------+-----------------------------------+----------------|
+| Microsoft    | gdb, lldb, Visual Studio Debugger | =dap-cpptools= |
+| CodeFreak    | gdb, lldb                         | =dap-gdb-lldb= |
+| LLVM Project | lldb                              | =dap-lldb=     |
+
+Example configuration with two adapters selected:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables
+                         c-c++-dap-adapters '(dap-lldb dap-cpptools)))
+#+END_SRC
+
+***** Microsoft adapter installation
+To install the debug adapter you may run =M-x dap-cpptools-setup= when you are
+on Linux.
+
+***** CodeFreak adapter installation
 To install the debug adapter you may run =M-x dap-gdb-lldb-setup= when you are
 on Linux or download it manually from [[https://marketplace.visualstudio.com/items?itemName=webfreak.debug][Native Debug]] and adjust the
 =dap-gdb-lldb-path= variable.
+
+***** LLDB adapter installation
+Install the =lldb-vscode= program. It usually comes with =lldb= from your
+distribution's package repository.
+Alternatively build directly following the [[https://github.com/llvm/llvm-project/tree/main/lldb/tools/lldb-vscode#installation-for-visual-studio-code][official installation instructions]].
+
+Adjust the =dap-lldb-debug-program= variable to match the executable.
 
 *** rtags
 rtags is a well established clang-based source code indexing tool.
@@ -277,11 +292,11 @@ can be found in the manual: [[http://www.gnu.org/software/emacs/manual/html_node
 
 ** Organize file header includes on save
 To organize the file header includes on save, set the layer variable
-=c++-enable-organize-includes-on-save= to =t= in the dotfile:
+=c-c++-enable-organize-includes-on-save= to =t= in the dotfile:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-                '((c-c++ :variables c++-enable-organize-includes-on-save t)))
+                '((c-c++ :variables c-c++-enable-organize-includes-on-save t)))
 #+END_SRC
 
 ** clang-format
@@ -301,7 +316,7 @@ To enable automatic buffer formatting on save, set the variable
 
 ** Enable google-set-c-style
 If you have clang enabled with =clang-format= as described earlier in this page
-you may not have a lot of neeed for =google-set-c-style= if you are already
+you may not have a lot of need for =google-set-c-style= if you are already
 using a mode based on Google mode for most of your projects.
 
 However, if you don't have (or want) =clang-format=, or if you have to do a lot
@@ -311,7 +326,7 @@ may want =google-c-style= enabled and added to your common hooks.
 To get =google-c-style= actually install itself into your C/C++ common hooks,
 you need to have =c-c++-enable-google-style= defined to true when you load the
 C-C++ lang in Spacemacs. In your =~/.spacemacs= file, a possible way that this
-would look is that in your list of =dostpacemacs-configuration-layers= you have
+would look is that in your list of =dotspacemacs-configuration-layers= you have
 an entry like
 
 #+BEGIN_SRC emacs-lisp
@@ -343,16 +358,19 @@ set =c-c++-adopt-subprojects= to =t=.
   (c-c++ :variables c-c++-adopt-subprojects t)
 #+END_SRC
 
-This is based on a recommendation on the =cquery= and =ccls= wikis, but should be more
+This is based on a recommendation on the =ccls= wikis, but should be more
 generally applicable.
+
+** Source code documentation using Doxygen
+The =gendoxy= package allows automatic generation of structured code documentation comments suitable for post-processing using [[https://www.doxygen.nl][Doxygen]]. Key bindings have been provided to insert a file header comment, to document a definition (function, struct, enum etc.) or a group. See the [[https://github.com/mp81ss/gendoxy][gendoxy documentation]] for further information.
 
 * Key bindings
 ** LSP
 The default key bindings for the LSP implementations are defined and documented in
 the [[file:../../+tools/lsp/README.org][LSP layer]].
 
-*** cquery / ccls
-A ~[ccls]~ or ~[cquery]~ suffix indicates that the binding is for the indicated backend only.
+*** ccls
+A ~[ccls]~ suffix indicates that the binding is for the indicated backend only.
 
 **** backend (language server)
 
@@ -458,6 +476,7 @@ A ~[ccls]~ or ~[cquery]~ suffix indicates that the binding is for the indicated 
 | ~SPC m g D~ | diagnostics                     |
 | ~SPC m g e~ | reparse file                    |
 | ~SPC m g E~ | preprocess file                 |
+| ~SPC m g f~ | find dead functions             |
 | ~SPC m g F~ | fixit                           |
 | ~SPC m g G~ | guess function at point         |
 | ~SPC m g h~ | print class hierarchy           |
@@ -466,14 +485,29 @@ A ~[ccls]~ or ~[cquery]~ suffix indicates that the binding is for the indicated 
 | ~SPC m g M~ | symbol info                     |
 | ~SPC m g O~ | goto offset                     |
 | ~SPC m g p~ | set current project             |
+| ~SPC m g r~ | display reference tree at point |
 | ~SPC m g R~ | rename symbol                   |
 | ~SPC m g s~ | print source arguments          |
 | ~SPC m g S~ | display summary                 |
+| ~SPC m g t~ | symbol type                     |
 | ~SPC m g T~ | taglist                         |
+| ~SPC m g u~ | display include dependency tree |
 | ~SPC m g v~ | find virtuals at point          |
 | ~SPC m g V~ | print enum value at point       |
 | ~SPC m g X~ | fix fixit at point              |
 | ~SPC m g Y~ | cycle overlays on screen        |
+
+** Doxygen
+
+| Key binding | Description                                                         |
+|-------------+---------------------------------------------------------------------|
+| ~SPC m i h~ | document this file (i.e. insert header comment)                     |
+| ~SPC m i d~ | document declaration at point (function, struct etc.)               |
+| ~SPC m i D~ | document declaration at point (header only, omit e.g. enum members) |
+| ~SPC m i g~ | document group of declarations at point                             |
+| ~SPC m i G~ | document group of declarations at point (header only)               |
+| ~SPC m i s~ | document start of declaration group                                 |
+| ~SPC m i e~ | document end of declaration group                                   |
 
 ** Additional key bindings
 *** Disassemble

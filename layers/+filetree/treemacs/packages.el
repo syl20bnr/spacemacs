@@ -1,6 +1,6 @@
-;;; packages.el --- treemacs Layer packages File for Spacemacs
+;;; packages.el --- Treemacs Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Alexander Miller <alexanderm@web.de>
 ;;         Hong Xu <hong@topbug.net>
@@ -8,13 +8,27 @@
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst treemacs-packages
   '(
     golden-ratio
     treemacs
     (treemacs-evil :toggle (memq dotspacemacs-editing-style '(vim hybrid)))
+    (treemacs-icons-dired :toggle treemacs-use-icons-dired)
+    (treemacs-all-the-icons :toggle treemacs-use-all-the-icons-theme)
     (treemacs-magit :requires magit)
     (treemacs-persp :requires persp-mode)
     treemacs-projectile
@@ -36,25 +50,19 @@
     :defer t
     :init
     (progn
-      (setq treemacs-follow-after-init t
-            treemacs-width 35
-            treemacs-position 'left
-            treemacs-is-never-other-window nil
-            treemacs-silent-refresh nil
-            treemacs-indentation 2
-            treemacs-change-root-without-asking nil
-            treemacs-sorting 'alphabetic-desc
-            treemacs-show-hidden-files t
-            treemacs-never-persist nil
-            treemacs-goto-tag-strategy 'refetch-index)
+      (setq treemacs-follow-after-init t)
       (add-hook 'treemacs-mode-hook
                 #'spacemacs/treemacs-setup-width-lock)
-      (spacemacs/set-leader-keys
-        "ft"    'treemacs
-        "fB"    'treemacs-bookmark
-        "fT"    'treemacs-find-file
-        "f M-t" 'treemacs-find-tag
-        "pt"    'spacemacs/treemacs-project-toggle)
+      (spacemacs|spacebind
+       "Files manipulation."
+       :global
+       (("f" "Files"
+         ("t" treemacs "File tree")
+         ("B" treemacs-bookmark "Find bookmark in file tree")
+         ("T" treemacs-find-file "Focus current file in file tree")
+         ("M-t" treemacs-find-tag "Focus tag in file tree" ))
+        ("p" "Project"
+         ("t" spacemacs/treemacs-project-toggle "Open project in file tree"))))
       (which-key-add-major-mode-key-based-replacements 'treemacs-mode
         "c"         "treemacs-create"
         "o"         "treemacs-visit-node"
@@ -95,24 +103,37 @@
     :init (require 'treemacs-projectile)))
 
 (defun treemacs/init-treemacs-persp ()
-  (use-package treemacs-persp :after treemacs))
+  (use-package treemacs-persp
+    :after treemacs persp-mode
+    :config (when (eq treemacs-use-scope-type 'Perspectives)
+              (treemacs-set-scope-type 'Perspectives))))
+
+(defun treemacs/init-treemacs-icons-dired ()
+  (use-package treemacs-icons-dired
+    :hook (dired-mode . treemacs-icons-dired-mode)))
+
+(defun treemacs/init-treemacs-all-the-icons ()
+  (use-package treemacs-all-the-icons
+    :if treemacs-use-all-the-icons-theme
+    :hook ((treemacs-mode dired-mode) . (lambda () (treemacs-load-theme 'all-the-icons)))))
 
 (defun treemacs/pre-init-winum ()
   (spacemacs|use-package-add-hook winum
     :post-config
     (progn
-      ;; `0', `M-0' and `C-x w 0' are bound to `winum-select-window-0-or-10'
-      (define-key winum-keymap
-        [remap winum-select-window-0-or-10] #'treemacs-select-window)
-      ;; replace the which-key name
-      (push '((nil . "winum-select-window-0-or-10") .
-              (nil . "treemacs-select-window"))
-            which-key-replacement-alist)
-      (with-eval-after-load 'treemacs
-        (dolist (n (number-sequence 1 5))
-          (add-to-list 'winum-ignored-buffers
-                       (format "%sFramebuffer-%s*"
-                               treemacs--buffer-name-prefix n)))))))
+      (when (configuration-layer/package-used-p 'winum)
+        ;; `0', `M-0' and `C-x w 0' are bound to `winum-select-window-0-or-10'
+        (define-key winum-keymap
+          [remap winum-select-window-0-or-10] #'treemacs-select-window)
+        ;; replace the which-key name
+        (push '((nil . "winum-select-window-0-or-10") .
+                (nil . "treemacs-select-window"))
+              which-key-replacement-alist)
+        (with-eval-after-load 'treemacs
+          (dolist (n (number-sequence 1 5))
+            (add-to-list 'winum-ignored-buffers
+                         (format "%sFramebuffer-%s*"
+                                 treemacs--buffer-name-prefix n))))))))
 
 (defun treemacs/init-treemacs-magit ()
   (use-package treemacs-magit

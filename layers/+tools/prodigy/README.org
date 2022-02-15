@@ -35,7 +35,7 @@ You start prodigy with this:
 
 | Key binding | Description             |
 |-------------+-------------------------|
-| ~SPC a S~   | Open the prodigy buffer |
+| ~SPC a t p~ | Open the prodigy buffer |
 
 ** Navigate through it
 

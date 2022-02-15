@@ -8,8 +8,6 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#configuration][Configuration]]
-  - [[#auto-complete][Auto-complete]]
 
 * Description
 The layer adds ReStructuredText (ReST) support to Spacemacs and adds some
@@ -21,15 +19,9 @@ Note: to add =Sphinx= specific support use the layer =sphinx=.
 - =rst= files are supported via Emacs built-in =rst.el=.
 - Lists are inserted by new functions.
 - Directives can be inserted easily.
-- auto-completion for directives and options via =auto-complete-rst=.
 - snippet support via =yasnippet=.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =restructuredtext= to the existing =dotspacemacs-configuration-layers= list
 in this file.
-
-* Configuration
-** Auto-complete
-For now =auto-complete-rst= only works with sphinx 1.4.9 and lower.
-New 1.5 release (as from December 2016) is not yet supported.

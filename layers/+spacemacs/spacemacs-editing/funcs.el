@@ -1,13 +1,25 @@
 ;;; funcs.el --- Spacemacs editing Layer functions File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 
 ;; smartparens
@@ -60,17 +72,61 @@ or `sp-local-pair'."
      (t
       (insert-char ?\))))))
 
+(defun spacemacs//activate-smartparens(&optional global)
+  "Enable `smartparens-mode' or strict version.
+This either activates `smartparens-mode' or `smartparens-strict-mode'
+depending on the respective dotfile setting.
+
+It is not necessary to activate `smartparens-mode' independently as it
+is included in `smartparens-strict-mode'.
+
+If `global' is non-nil activate the respective global mode."
+  (if dotspacemacs-smartparens-strict-mode
+      (if global
+          (smartparens-global-strict-mode 1)
+        (smartparens-strict-mode 1))
+    (if global
+        (smartparens-global-mode 1)
+      (smartparens-mode 1))))
+
+(defun spacemacs//deactivate-smartparens(&optional global)
+  "Deactivate `smartparens-mode'.
+This deactivates `smartparens-mode' and `smartparens-strict-mode'.
+
+It is important to disable both to remove all advices.
+
+If `global' is non-nil activate the respective global mode."
+  (if global
+      (progn
+        (when smartparens-global-strict-mode
+          (smartparens-global-strict-mode -1))
+        (smartparens-global-mode -1))
+    (progn
+      (when smartparens-strict-mode
+        (smartparens-strict-mode -1))
+      (smartparens-mode -1))))
+
 (defun spacemacs//conditionally-enable-smartparens-mode ()
   "Enable `smartparens-mode' in the minibuffer, during `eval-expression'."
   (if (or (eq this-command 'eval-expression)
           (eq this-command 'eldoc-eval-expression))
-      (smartparens-mode)))
+      (spacemacs//activate-smartparens)))
 
 (defun spacemacs//adaptive-smartparent-pair-overlay-face ()
   (set-face-attribute 'sp-pair-overlay-face nil
                       :inherit 'lazy-highlight
                       :background nil
                       :foreground nil))
+
+(defun spacemacs//put-clean-aindent-last ()
+  "Put `clean-aindent--check-last-point` to end of `post-command-hook`.
+This functions tries to ensure that clean-aindent checks for indent
+operations after each indent operations have been done.
+
+See issues #6520 and #13172"
+  (when clean-aindent-mode
+    (remove-hook 'post-command-hook 'clean-aindent--check-last-point)
+    (add-hook 'post-command-hook 'clean-aindent--check-last-point t)))
 
 
 ;; uuidgen

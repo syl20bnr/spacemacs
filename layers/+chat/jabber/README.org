@@ -28,7 +28,7 @@ file.
 * Key bindings
 
 | Key binding | Description          |
-| ~SPC a j~   | Connect all accounts |
+| ~SPC a c j~ | Connect all accounts |
 
 ** Jabber Roster
 

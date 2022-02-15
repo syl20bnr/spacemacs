@@ -6,6 +6,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#install-chicken-scheme-example][Install Chicken scheme example]]
 - [[#structurally-safe-editing][Structurally safe editing]]
 - [[#key-bindings][Key bindings]]
   - [[#compiling][Compiling]]
@@ -13,8 +14,10 @@
   - [[#documentation][Documentation]]
   - [[#insertion][Insertion]]
   - [[#macroexpansion][Macroexpansion]]
-  - [[#repl][REPL]]
+  - [[#repl-interaction][REPL interaction]]
   - [[#evaluation][Evaluation]]
+  - [[#repl-mode][REPL-mode]]
+  - [[#geiser-doc-mode][Geiser-doc-mode]]
 
 * Description
 This layer adds support for Scheme via [[http://geiser.nongnu.org][Geiser]]. Note that combined usage of racket-mode and geiser has not been tested.
@@ -29,6 +32,31 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =scheme= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+Additionally, before geiser can be used with a scheme implementation, support
+for the implementation must be enabled by adding its name to the list of
+=scheme-implementations=. It is recommended to set the value of the list
+directly in the =dotspacemacs-configuration-layers= list as shown in the
+following example for guile and racket:
+
+#+BEGIN_SRC elisp
+  dotspacemacs-configuration-layers
+  '((scheme :variables
+             scheme-implementations '(guile racket)))
+#+END_SRC
+
+Currently support is available for the following scheme implementations:
+chez, chibi, chicken, gambit, gauche, guile, kawa, mit and racket.
+
+Finally, to use a scheme implementation its binary must be available in your
+PATH (or you can manually set the location of the binary as explained in [[https://nongnu.org/geiser/geiser_3.html][this
+section of the geiser documentation]]).
+
+The following subsection shows how to install Chicken scheme and activate geiser
+support.
+
+** Install Chicken scheme example
+First add =chicken= to the list of =scheme-implementations= as explained above.
+
 For full Chicken support, the following commands should be run:
 
 #+BEGIN_SRC shell
@@ -42,6 +70,12 @@ so the command for changing to that directory can be accomplished with this:
 
 #+BEGIN_SRC shell
   $ cd `csi -b -e "(import (chicken platform))" -p "(chicken-home)"`
+#+END_SRC
+
+*Note:* Chicken 5 also requires SRFI-18
+
+#+BEGIN_SRC shell
+  $ chicken-install -s srfi-18
 #+END_SRC
 
 Additionally, as of 2018-12-12 there is a [[https://git.archlinux.org/svntogit/community.git/commit/trunk?h=packages/chicken&id=8b9a65eb88d899f7c9c78b56bba5bea5cdba534a][naming conflict]]
@@ -96,7 +130,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 
 | Key binding | Description         |
 |-------------+---------------------|
-| ~SPC m g g~ | Goto Definition     |
+| ~SPC m g d~ | Goto Definition     |
 | ~SPC m g b~ | Go Back             |
 | ~SPC m g m~ | Goto Module         |
 | ~SPC m g n~ | Goto next error     |
@@ -126,7 +160,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 | ~SPC m m f~ | Macroexpand surrounding sexp |
 | ~SPC m m r~ | Macroexpand region           |
 
-** REPL
+** REPL interaction
 
 | Key binding | Description                              |
 |-------------+------------------------------------------|
@@ -149,3 +183,41 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 | ~SPC m e f~ | Evaluate current function |
 | ~SPC m e l~ | Evaluate line             |
 | ~SPC m e r~ | Evaluate region           |
+
+** REPL-mode
+*Insert state*
+
+| Key binding | Description    |
+|-------------+----------------|
+| ~S-RET~     | Insert newline |
+| ~C-l~       | Clear buffer   |
+| ~C-d~       | Exit           |
+
+*Normal state*
+
+| Key binding  | Description          |
+|--------------+----------------------|
+| ~g j~ / ~]]~ | Goto next prompt     |
+| ~g k~ / ~[[~ | Goto previous prompt |
+
+| ~SPC m h h~ | Show documentation for symbol at point      |
+| ~SPC m C~   | Clear buffer                                |
+| ~SPC m i l~ | Insert lambda                               |
+| ~SPC m i m~ | Import module                               |
+| ~SPC m u~   | Unload function                             |
+| ~SPC m s~   | Toggle surrounding parenthesis <-> brackets |
+| ~SPC m k~   | REPL interrupt                              |
+| ~SPC m q~   | REPL exit                                   |
+
+** Geiser-doc-mode
+
+| Key binding    | Description           |
+|----------------+-----------------------|
+| ~o~            | Follow link           |
+| ~]]/[[~        | Next/previous-section |
+| ~g p~ / ~<~    | Previous page         |
+| ~g n~ / ~>~    | Next page             |
+| ~g d~          | Goto definition       |
+| ~g z~          | Switch to repl        |
+| ~TAB~ / ~C-j~  | Next button           |
+| S-TAB~ / ~C-k~ | Previous button       |

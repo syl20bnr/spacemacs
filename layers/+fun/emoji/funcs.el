@@ -1,13 +1,25 @@
 ;;; funcs.el --- Emoji Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 ;; From https://github.com/dunn/company-emoji/README.md for Linux, or on
 ;; macOS and using the Cocoa version of Emacs
@@ -28,3 +40,17 @@
   "Adjust the font settings of current frame so Emacs can display emoji
 properly."
   (spacemacs//set-emoji-font (selected-frame)))
+
+(defun spacemacs/delay-emoji-cheat-sheet-hook ()
+  "Work-around for org buffers."
+  ;; we need to wait for org buffer to be fully loaded before
+  ;; calling the emoji mode.
+  ;; If we directly call the emoji mode at hook runtime then some
+  ;; text properties are not applied correctly.
+  (run-at-time 0.1 nil 'emoji-cheat-sheet-plus-display-mode))
+
+(defun spacemacs/emoji-insert-and-possibly-complete (_)
+  "Use company-emoji to complete 'to' unicode."
+  (when company-emoji-insert-unicode
+    (delete-char -1)
+    (company-complete)))

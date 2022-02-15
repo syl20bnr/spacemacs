@@ -1,13 +1,25 @@
 ;;; core-funcs.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defvar configuration-layer--protected-packages)
 (defvar dotspacemacs-filepath)
@@ -323,7 +335,7 @@ current window.
 If `spacemacs-layouts-restrict-spc-tab' is `t' then this only switches between
 the current layouts buffers."
   (interactive)
-  (destructuring-bind (buf start pos)
+  (cl-destructuring-bind (buf start pos)
       (if (bound-and-true-p spacemacs-layouts-restrict-spc-tab)
           (let ((buffer-list (persp-buffer-list))
                 (my-buffer (window-buffer window)))
@@ -416,8 +428,24 @@ set."
         (min spacemacs--gne-max-line
              (max spacemacs--gne-min-line
                   (+ num spacemacs--gne-cur-line))))
-  (goto-line spacemacs--gne-cur-line)
+  (goto-char (point-min))
+  (forward-line (1- spacemacs--gne-cur-line))
   (funcall spacemacs--gne-line-func
            (buffer-substring (point-at-bol) (point-at-eol))))
+
+(defun spacemacs/terminal-fix-mode-line-indicator-overlap (str)
+  "Add a space between two mode line indicators,
+to fix an overlapping issue, that occurs when
+Spacemacs is started in a terminal,
+and a modes mode line name is diminished to:
+- A unicode character followed by a non unicode character, ex: \" Ⓔh\"
+- Or to two unicode characters, ex: \" Ⓔⓗ\""
+  (let ((first-char (substring str 1 2)) ; first char after the space
+        second-char)
+    (if (equal (char-charset (string-to-char first-char)) 'unicode)
+        (progn
+          (setq second-char (substring str 2 3)) ; second char after the space
+          (concat first-char " " second-char))
+      str)))
 
 (provide 'core-funcs)

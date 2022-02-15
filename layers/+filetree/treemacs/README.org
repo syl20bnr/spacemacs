@@ -11,39 +11,44 @@
 - [[#configuration][Configuration]]
   - [[#follow-mode][Follow mode]]
   - [[#file-watch][File watch]]
+  - [[#scope-settings][Scope Settings]]
   - [[#git-mode][Git mode]]
-  - [[#flattening-directories][Flattening directories]]
+  - [[#flattening-of-directories][Flattening of directories]]
   - [[#locking-width][Locking width]]
+  - [[#theme][Theme]]
 - [[#key-bindings][Key bindings]]
   - [[#global][Global]]
   - [[#inside-treemacs][Inside Treemacs]]
+    - [[#ace-mode-to-open-files][Ace mode to open files]]
+      - [[#set-ace-mode-as-default-action][Set ace mode as default action]]
+      - [[#use-digits-in-ace-mode][Use digits in ace mode]]
 
 * Description
 This layer sets up a file navigation and project explorer side-window via [[https://github.com/Alexander-Miller/treemacs][Treemacs]].
 
 ** Features:
-An detailed overview over Treemacs' available features is available in [[https://github.com/Alexander-Miller/treemacs#detailed-feature-list][its
-readme]]. In a short summary Treemacs offers the following:
+A detailed overview of the features of Treemacs is available in [[https://github.com/Alexander-Miller/treemacs#detailed-feature-list][the Treemacs
+readme]]. In short, Treemacs offers:
 - Simple and powerful navigation and ability to detail exactly how and where a
-  file should be opened
-- Good looking png icons.
+  file should be opened.
+- Good looking icons.
 - Display of multiple file trees organized as projects residing in a workspace.
-- Ability to show tags contained in files. Tags are provided by imenu, so
-  nearly every filetype is supported.
-- Mouse interface for single and double left clicks in line with modern GUI standards.
-  (Clicking on an icon will also display a file's tags)
-- Locational awareness: commands like ~find-file~ or ~magit-status~ will use the location
-  of the node at point (with $HOME as fallback)
-- Optionally fontifying files based on their git status.
-- Optionally collapsing single-dir-child directories into one.
+- Ability to show tags contained in files. Tags are provided by [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Imenu.html][Imenu]], so nearly
+  every filetype is supported.
+- Mouse interface for single and double left clicks in line with modern GUI
+  standards (clicking on an icon will also display the file's tags).
+- Location awareness: commands like ~find-file~ or ~magit-status~ will use the
+  location of the node at point (with =$HOME= as fallback).
+- Optional fontifying of files based on their git status.
+- Optional collapsing of /single-dir-child/ directories into one.
 - Doing both asynchronously for an imperceptible performance cost.
 - Optional =follow-mode= to automatically focus the currently selected file or tag.
 - Optional =filewatch-mode= to automatically refresh the view after (and only
   after) changes to the shown filesystem.
 
 * Install
-To use this layer, add =treemacs= to the existing
-=dotspacemacs-configuration-layers= in your =dotspacemacs= file.
+To use this layer, add =treemacs= to =dotspacemacs-configuration-layers= in your
+=dotspacemacs= file.
 
 * Configuration
 ** Follow mode
@@ -70,10 +75,27 @@ part of the file system shown by treemacs set the layer variable
 
 Default is =t=.
 
+** Scope Settings
+By default treemacs buffers and their workspaces will be uniquely scoped within
+the current frame. As an alternative it is possible to scope treemacs to the
+currently active perspective, including the automatic creation of a workspace
+for every perspective. The scope type is determined by setting the layer
+variable =treemacs-use-scope-type= to either ='Frames= or ='Perspectives=.
+
+Note that persective-based scoping will only take effect when =persp-mode= is
+actually first used.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (treemacs :variables treemacs-use-scope-type 'Perspectives)))
+#+END_SRC
+
+Default is ='Frames=.
+
 ** Git mode
-To enable Treemacs to check for files' and directories' git status information
+To enable Treemacs to check for the git status information of files and directories
 and highlight them accordingly, set the layer variable =treemacs-use-git-mode=
-to =simple=, =extended=, or =deferred=. See the [[https://github.com/Alexander-Miller/treemacs#git-mode][Treemacs doc]] for a more detailed
+to =simple=, =extended=, or =deferred=. See the [[https://github.com/Alexander-Miller/treemacs#git-mode][Treemacs documentation]] for a more detailed
 explanation.
 
 #+BEGIN_SRC emacs-lisp
@@ -83,8 +105,8 @@ explanation.
 
 Default is =nil=.
 
-** Flattening directories
-*This feature requires python to be installed*.
+** Flattening of directories
+*This feature requires Python to be installed*.
 
 Treemacs tries to flatten empty directory names into one name. It is possible
 to control how deep Treemacs will search for empty directories by settings the
@@ -95,10 +117,10 @@ layer variable =treemacs-collapse-dirs= to a positive number.
     (treemacs :variables treemacs-collapse-dirs 3)))
 #+END_SRC
 
-Default is 3 (or 0 when python is not installed).
+Default is 3 (or 0 when Python is not installed).
 
 ** Locking width
-To have the width of the treemacs window locked by default, meaning not manually
+To have the width of the treemacs window locked by default, so that it is not manually
 resizable, set the variable =treemacs-lock-width= to non-nil. It will still be
 resizable through Treemacs commands and key bindings.
 
@@ -108,6 +130,14 @@ resizable through Treemacs commands and key bindings.
 #+END_SRC
 
 Default is =nil=.
+
+** Theme
+To use the `all-the-icons` theme rather than the default one, set the `treemacs-use-all-the-icons-theme` variable:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (treemacs :variables treemacs-use-all-the-icons-theme t)))
+#+END_SRC
 
 * Key bindings
 ** Global
@@ -142,10 +172,6 @@ many other commands.
 | ~C-c C-p p~ | Select a projectile project to add to the workspace.                                                             |
 | ~C-c C-p d~ | Remove project at point from the workspace.                                                                      |
 | ~C-c C-p r~ | Rename project at point.                                                                                         |
-| ~th~        | Toggle the hiding and displaying of dotfiles.                                                                    |
-| ~tw~        | Toggle whether the treemacs buffer should have a fixed width.                                                    |
-| ~tf~        | Toggle treemacs-follow-mode.                                                                                     |
-| ~ta~        | treemacs-filewatch-mode.                                                                                         |
 | ~w~         | Set a new value for the width of the treemacs window.                                                            |
 | ~TAB~       | Do what I mean (as defined in ~treemacs-TAB-actions-config~). Prefers expanding nodes by default.                |
 | ~RET~       | Do what I mean (as defined in ~treemacs-RET-actions-config~). Prefers visiting nodes by default.                 |
@@ -166,9 +192,35 @@ many other commands.
 | ~oah~       | Open current file or tag by horizontally splitting a window selected by ace-window.                              |
 | ~oav~       | Open current file or tag by vertically splitting a window selected by ace-window.                                |
 | ~ox~        | Open current file according to its mime type in an external application. Linux, Windows and macOS are supported. |
-| ~ta~        | Toggle ~treemacs-filewatch-mode~.                                                                                |
 | ~tf~        | Toggle ~treemacs-follow-mode~.                                                                                   |
+| ~ta~        | Toggle ~treemacs-filewatch-mode~.                                                                                |
+| ~tg~        | Toggle ~git-mode~.                                                                                               |
 | ~th~        | Toggle the hiding and displaying of dotfiles.                                                                    |
 | ~tw~        | Toggle whether the treemacs buffer should have a fixed width.                                                    |
+| ~tv~        | Toggle the hiding and displaying of dotfiles.                                                                    |
 | ~yr~        | Copy the absolute path of the nearest project node at point.                                                     |
 | ~yy~        | Copy the absolute path of the node at point.                                                                     |
+
+*** Ace mode to open files
+It is possible to open the file under cursor in exact the window you want.
+By default you have to press ~o a a~ to run ace selection mode and choose
+the window with keys ~a s d f~.
+That behavior can be changed in two ways.
+
+**** Set ace mode as default action
+It is possible to set =ace mode= as default action for pressing RET on a file.
+To do this add following configuration to your dotfile.
+
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'treemacs
+    (treemacs-define-RET-action 'file-node-closed #'treemacs-visit-node-ace)
+    (treemacs-define-RET-action 'file-node-open #'treemacs-visit-node-ace))
+#+END_SRC
+
+**** Use digits in ace mode
+Just add the following to use digits instead of ~a s d f~ in ace (window selection) mode.
+Please note that the following code changes ace mode globally.
+
+#+BEGIN_SRC emacs-lisp
+  (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9 ?0))
+#+END_SRC

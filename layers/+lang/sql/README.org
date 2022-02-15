@@ -8,6 +8,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#external-dependencies][External Dependencies]]
   - [[#sql-keywords-capitalization][SQL Keywords Capitalization]]
     - [[#sql-interactive-mode][SQL Interactive Mode]]
     - [[#blacklisting-keywords][Blacklisting keywords]]
@@ -15,7 +16,7 @@
 - [[#key-bindings][Key bindings]]
   - [[#highlighting][Highlighting]]
   - [[#inferior-process-interactions-sqli][Inferior Process Interactions (SQLi)]]
-    - [[#send-sql-queries-to-sqli][Send SQL queries to SQLi:]]
+    - [[#send-sql-queries-to-sqli][Send SQL queries to SQLi]]
   - [[#sqli-buffer][SQLi buffer]]
   - [[#code-formatting][Code Formatting]]
 
@@ -39,20 +40,52 @@ This layer adds support for a wide range of SQL dialects to Spacemacs.
   - Sybase
   - Vertica
 - Syntax-checking via [[https://github.com/purcell/sqlint][sqlint]] for ANSI SQL.
-- Format code with =sqlfmt=
+- Format code with [[https://github.com/mjibson/sqlfmt][=sqlfmt=]]
 - Snippet insertion for the more general SQL constructs.
 - REPL support via =SQLi= buffer.
 - Automatic capitalization of keywords.
+- LSP support via [[https://github.com/lighttiger2505/sqls][sqls]].
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =sql= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-For syntax-checking you also need to install [[https://www.ruby-lang.org/en/about/][ruby]] as well as =sqlint=.
+** External Dependencies
+Some functionality, like linting, rely on external binaries:
+- *Syntax Checking*: Install [[https://www.ruby-lang.org/en/about/][ruby]] and the =sqlint= gem.
 
 #+BEGIN_SRC ruby
   gem install sqlint
+#+END_SRC
+- *Formatting*: Install [[https://github.com/mjibson/sqlfmt][sqlfmt]] and move it into your =$PATH=
+
+#+BEGIN_SRC sh
+  # Download and extract the binary 0.4.0 for linux
+  wget -q -O - https://github.com/mjibson/sqlfmt/releases/latest/download/sqlfmt_0.4.0_linux_amd64.tar.gz | tar -xpvzf - --directory "${installdir}/bin"
+#+END_SRC
+- *LSP supporting (sqls)*:
+  - Install [[https://golang.org/dl/][Go]] lang and [[https://github.com/lighttiger2505/sqls][sqls]], then setting the variable =sql-backend= to ='lsp=.
+  - One of way to connect DB is setting variable =sql-lsp-sqls-workspace-config-path= to ='workspace= or ='root= and put json file at these directory.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (sql :variables
+         sql-backend 'lsp
+         sql-lsp-sqls-workspace-config-path 'workspace)))
+#+END_SRC
+
+#+BEGIN_SRC json
+  {
+    "sqls": {
+      "connections": [
+        {
+          "driver": "mysql",
+          "dataSourceName": "user1:password1@tcp(localhost:3306)/sample_db"
+        }
+      ]
+    }
+  }
 #+END_SRC
 
 ** SQL Keywords Capitalization
@@ -115,7 +148,7 @@ auto-indent by setting the variable =sql-auto-indent= to =nil=.
 | ~SPC m l a~ | List all objects                                     |
 | ~SPC m l t~ | list all objects in a table                          |
 
-*** Send SQL queries to SQLi:
+*** Send SQL queries to SQLi
 
 | Key binding | Description                                                                                           |
 |-------------+-------------------------------------------------------------------------------------------------------|
@@ -140,4 +173,8 @@ auto-indent by setting the variable =sql-auto-indent= to =nil=.
 
 ** Code Formatting
 
+| Key binding | Description                                                  |
+|-------------+--------------------------------------------------------------|
 | ~SPC m = c~ | capitalize SQL keywords in region (if capitalize is enabled) |
+| ~SPC m = =~ | ~sqlfmt~ whole buffer                                        |
+| ~SPC m = r~ | ~sqlfmt~ active region                                       |

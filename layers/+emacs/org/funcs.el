@@ -1,16 +1,42 @@
 ;;; funcs.el --- Org Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 ;; Autoload space-doc-mode
 (autoload 'space-doc-mode "space-doc" nil 'interactive)
+
+(defun org-clocks-prefix ()
+  (if org-enable-org-contacts-support
+      "clocks/contacts"
+    "clocks"))
+
+(defun org-contacts-find-file ()
+  "Open first contact file"
+  (interactive)
+  (if (bound-and-true-p org-contacts-files)
+      (find-file (car org-contacts-files))
+    (message "No specific org-contacts-files defined. Org-contacts uses all org files.")))
+
+
 
 (defun org-projectile/capture (&optional arg)
   (interactive "P")
@@ -50,6 +76,14 @@
     (add-to-list 'evil-surround-pairs-alist '(?: . spacemacs//surround-drawer))
     (add-to-list 'evil-surround-pairs-alist '(?# . spacemacs//surround-code))))
 
+(defun spacemacs//org-maybe-activate-evil-insert (&rest _)
+  "Switch to evil insert state if the current state is normal.
+Useful as an :after advice for commands that insert something
+into buffer, but are not Evil-aware (e.g. `org-insert-item')."
+  (when (and (member dotspacemacs-editing-style '(vim hybrid))
+             (evil-normal-state-p))
+    (evil-insert-state)))
+
 
 
 (defun spacemacs/org-trello-pull-buffer ()
@@ -82,3 +116,20 @@ For example: To unfold from a magit diff buffer, evaluate the following:
 (advice-add 'magit-diff-visit-file :after #'spacemacs/org-reveal-advice)"
   (when (derived-mode-p 'org-mode)
     (org-reveal)))
+
+
+;; Based on the suggestion here:
+;; https://orgmode.org/manual/Breaking-Down-Tasks.html
+(defun spacemacs/org-summary-todo-naive-auto (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  (org-todo (if (= n-not-done 0) "DONE" "TODO")))
+
+(defun spacemacs/org-summary-todo-semiauto (n-done n-not-done)
+  "Prompt to change entry state when the state of the subentries imply it."
+  (and (org-get-todo-state) ;; Don't force a todo state if there is none yet
+       ;; If either it is in a todo state but should be in a done state
+       (if (or (and (org-entry-is-todo-p) (= n-not-done 0))
+               ;; or it is in a done state and should be in a todo state
+               (and (org-entry-is-done-p) (> n-not-done 0)))
+           ;; then prompt to change the state
+           (org-todo))))

@@ -8,11 +8,12 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-  - [[#configuration][Configuration]]
+- [[#configuration][Configuration]]
   - [[#web-beautify][web-beautify]]
   - [[#prettier][prettier]]
   - [[#choosing-a-formatter][Choosing a formatter]]
   - [[#formatting-on-save][Formatting on save]]
+  - [[#lsp][LSP]]
 - [[#usage][Usage]]
   - [[#reformat][Reformat]]
   - [[#display-navigable-hierarchy][Display navigable hierarchy]]
@@ -33,7 +34,7 @@ This layer adds support for JSON files with [[https://github.com/joshwnj/json-mo
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =json= to the existing =dotspacemacs-configuration-layers= list in this file.
 
-** Configuration
+* Configuration
 To define the default indentation set the variable =js-indent-level=.
 
 ** web-beautify
@@ -49,7 +50,7 @@ To choose a formatter, set the layer variable =json-fmt-tool=:
   (json :variables json-fmt-tool 'web-beautify)
 #+END_SRC
 
-Formatter can be chosen on a per project basis using directory local variables
+The formatter can be chosen on a per project basis using directory local variables
 (files named =.dir-locals.el= at the root of a project), an example to use the
 =prettier= formatter:
 
@@ -69,9 +70,26 @@ To enable using the selected formatter on save, set the layer variable =json-fmt
   (json :variables json-fmt-on-save t)
 #+END_SRC
 
+** LSP
+To enable LSP, install the lsp server via npm,
+then set the layer variable =json-backend= to ='lsp= like shown below:
+
+#+BEGIN_SRC emacs-lisp
+  (json :variables json-backend 'lsp)
+#+END_SRC
+
+Alternatively you can also keep the variable on nil, then lsp will be used if lsp
+layer is loaded.
+
+Installing the lsp server dependency can be done like this:
+
+#+BEGIN_SRC sh
+  npm install -g vscode-json-languageserver
+#+END_SRC
+
 * Usage
 ** Reformat
-~SPC m =~ will reformat the whole buffer or the active region. Use numerical
+~SPC m = =~ will reformat the whole buffer or the active region. Use numerical
 prefix argument to specify a different indentation than =js-indent-level=.
 Use the universal prefix argument to print decoded strings, for instance:
 
@@ -91,18 +109,17 @@ Use the universal prefix argument to print decoded strings, for instance:
 #+END_SRC
 
 ** Display navigable hierarchy
-~SPC m h h~ displays the hierarchy for the whole JSON document or the active
-region. Use the universal prefix argument ~SPC u SPC m h h~ to create the
+~SPC m T h~ toggle the display of a hierarchy for the whole JSON document or the active
+region. Use the universal prefix argument ~SPC u SPC m T h~ to create the
 hierarchy for the JSON *after* the point.
 
 * Key bindings
 
-| Key binding | Description                                 |
-|-------------+---------------------------------------------|
-| ~SPC m =~   | DWIM Reformat JSON                          |
-| ~SPC m h p~ | Get the path of the value at point          |
-| ~SPC m h h~ | DWIM navigate JSON hierarchy                |
-| ~SPC m h H~ | Navigate JSON hierarchy of the whole buffer |
+| Key binding | Description                                    |
+|-------------+------------------------------------------------|
+| ~SPC m = =~ | Reformat thing under point                     |
+| ~SPC m h p~ | Print the path to the json element under point |
+| ~SPC m T h~ | Toggle graphical JSON hierarchy                |
 
 ** JSON hierarchy
 

@@ -1,13 +1,25 @@
 ;;; packages.el --- keyboard-layout Layer Packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Fabien Dubosson <fabien.dubosson@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defconst keyboard-layout-packages
   '(
@@ -15,11 +27,14 @@
     avy
     comint
     company
+    ediff
     elfeed
     evil
+    evil-collection
+    evil-cleverparens
     evil-escape
     evil-evilified-state
-    evil-magit
+    evil-lisp-state
     evil-surround
     eyebrowse
     flycheck
@@ -102,6 +117,20 @@
       "C-j"
       "C-k"
       "C-l")))
+
+(defun keyboard-layout/pre-init-ediff ()
+  (kl|config ediff
+    :description
+    "Remap `ediff' bindings."
+    :loader
+    ;; HACK: ediff-mode-map is only defined when ediff is started
+    (add-hook 'ediff-startup-hook #'(lambda () BODY))
+    :common
+    (kl/correct-keys ediff-mode-map
+      "h"
+      "j"
+      "k"
+      "l")))
 
 (defun keyboard-layout/pre-init-elfeed ()
   (kl|config elfeed
@@ -205,6 +234,20 @@
       (define-key evil-normal-state-map "K" nil)
       (define-key evil-normal-state-map "L" 'spacemacs/evil-smart-doc-lookup))))
 
+(defun keyboard-layout/pre-init-evil-cleverparens ()
+  (kl|config evil-cleverparens
+    :description
+    "Remap `evil-cleverparens' bindings."
+    :loader
+    ;; (spacemacs|use-package-add-hook evil-cleverparens :post-init BODY)
+    (with-eval-after-load 'evil-cleverparens BODY)
+    :common
+    (kl/evil-correct-keys 'normal evil-cleverparens-mode-map
+      "h"
+      "j"
+      "k"
+      "l")))
+
 (defun keyboard-layout/pre-init-evil-escape ()
   (kl|config evil-escape
     :description
@@ -229,22 +272,40 @@
       "k"
       "l")))
 
-(defun keyboard-layout/pre-init-evil-magit ()
-  (kl|config evil-magit
+(defun keyboard-layout/pre-init-evil-lisp-state ()
+  (kl|config evil-lisp-state
     :description
-    "Remap `evil-magit' bindings."
+    "Remap `evil-lisp-state' bindings."
     :loader
-    (with-eval-after-load 'evil-magit BODY)
+    (with-eval-after-load 'evil-lisp-state BODY)
     :common
-    (dolist (state (if evil-magit-use-y-for-yank
-                       (list evil-magit-state 'visual)
-                     (list evil-magit-state)))
+    (kl/correct-keys evil-lisp-state-map
+      "h"
+      "j"
+      "k"
+      "l"
+      ;;
+      "H"
+      "J"
+      "K"
+      "L")))
+
+(defun keyboard-layout/pre-init-evil-collection ()
+  (kl|config evil-collection
+    :description
+    "Remap `evil-collection-magit' bindings."
+    :loader
+    (with-eval-after-load 'evil-collection-magit BODY)
+    :common
+    (dolist (state (if evil-collection-magit-use-y-for-yank
+                       (list evil-collection-magit-state 'visual)
+                     (list evil-collection-magit-state)))
       (kl/evil-correct-keys state magit-mode-map
         "j"
         "k"
         "C-j"
         "C-k"))
-    (kl/evil-correct-keys 'normal evil-magit-toggle-text-minor-mode-map
+    (kl/evil-correct-keys 'normal evil-collection-magit-toggle-text-minor-mode-map
       "C-j")))
 
 (defun keyboard-layout/pre-init-evil-surround ()
@@ -514,6 +575,13 @@
             "E" 'org-forward-element
             "I" 'org-backward-element
             "N" 'org-backward-heading-same-level))))
+    :dvp
+    (progn
+      (spacemacs|use-package-add-hook evil-org
+        :post-config
+        (evil-define-key 'normal evil-org-mode-map
+          "d" 'evil-backward-char
+          "j" 'evil-org-delete)))
     :neo
     (progn
       (spacemacs|use-package-add-hook evil-org

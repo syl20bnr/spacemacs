@@ -1,24 +1,36 @@
 ;;; packages.el --- games Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(setq games-packages
-      '(
-        2048-game
-        (helm-games :location local
-                    :requires helm)
-        pacmacs
-        (tetris :location built-in)
-        sudoku
-        typit
-        ))
+
+(defconst games-packages
+  '(
+    2048-game
+    (helm-games :location local
+                :requires helm)
+    pacmacs
+    (tetris :location built-in)
+    sudoku
+    typit))
+
 
 (defun games/init-2048-game ()
   (use-package 2048-mode
@@ -26,7 +38,8 @@
     :init
     (progn
       (push '("2048" . (2048-game :quit (kill-buffer-ask (get-buffer "2048"))
-                                  :reset 2048-init)) helm-games-list)
+                                  :reset 2048-init))
+            helm-games-list)
       (evilified-state-evilify 2048-mode 2048-mode-map
         "j" '2048-down
         "k" '2048-up
@@ -38,8 +51,8 @@
     :commands helm-games
     :init
     (progn
-      (spacemacs/declare-prefix "aG" "games")
-      (spacemacs/set-leader-keys "aG" 'helm-games))))
+      (spacemacs/declare-prefix "afg" "games")
+      (spacemacs/set-leader-keys "afg" 'helm-games))))
 
 (defun games/init-pacmacs ()
   (use-package pacmacs
@@ -47,7 +60,8 @@
     :init
     (push '("pacmacs" . (pacmacs-start
                          :quit (kill-buffer-ask (get-buffer "*Pacmacs*"))
-                         :reset pacmacs-start)) helm-games-list)
+                         :reset pacmacs-start))
+          helm-games-list)
     (evilified-state-evilify pacmacs-mode pacmacs-mode-map
       "h" 'pacmacs-left
       "j" 'pacmacs-down
@@ -60,7 +74,8 @@
     :init
     (progn
       (push '("Tetris" . (tetris :quit spacemacs/tetris-quit-game
-                                 :reset tetris-start-game)) helm-games-list)
+                                 :reset tetris-start-game))
+            helm-games-list)
       (setq tetris-score-file (concat spacemacs-games-cache-directory
                                       "tetris-scores.txt")))
     :config
@@ -79,7 +94,8 @@
     :init
     (progn
       (push '("sudoku" . (sudoku :quit (kill-buffer-ask (get-buffer "*Sudoku*"))
-                                 :reset sudoku-restart)) helm-games-list)
+                                 :reset sudoku-restart))
+            helm-games-list)
       (evilified-state-evilify sudoku-mode sudoku-mode-map
         ;; Movement
         "j" 'sudoku-move-point-down

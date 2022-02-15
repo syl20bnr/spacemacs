@@ -1,13 +1,25 @@
 ;;; core-spacemacs.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (require 'org)
 (require 'ox-publish)
@@ -110,17 +122,34 @@ See `spacemacs//fetch-docs-from-root'"
 
 (defun spacemacs//format-content (&rest r)
   (let* ((content (car r))
-         (div-string "<div id=\"content\">")
+         ;; FIXME:  This string has changed and we got a hard to catch bug
+         ;;         Total number of times we got owned by the div: 1
+         ;;         Increase the counter next time or find a better way to look
+         ;;         up beginning of content.
+         (div-string "<div id=\"content\" class=\"content\">")
+         ;; onclick below tries to send user to the same path but at a different domain
+         ;; the href attribute is a fallback in case javascript is disabled
+         (doc-warning "<div class=\"admonition warning\">
+<p class=\"first last\">
+You are viewing the documentation for the develop branch.
+The documentation for the release version is
+<a href=\"https://www.spacemacs.org/doc/DOCUMENTATION.html\"
+onclick=\"location='https://www.spacemacs.org'+location.pathname+location.search+location.hash;return false;\">here</a>
+.
+</p>
+</div>")
          (toc-string "<div id=\"toggle-sidebar\"><a href=\"#table-of-contents\"><h2>Table of Contents</h2></a></div>")
          (has-toc (s-index-of "Table of Contents" content))
-         (beginning-of-content-div-pos (+ (length div-string)
-                                          (s-index-of div-string content)))
+         (indx-of-div-str (or (s-index-of div-string content t)
+                              (signal 'search-failed "Can't find content div")))
+         (beginning-of-content-div-pos (+ (length div-string) indx-of-div-str))
          (beginning-of-content (substring content
                                           0 beginning-of-content-div-pos))
          (rest-of-content (substring content beginning-of-content-div-pos)))
     (if (not (null has-toc))
-        (format "%s\n%s%s" beginning-of-content toc-string rest-of-content)
+        (format "%s\n%s\n%s%s" beginning-of-content doc-warning toc-string rest-of-content)
       content)))
+
 
 (defun spacemacs//toc-org-unhrefify-toc ()
   "Make TOC classical org-mode TOC."
@@ -202,10 +231,10 @@ exported org files should be processed with
                                         (string-suffix-p
                                          "COMMUNITY.org"
                                          bfn))
-                                      (file-name-directory
-                                       (directory-file-name
-                                        bfnd))
-                                      bfnd)))
+                                       (file-name-directory
+                                        (directory-file-name
+                                         bfnd))
+                                     bfnd)))
                      nil t nil 2)
       (replace-match ".html" nil t nil 3))))
 
@@ -260,7 +289,8 @@ preprocessors for the exported .org files."
   (advice-add 'org-html-toc :filter-return #'spacemacs//format-toc)
   (advice-add 'org-html-template :filter-return #'spacemacs//format-content)
   (advice-add 'org-html-publish-to-html :around #'spacemacs//pub-doc-html-advice)
-  (let* ((header
+  (let* ((org-mode-hook nil)
+         (header
           "<link rel=\"stylesheet\" type=\"text/css\"
                  href=\"http://www.pirilampo.org/styles/readtheorg/css/htmlize.css\"/>
           <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js\"></script>

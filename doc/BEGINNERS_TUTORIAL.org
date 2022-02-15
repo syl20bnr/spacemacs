@@ -39,19 +39,18 @@ using a program called Git. The steps are easy and detailed in the [[https://git
 The power of Spacemacs lies in its efficient key bindings. Because it is built
 on Emacs, we will use Emacs conventions for key binding notation. The most
 important modifier keys are:
-
-~SPC~ = ~Space~, used as the leader key in Vim editing style.
-~RET~ = ~Return~ (also known as ~Enter~)
-~C-~ = ~Ctrl~
-~M-~ (for "meta") = ~Alt~
-~S-~ = ~Shift~
+- ~SPC~ = ~Space~, used as the leader key in Vim editing style.
+- ~RET~ = ~Return~ (also known as ~Enter~)
+- ~C-~ = ~Ctrl~
+- ~M-~ (for "meta") = ~Alt~
+- ~S-~ = ~Shift~
 
 The modifier keys can be used either in a sequence or as key chords by pressing
 two keys at the same time. ~SPC 1~ is notation for a key sequence and means
 pressing ~Space~ first and pressing ~1~ after it. Key chords are notated by
 writing a ~-~ between the keys. Thus ~C-c~ means pressing ~Ctrl~ and the letter
 ~c~ simultaneously. Key chords and sequences can also be combined: ~C-c a~ means
-"First press ~Ctrl~ and ~c~ simultaneously, then press ~a~”. ~C-c C-a~ means
+"First press ~Ctrl~ and ~c~ simultaneously, then press ~a~". ~C-c C-a~ means
 "First press ~Ctrl~ and ~c~ simultaneously, then press ~Ctrl~ and ~a~
 simultaneously".
 
@@ -111,7 +110,7 @@ Spacemacs.
 A short instant after the spacebar is pressed a menu pops up. This interactive
 menu shows you what submenus and commands can be accessed by subsequent
 keypresses. Browsing around this menu is a great way of finding new features in
-Spacemacs, so keep on eye on the different options! ~ESC~ usually breaks the
+Spacemacs, so keep an eye on the different options! ~ESC~ usually breaks the
 combination you don't want to use.
 
 ** Buffers, windows and frames

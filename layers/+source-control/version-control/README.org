@@ -38,8 +38,8 @@ You can choose the package to facilitate the diff transient-state and show
 margins by setting the =version-control-diff-tool= variable to one of the
 supported packages:
 - [[https://github.com/dgutov/diff-hl][diff-hl]]
-- [[https://github.com/syohex/emacs-git-gutter][git-gutter]]
-- [[https://github.com/nonsequitur/git-gutter-plus][git-gutter+]] (default)
+- [[https://github.com/syohex/emacs-git-gutter][git-gutter]] (default)
+- [[https://github.com/nonsequitur/git-gutter-plus][git-gutter+]]
 
 #+BEGIN_SRC emacs-lisp
   '(version-control :variables
@@ -81,8 +81,8 @@ VC commands:
 | Key binding | Description                                            |
 |-------------+--------------------------------------------------------|
 | ~SPC g .~   | Version control transient-state                        |
+| ~SPC g o~   | Browser at remote                                      |
 | ~SPC g r~   | Smerge mode transient-state                            |
-| ~SPC g h o~ | Browser at remote                                      |
 | ~SPC g v =~ | Open a hunk under the point in the diff buffer         |
 | ~SPC g v D~ | Compare the entire working tree with head              |
 | ~SPC g v e~ | Show diff against current head using ediff             |
@@ -211,12 +211,12 @@ Use ~SPC g .~ to enter a transient state for quickly navigating between hunks in
 ** Smerge Mode Transient-state
 Movement:
 
-| Key binding                | Description         |
-|----------------------------+---------------------|
-| ~SPC g r n~                | Next hunk           |
-| ~SPC g r N~ or ~SPC g r p~ | Previous hunk       |
-| ~SPC g r j~                | Go to next line     |
-| ~SPC g r k~                | Go to previous line |
+| Key binding                | Description                                  |
+|----------------------------+----------------------------------------------|
+| ~SPC g r n~                | Next conflict (possibly in another file)     |
+| ~SPC g r N~ or ~SPC g r p~ | Previous conflict (possibly in another file) |
+| ~SPC g r j~                | Go to next line                              |
+| ~SPC g r k~                | Go to previous line                          |
 
 Merge Actions:
 

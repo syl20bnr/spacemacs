@@ -1,13 +1,25 @@
-;;; config.el --- Vinegar Layer Functions File for Spacemacs
+;;; funcs.el --- Vinegar Layer Functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (defun vinegar/dotfiles-toggle ()
   "Show/hide dot-files"
@@ -15,12 +27,12 @@
   (when (equal major-mode 'dired-mode)
     (if (or (not (boundp 'dired-dotfiles-show-p)) dired-dotfiles-show-p) ; if currently showing
         (progn
-          (set (make-local-variable 'dired-dotfiles-show-p) nil)
+          (setq-local dired-dotfiles-show-p nil)
           (message "h")
           (dired-mark-files-regexp "^\\\.")
           (dired-do-kill-lines))
       (progn (revert-buffer) ; otherwise just revert to re-show
-             (set (make-local-variable 'dired-dotfiles-show-p) t)))))
+             (setq-local dired-dotfiles-show-p t)))))
 
 (defun vinegar/back-to-top ()
   "Move to first file"
@@ -67,22 +79,22 @@
   "Ediff marked files in dired or selected files in separate window"
   (interactive)
   (let* ((marked-files (dired-get-marked-files nil nil))
-        (other-win (get-window-with-predicate
-                    (lambda (window)
-                      (with-current-buffer (window-buffer window)
-                        (and (not (eq window (selected-window)))
-                             (eq major-mode 'dired-mode))))))
-        (other-marked-files (and other-win
-                                 (with-current-buffer (window-buffer other-win)
-                                   (dired-get-marked-files nil)))))
+         (other-win (get-window-with-predicate
+                     (lambda (window)
+                       (with-current-buffer (window-buffer window)
+                         (and (not (eq window (selected-window)))
+                              (eq major-mode 'dired-mode))))))
+         (other-marked-files (and other-win
+                                  (with-current-buffer (window-buffer other-win)
+                                    (dired-get-marked-files nil)))))
     (cond ((= (length marked-files) 2)
            (ediff-files (nth 0 marked-files)
                         (nth 1 marked-files)))
           ((= (length marked-files) 3)
            (ediff-files3 (nth 0 marked-files)
                          (nth 1 marked-files)
-                         (nth 2 marked-files)
-                         ))
+                         (nth 2 marked-files)))
+
           ((and (= (length marked-files) 1)
                 (= (length other-marked-files) 1))
            (ediff-files (nth 0 marked-files)
@@ -109,8 +121,8 @@
 
   (local-set-key (kbd  "<mouse-1>") 'vinegar/dired-mouse-click)
   (local-set-key (kbd  "<mouse-3>") 'vinegar/up-directory)
-  (local-set-key (kbd  "<down-mouse-3>") nil)
-  )
+  (local-set-key (kbd  "<down-mouse-3>") nil))
+
 
 (defun vinegar/dired-mouse-click (event)
   "In Dired, visit the file or directory name you click on."
@@ -142,7 +154,7 @@
             (setq file (dired-get-file-for-visit))
             (dired-find-file-other-window))
         ('error
-         (vinegar/up-directory)
-         ))
-    )))
+         (vinegar/up-directory))))))
+
+
 ;; )

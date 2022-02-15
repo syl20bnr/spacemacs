@@ -1,0 +1,61 @@
+#+TITLE: Pianobar layer
+
+#+TAGS: layer|music
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#configure][Configure]]
+- [[#run][Run]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer integrates an online music service into Spacemacs.
+
+** Features:
+- Support for listening to music from within Emacs via [[https://6xq.net/pianobar/][Pianobar]].
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =pianobar= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+For example:
+
+#+BEGIN_SRC emacs-elisp
+  dotspacemacs-configuration-layers
+     '((pianobar :variables pianobar-config t))
+#+END_SRC
+
+* Configure
+Below is an example configuration from MacOS:
+
+#+BEGIN_SRC bash
+  $ cat ~/.config/pianobar/config
+  user = foobar@gmail.com
+  password = 295TkBbHZiKwnDnQYhJW 
+  autostart_station = 30385222902831057
+#+END_SRC
+
+Relevant links:
+- [[https://github.com/agrif/pianobar.el][pianobar.el]]
+- [[https://github.com/PromyLOPh/pianobar/blob/master/contrib/config-example][Example config file]]
+- [[https://wiki.archlinux.org/index.php/Pianobar][Arch Linux wiki]]
+- [[https://jlk.fjfi.cvut.cz/arch/manpages/man/pianobar.1][Arch man page]]
+
+* Run
+~M-x pianobar~
+
+With the above configuration, pianobar will login and start playing the autostart station.
+
+* Key bindings
+
+| Key binding   | Description            |
+|---------------+------------------------|
+| ~SPC a m p p~ | Play or pause Pianobar |
+| ~SPC a m p n~ | Go to the next track   |
+| ~SPC a m p +~ | Love current song      |
+| ~SPC a m p -~ | Ban current song       |
+| ~SPC a m p t~ | Tired of current song  |
+| ~SPC a m p s~ | Switch station         |

@@ -1,13 +1,25 @@
-;;; config.el --- OSX Layer keybindings File for Spacemacs
+;;; keybindings.el --- OSX Layer keybindings File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 (when (spacemacs/system-is-mac)
   (spacemacs/set-leader-keys "bf" 'reveal-in-osx-finder)
@@ -82,21 +94,18 @@ default."
   (global-set-key (kbd-mac-command "n") 'make-frame)
   (global-set-key (kbd-mac-command "`") 'other-frame)
   (global-set-key (kbd-mac-command "z") 'undo-tree-undo)
-  (global-set-key (kbd-mac-command "s")
-                  (lambda ()
-                    (interactive)
-                    (call-interactively (key-binding "\C-x\C-s"))))
+  (global-set-key (kbd-mac-command "s") 'save-buffer)
 
   ;; window manipulation with command key
-  (global-set-key (kbd-mac-command "1") 'winum-select-window-1)
-  (global-set-key (kbd-mac-command "2") 'winum-select-window-2)
-  (global-set-key (kbd-mac-command "3") 'winum-select-window-3)
-  (global-set-key (kbd-mac-command "4") 'winum-select-window-4)
-  (global-set-key (kbd-mac-command "5") 'winum-select-window-5)
-  (global-set-key (kbd-mac-command "6") 'winum-select-window-6)
-  (global-set-key (kbd-mac-command "7") 'winum-select-window-7)
-  (global-set-key (kbd-mac-command "8") 'winum-select-window-8)
-  (global-set-key (kbd-mac-command "9") 'winum-select-window-9)
+  (global-set-key (kbd-mac-command "1") 'spacemacs/winum-select-window-1)
+  (global-set-key (kbd-mac-command "2") 'spacemacs/winum-select-window-2)
+  (global-set-key (kbd-mac-command "3") 'spacemacs/winum-select-window-3)
+  (global-set-key (kbd-mac-command "4") 'spacemacs/winum-select-window-4)
+  (global-set-key (kbd-mac-command "5") 'spacemacs/winum-select-window-5)
+  (global-set-key (kbd-mac-command "6") 'spacemacs/winum-select-window-6)
+  (global-set-key (kbd-mac-command "7") 'spacemacs/winum-select-window-7)
+  (global-set-key (kbd-mac-command "8") 'spacemacs/winum-select-window-8)
+  (global-set-key (kbd-mac-command "9") 'spacemacs/winum-select-window-9)
 
   (global-set-key (kbd-mac-command "Z") 'undo-tree-redo)
   (global-set-key (kbd-mac-command "C-f") 'spacemacs/toggle-frame-fullscreen)

@@ -1,35 +1,47 @@
-;;; config.el --- rcirc Layer packages File for Spacemacs
+;;; packages.el --- rcirc Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(setq rcirc-packages
-      '(
-        company
-        company-emoji
-        emoji-cheat-sheet-plus
-        emojify
-        (erc-image :toggle rcirc-enable-erc-image)
-        (erc-tweet :toggle rcirc-enable-erc-tweet)
-        (erc-yt :toggle rcirc-enable-erc-yt)
-        flyspell
-        (helm-rcirc :location local
-                    :requires helm)
-        persp-mode
-        rcirc
-        rcirc-color
-        (rcirc-late-fix :location local
-                        :toggle rcirc-enable-late-fix)
-        rcirc-notify
-        (rcirc-styles :toggle rcirc-enable-styles)
-        window-purpose
-        ))
+
+(defconst rcirc-packages
+  '(
+    company
+    company-emoji
+    emoji-cheat-sheet-plus
+    emojify
+    (erc-image :toggle rcirc-enable-erc-image)
+    (erc-tweet :toggle rcirc-enable-erc-tweet)
+    (erc-yt :toggle rcirc-enable-erc-yt)
+    flyspell
+    (helm-rcirc :location local
+                :requires helm)
+    persp-mode
+    rcirc
+    rcirc-color
+    (rcirc-late-fix :location (recipe :fetcher url
+                                      :url "https://raw.githubusercontent.com/emacsmirror/emacswiki.org/master/rcirc-late-fix.el")
+                    :toggle rcirc-enable-late-fix)
+    rcirc-notify
+    (rcirc-styles :toggle rcirc-enable-styles)
+    window-purpose))
 
 (defun rcirc/post-init-company ()
   (spacemacs|add-company-backends :backends company-capf :modes rcirc-mode))
@@ -111,10 +123,10 @@
     :init
     (progn
       (spacemacs/add-to-hook 'rcirc-mode-hook '(rcirc-omit-mode
-                                         rcirc-track-minor-mode))
+                                                rcirc-track-minor-mode))
 
-      (spacemacs/set-leader-keys "air" 'spacemacs/rcirc)
-      (spacemacs/declare-prefix "ai"  "irc")
+      (spacemacs/set-leader-keys "acir" 'spacemacs/rcirc)
+      (spacemacs/declare-prefix "aci"  "irc")
       (evil-set-initial-state 'rcirc-mode 'insert)
       (setq rcirc-fill-column 80
             rcirc-buffer-maximum-lines 2048
@@ -126,7 +138,7 @@
     :config
     (progn
       ;; (set-input-method "latin-1-prefix")
-      (set (make-local-variable 'scroll-conservatively) 8192)
+      (setq-local scroll-conservatively 8192)
 
       ;; Exclude rcirc properties when yanking, in order to be able to send mails
       ;; for example.
@@ -179,6 +191,7 @@
     (progn
       (add-hook 'rcirc-notify-page-me-hooks 'spacemacs/rcirc-notify-beep))))
 
-(defun rcirc/pre-init-window-purpose ()
-  (spacemacs|use-package-add-hook window-purpose
-    :pre-config (add-to-list 'purpose-user-mode-purposes '(rcirc-mode . chat))))
+(defun rcirc/post-init-window-purpose ()
+  (purpose-set-extension-configuration
+   :rcirc-layer
+   (purpose-conf :mode-purposes '((rcirc-mode . chat)))))

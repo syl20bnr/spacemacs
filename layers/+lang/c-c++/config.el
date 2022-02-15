@@ -1,22 +1,34 @@
 ;;; config.el --- C/C++ Layer config File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 ;; variables
 
 (spacemacs|define-jump-handlers c++-mode)
 (spacemacs|define-jump-handlers c-mode)
 
-(defvar c-c++-backend nil
+(defvar c-c++-backend (when (configuration-layer/layer-used-p 'lsp) 'lsp-clangd)
   "The backend to use for IDE features.
-Possible values are `lsp-ccls', `lsp-cquery', `lsp-clangd', `rtags' and `ycmd'.")
+Possible values are `lsp-ccls', `lsp-clangd', `rtags' and `ycmd'.")
 
 
 ;; lsp
@@ -33,11 +45,17 @@ Rainbow semantic highlighting gives a unique color to each identifier.")
 By default `font-lock' is used to highlight the text, set the variable to
 `overlay' if you want to use overlays. Note that overlays can be slower.")
 
-(defvar c-c++-lsp-cquery-cache-directory nil
-  "Cache directory for lsp-cquery backends.
-Can be nil, an absolute path or a relative path.
-If it is nil then the cache directory is in `spacemacs-cache-directory'.
-If it is a relative path then it is relative to the project root.")
+
+;; dap
+
+(defvar c-c++-dap-adapters '(dap-cpptools)
+  "Debug adapters to use for IDE debug features.
+
+By default only `dap-cpptools' is used.
+
+Add `dap-cpptools' for the official Microsoft C/C++ Extension for VSCode.
+Add `dap-lldb' for the official LLDB project adapter.
+Add `dap-gdb-lldb' for the WebFreak Native Debug extension.")
 
 
 ;; rtags
@@ -54,8 +72,8 @@ If it is a relative path then it is relative to the project root.")
 
 
 ;; style
-
-(defvar c++-enable-organize-includes-on-save nil
+(define-obsolete-variable-alias 'c++-enable-organize-includes-on-save 'c-c++-enable-organize-includes-on-save nil)
+(defvar c-c++-enable-organize-includes-on-save nil
   "If non-nil then automatically organize the includes on save C++ buffer.")
 
 (defvar c-c++-enable-auto-newline nil
@@ -72,7 +90,7 @@ If it is a relative path then it is relative to the project root.")
 
 ;; misc
 
-(defvar c-c++-default-mode-for-headers (when (not (functionp 'c-or-c++-mode)) 'c-mode)
+(defvar c-c++-default-mode-for-headers (unless (functionp 'c-or-c++-mode) 'c-mode)
   "Default mode to open header files. Can be `c-mode' or `c++-mode', or `c-or-c++-mode' for Emacs > 26+.")
 
 (defvar c-c++-adopt-subprojects nil

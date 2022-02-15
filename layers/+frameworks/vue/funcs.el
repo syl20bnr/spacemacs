@@ -1,13 +1,25 @@
 ;;; funcs.el --- vue layer funcs file for Spacemacs. -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
 ;; Author: Thanh Vuong <thanhvg@gmail.com>
 ;; URL: https://github.com/thanhvg
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GPLv3
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 
 ;; backend
@@ -19,9 +31,8 @@
 
 (defun spacemacs//vue-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase vue-backend
-    ('dumb (spacemacs//vue-setup-dumb-company))
-    ('lsp (spacemacs//vue-setup-lsp-company))))
+  (when (eq vue-backend 'dumb)
+    (spacemacs//vue-setup-dumb-company)))
 
 
 ;; lsp
@@ -31,28 +42,15 @@
       (progn
         ;; error checking from lsp langserver sucks, turn it off
         ;; so eslint won't be overriden
-        (setq-local lsp-prefer-flymake :none)
-        (lsp))
+        (setq-local lsp-diagnostics-provider :none)
+        (lsp-deferred))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
-
-(defun spacemacs//vue-setup-lsp-company ()
-  "Setup lsp auto-completion."
-  (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (spacemacs|add-company-backends
-          :backends company-lsp
-          :modes vue-mode
-          :variables company-minimum-prefix-length 2
-          :append-hooks nil
-          :call-hooks t)
-        (company-mode))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 
 ;; dumb
 
-(defun spacemacs//vue-setup-dumb-imenu ()
+(defun spacemacs//vue-setup-dumb ()
   (setq imenu-generic-expression '(("html" "^<template>$" 0)
                                    ("js" "^<script>$" 0)
                                    ("js" "^\\s-*\\(data\\).*()\\s-?{" 1)
@@ -66,10 +64,6 @@
                                    ("js" "^\\s-*\\(props\\):\\s-?{" 1)
                                    ("css" "^<css>$" 0))
         imenu-create-index-function #'imenu-default-create-index-function))
-
-(defun spacemacs//vue-setup-dumb ()
-  (add-to-list 'spacemacs-jump-handlers-vue-mode 'dumb-jump-go)
-  (spacemacs//vue-setup-dumb-imenu))
 
 (defun spacemacs//vue-setup-dumb-company ()
   (spacemacs|add-company-backends :backends (company-web-html company-css company-files company-dabbrev)
@@ -87,6 +81,7 @@
   "such as indent rules comment style etc"
   ;; https://stackoverflow.com/questions/36701024/how-can-i-indent-inline-javascript-in-web-mode
   (setq web-mode-script-padding 0)
+  (setq web-mode-style-padding 0)
   ;; https://emacs.stackexchange.com/questions/27683/change-comment-style-in-web-mode
   (add-to-list 'web-mode-comment-formats '("javascript" . "//")))
 
