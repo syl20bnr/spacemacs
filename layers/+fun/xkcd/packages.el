@@ -33,7 +33,9 @@
         (make-directory xkcd-cache-dir))
       (spacemacs/set-leader-keys
         "afx" 'xkcd)
-      (evilified-state-evilify xkcd-mode xkcd-mode-map
+      (evilified-state-evilify-map xkcd-mode-map
+        :mode xkcd-mode
+        :bindings
         "h" 'xkcd-prev
         "j" 'xkcd-next
         "k" 'xkcd-prev

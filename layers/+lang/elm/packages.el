@@ -100,7 +100,9 @@
                    ("ms" . "repl")))
         (spacemacs/declare-prefix-for-mode 'elm-mode (car x) (cdr x)))
 
-      (evilified-state-evilify elm-package-mode elm-package-mode-map
+      (evilified-state-evilify-map elm-package-mode-map
+        :mode elm-package-mode
+        :bindings
         "g" 'elm-package-refresh
         "v" 'elm-package-view
         "m" 'elm-package-mark

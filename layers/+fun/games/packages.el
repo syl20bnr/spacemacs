@@ -40,7 +40,9 @@
       (push '("2048" . (2048-game :quit (kill-buffer-ask (get-buffer "2048"))
                                   :reset 2048-init))
             helm-games-list)
-      (evilified-state-evilify 2048-mode 2048-mode-map
+      (evilified-state-evilify-map 2048-mode-map
+        :mode  2048-mode
+        :bindings
         "j" '2048-down
         "k" '2048-up
         "h" '2048-left
@@ -62,7 +64,9 @@
                          :quit (kill-buffer-ask (get-buffer "*Pacmacs*"))
                          :reset pacmacs-start))
           helm-games-list)
-    (evilified-state-evilify pacmacs-mode pacmacs-mode-map
+    (evilified-state-evilify-map pacmacs-mode-map
+      :mode  pacmacs-mode
+      :bindings
       "h" 'pacmacs-left
       "j" 'pacmacs-down
       "k" 'pacmacs-up
@@ -80,7 +84,9 @@
                                       "tetris-scores.txt")))
     :config
     (progn
-      (evilified-state-evilify tetris-mode tetris-mode-map
+      (evilified-state-evilify-map tetris-mode-map
+        :mode  tetris-mode
+        :bindings
         "h" 'tetris-move-left
         "i" 'tetris-rotate-prev
         "j" 'tetris-move-bottom
@@ -96,7 +102,9 @@
       (push '("sudoku" . (sudoku :quit (kill-buffer-ask (get-buffer "*Sudoku*"))
                                  :reset sudoku-restart))
             helm-games-list)
-      (evilified-state-evilify sudoku-mode sudoku-mode-map
+      (evilified-state-evilify-map sudoku-mode-map
+        :mode  sudoku-mode
+        :bindings
         ;; Movement
         "j" 'sudoku-move-point-down
         "J" 'sudoku-move-point-downmost

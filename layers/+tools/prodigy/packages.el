@@ -29,7 +29,9 @@
     (spacemacs/set-leader-keys "atp" 'prodigy)
     :config
     (progn
-      (evilified-state-evilify prodigy-mode prodigy-mode-map
+      (evilified-state-evilify-map prodigy-mode-map
+        :mode prodigy-mode
+        :bindings
         "c" 'prodigy-view-clear-buffer
         "h" 'prodigy-first
         "j" 'prodigy-next
@@ -43,6 +45,8 @@
         "g" 'prodigy-jump-magit
         "Y" 'prodigy-copy-cmd
         "R" 'revert-buffer)
-      (evilified-state-evilify prodigy-view-mode prodigy-view-mode-map
+      (evilified-state-evilify-map prodigy-view-mode-map
+        :mode prodigy-view-mode
+        :bindings
         "gf" 'find-file-at-point
         "q" 'quit-window))))

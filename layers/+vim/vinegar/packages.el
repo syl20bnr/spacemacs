@@ -53,7 +53,9 @@
   (use-package dired
     :defer t
     :config
-    (evilified-state-evilify dired-mode dired-mode-map
+    (evilified-state-evilify-map dired-mode-map
+      :mode dired-mode
+      :bindings
       "j"         'vinegar/move-down
       "k"         'vinegar/move-up
       "-"         'vinegar/up-directory

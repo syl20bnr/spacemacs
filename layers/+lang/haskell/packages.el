@@ -229,7 +229,9 @@
             "hh"  'hoogle
             "hG"  'haskell-hoogle-lookup-from-local)))
 
-      (evilified-state-evilify haskell-debug-mode haskell-debug-mode-map
+      (evilified-state-evilify-map haskell-debug-mode-map
+        :mode haskell-debug-mode
+        :bindings
         "RET" 'haskell-debug/select
         "a" 'haskell-debug/abandon
         "b" 'haskell-debug/break-on-function

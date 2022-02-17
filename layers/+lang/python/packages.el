@@ -354,17 +354,16 @@
   (use-package pylookup
     :commands (pylookup-lookup pylookup-update pylookup-update-all)
     :init
-    (progn
-      (evilified-state-evilify pylookup-mode pylookup-mode-map)
-      (spacemacs/set-leader-keys-for-major-mode 'python-mode
-        "hH" 'pylookup-lookup))
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode
+      "hH" 'pylookup-lookup)
     :config
-    (progn
-      (let ((dir (configuration-layer/get-layer-local-dir 'python)))
-        (setq pylookup-dir (concat dir "pylookup/")
-              pylookup-program (concat pylookup-dir "pylookup.py")
-              pylookup-db-file (concat pylookup-dir "pylookup.db")))
-      (setq pylookup-completing-read 'completing-read))))
+    (evilified-state-evilify-map pylookup-mode-map
+      :mode pylookup-mode)
+    (let ((dir (configuration-layer/get-layer-local-dir 'python)))
+      (setq pylookup-dir (concat dir "pylookup/")
+            pylookup-program (concat pylookup-dir "pylookup.py")
+            pylookup-db-file (concat pylookup-dir "pylookup.db")))
+    (setq pylookup-completing-read 'completing-read)))
 
 (defun python/init-pytest ()
   (use-package pytest

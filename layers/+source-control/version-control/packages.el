@@ -54,8 +54,10 @@
         "gvL" 'vc-print-root-log
         "gvr" 'vc-resolve-conflicts))
     :config
-    (progn
-      (evilified-state-evilify vc-dir-mode vc-dir-mode-map
+    (with-eval-after-load 'vc-dir
+      (evilified-state-evilify-map vc-dir-mode-map
+        :mode vc-dir-mode
+        :bindings
         "j" 'vc-dir-next-line
         (kbd "M-n") 'vc-dir-next-line
         "k" 'vc-dir-previous-line
@@ -68,9 +70,12 @@
         "c" 'vc-next-action
         "a" 'vc-annotate
         "r" 'vc-dir-refresh
-        "E" 'vc-dir-ignore)
+        "E" 'vc-dir-ignore))
 
-      (evilified-state-evilify log-view-mode log-view-mode-map
+    (with-eval-after-load 'log-view
+      (evilified-state-evilify-map log-view-mode-map
+        :mode log-view-mode
+        :bindings
         (kbd "M-n") 'log-view-msg-next
         (kbd "M-p") 'log-view-msg-prev
         (kbd "C-j") 'log-view-msg-next
@@ -83,17 +88,23 @@
         (kbd "<backtab>") 'log-view-file-prev
         (kbd "<return>") 'log-view-find-revision
         "H" 'log-view-toggle-entry-display
-        "o" 'ace-link-woman)
-      (evilified-state-evilify vc-svn-log-view-mode vc-svn-log-view-mode-map)
-      (evilified-state-evilify vc-git-log-view-mode vc-git-log-view-mode-map)
-      (evilified-state-evilify vc-hg-log-view-mode vc-git-log-view-mode-map)
-      (evilified-state-evilify vc-annotate-mode vc-annotate-mode-map
-        "J" 'vc-annotate-next-revision
-        "K" 'vc-annotate-prev-revision
-        "L" 'vc-annotate-show-log-revision-at-line
-        "H" 'vc-annotate-toggle-annotation-visibility
-        "a" 'vc-annotate-revision-at-line
-        "p" 'vc-annotate-revision-previous-to-line))))
+        "o" 'ace-link-woman))
+    (evilified-state-evilify-map vc-svn-log-view-mode-map
+      :mode vc-svn-log-view-mode)
+    (evilified-state-evilify-map vc-git-log-view-mode-map
+      :mode vc-git-log-view-mode)
+    (evilified-state-evilify-map vc-git-log-view-mode-map
+      :mode vc-hg-log-view-mode)
+    (with-eval-after-load 'vc-annotate
+      (evilified-state-evilify-map vc-annotate-mode-map
+       :mode vc-annotate-mode
+       :bindings
+       "J" 'vc-annotate-next-revision
+       "K" 'vc-annotate-prev-revision
+       "L" 'vc-annotate-show-log-revision-at-line
+       "H" 'vc-annotate-toggle-annotation-visibility
+       "a" 'vc-annotate-revision-at-line
+       "p" 'vc-annotate-revision-previous-to-line))))
 
 (defun version-control/init-diff-mode ()
   (use-package diff-mode
