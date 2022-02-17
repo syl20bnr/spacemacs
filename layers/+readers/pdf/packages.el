@@ -66,7 +66,9 @@
       (evil-define-key 'visual pdf-view-mode-map "y" 'pdf-view-kill-ring-save)
 
       ;; TODO: Make `/', `?' and `n' work like in Evil
-      (evilified-state-evilify pdf-view-mode pdf-view-mode-map
+      (evilified-state-evilify-map pdf-view-mode-map
+        :mode  pdf-view-mode
+        :bindings
         ;; Navigation
         "0"  'image-bol
         "$"  'image-eol
@@ -96,7 +98,9 @@
         "o"   'pdf-links-action-perform
         "O"   'pdf-outline
         "zr"  'pdf-view-scale-reset)
-      (evilified-state-evilify pdf-outline-buffer-mode pdf-outline-buffer-mode-map
+      (evilified-state-evilify-map pdf-outline-buffer-mode-map
+        :mode  pdf-outline-buffer-mode
+        :bindings
         "-"                'negative-argument
         "j"                'next-line
         "k"                'previous-line
@@ -119,13 +123,17 @@
         "Q"                'pdf-outline-quit-and-kill
         "q"                'quit-window
         "F"                'pdf-outline-follow-mode)
-      (evilified-state-evilify pdf-annot-list-mode pdf-annot-list-mode-map
+      (evilified-state-evilify-map pdf-annot-list-mode-map
+        :mode  pdf-annot-list-mode
+        :bindings
         "f"                'pdf-annot-list-display-annotation-from-id
         "d"                'tablist-flag-forward
         "x"                'tablist-do-flagged-delete
         "u"                'tablist-unmark-forward
         "q"                'tablist-quit)
-      (evilified-state-evilify pdf-occur-buffer-mode pdf-occur-buffer-mode-map
+      (evilified-state-evilify-map pdf-occur-buffer-mode-map
+        :mode  pdf-occur-buffer-mode
+        :bindings
         "q"              'tablist-quit
         "g"              'pdf-occur-revert-buffer-with-args
         "r"              'pdf-occur-revert-buffer-with-args

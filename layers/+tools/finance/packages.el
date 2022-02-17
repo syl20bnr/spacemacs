@@ -84,4 +84,5 @@
         (lambda () (when syntax-checking-enable-by-default
                      (global-flycheck-mode 1)))
         finance-lazy-load-flycheck)
-      (evilified-state-evilify ledger-report-mode ledger-report-mode-map))))
+      (evilified-state-evilify-map ledger-report-mode-map
+        :mode ledger-report-mode))))

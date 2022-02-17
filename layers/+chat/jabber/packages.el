@@ -48,7 +48,9 @@
         "s" 'jabber-send-subscription-request
         "v" 'jabber-get-version
         "RET" 'jabber-roster-ret-action-at-point)
-      (evilified-state-evilify jabber-roster-mode jabber-roster-mode-map
+      (evilified-state-evilify-map jabber-roster-mode-map
+        :mode jabber-roster-mode
+        :bindings
         "j" 'jabber-go-to-next-roster-item
         "k" 'jabber-go-to-previous-roster-item))))
 

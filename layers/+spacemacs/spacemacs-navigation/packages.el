@@ -174,8 +174,10 @@
 (defun spacemacs-navigation/init-doc-view ()
   (use-package doc-view
     :defer t
-    :init
-    (evilified-state-evilify doc-view-mode doc-view-mode-map
+    :config
+    (evilified-state-evilify-map doc-view-mode-map
+      :mode doc-view-mode
+      :bindings
       "/"  'spacemacs/doc-view-search-new-query
       "?"  'spacemacs/doc-view-search-new-query-backward
       "gg" 'doc-view-first-page
@@ -191,7 +193,6 @@
       (kbd "C-d") 'doc-view-scroll-up-or-next-page
       (kbd "C-k") 'doc-view-kill-proc
       (kbd "C-u") 'doc-view-scroll-down-or-previous-page)
-    :config
     (progn
       ;; fixed a weird issue where toggling display does not
       ;; swtich to text mode
@@ -351,16 +352,18 @@
   (use-package paradox
     :commands paradox-list-packages
     :init
-    (progn
-      (setq paradox-execute-asynchronously nil)
-      (evilified-state-evilify paradox-menu-mode paradox-menu-mode-map
-        "H" 'paradox-menu-quick-help
-        "J" 'paradox-next-describe
-        "K" 'paradox-previous-describe
-        "L" 'paradox-menu-view-commit-list
-        "o" 'paradox-menu-visit-homepage)
-      (spacemacs/set-leader-keys
-        "ak" 'spacemacs/paradox-list-packages))))
+    (setq paradox-execute-asynchronously nil)
+    :config
+    (evilified-state-evilify-map paradox-menu-mode-map
+      :mode paradox-menu-mode
+      :bindings
+      "H" 'paradox-menu-quick-help
+      "J" 'paradox-next-describe
+      "K" 'paradox-previous-describe
+      "L" 'paradox-menu-view-commit-list
+      "o" 'paradox-menu-visit-homepage)
+    (spacemacs/set-leader-keys
+      "ak" 'spacemacs/paradox-list-packages)))
 
 (defun spacemacs-navigation/init-restart-emacs ()
   (use-package restart-emacs

@@ -100,7 +100,8 @@
         "Sv" 'fuel-scaffold-vocab
         )
 
-      (evilified-state-evilify fuel-help-mode fuel-help-mode-map)
+      (evilified-state-evilify-map fuel-help-mode-map
+        :mode fuel-help-mode)
       (dolist (mode '(fuel-debug-uses-mode fuel-debug-mode))
         (evil-set-initial-state mode 'insert))))
   )

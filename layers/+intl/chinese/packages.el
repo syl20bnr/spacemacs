@@ -89,7 +89,8 @@
             pyim-directory (expand-file-name "pyim/" spacemacs-cache-directory)
             pyim-dcache-directory (expand-file-name "dcache/" pyim-directory)
             default-input-method "pyim")
-      (evilified-state-evilify pyim-dm-mode pyim-dm-mode-map))))
+      (evilified-state-evilify-map pyim-dm-mode-map
+        :mode pyim-dm-mode))))
 
 (defun chinese/init-find-by-pinyin-dired ()
   (use-package find-by-pinyin-dired

@@ -65,7 +65,9 @@
       (spacemacs/set-leader-keys "al" 'launchctl))
     :config
     (progn
-      (evilified-state-evilify launchctl-mode launchctl-mode-map
+      (evilified-state-evilify-map launchctl-mode-map
+        :mode launchctl-mode
+        :bindings
         (kbd "q") 'quit-window
         (kbd "s") 'tabulated-list-sort
         (kbd "g") 'launchctl-refresh

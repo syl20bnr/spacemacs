@@ -237,7 +237,9 @@
          helm-source-projectile-projects))
 
       ;; evilify the helm-grep buffer
-      (evilified-state-evilify helm-grep-mode helm-grep-mode-map
+      (evilified-state-evilify-map helm-grep-mode-map
+        :mode helm-grep-mode
+        :bindings
         (kbd "q") 'quit-window)
 
       (spacemacs/set-leader-keys
@@ -298,7 +300,9 @@
     (progn
       (advice-add 'helm-ag--save-results :after 'spacemacs//gne-init-helm-ag)
       (evil-define-key 'normal helm-ag-map (kbd dotspacemacs-leader-key) spacemacs-default-map)
-      (evilified-state-evilify helm-ag-mode helm-ag-mode-map
+      (evilified-state-evilify-map helm-ag-mode-map
+        :mode helm-ag-mode
+        :bindings
         (kbd "gr") 'helm-ag--update-save-results
         (kbd "q") 'quit-window))))
 
