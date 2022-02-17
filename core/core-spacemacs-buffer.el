@@ -20,10 +20,25 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;
-;;; Commentary:
-;;
 ;;; Code:
+
+(eval-when-compile
+  (defvar dotspacemacs-distribution)
+  (defvar dotspacemacs-filepath)
+  (defvar dotspacemacs-show-startup-list-numbers)
+  (defvar dotspacemacs-startup-banner)
+  (defvar dotspacemacs-startup-buffer-show-icons)
+  (defvar spacemacs-badge-official-png)
+  (defvar spacemacs-banner-directory)
+  (defvar spacemacs-banner-official-png)
+  (defvar spacemacs-cache-directory)
+  (defvar spacemacs-docs-directory)
+  (defvar spacemacs-gplv3-official-png)
+  (defvar spacemacs-info-directory)
+  (defvar spacemacs-release-notes-directory)
+  (defvar spacemacs-start-directory)
+  (defvar spacemacs-version))
+
 
 (defconst spacemacs-buffer-version-info "0.999"
   "Current version used to display addition release information.")
@@ -71,9 +86,6 @@ Allows to keep track of widgets to delete when removing them.")
   "Horizontal position of the home buffer buttons.
 Internal use, do not set this variable.")
 
-(defvar spacemacs-buffer-mode-map (make-sparse-keymap)
-  "Keymap for spacemacs buffer mode.")
-
 (defvar spacemacs-buffer--random-banner nil
   "The random banner chosen.")
 
@@ -98,8 +110,8 @@ It's cleared when the idle timer runs.")
 (defvar spacemacs-buffer--last-width nil
   "Previous width of spacemacs-buffer.")
 
-(defun spacemacs-buffer/key-bindings ()
-  (let ((map spacemacs-buffer-mode-map))
+(defvar spacemacs-buffer-mode-map
+  (let ((map (make-sparse-keymap)))
     (when dotspacemacs-show-startup-list-numbers
       (define-key map (kbd "0") 'spacemacs-buffer/jump-to-number-startup-list-line)
       (define-key map (kbd "1") 'spacemacs-buffer/jump-to-number-startup-list-line)
@@ -113,7 +125,7 @@ It's cleared when the idle timer runs.")
       (define-key map (kbd "9") 'spacemacs-buffer/jump-to-number-startup-list-line))
 
     (define-key map [down-mouse-1] 'widget-button-click)
-    (define-key map (kbd "RET") 'widget-button-press)
+    (define-key map (kbd "RET") 'spacemacs-buffer/return)
 
     (define-key map [tab] 'widget-forward)
     (define-key map (kbd "J") 'widget-forward)
@@ -123,26 +135,27 @@ It's cleared when the idle timer runs.")
     (define-key map (kbd "K") 'widget-backward)
 
     (define-key map (kbd "C-r") 'spacemacs-buffer/refresh)
-    (define-key map "q" 'quit-window)))
+    (define-key map "q" 'quit-window)
+    map)
+  "Keymap for spacemacs-buffer mode.")
 
-(add-hook 'emacs-startup-hook 'spacemacs-buffer/key-bindings)
+(define-derived-mode spacemacs-buffer-mode special-mode "Spacemacs buffer"
+  "Spacemacs major mode for startup screen.
 
-(with-eval-after-load 'evil
-  (evil-make-overriding-map spacemacs-buffer-mode-map 'motion))
-
-(define-derived-mode spacemacs-buffer-mode fundamental-mode "Spacemacs buffer"
-  "Spacemacs major mode for startup screen."
+\\{spacemacs-buffer-mode-map}"
   :group 'spacemacs
   :syntax-table nil
   :abbrev-table nil
-  (page-break-lines-mode)
-  (setq buffer-read-only t
-        truncate-lines t)
-  ;; needed to make tab work correctly in terminal
-  (evil-define-key 'motion spacemacs-buffer-mode-map
-    (kbd "C-i") 'widget-forward)
-  ;; motion state since this is a special mode
-  (evil-set-initial-state 'spacemacs-buffer-mode 'motion))
+  (buffer-disable-undo)
+  (page-break-lines-mode +1)
+  (with-eval-after-load 'evil
+    (progn
+      (evil-set-initial-state 'spacemacs-buffer-mode 'motion)
+      (evil-make-overriding-map spacemacs-buffer-mode-map 'motion)))
+  (suppress-keymap spacemacs-buffer-mode-map t)
+  (set-keymap-parent spacemacs-buffer-mode-map nil)
+  (setq-local buffer-read-only t
+              truncate-lines t))
 
 (defun spacemacs-buffer//insert-ascii-banner-centered (file)
   "Insert the ascii banner contain in file and center it in the window.
@@ -352,7 +365,8 @@ WIDTH: current external width of the note's frame."
 remove the rest of the note, after the variables line number."
   (when (and (integerp spacemacs-buffer-note-preview-lines)
              (> spacemacs-buffer-note-preview-lines 0))
-    (goto-line (1+ spacemacs-buffer-note-preview-lines))
+    (goto-char (point-min))
+    (forward-line spacemacs-buffer-note-preview-lines)
     (let* ((first-removed-line (line-number-at-pos (point)))
            (last-removed-line (line-number-at-pos (point-max))))
       (setq spacemacs-buffer--note-preview-nr-of-removed-lines
@@ -591,9 +605,10 @@ ADDITIONAL-WIDGETS: a function for inserting a widget under the frame."
                              (spacemacs-buffer/toggle-note 'release-note)
                              ;; cursor to beg of first line after preview
                              (goto-char cursor-pos-before-showing-full-note)
-                             (progn (back-to-indentation)
-                                    (previous-line)
-                                    (forward-char 3))))
+                             (progn
+                               (back-to-indentation)
+                               (forward-line -1)
+                               (forward-char 3))))
                  :mouse-face 'highlight
                  :follow-link "\C-m"))
                (spacemacs-buffer//center-line)
@@ -778,7 +793,7 @@ NO-NEXT-LINE: if nil the cursor is brought under the searched word.
 
 Define a named function: spacemacs-buffer/jump-to-...
 for the shortcut. So that a descriptive name is shown,
-in for example the view-lossage (C-h l) buffer:
+in for example the `view-lossage' (C-h l) buffer:
  r                      ;; spacemacs-buffer/jump-to-recent-files
  p                      ;; spacemacs-buffer/jump-to-projects
 instead of:
@@ -1194,18 +1209,18 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
     (cl-subseq seq start (and (number-or-marker-p end)
                               (min len end)))))
 
-(defun spacemacs-buffer//propertize-heading (icon text &optional shortcut-char)
+(defun spacemacs-buffer||propertize-heading (icon text shortcut-char)
   (concat
-   (when dotspacemacs-startup-buffer-show-icons
-     (concat (concat icon " ")))
+   (when (configuration-layer/package-used-p 'all-the-icons)
+     (when dotspacemacs-startup-buffer-show-icons
+       (concat (concat icon " "))))
    (propertize text 'face 'font-lock-keyword-face)
-   (when shortcut-char
-     (propertize (concat " (" shortcut-char ")")
-                 'face 'font-lock-comment-face))))
+   (propertize (concat " (" shortcut-char ")")
+               'face 'font-lock-comment-face)))
 
 (defun spacemacs-buffer//insert-errors ()
   (when (spacemacs-buffer//insert-string-list
-         (spacemacs-buffer//propertize-heading
+         (spacemacs-buffer||propertize-heading
           (all-the-icons-material "error" :face 'font-lock-keyword-face)
           "Errors:" "e")
          spacemacs-buffer--errors)
@@ -1214,7 +1229,7 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
 
 (defun spacemacs-buffer//insert-warnings ()
   (when (spacemacs-buffer//insert-string-list
-         (spacemacs-buffer//propertize-heading
+         (spacemacs-buffer||propertize-heading
           (all-the-icons-material "warning" :face 'font-lock-keyword-face)
           "Warnings:" "w")
          spacemacs-buffer--warnings)
@@ -1233,7 +1248,7 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
   (setq spacemacs-buffer//recent-files-list
         (spacemacs//subseq spacemacs-buffer//recent-files-list 0 list-size))
   (when (spacemacs-buffer//insert-file-list
-         (spacemacs-buffer//propertize-heading
+         (spacemacs-buffer||propertize-heading
           (all-the-icons-octicon "history" :face 'font-lock-keyword-face :v-adjust -0.05)
           "Recent Files:" "r")
          spacemacs-buffer//recent-files-list)
@@ -1244,7 +1259,7 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
   (unless recentf-mode (recentf-mode))
   (unless projectile-mode (projectile-mode))
   (when (spacemacs-buffer//insert-files-by-dir-list
-         (spacemacs-buffer//propertize-heading
+         (spacemacs-buffer||propertize-heading
           (all-the-icons-octicon "rocket" :face 'font-lock-keyword-face :v-adjust -0.05)
           "Recent Files by Project:" "R")
          (mapcar (lambda (group)
@@ -1260,7 +1275,7 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
 
 (defun spacemacs-buffer//insert-todos (list-size)
   (when (spacemacs-buffer//insert-todo-list
-         (spacemacs-buffer//propertize-heading
+         (spacemacs-buffer||propertize-heading
           (all-the-icons-octicon "check" :face 'font-lock-keyword-face :v-adjust -0.05)
           "To-Do:" "d")
          (spacemacs//subseq (spacemacs-buffer//todo-list)
@@ -1270,7 +1285,7 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
 
 (defun spacemacs-buffer//insert-agenda (list-size)
   (when (spacemacs-buffer//insert-todo-list
-         (spacemacs-buffer//propertize-heading
+         (spacemacs-buffer||propertize-heading
           (all-the-icons-octicon "calendar" :face 'font-lock-keyword-face :v-adjust -0.05)
           "Agenda:" "c")
          (spacemacs//subseq (spacemacs-buffer//agenda-list)
@@ -1283,7 +1298,7 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
     (helm-mode))
   (require 'bookmark)
   (when (spacemacs-buffer//insert-bookmark-list
-         (spacemacs-buffer//propertize-heading
+         (spacemacs-buffer||propertize-heading
           (all-the-icons-octicon "bookmark" :face 'font-lock-keyword-face :v-adjust -0.05)
           "Bookmarks:" "b")
          (spacemacs//subseq (bookmark-all-names)
@@ -1294,7 +1309,7 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
 (defun spacemacs-buffer//insert-projects (list-size)
   (unless projectile-mode (projectile-mode))
   (when (spacemacs-buffer//insert-file-list
-         (spacemacs-buffer//propertize-heading
+         (spacemacs-buffer||propertize-heading
           (all-the-icons-octicon "rocket" :face 'font-lock-keyword-face :v-adjust -0.05)
           "Projects:" "p")
          (spacemacs//subseq (projectile-relevant-known-projects)
@@ -1309,8 +1324,7 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
   (setq spacemacs-buffer--startup-list-nr 1)
   (let ((dotspacemacs-startup-buffer-show-icons dotspacemacs-startup-buffer-show-icons))
     (if (display-graphic-p)
-        (unless (or (fboundp 'all-the-icons-octicon)
-                    (require 'all-the-icons nil 'noerror))
+        (unless (configuration-layer/package-used-p 'all-the-icons)
           (message "Package `all-the-icons' isn't installed")
           (setq dotspacemacs-startup-buffer-show-icons nil))
       (setq dotspacemacs-startup-buffer-show-icons nil))
@@ -1403,25 +1417,23 @@ can be adjusted with the variable:
            dotspacemacs-startup-buffer-multi-digit-delay nil
            'spacemacs-buffer/stop-waiting-for-additional-numbers))))
 
-(defun spacemacs-buffer//re-line-starts-with-nr-space (nr-string)
-  (concat "^ +" nr-string "[0-9]* +. "))
-
 (defun spacemacs-buffer/jump-to-line-starting-with-nr-space (nr-string)
   "Jump to the line begins with NR-STRING, skipping non-digit prefix."
   (let ((prev-point (point)))
     (goto-char (window-start))
     (if (not (re-search-forward
-              (spacemacs-buffer//re-line-starts-with-nr-space nr-string)
+              (concat "^ +" nr-string "[0-9]* +. ")
               ;; don't search past two lines above the window-end,
               ;; because they bottom two lines are hidden by the mode line
               (save-excursion (goto-char (window-end))
                               (forward-line -1)
                               (point))
               'noerror))
-        (progn (goto-char prev-point)
-               (let (message-log-max) ; only show in minibuffer
-                 (message "Couldn't find startup list number: %s"
-                          spacemacs-buffer--startup-list-number)))
+        (progn
+          (goto-char prev-point)
+          (let (message-log-max) ; only show in minibuffer
+            (message "Couldn't find startup list number: %s"
+                     spacemacs-buffer--startup-list-number)))
       (message "Opening file/dir: %s"
                (widget-value (widget-at (point))))
       (widget-button-press (point)))))
@@ -1495,8 +1507,7 @@ If a prefix argument is given, switch to it in an other, possibly new window."
             (progn (goto-char (point-min))
                    (forward-line (1- save-line))
                    (forward-to-indentation 0))
-          (spacemacs-buffer/goto-link-line))
-        (setq-local inhibit-read-only t))
+          (spacemacs-buffer/goto-link-line)))
       (if current-prefix-arg
           (switch-to-buffer-other-window spacemacs-buffer-name)
         (switch-to-buffer spacemacs-buffer-name))
@@ -1534,7 +1545,24 @@ If a prefix argument is given, switch to it in an other, possibly new window."
   (spacemacs-buffer/goto-buffer t))
 
 (defalias 'spacemacs/home 'spacemacs-buffer/refresh
-  "Go to home Spacemacs buffer")
+  "Go to Spacemacs home buffer.")
+
+(defun spacemacs-buffer/return ()
+  "Open the button or go to next line.
+
+This function is intended to be used in `spacemacs-buffer-mode' only."
+  (interactive)
+  (if (get-char-property (point) 'button)
+      ;; point on a button, press it
+      (widget-button-press (point))
+    ;; point on an entry, press it
+    (if-let ((button (save-excursion
+                       (beginning-of-line-text)
+                       (re-search-forward "[0-9]* +. " (point-at-eol) 'noerror))))
+        (widget-button-press button)
+      ;; go to next line
+      (forward-line)
+      (beginning-of-line-text))))
 
 (defun spacemacs/home-delete-other-windows ()
   "Open home Spacemacs buffer and delete other windows.
