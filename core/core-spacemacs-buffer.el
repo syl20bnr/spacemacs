@@ -1328,6 +1328,8 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
           (message "Package `all-the-icons' isn't installed")
           (setq dotspacemacs-startup-buffer-show-icons nil))
       (setq dotspacemacs-startup-buffer-show-icons nil))
+    (when dotspacemacs-startup-buffer-show-icons
+      (require 'all-the-icons))
     (dolist (els (append '(warnings) dotspacemacs-startup-lists))
       (let ((el (or (car-safe els) els))
             (list-size (or (cdr-safe els)
