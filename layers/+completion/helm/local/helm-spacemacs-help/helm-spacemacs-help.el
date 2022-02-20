@@ -170,24 +170,24 @@
 
 (defun helm-spacemacs-help//layer-source ()
   "Construct the helm source for the layer section."
-  `((name . "Layers")
-    (candidates . ,(sort (configuration-layer/get-layers-list) 'string<))
-    (candidate-number-limit)
-    (keymap . ,helm-spacemacs-help--layer-map)
-    (action . (("Open README.org"
-                . helm-spacemacs-help//layer-action-open-readme)
-               ("Open packages.el"
-                . helm-spacemacs-help//layer-action-open-packages)
-               ("Open config.el"
-                . helm-spacemacs-help//layer-action-open-config)
-               ("Open funcs.el"
-                . helm-spacemacs-help//layer-action-open-funcs)
-               ("Open layers.el"
-                . helm-spacemacs-help//layer-action-open-layers)
-               ("Install Layer"
-                . helm-spacemacs-help//layer-action-install-layer)
-               ("Open README.org (for editing)"
-                . helm-spacemacs-help//layer-action-open-readme-edit)))))
+  (helm-build-sync-source "Layers"
+    :candidates (sort (configuration-layer/get-layers-list) 'string<)
+    :candidate-number-limit 99999999
+    :keymap helm-spacemacs-help--layer-map
+    :action '(("Open README.org"
+               . helm-spacemacs-help//layer-action-open-readme)
+              ("Open packages.el"
+               . helm-spacemacs-help//layer-action-open-packages)
+              ("Open config.el"
+               . helm-spacemacs-help//layer-action-open-config)
+              ("Open funcs.el"
+               . helm-spacemacs-help//layer-action-open-funcs)
+              ("Open layers.el"
+               . helm-spacemacs-help//layer-action-open-layers)
+              ("Install Layer"
+               . helm-spacemacs-help//layer-action-install-layer)
+              ("Open README.org (for editing)"
+               . helm-spacemacs-help//layer-action-open-readme-edit))))
 
 (defvar helm-spacemacs-help--layer-map
   (let ((map (make-sparse-keymap)))
@@ -202,16 +202,16 @@
   "Keymap for Spacemacs Layers sources")
 
 (defun helm-spacemacs-help//package-source ()
-  "Construct the helm source for the packages."
-  `((name . "Packages")
-    (candidates . ,(helm-spacemacs-help//package-candidates))
-    (candidate-number-limit)
-    (action . (("Go to configuration function"
-                . helm-spacemacs-help//package-action-goto-config-func)
-               ("Describe"
-                . helm-spacemacs-help//package-action-describe)
-               ("Recompile"
-                . helm-spacemacs-help//package-action-recompile)))))
+  (helm-build-sync-source "Packages"
+    :candidates (helm-spacemacs-help//package-candidates)
+    :candidate-number-limit 99999999
+    :action '(("Go to configuration function"
+               . helm-spacemacs-help//package-action-goto-config-func)
+              ("Describe"
+               . helm-spacemacs-help//package-action-describe)
+              ("Recompile"
+               . helm-spacemacs-help//package-action-recompile))))
+
 
 (defun helm-spacemacs-help//package-candidates ()
   "Return the sorted candidates for package source."
@@ -279,10 +279,10 @@
     result))
 
 (defun helm-spacemacs-help//dotspacemacs-source ()
-  `((name . "Dotfile")
-    (candidates . ,(helm-spacemacs-help//dotspacemacs-candidates))
-    (candidate-number-limit)
-    (action . (("Go to variable" . helm-spacemacs-help//go-to-dotfile-variable)))))
+  (helm-build-sync-source "Dotfile"
+    :candidates (helm-spacemacs-help//dotspacemacs-candidates)
+    :candidate-number-limit 99999999
+    :action '(("Go to variable" . helm-spacemacs-help//go-to-dotfile-variable))))
 
 (defun helm-spacemacs-help//dotspacemacs-candidates ()
   "Return the sorted candidates for all the dospacemacs variables."
