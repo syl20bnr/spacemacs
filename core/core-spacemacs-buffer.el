@@ -1209,14 +1209,12 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
     (cl-subseq seq start (and (number-or-marker-p end)
                               (min len end)))))
 
-(defun spacemacs-buffer||propertize-heading (icon text shortcut-char)
-  (concat
-   (when (configuration-layer/package-used-p 'all-the-icons)
-     (when dotspacemacs-startup-buffer-show-icons
-       (concat (concat icon " "))))
-   (propertize text 'face 'font-lock-keyword-face)
-   (propertize (concat " (" shortcut-char ")")
-               'face 'font-lock-comment-face)))
+(defmacro spacemacs-buffer||propertize-heading (icon text shortcut-char)
+  `(concat (when dotspacemacs-startup-buffer-show-icons
+             (concat ,icon " "))
+           (propertize ,text 'face 'font-lock-keyword-face)
+           (propertize (concat " (" ,shortcut-char ")")
+                       'face 'font-lock-comment-face)))
 
 (defun spacemacs-buffer//insert-errors ()
   (when (spacemacs-buffer//insert-string-list
