@@ -21,6 +21,7 @@
 .trello
 /.cask/
 /.my-keybindings.el.swp
+/devdocs
 /eww-bookmarks
 /history
 /image-dired
