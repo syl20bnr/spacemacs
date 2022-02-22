@@ -82,3 +82,8 @@ point to the position of the join."
   "Run `test' via SBT"
   (interactive)
   (sbt-command "test"))
+
+(defun spacemacs/scala-sbt-compile-test ()
+  "Compile `test' via SBT"
+  (interactive)
+  (sbt-command "Test / compile"))
