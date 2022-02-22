@@ -61,6 +61,7 @@
         "bb" 'sbt-command
         "bc" #'spacemacs/scala-sbt-compile
         "bt" #'spacemacs/scala-sbt-test
+        "bT" #'spacemacs/scala-sbt-compile-test
         "b=" #'spacemacs/scala-sbt-scalafmt-all))))
 
 (defun scala/init-scala-mode ()
