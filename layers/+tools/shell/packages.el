@@ -124,7 +124,10 @@
       ;; quick commands
       (defalias 'eshell/e 'find-file-other-window)
       (defalias 'eshell/d 'dired)
-      (setenv "PAGER" "cat")
+
+      (require 'esh-var)
+      (add-to-list 'eshell-variable-aliases-list
+                   `("PAGER" ,(lambda (_indices) "cat") t))
 
       ;; support `em-smart'
       (when shell-enable-smart-eshell
