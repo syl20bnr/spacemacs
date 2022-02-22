@@ -21,7 +21,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (defconst quickurl-packages
-  '(quickurl :location built-in))
+  '((quickurl :location built-in)))
 
 (defun quickurl/init-quickurl ()
   (spacemacs/declare-prefix "atq" "quickurl")
