@@ -184,8 +184,7 @@ subdirectory of ROOT is used."
             :initform 'unspecified
             :type (satisfies (lambda (x) (or (listp x) (eq 'unspecified x))))
             :documentation
-            (concat "A list of layers where this layer is enabled. "
-                    "(Takes precedence over `:disabled-for'.)"))
+            "A list of layers where this layer is enabled. (Takes precedence over `:disabled-for'.)")
    ;; Note:
    ;; 'can-shadow' is a commutative relation:
    ;;     if Y 'can-shadow' X then X 'can-shadow' Y
