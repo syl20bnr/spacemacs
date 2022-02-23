@@ -1475,6 +1475,7 @@ Other:
   - Handled buffer move/select/swap to last window nr +1 (thanks to duianto)
   - Set =evil-undo-system= to =undo-tree= (thanks to duianto)
   - Checked that =evil-undo-system= exists before it's called (thanks to khjcph)
+  - Fixed ~SPC w TAB~ golden-ratio resizing.
 *** Layer changes and fixes
 **** Agda
 - Fixes
