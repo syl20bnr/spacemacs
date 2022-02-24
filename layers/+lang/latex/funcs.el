@@ -70,6 +70,7 @@
   (interactive)
   (progn
     (let ((TeX-save-query nil))
+      (save-buffer)
       (TeX-save-document (TeX-master-file)))
     (TeX-command latex-build-command 'TeX-master-file -1)))
 ;; (setq build-proc (TeX-command latex-build-command 'TeX-master-file -1))
