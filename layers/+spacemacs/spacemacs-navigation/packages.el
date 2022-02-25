@@ -299,7 +299,8 @@
                    windmove-left
                    windmove-right
                    windmove-up
-                   windmove-down))
+                   windmove-down
+                   spacemacs/alternate-window))
         (add-to-list 'golden-ratio-extra-commands f))
 
       ;; golden-ratio-exclude-buffer-names
