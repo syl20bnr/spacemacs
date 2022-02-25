@@ -10,6 +10,7 @@
   - [[#general][General]]
   - [[#advanced-buffer-information][Advanced buffer information]]
   - [[#icons][Icons]]
+  - [[#ivy-posframe][ivy-posframe]]
 - [[#key-bindings][Key bindings]]
   - [[#markunmark-candidates][Mark/unmark candidates]]
   - [[#transient-state][Transient state]]
@@ -65,6 +66,7 @@ You can customize ivy with the following variables:
 - =ivy-ret-visits-directory= Whether ~RET~ and ~C-j~ should be swapped in ivy
   minibuffer so ~RET~ acts like Ido and descends into directory. It is described
   [[https://github.com/abo-abo/swiper/wiki/ido-style-folder-navigation][here]] (probably outdated). Default value is =nil=.
+- =ivy-enable-posframe= Enable =ivy-posframe=. See [[https://github.com/tumashu/ivy-posframe][here]].
 
 ** Advanced buffer information
 To display more information about buffers set the layer variable
@@ -95,6 +97,14 @@ To display icons correctly, you should run =M-x all-the-icons-install-fonts=
 to install the necessary fonts.
 
 More information about customizing =all-the-icons-ivy-rich= can be found [[https://github.com/seagle0128/all-the-icons-ivy-rich][here]].
+
+** ivy-posframe
+ To enable =ivy-posframe=, set the variable =ivy-enable-posframe= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (ivy :variables ivy-enable-posframe t)))
+#+END_SRC
 
 * Key bindings
 If you choose =ivy= as completion system, make sure to read the [[http://oremacs.com/swiper/][official manual]].

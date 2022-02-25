@@ -34,6 +34,9 @@
 (defvar ivy-ret-visits-directory nil
   "If non-nil, swap `RET' and `C-j' so that `RET' goes into directory like Ido.")
 
+(defvar ivy-enable-posframe nil
+  "If non-nil, enable posframe in `ivy'.")
+
 
 ;; Private Variables
 
