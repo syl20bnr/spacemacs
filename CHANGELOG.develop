@@ -2096,6 +2096,9 @@ Other:
 - Show user error when location is not set in theme changer
   (thanks to Boris Buliga)
 **** GitHub
+- Layer:
+  - marked as deprecated as functionality is all in =git= layer (thanks
+    to practicalli-john)
 - Packages:
   - Added new packages =forge= (thanks to Miciah Dashiel Butler Masters)
   - Do not install =forge= on Windows by default, see =README.org= of the layer
@@ -2123,6 +2126,8 @@ Other:
   - Remove package =magit-gh-pulls= as it was deprecated in favor of =magithub=
     and =forge= (thanks to Robby O'Connor)
   - Made magithub offline by default (thanks to Miciah Masters)
+- Removed =git-clone= and  =git-search= packages for not using a secure means to
+  store access tokens #1153777 (thanks to @practicalli-john)
 **** Git
 - Key bindings:
   - ~SPC g c~ to clone a repository (thanks to Steven Allen)

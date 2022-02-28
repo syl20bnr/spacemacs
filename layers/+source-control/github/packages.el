@@ -20,32 +20,16 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;; Package deprecation notice shown at startup
+(warn "`github' layer is deprecated. See layer README.org for details.")
+
 
 (defconst github-packages
   '(
-    github-clone
-    github-search
     grip-mode
     ;; this package does not exits, we need it to wrap
     ;; the call to spacemacs/declare-prefix.
     (spacemacs-github :location built-in)))
-
-(defun github/init-github-clone ()
-  (use-package github-clone
-    :defer t
-    :init
-    (progn
-      (spacemacs/declare-prefix "ghc" "clone")
-      (spacemacs/set-leader-keys
-        "ghcc" 'github-clone
-        "ghcr" 'github-clone-add-existing-remote
-        "ghcf" 'github-clone-fork-remote
-        "ghcu" 'github-clone-add-source-remote))))
-
-(defun github/init-github-search ()
-  (use-package github-search
-    :commands (github-search-clone-repo github-search-user-clone-repo)
-    :init (spacemacs/set-leader-keys "ghc/" 'github-search-clone-repo)))
 
 (defun github/init-grip-mode ()
   (use-package grip-mode
