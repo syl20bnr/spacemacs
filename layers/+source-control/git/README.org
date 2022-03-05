@@ -93,11 +93,11 @@ lifetime of Emacs", as the /GNU Emacs Manual/ states [Free Software Foundation
 2021]).
 
 1. Configure Emacs to use login or session keyrings. The default configuration of
-Emacs (and Spacemacs) does not include this. Login and session keyrings are
-managed by the ssh-agent of the desktop environment you use on Linux.
+   Emacs (and Spacemacs) does not include this. Login and session keyrings are
+   managed by the ssh-agent of the desktop environment you use on Linux.
 
-   - If you use Windows, you will need to consult extra documentation not discussed
-here.
+   - If you use Windows, you will need to consult extra documentation not
+     discussed here.
 
    Add the following to your ~spacemacs/user-config~ function, as shown below.
 
@@ -127,7 +127,7 @@ here.
         nil
         (append-to-file
          (concat "\n"
-                 "Host " gitForgeProperName "\n"
+                 "HOST " gitForgeProperName "\n"
 
                  ;; The .pub file extension is not necessary; it may cause
                  ;; issues to include it. See man 5 ssh_config
@@ -153,6 +153,22 @@ here.
    You can evaluate the above source block to configure SSH fully for working
    with a Git forge. Ensure to set the variables to their appropriate values.
 
+3. Ensure the upstream URLs for the remote repository are SSH form, according to
+   the documentation for the Git forge you are working with.
+
+   GitHub's documentation says the remote repository URL to use for SSH, rather
+   than HTTPS, is:
+
+   #+begin_example
+   git@github.com:syl20bnr/repository.git
+   #+end_example
+
+   Other Git forges may have a different URL scheme. Check the documentation for
+   the forge you would like to use.
+
+Below is a fully worked example of configuring SSH for use with Magit. You will
+be able to clone, pull, and push as normal.
+
 E.g.: Configure Emacs to use the desktop environment login key-chain, ie tell
 Emacs to acquire SSH keys for remote logins from GNOME or KDE key-chains (or
 "wallets"). This is provided by the Free Desktop standard [[https://www.gnu.org/software/emacs/manual/html_mono/auth.html#Secret-Service-API][Secret Service API]].
@@ -162,8 +178,7 @@ Emacs to acquire SSH keys for remote logins from GNOME or KDE key-chains (or
      (setq auth-sources '(default "secrets:Login"))
    #+end_src
 
-2. Add the =exampleRSAKey" to the SSH configuration.
-
+2. Add the =exampleRSAKey= to the SSH configuration.
    #+begin_src emacs-lisp
      ((lambda (forgeUsername
                sshKeyName
@@ -175,7 +190,7 @@ Emacs to acquire SSH keys for remote logins from GNOME or KDE key-chains (or
         nil
         (append-to-file
          (concat "\n"
-                 "Host " gitForgeProperName "\n"
+                 "HOST " gitForgeProperName "\n"
 
                  ;; The .pub file extension is not necessary; it may cause
                  ;; issues to include it. See man 5 ssh_config
@@ -189,6 +204,7 @@ Emacs to acquire SSH keys for remote logins from GNOME or KDE key-chains (or
       "bryce-carson"
       "~/ssh/exampleRSAKey"
       )
+   #+end_src
 
 3. Save and reload the configuration changes.
 
@@ -198,6 +214,14 @@ Emacs to acquire SSH keys for remote logins from GNOME or KDE key-chains (or
 
    ~SPC q R~, or ~SPC f d~ (to delete the client frame) then ~systemctl --user restart emacs~.
 
+5. Ensure the remote repository URL is configured.
+
+   1. Configure the remotes for the current local repository: ~SPC g m M C~.
+
+   2. Select the upstream, such as a fork of another repository, or the origin(al) repository, in the minibuffer.
+
+   3. Set the URL to the appropriate scheme for the forge (=url= & =pushurl=): ~git@github.com/syl20bnr/spacemacs.git~.
+      
 ** Magit status fullscreen
 To display the =magit status= buffer in fullscreen set the variable
 =git-magit-status-fullscreen= to =t= in your =dotspacemacs/user-init= function.
