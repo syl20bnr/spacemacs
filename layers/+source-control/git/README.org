@@ -99,6 +99,19 @@ managed by the ssh-agent of the desktop environment you use on Linux.
    - If you use Windows, you will need to consult extra documentation not discussed
 here.
 
+   Add the following to your ~spacemacs/user-config~ function, as shown below.
+
+   #+begin_src emacs-lisp
+     (defun spacemacs/user-config ()
+     "Configuration for user code: This function is called at the very end of
+     Spacemacs startup, after layer configuration. Put your configuration code here,
+     except for variables that should be set
+     before packages are loaded."
+
+       (setq auth-sources '(default
+                             "secrets:Login")))
+   #+end_src
+
 2. Add the key to the SSH configuration file, so that when an SSH connection is
    made to a Git forge, the appropriate key is used with that host by the
    ssh-agent.
