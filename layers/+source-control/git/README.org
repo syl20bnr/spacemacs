@@ -138,7 +138,7 @@ Emacs to acquire SSH keys for remote logins from GNOME or KDE key-chains (or
                  "     IdentityFile ~/.ssh/" sshKeyName "\n"
                  "     User " forgeUsername "\n"
                  "     Hostname " gitForgeHostname "\n"
-                 "     AddKeysToAgent" addKeyToAgent-p)
+                 "     AddKeysToAgent " addKeyToAgent-p)
          nil
          "~/.ssh/config"))
 
