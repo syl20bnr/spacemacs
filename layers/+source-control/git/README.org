@@ -116,6 +116,47 @@ Emacs to acquire SSH keys for remote logins from GNOME or KDE key-chains (or
 
    ~SPC q R~, or ~SPC f d~ (to delete the client frame) then ~systemctl --user restart emacs~.
 
+4. Add the key to the SSH configuration file, so that when an SSH connection is
+   made to a Git forge, the appropriate key is used with that host by the
+   ssh-agent.
+
+   #+begin_src emacs-lisp
+     ((lambda (forgeUsername
+               sshKeyName
+               (&optional (gitForgeProperName "Github")
+                          (gitForgeHostname   "github.com")
+                          (addKeyToAgent-p    "yes")))
+        "Add a new SSH key to the user's login keyring, and\
+             configure it for a Git forge."
+        nil
+        (append-to-file
+         (concat "\n"
+                 "Host " gitForgeProperName "\n"
+
+                 ;; The .pub file extension is not necessary; it may cause
+                 ;; issues to include it. See man 5 ssh_config
+                 "     IdentityFile ~/.ssh/" sshKeyName "\n"
+                 "     User " forgeUsername "\n"
+                 "     Hostname " gitForgeHostname "\n"
+                 "     AddKeysToAgent" addKeyToAgent-p)
+         nil
+         "~/.ssh/config"))
+
+      "Your Git forge username"
+      "The path to your SSH key"
+
+      ;; ;; Optionally specify alternative to GitHub, and not add key to agent
+      ;; ;; permanently.
+      ;; "GitLab"
+      ;; "gitlab.com"
+      ;; ;; Either "no", or "confirm".
+      ;; "no"
+      )
+   #+end_src
+
+   You can evaluate the above source block to configure SSH fully for working
+   with a Git forge. Ensure to set the variables to their appropriate values.
+
 ** Magit status fullscreen
 To display the =magit status= buffer in fullscreen set the variable
 =git-magit-status-fullscreen= to =t= in your =dotspacemacs/user-init= function.
