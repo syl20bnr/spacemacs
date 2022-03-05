@@ -12,6 +12,7 @@
   - [[#git][Git]]
     - [[#basic-git-configuration][Basic Git configuration]]
     - [[#using-ssh-urls-for-remote-repositories][Using SSH URLs for remote repositories]]
+      - [[#making-emacs-and-magit-ssh-loginkeyringaware][Making Emacs and Magit SSH login–keyring–aware]]
   - [[#magit-status-fullscreen][Magit status fullscreen]]
   - [[#magit-auto-complete][Magit auto-complete]]
   - [[#magit-plugins][Magit Plugins]]
@@ -79,8 +80,41 @@ add that key to your account on the remote service that manages repository acces
 An SSH key removes the need to provide login details for each request from Magit
 to the remote repository service.
 
-- [[https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account][GitHub /documentation]]
+- [[https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account][GitHub documentation]]
 - [[https://docs.gitlab.com/ee/ssh/#add-an-ssh-key-to-your-gitlab-account][GitLab documentation]]
+-
+ 
+**** Making Emacs and Magit SSH login–keyring–aware 
+1. Configure Emacs to use login or session keyrings. The default configuration of
+Emacs (and Spacemacs) does not include this. Login and session keyrings are
+managed by the ssh-agent of the desktop environment you use on Linux.
+
+   - If you use Windows, you will need to consult extra documentation not discussed
+here.
+
+2. After following forge-specific documentation for using SSH keys with that forge,
+set the variable ~auth-sources~ to include the string(s) ="secrets:Login"= (to
+use a login keyring, which will be unlocked by your desktop environment upon
+login), and/or ="secrets:session"= (note the lowercase =s= in =session=; the
+session option will "open [the keyring] only for the lifetime of Emacs", as the
+/GNU Emacs Manual/ states [Free Software Foundation 2021]).
+
+E.g.: Configure Emacs to use the desktop environment login key-chain, ie tell
+Emacs to acquire SSH keys for remote logins from GNOME or KDE key-chains (or
+"wallets"). This is provided by the Free Desktop standard [[https://www.gnu.org/software/emacs/manual/html_mono/auth.html#Secret-Service-API][Secret Service API]].
+
+1. Add the following to your ~spacemacs/user-config~ function:
+   #+begin_src emacs-lisp
+     (setq auth-sources '(default "secrets:Login"))
+   #+end_src
+
+2. Save and reload the configuration changes.
+
+   ~SPC f e R~
+
+3. Restart Emacs, or restart the systemd service managing the Emacs client.
+
+   ~SPC q R~, or ~SPC f d~ (to delete the client frame) then ~systemctl --user restart emacs~.
 
 ** Magit status fullscreen
 To display the =magit status= buffer in fullscreen set the variable
