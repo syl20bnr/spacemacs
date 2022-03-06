@@ -3088,6 +3088,7 @@ files (thanks to Daniel Nicolai)
   =org-insert-structure-template= commands (thanks to Andriy Kmit')
 - Added =ox-asciidoc= as org export backend (thanks to Christian "West" Westrom)
 - Fix org-roam v2 compatibility (thanks to Alex Kapranoff and Caleb Rogers)
+- Fix =space-doc.el= to use cl-return (thanks to practicalli-john)
 **** Osx
 - Key bindings:
   - Added key bindings to use ~command-1..9~ for selecting window

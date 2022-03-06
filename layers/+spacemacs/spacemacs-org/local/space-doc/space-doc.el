@@ -159,7 +159,7 @@ This functions is aimed to be used with `spacemacs-space-doc-modificators'."
                    (kbd-marker
                     (dolist (el org-emphasis-alist)
                       (when (member 'org-kbd el)
-                        (return (car el))))))
+                        (cl-return (car el))))))
               (make-spacemacs--space-doc-cache-struct
                :marker-face     marker-face
                :btn-marker-face btn-marker-face
