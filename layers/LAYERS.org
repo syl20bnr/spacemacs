@@ -2558,7 +2558,8 @@ Features:
 - git grep with [[https://github.com/yasuyk/helm-git-grep][helm-git-grep]]
 - org integration with magit via [[https://github.com/magit/orgit][orgit]]
 
-New to Magit? Checkout the [[https://magit.vc/about/][official intro]].
+New to Magit? Checkout the [[https://magit.vc/about/][official intro]] and [[https://practical.li/spacemacs/source-control/][Practicalli Spacemacs]]
+guide to configuring and using the Git and version control layers.
 
 ** GitHub
 [[file:+source-control/github/README.org][+source-control/github/README.org]]

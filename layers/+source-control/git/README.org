@@ -68,17 +68,16 @@ on your machine. You can download it from the [[http://git-scm.com/downloads][do
 Define a git identity using the =git= commands in a terminal window
 replacing =username= and =name@domain.tld= with your own values
 
-#+begin_src shell
+#+BEGIN_SRC shell
   git config --global user.name "username"
   git config --global user.email "name@domain.tld"
-#+end_src
+#+END_SRC
 
 *** Using SSH URLs for remote repositories
 [[https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key][Generate an SSH key]] to use SSH URLs to access remote repositories.
 Add the SSH key to your account on the remote service managing repository access.
 An SSH key removes the need to provide login details for each request from Magit
 to the remote repository service.
-
 - [[https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account][GitHub SSH key documentation]]
 - [[https://docs.gitlab.com/ee/ssh/#add-an-ssh-key-to-your-gitlab-account][GitLab SSH key documentation]]
 
@@ -163,21 +162,21 @@ Magit Forge can view and create issues & pull requests with forges
 (e.g. GitHub, GitLab)
 
 Magit Forge requires a username for the respective forge and will prompt for a
-username if not found, writing it to  =~/.gitconfig=
+username if not found, writing it to =~/.gitconfig=
 
 Explicitly define a forge identity using the `git` command.
 
 For GitHub:
 
-#+begin_src shell
+#+BEGIN_SRC shell
   git config --global github.user "username"
-#+end_src
+#+END_SRC
 
 For GitLab:
 
-#+begin_src shell
+#+BEGIN_SRC shell
   git config --global gitlab.user "username"
-#+end_src
+#+END_SRC
 
 See the official [[https://magit.vc/manual/forge/Getting-Started.html#Getting-Started][Magit Forge]] and [[https://magit.vc/manual/ghub/Getting-Started.html][GHub Getting Started]] for general guides or follow
 a community written [[https://practical.li/spacemacs/source-control/forge-configuration.html][Spacemacs specific guide to configuring Magit Forge]].
@@ -190,7 +189,6 @@ Detailed instructions to [[https://practical.li/spacemacs/source-control/forge-c
 The machine configuration should use your forge username and personal access token
 GitHub token permissions: =repo=, =user= and =read:org=
 GitLab token permissions: =api=
-
 - [[https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token][GitHub personal access token documentation]]
 - [[https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token][GitLab personal access token documentation]]
 
