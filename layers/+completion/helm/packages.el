@@ -30,7 +30,7 @@
         helm-ag
         helm-descbinds
         helm-flx
-        (helm-ls-git :require git)
+        (helm-ls-git :toggle (configuration-layer/layer-used-p 'git))
         helm-make
         helm-mode-manager
         helm-org
