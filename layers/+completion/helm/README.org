@@ -63,7 +63,7 @@ listed last.
 
 ** Alternative layers
 Ivy layer is a replacement layer for Helm. When you add =ivy= to the existing
-== list in your dotfile, it will completely replace the =helm= layer.
+list in your dotfile, it will completely replace the =helm= layer.
 
 To switch from Ivy to Helm, modify your =~/.spacemacs=. You will need to add
 =helm= to the existing =dotspacemacs-configuration-layers= list in this file,
