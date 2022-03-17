@@ -52,8 +52,15 @@
     :config
     (spacemacs/declare-prefix-for-mode 'dockerfile-mode "mc" "compile")
     (spacemacs/set-leader-keys-for-major-mode 'dockerfile-mode
+      "b" 'dockerfile-build-buffer
+      "B" 'dockerfile-build-buffer-no-cache-buffer
       "cb" 'dockerfile-build-buffer
-      "cB" 'dockerfile-build-no-cache-buffer)))
+      "cB" 'dockerfile-build-no-cache-buffer)
+    (with-eval-after-load 'docker
+      (spacemacs/set-leader-keys-for-major-mode 'dockerfile-mode
+        "d" 'docker
+        "i" 'docker-images
+        "p" 'docker-containers))))
 
 (defun docker/post-init-flycheck ()
   (spacemacs/enable-flycheck 'dockerfile-mode))
