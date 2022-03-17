@@ -39,7 +39,7 @@ your =~./spacemacs=. (You would also need to enable [[file:../../+tools/lsp/READ
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-                (nixos :variables nixos-backend 'lsp))
+                (nixos :variables nix-backend 'lsp))
 #+END_SRC
 
 To install [[https://github.com/nix-community/rnix-lsp][rnix-lsp]] from =nix=, run the following command in shell:
