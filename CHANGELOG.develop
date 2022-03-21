@@ -2173,6 +2173,8 @@ Other:
   - Restore magit transient args between sessions (thanks to duianto)
 - Improvements:
   - Added orgit-forge (thanks to Ag Ibragimov)
+  - Add Magit Forge configuration documentation & basic git configuration
+    (thanks to practicalli-john)
 **** Gnus
 - Key bindings:
   - Added ~g r~ for =gnus-group-get-new-news= (thanks to Matthew Leach)

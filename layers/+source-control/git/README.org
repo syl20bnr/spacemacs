@@ -10,6 +10,8 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#git][Git]]
+    - [[#basic-git-configuration][Basic Git configuration]]
+    - [[#using-ssh-urls-for-remote-repositories][Using SSH URLs for remote repositories]]
   - [[#magit-status-fullscreen][Magit status fullscreen]]
   - [[#magit-auto-complete][Magit auto-complete]]
   - [[#magit-plugins][Magit Plugins]]
@@ -19,6 +21,8 @@
     - [[#magit-todos][magit-todos]]
   - [[#global-git-commit-mode][Global git commit mode]]
   - [[#forge][Forge]]
+    - [[#magit-forge-configuration][Magit Forge configuration]]
+    - [[#ms-windows-support][MS Windows support]]
   - [[#org-integration][Org integration]]
 - [[#working-with-git][Working with Git]]
   - [[#magit][Magit]]
@@ -47,7 +51,8 @@ This layers adds extensive support for [[http://git-scm.com/][git]] to Spacemacs
 - git grep with [[https://github.com/yasuyk/helm-git-grep][helm-git-grep]]
 - org integration with magit via [[https://github.com/magit/orgit][orgit]]
 
-New to Magit? Checkout the [[https://magit.vc/about/][official intro]].
+New to Magit? Checkout the [[https://magit.vc/about/][official intro]] and [[https://practical.li/spacemacs/source-control/][Practicalli Spacemacs]]
+guide to configuring and using the Git and version control layers.
 
 * Install
 ** Layer
@@ -58,6 +63,23 @@ file.
 ** Git
 Of course if your OS does not ship with git (!) you'll have to install it
 on your machine. You can download it from the [[http://git-scm.com/downloads][download page]].
+
+*** Basic Git configuration
+Define a git identity using the =git= commands in a terminal window
+replacing =username= and =name@domain.tld= with your own values
+
+#+BEGIN_SRC shell
+  git config --global user.name "username"
+  git config --global user.email "name@domain.tld"
+#+END_SRC
+
+*** Using SSH URLs for remote repositories
+[[https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key][Generate an SSH key]] to use SSH URLs to access remote repositories.
+Add the SSH key to your account on the remote service managing repository access.
+An SSH key removes the need to provide login details for each request from Magit
+to the remote repository service.
+- [[https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account][GitHub SSH key documentation]]
+- [[https://docs.gitlab.com/ee/ssh/#add-an-ssh-key-to-your-gitlab-account][GitLab SSH key documentation]]
 
 ** Magit status fullscreen
 To display the =magit status= buffer in fullscreen set the variable
@@ -136,6 +158,45 @@ To enable it you have to add the following lines to your
 #+END_SRC
 
 ** Forge
+Magit Forge can view and create issues & pull requests with forges
+(e.g. GitHub, GitLab)
+
+Magit Forge requires a username for the respective forge and will prompt for a
+username if not found, writing it to =~/.gitconfig=
+
+Explicitly define a forge identity using the `git` command.
+
+For GitHub:
+
+#+BEGIN_SRC shell
+  git config --global github.user "username"
+#+END_SRC
+
+For GitLab:
+
+#+BEGIN_SRC shell
+  git config --global gitlab.user "username"
+#+END_SRC
+
+See the official [[https://magit.vc/manual/forge/Getting-Started.html#Getting-Started][Magit Forge]] and [[https://magit.vc/manual/ghub/Getting-Started.html][GHub Getting Started]] for general guides or follow
+a community written [[https://practical.li/spacemacs/source-control/forge-configuration.html][Spacemacs specific guide to configuring Magit Forge]].
+
+*** Magit Forge configuration
+For each forge (e.g. GitHub, GitLab), add a machine configuration to the
+PGP encrypted =~/.authinfo.gpg= file.
+Detailed instructions to [[https://practical.li/spacemacs/source-control/forge-configuration.html#create-an-encrypted-authinfogpg-file][create an encrypted .authinfo.gpg file with Spacemacs]]
+
+The machine configuration should use your forge username and personal access token
+GitHub token permissions: =repo=, =user= and =read:org=
+GitLab token permissions: =api=
+- [[https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token][GitHub personal access token documentation]]
+- [[https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token][GitLab personal access token documentation]]
+
+#+BEGIN_SRC sh
+  machine api.github.com login forge-username^forge password 01personal02access03token
+#+END_SRC
+
+*** MS Windows support
 The =forge= package uses =emacsql= which requires a C compiler to be available
 on MS Windows, see issue [[https://github.com/skeeto/emacsql/issues/46]].
 
