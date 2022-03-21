@@ -114,20 +114,11 @@
 (setq pcache-directory (concat spacemacs-cache-directory "pcache/"))
 
 ;;;; Load Paths
-;; TODO: Since these functions are not called anywhere, consider to inline them (Apr 27 2021 Lucius)
-
-(defun spacemacs//add-to-load-path (dir)
-  "Prepend DIR to `load-path'."
-  (add-to-list 'load-path dir))
-
-;; FIXME: unused function (Apr 25 2021 Lucius)
-(defun spacemacs//add-to-load-path-if-exists (dir)
-  "If DIR exists in the file system, prepend it to `load-path'."
-  (when (file-exists-p dir)
-    (spacemacs//add-to-load-path dir)))
-
-(dolist (suffix '(nil "libs/" "libs/spacemacs-theme/" "libs/forks"))
-  (spacemacs//add-to-load-path (concat spacemacs-core-directory suffix)))
+(dolist (subdirectory '(nil "libs/" "libs/spacemacs-theme/" "libs/forks/"))
+  (let ((path (concat spacemacs-core-directory subdirectory)))
+    (if (file-exists-p path)
+       (add-to-list 'load-path path)
+     (error "The directory %s does not exist and cannot be added to the `load-path'." path))))
 
 ;;;; Themes
 (add-to-list 'custom-theme-load-path (concat spacemacs-core-directory
