@@ -115,7 +115,7 @@
 
 ;;;; Load Paths
 (dolist (subdirectory '(nil "libs/" "libs/spacemacs-theme/" "libs/forks/"))
-  (let (path (concat spacemacs-core-directory subdirectory))
+  (let ((path (concat spacemacs-core-directory subdirectory)))
     (if (file-exists-p path)
        (add-to-list 'load-path path)
      (error "The directory %s does not exist and cannot be added to the `load-path'." path))))
