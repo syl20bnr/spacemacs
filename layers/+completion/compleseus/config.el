@@ -25,3 +25,38 @@
   "Options are `selectrum', and `vertico' to use as completion
   engine.")
 
+(defvar consult--source-modified-buffers
+  `(:name "Modified Buffers"
+          :narrow   (?M . "Modified Buffers")
+          :hidden   t
+          :category buffer
+          :face     consult-buffer
+          :history  buffer-name-history
+          :state    ,#'consult--buffer-state
+          :items
+          ,(lambda ()
+             (consult--buffer-query ;; :sort 'visibility
+              :predicate (lambda (buff)
+                           (and (persp-contain-buffer-p buff)
+                                (buffer-file-name buff)
+                                (buffer-modified-p buff)))
+              ;; :directory 'project
+              :as #'buffer-name)))
+  "Per perpecstive modified buffer source.")
+
+(defvar consult--source-persp-buffers
+  `(
+    :name     "Buffer"
+    :narrow   ?b
+    :category buffer
+    :face     consult-buffer
+    :history  buffer-name-history
+    :state    ,#'consult--buffer-state
+    :default  t
+    :items
+    ,(lambda ()
+       (consult--buffer-query
+        :sort 'visibility
+        :predicate #'persp-contain-buffer-p
+        :as #'buffer-name)))
+  "Per perpecstive buffer source.")
