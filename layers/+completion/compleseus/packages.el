@@ -159,7 +159,7 @@
       "ss" #'consult-line
       "sS" #'spacemacs/consult-line
       "sk" #'consult-keep-lines
-      "rL" #'consult-complex-command
+      "rc" #'consult-complex-command
       "su" #'consult-focus-lines
       "sf" #'spacemacs/compleseus-search-auto
       "sd" #'spacemacs/compleseus-search-dir
@@ -346,8 +346,10 @@
     :init
     (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
     (spacemacs/set-leader-keys
-      "rl" 'vertico-repeat
-      "sl" 'vertico-repeat)))
+      "rl" 'vertico-repeat-last
+      "rL" 'vertico-repeat-select
+      "sl" 'vertico-repeat-last
+      "sL" 'vertico-repeat-select)))
 
 (defun compleseus/init-vertico-directory ()
   (use-package vertico-directory
