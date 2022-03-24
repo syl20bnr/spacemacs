@@ -39,6 +39,7 @@
                                        "am"  "music"
                                        "at"  "tools"
                                        "ats" "shells"
+                                       "atT" "translate"
                                        "aw"  "web-services"
                                        "c"   "compile/comments"
                                        "C"   "capture/colors"
