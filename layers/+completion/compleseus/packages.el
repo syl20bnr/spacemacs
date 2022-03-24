@@ -69,7 +69,7 @@
         ("/" spacemacs/compleseus-search-projectile-auto :exit t)))))
 
 (defun compleseus/post-init-imenu ()
-  (spacemacs/set-leader-keys "ji" 'consult-imenu))
+  (spacemacs/set-leader-keys "ji" 'spacemacs/consult-jump-in-buffer))
 
 (defun compleseus/init-marginalia ()
   (use-package marginalia
@@ -78,9 +78,20 @@
            :map minibuffer-local-map
            ("M-A" . marginalia-cycle))
 
+    :config
+    (dolist (it
+             '((spacemacs/compleseus-pers-switch-project . project-file)
+               ;; https://github.com/bbatsov/projectile/issues/1664
+               ;; https://github.com/minad/marginalia/issues/110
+               (projectile-find-file . project-file)
+               (projectile-find-dir . project-file)
+               (projectile-recentf . project-file)
+               (projectile-switch-to-buffer . buffer)
+               (projectile-switch-project . file)))
+      (push it marginalia-command-categories))
+    (setq marginalia-align 'right)
     ;; The :init configuration is always executed (Not lazy!)
     :init
-
     ;; Must be in the :init section of use-package such that the mode gets
     ;; enabled right away. Note that this forces loading the package.
     (marginalia-mode)))
@@ -159,7 +170,7 @@
       "ss" #'consult-line
       "sS" #'spacemacs/consult-line
       "sk" #'consult-keep-lines
-      "rL" #'consult-complex-command
+      "rc" #'consult-complex-command
       "su" #'consult-focus-lines
       "sf" #'spacemacs/compleseus-search-auto
       "sd" #'spacemacs/compleseus-search-dir
@@ -181,6 +192,11 @@
     (advice-add #'completing-read-multiple :override #'consult-completing-read-multiple)
 
     ;; Use Consult to select xref locations with preview
+    (setq xref-prompt-for-identifier '(not xref-find-definitions
+                                           xref-find-definitions-other-window
+                                           xref-find-definitions-other-frame
+                                           xref-find-references
+                                           spacemacs/jump-to-definition))
     (setq xref-show-xrefs-function #'consult-xref)
 
     ;; Configure other variables and modes in the :config section,
@@ -200,13 +216,18 @@
      consult-ripgrep consult-git-grep consult-grep
      consult-bookmark consult-recent-file consult-xref
      consult--source-recent-file consult--source-project-recent-file consult--source-bookmark
+     consult-yank-pop
      spacemacs/compleseus-search-auto
      spacemacs/compleseus-search-dir
      spacemacs/compleseus-search-projectile
      spacemacs/compleseus-search-default
      spacemacs/compleseus-search-projectile-auto
      :preview-key (list (kbd "C-SPC") (kbd "C-M-j") (kbd "C-M-k")))
-    ;; :preview-key (kbd "C-SPC"))
+
+    ;; hide magit buffer
+    (add-to-list 'consult-buffer-filter "magit.*:.*")
+
+    (setq consult-line-start-from-top nil)
 
     ;; Optionally configure the narrowing key.
     ;; Both < and C-+ work reasonably well.
@@ -220,8 +241,7 @@
     (setq consult-project-root-function
           (lambda ()
             (when-let (project (project-current))
-              (car (project-roots project)))))))
-
+              (car (project-root project)))))))
 
 (defun compleseus/init-consult-yasnippet ()
   (use-package consult-yasnippet
@@ -267,16 +287,23 @@
 
 (defun compleseus/init-orderless ()
   (use-package orderless
-  :init
-  ;; https://github.com/oantolin/orderless/issues/48#issuecomment-856750410
-  (define-advice company-capf
-      (:around (orig-fun &rest args) set-completion-styles)
-    (let ((completion-styles '(basic partial-completion orderless)))
-      (apply orig-fun args)))
+    :init
+    ;; https://github.com/oantolin/orderless/issues/48#issuecomment-856750410
+    ;; too intrusive and disrupts lsp
+    (define-advice company-capf (:around (orig-fun &rest args) set-completion-styles)
+      ;; when lsp is on stay away
+      (if lsp-completion-mode
+          (apply orig-fun args)
+        (let ((completion-styles '(basic partial-completion orderless)))
+          (apply orig-fun args))))
 
-  (setq completion-styles '(orderless)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles . (partial-completion)))))))
+    (setq orderless-component-separator "[ &]")
+
+    ;; should be all in with orderless other wise the results are inconsistent.
+    ;; (setq completion-styles '(basic partial-completion orderless)
+    (setq completion-styles '(orderless)
+          completion-category-defaults nil
+          completion-category-overrides '((file (styles . (partial-completion)))))))
 
 (defun compleseus/init-selectrum ()
   (use-package selectrum
@@ -319,9 +346,12 @@
     ;; https://github.com/minad/vertico/issues/24
     (setq completion-in-region-function #'consult-completion-in-region)
 
-    ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
-    ;; (setq vertico-cycle t)
+    (setq vertico-resize nil
+          vertico-count 20
+          vertico-cycle nil)
+
     (vertico-mode)
+
     :config
     (define-key vertico-map (kbd "M-RET") #'vertico-exit-input)
     (define-key vertico-map (kbd "C-SPC") #'spacemacs/embark-preview)
@@ -346,8 +376,10 @@
     :init
     (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
     (spacemacs/set-leader-keys
-      "rl" 'vertico-repeat
-      "sl" 'vertico-repeat)))
+      "rl" 'vertico-repeat-last
+      "rL" 'vertico-repeat-select
+      "sl" 'vertico-repeat-last
+      "sL" 'vertico-repeat-select)))
 
 (defun compleseus/init-vertico-directory ()
   (use-package vertico-directory

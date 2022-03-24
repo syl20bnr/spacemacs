@@ -39,8 +39,14 @@
 (defun spacemacs/compleseus-switch-to-buffer ()
   "`consult-buffer' with buffers provided by persp."
   (interactive)
-  (with-persp-buffer-list ()
-                          (consult-buffer)))
+  (consult-buffer
+   '(consult--source-hidden-buffer
+     consult--source-persp-buffers
+     consult--source-modified-buffers
+     consult--source-recent-file
+     consult--source-bookmark
+     consult--source-project-buffer
+     consult--source-project-recent-file)))
 
 
 (defun spacemacs/compleseus-search (use-initial-input initial-directory)
@@ -184,3 +190,12 @@ targets."
   (let ((embark-indicators
          (remq #'spacemacs/embark-which-key-indicator embark-indicators)))
     (apply fn args)))
+
+
+(defun spacemacs/consult-jump-in-buffer ()
+  "Jump in buffer with `consult-imenu' or `consult-org-heading' if in org-mode"
+  (interactive)
+  (call-interactively
+   (cond
+    ((eq major-mode 'org-mode) 'consult-org-heading)
+    (t 'consult-imenu))))
