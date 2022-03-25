@@ -1,4 +1,4 @@
-;;; core-compilation.el --- Spacemacs Core File -*- no-byte-compile: t -*-
+;;; core-compilation.el --- Spacemacs Core File -*- lexical-binding: t; no-byte-compile: t -*-
 ;;
 ;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
