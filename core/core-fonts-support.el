@@ -1,4 +1,4 @@
-;;; core-fonts-support.el --- Spacemacs Core File
+;;; core-fonts-support.el --- Spacemacs Core File -*- lexical-binding: t -*-
 ;;
 ;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;

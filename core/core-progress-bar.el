@@ -1,4 +1,4 @@
-;;; core-progress-bar.el --- Spacemacs Core File
+;;; core-progress-bar.el --- Spacemacs Core File -*- lexical-binding: t -*-
 ;;
 ;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
