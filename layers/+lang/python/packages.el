@@ -47,7 +47,7 @@
     py-isort
     pydoc
     pyenv-mode
-    (pylookup :location local)
+    (pylookup :location (recipe :fetcher local))
     pytest
     (python :location built-in)
     pyvenv
