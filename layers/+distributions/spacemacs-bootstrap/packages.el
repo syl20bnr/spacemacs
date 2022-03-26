@@ -36,9 +36,9 @@
     ;; pre packages, initialized after the bootstrap packages
     ;; these packages can use use-package
     (dotenv-mode :step pre)
-    (evil-evilified-state :location local :step pre :protected t)
+    (evil-evilified-state :location (recipe :fetcher local) :step pre :protected t)
     (pcre2el :step pre)
-    (holy-mode :location local :step pre)
+    (holy-mode :location (recipe :fetcher local) :step pre)
     (hybrid-mode :location (recipe :fetcher local) :step pre)
     (spacemacs-theme :location built-in)
     dash))

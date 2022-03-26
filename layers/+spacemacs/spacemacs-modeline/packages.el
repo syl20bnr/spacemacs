@@ -37,7 +37,7 @@
         spaceline
         spaceline-all-the-icons
         symon
-        (vim-powerline :location local)))
+        (vim-powerline :location (recipe :fetcher local))))
 
 (defun spacemacs-modeline/post-init-anzu ()
   (when (eq 'all-the-icons (spacemacs/get-mode-line-theme-name))

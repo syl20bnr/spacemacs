@@ -454,6 +454,22 @@ cache folder.")
         quelpa-update-melpa-p nil)
   (require 'quelpa))
 
+(defun configuration-layer//make-quelpa-recipe (pkg)
+  "Read recipe in PKG if :fetcher is local, then turn it to a correct file recepe.
+Otherwise return the recipe unchanged. PKG is of `cfgl-package' type."
+  (let* ((config (cdr (oref pkg :location)))
+         (fetcher (plist-get config :fetcher))
+         (pkg-name (oref pkg :name)))
+    (cond
+     ((eq fetcher 'local)
+      `(,pkg-name
+        :fetcher file
+        :path ,(configuration-layer/get-location-directory
+                         (oref pkg :name)
+                         (oref pkg :location)
+                         (car (oref pkg :owners)))))
+     (t (cons pkg-name (cdr (oref pkg :location)))))))
+
 (defun configuration-layer//package-archive-absolute-path-p (archive)
   "Return t if ARCHIVE has an absolute path defined."
   (let ((path (cdr archive)))
@@ -1789,7 +1805,7 @@ RNAME is the name symbol of another existing layer."
             (window-height . 0.2)))))
     ;; ensure we have quelpa available first
     (configuration-layer//configure-quelpa)
-    (let* ((upkg-names (configuration-layer//get-uninstalled-packages packages))
+    (let* ((upkg-names (configuration-layer//get-to-install-packages packages))
            (not-inst-count (length upkg-names))
            installed-count)
       ;; installation
@@ -1844,7 +1860,7 @@ RNAME is the name symbol of another existing layer."
          (layer (car (oref pkg :owners)))
          (recipe (cons pkg-name (cdr (oref pkg :location)))))
     (if recipe
-        (quelpa recipe)
+        (quelpa (configuration-layer//make-quelpa-recipe pkg))
       (configuration-layer//warning
        (concat "Cannot find any recipe for package %S! Be sure "
                "to add a recipe for it in alist %S.")
@@ -1881,7 +1897,7 @@ RNAME is the name symbol of another existing layer."
     (configuration-layer//filter-packages-with-deps-recur
      checked-packages pkg-names filter use-archive)))
 
-(defun configuration-layer//get-uninstalled-packages (pkg-names)
+(defun configuration-layer//get-to-install-packages (pkg-names)
   "Return a filtered list of PKG-NAMES to install."
   (configuration-layer//filter-packages-with-deps
    pkg-names (lambda (x)
@@ -1907,13 +1923,16 @@ RNAME is the name symbol of another existing layer."
 (defun configuration-layer//new-version-available-p (pkg-name)
   "Return non nil if there is a new version available for PKG-NAME."
   (let ((recipe (configuration-layer//get-package-recipe pkg-name))
+        (pkg (configuration-layer/get-package pkg-name))
         (cur-version (configuration-layer//get-package-version-string pkg-name))
         (quelpa-upgrade-p t)
         new-version)
     (when cur-version
       (setq new-version
             (if recipe
-                (or (quelpa-checkout recipe (expand-file-name (symbol-name pkg-name) quelpa-build-dir)) cur-version)
+                (or (quelpa-checkout (configuration-layer//make-quelpa-recipe pkg)
+                                     (expand-file-name (symbol-name pkg-name) quelpa-build-dir))
+                    cur-version)
               (configuration-layer//get-latest-package-version-string
                pkg-name)))
       ;; (message "%s: %s > %s ?" pkg-name cur-version new-version)

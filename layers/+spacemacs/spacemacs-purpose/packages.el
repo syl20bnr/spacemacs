@@ -27,7 +27,7 @@
         (ivy-purpose :requires ivy)
         popwin
         (spacemacs-purpose-popwin
-         :location local
+         :location (recipe :fetcher local)
          :requires popwin)
         window-purpose))
 
