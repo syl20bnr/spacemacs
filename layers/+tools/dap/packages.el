@@ -20,9 +20,9 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
 (defconst dap-packages
-  '(dap-mode
-    posframe))
+  '(dap-mode))
 
 (defun dap/init-dap-mode ()
   (use-package dap-mode
@@ -135,6 +135,3 @@
 
           ;; Set bindings
           (apply #'spacemacs/set-leader-keys-for-major-mode mode bindings))))))
-
-(defun dap/init-posframe ()
-  (use-package posframe))

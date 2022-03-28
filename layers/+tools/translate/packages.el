@@ -23,8 +23,7 @@
 (defconst translate-packages
   '(
     translate-mode
-    go-translate
-    posframe))
+    go-translate))
 
 (defun translate/init-translate-mode ()
   "Initialize required packages."
@@ -48,17 +47,24 @@
             (user-error "Make sure there is any word at point, or selection exists"))
           (let ((path (gts-path o text)))
             (cl-values text path))))
+      (defun translate//check-and-get-render (render)
+        (if (equal render 'posframe)
+            (if (featurep 'posframe)
+                (gts-posframe-pop-render)
+              (display-warning 'translate "Missing package `posframe', back to use default `gts-buffer-render'.")
+              (gts-buffer-render))
+          (gts-buffer-render)))
       (defconst translate//paragraph-translator
         (gts-translator
          :picker (translate//reference-paragraph-picker)
          :engines (list (gts-google-engine) (gts-google-rpc-engine) (gts-bing-engine))
-         :render (gts-buffer-render))
+         :render (translate//check-and-get-render translate/paragraph-render))
         "Paragraph translator for `go-translate'.")
       (defconst translate//word-translator
         (gts-translator
          :picker (gts-noprompt-picker)
          :engines (list (gts-google-engine) (gts-google-rpc-engine) (gts-bing-engine))
-         :render (gts-posframe-pop-render))
+         :render (translate//check-and-get-render translate/word-render))
         "Word translator for `go-translate'."))))
 
 (defun translate/pre-init-posframe ()
