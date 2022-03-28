@@ -9,6 +9,7 @@
   - [[#features][Features:]]
 - [[#bibtex][BibTeX]]
 - [[#install][Install]]
+  - [[#grip-mode][grip-mode]]
 - [[#configuration][Configuration]]
   - [[#live-preview][Live preview]]
   - [[#automatic-mmm-mode-generation][Automatic MMM-Mode Generation]]
@@ -17,6 +18,7 @@
 - [[#key-bindings][Key bindings]]
   - [[#element-insertion][Element insertion]]
   - [[#element-removal][Element removal]]
+  - [[#grip-mode-1][Grip-mode]]
   - [[#table-manipulation][Table manipulation]]
   - [[#completion][Completion]]
   - [[#following-and-jumping][Following and Jumping]]
@@ -32,6 +34,7 @@
 This layer adds markdown support to Spacemacs.
 
 ** Features:
+- [[https://github.com/seagle0128/grip-mode][grip-mode]] Github-flavored Markdown/Org preview using [[https://github.com/joeyespo/grip][Grip]].
 - markdown files support via [[http://jblevins.org/git/markdown-mode.git/][markdown-mode]]
 - [[https://github.com/mdx-js/mdx][mdx]] file support via [[http://jblevins.org/git/markdown-mode.git/][markdown-mode]]
 - Fast GitHub-flavored live preview via [[https://github.com/blak3mill3r/vmd-mode][vmd-mode]]
@@ -47,6 +50,9 @@ For more extensive support of references with BibTeX files, have a look at the
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =markdown= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+** grip-mode
+Grip-mode [[https://github.com/seagle0128/grip-mode#prerequisite][requires python and the python package grip]] to be installed on the
+system. Grip can usually be installed from [[https://pypi.org/project/grip/][PyPI]].
 
 * Configuration
 ** Live preview
@@ -152,6 +158,10 @@ To generate a table of contents type on top of the buffer:
 | Key binding | Description         |
 |-------------+---------------------|
 | ~SPC m k~   | kill thing at point |
+
+** Grip-mode
+
+Toggle =grip-mode= by doing ~M-x grip-mode~.
 
 ** Table manipulation
 

@@ -27,6 +27,7 @@
     company-emoji
     emoji-cheat-sheet-plus
     gh-md
+    grip-mode
     markdown-mode
     markdown-toc
     mmm-mode
@@ -56,6 +57,10 @@
     (dolist (mode markdown--key-bindings-modes)
       (spacemacs/set-leader-keys-for-major-mode mode
         "cr" 'gh-md-render-buffer))))
+
+(defun markdown/init-grip-mode ()
+  (use-package grip-mode
+    :defer t))
 
 (defun markdown/post-init-valign ()
   (add-hook 'markdown-mode-hook 'valign-mode))

@@ -2097,8 +2097,9 @@ Other:
   (thanks to Boris Buliga)
 **** GitHub
 - Layer:
-  - marked as deprecated as functionality is all in =git= layer (thanks
+  - Marked as deprecated as functionality is all in =git= layer (thanks
     to practicalli-john)
+  - Moved =grip-mode= to the =markdown= layer.
 - Packages:
   - Added new packages =forge= (thanks to Miciah Dashiel Butler Masters)
   - Do not install =forge= on Windows by default, see =README.org= of the layer
@@ -2792,6 +2793,7 @@ files (thanks to Daniel Nicolai)
 - Made =*lsp-help*= buffer shown in a popup window using popwin
 - Add support for mdx files via markdown-mode (thanks to robbyoconnor)
 - Improve documentation about markdown preview options (thanks to Lin Sun)
+- Moved =grip-mode= to the =markdown= layer from the =github= layer.
 **** Major modes
 - Added SPARQL-mode (thanks to Dietrich Daroch)
 - Added android logcat (thanks to jiejingzhang)
