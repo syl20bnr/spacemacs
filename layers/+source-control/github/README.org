@@ -39,7 +39,6 @@ on debian based systems make sure you use the python 3 version
 of pip, it is normally called =pip3=.
 
 * Key bindings
-
 ** Grip-mode
 
 | Key binding | Description                                                 |
