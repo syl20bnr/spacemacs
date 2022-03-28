@@ -104,8 +104,15 @@
 (defun org/init-gnuplot ()
   (use-package gnuplot
     :defer t
-    :init (spacemacs/set-leader-keys-for-major-mode 'org-mode
-            "tp" 'org-plot/gnuplot)))
+    :init
+    (progn
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       (append
+        org-babel-load-languages
+        '((gnuplot . t))))
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "tp" 'org-plot/gnuplot))))
 
 (defun org/init-helm-org-rifle ()
   (use-package helm-org-rifle
