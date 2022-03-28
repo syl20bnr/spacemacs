@@ -33,6 +33,7 @@
         hl-todo
         popup
         popwin
+        posframe
         (zoom-frm :location local)))
 
 (defun spacemacs-visual/init-all-the-icons ()
@@ -92,6 +93,9 @@
     (global-hl-todo-mode 1)))
 
 (defun spacemacs-visual/init-popup ())
+
+(defun spacemacs-visual/init-posframe ()
+  (use-package posframe :defer t))
 
 (defun spacemacs-visual/init-popwin ()
   (use-package popwin

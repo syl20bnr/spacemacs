@@ -22,8 +22,7 @@
 
 
 (defconst dap-packages
-  '(dap-mode
-    posframe))
+  '(dap-mode))
 
 (defun dap/init-dap-mode ()
   (use-package dap-mode
@@ -137,6 +136,6 @@
           ;; Set bindings
           (apply #'spacemacs/set-leader-keys-for-major-mode mode bindings))))))
 
+(defun dap/pre-init-posframe ())
 
-(defun dap/init-posframe ()
-  (use-package posframe))
+(defun dap/post-init-posframe ())
