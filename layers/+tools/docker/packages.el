@@ -50,12 +50,9 @@
     :defer t
     :init (add-hook 'dockerfile-mode-local-vars-hook #'spacemacs//docker-dockerfile-setup-backend)
     :config
-    (spacemacs/declare-prefix-for-mode 'dockerfile-mode "mc" "compile")
     (spacemacs/set-leader-keys-for-major-mode 'dockerfile-mode
       "b" 'dockerfile-build-buffer
       "B" 'dockerfile-build-buffer-no-cache-buffer
-      "cb" 'dockerfile-build-buffer
-      "cB" 'dockerfile-build-no-cache-buffer)
     (with-eval-after-load 'docker
       (spacemacs/set-leader-keys-for-major-mode 'dockerfile-mode
         "d" 'docker
