@@ -203,6 +203,7 @@ The lsp minor mode bindings are:
 | ~SPC m g T~   | goto type hierachy (=lsp-treemacs=)                                              |
 |---------------+----------------------------------------------------------------------------------|
 | Note          | /Replaced by the lsp-ui-peek equivalents when ~lsp-navigation~ is ~'peek~ /      |
+| ~SPC m g b~   | jump back (=xref= / =lsp=)                                                       |
 | ~SPC m g i~   | find implementations (=lsp-mode=)                                                |
 | ~SPC m g d~   | find definitions (=xref= / =lsp-mode=)                                           |
 | ~SPC m g r~   | find references (=xref= / =lsp=)                                                 |
@@ -212,6 +213,7 @@ The lsp minor mode bindings are:
 |---------------+----------------------------------------------------------------------------------|
 | Note          | /Omitted when ~lsp-navigation~ is ~'peek~ or ~'simple~ /                         |
 |               | /Bound under ~SPC m g~ rather than ~SPC m G~ when ~lsp-navigation~ == ~'peek~/   |
+| ~SPC m G b~   | jump back (=lsp-ui-peek=)                                                        |
 | ~SPC m G i~   | find implementation (=lsp-ui-peek=)                                              |
 | ~SPC m G d~   | find definitions (=lsp-ui-peek=)                                                 |
 | ~SPC m G r~   | find references (=lsp-ui-peek=)                                                  |
