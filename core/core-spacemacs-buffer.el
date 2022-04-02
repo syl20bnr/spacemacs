@@ -458,7 +458,7 @@ BOTCAPTION: a text to be encrusted at the bottom of the frame.
 ADDITIONAL-WIDGETS: a function for inserting a widget under the frame."
   (save-excursion
     (goto-char (point-min))
-    (search-forward "Search in Spacemacs\]") ; TODO: this is dirty
+    (search-forward "Search in Spacemacs\]" nil "move to limit") ; TODO: this is dirty
     (forward-line)
     (let* ((buffer-read-only nil)
            (note (concat "\n"
