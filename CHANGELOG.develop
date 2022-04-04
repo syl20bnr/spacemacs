@@ -817,6 +817,7 @@ Other:
     default (thanks to Daniel Nicolai)
   - Add evil-jump-backward/forward (=C-o=/=C-i=) keybindings to
     evil-evilified-state-map (thanks to Daniel Nicolai)
+  - Improve helm completion in spacemacs-help (thanks to @dankessler)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
