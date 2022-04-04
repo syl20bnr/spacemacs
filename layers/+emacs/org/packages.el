@@ -72,6 +72,7 @@
     (valign :toggle org-enable-valign)
     (org-appear :toggle org-enable-appear-support)
     (org-transclusion :toggle org-enable-transclusion-support)
+    helm
     (ox-asciidoc :toggle org-enable-asciidoc-support)))
 
 (defun org/post-init-company ()
@@ -1060,3 +1061,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
 (defun org/init-ox-asciidoc ()
   (use-package ox-asciidoc
     :after ox))
+
+(defun org/post-init-helm ()
+  (if (not (boundp 'helm-imenu-extra-modes))
+    (setq helm-imenu-extra-modes '(org-mode)))
+  (add-to-list 'helm-imenu-extra-modes 'org-mode))

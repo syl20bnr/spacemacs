@@ -9,19 +9,21 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
-  - [[#git-configuration][Git configuration]]
   - [[#grip-mode][grip-mode]]
 - [[#key-bindings][Key bindings]]
-  - [[#clone-repositories][Clone repositories]]
   - [[#grip-mode-1][Grip-mode]]
 
 * Description
-This layers adds support for [[http://github.com][GitHub]].
+*This layer is deprecated*.
+
+The layer had support searching for and cloning [[http://github.com][GitHub]] repositories,
+although that did not provide a secure way to store an access token
+to connect to GitHub.
+
+The git layer provides interaction with GitHub and can securely
+store the access token using PGP.
 
 ** Features:
-- [[https://github.com/magit/forge][forge]]: integration with various forges, such as GitHub and GitLab.
-- [[https://github.com/sshaw/git-link][git-link]]: quickly generate URLs for commits or files.
-- [[https://github.com/dgtized/github-clone.el][github-clone]] allows for easy cloning and forking of repositories.
 - [[https://github.com/seagle0128/grip-mode][grip-mode]] Github-flavored Markdown/Org preview using [[https://github.com/joeyespo/grip][Grip]].
 
 * Install
@@ -30,17 +32,6 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =github= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-** Git configuration
-You will need to generate a [[https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line][personal access token]] on GitHub. This token should
-have the =gist= and =repo= permissions. Once this token is created, it needs to
-be added to your =~/.gitconfig=
-
-You will also need to [[https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/][generate an SSH key]] and [[https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/][add it to your GitHub account]].
-
-#+BEGIN_SRC sh
-  git config --global github.oauth-token <token>
-#+END_SRC
-
 ** grip-mode
 Grip-mode [[https://github.com/seagle0128/grip-mode#prerequisite][requires python and the python package grip]] to be installed on the
 system. Grip can usually be installed with the command =pip install grip=,
@@ -48,16 +39,6 @@ on debian based systems make sure you use the python 3 version
 of pip, it is normally called =pip3=.
 
 * Key bindings
-** Clone repositories
-
-| Key binding   | Description                                              |
-|---------------+----------------------------------------------------------|
-| ~SPC g h c /~ | search for a repository to clone it                      |
-| ~SPC g h c c~ | clone and optionally fork repository                     |
-| ~SPC g h c r~ | add a remote that is an existing fork of selected remote |
-| ~SPC g h c f~ | fork remote in current user namespace                    |
-| ~SPC g h c u~ | add upstream as remote                                   |
-
 ** Grip-mode
 
 | Key binding | Description                                                 |

@@ -24,8 +24,8 @@
 (defconst neotree-packages
   '(
     neotree
-    winum
-    ))
+    winum))
+
 
 (defun neotree/init-neotree ()
   (use-package neotree
@@ -93,7 +93,7 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
         (evilified-state-evilify-map neotree-mode-map
           :mode neotree-mode
           :bindings
-          (kbd "TAB")  'neotree-stretch-toggle
+          (kbd "TAB") 'neotree-stretch-toggle
           (kbd "RET") 'spacemacs/neotree-expand-or-open
           (kbd "|") 'neotree-enter-vertical-split
           (kbd "-") 'neotree-enter-horizontal-split
@@ -113,6 +113,9 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
           (kbd "q") 'neotree-hide
           (kbd "r") 'neotree-rename-node
           (kbd "R") 'neotree-change-root
+          (kbd "zz") 'evil-scroll-line-to-center
+          (kbd "zt") 'evil-scroll-line-to-top
+          (kbd "zb") 'evil-scroll-line-to-bottom
           (kbd "?") 'spacemacs/neotree-transient-state/body
           (kbd "s") 'neotree-hidden-file-toggle))
 
