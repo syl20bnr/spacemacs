@@ -192,10 +192,10 @@
 (defvar helm-spacemacs-help--layer-map
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map helm-map)
-    (define-key map (kbd "<S-return>") '(lambda () (interactive)
+    (define-key map (kbd "<S-return>") #'(lambda () (interactive)
                                           ;; Add Layer
                                           (helm-select-nth-action 3)))
-    (define-key map (kbd "<M-return>") '(lambda () (interactive)
+    (define-key map (kbd "<M-return>") #'(lambda () (interactive)
                                           ;; Open packages.el
                                           (helm-select-nth-action 1)))
     map)
