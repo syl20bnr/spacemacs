@@ -75,6 +75,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   (thanks to Sylvain Benner, Compro Prasad and Keith Simmons)
 - Added support for native fill column indicator in Emacs 27+ (thanks to
   Andriy Kmit)
+- Added keybindings for ~forge-edit-topic-assignees~, ~forge-browse-pullreq~, ~forge-edit-topic-title~, ~forge-copy-url-at-point-as-kill~, and ~forge-checkout-pullreq~ in =forge-merge-topic-mode=. (thanks to Nick Anderson)
 *** Breaking Changes
 **** Major
 - Support for Emacs 25 or Emacs 26 has been dropped, the minimal Emacs version
