@@ -25,6 +25,7 @@
   - [[#autoflake][autoflake]]
   - [[#pylookup][pylookup]]
   - [[#dap-mode-debugger-only-for-lsp-backend][dap-mode debugger (only for lsp backend)]]
+  - [[#notebook-and-code-cells][Notebook and code cells]]
 - [[#configuration][Configuration]]
   - [[#fill-column][Fill column]]
   - [[#sort-imports][Sort imports]]
@@ -70,6 +71,7 @@ This layer adds support for the Python language.
 - Fix a missing import statement with [[https://github.com/anachronic/importmagic.el][importmagic]]
 - Pip package manager with [[https://github.com/brotzeit/pippel][pippel]]
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
+- Support for ipython notebook and MATLAB-like cells using using [[https://github.com/astoff/code-cells.el][code-cells]]
 
 * Install
 ** Layer
@@ -305,6 +307,15 @@ To use =dap-mode= for debugging do:
 #+BEGIN_SRC bash
   pip install "ptvsd>=4.2"
 #+END_SRC
+
+** Notebook and code cells
+To use =code-cells-mode= with ipython notebook automatically you should install
+[[https://github.com/mwouts/jupytext][jupytext]]. Make sure that the =ipython-notebook= layer is not used.
+
+Then you can evaluate the current cell in a REPL process with ~SPC m s c~ or all
+the cells above with ~SPC m s a~.
+You can also move to the next cell with ~SPC m g F~ and to the previous cell
+with ~SPC m g B~.
 
 * Configuration
 ** Fill column

@@ -24,6 +24,7 @@
 (defconst python-packages
   '(
     blacken
+    code-cells
     company
     counsel-gtags
     cython-mode
@@ -94,6 +95,19 @@
         (evil--jumps-push))
       (add-to-list 'spacemacs-jump-handlers-python-mode
                    '(anaconda-mode-find-definitions :async t)))))
+
+(defun python/init-code-cells ()
+  (use-package code-cells
+    :if (not (configuration-layer/layer-used-p 'ipython-notebook))
+    :defer t
+    :init
+    (progn
+      (add-hook 'python-mode-hook 'code-cells-mode)
+      (spacemacs/set-leader-keys-for-minor-mode 'code-cells-mode
+        "gB" 'code-cells-backward-cell
+        "gF" 'code-cells-forward-cell
+        "sc" 'code-cells-eval
+        "sa" 'code-cells-eval-above))))
 
 (defun python/post-init-company ()
   ;; backend specific
