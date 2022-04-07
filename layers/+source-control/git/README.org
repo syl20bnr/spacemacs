@@ -12,6 +12,8 @@
   - [[#git][Git]]
     - [[#basic-git-configuration][Basic Git configuration]]
     - [[#using-ssh-urls-for-remote-repositories][Using SSH URLs for remote repositories]]
+    - [[#using-https-urls-for-remote-repositories][Using HTTPS URLs for remote repositories]]
+      - [[#github-https-push-urls][GitHub HTTPS push URLs]]
   - [[#magit-status-fullscreen][Magit status fullscreen]]
   - [[#magit-auto-complete][Magit auto-complete]]
   - [[#magit-plugins][Magit Plugins]]
@@ -80,6 +82,33 @@ An SSH key removes the need to provide login details for each request from Magit
 to the remote repository service.
 - [[https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account][GitHub SSH key documentation]]
 - [[https://docs.gitlab.com/ee/ssh/#add-an-ssh-key-to-your-gitlab-account][GitLab SSH key documentation]]
+
+*** Using HTTPS URLs for remote repositories
+Remote repositories may require a specific URL to push changes to a remote
+repository when using HTTPS authentication, rather than the simple URL that you
+would use when cloning and pulling.
+
+**** GitHub HTTPS push URLs
+GitHub requires a personal access token be configured when authenticating over
+HTTPS. See the [[#magit-forge-configuration][Magit Forge configuration]] documentation below for a more
+information about personal access tokens and Magit.
+
+To use a personal access token to authentcate =git push= commands to a
+GitHub-hosted remote repository with Magit, set the push URL for the remote you
+wish to push to to be of the form below. Replace the uppercase components of the
+URL with your own information.
+
+#+begin_example https
+  https://YOUR_PERSONAL_ACCESS_TOKEN@github.com/YOUR_USER_NAME/REPOSITORY.git
+#+end_example
+
+Once the remote push URL is set properly as exampled, you can push to GitHub
+using a personal access token. If you are using HTTPS authentication and
+properly set the remote push URL as above, you will not need to use both an SSH
+key and a personal access token for authentication.
+
+To learn more about Magit and configuring remote repositories see the Magit
+manual.
 
 ** Magit status fullscreen
 To display the =magit status= buffer in fullscreen set the variable
