@@ -39,6 +39,10 @@
   "Face for displaying key bindings in Spacemacs documents."
   :group 'org-faces)
 
+;; FIXME; if a package, such as doom-themes, includes a new theme then a warning
+;; and package install will be attempted. The proper way to check over this
+;; would be to find a theme file in an installed theme package, and take the
+;; theme name from here.
 (defconst spacemacs-theme-name-to-package
   '(
     (alect-black                      . alect-themes)
@@ -222,6 +226,7 @@
     (doom-solarized-light             . doom-themes)
     (doom-sourcerer                   . doom-themes)
     (doom-spacegrey                   . doom-themes)
+    (doom-tokyo-night                 . doom-themes)
     (doom-tomorrow-day                . doom-themes)
     (doom-tomorrow-night              . doom-themes)
     (doom-vibrant                     . doom-themes)
@@ -318,6 +323,7 @@ package name does not match theme name + `-theme' suffix.")
    ;; fallback to <name>-theme
    (t (intern (format "%S-theme" theme-name)))))
 
+;; FIXME: UNNECESSARY.
 (defun spacemacs//get-theme-name (theme)
   "Return the name of THEME."
   (if (listp theme)
