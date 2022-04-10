@@ -969,15 +969,16 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :config
     (progn
       (spacemacs|hide-lighter org-roam-mode)
-      (when org-enable-roam-protocol
-          (add-hook 'org-roam-mode-hook (lambda ()
-                                          (require 'org-roam-protocol))))
 
       (evilified-state-evilify-map org-roam-mode-map
         :mode org-roam-mode
         :bindings
         "o" 'link-hint-open-link
-        "r" 'org-roam-buffer-refresh))))
+        "r" 'org-roam-buffer-refresh)))
+
+  (use-package org-roam-protocol
+    :if org-roam-enable-protocol
+    :after org-protocol))
 
 (defun org/init-org-sticky-header ()
   (use-package org-sticky-header
