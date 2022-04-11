@@ -24,6 +24,7 @@
 (defconst git-packages
   '(
     evil-collection
+    evil-surround
     fill-column-indicator
     ;; forge requires a C compiler on Windows so we disable
     ;; it by default on Windows.
@@ -54,6 +55,12 @@
   (spacemacs|use-package-add-hook golden-ratio
     :post-config
     (add-to-list 'golden-ratio-exclude-buffer-names " *transient*")))
+
+;; evil-surround bindings interfere with line-wise staging
+(defun git/post-init-evil-surround ()
+  (spacemacs|use-package-add-hook magit
+    :post-config
+    (add-hook 'magit-status-mode-hook #'turn-off-evil-surround-mode)))
 
 (defun git/pre-init-evil-collection ()
   (when (spacemacs//support-evilified-buffer-p)
