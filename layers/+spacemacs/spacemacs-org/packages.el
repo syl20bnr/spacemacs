@@ -47,14 +47,6 @@
     :defer t
     :init
     (progn
-      ;; FIXME: This check has been disabled pending a resolution of
-      ;; https://github.com/syl20bnr/spacemacs/issues/3933
-      ;; (when (featurep 'org)
-      ;;   (configuration-layer//set-error)
-      ;;   (spacemacs-buffer/append
-      ;;    (concat
-      ;;     "Org features were loaded before the `org' layer initialized.\n"
-      ;;     "Try removing org code from user initialization and private layers.") t))
       (setq org-startup-with-inline-images t
             org-src-fontify-natively t
             ;; this is consistent with the value of
