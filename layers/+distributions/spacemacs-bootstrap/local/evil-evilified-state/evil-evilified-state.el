@@ -198,7 +198,11 @@ Needed to bypass keymaps set as text properties."
 (define-key evil-evilified-state-map (kbd "C-d") 'evil-scroll-down)
 (define-key evil-evilified-state-map (kbd "C-u") 'evil-scroll-up)
 (define-key evil-evilified-state-map (kbd "C-o") 'evil-jump-backward)
-(define-key evil-evilified-state-map (kbd "C-i") 'evil-jump-forward)
+(if evil-want-C-i-jump
+    ;; In terminal mode, `TAB` and `<C-i>' generate the same key press. Only if
+    ;; `evil-want-C-i-jump' holds, `TAB' should bind to the same function as
+    ;; `<C-i>'.
+    (define-key evil-evilified-state-map (kbd "C-i") 'evil-jump-forward))
 (define-key evil-evilified-state-map (kbd "C-z") 'evil-emacs-state)
 (define-key evil-evilified-state-map (kbd "C-w") 'evil-window-map)
 (setq evil-evilified-state-map-original (copy-keymap evil-evilified-state-map))
