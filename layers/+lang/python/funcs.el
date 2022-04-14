@@ -105,7 +105,7 @@
 ;; others
 
 (defun spacemacs//python-default ()
-  "Defaut settings for python buffers"
+  "Default settings for python buffers"
   (setq mode-name "Python"
         tab-width python-tab-width
         fill-column python-fill-column)
