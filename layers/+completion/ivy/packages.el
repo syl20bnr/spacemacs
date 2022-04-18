@@ -35,6 +35,7 @@
         ivy
         ivy-avy
         ivy-hydra
+        (ivy-posframe :toggle ivy-enable-posframe)
         (ivy-rich :toggle (progn
                             (when ivy-enable-icons
                               (setq ivy-enable-advanced-buffer-information t))
@@ -437,3 +438,9 @@
   (evil-define-key 'normal wgrep-mode-map ",c" 'wgrep-finish-edit)
   (evil-define-key 'normal wgrep-mode-map ",a" 'wgrep-abort-changes)
   (evil-define-key 'normal wgrep-mode-map ",k" 'wgrep-abort-changes))
+
+(defun ivy/init-ivy-posframe ()
+  (use-package ivy-posframe
+    :config
+    (ivy-posframe-mode)
+    (spacemacs|diminish ivy-posframe-mode)))
