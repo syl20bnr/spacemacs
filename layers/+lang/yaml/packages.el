@@ -41,5 +41,5 @@
     (when yaml-enable-lsp
       (add-hook 'yaml-mode-hook #'lsp))
     :config (add-hook 'yaml-mode-hook
-                      #'(lambda ()
+                      (lambda ()
                          (define-key yaml-mode-map "\C-m" 'newline-and-indent)))))

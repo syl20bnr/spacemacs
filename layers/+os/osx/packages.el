@@ -117,11 +117,11 @@
     (osx-clipboard-paste-function osx-clipboard-cut-function)
     :init
     (progn
-      (setq interprogram-cut-function '(lambda (text &rest ignore)
+      (setq interprogram-cut-function (lambda (text &rest ignore)
                                         (if (display-graphic-p)
                                             (gui-select-text text)
                                           (osx-clipboard-cut-function text)))
-            interprogram-paste-function '(lambda ()
+            interprogram-paste-function (lambda ()
                                           (if (display-graphic-p)
                                               (gui-selection-value)
                                             (osx-clipboard-paste-function)))))))

@@ -112,7 +112,7 @@
                  (spacemacs|hide-lighter pangu-spacing-mode)
                  ;; Always insert `real' space in org-mode.
                  (add-hook 'org-mode-hook
-                           #'(lambda ()
+                           (lambda ()
                               (setq-local pangu-spacing-real-insert-separtor t))))))
 
 (defun chinese/init-chinese-conv ()

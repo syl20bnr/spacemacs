@@ -558,7 +558,7 @@ Run PROJECT-ACTION on project."
      :mode-line helm-read-file-name-mode-line-string
      :keymap (let ((map (make-sparse-keymap)))
                (define-key map
-                 (kbd "C-d") #'(lambda () (interactive)
+                 (kbd "C-d") (lambda () (interactive)
                                  (helm-exit-and-execute-action
                                   (lambda (project)
                                     (spacemacs||switch-project-persp project

@@ -62,7 +62,7 @@
       (kbd "C-j") 'dired-next-subdir
       (kbd "C-k") 'dired-prev-subdir
       "I"         'vinegar/dotfiles-toggle
-      (kbd "~")   '(lambda ()(interactive) (find-alternate-file "~/"))
+      (kbd "~")   (lambda ()(interactive) (find-alternate-file "~/"))
       (kbd "RET") (if vinegar-reuse-dired-buffer
                       'dired-find-alternate-file
                     'dired-find-file)

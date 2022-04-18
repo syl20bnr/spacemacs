@@ -42,7 +42,7 @@
                         (warning line-start (file-name) ":"
                                  line ": " "warning: " (message) line-end))
       :modes 'yang-mode
-      :error-filter '(lambda (errors)
+      :error-filter (lambda (errors)
                        (-> errors
                            flycheck-dedent-error-messages
                            flycheck-sanitize-errors)))

@@ -47,4 +47,4 @@
   (use-package solidity-flycheck
     :defer t
     :init
-    (add-hook 'solidity-mode-hook #'(lambda () (require 'solidity-flycheck)))))
+    (add-hook 'solidity-mode-hook (lambda () (require 'solidity-flycheck)))))

@@ -101,7 +101,7 @@
     (progn
       (add-hook
        'julia-mode-hook
-       #'(lambda ()
+       (lambda ()
            (add-to-list 'evil-surround-pairs-alist '(?b . ("begin " . " end")))
            (add-to-list 'evil-surround-pairs-alist '(?q . ("quote " . " end")))
            (add-to-list 'evil-surround-pairs-alist '(?: . (":("     .    ")")))
