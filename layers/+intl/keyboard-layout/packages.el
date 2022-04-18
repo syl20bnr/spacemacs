@@ -124,7 +124,7 @@
     "Remap `ediff' bindings."
     :loader
     ;; HACK: ediff-mode-map is only defined when ediff is started
-    (add-hook 'ediff-startup-hook #'(lambda () BODY))
+    (add-hook 'ediff-startup-hook (lambda () BODY))
     :common
     (kl/correct-keys ediff-mode-map
       "h"

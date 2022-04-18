@@ -510,7 +510,7 @@ With Helm, remember the path, then restore it after SEC.
 With Ivy, the path isn't editable, just remove the MSG after SEC."
   (run-at-time
    0 nil
-   #'(lambda (msg sec)
+   (lambda (msg sec)
        (let* ((prev-prompt-contents
                (buffer-substring (line-beginning-position)
                                  (line-end-position)))

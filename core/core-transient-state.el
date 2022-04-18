@@ -211,7 +211,7 @@ used."
        (add-to-list ',props-var '(entry-sexp ,entry-sexp))
        (add-to-list ',props-var '(exit-sexp ,exit-sexp))
        (spacemacs/defer-until-after-user-config
-        '(lambda ()
+        (lambda ()
            (eval
             (append
              '(defhydra ,func
