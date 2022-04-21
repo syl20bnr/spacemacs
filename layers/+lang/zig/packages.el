@@ -27,4 +27,4 @@
 
 (defun zig/init-zig-mode ()
   (use-package zig-mode
-    :hook (zig-mode-hook . spacemacs//zig-setup-backend)))
+    :hook (zig-mode . spacemacs//zig-setup-backend)))
