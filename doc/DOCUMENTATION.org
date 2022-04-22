@@ -37,6 +37,7 @@
 - [[#dotfile-configuration][Dotfile Configuration]]
   - [[#dotfile-installation][Dotfile Installation]]
   - [[#alternative-dotdirectory][Alternative dotdirectory]]
+    - [[#chemacs-users-with-config_homespacemacsd-as-spacemacsdir][Chemacs users with =$CONFIG_HOME/.spacemacs.d= as =$SPACEMACSDIR=]]
   - [[#synchronization-of-dotfile-changes][Synchronization of dotfile changes]]
   - [[#testing-the-dotfile][Testing the dotfile]]
   - [[#dotfile-contents][Dotfile Contents]]
@@ -561,8 +562,8 @@ the dotfile directory.
 #+name: chemacs-spacemacsdir-example
 #+begin_example emacs-lisp
   (("default"   . ((user-emacs-directory . "~/.spacemacs.d")
-		               (env . (("SPACEMACS_INIT_FILE_NAME" . "spacemacs")))))
-   ("gnu"       . ((user-emacs-directory . "~/.emacs.gnu.d"))))
+                   (env . (("SPACEMACS_INIT_FILE_NAME" . "spacemacs")))))
+  ("gnu"       . ((user-emacs-directory . "~/.emacs.gnu.d"))))
 #+end_example
 
 ** Synchronization of dotfile changes
