@@ -35,9 +35,15 @@
 Useful for users in order to given them a hint of potential bottleneck in
 their configuration.")
 
+;; Set directory variable containing effective `.spacemacs' file. Will be one of
+;; `~/.spacemacs', `~/.spacemacs.d/init.el',
+;; `~/.spacemacs.d/${SPACEMACS_INIT_FILE_NAME}', `${SPACEMACSDIR}/init.el', or
+;; `${SPACEMACSDIR}/${SPACEMACS_INIT_FILE_NAME}'.
 (let* ((env (getenv "SPACEMACSDIR"))
        (env-dir (when env (expand-file-name (concat env "/"))))
-       (env-init (and env-dir (expand-file-name "init.el" env-dir)))
+       (env-init-file-name (or (getenv "SPACEMACS_INIT_FILE_NAME")
+                               "init.el"))
+       (env-init (and env-dir (expand-file-name env-init-file-name env-dir)))
        (no-env-dir-default (expand-file-name
                             (concat user-home-directory
                                     ".spacemacs.d/")))
@@ -45,8 +51,7 @@ their configuration.")
   (defconst dotspacemacs-directory
     (cond
      ((and env (file-exists-p env-dir)) env-dir)
-     ((file-exists-p no-env-dir-default) no-env-dir-default)
-     (t nil))
+     ((file-exists-p no-env-dir-default) no-env-dir-default))
     "Optional spacemacs directory, which defaults to
 ~/.spacemacs.d. This setting can be overridden using the
 SPACEMACSDIR environment variable. If neither of these
@@ -55,18 +60,19 @@ directories exist, this variable will be nil.")
   (defvar dotspacemacs-filepath
     (let ((spacemacs-dir-init (when dotspacemacs-directory
                                 (concat dotspacemacs-directory
-                                        "init.el"))))
+                                        env-init-file-name))))
       (cond
        (env-init)
-       ((file-exists-p default-init) default-init)
        ((and dotspacemacs-directory (file-exists-p spacemacs-dir-init))
         spacemacs-dir-init)
-       (t default-init)))
-    "Filepath to the installed dotfile. If SPACEMACSDIR is given
-then SPACEMACSDIR/init.el is used. Otherwise, if ~/.spacemacs
-exists, then this is used. If ~/.spacemacs does not exist, then
-check for init.el in dotspacemacs-directory and use this if it
-exists. Otherwise, fallback to ~/.spacemacs"))
+       ((file-exists-p default-init) default-init)
+       (default-init)))
+    "Filepath to the installed user–init file (dotfile, like
+`.spacemacs'). If the SPACEMACSDIR environment variable is set
+then `${SPACEMACSDIR}/init.el' is used. If the
+`$SPACEMACS_INIT_FILE_NAME' environment variable is set its value
+is substituted for `init.el'. Otherwise `~/.spacemacs' is used if
+it exists; if it does not exist it will be created."))
 
 (spacemacs|defc dotspacemacs-distribution 'spacemacs
   "Base distribution to use. This is a layer contained in the directory

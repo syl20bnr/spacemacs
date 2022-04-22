@@ -550,6 +550,21 @@ change the location of this directory.
 so =~/.spacemacs= must not exist for =~/.spacemacs.d/init.el= to be used by
 Spacemacs.
 
+*** Chemacs users with =$CONFIG_HOME/.spacemacs.d= as =$SPACEMACSDIR=
+Users of Chemacs may use =$CONFIG_HOME/.spacemacs.d= as =$SPACEMACSDIR=, so long
+as they define an additional environment variable =SPACEMACS_INIT_FILE_NAME= to
+something other than ~init.el~. Chemacs users can still use =.spacemacs.d= as
+their dotfile directory with Chemacs as long as they retain a =.spacemacs= file
+otherwise, if they do not declare an alternative dotfile name and locate that in
+the dotfile directory.
+
+#+name: chemacs-spacemacsdir-example
+#+begin_example emacs-lisp
+  (("default"   . ((user-emacs-directory . "~/.spacemacs.d")
+		               (env . (("SPACEMACS_INIT_FILE_NAME" . "spacemacs")))))
+   ("gnu"       . ((user-emacs-directory . "~/.emacs.gnu.d"))))
+#+end_example
+
 ** Synchronization of dotfile changes
 To apply the modifications made in =~/.spacemacs= press ~SPC f e R~. It will
 re-execute the Spacemacs initialization process.
