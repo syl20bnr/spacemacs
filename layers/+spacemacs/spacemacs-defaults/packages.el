@@ -393,7 +393,10 @@
   (spacemacs|hide-lighter page-break-lines-mode))
 
 (defun spacemacs-defaults/init-process-menu ()
-  (evilified-state-evilify process-menu-mode process-menu-mode-map))
+  (evilified-state-evilify-map process-menu-mode-map
+    :mode process-menu-mode
+    :bindings
+    "gr" 'revert-buffer))
 
 (defun spacemacs-defaults/init-quickrun ()
   (use-package quickrun
