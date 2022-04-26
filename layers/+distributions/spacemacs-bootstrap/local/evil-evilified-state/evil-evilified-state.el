@@ -288,7 +288,7 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
   (while pre-bindings
     (let ((key (pop pre-bindings))
           (func (pop pre-bindings)))
-      (eval `(define-key ,map key ,func)))))
+      (eval `(define-key ,map ,key ,func)))))
 
 (defun evilified-state--configure-default-state (mode)
   "Configure default state for the passed mode."
