@@ -84,7 +84,7 @@ layer is loaded.
 Installing the lsp server dependency can be done like this:
 
 #+BEGIN_SRC sh
-  npm install -g vscode-json-languageserver
+  npm install -g vscode-langservers-extracted
 #+END_SRC
 
 * Usage
