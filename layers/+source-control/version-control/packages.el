@@ -247,7 +247,6 @@
   (use-package smerge-mode
     :defer t
     :diminish smerge-mode
-    :commands spacemacs/smerge-transient-state/body
     :init
     (progn
       (spacemacs/set-leader-keys
@@ -267,6 +266,7 @@
         :title "Smerge Transient State"
         :hint-is-doc t
         :dynamic-hint (spacemacs//smerge-ts-hint)
+        :on-enter (require 'smerge-mode)
         :bindings
         ;; move
         ("n" smerge-vc-next-conflict)
