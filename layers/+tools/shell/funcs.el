@@ -274,7 +274,7 @@ tries to restore a dead buffer or window."
 (defun spacemacs/helm-vterm-search-history ()
   "Narrow down bash history with helm."
   (interactive)
-  (assert (string-equal mode-name "VTerm") nil "Not in VTerm mode")
+  (cl-assert (string-equal mode-name "VTerm") nil "Not in VTerm mode")
   (helm :sources (helm-build-sync-source "Bash history"
                                          :candidates (spacemacs//vterm-make-history-candidates)
                                          :action #'vterm-send-string)
@@ -284,7 +284,7 @@ tries to restore a dead buffer or window."
 (defun spacemacs/counsel-vterm-search-history ()
   "Narrow down bash history with ivy."
   (interactive)
-  (assert (string-equal mode-name "VTerm") nil "Not in VTerm mode")
+  (cl-assert (string-equal mode-name "VTerm") nil "Not in VTerm mode")
   (ivy-read "Bash history: "
             (spacemacs//vterm-make-history-candidates)
             :keymap counsel-describe-map
