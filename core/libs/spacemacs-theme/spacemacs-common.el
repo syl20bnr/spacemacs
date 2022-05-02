@@ -269,6 +269,7 @@ to 'auto, tags may not be properly aligned. "
 ;;;;; cider
      `(cider-enlightened ((,class (:background nil :box (:color ,yellow :line-width -1 :style nil) :foreground ,yellow))))
      `(cider-enlightened-local ((,class (:foreground ,yellow))))
+     `(cider-fringe-good-face ((,class (:foreground ,suc))))
      `(cider-instrumented-face ((,class (:background nil :box (:color ,red :line-width -1 :style nil) :foreground ,red))))
      `(cider-result-overlay-face ((,class (:background nil :box (:color ,blue :line-width -1 :style nil) :foreground ,blue))))
      `(cider-test-error-face ((,class (:background ,war :foreground ,bg1))))
