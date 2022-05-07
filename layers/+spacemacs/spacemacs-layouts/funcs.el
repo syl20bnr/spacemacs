@@ -111,9 +111,21 @@ Cancels autosave on exiting perspectives mode."
   (let ((ivy-ignore-buffers (remove #'spacemacs//layout-not-contains-buffer-p ivy-ignore-buffers)))
     (ivy-switch-buffer)))
 
+(defmacro spacemacs||with-persp-buffer-list (&rest body)
+  "This one is a brute force version of `with-persp-buffer-list'.
+It maitains the order of the original `buffer-list'"
+  `(cl-letf* ((org-buffer-list
+               (symbol-function 'buffer-list))
+              ((symbol-function 'buffer-list)
+               #'(lambda (&optional frame)
+                   (seq-filter
+                    #'persp-contain-buffer-p
+                    (funcall org-buffer-list frame)))))
+     ,@body))
+
 (defun spacemacs-layouts//advice-with-persp-buffer-list (orig-fun &rest args)
   "Advice to provide persp buffer list."
-  (with-persp-buffer-list () (apply orig-fun args)))
+  (spacemacs||with-persp-buffer-list () (apply orig-fun args)))
 
 
 ;; Persp transient-state
