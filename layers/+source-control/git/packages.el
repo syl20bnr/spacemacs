@@ -357,8 +357,19 @@
       (setq forge-database-file (concat spacemacs-cache-directory
                                         "forge-database.sqlite"))
       (spacemacs/set-leader-keys-for-major-mode 'forge-topic-mode
+        "a" 'forge-edit-topic-assignees
         "c" 'forge-create-post
-        "e" 'forge-edit-post)
+        "C" 'forge-checkout-pullreq
+        "b" 'forge-browse-topic
+        "d" 'forge-delete-comment
+        "e" 'forge-edit-post
+        "m" 'forge-edit-topic-marks
+        "M" 'forge-create-mark
+        "n" 'forge-edit-topic-note
+        "r" 'forge-edit-topic-review-requests
+        "s" 'forge-edit-topic-state
+        "t" 'forge-edit-topic-title
+        "u" 'forge-copy-url-at-point-as-kill)
       (spacemacs/set-leader-keys-for-major-mode 'forge-post-mode
         dotspacemacs-major-mode-leader-key 'forge-post-submit
         "c" 'forge-post-submit
