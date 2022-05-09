@@ -2151,6 +2151,8 @@ Other:
   - Unbind ~C-f~ from =magit-gitflow-popup= (thanks to rayw000)
   - Implement performance hack for MacOS mentioned in Magit manual (thanks to
     Keith Pinson)
+  - Magit Forge key bindings for editing a topic, i.e. issue, PR (thanks to
+    @practicalli-john & @nickanderson)
 - Fixes:
   - Install magit-svn by default and activate with git-enable-magit-svn-plugin
   - Added feature to toggle =evil-magit= based on editing style

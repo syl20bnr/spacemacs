@@ -462,11 +462,23 @@ In a =magit-status= buffer (~SPC g s~):
 | ~f N~       | pull all notifications for the current repository's forge |
 
 In a =forge-topic= buffer:
+(a topic is either an issue or pull request)
 
-| Key binding | Description     |
-|-------------+-----------------|
-| ~SPC m c~   | create new post |
-| ~SPC m e~   | edit post       |
+| Key binding | Description                                     |
+|-------------+-------------------------------------------------|
+| ~SPC m a~   | assign people to topic                          |
+| ~SPC m b~   | browse topic (open in web browser)              |
+| ~SPC m c~   | create comment post to existing topic)          |
+| ~SPC m C~   | Checkout pull request (not for issues)          |
+| ~SPC m d~   | delete comment under cursor                     |
+| ~SPC m e~   | edit topic body                                 |
+| ~SPC m m~   | edit topic marks (mark is an unshared label)    |
+| ~SPC m M~   | create mark to use with topics                  |
+| ~SPC m n~   | edit personal note (adds to top of topic)       |
+| ~SPC m r~   | edit list of people to review an existing topic |
+| ~SPC m s~   | change topic state (open, closed, draft, etc.)  |
+| ~SPC m t~   | edit topic title                                |
+| ~SPC m u~   | copy URL of topic (add to kill ring)            |
 
 In a =forge-post= buffer (assuming the major mode leader key is ~,~)
 
