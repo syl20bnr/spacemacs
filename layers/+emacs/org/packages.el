@@ -1018,6 +1018,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-valign ()
   (use-package valign
+    :after org
     :init
     (progn
       (add-hook 'org-mode-hook 'valign-mode)
