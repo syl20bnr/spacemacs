@@ -77,7 +77,7 @@ are configured.")
 (defvar org-enable-verb-support nil
   "If non-nil, Verb (https://github.com/federicotdn/verb) is configured.")
 
-(defvar org-enable-roam-support (bound-and-true-p org-enable-roam-server)
+(defvar org-enable-roam-support (bound-and-true-p org-enable-roam-ui)
   "If non-nil, org-roam (https://www.orgroam.com/) is configured")
 
 (defvar org-persp-startup-org-file nil
@@ -93,8 +93,8 @@ ATTENTION: `valign-mode' will be laggy working with tables contain more than 100
 (defvar org-enable-appear-support nil
   "If non-nil, enable org-appear in org-mode buffers.")
 
-(defvar org-enable-roam-server nil
-  "If non-nil, enable org-roam-server support.")
+(defvar org-enable-roam-ui nil
+  "If non-nil, enable org-roam-ui support.")
 
 (defvar org-enable-roam-protocol nil
   "If non-nil, enable org-roam-protocol.

@@ -27,7 +27,7 @@
   - [[#project-support][Project support]]
   - [[#org-brain-support][Org-brain support]]
   - [[#org-roam-support][Org-roam support]]
-    - [[#org-roam-server-support][Org-roam-server support]]
+    - [[#org-roam-ui-support][Org-roam-ui support]]
     - [[#org-roam-protocol-support][Org-roam-protocol support]]
   - [[#mode-line-support][Mode line support]]
   - [[#sticky-header-support][Sticky header support]]
@@ -467,9 +467,10 @@ To install org-roam support set the variable =org-enable-roam-support= to =t=.
 
 More information about org-roam package (including manual) can be found at [[https://www.orgroam.com/][Org-roam]] website.
 
-*** Org-roam-server support
-To install support for [[https://github.com/org-roam/org-roam-server][org-roam-server]] set the variable =org-enable-roam-server=
-to =t=.
+*** Org-roam-ui support
+To install support for [[https://github.com/org-roam/org-roam-ui][org-roam-ui]] set the variable =org-enable-roam-ui= to =t=.
+
+Use ~M-x org-roam-ui-mode~ to enable the global mode. It will start a web browser and connect to it for real-time updates.
 
 *** Org-roam-protocol support
 To enable support for [[https://www.orgroam.com/manual.html#Org_002droam-Protocol][Org Roam Protocol]] set the variable
