@@ -141,7 +141,7 @@ As this state works the same for all files, the documentation is in global
 
 *** Macroexpansion
 
-| Key binding | Description                                   |
-|-------------+-----------------------------------------------|
-| ~SPC m m a~ | Macroexpand the expression at point completly |
-| ~SPC m m o~ | Macroexpand the expression at point once      |
+| Key binding | Description                                    |
+|-------------+------------------------------------------------|
+| ~SPC m m a~ | Macroexpand the expression at point completely |
+| ~SPC m m o~ | Macroexpand the expression at point once       |
