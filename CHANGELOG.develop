@@ -2925,6 +2925,7 @@ files (thanks to Daniel Nicolai)
   - Added package =org-contacts= (thanks to Daniel Nicolai)
   - Added package =org-appear= (thanks to winsphinX)
   - Added package =org-wild-notifier= (thanks to Daniel Nicolai)
+  - Added package =org-roam-ui= (thanks to winsphinX)
 - Key bindings:
   - ~SPC m s y~ for =org-copy-subtree= (thanks to Keith Pinson)
   - ~SPC m T i~ to toggle inline images
