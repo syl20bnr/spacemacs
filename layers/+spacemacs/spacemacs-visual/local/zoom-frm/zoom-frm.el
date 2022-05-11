@@ -4,13 +4,13 @@
 ;; Description: Commands to zoom frame font size.
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
-;; Copyright (C) 2005-2021, Drew Adams, all rights reserved.
+;; Copyright (C) 2005-2022, Drew Adams, all rights reserved.
 ;; Created: Fri Jan 07 10:24:35 2005
 ;; Version: 0
 ;; Package-Requires: ((frame-fns "0") (frame-cmds "0"))
-;; Last-Updated: Thu Mar 18 09:07:56 2021 (-0700)
+;; Last-Updated: Mon Feb 21 10:35:29 2022 (-0800)
 ;;           By: dradams
-;;     Update #: 362
+;;     Update #: 374
 ;; URL: https://www.emacswiki.org/emacs/download/zoom-frm.el
 ;; Doc URL: https://emacswiki.org/emacs/SetFonts
 ;; Keywords: frames, extensions, convenience
@@ -178,6 +178,8 @@
 ;;
 ;;; Change Log:
 ;;
+;; 2022/02/21 dadams
+;;     zoom-in/out: Fixed to respect frame-zoom-font-difference when no prefix arg.
 ;; 2019/11/19 dadams
 ;;     zoom-all-frames-(in|out):
 ;;       Use zoom-frm-(in|out): zoom each relative to its current font.  Visible only.  Autoload.
@@ -329,6 +331,7 @@ This is equal but opposite to `zoom-frm-in'."
   (if (frame-parameter frame 'zoomed) (zoom-frm-unzoom frame) (zoom-frm-in frame)))
 
 (when (> emacs-major-version 22)
+
   (defun zoom-in (arg)
     "Zoom current frame or buffer in.
 With a prefix arg, toggle between zooming frame and zooming buffer.
@@ -367,16 +370,17 @@ Buffer zooming uses command `text-scale-decrease'."
             (current-buffer))
         (text-scale-decrease 1))))
 
-  (when (or (fboundp 'set-transient-map) ; Emacs 24.4+
+  (when (or (fboundp 'set-transient-map)          ; Emacs 24.4+
             (fboundp 'set-temporary-overlay-map)) ; Emacs 24.3
-            
+
     (defun zoom-in/out (arg)
       "Zoom current frame or buffer in or out.
 A prefix arg determines the behavior, as follows:
- none       : Use 1 as the zoom amount.
+ none       : Use the value of option `frame-zoom-font-difference' as
+              the zoom amount.
  plain `C-u': Toggle between zooming frame and zooming buffer.
  0          : Unzoom: reset size to the default.
- other      : Use the numeric value as the zoom amount.
+ other      : Use the numeric prefix value as the zoom amount.
 
 Similar to the behavior of command `text-scale-adjust', you can
 continue to use any of the keys `+', `-', `0', and `C-u' repeatedly.
@@ -407,7 +411,9 @@ Remember that you can also use `C-u' when you are done zooming."
              (base             (event-basic-type ev))
              (step             (if (or (equal arg '(4))  (eq ?\025 last-command-event)) ; C-u
                                    'C-U-WAS-USED
-                                 (setq arg  (prefix-numeric-value arg))
+                                 (setq arg  (if (not arg)
+                                                frame-zoom-font-difference
+                                              (prefix-numeric-value arg)))
                                  (case base
                                    ((?+ ?=) arg)
                                    (?-      (- arg))
@@ -436,7 +442,9 @@ Remember that you can also use `C-u' when you are done zooming."
                          (define-key map (vector (append mods (list key)))
                            `(lambda () (interactive) (zoom-in/out ',arg)))))
                      (define-key map "\C-u" `(lambda () (interactive) (zoom-in/out ',arg)))
-                     map)))))))
+                     map)))))
+    )
+  )
 
 ;;;###autoload
 (defun zoom-all-frames-in (&optional flip)
