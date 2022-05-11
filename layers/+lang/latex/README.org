@@ -332,7 +332,6 @@ See the [[https://github.com/iyefrat/evil-tex/blob/master/README.org][evil-tex d
 objects it provides and its other features, including its integration with
 ~evil-surround~.
 
-
 | Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~]]~ / ~[[~ | jump between section headings                       |

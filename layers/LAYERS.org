@@ -1331,6 +1331,7 @@ Features:
 - Auto-completion
 - Tags navigation on ~%~ with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Labels, references, citations and index entries management with [[http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html][RefTeX]]
+- LaTeX-specific text objects and much more with [[https://github.com/iyefrat/evil-tex][evil-tex]]
 
 **** Markdown
 [[file:+lang/markdown/README.org][+lang/markdown/README.org]]
@@ -2221,6 +2222,7 @@ Features:
 - Fix a missing import statement with [[https://github.com/anachronic/importmagic.el][importmagic]]
 - Pip package manager with [[https://github.com/brotzeit/pippel][pippel]]
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
+- Support for ipython notebook and MATLAB-like cells using using [[https://github.com/astoff/code-cells.el][code-cells]]
 
 **** Racket
 [[file:+lang/racket/README.org][+lang/racket/README.org]]
