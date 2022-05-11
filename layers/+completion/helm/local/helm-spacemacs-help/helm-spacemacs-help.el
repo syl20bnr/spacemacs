@@ -192,12 +192,12 @@
 (defvar helm-spacemacs-help--layer-map
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map helm-map)
-    (define-key map (kbd "<S-return>") '(lambda () (interactive)
-                                          ;; Add Layer
-                                          (helm-select-nth-action 3)))
-    (define-key map (kbd "<M-return>") '(lambda () (interactive)
-                                          ;; Open packages.el
-                                          (helm-select-nth-action 1)))
+    (define-key map (kbd "<S-return>") (lambda ()
+                                         "Install a layer, the current Helm candidate."
+                                         (interactive) (helm-select-nth-action 5)))
+    (define-key map (kbd "<M-return>") (lambda ()
+                                         "Open the `packages.el' file of a layer, the current Helm candidate."
+                                         (interactive) (helm-select-nth-action 1)))
     map)
   "Keymap for Spacemacs Layers sources")
 
