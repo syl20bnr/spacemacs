@@ -222,6 +222,7 @@
     (doom-solarized-light             . doom-themes)
     (doom-sourcerer                   . doom-themes)
     (doom-spacegrey                   . doom-themes)
+    (doom-tokyo-night                 . doom-themes)
     (doom-tomorrow-day                . doom-themes)
     (doom-tomorrow-night              . doom-themes)
     (doom-vibrant                     . doom-themes)
