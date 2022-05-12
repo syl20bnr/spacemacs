@@ -427,7 +427,7 @@ the pyenv version. The behavior can be set with the variable
 ** Manage environments and packages with pipenv
 [[https://pipenv.kennethreitz.org/en/latest/][Pipenv]] is the new standard tool to manage your virtual environments. It can act as
 a replacement for both =pyenv= and =venv= on a per-repository basis. An overview
-of how to use the tool is provided [[https://pipenv.kennethreitz.org/en/latest/basics/][here]].
+of how to use the tool is provided [[https://pipenv.pypa.io/en/latest/basics/][here]].
 
 Spacemacs integration for pipenv is provided by the [[https://github.com/pwalsh/pipenv.el][pipenv package]].
 It provides the following key bindings:
