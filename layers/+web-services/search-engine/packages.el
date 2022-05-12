@@ -107,6 +107,9 @@
               (c++-api-reference
                :name "C++ Reference"
                :url "https://en.cppreference.com/mwiki/index.php?search=%s")
+              (rails-api
+               :name "Rails API"
+               :url "https://api.rubyonrails.org?q=%s")
               (wolfram-alpha
                :name "Wolfram Alpha"
                :url "https://www.wolframalpha.com/input/?i=%s")
