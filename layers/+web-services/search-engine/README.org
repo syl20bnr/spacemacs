@@ -46,6 +46,7 @@ This layer adds support for the [[https://github.com/hrs/engine-mode][Search Eng
 - Melpa
 - Debian Packages
 - Ubuntu Packages
+- Rails API
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
