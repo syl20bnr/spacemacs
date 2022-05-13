@@ -23,8 +23,7 @@
 (defconst translate-packages
   '(
     translate-mode
-    go-translate
-    posframe))
+    go-translate))
 
 (defun translate/init-translate-mode ()
   "Initialize required packages."
@@ -64,6 +63,3 @@
 (defun translate/pre-init-posframe ()
   (spacemacs|use-package-add-hook posframe
     :post-config (translate/init-go-translate)))
-
-(defun translate/init-posframe ()
-  (use-package posframe :defer t))
