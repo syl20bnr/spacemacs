@@ -978,7 +978,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "r" 'org-roam-buffer-refresh)))
 
   (use-package org-roam-protocol
-    :if org-roam-enable-protocol
+    :if org-enable-roam-protocol
     :after org-protocol))
 
 (defun org/init-org-sticky-header ()
