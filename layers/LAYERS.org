@@ -245,6 +245,7 @@
   - [[#terraform][Terraform]]
   - [[#tide-layer][Tide Layer]]
   - [[#tmux][Tmux]]
+  - [[#translate-layer][Translate Layer]]
   - [[#transmission][Transmission]]
   - [[#tree-sitter][Tree-sitter]]
   - [[#vagrant][Vagrant]]
@@ -3188,6 +3189,16 @@ This layer adds basic =tmux= key bindings to Spacemacs.
 
 Features:
 - Calling of =tmux= navigation commands directly from Emacs via [[https://github.com/keith/evil-tmux-navigator][evil-tmux-navigator]].
+
+** Translate Layer
+[[file:+tools/translate/README.org][+tools/translate/README.org]]
+
+This layer is designed for Paragraph-oriented minor mode for
+side-by-side document translation workflow.
+
+Features:
+- Paragraph-oriented side-by-side document translation workflow
+- Integrate word/paragraph online translation
 
 ** Transmission
 [[file:+tools/transmission/README.org][+tools/transmission/README.org]]
