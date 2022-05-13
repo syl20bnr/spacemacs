@@ -67,7 +67,7 @@ Put this following line into =custom-set-faces= in your =~/.spacemacs~ file to s
 color to red, for example.
 
 #+BEGIN_SRC emacs-lisp
-'(translate-paragraph-highlight ((t (:extend t :background "red"))))
+  '(translate-paragraph-highlight ((t (:extend t :background "red"))))
 #+END_SRC
 
 * Key bindings
