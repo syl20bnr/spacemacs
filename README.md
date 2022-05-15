@@ -32,30 +32,26 @@
 - - -
 
 
-**Quick Install:**
+**Quick Install**
 
 This assumes you don't have an existing Emacs setup and want to run Spacemacs as
 your config. If you do have one, look at
 the [full installation instructions](#install) for other options.
 
-* For stable releases:
-  ```shell
-  git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+```shell
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+```
+
+* Windows Command Prompt:
+  ```
+  git clone https://github.com/syl20bnr/spacemacs %appdata%/.emacs.d
   ```
 
-* For development updates and participation:
-  ```shell
-  git clone -b develop https://github.com/syl20bnr/spacemacs ~/.emacs.d
+* Windows PowerShell:
+  ```powershell
+  git clone https://github.com/syl20bnr/spacemacs $env:appdata/.emacs.d
   ```
-  * Windows Command Prompt:
-    ```
-    git clone -b develop https://github.com/syl20bnr/spacemacs %appdata%/.emacs.d
-    ```
 
-    Windows PowerShell:
-    ```powershell
-    git clone -b develop https://github.com/syl20bnr/spacemacs $env:appdata/.emacs.d
-    ```
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
@@ -258,28 +254,28 @@ By default Emacs looks for the `.emacs.d` directory in:
 `C:\Users\<username>\AppData\Roaming`
 
 * Clone Spacemacs to the Roaming directory:
-  * Windows Command Prompt
+  * Windows Command Prompt:
     ```
-    git clone -b develop https://github.com/syl20bnr/spacemacs %appdata%/.emacs.d
+    git clone https://github.com/syl20bnr/spacemacs %appdata%/.emacs.d
     ```
 
   * Windows PowerShell prompt:
     ```powershell
-    git clone -b develop https://github.com/syl20bnr/spacemacs $env:appdata/.emacs.d
+    git clone https://github.com/syl20bnr/spacemacs $env:appdata/.emacs.d
     ```
 
 * Or if a `HOME` environment variable has been configured, that points to your
 user directory: `C:\Users\<username>`
 
   Clone Spacemacs to the `<username>` directory:
-  * Windows Command Prompt
+  * Windows Command Prompt:
     ```
-    git clone -b develop https://github.com/syl20bnr/spacemacs %homepath%/.emacs.d
+    git clone https://github.com/syl20bnr/spacemacs %homepath%/.emacs.d
     ```
 
   * Windows PowerShell prompt:
     ```powershell
-    git clone -b develop https://github.com/syl20bnr/spacemacs $home/.emacs.d
+    git clone https://github.com/syl20bnr/spacemacs $home/.emacs.d
     ```
 
 #### Notes
@@ -341,11 +337,6 @@ be transferred using http, use at your own risk.
    ```shell
    git clone --depth 1 https://github.com/syl20bnr/spacemacs ~/.emacs.d
    ```
-   
-   **Note** `master` is the stable branch and it is _immutable_, **DO NOT** make any
-   modification to it or you will break the update mechanism. If you want to
-   fork Spacemacs safely, use the `develop` branch where you'll handle updates
-   manually.
 
 3. (Optional) Install the default fonts
 
