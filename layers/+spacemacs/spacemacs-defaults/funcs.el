@@ -1759,6 +1759,15 @@ Decision is based on `dotspacemacs-line-numbers'."
       (and (listp dotspacemacs-line-numbers)
            (car (spacemacs/mplist-get-values dotspacemacs-line-numbers :visual)))))
 
+(defun spacemacs/line-numbers-type ()
+  "Returns a valid value for `display-line-numbers', activating
+line numbers, with respect to `dotspacemacs-line-numbers'."
+  (if (listp dotspacemacs-line-numbers)
+      (cond ((car (spacemacs/mplist-get-values dotspacemacs-line-numbers :visual)) 'visual)
+            ((car (spacemacs/mplist-get-values dotspacemacs-line-numbers :relative)) 'relative)
+            (t t))
+    dotspacemacs-line-numbers))
+
 (defun spacemacs//linum-on (origfunc &rest args)
   "Advice function to improve `linum-on' function."
   (when (spacemacs/enable-line-numbers-p)
