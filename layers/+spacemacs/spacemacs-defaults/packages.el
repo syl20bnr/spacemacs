@@ -283,26 +283,21 @@
     :defer t
     :init
     (progn
-      (cond ((spacemacs/visual-line-numbers-p)
-             (setq display-line-numbers-type 'visual))
-            ((spacemacs/relative-line-numbers-p)
-             (setq display-line-numbers-type 'relative))
-            (t
-             (setq display-line-numbers-type t)))
+      (setq display-line-numbers-type (spacemacs/line-numbers-type))
 
       (spacemacs/declare-prefix "tn" "line-numbers")
 
       (spacemacs|add-toggle line-numbers
         :status (and (featurep 'display-line-numbers)
-                     display-line-numbers-mode
-                     (eq display-line-numbers dotspacemacs-line-numbers))
+                     display-line-numbers-mode)
         :on (prog1 (display-line-numbers-mode)
-              (setq display-line-numbers dotspacemacs-line-numbers))
+              (setq display-line-numbers (spacemacs/line-numbers-type)))
         :off (display-line-numbers-mode -1)
         :on-message "Line numbers enabled per dotspacemacs-line-numbers."
         :off-message "Line numbers disabled."
         :documentation "Show line numbers as configured in .spacemacs."
         :evil-leader "tnn")
+
       (spacemacs|add-toggle absolute-line-numbers
         :status (and (featurep 'display-line-numbers)
                      display-line-numbers-mode
@@ -314,6 +309,7 @@
         :off-message "Line numbers disabled."
         :documentation "Show absolute line numbers."
         :evil-leader "tna")
+
       (spacemacs|add-toggle relative-line-numbers
         :status (and (featurep 'display-line-numbers)
                      display-line-numbers-mode
