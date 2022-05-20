@@ -244,6 +244,13 @@
       (setq evil-lisp-state-global t))
     :config
     (progn
+      (bind-map spacemacs-default-map
+        :prefix-cmd spacemacs-cmds
+        :evil-keys (dotspacemacs-leader-key)
+        :evil-states (lisp)
+        :override-minor-modes t
+        :override-mode-name spacemacs-leader-override-mode)
+
       (spacemacs/set-leader-keys "k" evil-lisp-state-map)
       (spacemacs/declare-prefix
         "k" "lisp"
