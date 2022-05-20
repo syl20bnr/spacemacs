@@ -416,10 +416,10 @@ To install Trello support set the variable =org-enable-trello-support= to =t=.
 ** Different bullets
 You can tweak the bullets displayed in the org buffer in the function
 =dotspacemacs/user-config= of your dotfile by setting the variable
-=org-superstar-headline-bullets-list=. By default the list is set to =("◉" "○" "✸" "✿")=.
+=org-superstar-headline-bullets-list=. By default the list is set to =(?◉ ?○ ?✸ ?✿)=.
 
 #+BEGIN_SRC emacs-lisp
-  (setq org-superstar-bullet-list '("■" "◆" "▲" "▶"))
+  (setq org-superstar-headline-bullets-list '(?■ ?◆ ?▲ ?▶))
 #+END_SRC
 
 You can disable the fancy bullets entirely by adding =org-superstar= to =dotspacemacs-excluded-packages=.
