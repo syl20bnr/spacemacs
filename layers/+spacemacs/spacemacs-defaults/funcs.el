@@ -993,14 +993,13 @@ as a means to remove windows, regardless of the value in
         (delete-other-windows))
     (funcall spacemacs-window-split-delete-function))
   (if (spacemacs--window-split-splittable-windows)
-      (let* ((previous-files (seq-filter #'buffer-file-name
-                                         (delq (current-buffer) (buffer-list))))
+      (let* ((previous-files (buffer-list))
              (second (split-window-below))
              (third (split-window-right))
              (fourth (split-window second nil 'right)))
-        (set-window-buffer third (or (car previous-files) "*scratch*"))
-        (set-window-buffer second (or (cadr previous-files) "*scratch*"))
-        (set-window-buffer fourth (or (caddr previous-files) "*scratch*"))
+        (set-window-buffer third (or (nth 1 previous-files) "*scratch*"))
+        (set-window-buffer second (or (nth 2 previous-files) "*scratch*"))
+        (set-window-buffer fourth (or (nth 3 previous-files) "*scratch*"))
         (balance-windows))
     (message "There are no main windows available to split!")))
 
@@ -1019,12 +1018,11 @@ as a means to remove windows, regardless of the value in
         (delete-other-windows))
     (funcall spacemacs-window-split-delete-function))
   (if (spacemacs--window-split-splittable-windows)
-      (let* ((previous-files (seq-filter #'buffer-file-name
-                                         (delq (current-buffer) (buffer-list))))
+      (let* ((previous-files (buffer-list))
              (second (split-window-right))
              (third (split-window second nil 'right)))
-        (set-window-buffer second (or (car previous-files) "*scratch*"))
-        (set-window-buffer third (or (cadr previous-files) "*scratch*"))
+        (set-window-buffer second (or (nth 1 previous-files) "*scratch*"))
+        (set-window-buffer third (or (nth 2 previous-files) "*scratch*"))
         (balance-windows))
     (message "There are no main windows available to split!")))
 
@@ -1033,6 +1031,9 @@ as a means to remove windows, regardless of the value in
 
 Uses the funcion defined in `spacemacs-window-split-delete-function'
 as a means to remove windows.
+
+Left side window is the current buffer. Right side one is the
+most recently selected buffer other than current buffer.
 
 When called with a prefix argument, it uses `delete-other-windows'
 as a means to remove windows, regardless of the value in
@@ -1043,10 +1044,8 @@ as a means to remove windows, regardless of the value in
         (delete-other-windows))
     (funcall spacemacs-window-split-delete-function))
   (if (spacemacs--window-split-splittable-windows)
-      (let* ((previous-files (seq-filter #'buffer-file-name
-                                         (delq (current-buffer) (buffer-list)))))
-        (set-window-buffer (split-window-right)
-                           (or (car previous-files) "*scratch*"))
+      (let* ((right-side-buffer (other-buffer (current-buffer) t)))
+        (set-window-buffer (split-window-right) right-side-buffer)
         (balance-windows))
     (message "There are no main windows available to split!")))
 
