@@ -351,11 +351,11 @@ is used instead."
 
 (cl-defmethod package-build--get-timestamp ((rcp package-git-recipe) rev)
   (let ((default-directory (package-recipe--working-tree rcp)))
-    ;; package-build--expand-source-file-list expects REV to be checked out.
+    ;; `package-build-expand-files-spec' expects REV to be checked out.
     (package-build--checkout-1 rcp rev)
     (car (apply #'process-lines
-                "git" "log" "--first-parent" "-n1" "--pretty=format:'\%ci'"
-                rev "--" (package-build--expand-source-file-list rcp)))))
+                "git" "log" "--first-parent" "-n1" "--pretty=format:'\%ci'" rev
+                "--" (mapcar #'car (package-build-expand-files-spec rcp))))))
 
 (cl-defmethod package-build--used-url ((rcp package-git-recipe))
   (let ((default-directory (package-recipe--working-tree rcp)))
@@ -404,7 +404,7 @@ is used instead."
     (car (apply #'process-lines
                 "hg" "log" "--style" "compact" "-l1"
                 `(,@(and rev (list "--rev" rev))
-                  ,@(package-build--expand-source-file-list rcp))))))
+                  ,@(mapcar #'car (package-build-expand-files-spec rcp)))))))
 
 (cl-defmethod package-build--used-url ((rcp package-hg-recipe))
   (let ((default-directory (package-recipe--working-tree rcp)))
@@ -645,69 +645,116 @@ still be renamed."
                       (package-desc-extras  desc)))
         (current-buffer))))
 
-;;; File Specs
+;;; Files Spec
 
 (defconst package-build-default-files-spec
-  '("*.el" "*.el.in" "dir"
-    "*.info" "*.texi" "*.texinfo"
+  '("*.el" "lisp/*.el"
+    "dir" "*.info" "*.texi" "*.texinfo"
     "doc/dir" "doc/*.info" "doc/*.texi" "doc/*.texinfo"
     "docs/dir" "docs/*.info" "docs/*.texi" "docs/*.texinfo"
-    (:exclude ".dir-locals.el" "test.el" "tests.el" "*-test.el" "*-tests.el"))
+    (:exclude
+     ".dir-locals.el" "lisp/.dir-locals.el"
+     "test.el" "tests.el" "*-test.el" "*-tests.el"
+     "lisp/test.el" "lisp/tests.el" "lisp/*-test.el" "lisp/*-tests.el"))
   "Default value for :files attribute in recipes.")
 
-(defun package-build-expand-file-specs (dir specs &optional subdir allow-empty)
-  "In DIR, expand SPECS, optionally under SUBDIR.
-The result is a list of (SOURCE . DEST), where SOURCE is a source
-file path and DEST is the relative path to which it should be copied.
+(defun package-build-expand-file-specs (repo spec &optional subdir allow-empty)
+  (when subdir
+    (error "%s: Non-nil SUBDIR is no longer supported"
+           'package-build-expand-file-specs))
+  (package-build-expand-files-spec nil (not allow-empty) repo spec))
+(make-obsolete 'package-build-expand-file-specs
+               'package-build-expand-files-spec
+               "Package-Build 3.2")
 
-If the resulting list is empty, an error will be reported.  Pass t
-for ALLOW-EMPTY to prevent this error."
-  (let ((default-directory dir)
-        (prefix (if subdir (format "%s/" subdir) ""))
-        (lst))
-    (dolist (entry specs)
-      (setq lst
-            (if (consp entry)
-                (if (eq :exclude (car entry))
-                    (cl-nset-difference lst
-                                        (package-build-expand-file-specs
-                                         dir (cdr entry) nil t)
-                                        :key #'car
-                                        :test #'equal)
-                  (nconc lst
-                         (package-build-expand-file-specs
-                          dir
-                          (cdr entry)
-                          (concat prefix (car entry))
-                          t)))
-              (nconc
-               lst (mapcar (lambda (f)
-                             (cons f
-                                   (concat prefix
-                                           (replace-regexp-in-string
-                                            "\\.el\\.in\\'"
-                                            ".el"
-                                            (file-name-nondirectory f)))))
-                           (file-expand-wildcards entry))))))
-    (when (and (null lst) (not allow-empty))
-      (error "No matching file(s) found in %s: %s" dir specs))
-    lst))
+(defun package-build-expand-files-spec (rcp &optional assert repo spec)
+  "Return an alist of files of package RCP to be included in tarball.
 
-(defun package-build--config-file-list (rcp)
-  (let ((file-list (oref rcp files)))
-    (cond
-     ((null file-list)
-      package-build-default-files-spec)
-     ((eq :defaults (car file-list))
-      (append package-build-default-files-spec (cdr file-list)))
-     (t
-      file-list))))
+Each element has the form (SOURCE . DESTINATION), where SOURCE
+is a file in the package's repository and DESTINATION is where
+that file is placed in the package's tarball.
 
-(defun package-build--expand-source-file-list (rcp)
-  (mapcar #'car
-          (package-build-expand-file-specs
-           (package-recipe--working-tree rcp)
-           (package-build--config-file-list rcp))))
+RCP is the package recipe as an object.  If the `files' slot of
+RCP is non-nil, then that is used as the file specification.
+Otherwise `package-build-default-files-spec' is used.
+
+If optional ASSERT is non-nil, then raise an error if nil would
+be returned.  If ASSERT and `files' are both non-nil and using
+`files' results in the same set of files as the default spec,
+then show a warning.
+
+A file specification SPEC is a list.  Its elements are processes
+in order and can have the following form:
+
+- :default
+
+  If the very first element of the top-level SPEC is `:default',
+  then that means to prepend the default file spec to the SPEC
+  specified by the remaining elements.
+
+- GLOB
+
+  A string is glob-expanded to match zero or more files.  Matched
+  files are copied to the top-level directory.
+
+- (SUBDIRECTORY . SPEC)
+
+  A list that begins with a string causes the files matched by
+  the second and subsequent elements to be copied into the sub-
+  directory specified by the first element.
+
+- (:exclude . SPEC)
+
+  A list that begins with `:exclude' causes files that were
+  matched by earlier elements that are also matched by the second
+  and subsequent elements of this list to be removed from the
+  returned alist.  Files matched by later elements are not
+  affected.
+
+\(fn RCP &optional ASSERT)" ; Other arguments only for backward compat.
+  (let ((default-directory (or repo (package-recipe--working-tree rcp)))
+        (spec (or spec (oref rcp files))))
+    (when (eq :defaults (car spec))
+      (setq spec (append package-build-default-files-spec (cdr spec))))
+    (let ((files (package-build--expand-files-spec-1
+                  (or spec package-build-default-files-spec))))
+      (when assert
+        (when (and rcp spec
+                   (equal files (package-build--expand-files-spec-1
+                                 package-build-default-files-spec)))
+          (package-build--message
+           "Note: %s :files spec is equivalent to the default."
+           (oref rcp name)))
+        (unless files
+          (error "No matching file(s) found in %s using %s"
+                 default-directory (or spec "default spec"))))
+      files)))
+
+(defun package-build--expand-files-spec-1 (spec &optional subdir)
+  (let ((files nil))
+    (dolist (entry spec)
+      (setq files
+            (cond
+             ((stringp entry)
+              (nconc files
+                     (mapcar (lambda (f)
+                               (cons f
+                                     (concat subdir
+                                             (replace-regexp-in-string
+                                              "\\.el\\.in\\'"  ".el"
+                                              (file-name-nondirectory f)))))
+                             (file-expand-wildcards entry))))
+             ((eq (car entry) :exclude)
+              (cl-nset-difference
+               files
+               (package-build--expand-files-spec-1 (cdr entry))
+               :key #'car :test #'equal))
+             (t
+              (nconc files
+                     (package-build--expand-files-spec-1
+                      (cdr entry)
+                      (concat subdir (car entry) "/")))))))
+    files))
 
 (defun package-build--copy-package-files (files source-dir target-dir)
   "Copy FILES from SOURCE-DIR to TARGET-DIR.
@@ -761,20 +808,11 @@ Return the archive entry for the package and store the package
 in `package-build-archive-dir'."
   (let ((source-dir (package-recipe--working-tree rcp)))
     (unwind-protect
-        (let* ((file-specs (package-build--config-file-list rcp))
-               (files (package-build-expand-file-specs source-dir file-specs))
-               (commit (package-build--get-commit rcp))
-               (name (oref rcp name)))
-          (unless (equal file-specs package-build-default-files-spec)
-            (when (equal files (package-build-expand-file-specs
-                                source-dir
-                                package-build-default-files-spec
-                                nil t))
-              (package-build--message
-               "Note: %s :files spec is equivalent to the default." name)))
+        (let ((files (package-build-expand-files-spec rcp t))
+              (commit (package-build--get-commit rcp)))
           (cond
            ((not version)
-            (error "Unable to check out repository for %s" name))
+            (error "Unable to check out repository for %s" (oref rcp name)))
            ((= (length files) 1)
             (package-build--build-single-file-package
              rcp version commit files source-dir))
@@ -798,8 +836,9 @@ in `package-build-archive-dir'."
          (desc (let ((default-directory source-dir))
                  (package-build--desc-from-library
                   name version commit files))))
-    (unless (string-equal (downcase (concat name ".el"))
-                          (downcase (file-name-nondirectory file)))
+    (unless (member (downcase (file-name-nondirectory file))
+                    (list (downcase (concat name ".el"))
+                          (downcase (concat name ".el.in"))))
       (error "Single file %s does not match package name %s" file name))
     (copy-file source target t)
     (let ((enable-local-variables nil)
