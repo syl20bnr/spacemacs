@@ -1,4 +1,4 @@
-;;; core-spacemacs.el --- Spacemacs Core File -*- lexical-binding: t -*-
+;;; core-spacemacs.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
 ;;
