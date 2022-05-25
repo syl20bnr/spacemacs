@@ -47,7 +47,7 @@
       (add-to-list 'auto-mode-alist
                    '("/draft-\\([a-z0-9_]+-\\)+[a-z0-9_]+.txt" . irfc-mode))
       (add-to-list 'auto-mode-alist
-                   '("/rfc-\\([a-z0-9_]+-\\).txt" . irfc-mode)))))
+                   '("/rfc\\([a-z0-9_-]+\\).txt" . irfc-mode)))))
 
 
 
