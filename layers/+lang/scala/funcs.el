@@ -83,7 +83,12 @@ point to the position of the join."
   (interactive)
   (sbt-command "test"))
 
+(defun spacemacs/scala-sbt-compile-it ()
+  "Compile the `it' scope via SBT"
+  (interactive)
+  (sbt-command "It / compile"))
+
 (defun spacemacs/scala-sbt-compile-test ()
-  "Compile `test' via SBT"
+  "Compile the `test' scope via SBT"
   (interactive)
   (sbt-command "Test / compile"))
