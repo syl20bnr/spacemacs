@@ -135,5 +135,6 @@ Additional major mode key bindings are populated by LSP and DAP.
 | ~SPC m b b~ | SBT command                 |
 | ~SPC m b c~ | Run ~compile~ in SBT        |
 | ~SPC m b t~ | Run ~test~ in SBT           |
+| ~SPC m b I~ | Run ~It / compile~ in SBT |
 | ~SPC m b T~ | Run ~Test / compile~ in SBT |
 | ~SPC m b =~ | Run ~scalafmtAll~ in SBT    |
