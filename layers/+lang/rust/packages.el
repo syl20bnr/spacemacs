@@ -97,19 +97,20 @@
   (spacemacs/helm-gtags-define-keys-for-mode 'rust-mode))
 
 (defun rust/init-racer ()
-  (use-package racer
-    :defer t
-    :commands racer-mode
-    :config
-    (progn
-      (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode))
-      (spacemacs/add-to-hook 'racer-mode-hook '(eldoc-mode))
-      (add-to-list 'spacemacs-jump-handlers-rust-mode 'racer-find-definition)
-      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-        "hh" 'spacemacs/racer-describe)
-      (spacemacs|hide-lighter racer-mode)
-      (evilified-state-evilify-map racer-help-mode-map
-        :mode racer-help-mode))))
+  (when (eq rust-backend 'racer)
+    (use-package racer
+      :defer t
+      :commands racer-mode
+      :config
+      (progn
+        (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode))
+        (spacemacs/add-to-hook 'racer-mode-hook '(eldoc-mode))
+        (add-to-list 'spacemacs-jump-handlers-rust-mode 'racer-find-definition)
+        (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+          "hh" 'spacemacs/racer-describe)
+        (spacemacs|hide-lighter racer-mode)
+        (evilified-state-evilify-map racer-help-mode-map
+          :mode racer-help-mode)))))
 
 (defun rust/init-rust-mode ()
   (use-package rust-mode
