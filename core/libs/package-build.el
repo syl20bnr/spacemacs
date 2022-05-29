@@ -54,7 +54,7 @@
 
 ;;; Options
 
-(defconst package-build--melpa-base
+(defvar package-build--melpa-base
   (file-name-directory
    (directory-file-name
     (file-name-directory (or load-file-name (buffer-file-name))))))
