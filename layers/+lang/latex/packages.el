@@ -24,7 +24,8 @@
 (defconst latex-packages
   '(
     auctex
-    (auctex-latexmk :toggle (string= "LatexMk" latex-build-command))
+    (auctex-latexmk :location (recipe :fetcher github :repo "smile13241324/auctex-latexmk")
+                    :toggle (string= "LatexMk" latex-build-command))
     company
     math-symbol-lists
     (company-math :requires company math-symbol-lists)
