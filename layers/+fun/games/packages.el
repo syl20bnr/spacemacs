@@ -22,8 +22,7 @@
 
 
 (defconst games-packages
-  '(
-    2048-game
+  '(2048-game
     (helm-games :location local
                 :requires helm)
     pacmacs
@@ -36,25 +35,24 @@
   (use-package 2048-mode
     :defer t
     :init
-    (progn
-      (push '("2048" . (2048-game :quit (kill-buffer-ask (get-buffer "2048"))
-                                  :reset 2048-init))
-            helm-games-list)
-      (evilified-state-evilify-map 2048-mode-map
-        :mode  2048-mode
-        :bindings
-        "j" '2048-down
-        "k" '2048-up
-        "h" '2048-left
-        "l" '2048-right))))
+    (push '("2048" . (2048-game :quit (kill-buffer-ask (get-buffer "2048"))
+                                :reset 2048-init))
+          helm-games-list)
+    :config
+    (evilified-state-evilify-map 2048-mode-map
+      :mode  2048-mode
+      :bindings
+      "j" '2048-down
+      "k" '2048-up
+      "h" '2048-left
+      "l" '2048-right)))
 
 (defun games/init-helm-games ()
   (use-package helm-games
     :commands helm-games
     :init
-    (progn
-      (spacemacs/declare-prefix "afg" "games")
-      (spacemacs/set-leader-keys "afg" 'helm-games))))
+    (spacemacs/declare-prefix "afg" "games")
+    (spacemacs/set-leader-keys "afg" 'helm-games)))
 
 (defun games/init-pacmacs ()
   (use-package pacmacs
@@ -64,6 +62,7 @@
                          :quit (kill-buffer-ask (get-buffer "*Pacmacs*"))
                          :reset pacmacs-start))
           helm-games-list)
+    :config
     (evilified-state-evilify-map pacmacs-mode-map
       :mode  pacmacs-mode
       :bindings
@@ -98,50 +97,49 @@
   (use-package sudoku
     :defer t
     :init
-    (progn
-      (push '("sudoku" . (sudoku :quit (kill-buffer-ask (get-buffer "*Sudoku*"))
-                                 :reset sudoku-restart))
-            helm-games-list)
-      (evilified-state-evilify-map sudoku-mode-map
-        :mode  sudoku-mode
-        :bindings
-        ;; Movement
-        "j" 'sudoku-move-point-down
-        "J" 'sudoku-move-point-downmost
-        "k" 'sudoku-move-point-up
-        "K" 'sudoku-move-point-upmost
-        "h" 'sudoku-move-point-left
-        "H" 'sudoku-move-point-leftmost
-        "l" 'sudoku-move-point-right
-        "L" 'sudoku-move-point-rightmost
+    (push '("sudoku" . (sudoku :quit (kill-buffer-ask (get-buffer "*Sudoku*"))
+                               :reset sudoku-restart))
+          helm-games-list)
+    (spacemacs/set-leader-keys-for-major-mode 'sudoku-mode
+      "c" 'sudoku-comment-puzzle
+      "h" 'sudoku-hint
+      "l" 'sudoku-load-puzzle
+      "L" 'sudoku-load-puzzle-collection
+      "s" 'sudoku-save-puzzle)
+    :config
+    (evilified-state-evilify-map sudoku-mode-map
+      :mode  sudoku-mode
+      :bindings
+      ;; Movement
+      "j" 'sudoku-move-point-down
+      "J" 'sudoku-move-point-downmost
+      "k" 'sudoku-move-point-up
+      "K" 'sudoku-move-point-upmost
+      "h" 'sudoku-move-point-left
+      "H" 'sudoku-move-point-leftmost
+      "l" 'sudoku-move-point-right
+      "L" 'sudoku-move-point-rightmost
 
-        ;; Start/quit/print game
-        "N" 'sudoku
-        "q" 'sudoku-quit
-        "Q" 'sudoku-quit-immediately
-        "P" 'sudoku-print
+      ;; Start/quit/print game
+      "N" 'sudoku
+      "q" 'sudoku-quit
+      "Q" 'sudoku-quit-immediately
+      "P" 'sudoku-print
 
-        ;; Undo/redo
-        "u"    'sudoku-undo
-        "\C-r" 'sudoku-redo
+      ;; Undo/redo
+      "u"    'sudoku-undo
+      "\C-r" 'sudoku-redo
 
-        ;; Inserting values
-        "1" 'sudoku-change-point
-        "2" 'sudoku-change-point
-        "3" 'sudoku-change-point
-        "4" 'sudoku-change-point
-        "5" 'sudoku-change-point
-        "6" 'sudoku-change-point
-        "7" 'sudoku-change-point
-        "8" 'sudoku-change-point
-        "9" 'sudoku-change-point)
-
-      (spacemacs/set-leader-keys-for-major-mode 'sudoku-mode
-        "c" 'sudoku-comment-puzzle
-        "h" 'sudoku-hint
-        "l" 'sudoku-load-puzzle
-        "L" 'sudoku-load-puzzle-collection
-        "s" 'sudoku-save-puzzle))))
+      ;; Inserting values
+      "1" 'sudoku-change-point
+      "2" 'sudoku-change-point
+      "3" 'sudoku-change-point
+      "4" 'sudoku-change-point
+      "5" 'sudoku-change-point
+      "6" 'sudoku-change-point
+      "7" 'sudoku-change-point
+      "8" 'sudoku-change-point
+      "9" 'sudoku-change-point)))
 
 (defun games/init-typit ()
   (use-package typit

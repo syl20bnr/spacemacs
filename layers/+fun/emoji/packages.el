@@ -33,13 +33,12 @@
                emoji-cheat-sheet-plus-buffer
                emoji-cheat-sheet-plus-display-mode)
     :init
-    (progn
-      (spacemacs/set-leader-keys "afe" 'emoji-cheat-sheet-plus-buffer)
-      (spacemacs/set-leader-keys "ie" 'emoji-cheat-sheet-plus-insert))
+    (spacemacs/set-leader-keys "afe" 'emoji-cheat-sheet-plus-buffer)
+    (spacemacs/set-leader-keys "ie" 'emoji-cheat-sheet-plus-insert)
     :config
-    (evilified-state-evilify emoji-cheat-sheet-plus-buffer-mode
-      emoji-cheat-sheet-plus-buffer-mode-map
-      "<RET>" 'emoji-cheat-sheet-plus-echo-and-copy)
+    (evilified-state-evilify-map emoji-cheat-sheet-plus-buffer-mode-map
+      :mode emoji-cheat-sheet-plus-buffer-mode
+      :bindings "<RET>" 'emoji-cheat-sheet-plus-echo-and-copy)
     (spacemacs|hide-lighter emoji-cheat-sheet-plus-display-mode)))
 
 (defun emoji/init-emojify ()

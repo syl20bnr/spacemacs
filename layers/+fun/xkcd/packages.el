@@ -27,16 +27,16 @@
   (use-package xkcd-mode
     :defer t
     :init
-    (progn
-      (setq xkcd-cache-dir (concat spacemacs-cache-directory "xkcd/"))
-      (unless (file-directory-p xkcd-cache-dir)
-        (make-directory xkcd-cache-dir))
-      (spacemacs/set-leader-keys
-        "afx" 'xkcd)
-      (evilified-state-evilify-map xkcd-mode-map
-        :mode xkcd-mode
-        :bindings
-        "h" 'xkcd-prev
-        "j" 'xkcd-next
-        "k" 'xkcd-prev
-        "l" 'xkcd-next))))
+    (setq xkcd-cache-dir (concat spacemacs-cache-directory "xkcd/"))
+    (unless (file-directory-p xkcd-cache-dir)
+      (make-directory xkcd-cache-dir))
+    (spacemacs/set-leader-keys
+      "afx" 'xkcd)
+    :config
+    (evilified-state-evilify-map xkcd-mode-map
+      :mode xkcd-mode
+      :bindings
+      "h" 'xkcd-prev
+      "j" 'xkcd-next
+      "k" 'xkcd-prev
+      "l" 'xkcd-next)))

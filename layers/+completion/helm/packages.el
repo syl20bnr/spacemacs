@@ -21,33 +21,31 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq helm-packages
-      '(
-        ace-jump-helm-line
-        auto-highlight-symbol
-        bookmark
-        helm
-        helm-ag
-        helm-descbinds
-        helm-flx
-        (helm-ls-git :toggle (configuration-layer/layer-used-p 'git))
-        helm-make
-        helm-mode-manager
-        helm-org
-        helm-projectile
-        helm-swoop
-        helm-themes
-        (helm-spacemacs-help :location local)
-        (helm-spacemacs-faq :location local)
-        helm-xref
-        imenu
-        persp-mode
-        popwin
-        projectile
-        ))
+(defconst helm-packages
+  '(ace-jump-helm-line
+    auto-highlight-symbol
+    bookmark
+    helm
+    helm-ag
+    helm-descbinds
+    helm-flx
+    (helm-ls-git :toggle (configuration-layer/layer-used-p 'git))
+    helm-make
+    helm-mode-manager
+    helm-org
+    helm-projectile
+    helm-swoop
+    helm-themes
+    (helm-spacemacs-help :location local)
+    (helm-spacemacs-faq :location local)
+    helm-xref
+    imenu
+    persp-mode
+    popwin
+    projectile))
+
 
 ;; Initialization of packages
-
 (defun helm/init-ace-jump-helm-line ()
   (use-package ace-jump-helm-line
     :defer (spacemacs/defer)
@@ -218,93 +216,90 @@
   (use-package helm-ag
     :defer (spacemacs/defer)
     :init
-    (progn
-      (setq helm-ag-use-grep-ignore-list t)
-      ;; This overrides the default C-s action in helm-projectile-switch-project
-      ;; to search using rg/ag/pt/whatever instead of just grep
-      (with-eval-after-load 'helm-projectile
-        (define-key helm-projectile-projects-map
-          (kbd "C-s") 'spacemacs/helm-projectile-grep)
-        ;; `spacemacs/helm-projectile-grep' calls:
-        ;; `spacemacs/helm-project-smart-do-search-in-dir'
-        ;; which needs to be an action.
-        ;; Delete the current action.
-        (helm-delete-action-from-source
-         "Grep in projects `C-s'" helm-source-projectile-projects)
-        (helm-add-action-to-source
-         "Search in projects `C-s'"
-         'spacemacs/helm-project-smart-do-search-in-dir
-         helm-source-projectile-projects))
+    (setq helm-ag-use-grep-ignore-list t)
+    ;; This overrides the default C-s action in helm-projectile-switch-project
+    ;; to search using rg/ag/pt/whatever instead of just grep
+    (with-eval-after-load 'helm-projectile
+      (define-key helm-projectile-projects-map
+        (kbd "C-s") 'spacemacs/helm-projectile-grep)
+      ;; `spacemacs/helm-projectile-grep' calls:
+      ;; `spacemacs/helm-project-smart-do-search-in-dir'
+      ;; which needs to be an action.
+      ;; Delete the current action.
+      (helm-delete-action-from-source
+        "Grep in projects `C-s'" helm-source-projectile-projects)
+      (helm-add-action-to-source
+        "Search in projects `C-s'"
+        'spacemacs/helm-project-smart-do-search-in-dir
+        helm-source-projectile-projects))
 
-      ;; evilify the helm-grep buffer
-      (evilified-state-evilify-map helm-grep-mode-map
-        :mode helm-grep-mode
-        :bindings
-        (kbd "q") 'quit-window)
-
-      (spacemacs/set-leader-keys
-        ;; helm-ag marks
-        "s`"  'helm-ag-pop-stack
-        ;; opened buffers scope
-        "sb"  'spacemacs/helm-buffers-smart-do-search
-        "sB"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
-        "sab" 'helm-do-ag-buffers
-        "saB" 'spacemacs/helm-buffers-do-ag-region-or-symbol
-        "skb" 'spacemacs/helm-buffers-do-ack
-        "skB" 'spacemacs/helm-buffers-do-ack-region-or-symbol
-        "srb" 'spacemacs/helm-buffers-do-rg
-        "srB" 'spacemacs/helm-buffers-do-rg-region-or-symbol
-        "stb" 'spacemacs/helm-buffers-do-pt
-        "stB" 'spacemacs/helm-buffers-do-pt-region-or-symbol
-        ;; current file scope
-        "ss"  'spacemacs/helm-file-smart-do-search
-        "sS"  'spacemacs/helm-file-smart-do-search-region-or-symbol
-        "saa" 'helm-ag-this-file
-        "saA" 'spacemacs/helm-file-do-ag-region-or-symbol
-        ;; files scope
-        "sf"  'spacemacs/helm-files-smart-do-search
-        "sF"  'spacemacs/helm-files-smart-do-search-region-or-symbol
-        "saf" 'helm-do-ag
-        "saF" 'spacemacs/helm-files-do-ag-region-or-symbol
-        "skf" 'spacemacs/helm-files-do-ack
-        "skF" 'spacemacs/helm-files-do-ack-region-or-symbol
-        "srf" 'spacemacs/helm-files-do-rg
-        "srF" 'spacemacs/helm-files-do-rg-region-or-symbol
-        "stf" 'spacemacs/helm-files-do-pt
-        "stF" 'spacemacs/helm-files-do-pt-region-or-symbol
-        ;; current dir scope
-        "sd"  'spacemacs/helm-dir-smart-do-search
-        "sD"  'spacemacs/helm-dir-smart-do-search-region-or-symbol
-        "sad" 'spacemacs/helm-dir-do-ag
-        "saD" 'spacemacs/helm-dir-do-ag-region-or-symbol
-        "skd" 'spacemacs/helm-dir-do-ack
-        "skD" 'spacemacs/helm-dir-do-ack-region-or-symbol
-        "srd" 'spacemacs/helm-dir-do-rg
-        "srD" 'spacemacs/helm-dir-do-rg-region-or-symbol
-        "std" 'spacemacs/helm-dir-do-pt
-        "stD" 'spacemacs/helm-dir-do-pt-region-or-symbol
-        ;; current project scope
-        "/"   'spacemacs/helm-project-smart-do-search
-        "*"   'spacemacs/helm-project-smart-do-search-region-or-symbol
-        "sp"  'spacemacs/helm-project-smart-do-search
-        "sP"  'spacemacs/helm-project-smart-do-search-region-or-symbol
-        "sap" 'spacemacs/helm-project-do-ag
-        "saP" 'spacemacs/helm-project-do-ag-region-or-symbol
-        "skp" 'spacemacs/helm-project-do-ack
-        "skP" 'spacemacs/helm-project-do-ack-region-or-symbol
-        "srp" 'spacemacs/helm-project-do-rg
-        "srP" 'spacemacs/helm-project-do-rg-region-or-symbol
-        "stp" 'spacemacs/helm-project-do-pt
-        "stP" 'spacemacs/helm-project-do-pt-region-or-symbol))
+    (spacemacs/set-leader-keys
+      ;; helm-ag marks
+      "s`"  'helm-ag-pop-stack
+      ;; opened buffers scope
+      "sb"  'spacemacs/helm-buffers-smart-do-search
+      "sB"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
+      "sab" 'helm-do-ag-buffers
+      "saB" 'spacemacs/helm-buffers-do-ag-region-or-symbol
+      "skb" 'spacemacs/helm-buffers-do-ack
+      "skB" 'spacemacs/helm-buffers-do-ack-region-or-symbol
+      "srb" 'spacemacs/helm-buffers-do-rg
+      "srB" 'spacemacs/helm-buffers-do-rg-region-or-symbol
+      "stb" 'spacemacs/helm-buffers-do-pt
+      "stB" 'spacemacs/helm-buffers-do-pt-region-or-symbol
+      ;; current file scope
+      "ss"  'spacemacs/helm-file-smart-do-search
+      "sS"  'spacemacs/helm-file-smart-do-search-region-or-symbol
+      "saa" 'helm-ag-this-file
+      "saA" 'spacemacs/helm-file-do-ag-region-or-symbol
+      ;; files scope
+      "sf"  'spacemacs/helm-files-smart-do-search
+      "sF"  'spacemacs/helm-files-smart-do-search-region-or-symbol
+      "saf" 'helm-do-ag
+      "saF" 'spacemacs/helm-files-do-ag-region-or-symbol
+      "skf" 'spacemacs/helm-files-do-ack
+      "skF" 'spacemacs/helm-files-do-ack-region-or-symbol
+      "srf" 'spacemacs/helm-files-do-rg
+      "srF" 'spacemacs/helm-files-do-rg-region-or-symbol
+      "stf" 'spacemacs/helm-files-do-pt
+      "stF" 'spacemacs/helm-files-do-pt-region-or-symbol
+      ;; current dir scope
+      "sd"  'spacemacs/helm-dir-smart-do-search
+      "sD"  'spacemacs/helm-dir-smart-do-search-region-or-symbol
+      "sad" 'spacemacs/helm-dir-do-ag
+      "saD" 'spacemacs/helm-dir-do-ag-region-or-symbol
+      "skd" 'spacemacs/helm-dir-do-ack
+      "skD" 'spacemacs/helm-dir-do-ack-region-or-symbol
+      "srd" 'spacemacs/helm-dir-do-rg
+      "srD" 'spacemacs/helm-dir-do-rg-region-or-symbol
+      "std" 'spacemacs/helm-dir-do-pt
+      "stD" 'spacemacs/helm-dir-do-pt-region-or-symbol
+      ;; current project scope
+      "/"   'spacemacs/helm-project-smart-do-search
+      "*"   'spacemacs/helm-project-smart-do-search-region-or-symbol
+      "sp"  'spacemacs/helm-project-smart-do-search
+      "sP"  'spacemacs/helm-project-smart-do-search-region-or-symbol
+      "sap" 'spacemacs/helm-project-do-ag
+      "saP" 'spacemacs/helm-project-do-ag-region-or-symbol
+      "skp" 'spacemacs/helm-project-do-ack
+      "skP" 'spacemacs/helm-project-do-ack-region-or-symbol
+      "srp" 'spacemacs/helm-project-do-rg
+      "srP" 'spacemacs/helm-project-do-rg-region-or-symbol
+      "stp" 'spacemacs/helm-project-do-pt
+      "stP" 'spacemacs/helm-project-do-pt-region-or-symbol)
     :config
-    (progn
-      (advice-add 'helm-ag--save-results :after 'spacemacs//gne-init-helm-ag)
-      (evil-define-key 'normal helm-ag-map (kbd dotspacemacs-leader-key) spacemacs-default-map)
-      (evilified-state-evilify-map helm-ag-mode-map
-        :mode helm-ag-mode
-        :bindings
-        (kbd "gr") 'helm-ag--update-save-results
-        (kbd "q") 'quit-window))))
+    (advice-add 'helm-ag--save-results :after 'spacemacs//gne-init-helm-ag)
+    (evil-define-key 'normal helm-ag-map
+      (kbd dotspacemacs-leader-key) spacemacs-default-map)
+    (evilified-state-evilify-map helm-grep-mode-map
+      :mode helm-grep-mode
+      :bindings
+      (kbd "q") 'quit-window)
+    (evilified-state-evilify-map helm-ag-mode-map
+      :mode helm-ag-mode
+      :bindings
+      (kbd "gr") 'helm-ag--update-save-results
+      (kbd "q") 'quit-window)))
 
 (defun helm/init-helm-descbinds ()
   (use-package helm-descbinds

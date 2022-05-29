@@ -88,13 +88,13 @@
         (kbd "<backtab>") 'log-view-file-prev
         (kbd "<return>") 'log-view-find-revision
         "H" 'log-view-toggle-entry-display
-        "o" 'ace-link-woman))
-    (evilified-state-evilify-map vc-svn-log-view-mode-map
-      :mode vc-svn-log-view-mode)
-    (evilified-state-evilify-map vc-git-log-view-mode-map
-      :mode vc-git-log-view-mode)
-    (evilified-state-evilify-map vc-git-log-view-mode-map
-      :mode vc-hg-log-view-mode)
+        "o" 'ace-link-woman)
+      (evilified-state-evilify-map vc-svn-log-view-mode-map
+        :mode vc-svn-log-view-mode)
+      (evilified-state-evilify-map vc-git-log-view-mode-map
+        :mode vc-git-log-view-mode)
+      (evilified-state-evilify-map vc-git-log-view-mode-map
+        :mode vc-hg-log-view-mode))
     (with-eval-after-load 'vc-annotate
       (evilified-state-evilify-map vc-annotate-mode-map
        :mode vc-annotate-mode

@@ -532,9 +532,19 @@
           "dty" 'sayid-trace-all-ns-in-dir
           "dV" 'sayid-set-view
           "dw" 'sayid-get-workspace
-          "dx" 'sayid-reset-workspace))
+          "dx" 'sayid-reset-workspace)))
+    :config
+    (progn
+      ;; If sayid-version is null the .elc file
+      ;; is corrupted. Then force a reinstall and
+      ;; reload the feature.
+      (when (null sayid-version)
+        (package-reinstall 'sayid)
+        (unload-feature 'sayid)
+        (require 'sayid)
+        (setq cider-jack-in-lein-plugins (delete `("com.billpiel/sayid" nil) cider-jack-in-lein-plugins)))
 
-
+      ;; Make it evil
       (evilified-state-evilify-map sayid-mode-map
         :mode sayid-mode
         :bindings
@@ -545,7 +555,6 @@
         (kbd "C-s V") 'sayid-set-view
         (kbd "L") 'sayid-buf-back
         (kbd "e") 'sayid-gen-instance-expr) ;Originally this was bound to 'g', but I feel this is still mnemonic and doesn't overlap with evil
-
       (evilified-state-evilify-map sayid-pprint-mode-map
         :mode sayid-pprint-mode
         :bindings
@@ -553,22 +562,12 @@
         (kbd "n") 'sayid-pprint-buf-next
         (kbd "N") 'sayid-pprint-buf-prev
         (kbd "l") 'sayid-pprint-buf-exit)
-
       (evilified-state-evilify-map sayid-traced-mode-map
         :mode sayid-traced-mode
         :bindings
         (kbd "l") 'sayid-show-traced
-        (kbd "h") 'sayid-traced-buf-show-help))
-    :config
-    (progn
-      ;; If sayid-version is null the .elc file
-      ;; is corrupted. Then force a reinstall and
-      ;; reload the feature.
-      (when (null sayid-version)
-        (package-reinstall 'sayid)
-        (unload-feature 'sayid)
-        (require 'sayid)
-        (setq cider-jack-in-lein-plugins (delete `("com.billpiel/sayid" nil) cider-jack-in-lein-plugins))))))
+        (kbd "h") 'sayid-traced-buf-show-help))))
+
 
 (defun clojure/post-init-flycheck ()
   ;; When user has chosen to use multiple linters.
