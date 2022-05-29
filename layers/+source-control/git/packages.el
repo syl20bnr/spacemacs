@@ -356,7 +356,8 @@
         "c" 'forge-create-post
         "C" 'forge-checkout-pullreq
         "b" 'forge-browse-topic
-        "d" 'forge-delete-comment
+        "D" 'forge-delete-comment
+        "d" 'forge-post-toggle-draft
         "e" 'forge-edit-post
         "m" 'forge-edit-topic-marks
         "M" 'forge-create-mark
