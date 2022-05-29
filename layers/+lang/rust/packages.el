@@ -26,13 +26,13 @@
     cargo
     company
     counsel-gtags
-    dap-mode
+    (dap-mode :toggle (eq rust-backend 'lsp))
     flycheck
     (flycheck-rust :requires flycheck)
     ggtags
     helm-gtags
     ron-mode
-    racer
+    (racer :toggle (eq rust-backend 'racer))
     rust-mode
     smartparens
     toml-mode))
@@ -78,9 +78,8 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'rust-mode))
 
 (defun rust/pre-init-dap-mode ()
-  (when (eq rust-backend 'lsp)
-    (add-to-list 'spacemacs--dap-supported-modes 'rust-mode)
-    (add-hook 'rust-mode-local-vars-hook #'spacemacs//rust-setup-dap)))
+  (add-to-list 'spacemacs--dap-supported-modes 'rust-mode)
+  (add-hook 'rust-mode-local-vars-hook #'spacemacs//rust-setup-dap))
 
 (defun rust/post-init-flycheck ()
   (spacemacs/enable-flycheck 'rust-mode))
@@ -97,20 +96,19 @@
   (spacemacs/helm-gtags-define-keys-for-mode 'rust-mode))
 
 (defun rust/init-racer ()
-  (when (eq rust-backend 'racer)
-    (use-package racer
-      :defer t
-      :commands racer-mode
-      :config
-      (progn
-        (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode))
-        (spacemacs/add-to-hook 'racer-mode-hook '(eldoc-mode))
-        (add-to-list 'spacemacs-jump-handlers-rust-mode 'racer-find-definition)
-        (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-          "hh" 'spacemacs/racer-describe)
-        (spacemacs|hide-lighter racer-mode)
-        (evilified-state-evilify-map racer-help-mode-map
-          :mode racer-help-mode)))))
+  (use-package racer
+    :defer t
+    :commands racer-mode
+    :config
+    (progn
+      (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode))
+      (spacemacs/add-to-hook 'racer-mode-hook '(eldoc-mode))
+      (add-to-list 'spacemacs-jump-handlers-rust-mode 'racer-find-definition)
+      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+        "hh" 'spacemacs/racer-describe)
+      (spacemacs|hide-lighter racer-mode)
+      (evilified-state-evilify-map racer-help-mode-map
+        :mode racer-help-mode))))
 
 (defun rust/init-rust-mode ()
   (use-package rust-mode
