@@ -1,6 +1,6 @@
 ;;; funcs.el --- Semantic Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Ray Wang <rayw.public@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

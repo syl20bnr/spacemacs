@@ -1,6 +1,6 @@
 ;;; packages.el --- svelte layer packages file for Spacemacs. -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Marco Süß <msuess@mailbox.org>
 ;; URL: https://github.com/msuess

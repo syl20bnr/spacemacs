@@ -1,6 +1,6 @@
 ;;; packages.el --- Djvu Layer Packages File for Spacemacs
 ;;
-;; Copyright (c) 2021 Sylvain Benner & Contributors
+;; Copyright (c) 2021-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Daniel Laurens Nicolai <dalanicolai@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

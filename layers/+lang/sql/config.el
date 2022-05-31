@@ -1,6 +1,6 @@
 ;;; config.el --- sql Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Kepi <kepi@igloonet.cz>
 ;; URL: https://github.com/syl20bnr/spacemacs
