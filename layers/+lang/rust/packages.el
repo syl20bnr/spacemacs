@@ -26,7 +26,7 @@
     cargo
     company
     counsel-gtags
-    (dap-mode :toggle (eq rust-backend 'lsp))
+    dap-mode
     flycheck
     (flycheck-rust :requires flycheck)
     ggtags
@@ -78,8 +78,9 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'rust-mode))
 
 (defun rust/pre-init-dap-mode ()
-  (add-to-list 'spacemacs--dap-supported-modes 'rust-mode)
-  (add-hook 'rust-mode-local-vars-hook #'spacemacs//rust-setup-dap))
+  (when (eq rust-backend 'lsp)
+    (add-to-list 'spacemacs--dap-supported-modes 'rust-mode)
+    (add-hook 'rust-mode-local-vars-hook #'spacemacs//rust-setup-dap)))
 
 (defun rust/post-init-flycheck ()
   (spacemacs/enable-flycheck 'rust-mode))
