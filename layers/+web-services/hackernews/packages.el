@@ -1,6 +1,6 @@
 ;;; packages.el --- Hackernews Layer Packages File For Spacemacs.
 ;;
-;; Copyright (c) 2021 Sylvain Benner & Contributors
+;; Copyright (c) 2021-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Benedikt Broich <b.broich@posteo.de>
 ;; URL: https://github.com/syl20bnr/spacemacs

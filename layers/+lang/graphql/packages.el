@@ -1,6 +1,6 @@
 ;;; packages.el --- graphql layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Thanh Vuong <thanh@gmail.com>
 ;; URL: https://github.com/thanhvg

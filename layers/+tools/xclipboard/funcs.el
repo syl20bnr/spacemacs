@@ -1,6 +1,6 @@
 ;;; funcs.el --- xclipboard layer functions file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Hong Xu <hong@topbug.net>
 ;; URL: https://github.com/syl20bnr/spacemacs
