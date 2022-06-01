@@ -25,16 +25,16 @@
 ;; which require an initialization must be listed explicitly in the list.
 (setq chinese-packages
       '(
-        (pyim :toggle (eq chinese-default-input-method 'pinyin))
-        (chinese-wbim :toggle (eq chinese-default-input-method 'wubi))
+        (pyim :toggle chinese-default-input-method)
+        (pyim-basedict :toggle (eq chinese-default-input-method 'pinyin))
+        (pyim-wbdict :toggle (member chinese-default-input-method '(wubi wubi86 wubi98)))
         (fcitx :toggle chinese-enable-fcitx)
         find-by-pinyin-dired
-        ace-pinyin
+        (ace-pinyin :toggle chinese-enable-avy-pinyin)
         pangu-spacing
         org
         (youdao-dictionary :toggle chinese-enable-youdao-dict)
         chinese-conv))
-
 
 (defun chinese/init-fcitx ()
   (use-package fcitx
@@ -49,22 +49,38 @@
       (when chinese-fcitx-use-dbus
         (setq fcitx-use-dbus t)))))
 
-(defun chinese/init-chinese-wbim ()
-  "Initialize chinese-wubi"
-  (use-package chinese-wbim
-    :if (eq 'wubi chinese-default-input-method)
+(defun chinese/init-pyim ()
+  (use-package pyim
+    :if chinese-default-input-method
     :init
     (progn
-      (autoload 'chinese-wbim-use-package "chinese-wubi"
-        "Another emacs input method")
-      ;; Tooptip is not good enough, so disable it here.
-      (setq chinese-wbim-use-tooltip nil)
-      (register-input-method
-       "chinese-wubi" "euc-cn" 'chinese-wbim-use-package
-       "五笔" "汉字五笔输入法" "wb.txt")
-      (require 'chinese-wbim-extra)
-      (global-set-key ";" 'chinese-wbim-insert-ascii)
-      (setq default-input-method 'chinese-wubi))))
+      (setq pyim-page-tooltip t
+            pyim-directory (expand-file-name "pyim/" spacemacs-cache-directory)
+            pyim-dcache-directory (expand-file-name "dcache/" pyim-directory)
+            pyim-assistant-scheme-enable t
+            default-input-method "pyim")
+      (autoload 'pyim-dict-manager-mode "pyim-dicts-manager"
+        "Major mode for managing pyim dicts")
+      (evilified-state-evilify-map pyim-dict-manager-mode-map
+        :mode pyim-dict-manager-mode))))
+
+(defun chinese/init-pyim-basedict ()
+  "Initialize pyim-basedict"
+  (use-package pyim-basedict
+    :if (eq chinese-default-input-method 'pinyin)
+    :config
+    (pyim-basedict-enable)))
+
+(defun chinese/init-pyim-wbdict ()
+  "Initialize pyim-wbdict"
+  (use-package pyim-wbdict
+    :if (member chinese-default-input-method '(wubi wubi86 wubi98))
+    :config
+    (progn
+      (setq pyim-default-scheme 'wubi)
+      (if (eq chinese-default-input-method 'wubi98)
+          (pyim-wbdict-v98-enable)
+        (pyim-wbdict-v86-enable)))))
 
 (defun chinese/init-youdao-dictionary ()
   (use-package youdao-dictionary
@@ -79,18 +95,6 @@
             (concat spacemacs-cache-directory ".youdao")
             ;; Enable Chinese word segmentation support
             youdao-dictionary-use-chinese-word-segmentation t))))
-
-(defun chinese/init-pyim ()
-  (use-package pyim
-    :if (eq 'pinyin chinese-default-input-method)
-    :init
-    (progn
-      (setq pyim-page-tooltip t
-            pyim-directory (expand-file-name "pyim/" spacemacs-cache-directory)
-            pyim-dcache-directory (expand-file-name "dcache/" pyim-directory)
-            default-input-method "pyim")
-      (evilified-state-evilify-map pyim-dm-mode-map
-        :mode pyim-dm-mode))))
 
 (defun chinese/init-find-by-pinyin-dired ()
   (use-package find-by-pinyin-dired

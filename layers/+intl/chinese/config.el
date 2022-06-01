@@ -24,7 +24,9 @@
 ;; Variables
 
 (defvar chinese-default-input-method 'pinyin
-  "The default chinese input method. Can be `wubi` or `pinyin`.")
+  "The default chinese input method.  Can be one of nil, t, `pinyin', `wubi', `wubi86', `wubi98'.
+nil for don't change the input method.
+t for using the pyim with custom dictionary")
 
 (defvar chinese-enable-youdao-dict nil
   "Enable YouDao Dict translation service.")
