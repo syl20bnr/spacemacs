@@ -2,7 +2,7 @@
 
 #+TAGS: layer|markup
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -29,7 +29,7 @@ file.
 * Key binding
 ** Editing
 
-| Key Binding | Description             |
+| Key binding | Description             |
 |-------------+-------------------------|
 | ~SPC m RET~ | upcase line and newline |
 | ~SPC m x U~ | upcase line             |
@@ -47,21 +47,21 @@ file.
 
 ** Navigation
 
-| Key Binding | Description |
+| Key binding | Description |
 |-------------+-------------|
 | ~SPC m j s~ | goto scene  |
 | ~SPC m j p~ | goto page   |
 
 ** Block editing
 
-| Key Binding | Description       |
+| Key binding | Description       |
 |-------------+-------------------|
 | ~<M-down>~  | move section down |
 | ~<M-up>~    | move section up   |
 
 ** Outline
 
-| Key Binding | Description                |
+| Key binding | Description                |
 |-------------+----------------------------|
 | ~SPC m TAB~ | cycle outline              |
 | ~S-TAB~     | cycle outlines for buffer  |
@@ -70,14 +70,14 @@ file.
 
 ** Pagination
 
-| Key Binding | Description       |
+| Key binding | Description       |
 |-------------+-------------------|
 | ~SPC m c p~ | count pages       |
 | ~SPC m c u~ | pagination update |
 
 ** Exporting
 
-| Key Binding | Description    |
+| Key binding | Description    |
 |-------------+----------------|
 | ~SPC m e e~ | export command |
 | ~SPC m e v~ | export view    |
