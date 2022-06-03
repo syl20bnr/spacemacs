@@ -270,6 +270,8 @@
   - [[#twitch][Twitch]]
   - [[#twitter][Twitter]]
   - [[#wakatime][Wakatime]]
+- [[#skipped-layers][Skipped layers:]]
+  - [[#fountain][Fountain]]
 
 * Description
 
@@ -3458,3 +3460,13 @@ P.S. wakati means time in Swahili
 
 Features:
 - Integration with Wakatime cloud based time tracking service
+
+* Skipped layers:
+** Fountain
+[[file:+lang/fountain/README.org][+lang/fountain/README.org]]
+
+This layer adds support for the [[https://fountain.io/][fountain]] screenwriting format to Spacemacs.
+
+Features:
+- Fountain files support via [[https://github.com/rnkn/fountain-mode/][fountain-mode]]
+- Confortable writing layout via [[https://github.com/rnkn/olivetti/][olivetti-mode]]
