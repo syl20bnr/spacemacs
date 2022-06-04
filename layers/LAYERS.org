@@ -89,6 +89,7 @@
       - [[#bibtex][BibTeX]]
       - [[#csv][CSV]]
       - [[#dhall][Dhall]]
+      - [[#fountain][Fountain]]
       - [[#graphviz][Graphviz]]
       - [[#html][HTML]]
       - [[#json][JSON]]
@@ -270,8 +271,6 @@
   - [[#twitch][Twitch]]
   - [[#twitter][Twitter]]
   - [[#wakatime][Wakatime]]
-- [[#skipped-layers][Skipped layers:]]
-  - [[#fountain][Fountain]]
 
 * Description
 
@@ -1273,6 +1272,15 @@ Features:
 
 *Note:* You will need a ~dhall~ binary on your ~PATH~. Official releases [[https://github.com/dhall-lang/dhall-haskell/releases][can be
 found here]].
+
+**** Fountain
+[[file:+lang/fountain/README.org][+lang/fountain/README.org]]
+
+This layer adds support for the [[https://fountain.io/][fountain]] screenwriting format to Spacemacs.
+
+Features:
+- Fountain files support via [[https://github.com/rnkn/fountain-mode/][fountain-mode]]
+- Confortable writing layout via [[https://github.com/rnkn/olivetti/][olivetti-mode]]
 
 **** Graphviz
 [[file:+lang/graphviz/README.org][+lang/graphviz/README.org]]
@@ -3460,13 +3468,3 @@ P.S. wakati means time in Swahili
 
 Features:
 - Integration with Wakatime cloud based time tracking service
-
-* Skipped layers:
-** Fountain
-[[file:+lang/fountain/README.org][+lang/fountain/README.org]]
-
-This layer adds support for the [[https://fountain.io/][fountain]] screenwriting format to Spacemacs.
-
-Features:
-- Fountain files support via [[https://github.com/rnkn/fountain-mode/][fountain-mode]]
-- Confortable writing layout via [[https://github.com/rnkn/olivetti/][olivetti-mode]]
