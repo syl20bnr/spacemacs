@@ -1,6 +1,6 @@
 #+TITLE: Fountain layer
 
-#+TAGS: layer|markup
+#+TAGS: dsl|layer|markup|programming
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
