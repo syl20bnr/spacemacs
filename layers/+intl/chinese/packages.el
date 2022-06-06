@@ -60,9 +60,7 @@
             pyim-assistant-scheme-enable t
             default-input-method "pyim")
       (autoload 'pyim-dict-manager-mode "pyim-dicts-manager"
-        "Major mode for managing pyim dicts")
-      (evilified-state-evilify-map pyim-dict-manager-mode-map
-        :mode pyim-dict-manager-mode))))
+        "Major mode for managing pyim dicts"))))
 
 (defun chinese/init-pyim-basedict ()
   "Initialize pyim-basedict"
