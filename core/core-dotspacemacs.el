@@ -210,6 +210,13 @@ If the value is nil then no banner is displayed."
   '(choice (const official) (const random) (const nil) string integer)
   'spacemacs-dotspacemacs-init)
 
+(spacemacs|defc dotspacemacs-startup-banner-scale 'auto
+  "Specify the scale value for the startup banner. Default value is `auto',
+it displays the spacemacs logo with the scale value. An (0, 1] float value
+will be applied to scale the banner."
+  '(choice (const auto) (const nil) float)
+  'spacemacs-dotspacemacs-init)
+
 (spacemacs|defc dotspacemacs-startup-buffer-show-version t
   "If true, show Spacemacs and Emacs version at the top right of the
 Spacemacs buffer."
