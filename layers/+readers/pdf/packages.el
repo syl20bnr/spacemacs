@@ -68,6 +68,7 @@
       ;; TODO: Make `/', `?' and `n' work like in Evil
       (evilified-state-evilify-map pdf-view-mode-map
         :mode  pdf-view-mode
+        :eval-after-load pdf-view
         :bindings
         ;; Navigation
         "0"  'image-bol
@@ -100,6 +101,7 @@
         "zr"  'pdf-view-scale-reset)
       (evilified-state-evilify-map pdf-outline-buffer-mode-map
         :mode  pdf-outline-buffer-mode
+        :eval-after-load pdf-outline
         :bindings
         "-"                'negative-argument
         "j"                'next-line
@@ -125,6 +127,7 @@
         "F"                'pdf-outline-follow-mode)
       (evilified-state-evilify-map pdf-annot-list-mode-map
         :mode  pdf-annot-list-mode
+        :eval-after-load pdf-annot
         :bindings
         "f"                'pdf-annot-list-display-annotation-from-id
         "d"                'tablist-flag-forward
@@ -133,6 +136,7 @@
         "q"                'tablist-quit)
       (evilified-state-evilify-map pdf-occur-buffer-mode-map
         :mode  pdf-occur-buffer-mode
+        :eval-after-load pdf-occur
         :bindings
         "q"              'tablist-quit
         "g"              'pdf-occur-revert-buffer-with-args
