@@ -3137,6 +3137,7 @@ files (thanks to Daniel Nicolai)
 - Added declaration for the ~SPC P~ prefix (thanks to Codruț Constantin Gușoi)
 **** Pdf
 - Fixed ~'~ =pdf-view-jump-to-register= (thanks to duianto)
+- Fixed evilifying the pdf-outline-buffer-mode-map (thanks to Lin Sun)
 - Key bindings:
   - Added to pdf-view mode and transient state
     - ~[~ history-backward (previous view)
