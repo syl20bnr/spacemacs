@@ -27,7 +27,7 @@
   (defvar dotspacemacs-filepath)
   (defvar dotspacemacs-show-startup-list-numbers)
   (defvar dotspacemacs-startup-banner)
-  (defvar dotspacemacs-startup-banner-scale)
+  (defvar dotspacemacs-startup-banner-scale 'auto)
   (defvar dotspacemacs-startup-buffer-show-icons)
   (defvar spacemacs-badge-official-png)
   (defvar spacemacs-banner-directory)
