@@ -1628,6 +1628,8 @@ Other:
   - Added =fcitx5= support (thanks to wgjak47)
 - Fixes:
   - Make =fcitx.el= work by default (thanks to AmaiKinono)
+  - Evilify the pyim-dict-manager-mode-map after the pyim-dict-manager-mode be
+    loaded (thanks to Lin Sun)
 **** Chrome
 - Key bindings:
   - Added =markdown= key bindings to gmail message mode
