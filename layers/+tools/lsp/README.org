@@ -206,6 +206,7 @@ The lsp minor mode bindings are:
 | ~SPC m g b~   | jump back (=xref= / =lsp=)                                                       |
 | ~SPC m g i~   | find implementations (=lsp-mode=)                                                |
 | ~SPC m g d~   | find definitions (=xref= / =lsp-mode=)                                           |
+| ~SPC m g D~   | find definitions in other window (=xref= / =lsp-mode=)                           |
 | ~SPC m g r~   | find references (=xref= / =lsp=)                                                 |
 | ~SPC m g s~   | find symbol in project (=helm-lsp=)                                              |
 | ~SPC m g S~   | find symbol in all projects (=helm-lsp=)                                         |
