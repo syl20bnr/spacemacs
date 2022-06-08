@@ -3835,6 +3835,9 @@ files (thanks to Daniel Nicolai)
 - Fixed error on =diff-hl-margin-mode= function being nil during startup
   (thanks to Voleking)
 - Fixed =git-gutter+= refresh when a buffer is staged or unstaged in Magit
+- Evilify the svn/git/hg mode-maps after their mode files be loaded
+  (thanks to Lin Sun)
+
 **** Vue
 - Added a toggle state minified/full to the transient state (thanks to duianto)
 **** Xclipboard
