@@ -275,6 +275,7 @@ Returns height in units of line height with a minimum of 1."
             (setq dotspacemacs-startup-buffer-show-icons nil)
 	          (setq lines (with-temp-buffer
                           (spacemacs-buffer//do-insert-startupify-lists)
+                          (recentf-mode -1)
                           (line-number-at-pos)))
               ;; (count-lines (point-min) (point-max)))
             (setq dotspacemacs-startup-buffer-show-icons icons)
