@@ -120,10 +120,5 @@
 (defun syntax-checking/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
     :post-config
-    (push '("^\\*Flycheck.+\\*$"
-            :regexp t
-            :dedicated t
-            :position bottom
-            :stick t
-            :noselect t)
+    (push syntax-checking-buffer-config
           popwin:special-display-config)))

@@ -36,7 +36,28 @@
   "If non-nil, use the original bitmaps from flycheck.")
 
 (defvar syntax-checking-use-standard-error-navigation nil
-  "If non-nil hook into emacs standard error navigation")
+  "If non-nil hook into emacs standard error navigation.")
 
-;; Command Prefixes
+(defvar syntax-checking-window-position 'bottom
+  "Popup window position. Default: 'bottom.")
 
+(defvar syntax-checking-window-width 80
+  "Popup window width in characters.")
+
+(defvar syntax-checking-window-height 25
+  "Popup window height in characters.")
+
+
+;; internals
+
+;; for syntax checking window position
+
+(defvar syntax-checking-buffer-config
+  `("^\\*Flycheck.+\\*$"
+    :regexp t
+    :dedicated t
+    :position ,syntax-checking-window-position
+    :width ,syntax-checking-window-width
+    :height ,syntax-checking-window-height
+    :stick t
+    :noselect t))
