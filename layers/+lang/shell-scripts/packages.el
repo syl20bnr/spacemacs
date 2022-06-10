@@ -21,35 +21,34 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq shell-scripts-packages
-      '(
-        (company-shell :requires company)
-        fish-mode
-        flycheck
-        flycheck-bashate
-        ggtags
-        counsel-gtags
-        helm-gtags
-        insert-shebang
-        org
-        (sh-script :location built-in)
-        (shfmt :toggle shell-scripts-format-on-save)
-        ))
+(defconst shell-scripts-packages
+  '(
+    company
+    (company-shell :requires company)
+    fish-mode
+    flycheck
+    flycheck-bashate
+    ggtags
+    counsel-gtags
+    helm-gtags
+    insert-shebang
+    org
+    (sh-script :location built-in)
+    shfmt))
+
+(defun shell-scripts/post-init-company ()
+  (spacemacs//shell-scripts-setup-company))
+
+(defun shell-scripts/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'sh-mode))
 
 (defun shell-scripts/init-company-shell ()
   (use-package company-shell
     :defer t
     :init
-    (progn
-      (spacemacs|add-company-backends
-        :backends (company-shell company-shell-env)
-        :modes sh-mode)
-      (spacemacs|add-company-backends
-        :backends (company-shell company-shell-env company-fish-shell)
-        :modes fish-mode))))
-
-(defun shell-scripts/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'sh-mode))
+    (spacemacs|add-company-backends
+      :backends (company-shell company-shell-env company-fish-shell)
+      :modes fish-mode)))
 
 (defun shell-scripts/init-flycheck-bashate ()
   (use-package flycheck-bashate
@@ -64,50 +63,54 @@
   (use-package sh-script
     :defer t
     :init
-    (progn
-      ;; Add meaningful names for prefix categories
-      (spacemacs/declare-prefix-for-mode 'sh-mode "mi" "insert")
-      (spacemacs/declare-prefix-for-mode 'sh-mode "mg" "goto")
+    ;; Add meaningful names for prefix categories
+    (spacemacs/declare-prefix-for-mode 'sh-mode "mi" "insert")
+    (unless (eq shell-scripts-backend 'lsp)
+      (spacemacs/declare-prefix-for-mode 'sh-mode "mg" "goto"))
 
-      ;; Add standard key bindings for insert commands
-      (spacemacs/set-leader-keys-for-major-mode 'sh-mode
-        "\\" 'sh-backslash-region
-        "ic" 'sh-case
-        "ii" 'sh-if
-        "if" 'sh-function
-        "io" 'sh-for
-        "ie" 'sh-indexed-loop
-        "iw" 'sh-while
-        "ir" 'sh-repeat
-        "is" 'sh-select
-        "iu" 'sh-until
-        "ig" 'sh-while-getopts)
+    ;; Add standard key bindings for insert commands
+    (spacemacs/set-leader-keys-for-major-mode 'sh-mode
+      "\\" 'sh-backslash-region
+      "ic" 'sh-case
+      "ii" 'sh-if
+      "if" 'sh-function
+      "io" 'sh-for
+      "ie" 'sh-indexed-loop
+      "iw" 'sh-while
+      "ir" 'sh-repeat
+      "is" 'sh-select
+      "iu" 'sh-until
+      "ig" 'sh-while-getopts)
 
-      ;; Use sh-mode when opening `.zsh' files, and when opening Prezto runcoms.
-      (dolist (pattern '("\\.zsh\\'"
-                         "zlogin\\'"
-                         "zlogout\\'"
-                         "zpreztorc\\'"
-                         "zprofile\\'"
-                         "zshenv\\'"
-                         "zshrc\\'"))
-        (add-to-list 'auto-mode-alist (cons pattern 'sh-mode)))
+    ;; Use sh-mode when opening `.zsh' files, and when opening Prezto runcoms.
+    (dolist (pattern '("\\.zsh\\'"
+                       "zlogin\\'"
+                       "zlogout\\'"
+                       "zpreztorc\\'"
+                       "zprofile\\'"
+                       "zshenv\\'"
+                       "zshrc\\'"))
+      (add-to-list 'auto-mode-alist (cons pattern 'sh-mode)))
 
-      (defun spacemacs//setup-shell ()
-        (when (and buffer-file-name
-                   (string-match-p "\\.zsh\\'" buffer-file-name))
-          (sh-set-shell "zsh")))
-      (add-hook 'sh-mode-hook 'spacemacs//setup-shell)
-      (add-hook 'sh-mode-hook 'spacemacs//shell-scripts-setup-backend))))
+    (defun spacemacs//setup-shell ()
+      (when (and buffer-file-name
+                 (string-match-p "\\.zsh\\'" buffer-file-name))
+        (sh-set-shell "zsh")))
+    (add-hook 'sh-mode-hook 'spacemacs//setup-shell)
+    (add-hook 'sh-mode-hook 'spacemacs//shell-scripts-setup-backend)))
 
 (defun shell-scripts/init-shfmt ()
   (use-package shfmt
     :defer t
     :init
-    (progn
-      (add-hook 'sh-mode-hook 'shfmt-on-save-mode)
-      (spacemacs/set-leader-keys-for-major-mode 'sh-mode
-        "=" 'shfmt-buffer))))
+    (when shell-scripts-format-on-save
+      (add-hook 'sh-mode-hook 'shfmt-on-save-mode))
+
+    ;; "=" is a group of commands for lsp users
+    ;; therefore bind this function to "==" instead
+    (if (eq shell-scripts-backend 'lsp)
+        (spacemacs/set-leader-keys-for-major-mode 'sh-mode "==" 'shfmt-buffer)
+      (spacemacs/set-leader-keys-for-major-mode 'sh-mode "=" 'shfmt-buffer))))
 
 (defun shell-scripts/post-init-ggtags ()
   (add-hook 'sh-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
@@ -126,11 +129,10 @@
   (use-package insert-shebang
     :defer t
     :init
-    (progn
-      ;; Insert shebang must be available for non shell modes like python or
-      ;; groovy but also in the major mode menu with shell specific inserts
-      (spacemacs/set-leader-keys-for-major-mode 'sh-mode
-        "i!" 'spacemacs/insert-shebang)
-      (spacemacs/set-leader-keys "i!" 'spacemacs/insert-shebang)
-      ;; we don't want to insert shebang lines automatically
-      (remove-hook 'find-file-hook 'insert-shebang))))
+    ;; Insert shebang must be available for non shell modes like python or
+    ;; groovy but also in the major mode menu with shell specific inserts
+    (spacemacs/set-leader-keys-for-major-mode 'sh-mode
+      "i!" 'spacemacs/insert-shebang)
+    (spacemacs/set-leader-keys "i!" 'spacemacs/insert-shebang)
+    ;; we don't want to insert shebang lines automatically
+    (remove-hook 'find-file-hook 'insert-shebang)))

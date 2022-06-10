@@ -11,6 +11,7 @@
   - [[#layer][Layer]]
   - [[#linting][Linting]]
   - [[#style-checking][Style checking]]
+  - [[#format][Format]]
   - [[#format-on-save][Format on save]]
   - [[#backends][Backends]]
     - [[#shell-script-mode][Shell-script-mode]]
@@ -44,6 +45,14 @@ In order to enable =sh= scripts linting, install [[https://www.shellcheck.net/][
 
 ** Style checking
 In order to enable =sh= scripts style checking, install [[https://github.com/openstack-dev/bashate][bashate]].
+
+** Format
+To support formatting of buffers you need to install the application
+shfmt. This can be done like shown below
+
+#+BEGIN_SRC sh
+  go install mvdan.cc/sh/v3/cmd/shfmt@latest
+#+END_SRC
 
 ** Format on save
 To enable automatic formatting on save, set the layer variable

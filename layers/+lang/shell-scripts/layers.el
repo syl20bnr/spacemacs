@@ -20,7 +20,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 (when (and (boundp 'shell-scripts-backend)
            (eq shell-scripts-backend 'lsp))
   (configuration-layer/declare-layer-dependencies '(lsp)))
