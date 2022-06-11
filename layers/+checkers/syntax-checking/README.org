@@ -121,7 +121,6 @@ and =syntax-checking-window-height= for width and height respectively.
                        syntax-checking-window-height 25)))
 #+END_SRC
 
-
 * Key bindings
 
 | Key binding | Description                                                  |
