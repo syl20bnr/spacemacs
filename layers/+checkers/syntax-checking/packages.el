@@ -21,12 +21,12 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq syntax-checking-packages
-      '(
-        flycheck
-        flycheck-pos-tip
-        popwin
-        ))
+(defconst syntax-checking-packages
+  '(
+    flycheck
+    flycheck-pos-tip
+    popwin))
+
 
 (defun syntax-checking/init-flycheck ()
   (use-package flycheck
@@ -120,5 +120,5 @@
 (defun syntax-checking/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
     :post-config
-    (push syntax-checking-buffer-config
+    (push syntax-checking--buffer-config
           popwin:special-display-config)))

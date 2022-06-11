@@ -23,37 +23,43 @@
 
 ;; Variables
 
-(defvar syntax-checking-enable-tooltips t
-  "If non nil some feedback are displayed in tooltips.")
+(spacemacs|defc syntax-checking-enable-tooltips t
+  "If non nil some feedback are displayed in tooltips."
+  '(boolean))
 
-(defvar syntax-checking-auto-hide-tooltips nil
-  "If non-nil and positive number, auto hide tooltips after number of seconds.")
+(spacemacs|defc syntax-checking-auto-hide-tooltips nil
+  "If non-nil and positive number, auto hide tooltips after number of seconds."
+  '(natnum))
 
-(defvar syntax-checking-enable-by-default t
-  "Enable syntax-checking by default.")
+(spacemacs|defc syntax-checking-enable-by-default t
+  "Enable syntax-checking by default."
+  '(boolean))
 
-(defvar syntax-checking-use-original-bitmaps nil
-  "If non-nil, use the original bitmaps from flycheck.")
+(spacemacs|defc syntax-checking-use-original-bitmaps nil
+  "If non-nil, use the original bitmaps from flycheck."
+  '(boolean))
 
-(defvar syntax-checking-use-standard-error-navigation nil
-  "If non-nil hook into emacs standard error navigation.")
+(spacemacs|defc syntax-checking-use-standard-error-navigation nil
+  "If non-nil hook into emacs standard error navigation."
+  '(boolean))
 
-(defvar syntax-checking-window-position 'bottom
-  "Popup window position. Default: 'bottom.")
+(spacemacs|defc syntax-checking-window-position 'bottom
+  "Popup window position."
+  '(choice (const bottom) (const left) (const right) (const top)))
 
-(defvar syntax-checking-window-width 80
-  "Popup window width in characters.")
+(spacemacs|defc syntax-checking-window-width 0.3
+  "Popup window width in characters (int) or as percentage (float)."
+  '(number))
 
-(defvar syntax-checking-window-height 25
-  "Popup window height in characters.")
+(spacemacs|defc syntax-checking-window-height 0.3
+  "Popup window height in characters (int) or as percentage (float)."
+  '(number))
 
 
 ;; internals
-
-;; for syntax checking window position
-
-(defvar syntax-checking-buffer-config
-  `("^\\*Flycheck.+\\*$"
+(defvar syntax-checking--buffer-config
+  "Internal syntax checking window position config."
+  `('^\\*Flycheck.+\\*$'
     :regexp t
     :dedicated t
     :position ,syntax-checking-window-position
