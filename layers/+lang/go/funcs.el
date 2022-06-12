@@ -47,9 +47,22 @@
 (defun spacemacs//go-setup-dap ()
   "Conditionally setup go DAP integration."
   ;; currently DAP is only available using LSP
+  (if dap-dlv-mode
+      (spacemacs//go-setup-dap-dlv)
+    (spacemacs//go-setup-dap-vscode)))
+
+(defun spacemacs//go-setup-dap-vscode ()
+  "Conditionally setup go DAP integration with aold dlv (vscode) setup."
   (when (eq go-backend 'lsp)
     (require 'dap-go)
-    (dap-go-setup)))
+    (dap-go-setup))
+)
+
+(defun spacemacs//go-setup-dap-dlv ()
+  "Conditionally setup go DAP integration with new dlv config."
+  ;; currently DAP is only available using LSP
+  (when (eq go-backend 'lsp)
+    (require 'dap-dlv-go)))
 
 (defun spacemacs//go-setup-format ()
   "Conditionally setup format on save."
