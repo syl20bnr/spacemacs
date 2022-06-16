@@ -256,7 +256,6 @@
   - [[#evil-better-jumper][Evil-better-jumper]]
   - [[#evil-commentary][Evil-commentary]]
   - [[#evil-snipe][Evil-snipe]]
-  - [[#vim-empty-lines][Vim-empty-lines]]
   - [[#vinegar][Vinegar]]
 - [[#web-services][Web services]]
   - [[#confluence][Confluence]]
@@ -931,7 +930,7 @@ Features:
 - Evilification of various modes if the editing style is =vim= or =hybrid=
 - Improves the comment function to be able to also do the inverse operation
 - Persistent highlight of searched text with =evil-search-highlight-persist=
-- Display tildes in non-buffer area with =vi-tilde-fringe=
+- Display tildes in non-buffer area with =vim-empty-lines-mode=
 - Add =evil-collection=
 
 ** Spacemacs-language
@@ -3291,23 +3290,6 @@ Features:
 - Replacement of evil-surround with a two-character search.
 - Support for alternative scopes for default search operations.
 - Support for alternative motions based on configurable regexps.
-
-** Vim-empty-lines
-[[file:+vim/vim-empty-lines/README.org][+vim/vim-empty-lines/README.org]]
-
-This layer is a drop-in replacement for the =vi-tilde-fringe= mode, for those
-who desire behaviour closer to =vim='s.
-
-It has better compatibility with retina displays, as it uses a text overlay
-using your font, rather than a pixel-art tilde. The empty line indicators are
-overlaid in within the buffer as in =vim=, and not in the fringe. The indicator
-behaviour with trailing empty lines matches =vim='s behaviour.
-
-For details, see the [[https://github.com/jmickelin/vim-empty-lines-mode][vim-empty-lines-mode]] repository.
-
-Features:
-- Emulation of original vim behaviour.
-- Brings you as close to vim as one can be without using vim itself.
 
 ** Vinegar
 [[file:+vim/vinegar/README.org][+vim/vinegar/README.org]]

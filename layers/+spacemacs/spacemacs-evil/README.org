@@ -32,7 +32,7 @@ throughout the entirety of Spacemacs.
 - Evilification of various modes if the editing style is =vim= or =hybrid=
 - Improves the comment function to be able to also do the inverse operation
 - Persistent highlight of searched text with =evil-search-highlight-persist=
-- Display tildes in non-buffer area with =vi-tilde-fringe=
+- Display tildes in non-buffer area with =vim-empty-lines-mode=
 - Add =evil-collection=
 
 * Install

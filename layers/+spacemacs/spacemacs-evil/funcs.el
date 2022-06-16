@@ -74,16 +74,20 @@ Otherwise, revert to the default behavior (i.e. enable `evil-insert-state')."
     (evil-escape-mode -1)))
 
 
-;; vi-tilde-fringe
+;; vim-empty-lines-mode
 
-(defun spacemacs/disable-vi-tilde-fringe ()
-  "Disable `vi-tilde-fringe' in the current buffer."
-  (vi-tilde-fringe-mode -1))
+(defun spacemacs/disable-vim-empty-lines-mode ()
+  "Disable `vim-empty-lines-mode' in the current buffer."
+  (vim-empty-lines-mode -1))
 
-(defun spacemacs/disable-vi-tilde-fringe-read-only ()
-  "Disable `vi-tilde-fringe' in the current buffer if it is read only."
+(defun spacemacs/disable-vim-empty-lines-mode-read-only ()
+  "Disable `vim-empty-lines-mode' in the current buffer if it is read only."
   (when buffer-read-only
-    (spacemacs/disable-vi-tilde-fringe)))
+    (spacemacs/disable-vim-empty-lines-mode)))
+
+;; Backward compatibility
+(defalias 'spacemacs/disable-vi-tilde-fringe 'spacemacs/disable-vim-empty-lines-mode)
+(defalias 'spacemacs/disable-vi-tilde-fringe-read-only 'spacemacs/disable-vim-empty-lines-mode-read-only)
 
 
 ;; lisp state
