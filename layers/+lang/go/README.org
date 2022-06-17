@@ -267,7 +267,7 @@ depreciated and =dap-dlv-go= the default choice which is self-contained.
 More details about both can be found [[https://emacs-lsp.github.io/dap-mode/page/configuration/#go][here]].
 
 By default =dap-dlv-go= is used, however it is also possible to use the legacy
-    intgration =dap-go= to do set the layer variable =go-dap-mode= as shown below:
+integration =dap-go,= to do so set the layer variable =go-dap-mode= as shown below:
 
 #+begin_src emacs-lisp
   (go :variables go-dap-mode 'dap-go)
