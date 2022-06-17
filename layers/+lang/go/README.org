@@ -269,9 +269,9 @@ More details about both can be found [[https://emacs-lsp.github.io/dap-mode/page
 By default =dap-dlv-go= is used, however it is also possible to use the legacy
 integration =dap-go,= to do so set the layer variable =go-dap-mode= as shown below:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (go :variables go-dap-mode 'dap-go)
-#+end_src
+#+END_SRC
 
 * Key bindings
 ** Go commands (start with =m=):
