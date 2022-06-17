@@ -355,7 +355,8 @@
     :init
     (progn
       (setq forge-database-file (concat spacemacs-cache-directory
-                                        "forge-database.sqlite"))
+                                        "forge-database.sqlite")
+            forge-add-default-bindings nil)
       (spacemacs/set-leader-keys-for-major-mode 'forge-topic-mode
         "a" 'forge-edit-topic-assignees
         "c" 'forge-create-post
