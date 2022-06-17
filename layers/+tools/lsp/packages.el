@@ -77,9 +77,7 @@
 (defun lsp/init-consult-lsp ()
   (use-package consult-lsp
     :defer t
-    :after (lsp-mode)
-    :config
-     (consult-lsp-marginalia-mode 1)))
+    :after (lsp-mode)))
 
 (defun lsp/init-lsp-treemacs ()
   (use-package lsp-treemacs :defer t))
