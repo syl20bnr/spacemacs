@@ -435,7 +435,7 @@
          :mode global-vim-empty-lines-mode
          :documentation
          "Display an overlay of ~ on empty lines."
-         :evil-leader "t~")
+         :evil-leader "T~")
        ;; Don't enable it where it is detrimental.
        (dolist (x (list spacemacs-buffer-name
                         "*Messages*"))
