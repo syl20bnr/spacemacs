@@ -220,7 +220,7 @@ If the value is nil then no banner is displayed."
   "Specify the scale value for the startup banner. Default value is `auto',
 it displays the spacemacs logo with the scale value. A (0, 1] float value
 will be applied to scale the banner."
-  '(choice (const auto) (const nil) float)
+  '(choice (const auto) (const nil) number)
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-startup-buffer-show-version t
