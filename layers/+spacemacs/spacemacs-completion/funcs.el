@@ -47,15 +47,6 @@
                       :background nil
                       :inherit 'helm-ff-directory))
 
-(defun spacemacs//helm-make-source (f &rest args)
-  "Function to be used as advice to activate fuzzy matching for all sources."
-  (let ((source-type (cadr args))
-        (props (cddr args)))
-    ;; fuzzy matching is not supported in async sources
-    (unless (child-of-class-p source-type helm-source-async)
-      (plist-put props :fuzzy-match (eq 'always helm-use-fuzzy))))
-  (apply f args))
-
 (defun spacemacs//helm-find-files-enable-helm--in-fuzzy ()
   "Enabling `helm--in-fuzzy' with the hook:
 `helm-find-files-after-init-hook'. Fixes the error:

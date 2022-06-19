@@ -183,7 +183,8 @@
       ;; helm-locate uses es (from everything on windows which doesn't like fuzzy)
       (helm-locate-set-command)
       (setq helm-locate-fuzzy-match (and (bound-and-true-p helm-use-fuzzy)
-                                         (string-match "locate" helm-locate-command)))
+                                         (string-match "locate" helm-locate-command)
+                                         t))
       (setq helm-boring-buffer-regexp-list
             (append helm-boring-buffer-regexp-list
                     spacemacs-useless-buffers-regexp))

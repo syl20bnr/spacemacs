@@ -27,8 +27,8 @@
         (default-ivy-config :location built-in)
         flx-ido
         (ido :location built-in)
-        (ido-vertical-mode :location built-in)
-        ))
+        (ido-vertical-mode :location built-in)))
+
 
 (defun spacemacs-completion/init-default-helm-config ()
   (setq helm-prevent-escaping-from-minibuffer t
@@ -39,6 +39,7 @@
         helm-echo-input-in-header-line t
         helm-imenu-execute-action-at-once-if-one nil
         helm-org-format-outline-path t
+        helm-completion-style (if (eq helm-use-fuzzy 'always) 'helm-fuzzy 'helm)
         helm-display-function 'spacemacs//display-helm-window)
   (with-eval-after-load 'helm
     (spacemacs|hide-lighter helm-mode)
@@ -61,10 +62,6 @@
     (add-hook 'helm-find-files-after-init-hook
               'spacemacs//helm-find-files-enable-helm--in-fuzzy)
     ;; setup advices
-    ;; fuzzy matching for all the sources
-    (unless (eq helm-use-fuzzy 'source)
-      (advice-add 'helm-make-source :around #'spacemacs//helm-make-source))
-
     (defadvice spacemacs/post-theme-init
         (after spacemacs/helm-header-line-adv activate)
       "Update defaults for `helm' header line whenever a new theme is loaded"
@@ -118,23 +115,23 @@
         ("t" helm-toggle-visible-mark)
         ("T" helm-toggle-all-marks)
         ("v" helm-execute-persistent-action))
-      (define-key helm-map (kbd "M-SPC")
-        'spacemacs/helm-navigation-transient-state/body)
-      (define-key helm-map (kbd "s-M-SPC")
-        'spacemacs/helm-navigation-transient-state/body)
+    (define-key helm-map (kbd "M-SPC")
+      'spacemacs/helm-navigation-transient-state/body)
+    (define-key helm-map (kbd "s-M-SPC")
+      'spacemacs/helm-navigation-transient-state/body)
       ;; Swap default TAB and C-z commands.
       ;; For GUI.
-      (with-eval-after-load 'helm-files
-        (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-        (define-key helm-find-files-map
-          (kbd "S-<tab>") 'helm-find-files-up-one-level)
-        (define-key helm-find-files-map
-          (kbd "<backtab>") 'helm-find-files-up-one-level)
-        ;; For terminal.
-        (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
-        (define-key helm-find-files-map
-          (kbd "S-TAB") 'helm-find-files-up-one-level)
-        (define-key helm-map (kbd "C-z") 'helm-select-action))))
+    (with-eval-after-load 'helm-files
+      (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+      (define-key helm-find-files-map
+        (kbd "S-<tab>") 'helm-find-files-up-one-level)
+      (define-key helm-find-files-map
+        (kbd "<backtab>") 'helm-find-files-up-one-level)
+      ;; For terminal.
+      (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
+      (define-key helm-find-files-map
+        (kbd "S-TAB") 'helm-find-files-up-one-level)
+      (define-key helm-map (kbd "C-z") 'helm-select-action))))
 
 (defun spacemacs-completion/init-default-ivy-config ()
   (with-eval-after-load 'ivy
@@ -146,14 +143,14 @@
     (add-hook 'spacemacs-editing-style-hook 'spacemacs//ivy-hjkl-navigation)
     ;; key bindings
     ;; ensure that the correct bindings are set at startup
-    (spacemacs//ivy-hjkl-navigation dotspacemacs-editing-style)
+    (spacemacs//ivy-hjkl-navigation dotspacemacs-editing-style)))
     ;; load ivy-hydra
     ;; (require 'ivy-hydra)
     ;; Using the original ivy-hydra might lead to some buggy behavior. Therefore
     ;; previously a customized transient state was found here. This customized
     ;; transient state was removed after commit
     ;; d46eacd83842815b24afcb2e1fee5c80c38187c5
-    ))
+
 
 (defun spacemacs-completion/init-flx-ido ()
   (use-package flx-ido

@@ -112,9 +112,10 @@ Default value is =bottom=.
 
 ** Enable fuzzy searching in Helm buffers
 It is possible to control the fuzziness of Helm when searching for candidates.
-By default this layer /tries/ to enable fuzzy search to all Helm sources.
-You can limit the fuzzy search to helm own defaults by setting the layer
-variable =helm-use-fuzzy= to the value ='source=.
+By default this layer enable fuzzy search for all supported Helm sources.
+It this creates issues please disable it by setting this value to ='source=.
+
+In this case please open an issue so that this can be fixed.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
