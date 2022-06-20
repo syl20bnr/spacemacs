@@ -96,7 +96,7 @@
 
     :config
     (require 'ess-site)                 ; ensure fully loaded for config to work
-    (define-key ess-mode-map (kbd "<s-return>") #'ess-eval-line)
+    (define-key ess-mode-map (kbd "s-<return>") #'ess-eval-line)
     (spacemacs/ess-bind-keys-for-julia)
     (spacemacs/ess-bind-keys-for-r)
     (unless (eq ess-r-backend 'lsp)

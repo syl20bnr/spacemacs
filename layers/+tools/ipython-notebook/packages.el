@@ -39,8 +39,8 @@
       (mapc
        (lambda (mode)
          (evil-define-minor-mode-key mode 'ein:notebook-mode
-           (kbd "<C-return>") 'ein:worksheet-execute-cell-km
-           (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next-km))
+           (kbd "C-<return>") 'ein:worksheet-execute-cell-km
+           (kbd "S-<return>") 'ein:worksheet-execute-cell-and-goto-next-km))
        '(insert hybrid normal))
       (evil-define-minor-mode-key 'normal 'ein:notebook-mode
         "gj" 'ein:worksheet-goto-next-input-km

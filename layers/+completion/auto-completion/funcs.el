@@ -192,7 +192,7 @@ MODE parameter must match the :modes values used in the call to
        ((eq 'cycle auto-completion-tab-key-behavior)
         (define-key map (kbd "TAB") 'company-complete-common-or-cycle)
         (define-key map (kbd "<tab>") 'company-complete-common-or-cycle)
-        (define-key map (kbd "<S-tab>")
+        (define-key map (kbd "S-<tab>")
           'spacemacs//company-complete-common-or-cycle-backward)
         (define-key map (kbd "<backtab>")
           'spacemacs//company-complete-common-or-cycle-backward))

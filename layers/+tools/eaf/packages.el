@@ -140,7 +140,7 @@
             ("M-m" . "eaf-send-return-key")
             ("<f5>" . "refresh_page")
             ("<f12>" . "open_devtools")
-            ("<C-return>" . "eaf-send-ctrl-return-sequence")))
+            ("C-<return>" . "eaf-send-ctrl-return-sequence")))
 
     (setq eaf-pdf-viewer-keybinding
           '(("j" . "scroll_up")
@@ -187,8 +187,8 @@
             ("M-p" . "toggle_presentation_mode")
             ("o" . "eaf-pdf-outline")))
     ;; switch tab only works with awesome-tab package
-    ;; ("<C-tab>" . "select_left_tab")
-    ;; ("<C-iso-lefttab>" . "select_right_tab")
+    ;; ("C-<tab>" . "select_left_tab")
+    ;; ("C-<iso-lefttab>" . "select_right_tab")
     :config
     (dolist (app eaf-apps)
       (require app nil 'noerror))

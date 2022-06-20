@@ -321,7 +321,7 @@
         (kbd "C-k") 'cider-repl-previous-input))
 
     (evil-define-key 'insert cider-repl-mode-map
-      (kbd "<C-return>") 'cider-repl-newline-and-indent
+      (kbd "C-<return>") 'cider-repl-newline-and-indent
       (kbd "C-r") 'cider-repl-history)
 
     (when clojure-enable-fancify-symbols

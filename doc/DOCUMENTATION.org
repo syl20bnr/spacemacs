@@ -2472,10 +2472,10 @@ listed above. For example window resizing.
 | ~j~ ~<down>~    | go to window below                                            |
 | ~k~ ~<up>~      | go to window above                                            |
 | ~l~ ~<right>~   | go to window on the right                                     |
-| ~H~ ~<S-left>~  | move window to the left                                       |
-| ~J~ ~<S-down>~  | move window to the bottom                                     |
-| ~K~ ~<S-up>~    | move bottom to the top                                        |
-| ~L~ ~<S-right>~ | move window to the right                                      |
+| ~H~ ~S-<left>~  | move window to the left                                       |
+| ~J~ ~S-<down>~  | move window to the bottom                                     |
+| ~K~ ~S-<up>~    | move bottom to the top                                        |
+| ~L~ ~S-<right>~ | move window to the right                                      |
 | ~m~             | toggle maximization of current window                         |
 | ~o~             | focus other frame                                             |
 | ~a~             | call ace window mode                                          |

@@ -106,6 +106,6 @@ default."
   (global-set-key (kbd "M-s-h") 'ns-do-hide-others)
 
   ;; Emacs sometimes registers C-s-f as this weird keycode
-  ;; (global-set-key (kbd "<C-s-268632070>") 'spacemacs/toggle-frame-fullscreen)
+  ;; (global-set-key (kbd "C-s-<268632070>") 'spacemacs/toggle-frame-fullscreen)
   ;; (global-set-key [142607065] 'ns-do-hide-others)
   )

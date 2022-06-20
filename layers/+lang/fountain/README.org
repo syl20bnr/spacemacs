@@ -56,8 +56,8 @@ file.
 
 | Key binding | Description       |
 |-------------+-------------------|
-| ~<M-down>~  | move section down |
-| ~<M-up>~    | move section up   |
+| ~M-<down>~  | move section down |
+| ~M-<up>~    | move section up   |
 
 ** Outline
 

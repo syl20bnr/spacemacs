@@ -653,19 +653,19 @@ respond to this toggle."
   "wf"  'follow-mode
   "wF"  'make-frame
   "wH"  'evil-window-move-far-left
-  "w <S-left>"  'evil-window-move-far-left
+  "w S-<left>"  'evil-window-move-far-left
   "wh"  'evil-window-left
   "w <left>"  'evil-window-left
   "wJ"  'evil-window-move-very-bottom
-  "w <S-down>"  'evil-window-move-very-bottom
+  "w S-<down>"  'evil-window-move-very-bottom
   "wj"  'evil-window-down
   "w <down>"  'evil-window-down
   "wK"  'evil-window-move-very-top
-  "w <S-up>"  'evil-window-move-very-top
+  "w S-<up>"  'evil-window-move-very-top
   "wk"  'evil-window-up
   "w <up>"  'evil-window-up
   "wL"  'evil-window-move-far-right
-  "w <S-right>"  'evil-window-move-far-right
+  "w S-<right>"  'evil-window-move-far-right
   "wl"  'evil-window-right
   "w <right>"  'evil-window-right
   "wm"  'spacemacs/toggle-maximize-window
@@ -926,13 +926,13 @@ Select: _a_ _h_ _j_ _k_ _l_ _w_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s
   ("w" other-window)
   ;; Move
   ("J" evil-window-move-very-bottom)
-  ("<S-down>" evil-window-move-very-bottom)
+  ("S-<down>" evil-window-move-very-bottom)
   ("K" evil-window-move-very-top)
-  ("<S-up>" evil-window-move-very-top)
+  ("S-<up>" evil-window-move-very-top)
   ("H" evil-window-move-far-left)
-  ("<S-left>" evil-window-move-far-left)
+  ("S-<left>" evil-window-move-far-left)
   ("L" evil-window-move-far-right)
-  ("<S-right>" evil-window-move-far-right)
+  ("S-<right>" evil-window-move-far-right)
   ("r" spacemacs/rotate-windows-forward)
   ("R" spacemacs/rotate-windows-backward)
   ;; Split

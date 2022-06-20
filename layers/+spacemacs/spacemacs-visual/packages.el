@@ -137,5 +137,5 @@
     (spacemacs/set-leader-keys "zf" 'spacemacs/zoom-frm-transient-state/body)
 
     ;; Font size, either with ctrl + mouse wheel
-    (global-set-key (kbd "<C-wheel-up>") 'spacemacs/zoom-frm-in)
-    (global-set-key (kbd "<C-wheel-down>") 'spacemacs/zoom-frm-out)))
+    (global-set-key (kbd "C-<wheel-up>") 'spacemacs/zoom-frm-in)
+    (global-set-key (kbd "C-<wheel-down>") 'spacemacs/zoom-frm-out)))

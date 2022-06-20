@@ -98,8 +98,8 @@
     (global-set-key (kbd "C-x C-f") 'spacemacs/helm-find-files)
     (global-set-key (kbd "C-x b") 'helm-buffers-list)
     ;; use helm to switch last(/previous) visited buffers with C(-S)-tab
-    (evil-global-set-key 'motion (kbd "<C-tab>") 'helm-buffers-list)
-    (evil-global-set-key 'motion (kbd "<C-iso-lefttab>") 'helm-buffers-list)
+    (evil-global-set-key 'motion (kbd "C-<tab>") 'helm-buffers-list)
+    (evil-global-set-key 'motion (kbd "C-<iso-lefttab>") 'helm-buffers-list)
     ;; use helm everywhere
     (spacemacs||set-helm-key "<f1>" helm-apropos)
     (spacemacs||set-helm-key "a'"   helm-available-repls)
@@ -198,8 +198,8 @@
     (setq helm-ff-allow-non-existing-file-at-point t)
 
     ;; use helm to switch last(/previous) visited buffers with C(-S)-tab
-    (define-key helm-map (kbd "<C-tab>") 'helm-follow-action-forward)
-    (define-key helm-map (kbd "<C-iso-lefttab>") 'helm-follow-action-backward)
+    (define-key helm-map (kbd "C-<tab>") 'helm-follow-action-forward)
+    (define-key helm-map (kbd "C-<iso-lefttab>") 'helm-follow-action-backward)
     ;; alter helm-bookmark key bindings to be simpler
     (defun simpler-helm-bookmark-keybindings ()
       (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)

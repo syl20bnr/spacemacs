@@ -328,7 +328,7 @@ pressing `<leader> m`. Set it to `nil` to disable it."
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-major-mode-emacs-leader-key
-  (if window-system "<M-return>" "C-M-m")
+  (if window-system "M-<return>" "C-M-m")
   "Major mode leader key accessible in `emacs state' and `insert state'"
   'string
   'spacemacs-dotspacemacs-init)
