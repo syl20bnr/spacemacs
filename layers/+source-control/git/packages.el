@@ -60,7 +60,7 @@
 (defun git/post-init-evil-surround ()
   (spacemacs|use-package-add-hook magit
     :post-config
-    (add-hook 'magit-status-mode-hook #'turn-off-evil-surround-mode)))
+    (add-hook 'magit-mode-hook #'turn-off-evil-surround-mode)))
 
 (defun git/pre-init-evil-collection ()
   (when (spacemacs//support-evilified-buffer-p)
