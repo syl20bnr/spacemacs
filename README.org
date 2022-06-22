@@ -326,16 +326,110 @@ lines in the =~/.emacs.d/init.el= file:
 #+END_EXAMPLE
 
 * Post-installation
-** Spacemacs logo
-For Linux users, create =spacemacs.desktop= in =~/.local/share/applications/=
-using [[LinuxSpacemacsDesktopFile][this .desktop file]] as a reference. Change the =Name= parameter to
-=Name=Spacemacs= and the =Icon= parameter to
-=Icon=/PATH/TO/EMACSD/core/banners/img/spacemacs.png= where =PATH/TO/EMACSD= is
-the path to your =.emacs.d= directory, usually =~/.emacs.d= or
-=~/.config/emacs=.
 
-For macOS users, you need to [[SpacemacsLogoIcon][download the .icns version of the logo]] and simply
-[[MacosxChangeIcon][change the logo on the Dock]].
+** Errors
+
+*** Failing to install Emacs packages
+Depending on the installed version of GnuTLS or a firewall setting, securely
+installing Emacs packages may fail. You can try to disable the HTTPS protocol by
+starting Emacs insecurely:
+
+#+BEGIN_EXAMPLE shell
+  emacs --insecure
+#+END_EXAMPLE
+
+It should be noted that that this should only be done as a *last resort*, at your
+own risk, because the packages will be downloaded using the insecure HTTP
+protocol.
+
+You can set the =dotspacemacs-elpa-https= variable to =nil= in your dotfile
+=~/.spacemacs= but this has the same security implications as the insecure flag.
+You may also want to clear out your =.emacs.d/elpa= directory before doing this,
+so that any corrupted packages you may have downloaded will be re-installed.
+
+*** error: Package 'package-build-' is unavailable
+This error may occur due to heavy network traffic. You can fix it by increasing the
+=dotspacemacs-elpa-timeout= variable to a large number like =70= in your dotfile
+=~/.spacemacs=.
+
+*** =Warning (bytecomp)= warnings
+=Warning (bytecomp)= and other compilation warnings are perfectly normal. If
+you're curious, you can find out why these occur [[QuelpaBytecompWarning][here]].
+
+*** Mode-line turns red
+If the mode-line turns red, then be sure to consult the [[SpaceDevFAQ][FAQ]].
+
+*** Mode-line looks different from the sample
+It's recommended to install [[SourceCodeProGithub][Source Code Pro]] by Adobe as the default font. It
+ensures that, for example, the symbols on the mode-line (bottom bar) looks
+correct. It's also recommended to use a "Fallback font". These depend on the
+system:
+
+- GNU/Linux: /NanumGothic/ (package named /fonts-nanum/ on Debian,
+  for example)
+- macOS: /Arial Unicode MS/
+- Windows: /MS Gothic/ or /Lucida Sans Unicode/
+
+If the mode-line doesn't look similar to the [[#introduction][picture at the top of this page]],
+make sure you have the correct fallback font installed.
+
+If you're running in a terminal, then you'll also need to change the
+terminal's font settings.
+
+*** "The directory of =~/.emacs.d/server= is unsafe"
+If the above error is displayed after starting Emacs, you can fix it by changing
+the owner of the directory.
+
+- From Properties select the Tab "Security",
+- Select the button "Advanced",
+- Select the Tab "Owner"
+- Change the owner to your account name
+
+Source: [[WindowsEmacsServerError][Stack Overflow]]
+
+** Goodies
+*** Linux
+**** .desktop file
+Create =spacemacs.desktop= in =~/.local/share/applications/=
+using [[LinuxSpacemacsDesktopFile][this .desktop file]] as a reference.
+
+Change the =Name= parameter to =Name=Spacemacs= and the =Icon= parameter to
+=Icon=/PATH/TO/EMACSD/core/banners/img/spacemacs.png= where =PATH/TO/EMACSD= is the
+path to your =.emacs.d= directory described in [[*Linux/MacOS][the install section]], usually =~/.emacs.d= or =~/.config/emacs.=
+
+*** MacOS
+
+**** Changing the app logo
+You need to [[SpacemacsLogoIcon][download the .icns version of the logo]] and simply [[MacosxChangeIcon][change the logo on
+the Dock]].
+
+**** osx layer
+It's also recommended to add the [[SpaceDevLayersOSX][osx layer]] to your [[SpaceDevDotfile][dotfile]] after completing the
+Spacemacs [[#install][install process]]. Instructions on how to do so are available in the
+documentation for the [[SpaceDevLayersOSX][osx layer]].
+
+**** Improving searches
+You may also have some issues when searching for your projects. It is
+recommended to install the GNU [[RipgrepHomebrew][ripgrep]] through homebrew:
+
+#+BEGIN_EXAMPLE shell
+  brew install ripgrep
+#+END_EXAMPLE
+
+*** Windows
+
+**** Improving searches 
+For efficient searches, we recommend installing [[RipgrepGithub][ripgrep]].
+
+**** Viewing hidden files/folders
+The period (dot) before a file or folder name means that it's a hidden file or
+folder. To show hidden files and folders:
+
+- Press the Windows key
+- Type =File explorer options=
+- Select the =View= tab at the top
+- Check =Show hidden files, folders and drives=
+- Click =OK=
 
 :EXTERNAL_LINKS:
 #+LINK: SpaceDevCons https://develop.spacemacs.org/doc/CONVENTIONS
