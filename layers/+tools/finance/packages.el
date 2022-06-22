@@ -85,4 +85,5 @@
                      (global-flycheck-mode 1)))
         finance-lazy-load-flycheck)
       (evilified-state-evilify-map ledger-report-mode-map
+        :eval-after-load ledger-report
         :mode ledger-report-mode))))
