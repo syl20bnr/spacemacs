@@ -214,22 +214,25 @@ the contents to install.
 
 * Install
 ** Default installation
+*** Linux/MacOS
+Emacs can search for the configuration in 2 places -- =~/.emacs.d= or
+=$XDG_CONFIG_HOME/emacs=. The latter is =~/.config/emacs= on most distributions.
+
+Change the directory in the following code snippets where necessary.
+
 1. If you have an existing Emacs configuration, back it up first by running the
    following code in your terminal:
 
 #+BEGIN_EXAMPLE shell
-  cd ~
-  mv .emacs.d .emacs.d.bak
-  mv .emacs .emacs.bak
+  mv ~/.emacs.d ~/.emacs.d.bak
+  mv ~/.emacs ~/.emacs.bak
 #+END_EXAMPLE
 
-   Don't forget to backup and /remove/ the =~/.emacs= file. Otherwise Spacemacs *WILL
-   NOT* be able to load. This is because that file will prevent Emacs from
-   loading the proper initialization file.
+   It is important to /remove/ the =~/.emacs= file as Spacemacs *WILL NOT* be able to
+   load otherwise. This is because that file will prevent Emacs from loading
+   from the proper initialization file.
 
 2. Clone the repository with [[GitDownload][Git]]:
-
-   *Note: Windows users*, see [[#install-spacemacs-in-windows][Windows section]].
 
 #+BEGIN_EXAMPLE shell
   git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
@@ -248,7 +251,48 @@ the contents to install.
    installer. If you are new to Emacs and Spacemacs, then it's fine to just
    accept the default choices. It's easy to try the other choices later, without
    having to reinstall Spacemacs. They can be changed in the dotfile
-   =~/.spacemacs=.
+   =~/.spacemacs=, accessible from  ~SPC f e d~.
+
+5. After answering the questions, Spacemacs will download and install the
+   remaining packages it will require. When the all the packages have been
+   installed, restart Emacs to complete the installation.
+
+*** Windows
+By default, Emacs looks for the =.emacs.d= directory in
+=C:\Users\<username>\AppData\Roaming=, aliased as =%appdata%= in a Windows Command
+Prompt shell and =$env:appdata= in a Windows PowerShell Prompt shell. You can also
+point it to use the user directory =C:\Users\<username>= by setting a =HOME=
+environment variable, aliased as =%$homepath%= in a Windows Command Prompt shell
+and =$home= in a Windows PowerShell Prompt shell.
+
+Change the directory in the following code snippets where necessary.
+
+1. If you have an existing Emacs configuration, back it up first.
+
+   Don't forget to backup and /remove/ the =.emacs= file. Otherwise Spacemacs *WILL
+   NOT* be able to load. This is because that file will prevent Emacs from
+   loading the proper initialization file.
+
+2. Clone the repository with [[GitDownload][Git]]:
+
+#+BEGIN_EXAMPLE shell
+  git clone https://github.com/syl20bnr/spacemacs %appdata%/.emacs.d
+#+END_EXAMPLE
+
+   Or in case you have a limited internet connection or speed,
+
+#+BEGIN_EXAMPLE shell
+  git clone --depth 1 https://github.com/syl20bnr/spacemacs %appdata%/.emacs.d
+#+END_EXAMPLE
+
+3. Launch Emacs. Spacemacs will automatically install the packages it
+   requires.
+
+4. Once the packages are installed, answer the questions in the Dotfile wizard
+   installer. If you are new to Emacs and Spacemacs, then it's fine to just
+   accept the default choices. It's easy to try the other choices later, without
+   having to reinstall Spacemacs. They can be changed in the dotfile
+   =~/.spacemacs=, accessible from  ~SPC f e d~.
 
 5. After answering the questions, Spacemacs will download and install the
    remaining packages it will require. When the all the packages have been
@@ -257,7 +301,7 @@ the contents to install.
 ** Alternative installations
 There are two alternative methods to install Spacemacs.
 
-*** Modify HOME environment variable
+*** Modify HOME environment variable in Linux/MacOS
 This solution is ideal for quickly trying Spacemacs without compromising your
 existing configuration. Clone Spacemacs outside the Emacs dotdirectory
 =~/.emacs.d= and modify the HOME environment variable.
@@ -265,7 +309,7 @@ existing configuration. Clone Spacemacs outside the Emacs dotdirectory
 #+BEGIN_EXAMPLE shell
   mkdir ~/spacemacs
   git clone https://github.com/syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
-  HOME=~/spacemacs Emacs
+  HOME=~/spacemacs emacs
 #+END_EXAMPLE
 
 *Note*: If you're using the Fish shell, then you'll need to modify the last
