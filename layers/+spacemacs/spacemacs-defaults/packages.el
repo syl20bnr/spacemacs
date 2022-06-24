@@ -425,7 +425,7 @@
       (add-to-list 'recentf-exclude (recentf-expand-file-name package-user-dir))
       (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
       (when custom-file
-        (add-to-list 'recentf-exclude custom-file)))))
+        (add-to-list 'recentf-exclude (recentf-expand-file-name custom-file))))))
 
 (defun spacemacs-defaults/init-savehist ()
   (use-package savehist
