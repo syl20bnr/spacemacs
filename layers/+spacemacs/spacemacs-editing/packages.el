@@ -510,6 +510,7 @@
   (use-package string-edit
     :init
     (spacemacs/set-leader-keys "xe" 'string-edit-at-point)
+    :config
     (spacemacs/set-leader-keys-for-minor-mode 'string-edit-mode
       "," 'string-edit-conclude
       "c" 'string-edit-conclude
