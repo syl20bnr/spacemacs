@@ -201,12 +201,6 @@ in `dotspacemacs-themes'.")
            (const hybrid) (cons symbol sexp))
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-evil-show-empty-line-indicators t
-  "If non-nil, show vim-like empty line indicators at the end of files.
-It defaults to `t', and only works when `spacemacs-evil' layer is enabled."
-  'boolean
-  'spacemacs-dotspacemacs-layers)
-
 (spacemacs|defc dotspacemacs-startup-banner 'official
   "Specify the startup banner. Default value is `official', it displays
 the official spacemacs logo. An integer value is the index of text

@@ -344,8 +344,6 @@ In org-agenda-mode
 - Key bindings:
   - Add ~J/K~ to scroll up/down (or next/previous node) in Info-mode
   - Add ~o~ to link-hint-open-link in woman-mode
-***** Spacemacs-evil
-- Replace =vi-tilde-fringe= package with =vim-empty-lines-mode=
 ***** Shaders
 - =shaders= layer has been moved to =gpu= layer.
 ***** Syntax checking
@@ -378,8 +376,6 @@ In org-agenda-mode
     Constantin Gușoi)
   - Add ~SPC g f m~ for ~magit-file-dispatch~ (thanks to Ag Ibragimov and Ilya Grigoriev)
 - Removed [[https://github.com/defunkt/gist.el][gist.el]] due to it being broken and unmaintained (thanks to Robby O'Connor)
-***** Vim Empty Lines
-- The =vim-empty-lines= layer has been deleted and moved to the =spacemacs-evil= layer. (thanks to Ray Wang)
 ***** YAML
 - Added LSP support (thanks to Seong Yong-ju)
 ***** ycmd
@@ -506,7 +502,6 @@ In org-agenda-mode
 - extra-langs (replaced by =ad-hoc= layers)
 - flow-type (replaced by LSP in =javascript= layer)
 - ycmd (moved to =c-c++=)
-- vim-empty-lines (moved to =spacemacs-evil=)
 *** Dotfile changes
 - Added type bases validation for .spacemacs variables.
 - New Variables:
@@ -549,7 +544,6 @@ In org-agenda-mode
   - New variable =dotspacemacs-scroll-bar-while-scrolling= (thanks to duianto)
   - New variable =dotspacemacs-show-startup-list-numbers= (thanks to duianto)
   - New variable =dotspacemacs-startup-banner-scale= (thanks to Daniel)
-  - New variable =dotspacemacs-evil-show-empty-line-indicators= (thanks to Ray Wang)
 - Removed Variables:
   - Removed unused variable =dotspacemacs-verbose-loading= from
     =.spacemacs.template= (thanks to Ying Qu)

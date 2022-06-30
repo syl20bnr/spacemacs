@@ -154,8 +154,7 @@ set the layer variable =enable-flyspell-auto-completion= to t:
 | ~SPC S . S~ | Add word to dict (session)                       |
 
 * Known issues
-Vim-empty-lines package seems incompatible with spell-checking inside org-mode. If
+Vim-empty-lines layer seems incompatible with spell-checking inside org-mode. If
 you experience "Args out of range" error message when invoking ~SPC S c~ inside
-org-mode buffer then check if you don't have vim-empty-lines package enabled and
-disable it by setting =dotspacemacs-evil-show-empty-line-indicators= to =nil= in
-your =.spacemacs= file.
+org-mode buffer then check if you don't have vim-empty-lines layer enabled and
+disable it.

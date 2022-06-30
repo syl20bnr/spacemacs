@@ -26,7 +26,7 @@
         (company-coq :requires company)
         proof-general
         smartparens
-        vim-empty-lines-mode))
+        vi-tilde-fringe))
 
 
 (defun coq/init-company-coq ()
@@ -123,7 +123,7 @@
 (defun coq/post-init-smartparens ()
   (add-hook 'coq-mode-hook #'spacemacs//activate-smartparens))
 
-(defun coq/post-init-vim-empty-lines-mode ()
-  (spacemacs/add-to-hooks 'spacemacs/disable-vim-empty-lines-mode
+(defun coq/post-init-vi-tilde-fringe ()
+  (spacemacs/add-to-hooks 'spacemacs/disable-vi-tilde-fringe
                           '(coq-response-mode-hook
                             coq-goals-mode-hook)))

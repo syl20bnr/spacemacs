@@ -41,7 +41,7 @@
     (term :location built-in)
     xterm-color
     terminal-here
-    vim-empty-lines-mode
+    vi-tilde-fringe
     window-purpose
     (vterm :toggle (not (spacemacs/system-is-mswindows)))))
 
@@ -332,8 +332,8 @@
         "p \"" 'terminal-here-project-launch))))
 
 
-(defun shell/post-init-vim-empty-lines-mode ()
-  (spacemacs/add-to-hooks 'spacemacs/disable-vim-empty-lines-mode
+(defun shell/post-init-vi-tilde-fringe ()
+  (spacemacs/add-to-hooks 'spacemacs/disable-vi-tilde-fringe
                           '(comint-mode-hook
                             eshell-mode-hook
                             shell-mode-hook
