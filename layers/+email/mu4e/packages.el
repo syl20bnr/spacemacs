@@ -168,7 +168,9 @@ mu4e-use-maildirs-extension-load to be evaluated after mu4e has been loaded."
 (defun mu4e/pre-init-org ()
   (if mu4e-org-link-support
       (with-eval-after-load 'org
-        (require 'mu4e-meta)
+        (if (version<= "1.8.2" mu4e-mu-version)
+            (require 'mu4e-config)
+          (require 'mu4e-meta))
         (if (version<= mu4e-mu-version "1.3.5")
             (require 'org-mu4e)
           (require 'mu4e-org))
