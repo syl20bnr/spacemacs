@@ -338,6 +338,12 @@ is used instead."
                  "--pretty=format:%cd" "--date=unix"
                  rev "--" (mapcar #'car (package-build-expand-files-spec rcp)))))))
 
+(cl-defmethod package-build--get-commit-time ((rcp package-git-recipe) rev)
+  (let ((default-directory (package-recipe--working-tree rcp)))
+    (string-to-number
+     (car (process-lines "git" "log" "-n1" "--first-parent"
+                         "--pretty=format:%cd" "--date=unix" rev)))))
+
 (cl-defmethod package-build--used-url ((rcp package-git-recipe))
   (let ((default-directory (package-recipe--working-tree rcp)))
     (car (process-lines "git" "config" "remote.origin.url"))))
@@ -388,6 +394,15 @@ is used instead."
                        "hg" "log" "--limit" "1" "--template" "{date|hgdate}\n"
                        `(,@(and rev (list "--rev" rev))
                          ,@(mapcar #'car (package-build-expand-files-spec rcp)))))
+           " ")))))
+
+(cl-defmethod package-build--get-commit-time ((rcp package-hg-recipe) rev)
+  (let ((default-directory (package-recipe--working-tree rcp)))
+    (string-to-number
+     (car (split-string
+           (car (process-lines "hg" "log" "--limit" "1"
+                               "--template" "{date|hgdate}\n"
+                               "--rev" rev))
            " ")))))
 
 (cl-defmethod package-build--used-url ((rcp package-hg-recipe))
@@ -856,7 +871,7 @@ in `package-build-archive-dir'."
                             name version commit files 'tar)
                            (error "%s[-pkg].el matching package name is missing"
                                   name))))
-               (mtime (package-build--get-timestamp rcp commit)))
+               (mtime (package-build--get-commit-time rcp commit)))
           (package-build--copy-package-files files source-dir target)
           (package-build--write-pkg-file desc target)
           (package-build--generate-info-files files source-dir target)
