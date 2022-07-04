@@ -100,6 +100,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 - The property =:powerline-scale= of variable =dotspacemacs-default-font= has
   been removed and replaced by the property =:separator-scale= used in the new
   dotfile variable =dotspacemacs-mode-line-theme=.
+- If =dotspacemacs-enable-paste-transient-state= is enabled, whitespace is
+  removed from the kill ring for better ergonomics.
 **** Layers
 ***** Spacemacs distribution layers
 - Key bindings:
