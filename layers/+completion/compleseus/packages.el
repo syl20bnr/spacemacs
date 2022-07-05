@@ -236,6 +236,9 @@
     ;; You may want to use `embark-prefix-help-command' or which-key instead.
     ;; (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
 
+    ;; Make M-n as smart as ivy and helm equivalents
+    (setq minibuffer-default-add-function 'spacemacs/minibuffer-default-add-function)
+
     ;; Optionally configure a function which returns the project root directory.
     (setq consult-project-root-function
           (lambda ()

@@ -191,6 +191,14 @@ targets."
          (remq #'spacemacs/embark-which-key-indicator embark-indicators)))
     (apply fn args)))
 
+(defun spacemacs/minibuffer-default-add-function ()
+  "See `minibuffer-default-add-function'"
+  (with-selected-window (minibuffer-selected-window)
+    (delete-dups
+     (delq nil
+           (list (thing-at-point 'symbol)
+                 (thing-at-point 'list)
+                 (thing-at-point-url-at-point))))))
 
 (defun spacemacs/consult-jump-in-buffer ()
   "Jump in buffer with `consult-imenu' or `consult-org-heading' if in org-mode"
