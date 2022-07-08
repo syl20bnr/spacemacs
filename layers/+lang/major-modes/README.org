@@ -8,6 +8,7 @@
 - [[#key-bindings][Key bindings]]
   - [[#arch-linux-pkgbuilds][Arch Linux PKGBUILDs]]
   - [[#gentoo-ebuilds][Gentoo ebuilds]]
+  - [[#gemtext][Gemtext]]
 
 * Description
 This layer adds a number of packages for less common languages and major modes.
@@ -17,6 +18,7 @@ This layer adds a number of packages for less common languages and major modes.
   - Arch Linux PKGBUILDs
   - Arduino
   - Android Logcat (not associated with any file types by default)
+  - Gemtext
   - Gentoo ebuilds
   - Hoon
   - MATLAB
@@ -48,3 +50,13 @@ This layer adds a number of packages for less common languages and major modes.
 | ~SPC m k~   | Edit keywords          |
 | ~SPC m e~   | Run ebuild command     |
 | ~SPC m a~   | Add ChangeLog entry    |
+
+** Gemtext
+
+| Key binding | Description           |
+|-------------+-----------------------|
+| ~SPC m l~   | Insert link           |
+| ~SPC m o~   | Open selected link    |
+| ~SPC m RET~ | Insert list item      |
+| ~SPC m t~   | Insert timestamp      |
+| ~SPC m n~   | Insert tinylog header |
