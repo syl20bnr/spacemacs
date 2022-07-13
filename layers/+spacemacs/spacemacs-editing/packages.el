@@ -1,6 +1,6 @@
 ;;; packages.el --- Spacemacs Editing Layer packages File
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -21,36 +21,36 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq spacemacs-editing-packages
-      '(aggressive-indent
-        avy
-        (clean-aindent-mode :toggle dotspacemacs-use-clean-aindent-mode)
-        dired-quick-sort
-        drag-stuff
-        editorconfig
-        eval-sexp-fu
-        expand-region
-        (hexl :location built-in)
-        hungry-delete
-        link-hint
-        lorem-ipsum
-        (origami :toggle (eq 'origami dotspacemacs-folding-method))
-        password-generator
-        (persistent-scratch :toggle dotspacemacs-scratch-buffer-persistent)
-        pcre2el
-        (smartparens :toggle dotspacemacs-activate-smartparens-mode)
-        (evil-swap-keys :toggle dotspacemacs-swap-number-row)
-        (spacemacs-whitespace-cleanup :location local)
-        string-edit
-        string-inflection
-        multi-line
-        undo-tree
-        (unkillable-scratch :toggle dotspacemacs-scratch-buffer-unkillable)
-        uuidgen
-        (vimish-fold :toggle (eq 'vimish dotspacemacs-folding-method))
-        (evil-vimish-fold :toggle (eq 'vimish dotspacemacs-folding-method))
-        (evil-easymotion :toggle (memq dotspacemacs-editing-style '(vim hybrid)))
-        ws-butler))
+(defconst spacemacs-editing-packages
+  '(aggressive-indent
+    avy
+    (clean-aindent-mode :toggle dotspacemacs-use-clean-aindent-mode)
+    dired-quick-sort
+    drag-stuff
+    editorconfig
+    eval-sexp-fu
+    expand-region
+    (hexl :location built-in)
+    hungry-delete
+    link-hint
+    lorem-ipsum
+    (origami :toggle (eq 'origami dotspacemacs-folding-method))
+    password-generator
+    (persistent-scratch :toggle dotspacemacs-scratch-buffer-persistent)
+    pcre2el
+    (smartparens :toggle dotspacemacs-activate-smartparens-mode)
+    (evil-swap-keys :toggle dotspacemacs-swap-number-row)
+    (spacemacs-whitespace-cleanup :location (recipe :fetcher local))
+    string-edit
+    string-inflection
+    multi-line
+    undo-tree
+    (unkillable-scratch :toggle dotspacemacs-scratch-buffer-unkillable)
+    uuidgen
+    (vimish-fold :toggle (eq 'vimish dotspacemacs-folding-method))
+    (evil-vimish-fold :toggle (eq 'vimish dotspacemacs-folding-method))
+    (evil-easymotion :toggle (memq dotspacemacs-editing-style '(vim hybrid)))
+    ws-butler))
 
 ;; Initialization of packages
 (defun spacemacs-editing/init-aggressive-indent ()
@@ -379,9 +379,10 @@
         "ipn" 'password-generator-numeric))))
 
 (defun spacemacs-editing/post-init-pcre2el ()
-  (spacemacs/declare-prefix "xr" "regular expressions")
-  (spacemacs/declare-prefix "xre" "elisp")
-  (spacemacs/declare-prefix "xrp" "pcre")
+  (spacemacs/declare-prefix
+    "xr"  "regular expressions"
+    "xre" "elisp"
+    "xrp" "pcre")
   (spacemacs/set-leader-keys
     "xr/"  'rxt-explain
     "xr'"  'rxt-convert-to-strings
@@ -509,6 +510,7 @@
   (use-package string-edit
     :init
     (spacemacs/set-leader-keys "xe" 'string-edit-at-point)
+    :config
     (spacemacs/set-leader-keys-for-minor-mode 'string-edit-mode
       "," 'string-edit-conclude
       "c" 'string-edit-conclude
@@ -538,7 +540,16 @@
             ;; Emacs GC which truncages the undo history very aggresively
             undo-limit 800000
             undo-strong-limit 12000000
-            undo-outer-limit 120000000)
+            undo-outer-limit 120000000
+            undo-tree-history-directory-alist
+            `(("." . ,(let ((dir (expand-file-name "undo-tree-history" spacemacs-cache-directory)))
+                        (if (file-exists-p dir)
+                            (unless (file-accessible-directory-p dir)
+                              (warn "Cannot access directory `%s'.
+ Perhaps you don't have required permissions, or it's not a directory.
+ See variable `undo-tree-history-directory-alist'." dir))
+                          (make-directory dir))
+                        dir))))
       (global-undo-tree-mode))
     :config
     (progn

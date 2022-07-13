@@ -1,6 +1,6 @@
 ;;; packages.el --- Javascript Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -112,7 +112,7 @@
 (defun javascript/init-js2-mode ()
   (use-package js2-mode
     :defer t
-    :mode (("\\.m?js\\'"  . js2-mode))
+    :mode (("\\.[cm]?js\\'"  . js2-mode))
     :init
     (progn
       (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-backend)

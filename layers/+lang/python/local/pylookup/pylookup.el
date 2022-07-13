@@ -1,6 +1,6 @@
 ;;; pylookup.el --- Look up python documents (reference) in Emacs
 
-;; Copyright (C) 2010-2013 Taesoo Kim
+;; Copyright (C) 2010-2022 Taesoo Kim
 
 ;; Author: Taesoo Kim <taesoo@mit.edu>
 ;; Maintainer: Taesoo Kim <taesoo@mit.edu>

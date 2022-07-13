@@ -9,8 +9,10 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
-  - [[#format-on-save][Format on save]]
 - [[#configuration][Configuration]]
+  - [[#enabling-lsp-experimental][Enabling LSP (Experimental)]]
+  - [[#format-on-save][Format on save]]
+  - [[#opt-out-from-auto-complete][Opt-out from =auto-complete=]]
 - [[#key-bindings][Key bindings]]
   - [[#nixos-options][NixOS Options]]
 
@@ -22,6 +24,7 @@ This layer adds tools for better integration of Emacs in NixOS.
 - Automatic formatting via [[https://github.com/serokell/nixfmt][nixfmt]]
 - Auto-completion of NixOS Options using [[https://github.com/travisbhartwell/nix-emacs/blob/master/company-nixos-options.el][company-nixos-options]]
 - Helm Lookup for NixOS Options [[https://github.com/travisbhartwell/nix-emacs/blob/master/helm-nixos-options.el][helm-nixos-options]]
+- WIP support for LSP backend using =rnix-lsp=
 
 * Install
 ** Layer
@@ -29,15 +32,32 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =nixos= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-** Format on save
-To enable automatic formatting on save, set the layer variable
-~nixos-format-on-save~ to ~t~:
+* Configuration
+** Enabling LSP (Experimental)
+To use the /experimental/ LSP backend, set variable =nix-backend= to =lsp= in
+your =~./spacemacs=. (You would also need to enable [[file:../../+tools/lsp/README.org][LSP]] layer).
 
-#+BEGIN_SRC elisp
-  (nixos :variables nixos-format-on-save t)
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                (nixos :variables nix-backend 'lsp))
 #+END_SRC
 
-* Configuration
+To install [[https://github.com/nix-community/rnix-lsp][rnix-lsp]] from =nix=, run the following command in shell:
+
+#+BEGIN_SRC shell
+  nix-env -i -f https://github.com/nix-community/rnix-lsp/archive/master.tar.gz
+#+END_SRC
+
+** Format on save
+To enable automatic formatting on save, set the layer variable
+=nixos-format-on-save= to =t=:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+                (nixos :variables nixos-format-on-save t))
+#+END_SRC
+
+** Opt-out from =auto-complete=
 On some systems, =company-nixos-options= may be very slow. If this is the case,
 see the section on disabling the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#disabling-layer-services-in-other-layers][disabling auto-complete]] for the =nixos= layer.
 

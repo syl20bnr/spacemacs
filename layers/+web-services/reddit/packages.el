@@ -1,6 +1,6 @@
 ;;; packages.el --- Reddit Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Benedikt Broich <b.broich@posteo.de>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -27,8 +27,9 @@
 (defun reddit/init-reddigg ()
   (use-package reddigg
     :defer t
-    :init (progn
-            (spacemacs/declare-prefix "awr" "reddit")
-            (spacemacs/set-leader-keys
-              "awrm" 'reddigg-view-main
-              "awrs" 'reddigg-view-sub))))
+    :init
+    (progn
+      (spacemacs/declare-prefix "awr" "reddit")
+      (spacemacs/set-leader-keys
+        "awrm" 'reddigg-view-main
+        "awrs" 'reddigg-view-sub))))

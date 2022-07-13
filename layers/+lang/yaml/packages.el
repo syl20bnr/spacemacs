@@ -1,6 +1,6 @@
 ;;; packages.el --- YAML Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -41,5 +41,5 @@
     (when yaml-enable-lsp
       (add-hook 'yaml-mode-hook #'lsp))
     :config (add-hook 'yaml-mode-hook
-                      #'(lambda ()
+                      (lambda ()
                          (define-key yaml-mode-map "\C-m" 'newline-and-indent)))))

@@ -1,6 +1,6 @@
 ;;; packages.el --- EWW Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Colton Kopsa <coljamkop@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -22,20 +22,29 @@
 
 (defconst eww-packages
   '(
+    evil
     (eww :location built-in)
-    texfrag))
-;; (ace-link :location elpa)
-;; (helm-net :location elpa)
+    texfrag
+    writeroom-mode
+    zoom-frm))
+
+(defun eww/post-init-evil ()
+  (spacemacs/transient-state-register-add-bindings 'eww
+    '(("j" evil-next-line)
+      ("k" evil-previous-line)
+      ("h" evil-backward-char)
+      ("l" evil-forward-char))))
 
 (defun eww/init-eww ()
   (use-package eww
     :defer t
     :init
-    (add-to-list 'evil-buffer-regexps '("\\*eww\\*" . normal))
-    (spacemacs//eww-setup-transient-state)
-    (spacemacs/declare-prefix "awe" "eww")
-    (spacemacs/set-leader-keys "awee" 'eww)
-    (spacemacs/set-leader-keys "awew" 'eww-switch-to-buffer)
+    (progn
+      (add-to-list 'evil-buffer-regexps '("\\*eww\\*" . normal))
+      (spacemacs//eww-setup-transient-state)
+      (spacemacs/declare-prefix "awe" "eww")
+      (spacemacs/set-leader-keys "awee" 'eww)
+      (spacemacs/set-leader-keys "awew" 'eww-switch-to-buffer))
     :config
     (progn
       (define-key eww-link-keymap "f" 'eww-follow-link)
@@ -46,7 +55,7 @@
         (spacemacs/set-leader-keys-for-major-mode mode
           "s" 'helm-google-suggest
           "S" 'browse-web
-          "t" 'spacemacs/eww-render-latex
+          "t" 'spacemacs/eww-toggle-render-latex
           "r" 'eww-reload
           "p" 'eww-previous-url
           "n" 'eww-next-url
@@ -70,7 +79,6 @@
           "H" 'spacemacs/eww-jump-previous-buffer
           (kbd "C-j") 'shr-next-link
           (kbd "C-k") 'shr-previous-link
-          "o" 'ace-link-eww
           "+" 'zoom-frm-in
           "-" 'zoom-frm-out
           "=" 'zoom-frm-unzoom))
@@ -108,3 +116,13 @@
 (defun eww/init-texfrag ()
   (use-package texfrag
     :defer t))
+
+(defun eww/post-init-writeroom-mode ()
+  (spacemacs/transient-state-register-add-bindings 'eww
+    '(("w" writeroom-mode))))
+
+(defun eww/post-init-zoom-frm ()
+  (spacemacs/transient-state-register-add-bindings 'eww
+    '(("+" zoom-frm-in)
+      ("-" zoom-frm-out)
+      ("=" zoom-frm-unzoom))))

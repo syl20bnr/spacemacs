@@ -1,6 +1,6 @@
 ;;; packages.el --- Spacemacs Evil Layer packages File
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -244,6 +244,13 @@
       (setq evil-lisp-state-global t))
     :config
     (progn
+      (bind-map spacemacs-default-map
+        :prefix-cmd spacemacs-cmds
+        :evil-keys (dotspacemacs-leader-key)
+        :evil-states (lisp)
+        :override-minor-modes t
+        :override-mode-name spacemacs-leader-override-mode)
+
       (spacemacs/set-leader-keys "k" evil-lisp-state-map)
       (spacemacs/declare-prefix
         "k" "lisp"

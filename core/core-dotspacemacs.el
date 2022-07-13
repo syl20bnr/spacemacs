@@ -1,6 +1,6 @@
-;;; core-dotspacemacs.el --- Spacemacs Core File
+;;; core-dotspacemacs.el --- Spacemacs Core File -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -210,9 +210,22 @@ If the value is nil then no banner is displayed."
   '(choice (const official) (const random) (const nil) string integer)
   'spacemacs-dotspacemacs-init)
 
+(spacemacs|defc dotspacemacs-startup-banner-scale 'auto
+  "Specify the scale value for the startup banner. Default value is `auto',
+it displays the spacemacs logo with the scale value. A (0, 1] float value
+will be applied to scale the banner."
+  '(choice (const auto) (const nil) number)
+  'spacemacs-dotspacemacs-init)
+
 (spacemacs|defc dotspacemacs-startup-buffer-show-version t
   "If true, show Spacemacs and Emacs version at the top right of the
 Spacemacs buffer."
+  'boolean
+  'spacemacs-dotspacemacs-init)
+
+(spacemacs|defc dotspacemacs-startup-buffer-show-icons t
+  "If true, show file icons for entries and headings on spacmeacs buffer.
+This has no effect in terminal or if \"all-the-icons\" is not installed."
   'boolean
   'spacemacs-dotspacemacs-init)
 

@@ -1,6 +1,6 @@
 ;;; space-doc.el --- Spacemacs org minor mode. -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -159,7 +159,7 @@ This functions is aimed to be used with `spacemacs-space-doc-modificators'."
                    (kbd-marker
                     (dolist (el org-emphasis-alist)
                       (when (member 'org-kbd el)
-                        (return (car el))))))
+                        (cl-return (car el))))))
               (make-spacemacs--space-doc-cache-struct
                :marker-face     marker-face
                :btn-marker-face btn-marker-face

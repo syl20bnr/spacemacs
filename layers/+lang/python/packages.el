@@ -1,6 +1,6 @@
 ;;; packages.el --- Python Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -24,6 +24,7 @@
 (defconst python-packages
   '(
     blacken
+    code-cells
     company
     counsel-gtags
     cython-mode
@@ -46,7 +47,7 @@
     py-isort
     pydoc
     pyenv-mode
-    (pylookup :location local)
+    (pylookup :location (recipe :fetcher local))
     pytest
     (python :location built-in)
     pyvenv
@@ -94,6 +95,19 @@
         (evil--jumps-push))
       (add-to-list 'spacemacs-jump-handlers-python-mode
                    '(anaconda-mode-find-definitions :async t)))))
+
+(defun python/init-code-cells ()
+  (use-package code-cells
+    :if (not (configuration-layer/layer-used-p 'ipython-notebook))
+    :defer t
+    :config
+    (progn
+      (add-hook 'python-mode-hook 'code-cells-mode)
+      (spacemacs/set-leader-keys-for-minor-mode 'code-cells-mode
+        "gB" 'code-cells-backward-cell
+        "gF" 'code-cells-forward-cell
+        "sc" 'code-cells-eval
+        "sa" 'code-cells-eval-above))))
 
 (defun python/post-init-company ()
   ;; backend specific
@@ -340,17 +354,16 @@
   (use-package pylookup
     :commands (pylookup-lookup pylookup-update pylookup-update-all)
     :init
-    (progn
-      (evilified-state-evilify pylookup-mode pylookup-mode-map)
-      (spacemacs/set-leader-keys-for-major-mode 'python-mode
-        "hH" 'pylookup-lookup))
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode
+      "hH" 'pylookup-lookup)
     :config
-    (progn
-      (let ((dir (configuration-layer/get-layer-local-dir 'python)))
-        (setq pylookup-dir (concat dir "pylookup/")
-              pylookup-program (concat pylookup-dir "pylookup.py")
-              pylookup-db-file (concat pylookup-dir "pylookup.db")))
-      (setq pylookup-completing-read 'completing-read))))
+    (evilified-state-evilify-map pylookup-mode-map
+      :mode pylookup-mode)
+    (let ((dir (configuration-layer/get-layer-local-dir 'python)))
+      (setq pylookup-dir (concat dir "pylookup/")
+            pylookup-program (concat pylookup-dir "pylookup.py")
+            pylookup-db-file (concat pylookup-dir "pylookup.db")))
+    (setq pylookup-completing-read 'completing-read)))
 
 (defun python/init-pytest ()
   (use-package pytest

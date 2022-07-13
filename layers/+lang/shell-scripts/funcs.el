@@ -1,6 +1,6 @@
 ;;; funcs.el --- Shell Scripts Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,20 +20,25 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
 
+;; lsp
 (defun spacemacs//shell-scripts-setup-backend ()
   "Conditionally setup shell-scripts backend."
   (when (eq shell-scripts-backend 'lsp)
-    (spacemacs//shell-scripts-setup-lsp)))
+    (lsp-deferred)))
 
-
-;; lsp
-
-(defun spacemacs//shell-scripts-setup-lsp ()
-  "Setup lsp backend."
-  (if (configuration-layer/layer-used-p 'lsp)
-      (lsp-deferred)
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+(defun spacemacs//shell-scripts-setup-company ()
+  "Conditionally setup company based on backend."
+  ;; Activate lsp company explicitly to activate
+  ;; standard backends as well
+  (if (eq shell-scripts-backend 'lsp)
+      (spacemacs|add-company-backends
+        :backends company-capf
+        :modes sh-mode)
+    (spacemacs|add-company-backends
+      :backends (company-shell company-shell-env)
+      :modes sh-mode)))
 
 
 ;; shebang

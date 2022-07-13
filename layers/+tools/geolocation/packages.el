@@ -1,6 +1,6 @@
 ;;; packages.el --- geolocation configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Uri Sharf <uri.sharf@me.com>
 ;; URL: https://github.com/usharf/spacemacs
@@ -21,16 +21,15 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq geolocation-packages
-      '(
-        (osx-location :toggle (and geolocation-enable-location-service
-                                   (spacemacs/system-is-mac)))
-        popwin
-        (rase :toggle (and geolocation-enable-location-service
-                           (spacemacs/system-is-mac)))
-        (sunshine :toggle geolocation-enable-weather-forecast)
-        (theme-changer :toggle geolocation-enable-automatic-theme-changer)
-        ))
+(defconst geolocation-packages
+  '(
+    (osx-location :toggle (and geolocation-enable-location-service
+                               (spacemacs/system-is-mac)))
+    popwin
+    (rase :toggle (and geolocation-enable-location-service
+                       (spacemacs/system-is-mac)))
+    (sunshine :toggle geolocation-enable-weather-forecast)
+    (theme-changer :toggle geolocation-enable-automatic-theme-changer)))
 
 (defun geolocation/init-osx-location ()
   "Initialize osx-location"

@@ -1,6 +1,6 @@
 ;;; packages.el --- Finance Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -84,4 +84,6 @@
         (lambda () (when syntax-checking-enable-by-default
                      (global-flycheck-mode 1)))
         finance-lazy-load-flycheck)
-      (evilified-state-evilify ledger-report-mode ledger-report-mode-map))))
+      (evilified-state-evilify-map ledger-report-mode-map
+        :eval-after-load ledger-report
+        :mode ledger-report-mode))))

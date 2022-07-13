@@ -1,6 +1,6 @@
 ;;; funcs.el --- Python Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -105,7 +105,7 @@
 ;; others
 
 (defun spacemacs//python-default ()
-  "Defaut settings for python buffers"
+  "Default settings for python buffers"
   (setq mode-name "Python"
         tab-width python-tab-width
         fill-column python-fill-column)

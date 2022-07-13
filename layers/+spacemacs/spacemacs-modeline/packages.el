@@ -1,6 +1,6 @@
 ;;; packages.el --- Spacemacs Mode-line Visual Layer packages File
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -37,7 +37,7 @@
         spaceline
         spaceline-all-the-icons
         symon
-        (vim-powerline :location local)))
+        (vim-powerline :location (recipe :fetcher local))))
 
 (defun spacemacs-modeline/post-init-anzu ()
   (when (eq 'all-the-icons (spacemacs/get-mode-line-theme-name))

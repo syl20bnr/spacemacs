@@ -1,6 +1,6 @@
 ;;; funcs.el --- Emacs Lisp functions File
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -100,7 +100,7 @@ Requires smartparens because all movement is done using `sp-up-sexp'."
       (let ((max 10))
         (while (and (> max 0)
                     (sp-point-in-string-or-comment))
-          (decf max)
+          (cl-decf max)
           (sp-up-sexp)))
       (sp-up-sexp arg)
       (call-interactively 'eval-last-sexp))))
@@ -124,7 +124,7 @@ Requires smartparens because all movement is done using `sp-forward-symbol'."
       (let ((max 10))
         (while (and (> max 0)
                     (sp-point-in-string-or-comment))
-          (decf max)
+          (cl-decf max)
           (sp-up-sexp)))
       (sp-up-sexp arg)
       (let ((ret-val (format ";; %S" (call-interactively 'eval-last-sexp))))

@@ -1,6 +1,6 @@
 ;;; config.el --- Language Server Protocol Layer config file for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Fangrui Song <i@maskray.me>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -37,4 +37,4 @@ If `both', binds lightweight navigation functions under `SPC m g' and lsp-ui fun
 
 (defvar lsp-use-lsp-ui t "When non-nil, use `lsp-ui' package.")
 
-(defvar lsp-use-upstream-bindings t "When non-nil, map keys to `lsp-command-map'.")
+(defvar lsp-use-upstream-bindings nil "When non-nil, map keys to `lsp-command-map'.")

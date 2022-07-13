@@ -15,6 +15,7 @@
   - [[#enable-support-for-traditional-error-navigation][Enable support for traditional error navigation]]
   - [[#bitmaps][Bitmaps]]
   - [[#auto-hide-tooltips][Auto hide tooltips]]
+  - [[#window-position-and-size][Window position and size]]
 - [[#key-bindings][Key bindings]]
 
 * Description
@@ -104,6 +105,20 @@ are kept open until the cursor is moved.
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
     '((syntax-checking :variables syntax-checking-auto-hide-tooltips 10)))
+#+END_SRC
+
+** Window position and size
+You can set the frame position within the emacs window by setting the variable
+=syntax-checking-window-position=. Available values are ='bottom=, ='left=, ='right=,
+and ='top=. You can also set the initial size by setting =syntax-checking-window-width=
+and =syntax-checking-window-height= for width and height respectively.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((syntax-checking :variables
+                       syntax-checking-window-position 'bottom
+                       syntax-checking-window-width 80
+                       syntax-checking-window-height 25)))
 #+END_SRC
 
 * Key bindings

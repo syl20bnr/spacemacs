@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+## Update the copyright headers with the current year
+##
+## Copyright (C) 2022 Sylvain Benner & Contributors
+##
+## Author: Arif Er
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
+
+## Search for files recursively in BASEDIR for copyright headers. Skip all the
+## files with the current year already in the copyright header. Otherwise,
+## replace the most recent copyright header entry with the current year. If
+## there are files with only a single year in the copyright header, extend the
+## header to the current year.
+
+SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+BASEDIR=$(dirname $(dirname $(dirname $SCRIPTPATH)))  # Path to .emacs.d/
+BLACKLIST=(
+    "core/libs/*"
+    ".cache/*"
+    ".git/*"
+    "assets/*"
+    "*cache*/*"
+    ".*"
+    "persist/*"
+    "private/*"
+    "elpa/*"
+)
+ASSETS=(
+    "*.jpg"
+    "*.png"
+    "*.json"
+    "*.gpg"
+)
+
+EXCLUDES=()
+for EXCLUDE in "${BLACKLIST[@]}"; do
+    EXCLUDES+=(! -path "'$BASEDIR/$EXCLUDE'")
+done
+
+IGNORES=()
+for IGNORE in "${ASSETS[@]}"; do
+    IGNORES+=(! -name "'$IGNORE'")
+done
+
+YEAR=$(date '+%Y')
+SKIP="^[#;]\{2\} Copyright ([Cc]) \([[:digit:]]\{4\}-\)\?${YEAR} .*$"
+
+SINGLE_RX="^\([#;]\{2\} Copyright ([Cc])\) \([[:digit:]]\{4\}\) \(.*\)$"
+SINGLE_RULE="s/${SINGLE_RX}/\1 \2-${YEAR} \3/"
+DOUBLE_RX="^\([#;]\{2\} Copyright ([Cc]) [[:digit:]]\{4\}\)-\([[:digit:]]\{4\}\) \(.*\)$"
+DOUBLE_RULE="0,/${DOUBLE_RX}/ s/${DOUBLE_RX}/\1-${YEAR} \3/"
+
+while read FILE; do
+    if grep -qe "${SKIP}" $FILE; then
+        continue
+    fi
+
+    if grep -qe "$DOUBLE_RX" $FILE; then
+        # No in-place replacement because there are files with multiple headers
+        tac $FILE | sed "${DOUBLE_RULE}" | tac > /tmp/em-copyright
+        cat /tmp/em-copyright > $FILE
+        echo "$FILE has been updated. - DOUBLE"
+        continue
+    fi
+
+    if grep -qe "$SINGLE_RX" $FILE; then
+        sed -i "${SINGLE_RULE}" $FILE
+        echo "$FILE has been updated. - SINGLE"
+        continue
+    fi
+done <<< $(eval find "$BASEDIR/" -type f ${EXCLUDES[@]} ${IGNORES[@]})

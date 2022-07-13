@@ -1,6 +1,6 @@
 ;;; packages.el --- ietf layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Christian Hopps <chopps@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -47,7 +47,7 @@
       (add-to-list 'auto-mode-alist
                    '("/draft-\\([a-z0-9_]+-\\)+[a-z0-9_]+.txt" . irfc-mode))
       (add-to-list 'auto-mode-alist
-                   '("/rfc-\\([a-z0-9_]+-\\).txt" . irfc-mode)))))
+                   '("/rfc\\([a-z0-9_-]+\\).txt" . irfc-mode)))))
 
 
 

@@ -1,6 +1,6 @@
 ;;; packages.el --- Org Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -37,8 +37,7 @@
     (org-agenda :location built-in)
     (org-wild-notifier
                 :toggle org-enable-notifications)
-    (org-contacts :location built-in
-                  :toggle org-enable-org-contacts-support)
+    (org-contacts :toggle org-enable-org-contacts-support)
     org-contrib
     (org-vcard :toggle org-enable-org-contacts-support)
     (org-brain :toggle org-enable-org-brain-support)
@@ -69,8 +68,11 @@
     (org-sticky-header :toggle org-enable-sticky-header)
     (verb :toggle org-enable-verb-support)
     (org-roam :toggle org-enable-roam-support)
+    (org-roam-ui :toggle org-enable-roam-ui)
     (valign :toggle org-enable-valign)
     (org-appear :toggle org-enable-appear-support)
+    (org-transclusion :toggle org-enable-transclusion-support)
+    helm
     (ox-asciidoc :toggle org-enable-asciidoc-support)))
 
 (defun org/post-init-company ()
@@ -160,7 +162,7 @@
       (when org-todo-dependencies-strategy
         (setq org-enforce-todo-dependencies t)
         (add-hook 'org-after-todo-statistics-hook
-                  (case org-todo-dependencies-strategy
+                  (cl-case org-todo-dependencies-strategy
                     (naive-auto #'spacemacs/org-summary-todo-naive-auto)
                     (semiauto #'spacemacs/org-summary-todo-semiauto))))
 
@@ -291,6 +293,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "sb" 'org-tree-to-indirect-buffer
         "sd" 'org-cut-subtree
         "sy" 'org-copy-subtree
+        "sp" 'org-paste-subtree
         "sh" 'org-promote-subtree
         "sj" 'org-move-subtree-down
         "sk" 'org-move-subtree-up
@@ -390,9 +393,10 @@ Will work on both org-mode and any mode that accepts plain html."
 
       ;; Add global evil-leader mappings. Used to access org-agenda
       ;; functionalities – and a few others commands – from any other mode.
-      (spacemacs/declare-prefix "ao" "org")
-      (spacemacs/declare-prefix "aof" "feeds")
-      (spacemacs/declare-prefix "aoC" (org-clocks-prefix))
+      (spacemacs/declare-prefix
+        "ao"  "org"
+        "aof" "feeds"
+        "aoC" (org-clocks-prefix))
       ;; org-agenda
       (when (configuration-layer/layer-used-p 'ivy)
         (spacemacs/set-leader-keys "ao/" 'org-occur-in-agenda-files))
@@ -690,12 +694,13 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :defer t
     :init
     (progn
-      (spacemacs/declare-prefix "aoJ" "jira")
-      (spacemacs/declare-prefix "aoJp" "projects")
-      (spacemacs/declare-prefix "aoJi" "issues")
-      (spacemacs/declare-prefix "aoJs" "subtasks")
-      (spacemacs/declare-prefix "aoJc" "comments")
-      (spacemacs/declare-prefix "aoJt" "todos")
+      (spacemacs/declare-prefix
+        "aoJ"  "jira"
+        "aoJp" "projects"
+        "aoJi" "issues"
+        "aoJs" "subtasks"
+        "aoJc" "comments"
+        "aoJt" "todos")
       (spacemacs/set-leader-keys
         "aoJpg" 'org-jira-get-projects
         "aoJib" 'org-jira-browse-issue
@@ -934,9 +939,10 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :hook (after-init . org-roam-setup)
     :init
     (progn
-      (spacemacs/declare-prefix "aor" "org-roam")
-      (spacemacs/declare-prefix "aord" "org-roam-dailies")
-      (spacemacs/declare-prefix "aort" "org-roam-tags")
+      (spacemacs/declare-prefix
+        "aor"  "org-roam"
+        "aord" "org-roam-dailies"
+        "aort" "org-roam-tags")
       (spacemacs/set-leader-keys
         "aordy" 'org-roam-dailies-goto-yesterday
         "aordt" 'org-roam-dailies-goto-today
@@ -971,15 +977,16 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :config
     (progn
       (spacemacs|hide-lighter org-roam-mode)
-      (when org-enable-roam-protocol
-          (add-hook 'org-roam-mode-hook (lambda ()
-                                          (require 'org-roam-protocol))))
 
       (evilified-state-evilify-map org-roam-mode-map
         :mode org-roam-mode
         :bindings
         "o" 'link-hint-open-link
-        "r" 'org-roam-buffer-refresh))))
+        "r" 'org-roam-buffer-refresh)))
+
+  (use-package org-roam-protocol
+    :if org-enable-roam-protocol
+    :after org-protocol))
 
 (defun org/init-org-sticky-header ()
   (use-package org-sticky-header
@@ -1019,6 +1026,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-valign ()
   (use-package valign
+    :after org
     :init
     (progn
       (add-hook 'org-mode-hook 'valign-mode)
@@ -1027,7 +1035,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :config
     (spacemacs|diminish valign-mode " ㊣" " E")))
 
-(defun org/init-org-appear()
+(defun org/init-org-appear ()
   (use-package org-appear
     :defer t
     :init
@@ -1035,8 +1043,51 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (add-hook 'org-mode-hook 'org-appear-mode)
       (setq org-appear-autolinks t
             org-appear-autoemphasis t
-            org-appear-autosubmarkers t))))
+            org-appear-autosubmarkers t))
+    :config
+    (when (and (eq org-appear-trigger 'manual)
+               (memq dotspacemacs-editing-style '(vim hybrid)))
+      (add-hook 'org-mode-hook
+                (lambda ()
+                  (add-hook 'evil-insert-state-entry-hook #'org-appear-manual-start nil t)
+                  (add-hook 'evil-insert-state-exit-hook #'org-appear-manual-stop nil t))))))
+
+(defun org/init-org-transclusion ()
+  (use-package org-transclusion
+    :defer t
+    :init
+    (progn
+     (spacemacs/declare-prefix-for-mode 'org-mode "mu" "org-transclusion")
+     (spacemacs/set-leader-keys-for-major-mode 'org-mode
+       "uu" #'org-transclusion-add
+       "uU" #'org-transclusion-add-all
+       "ud" #'org-transclusion-remove
+       "uD" #'org-transclusion-remove-all
+       "ul" #'org-transclusion-demote-subtree
+       "uh" #'org-transclusion-promote-subtree
+       "ur" #'org-transclusion-refresh
+       "ug" #'org-transclusion-move-to-source))))
 
 (defun org/init-ox-asciidoc ()
   (use-package ox-asciidoc
     :after ox))
+
+(defun org/post-init-helm ()
+  (if (not (boundp 'helm-imenu-extra-modes))
+    (setq helm-imenu-extra-modes '(org-mode)))
+  (add-to-list 'helm-imenu-extra-modes 'org-mode))
+
+(defun org/init-org-roam-ui ()
+  (use-package org-roam-ui
+    :after org-roam
+    :init
+    (progn
+      (spacemacs/set-leader-keys
+        "aoru" 'org-roam-ui-mode)
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "ru" 'org-roam-ui-mode))
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t)))

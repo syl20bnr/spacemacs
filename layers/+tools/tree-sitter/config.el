@@ -1,6 +1,6 @@
 ;;; config.el --- tree-sitter layer config file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Elliott Shugerman <eeshugerman@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -31,3 +31,6 @@
 
 (defvar tree-sitter-fold-indicators-enable t
   "If non nil, and `tree-sitter-fold-enable' is non nil, show fold indicators in fringe.")
+
+(defvar spacemacs-tree-sitter-hl-black-list nil
+  "List of major modes where `tree-sitter-hl-mode' is disabled.")

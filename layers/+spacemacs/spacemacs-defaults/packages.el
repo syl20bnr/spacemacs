@@ -1,6 +1,6 @@
 ;;; packages.el --- Spacemacs Defaults Layer packages File
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -21,45 +21,45 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq spacemacs-defaults-packages
-      '(
-        (abbrev :location built-in)
-        (archive-mode :location built-in)
-        (bookmark :location built-in)
-        (buffer-menu :location built-in)
-        (conf-mode :location built-in)
-        (cus-edit :location built-in
-                  :toggle (or (eq 'vim dotspacemacs-editing-style)
-                              (eq 'hybrid dotspacemacs-editing-style)))
-        (dired :location built-in)
-        (dired-x :location built-in)
-        (image-dired :location built-in)
-        (display-line-numbers :location built-in)
-        (electric-indent-mode :location built-in)
-        (ediff :location built-in)
-        (eldoc :location built-in)
-        (help-fns+ :location local)
-        (hi-lock :location built-in)
-        (image-mode :location built-in)
-        (imenu :location built-in)
-        (occur-mode :location built-in)
-        (package-menu :location built-in)
-        ;; page-break-lines is shipped with spacemacs core
-        (page-break-lines :location built-in)
-        (process-menu :location built-in)
-        quickrun
-        (recentf :location built-in)
-        (savehist :location built-in)
-        (saveplace :location built-in)
-        (subword :location built-in)
-        (tar-mode :location built-in)
-        (uniquify :location built-in)
-        (url :location built-in)
-        (visual-line-mode :location built-in)
-        (whitespace :location built-in)
-        (winner :location built-in)
-        (xref :location built-in)
-        (zone :location built-in)))
+(defconst spacemacs-defaults-packages
+  '(
+    (abbrev :location built-in)
+    (archive-mode :location built-in)
+    (bookmark :location built-in)
+    (buffer-menu :location built-in)
+    (conf-mode :location built-in)
+    (cus-edit :location built-in
+              :toggle (or (eq 'vim dotspacemacs-editing-style)
+                          (eq 'hybrid dotspacemacs-editing-style)))
+    (dired :location built-in)
+    (dired-x :location built-in)
+    (image-dired :location built-in)
+    (display-line-numbers :location built-in)
+    (electric-indent-mode :location built-in)
+    (ediff :location built-in)
+    (eldoc :location built-in)
+    (help-fns+ :location (recipe :fetcher local))
+    (hi-lock :location built-in)
+    (image-mode :location built-in)
+    (imenu :location built-in)
+    (occur-mode :location built-in)
+    (package-menu :location built-in)
+    ;; page-break-lines is shipped with spacemacs core
+    (page-break-lines :location built-in)
+    (process-menu :location built-in)
+    quickrun
+    (recentf :location built-in)
+    (savehist :location built-in)
+    (saveplace :location built-in)
+    (subword :location built-in)
+    (tar-mode :location built-in)
+    (uniquify :location built-in)
+    (url :location built-in)
+    (visual-line-mode :location built-in)
+    (whitespace :location built-in)
+    (winner :location built-in)
+    (xref :location built-in)
+    (zone :location built-in)))
 
 
 ;; Initialization of packages
@@ -232,8 +232,10 @@
 (defun spacemacs-defaults/init-help-fns+ ()
   (use-package help-fns+
     :commands (describe-keymap)
-    :init (spacemacs/set-leader-keys "hdK" 'describe-keymap)
-    :config (add-hook 'help-mode (lambda () (setq-local tab-width 8)))))
+    :init
+    (progn
+      (spacemacs/set-leader-keys "hdK" 'describe-keymap)
+      (advice-add 'help-do-xref :after (lambda (_pos _func _args) (setq-local tab-width 8))))))
 
 (defun spacemacs-defaults/init-hi-lock ()
   (with-eval-after-load 'hi-lock
@@ -281,26 +283,21 @@
     :defer t
     :init
     (progn
-      (cond ((spacemacs/visual-line-numbers-p)
-             (setq display-line-numbers-type 'visual))
-            ((spacemacs/relative-line-numbers-p)
-             (setq display-line-numbers-type 'relative))
-            (t
-             (setq display-line-numbers-type t)))
+      (setq display-line-numbers-type (spacemacs/line-numbers-type))
 
       (spacemacs/declare-prefix "tn" "line-numbers")
 
       (spacemacs|add-toggle line-numbers
         :status (and (featurep 'display-line-numbers)
-                     display-line-numbers-mode
-                     (eq display-line-numbers dotspacemacs-line-numbers))
+                     display-line-numbers-mode)
         :on (prog1 (display-line-numbers-mode)
-              (setq display-line-numbers dotspacemacs-line-numbers))
+              (setq display-line-numbers (spacemacs/line-numbers-type)))
         :off (display-line-numbers-mode -1)
         :on-message "Line numbers enabled per dotspacemacs-line-numbers."
         :off-message "Line numbers disabled."
         :documentation "Show line numbers as configured in .spacemacs."
         :evil-leader "tnn")
+
       (spacemacs|add-toggle absolute-line-numbers
         :status (and (featurep 'display-line-numbers)
                      display-line-numbers-mode
@@ -312,6 +309,7 @@
         :off-message "Line numbers disabled."
         :documentation "Show absolute line numbers."
         :evil-leader "tna")
+
       (spacemacs|add-toggle relative-line-numbers
         :status (and (featurep 'display-line-numbers)
                      display-line-numbers-mode
@@ -391,7 +389,10 @@
   (spacemacs|hide-lighter page-break-lines-mode))
 
 (defun spacemacs-defaults/init-process-menu ()
-  (evilified-state-evilify process-menu-mode process-menu-mode-map))
+  (evilified-state-evilify-map process-menu-mode-map
+    :mode process-menu-mode
+    :bindings
+    "gr" 'revert-buffer))
 
 (defun spacemacs-defaults/init-quickrun ()
   (use-package quickrun
@@ -424,7 +425,7 @@
       (add-to-list 'recentf-exclude (recentf-expand-file-name package-user-dir))
       (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
       (when custom-file
-        (add-to-list 'recentf-exclude custom-file)))))
+        (add-to-list 'recentf-exclude (recentf-expand-file-name custom-file))))))
 
 (defun spacemacs-defaults/init-savehist ()
   (use-package savehist

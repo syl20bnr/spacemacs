@@ -1,6 +1,6 @@
 ;;; packages.el --- Spacemacs Purpose Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Bar Magal
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -27,7 +27,7 @@
         (ivy-purpose :requires ivy)
         popwin
         (spacemacs-purpose-popwin
-         :location local
+         :location (recipe :fetcher local)
          :requires popwin)
         window-purpose))
 

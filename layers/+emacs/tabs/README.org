@@ -6,7 +6,9 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#hide-tabs][Hide tabs]]
+- [[#configuration][Configuration]]
+  - [[#selected-tab-bar][Selected tab bar]]
+  - [[#hide-tabs-after-a-delay][Hide tabs after a delay]]
 - [[#key-bindings][Key bindings]]
 
 * Description
@@ -21,27 +23,42 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =tabs= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Hide tabs
-You can set hooks for buffers in which it isn't desired to have tabs by
-customizing =centaur-tabs-hide-tabs-hooks=
+* Configuration
+** Selected tab bar
+To display a bar in the given direction to the selected tab, set =tabs-highlight-current-tab= to
+one of =left= (default), =under=, =over=.
 
-Alternatively you can set ~tabs-auto-hide~ to ~t~ to auto hide tabs after some
-delay ~tabs-auto-hide-delay~ via the :variables keyword in your dotfile:
+For example,
 
 #+BEGIN_SRC emacs-lisp
-  (tabs :variables
-        tabs-auto-hide t
-        tabs-auto-hide-delay 3)
+  (setq-default dotspacemacs-configuration-layers
+                '(tabs :variables tabs-highlight-current-tab 'left))
+#+END_SRC
+
+Note that this has no effect when Emacs is running in daemon mode.
+
+** Hide tabs after a delay
+You can set hooks for buffers in which it isn't desired to have tabs by
+customizing =centaur-tabs-hide-tabs-hooks=.
+
+Alternatively you can set =tabs-auto-hide= to =t= to auto hide tabs after some
+delay =tabs-auto-hide-delay= via the :variables keyword in your =.spacemacs=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '(tabs :variables
+                       tabs-auto-hide t
+                       tabs-auto-hide-delay 3))
 #+END_SRC
 
 * Key bindings
 
 | Key binding | Description                                           |
 |-------------+-------------------------------------------------------|
-| ~C-{~       | Select the previous available tab                     |
-| ~C-}~       | Select the next available tab                         |
-| ~C-M-{~     | Move current tabe to left                             |
-| ~C-M-}~     | Move current tabe to right                            |
+| ~g t~       | Select the next available tab                         |
+| ~g T~       | Select the previous available tab                     |
+| ~g C-t~     | Move current tabe to right                            |
+| ~g C-T~     | Move current tabe to left                             |
 | ~C-c t s~   | Display a list of current buffer groups using Counsel |
 | ~C-c t p~   | Group buffer tabs by projectile                       |
 | ~C-c t g~   | Group buffer tabs by groups                           |

@@ -1,6 +1,6 @@
 ;;; packages.el --- systemd layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Fabien Dubosson <fabien.dubosson@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -25,7 +25,7 @@
   '(
     flycheck
     systemd
-    )
+    journalctl-mode)
   "The list of Lisp packages required by the systemd layer.")
 
 (defun systemd/post-init-flycheck ()
@@ -39,5 +39,16 @@
     :config (spacemacs/set-leader-keys-for-major-mode 'systemd-mode
               "hd" 'systemd-doc-directives
               "ho" 'systemd-doc-open)))
+
+(defun systemd/init-journalctl-mode ()
+  (use-package journalctl-mode
+    :ensure t
+    :init (progn
+            (spacemacs/declare-prefix "atj"  "journalctl")
+            (spacemacs/set-leader-keys
+              "atjj" 'journalctl
+              "atjs" 'journalctl-unit
+              "atju" 'journalctl-user-unit
+              "atjb" 'journalctl-boot))))
 
 ;;; packages.el ends here

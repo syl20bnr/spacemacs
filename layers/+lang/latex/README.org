@@ -24,6 +24,7 @@
 - [[#key-bindings][Key bindings]]
   - [[#folding-1][Folding]]
   - [[#reftex][RefTeX]]
+  - [[#evil-tex][evil-tex]]
 
 * Description
 This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects/auctex/][AucTeX]].
@@ -34,6 +35,7 @@ This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects
 - Auto-completion
 - Tags navigation on ~%~ with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Labels, references, citations and index entries management with [[http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html][RefTeX]]
+- LaTeX-specific text objects and much more with [[https://github.com/iyefrat/evil-tex][evil-tex]]
 
 * BibTeX
 For more extensive support of BibTeX files than RefTeX provides, have a look at
@@ -324,3 +326,19 @@ Available only when =latex-enable-folding= is non nil.
 | ~SPC m r t~ or with LSP ~SPC m R t~     | reftex-toc                            |
 | ~SPC m r T~ or with LSP ~SPC m R T~     | reftex-toc-recenter                   |
 | ~SPC m r v~ or with LSP ~SPC m R v~     | reftex-view-crossref                  |
+
+** evil-tex
+See the [[https://github.com/iyefrat/evil-tex/blob/master/README.org][evil-tex documentation]] for more comprehensive explanation of text
+objects it provides and its other features, including its integration with
+~evil-surround~.
+
+| Key binding | Description                                         |
+|-------------+-----------------------------------------------------|
+| ~]]~ / ~[[~ | jump between section headings                       |
+| ~M-n~       | Move between braces, similar to ~TAB~ in ~cd-latex~ |
+| ~SPC m q~   | Prefix for [[https://github.com/iyefrat/evil-tex#toggles][evil-tex toggle commands]]                 |
+
+In order to [[https://github.com/iyefrat/evil-tex#user-options][preserve both the precious ~t~ mark and the indispensable ~ts~
+motion]], the [[https://github.com/iyefrat/evil-tex/blob/master/README.org#toggles][evil-tex "magnificent toggles"]] are bound under ~SPC m q~ rather than
+~mt~ or ~ts~. This binding can be remembered with mnemonic "quite magnificent
+toggle".

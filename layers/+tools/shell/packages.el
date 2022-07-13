@@ -1,6 +1,6 @@
 ;;; packages.el --- shell packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -124,7 +124,10 @@
       ;; quick commands
       (defalias 'eshell/e 'find-file-other-window)
       (defalias 'eshell/d 'dired)
-      (setenv "PAGER" "cat")
+
+      (require 'esh-var)
+      (add-to-list 'eshell-variable-aliases-list
+                   `("PAGER" ,(lambda (_indices) "cat") t))
 
       ;; support `em-smart'
       (when shell-enable-smart-eshell

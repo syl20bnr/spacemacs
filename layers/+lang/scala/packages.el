@@ -1,6 +1,6 @@
 ;;; packages.el --- Scala Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -61,6 +61,8 @@
         "bb" 'sbt-command
         "bc" #'spacemacs/scala-sbt-compile
         "bt" #'spacemacs/scala-sbt-test
+        "bI" #'spacemacs/scala-sbt-compile-it
+        "bT" #'spacemacs/scala-sbt-compile-test
         "b=" #'spacemacs/scala-sbt-scalafmt-all))))
 
 (defun scala/init-scala-mode ()

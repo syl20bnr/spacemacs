@@ -1,6 +1,6 @@
 ;;; funcs.el --- Spacemacs Layouts Layer functions File -*- lexical-binding: t; -*-
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -111,9 +111,21 @@ Cancels autosave on exiting perspectives mode."
   (let ((ivy-ignore-buffers (remove #'spacemacs//layout-not-contains-buffer-p ivy-ignore-buffers)))
     (ivy-switch-buffer)))
 
+(defmacro spacemacs||with-persp-buffer-list (&rest body)
+  "This one is a brute force version of `with-persp-buffer-list'.
+It maitains the order of the original `buffer-list'"
+  `(cl-letf* ((org-buffer-list
+               (symbol-function 'buffer-list))
+              ((symbol-function 'buffer-list)
+               #'(lambda (&optional frame)
+                   (seq-filter
+                    #'persp-contain-buffer-p
+                    (funcall org-buffer-list frame)))))
+     ,@body))
+
 (defun spacemacs-layouts//advice-with-persp-buffer-list (orig-fun &rest args)
   "Advice to provide persp buffer list."
-  (with-persp-buffer-list () (apply orig-fun args)))
+  (spacemacs||with-persp-buffer-list () (apply orig-fun args)))
 
 
 ;; Persp transient-state
@@ -558,7 +570,7 @@ Run PROJECT-ACTION on project."
      :mode-line helm-read-file-name-mode-line-string
      :keymap (let ((map (make-sparse-keymap)))
                (define-key map
-                 (kbd "C-d") #'(lambda () (interactive)
+                 (kbd "C-d") (lambda () (interactive)
                                  (helm-exit-and-execute-action
                                   (lambda (project)
                                     (spacemacs||switch-project-persp project
@@ -957,18 +969,22 @@ containing the buffer."
 (defun spacemacs/compleseus-pers-switch-project (arg)
   "Select a project layout using consult."
   (interactive "P")
-  (let ((project (completing-read
-                  "Switch to Project Perspective: "
-                  projectile-known-projects
-                  nil
-                  nil
-                  nil
-                  nil
-                  (if (projectile-project-p)
-                      (abbreviate-file-name (projectile-project-root))
-                    nil))))
+  (let* ((current-project-maybe (if (projectile-project-p)
+                                    (abbreviate-file-name (projectile-project-root))
+                                  nil))
+         (project (completing-read
+                   "Switch to Project Perspective: "
+                   projectile-known-projects
+                   nil
+                   nil
+                   nil
+                   nil
+                   current-project-maybe)))
     (spacemacs||switch-project-persp project
-      (projectile-switch-project-by-name project arg))))
+      (let ((projectile-switch-project-action (if (string= project current-project-maybe)
+                                                  (lambda () nil)
+                                                projectile-switch-project-action)))
+        (projectile-switch-project-by-name project arg)))))
 
 
 ;; layout local variables

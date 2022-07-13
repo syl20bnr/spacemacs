@@ -1,6 +1,6 @@
 ;;; funcs.el --- ipython-notebook Layer function File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Senghoo Kim <me@senghoo.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

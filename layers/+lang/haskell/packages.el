@@ -1,6 +1,6 @@
 ;;; packages.el --- Haskell Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -229,7 +229,9 @@
             "hh"  'hoogle
             "hG"  'haskell-hoogle-lookup-from-local)))
 
-      (evilified-state-evilify haskell-debug-mode haskell-debug-mode-map
+      (evilified-state-evilify-map haskell-debug-mode-map
+        :mode haskell-debug-mode
+        :bindings
         "RET" 'haskell-debug/select
         "a" 'haskell-debug/abandon
         "b" 'haskell-debug/break-on-function

@@ -1,6 +1,6 @@
 ;;; packages.el --- Git Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -21,39 +21,46 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq git-packages
-      '(
-        evil-collection
-        fill-column-indicator
-        ;; forge requires a C compiler on Windows so we disable
-        ;; it by default on Windows.
-        (forge :toggle (not (spacemacs/system-is-mswindows)))
-        ;; include the old git{attributes,config,ignore}-mode
-        git-modes
-        gitignore-templates
-        git-commit
-        git-link
-        git-messenger
-        git-timemachine
-        golden-ratio
-        (helm-git-grep :requires helm)
-        magit
-        (magit-delta :toggle git-enable-magit-delta-plugin)
-        (magit-gitflow :toggle git-enable-magit-gitflow-plugin)
-        magit-section
-        (magit-svn :toggle git-enable-magit-svn-plugin)
-        (magit-todos :toggle git-enable-magit-todos-plugin)
-        org
-        (orgit :requires org)
-        (orgit-forge :requires (org forge))
-        smeargle
-        transient))
+(defconst git-packages
+  '(
+    evil-collection
+    evil-surround
+    fill-column-indicator
+    ;; forge requires a C compiler on Windows so we disable
+    ;; it by default on Windows.
+    (forge :toggle (not (spacemacs/system-is-mswindows)))
+    ;; include the old git{attributes,config,ignore}-mode
+    git-modes
+    gitignore-templates
+    git-commit
+    git-link
+    git-messenger
+    git-timemachine
+    golden-ratio
+    (helm-git-grep :requires helm)
+    magit
+    (magit-delta :toggle git-enable-magit-delta-plugin)
+    (magit-gitflow :toggle git-enable-magit-gitflow-plugin)
+    magit-section
+    (magit-svn :toggle git-enable-magit-svn-plugin)
+    (magit-todos :toggle git-enable-magit-todos-plugin)
+    org
+    (orgit :requires org)
+    (orgit-forge :requires (org forge))
+    smeargle
+    transient))
 
 
 (defun git/pre-init-golden-ratio ()
   (spacemacs|use-package-add-hook golden-ratio
     :post-config
     (add-to-list 'golden-ratio-exclude-buffer-names " *transient*")))
+
+;; evil-surround bindings interfere with line-wise staging
+(defun git/post-init-evil-surround ()
+  (spacemacs|use-package-add-hook magit
+    :post-config
+    (add-hook 'magit-mode-hook #'turn-off-evil-surround-mode)))
 
 (defun git/pre-init-evil-collection ()
   (when (spacemacs//support-evilified-buffer-p)
@@ -236,12 +243,6 @@
         (which-key-add-keymap-based-replacements magit-status-mode-map
           "gf"  "jump-to-unpulled"
           "gp"  "jump-to-unpushed"))
-      ;; https://magit.vc/manual/magit/MacOS-Performance.html
-      ;; But modified according Tommi Komulainen's advice: "...going through
-      ;; shell raises an eyebrow, and in the odd edge case of not having git
-      ;; setting the executable to empty string(?) feels slightly wrong."
-      (when-let ((git (executable-find "git")))
-        (setq magit-git-executable git))
       ;; full screen magit-status
       (when git-magit-status-fullscreen
         (setq magit-display-buffer-function
@@ -348,10 +349,22 @@
     :init
     (progn
       (setq forge-database-file (concat spacemacs-cache-directory
-                                        "forge-database.sqlite"))
+                                        "forge-database.sqlite")
+            forge-add-default-bindings nil)
       (spacemacs/set-leader-keys-for-major-mode 'forge-topic-mode
+        "a" 'forge-edit-topic-assignees
         "c" 'forge-create-post
-        "e" 'forge-edit-post)
+        "C" 'forge-checkout-pullreq
+        "b" 'forge-browse-topic
+        "d" 'forge-delete-comment
+        "e" 'forge-edit-post
+        "m" 'forge-edit-topic-marks
+        "M" 'forge-create-mark
+        "n" 'forge-edit-topic-note
+        "r" 'forge-edit-topic-review-requests
+        "s" 'forge-edit-topic-state
+        "t" 'forge-edit-topic-title
+        "u" 'forge-copy-url-at-point-as-kill)
       (spacemacs/set-leader-keys-for-major-mode 'forge-post-mode
         dotspacemacs-major-mode-leader-key 'forge-post-submit
         "c" 'forge-post-submit

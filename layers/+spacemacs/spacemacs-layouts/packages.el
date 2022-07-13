@@ -1,6 +1,6 @@
 ;;; packages.el --- Spacemacs Layouts Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -21,14 +21,14 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq spacemacs-layouts-packages
-      '(eyebrowse
-        helm
-        ivy
-        persp-mode
-        spaceline
-        consult
-        (counsel-projectile :requires ivy)))
+(defconst spacemacs-layouts-packages
+  '(eyebrowse
+    helm
+    ivy
+    persp-mode
+    spaceline
+    consult
+    (counsel-projectile :requires ivy)))
 
 
 

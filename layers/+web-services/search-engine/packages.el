@@ -1,6 +1,6 @@
 ;;; packages.el --- search-engine Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -107,6 +107,9 @@
               (c++-api-reference
                :name "C++ Reference"
                :url "https://en.cppreference.com/mwiki/index.php?search=%s")
+              (rails-api
+               :name "Rails API"
+               :url "https://api.rubyonrails.org?q=%s")
               (wolfram-alpha
                :name "Wolfram Alpha"
                :url "https://www.wolframalpha.com/input/?i=%s")

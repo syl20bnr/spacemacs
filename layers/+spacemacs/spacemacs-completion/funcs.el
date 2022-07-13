@@ -1,6 +1,6 @@
 ;;; funcs.el --- Spacemacs Completion Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -46,15 +46,6 @@
                       :foreground nil
                       :background nil
                       :inherit 'helm-ff-directory))
-
-(defun spacemacs//helm-make-source (f &rest args)
-  "Function to be used as advice to activate fuzzy matching for all sources."
-  (let ((source-type (cadr args))
-        (props (cddr args)))
-    ;; fuzzy matching is not supported in async sources
-    (unless (child-of-class-p source-type helm-source-async)
-      (plist-put props :fuzzy-match (eq 'always helm-use-fuzzy))))
-  (apply f args))
 
 (defun spacemacs//helm-find-files-enable-helm--in-fuzzy ()
   "Enabling `helm--in-fuzzy' with the hook:

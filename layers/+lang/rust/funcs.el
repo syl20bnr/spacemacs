@@ -1,6 +1,6 @@
 ;;; funcs.el --- rust Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: NJBS <DoNotTrackMeUsingThis@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -58,7 +58,7 @@
         (spacemacs/declare-prefix-for-mode 'rust-mode "ms" "switch")
         (spacemacs/set-leader-keys-for-major-mode 'rust-mode
           "ss" 'spacemacs/lsp-rust-switch-server
-          "bR" 'spacemacs/lsp-rust-analyzer-reload-workspace))
+          (if lsp-use-upstream-bindings "wR" "bR") 'spacemacs/lsp-rust-analyzer-reload-workspace))
     (spacemacs//lsp-layer-not-installed-message)))
 
 (defun spacemacs//rust-setup-lsp-dap ()

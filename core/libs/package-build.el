@@ -1,42 +1,43 @@
-;;; package-build.el --- Tools for assembling a package archive  -*- lexical-binding: t -*-
+;;; package-build.el --- Tools for assembling a package archive  -*- lexical-binding:t; coding:utf-8 -*-
 
-;; Copyright (C) 2011-2022 Donald Ephraim Curtis <dcurtis@milkbox.net>
-;; Copyright (C) 2012-2022 Steve Purcell <steve@sanityinc.com>
-;; Copyright (C) 2016-2022 Jonas Bernoulli <jonas@bernoul.li>
-;; Copyright (C) 2009 Phil Hagelberg <technomancy@gmail.com>
+;; Copyright (C) 2011-2022 Donald Ephraim Curtis
+;; Copyright (C) 2012-2022 Steve Purcell
+;; Copyright (C) 2016-2022 Jonas Bernoulli
+;; Copyright (C) 2009 Phil Hagelberg
 
 ;; Author: Donald Ephraim Curtis <dcurtis@milkbox.net>
-;; Keywords: tools
+;;     Steve Purcell <steve@sanityinc.com>
+;;     Jonas Bernoulli <jonas@bernoul.li>
+;;     Phil Hagelberg <technomancy@gmail.com>
 ;; Homepage: https://github.com/melpa/package-build
-;; Package-Requires: ((cl-lib "0.5") (emacs "25.1"))
-;; Package-Version: 0-git
+;; Keywords: maint tools
 
-;; This file is not (yet) part of GNU Emacs.
-;; However, it is distributed under the same license.
+;; Package-Version: 3.1-git
+;; Package-Requires: ((emacs "25.1"))
 
-;; GNU Emacs is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation; either version 3, or (at your option)
-;; any later version.
+;; SPDX-License-Identifier: GPL-3.0-or-later
 
-;; GNU Emacs is distributed in the hope that it will be useful,
+;; This file is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published
+;; by the Free Software Foundation, either version 3 of the License,
+;; or (at your option) any later version.
+;;
+;; This file is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
-
+;;
 ;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to the
-;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-;; Boston, MA 02110-1301, USA.
+;; along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;; Commentary:
 
 ;; This file allows a curator to publish an archive of Emacs packages.
 
-;; The archive is generated from a set of recipes which describe elisp
-;; projects and repositories from which to get them.  The term
-;; "package" here is used to mean a specific version of a project that
-;; is prepared for download and installation.
+;; The archive is generated from a set of recipes, which describe elisp
+;; projects and repositories from which to get them.  The term "package"
+;; here is used to mean a specific version of a project that is prepared
+;; for download and installation.
 
 ;;; Code:
 
@@ -49,16 +50,17 @@
 (require 'json)
 
 (require 'package-recipe)
+(require 'package-build-badges)
 
 ;;; Options
 
-(defconst package-build--melpa-base
+(defvar package-build--melpa-base
   (file-name-directory
    (directory-file-name
     (file-name-directory (or load-file-name (buffer-file-name))))))
 
 (defgroup package-build nil
-  "Facilities for building package.el-compliant packages from upstream source code."
+  "Tools for building package.el-compliant packages from upstream source code."
   :group 'development)
 
 (defcustom package-build-working-dir
@@ -193,41 +195,20 @@ Otherwise do nothing.  FORMAT-STRING and ARGS are as per that function."
           version)))
 
 (defun package-build-get-timestamp-version (rcp)
-  (let ((rev (and (cl-typep rcp 'package-git-recipe)
-                  (or (oref rcp commit)
-                      (when-let ((branch (oref rcp branch)))
-                        (concat "origin/" branch))
-                      "origin/HEAD"))))
+  (let* ((rev (and (cl-typep rcp 'package-git-recipe)
+                   (or (oref rcp commit)
+                       (when-let ((branch (oref rcp branch)))
+                         (concat "origin/" branch))
+                       "origin/HEAD")))
+         (time (package-build--get-timestamp rcp rev)))
     (cons (package-build--get-commit rcp rev)
-          (package-build--parse-time
-           (package-build--get-timestamp rcp rev)
-           (oref rcp time-regexp)))))
+          ;; We remove zero-padding of the HH portion, as
+          ;; that is lost when stored in archive-contents.
+          (concat (format-time-string "%Y%m%d." time t)
+                  (format "%d" (string-to-number
+                                (format-time-string "%H%M" time t)))))))
 
 ;;;; Internal
-
-(defun package-build--parse-time (str &optional regexp)
-  "Parse STR as a time, and format as a YYYYMMDD.HHMM string.
-Always use Coordinated Universal Time (UTC) for output string.
-If REGEXP is provided, it is applied to STR and the function
-parses the first match group instead of STR."
-  (unless str
-    (error "No valid timestamp found"))
-  (setq str (substring-no-properties str))
-  (when regexp
-    (if (string-match regexp str)
-        (setq str (match-string 1 str))
-      (error "No valid timestamp found")))
-  ;; We remove zero-padding the HH portion, as it is lost
-  ;; when stored in the archive-contents
-  (let ((time (date-to-time
-               (if (string-match "\
-^\\([0-9]\\{4\\}\\)/\\([0-9]\\{2\\}\\)/\\([0-9]\\{2\\}\\) \
-\\([0-9]\\{2\\}:[0-9]\\{2\\}:[0-9]\\{2\\}\\)$" str)
-                   (concat (match-string 1 str) "-" (match-string 2 str) "-"
-                           (match-string 3 str) " " (match-string 4 str))
-                 str))))
-    (concat (format-time-string "%Y%m%d." time t)
-            (format "%d" (string-to-number (format-time-string "%H%M" time t))))))
 
 (defun package-build--find-version-newest (tags &optional regexp)
   "Find the newest version in TAGS matching REGEXP.
@@ -349,11 +330,19 @@ is used instead."
 
 (cl-defmethod package-build--get-timestamp ((rcp package-git-recipe) rev)
   (let ((default-directory (package-recipe--working-tree rcp)))
-    ;; package-build--expand-source-file-list expects REV to be checked out.
+    ;; `package-build-expand-files-spec' expects REV to be checked out.
     (package-build--checkout-1 rcp rev)
-    (car (apply #'process-lines
-                "git" "log" "--first-parent" "-n1" "--pretty=format:'\%ci'"
-                rev "--" (package-build--expand-source-file-list rcp)))))
+    (string-to-number
+     (car (apply #'process-lines
+                 "git" "log" "-n1" "--first-parent"
+                 "--pretty=format:%cd" "--date=unix"
+                 rev "--" (mapcar #'car (package-build-expand-files-spec rcp)))))))
+
+(cl-defmethod package-build--get-commit-time ((rcp package-git-recipe) rev)
+  (let ((default-directory (package-recipe--working-tree rcp)))
+    (string-to-number
+     (car (process-lines "git" "log" "-n1" "--first-parent"
+                         "--pretty=format:%cd" "--date=unix" rev)))))
 
 (cl-defmethod package-build--used-url ((rcp package-git-recipe))
   (let ((default-directory (package-recipe--working-tree rcp)))
@@ -399,10 +388,22 @@ is used instead."
 
 (cl-defmethod package-build--get-timestamp ((rcp package-hg-recipe) rev)
   (let ((default-directory (package-recipe--working-tree rcp)))
-    (car (apply #'process-lines
-                "hg" "log" "--style" "compact" "-l1"
-                `(,@(and rev (list "--rev" rev))
-                  ,@(package-build--expand-source-file-list rcp))))))
+    (string-to-number
+     (car (split-string ; "hgdate" is "<unix-date> <timezone>"
+           (car (apply #'process-lines
+                       "hg" "log" "--limit" "1" "--template" "{date|hgdate}\n"
+                       `(,@(and rev (list "--rev" rev))
+                         ,@(mapcar #'car (package-build-expand-files-spec rcp)))))
+           " ")))))
+
+(cl-defmethod package-build--get-commit-time ((rcp package-hg-recipe) rev)
+  (let ((default-directory (package-recipe--working-tree rcp)))
+    (string-to-number
+     (car (split-string
+           (car (process-lines "hg" "log" "--limit" "1"
+                               "--template" "{date|hgdate}\n"
+                               "--rev" rev))
+           " ")))))
 
 (cl-defmethod package-build--used-url ((rcp package-hg-recipe))
   (let ((default-directory (package-recipe--working-tree rcp)))
@@ -442,20 +443,28 @@ is used instead."
       (princ ";; Local Variables:\n;; no-byte-compile: t\n;; End:\n"
              (current-buffer)))))
 
-(defun package-build--create-tar (name version directory)
-  "Create a tar file containing the contents of VERSION of package NAME."
+(defun package-build--create-tar (name version directory mtime)
+  "Create a tar file containing the contents of VERSION of package NAME.
+DIRECTORY is a temporary directory that contains the directory
+that is put in the tarball.  MTIME is used as the modification
+time of all files, making the tarball reproducible."
   (let ((tar (expand-file-name (concat name "-" version ".tar")
                                package-build-archive-dir))
         (dir (concat name "-" version)))
     (when (eq system-type 'windows-nt)
       (setq tar (replace-regexp-in-string "^\\([a-z]\\):" "/\\1" tar)))
     (let ((default-directory directory))
-      (process-file package-build-tar-executable nil
-                    (get-buffer-create "*package-build-checkout*") nil
-                    "-cvf" tar
-                    "--exclude=.git"
-                    "--exclude=.hg"
-                    dir))
+      (process-file
+       package-build-tar-executable nil
+       (get-buffer-create "*package-build-checkout*") nil
+       "-cf" tar dir
+       ;; Arguments that are need to strip metadata that
+       ;; prevent a reproducable tarball as described at
+       ;; https://reproducible-builds.org/docs/archives.
+       "--sort=name"
+       (format "--mtime=@%d" mtime)
+       "--owner=0" "--group=0" "--numeric-owner"
+       "--pax-option=exthdr.name=%d/PaxHeaders/%f,delete=atime,delete=ctime"))
     (when (and package-build-verbose noninteractive)
       (message "Created %s containing:" (file-name-nondirectory tar))
       (dolist (line (sort (process-lines package-build-tar-executable
@@ -643,68 +652,116 @@ still be renamed."
                       (package-desc-extras  desc)))
         (current-buffer))))
 
-;;; File Specs
+;;; Files Spec
 
 (defconst package-build-default-files-spec
-  '("*.el" "*.el.in" "dir"
-    "*.info" "*.texi" "*.texinfo"
+  '("*.el" "lisp/*.el"
+    "dir" "*.info" "*.texi" "*.texinfo"
     "doc/dir" "doc/*.info" "doc/*.texi" "doc/*.texinfo"
-    (:exclude ".dir-locals.el" "test.el" "tests.el" "*-test.el" "*-tests.el"))
+    "docs/dir" "docs/*.info" "docs/*.texi" "docs/*.texinfo"
+    (:exclude
+     ".dir-locals.el" "lisp/.dir-locals.el"
+     "test.el" "tests.el" "*-test.el" "*-tests.el"
+     "lisp/test.el" "lisp/tests.el" "lisp/*-test.el" "lisp/*-tests.el"))
   "Default value for :files attribute in recipes.")
 
-(defun package-build-expand-file-specs (dir specs &optional subdir allow-empty)
-  "In DIR, expand SPECS, optionally under SUBDIR.
-The result is a list of (SOURCE . DEST), where SOURCE is a source
-file path and DEST is the relative path to which it should be copied.
+(defun package-build-expand-file-specs (repo spec &optional subdir allow-empty)
+  (when subdir
+    (error "%s: Non-nil SUBDIR is no longer supported"
+           'package-build-expand-file-specs))
+  (package-build-expand-files-spec nil (not allow-empty) repo spec))
+(make-obsolete 'package-build-expand-file-specs
+               'package-build-expand-files-spec
+               "Package-Build 3.2")
 
-If the resulting list is empty, an error will be reported.  Pass t
-for ALLOW-EMPTY to prevent this error."
-  (let ((default-directory dir)
-        (prefix (if subdir (format "%s/" subdir) ""))
-        (lst))
-    (dolist (entry specs)
-      (setq lst
-            (if (consp entry)
-                (if (eq :exclude (car entry))
-                    (cl-nset-difference lst
-                                        (package-build-expand-file-specs
-                                         dir (cdr entry) nil t)
-                                        :key #'car
-                                        :test #'equal)
-                  (nconc lst
-                         (package-build-expand-file-specs
-                          dir
-                          (cdr entry)
-                          (concat prefix (car entry))
-                          t)))
-              (nconc
-               lst (mapcar (lambda (f)
-                             (cons f
-                                   (concat prefix
-                                           (replace-regexp-in-string
-                                            "\\.el\\.in\\'"
-                                            ".el"
-                                            (file-name-nondirectory f)))))
-                           (file-expand-wildcards entry))))))
-    (when (and (null lst) (not allow-empty))
-      (error "No matching file(s) found in %s: %s" dir specs))
-    lst))
+(defun package-build-expand-files-spec (rcp &optional assert repo spec)
+  "Return an alist of files of package RCP to be included in tarball.
 
-(defun package-build--config-file-list (rcp)
-  (let ((file-list (oref rcp files)))
-    (cond
-     ((null file-list)
-      package-build-default-files-spec)
-     ((eq :defaults (car file-list))
-      (append package-build-default-files-spec (cdr file-list)))
-     (t
-      file-list))))
+Each element has the form (SOURCE . DESTINATION), where SOURCE
+is a file in the package's repository and DESTINATION is where
+that file is placed in the package's tarball.
 
-(defun package-build--expand-source-file-list (rcp)
-  (mapcar #'car
-          (package-build-expand-file-specs
-           (package-recipe--working-tree rcp)
-           (package-build--config-file-list rcp))))
+RCP is the package recipe as an object.  If the `files' slot of
+RCP is non-nil, then that is used as the file specification.
+Otherwise `package-build-default-files-spec' is used.
+
+If optional ASSERT is non-nil, then raise an error if nil would
+be returned.  If ASSERT and `files' are both non-nil and using
+`files' results in the same set of files as the default spec,
+then show a warning.
+
+A files specification is a list.  Its elements are processed in
+order and can have the following form:
+
+- :default
+
+  If the very first element of the top-level SPEC is `:default',
+  then that means to prepend the default file spec to the SPEC
+  specified by the remaining elements.
+
+- GLOB
+
+  A string is glob-expanded to match zero or more files.  Matched
+  files are copied to the top-level directory.
+
+- (SUBDIRECTORY . SPEC)
+
+  A list that begins with a string causes the files matched by
+  the second and subsequent elements to be copied into the sub-
+  directory specified by the first element.
+
+- (:exclude . SPEC)
+
+  A list that begins with `:exclude' causes files that were
+  matched by earlier elements that are also matched by the second
+  and subsequent elements of this list to be removed from the
+  returned alist.  Files matched by later elements are not
+  affected.
+
+\(fn RCP &optional ASSERT)" ; Other arguments only for backward compat.
+  (let ((default-directory (or repo (package-recipe--working-tree rcp)))
+        (spec (or spec (oref rcp files))))
+    (when (eq :defaults (car spec))
+      (setq spec (append package-build-default-files-spec (cdr spec))))
+    (let ((files (package-build--expand-files-spec-1
+                  (or spec package-build-default-files-spec))))
+      (when assert
+        (when (and rcp spec
+                   (equal files (package-build--expand-files-spec-1
+                                 package-build-default-files-spec)))
+          (package-build--message
+           "Note: %s :files spec is equivalent to the default."
+           (oref rcp name)))
+        (unless files
+          (error "No matching file(s) found in %s using %s"
+                 default-directory (or spec "default spec"))))
+      files)))
+
+(defun package-build--expand-files-spec-1 (spec &optional subdir)
+  (let ((files nil))
+    (dolist (entry spec)
+      (setq files
+            (cond
+             ((stringp entry)
+              (nconc files
+                     (mapcar (lambda (f)
+                               (cons f
+                                     (concat subdir
+                                             (replace-regexp-in-string
+                                              "\\.el\\.in\\'"  ".el"
+                                              (file-name-nondirectory f)))))
+                             (file-expand-wildcards entry))))
+             ((eq (car entry) :exclude)
+              (cl-nset-difference
+               files
+               (package-build--expand-files-spec-1 (cdr entry))
+               :key #'car :test #'equal))
+             (t
+              (nconc files
+                     (package-build--expand-files-spec-1
+                      (cdr entry)
+                      (concat subdir (car entry) "/")))))))
+    files))
 
 (defun package-build--copy-package-files (files source-dir target-dir)
   "Copy FILES from SOURCE-DIR to TARGET-DIR.
@@ -758,20 +815,11 @@ Return the archive entry for the package and store the package
 in `package-build-archive-dir'."
   (let ((source-dir (package-recipe--working-tree rcp)))
     (unwind-protect
-        (let* ((file-specs (package-build--config-file-list rcp))
-               (files (package-build-expand-file-specs source-dir file-specs))
-               (commit (package-build--get-commit rcp))
-               (name (oref rcp name)))
-          (unless (equal file-specs package-build-default-files-spec)
-            (when (equal files (package-build-expand-file-specs
-                                source-dir
-                                package-build-default-files-spec
-                                nil t))
-              (package-build--message
-               "Note: %s :files spec is equivalent to the default." name)))
+        (let ((files (package-build-expand-files-spec rcp t))
+              (commit (package-build--get-commit rcp)))
           (cond
            ((not version)
-            (error "Unable to check out repository for %s" name))
+            (error "Unable to check out repository for %s" (oref rcp name)))
            ((= (length files) 1)
             (package-build--build-single-file-package
              rcp version commit files source-dir))
@@ -795,8 +843,9 @@ in `package-build-archive-dir'."
          (desc (let ((default-directory source-dir))
                  (package-build--desc-from-library
                   name version commit files))))
-    (unless (string-equal (downcase (concat name ".el"))
-                          (downcase (file-name-nondirectory file)))
+    (unless (member (downcase (file-name-nondirectory file))
+                    (list (downcase (concat name ".el"))
+                          (downcase (concat name ".el.in"))))
       (error "Single file %s does not match package name %s" file name))
     (copy-file source target t)
     (let ((enable-local-variables nil)
@@ -821,11 +870,12 @@ in `package-build-archive-dir'."
                            (package-build--desc-from-library
                             name version commit files 'tar)
                            (error "%s[-pkg].el matching package name is missing"
-                                  name)))))
+                                  name))))
+               (mtime (package-build--get-commit-time rcp commit)))
           (package-build--copy-package-files files source-dir target)
           (package-build--write-pkg-file desc target)
           (package-build--generate-info-files files source-dir target)
-          (package-build--create-tar name version tmp-dir)
+          (package-build--create-tar name version tmp-dir mtime)
           (package-build--write-pkg-readme name files source-dir)
           (package-build--write-archive-entry desc))
       (delete-directory tmp-dir t nil))))
@@ -839,9 +889,11 @@ in `package-build-archive-dir'."
          (success 0)
          invalid failed)
     (dolist (name recipes)
-      (let ((rcp (with-demoted-errors (package-recipe-lookup name))))
+      (let ((rcp (with-demoted-errors "Build error: %S"
+                   (package-recipe-lookup name))))
         (if rcp
-            (if (with-demoted-errors (package-build-archive name) t)
+            (if (with-demoted-errors "Build error: %S"
+                  (package-build-archive name) t)
                 (cl-incf success)
               (push name failed))
           (push name invalid))))
@@ -1019,16 +1071,4 @@ line per entry."
   #'package-build-dump-archive-contents "Package-Build 3.0")
 
 (provide 'package-build)
-
-;; For the time being just require all libraries that contain code
-;; that was previously located in this library.
-
-(require 'package-build-badges)
-(require 'package-recipe-mode)
-
-;; Local Variables:
-;; coding: utf-8
-;; checkdoc-minor-mode: 1
-;; indent-tabs-mode: nil
-;; End:
 ;;; package-build.el ends here

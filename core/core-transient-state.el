@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 ;;; core-transient-state.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Justin Burkett <justin@burkett.cc>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -211,7 +211,7 @@ used."
        (add-to-list ',props-var '(entry-sexp ,entry-sexp))
        (add-to-list ',props-var '(exit-sexp ,exit-sexp))
        (spacemacs/defer-until-after-user-config
-        '(lambda ()
+        (lambda ()
            (eval
             (append
              '(defhydra ,func

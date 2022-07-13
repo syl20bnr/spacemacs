@@ -22,6 +22,7 @@
 
 <p align="center">
 <a href="https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/Join Chat.svg" alt="Gitter"></a>
+<a href="https://discord.gg/p4MddFu6Ag"><img src="https://img.shields.io/badge/chat-on%20discord-7289da.svg" alt="Discord"></a>
 <a href="https://github.com/syl20bnr/spacemacs/actions/workflows/elisp_test.yml"><img src="https://github.com/syl20bnr/spacemacs/actions/workflows/elisp_test.yml/badge.svg?branch=develop"></a>
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ESFVNPKP4Y742"><img src="https://img.shields.io/badge/Paypal-Donate-blue.svg" alt="Donate"></a>
 <a href="https://shop.spreadshirt.com/spacemacs-shop"><img src="https://img.shields.io/badge/Shop-T--Shirts-blue.svg" alt="Donate"></a>
@@ -31,30 +32,26 @@
 - - -
 
 
-**Quick Install:**
+**Quick Install**
 
 This assumes you don't have an existing Emacs setup and want to run Spacemacs as
-your config. If you do have one, look at
-the [full installation instructions](#install) for other options.
+your config. If you do have one, look at the [full installation
+instructions](#install) for other options.
 
-* For stable releases:
-  ```shell
-  git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+```shell
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+```
+
+* Windows Command Prompt:
+  ```
+  git clone https://github.com/syl20bnr/spacemacs %appdata%/.emacs.d
   ```
 
-* For development updates and participation:
-  ```shell
-  git clone -b develop https://github.com/syl20bnr/spacemacs ~/.emacs.d
+* Windows PowerShell:
+  ```powershell
+  git clone https://github.com/syl20bnr/spacemacs $env:appdata/.emacs.d
   ```
-  * Windows Command Prompt:
-    ```shell
-    git clone -b develop https://github.com/syl20bnr/spacemacs %appdata%/.emacs.d
-    ```
 
-    Windows PowerShell:
-    ```shell
-    git clone -b develop https://github.com/syl20bnr/spacemacs $env:appdata/.emacs.d
-    ```
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
@@ -127,11 +124,11 @@ organised in configuration layers following a set of
 [conventions][CONVENTIONS.org].
 
 # Documentation
-Comprehensive documentation is available for each layer by pressing
-<kbd>SPC h SPC</kbd>.
+Comprehensive documentation is available for each layer by pressing <kbd>SPC h
+SPC</kbd>.
 
-You can also check the [general documentation][DOCUMENTATION.org],
-[quick start guide][QUICK_START.org] and the [FAQ][FAQ.org].
+You can also check the [general documentation][DOCUMENTATION.org], [quick start
+guide][QUICK_START.org] and the [FAQ][FAQ.org].
 
 # Getting Help
 If you need help, ask your question in the [Gitter Chat][] and a member of the
@@ -166,8 +163,8 @@ an old fork of Emacs. The X in its name is unrelated to X11.
 
 Emacs has graphical support.
 
-**Note:** Some linux distributions support only emacs versions older than 27.1.
-In this case you should [built from source][build_source] instead.
+**Note:** Some linux distributions support only Emacs versions older than 27.1.
+In this case you should [build from source][build_source] instead.
 
 ### macOS
 
@@ -175,18 +172,20 @@ In this case you should [built from source][build_source] instead.
 
 ##### Using emacs-plus
 
-```
+```shell
 brew tap d12frosted/emacs-plus
-# or to install Emacs 27
+
+# to install Emacs 27
 brew install emacs-plus@27 --with-spacemacs-icon
 # or to install Emacs 28
 brew install emacs-plus@28 --with-spacemacs-icon
+
 brew link emacs-plus
 ```
 
 ##### Using emacs-mac
 
-```
+```shell
 brew tap railwaycat/emacsmacport
 brew install emacs-mac
 brew link emacs-mac
@@ -198,14 +197,8 @@ Homebrew now recommends to use the cask version with the following message:
 "Please try the Cask for a better-supported Cocoa version". To install the cask
 version:
 
-```
+```shell
 brew install --cask emacs
-```
-
-or in older versions of homebrew
-
-```
-brew cask install emacs
 ```
 
 This installs a pre-built package from https://emacsformacosx.com/
@@ -213,90 +206,76 @@ This installs a pre-built package from https://emacsformacosx.com/
 ##### Other ways
 
 If you're not comfortable with the ways mentioned above, then
-[EmacsWiki](https://www.emacswiki.org/emacs/EmacsForMacOS#toc12) lists down
-a few ways to install Emacs for macOS.
+[EmacsWiki][emacs-for-macos] lists down a few ways to install Emacs for macOS.
 
 #### Install Source Code Pro font
 
 Once Emacs is installed, run the following commands in the terminal to install
 the default Source Code Pro font:
 
-```sh
+```shell
 brew tap homebrew/cask-fonts
 brew install --cask font-source-code-pro
 ```
 
-or in older versions of homebrew
-
-```
-brew tap homebrew/cask-fonts
-brew cask install font-source-code-pro
-```
-
 #### Install Spacemacs
 
-```
+```shell
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 ```
 
 **Notes:**
-After completing the Spacemacs [install process](#install), then it's also
-recommended to add the [osx layer][] to your [dotfile][]. Installation
-instructions are available in the documentation for the [osx layer][].
 
-Depending on the installed version of GnuTLS securely installing emacs
-packages may fail. In this case it is possible to install using
-`emacs --insecure`. However be aware that this means your packages will
-be transferred using http, use at your own risk.
+It's also recommended to add the [osx layer][] to your [dotfile][] after
+completing the Spacemacs [install process](#install). Instructions on how to do
+so are available in the documentation for the [osx layer][].
 
-You might also have some issues when doing some search on your projects, you
-probably want to install GNU [grep](https://formulae.brew.sh/formula/grep)
-through homebrew:
+Depending on the installed version of GnuTLS, securely installing emacs packages
+may fail. In this case it is possible to install using `emacs --insecure`.
+However, be aware that this means your packages will be transferred using http,
+use at your own risk.
 
-```sh
-$ brew install grep
-```
+You may also have some issues when searching for your projects. It is
+recommended to install the GNU [ripgrep][ripgrep-homebrew] through homebrew:
 
-By default, all commands are installed with the prefix `g`. To use them with
-their normal names, you should add a `gnubin` directory to your PATH:
-
-```
-$ PATH="$(brew --prefix)/opt/grep/libexec/gnubin:$PATH"
+```shell
+brew install ripgrep
 ```
 
 ### Windows
-Download the official 64-bit (x86_64) stable builds from the [GNU FTP][emacs-for-windows].
+Download the official 64-bit (x86_64) stable builds from the [GNU
+FTP][emacs-for-windows].
 
-You'll also need `gzip` and put it in your path, to download it go to the
-[GNUWin32 project page][gzip-for-windows]
+You'll also need `gzip` and put it in your path. Download it from the [GNUWin32
+project page][gzip-for-windows]
 
 #### Install Spacemacs in Windows
-By default Emacs looks for the `.emacs.d` directory in:
+By default, Emacs looks for the `.emacs.d` directory in:
 `C:\Users\<username>\AppData\Roaming`
 
 * Clone Spacemacs to the Roaming directory:
-  * Windows Command Prompt
-    ```shell
-    git clone -b develop https://github.com/syl20bnr/spacemacs %appdata%/.emacs.d
+  * Windows Command Prompt:
+    ```
+    git clone https://github.com/syl20bnr/spacemacs %appdata%/.emacs.d
     ```
 
   * Windows PowerShell prompt:
-    ```shell
-    git clone -b develop https://github.com/syl20bnr/spacemacs $env:appdata/.emacs.d
+    ```powershell
+    git clone https://github.com/syl20bnr/spacemacs $env:appdata/.emacs.d
     ```
 
-* Or if a `HOME` environment variable has been configured, that points to your
+* Or if a `HOME` environment variable has been configured that points to your
 user directory: `C:\Users\<username>`
 
   Clone Spacemacs to the `<username>` directory:
-  * Windows Command Prompt
-    ```shell
-    git clone -b develop https://github.com/syl20bnr/spacemacs %homepath%/.emacs.d
+  * Windows Command Prompt:
+    ```
+    git clone https://github.com/syl20bnr/spacemacs %homepath%/.emacs.d
     ```
 
   * Windows PowerShell prompt:
-    ```shell
-    git clone -b develop https://github.com/syl20bnr/spacemacs $home/.emacs.d
+    ```powershell
+    git clone https://github.com/syl20bnr/spacemacs $home/.emacs.d
     ```
 
 #### Notes
@@ -308,25 +287,24 @@ user directory: `C:\Users\<username>`
   ```
 
   Fix it by changing the owner of the directory `~/.emacs.d/server`:
-    - from Properties select the Tab “Security”,
-    - select the button “Advanced”,
-    - select the Tab “Owner”
-    - change the owner to your account name
+    - From Properties select the Tab “Security”,
+    - Select the button “Advanced”,
+    - Select the Tab “Owner”
+    - Change the owner to your account name
 
   Source: [Stack Overflow][so-server-unsafe]
 
-* For efficient searches we recommend installing `pt` ([the platinum searcher][]).
-`pt` version 1.7.7 or higher is required.
+* For efficient searches, we recommend installing [ripgrep][ripgrep-github].
 
-* Depending on the installed version of GnuTLS securely installing emacs
-packages may fail. In this case it is possible to install using
-`emacs --insecure`. However be aware that this means your packages will
-be transferred using http, use at your own risk.
+* Depending on the installed version of GnuTLS, securely installing emacs
+packages may fail. In this case it is possible to install using `emacs
+--insecure`. However be aware that this means your packages will be transferred
+using http, use at your own risk.
 
-* The period (dot) before a file or folder name, means that it's hidden.
-  To show hidden files and folders:
+* The period (dot) before a file or folder name means that it's a hidden file or
+  folder. To show hidden files and folders:
   - Press the Windows key
-  - Type `file explorer options`
+  - Type `File explorer options`
   - Select the `View` tab at the top
   - Check `Show hidden files, folders and drives`
   - Click `OK`
@@ -336,80 +314,72 @@ be transferred using http, use at your own risk.
 1. If you have an existing Emacs configuration, back it up first by running the
    following code in your terminal:
 
-   ```sh
+   ```shell
    cd ~
    mv .emacs.d .emacs.d.bak
    mv .emacs .emacs.bak
    ```
 
    Don't forget to backup and *remove* the `~/.emacs` file. Otherwise Spacemacs
-   **WILL NOT** be able to load. Because that file prevents Emacs from loading
-   the proper initialization file.
+   **WILL NOT** be able to load. This is because that file will prevent Emacs
+   from loading the proper initialization file.
 
 2. Clone the repository with [Git][]:
 
-   **Note: Windows users**, see the [Windows section](#install-spacemacs-in-windows) for the correct clone path.
+   **Note: Windows users**, see [Windows section](#install-spacemacs-in-windows).
 
-   ```sh
+   ```shell
    git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
    ```
 
-   Or
+   Or in case you have a limited internet connection or speed,
 
-   ```sh
+   ```shell
    git clone --depth 1 https://github.com/syl20bnr/spacemacs ~/.emacs.d
    ```
 
-   In case you have a limited internet connection or speed.
-
-   `master` is the stable branch and it is _immutable_, **DO NOT** make any
-   modification to it or you will break the update mechanism. If you want to
-   fork Spacemacs safely, use the `develop` branch where you'll handle updates
-   manually.
-
 3. (Optional) Install the default fonts
 
-   It's recommended to install [Source Code Pro][] by Adobe, as the default
-   font. It ensures that, for example the symbols on the modeline (bottom bar)
-   looks correct. It's also recommended to use a "Fallback font". These
-   depend on the system:
+   It's recommended to install [Source Code Pro][] by Adobe as the default font.
+   It ensures that, for example, the symbols on the mode-line (bottom bar) looks
+   correct. It's also recommended to use a "Fallback font". These depend on the
+   system:
 
    - GNU/Linux: *NanumGothic* (package named *fonts-nanum* on Debian, for
      example)
    - macOS: *Arial Unicode MS*
    - Windows: *MS Gothic* or *Lucida Sans Unicode*
 
-   If the modeline doesn't look similar to the
-   [picture at the top of this page](#introduction), then make sure you have the
-   correct fallback font installed.
+   If the mode-line doesn't look similar to the [picture at the top of this
+   page](#introduction), make sure you have the correct fallback font installed.
 
-   If you're running in a terminal then you'll also need to change the terminals
-   font settings.
+   If you're running in a terminal, then you'll also need to change the
+   terminal's font settings.
 
 4. Launch Emacs. Spacemacs will automatically install the packages it requires.
 
-5. Launch Emacs, and answer the questions in the Dotfile wizard installer. If
-   you are new to Emacs and Spacemacs, then it's fine to just accept the default
-   choices. It's easy to try the other choices later, without having to
-   reinstall Spacemacs. They can be changed in the dotfile `~/.spacemacs`.
+5. Once the packages are installed, answer the questions in the Dotfile wizard
+   installer. If you are new to Emacs and Spacemacs, then it's fine to just
+   accept the default choices. It's easy to try the other choices later, without
+   having to reinstall Spacemacs. They can be changed in the dotfile
+   `~/.spacemacs`.
 
-   After answering the questions, then Spacemacs starts downloading and
-   installing the packages it requires. When the packages have been installed.
-   Restart Emacs to complete the installation.
+6. After answering the questions, Spacemacs will download and install the
+   remaining packages it will require. When the all the packages have been
+   installed, restart Emacs to complete the installation.
 
 **Notes:**
 If you are behind a firewall or similar and you get an error regarding package
 downloads then you may try to disable the HTTPS protocol by starting Emacs with
-```sh
+```shell
 emacs --insecure
 ```
 but this should be a last resort because of the security implications.
 
-You can set the `dotspacemacs-elpa-https` variable to `nil` in your
-dotfile `~/.spacemacs` but this has the same security implications as the
-insecure flag. You may also want to clear out your `.emacs.d/elpa`
-directory before doing this, so that any corrupted packages you may have
-downloaded will be re-installed.
+You can set the `dotspacemacs-elpa-https` variable to `nil` in your dotfile
+`~/.spacemacs` but this has the same security implications as the insecure flag.
+You may also want to clear out your `.emacs.d/elpa` directory before doing this,
+so that any corrupted packages you may have downloaded will be re-installed.
 
 `error: Package 'package-build-' is unavailable` may occur due to heavy network
 taffic. You can fix it by setting the `dotspacemacs-elpa-timeout` variable to
@@ -418,24 +388,24 @@ taffic. You can fix it by setting the `dotspacemacs-elpa-timeout` variable to
 `Warning (bytecomp)` and other compilation warnings are perfectly normal. If
 you're curious, you can find out why these occur [here][compilation-warnings].
 
-If the mode-line turns red then be sure to consult the [FAQ][FAQ.org].
+If the mode-line turns red, then be sure to consult the [FAQ][FAQ.org].
 
 ## Alternative installations
-There are currently, two supported, alternative locations, for a Spacemacs
-configuration.
+Currently, there are two supported locations for you to place your Spacemacs
+configuration files.
 
 ### Modify HOME environment variable
 This solution is ideal for quickly trying Spacemacs without compromising your
 existing configuration. Clone Spacemacs outside the Emacs dotdirectory
 `~/.emacs.d` and modify the HOME environment variable.
 
-```sh
+```shell
 mkdir ~/spacemacs
 git clone https://github.com/syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
 HOME=~/spacemacs emacs
 ```
 
-Note: If you're using the Fish shell, then you'll need to modify the last
+**Note**: If you're using the Fish shell, then you'll need to modify the last
 command to: `env HOME=$HOME/spacemacs emacs`
 
 ### Modify spacemacs-start-directory variable
@@ -449,34 +419,41 @@ lines in the `~/.emacs.d/init.el` file:
 ```
 
 ## Spacemacs logo
-For Linux users, create `spacemacs.desktop` in `~/.local/share/applications/` using [this](https://github.com/emacs-mirror/emacs/blob/master/etc/emacs.desktop) as a reference. Change the `Name` parameter to `Name=Spacemacs` and the `Icon` parameter to `Icon=/PATH/TO/EMACSD/core/banners/img/spacemacs.png` where `PATH/TO/EMACSD` is the path to your `.emacs.d` directory, usually `~/.emacs.d` or `~/.config/emacs`.
+For Linux users, create `spacemacs.desktop` in `~/.local/share/applications/`
+using [this .desktop file][spacemacs-desktop] as a reference. Change the `Name`
+parameter to `Name=Spacemacs` and the `Icon` parameter to
+`Icon=/PATH/TO/EMACSD/core/banners/img/spacemacs.png` where `PATH/TO/EMACSD` is
+the path to your `.emacs.d` directory, usually `~/.emacs.d` or
+`~/.config/emacs`.
 
-For macOS users, you need to [download the .icns version of the logo][icon-repository],
-then [change the logo on the Dock][icon-mac-instructions].
+For macOS users, you need to [download the .icns version of the
+logo][icon-repository] and simply [change the logo on the
+Dock][icon-mac-instructions].
 
 # Update
-Spacemacs supports two different update schemes, the default is a rolling update scheme based
-on the latest version of packages available. This version can be found on the `develop` branch
-and is updated by a simple git pull.
+Spacemacs supports two different update schemes, the default is a rolling update
+scheme based on the latest version of packages available. This version can be
+found on the `develop` branch and is updated by a simple git pull.
 
-The second depreciated one is a fixed version scheme which is based on a stable set
-of packages. This version can be found on the `master` branch and will show a notification when
-a new version is available. Be warned this has not been updated in a long time now so packages
-will be very old.
+The second method is deprecated. It was a fixed version scheme which was based
+on a stable set of packages. The latest fixed version can be found on the
+`master` branch and would show a notification when a new version is available.
+Be warned that this method has not been updated in a long time, so packages will
+be very old.
 
 ## Rolling update (on develop)
 1. Close Emacs and update the git repository:
 
-   ```sh
-   git pull --rebase
-   ```
+    ```shell
+    git pull --rebase
+    ```
 
 2. Restart Emacs to complete the upgrade.
 
-## Automatic update (on master branch)
-When a new version is available then a little arrow appears in the mode-line.
+## Deprecated automatic update (on master branch)
+When a new version is available, a little arrow will appear in the mode-line.
 
-Its color depends on the number of versions that have been released since your
+Its color depends on the number of versions that have been released since the
 last update. Green means that you have a recent version, orange and red means
 that you have an older version.
 
@@ -486,25 +463,26 @@ Click on the arrow to update Spacemacs to the latest version.
 
 ## Manual update (on master branch)
 Remove the `<` and `>` angle brackets when you're typing the lines below into
-your shell. And replace the text: "tag version which you are updating to" with a
-tagged version. This page lists the [latest tags][]
+your shell. Make sure to also replace the text: "tag version which you are
+updating to" with a tagged version. This page lists the [latest tags][]
 
-```sh
+```shell
 git fetch
 git reset --hard <tag version which you are updating to>
 ```
 
 ## Revert to a specific version (on master branch)
 To revert to a specific version, just checkout the corresponding branch. For
-instance to revert to version `0.200`, type the following command:
+instance, the following command reverts Spacemacs to version `0.200`:
 
-   ```sh
-   git checkout origin/release-0.200
-   ```
+```shell
+git checkout origin/release-0.200
+```
 
-**After updating Spacemacs (either manually or automatically), then you also
-should check if any updates are available for your packages. On the Spacemacs
-Home Buffer `SPC b h`, click (press `RET`) on the `[Update Packages]` button.**
+**After updating Spacemacs (either manually or automatically), you should also
+check if any updates are available for your packages. On the Spacemacs Home
+Buffer <kbd>SPC b h</kbd>, click (press <kbd>RET</kbd>) on the `[Update
+Packages]` button, or use the convenient keybinding <kbd>SPC f e U</kbd>**
 
 # Quotes
 [Quote][quote01] by [ashnur](https://github.com/ashnur):
@@ -522,8 +500,8 @@ Home Buffer `SPC b h`, click (press `RET`) on the `[Update Packages]` button.**
 Spacemacs is a community-driven project, it needs _you_ to keep it up to date
 and to propose great and useful configurations for all the things!
 
-Before contributing be sure to consult the
-[contribution guidelines][CONTRIBUTING.org] and [conventions][CONVENTIONS.org].
+Before contributing, be sure to consult the [contribution
+guidelines][CONTRIBUTING.org] and [conventions][CONVENTIONS.org].
 
 # Communities
 - [Gitter Chat]
@@ -532,11 +510,16 @@ Before contributing be sure to consult the
 
 # Spacemacs Everywhere
 
-Once you've learned the Spacemacs key bindings, you can use them in other IDEs/tools, thanks to the following projects:
-- [Intellimacs](https://github.com/MarcoIeni/intellimacs) - Spacemacs' like key bindings for IntelliJ platform
-- [Spaceclipse](https://github.com/MarcoIeni/spaceclipse) - Spacemacs’ like key bindings for Eclipse
-- [SpaceVim](https://github.com/SpaceVim/SpaceVim) - A community-driven modular vim distribution
-- [VSpaceCode](https://github.com/VSpaceCode/VSpaceCode) - Spacemacs’ like key bindings for Visual Studio Code
+Once you've learned the Spacemacs key bindings, you can use them in other
+IDEs/tools, thanks to the following projects:
+- [Intellimacs](https://github.com/MarcoIeni/intellimacs) - Spacemacs' like key
+  bindings for IntelliJ platform
+- [Spaceclipse](https://github.com/MarcoIeni/spaceclipse) - Spacemacs’ like key
+  bindings for Eclipse
+- [SpaceVim](https://github.com/SpaceVim/SpaceVim) - A community-driven modular
+  vim distribution
+- [VSpaceCode](https://github.com/VSpaceCode/VSpaceCode) - Spacemacs’ like key
+  bindings for Visual Studio Code
 
 # License
 The license is GPLv3 for all parts specific to Spacemacs, this includes:
@@ -546,8 +529,9 @@ The license is GPLv3 for all parts specific to Spacemacs, this includes:
 
 For the packages shipped in this repository, you can refer to the files header.
 
-[Spacemacs logo][] by [Nasser Alshammari][] released under a
-[Creative Commons Attribution-ShareAlike 4.0 International License.](https://creativecommons.org/licenses/by-sa/4.0/)
+[Spacemacs logo][] by [Nasser Alshammari][] released under a [Creative Commons
+Attribution-ShareAlike 4.0 International
+License.][creativecommons-4]
 
 # Supporting Spacemacs
 The best way to support Spacemacs is to contribute to it either by reporting
@@ -557,11 +541,12 @@ You can show your love for the project by getting cool Spacemacs t-shirts, mugs
 and more in the [Spacemacs Shop][].
 
 If you want to show your support financially, then you can contribute to
-[Bountysource][], or buy a drink for the maintainer by clicking on the
-[Paypal badge](#top).
+[Bountysource][], or buy a drink for the maintainer by clicking on the [Paypal
+badge](#top).
 
 If you used spacemacs in a project, and you want to show that fact, you can use
-the spacemacs badge: [![Built with Spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg)](https://develop.spacemacs.org)
+the spacemacs badge: [![Built with
+Spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg)](https://develop.spacemacs.org)
 
 - For Markdown:
 
@@ -596,10 +581,11 @@ Thank you!
 [Gitter Chat IRC server]: https://irc.gitter.im/
 [Homebrew]: https://brew.sh
 [emacs-plus]: https://github.com/d12frosted/homebrew-emacs-plus
+[emacs-for-macos]: https://www.emacswiki.org/emacs/EmacsForMacOS#toc12
 [powerline documentation]: https://develop.spacemacs.org/doc/DOCUMENTATION.html#powerline-separators
 [emacs-for-windows]: https://ftp.gnu.org/gnu/emacs/windows/
 [gzip-for-windows]: http://gnuwin32.sourceforge.net/packages/gzip.htm
-[the platinum searcher]: https://github.com/monochromegane/the_platinum_searcher
+[ripgrep-github]: https://github.com/BurntSushi/ripgrep
 [so-server-unsafe]: https://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
 [Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
 [Nasser Alshammari]: https://github.com/nashamri
@@ -617,3 +603,6 @@ Thank you!
 [Source Code Pro]: https://github.com/adobe-fonts/source-code-pro
 [Spacemacs Shop]: https://shop.spreadshirt.com/spacemacs-shop
 [Git]: https://git-scm.com/downloads
+[spacemacs-desktop]: https://github.com/emacs-mirror/emacs/blob/master/etc/emacs.desktop
+[creativecommons-4]: https://creativecommons.org/licenses/by-sa/4.0/
+[ripgrep-homebrew]: https://formulae.brew.sh/formula/ripgrep

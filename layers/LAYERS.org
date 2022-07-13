@@ -89,6 +89,7 @@
       - [[#bibtex][BibTeX]]
       - [[#csv][CSV]]
       - [[#dhall][Dhall]]
+      - [[#fountain][Fountain]]
       - [[#graphviz][Graphviz]]
       - [[#html][HTML]]
       - [[#json][JSON]]
@@ -245,6 +246,7 @@
   - [[#terraform][Terraform]]
   - [[#tide-layer][Tide Layer]]
   - [[#tmux][Tmux]]
+  - [[#translate-layer][Translate Layer]]
   - [[#transmission][Transmission]]
   - [[#tree-sitter][Tree-sitter]]
   - [[#vagrant][Vagrant]]
@@ -522,6 +524,7 @@ Features:
 - Easy insert of URLs from clipboard with org format via [[https://github.com/rexim/org-cliplink][org-cliplink]]
 - Rich insert of code (into a source block with highlighting, and a link) from other buffers via [[https://github.com/unhammer/org-rich-yank][org-rich-yank]]
 - Pixel-perfect visual alignment for Org and Markdown tables via [[https://github.com/casouri/valign][valign]]
+- Text transclusion via [[https://nobiot.github.io/org-transclusion][org-transclusion]]
 
 ** Outshine
 [[file:+emacs/outshine/README.org][+emacs/outshine/README.org]]
@@ -900,6 +903,7 @@ Features:
 - Highlighting of different indentations
 - Automatic highlighting of numbers
 - Automatic highlighting of parentheses
+- Adaptive cursor shape in terminal, as it would be in GUI
 
 ** Spacemacs-evil
 [[file:+spacemacs/spacemacs-evil/README.org][+spacemacs/spacemacs-evil/README.org]]
@@ -1113,6 +1117,7 @@ Features:
 - Automatic formatting via [[https://github.com/serokell/nixfmt][nixfmt]]
 - Auto-completion of NixOS Options using [[https://github.com/travisbhartwell/nix-emacs/blob/master/company-nixos-options.el][company-nixos-options]]
 - Helm Lookup for NixOS Options [[https://github.com/travisbhartwell/nix-emacs/blob/master/helm-nixos-options.el][helm-nixos-options]]
+- WIP support for LSP backend using =rnix-lsp=
 
 ** OSX
 [[file:+os/osx/README.org][+os/osx/README.org]]
@@ -1268,6 +1273,15 @@ Features:
 *Note:* You will need a ~dhall~ binary on your ~PATH~. Official releases [[https://github.com/dhall-lang/dhall-haskell/releases][can be
 found here]].
 
+**** Fountain
+[[file:+lang/fountain/README.org][+lang/fountain/README.org]]
+
+This layer adds support for the [[https://fountain.io/][fountain]] screenwriting format to Spacemacs.
+
+Features:
+- Fountain files support via [[https://github.com/rnkn/fountain-mode/][fountain-mode]]
+- Confortable writing layout via [[https://github.com/rnkn/olivetti/][olivetti-mode]]
+
 **** Graphviz
 [[file:+lang/graphviz/README.org][+lang/graphviz/README.org]]
 
@@ -1328,6 +1342,7 @@ Features:
 - Auto-completion
 - Tags navigation on ~%~ with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Labels, references, citations and index entries management with [[http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html][RefTeX]]
+- LaTeX-specific text objects and much more with [[https://github.com/iyefrat/evil-tex][evil-tex]]
 
 **** Markdown
 [[file:+lang/markdown/README.org][+lang/markdown/README.org]]
@@ -2218,6 +2233,7 @@ Features:
 - Fix a missing import statement with [[https://github.com/anachronic/importmagic.el][importmagic]]
 - Pip package manager with [[https://github.com/brotzeit/pippel][pippel]]
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
+- Support for ipython notebook and MATLAB-like cells using using [[https://github.com/astoff/code-cells.el][code-cells]]
 
 **** Racket
 [[file:+lang/racket/README.org][+lang/racket/README.org]]
@@ -2555,17 +2571,22 @@ Features:
 - git grep with [[https://github.com/yasuyk/helm-git-grep][helm-git-grep]]
 - org integration with magit via [[https://github.com/magit/orgit][orgit]]
 
-New to Magit? Checkout the [[https://magit.vc/about/][official intro]].
+New to Magit? Checkout the [[https://magit.vc/about/][official intro]] and [[https://practical.li/spacemacs/source-control/][Practicalli Spacemacs]]
+guide to configuring and using the Git and version control layers.
 
 ** GitHub
 [[file:+source-control/github/README.org][+source-control/github/README.org]]
 
-This layers adds support for [[http://github.com][GitHub]].
+*This layer is deprecated*.
+
+The layer had support searching for and cloning [[http://github.com][GitHub]] repositories,
+although that did not provide a secure way to store an access token
+to connect to GitHub.
+
+The git layer provides interaction with GitHub and can securely
+store the access token using PGP.
 
 Features:
-- [[https://github.com/magit/forge][forge]]: integration with various forges, such as GitHub and GitLab.
-- [[https://github.com/sshaw/git-link][git-link]]: quickly generate URLs for commits or files.
-- [[https://github.com/dgtized/github-clone.el][github-clone]] allows for easy cloning and forking of repositories.
 - [[https://github.com/seagle0128/grip-mode][grip-mode]] Github-flavored Markdown/Org preview using [[https://github.com/joeyespo/grip][Grip]].
 
 ** Perforce
@@ -3137,6 +3158,7 @@ Features:
 - Syntax highlighting
 - Auto completion
 - Syntax checking via =systemd-analyze=
+- Viewing systemd system and user unit via [[https://github.com/SebastianMeisel/journalctl-mode][journalctl-mode]]
 
 ** Tern
 [[file:+tools/tern/README.org][+tools/tern/README.org]]
@@ -3177,6 +3199,16 @@ This layer adds basic =tmux= key bindings to Spacemacs.
 
 Features:
 - Calling of =tmux= navigation commands directly from Emacs via [[https://github.com/keith/evil-tmux-navigator][evil-tmux-navigator]].
+
+** Translate Layer
+[[file:+tools/translate/README.org][+tools/translate/README.org]]
+
+This layer is designed for Paragraph-oriented minor mode for
+side-by-side document translation workflow.
+
+Features:
+- Paragraph-oriented side-by-side document translation workflow
+- Integrate word/paragraph online translation
 
 ** Transmission
 [[file:+tools/transmission/README.org][+tools/transmission/README.org]]

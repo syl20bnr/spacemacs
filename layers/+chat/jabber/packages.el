@@ -1,6 +1,6 @@
 ;;; packages.el --- jabber Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Tosh Lyons <tosh.lyons@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -48,7 +48,9 @@
         "s" 'jabber-send-subscription-request
         "v" 'jabber-get-version
         "RET" 'jabber-roster-ret-action-at-point)
-      (evilified-state-evilify jabber-roster-mode jabber-roster-mode-map
+      (evilified-state-evilify-map jabber-roster-mode-map
+        :mode jabber-roster-mode
+        :bindings
         "j" 'jabber-go-to-next-roster-item
         "k" 'jabber-go-to-previous-roster-item))))
 

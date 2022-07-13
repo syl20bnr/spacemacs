@@ -1,6 +1,6 @@
 ;;; packages.el --- Perforce Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -21,7 +21,8 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq perforce-packages '(p4))
+(defconst perforce-packages
+  '(p4))
 
 (defun perforce/init-p4 ()
   (use-package p4

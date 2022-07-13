@@ -1,6 +1,6 @@
 ;;; packages.el --- NixOS Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2015-2020 Sylvain Benner & Contributors
+;; Copyright (c) 2015-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -54,6 +54,7 @@
     :mode "\\.nix\\'"
     :init
     (progn
+      (spacemacs/add-to-hook 'nix-mode-hook '(spacemacs//nix-setup-backend))
       (add-to-list 'spacemacs-indent-sensitive-modes 'nix-mode)
       (spacemacs/set-leader-keys-for-major-mode 'nix-mode
         "==" 'nix-format-buffer)

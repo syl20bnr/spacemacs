@@ -17,3 +17,4 @@ edited line in Spacemacs.
 - Highlighting of different indentations
 - Automatic highlighting of numbers
 - Automatic highlighting of parentheses
+- Adaptive cursor shape in terminal, as it would be in GUI

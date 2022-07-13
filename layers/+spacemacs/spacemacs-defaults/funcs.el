@@ -1,6 +1,6 @@
 ;;; funcs.el --- Spacemacs Defaults Layer functions File
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -285,7 +285,6 @@ Dedicated (locked) windows are left untouched."
   (interactive "p")
   (spacemacs/rotate-windows-forward (* -1 count)))
 
-
 (if (configuration-layer/package-used-p 'winum)
     (progn
       (defun spacemacs/move-buffer-to-window (windownum follow-focus-p)
@@ -511,7 +510,7 @@ With Helm, remember the path, then restore it after SEC.
 With Ivy, the path isn't editable, just remove the MSG after SEC."
   (run-at-time
    0 nil
-   #'(lambda (msg sec)
+   (lambda (msg sec)
        (let* ((prev-prompt-contents
                (buffer-substring (line-beginning-position)
                                  (line-end-position)))
@@ -667,6 +666,19 @@ If the universal prefix argument is used then kill the windows too."
       (mapc 'kill-buffer (delq (current-buffer) buffers-to-kill)))
     (when (equal '(4) arg) (delete-other-windows))
     (message "Buffers deleted!")))
+
+(defun spacemacs//confirm-kill-buffer ()
+  "Prompt the user to save a buffer to a file before killing it.
+This skips the following buffers:
+- A buffer with non-nil value of variable `buffer-file-name'.
+  Or in other words, a buffer who has a file associated with.
+  Emacs by default prompts the user to save it if it's modified.
+- A buffer derived from `special-mode'."
+  (when (and (not buffer-file-name)
+             (buffer-modified-p)
+             (not (derived-mode-p 'special-mode))
+             (not (yes-or-no-p (format "Buffer %S modified; kill anyway? " (buffer-name)))))
+    (save-buffer)))
 
 ;; from http://dfan.org/blog/2009/02/19/emacs-dedicated-windows/
 (defun spacemacs/toggle-current-window-dedication ()
@@ -837,13 +849,12 @@ variable."
                (concat dotspacemacs-template-directory ".spacemacs.template")))
 
 (defun spacemacs/new-empty-buffer (&optional split)
-  "Create a new buffer called: untitled<n>
+  "Create a new buffer called: \"untitled\".
 
-The SPLIT argument decides where the buffer opens:
-Value                                Buffer
-`nil'                                current window
-`left', `below', `above' or `right'  split window
-`frame'                              new frame
+SPLIT decides where the buffer opens:
+- nil, open in current window.
+- `left', `below', `above' or `right', split the window in the given direction.
+- `frame', open in new frame.
 
 If the variable `dotspacemacs-new-empty-buffer-major-mode' has been set,
 then apply that major mode to the new buffer."
@@ -858,6 +869,9 @@ then apply that major mode to the new buffer."
     ;; Prompt to save on `save-some-buffers' with positive PRED
     (with-current-buffer newbuf
       (setq-local buffer-offer-save t)
+      (add-hook 'kill-buffer-hook
+                #'spacemacs//confirm-kill-buffer
+                nil t)
       (when dotspacemacs-new-empty-buffer-major-mode
         (funcall dotspacemacs-new-empty-buffer-major-mode)))
     ;; pass non-nil force-same-window to prevent `switch-to-buffer' from
@@ -979,14 +993,13 @@ as a means to remove windows, regardless of the value in
         (delete-other-windows))
     (funcall spacemacs-window-split-delete-function))
   (if (spacemacs--window-split-splittable-windows)
-      (let* ((previous-files (seq-filter #'buffer-file-name
-                                         (delq (current-buffer) (buffer-list))))
+      (let* ((previous-files (buffer-list))
              (second (split-window-below))
              (third (split-window-right))
              (fourth (split-window second nil 'right)))
-        (set-window-buffer third (or (car previous-files) "*scratch*"))
-        (set-window-buffer second (or (cadr previous-files) "*scratch*"))
-        (set-window-buffer fourth (or (caddr previous-files) "*scratch*"))
+        (set-window-buffer third (or (nth 1 previous-files) "*scratch*"))
+        (set-window-buffer second (or (nth 2 previous-files) "*scratch*"))
+        (set-window-buffer fourth (or (nth 3 previous-files) "*scratch*"))
         (balance-windows))
     (message "There are no main windows available to split!")))
 
@@ -1005,12 +1018,11 @@ as a means to remove windows, regardless of the value in
         (delete-other-windows))
     (funcall spacemacs-window-split-delete-function))
   (if (spacemacs--window-split-splittable-windows)
-      (let* ((previous-files (seq-filter #'buffer-file-name
-                                         (delq (current-buffer) (buffer-list))))
+      (let* ((previous-files (buffer-list))
              (second (split-window-right))
              (third (split-window second nil 'right)))
-        (set-window-buffer second (or (car previous-files) "*scratch*"))
-        (set-window-buffer third (or (cadr previous-files) "*scratch*"))
+        (set-window-buffer second (or (nth 1 previous-files) "*scratch*"))
+        (set-window-buffer third (or (nth 2 previous-files) "*scratch*"))
         (balance-windows))
     (message "There are no main windows available to split!")))
 
@@ -1019,6 +1031,9 @@ as a means to remove windows, regardless of the value in
 
 Uses the funcion defined in `spacemacs-window-split-delete-function'
 as a means to remove windows.
+
+Left side window is the current buffer. Right side one is the
+most recently selected buffer other than current buffer.
 
 When called with a prefix argument, it uses `delete-other-windows'
 as a means to remove windows, regardless of the value in
@@ -1029,10 +1044,8 @@ as a means to remove windows, regardless of the value in
         (delete-other-windows))
     (funcall spacemacs-window-split-delete-function))
   (if (spacemacs--window-split-splittable-windows)
-      (let* ((previous-files (seq-filter #'buffer-file-name
-                                         (delq (current-buffer) (buffer-list)))))
-        (set-window-buffer (split-window-right)
-                           (or (car previous-files) "*scratch*"))
+      (let* ((right-side-buffer (other-buffer (current-buffer) t)))
+        (set-window-buffer (split-window-right) right-side-buffer)
         (balance-windows))
     (message "There are no main windows available to split!")))
 
@@ -1659,11 +1672,14 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
     (if arg
         (switch-to-buffer-other-window (get-buffer-create "*scratch*"))
       (switch-to-buffer (get-buffer-create "*scratch*")))
-    (when (and (not exists)
-               (not (eq major-mode dotspacemacs-scratch-mode))
-               (fboundp dotspacemacs-scratch-mode))
-      (funcall dotspacemacs-scratch-mode)
-      (run-hooks 'spacemacs-scratch-mode-hook))))
+    (when (not exists)
+      (add-hook 'kill-buffer-hook
+                #'spacemacs//confirm-kill-buffer
+                nil t)
+      (when (and (not (eq major-mode dotspacemacs-scratch-mode))
+                 (fboundp dotspacemacs-scratch-mode))
+        (funcall dotspacemacs-scratch-mode)
+        (run-hooks 'spacemacs-scratch-mode-hook)))))
 
 (defvar spacemacs--killed-buffer-list nil
   "List of recently killed buffers.")
@@ -1741,6 +1757,15 @@ Decision is based on `dotspacemacs-line-numbers'."
   (or (eq dotspacemacs-line-numbers 'visual)
       (and (listp dotspacemacs-line-numbers)
            (car (spacemacs/mplist-get-values dotspacemacs-line-numbers :visual)))))
+
+(defun spacemacs/line-numbers-type ()
+  "Returns a valid value for `display-line-numbers', activating
+line numbers, with respect to `dotspacemacs-line-numbers'."
+  (if (listp dotspacemacs-line-numbers)
+      (cond ((car (spacemacs/mplist-get-values dotspacemacs-line-numbers :visual)) 'visual)
+            ((car (spacemacs/mplist-get-values dotspacemacs-line-numbers :relative)) 'relative)
+            (t t))
+    dotspacemacs-line-numbers))
 
 (defun spacemacs//linum-on (origfunc &rest args)
   "Advice function to improve `linum-on' function."

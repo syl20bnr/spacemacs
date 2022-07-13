@@ -1,6 +1,6 @@
 ;;; packages.el --- Language Server Protocol Layer packages file for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Fangrui Song <i@maskray.me>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -77,9 +77,7 @@
 (defun lsp/init-consult-lsp ()
   (use-package consult-lsp
     :defer t
-    :after (lsp-mode)
-    :config
-     (consult-lsp-marginalia-mode 1)))
+    :after (lsp-mode)))
 
 (defun lsp/init-lsp-treemacs ()
   (use-package lsp-treemacs :defer t))

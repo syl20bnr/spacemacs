@@ -1,6 +1,6 @@
 ;;; powerline-themes.el --- Themes for Powerline
 
-;; Copyright (C) 2012-2013 Donald Ephraim Curtis
+;; Copyright (C) 2012-2022 Donald Ephraim Curtis
 ;; Copyright (C) 2013 Jason Milkins
 ;; Copyright (C) 2012 Nicolas Rougier
 

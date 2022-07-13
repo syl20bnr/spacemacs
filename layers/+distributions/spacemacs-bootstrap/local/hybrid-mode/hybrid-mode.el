@@ -1,6 +1,6 @@
 ;;; hybrid-mode.el --- Put one foot in the church of Emacs
 
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Authors: Justin Burkett <justin@burkett.cc>
 ;;          Chris Ewald <chrisewald@gmail.com>

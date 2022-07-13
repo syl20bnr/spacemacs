@@ -1,6 +1,6 @@
 ;;; funcs.el --- Scala Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -82,3 +82,13 @@ point to the position of the join."
   "Run `test' via SBT"
   (interactive)
   (sbt-command "test"))
+
+(defun spacemacs/scala-sbt-compile-it ()
+  "Compile the `it' scope via SBT"
+  (interactive)
+  (sbt-command "It / compile"))
+
+(defun spacemacs/scala-sbt-compile-test ()
+  "Compile the `test' scope via SBT"
+  (interactive)
+  (sbt-command "Test / compile"))

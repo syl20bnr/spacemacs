@@ -1,6 +1,6 @@
 ;;; packages.el --- Clojure Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -246,7 +246,9 @@
       (evil-set-initial-state 'cider-popup-buffer-mode 'motion)
       (add-hook 'cider--debug-mode-hook 'spacemacs/cider-debug-setup)
 
-      (evilified-state-evilify cider-stacktrace-mode cider-stacktrace-mode-map
+      (evilified-state-evilify-map cider-stacktrace-mode-map
+        :mode cider-stacktrace-mode
+        :bindings
         (kbd "C-j") 'cider-stacktrace-next-cause
         (kbd "C-k") 'cider-stacktrace-previous-cause
         (kbd "TAB") 'cider-stacktrace-cycle-current-cause
@@ -266,17 +268,23 @@
       ;; open cider-doc directly and close it with q
       (setq cider-prompt-for-symbol t)
 
-      (evilified-state-evilify cider-docview-mode cider-docview-mode-map
+      (evilified-state-evilify-map cider-docview-mode-map
+        :mode cider-docview-mode
+        :bindings
         (kbd "q") 'cider-popup-buffer-quit)
 
-      (evilified-state-evilify cider-inspector-mode cider-inspector-mode-map
+      (evilified-state-evilify-map cider-inspector-mode-map
+        :mode cider-inspector-mode
+        :bindings
         (kbd "L") 'cider-inspector-pop
         (kbd "n") 'cider-inspector-next-page
         (kbd "N") 'cider-inspector-prev-page
         (kbd "p") 'cider-inspector-prev-page
         (kbd "r") 'cider-inspector-refresh)
 
-      (evilified-state-evilify cider-test-report-mode cider-test-report-mode-map
+      (evilified-state-evilify-map cider-test-report-mode-map
+        :mode cider-test-report-mode
+        :bindings
         (kbd "C-j") 'cider-test-next-result
         (kbd "C-k") 'cider-test-previous-result
         (kbd "RET") 'cider-test-jump
@@ -524,27 +532,7 @@
           "dty" 'sayid-trace-all-ns-in-dir
           "dV" 'sayid-set-view
           "dw" 'sayid-get-workspace
-          "dx" 'sayid-reset-workspace))
-
-
-      (evilified-state-evilify sayid-mode sayid-mode-map
-        (kbd "H") 'sayid-buf-show-help
-        (kbd "n") 'sayid-buffer-nav-to-next
-        (kbd "N") 'sayid-buffer-nav-to-prev
-        (kbd "C-s v") 'sayid-toggle-view
-        (kbd "C-s V") 'sayid-set-view
-        (kbd "L") 'sayid-buf-back
-        (kbd "e") 'sayid-gen-instance-expr) ;Originally this was bound to 'g', but I feel this is still mnemonic and doesn't overlap with evil
-
-      (evilified-state-evilify sayid-pprint-mode sayid-pprint-mode-map
-        (kbd "h") 'sayid-pprint-buf-show-help
-        (kbd "n") 'sayid-pprint-buf-next
-        (kbd "N") 'sayid-pprint-buf-prev
-        (kbd "l") 'sayid-pprint-buf-exit)
-
-      (evilified-state-evilify sayid-traced-mode sayid-traced-mode-map
-        (kbd "l") 'sayid-show-traced
-        (kbd "h") 'sayid-traced-buf-show-help))
+          "dx" 'sayid-reset-workspace)))
     :config
     (progn
       ;; If sayid-version is null the .elc file
@@ -554,7 +542,32 @@
         (package-reinstall 'sayid)
         (unload-feature 'sayid)
         (require 'sayid)
-        (setq cider-jack-in-lein-plugins (delete `("com.billpiel/sayid" nil) cider-jack-in-lein-plugins))))))
+        (setq cider-jack-in-lein-plugins (delete `("com.billpiel/sayid" nil) cider-jack-in-lein-plugins)))
+
+      ;; Make it evil
+      (evilified-state-evilify-map sayid-mode-map
+        :mode sayid-mode
+        :bindings
+        (kbd "H") 'sayid-buf-show-help
+        (kbd "n") 'sayid-buffer-nav-to-next
+        (kbd "N") 'sayid-buffer-nav-to-prev
+        (kbd "C-s v") 'sayid-toggle-view
+        (kbd "C-s V") 'sayid-set-view
+        (kbd "L") 'sayid-buf-back
+        (kbd "e") 'sayid-gen-instance-expr) ;Originally this was bound to 'g', but I feel this is still mnemonic and doesn't overlap with evil
+      (evilified-state-evilify-map sayid-pprint-mode-map
+        :mode sayid-pprint-mode
+        :bindings
+        (kbd "h") 'sayid-pprint-buf-show-help
+        (kbd "n") 'sayid-pprint-buf-next
+        (kbd "N") 'sayid-pprint-buf-prev
+        (kbd "l") 'sayid-pprint-buf-exit)
+      (evilified-state-evilify-map sayid-traced-mode-map
+        :mode sayid-traced-mode
+        :bindings
+        (kbd "l") 'sayid-show-traced
+        (kbd "h") 'sayid-traced-buf-show-help))))
+
 
 (defun clojure/post-init-flycheck ()
   ;; When user has chosen to use multiple linters.

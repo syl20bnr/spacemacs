@@ -1,6 +1,6 @@
 ;;; keybindings.el --- Spacemacs Defaults Layer key-bindings File
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -39,6 +39,7 @@
                                        "am"  "music"
                                        "at"  "tools"
                                        "ats" "shells"
+                                       "atT" "translate"
                                        "aw"  "web-services"
                                        "c"   "compile/comments"
                                        "C"   "capture/colors"
@@ -661,9 +662,9 @@ respond to this toggle."
   "wl"  'evil-window-right
   "w <right>"  'evil-window-right
   "wm"  'spacemacs/toggle-maximize-buffer
-  "wcc"  'spacemacs/toggle-centered-buffer
-  "wcC"  'spacemacs/toggle-distraction-free
-  "wc."  'spacemacs/centered-buffer-transient-state
+  ;; "wcc"  'spacemacs/toggle-centered-buffer
+  ;; "wcC"  'spacemacs/toggle-distraction-free
+  ;; "wc."  'spacemacs/centered-buffer-transient-state
   "wo"  'other-frame
   "wr"  'spacemacs/rotate-windows-forward
   "wR"  'spacemacs/rotate-windows-backward

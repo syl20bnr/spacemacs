@@ -1,6 +1,6 @@
 ;;; config.el --- Chinese Layer configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -24,7 +24,9 @@
 ;; Variables
 
 (defvar chinese-default-input-method 'pinyin
-  "The default chinese input method. Can be `wubi` or `pinyin`.")
+  "The default chinese input method.  Can be one of nil, t, `pinyin', `wubi', `wubi86', `wubi98'.
+nil for don't change the input method.
+t for using the pyim with custom dictionary")
 
 (defvar chinese-enable-youdao-dict nil
   "Enable YouDao Dict translation service.")

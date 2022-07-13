@@ -1,6 +1,6 @@
-;;; core-themes-support.el --- Spacemacs Core File
+;;; core-themes-support.el --- Spacemacs Core File -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -222,6 +222,7 @@
     (doom-solarized-light             . doom-themes)
     (doom-sourcerer                   . doom-themes)
     (doom-spacegrey                   . doom-themes)
+    (doom-tokyo-night                 . doom-themes)
     (doom-tomorrow-day                . doom-themes)
     (doom-tomorrow-night              . doom-themes)
     (doom-vibrant                     . doom-themes)

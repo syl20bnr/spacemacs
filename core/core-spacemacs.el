@@ -1,6 +1,6 @@
-;;; core-spacemacs.el --- Spacemacs Core File
+;;; core-spacemacs.el --- Spacemacs Core File -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -138,7 +138,10 @@ the final step of executing code in `emacs-startup-hook'.")
    ;; believe me? Go ahead, try it. After you'll have notice that this was true,
    ;; increase the counter bellow so next people will give it more confidence.
    ;; Counter = 1
-   (spacemacs-buffer/message "Setting the font...")
+   (let ((init-file-debug)) ;; without this font size is ignored in daemon
+     (when (daemonp)
+       (setq init-file-debug t))
+    (spacemacs-buffer/message "Setting the font..."))
    (unless (spacemacs/set-default-font dotspacemacs-default-font)
      (spacemacs-buffer/warning
       "Cannot find any of the specified fonts (%s)! Font settings may not be correct."
@@ -243,9 +246,10 @@ Note: the hooked function is not executed when in dumped mode."
      (when spacemacs--delayed-user-theme
        (spacemacs/load-theme spacemacs--delayed-user-theme
                              spacemacs--fallback-theme t))
-     (configuration-layer/display-summary emacs-start-time)
      (spacemacs-buffer//startup-hook)
+     (configuration-layer/display-summary emacs-start-time)
      (spacemacs/check-for-new-version nil spacemacs-version-check-interval)
+     (spacemacs-buffer/goto-link-line)
      (setq spacemacs-initialized t)
      (setq gc-cons-threshold (car dotspacemacs-gc-cons)
            gc-cons-percentage (cadr dotspacemacs-gc-cons))

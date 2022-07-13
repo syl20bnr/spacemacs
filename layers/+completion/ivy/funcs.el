@@ -1,6 +1,6 @@
 ;;; funcs.el --- Ivy Layer functions File for Spacemacs -*- lexical-binding: t; -*-
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -196,10 +196,11 @@ that directory."
   (interactive)
   (require 'counsel)
   (cl-letf* ((initial-input (if use-initial-input
-                                (if (region-active-p)
-                                    (buffer-substring-no-properties
-                                     (region-beginning) (region-end))
-                                  (thing-at-point 'symbol t))
+                                (rxt-quote-pcre
+                                 (if (region-active-p)
+                                     (buffer-substring-no-properties
+                                      (region-beginning) (region-end))
+                                   (or (thing-at-point 'symbol t) "")))
                               ""))
              (tool (catch 'tool
                      (dolist (tool tools)

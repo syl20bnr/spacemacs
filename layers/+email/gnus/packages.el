@@ -1,6 +1,6 @@
 ;;; packages.el --- gnus Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -43,7 +43,7 @@
     :commands gnus
     :init
     (progn
-      (spacemacs/declare-prefix "aeg" "gnus" "Gnus newsreader")
+      (spacemacs/declare-prefix "aeg" "gnus")
       (spacemacs/set-leader-keys
         "aegg" 'gnus
         "aegs" 'gnus-slave

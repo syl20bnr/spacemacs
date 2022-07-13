@@ -1,6 +1,6 @@
 ## Makefile --- Spacemacs org tests
 ##
-## Copyright (c) 2012-2021 Sylvain Benner & Contributors
+## Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ##
 ## Author: smile13241324 <smile13241324@gmail.com>
 ## URL: https://github.com/syl20bnr/spacemacs

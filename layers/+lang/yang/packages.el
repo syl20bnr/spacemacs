@@ -1,6 +1,6 @@
 ;;; packages.el --- YANG Layer packages file for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Christian Hopps <chopps@gmail.com>
 ;; Originally started with checker definition from flycheck-yang project.
@@ -42,7 +42,7 @@
                         (warning line-start (file-name) ":"
                                  line ": " "warning: " (message) line-end))
       :modes 'yang-mode
-      :error-filter '(lambda (errors)
+      :error-filter (lambda (errors)
                        (-> errors
                            flycheck-dedent-error-messages
                            flycheck-sanitize-errors)))

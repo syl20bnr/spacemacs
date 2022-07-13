@@ -1,6 +1,6 @@
 ;;; funcs.el --- Spacemacs Bootstrap Layer functions File
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -260,7 +260,7 @@ the scroll transient state.")
             (guard (and (not recursed)
                         (listp x)
                         (listp y))))
-       (mapcar #'(lambda (var) (use-package-normalize-spacediminish name label var t))
+       (mapcar (lambda (var) (use-package-normalize-spacediminish name label var t))
                arg))
       ;; t -> (<PKG>-mode)
       ('t
@@ -310,7 +310,7 @@ the scroll transient state.")
     (use-package-concat
      `((when (fboundp 'spacemacs|diminish)
          ,@(if (consp (car arg)) ;; e.g. ((MODE FOO BAR) ...)
-               (mapcar #'(lambda (var) `(spacemacs|diminish ,@var))
+               (mapcar (lambda (var) `(spacemacs|diminish ,@var))
                        arg)
              `((spacemacs|diminish ,@arg))))) ;; e.g. (MODE FOO BAR)
      body)))

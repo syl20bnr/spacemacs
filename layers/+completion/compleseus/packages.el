@@ -1,6 +1,6 @@
 ;;; packages.el --- compleseus layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Thanh Vuong <thanhvg@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -24,7 +24,9 @@
   '(auto-highlight-symbol
     imenu
     marginalia
-    (compleseus-spacemacs-help :location local)
+    ;; (compleseus-spacemacs-help :location local)
+    (compleseus-spacemacs-help
+     :location (recipe :fetcher local))
     consult
     consult-yasnippet
     embark
@@ -69,7 +71,7 @@
         ("/" spacemacs/compleseus-search-projectile-auto :exit t)))))
 
 (defun compleseus/post-init-imenu ()
-  (spacemacs/set-leader-keys "ji" 'consult-imenu))
+  (spacemacs/set-leader-keys "ji" 'spacemacs/consult-jump-in-buffer))
 
 (defun compleseus/init-marginalia ()
   (use-package marginalia
@@ -78,9 +80,20 @@
            :map minibuffer-local-map
            ("M-A" . marginalia-cycle))
 
+    :config
+    (dolist (it
+             '((spacemacs/compleseus-pers-switch-project . project-file)
+               ;; https://github.com/bbatsov/projectile/issues/1664
+               ;; https://github.com/minad/marginalia/issues/110
+               (projectile-find-file . project-file)
+               (projectile-find-dir . project-file)
+               (projectile-recentf . project-file)
+               (projectile-switch-to-buffer . buffer)
+               (projectile-switch-project . file)))
+      (push it marginalia-command-categories))
+    (setq marginalia-align 'right)
     ;; The :init configuration is always executed (Not lazy!)
     :init
-
     ;; Must be in the :init section of use-package such that the mode gets
     ;; enabled right away. Note that this forces loading the package.
     (marginalia-mode)))
@@ -114,7 +127,7 @@
            ("M-g m" . consult-mark)
            ("M-g k" . consult-global-mark)
            ("M-g i" . consult-imenu)
-           ("M-g I" . consult-project-imenu)
+           ("M-g I" . consult-imenu-multi)
            ;; M-s bindings (search-map)
            ("M-s f" . consult-find)
            ("M-s L" . consult-locate)
@@ -126,10 +139,10 @@
            ("M-s k" . consult-keep-lines)
            ("M-s u" . consult-focus-lines)
            ;; Isearch integration
-           ("M-s e" . consult-isearch)
+           ("M-s e" . consult-isearch-history)
            :map isearch-mode-map
-           ("M-e" . consult-isearch)                 ;; orig. isearch-edit-string
-           ("M-s e" . consult-isearch)               ;; orig. isearch-edit-string
+           ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
+           ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
            ("M-s l" . consult-line))                 ;; needed by consult-line to detect isearch
 
     ;; Enable automatic preview at point in the *Completions* buffer.
@@ -159,7 +172,7 @@
       "ss" #'consult-line
       "sS" #'spacemacs/consult-line
       "sk" #'consult-keep-lines
-      "rL" #'consult-complex-command
+      "rc" #'consult-complex-command
       "su" #'consult-focus-lines
       "sf" #'spacemacs/compleseus-search-auto
       "sd" #'spacemacs/compleseus-search-dir
@@ -178,8 +191,13 @@
     (advice-add #'register-preview :override #'consult-register-window)
 
     ;; Use Consult to select xref locations with preview
-    (setq xref-show-xrefs-function #'consult-xref
-          xref-show-definitions-function #'consult-xref)
+    (setq xref-prompt-for-identifier '(not xref-find-definitions
+                                           xref-find-definitions-other-window
+                                           xref-find-definitions-other-frame
+                                           xref-find-references
+                                           spacemacs/jump-to-definition))
+    (setq xref-show-xrefs-function #'consult-xref)
+
     ;; Configure other variables and modes in the :config section,
     ;; after lazily loading the package.
     :config
@@ -196,14 +214,19 @@
      :preview-key '(:debounce 0.2 any)
      consult-ripgrep consult-git-grep consult-grep
      consult-bookmark consult-recent-file consult-xref
-     consult--source-file consult--source-project-file consult--source-bookmark
+     consult--source-recent-file consult--source-project-recent-file consult--source-bookmark
+     consult-yank-pop
      spacemacs/compleseus-search-auto
      spacemacs/compleseus-search-dir
      spacemacs/compleseus-search-projectile
      spacemacs/compleseus-search-default
      spacemacs/compleseus-search-projectile-auto
      :preview-key (list (kbd "C-SPC") (kbd "C-M-j") (kbd "C-M-k")))
-    ;; :preview-key (kbd "C-SPC"))
+
+    ;; hide magit buffer
+    (add-to-list 'consult-buffer-filter "magit.*:.*")
+
+    (setq consult-line-start-from-top nil)
 
     ;; Optionally configure the narrowing key.
     ;; Both < and C-+ work reasonably well.
@@ -214,20 +237,10 @@
     ;; (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
 
     ;; Optionally configure a function which returns the project root directory.
-    ;; There are multiple reasonable alternatives to chose from.
-  ;;;; 1. project.el (project-roots)
     (setq consult-project-root-function
           (lambda ()
             (when-let (project (project-current))
-              (car (project-roots project)))))))
-  ;;;; 2. projectile.el (projectile-project-root)
-;; (autoload 'projectile-project-root "projectile")
-;; (setq consult-project-root-function #'projectile-project-root)
-  ;;;; 3. vc.el (vc-root-dir)
-;; (setq consult-project-root-function #'vc-root-dir)
-  ;;;; 4. locate-dominating-file
-;; (setq consult-project-root-function (lambda () (locate-dominating-file "." ".git")))
-
+              (car (project-root project)))))))
 
 (defun compleseus/init-consult-yasnippet ()
   (use-package consult-yasnippet
@@ -273,10 +286,23 @@
 
 (defun compleseus/init-orderless ()
   (use-package orderless
-  :init
-  (setq completion-styles '(basic partial-completion orderless)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles . (partial-completion)))))))
+    :init
+    ;; https://github.com/oantolin/orderless/issues/48#issuecomment-856750410
+    ;; too intrusive and disrupts lsp
+    (define-advice company-capf (:around (orig-fun &rest args) set-completion-styles)
+      ;; when lsp is on stay away
+      (if lsp-completion-mode
+          (apply orig-fun args)
+        (let ((completion-styles '(basic partial-completion orderless)))
+          (apply orig-fun args))))
+
+    (setq orderless-component-separator "[ &]")
+
+    ;; should be all in with orderless other wise the results are inconsistent.
+    ;; (setq completion-styles '(basic partial-completion orderless)
+    (setq completion-styles '(orderless)
+          completion-category-defaults nil
+          completion-category-overrides '((file (styles . (partial-completion)))))))
 
 (defun compleseus/init-selectrum ()
   (use-package selectrum
@@ -319,9 +345,12 @@
     ;; https://github.com/minad/vertico/issues/24
     (setq completion-in-region-function #'consult-completion-in-region)
 
-    ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
-    ;; (setq vertico-cycle t)
+    (setq vertico-resize nil
+          vertico-count 20
+          vertico-cycle nil)
+
     (vertico-mode)
+
     :config
     (define-key vertico-map (kbd "M-RET") #'vertico-exit-input)
     (define-key vertico-map (kbd "C-SPC") #'spacemacs/embark-preview)
@@ -346,8 +375,10 @@
     :init
     (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
     (spacemacs/set-leader-keys
-      "rl" 'vertico-repeat
-      "sl" 'vertico-repeat)))
+      "rl" 'vertico-repeat-last
+      "rL" 'vertico-repeat-select
+      "sl" 'vertico-repeat-last
+      "sL" 'vertico-repeat-select)))
 
 (defun compleseus/init-vertico-directory ()
   (use-package vertico-directory
@@ -375,6 +406,7 @@
 
 (defun compleseus/init-compleseus-spacemacs-help ()
   (use-package compleseus-spacemacs-help
+    :defer t
     :init
     (spacemacs/set-leader-keys
       "h ."   'compleseus-spacemacs-help-dotspacemacs

@@ -1,6 +1,6 @@
 ;;; funcs.el --- compleseus Layer functions File for Spacemacs -*- lexical-binding: t; -*-
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Thanh Vuong <thanhvg@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -39,16 +39,23 @@
 (defun spacemacs/compleseus-switch-to-buffer ()
   "`consult-buffer' with buffers provided by persp."
   (interactive)
-  (with-persp-buffer-list ()
-                          (consult-buffer)))
+  (consult-buffer
+   '(consult--source-hidden-buffer
+     consult--source-persp-buffers
+     consult--source-modified-buffers
+     consult--source-recent-file
+     consult--source-bookmark
+     consult--source-project-buffer
+     consult--source-project-recent-file)))
 
 
 (defun spacemacs/compleseus-search (use-initial-input initial-directory)
   (let* ((initial-input (if use-initial-input
-                            (if (region-active-p)
-                                (buffer-substring-no-properties
-                                 (region-beginning) (region-end))
-                              (thing-at-point 'symbol t))
+                            (rxt-quote-pcre
+                             (if (region-active-p)
+                                 (buffer-substring-no-properties
+                                  (region-beginning) (region-end))
+                               (or (thing-at-point 'symbol t) "")))
                           ""))
          (default-directory
            (or initial-directory (read-directory-name "Start from directory: "))))
@@ -182,4 +189,13 @@ targets."
   (which-key--hide-popup-ignore-command)
   (let ((embark-indicators
          (remq #'spacemacs/embark-which-key-indicator embark-indicators)))
-      (apply fn args)))
+    (apply fn args)))
+
+
+(defun spacemacs/consult-jump-in-buffer ()
+  "Jump in buffer with `consult-imenu' or `consult-org-heading' if in org-mode"
+  (interactive)
+  (call-interactively
+   (cond
+    ((eq major-mode 'org-mode) 'consult-org-heading)
+    (t 'consult-imenu))))

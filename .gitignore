@@ -21,11 +21,13 @@
 .trello
 /.cask/
 /.my-keybindings.el.swp
+/devdocs
 /eww-bookmarks
 /history
 /image-dired
 /network-security.data
 /recentf
+/recentf~
 /session.*
 /srecode-map.el
 \#*

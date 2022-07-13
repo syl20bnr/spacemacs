@@ -1,6 +1,6 @@
 ;;; erc-tex.el --- LaTeX mathematical expressions rendering for ERC
 
-;; Copyright (C) 2009 David Vazquez
+;; Copyright (C) 2009-2022 David Vazquez
 
 ;; Last-modified: <2009-09-14 02:11:53 david>
 

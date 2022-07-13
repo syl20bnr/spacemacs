@@ -1,6 +1,6 @@
-;;; core-spacemacs-buffer.el --- Spacemacs Core File
+;;; core-spacemacs-buffer.el --- Spacemacs Core File -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,10 +20,26 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;
-;;; Commentary:
-;;
 ;;; Code:
+
+(eval-when-compile
+  (defvar dotspacemacs-distribution)
+  (defvar dotspacemacs-filepath)
+  (defvar dotspacemacs-show-startup-list-numbers)
+  (defvar dotspacemacs-startup-banner)
+  (defvar dotspacemacs-startup-banner-scale)
+  (defvar dotspacemacs-startup-buffer-show-icons)
+  (defvar spacemacs-badge-official-png)
+  (defvar spacemacs-banner-directory)
+  (defvar spacemacs-banner-official-png)
+  (defvar spacemacs-cache-directory)
+  (defvar spacemacs-docs-directory)
+  (defvar spacemacs-gplv3-official-png)
+  (defvar spacemacs-info-directory)
+  (defvar spacemacs-release-notes-directory)
+  (defvar spacemacs-start-directory)
+  (defvar spacemacs-version))
+
 
 (defconst spacemacs-buffer-version-info "0.999"
   "Current version used to display addition release information.")
@@ -71,11 +87,32 @@ Allows to keep track of widgets to delete when removing them.")
   "Horizontal position of the home buffer buttons.
 Internal use, do not set this variable.")
 
-(defvar spacemacs-buffer-mode-map (make-sparse-keymap)
-  "Keymap for spacemacs buffer mode.")
+(defvar spacemacs-buffer--random-banner nil
+  "The random banner chosen.")
 
-(defun spacemacs-buffer/key-bindings ()
-  (let ((map spacemacs-buffer-mode-map))
+(defvar spacemacs-buffer-note-preview-lines 5
+  "If it's a positive integer, show the notes first number of lines.
+If nil, show the full note.")
+
+(defvar spacemacs-buffer--note-preview-nr-of-removed-lines nil
+  "Store the number of removed lines from the notes:
+Quick Help and Release Notes.")
+
+(defvar spacemacs-buffer--errors nil
+  "List of errors during startup.")
+
+(defvar spacemacs-buffer--idle-numbers-timer nil
+  "This stores the idle numbers timer.")
+
+(defvar spacemacs-buffer--startup-list-number nil
+  "This accumulates the numbers that are typed in the home buffer.
+It's cleared when the idle timer runs.")
+
+(defvar spacemacs-buffer--last-width nil
+  "Previous width of spacemacs-buffer.")
+
+(defvar spacemacs-buffer-mode-map
+  (let ((map (make-sparse-keymap)))
     (when dotspacemacs-show-startup-list-numbers
       (define-key map (kbd "0") 'spacemacs-buffer/jump-to-number-startup-list-line)
       (define-key map (kbd "1") 'spacemacs-buffer/jump-to-number-startup-list-line)
@@ -89,7 +126,7 @@ Internal use, do not set this variable.")
       (define-key map (kbd "9") 'spacemacs-buffer/jump-to-number-startup-list-line))
 
     (define-key map [down-mouse-1] 'widget-button-click)
-    (define-key map (kbd "RET") 'widget-button-press)
+    (define-key map (kbd "RET") 'spacemacs-buffer/return)
 
     (define-key map [tab] 'widget-forward)
     (define-key map (kbd "J") 'widget-forward)
@@ -99,26 +136,27 @@ Internal use, do not set this variable.")
     (define-key map (kbd "K") 'widget-backward)
 
     (define-key map (kbd "C-r") 'spacemacs-buffer/refresh)
-    (define-key map "q" 'quit-window)))
+    (define-key map "q" 'quit-window)
+    map)
+  "Keymap for spacemacs-buffer mode.")
 
-(add-hook 'emacs-startup-hook 'spacemacs-buffer/key-bindings)
+(define-derived-mode spacemacs-buffer-mode special-mode "Spacemacs buffer"
+  "Spacemacs major mode for startup screen.
 
-(with-eval-after-load 'evil
-  (evil-make-overriding-map spacemacs-buffer-mode-map 'motion))
-
-(define-derived-mode spacemacs-buffer-mode fundamental-mode "Spacemacs buffer"
-  "Spacemacs major mode for startup screen."
+\\{spacemacs-buffer-mode-map}"
   :group 'spacemacs
   :syntax-table nil
   :abbrev-table nil
-  (page-break-lines-mode)
-  (setq buffer-read-only t
-        truncate-lines t)
-  ;; needed to make tab work correctly in terminal
-  (evil-define-key 'motion spacemacs-buffer-mode-map
-    (kbd "C-i") 'widget-forward)
-  ;; motion state since this is a special mode
-  (evil-set-initial-state 'spacemacs-buffer-mode 'motion))
+  (buffer-disable-undo)
+  (page-break-lines-mode +1)
+  (with-eval-after-load 'evil
+    (progn
+      (evil-set-initial-state 'spacemacs-buffer-mode 'motion)
+      (evil-make-overriding-map spacemacs-buffer-mode-map 'motion)))
+  (suppress-keymap spacemacs-buffer-mode-map t)
+  (set-keymap-parent spacemacs-buffer-mode-map nil)
+  (setq-local buffer-read-only t
+              truncate-lines t))
 
 (defun spacemacs-buffer//insert-ascii-banner-centered (file)
   "Insert the ascii banner contain in file and center it in the window.
@@ -129,8 +167,8 @@ FILE: the path to the file containing the banner."
      (let ((banner-width 0))
        (while (not (eobp))
          (let ((line-length (- (line-end-position) (line-beginning-position))))
-           (if (< banner-width line-length)
-               (setq banner-width line-length)))
+           (when (< banner-width line-length)
+             (setq banner-width line-length)))
          (forward-line 1))
        (goto-char 0)
        (let ((margin (max 0 (floor (/ (- spacemacs-buffer--window-width
@@ -152,14 +190,13 @@ Cate special text banner can de reachable via `998', `cat' or `random*'.
 `random' ignore special banners whereas `random*' does not."
   (let ((banner (spacemacs-buffer//choose-banner))
         (buffer-read-only nil))
-    (progn
-      (when banner
-        (spacemacs-buffer/message (format "Banner: %s" banner))
-        (if (image-type-available-p (intern (file-name-extension banner)))
-            (spacemacs-buffer//insert-image-banner banner)
-          (spacemacs-buffer//insert-ascii-banner-centered banner)))
-      (spacemacs-buffer//insert-buttons)
-      (spacemacs//redisplay))))
+    (when banner
+      (spacemacs-buffer/message (format "Banner: %s" banner))
+      (if (image-type-available-p (intern (file-name-extension banner)))
+          (spacemacs-buffer//insert-image-banner banner)
+        (spacemacs-buffer//insert-ascii-banner-centered banner)))
+    (spacemacs-buffer//insert-buttons)
+    (spacemacs//redisplay)))
 
 (defun spacemacs-buffer/display-startup-note ()
   "Decide of the startup note and display it if relevant."
@@ -210,23 +247,46 @@ Cate special text banner can de reachable via `998', `cat' or `random*'.
              (spacemacs-buffer//get-banner-path 1)))
           (t (spacemacs-buffer//get-banner-path 1)))))
 
-(defvar spacemacs-buffer--random-banner nil
-  "The random banner chosen.")
-
 (defun spacemacs-buffer//choose-random-text-banner (&optional all)
   "Return the full path of a banner chosen randomly.
 If ALL is non-nil then truly all banners can be selected."
-  (setq spacemacs-buffer--random-banner
-        (or spacemacs-buffer--random-banner
-            (let* ((files (directory-files spacemacs-banner-directory t ".*\.txt"))
-                   (count (length files))
-                   ;; -2 to remove the two last ones (easter eggs)
-                   (choice (random (- count (if all 0 2)))))
-              (nth choice files)))))
+  (unless spacemacs-buffer--random-banner
+    (let* ((files (directory-files spacemacs-banner-directory t ".*\.txt"))
+           (count (length files))
+           ;; -2 to remove the two last ones (easter eggs)
+           (choice (random (- count (if all 0 2)))))
+      (setq spacemacs-buffer--random-banner (nth choice files))))
+  spacemacs-buffer--random-banner)
 
 (defun spacemacs-buffer//get-banner-path (index)
   "Return the full path to banner with index INDEX."
   (concat spacemacs-banner-directory (format "%03d-banner.txt" index)))
+
+(defun spacemacs-buffer//banner-fit-height-size ()
+  "Calculate height of startup banner to fit buffer contents.
+Returns height in units of line height with a minimum of 1."
+  ;; first determine number of lines occupied by startup list
+  (let* ((startup-list-line-height
+          ;; the all-the-icons package is not available here yet, but we don't
+          ;; require icons for just counting the lines in the
+          ;; `dotspacemacs-startup-lists'
+          (let ((icons dotspacemacs-startup-buffer-show-icons)
+                lines)
+            (setq dotspacemacs-startup-buffer-show-icons nil)
+	          (setq lines (with-temp-buffer
+                          (spacemacs-buffer//do-insert-startupify-lists)
+                          (recentf-mode -1)
+                          (line-number-at-pos)))
+              ;; (count-lines (point-min) (point-max)))
+            (setq dotspacemacs-startup-buffer-show-icons icons)
+            lines))
+         ;; We determine the maximum available banner height by subtracting the
+         ;; number of lines in the home buffer contents (excl. logo and
+         ;; startup-list), i.e. `26', and the number of lines in the startup
+         ;; list from the total available text lines
+         (image-height (- (window-text-height) 26 startup-list-line-height)))
+    ;; return image-height with minimum of 3 line heights
+    (max image-height 3)))
 
 (defun spacemacs-buffer//insert-image-banner (banner)
   "Display an image banner.
@@ -234,9 +294,21 @@ BANNER: the path to an ascii banner file."
   (when (file-exists-p banner)
     (let* ((title spacemacs-buffer-logo-title)
            (spec (create-image banner))
-           (size (image-size spec))
+           ;; we must use the scaled size for determining the correct
+           ;; left-margin size
+           (unscaled-size (image-size spec)) ;; size in 'canonical character units'
+           (height (cdr unscaled-size)) ;; return size in units of line heights
+           (scale (pcase dotspacemacs-startup-banner-scale
+                    ('auto (let ((factor (/ (float (spacemacs-buffer//banner-fit-height-size))
+                                            height)))
+                             ;; return factor with maximum of 1
+                             (min factor 1)))
+                    (factor factor)))
+           (size (cons (* scale (car unscaled-size)) (* scale (cdr unscaled-size))))
            (width (car size))
            (left-margin (max 0 (floor (- spacemacs-buffer--window-width width) 2))))
+      ;; we scale the image by simply setting the scale property in the image-spec
+      (plist-put (cdr spec) :scale scale)
       (insert (make-string left-margin ?\s))
       (insert-image spec)
       (insert "\n\n")
@@ -270,14 +342,14 @@ Right justified, based on the Spacemacs buffers window width."
                               (intern (file-name-extension badge-path))))
                     (create-image badge-path)))
            (badge-size (when badge (car (image-size badge))))
-           (heart-path spacemacs-purple-heart-png)
-           (heart (when (and (display-graphic-p)
-                             (image-type-available-p
-                              (intern (file-name-extension badge-path))))
-                    (create-image heart-path)))
-           (heart-size (when heart (car (image-size heart))))
-           (build-lhs "Made with ")
-           (build-rhs " by the community")
+           (build-by (concat "Made with "
+                             (if (and dotspacemacs-startup-buffer-show-icons
+                                      (display-graphic-p)
+                                      (or (fboundp 'all-the-icons-faicon)
+                                          (require 'all-the-icons nil 'noerror)))
+                                 (all-the-icons-faicon "heart" :height 0.8 :v-adjust -0.05)
+                               "heart")
+                             " by the community"))
            (proudly-free "Proudly free software")
            (gplv3-path spacemacs-gplv3-official-png)
            (gplv3 (when (and (display-graphic-p)
@@ -286,35 +358,28 @@ Right justified, based on the Spacemacs buffers window width."
                     (create-image gplv3-path)))
            (gplv3-size (when gplv3 (car (image-size gplv3))))
            (buffer-read-only nil))
-      (when (or badge heart gplv3)
-        (goto-char (point-max))
-        (spacemacs-buffer/insert-page-break)
-        (insert "\n")
-        (when badge
-          (insert-image badge)
-          (spacemacs-buffer//center-line badge-size))
-        (when heart
-          (when badge (insert "\n\n"))
-          (insert build-lhs)
-          (insert-image heart)
-          (insert build-rhs)
-          (spacemacs-buffer//center-line (+ (length build-lhs)
-                                            heart-size
-                                            (length build-rhs)))
-          (insert "\n"))
-        (when gplv3
-          (insert "\n")
-          (widget-create 'url-link
-                         :tag proudly-free
-                         :help-echo "What is free software?"
-                         :mouse-face 'highlight
-                         :follow-link "\C-m"
-                         "https://www.gnu.org/philosophy/free-sw.en.html")
-          (spacemacs-buffer//center-line (+ 2 (length proudly-free)))
-          (insert "\n\n")
-          (insert-image gplv3)
-          (spacemacs-buffer//center-line gplv3-size)
-          (insert "\n"))))))
+      (goto-char (point-max))
+      (spacemacs-buffer/insert-page-break)
+      (insert "\n")
+      (when badge
+        (insert-image badge)
+        (spacemacs-buffer//center-line badge-size)
+        (insert "\n\n"))
+      (insert build-by)
+      (spacemacs-buffer//center-line (length build-by))
+      (insert "\n\n")
+      (widget-create 'url-link
+                           :tag proudly-free
+                           :help-echo "What is free software?"
+                           :mouse-face 'highlight
+                           :follow-link "\C-m"
+                           "https://www.gnu.org/philosophy/free-sw.en.html")
+      (spacemacs-buffer//center-line (+ 2 (length proudly-free)))
+      (when gplv3
+        (insert "\n\n")
+        (insert-image gplv3)
+        (spacemacs-buffer//center-line gplv3-size)
+        (insert "\n")))))
 
 (defmacro spacemacs-buffer||notes-adapt-caption-to-width (caption
                                                           caption-length
@@ -334,20 +399,13 @@ WIDTH: current external width of the note's frame."
        (setq ,caption nil
              ,caption-length 0))))
 
-(defvar spacemacs-buffer-note-preview-lines 5
-  "If it's a positive integer, show the notes first number of lines.
-If nil, show the full note.")
-
-(defvar spacemacs-buffer--note-preview-nr-of-removed-lines nil
-  "Store the number of removed lines from the notes:
-Quick Help and Release Notes.")
-
 (defun spacemacs-buffer//if-note-preview-remove-rest-of-note ()
   "If `spacemacs-buffer-note-preview-lines' is a positive integer,
 remove the rest of the note, after the variables line number."
   (when (and (integerp spacemacs-buffer-note-preview-lines)
              (> spacemacs-buffer-note-preview-lines 0))
-    (goto-line (1+ spacemacs-buffer-note-preview-lines))
+    (goto-char (point-min))
+    (forward-line spacemacs-buffer-note-preview-lines)
     (let* ((first-removed-line (line-number-at-pos (point)))
            (last-removed-line (line-number-at-pos (point-max))))
       (setq spacemacs-buffer--note-preview-nr-of-removed-lines
@@ -388,18 +446,18 @@ MIN-WIDTH is the minimal width of the frame, frame included.  The frame will not
            (paragraph-start "\f\\|[ \t]*$\\|[ \t]*[-+*] \\|[ \t]*[0-9]+[.)] ")
            (topcaption-length (if topcaption (length topcaption) 0))
            (botcaption-length (if botcaption (length botcaption) 0)))
-      (setq max-width (or max-width width)
-            min-width (or min-width 1)
-            max-width (if (< max-width min-width) min-width max-width)
-            max-width (if (> max-width spacemacs-buffer--window-width)
-                          spacemacs-buffer--window-width
-                        max-width))
-      (when (< width min-width)
+      ;; min-width defaults to 1
+      ;; max-width defaults to width, but truncated between min-width and window-width
+      (setq min-width (or min-width 1)
+            max-width (min (max (or max-width width) min-width)
+                           spacemacs-buffer--window-width))
+      (cond
+       ((< width min-width)
         (setq width min-width
               fill-column (max 0 (- min-width 2 (* hpadding 2)))))
-      (when (> width max-width)
+       ((> width max-width)
         (setq width max-width
-              fill-column (max 0 (- max-width 2 (* hpadding 2)))))
+              fill-column (max 0 (- max-width 2 (* hpadding 2))))))
       (spacemacs-buffer||notes-adapt-caption-to-width topcaption
                                                       topcaption-length
                                                       width)
@@ -439,7 +497,7 @@ BOTCAPTION: a text to be encrusted at the bottom of the frame.
 ADDITIONAL-WIDGETS: a function for inserting a widget under the frame."
   (save-excursion
     (goto-char (point-min))
-    (search-forward "Search in Spacemacs\]") ; TODO: this is dirty
+    (search-forward "Search in Spacemacs\]" nil "move to limit") ; TODO: this is dirty
     (forward-line)
     (let* ((buffer-read-only nil)
            (note (concat "\n"
@@ -466,7 +524,8 @@ ADDITIONAL-WIDGETS: a function for inserting a widget under the frame."
                             (match-end 1)
                             'type 'help-url
                             'help-args (list (match-string 1)))))
-      (funcall additional-widgets)
+      (when additional-widgets
+        (funcall additional-widgets))
       (spacemacs-buffer//center-line)
       (delete-trailing-whitespace (line-beginning-position)
                                   (line-end-position)))))
@@ -585,9 +644,10 @@ ADDITIONAL-WIDGETS: a function for inserting a widget under the frame."
                              (spacemacs-buffer/toggle-note 'release-note)
                              ;; cursor to beg of first line after preview
                              (goto-char cursor-pos-before-showing-full-note)
-                             (progn (back-to-indentation)
-                                    (previous-line)
-                                    (forward-char 3))))
+                             (progn
+                               (back-to-indentation)
+                               (forward-line -1)
+                               (forward-char 3))))
                  :mouse-face 'highlight
                  :follow-link "\C-m"))
                (spacemacs-buffer//center-line)
@@ -704,9 +764,6 @@ ARGS: format string arguments."
   (when init-file-debug
     (message "(Spacemacs) %s" (apply 'format msg args))))
 
-(defvar spacemacs-buffer--errors nil
-  "List of errors during startup.")
-
 (defun spacemacs-buffer/error (msg &rest args)
   "Display MSG as an Error message in `*Messages*' buffer.
 ARGS: format string arguments."
@@ -775,22 +832,22 @@ NO-NEXT-LINE: if nil the cursor is brought under the searched word.
 
 Define a named function: spacemacs-buffer/jump-to-...
 for the shortcut. So that a descriptive name is shown,
-in for example the view-lossage (C-h l) buffer:
+in for example the `view-lossage' (C-h l) buffer:
  r                      ;; spacemacs-buffer/jump-to-recent-files
  p                      ;; spacemacs-buffer/jump-to-projects
 instead of:
  r                      ;; anonymous-command
  p                      ;; anonymous-command"
-  (let* ((func-name (spacemacs-buffer//startup-list-jump-func-name search-label))
-         (func-name-symbol (intern func-name)))
-    (eval `(defun ,func-name-symbol ()
-               (interactive)
-             (unless (search-forward ,search-label (point-max) t)
-               (search-backward ,search-label (point-min) t))
-             ,@(unless no-next-line
-                 '((forward-line 1)))
-             (back-to-indentation)))
-    `(define-key spacemacs-buffer-mode-map ,shortcut-char ',func-name-symbol)))
+  (let ((func-name-symbol
+         (intern (spacemacs-buffer//startup-list-jump-func-name search-label))))
+    `(progn (defun ,func-name-symbol ()
+              (interactive)
+              (unless (search-forward ,search-label (point-max) t)
+                (search-backward ,search-label (point-min) t))
+              ,@(unless no-next-line
+                  '((forward-line 1)))
+              (back-to-indentation))
+            (define-key spacemacs-buffer-mode-map ,shortcut-char ',func-name-symbol))))
 
 (defun spacemacs-buffer//center-line (&optional real-width)
   "When point is at the end of a line, center it.
@@ -933,16 +990,23 @@ by pressing its number key."
   (when (car list)
     (insert list-display-name)
     (mapc (lambda (el)
-            (insert "\n    ")
-            (let* ((button-text-prefix
+            (let ((button-prefix
+                   (concat
+                    "\n    "
                     (when dotspacemacs-show-startup-list-numbers
-                      (format "%2s" (number-to-string
-                                     spacemacs-buffer--startup-list-nr))))
-                   (button-text
-                    (concat
-                     (when dotspacemacs-show-startup-list-numbers
-                       (concat button-text-prefix " "))
-                     (abbreviate-file-name el))))
+                      (format "%2s " (number-to-string spacemacs-buffer--startup-list-nr)))
+                    " "
+                    (when dotspacemacs-startup-buffer-show-icons
+                      (cond
+                       ((file-remote-p el)
+                        (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust -0.05))
+                       ((file-directory-p el)
+                        (all-the-icons-icon-for-dir el))
+                       (t
+                        (all-the-icons-icon-for-file (file-name-nondirectory el) :height 0.8 :v-adjust -0.05))))
+                    " "))
+                  (button-text (abbreviate-file-name el)))
+              (insert button-prefix)
               (widget-create 'push-button
                              :action `(lambda (&rest ignore)
                                         (find-file-existing ,el))
@@ -950,6 +1014,7 @@ by pressing its number key."
                              :follow-link "\C-m"
                              :button-prefix ""
                              :button-suffix ""
+                             :button-face nil
                              :format "%[%t%]" button-text))
             (setq spacemacs-buffer--startup-list-nr
                   (1+ spacemacs-buffer--startup-list-nr)))
@@ -960,19 +1025,23 @@ by pressing its number key."
   "Insert an interactive grouped list of files in the home buffer.
 LIST-DISPLAY-NAME: the displayed title of the list.
 GROUPED-LIST: a list of string pathnames made interactive in this function."
-  (when (car grouped-list)
+  (when (car-safe grouped-list)
     (insert list-display-name)
     (mapc (lambda (group)
-            (insert "\n    ")
-            (let* ((button-text-prefix
-                    (when dotspacemacs-show-startup-list-numbers
-                      (format "%2s" (number-to-string
-                                     spacemacs-buffer--startup-list-nr))))
-                   (button-text-project
+            (let* ((group-remote-p (file-remote-p (car group)))
+                   (button-prefix
                     (concat
+                     "\n    "
                      (when dotspacemacs-show-startup-list-numbers
-                       (concat button-text-prefix " "))
-                     (abbreviate-file-name (car group)))))
+                       (format "%2s " (number-to-string spacemacs-buffer--startup-list-nr)))
+                     " "
+                     (when dotspacemacs-startup-buffer-show-icons
+                       (if group-remote-p
+                           (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust -0.05)
+                         (all-the-icons-icon-for-dir (car group))))
+                     " "))
+                   (button-text-project (abbreviate-file-name (car group))))
+              (insert button-prefix)
               (widget-create 'push-button
                              :action `(lambda (&rest ignore)
                                         (find-file-existing ,(car group)))
@@ -984,16 +1053,20 @@ GROUPED-LIST: a list of string pathnames made interactive in this function."
               (setq spacemacs-buffer--startup-list-nr
                     (1+ spacemacs-buffer--startup-list-nr))
               (mapc (lambda (el)
-                      (let* ((button-text-prefix
-                              (when dotspacemacs-show-startup-list-numbers
-                                (format "%2s" (number-to-string
-                                               spacemacs-buffer--startup-list-nr))))
-                             (button-text-filename
+                      (let* ((button-prefix
                               (concat
+                               "\n        "
                                (when dotspacemacs-show-startup-list-numbers
-                                 (concat button-text-prefix " "))
-                               (abbreviate-file-name el))))
-                        (insert "\n        ")
+                                 (format "%2s " (number-to-string spacemacs-buffer--startup-list-nr)))
+                               " "
+                               (when dotspacemacs-startup-buffer-show-icons
+                                 (if (or group-remote-p
+                                         (file-remote-p (concat (car group) el)))
+                                     (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust -0.05)
+                                   (all-the-icons-icon-for-file (file-name-nondirectory el) :height 0.8 :v-adjust -0.05)))
+                               " "))
+                             (button-text-filename (abbreviate-file-name el)))
+                        (insert button-prefix)
                         (widget-create 'push-button
                                        :action `(lambda (&rest ignore)
                                                   (find-file-existing
@@ -1015,20 +1088,28 @@ LIST: a list of string bookmark names made interactive in this function."
   (when (car list)
     (insert list-display-name)
     (mapc (lambda (el)
-            (insert "\n    ")
             (let* ((filename (bookmark-get-filename el))
-                   (button-text-prefix
-                    (when dotspacemacs-show-startup-list-numbers
-                      (format "%2s" (number-to-string
-                                     spacemacs-buffer--startup-list-nr))))
-                   (button-text
+                   (button-prefix
                     (concat
+                     "\n    "
                      (when dotspacemacs-show-startup-list-numbers
-                       (concat button-text-prefix " "))
-                     (if filename
-                         (format "%s - %s"
-                                 el (abbreviate-file-name filename))
-                       (format "%s" el)))))
+                       (format "%2s " (number-to-string spacemacs-buffer--startup-list-nr)))
+                     " "
+                     (when dotspacemacs-startup-buffer-show-icons
+                       (cond
+                        ((file-remote-p filename)
+                         (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust -0.05))
+                        ((file-directory-p filename)
+                         (all-the-icons-icon-for-dir filename))
+                        (t
+                         (all-the-icons-icon-for-file (file-name-nondirectory filename) :height 0.8 :v-adjust -0.05))))
+                     " "))
+                   (button-text
+                    (if filename
+                        (format "%s - %s"
+                                el (abbreviate-file-name filename))
+                      (format "%s" el))))
+              (insert button-prefix)
               (widget-create 'push-button
                              :action `(lambda (&rest ignore) (bookmark-jump ,el))
                              :mouse-face 'highlight
@@ -1045,13 +1126,11 @@ LIST: a list of string bookmark names made interactive in this function."
 TYPES: list of `org-mode' types to fetch."
   (require 'org-agenda)
   (let ((date (calendar-gregorian-from-absolute (org-today))))
-    (apply #'append
-           (cl-loop for file in (org-agenda-files nil 'ifmode)
-                    collect
-                    (spacemacs-buffer//make-org-items
+    (cl-loop for file in (org-agenda-files nil 'ifmode)
+             append (spacemacs-buffer//make-org-items
                      file
                      (apply 'org-agenda-get-day-entries file date
-                            types))))))
+                            types)))))
 
 (defun spacemacs-buffer//agenda-list ()
   "Return today's agenda."
@@ -1067,23 +1146,17 @@ TYPES: list of `org-mode' types to fetch."
   "Make a spacemacs-buffer org item list.
 FILE: file name.
 ITEMS:"
-  (cl-loop
-   for item in items
-   collect
-   (spacemacs-buffer//make-org-item file item)))
+  (cl-loop for item in items
+           collect (spacemacs-buffer//make-org-item file item)))
 
 (defun spacemacs-buffer//make-org-item (file item)
   "Make a spacemacs-buffer version of an org item.
 FILE: file name.
 ITEM:"
-  (list (cons "text"
-              (get-text-property 0 'txt item))
-        (cons "file" file)
-        (cons "pos"
-              (marker-position
-               (get-text-property 0 'org-marker item)))
-        (cons "time"
-              (get-text-property 0 'time item))))
+  `(("text" . ,(get-text-property 0 'txt item))
+    ("file" . ,file)
+    ("pos"  . ,(marker-position (get-text-property 0 'org-marker item)))
+    ("time" . ,(get-text-property 0 'time item))))
 
 (defun spacemacs-buffer//org-jump (el)
   "Action executed when using an item in the home buffer's todo list.
@@ -1122,25 +1195,27 @@ LIST: list of `org-agenda' entries in the todo list."
                          (string< (cdr (assoc "time" a))
                                   (cdr (assoc "time" b))))))))
     (mapc (lambda (el)
-            (insert "\n    ")
-            (let* ((button-text-prefix
-                    (when dotspacemacs-show-startup-list-numbers
-                      (format "%2s" (number-to-string
-                                     spacemacs-buffer--startup-list-nr))))
-                   (button-text
+            (let* ((button-prefix
                     (concat
+                     "\n    "
                      (when dotspacemacs-show-startup-list-numbers
-                       (concat button-text-prefix " "))
-                     (format "%s %s %s"
-                             (let ((filename (cdr (assoc "file" el))))
-                               (if dotspacemacs-home-shorten-agenda-source
-                                   (file-name-nondirectory filename)
-                                 (abbreviate-file-name filename)))
-                             (if (not (eq "" (cdr (assoc "time" el))))
-                                 (format "- %s -"
-                                         (cdr (assoc "time" el)))
-                               "-")
-                             (cdr (assoc "text" el))))))
+                       (format "%2s " (number-to-string spacemacs-buffer--startup-list-nr)))
+                     " "
+                     (when dotspacemacs-startup-buffer-show-icons
+                       (all-the-icons-octicon "primitive-dot" :height 1.0 :v-adjust 0.01))
+                     " "))
+                   (button-text
+                    (format "%s %s %s"
+                            (let ((filename (cdr (assoc "file" el))))
+                              (if dotspacemacs-home-shorten-agenda-source
+                                  (file-name-nondirectory filename)
+                                (abbreviate-file-name filename)))
+                            (if (not (eq "" (cdr (assoc "time" el))))
+                                (format "- %s -"
+                                        (cdr (assoc "time" el)))
+                              "-")
+                            (cdr (assoc "text" el)))))
+              (insert button-prefix)
               (widget-create 'push-button
                              :action `(lambda (&rest ignore)
                                         (spacemacs-buffer//org-jump ',el))
@@ -1173,24 +1248,51 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
     (cl-subseq seq start (and (number-or-marker-p end)
                               (min len end)))))
 
+(defmacro spacemacs-buffer||propertize-heading (icon text shortcut-char)
+  `(concat (when dotspacemacs-startup-buffer-show-icons
+             (concat ,icon " "))
+           (propertize ,text 'face 'font-lock-keyword-face)
+           (propertize (concat " (" ,shortcut-char ")")
+                       'face 'font-lock-comment-face)))
+
 (defun spacemacs-buffer//insert-errors ()
   (when (spacemacs-buffer//insert-string-list
-         "Errors:" spacemacs-buffer--errors)
+         (spacemacs-buffer||propertize-heading
+          (when dotspacemacs-startup-buffer-show-icons
+            (all-the-icons-material "error" :face 'font-lock-keyword-face))
+          "Errors:" "e")
+         spacemacs-buffer--errors)
     (spacemacs-buffer||add-shortcut "e" "Errors:")
     (insert spacemacs-buffer-list-separator)))
 
 (defun spacemacs-buffer//insert-warnings ()
   (when (spacemacs-buffer//insert-string-list
-         "Warnings:" spacemacs-buffer--warnings)
+         (spacemacs-buffer||propertize-heading
+          (when dotspacemacs-startup-buffer-show-icons
+            (all-the-icons-material "warning" :face 'font-lock-keyword-face))
+          "Warnings:" "w")
+         spacemacs-buffer--warnings)
     (spacemacs-buffer||add-shortcut "w" "Warnings:")
     (insert spacemacs-buffer-list-separator)))
 
 (defun spacemacs-buffer//insert-recent-files (list-size)
   (unless recentf-mode (recentf-mode))
   (setq spacemacs-buffer//recent-files-list
-        (spacemacs//subseq recentf-list 0 list-size))
+        (let ((agenda-files (if (fboundp 'org-agenda-files)
+                                (mapcar #'expand-file-name (org-agenda-files))
+                              nil)))
+          (cl-delete-if (lambda (x)
+                          (or (when (and (bound-and-true-p org-directory) (file-exists-p org-directory))
+                                (member x (directory-files org-directory t)))
+                              (member x agenda-files)))
+                        recentf-list)))
+  (setq spacemacs-buffer//recent-files-list
+        (spacemacs//subseq spacemacs-buffer//recent-files-list 0 list-size))
   (when (spacemacs-buffer//insert-file-list
-         "Recent Files:"
+         (spacemacs-buffer||propertize-heading
+          (when dotspacemacs-startup-buffer-show-icons
+            (all-the-icons-octicon "history" :face 'font-lock-keyword-face :v-adjust -0.05))
+          "Recent Files:" "r")
          spacemacs-buffer//recent-files-list)
     (spacemacs-buffer||add-shortcut "r" "Recent Files:"))
   (insert spacemacs-buffer-list-separator))
@@ -1199,7 +1301,10 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
   (unless recentf-mode (recentf-mode))
   (unless projectile-mode (projectile-mode))
   (when (spacemacs-buffer//insert-files-by-dir-list
-         "Recent Files by Project:"
+         (spacemacs-buffer||propertize-heading
+          (when dotspacemacs-startup-buffer-show-icons
+            (all-the-icons-octicon "rocket" :face 'font-lock-keyword-face :v-adjust -0.05))
+          "Recent Files by Project:" "R")
          (mapcar (lambda (group)
                    (cons (car group)
                          (spacemacs//subseq (reverse (cdr group))
@@ -1213,15 +1318,21 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
 
 (defun spacemacs-buffer//insert-todos (list-size)
   (when (spacemacs-buffer//insert-todo-list
-         "ToDo:"
+         (spacemacs-buffer||propertize-heading
+          (when dotspacemacs-startup-buffer-show-icons
+            (all-the-icons-octicon "check" :face 'font-lock-keyword-face :v-adjust -0.05))
+          "To-Do:" "d")
          (spacemacs//subseq (spacemacs-buffer//todo-list)
                             0 list-size))
-    (spacemacs-buffer||add-shortcut "d" "ToDo:")
+    (spacemacs-buffer||add-shortcut "d" "To-Do:")
     (insert spacemacs-buffer-list-separator)))
 
 (defun spacemacs-buffer//insert-agenda (list-size)
   (when (spacemacs-buffer//insert-todo-list
-         "Agenda:"
+         (spacemacs-buffer||propertize-heading
+          (when dotspacemacs-startup-buffer-show-icons
+            (all-the-icons-octicon "calendar" :face 'font-lock-keyword-face :v-adjust -0.05))
+          "Agenda:" "c")
          (spacemacs//subseq (spacemacs-buffer//agenda-list)
                             0 list-size))
     (spacemacs-buffer||add-shortcut "c" "Agenda:")
@@ -1232,7 +1343,10 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
     (helm-mode))
   (require 'bookmark)
   (when (spacemacs-buffer//insert-bookmark-list
-         "Bookmarks:"
+         (spacemacs-buffer||propertize-heading
+          (when dotspacemacs-startup-buffer-show-icons
+            (all-the-icons-octicon "bookmark" :face 'font-lock-keyword-face :v-adjust -0.05))
+          "Bookmarks:" "b")
          (spacemacs//subseq (bookmark-all-names)
                             0 list-size))
     (spacemacs-buffer||add-shortcut "b" "Bookmarks:")
@@ -1241,7 +1355,10 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
 (defun spacemacs-buffer//insert-projects (list-size)
   (unless projectile-mode (projectile-mode))
   (when (spacemacs-buffer//insert-file-list
-         "Projects:"
+         (spacemacs-buffer||propertize-heading
+          (when dotspacemacs-startup-buffer-show-icons
+            (all-the-icons-octicon "rocket" :face 'font-lock-keyword-face :v-adjust -0.05))
+          "Projects:" "p")
          (spacemacs//subseq (projectile-relevant-known-projects)
                             0 list-size))
     (spacemacs-buffer||add-shortcut "p" "Projects:")
@@ -1252,23 +1369,31 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
 (defun spacemacs-buffer//do-insert-startupify-lists ()
   "Insert the startup lists in the current buffer."
   (setq spacemacs-buffer--startup-list-nr 1)
-  (dolist (els (append '(warnings) dotspacemacs-startup-lists))
-    (let ((el (or (car-safe els) els))
-          (list-size (or (cdr-safe els)
-                         spacemacs-buffer-startup-lists-length)))
-      (cond
-       ((eq el 'warnings)
-        (spacemacs-buffer//insert-errors)
-        (spacemacs-buffer//insert-warnings))
-       ((eq el 'recents) (spacemacs-buffer//insert-recent-files list-size))
-       ((eq el 'recents-by-project)
-        (spacemacs-buffer//insert-recent-files-by-project list-size))
-       ((eq el 'todos) (spacemacs-buffer//insert-todos list-size))
-       ((eq el 'agenda) (spacemacs-buffer//insert-agenda list-size))
-       ((eq el 'bookmarks) (spacemacs-buffer//insert-bookmarks list-size))
-       ((and (eq el 'projects)
-             (fboundp 'projectile-mode))
-        (spacemacs-buffer//insert-projects list-size))))))
+  (let ((dotspacemacs-startup-buffer-show-icons dotspacemacs-startup-buffer-show-icons))
+    (if (display-graphic-p)
+        (unless (configuration-layer/package-used-p 'all-the-icons)
+          (message "Package `all-the-icons' isn't installed")
+          (setq dotspacemacs-startup-buffer-show-icons nil))
+      (setq dotspacemacs-startup-buffer-show-icons nil))
+    (when dotspacemacs-startup-buffer-show-icons
+      (require 'all-the-icons))
+    (dolist (els (append '(warnings) dotspacemacs-startup-lists))
+      (let ((el (or (car-safe els) els))
+            (list-size (or (cdr-safe els)
+                           spacemacs-buffer-startup-lists-length)))
+        (cond
+         ((eq el 'warnings)
+          (spacemacs-buffer//insert-errors)
+          (spacemacs-buffer//insert-warnings))
+         ((eq el 'recents) (spacemacs-buffer//insert-recent-files list-size))
+         ((eq el 'recents-by-project)
+          (spacemacs-buffer//insert-recent-files-by-project list-size))
+         ((eq el 'todos) (spacemacs-buffer//insert-todos list-size))
+         ((eq el 'agenda) (spacemacs-buffer//insert-agenda list-size))
+         ((eq el 'bookmarks) (spacemacs-buffer//insert-bookmarks list-size))
+         ((and (eq el 'projects)
+               (fboundp 'projectile-mode))
+          (spacemacs-buffer//insert-projects list-size)))))))
 
 (defun spacemacs-buffer//get-buffer-width ()
   "Return the length of longest line in the current buffer."
@@ -1277,8 +1402,7 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
     (let ((current-max 0))
       (while (not (eobp))
         (let ((line-length (- (line-end-position) (line-beginning-position))))
-          (if (< current-max line-length)
-              (setq current-max line-length)))
+          (setq current-max (max current-max line-length)))
         (forward-line 1))
       current-max)))
 
@@ -1287,12 +1411,11 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
   (let* ((lists-width (spacemacs-buffer//get-buffer-width))
          (margin (max 0 (- spacemacs-buffer--buttons-position
                            spacemacs-buffer-buttons-startup-lists-offset)))
-         (final-padding (if (< spacemacs-buffer--window-width
-                               (+ margin lists-width))
-                            (max 0 (floor (/ (- spacemacs-buffer--window-width
-                                                lists-width)
-                                             2)))
-                          margin)))
+         (width-diff (- spacemacs-buffer--window-width lists-width))
+         (final-padding (cond
+                         ((>= width-diff margin) margin)
+                         ((< width-diff 0)       0)
+                         (t                      (floor (/ width-diff 2))))))
     (goto-char (point-min))
     (while (not (eobp))
       (beginning-of-line)
@@ -1321,13 +1444,6 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
       (search-forward "[")
       (left-char 2))))
 
-(defvar spacemacs-buffer--idle-numbers-timer nil
-  "This stores the idle numbers timer.")
-
-(defvar spacemacs-buffer--startup-list-number nil
-  "This accumulates the numbers that are typed in the home buffer.
-It's cleared when the idle timer runs.")
-
 (defun spacemacs-buffer/jump-to-number-startup-list-line ()
   "Jump to the startup list line with the typed number.
 
@@ -1337,7 +1453,10 @@ can be adjusted with the variable:
   (interactive)
   (when spacemacs-buffer--idle-numbers-timer
     (cancel-timer spacemacs-buffer--idle-numbers-timer))
-  (let* ((key-pressed-string (string last-input-event)))
+  (let* ((key-pressed-string (string-trim-left (if (characterp last-input-event)
+                                                   (string last-input-event)
+                                                 (format "%s" last-input-event))
+                                               "kp-")))
     (setq spacemacs-buffer--startup-list-number
           (concat spacemacs-buffer--startup-list-number key-pressed-string))
     (let (message-log-max) ; only show in minibuffer
@@ -1347,29 +1466,25 @@ can be adjusted with the variable:
            dotspacemacs-startup-buffer-multi-digit-delay nil
            'spacemacs-buffer/stop-waiting-for-additional-numbers))))
 
-(defun spacemacs-buffer//re-line-starts-with-nr-space (nr-string)
-  (concat "^\s?*" nr-string " "))
-
 (defun spacemacs-buffer/jump-to-line-starting-with-nr-space (nr-string)
-  "Jump to the line number that starts with NR."
+  "Jump to the line begins with NR-STRING, skipping non-digit prefix."
   (let ((prev-point (point)))
     (goto-char (window-start))
     (if (not (re-search-forward
-              (spacemacs-buffer//re-line-starts-with-nr-space nr-string)
+              (concat "^ +" nr-string "[0-9]* +. ")
               ;; don't search past two lines above the window-end,
               ;; because they bottom two lines are hidden by the mode line
               (save-excursion (goto-char (window-end))
                               (forward-line -1)
                               (point))
               'noerror))
-        (progn (goto-char prev-point)
-               (let (message-log-max) ; only show in minibuffer
-                 (message "Couldn't find startup list number: %s"
-                          spacemacs-buffer--startup-list-number)))
-      (back-to-indentation)
+        (progn
+          (goto-char prev-point)
+          (let (message-log-max) ; only show in minibuffer
+            (message "Couldn't find startup list number: %s"
+                     spacemacs-buffer--startup-list-number)))
       (message "Opening file/dir: %s"
-               (replace-regexp-in-string "^\s*" ""
-                (widget-value (widget-at (point)))))
+               (widget-value (widget-at (point))))
       (widget-button-press (point)))))
 
 (defun spacemacs-buffer/stop-waiting-for-additional-numbers ()
@@ -1397,9 +1512,6 @@ can be adjusted with the variable:
       (spacemacs-buffer-mode))
     (force-mode-line-update)
     (spacemacs-buffer/goto-link-line)))
-
-(defvar spacemacs-buffer--last-width nil
-  "Previous width of spacemacs-buffer.")
 
 (defun spacemacs-buffer/goto-buffer (&optional refresh)
   "Create the special buffer for `spacemacs-buffer-mode' and switch to it.
@@ -1433,10 +1545,10 @@ If a prefix argument is given, switch to it in an other, possibly new window."
           (spacemacs-buffer/insert-banner-and-buttons)
           (when (bound-and-true-p spacemacs-initialized)
             (spacemacs-buffer//notes-redisplay-current-note)
-            (configuration-layer/display-summary emacs-start-time)
             (when dotspacemacs-startup-lists
               (spacemacs-buffer/insert-startup-lists))
             (spacemacs-buffer//insert-footer)
+            (configuration-layer/display-summary emacs-start-time)
             (spacemacs-buffer/set-mode-line spacemacs--default-mode-line)
             (force-mode-line-update)
             (spacemacs-buffer-mode)))
@@ -1482,7 +1594,24 @@ If a prefix argument is given, switch to it in an other, possibly new window."
   (spacemacs-buffer/goto-buffer t))
 
 (defalias 'spacemacs/home 'spacemacs-buffer/refresh
-  "Go to home Spacemacs buffer")
+  "Go to Spacemacs home buffer.")
+
+(defun spacemacs-buffer/return ()
+  "Open the button or go to next line.
+
+This function is intended to be used in `spacemacs-buffer-mode' only."
+  (interactive)
+  (if (get-char-property (point) 'button)
+      ;; point on a button, press it
+      (widget-button-press (point))
+    ;; point on an entry, press it
+    (if-let ((button (save-excursion
+                       (beginning-of-line-text)
+                       (re-search-forward "[0-9]* +. " (point-at-eol) 'noerror))))
+        (widget-button-press button)
+      ;; go to next line
+      (forward-line)
+      (beginning-of-line-text))))
 
 (defun spacemacs/home-delete-other-windows ()
   "Open home Spacemacs buffer and delete other windows.

@@ -1,6 +1,6 @@
 ;;; packages.el --- Spacemacs UI Visual Layer packages File
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -23,6 +23,7 @@
 
 (setq spacemacs-visual-packages
       '(
+        all-the-icons
         (ansi-colors :location built-in)
         desktop
         ;; `display-fill-column-indicator' is available in Emacs 27+
@@ -34,6 +35,9 @@
         popwin
         (zoom-frm :location local)))
 
+(defun spacemacs-visual/init-all-the-icons ()
+  (use-package all-the-icons
+    :defer t))
 
 (defun spacemacs-visual/init-ansi-colors ()
   (add-hook 'compilation-filter-hook

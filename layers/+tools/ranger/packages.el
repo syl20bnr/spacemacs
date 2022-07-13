@@ -1,6 +1,6 @@
 ;;; packages.el --- ranger Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Rich Alesi
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
@@ -22,12 +22,11 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq ranger-packages
-      '(
-        (dired :location built-in)
-        golden-ratio
-        ranger
-        ))
+(defconst ranger-packages
+  '(
+    (dired :location built-in)
+    golden-ratio
+    ranger))
 
 (defun ranger//set-leader-keys ()
   (spacemacs/declare-prefix "atr" "ranger/deer")

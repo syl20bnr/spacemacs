@@ -1,6 +1,6 @@
 ;;; packages.el --- zig layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author:  <mijoharas@archlinux>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -27,4 +27,4 @@
 
 (defun zig/init-zig-mode ()
   (use-package zig-mode
-    :hook (zig-mode-hook . spacemacs//zig-setup-backend)))
+    :hook (zig-mode . spacemacs//zig-setup-backend)))

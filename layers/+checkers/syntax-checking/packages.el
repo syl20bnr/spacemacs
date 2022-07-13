@@ -1,6 +1,6 @@
 ;;; packages.el --- Syntax Checking Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -21,12 +21,12 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq syntax-checking-packages
-      '(
-        flycheck
-        flycheck-pos-tip
-        popwin
-        ))
+(defconst syntax-checking-packages
+  '(
+    flycheck
+    flycheck-pos-tip
+    popwin))
+
 
 (defun syntax-checking/init-flycheck ()
   (use-package flycheck
@@ -120,10 +120,5 @@
 (defun syntax-checking/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
     :post-config
-    (push '("^\\*Flycheck.+\\*$"
-            :regexp t
-            :dedicated t
-            :position bottom
-            :stick t
-            :noselect t)
+    (push syntax-checking--buffer-config
           popwin:special-display-config)))

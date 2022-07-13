@@ -45,3 +45,16 @@ you use a =dotspacemacs-editing-style= other than ='vim= or a
 =dotspacemacs-folding-method= other than ='evil=, it's likely that you'll find
 the integration with =ts-fold= wanting. Contributions are encouraged!
 Default: =nil=.
+
+Set =spacemacs-tree-sitter-hl-black-list= for a list of modes that should
+not enable highlight by =tree-sitter-hl-mode=, such as
+=js2-mode= and =rjsx-mode= for example.
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+                (tree-sitter :variables
+                             spacemacs-tree-sitter-hl-black-list '(js2-mode rjsx-mode)
+                             tree-sitter-syntax-highlight-enable t
+                             tree-sitter-fold-enable t
+                             tree-sitter-fold-indicators-enable nil))
+#+END_SRC

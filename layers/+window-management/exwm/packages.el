@@ -1,6 +1,6 @@
 ;;; packages.el --- EXWM Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -23,8 +23,7 @@
 
 (defconst exwm-packages
   '((xdg :location built-in)
-    (desktop-environment :location (recipe :fetcher github
-                                           :repo "DamienCassou/desktop-environment"))
+    desktop-environment
     (helm-exwm :toggle (configuration-layer/package-used-p 'helm))
     (evil-exwm-state :toggle (configuration-layer/package-used-p 'evil)
                      :location (recipe :fetcher github

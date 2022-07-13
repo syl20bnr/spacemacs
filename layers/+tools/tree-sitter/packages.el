@@ -1,6 +1,6 @@
 ;;; packages.el --- tree-sitter layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Elliott Shugerman <eeshugerman@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -37,7 +37,7 @@
     :init
     (progn
       (when tree-sitter-syntax-highlight-enable
-       (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)))
+        (add-hook 'tree-sitter-after-on-hook #'spacemacs//tree-sitter-hl-maybe)))
     :config
     (progn
       (global-tree-sitter-mode))))

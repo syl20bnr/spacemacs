@@ -1,6 +1,6 @@
 ;;; packages.el --- mu4e Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -168,7 +168,14 @@ mu4e-use-maildirs-extension-load to be evaluated after mu4e has been loaded."
 (defun mu4e/pre-init-org ()
   (if mu4e-org-link-support
       (with-eval-after-load 'org
-        (require 'mu4e-meta)
+        ;; This is a dirty hack due to mu(4e) 1.8.2 renaming mu4e-meta to
+        ;; mu4e-config.  See also
+        ;; https://github.com/djcb/mu/commit/cf0f72e4a48ac7029d7f6758b182d4bb559f8f49
+        ;; and https://github.com/syl20bnr/spacemacs/issues/15618.  This code
+        ;; used to simply read: (require 'mu4e-meta).  We now attempt to load
+        ;; mu4e-config.  If this fails, load mu4e-meta.
+        (unless (ignore-errors (require 'mu4e-config))
+          (require 'mu4e-meta))
         (if (version<= mu4e-mu-version "1.3.5")
             (require 'org-mu4e)
           (require 'mu4e-org))

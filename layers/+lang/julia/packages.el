@@ -1,6 +1,6 @@
 ;;; packages.el --- Julia layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Adam Beckmeyer <adam_git@thebeckmeyers.xyz>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -101,7 +101,7 @@
     (progn
       (add-hook
        'julia-mode-hook
-       #'(lambda ()
+       (lambda ()
            (add-to-list 'evil-surround-pairs-alist '(?b . ("begin " . " end")))
            (add-to-list 'evil-surround-pairs-alist '(?q . ("quote " . " end")))
            (add-to-list 'evil-surround-pairs-alist '(?: . (":("     .    ")")))

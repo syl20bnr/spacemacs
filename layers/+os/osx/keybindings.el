@@ -1,6 +1,6 @@
 ;;; keybindings.el --- OSX Layer keybindings File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -94,10 +94,7 @@ default."
   (global-set-key (kbd-mac-command "n") 'make-frame)
   (global-set-key (kbd-mac-command "`") 'other-frame)
   (global-set-key (kbd-mac-command "z") 'undo-tree-undo)
-  (global-set-key (kbd-mac-command "s")
-                  (lambda ()
-                    (interactive)
-                    (call-interactively (key-binding "\C-x\C-s"))))
+  (global-set-key (kbd-mac-command "s") 'save-buffer)
 
   ;; window manipulation with command key
   (global-set-key (kbd-mac-command "1") 'spacemacs/winum-select-window-1)

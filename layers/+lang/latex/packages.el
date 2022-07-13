@@ -1,6 +1,6 @@
 ;;; packages.el --- Latex Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -24,7 +24,8 @@
 (defconst latex-packages
   '(
     auctex
-    (auctex-latexmk :toggle (string= "LatexMk" latex-build-command))
+    (auctex-latexmk :location (recipe :fetcher github :repo "smile13241324/auctex-latexmk")
+                    :toggle (string= "LatexMk" latex-build-command))
     company
     math-symbol-lists
     (company-math :requires company math-symbol-lists)
@@ -32,6 +33,7 @@
     (company-reftex :requires company)
     counsel-gtags
     evil-matchit
+    evil-tex
     flycheck
     flyspell
     ggtags
@@ -195,6 +197,19 @@
 
 (defun latex/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'LaTeX-mode-hook))
+
+(defun latex/init-evil-tex ()
+  (use-package evil-tex
+    :defer t
+    :init
+    (progn
+      (add-hook 'LaTeX-mode-hook #'evil-tex-mode)
+      (setq evil-tex-toggle-override-m nil)
+      (setq evil-tex-toggle-override-t nil))
+    :config
+    (spacemacs/declare-prefix-for-mode 'latex-mode "mq"
+      (cons "evil-tex toggles" evil-tex-toggle-map))))
+
 
 (defun latex/init-reftex ()
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)

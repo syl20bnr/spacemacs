@@ -1,6 +1,6 @@
 ;;; ox-gfm.el --- GitHub Flavored Markdown Back-End for Org Export Engine
 
-;; Copyright (C) 2014 Lars Tveito
+;; Copyright (C) 2014-2022 Lars Tveito
 
 ;; Author: Lars Tveito
 ;; Keywords: org, wp, markdown, github

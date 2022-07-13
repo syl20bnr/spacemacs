@@ -23,6 +23,7 @@
   - [[#tests][Tests]]
   - [[#coverage][Coverage]]
   - [[#guru][Guru]]
+  - [[#debug][Debug]]
 - [[#key-bindings][Key bindings]]
   - [[#go-commands-start-with-m][Go commands (start with =m=):]]
   - [[#go-guru][Go Guru]]
@@ -90,7 +91,7 @@ prepared you can simply run below command to install:
 **** Debugger
 Using the =dap= layer you'll get access to a graphical debugger integration.
 To do so add the layer =dap= to your dotfile. For a complete list of key bindings
-see the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
+see the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]]. See [[#debug][debugger configuration]] for options.
 
 *** go-mode (deprecated)
 This was the old elisp based go backend. Since the introduction of
@@ -258,6 +259,19 @@ If you would like to use the =Go Guru= bindings in your work, in your project yo
 will need to set the scope with ~SPC m f o~. The scope is a comma separated set
 of packages, and Go's recursive operator is supported. In addition, you can
 prefix it with =-= to exclude a package from searching.
+
+** Debug
+Currently there are two implementations to integrate with the dap debugger in golang,
+=dap-go= (which depends on a vscode extension) which is
+depreciated and =dap-dlv-go= the default choice which is self-contained.
+More details about both can be found [[https://emacs-lsp.github.io/dap-mode/page/configuration/#go][here]].
+
+By default =dap-dlv-go= is used, however it is also possible to use the legacy
+integration =dap-go,= to do so set the layer variable =go-dap-mode= as shown below:
+
+#+BEGIN_SRC emacs-lisp
+  (go :variables go-dap-mode 'dap-go)
+#+END_SRC
 
 * Key bindings
 ** Go commands (start with =m=):

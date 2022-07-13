@@ -1,6 +1,6 @@
 ;;; packages.el --- Factor Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: timor <timor.dd@googlemail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -100,7 +100,8 @@
         "Sv" 'fuel-scaffold-vocab
         )
 
-      (evilified-state-evilify fuel-help-mode fuel-help-mode-map)
+      (evilified-state-evilify-map fuel-help-mode-map
+        :mode fuel-help-mode)
       (dolist (mode '(fuel-debug-uses-mode fuel-debug-mode))
         (evil-set-initial-state mode 'insert))))
   )

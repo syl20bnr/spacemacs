@@ -1,6 +1,6 @@
 ;;; packages.el --- Notmuch Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -147,7 +147,9 @@
         (kbd "gr") 'notmuch-refresh-this-buffer
         (kbd "gR") 'notmuch-refresh-all-buffers
         (kbd "G") 'notmuch-search-last-thread
-        (kbd "M") 'compose-mail-other-frame))))
+        (kbd "M") 'compose-mail-other-frame)
+
+      (spacemacs|add-company-backends :backends notmuch-company :modes notmuch-message-mode))))
 
 (defun notmuch/pre-init-org ()
   (spacemacs|use-package-add-hook org

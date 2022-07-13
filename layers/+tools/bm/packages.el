@@ -1,6 +1,6 @@
 ;;; packages.el --- bm Layer packages File
 ;;
-;; Copyright (c) 2012-2021 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
 ;; Author: Eugene "JAremko" Yaremenko <w3techplayground@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -61,7 +61,7 @@
               ;; Saving the repository to file when on exit.
               ;; kill-buffer-hook is not called when Emacs is killed, so we
               ;; must save all bookmarks first.
-              (add-hook 'kill-emacs-hook #'(lambda nil
+              (add-hook 'kill-emacs-hook (lambda nil
                                              (bm-buffer-save-all)
                                              (bm-repository-save)))
               ;; Restoring bookmarks
