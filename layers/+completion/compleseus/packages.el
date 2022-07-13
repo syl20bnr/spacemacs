@@ -310,10 +310,14 @@
 (defun compleseus/init-selectrum ()
   (use-package selectrum
     :init
+    ;; Disable ido. We want to use the regular find-file etc.; enhanced by selectrum
+    (setq ido-mode nil)
+
     (selectrum-mode)
     (spacemacs/set-leader-keys
       "rl" 'selectrum-repeat
       "sl" 'selectrum-repeat)
+
     :config
     ;; TODO can we just use `minibuffer-mode-map'?
     (define-key selectrum-minibuffer-map (kbd "C-j") 'selectrum-next-candidate)
@@ -351,6 +355,9 @@
     (setq vertico-resize nil
           vertico-count 20
           vertico-cycle nil)
+
+    ;; Disable ido. We want to use the regular find-file etc.; enhanced by vertico
+    (setq ido-mode nil)
 
     (vertico-mode)
 
