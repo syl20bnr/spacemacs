@@ -41,16 +41,17 @@
             flycheck-global-modes nil)
       ;; key bindings
       (spacemacs/set-leader-keys
-        "eb" 'flycheck-buffer
-        "ec" 'flycheck-clear
-        "eh" 'flycheck-describe-checker
-        "el" 'spacemacs/toggle-flycheck-error-list
-        "eL" 'spacemacs/goto-flycheck-error-list
-        "es" 'flycheck-select-checker
-        "eS" 'flycheck-set-checker-executable
-        "ev" 'flycheck-verify-setup
-        "ey" 'flycheck-copy-errors-as-kill
-        "ex" 'flycheck-explain-error-at-point)
+        "eb" #'flycheck-buffer
+        "ec" #'flycheck-clear
+        "ed" #'flycheck-disable-checker
+        "eh" #'flycheck-describe-checker
+        "el" #'spacemacs/toggle-flycheck-error-list
+        "eL" #'spacemacs/goto-flycheck-error-list
+        "es" #'flycheck-select-checker
+        "eS" #'flycheck-set-checker-executable
+        "ev" #'flycheck-verify-setup
+        "ey" #'flycheck-copy-errors-as-kill
+        "ex" #'flycheck-explain-error-at-point)
       (spacemacs|add-toggle syntax-checking
         :mode flycheck-mode
         :documentation "Enable error and syntax checking."
