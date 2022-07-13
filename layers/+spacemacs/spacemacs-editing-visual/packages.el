@@ -27,7 +27,6 @@
 (defconst spacemacs-editing-visual-packages
   '(
     column-enforce-mode
-    (evil-terminal-cursor-changer :toggle (configuration-layer/package-used-p 'evil))
     (hide-comnt :location (recipe :fetcher github :repo "emacsmirror/hide-comnt"))
     highlight-indentation
     highlight-numbers
@@ -60,13 +59,6 @@
         :documentation "Globally highlight the characters past the 80th column."
         :evil-leader "t C-8"))
     :spacediminish ("⑧" "8")))
-
-(defun spacemacs-editing-visual/init-evil-terminal-cursor-changer ()
-  (use-package evil-terminal-cursor-changer
-    :if (not (display-graphic-p))
-    :after evil
-    :defer t
-    :init (evil-terminal-cursor-changer-activate)))
 
 (defun spacemacs-editing-visual/init-hide-comnt ()
   (use-package hide-comnt
