@@ -12,10 +12,11 @@
   - [[#enablingdisabling-tooltips][Enabling/Disabling tooltips]]
   - [[#disabling-by-default][Disabling by default]]
   - [[#enable-flycheck-globally][Enable flycheck globally]]
-  - [[#enable-support-for-traditional-error-navigation][Enable support for traditional error navigation]]
+  - [[#error-list-pop-window-configuration][Error list pop window configuration]]
+  - [[#error-list-interaction][Error list interaction]]
+  - [[#enable-traditional-error-navigation][Enable traditional error navigation]]
   - [[#error-indication][Error indication]]
   - [[#auto-hide-tooltips][Auto hide tooltips]]
-  - [[#error-list-pop-window-configuration][Error list pop window configuration]]
 - [[#key-bindings][Key bindings]]
 
 * Description
@@ -73,13 +74,50 @@ This may result in loading slow or not properly configured checkers
 as well as break some of the more advanced configuration settings
 of the layer system.
 
-** Enable support for traditional error navigation
-By default spacemacs takes care to call the right function to jump
-to the next or previous error. However if wished flycheck can also
-override =next-error= and =previous-error= respectively allowing
-to use alternative general emacs bindings instead of the spacemacs
-specific ones. To do so set =syntax-checking-use-standard-error-navigation=
-to non-nil.
+** Error list pop window configuration
+By default, the =flycheck-error-list-mode= is displayed in a pop window to the
+bottom of the frame, with 30% of the frame's height.
+
+You can customize where the pop window is shown by setting the variable
+=syntax-checking-window-position= to one of ='bottom=, ='top=, ='left=, and
+='right=.
+
+You can also set the initial window width and height by setting
+=syntax-checking-window-width= and =syntax-checking-window-height= respectively,
+where an integer value is the number of columns it takes while a float value is
+the relative size to the current frame.
+
+For example, to have the pop window appear on the right side of the frame with
+60 columns:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((syntax-checking :variables
+                       syntax-checking-window-position 'right
+                       syntax-checking-window-width 60
+#+END_SRC
+
+** Error list interaction
+Inside =flycheck-error-list-mode= pop window, the following key bindings are
+available:
+
+| Key binding | Description                                                       |
+|-------------+-------------------------------------------------------------------|
+| ~j~/~k~     | Move focus to next/previous error and show it in the main buffer. |
+| ~J~/~K~     | Move focus to next/previous error.                                |
+| ~RET~       | Go to the selected error.                                         |
+| ~f~         | Filter errors by urgency.                                         |
+| ~F~         | Remove any filter.                                                |
+| ~g~         | Refresh error list.                                               |
+| ~e~         | Explain the selected error, if the checker supports it.           |
+
+** Enable traditional error navigation
+By default Spacemacs takes care to call the right function to jump to the next
+or previous error. However if wished =flycheck= can also override =next-error=
+and =previous-error=, allowing to use alternative general emacs bindings instead
+of those Spacemacs specific ones. See [[https://www.flycheck.org/en/latest/user/error-interaction.html#navigate-errors][the manual]] for detailed explanation.
+
+To do so, set =syntax-checking-use-standard-error-navigation= to non-nil.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
@@ -137,28 +175,6 @@ are kept open until the cursor is moved.
     '((syntax-checking :variables syntax-checking-auto-hide-tooltips 10)))
 #+END_SRC
 
-** Error list pop window configuration
-By default, the =flycheck-error-list= is displayed in a pop window to the bottom
-of the frame, with 30% of the frame's height.
-
-You can customize where the pop window is shown by setting the variable
-=syntax-checking-window-position= to one of ='bottom=, ='top=, ='left=, and
-='right=.
-
-You can also set the initial window width and height by setting
-=syntax-checking-window-width= and =syntax-checking-window-height= respectively,
-where an integer value is the number of columns it takes while a float value is
-the relative size to the current frame.
-
-For example, to have the pop window appear on the right side of the frame with
-60 columns:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-    '((syntax-checking :variables
-                       syntax-checking-window-position 'right
-                       syntax-checking-window-width 60
-#+END_SRC
 
 * Key bindings
 
