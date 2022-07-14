@@ -69,9 +69,10 @@
       (evilified-state-evilify-map flycheck-error-list-mode-map
         :mode flycheck-error-list-mode
         :bindings
-        "RET" 'flycheck-error-list-goto-error
-        "j" 'flycheck-error-list-next-error
-        "k" 'flycheck-error-list-previous-error))))
+        "j" #'flycheck-error-list-next-error
+        "k" #'flycheck-error-list-previous-error
+        "J" #'next-line
+        "K" #'previous-line))))
 
 (defun syntax-checking/init-flycheck-pos-tip ()
   (use-package flycheck-pos-tip
