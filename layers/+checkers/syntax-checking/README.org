@@ -13,7 +13,7 @@
   - [[#disabling-by-default][Disabling by default]]
   - [[#enable-flycheck-globally][Enable flycheck globally]]
   - [[#enable-support-for-traditional-error-navigation][Enable support for traditional error navigation]]
-  - [[#bitmaps][Bitmaps]]
+  - [[#error-indication][Error indication]]
   - [[#auto-hide-tooltips][Auto hide tooltips]]
   - [[#window-position-and-size][Window position and size]]
 - [[#key-bindings][Key bindings]]
@@ -86,13 +86,43 @@ to non-nil.
     '((syntax-checking :variables syntax-checking-use-standard-error-navigation t)))
 #+END_SRC
 
-** Bitmaps
-If the original flycheck fringe bitmaps are more to your liking, you can set the
-variable =syntax-checking-use-original-bitmaps= to =t=:
+** Error indication
+By default, errors are indicated by a small circle on the left fringe of each
+window. The position of the indicator changed via =flycheck-indication-mode=.
+
+If =flycheck-indication-mode= is set to =left-fringe= or =right-fringe=, a
+bitmap is used for fringe indicator. Where the bitmap is a string or a vector of
+bits, see =define-fringe-bitmap= for details. The default fringe bitmap in
+Spacemacs is a small solid circle.
+
+If =flycheck-indication-mode= is set to =left-margin= or =right-margin=, a
+string is used for margin indicator. Spacemacs doesn't change the margin string
+so the default value is defined in =flycheck=.
+
+If =flycheck-indication-mode= is =nil=, no indicator is displayed.
+
+To change the fringe or margin indicator, you can customize
+=syntax-checking-indicatin-symbol=, which is cons cell of a fringe bitmap and
+margin string. When any of the element is nil, it's left to =flycheck= to
+determine a default indicator.
+
+For example, if you prefer the original fringe bitmap to Spacemacs's default:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '((syntax-checking :variables syntax-checking-use-original-bitmaps t)))
+    '((syntax-checking :variables
+                       ;; unset the first value to use flycheck's default fringe
+                       syntax-checking-indication-symbol '(nil . nil)))
+#+END_SRC
+
+Or say if you want to display the indicator on the =left-margin= as an asterisk,
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((syntax-checking :variables
+                       flycheck-indication-mode 'left-margin
+                       ;; set the second value for custom margin string
+                       syntax-checking-indication-symbol '(nil . "*"))))
 #+END_SRC
 
 ** Auto hide tooltips

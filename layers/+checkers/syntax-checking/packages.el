@@ -59,48 +59,12 @@
     :config
     (progn
       (spacemacs|diminish flycheck-mode " ⓢ" " s")
-      ;; Custom fringe indicator
-      (when (and (fboundp 'define-fringe-bitmap)
-                 (not syntax-checking-use-original-bitmaps))
-        (define-fringe-bitmap 'my-flycheck-fringe-indicator
-          (vector #b00000000
-                  #b00000000
-                  #b00000000
-                  #b00000000
-                  #b00000000
-                  #b00000000
-                  #b00000000
-                  #b00011100
-                  #b00111110
-                  #b00111110
-                  #b00111110
-                  #b00011100
-                  #b00000000
-                  #b00000000
-                  #b00000000
-                  #b00000000
-                  #b00000000)))
-      (let ((bitmap (if syntax-checking-use-original-bitmaps
-                        'flycheck-fringe-bitmap-double-arrow
-                      'my-flycheck-fringe-indicator)))
-        (flycheck-define-error-level 'error
-          :severity 2
-          :overlay-category 'flycheck-error-overlay
-          :fringe-bitmap bitmap
-          :error-list-face 'flycheck-error-list-error
-          :fringe-face 'flycheck-fringe-error)
-        (flycheck-define-error-level 'warning
-          :severity 1
-          :overlay-category 'flycheck-warning-overlay
-          :fringe-bitmap bitmap
-          :error-list-face 'flycheck-error-list-warning
-          :fringe-face 'flycheck-fringe-warning)
-        (flycheck-define-error-level 'info
-          :severity 0
-          :overlay-category 'flycheck-info-overlay
-          :fringe-bitmap bitmap
-          :error-list-face 'flycheck-error-list-info
-          :fringe-face 'flycheck-fringe-info))
+      ;; Custom fringe/margin indicator
+      (pcase-let ((`(,bitmap . ,margin-str) syntax-checking-indication-symbol))
+        (when (booleanp syntax-checking-use-original-bitmaps)
+          (warn "`syntax-checking-use-original-bitmaps' is deprecated. Use `syntax-checking-indication-symbol' instead.")
+          (setq bitmap (unless syntax-checking-use-original-bitmaps 'syntax-checking--fringe-indicator)))
+        (flycheck-redefine-standard-error-levels margin-str bitmap))
 
       (evilified-state-evilify-map flycheck-error-list-mode-map
         :mode flycheck-error-list-mode

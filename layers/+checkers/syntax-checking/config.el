@@ -20,6 +20,25 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;; a small circle used for flycheck-indication-mode
+(define-fringe-bitmap 'syntax-checking--fringe-indicator
+  (vector #b00000000
+          #b00000000
+          #b00000000
+          #b00000000
+          #b00000000
+          #b00000000
+          #b00000000
+          #b00011100
+          #b00111110
+          #b00111110
+          #b00111110
+          #b00011100
+          #b00000000
+          #b00000000
+          #b00000000
+          #b00000000
+          #b00000000))
 
 ;; Variables
 
@@ -35,9 +54,24 @@
   "Enable syntax-checking by default."
   '(boolean))
 
-(spacemacs|defc syntax-checking-use-original-bitmaps nil
-  "If non-nil, use the original bitmaps from flycheck."
-  '(boolean))
+(define-obsolete-variable-alias 'syntax-checking-use-original-bitmaps
+  'syntax-checking-indication-symbol "July 2022"
+  "If non-nil, use the original bitmaps from flycheck.")
+
+(spacemacs|defc syntax-checking-indication-symbol
+  '(syntax-checking--fringe-indicator . nil)
+  "The fringe bitmap or margin symbol used for `flycheck-indication-mode'.
+
+The value is a cons cell (BITMAP . MARGIN-STR), in which a nil value means the default
+symbol is chosen by `flycheck'.
+
+BITMAP      is a bitmap displayed in left or right fringe, which defaults to
+            a small circle as defined in `syntax-checking--fringe-indicator'.
+MARGIN-STR  is a string to be displayed in the margin (Defaults to nil).
+
+Note only one of BITMAP and MARGIN-STR is used, which is dictated by
+`flycheck-indication-mode'."
+  '(cons symbol string))
 
 (spacemacs|defc syntax-checking-use-standard-error-navigation nil
   "If non-nil hook into emacs standard error navigation."
