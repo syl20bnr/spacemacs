@@ -34,8 +34,8 @@ true."
   "Toggle flycheck's error list window.
 If the error list is visible, hide it.  Otherwise, show it."
   (interactive)
-  (-if-let (window (flycheck-get-error-list-window))
-      (quit-window nil window)
+  (if-let ((window (flycheck-get-error-list-window)))
+      (save-selected-window (quit-window nil window))
     (flycheck-list-errors)))
 
 (defun spacemacs/goto-flycheck-error-list ()
