@@ -79,15 +79,23 @@ Note only one of BITMAP and MARGIN-STR is used, which is dictated by
 
 (spacemacs|defc syntax-checking-window-position 'bottom
   "Popup window position."
-  '(choice (const bottom) (const left) (const right) (const top)))
+  '(choice :tag "Position"
+           (const :tag "Bottom" bottom)
+           (const :tag "Top" top)
+           (const :tag "Left" left)
+           (const :tag "Right" right)))
 
 (spacemacs|defc syntax-checking-window-width 0.3
-  "Popup window width in characters (int) or as percentage (float)."
-  '(number))
+  "Popup window width in columns (int) or as percentage (float)."
+  '(choice :tag "Width"
+           (integer :tag "Width")
+           (float :tag "Width (%)")))
 
 (spacemacs|defc syntax-checking-window-height 0.3
-  "Popup window height in characters (int) or as percentage (float)."
-  '(number))
+  "Popup window height in columns (int) or as percentage (float)."
+  '(choice :tag "Width"
+           (integer :tag "Width")
+           (float :tag "Width (%)")))
 
 
 ;; internals
