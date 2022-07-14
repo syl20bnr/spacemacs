@@ -92,12 +92,12 @@ Note only one of BITMAP and MARGIN-STR is used, which is dictated by
 
 ;; internals
 (defvar syntax-checking--buffer-config
-  "Internal syntax checking window position config."
-  `('^\\*Flycheck.+\\*$'
-    :regexp t
-    :dedicated t
-    :position ,syntax-checking-window-position
-    :width ,syntax-checking-window-width
-    :height ,syntax-checking-window-height
-    :stick t
-    :noselect t))
+  (list "^\\*Flycheck.+\\*$"
+        :regexp t
+        :dedicated t
+        :position syntax-checking-window-position
+        :width syntax-checking-window-width
+        :height syntax-checking-window-height
+        :stick t
+        :noselect t)
+  "Internal syntax checking window position config.")
