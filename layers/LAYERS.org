@@ -1556,6 +1556,7 @@ Features:
   - Arch Linux PKGBUILDs
   - Arduino
   - Android Logcat (not associated with any file types by default)
+  - Gemtext
   - Gentoo ebuilds
   - Hoon
   - MATLAB
