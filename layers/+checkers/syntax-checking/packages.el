@@ -20,6 +20,10 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;;; Commentary:
+
+;;; Code:
+
 
 (defconst syntax-checking-packages
   '(
@@ -27,10 +31,10 @@
     flycheck-pos-tip
     popwin))
 
-
 (defun syntax-checking/init-flycheck ()
   (use-package flycheck
     :defer t
+    :spacediminish (" ⓢ" " s")
     :init
     (progn
       (spacemacs|add-transient-hook prog-mode-hook
@@ -58,12 +62,12 @@
         :evil-leader "ts"))
     :config
     (progn
-      (spacemacs|diminish flycheck-mode " ⓢ" " s")
       ;; Custom fringe/margin indicator
       (pcase-let ((`(,bitmap . ,margin-str) syntax-checking-indication-symbol))
         (when (booleanp syntax-checking-use-original-bitmaps)
           (warn "`syntax-checking-use-original-bitmaps' is deprecated. Use `syntax-checking-indication-symbol' instead.")
-          (setq bitmap (unless syntax-checking-use-original-bitmaps 'syntax-checking--fringe-indicator)))
+          (setq bitmap (unless syntax-checking-use-original-bitmaps
+                         'syntax-checking--fringe-indicator)))
         (flycheck-redefine-standard-error-levels margin-str bitmap))
 
       (evilified-state-evilify-map flycheck-error-list-mode-map
@@ -77,9 +81,9 @@
 (defun syntax-checking/init-flycheck-pos-tip ()
   (use-package flycheck-pos-tip
     :if syntax-checking-enable-tooltips
-    :defer t
+    :after (flycheck)
     :init
-    (with-eval-after-load 'flycheck
+    (progn
       (flycheck-pos-tip-mode)
       (setq flycheck-pos-tip-timeout (or syntax-checking-auto-hide-tooltips 0)))))
 

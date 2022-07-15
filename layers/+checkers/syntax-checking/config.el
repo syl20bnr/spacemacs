@@ -20,6 +20,21 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;; Variables
+
+(spacemacs|defc syntax-checking-enable-by-default t
+  "If non-nil enable syntax-checking by default in `prog-mode'."
+  '(boolean))
+
+(spacemacs|defc syntax-checking-enable-tooltips t
+  "If non-nil display tooltips when hovering on errors."
+  '(boolean))
+
+(spacemacs|defc syntax-checking-auto-hide-tooltips nil
+  "Auto hide tooltips after the given number of seconds.
+If non-positive or nil, do not hide tooltip."
+  '(number))
+
 ;; a small circle used for flycheck-indication-mode
 (define-fringe-bitmap 'syntax-checking--fringe-indicator
   (vector #b00000000
@@ -40,20 +55,6 @@
           #b00000000
           #b00000000))
 
-;; Variables
-
-(spacemacs|defc syntax-checking-enable-tooltips t
-  "If non nil some feedback are displayed in tooltips."
-  '(boolean))
-
-(spacemacs|defc syntax-checking-auto-hide-tooltips nil
-  "If non-nil and positive number, auto hide tooltips after number of seconds."
-  '(natnum))
-
-(spacemacs|defc syntax-checking-enable-by-default t
-  "Enable syntax-checking by default."
-  '(boolean))
-
 (define-obsolete-variable-alias 'syntax-checking-use-original-bitmaps
   'syntax-checking-indication-symbol "July 2022"
   "If non-nil, use the original bitmaps from flycheck.")
@@ -62,11 +63,11 @@
   '(syntax-checking--fringe-indicator . nil)
   "The fringe bitmap or margin symbol used for `flycheck-indication-mode'.
 
-The value is a cons cell (BITMAP . MARGIN-STR), in which a nil value means the default
-symbol is chosen by `flycheck'.
+The value is a cons cell (BITMAP . MARGIN-STR), in which a nil value means the
+default indicator is chosen by `flycheck'.
 
-BITMAP      is a bitmap displayed in left or right fringe, which defaults to
-            a small circle as defined in `syntax-checking--fringe-indicator'.
+BITMAP      is a bitmap symbol displayed in left or right fringe, which defaults
+            to a small circle as defined in `syntax-checking--fringe-indicator'.
 MARGIN-STR  is a string to be displayed in the margin (Defaults to nil).
 
 Note only one of BITMAP and MARGIN-STR is used, which is dictated by
@@ -96,7 +97,6 @@ Note only one of BITMAP and MARGIN-STR is used, which is dictated by
   '(choice :tag "Width"
            (integer :tag "Width")
            (float :tag "Width (%)")))
-
 
 ;; internals
 (defvar syntax-checking--buffer-config

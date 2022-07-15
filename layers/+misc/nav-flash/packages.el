@@ -40,8 +40,6 @@
   ;; `org'
   (add-hook 'org-follow-link-hook #'nav-flash/delayed-blink-cursor-h)
 
-  ;; (add-hook 'persp-activated-functions #'nav-flash/delayed-blink-cursor-h)
-
   ;; `saveplace'
   (advice-add #'save-place-find-file-hook :after #'nav-flash/blink-cursor-maybe)
 
@@ -71,7 +69,5 @@
   (advice-add 'persp-switch :after #'nav-flash/delayed-blink-cursor-h)
 
   :config
-  ;; emacs 27 extend face
-  (when (fboundp 'set-face-extend)
-    (with-eval-after-load "nav-flash"
-      (set-face-extend 'nav-flash-face t))))
+  (with-eval-after-load "nav-flash"
+    (set-face-extend 'nav-flash-face t)))

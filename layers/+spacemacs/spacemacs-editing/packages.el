@@ -536,6 +536,8 @@
     (progn
       (setq undo-tree-visualizer-timestamps t
             undo-tree-visualizer-diff t
+            ;; See `vim-style-enable-undo-region'.
+            undo-tree-enable-undo-in-region t
             ;; 10X bump of the undo limits to avoid issues with premature
             ;; Emacs GC which truncages the undo history very aggresively
             undo-limit 800000
