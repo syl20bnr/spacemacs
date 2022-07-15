@@ -243,14 +243,14 @@
       "p" 'spacemacs/paste-transient-state/evil-paste-after)
     (define-key evil-normal-state-map
       "P" 'spacemacs/paste-transient-state/evil-paste-before)
-    (advice-add 'kill-new :around
-                (lambda (orig-fn string &optional rest)
-                  (let* ((string-raw (substring-no-properties string))
-                         (space-p (not (string-match-p "[^ \t\n\r]" string-raw))))
-                    (cond ((not space-p)
-                           (apply orig-fn string rest))
-                          (t
-                           (message "skipped whitespace kill")))))))
+    (define-advice kill-new (:around (orig-fn string &optional rest) ignore-whitespaces)
+      "Don't put whitespaces into kill ring."
+      (let* ((string-raw (substring-no-properties string))
+             (space-p (not (string-match-p "[^ \t\n\r]" string-raw))))
+        (if (not space-p)
+            (apply orig-fn string rest)
+          (message "skipped whitespace kill")
+          nil))))
 
   ;; fold transient state
   (when (eq 'evil dotspacemacs-folding-method)
