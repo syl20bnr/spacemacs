@@ -349,11 +349,11 @@ Features:
 ** Syntax Checking
 [[file:+checkers/syntax-checking/README.org][+checkers/syntax-checking/README.org]]
 
-This layer adds on the fly syntax checking to all supported language layers.
+This layer adds on-the-fly syntax checking to all supported language layers.
 
 Features:
-- Support for automatic syntax checking with [[http://www.flycheck.org/][Flycheck]] for various language layers
-- Tooltip syntax errors with =popwin=
+- Automatic syntax checking with [[http://www.flycheck.org/][Flycheck]] for various language layers.
+- Shows syntax error in pop-up window via [[https://github.com/flycheck/flycheck-pos-tip][flycheck-pos-tip]].
 
 * Completion
 ** Auto-completion

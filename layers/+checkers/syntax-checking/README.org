@@ -121,7 +121,7 @@ displayed on the fringe to indicate an error. (A bitmap is a string or a vector
 of bits, see =define-fringe-bitmap= for details.) The default fringe bitmap in
 Spacemacs is a small solid circle.
 
-If =flycheck-indication-mode= is  to =left-margin= or =right-margin=, a string
+If =flycheck-indication-mode= is to =left-margin= or =right-margin=, a string
 displayed on the fringe to indicate an error. Spacemacs doesn't change the
 margin string so the default value is defined in =flycheck=.
 
