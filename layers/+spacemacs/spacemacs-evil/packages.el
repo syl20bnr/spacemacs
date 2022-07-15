@@ -224,12 +224,9 @@
     :defer t
     :init
     (progn
-      ;; Override the default keys, as they collide (with what ? :-))
-      (setq evil-lion-left-align-key nil
-            evil-lion-right-align-key nil)
-      (spacemacs/set-leader-keys
-        "xal" 'evil-lion-left
-        "xaL" 'evil-lion-right))
+      (evil-define-key '(normal visual) 'global
+        "gl" #'evil-lion-left
+        "gL" #'evil-lion-right))
     :config (evil-lion-mode)))
 
 (defun spacemacs-evil/init-evil-lisp-state ()
