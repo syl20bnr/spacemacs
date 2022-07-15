@@ -22,8 +22,7 @@
 
 
 (defun spacemacs/enable-flycheck (mode)
-  "Use flycheck in MODE by default, if `syntax-checking-enable-by-default' is
-true."
+  "Use flycheck in MODE by default, if `syntax-checking-enable-by-default' t."
   (when (and syntax-checking-enable-by-default
              (listp flycheck-global-modes)
              (not (eq 'not (car flycheck-global-modes))))
@@ -43,6 +42,5 @@ If the error list is visible, hide it.  Otherwise, show it."
   (interactive)
   (if (flycheck-get-error-list-window)
       (switch-to-buffer flycheck-error-list-buffer)
-    (progn
-      (flycheck-list-errors)
-      (switch-to-buffer-other-window flycheck-error-list-buffer))))
+    (flycheck-list-errors)
+    (switch-to-buffer-other-window flycheck-error-list-buffer)))
