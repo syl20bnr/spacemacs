@@ -5,7 +5,7 @@
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
-- [[#key-bindings][Key bindings]]
+- [[#customization][Customization]]
   - [[#undo-region][Undo Region]]
 
 * Description
@@ -37,17 +37,18 @@ This layer adds packages to improve editing with Spacemacs.
 - Support for editing strings inplace via [[https://github.com/magnars/string-edit.el][=string-edit=]]
 - Presents undo history as a tree via [[https://gitlab.com/tsc25/undo-tree/-/blob/master/undo-tree.el][=undo-tree=]]
 
-* Key bindings
+* Customization
 ** Undo Region
+In normal state, ~u~ is bound to =evil-undo= which undo changes in the buffer.
+Emacs's builtin =undo= command in addition has the ability to undo changes in a
+selected region. But by default in visual state, ~u~ is bound to =evil-downcase=
+which downcases the selected text.
 
-Performs a selective undo, limited to the current region. To do this, visually
-select the region you want, then run the undo command (=u= in vim style editing).
-This undoes the most recent change in the region. To undo further changes in the
-same region, repeat the undo command. This feature is turned off by default, to
-enable it, set the variable =vim-style-enable-undo-region= to =t=.
+You can bound =undo= to ~u~ in visual state, by setting the variable
+=vim-style-enable-undo-region= to =t= in your =~/.spacemacs=.
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (spacemacs-editing :variables
-         vim-style-enable-undo-region t)))
+  (setq-default dotspacemacs-configuration-layers
+                '((spacemacs-editing :variables
+                                     vim-style-enable-undo-region t)))
 #+END_SRC

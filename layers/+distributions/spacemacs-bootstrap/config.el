@@ -75,9 +75,8 @@ if used there.")
   "If non-nil, J and K move lines up and down when in visual mode.")
 
 (defvar vim-style-enable-undo-region nil
-  " If non-nil, `u' is remapped to `undo' when in visual mode. Vim
-  `u' default in visual mode is to downcase visually selected
-  text. `~' will invert the case of a visual selection.")
+  "If non-nil, `u' is remapped to `undo' in visual state.
+Otherwise, in visual state `u' downcases visually selected text.")
 
 (defvar vim-style-ex-substitute-global
   (spacemacs|dotspacemacs-backward-compatibility
