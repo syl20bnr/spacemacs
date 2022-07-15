@@ -974,7 +974,9 @@ containing the buffer."
                                   nil))
          (project (completing-read
                    "Switch to Project Perspective: "
-                   projectile-known-projects
+                   (if current-project-maybe
+                       (cons current-project-maybe projectile-known-projects)
+                     projectile-known-projects)
                    nil
                    nil
                    nil

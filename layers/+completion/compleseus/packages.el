@@ -302,7 +302,7 @@
     ;; (setq completion-styles '(basic partial-completion orderless)
     (setq completion-styles '(orderless)
           completion-category-defaults nil
-          completion-category-overrides '((file (styles . (partial-completion)))))))
+          completion-category-overrides '((file (styles basic partial-completion))))))
 
 (defun compleseus/init-selectrum ()
   (use-package selectrum
