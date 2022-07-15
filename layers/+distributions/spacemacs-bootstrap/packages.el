@@ -145,6 +145,9 @@
     (define-key evil-visual-state-map "J" 'drag-stuff-down)
     (define-key evil-visual-state-map "K" 'drag-stuff-up))
 
+  (when vim-style-enable-undo-region
+    (define-key evil-visual-state-map (kbd "u") 'undo))
+
   (evil-ex-define-cmd "enew" 'spacemacs/new-empty-buffer)
 
   (define-key evil-normal-state-map (kbd "K") 'spacemacs/evil-smart-doc-lookup)
