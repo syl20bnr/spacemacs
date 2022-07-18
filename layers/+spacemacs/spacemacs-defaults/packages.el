@@ -511,6 +511,7 @@
          'trailing-whitespace nil
          :background (face-attribute 'font-lock-comment-face :foreground)))
       (add-hook 'prog-mode-hook 'spacemacs//trailing-whitespace)
+      (add-hook 'text-mode-hook 'spacemacs//trailing-whitespace)
 
       (spacemacs|add-toggle whitespace
         :mode whitespace-mode

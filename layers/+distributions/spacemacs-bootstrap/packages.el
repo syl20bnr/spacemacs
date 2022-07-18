@@ -145,6 +145,9 @@
     (define-key evil-visual-state-map "J" 'drag-stuff-down)
     (define-key evil-visual-state-map "K" 'drag-stuff-up))
 
+  (when vim-style-enable-undo-region
+    (define-key evil-visual-state-map (kbd "u") 'undo))
+
   (evil-ex-define-cmd "enew" 'spacemacs/new-empty-buffer)
 
   (define-key evil-normal-state-map (kbd "K") 'spacemacs/evil-smart-doc-lookup)
@@ -239,7 +242,17 @@
     (define-key evil-normal-state-map
       "p" 'spacemacs/paste-transient-state/evil-paste-after)
     (define-key evil-normal-state-map
-      "P" 'spacemacs/paste-transient-state/evil-paste-before))
+      "P" 'spacemacs/paste-transient-state/evil-paste-before)
+    ;; Based on https://stackoverflow.com/questions/12102554/emacs-skip-whitespace-kills
+    (define-advice kill-new (:around (orig-fn string &optional rest) ignore-whitespaces)
+      "Don't put whitespaces into kill ring."
+      (let* ((string-raw (substring-no-properties string))
+             (space-p (not (string-match-p "[^ \t\n\r]" string-raw))))
+        (if (not space-p)
+            (apply orig-fn string rest)
+          (message "skipped whitespace kill")
+          nil))))
+
   ;; fold transient state
   (when (eq 'evil dotspacemacs-folding-method)
     (spacemacs|define-transient-state fold

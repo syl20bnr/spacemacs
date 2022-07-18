@@ -20,10 +20,16 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defvar nav-flash-exclude-commands
+(spacemacs|defc nav-flash-exclude-modes
+  '(special-mode term-mode vterm-mode so-long-mode)
+  "A list of major mode that should not trigger `nav-flash'."
+  '(repeat symbol))
+
+(spacemacs|defc nav-flash-exclude-commands
   '(mouse-set-point mouse-drag-region evil-mouse-drag-region +org/dwim-at-point
                     org-find-file org-find-file-at-mouse)
-  "A list of commands that should not trigger nav-flash.")
+  "A list of commands that should not trigger `nav-flash'."
+  '(repeat symbol))
 
 (defvar nav-flash--last-point nil
-  "internal variable for nav-flash.")
+  "Internal variable to store the last point and windoow before blinking.")
