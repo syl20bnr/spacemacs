@@ -290,11 +290,11 @@
 (defun compleseus/init-orderless ()
   (use-package orderless
     :init
+    ;; company-capf is messed up with orderless
     ;; https://github.com/oantolin/orderless/issues/48#issuecomment-856750410
-    ;; too intrusive and disrupts lsp
     (define-advice company-capf (:around (orig-fun &rest args) set-completion-styles)
       ;; when lsp is on stay away
-      (if lsp-completion-mode
+      (if (bound-and-true-p lsp-completion-mode)
           (apply orig-fun args)
         (let ((completion-styles '(basic partial-completion orderless)))
           (apply orig-fun args))))
