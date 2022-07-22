@@ -1,0 +1,80 @@
+#+TITLE: dirvish layer
+
+#+TAGS: layer|tool
+
+[[file:img/dirvish.svg]]
+
+
+* Table of Contents                                       :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#todos][TODOs]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds support for [[https://github.com/alexluigit/dirvish][dirvish]] which combines all the best from dired and ranger.
+
+** Features:
+- Dirvish is an improved version of the Emacs inbuilt package Dired. It not only
+gives Dired an appealing and highly customizable user interface, but also comes
+together with almost all possible parts required for full usability as a modern
+file manager.
+
+* TODOs
+- replace neotree/treemacs
+- upin the package when it is stable
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =dirvish= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+Example with custom for quick acces:
+#+begin_src elisp
+     (dirvish
+      :variables dirvish-quick-access-entries
+      '(("h" "~/" "Home")
+        ("e" "~/.emacs.d/" "Emacs user directory")
+        ("d" "~/Downloads" "Download")
+        ("g" "~/git" "git")))
+#+end_src
+
+* Key bindings
+
+All dired bindings will be talken over by dirvish e.g. ~SPC j d~, ~SPC f f~.
+Beside that the following bindings are added:
+
+Global binding
+
+| Key Binding | Description    |
+|-------------+----------------|
+| ~SPC t C-d~ | Toggle dirvish |
+
+Bindings in dirvish buffer:
+
+| Key Binding | Description                      |
+|-------------+----------------------------------|
+| ~M-*~       | dirvish-mark-menu                |
+| ~M-e~       | dirvish-emerge-menu              |
+| ~M-f~       | dirvish-toggle-fullscreen        |
+| ~M-j~       | dirvish-fd-jump                  |
+| ~M-l~       | dirvish-ls-switches-menu         |
+| ~M-n~       | dirvish-history-go-forward       |
+| ~M-p~       | dirvish-history-go-backward      |
+| ~SPC m .~   | dirvish-dispatch                 |
+| ~SPC m SPC~ | dirvish-dispatch                 |
+| ~SPC m ^~   | dirvish-history-last             |
+| ~SPC m a~   | dirvish-quick-access             |
+| ~SPC m f~   | dirvish-file-info-menu           |
+| ~SPC m h~   | dirvish-history-jump             |
+| ~SPC m i~   | wdired-change-to-wdired-mode     |
+| ~SPC m n~   | dirvish-narrow                   |
+| ~SPC m s~   | dirvish-quicksort                |
+| ~SPC m t .~ | dired-omit-mode                  |
+| ~SPC m t f~ | dirvish-toggle-fullscreen        |
+| ~SPC m t s~ | dirvish-setup-menu               |
+| ~SPC m u~   | dired-up-directory               |
+| ~SPC m y~   | dirvish-yank-menu                |
+| ~TAB~       | dirvish-subtree-toggle           |
+| ~h~         | spacemacs/dirvish-collapse-or-up |
+| ~l~         | spacemacs/dirvish-expand-or-open |
