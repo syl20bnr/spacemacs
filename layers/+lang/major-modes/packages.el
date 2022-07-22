@@ -26,7 +26,7 @@
         arduino-mode
         (ebuild-mode :location (recipe :fetcher github :repo "emacsmirror/ebuild-mode"))
         evil-matchit
-        (gemini-mode :location (recipe :fetcher git :url "https://git.carcosa.net/jmcbray/gemini.el"))
+        gemini-mode
         (hoon-mode :location (recipe :fetcher github :repo "urbit/hoon-mode.el"))
         (logcat :location (recipe :fetcher github :repo "dcolascione/logcat-mode"))
         matlab-mode
