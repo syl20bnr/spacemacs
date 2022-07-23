@@ -1,6 +1,8 @@
 <a name="top" id="fork-destination-box"></a>
 <a href="https://develop.spacemacs.org"><img src="https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg" alt="Made with Spacemacs"><a href="https://www.gnu.org/licenses/gpl-3.0.en.html"><img src="https://github.com/syl20bnr/spacemacs/blob/655e2886d88f79f4da01d607d29342e7447cad65/assets/gplv3.png" alt="GPLv3 Software" align="right" width="70" height="28"></a></a><a href="https://www.twitter.com/spacemacs"><img src="https://i.imgur.com/tXSoThF.png" alt="Twitter" align="right"></a><br>
 - - -
+
+<!-- logo and links -->
 <p align="center"><img src="/doc/img/title2.png" alt="Spacemacs"/></p>
 <p align="center">
 <b><a href="https://develop.spacemacs.org/doc/DOCUMENTATION#core-pillars">philosophy</a></b>
@@ -95,7 +97,7 @@ git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 # Introduction
 Spacemacs is a new way of experiencing Emacs -- it's a sophisticated and
-polished set-up, focused on ergonomics, mnemonics and consistency.
+polished set-up, focused on *ergonomics*, *mnemonics* and *consistency*.
 
 Just clone and launch it, then press the space bar to explore the interactive
 list of carefully-chosen key bindings. You can also press the home buffer's
@@ -115,12 +117,12 @@ Spacemacs is currently in beta, and any contributions are very welcome.
 - **Beautiful GUI:** you'll love the distraction free UI and its functional
 mode-line.
 - **Excellent ergonomics:** all the key bindings are accessible by pressing the
-<kbd>space bar</kbd> or <kbd>alt-m</kbd>.
+<kbd>SPC</kbd> or <kbd>Alt-m</kbd>.
 - **Mnemonic key bindings:** commands have mnemonic prefixes like
 <kbd>SPC b</kbd> for all the buffer commands or <kbd>SPC p</kbd> for the project
 commands.
 - **Batteries included:** discover hundreds of ready-to-use packages nicely
-organised in configuration layers following a set of
+organized in configuration layers following a set of
 [conventions][CONVENTIONS.org].
 
 # Documentation
