@@ -8,6 +8,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#execution-modes][Execution modes]]
 - [[#org-babel-integration][Org-Babel Integration]]
 - [[#key-bindings][Key bindings]]
 
@@ -49,22 +50,24 @@ To use this contribution, add it to your =~/.spacemacs=
 #+END_SRC
 
 ** Execution modes
-
 Configure plantuml-mode to either make use of a =Plantuml= library, executable or server (experimental).
 
 If you want to call your local Plantuml library, set =plantuml-jar-path= and =plantuml-default-exec-mode= as follows:
+
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '((plantuml :variables 
-    plantuml-jar-path "~/plantUml.jar"
-    plantuml-default-exec-mode 'library)))
+  (setq-default dotspacemacs-configuration-layers '((plantuml :variables
+      plantuml-jar-path "~/plantUml.jar"
+      plantuml-default-exec-mode 'library)))
 #+END_SRC
+
 For this to work, you need to execute =plantuml-download-jar= to download the most recent =Plantuml= library jar to your home directory.
 
 If instead you want to call your local Plantuml executable (f.e. as installed to path =/usr/bin/plantuml= by your package manager), set =plantuml-executable-path= and =plantuml-default-exec-mode= as follows:
+
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '((plantuml :variables 
-    plantuml-executable-path "/usr/bin/plantuml"
-    plantuml-default-exec-mode 'executable)))
+  (setq-default dotspacemacs-configuration-layers '((plantuml :variables
+      plantuml-executable-path "/usr/bin/plantuml"
+      plantuml-default-exec-mode 'executable)))
 #+END_SRC
 
 If instead you don't want to compile locally, you can set =plantuml-exec-mode= to =server=.
