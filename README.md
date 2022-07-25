@@ -96,11 +96,11 @@ organized in configuration layers following a set of [conventions
 Comprehensive documentation is available for each layer by pressing <kbd>SPC h
 SPC</kbd>.
 
-You can also check the [general documentation][DOCUMENTATION.org], [quick start
-guide][QUICK_START.org] and the [FAQ][FAQ.org].
+You can also check the [general documentation][DOCUMENTATION.org],
+[quick start guide][QUICK_START.org] and the [FAQ][FAQ.org].
 
 # Getting Help
-If you need help, ask your question in the [Gitter Chat][] and a member of the
+If you need help, ask your questions in the [Gitter Chat][] and a member of the
 community will help you out.
 
 If you prefer IRC, connect to the [Gitter Chat IRC server][] and join the
@@ -131,7 +131,7 @@ Last but not least there are a lot of high class tutorials available on YouTube:
    may customize your own font settings and choose another font. If you want to
    use this default font, it must be installed.
 
-   Spacemacs also uses fallback fonts to ensure certain unicode symbols it uses
+   Spacemacs also uses fallback fonts to ensure certain Unicode symbols it uses
    symbols appear correctly. The fonts used are determined by the OS:
 
    - Linux: [Nanum Gothic][]
@@ -156,7 +156,6 @@ Last but not least there are a lot of high class tutorials available on YouTube:
    We strongly recommend [ripgrep][] over other line searching programs, for its
    blazing fast speed. The following subsections helps you to install it.
 
-<a id="prerequisites-linux"></a>
 ### Linux
 
 1. Most Linux distribution ships a package manager already and if this is the
@@ -173,7 +172,8 @@ Last but not least there are a lot of high class tutorials available on YouTube:
    differences][Emacs And XEmacs].
 
    **N.B.** Some Linux distributions support only Emacs versions older than
-   27.1. In this case you should [build it from source][build_source] instead.
+   27.1. In this case you should
+   [build it from source][Build Emacs from Source] instead.
 
 3. Very likely Git is already installed on your system. Otherwise, you should
    be able to install `git` from your system's package manager.
@@ -199,10 +199,9 @@ Last but not least there are a lot of high class tutorials available on YouTube:
    ```
 
 6. *(Optional)* If your distribution is listed [here][ripgrep-installation],
-   follow the instructions. Otherwise, you can download its prebuit binary or
+   follow the instructions. Otherwise, you can download its pre-built binary or
    build it from source.
 
-<a id="prerequisites-macos"></a>
 ### macOS
 
 1. The most popular package manager on macOS is [Homebrew][], to install it:
@@ -262,7 +261,6 @@ Last but not least there are a lot of high class tutorials available on YouTube:
    brew install ripgrep
    ```
 
-<a id="prerequisites-windows"></a>
 ### Windows
 
 1. We recommend [Scoop][] as the package manager for Windows users. You can
@@ -327,7 +325,7 @@ Last but not least there are a lot of high class tutorials available on YouTube:
    variable `HOMEPATH`, which usually looks like `C:\Users\<username>`.
 
 2. Since Spacemacs will now be downloaded at `$HOME/.emacs.d`, if it already
-   exists it'll be overriden.
+   exists it'll be overridden.
 
    Also, if you have either `$HOME/.emacs.el` or `$HOME/.emacs`, they will
    appear before Spacemacs in Emacs's initialization steps. Thus they must be
@@ -380,7 +378,7 @@ Spacemacs is loaded:
 
 When Emacs is started, it looks for the init file
 [in a deterministic way][Emacs: Find Init]. The
-[default installation](#default-installation) exploits it by occupying
+[default installation](#default-install) exploits it by occupying
 `$HOME/.emacs.d/init.el` and let Emacs use it as its init file.
 
 In other word, in default installation, Emacs find and load
@@ -402,7 +400,7 @@ For example, if you've cloned Spacemacs to `$HOME/spacemacs`, and if you use
 (load-file (expand-file-name "init.el" spacemacs-start-directory))
 ```
 
-# First Launch and Configurtion
+# First Launch and Configuration
 
 1. After cloning Spacemacs, the first time when you launch Emacs, Spacemacs will
    automatically install the essential packages it requires. This step is the
@@ -423,8 +421,9 @@ For example, if you've cloned Spacemacs to `$HOME/spacemacs`, and if you use
    installed, restart Emacs to complete the installation.
 
 4. `dotspacemacs` is the configuration file for Spacemacs, it's self
-   explainatory and is written in Emacs Lisp. Read [DOCUMENTATION.org][] and
-   [QUICK_START.org][] for more information.
+   explanatory and is written in Emacs Lisp. Read
+   [general documentation][DOCUMENTATION.org] and
+   [quick start guide][QUICK_START.org] for more information.
 
 5. In case you want to store your `dotspacemacs` at another location, say
    under `$HOME/.spacemacs.d`:
@@ -449,8 +448,8 @@ Dock][icon-mac-instructions].
 
 ## Notes
 
-- Depending on the installed version of GnuTLS, securely installing emacs
-  packages may fail. It may also faill if you have a bad internet environment.
+- Depending on the installed version of GnuTLS, securely installing Emacs
+  packages may fail. It may also fail if you have a bad internet environment.
   In either case it is possible to install packages using `emacs --insecure`.
   However be aware that this means your packages will be transferred using HTTP,
   use at your own risk.
@@ -552,9 +551,9 @@ Before contributing, be sure to consult the [contribution
 guidelines][CONTRIBUTING.org] and [conventions][CONVENTIONS.org].
 
 # Communities
-- [Gitter Chat]
-- [Stack Exchange]
-- [Reddit]
+- [Gitter Chat][]
+- [Stack Exchange][]
+- [Reddit][]
 
 # Spacemacs Everywhere
 
@@ -616,27 +615,34 @@ Spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c208270
 
 Thank you!
 
-[CONTRIBUTING.org]: https://develop.spacemacs.org/CONTRIBUTING.html
-[CONVENTIONS.org]: https://develop.spacemacs.org/doc/CONVENTIONS
-[DOCUMENTATION.org]: https://develop.spacemacs.org/doc/DOCUMENTATION
-[QUICK_START.org]: https://develop.spacemacs.org/doc/QUICK_START
-[FAQ.org]: https://develop.spacemacs.org/doc/FAQ
-[VIMUSERS.org]: https://develop.spacemacs.org/doc/VIMUSERS
-[dotfile]: https://develop.spacemacs.org/doc/DOCUMENTATION#dotfile-configuration
-[osx layer]: https://develop.spacemacs.org/layers/+os/osx/README.html
+[CONTRIBUTING.org]: CONTRIBUTING.org
+[CONVENTIONS.org]: doc/CONVENTIONS.org
+[DOCUMENTATION.org]: doc/DOCUMENTATION.org
+[FAQ.org]: doc/FAQ.org
+[QUICK_START.org]: doc/QUICK_START.org
+
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
 [Gitter Chat IRC server]: https://irc.gitter.im/
-[Homebrew]: https://brew.sh
-[Homebrew Cask]: https://github.com/Homebrew/homebrew-cask
+[Stack Exchange]: https://emacs.stackexchange.com/questions/tagged/spacemacs
+[Reddit]: https://www.reddit.com/r/spacemacs
+[jack-of-some]: https://www.youtube.com/watch?v=r-BHx7VNX5s&list=PLd_Oyt6lAQ8Rxb0HUnGbRrn6R4Cdt2yoI
+[gdquest]: https://www.youtube.com/watch?v=hCNOB5jjtmc&list=PLhqJJNjsQ7KFkMVBunWWzFD8SlH714qm4
+[practicalli]: https://www.youtube.com/watch?v=jMJ58Gcc1RI&list=PLpr9V-R8ZxiCHMl2_dn1Fovcd34Oz45su
+[eivind-fonn]: https://www.youtube.com/watch?v=ZFV5EqpZ6_s&list=PLrJ2YN5y27KLhd3yNs2dR8_inqtEiEweE
+
 [GNU Emacs]: https://www.gnu.org/software/emacs/
+[XEmacs]: https://www.xemacs.org
+[Emacs And XEmacs]: https://www.emacswiki.org/emacs/EmacsAndXEmacs
+[Build Emacs from Source]: https://www.gnu.org/software/emacs/manual/html_node/efaq/Installing-Emacs.html
+[Emacs: Find Init]: https://www.gnu.org/software/emacs/manual/html_node/emacs/Find-Init.html
 [Emacs Plus]: https://github.com/d12frosted/homebrew-emacs-plus
 [Emacs Plus features]: https://github.com/d12frosted/homebrew-emacs-plus#features-explained
 [Emacs Mac Port]: https://github.com/railwaycat/homebrew-emacsmacport
 [Emacs Mac Port features]: https://bitbucket.org/mituharu/emacs-mac/src/master/README-mac
 [Emacs for Mac OS X]: https://emacsformacosx.com/
-[XEmacs]: https://www.xemacs.org
-[Emacs And XEmacs]: https://www.emacswiki.org/emacs/EmacsAndXEmacs
-[Scoop]: https://scoop.sh
+[Git]: https://git-scm.com/downloads
+[GNU Tar]: https://www.gnu.org/software/tar/
+[BSD Tar]: https://man.openbsd.org/tar
 [Source Code Pro]: https://adobe-fonts.github.io/source-code-pro/
 [Nanum Gothic]: https://fonts.google.com/specimen/Nanum+Gothic
 [Arial Unicode MS]: https://docs.microsoft.com/en-us/typography/font-list/arial-unicode-ms
@@ -649,32 +655,23 @@ Thank you!
 [ack]: https://github.com/beyondgrep/ack3
 [GNU Grep]: https://www.gnu.org/software/grep/
 [BSD Grep]: https://man.openbsd.org/grep
-[Emacs: Find Init]: https://www.gnu.org/software/emacs/manual/html_node/emacs/Find-Init.html
+[Homebrew]: https://brew.sh
+[Scoop]: https://scoop.sh
+
+[spacemacs-desktop]: https://github.com/emacs-mirror/emacs/blob/master/etc/emacs.desktop
+[icon-repository]: https://github.com/nashamri/spacemacs-logo
+[icon-mac-instructions]: https://www.idownloadblog.com/2014/07/16/how-to-change-app-icon-mac/
 
 [so-server-unsafe]: https://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
-[Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
-[Nasser Alshammari]: https://github.com/nashamri
-[compilation-warnings]: https://github.com/quelpa/quelpa/issues/90#issuecomment-137982713
-[icon-mac-instructions]: https://www.idownloadblog.com/2014/07/16/how-to-change-app-icon-mac/
+
 [latest tags]: https://github.com/syl20bnr/spacemacs/tags
-[icon-repository]: https://github.com/nashamri/spacemacs-logo
-[Stack Exchange]: https://emacs.stackexchange.com/questions/tagged/spacemacs
-[Reddit]: https://www.reddit.com/r/spacemacs
+
 [quote01]: https://gitter.im/syl20bnr/spacemacs?at=568e627a0cdaaa62045a7df6
 [quote02]: https://gitter.im/syl20bnr/spacemacs?at=5768456c6577f032450cfedb
-[build_source]: https://www.gnu.org/software/emacs/manual/html_node/efaq/Installing-Emacs.html
-[Bountysource]: https://salt.bountysource.com/teams/spacemacs
-[Spacemacs Shop]: https://shop.spreadshirt.com/spacemacs-shop
-[Git]: https://git-scm.com/downloads
-[GNU Tar]: https://www.gnu.org/software/tar/
-[BSD Tar]: https://man.openbsd.org/tar
-[spacemacs-desktop]: https://github.com/emacs-mirror/emacs/blob/master/etc/emacs.desktop
-[creativecommons-4]: https://creativecommons.org/licenses/by-sa/4.0/
-[jack-of-some]: https://www.youtube.com/watch?v=r-BHx7VNX5s&list=PLd_Oyt6lAQ8Rxb0HUnGbRrn6R4Cdt2yoI
-[gdquest]: https://www.youtube.com/watch?v=hCNOB5jjtmc&list=PLhqJJNjsQ7KFkMVBunWWzFD8SlH714qm4
-[practicalli]: https://www.youtube.com/watch?v=jMJ58Gcc1RI&list=PLpr9V-R8ZxiCHMl2_dn1Fovcd34Oz45su
-[eivind-fonn]: https://www.youtube.com/watch?v=ZFV5EqpZ6_s&list=PLrJ2YN5y27KLhd3yNs2dR8_inqtEiEweE
 
-<!--  LocalWords:  macOS Homebrew Spacemacs Gitter UI img href src GPLv br svg -->
-<!--  LocalWords:  PowerShell Flatpak emacs-plus png GnuTLS ripgrep dotfile -->
-<!--  LocalWords:  HTTPS Reddit IntelliJ Bountysource Paypal -->
+[Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
+[Nasser Alshammari]: https://github.com/nashamri
+[creativecommons-4]: https://creativecommons.org/licenses/by-sa/4.0/
+
+[Spacemacs Shop]: https://shop.spreadshirt.com/spacemacs-shop
+[Bountysource]: https://salt.bountysource.com/teams/spacemacs
