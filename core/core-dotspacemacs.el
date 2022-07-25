@@ -38,8 +38,8 @@ their configuration.")
 (defconst dotspacemacs-directory
   (let* ((spacemacs-dir-env (getenv "SPACEMACSDIR"))
          (spacemacs-dir (if spacemacs-dir-env
-                            (expand-file-name spacemacs-dir-env)
-                          (expand-file-name ".spacemacs.d" user-home-directory))))
+                            (expand-file-name (concat spacemacs-dir-env "/"))
+                          (expand-file-name ".spacemacs.d/" user-home-directory))))
     (when (file-directory-p spacemacs-dir)
       spacemacs-dir))
   "Directory containing Spacemacs customizations (defaults to nil).
