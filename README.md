@@ -62,40 +62,6 @@ you can install Spacemacs with one line:
 If you do have an existing Emacs configuration, look at the [full installation
 instructions](#install) for other options.
 
----
-<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
-**Table of Contents**
-
-- [Introduction](#introduction)
-- [Features](#features)
-- [Documentation](#documentation)
-- [Getting Help](#getting-help)
-- [Prerequisites](#prerequisites)
-    - [Linux](#prerequisites-linux)
-    - [macOS](#prerequisites-macos)
-    - [Windows](#prerequisites-windows)
-- [Install](#install)
-    - [Default installation](#default-installation)
-    - [Install Spacemacs in Windows](#install-spacemacs-in-windows)
-    - [Notes](#notes)
-    - [Alternative installations](#alternative-installations)
-        - [Modify HOME environment variable](#modify-home-environment-variable)
-        - [Modify spacemacs-start-directory variable](#modify-spacemacs-start-directory-variable)
-    - [Spacemacs logo](#spacemacs-logo)
-- [Update](#update)
-    - [Rolling update (on develop)](#rolling-update-on-develop)
-    - [Automatic update (on master branch)](#automatic-update-on-master-branch)
-    - [Manual update (on master branch)](#manual-update-on-master-branch)
-    - [Revert to a specific version (on master branch)](#revert-to-a-specific-version-on-master-branch)
-- [Quotes](#quotes)
-- [Contributions](#contributions)
-- [Communities](#communities)
-- [Spacemacs Everywhere](#spacemacs-everywhere)
-- [License](#license)
-- [Supporting Spacemacs](#supporting-spacemacs)
-
-<!-- markdown-toc end -->
-
 # Introduction
 Spacemacs is a new way of experiencing Emacs -- it's a sophisticated and
 polished set-up, focused on *ergonomics*, *mnemonics* and *consistency*.
