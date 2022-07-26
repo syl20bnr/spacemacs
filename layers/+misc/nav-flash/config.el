@@ -1,4 +1,4 @@
-;; config.el --- Nav-flash Layer Configuration File for Spacemacs.
+;;; config.el --- Nav-flash Layer Configuration File for Spacemacs. -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
@@ -32,4 +32,4 @@
   '(repeat symbol))
 
 (defvar nav-flash--last-point nil
-  "Internal variable to store the last point and windoow before blinking.")
+  "Internal variable to store the active window, buffer, point before blinking.")
