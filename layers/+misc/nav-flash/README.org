@@ -67,5 +67,4 @@ the command or the major mode is excluded, which can be customized via variables
 #+END_SRC
 
 * Credit
-
 This layer is ported from [[https://github.com/doomemacs/doomemacs][Doom Emacs]].
