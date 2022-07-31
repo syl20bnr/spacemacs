@@ -64,6 +64,3 @@
 (defun translate/pre-init-posframe ()
   (spacemacs|use-package-add-hook posframe
     :post-config (translate/init-go-translate)))
-
-(defun translate/init-posframe ()
-  (use-package posframe :defer t))
