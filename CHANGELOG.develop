@@ -1916,6 +1916,9 @@ Other:
 - Fixed: broken package declaration for dockerfile-mode
   (thanks to Maximilian Wolff)
 - Added LSP support
+- Dockerfile mode keybindings (thanks to Alfonso Montero):
+  - Flatten ~cb~ and ~cB~ build commands into ~b~ and ~B~ to save keystrokes.
+  - Add keybindings to some =docker= package commands for convenience.
 **** Dotnet
 - Key bindings:
   - Added key bindings for =dotnet= (thanks to Jordan Kaye):
