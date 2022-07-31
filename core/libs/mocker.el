@@ -1,4 +1,4 @@
-;;; mocker.el --- mocking framework for emacs
+;;; mocker.el --- mocking framework for emacs -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2011  Yann Hodique.
 
