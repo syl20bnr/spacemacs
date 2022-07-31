@@ -20,9 +20,9 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
 (defconst translate-packages
-  '(
-    translate-mode
+  '(translate-mode
     go-translate))
 
 (defun translate/init-translate-mode ()
@@ -34,13 +34,14 @@
 (defun translate/init-go-translate ()
   (use-package go-translate
     :demand t
+    :after posframe
     :config
     (progn
       (defclass translate//reference-paragraph-texter (gts-texter) ())
       (cl-defmethod gts-text ((_ translate//reference-paragraph-texter))
         (translate-get-reference-paragraph-text-at-point))
       (defclass translate//reference-paragraph-picker (gts-picker)
-        ((texter :initarg :texter :initform (translate//reference-paragraph-texter))))
+        ((texter :initarg :texter :initform '(translate//reference-paragraph-texter))))
       (cl-defmethod gts-pick ((o translate//reference-paragraph-picker))
         (let ((text (gts-text (oref o texter))))
           (when (= 0 (length (if text (string-trim text) "")))
