@@ -192,7 +192,6 @@
   - [[#languagetool][LanguageTool]]
 - [[#source-control][Source control]]
   - [[#git][Git]]
-  - [[#github][GitHub]]
   - [[#perforce][Perforce]]
   - [[#version-control][Version-Control]]
 - [[#spacemacs][Spacemacs]]
@@ -2575,21 +2574,6 @@ Features:
 
 New to Magit? Checkout the [[https://magit.vc/about/][official intro]] and [[https://practical.li/spacemacs/source-control/][Practicalli Spacemacs]]
 guide to configuring and using the Git and version control layers.
-
-** GitHub
-[[file:+source-control/github/README.org][+source-control/github/README.org]]
-
-*This layer is deprecated*.
-
-The layer had support searching for and cloning [[http://github.com][GitHub]] repositories,
-although that did not provide a secure way to store an access token
-to connect to GitHub.
-
-The git layer provides interaction with GitHub and can securely
-store the access token using PGP.
-
-Features:
-- [[https://github.com/seagle0128/grip-mode][grip-mode]] Github-flavored Markdown/Org preview using [[https://github.com/joeyespo/grip][Grip]].
 
 ** Perforce
 [[file:+source-control/perforce/README.org][+source-control/perforce/README.org]]
