@@ -20,13 +20,8 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-
-(setq spacemacs-project-packages
-      '(
-        projectile
-        ))
-
+(defconst spacemacs-project-packages
+  '(projectile))
 
 (defun spacemacs-project/init-projectile ()
   (use-package projectile
@@ -82,7 +77,7 @@
         "pa" 'projectile-toggle-between-implementation-and-test
         "pb" 'projectile-switch-to-buffer
         "pc" 'projectile-compile-project
-        "pC" 'projectile-run-project
+        "pu" 'projectile-run-project
         "pd" 'projectile-find-dir
         "pD" 'projectile-dired
         "pe" 'projectile-edit-dir-locals
