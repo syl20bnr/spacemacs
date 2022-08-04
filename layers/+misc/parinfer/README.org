@@ -2,12 +2,12 @@
 
 #+TAGS: layer|misc
 
-[[file:img/parinfer.png]]
-
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#prerequisites][Prerequisites]]
+  - [[#dotfile][Dotfile]]
 - [[#configuration][Configuration]]
 - [[#key-bindings][Key bindings]]
 
@@ -16,24 +16,35 @@ This layer provides an implementation of [[https://shaunlebron.github.io/parinfe
 controls indentation based on parentheses or vice versa.
 
 ** Features:
-- Automatic management of parenthesis in clojure, emacs lisp, common-lisp and scheme following the parinfer editing paradigm.
+- Automatic management of parenthesis in Clojure, Emacs Lisp, Common Lisp and
+  Scheme following the parinfer editing paradigm.
 - Powered by a native library in the background
 
 * Install
+** Prerequisites
+- This layer requires =parinfer-rust= library being installed. See [[https://github.com/eraserhd/parinfer-rust#installing][here]] for the
+  dependencies.
+- The =parinfer-rust-mode= package requires Emacs compiled with dynamic module
+  support, which can be verified by existence of =MODULES= in the variable
+  =system-configuration-features=.
+- Currently, ony *nix system is supported.
+
+** Dotfile
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =parinfer= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Configuration
-This package comes preconfigured to auto install the native library in your cache
-directory. If this is not desired set the variables =parinfer-auto-download= to =nil=
-and set =parinfer-library= to the path of your local installation.
-This mode uses the new =smart-mode= instead of the =indent-mode= traditionally
-used with =parinfer=. For the autoinstallation =curl= is required to be in your
-path.
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(pdf))
+#+END_SRC
 
-If you still want to manually configure it please check the respective package
-repo [[https://github.com/justinbarclay/parinfer-rust-mode][here]].
+* Configuration
+This package comes pre-configured to auto install the native library in your
+=spacemacs-cache-directory=. If you don't want this, see [[https://github.com/justinbarclay/parinfer-rust-mode#option-2-building-library-from-sources][here]] for a manual
+install option.
+
+=parinfer-rust-mode= operates under [[https://github.com/justinbarclay/parinfer-rust-mode#modes][three modes]]. By default, it starts in
+=smart-mode=, and can be toggled via =SPC t P=.
 
 * Key bindings
 
