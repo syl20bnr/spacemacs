@@ -157,9 +157,10 @@
 
 (defun spacemacs-editing-visual/init-term-cursor ()
   (use-package term-cursor
-    :if (not (display-graphic-p))
     :defer t
-    :init (global-term-cursor-mode)))
+    :init
+    (when (display-graphic-p)
+     (global-term-cursor-mode))))
 
 (defun spacemacs-editing-visual/init-volatile-highlights ()
   (use-package volatile-highlights
