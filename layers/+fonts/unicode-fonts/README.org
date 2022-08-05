@@ -38,7 +38,6 @@ enable color emoji.
 #+END_SRC
 
 * Configuration
-
 If you want ligature support Emacs must be built with =Harfbuzz= and a ligature
 font must be installed and configured. You can see the [[https://github.com/mickeynp/ligature.el#compatibility-and-version-requirements][upstream]] docs for a full
 list of requirements. By default this is not enabled, and you can enable it with

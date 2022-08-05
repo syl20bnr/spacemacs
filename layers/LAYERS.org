@@ -646,10 +646,10 @@ This layer adds support for [[https://github.com/rolandwalker/unicode-fonts][uni
 install the fonts listed in the [[https://github.com/rolandwalker/unicode-fonts#quickstart][Quickstart]] section of the unicode-fonts README.
 
 Features:
-- Display unicode glyphs using the best available font.
+- Display Unicode glyphs using the best available font.
 - Easily override glyphs or sections of glyphs.
-- Display color emoji on both the macOS port version of Emacs and emacs-plus (with
-  =unicode-fonts-force-multi-color-on-mac= set to non nil).
+- Display color emoji on both the macOS port version of Emacs and emacs-plus
+  (with =unicode-fonts-force-multi-color-on-mac= set to non nil).
 - Enable support for font ligature in Emacs 27 + via [[https://github.com/mickeynp/ligature.el][ligatures.el]].
 
 * Fun
