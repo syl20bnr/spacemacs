@@ -1,4 +1,4 @@
-;;; packages.el --- unicode-fonts layer packages file for Spacemacs.
+;;; packages.el --- unicode-fonts layer packages file for Spacemacs. -*- lexical-binding: t -*-
 ;;
 ;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
@@ -20,18 +20,16 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;;; Commentary:
+
+;;; Code:
 
 (defconst unicode-fonts-packages
   '(unicode-fonts
-    persistent-soft
     (ligature :location (recipe
                          :fetcher github
                          :repo "mickeynp/ligature.el")
-              :toggle (and (> emacs-major-version 26) unicode-fonts-enable-ligatures))))
-
-(defun unicode-fonts/init-persistent-soft ()
-  (use-package persistent-soft
-    :defer t))
+              :toggle unicode-fonts-enable-ligatures)))
 
 (defun unicode-fonts/init-unicode-fonts ()
   (use-package unicode-fonts
@@ -39,11 +37,15 @@
     (progn
       (when (and unicode-fonts-force-multi-color-on-mac
                  (eq window-system 'ns))
-        (setq unicode-fonts-skip-font-groups '(decorative low-quality-glyphs)))
-      (unicode-fonts-setup))))
+        (setq unicode-fonts-skip-font-groups
+              (delq 'multi-color unicode-fonts-skip-font-groups)))
+      (unicode-fonts//setup-fonts (selected-frame)))))
 
 (defun unicode-fonts/init-ligature ()
-  "Initialise the ligatures for emacs 27+"
-  (dolist (mode unicode-fonts-ligature-modes)
-    (ligature-set-ligatures mode unicode-fonts-ligature-set))
-  (global-ligature-mode t))
+  (use-package ligature
+    :init
+    (dolist (mode unicode-fonts-ligature-modes)
+      (ligature-set-ligatures mode unicode-fonts-ligature-set))
+    (global-ligature-mode t)))
+
+;;; packages.el ends here
