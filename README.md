@@ -4,9 +4,8 @@
 <a href="https://www.twitter.com/spacemacs"><img src="https://i.imgur.com/tXSoThF.png" alt="Twitter" align="right" height="20"></a>
 
 <!-- logo and links -->
-<span align="center">
-<p><img src="doc/img/title2.png" alt="Spacemacs"/></p>
-<p>
+<p align="center"><img src="doc/img/title2.png" alt="Spacemacs"/></p>
+<p align="center">
 <b><a href="https://develop.spacemacs.org/doc/DOCUMENTATION#core-pillars">philosophy</a></b>
 |
 <b><a href="https://develop.spacemacs.org/doc/DOCUMENTATION#who-can-benefit-from-this">for whom?</a></b>
@@ -24,7 +23,7 @@
 
 
 <!-- badges -->
-<p>
+<p align="center">
 <a href="https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/Join Chat.svg" alt="Gitter"></a>
 <a href="https://discord.gg/p4MddFu6Ag"><img src="https://img.shields.io/badge/chat-on%20discord-7289da.svg" alt="Discord"></a>
 <a href="https://github.com/syl20bnr/spacemacs/actions/workflows/elisp_test.yml"><img src="https://github.com/syl20bnr/spacemacs/actions/workflows/elisp_test.yml/badge.svg?branch=develop" alt="elisp state"></a>
@@ -32,7 +31,6 @@
 <a href="https://shop.spreadshirt.com/spacemacs-shop"><img src="https://img.shields.io/badge/Shop-T--Shirts-blue.svg" alt="Merchandise"></a>
 <a href="https://www.slant.co/topics/12/~what-are-the-best-programming-text-editors"><img src="https://img.shields.io/badge/Slant-Recommend-ff69b4.svg" alt="Recommend it"></a>
 </p>
-</span>
 
 - - -
 
