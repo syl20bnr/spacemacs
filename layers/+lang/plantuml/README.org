@@ -8,6 +8,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#execution-modes][Execution modes]]
 - [[#org-babel-integration][Org-Babel Integration]]
 - [[#key-bindings][Key bindings]]
 
@@ -42,30 +43,42 @@ For example, the following diagram can be defined as follows:
 - Controlling the =Plantuml= compiler directly from emacs
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
+To use this contribution, add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(plantuml))
 #+END_SRC
 
-To control the =Plantuml= compiler you also need to download the [[http://plantuml.com/download][Plantuml jar]]
-and configure the =plantuml-jar-path= respectively:
+** Execution modes
+Configure plantuml-mode to either make use of a =Plantuml= library, executable or server (experimental).
+
+If you want to call your local Plantuml library, set =plantuml-jar-path= and =plantuml-default-exec-mode= as follows:
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '((plantuml :variables plantuml-jar-path "~/plantUml.jar")))
+  (setq-default dotspacemacs-configuration-layers '((plantuml :variables
+      plantuml-jar-path "~/plantUml.jar"
+      plantuml-default-exec-mode 'library)))
 #+END_SRC
 
-To get the full range of =Plantuml= compilations working, you will also need
-the native package [[http://graphviz.org/][graphviz]] installed on your system.
+For this to work, you need to execute =plantuml-download-jar= to download the most recent =Plantuml= library jar to your home directory.
 
-If you don't want to compile locally you can set =plantuml-exec-mode= to =server=.
-This will make plantuml try to use an online compile server. Be warned these resources
-change often and plantuml-mode is not always up-to-date. For a stable user experience
-we recommend using the default jar option instead.
+If instead you want to call your local Plantuml executable (f.e. as installed to path =/usr/bin/plantuml= by your package manager), set =plantuml-executable-path= and =plantuml-default-exec-mode= as follows:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '((plantuml :variables
+      plantuml-executable-path "/usr/bin/plantuml"
+      plantuml-default-exec-mode 'executable)))
+#+END_SRC
+
+If instead you don't want to compile locally, you can set =plantuml-exec-mode= to =server=.
+This will make plantuml try to use an online compile server. Be warned that this feature is experimental.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '((plantuml :variables plantuml-default-exec-mode 'server)))
 #+END_SRC
+
+Either way, to get the full range of =Plantuml= compilations working, you will also need
+the native package [[http://graphviz.org/][graphviz]] installed on your system.
 
 * Org-Babel Integration
 To enable the execution of embedded plantuml code blocks within [[http://orgmode.org/][Org-Mode]]

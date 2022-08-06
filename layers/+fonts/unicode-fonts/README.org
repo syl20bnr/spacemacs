@@ -6,63 +6,76 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#ligature-fonts][Ligature Fonts]]
+- [[#configuration][Configuration]]
 
 * Description
 This layer adds support for [[https://github.com/rolandwalker/unicode-fonts][unicode-fonts]] package. It is recommended to
 install the fonts listed in the [[https://github.com/rolandwalker/unicode-fonts#quickstart][Quickstart]] section of the unicode-fonts README.
 
 ** Features:
-- Display unicode glyphs using the best available font.
+- Display Unicode glyphs using the best available font.
 - Easily override glyphs or sections of glyphs.
-- Display color emoji on both the macOS port version of Emacs and emacs-plus (with
-  =unicode-fonts-force-multi-color-on-mac= set to non nil).
+- Display color emoji on both the macOS port version of Emacs and emacs-plus
+  (with =unicode-fonts-force-multi-color-on-mac= set to non nil).
 - Enable support for font ligature in Emacs 27 + via [[https://github.com/mickeynp/ligature.el][ligatures.el]].
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =unicode-fonts= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+add =unicode-fonts= to the existing =dotspacemacs-configuration-layers= list in
+this file.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(unicode-fonts))
+#+END_SRC
 
 If using [[https://github.com/d12frosted/homebrew-emacs-plus/][emacs-plus]], you can set =unicode-fonts-force-multi-color-on-mac= to
 enable color emoji.
 
 #+BEGIN_SRC elisp
-  (unicode-fonts :variables unicode-fonts-force-multi-color-on-mac t)
+  (setq-default dotspacemacs-configuration-layers
+                '(unicode-fonts :variables
+                                unicode-fonts-force-multi-color-on-mac t))
 #+END_SRC
 
+* Configuration
 If you want ligature support Emacs must be built with =Harfbuzz= and a ligature
-font must be installed and configured you can see the [[https://github.com/mickeynp/ligature.el#compatibility-and-version-requirements][upstream]] docs for a full
-list of requirements. By default this is not enabled you can enable it with
+font must be installed and configured. You can see the [[https://github.com/mickeynp/ligature.el#compatibility-and-version-requirements][upstream]] docs for a full
+list of requirements. By default this is not enabled, and you can enable it with
 =unicode-fonts-enable-ligatures=.
 
 #+BEGIN_SRC elisp
-  (unicode-fonts :variables unicode-fonts-enable-ligatures t)
+  (setq-default dotspacemacs-configuration-layers
+                '(unicode-fonts :variables
+                                unicode-fonts-enable-ligatures t))
 #+END_SRC
 
-By default ligatures will be enabled in all programing modes.
-You can enable ligatures for specific modes with
-=unicode-fonts-ligature-modes= variable.
+By default ligatures will be enabled in all programming modes. You can enable
+ligatures for specific modes with =unicode-fonts-ligature-modes= variable. For
+example, to enable ligatures only in PHP and Javascript files:
 
 #+BEGIN_SRC elisp
-  (unicode-fonts :variables unicode-fonts-ligature-modes '(php-mode js-mode))
+  (setq-default dotspacemacs-configuration-layers
+                '(unicode-fonts :variables
+                                unicode-fonts-enable-ligatures t
+                                unicode-fonts-ligature-modes '(php-mode js-mode)))
 #+END_SRC
 
-To enable only for text modes you can use =text-mode=
+Or to enable ligatures only for text files:
 
 #+BEGIN_SRC elisp
-  (unicode-fonts :variables unicode-fonts-ligature-modes '(text-mode))
+  (setq-default dotspacemacs-configuration-layers
+                '(unicode-fonts :variables
+                                unicode-fonts-enable-ligatures t
+                                unicode-fonts-ligature-modes '(text-mode)))
 #+END_SRC
 
 To configure the ligature set that gets used with your font there is a
-=unicode-fonts-ligature-set= variable. To only enable the ligatures in
-=if= statements you can limit the =unicode-fonts-ligature-set=
+=unicode-fonts-ligature-set= variable. For example To only enable the ligatures
+in =if= statements you can set the =unicode-fonts-ligature-set= as:
 
 #+BEGIN_SRC elisp
-  (unicode-fonts :variables unicode-fonts-ligature-set '("==" "===" "!=" "!==" "||" "&&"))
+  (setq-default dotspacemacs-configuration-layers
+                '(unicode-fonts :variables
+                                unicode-fonts-enable-ligatures t
+                                unicode-fonts-ligature-set '("==" "===" "!=" "!==" "||" "&&")))
 #+END_SRC
-
-* Ligature Fonts
-- [[https://github.com/tonsky/FiraCode][Fira Code]]
-- [[https://github.com/microsoft/cascadia-code][Cascadia Code]]
-- [[https://github.com/be5invis/Iosevka/][Iosevka]]

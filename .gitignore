@@ -2,6 +2,7 @@
 *.elc
 *.pyc
 *.stackdump
+*.flycheck_packages.el
 /*.zip
 .DS_Store
 .ac-php-conf.json

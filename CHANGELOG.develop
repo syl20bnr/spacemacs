@@ -127,6 +127,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
     (thanks to Seong Yong-ju)
   - Changed ~SPC t t m~ from ~timeclock-modeline-display~ which was deprecated
     in Emacs 24.3 to ~timeclock-mode-line-display~ (thanks to Zach Pearson)
+  - Added =vim-style-enable-undo-region= style variables to enable undo-region
+    in Vim editing style; disabled by default. (thanks to Benedict HW)
 - Other:
   - Support for multiple cursors using =evil-mc= is now encapsulated in the
     =multiple-cursors= layer (thanks to Codruț Constantin Gușoi)
@@ -1914,6 +1916,9 @@ Other:
 - Fixed: broken package declaration for dockerfile-mode
   (thanks to Maximilian Wolff)
 - Added LSP support
+- Dockerfile mode keybindings (thanks to Alfonso Montero):
+  - Flatten ~cb~ and ~cB~ build commands into ~b~ and ~B~ to save keystrokes.
+  - Add keybindings to some =docker= package commands for convenience.
 **** Dotnet
 - Key bindings:
   - Added key bindings for =dotnet= (thanks to Jordan Kaye):

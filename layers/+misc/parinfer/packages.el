@@ -1,4 +1,4 @@
-;;; packages.el --- parinfer layer packages file for Spacemacs.
+;;; packages.el --- parinfer layer packages file for Spacemacs. -*- lexical-binding: t  -*-
 ;;
 ;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
@@ -20,6 +20,9 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;;; Commentary:
+
+;;; Code:
 
 (defconst parinfer-packages
   '(parinfer-rust-mode))
@@ -27,21 +30,19 @@
 (defun parinfer/init-parinfer-rust-mode ()
   (use-package parinfer-rust-mode
     :defer t
-    :diminish parinfer-rust-mode
+    :spacediminish t
     :hook emacs-lisp-mode clojure-mode scheme-mode common-lisp-mode
+    :custom
+    (parinfer-rust-auto-download t)
+    (parinfer-rust-library-directory (expand-file-name (file-name-as-directory "parinfer-rust")
+                                                       spacemacs-cache-directory))
     :init
-    (progn
-      (setq parinfer-rust-auto-download parinfer-auto-download)
-      (if parinfer-rust-auto-download
-          (setq parinfer-rust-library-directory
-                (concat spacemacs-cache-directory
-                        "parinfer-rust/"))
-        (when parinfer-library
-          (setq parinfer-rust-library parinfer-library)))
-      (spacemacs|add-toggle parinfer-smart-indent
-        :evil-leader "tP"
-        :documentation "Enable Parinfer Smart Indent Mode."
-        :if (bound-and-true-p parinfer-rust-mode)
-        :status (eq parinfer-rust--mode 'smart)
-        :on (parinfer-rust-toggle-paren-mode)
-        :off (parinfer-rust-toggle-paren-mode)))))
+    (spacemacs|add-toggle parinfer-smart-indent
+      :evil-leader "tP"
+      :documentation "Enable Parinfer Smart Indent Mode."
+      :if (bound-and-true-p parinfer-rust-mode)
+      :status (eq parinfer-rust--mode 'smart)
+      :on (parinfer-rust-toggle-paren-mode)
+      :off (parinfer-rust-toggle-paren-mode))))
+
+;;; packages.el ends here

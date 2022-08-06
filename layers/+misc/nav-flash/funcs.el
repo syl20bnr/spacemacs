@@ -21,13 +21,14 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (defun nav-flash//blink-cursor (&rest _)
-  "Blink the line containing hte point.
+  "Blink the line containing the point.
 This makes it clear where the cursor has landed (typically after a large motion,
 like switching windows or jumping to another part of the file)."
   (unless (minibufferp)
     (nav-flash-show)
     ;; only show in the current window
-    (overlay-put compilation-highlight-overlay 'window (selected-window))))
+    (when (overlayp compilation-highlight-overlay)
+      (overlay-put compilation-highlight-overlay 'window (selected-window)))))
 
 (defun nav-flash/blink-cursor-maybe (&rest _)
   "Like `nav-flash//blink-cursor', but no-ops if any following condition is met.
@@ -37,10 +38,12 @@ like switching windows or jumping to another part of the file)."
   (unless (or (memq this-command nav-flash-exclude-commands)
               (bound-and-true-p so-long-minor-mode)
               (apply #'derived-mode-p nav-flash-exclude-modes)
-              (and (equal (point-marker) (car nav-flash--last-point))
-                   (equal (selected-window) (cdr nav-flash--last-point))))
+              (equal nav-flash--last-point
+                     (list (selected-window)
+                           (current-buffer)
+                           (point))))
     (nav-flash//blink-cursor)
-    (setq nav-flash--last-point (cons (point-marker) (selected-window)))))
+    (setq nav-flash--last-point (list (selected-window) (current-buffer) (point)))))
 
 (defun nav-flash/delayed-blink-cursor-h (&rest _)
   "Like `nav-flash//blink-cursor', but blinks after a tiny pause.

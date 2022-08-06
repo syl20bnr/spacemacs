@@ -1,8 +1,8 @@
-;;; config.el --- parinfer layer config file for Spacemacs.
+;;; funcs.el --- unicode-fonts layer funcs file for Spacemacs. -*- lexical-binding: t -*-
 ;;
 ;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
-;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; Author: Lucius Hu
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
@@ -20,13 +20,21 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(spacemacs|defc parinfer-auto-download t
-  "If non nil auto install the parinfer rust library"
-  'boolean nil nil)
+;;; Commentary:
 
-(spacemacs|defc parinfer-library nil
-  "If non nil allows to set a custom library name and folder
+;;; Code:
 
-Setting a path here and disabling `parinfer-auto-download'
-allows to use a local version of the library."
-  '(file :must-match t) nil nil)
+(defun unicode-fonts//setup-fonts (frame)
+  "Setup `unicode-fonts' package for FRAME.
+
+This functions setups `unicode-fonts' right away when starting a GUI Emacs.
+But if Emacs is running in a daemon, it postpone the setup until a GUI frame
+is opened."
+  (if (and frame (display-graphic-p frame))
+      (with-selected-frame frame
+        (require 'unicode-fonts)
+        (unicode-fonts-setup)
+        (remove-hook 'after-make-frame-functions #'unicode-fonts//setup-fonts))
+    (add-hook 'after-make-frame-functions #'unicode-fonts//setup-fonts)))
+
+;;; funcs.el ends here

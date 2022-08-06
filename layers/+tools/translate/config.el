@@ -1,8 +1,8 @@
-;;; layers.el --- GitHub layer layers File for Spacemacs
+;;; funcs.el --- Semantic Layer functions File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
-;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; Author: Ray Wang <rayw.public@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
@@ -21,5 +21,10 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+(defvar translate/paragraph-render 'posframe
+  "Paragraph render for displaying translate result.
+Currently support `posframe' and `buffer'.")
 
-(configuration-layer/declare-layer-dependencies '(version-control))
+(defvar translate/word-render 'posframe
+  "Word render for displaying translate result.
+Currently support `posframe' and `buffer'.")

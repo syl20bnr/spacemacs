@@ -9,6 +9,7 @@
 - [[#customization][Customization]]
   - [[#custom-trigger-of-nav-flash][Custom Trigger of =nav-flash=]]
   - [[#exclusion-rules][Exclusion Rules]]
+- [[#credit][Credit]]
 
 * Description
 This layer adds [[https://github.com/rolandwalker/nav-flash][nav-flash]] package which temporarily highlights the line
@@ -64,3 +65,6 @@ the command or the major mode is excluded, which can be customized via variables
   ;; don't trigger for spacemacs/alternate-buffer (SPC TAB)
   (add-to-list 'nav-flash-exclude-commands 'spacemacs/alternate-buffer)
 #+END_SRC
+
+* Credit
+This layer is ported from [[https://github.com/doomemacs/doomemacs][Doom Emacs]].

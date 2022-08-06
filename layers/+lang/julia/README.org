@@ -51,6 +51,12 @@ for installation, and then install this layer with:
 regardless usage of =lsp-mode= with Julia can cause long delays when first
 opening files. 
 
+By default, the langage server looks for the julia enviornment in =~/.julia/enviornments/v1.0=.
+However, unless julia 1.0 is being used, the enviornment path will be incorrect.
+Code completions from imported packages will not work. To fix this, set =lsp-julia-default-environment=
+to =~/.julia/enviornments/v<your julia version>=. For more information and configuration
+options, see [[https://github.com/gdkrmr/lsp-julia][lsp-julia documentation]].
+
 * Options
 While =julia-mode= is perfectly usable without configuration or other packages,
 you can choose to replace the default functionality of using [[https://github.com/tpapp/julia-repl/][julia-repl]] as the

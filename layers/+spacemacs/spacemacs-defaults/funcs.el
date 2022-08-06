@@ -1263,7 +1263,7 @@ containing the current file by the default explorer."
   (when (active-minibuffer-window)
     (select-window (active-minibuffer-window))))
 
-;; http://stackoverflow.com/a/10216338/4869
+;; https://stackoverflow.com/a/10216338
 (defun spacemacs/copy-whole-buffer-to-clipboard ()
   "Copy entire buffer to clipboard"
   (interactive)
@@ -1307,7 +1307,7 @@ the right."
 
     (align-regexp start end complete-regexp group 1 t)))
 
-;; Modified answer from http://emacs.stackexchange.com/questions/47/align-vertical-columns-of-numbers-on-the-decimal-point
+;; Modified answer from https://emacs.stackexchange.com/a/48
 (defun spacemacs/align-repeat-decimal (start end)
   "Align a table of numbers on decimal points and dollar signs (both optional)"
   (interactive "r")

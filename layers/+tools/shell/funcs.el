@@ -247,7 +247,7 @@ is achieved by adding the relevant text properties."
   (switch-to-buffer "*shell*")
   (shell "*shell*"))
 
-;; https://stackoverflow.com/questions/6837511/automatically-disable-a-global-minor-mode-for-a-specific-major-mode
+;; https://stackoverflow.com/a/6839968
 (defun spacemacs//inhibit-global-centered-cursor-mode ()
   "Counter-act `global-centered-cursor-mode'."
   (add-hook 'after-change-major-mode-hook

@@ -452,7 +452,9 @@ cache folder.")
         quelpa-build-dir (expand-file-name "build" quelpa-dir)
         quelpa-persistent-cache-file (expand-file-name "cache" quelpa-dir)
         quelpa-update-melpa-p nil)
-  (require 'quelpa))
+  (require 'quelpa)
+  (when (eq (quelpa--tar-type) 'gnu)
+    (setq quelpa-build-explicit-tar-format-p t)))
 
 (defun configuration-layer//make-quelpa-recipe (pkg)
   "Read recipe in PKG if :fetcher is local, then turn it to a correct file recepe.
