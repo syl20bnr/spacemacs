@@ -1599,7 +1599,7 @@ RNAME is the name symbol of another existing layer."
          lname))
       (when (null rlayer)
         (configuration-layer//warning
-         "Unknown layer %s to declare lshadow relationship."
+         "Unknown layer %s to declare rshadow relationship."
          rname)))))
 
 (defun configuration-layer//set-layers-variables (layer-names)
