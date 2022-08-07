@@ -74,7 +74,7 @@ the final step of executing code in `emacs-startup-hook'.")
   (setq ad-redefinition-action 'accept)
   ;; this is for a smoother UX at startup (i.e. less graphical glitches)
   (hidden-mode-line-mode)
-  (spacemacs/removes-gui-elements)
+  (spacemacs//toggle-gui-elements 0)
   (spacemacs//setup-ido-vertical-mode)
   ;; explicitly set the preferred coding systems to avoid annoying prompt
   ;; from emacs (especially on Microsoft Windows)
