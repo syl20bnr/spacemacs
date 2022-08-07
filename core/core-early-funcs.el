@@ -22,18 +22,19 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defun spacemacs/removes-gui-elements ()
-  "Remove the menu bar, tool bar and scroll bars."
-  ;; removes the GUI elements
-  (when (and (fboundp 'scroll-bar-mode) (not (eq scroll-bar-mode -1)))
-    (scroll-bar-mode -1))
-  (when (and (fboundp 'tool-bar-mode) (not (eq tool-bar-mode -1)))
-    (tool-bar-mode -1))
+(defun spacemacs//toggle-gui-elements (&optional on-off)
+  "Toggle menu bar, tool bar, scroll bars, and tool tip modes. If
+optional ON-OFF is not specified, then toggle on/off state. If
+ON-OFF is 0 or 1, then turn gui elements OFF or ON respectively."
+  (when (fboundp 'scroll-bar-mode)
+    (scroll-bar-mode (or on-off (not scroll-bar-mode))))
+  (when  (fboundp 'tool-bar-mode)
+    (tool-bar-mode (or on-off (not tool-bar-mode))))
   (unless (memq (window-system) '(mac ns))
-    (when (and (fboundp 'menu-bar-mode) (not (eq menu-bar-mode -1)))
-      (menu-bar-mode -1)))
+    (when (fboundp 'menu-bar-mode)
+      (menu-bar-mode (or on-off (not menu-bar-mode)))))
   ;; tooltips in echo-aera
-  (when (and (fboundp 'tooltip-mode) (not (eq tooltip-mode -1)))
-    (tooltip-mode -1)))
+  (when (fboundp 'tooltip-mode)
+    (tooltip-mode (or on-off (not tooltip-mode)))))
 
 (provide 'core-early-funcs)
