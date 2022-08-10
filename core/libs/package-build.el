@@ -607,7 +607,7 @@ still be renamed."
          (let ((form (with-temp-buffer
                        (insert-file-contents file)
                        (read (current-buffer)))))
-           (unless (eq (car form) #'define-package)
+           (unless (eq (car form) 'define-package)
              (error "No define-package found in %s" file))
            (pcase-let*
                ((`(,_ ,_ ,_ ,summary ,deps . ,extra) form)
