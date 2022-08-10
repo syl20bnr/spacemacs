@@ -42,8 +42,8 @@
       nil (not init-file-debug))
 (load spacemacs--last-emacs-version-file t (not init-file-debug))
 (when (or (not (string= spacemacs--last-emacs-version emacs-version))
-          (spacemacs//dir-contains-stale-byte-compiled-files-p
-           spacemacs-core-directory))
+          (> 0 (spacemacs//dir-byte-compile-state
+                (concat spacemacs-core-directory "libs/"))))
   (spacemacs//remove-byte-compiled-files-in-dir spacemacs-core-directory))
 ;; Update saved Emacs version.
 (unless (string= spacemacs--last-emacs-version emacs-version)
