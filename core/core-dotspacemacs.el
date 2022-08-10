@@ -1183,8 +1183,7 @@ error recovery."
     "is one of \'all, \'any, \'current or nil")
    (spacemacs//test-list
     (lambda (x)
-      (let ((el (or (car-safe x) x))
-            (list-size (cdr-safe x)))
+      (let ((el (or (car-safe x) x)))
         (member el '(recents recents-by-project bookmarks projects todos agenda))))
     'dotspacemacs-startup-lists (concat "includes \'recents, 'recents-by-project, "
                                         "\'bookmarks, \'todos, "
