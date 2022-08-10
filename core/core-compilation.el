@@ -23,6 +23,7 @@
 
 (require 'cl-lib)
 (require 'subr-x)
+(require 'bytecomp)
 
 (defvar spacemacs--last-emacs-version ""
   "This variable is set during Emacs initialization to its version.")
@@ -30,43 +31,58 @@
   (expand-file-name (concat spacemacs-cache-directory "last-emacs-version"))
   "File that sets `spacemacs--last-emacs-version' variable.")
 
-(defconst spacemacs--compiled-files
-  '(;; Built-in libs that we changed
-    "core/libs/forks/load-env-vars.el"
-    "core/libs/forks/spacemacs-ht.el"
-    ;; Rest of built-in libs.
-    "core/libs/ido-vertical-mode.el"
-    "core/libs/package-build-badges.el"
-    "core/libs/package-build.el"
-    "core/libs/package-recipe-mode.el"
-    "core/libs/package-recipe.el"
-    "core/libs/page-break-lines.el"
-    "core/libs/validate.el"
-    "core/libs/quelpa.el"
-    "core/libs/spinner.el")
-  "List of Spacemacs files that should be compiled.
-File paths are relative to the `spacemacs-start-directory'.")
-
-(defun spacemacs//ensure-byte-compilation (files)
-  "Make sure that elisp FILES are byte-compiled."
-  (dolist (file files)
-    (let ((fbp (file-name-sans-extension (file-truename file))))
-      (unless (file-exists-p (concat fbp ".elc"))
-        (byte-compile-file (concat fbp ".el"))))))
-
 (defun spacemacs//remove-byte-compiled-files-in-dir (dir)
   "Remove all .elc files in DIR directory."
-  (dolist (elc (directory-files-recursively dir "\\.elc$"))
+  (dolist (elc (directory-files-recursively dir "\\.elc\\(\\.gz\\)?$"))
     (when (file-exists-p elc)
       (delete-file elc))))
 
-(defun spacemacs//dir-contains-stale-byte-compiled-files-p (dir)
-  "Returns true if any .elc file in DIR directory is stale or orphaned."
-  (cl-dolist (elc (directory-files-recursively dir "\\.elc$"))
-    (let ((el (substring elc 0 -1)))
-      (unless (and (file-exists-p el)
-                   (file-newer-than-file-p elc el))
-        (cl-return t)))))
+(defvar spacemacs--dir-byte-compile-status
+  (make-hash-table :test 'equal)
+  "The hash table to store each directory byte compile state.
+nil for un-initialized, -1 for stale or orphaned *.elc,
+0 for no *.elc, 1 for *.elc corresponding to *.el.")
+
+(cl-defun spacemacs//dir-byte-compile-state (dir &optional update)
+  "Get the directory byte-compile state.
+When the UPDATE is t, will fouce update the state."
+  (let ((state (gethash dir spacemacs--dir-byte-compile-status)))
+    (when (and (not update) state)
+      (cl-return-from spacemacs//dir-byte-compile-state state))
+    (setq state nil)
+    (remhash dir spacemacs--dir-byte-compile-status)
+    (let ((afiles '())
+          (slist (mapcan
+                  (lambda (x)
+                    (mapcar (lambda (y) (concat x y)) load-file-rep-suffixes))
+                  (list ".el" (byte-compile-dest-file ".el")))))
+      (cl-dolist (file (directory-files-recursively dir "\\.elc?\\(\\.gz\\)?$"))
+        (let* ((name (file-name-sans-extension file))
+               (paths (alist-get name afiles nil nil 'equal)))
+          (unless paths
+            (setq paths (list nil nil nil nil))
+            (push (cons name paths) afiles))
+          (if-let ((idx (cl-loop for i from 0
+                                 for s in slist
+                                 until (string-suffix-p s file)
+                                 finally return i)))
+              (setf (nth idx paths) file))))
+      (cl-dolist (item (mapcar 'cdr afiles))
+        (let ((el (or (nth 0 item) (nth 1 item)))   ; .el or .el.gz file
+              (elc (or (nth 2 item) (nth 3 item)))) ; .elc or .elc.gz file
+          (pcase nil
+            ((guard (null el))            ; *.el not exists
+             (puthash dir -1 spacemacs--dir-byte-compile-status)
+             (cl-return -1))
+            ((guard (null elc))           ; *.elc not exists
+             (when (null state)
+               (setq state 0)))
+            ((guard (file-newer-than-file-p el elc)) ; *.elc is older
+             (puthash dir -1 spacemacs--dir-byte-compile-status)
+             (cl-return -1))
+            (_
+             (setq state 1)))))
+      (puthash dir state spacemacs--dir-byte-compile-status))))
 
 (defun spacemacs//update-last-emacs-version ()
   "Update `spacemacs--last-emacs-version' and its saved value."
