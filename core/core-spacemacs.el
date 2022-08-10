@@ -28,6 +28,8 @@
   :prefix 'spacemacs-)
 
 (require 'subr-x nil 'noerror)
+(require 'core-versions)
+(require 'core-load-paths)
 (require 'core-emacs-backports)
 (require 'core-env)
 (require 'page-break-lines)
@@ -52,6 +54,7 @@
 (require 'core-use-package-ext)
 (require 'core-spacebind)
 (require 'core-compilation)
+(require 'core-dumper)
 
 (defvar spacemacs-post-user-config-hook nil
   "Hook run after dotspacemacs/user-config")

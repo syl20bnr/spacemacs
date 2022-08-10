@@ -22,6 +22,7 @@
 
 ;;; Code:
 
+(require 'core-dotspacemacs)
 (eval-when-compile
   (defvar dotspacemacs-distribution)
   (defvar dotspacemacs-filepath)
@@ -32,13 +33,9 @@
   (defvar spacemacs-badge-official-png)
   (defvar spacemacs-banner-directory)
   (defvar spacemacs-banner-official-png)
-  (defvar spacemacs-cache-directory)
-  (defvar spacemacs-docs-directory)
   (defvar spacemacs-gplv3-official-png)
-  (defvar spacemacs-info-directory)
-  (defvar spacemacs-release-notes-directory)
-  (defvar spacemacs-start-directory)
-  (defvar spacemacs-version))
+  (defvar spacemacs-version)
+  (defvar configuration-layer-error-count))
 
 
 (defconst spacemacs-buffer-version-info "0.999"
@@ -808,19 +805,20 @@ If MESSAGEBUF is not nil then MSG is also written in message buffer."
       (when messagebuf
         (message "(Spacemacs) %s" msg)))))
 
-(defun spacemacs-buffer//startup-list-jump-func-name (str)
-  "Given a string, return a spacemacs-buffer function name.
+(eval-and-compile
+  (defun spacemacs-buffer//startup-list-jump-func-name (str)
+    "Given a string, return a spacemacs-buffer function name.
 
 Given:           Return:
 \"[?]\"            \"spacemacs-buffer/jump-to-[?]\"
 \"Recent Files:\"  \"spacemacs-buffer/jump-to-recent-files\""
-  (let ((s (downcase str)))
-    ;; remove last char if it's a colon
-    (when (string-match ":$" s)
-      (setq s (substring s nil (1- (length s)))))
-    ;; replace any spaces with a dash
-    (setq s (replace-regexp-in-string " " "-" s))
-    (concat "spacemacs-buffer/jump-to-" s)))
+    (let ((s (downcase str)))
+      ;; remove last char if it's a colon
+      (when (string-match ":$" s)
+        (setq s (substring s nil (1- (length s)))))
+      ;; replace any spaces with a dash
+      (setq s (replace-regexp-in-string " " "-" s))
+      (concat "spacemacs-buffer/jump-to-" s))))
 
 (defmacro spacemacs-buffer||add-shortcut
     (shortcut-char search-label &optional no-next-line)
