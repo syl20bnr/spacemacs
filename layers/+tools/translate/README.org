@@ -15,6 +15,7 @@
   - [[#read-only][Read-only]]
   - [[#face][Face]]
 - [[#key-bindings][Key bindings]]
+- [[#variables][Variables]]
 
 * Description
 This layer is designed for Paragraph-oriented minor mode for
@@ -80,3 +81,11 @@ color to red, for example.
 | ~SPC a t T f~ | Prompt to open the reference file                                            |
 | ~SPC a t T b~ | Prompt to select a buffer and set it as the reference buffer                 |
 | ~SPC a t T h~ | Toggle paragraph highlighting                                                |
+
+* Variables
+These variables can be used to customize =translate= layer.
+
+| Variable                     | Default Value | Description                                                               |
+|------------------------------+---------------+---------------------------------------------------------------------------|
+| =translate/paragraph-render= | ='posframe=   | Paragraph translation render. Valid values are ='posframe= and ='buffer=. |
+| =translate/word-render=      | ='posframe=   | Word translation render. Valid values are ='posframe= and ='buffer=.      |

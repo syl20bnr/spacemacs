@@ -27,15 +27,13 @@
 (defconst spacemacs-editing-visual-packages
   '(
     column-enforce-mode
-    (evil-terminal-cursor-changer :toggle (configuration-layer/package-used-p 'evil))
     (hide-comnt :location (recipe :fetcher github :repo "emacsmirror/hide-comnt"))
     highlight-indentation
     highlight-numbers
     highlight-parentheses
     indent-guide
     rainbow-delimiters
-    (term-cursor :location (recipe :fetcher github :repo "h0d/term-cursor.el")
-                  :toggle (not (configuration-layer/package-used-p 'evil)))
+    (term-cursor :location (recipe :fetcher github :repo "h0d/term-cursor.el"))
     volatile-highlights
     writeroom-mode))
 
@@ -60,13 +58,6 @@
         :documentation "Globally highlight the characters past the 80th column."
         :evil-leader "t C-8"))
     :spacediminish ("⑧" "8")))
-
-(defun spacemacs-editing-visual/init-evil-terminal-cursor-changer ()
-  (use-package evil-terminal-cursor-changer
-    :if (not (display-graphic-p))
-    :after evil
-    :defer t
-    :init (evil-terminal-cursor-changer-activate)))
 
 (defun spacemacs-editing-visual/init-hide-comnt ()
   (use-package hide-comnt
@@ -166,9 +157,10 @@
 
 (defun spacemacs-editing-visual/init-term-cursor ()
   (use-package term-cursor
-    :if (not (display-graphic-p))
     :defer t
-    :init (global-term-cursor-mode)))
+    :init
+    (when (display-graphic-p)
+     (global-term-cursor-mode))))
 
 (defun spacemacs-editing-visual/init-volatile-highlights ()
   (use-package volatile-highlights

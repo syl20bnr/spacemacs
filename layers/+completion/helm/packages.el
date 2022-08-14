@@ -481,12 +481,7 @@
                                              xref-find-definitions-other-window
                                              xref-find-definitions-other-frame
                                              xref-find-references
-                                             spacemacs/jump-to-definition))
-      ;; Use helm-xref to display `xref.el' results.
-      (setq xref-show-xrefs-function (if (< emacs-major-version 27)
-                                         #'helm-xref-show-xrefs
-                                       #'helm-xref-show-xrefs-27)))))
-
+                                             spacemacs/jump-to-definition)))))
 
 (defun helm/post-init-imenu ()
   (spacemacs/set-leader-keys "ji" 'spacemacs/helm-jump-in-buffer))

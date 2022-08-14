@@ -7,118 +7,165 @@
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
-- [[#install][Install]]
-  - [[#layer][Layer]]
-  - [[#enablingdisabling-tooltips][Enabling/Disabling tooltips]]
-  - [[#disabling-by-default][Disabling by default]]
-  - [[#enable-flycheck-globally][Enable flycheck globally]]
-  - [[#enable-support-for-traditional-error-navigation][Enable support for traditional error navigation]]
-  - [[#bitmaps][Bitmaps]]
-  - [[#auto-hide-tooltips][Auto hide tooltips]]
-  - [[#window-position-and-size][Window position and size]]
+- [[#installation][Installation]]
+- [[#customization][Customization]]
+  - [[#enable-flycheck-manually][Enable Flycheck Manually]]
+  - [[#tooltip-pop-up][Tooltip Pop-up]]
+  - [[#error-list-pop-up][Error List Pop-up]]
+  - [[#error-indicator-on-fringemargin][Error Indicator on Fringe/Margin]]
+  - [[#enable-traditional-error-navigation][Enable Traditional Error Navigation]]
 - [[#key-bindings][Key bindings]]
+  - [[#error-list-interaction][Error list interaction]]
 
 * Description
-This layer adds on the fly syntax checking to all supported language layers.
+This layer adds on-the-fly syntax checking to all supported language layers.
 
 ** Features:
-- Support for automatic syntax checking with [[http://www.flycheck.org/][Flycheck]] for various language layers
-- Tooltip syntax errors with =popwin=
+- Automatic syntax checking with [[http://www.flycheck.org/][Flycheck]] for various language layers.
+- Shows syntax error in pop-up window via [[https://github.com/flycheck/flycheck-pos-tip][flycheck-pos-tip]].
 
-* Install
-** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =syntax-checking= to the existing =dotspacemacs-configuration-layers= list in this
-file.
-
-As this is a support layer you will also have to install at least one supported language
-layer for it to have any effect.
-
-** Enabling/Disabling tooltips
-By default tooltips are enabled and used whenever it is possible.
-You can disable them by setting the variable =syntax-checking-enable-tooltips=
-to =nil=:
+* Installation
+To use this configuration layer, add =syntax-checking= to
+=dotspacemacs-configuration-layers= in your =~/.spacemacs=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '((syntax-checking :variables syntax-checking-enable-tooltips nil)))
+                '(syntax-checking))
 #+END_SRC
 
-** Disabling by default
+You will need to install at least one supported language layer for
+=syntax-checking= to take effect. Some syntax checkers requires external
+dependencies, consult the respective language layer for more information.
+
+If syntax checking support is missing for a language, please [[https://github.com/syl20bnr/spacemacs/issues/new][open an issue]] to
+ask for syntax checking support.
+
+Some guides on the web suggest to enable flycheck globally by setting
+=(global-flycheck-mode)= in your =dotspacemacs/user-config=. This is neither
+necessary nor is it good for our layer system. In the contrary by doing so the
+layer system can longer decide for which modes activating flycheck would bring
+any useful outcome. This may result in slow loading or not properly configured
+checkers as well as breaking some of the more advanced configuration settings
+of the layer system.
+
+* Customization
+** Enable Flycheck Manually
 By default, syntax-checking is enabled in all available major modes (except for
-=emacs-lisp-mode=) and may be toggled off with ~SPC t s~. You can default this to off
-by setting the variable =syntax-checking-enable-by-default= to =nil=:
+=emacs-lisp-mode=) and may be toggled off with ~SPC t s~. You can turn off this
+feature and make flycheck manually available by setting the variable
+=syntax-checking-enable-by-default= to =nil=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '((syntax-checking :variables syntax-checking-enable-by-default nil)))
+                '((syntax-checking :variables
+                                   syntax-checking-enable-by-default nil)))
 #+END_SRC
 
 If you want more fine-grained control, you can configure the variable
-=flycheck-global-modes= instead. Note that this variable should be manipulated
-in =dotspacemacs/user-config=.
+=flycheck-global-modes= instead. Note that this variable *should be* manipulated
+in =dotspacemacs/user-config=. (Because =dotspacemacs/user-config= is evaluated
+after layers so your settings won't be overridden.)
 
-** Enable flycheck globally
-Normally Spacemacs goes a long mile to enable syntax checking only where it
-makes sense. If syntax checking support is missing it is normally only a
-matter of declaring it in the layer. The best approach in this case is
-to open an issue and ask for syntax checking support.
-
-Some guides on the web suggest to enable flycheck globally by setting
-=(global-flycheck-mode)= in your =dotspacemacs/user-config=.
-This is neither necessary nor is it good for the layer system.
-In the contrary by doing so the layer system cannot longer decide for
-which modes activating flycheck would bring any useful outcome.
-This may result in loading slow or not properly configured checkers
-as well as break some of the more advanced configuration settings
-of the layer system.
-
-** Enable support for traditional error navigation
-By default spacemacs takes care to call the right function to jump
-to the next or previous error. However if wished flycheck can also
-override =next-error= and =previous-error= respectively allowing
-to use alternative general emacs bindings instead of the spacemacs
-specific ones. To do so set =syntax-checking-use-standard-error-navigation=
-to non-nil.
+** Tooltip Pop-up
+By default, tooltips are shown when the point is on erros after a short delay.
+You can disable them by setting the variable =syntax-checking-enable-tooltips=
+to =nil=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '((syntax-checking :variables syntax-checking-use-standard-error-navigation t)))
+                '((syntax-checking :variables
+                                   syntax-checking-enable-tooltips nil)))
 #+END_SRC
 
-** Bitmaps
-If the original flycheck fringe bitmaps are more to your liking, you can set the
-variable =syntax-checking-use-original-bitmaps= to =t=:
+By default the tooltip pop-up window persists. If you prefer it to be hidden
+automatically after a certain number of seconds, you can set the variable
+=syntax-checking-auto-hide-tooltips= to a positive value. For example, to
+hide it after 5 seconds:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '((syntax-checking :variables syntax-checking-use-original-bitmaps t)))
+                '((syntax-checking :variables
+                                   syntax-checking-auto-hide-tooltips 5)))
 #+END_SRC
 
-** Auto hide tooltips
-You can set time in seconds after which tooltips are automatically hidden by setting
-the variable =syntax-checking-auto-hide-tooltips= to a positive number of seconds.
+** Error List Pop-up
+By default, the =flycheck-error-list-mode= is displayed in a pop window to the
+bottom of the frame, with 30% of the frame's height.
 
-Default value of =syntax-checking-auto-hide-tooltips= is =nil=, and in that case tooltips
-are kept open until the cursor is moved.
+You can customize where the pop window is shown by setting the variable
+=syntax-checking-window-position= to one of ='bottom=, ='top=, ='left=, and
+='right=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-    '((syntax-checking :variables syntax-checking-auto-hide-tooltips 10)))
-#+END_SRC
+You can also set the initial window width and height by setting
+=syntax-checking-window-width= and =syntax-checking-window-height= respectively,
+where an integer value is the number of columns it takes while a float value is
+the relative size to the current frame.
 
-** Window position and size
-You can set the frame position within the emacs window by setting the variable
-=syntax-checking-window-position=. Available values are ='bottom=, ='left=, ='right=,
-and ='top=. You can also set the initial size by setting =syntax-checking-window-width=
-and =syntax-checking-window-height= for width and height respectively.
+For example, to have the pop window appear on the right side of the frame with
+60 columns:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
     '((syntax-checking :variables
-                       syntax-checking-window-position 'bottom
-                       syntax-checking-window-width 80
-                       syntax-checking-window-height 25)))
+                       syntax-checking-window-position 'right
+                       syntax-checking-window-width 60
+#+END_SRC
+
+** Error Indicator on Fringe/Margin
+By default, errors are indicated by a small circle on the left fringe of each
+window. The position of the indicator can be changed by setting the variable
+=flycheck-indication-mode=.
+
+If =flycheck-indication-mode= is =left-fringe= or =right-fringe=, a bitmap is
+displayed on the fringe to indicate an error. (A bitmap is a string or a vector
+of bits, see =define-fringe-bitmap= for details.) The default fringe bitmap in
+Spacemacs is a small solid circle.
+
+If =flycheck-indication-mode= is to =left-margin= or =right-margin=, a string
+displayed on the fringe to indicate an error. Spacemacs doesn't change the
+margin string so the default value is defined in =flycheck=.
+
+If =flycheck-indication-mode= is =nil=, no indicator is displayed for errors.
+
+To change the indicator symbol, you can customize
+=syntax-checking-indicatin-symbol=, which is a cons cell of a fringe bitmap and
+margin string. When any of the element is nil, it's left to =flycheck= to
+determine a default indicator. (At any time, only one of the fringe bitmap and
+margin string is needed, since error indicator cannot be both =*-fringe= and
+=*-margin=. So when setting this variable, you only need too set the one you
+need and leave the other one =nil=.)
+
+For example, if you prefer the original fringe bitmap to Spacemacs's default:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((syntax-checking :variables
+                       ;; unset the first value to use flycheck's default fringe
+                       syntax-checking-indication-symbol '(nil . nil)))
+#+END_SRC
+
+Or say if you want to display the indicator on the =left-margin= as an asterisk,
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((syntax-checking :variables
+                       flycheck-indication-mode 'left-margin
+                       ;; set the second value for custom margin string
+                       syntax-checking-indication-symbol '(nil . "*"))))
+#+END_SRC
+
+** Enable Traditional Error Navigation
+By default Spacemacs takes care to call the right function to jump to the next
+or previous error. However if wished =flycheck= can also override =next-error=
+and =previous-error=, allowing to use alternative general emacs bindings instead
+of those Spacemacs specific ones. See [[https://www.flycheck.org/en/latest/user/error-interaction.html#navigate-errors][the manual]] for detailed explanation.
+
+To do so, set =syntax-checking-use-standard-error-navigation= to non-nil.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((syntax-checking :variables
+                                   syntax-checking-use-standard-error-navigation t)))
 #+END_SRC
 
 * Key bindings
@@ -127,11 +174,26 @@ and =syntax-checking-window-height= for width and height respectively.
 |-------------+--------------------------------------------------------------|
 | ~SPC e b~   | check for errors now                                         |
 | ~SPC e c~   | clear errors                                                 |
+| ~SPC e d~   | disable a checker in current buffer                          |
 | ~SPC e h~   | describe flycheck checker                                    |
 | ~SPC e l~   | display a list of all the errors                             |
 | ~SPC e L~   | display a list of all the errors and focus the errors buffer |
-| ~SPC e s~   | set flycheck checker                                         |
-| ~SPC e S~   | set flycheck checker executable                              |
+| ~SPC e s~   | set flycheck checker in current buffer                       |
+| ~SPC e S~   | set flycheck checker executable in current buffer            |
 | ~SPC e v~   | verify flycheck setup                                        |
 | ~SPC t s~   | toggle flycheck                                              |
 | ~SPC e x~   | explain the error at point                                   |
+
+** Error list interaction
+Inside =flycheck-error-list-mode= pop window, the following key bindings are
+available:
+
+| Key binding | Description                                                       |
+|-------------+-------------------------------------------------------------------|
+| ~j~/~k~     | Move focus to next/previous error and show it in the main buffer. |
+| ~J~/~K~     | Move focus to next/previous error.                                |
+| ~RET~       | Go to the selected error.                                         |
+| ~f~         | Filter errors by urgency.                                         |
+| ~F~         | Remove any filter.                                                |
+| ~g~         | Refresh error list.                                               |
+| ~e~         | Explain the selected error, if the checker supports it.           |

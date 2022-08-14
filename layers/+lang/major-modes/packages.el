@@ -26,6 +26,7 @@
         arduino-mode
         (ebuild-mode :location (recipe :fetcher github :repo "emacsmirror/ebuild-mode"))
         evil-matchit
+        gemini-mode
         (hoon-mode :location (recipe :fetcher github :repo "urbit/hoon-mode.el"))
         (logcat :location (recipe :fetcher github :repo "dcolascione/logcat-mode"))
         matlab-mode
@@ -51,6 +52,17 @@
         "k" 'ebuild-mode-keyword
         "e" 'ebuild-run-command
         "a" 'ebuild-run-echangelog))))
+
+(defun major-modes/init-gemini-mode ()
+  (use-package gemini-mode
+    :init
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'gemini-mode
+        "l" 'gemini-insert-link
+        "o" 'gemini-open-link-at-point
+        "RET" 'gemini-insert-list-item
+        "t" 'gemini-insert-time-stamp
+        "n" 'gemini-insert-tinylog-header))))
 
 (defun major-modes/init-hoon-mode ())
 

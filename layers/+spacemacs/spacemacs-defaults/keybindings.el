@@ -595,6 +595,13 @@ respond to this toggle."
   :mode menu-bar-mode
   :documentation "Display the menu bar."
   :evil-leader "Tm")
+(spacemacs|add-toggle gui-elements
+  :if window-system
+  :status (or menu-bar-mode tool-bar-mode scroll-bar-mode tooltip-mode)
+  :on  (spacemacs//toggle-gui-elements 1)
+  :off (spacemacs//toggle-gui-elements 0)
+  :documentation "Toggle menubar, toolbar, scrollbar, and tooltip modes."
+  :evil-leader "Tg")
 ;; quit -----------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "qs" 'spacemacs/save-buffers-kill-emacs

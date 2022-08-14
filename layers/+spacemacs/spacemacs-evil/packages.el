@@ -39,9 +39,6 @@
         evil-matchit
         evil-numbers
         evil-surround
-        ;; Temporarily disabled, pending the resolution of
-        ;; https://github.com/7696122/evil-terminal-cursor-changer/issues/8
-        ;; evil-terminal-cursor-changer
         evil-textobj-line
         evil-tutor
         (evil-unimpaired :location (recipe :fetcher local))
@@ -227,12 +224,9 @@
     :defer t
     :init
     (progn
-      ;; Override the default keys, as they collide (with what ? :-))
-      (setq evil-lion-left-align-key nil
-            evil-lion-right-align-key nil)
-      (spacemacs/set-leader-keys
-        "xal" 'evil-lion-left
-        "xaL" 'evil-lion-right))
+      (evil-define-key '(normal visual) 'global
+        "gl" #'evil-lion-left
+        "gL" #'evil-lion-right))
     :config (evil-lion-mode)))
 
 (defun spacemacs-evil/init-evil-lisp-state ()
@@ -368,13 +362,6 @@
     :config
     (progn
       (global-evil-surround-mode 1))))
-
-(defun spacemacs-evil/init-evil-terminal-cursor-changer ()
-  (use-package evil-terminal-cursor-changer
-    :if (not (display-graphic-p))
-    :init (setq evil-visual-state-cursor 'box
-                evil-insert-state-cursor 'bar
-                evil-emacs-state-cursor 'hbar)))
 
 (defun spacemacs-evil/init-evil-textobj-line ()
   ;; No laziness here, the line text object should be available right away.

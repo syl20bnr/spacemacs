@@ -35,38 +35,35 @@
 Useful for users in order to given them a hint of potential bottleneck in
 their configuration.")
 
-(let* ((env (getenv "SPACEMACSDIR"))
-       (env-dir (when env (expand-file-name (concat env "/"))))
-       (env-init (and env-dir (expand-file-name "init.el" env-dir)))
-       (no-env-dir-default (expand-file-name
-                            (concat user-home-directory
-                                    ".spacemacs.d/")))
-       (default-init (expand-file-name ".spacemacs" user-home-directory)))
-  (defconst dotspacemacs-directory
-    (cond
-     ((and env (file-exists-p env-dir)) env-dir)
-     ((file-exists-p no-env-dir-default) no-env-dir-default)
-     (t nil))
-    "Optional spacemacs directory, which defaults to
-~/.spacemacs.d. This setting can be overridden using the
-SPACEMACSDIR environment variable. If neither of these
-directories exist, this variable will be nil.")
+(defconst dotspacemacs-directory
+  (let* ((spacemacs-dir-env (getenv "SPACEMACSDIR"))
+         (spacemacs-dir (if spacemacs-dir-env
+                            (expand-file-name (concat spacemacs-dir-env "/"))
+                          (expand-file-name ".spacemacs.d/" user-home-directory))))
+    (when (file-directory-p spacemacs-dir)
+      spacemacs-dir))
+  "Directory containing Spacemacs customizations (defaults to nil).
+- If environment variable SPACEMACSDIR is set and the directory exists,
+  use that value.
+- Otherwise use $HOME/.spacemacs.d if it exists.")
 
-  (defvar dotspacemacs-filepath
-    (let ((spacemacs-dir-init (when dotspacemacs-directory
-                                (concat dotspacemacs-directory
-                                        "init.el"))))
-      (cond
-       (env-init)
-       ((file-exists-p default-init) default-init)
-       ((and dotspacemacs-directory (file-exists-p spacemacs-dir-init))
-        spacemacs-dir-init)
-       (t default-init)))
-    "Filepath to the installed dotfile. If SPACEMACSDIR is given
-then SPACEMACSDIR/init.el is used. Otherwise, if ~/.spacemacs
-exists, then this is used. If ~/.spacemacs does not exist, then
-check for init.el in dotspacemacs-directory and use this if it
-exists. Otherwise, fallback to ~/.spacemacs"))
+(defconst dotspacemacs-filepath
+  (let* ((spacemacs-dir-env (getenv "SPACEMACSDIR"))
+         (spacemacs-init (if spacemacs-dir-env
+                             (expand-file-name "init.el" spacemacs-dir-env)
+                           (expand-file-name ".spacemacs" user-home-directory))))
+      (if (file-regular-p spacemacs-init)
+          spacemacs-init
+        (let ((fallback-init (expand-file-name ".spacemacs.d/init.el"
+                                               user-home-directory)))
+          (if (file-regular-p fallback-init)
+              fallback-init
+            spacemacs-init))))
+  "Filepath to Spacemacs configuration file (defaults to ~/.spacemacs).
+- If environment variable SPACEMACSDIR is set and SPACEMACSDIR/init.el
+  exists, use that value.
+- Otherwise use ~/.spacemacs if it exists.
+- Otherwise use $HOME/.spacemacs.d/init.el if it exists.")
 
 (spacemacs|defc dotspacemacs-distribution 'spacemacs
   "Base distribution to use. This is a layer contained in the directory
@@ -907,8 +904,7 @@ before copying the file if the destination already exists."
                      (format "%s already exists. Do you want to overwrite it ? "
                              dotspacemacs-filepath)) t)))
     (when copy?
-      (copy-file (concat dotspacemacs-template-directory
-                         ".spacemacs.template")
+      (copy-file (expand-file-name ".spacemacs.template" dotspacemacs-template-directory)
                  dotspacemacs-filepath t)
       (message "%s has been installed." dotspacemacs-filepath))))
 
@@ -1187,8 +1183,7 @@ error recovery."
     "is one of \'all, \'any, \'current or nil")
    (spacemacs//test-list
     (lambda (x)
-      (let ((el (or (car-safe x) x))
-            (list-size (cdr-safe x)))
+      (let ((el (or (car-safe x) x)))
         (member el '(recents recents-by-project bookmarks projects todos agenda))))
     'dotspacemacs-startup-lists (concat "includes \'recents, 'recents-by-project, "
                                         "\'bookmarks, \'todos, "

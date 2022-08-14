@@ -3657,6 +3657,7 @@ To search in a project see [[#searching-in-a-project][project searching]].
 | ~SPC p a~   | toggle between implementation and test                                                   |
 | ~SPC p b~   | switch to project buffer                                                                 |
 | ~SPC p c~   | compile project using =projectile=                                                       |
+| ~SPC p u~   | run project using =projectile=                                                           |
 | ~SPC p d~   | find directory                                                                           |
 | ~SPC p D~   | open project root in =dired=                                                             |
 | ~SPC p e~   | edit dir-locals.el                                                                       |

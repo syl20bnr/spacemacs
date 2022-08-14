@@ -1,4 +1,4 @@
-;;; config.el --- unicode-fonts configuration file for Spacemacs.
+;;; config.el --- unicode-fonts configuration file for Spacemacs. -*- lexical-binding: t -*-
 ;;
 ;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
@@ -20,31 +20,41 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;;; Commentary:
 
-(defvar unicode-fonts-force-multi-color-on-mac nil
-  "If non nil unicode-fonts will enable multi-color fonts (emoji)
-on macs.
+;;; Code:
 
-This should only be set when using the multi-color patch as
-emacs-plus does. It is unnecessary to set this when using the
-macOS port version.")
-(defvar unicode-fonts-enable-ligatures nil
-  "If you want to enable font ligatures")
+(spacemacs|defc unicode-fonts-force-multi-color-on-mac nil
+  "If non nil unicode-fonts will enable multi-color Emoji.
+This is only needed in emacs-plus.
+The Emacs macOS port automatically turns multi-color Emoji support on and
+so it's unnecessary."
+  '(boolean))
 
-(defvar unicode-fonts-ligature-set '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
-                                     ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
-                                     "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
-                                     "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
-                                     "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
-                                     "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
-                                     "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
-                                     "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
-                                     ">=" ">>" ">-" "-~" "-|" "->" "-<" "<~" "<*" "<|" "<:" "<$"
-                                     "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!" "##"
-                                     "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:" "?="
-                                     "?." "??" ";;" "/*" "/**" "/=" "/>" "__" "~~" "(*" "*)"
-                                     "://")
-  "List of ligatures you would like enabled")
+(spacemacs|defc unicode-fonts-enable-ligatures nil
+  "If non-nil, enable unicode-fonts.
+By default it's enabled only for `prog-mode' buffers.
+For a finer control of the behavior, see `unicode-fonts-ligature-modes'."
+  '(boolean))
 
-(defvar unicode-fonts-ligature-modes '(prog-mode)
-  "The modes ligatures are enabled in, default is prog-mode")
+(spacemacs|defc unicode-fonts-ligature-set '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
+                                             ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
+                                             "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
+                                             "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
+                                             "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
+                                             "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
+                                             "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
+                                             "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
+                                             ">=" ">>" ">-" "-~" "-|" "->" "-<" "<~" "<*" "<|" "<:" "<$"
+                                             "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!" "##"
+                                             "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:" "?="
+                                             "?." "??" ";;" "/*" "/**" "/=" "/>" "__" "~~" "(*" "*)"
+                                             "://")
+  "List of ligatures to enable."
+  '(repeat string))
+
+(spacemacs|defc unicode-fonts-ligature-modes '(prog-mode)
+  "This only takes effect when `unicode-fonts-enable-ligatures' is non-nil."
+  '(repeat symbol))
+
+;;; config.el ends here

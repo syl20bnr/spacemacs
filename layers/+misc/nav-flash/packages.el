@@ -1,4 +1,4 @@
-;;; packages.el --- Nav-flash Layer Packages File for Spacemacs.
+;;; packages.el --- Nav-flash Layer Packages File for Spacemacs. -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
@@ -40,8 +40,6 @@
   ;; `org'
   (add-hook 'org-follow-link-hook #'nav-flash/delayed-blink-cursor-h)
 
-  ;; (add-hook 'persp-activated-functions #'nav-flash/delayed-blink-cursor-h)
-
   ;; `saveplace'
   (advice-add #'save-place-find-file-hook :after #'nav-flash/blink-cursor-maybe)
 
@@ -62,16 +60,9 @@
                      switch-to-buffer
                      winum-select-window-by-number
                      pop-tag-mark
-                     ;; persp-switch
                      spacemacs/alternate-buffer
                      spacemacs/jump-to-definition))
     (advice-add command :after #'nav-flash/blink-cursor-maybe))
 
   ;; persp and eyebrowse
-  (advice-add 'persp-switch :after #'nav-flash/delayed-blink-cursor-h)
-
-  :config
-  ;; emacs 27 extend face
-  (when (fboundp 'set-face-extend)
-    (with-eval-after-load "nav-flash"
-      (set-face-extend 'nav-flash-face t))))
+  (advice-add 'persp-switch :after #'nav-flash/delayed-blink-cursor-h))

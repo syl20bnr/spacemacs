@@ -74,7 +74,7 @@ the final step of executing code in `emacs-startup-hook'.")
   (setq ad-redefinition-action 'accept)
   ;; this is for a smoother UX at startup (i.e. less graphical glitches)
   (hidden-mode-line-mode)
-  (spacemacs/removes-gui-elements)
+  (spacemacs//toggle-gui-elements 0)
   (spacemacs//setup-ido-vertical-mode)
   ;; explicitly set the preferred coding systems to avoid annoying prompt
   ;; from emacs (especially on Microsoft Windows)
@@ -255,10 +255,11 @@ Note: the hooked function is not executed when in dumped mode."
            gc-cons-percentage (cadr dotspacemacs-gc-cons))
      (setq read-process-output-max dotspacemacs-read-process-output-max)))
 
-  (let ((default-directory spacemacs-start-directory))
-    (if dotspacemacs-byte-compile
-        (spacemacs//ensure-byte-compilation spacemacs--compiled-files)
-      (spacemacs//remove-byte-compiled-files-in-dir spacemacs-core-directory)))
+  (if dotspacemacs-byte-compile
+      (when (> 1 (spacemacs//dir-byte-compile-state
+                  (concat spacemacs-core-directory "libs/")))
+        (byte-recompile-directory (concat spacemacs-core-directory "libs/") 0))
+    (spacemacs//remove-byte-compiled-files-in-dir spacemacs-core-directory))
   ;; Check if revision has changed.
   (spacemacs//revision-check))
 

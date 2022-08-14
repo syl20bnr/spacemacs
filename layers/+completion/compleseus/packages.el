@@ -236,6 +236,9 @@
     ;; You may want to use `embark-prefix-help-command' or which-key instead.
     ;; (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
 
+    ;; Make M-n as smart as ivy and helm equivalents
+    (setq minibuffer-default-add-function 'spacemacs/minibuffer-default-add-function)
+
     ;; Optionally configure a function which returns the project root directory.
     (setq consult-project-root-function
           (lambda ()
@@ -287,11 +290,11 @@
 (defun compleseus/init-orderless ()
   (use-package orderless
     :init
+    ;; company-capf is messed up with orderless
     ;; https://github.com/oantolin/orderless/issues/48#issuecomment-856750410
-    ;; too intrusive and disrupts lsp
     (define-advice company-capf (:around (orig-fun &rest args) set-completion-styles)
       ;; when lsp is on stay away
-      (if lsp-completion-mode
+      (if (bound-and-true-p lsp-completion-mode)
           (apply orig-fun args)
         (let ((completion-styles '(basic partial-completion orderless)))
           (apply orig-fun args))))
@@ -302,7 +305,7 @@
     ;; (setq completion-styles '(basic partial-completion orderless)
     (setq completion-styles '(orderless)
           completion-category-defaults nil
-          completion-category-overrides '((file (styles . (partial-completion)))))))
+          completion-category-overrides '((file (styles basic partial-completion))))))
 
 (defun compleseus/init-selectrum ()
   (use-package selectrum

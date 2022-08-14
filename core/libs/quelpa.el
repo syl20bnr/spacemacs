@@ -463,10 +463,14 @@ The string in the capture group should be parsed as valid by `version-to-list'."
 ;;; Internal Variables
 
 (defconst quelpa-build-default-files-spec
-  '("*.el" "*.el.in" "dir"
-    "*.info" "*.texi" "*.texinfo"
+  '("*.el" "lisp/*.el"
+    "dir" "*.info" "*.texi" "*.texinfo"
     "doc/dir" "doc/*.info" "doc/*.texi" "doc/*.texinfo"
-    (:exclude ".dir-locals.el" "test.el" "tests.el" "*-test.el" "*-tests.el"))
+    "docs/dir" "docs/*.info" "docs/*.texi" "docs/*.texinfo"
+    (:exclude
+     ".dir-locals.el" "lisp/.dir-locals.el"
+     "test.el" "tests.el" "*-test.el" "*-tests.el"
+     "lisp/test.el" "lisp/tests.el" "lisp/*-test.el" "lisp/*-tests.el"))
   "Default value for :files attribute in recipes.")
 
 ;;; Utilities
@@ -1202,7 +1206,7 @@ Tests and sets variable `quelpa--tar-type' if not already set."
          "--exclude=_FOSSIL_"
          "--exclude=.bzr"
          "--exclude=.hg"
-         (append (and quelpa-build-explicit-tar-format-p '("--format=gnu"))
+         (append (and quelpa-build-explicit-tar-format-p (eq (quelpa--tar-type) 'gnu) '("--format=gnu"))
                  (or (mapcar (lambda (fn) (concat dir "/" fn)) files) (list dir)))))
 
 (defun quelpa-build--find-package-commentary (file-path)

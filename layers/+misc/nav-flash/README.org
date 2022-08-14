@@ -5,7 +5,11 @@
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
-- [[#install][Install]]
+- [[#installation][Installation]]
+- [[#customization][Customization]]
+  - [[#custom-trigger-of-nav-flash][Custom Trigger of =nav-flash=]]
+  - [[#exclusion-rules][Exclusion Rules]]
+- [[#credit][Credit]]
 
 * Description
 This layer adds [[https://github.com/rolandwalker/nav-flash][nav-flash]] package which temporarily highlights the line
@@ -15,7 +19,52 @@ navigation command.
 ** Features:
 - Fancy flashing line on navigation.
 
-* Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =nav-flash= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+* Installation
+To use this configuration layer, add =nav-flash= to the existing
+=dotspacemacs-configuration-layers= list in your =~/.spacemacs=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '(nav-flash))
+#+END_SRC
+
+* Customization
+** Custom Trigger of =nav-flash=
+=nav-flash= layer works around the following functions:
+- =nav-flash/blink-cursor-maybe= blinks the line containing the point unless
+  current major mode or current command is excluded, or if =so-long-minor-mode=
+  is on.
+- =nav-flash/delayed-blink-cursor-h= blinks after a short pause, which is useful
+  to wait for the point moving to the correct window.
+
+They are added to [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Hooks.html][hooks]] or [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Advising-Functions.html][after advices]] of various functions. You can trigger
+=nav-flash= in more context viaa =dotspacemacs/user-config=, for example:
+
+#+BEGIN_SRC emacs-lisp
+  ;; blink after triggering evil-window-left/right/up/down
+  (advice-add #'evil-window-left  :after #'nav-flash/blink-cursor-maybe)
+  (advice-add #'evil-window-right :after #'nav-flash/blink-cursor-maybe)
+  (advice-add #'evil-window-up    :after #'nav-flash/blink-cursor-maybe)
+  (advice-add #'evil-window-down  :after #'nav-flash/blink-cursor-maybe)
+
+  ;; blink after a delay in after projectile-switch-project
+  (spacemacs/add-to-hooks #'nav-flash/delayed-blink-cursor-h
+                          '(projectile-after-switch-project-hook)
+                          t)
+#+END_SRC
+
+** Exclusion Rules
+=nav-flash/blink-cursor-maybe= is configured not to flash the line when either
+the command or the major mode is excluded, which can be customized via variables
+=nav-flash-exclude-commands= and =nav-flash-exlude-modes= in your
+=dotspacemacs/user-config=. For example,
+
+#+BEGIN_SRC emacs-lisp
+  ;; don't trigger in dired-mode
+  (add-to-list 'nav-flash-exclude-modes 'dired-mode )
+  ;; don't trigger for spacemacs/alternate-buffer (SPC TAB)
+  (add-to-list 'nav-flash-exclude-commands 'spacemacs/alternate-buffer)
+#+END_SRC
+
+* Credit
+This layer is ported from [[https://github.com/doomemacs/doomemacs][Doom Emacs]].

@@ -49,32 +49,16 @@
 (defconst spacemacs--dump-spinner-construct
   '("" (:eval (spinner-print spacemacs-dump-spinner))))
 
-(defun spacemacs/dump-save-load-path ()
-  "Save `load-path' variable."
-  (setq spacemacs-dump-load-path load-path))
-
-(defun spacemacs/dump-restore-load-path ()
-  "Restore the `load-path' variable from the dump. "
-  (spacemacs|unless-dumping
-    (when (not (null spacemacs-dump-load-path))
-      (setq load-path spacemacs-dump-load-path))))
-
-(defun spacemacs/defer (&optional idle-time)
-  "Return t or IDLE-TIME when Spacemacs is not running from a dump."
-  (when (eq 'not-dumped spacemacs-dump-mode)
-    (or idle-time t)))
+(defmacro spacemacs|when-dumping-strict (&rest body)
+  "Execute body if we are really dumping.
+You should not used this function, it is reserved for some specific process."
+  (declare (indent defun))
+  `(when (eq 'dumping spacemacs-dump-mode)
+     ,@body))
 
 (defmacro spacemacs|require-when-dumping (&rest args)
   "Require feature if dumping."
   (spacemacs|when-dumping-strict `(require ,@args)))
-
-(defun spacemacs-is-dumping-p ()
-  "Return non-nil if Spacemacs is dumping."
-  (eq 'dumping spacemacs-dump-mode))
-
-(defun spacemacs-run-from-dump-p ()
-  "Return non-nil if Spacemacs is running from a dump."
-  (eq 'dumped spacemacs-dump-mode))
 
 (defmacro spacemacs|when-dumping (&rest body)
   "Execute body if dumping.
@@ -82,13 +66,6 @@ This function considers that we are always dumping if dumping is not supported.
 You should always use this function."
   (declare (indent defun))
   `(when (not (eq 'dumped spacemacs-dump-mode))
-     ,@body))
-
-(defmacro spacemacs|when-dumping-strict (&rest body)
-  "Execute body if we are really dumping.
-You should not used this function, it is reserved for some specific process."
-  (declare (indent defun))
-  `(when (eq 'dumping spacemacs-dump-mode)
      ,@body))
 
 (defmacro spacemacs|unless-dumping (&rest body)
@@ -108,6 +85,29 @@ the end of the loading of the dump file."
            (defun ,funcname2 nil ,@body)
            (add-to-list 'spacemacs-dump-delayed-functions ',funcname2)))
     `(progn ,@body)))
+
+(defun spacemacs/dump-save-load-path ()
+  "Save `load-path' variable."
+  (setq spacemacs-dump-load-path load-path))
+
+(defun spacemacs/dump-restore-load-path ()
+  "Restore the `load-path' variable from the dump. "
+  (spacemacs|unless-dumping
+    (when (not (null spacemacs-dump-load-path))
+      (setq load-path spacemacs-dump-load-path))))
+
+(defun spacemacs/defer (&optional idle-time)
+  "Return t or IDLE-TIME when Spacemacs is not running from a dump."
+  (when (eq 'not-dumped spacemacs-dump-mode)
+    (or idle-time t)))
+
+(defun spacemacs-is-dumping-p ()
+  "Return non-nil if Spacemacs is dumping."
+  (eq 'dumping spacemacs-dump-mode))
+
+(defun spacemacs-run-from-dump-p ()
+  "Return non-nil if Spacemacs is running from a dump."
+  (eq 'dumped spacemacs-dump-mode))
 
 (defun spacemacs/emacs-with-pdumper-set-p ()
   "Return non-nil if a portable dumper capable Emacs executable is set and

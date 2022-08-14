@@ -9,6 +9,8 @@
   - [[#environment-variables-or-path-are-not-set-properly][Environment variables or PATH are not set properly]]
   - [[#how-to-fix-package-download-errors-when-installing-spacemacs-][How to fix package download errors when installing Spacemacs ?]]
   - [[#how-to-fix-symbols-value-as-variable-is-void-errors-on-startup][How to fix =Symbol's value as variable is void= errors on startup?]]
+  - [[#how-to-fix-error-package-package-build--is-unavailable][How to fix =error: Package 'package-build-' is unavailable=?]]
+  - [[#how-to-fix-warning-bytecomp-and-other-compilation-warnings][How to fix =Warning (bytecomp)= and other compilation warnings?]]
   - [[#how-to-fix-wrong-type-argument-arrayp-nil-errors-on-startup][How to fix =(wrong-type-argument arrayp nil)= errors on startup?]]
   - [[#the-spacemacs-banner-is-ugly-what-should-i-do][The Spacemacs banner is ugly, what should I do?]]
   - [[#the-powerline-separators-are-ugly-how-can-i-fix-them][The powerline separators are ugly, how can I fix them?]]
@@ -18,7 +20,6 @@
   - [[#should-i-place-my-settings-in-user-init-or-user-config][Should I place my settings in =user-init= or =user-config=?]]
   - [[#why-do-some-of-my-org-related-settings-cause-problems][Why do some of my =org=-related settings cause problems?]]
   - [[#why-is-spacemacs-hanging-on-startup][Why is Spacemacs hanging on startup?]]
-  - [[#why-does-helm-m-x-spc-spc-not-accept-the-prefix-argument][Why does =helm-M-x= (~SPC SPC~) not accept the prefix argument?]]
   - [[#why-does-my-color-theme-not-render-correctly-in-terminal-mode][Why does my color theme not render correctly in terminal mode?]]
   - [[#typing-quickly-fd-takes-me-out-of-insert-state-what-is-going-on][Typing quickly =fd= takes me out of =insert state=. What is going on?]]
   - [[#why-do-i-get-files-starting-with-][Why do I get files starting with .#?]]
@@ -46,7 +47,6 @@
   - [[#make-copypaste-working-with-the-mouse-in-x11-terminals][Make copy/paste working with the mouse in X11 terminals?]]
   - [[#use-helm-ag-to-search-only-in-files-of-a-certain-type][Use =helm-ag= to search only in files of a certain type?]]
   - [[#modify-spacemacs-documentation-look-space-doc-mode][Modify spacemacs documentation look (space-doc-mode)]]
-  - [[#remap-paste-key-to-be-able-to-paste-copied-text-multiple-times][Remap paste key to be able to paste copied text multiple times]]
 - [[#linux][Linux]]
   - [[#error-on-deleting-a-system-package][Error on deleting a system package]]
 - [[#windows][Windows]]
@@ -111,6 +111,14 @@ to do this:
   will have to do this again the next time you update your packages.
 - Set the variable =dotspacemacs-elpa-https= to =nil= in your dotfile. This has
   the same effect as =--insecure=, but is persistent.
+
+** How to fix =error: Package 'package-build-' is unavailable=?
+This may occur due to heavy network traffic. You can fix it by setting the
+=dotspacemacs-elpa-timeout= variable to =70= in your =dotspacemacs= file.
+
+** How to fix =Warning (bytecomp)= and other compilation warnings?
+They are perfectly normal. If you're curious, you can find out why these occur
+[[https://github.com/quelpa/quelpa/issues/90#issuecomment-137982713][here]].
 
 ** How to fix =(wrong-type-argument arrayp nil)= errors on startup?
 This is most likely caused by a corrupted package archive. Try deleting your
@@ -198,17 +206,6 @@ not working, you can try to put these settings directly in =~/.ssh/config=:
   ControlPath ~/.ssh/master -%r@%h:%p
   ControlPersist = no
 #+END_SRC
-
-** Why does =helm-M-x= (~SPC SPC~) not accept the prefix argument?
-If you try to run =helm-M-x= with the prefix argument (i.e. ~SPC u SPC SPC~) it
-will fail with this message:
-
-#+BEGIN_VERSE
-  Error: Specifying a prefix arg before calling helm-M-x
-#+END_VERSE
-
-Instead, call =helm-M-x= first, select the command you want to run, and press
-~C-u~ before pressing ~RETURN~. For instance: ~SPC SPC org-reload C-u RET~
 
 ** Why does my color theme not render correctly in terminal mode?
 In the terminal version of Emacs, color themes will not render correctly as
@@ -393,7 +390,7 @@ binding in the mode's map, e.g. for =magit-status-mode=,
 
 ** Include underscores and dashes in word motions?
 If you want =*= and =#= searches to include underscores and dashes as a
-part of a word, add ~(setq-default evil-symbol-word-search t)~ to your 
+part of a word, add ~(setq-default evil-symbol-word-search t)~ to your
 =dotspacemacs/user-config=.
 
 For other motions, you can modify the syntax table of the mode in question
@@ -592,21 +589,6 @@ You can modify the list of visual enhancements applied by the =space-doc-mode=:
 By default only =center-buffer-mode= is disabled.
 Both =space-doc-mode= and =center-buffer-mode= can be customized
 with "Easy Customization Interface".
-
-** Remap paste key to be able to paste copied text multiple times
-In vim and evil, pasting over a text would cause it to be copied, hence making it impossible to paste
-the same text multiple times.
-
-To fix this, add the following snippet to your ~user-config~:
-
-#+BEGIN_SRC emacs-lisp
-  (defun evil-paste-after-from-0 ()
-    (interactive)
-    (let ((evil-this-register ?0))
-      (call-interactively 'evil-paste-after)))
-
-  (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
-#+END_SRC
 
 * Linux
 ** Error on deleting a system package
