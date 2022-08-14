@@ -53,8 +53,12 @@
     (error (concat "Your version of Emacs (%s) is too old. "
                    "Spacemacs requires Emacs version %s or above.")
            emacs-version spacemacs-emacs-min-version)
-  ;; Disable file-name-handlers for a speed boost during init
-  (let ((file-name-handler-alist nil))
+  ;; Disabling file-name-handlers for a speed boost during init might seem like
+  ;; a good idea but it causes issues like
+  ;; https://github.com/syl20bnr/spacemacs/issues/11585 "Symbol's value as
+  ;; variable is void: \213" when emacs is not built having:
+  ;; `--without-compress-install`
+  (let ((please-do-not-disable-file-name-handler-alist nil))
     (require 'core-spacemacs)
     (spacemacs/dump-restore-load-path)
     (configuration-layer/load-lock-file)
