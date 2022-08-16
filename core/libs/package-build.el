@@ -693,9 +693,9 @@ then show a warning.
 A files specification is a list.  Its elements are processed in
 order and can have the following form:
 
-- :default
+- :defaults
 
-  If the very first element of the top-level SPEC is `:default',
+  If the very first element of the top-level SPEC is `:defaults',
   then that means to prepend the default file spec to the SPEC
   specified by the remaining elements.
 
@@ -721,7 +721,7 @@ order and can have the following form:
 \(fn RCP &optional ASSERT)" ; Other arguments only for backward compat.
   (let ((default-directory (or repo (package-recipe--working-tree rcp)))
         (spec (or spec (oref rcp files))))
-    (when (eq :defaults (car spec))
+    (when (eq (car spec) :defaults)
       (setq spec (append package-build-default-files-spec (cdr spec))))
     (let ((files (package-build--expand-files-spec-1
                   (or spec package-build-default-files-spec))))
