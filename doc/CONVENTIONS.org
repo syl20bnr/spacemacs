@@ -78,7 +78,7 @@ user.
 issue (ie. ~SPC m h d~) since ~SPC m~ can be accessed via ~​,​~.
 
 *** Transient-state
-Transient states are generally put behin the dot key ~.~, for instance the
+Transient states are generally put behind the dot key ~.~, for instance the
 windows manipulation transient state in ~SPC w .~.
 
 When it is not possible to use the ~.~ (like in =helm= buffers) transient states
