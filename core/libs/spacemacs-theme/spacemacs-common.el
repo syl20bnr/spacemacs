@@ -222,6 +222,16 @@ to 'auto, tags may not be properly aligned. "
      `(ahs-plugin-default-face ((,class (:background ,highlight))))
      `(ahs-plugin-default-face-unfocused ((,class (:background ,highlight))))
 
+;;;;; ansi-color
+     `(ansi-color-black ((,class (:background ,bg4 :foreground ,bg4))))
+     `(ansi-color-red ((,class (:background ,red :foreground ,red))))
+     `(ansi-color-green ((,class (:background ,green :foreground ,green))))
+     `(ansi-color-yellow ((,class (:background ,yellow :foreground ,yellow))))
+     `(ansi-color-blue ((,class (:background ,blue :foreground ,blue))))
+     `(ansi-color-magenta ((,class (:background ,magenta :foreground ,magenta))))
+     `(ansi-color-cyan ((,class (:background ,cyan :foreground ,cyan))))
+     `(ansi-color-gray ((,class (:background ,base :foreground ,base))))
+
 ;;;;; anzu-mode
      `(anzu-mode-line ((,class (:foreground ,yellow :inherit bold))))
 
@@ -1017,7 +1027,7 @@ to 'auto, tags may not be properly aligned. "
     (custom-theme-set-variables
      theme-name
 
-;;;;; ansi-color-names
+;;;;; ansi-color-names (Obsolete since Emacs 28.1)
      `(ansi-color-names-vector [,bg4 ,red ,green ,yellow ,blue ,magenta ,cyan ,base])
 
 ;;;;; hl-todo
