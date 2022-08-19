@@ -44,6 +44,9 @@
               (bing
                :name "Bing"
                :url "https://www.bing.com/search?q=%s")
+              (docker-hub
+               :name "Docker Hub"
+               :url "https://hub.docker.com/search?q=%s")
               (duck-duck-go
                :name "Duck Duck Go"
                :url "https://duckduckgo.com/?q=%s")
