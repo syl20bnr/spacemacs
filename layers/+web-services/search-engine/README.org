@@ -23,9 +23,9 @@ This layer adds support for the [[https://github.com/hrs/engine-mode][Search Eng
 - Bing
 - Duck Duck Go
 - Ecosia
+- GitHub
 - Google
 - Google Images
-- GitHub
 - Google Maps
 - Twitter
 - Project Gutenberg
@@ -47,6 +47,7 @@ This layer adds support for the [[https://github.com/hrs/engine-mode][Search Eng
 - Debian Packages
 - Ubuntu Packages
 - Rails API
+- Docker Hub images
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
