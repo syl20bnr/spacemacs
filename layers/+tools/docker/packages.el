@@ -53,7 +53,7 @@
     (spacemacs/set-leader-keys-for-major-mode 'dockerfile-mode
       (if (null docker-dockerfile-backend) "b" "cb") 'dockerfile-build-buffer
       (if (null docker-dockerfile-backend) "B" "cB") 'dockerfile-build-buffer-no-cache-buffer)
-    (with-eval-after-load 'docker
+    (if (package-installed-p 'docker)
       (spacemacs/set-leader-keys-for-major-mode 'dockerfile-mode
         "d" 'docker
         "i" 'docker-images
