@@ -70,8 +70,13 @@ Or to enable ligatures only for text files:
 #+END_SRC
 
 To configure the ligature set that gets used with your font there is a
-=unicode-fonts-ligature-set= variable. For example To only enable the ligatures
-in =if= statements you can set the =unicode-fonts-ligature-set= as:
+=unicode-fonts-ligature-set= variable. Make sure you enable only ligatures
+supported by your font.
+(See [[https://github.com/mickeynp/ligature.el/wiki][the =ligatures.el= wiki]]
+for values of =unicode-fonts-ligature-set= for commonly used fonts.)
+
+For example, you can set =unicode-fonts-ligature-set= as follows to only
+enable the ligatures typically used in conditional expressions:
 
 #+BEGIN_SRC elisp
   (setq-default dotspacemacs-configuration-layers
