@@ -68,9 +68,6 @@ Another choice is installing =Python-Markdown=:
 If your markdown executable is not in the list, please refer the document of
 =markdown-mode= for customizing the =markdown-command=.
 
-Another alternative is to install the `github layer` and use `grip-mode` for live
-previewing, though this only supports Github flavored markdown.
-
 By default the built-in Emacs web browser is used to live preview a markdown
 buffer.
 
