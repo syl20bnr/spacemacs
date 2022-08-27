@@ -51,8 +51,7 @@
   "Create a new recipe for the package named NAME using FETCHER."
   (interactive
    (list (read-string "Package name: ")
-         (intern (completing-read "Fetcher: "
-                                  (list "git" "github" "gitlab" "hg")
+         (intern (completing-read "Fetcher: " package-recipe--fetchers
                                   nil t nil nil "github"))))
   (let ((recipe-file (expand-file-name name package-build-recipes-dir)))
     (when (file-exists-p recipe-file)
