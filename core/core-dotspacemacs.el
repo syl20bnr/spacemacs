@@ -199,10 +199,16 @@ in `dotspacemacs-themes'.")
   'spacemacs-dotspacemacs-init)
 
 (defun spacemacs//support-evilified-buffer-p ()
-  "Return non-nil if evil navigation should be enabled."
+  "Returns non-nil if buffers should use evilified states."
   (or (eq dotspacemacs-editing-style 'vim)
       (and (eq dotspacemacs-editing-style 'hybrid)
            hybrid-style-enable-evilified-state)))
+
+(defun spacemacs//support-hjkl-navigation-p ()
+  "Returns non-nil if navigation keys should be evilified."
+  (or (eq dotspacemacs-editing-style 'vim)
+      (and (eq dotspacemacs-editing-style 'hybrid)
+           hybrid-style-enable-hjkl-bindings)))
 
 (spacemacs|defc dotspacemacs-startup-banner 'official
   "Specify the startup banner. Default value is `official', it displays

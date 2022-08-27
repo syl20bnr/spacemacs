@@ -319,7 +319,7 @@
       "sl" 'selectrum-repeat)
 
     :config
-    (when (spacemacs//support-evilified-buffer-p)
+    (when (spacemacs//support-hjkl-navigation-p)
       (define-key selectrum-minibuffer-map (kbd "C-j") 'selectrum-next-candidate)
       (define-key selectrum-minibuffer-map (kbd "C-r") 'consult-history)
       (define-key selectrum-minibuffer-map (kbd "C-k") 'selectrum-previous-candidate)
@@ -362,7 +362,7 @@
     (vertico-mode)
 
     :config
-    (when (spacemacs//support-evilified-buffer-p)
+    (when (spacemacs//support-hjkl-navigation-p)
       (define-key vertico-map (kbd "M-RET") #'vertico-exit-input)
       (define-key vertico-map (kbd "C-SPC") #'spacemacs/embark-preview)
       (define-key vertico-map (kbd "C-j") #'vertico-next)
@@ -394,7 +394,7 @@
 (defun compleseus/init-vertico-directory ()
   (use-package vertico-directory
     ;; More convenient directory navigation commands
-    :init (bind-key "C-h" 'vertico-directory-delete-char vertico-map (spacemacs//support-evilified-buffer-p))
+    :init (bind-key "C-h" 'vertico-directory-delete-char vertico-map (spacemacs//support-hjkl-navigation-p))
     ;; Tidy shadowed file names
     :hook (rfn-eshadow-update-overlay . vertico-directory-tidy)))
 
