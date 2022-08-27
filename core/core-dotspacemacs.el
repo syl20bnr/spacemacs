@@ -198,6 +198,12 @@ in `dotspacemacs-themes'.")
            (const hybrid) (cons symbol sexp))
   'spacemacs-dotspacemacs-init)
 
+(defun spacemacs//support-evilified-buffer-p ()
+  "Return non-nil if evil navigation should be enabled."
+  (or (eq dotspacemacs-editing-style 'vim)
+      (and (eq dotspacemacs-editing-style 'hybrid)
+           hybrid-style-enable-evilified-state)))
+
 (spacemacs|defc dotspacemacs-startup-banner 'official
   "Specify the startup banner. Default value is `official', it displays
 the official spacemacs logo. An integer value is the index of text
