@@ -74,6 +74,9 @@ auto-completion of the running containers.
 
 | Key binding | Description                                                       |
 |-------------+-------------------------------------------------------------------|
-| ~SPC m c b~ | build current buffer                                              |
-| ~SPC m c B~ | build current buffer without cache                                |
 | ~SPC a t d~ | entry point to interact with dockers, after that use ~?~ for help |
+| ~SPC m b~   | build current buffer                                              |
+| ~SPC m B~   | build current buffer without cache                                |
+| ~SPC m d~   | shortcut for ~docker.el~ main menu                                |
+| ~SPC m i~   | shortcut for 'docker images' in the ~docker.el~ screen            |
+| ~SPC m p~   | shortcut for 'docker containers' in the ~docker.el~ screen        |
