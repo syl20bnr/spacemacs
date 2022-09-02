@@ -40,7 +40,7 @@ Set =tree-sitter-indent-enable t= for code indentation, provided by
 [[https://codeberg.org/FelipeLema/tree-sitter-indent.el][=tree-sitter-indent=]]. Currently only Rust is supported.
 Default: =nil=.
 
-Set =tree-sitter-fold-enable t= for code folding, provided by [[https://github.com/jcs090218/ts-fold][=ts-fold=]]. If
+Set =tree-sitter-fold-enable t= for code folding, provided by [[https://github.com/emacs-tree-sitter/ts-fold][=ts-fold=]]. If
 you use a =dotspacemacs-editing-style= other than ='vim= or a
 =dotspacemacs-folding-method= other than ='evil=, it's likely that you'll find
 the integration with =ts-fold= wanting. Contributions are encouraged!
