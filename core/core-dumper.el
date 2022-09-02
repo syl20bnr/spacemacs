@@ -119,11 +119,11 @@ native compilation is not in effect."
        (not (spacemacs/emacs-with-native-compilation-enabled-p))))
 
 (defun spacemacs/emacs-with-native-compilation-enabled-p ()
-  "Return non-nill if native compilation is enabled."
+  "Return non-nil if native compilation is enabled."
   (and (featurep 'native-compile)
-       (fboundp 'native-compile-available-p)
-       (native-compile-available-p)
-       (not (eql comp-speed -1))))
+       (fboundp 'native-comp-available-p)
+       (native-comp-available-p)
+       (not (eql native-comp-speed -1))))
 
 (defun spacemacs/dump-modes (modes)
   "Load given MODES in order to be dumped."
