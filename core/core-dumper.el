@@ -120,9 +120,10 @@ native compilation is not in effect."
 
 (defun spacemacs/emacs-with-native-compilation-enabled-p ()
   "Return non-nil if native compilation is enabled."
-  (and (featurep 'native-compile)
-       (fboundp 'native-comp-available-p)
-       (native-comp-available-p)
+  ;; If the feature is loaded or loadable, and it is in use, return nil.
+  (and (if (not (featurep 'comp))
+         (require 'comp)
+         (intern "comp"))
        (not (eql native-comp-speed -1))))
 
 (defun spacemacs/dump-modes (modes)
