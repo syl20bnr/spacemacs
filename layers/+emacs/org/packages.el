@@ -928,7 +928,9 @@ Headline^^            Visit entry^^               Filter^^                    Da
 (defun org/init-org-roam ()
   (use-package org-roam
     :defer t
-    :hook (after-init . org-roam-setup)
+    ;; Do not enable automatic db update until after user had a chance to setup
+    ;; org-roam. See https://github.com/syl20bnr/spacemacs/issues/15724
+    ;; :hook (after-init . org-roam-setup)
     :init
     (progn
       (spacemacs/declare-prefix
