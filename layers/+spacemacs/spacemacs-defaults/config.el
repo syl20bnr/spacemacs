@@ -239,3 +239,6 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 
 ;; Don't load outdated compiled files.
 (setq load-prefer-newer t)
+
+;; Suppress the *Warnings* buffer when native compilation shows warnings.
+(setq native-comp-async-report-warnings-errors 'silent)
