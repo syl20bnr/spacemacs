@@ -100,7 +100,8 @@
   (use-package code-cells
     :if (not (configuration-layer/layer-used-p 'ipython-notebook))
     :defer t
-    :config
+    :commands (code-cells-mode)
+    :init
     (progn
       (add-hook 'python-mode-hook 'code-cells-mode)
       (spacemacs/set-leader-keys-for-minor-mode 'code-cells-mode
