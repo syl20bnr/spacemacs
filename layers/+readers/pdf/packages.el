@@ -31,6 +31,12 @@
     :mode (("\\.pdf\\'" . pdf-view-mode))
     :init
     (spacemacs//pdf-tools-setup-transient-state)
+
+    (add-hook 'pdf-view-mode-hook
+              (lambda () (add-hook 'evil-evilified-state-entry-hook
+                                   (lambda (remove-hook 'activate-mark-hook 'evil-visual-activate-hook t))
+                                   nil t)))
+
     :config
     (progn
       (pdf-tools-install)
@@ -62,8 +68,6 @@
         "p" 'pdf-misc-print-document
         "O" 'pdf-outline
         "n" 'pdf-view-midnight-minor-mode)
-
-      (evil-define-key 'visual pdf-view-mode-map "y" 'pdf-view-kill-ring-save)
 
       ;; TODO: Make `/', `?' and `n' work like in Evil
       (evilified-state-evilify-map pdf-view-mode-map
@@ -98,7 +102,8 @@
         "r"   'pdf-view-revert-buffer
         "o"   'pdf-links-action-perform
         "O"   'pdf-outline
-        "zr"  'pdf-view-scale-reset)
+        "zr"  'pdf-view-scale-reset
+        "y"   'pdf-view-kill-ring-save)
       (evilified-state-evilify-map pdf-outline-buffer-mode-map
         :mode  pdf-outline-buffer-mode
         :eval-after-load pdf-outline
