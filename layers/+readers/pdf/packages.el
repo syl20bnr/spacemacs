@@ -34,7 +34,7 @@
 
     (add-hook 'pdf-view-mode-hook
               (lambda () (add-hook 'evil-evilified-state-entry-hook
-                                   (lambda (remove-hook 'activate-mark-hook 'evil-visual-activate-hook t))
+                                   (lambda () (remove-hook 'activate-mark-hook 'evil-visual-activate-hook t))
                                    nil t)))
 
     :config
