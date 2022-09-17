@@ -45,7 +45,7 @@ nil for un-initialized, -1 for stale or orphaned *.elc,
 
 (cl-defun spacemacs//dir-byte-compile-state (dir &optional update)
   "Get the directory byte-compile state.
-When the UPDATE is t, will fouce update the state."
+When the UPDATE is t, it will force update the state."
   (let ((state (gethash dir spacemacs--dir-byte-compile-status)))
     (when (and (not update) state)
       (cl-return-from spacemacs//dir-byte-compile-state state))
@@ -73,16 +73,17 @@ When the UPDATE is t, will fouce update the state."
           (pcase nil
             ((guard (null el))            ; *.el not exists
              (puthash dir -1 spacemacs--dir-byte-compile-status)
-             (cl-return -1))
+             (cl-return-from spacemacs//dir-byte-compile-state -1))
             ((guard (null elc))           ; *.elc not exists
              (when (null state)
                (setq state 0)))
             ((guard (file-newer-than-file-p el elc)) ; *.elc is older
              (puthash dir -1 spacemacs--dir-byte-compile-status)
-             (cl-return -1))
+             (cl-return-from spacemacs//dir-byte-compile-state -1))
             (_
              (setq state 1)))))
-      (puthash dir state spacemacs--dir-byte-compile-status))))
+      (puthash dir state spacemacs--dir-byte-compile-status)
+      state)))
 
 (defun spacemacs//update-last-emacs-version ()
   "Update `spacemacs--last-emacs-version' and its saved value."
