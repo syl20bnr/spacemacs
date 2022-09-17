@@ -79,7 +79,7 @@
 (defun nyan-start-music ()
   (interactive)
   (start-process-shell-command "nyan-music" "nyan-music" (concat "mplayer " +nyan-music+ " -loop 0")))
- 
+
 (defun nyan-stop-music ()
   (interactive)
   (kill-process "nyan-music"))
@@ -116,8 +116,8 @@ This can be t or nil."
   :group 'nyan)
 
 (defcustom nyan-cat-face-number 1
-  "Select cat face number for console."
-  )
+  "Select cat face number for console.")
+
 
 (defconst +nyan-directory+ (file-name-directory (or load-file-name buffer-file-name)))
 
@@ -145,24 +145,24 @@ This can be t or nil."
 (defvar nyan-current-frame 0)
 
 (defconst +catface+ [
-        ["[]*" "[]#"]
-        ["(*^ｰﾟ)" "( ^ｰ^)" "(^ｰ^ )" "(ﾟｰ^*)"]
-        ["(´ω｀三 )" "( ´ω三｀ )" "( ´三ω｀ )" "( 三´ω｀)"
-         "( 三´ω｀)" "( ´三ω｀ )" "( ´ω三｀ )" "(´ω｀三 )"]
-        ["(´д｀;)" "( ´д`;)" "( ;´д`)" "(;´д` )"]
-        ["(」・ω・)」" "(／・ω・)／" "(」・ω・)」" "(／・ω・)／"
-         "(」・ω・)」" "(／・ω・)／" "(」・ω・)」" "＼(・ω・)／"]
-        ["(＞ワ＜三　　　)" "(　＞ワ三＜　　)"
-         "(　　＞三ワ＜　)" "(　　　三＞ワ＜)"
-         "(　　＞三ワ＜　)" "(　＞ワ三＜　　)"]])
+                     ["[]*" "[]#"]
+                     ["(*^ｰﾟ)" "( ^ｰ^)" "(^ｰ^ )" "(ﾟｰ^*)"]
+                     ["(´ω｀三 )" "( ´ω三｀ )" "( ´三ω｀ )" "( 三´ω｀)"
+                      "( 三´ω｀)" "( ´三ω｀ )" "( ´ω三｀ )" "(´ω｀三 )"]
+                     ["(´д｀;)" "( ´д`;)" "( ;´д`)" "(;´д` )"]
+                     ["(」・ω・)」" "(／・ω・)／" "(」・ω・)」" "(／・ω・)／"
+                      "(」・ω・)」" "(／・ω・)／" "(」・ω・)」" "＼(・ω・)／"]
+                     ["(＞ワ＜三　　　)" "(　＞ワ三＜　　)"
+                      "(　　＞三ワ＜　)" "(　　　三＞ワ＜)"
+                      "(　　＞三ワ＜　)" "(　＞ワ三＜　　)"]])
 
 (defun nyan-swich-anim-frame ()
-(when (> nyan-animation-loop-count nyan-animation-loop-max)
-    (nyan-stop-animation))
-  (setq nyan-current-frame (% (+ 1 nyan-current-frame) 6))
-  (when (equal nyan-current-frame 5)
-    (setq nyan-animation-loop-count (1+ nyan-animation-loop-count)))
-  (redraw-modeline))
+ (when (> nyan-animation-loop-count nyan-animation-loop-max)
+     (nyan-stop-animation))
+ (setq nyan-current-frame (% (+ 1 nyan-current-frame) 6))
+ (when (equal nyan-current-frame 5)
+   (setq nyan-animation-loop-count (1+ nyan-animation-loop-count)))
+ (force-mode-line-update))
 
 (defun nyan-get-anim-frame (rainbows &optional start)
   (if (and nyan-animation-timer (> rainbows 0))
@@ -189,11 +189,11 @@ This can be t or nil."
 
 (defun catface-index ()
   (min (round (/ (* (round (* 100
-                         (/ (- (float (point))
-                               (float (point-min)))
-                            (float (point-max)))))
-               (length (catface)))
-          100)) (- (length (catface)) 1)))
+                            (/ (- (float (point))
+                                  (float (point-min)))
+                               (float (point-max)))))
+                  (length (catface)))
+               100)) (- (length (catface)) 1)))
 
 (defun nyan-create ()
   (let* ((rainbows (nyan-number-of-rainbows))
@@ -224,8 +224,8 @@ This can be t or nil."
                                                          (and nyan-animate-nyancat nyan-animation-timer)))
                                                 (nyan-wavy-rainbow-ascent number)
                                               'center)))))
-      (setq rainbow-start nil)
-      )
+      (setq rainbow-start nil))
+
     (dotimes (number outerspaces)
       (setq outerspace-string
             (concat outerspace-string
