@@ -240,9 +240,10 @@ Note: the hooked function is not executed when in dumped mode."
      (run-hooks 'spacemacs-post-user-config-hook)
      (setq spacemacs-post-user-config-hook-run t)
      (when (fboundp dotspacemacs-scratch-mode)
-       (with-current-buffer "*scratch*"
-         (funcall dotspacemacs-scratch-mode)
-         (run-hooks 'spacemacs-scratch-mode-hook)))
+       (when (get-buffer "*scratch*")
+         (with-current-buffer "*scratch*"
+           (funcall dotspacemacs-scratch-mode)
+           (run-hooks 'spacemacs-scratch-mode-hook))))
      (when spacemacs--delayed-user-theme
        (spacemacs/load-theme spacemacs--delayed-user-theme
                              spacemacs--fallback-theme t))
