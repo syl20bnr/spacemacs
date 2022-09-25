@@ -233,9 +233,7 @@
  same text above or below, [_C-v_] creates a visual selection \
  from last paste and exits. Anything else exits."
     :bindings
-    ("C-v" (lambda (x) (interactive "*p")
-             (evil-active-region))
-     :exit t)
+    ("C-v" (evil-active-region) :exit t)
     ("C-j" evil-paste-pop)
     ("C-k" evil-paste-pop-next)
     ("p" evil-paste-after)
