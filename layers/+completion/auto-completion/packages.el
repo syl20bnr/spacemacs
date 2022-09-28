@@ -204,9 +204,9 @@
       (add-hook 'company-box-selection-hook
                 (lambda (selection frame) (company-box-doc--hide frame)))
       (cl-case auto-completion-enable-help-tooltip
-        ('manual (define-key company-active-map
+        (manual (define-key company-active-map
                    (kbd "M-h") #'company-box-doc-manually))
-        ('t (setq company-box-doc-enable t))))))
+        (t (setq company-box-doc-enable t))))))
 
 (defun auto-completion/init-company-posframe ()
   (use-package company-posframe
