@@ -243,7 +243,22 @@
     (setq consult-project-root-function
           (lambda ()
             (when-let (project (project-current))
-              (car (project-root project)))))))
+              (car (project-root project))))))
+
+  ;; Configure consult-imenu for java-mode.
+  (use-package consult-imenu
+    :after consult
+    :config
+    (add-to-list 'consult-imenu-config '(java-mode :toplevel "Classes" :types
+                                                   ((?m "Methods" font-lock-function-name-face)
+                                                    (?f "Fields" font-lock-variable-name-face)
+                                                    (?c "Classes" font-lock-type-face)
+                                                    (?p "Packages" font-lock-constant-face)
+                                                    (?C "Constants" font-lock-constant-face)
+                                                    (?M "Constructors" font-lock-function-name-face)
+                                                    (?e "Enums" font-lock-type-face)
+                                                    (?E "Enum Members" font-lock-constant-face)
+                                                    (?i "Interfaces" font-lock-type-face))))))
 
 (defun compleseus/init-consult-yasnippet ()
   (use-package consult-yasnippet

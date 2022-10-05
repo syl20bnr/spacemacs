@@ -40,7 +40,8 @@
           lsp-session-file (concat lsp-server-install-dir (file-name-nondirectory ".lsp-session-v1"))
           lsp-eslint-library-choices-file (concat lsp-server-install-dir ".lsp-eslint-choices")
           lsp-yaml-schema-store-local-db (concat lsp-server-install-dir "lsp-yaml-schemas.json")
-          lsp-vetur-global-snippets-dir (concat spacemacs-start-directory "snippets/vetur"))
+          lsp-vetur-global-snippets-dir (concat spacemacs-start-directory "snippets/vetur")
+          lsp-imenu-index-function #'lsp-imenu-create-categorized-index)
     ;; If you find something else should be ignored, you could also set them here
     :config
     (progn
