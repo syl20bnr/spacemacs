@@ -197,9 +197,9 @@ many other commands.
 | ~tg~        | Toggle ~git-mode~.                                                                                               |
 | ~th~        | Toggle the hiding and displaying of dotfiles.                                                                    |
 | ~tw~        | Toggle whether the treemacs buffer should have a fixed width.                                                    |
-| ~tv~        | Toggle the hiding and displaying of dotfiles.                                                                    |
-| ~yr~        | Copy the absolute path of the nearest project node at point.                                                     |
-| ~yy~        | Copy the absolute path of the node at point.                                                                     |
+| ~tv~        | Toggle ~treemacs-fringe-indicator-mode~                                                                          |
+| ~yr~        | Copy the relative path of the nearest project node at point.                                                     |
+| ~ya~        | Copy the absolute path of the node at point.                                                                     |
 
 *** Ace mode to open files
 It is possible to open the file under cursor in exact the window you want.
