@@ -238,12 +238,16 @@ This has no effect in terminal or if \"all-the-icons\" is not installed."
   'boolean
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-scratch-mode 'text-mode
+(spacemacs|defc dotspacemacs-scratch-mode 'lisp-interaction-mode
   "Default major mode of the scratch buffer."
   'symbol
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-initial-scratch-message 'nil
+(spacemacs|defc dotspacemacs-initial-scratch-message
+  ";; Initial mode for this buffer is configurable via the
+;; `dotspacemacs-scratch-mode' variable.
+;; In the current mode, evaluate lisp code using the major-mode
+;; `, e'-prefix keybindings.\n\n"
   "Initial message in the scratch buffer."
   '(choice (const nil) string)
   'spacemacs-dotspacemacs-init)
