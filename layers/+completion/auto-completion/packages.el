@@ -271,7 +271,7 @@
       (spacemacs/set-leader-keys "is" 'spacemacs/ivy-yas))))
 
 (defun auto-completion/post-init-smartparens ()
-  (with-eval-after-load 'smartparens
+  (with-eval-after-load 'hippie-exp
     (add-hook 'yas-before-expand-snippet-hook
               #'spacemacs//smartparens-disable-before-expand-snippet)
     (add-hook 'yas-after-exit-snippet-hook
