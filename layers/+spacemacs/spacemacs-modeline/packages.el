@@ -33,7 +33,6 @@
         (font-lock+ :step pre
                     :location (recipe :fetcher github
                                       :repo emacsmirror/font-lock-plus))
-        neotree
         spaceline
         spaceline-all-the-icons
         symon
@@ -64,10 +63,6 @@
       (setq-default fancy-battery-show-percentage t))))
 
 (defun spacemacs-modeline/init-font-lock+ ())
-
-(defun spacemacs-modeline/post-init-neotree ()
-  (when (eq 'all-the-icons (spacemacs/get-mode-line-theme-name))
-    (spaceline-all-the-icons--setup-neotree)))
 
 (defun spacemacs-modeline/init-spaceline ()
   (use-package spaceline-config
@@ -191,7 +186,11 @@
        spaceline-all-the-icons-separator-type
        (or (spacemacs/mode-line-separator) 'wave)
        spaceline-all-the-icons-separator-scale
-       (or (spacemacs/mode-line-separator-scale) 1.6)))))
+       (or (spacemacs/mode-line-separator-scale) 1.6)))
+    :config
+    (when (and (eq 'all-the-icons (spacemacs/get-mode-line-theme-name))
+               (configuration-layer/package-used-p 'neotree))
+      (spaceline-all-the-icons--setup-neotree))))
 
 (defun spacemacs-modeline/init-symon ()
   (use-package symon
