@@ -1535,7 +1535,7 @@ If a prefix argument is given, switch to it in an other, possibly new window."
         (page-break-lines-mode)
         (save-excursion
           (when (> (buffer-size) 0)
-            (set 'save-line (line-number-at-pos))
+            (setq save-line (line-number-at-pos))
             (let ((inhibit-read-only t))
               (erase-buffer)))
           (spacemacs-buffer/set-mode-line "")
