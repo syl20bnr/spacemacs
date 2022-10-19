@@ -28,7 +28,6 @@
     helm
     helm-ag
     helm-descbinds
-    helm-flx
     (helm-ls-git :toggle (configuration-layer/layer-used-p 'git))
     helm-make
     helm-mode-manager
@@ -310,19 +309,6 @@
       (setq helm-descbinds-window-style 'split)
       (add-hook 'helm-mode-hook 'helm-descbinds-mode)
       (spacemacs/set-leader-keys "?" 'helm-descbinds))))
-
-(defun helm/pre-init-helm-flx ()
-  (spacemacs|use-package-add-hook helm
-    :pre-config
-    (progn
-      ;; Disable for helm-find-files until performance issues are sorted
-      ;; https://github.com/PythonNut/helm-flx/issues/9
-      (setq helm-flx-for-helm-find-files nil)
-      (helm-flx-mode))))
-
-(defun helm/init-helm-flx ()
-  (use-package helm-flx
-    :defer (spacemacs/defer)))
 
 (defun helm/init-helm-ls-git ()
   (use-package helm-ls-git
