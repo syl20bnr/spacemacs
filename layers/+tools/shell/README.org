@@ -327,7 +327,6 @@ in the current buffer instead of a popup.
 | ~SPC m n~              | go to next multi-term          |
 | ~SPC m N~ or ~SPC m p~ | go to previous multi-term      |
 
-
 ** Eshell
 
 | Key binding        | Description                  |
