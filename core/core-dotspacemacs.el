@@ -497,6 +497,13 @@ can be toggled through `toggle-transparency'."
   'integer
   'spacemacs-dotspacemacs-init)
 
+(spacemacs|defc dotspacemacs-background-transparency 90
+  "A value from the range (0..100), in increasing opacity, which describes the
+transparency level of a frame background when it's active or selected. Transparency
+can be toggled through `toggle-background-transparency'."
+  'integer
+  'spacemacs-dotspacemacs-init)
+
 (spacemacs|defc dotspacemacs-show-transient-state-title t
   "If non nil show the titles of transient states."
   'boolean
