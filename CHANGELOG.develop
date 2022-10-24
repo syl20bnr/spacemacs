@@ -75,6 +75,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   (thanks to Sylvain Benner, Compro Prasad and Keith Simmons)
 - Added support for native fill column indicator in Emacs 27+ (thanks to
   Andriy Kmit)
+- Add support for background transparency aka true transparency. Key bindings are under ~SPC T B~ (thanks to JoshTRN)
 *** Breaking Changes
 **** Major
 - Support for Emacs 25 or Emacs 26 has been dropped, the minimal Emacs version
