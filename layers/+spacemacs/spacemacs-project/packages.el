@@ -85,6 +85,7 @@
         "pF" 'projectile-find-file-dwim
         "pg" 'projectile-find-tag
         "pG" 'projectile-regenerate-tags
+        "pi" 'projectile-install-project
         "pI" 'projectile-invalidate-cache
         "pk" 'projectile-kill-buffers
         "pp" 'projectile-switch-project
