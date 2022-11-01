@@ -3681,6 +3681,7 @@ To search in a project see [[#searching-in-a-project][project searching]].
 | ~SPC p g~   | find tags                                                                                |
 | ~SPC p G~   | regenerate the project's =etags= / =gtags=                                               |
 | ~SPC p h~   | find file                                                                                |
+| ~SPC p i~   | install the project                                                                      |
 | ~SPC p I~   | invalidate the projectile cache                                                          |
 | ~SPC p k~   | kill all project buffers                                                                 |
 | ~SPC p o~   | run =multi-occur=                                                                        |
