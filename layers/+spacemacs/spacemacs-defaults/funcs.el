@@ -861,11 +861,11 @@ then apply that major mode to the new buffer."
   (interactive)
   (let ((newbuf (generate-new-buffer "untitled")))
     (cl-case split
-      ('left  (split-window-horizontally))
-      ('below (spacemacs/split-window-vertically-and-switch))
-      ('above (split-window-vertically))
-      ('right (spacemacs/split-window-horizontally-and-switch))
-      ('frame (select-frame (make-frame))))
+      (left  (split-window-horizontally))
+      (below (spacemacs/split-window-vertically-and-switch))
+      (above (split-window-vertically))
+      (right (spacemacs/split-window-horizontally-and-switch))
+      (frame (select-frame (make-frame))))
     ;; Prompt to save on `save-some-buffers' with positive PRED
     (with-current-buffer newbuf
       (setq-local buffer-offer-save t)

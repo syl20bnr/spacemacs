@@ -1053,3 +1053,69 @@ If FRAME is nil, it defaults to the selected frame."
   'spacemacs/scale-transparency-transient-state/spacemacs/toggle-transparency)
 
 ;; end of Transparency Transient State
+
+;; Background Transparency transient-state
+
+(defun spacemacs/enable-background-transparency (&optional frame alpha-background)
+  "Enable background transparency for FRAME.
+If FRAME is nil, it defaults to the selected frame.
+ALPHA is a pair of active and inactive transparency values. The
+default value for ALPHA is based on `dotspacemacs-background-transparency'"
+  (interactive)
+  (message (number-to-string dotspacemacs-background-transparency))
+  (let ((alpha-setting (or alpha-background dotspacemacs-background-transparency)))
+    (message (number-to-string alpha-setting))
+    (set-frame-parameter frame 'alpha-background alpha-setting)))
+
+(defun spacemacs/disable-background-transparency (&optional frame)
+  "Disable background transparency for FRAME.
+If FRAME is nil, it defaults to the selected frame."
+  (interactive)
+  (set-frame-parameter frame 'alpha-background 100))
+
+
+(defun spacemacs/toggle-background-transparency (&optional frame)
+  "Toggle between transparent and opaque background state for FRAME.
+If FRAME is nil, it defaults to the selected frame."
+  (interactive)
+  (let ((alpha-background (frame-parameter frame 'alpha-background))
+        (dotfile-setting dotspacemacs-background-transparency))
+    (if (equal alpha-background dotfile-setting)
+        (spacemacs/disable-background-transparency frame)
+      (spacemacs/enable-background-transparency frame dotfile-setting))))
+
+(defun spacemacs/increase-background-transparency (&optional frame)
+  "Increase background transparency for FRAME.
+If FRAME is nil, it defaults to the selected frame."
+  (interactive)
+  (let* ((current-alpha (or (frame-parameter frame 'alpha-background) 100))
+         (message current-alpha)
+         (increased-alpha (- current-alpha 5)))
+    (when (>= increased-alpha frame-alpha-lower-limit)
+      (set-frame-parameter frame 'alpha-background increased-alpha))))
+
+(defun spacemacs/decrease-background-transparency (&optional frame)
+  "Decrease backrgound transparency for FRAME.
+If FRAME is nil, it defaults to the selected frame."
+  (interactive)
+  (let* ((current-alpha (or (frame-parameter frame 'alpha-background) 100))
+         (decreased-alpha (+ current-alpha 5)))
+    (when (<= decreased-alpha 100)
+      (set-frame-parameter frame 'alpha-background decreased-alpha))))
+
+(spacemacs|define-transient-state scale-background-transparency
+  :title "Frame Background Transparency Transient State"
+  :doc "\n[_+_/_=_/_k_] increase transparency [_-_/___/_j_] decrease [_T_] toggle [_q_] quit"
+  :bindings
+  ("+" spacemacs/increase-background-transparency)
+  ("=" spacemacs/increase-background-transparency)
+  ("k" spacemacs/increase-background-transparency)
+  ("-" spacemacs/decrease-background-transparency)
+  ("_" spacemacs/decrease-background-transparency)
+  ("j" spacemacs/decrease-background-transparency)
+  ("T" spacemacs/toggle-background-transparency)
+  ("q" nil :exit t))
+
+(spacemacs/set-leader-keys "TB"
+  'spacemacs/scale-background-transparency-transient-state/spacemacs/toggle-background-transparency)
+

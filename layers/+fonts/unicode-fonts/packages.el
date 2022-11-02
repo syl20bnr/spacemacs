@@ -38,7 +38,7 @@
       (when (and unicode-fonts-force-multi-color-on-mac
                  (eq window-system 'ns))
         (setq unicode-fonts-skip-font-groups
-              (delq 'multi-color unicode-fonts-skip-font-groups)))
+	      '(decorative low-quality-glyphs)))
       (unicode-fonts//setup-fonts (selected-frame)))))
 
 (defun unicode-fonts/init-ligature ()

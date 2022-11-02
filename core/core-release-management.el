@@ -124,8 +124,8 @@ found."
     (async-start
      `(lambda ()
         ,(async-inject-variables "\\`spacemacs-start-directory\\'")
-        (load-file (concat spacemacs-start-directory
-                           "core/core-load-paths.el"))
+        (load (concat spacemacs-start-directory
+                      "core/core-load-paths"))
         (require 'core-spacemacs)
         (spacemacs/get-last-version))
      (lambda (result)

@@ -4,8 +4,13 @@ on:
   schedule:
   - cron: '*/15 * * * *'
 
+permissions: {}
 jobs:
   stale:
+    permissions:
+      issues: write # to close stale issues (actions/stale)
+      pull-requests: write # to close stale PRs (actions/stale)
+
     runs-on: ubuntu-latest
     steps:
     - uses: actions/stale@v3

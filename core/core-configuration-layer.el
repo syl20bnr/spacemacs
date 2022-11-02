@@ -1518,8 +1518,9 @@ If `SKIP-LAYER-DEPS' is non nil then skip loading of layer dependenciesl"
 (defun configuration-layer/declare-layer-dependencies (layer-names)
   "Function to be used in `layers.el' files to declare dependencies."
   (dolist (x layer-names)
-    (add-to-list 'configuration-layer--layers-dependencies x)
-    (configuration-layer//load-layer-files x '("layers"))))
+    (unless (member x configuration-layer--layers-dependencies)
+      (add-to-list 'configuration-layer--layers-dependencies x)
+      (configuration-layer//load-layer-files x '("layers")))))
 
 (defun configuration-layer//declare-used-layers (layers-specs)
   "Declare used layers from LAYERS-SPECS list."

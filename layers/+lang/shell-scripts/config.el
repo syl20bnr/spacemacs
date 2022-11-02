@@ -31,3 +31,7 @@ When `lsp' layer is used, defaults to `lsp'.")
 
 (defvar shell-scripts-format-on-save nil
   "If non-nil, automatically format code with shfmt on save.")
+
+(defcustom shell-scripts-shfmt-args ()
+  "Arguments passed to shfmt."
+  :type '(list string))

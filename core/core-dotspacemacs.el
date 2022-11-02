@@ -198,6 +198,18 @@ in `dotspacemacs-themes'.")
            (const hybrid) (cons symbol sexp))
   'spacemacs-dotspacemacs-init)
 
+(defun spacemacs//support-evilified-buffer-p ()
+  "Returns non-nil if buffers should use evilified states."
+  (or (eq dotspacemacs-editing-style 'vim)
+      (and (eq dotspacemacs-editing-style 'hybrid)
+           hybrid-style-enable-evilified-state)))
+
+(defun spacemacs//support-hjkl-navigation-p ()
+  "Returns non-nil if navigation keys should be evilified."
+  (or (eq dotspacemacs-editing-style 'vim)
+      (and (eq dotspacemacs-editing-style 'hybrid)
+           hybrid-style-enable-hjkl-bindings)))
+
 (spacemacs|defc dotspacemacs-startup-banner 'official
   "Specify the startup banner. Default value is `official', it displays
 the official spacemacs logo. An integer value is the index of text
@@ -482,6 +494,13 @@ can be toggled through `toggle-transparency'."
   "A value from the range (0..100), in increasing opacity, which describes the
 transparency level of a frame when it's inactive or deselected. Transparency
 can be toggled through `toggle-transparency'."
+  'integer
+  'spacemacs-dotspacemacs-init)
+
+(spacemacs|defc dotspacemacs-background-transparency 90
+  "A value from the range (0..100), in increasing opacity, which describes the
+transparency level of a frame background when it's active or selected. Transparency
+can be toggled through `toggle-background-transparency'."
   'integer
   'spacemacs-dotspacemacs-init)
 

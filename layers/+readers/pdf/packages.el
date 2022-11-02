@@ -63,7 +63,11 @@
         "O" 'pdf-outline
         "n" 'pdf-view-midnight-minor-mode)
 
-      (evil-define-key 'visual pdf-view-mode-map "y" 'pdf-view-kill-ring-save)
+      (evil-define-key 'visual pdf-view-mode-map
+        "y" 'pdf-view-kill-ring-save
+        (kbd "<C-down-mouse-1>") 'pdf-view-mouse-extend-region
+        (kbd "<M-down-mouse-1>") 'pdf-view-mouse-set-region-rectangle
+        (kbd "<down-mouse-1>")  'pdf-view-mouse-set-region)
 
       ;; TODO: Make `/', `?' and `n' work like in Evil
       (evilified-state-evilify-map pdf-view-mode-map
@@ -99,6 +103,7 @@
         "o"   'pdf-links-action-perform
         "O"   'pdf-outline
         "zr"  'pdf-view-scale-reset)
+
       (evilified-state-evilify-map pdf-outline-buffer-mode-map
         :mode  pdf-outline-buffer-mode
         :eval-after-load pdf-outline

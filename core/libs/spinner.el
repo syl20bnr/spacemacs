@@ -159,7 +159,7 @@ below).
 If TYPE is nil, the frames of this spinner are given by the first
 element of `spinner-types'.
 If TYPE is a symbol, it specifies an element of `spinner-types'.
-If TYPE is 'random, use a random element of `spinner-types'.
+If TYPE is `random', use a random element of `spinner-types'.
 If TYPE is a list, it should be a list of symbols, and a random
 one is chosen as the spinner type.
 If TYPE is a vector, it should be a vector of strings and these
@@ -277,7 +277,7 @@ stop the SPINNER's timer."
 If TYPE-OR-OBJECT is an object created with `make-spinner',
 simply activate it.  This method is designed for minor modes, so
 they can use the spinner as part of their lighter by doing:
-    '(:eval (spinner-print THE-SPINNER))
+    \\='(:eval (spinner-print THE-SPINNER))
 To stop this spinner, call `spinner-stop' on it.
 
 If TYPE-OR-OBJECT is anything else, a buffer-local spinner is

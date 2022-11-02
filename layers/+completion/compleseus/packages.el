@@ -243,7 +243,22 @@
     (setq consult-project-root-function
           (lambda ()
             (when-let (project (project-current))
-              (car (project-root project)))))))
+              (car (project-root project))))))
+
+  ;; Configure consult-imenu for java-mode.
+  (use-package consult-imenu
+    :after consult
+    :config
+    (add-to-list 'consult-imenu-config '(java-mode :toplevel "Classes" :types
+                                                   ((?m "Methods" font-lock-function-name-face)
+                                                    (?f "Fields" font-lock-variable-name-face)
+                                                    (?c "Classes" font-lock-type-face)
+                                                    (?p "Packages" font-lock-constant-face)
+                                                    (?C "Constants" font-lock-constant-face)
+                                                    (?M "Constructors" font-lock-function-name-face)
+                                                    (?e "Enums" font-lock-type-face)
+                                                    (?E "Enum Members" font-lock-constant-face)
+                                                    (?i "Interfaces" font-lock-type-face))))))
 
 (defun compleseus/init-consult-yasnippet ()
   (use-package consult-yasnippet
@@ -310,18 +325,22 @@
 (defun compleseus/init-selectrum ()
   (use-package selectrum
     :init
+    ;; Disable ido. We want to use the regular find-file etc.; enhanced by selectrum
+    (setq ido-mode nil)
+
     (selectrum-mode)
     (spacemacs/set-leader-keys
       "rl" 'selectrum-repeat
       "sl" 'selectrum-repeat)
+
     :config
-    ;; TODO can we just use `minibuffer-mode-map'?
-    (define-key selectrum-minibuffer-map (kbd "C-j") 'selectrum-next-candidate)
-    (define-key selectrum-minibuffer-map (kbd "C-r") 'consult-history)
-    (define-key selectrum-minibuffer-map (kbd "C-k") 'selectrum-previous-candidate)
-    (define-key selectrum-minibuffer-map (kbd "C-M-k") #'spacemacs/selectrum-previous-candidate-preview)
-    (define-key selectrum-minibuffer-map (kbd "C-M-j") #'spacemacs/selectrum-next-candidate-preview)
-    (define-key selectrum-minibuffer-map (kbd "C-SPC") #'spacemacs/embark-preview)))
+    (when (spacemacs//support-hjkl-navigation-p)
+      (define-key selectrum-minibuffer-map (kbd "C-j") 'selectrum-next-candidate)
+      (define-key selectrum-minibuffer-map (kbd "C-r") 'consult-history)
+      (define-key selectrum-minibuffer-map (kbd "C-k") 'selectrum-previous-candidate)
+      (define-key selectrum-minibuffer-map (kbd "C-M-k") #'spacemacs/selectrum-previous-candidate-preview)
+      (define-key selectrum-minibuffer-map (kbd "C-M-j") #'spacemacs/selectrum-next-candidate-preview)
+      (define-key selectrum-minibuffer-map (kbd "C-SPC") #'spacemacs/embark-preview))))
 
 (defun compleseus/init-vertico ()
   (use-package vertico
@@ -352,18 +371,22 @@
           vertico-count 20
           vertico-cycle nil)
 
+    ;; Disable ido. We want to use the regular find-file etc.; enhanced by vertico
+    (setq ido-mode nil)
+
     (vertico-mode)
 
     :config
-    (define-key vertico-map (kbd "M-RET") #'vertico-exit-input)
-    (define-key vertico-map (kbd "C-SPC") #'spacemacs/embark-preview)
-    (define-key vertico-map (kbd "C-j") #'vertico-next)
-    (define-key vertico-map (kbd "C-M-j") #'spacemacs/next-candidate-preview)
-    (define-key vertico-map (kbd "C-S-j") #'vertico-next-group)
-    (define-key vertico-map (kbd "C-k") #'vertico-previous)
-    (define-key vertico-map (kbd "C-M-k") #'spacemacs/previous-candidate-preview)
-    (define-key vertico-map (kbd "C-S-k") #'vertico-previous-group)
-    (define-key vertico-map (kbd "C-r") #'consult-history)))
+    (when (spacemacs//support-hjkl-navigation-p)
+      (define-key vertico-map (kbd "M-RET") #'vertico-exit-input)
+      (define-key vertico-map (kbd "C-SPC") #'spacemacs/embark-preview)
+      (define-key vertico-map (kbd "C-j") #'vertico-next)
+      (define-key vertico-map (kbd "C-M-j") #'spacemacs/next-candidate-preview)
+      (define-key vertico-map (kbd "C-S-j") #'vertico-next-group)
+      (define-key vertico-map (kbd "C-k") #'vertico-previous)
+      (define-key vertico-map (kbd "C-M-k") #'spacemacs/previous-candidate-preview)
+      (define-key vertico-map (kbd "C-S-k") #'vertico-previous-group)
+      (define-key vertico-map (kbd "C-r") #'consult-history))))
 
 (defun compleseus/init-vertico-quick ()
   (use-package vertico-quick
@@ -386,8 +409,7 @@
 (defun compleseus/init-vertico-directory ()
   (use-package vertico-directory
     ;; More convenient directory navigation commands
-    :bind (:map vertico-map
-                ("C-h" . vertico-directory-delete-char))
+    :init (bind-key "C-h" 'vertico-directory-delete-char vertico-map (spacemacs//support-hjkl-navigation-p))
     ;; Tidy shadowed file names
     :hook (rfn-eshadow-update-overlay . vertico-directory-tidy)))
 

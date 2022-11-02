@@ -37,20 +37,20 @@ POSITION should be one of bottom, top, left and right.
 SIZE should be either a positive number of nil.  Size is interpreted as
 width or height depending on POSITION."
   (let* ((size (cl-case position
-                 ('left (purpose--normalize-width (or size
+                 (left (purpose--normalize-width (or size
+                                                     popwin:popup-window-width)))
+                 (right (purpose--normalize-width (or size
                                                       popwin:popup-window-width)))
-                 ('right (purpose--normalize-width (or size
-                                                       popwin:popup-window-width)))
-                 ('top (purpose--normalize-height (or size
-                                                      popwin:popup-window-height)))
-                 ('bottom (purpose--normalize-height (or size
-                                                         popwin:popup-window-height)))))
+                 (top (purpose--normalize-height (or size
+                                                     popwin:popup-window-height)))
+                 (bottom (purpose--normalize-height (or size
+                                                        popwin:popup-window-height)))))
          (size (when size (- size)))
          (side (cl-case position
-                 ('left 'left)
-                 ('right 'right)
-                 ('top 'above)
-                 ('bottom 'below))))
+                 (left 'left)
+                 (right 'right)
+                 (top 'above)
+                 (bottom 'below))))
     (lambda (buffer alist)
       (let* ((main-window (if pupo-split-active-window
                               (selected-window)
@@ -77,10 +77,10 @@ bottom -> popb
 POSITION defaults to bottom."
   (cl-case (or position 'bottom)
     ;; names are short so they don't take much room in the mode-line
-    ('left 'popl)
-    ('right 'popr)
-    ('top 'popt)
-    ('bottom 'popb)))
+    (left 'popl)
+    (right 'popr)
+    (top 'popt)
+    (bottom 'popb)))
 
 (defun pupo//actions (settings)
   "Generate list of display functions for displaying a popup window.

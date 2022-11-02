@@ -75,8 +75,9 @@ Additionally changes to working directory when the value of
 `shell-pop-autocd-to-working-dir' is non-nil (default)."
   (interactive)
   (let ((shell (cl-case shell-default-shell
-                 ('multi-term 'multiterm)
-                 ('shell 'inferior-shell)
+                 (multi-vterm 'multivterm)
+                 (multi-term 'multiterm)
+                 (shell 'inferior-shell)
                  (t shell-default-shell))))
     (call-interactively (intern (format "spacemacs/shell-pop-%S" shell)))))
 
@@ -240,6 +241,11 @@ is achieved by adding the relevant text properties."
   "Wrapper to be able to call multi-term from shell-pop"
   (interactive)
   (multi-term))
+
+(defun multivterm (&optional ARG)
+  "Wrapper to be able to call multi-vterm from shell-pop"
+  (interactive)
+  (multi-vterm))
 
 (defun inferior-shell (&optional ARG)
   "Wrapper to open shell in current window"

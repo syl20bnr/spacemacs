@@ -93,6 +93,7 @@
     - [[#title][Title]]
       - [[#iconified-tabified-title][Iconified (tabified) title]]
     - [[#transparency][Transparency]]
+    - [[#background-transparency][Background transparency]]
 - [[#layouts-and-workspaces][Layouts and workspaces]]
   - [[#layouts][Layouts]]
     - [[#the-default-layout][The default layout]]
@@ -1668,6 +1669,20 @@ In the transient state:
 | ~-~, ~_~, ~j~ | decrease transparency          |
 | ~T~           | toggle transparency on and off |
 | ~q~           | quit transient state           |
+
+*** Background transparency
+The Frame background transparency can be toggled with: ~SPC T B~
+
+This also opens the Frame Background Transparency Transient State.
+
+In the transient state:
+
+| Key binding   | Description                               |
+|---------------+-------------------------------------------|
+| ~+~, ~=~, ~k~ | increase background transparency          |
+| ~-~, ~_~, ~j~ | decrease background transparency          |
+| ~T~           | toggle background transparency on and off |
+| ~q~           | quit transient state                      |
 
 * Layouts and workspaces
 Layouts are window configurations with buffer isolation. Each layout can define
@@ -3666,6 +3681,7 @@ To search in a project see [[#searching-in-a-project][project searching]].
 | ~SPC p g~   | find tags                                                                                |
 | ~SPC p G~   | regenerate the project's =etags= / =gtags=                                               |
 | ~SPC p h~   | find file                                                                                |
+| ~SPC p i~   | install the project                                                                      |
 | ~SPC p I~   | invalidate the projectile cache                                                          |
 | ~SPC p k~   | kill all project buffers                                                                 |
 | ~SPC p o~   | run =multi-occur=                                                                        |

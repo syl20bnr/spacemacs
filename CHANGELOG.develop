@@ -75,6 +75,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   (thanks to Sylvain Benner, Compro Prasad and Keith Simmons)
 - Added support for native fill column indicator in Emacs 27+ (thanks to
   Andriy Kmit)
+- Add support for background transparency aka true transparency. Key bindings are under ~SPC T B~ (thanks to JoshTRN)
 *** Breaking Changes
 **** Major
 - Support for Emacs 25 or Emacs 26 has been dropped, the minimal Emacs version
@@ -342,12 +343,15 @@ In org-agenda-mode
   - Add Debian & Ubuntu package search engines (thanks to Alfonso Montero).
   - Allow to configure a TLD other than =.com= for Amazon searches (thanks to Alfonso Montero).
   - Add Rails API search engine
+  - Add Docker Hub image search engine (thanks to Alfonso Montero).
 ***** Spacemacs-navigation
 - Key bindings:
   - Add ~J/K~ to scroll up/down (or next/previous node) in Info-mode
   - Add ~o~ to link-hint-open-link in woman-mode
 ***** Shaders
 - =shaders= layer has been moved to =gpu= layer.
+***** Shell-scripts
+- Add variable =shell-scripts-shfmt-args= to pass through arguments to =shfmt= package.
 ***** Syntax checking
 - Key bindings (thanks to Loris Lucido):
   - Key binding ~SPC e e~ is now for triggering a syntax check, the old action
@@ -824,6 +828,8 @@ Other:
   - Add evil-jump-backward/forward (=C-o=/=C-i=) keybindings to
     evil-evilified-state-map (thanks to Daniel Nicolai)
   - Improve helm completion in spacemacs-help (thanks to @dankessler)
+  - Improve the =configuration-layer/declare-layer-dependencies= to avoid loading
+    the dependence layers multiple times (thank to Lin Sun)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -3557,6 +3563,7 @@ files (thanks to Daniel Nicolai)
   - function: =spacemacs/make-variable-layout-local=
   (thanks to JAremko and duianto)
 - Better keybindings for ~ESC~ and ~RET~ in vterm =evil-normal-state= (thanks to kenkangxgwe)
+- Added support for multi-vterm as default terminal option
 **** Shell Scripts
 - Added new company-shell environment variable backend
   (thanks to Alexander-Miller)

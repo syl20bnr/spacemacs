@@ -35,6 +35,7 @@
   - [[#multi-term][Multi-term]]
   - [[#eshell-1][Eshell]]
   - [[#vterm][vterm]]
+  - [[#multi-vterm][Multi-vterm]]
 
 * Description
 This layer configures the various shells available in Emacs.
@@ -118,6 +119,7 @@ to the following variables:
 - =term=
 - =ansi-term= (default on Linux/macOS)
 - =multi-term=
+- =multi-vterm=
 - =vterm=
 
 #+BEGIN_SRC emacs-lisp
@@ -294,6 +296,7 @@ Some advanced configuration is setup for =eshell= in this layer:
 | ~SPC a t s e~ | Toggle pop-shell with =eshell=                           |
 | ~SPC a t s i~ | Toggle pop-shell with =shell=                            |
 | ~SPC a t s m~ | Toggle pop-shell with =multi-term=                       |
+| ~SPC a t s M~ | Toggle pop-shell with =multi-vterm=                      |
 | ~SPC a t s t~ | Toggle pop-shell with =ansi-term=                        |
 | ~SPC a t s T~ | Toggle pop-shell with =term=                             |
 | ~SPC a t s v~ | Toggle pop-shell with =vterm=                            |
@@ -346,3 +349,12 @@ For example with bash
   (shell :variables
          spacemacs-vterm-history-file-location "~/.bash_history")
 #+END_SRC
+
+** Multi-vterm
+
+| Key binding            | Description                |
+|------------------------+----------------------------|
+| ~SPC m c~              | create a new multi-vterm   |
+| ~SPC m n~              | go to next multi-vterm     |
+| ~SPC m N~ or ~SPC m p~ | go to previous multi-vterm |
+| ~SPC m r~              | rename vterm buffer        |

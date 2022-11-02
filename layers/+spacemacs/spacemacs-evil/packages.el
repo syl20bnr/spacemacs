@@ -28,7 +28,8 @@
         evil-collection
         evil-cleverparens
         evil-ediff
-        evil-escape
+        (evil-escape :location (recipe :fetcher github
+                                       :repo "smile13241324/evil-escape"))
         evil-exchange
         evil-goggles
         evil-iedit-state

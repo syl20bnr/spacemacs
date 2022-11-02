@@ -171,6 +171,12 @@ disallowed."
                  (car (process-lines "hg" "config" "extensions.purge")))))
     (and value (not (string-prefix-p "!" value)))))
 
+(defvar package-build--inhibit-fetch nil
+  "Whether to inhibit fetching.  Useful for testing purposes.")
+
+(defvar package-build--inhibit-checkout nil
+  "Whether to inhibit checkout.  Useful for testing purposes.")
+
 ;;; Generic Utilities
 
 (defun package-build--message (format-string &rest args)
@@ -180,108 +186,78 @@ Otherwise do nothing.  FORMAT-STRING and ARGS are as per that function."
     (apply #'message format-string args)))
 
 ;;; Version Handling
-;;;; Public
 
 (defun package-build-get-tag-version (rcp)
-  (pcase-let ((`(,tag . ,version)
-               (package-build--find-version-newest
-                (package-build--list-tags rcp)
-                (oref rcp version-regexp))))
+  (let ((regexp (or (oref rcp version-regexp) package-build-version-regexp))
+        (tag nil)
+        (version '(0)))
+    (dolist (n (let ((default-directory (package-recipe--working-tree rcp)))
+                 (cl-etypecase rcp
+                   (package-git-recipe (process-lines "git" "tag" "--list"))
+                   (package-hg-recipe  (process-lines "hg" "tags" "--quiet")))))
+      (let ((v (ignore-errors
+                 (version-to-list (and (string-match regexp n)
+                                       (match-string 1 n))))))
+        (when (and v (version-list-<= version v))
+          (if (cl-typep rcp 'package-git-recipe)
+              (setq tag (concat "refs/tags/" n))
+            (setq tag n))
+          (setq version v))))
     (unless tag
       (error "No valid stable versions found for %s" (oref rcp name)))
-    (when (cl-typep rcp 'package-git-recipe)
-      (setq tag (concat "tags/" tag)))
     (cons (package-build--get-commit rcp tag)
-          version)))
+          (package-version-join version))))
 
 (defun package-build-get-timestamp-version (rcp)
-  (let* ((rev (and (cl-typep rcp 'package-git-recipe)
-                   (or (oref rcp commit)
-                       (when-let ((branch (oref rcp branch)))
-                         (concat "origin/" branch))
-                       "origin/HEAD")))
-         (time (package-build--get-timestamp rcp rev)))
-    (cons (package-build--get-commit rcp rev)
+  (pcase-let ((`(,hash . ,time) (package-build--get-timestamp rcp)))
+    (cons hash
           ;; We remove zero-padding of the HH portion, as
           ;; that is lost when stored in archive-contents.
           (concat (format-time-string "%Y%m%d." time t)
                   (format "%d" (string-to-number
                                 (format-time-string "%H%M" time t)))))))
 
-;;;; Internal
-
-(defun package-build--find-version-newest (tags &optional regexp)
-  "Find the newest version in TAGS matching REGEXP.
-If optional REGEXP is nil, then `package-build-version-regexp'
-is used instead."
-  (let ((ret '(nil 0))
-        (regexp (or regexp package-build-version-regexp)))
-    (cl-flet ((match (regexp separator tag)
-                (let* ((version-string (and (string-match regexp tag)
-                                            (match-string 1 tag)))
-                       (version-separator separator)
-                       (version (ignore-errors (version-to-list version-string))))
-                  (when (and version (version-list-<= (cdr ret) version))
-                    (setq ret (cons tag version))))))
-      (dolist (tag tags)
-        (match regexp "." tag)
-        ;; Some version tags use "_" as version separator instead of
-        ;; the default ".", e.g. "1_4_5".  Check for valid versions
-        ;; again, this time using "_" as a `version-separator'.
-        ;; Since "_" is otherwise treated as a snapshot separator by
-        ;; `version-regexp-alist', we don't have to worry about the
-        ;; incorrect version list above `(1 -4 4 -4 5)' since it will
-        ;; always be treated as smaller by `version-list-<'.
-        (match regexp "_" tag)))
-    (and (car ret)
-         (cons (car ret)
-               (package-version-join (cdr ret))))))
-
 ;;; Run Process
 
 (defun package-build--run-process (directory destination command &rest args)
   (setq directory (file-name-as-directory (or directory default-directory)))
-  (with-current-buffer
-      (if (eq destination t)
-          (current-buffer)
-        (or destination (get-buffer-create "*package-build-checkout*")))
-    (unless destination
-      (setq default-directory directory))
-    (let ((default-directory directory)
-          (argv (nconc (unless (eq system-type 'windows-nt)
-                         (list "env" "LC_ALL=C"))
-                       (if (and package-build-timeout-secs
-                                package-build-timeout-executable)
-                           (nconc (list package-build-timeout-executable
-                                        "-k" "60" (number-to-string
-                                                   package-build-timeout-secs)
-                                        command)
-                                  args)
-                         (cons command args)))))
-      (unless (file-directory-p default-directory)
-        (error "Can't run process in non-existent directory: %s" default-directory))
-      (let ((exit-code (apply #'call-process
-                              (car argv) nil (current-buffer) nil
-                              (cdr argv))))
-        (unless (zerop exit-code)
-          (message "\nCommand '%s' exited with non-zero exit-code: %d\n"
-                   (mapconcat #'shell-quote-argument argv " ")
-                   exit-code)
-          (message "%s" (buffer-string))
-          (error "Command exited with non-zero exit-code: %d" exit-code))))))
+  (let (temp-buffer)
+    (unwind-protect
+        (with-current-buffer
+            (cond ((eq destination t) (current-buffer))
+                  (destination)
+                  ((setq temp-buffer (generate-new-buffer " *temp*"))))
+          (unless destination
+            (setq default-directory directory))
+          (let ((default-directory directory)
+                (argv (nconc (unless (eq system-type 'windows-nt)
+                               (list "env" "LC_ALL=C"))
+                             (if (and package-build-timeout-secs
+                                      package-build-timeout-executable)
+                                 (nconc (list package-build-timeout-executable
+                                              "-k" "60"
+                                              (number-to-string
+                                               package-build-timeout-secs)
+                                              command)
+                                        args)
+                               (cons command args)))))
+            (unless (file-directory-p default-directory)
+              (error "Cannot run process in non-existent directory: %s"
+                     default-directory))
+            (let ((exit-code (apply #'call-process
+                                    (car argv) nil (current-buffer) nil
+                                    (cdr argv))))
+              (unless (zerop exit-code)
+                (message "\nCommand '%s' exited with non-zero exit-code: %d\n"
+                         (mapconcat #'shell-quote-argument argv " ")
+                         exit-code)
+                (message "%s" (buffer-string))
+                (error "Command exited with non-zero exit-code: %d"
+                       exit-code)))))
+      (when temp-buffer
+        (kill-buffer temp-buffer)))))
 
 ;;; Checkout
-;;;; Common
-
-(cl-defmethod package-build--checkout :before ((rcp package-recipe))
-  (package-build--message "Package: %s" (oref rcp name))
-  (package-build--message "Fetcher: %s" (package-recipe--fetcher rcp))
-  (package-build--message "Source:  %s\n" (package-recipe--upstream-url rcp)))
-
-(cl-defmethod package-build--checkout-1 :before ((_rcp package-recipe) rev)
-  (when rev
-    (package-build--message "Checking out %s" rev)))
-
 ;;;; Git
 
 (cl-defmethod package-build--checkout ((rcp package-git-recipe))
@@ -292,14 +268,17 @@ is used instead."
       (error "Fetching using the %s protocol is not allowed" protocol))
     (cond
      ((and (file-exists-p (expand-file-name ".git" dir))
-           (string-equal (package-build--used-url rcp) url))
-      (package-build--message "Updating %s" dir)
-      (package-build--run-process dir nil "git" "fetch" "-f" "--all" "--tags")
-      ;; We might later checkout "origin/HEAD". Sadly "git fetch"
-      ;; cannot be told to keep it up-to-date, so we have to make
-      ;; a second request.
-      (package-build--run-process dir nil "git" "remote" "set-head"
-                                  "origin" "--auto"))
+           (let ((default-directory dir))
+             (string= (car (process-lines "git" "config" "remote.origin.url"))
+                      url)))
+      (unless package-build--inhibit-fetch
+        (package-build--message "Updating %s" dir)
+        (package-build--run-process dir nil "git" "fetch" "-f" "--all" "--tags")
+        ;; We might later checkout "origin/HEAD". Sadly "git fetch"
+        ;; cannot be told to keep it up-to-date, so we have to make
+        ;; a second request.
+        (package-build--run-process dir nil "git" "remote" "set-head"
+                                    "origin" "--auto")))
      (t
       (when (file-exists-p dir)
         (delete-directory dir t))
@@ -318,35 +297,34 @@ is used instead."
       version)))
 
 (cl-defmethod package-build--checkout-1 ((rcp package-git-recipe) rev)
-  (let ((dir (package-recipe--working-tree rcp)))
-    (package-build--run-process dir nil "git" "reset" "--hard" rev)
-    (package-build--run-process dir nil "git" "submodule" "sync" "--recursive")
-    (package-build--run-process dir nil "git" "submodule" "update"
-                                "--init" "--recursive")))
+  (unless package-build--inhibit-checkout
+    (package-build--message "Checking out %s" rev)
+    (package-build--run-process (package-recipe--working-tree rcp)
+                                nil "git" "reset" "--hard" rev)))
 
-(cl-defmethod package-build--list-tags ((rcp package-git-recipe))
-  (let ((default-directory (package-recipe--working-tree rcp)))
-    (process-lines "git" "tag")))
-
-(cl-defmethod package-build--get-timestamp ((rcp package-git-recipe) rev)
-  (let ((default-directory (package-recipe--working-tree rcp)))
-    ;; `package-build-expand-files-spec' expects REV to be checked out.
-    (package-build--checkout-1 rcp rev)
-    (string-to-number
-     (car (apply #'process-lines
-                 "git" "log" "-n1" "--first-parent"
-                 "--pretty=format:%cd" "--date=unix"
-                 rev "--" (mapcar #'car (package-build-expand-files-spec rcp)))))))
+(cl-defmethod package-build--get-timestamp ((rcp package-git-recipe))
+  (pcase-let*
+      ((default-directory (package-recipe--working-tree rcp))
+       (commit (oref rcp commit))
+       (branch (oref rcp branch))
+       (branch (and branch (concat "origin/" branch)))
+       (rev (or commit branch "origin/HEAD"))
+       ;; `package-build-expand-files-spec' expects REV to be checked out.
+       (_ (package-build--checkout-1 rcp rev))
+       (`(,hash ,time)
+        (split-string
+         (car (apply #'process-lines
+                     "git" "log" "-n1" "--first-parent"
+                     "--pretty=format:%H %cd" "--date=unix" rev
+                     "--" (mapcar #'car (package-build-expand-files-spec rcp))))
+         " ")))
+    (cons hash (string-to-number time))))
 
 (cl-defmethod package-build--get-commit-time ((rcp package-git-recipe) rev)
   (let ((default-directory (package-recipe--working-tree rcp)))
     (string-to-number
      (car (process-lines "git" "log" "-n1" "--first-parent"
                          "--pretty=format:%cd" "--date=unix" rev)))))
-
-(cl-defmethod package-build--used-url ((rcp package-git-recipe))
-  (let ((default-directory (package-recipe--working-tree rcp)))
-    (car (process-lines "git" "config" "remote.origin.url"))))
 
 (cl-defmethod package-build--get-commit ((rcp package-git-recipe) &optional rev)
   (let ((default-directory (package-recipe--working-tree rcp)))
@@ -359,10 +337,12 @@ is used instead."
         (url (package-recipe--upstream-url rcp)))
     (cond
      ((and (file-exists-p (expand-file-name ".hg" dir))
-           (string-equal (package-build--used-url rcp) url))
-      (package-build--message "Updating %s" dir)
-      (package-build--run-process dir nil "hg" "pull")
-      (package-build--run-process dir nil "hg" "update"))
+           (let ((default-directory dir))
+             (string= (car (process-lines "hg" "paths" "default")) url)))
+      (unless package-build--inhibit-fetch
+        (package-build--message "Updating %s" dir)
+        (package-build--run-process dir nil "hg" "pull")
+        (package-build--run-process dir nil "hg" "update")))
      (t
       (when (file-exists-p dir)
         (delete-directory dir t))
@@ -374,27 +354,24 @@ is used instead."
       version)))
 
 (cl-defmethod package-build--checkout-1 ((rcp package-hg-recipe) rev)
-  (when rev
+  (when (and (not package-build--inhibit-checkout) rev)
+    (package-build--message "Checking out %s" rev)
     (package-build--run-process (package-recipe--working-tree rcp)
                                 nil "hg" "update" rev)))
 
-(cl-defmethod package-build--list-tags ((rcp package-hg-recipe))
-  (let ((default-directory (package-recipe--working-tree rcp)))
-    (mapcar (lambda (line)
-              ;; Remove space and rev that follow ref.
-              (string-match "\\`[^ ]+" line)
-              (match-string 0))
-            (process-lines "hg" "tags"))))
-
-(cl-defmethod package-build--get-timestamp ((rcp package-hg-recipe) rev)
-  (let ((default-directory (package-recipe--working-tree rcp)))
-    (string-to-number
-     (car (split-string ; "hgdate" is "<unix-date> <timezone>"
-           (car (apply #'process-lines
-                       "hg" "log" "--limit" "1" "--template" "{date|hgdate}\n"
-                       `(,@(and rev (list "--rev" rev))
-                         ,@(mapcar #'car (package-build-expand-files-spec rcp)))))
-           " ")))))
+(cl-defmethod package-build--get-timestamp ((rcp package-hg-recipe))
+  (pcase-let*
+      ((default-directory (package-recipe--working-tree rcp))
+       (rev nil) ; TODO Respect commit and branch properties.
+       (`(,hash ,time ,_timezone)
+        (split-string
+         (car (apply #'process-lines
+                     "hg" "log" "--limit" "1"
+                     "--template" "{node} {date|hgdate}\n"
+                     `(,@(and rev (list "--rev" rev))
+                       ,@(mapcar #'car (package-build-expand-files-spec rcp)))))
+         " ")))
+    (cons hash (string-to-number time))))
 
 (cl-defmethod package-build--get-commit-time ((rcp package-hg-recipe) rev)
   (let ((default-directory (package-recipe--working-tree rcp)))
@@ -405,16 +382,11 @@ is used instead."
                                "--rev" rev))
            " ")))))
 
-(cl-defmethod package-build--used-url ((rcp package-hg-recipe))
-  (let ((default-directory (package-recipe--working-tree rcp)))
-    (car (process-lines "hg" "paths" "default"))))
-
 (cl-defmethod package-build--get-commit ((rcp package-hg-recipe) &optional rev)
   (let ((default-directory (package-recipe--working-tree rcp)))
     ;; "--debug" is needed to get the full hash.
-    (car (apply #'process-lines "hg" "--debug" "id" "-i"
-                (and rev (list rev))))))
-
+    (car (apply #'process-lines "hg" "--debug" "identify" "--id"
+                (and rev (list "--rev" rev))))))
 
 ;;; Generate Files
 
@@ -540,33 +512,29 @@ Any existing header will be preserved and given the \"X-Original-\" prefix.
 If VALUE is nil, the new header will not be inserted, but any original will
 still be renamed."
   (goto-char (point-min))
-  (if (let ((case-fold-search t))
-        (re-search-forward (concat "^;+* *" (regexp-quote name)  " *: *") nil t))
-      (progn
-        (move-beginning-of-line nil)
-        (search-forward "V" nil t)
-        (backward-char)
-        (insert "X-Original-")
-        (move-beginning-of-line nil))
-    ;; Put the new header in a sensible place if we can
-    (re-search-forward "^;+* *\\(Version\\|Package-Requires\\|Keywords\\|URL\\) *:"
-                       nil t)
-    (forward-line))
-  (insert (format ";; %s: %s" name value))
-  (newline))
+  (cond
+   ((let ((case-fold-search t))
+      (re-search-forward (format "^;+* *%s *: *" (regexp-quote name)) nil t))
+    (move-beginning-of-line nil)
+    (search-forward "V" nil t)
+    (backward-char)
+    (insert "X-Original-")
+    (move-beginning-of-line nil))
+   (t
+    ;; Put the new header in a sensible place if we can.
+    (re-search-forward
+     "^;+* *\\(Version\\|Package-Requires\\|Keywords\\|URL\\) *:" nil t)
+    (forward-line)))
+  (insert (format ";; %s: %s\n" name value)))
 
 (defun package-build--ensure-ends-here-line (file)
-  "Add a 'FILE ends here' trailing line if missing."
+  "Add the \"FILE ends here\" trailing line if it is missing."
   (save-excursion
     (goto-char (point-min))
-    (let ((trailer (concat ";;; "
-                           (file-name-nondirectory file)
-                           " ends here")))
-      (unless (search-forward trailer nil t)
+    (let ((trailer (format ";;; %s ends here" (file-name-nondirectory file))))
+      (unless (re-search-forward (format "^%s" (regexp-quote trailer)) nil t)
         (goto-char (point-max))
-        (newline)
-        (insert trailer)
-        (newline)))))
+        (insert ?\n trailer ?\n)))))
 
 ;;; Package Structs
 
@@ -693,9 +661,9 @@ then show a warning.
 A files specification is a list.  Its elements are processed in
 order and can have the following form:
 
-- :default
+- :defaults
 
-  If the very first element of the top-level SPEC is `:default',
+  If the very first element of the top-level SPEC is `:defaults',
   then that means to prepend the default file spec to the SPEC
   specified by the remaining elements.
 
@@ -721,7 +689,7 @@ order and can have the following form:
 \(fn RCP &optional ASSERT)" ; Other arguments only for backward compat.
   (let ((default-directory (or repo (package-recipe--working-tree rcp)))
         (spec (or spec (oref rcp files))))
-    (when (eq :defaults (car spec))
+    (when (eq (car spec) :defaults)
       (setq spec (append package-build-default-files-spec (cdr spec))))
     (let ((files (package-build--expand-files-spec-1
                   (or spec package-build-default-files-spec))))
@@ -729,9 +697,8 @@ order and can have the following form:
         (when (and rcp spec
                    (equal files (package-build--expand-files-spec-1
                                  package-build-default-files-spec)))
-          (package-build--message
-           "Note: %s :files spec is equivalent to the default."
-           (oref rcp name)))
+          (message "Warning: %s :files spec is equivalent to the default"
+                   (oref rcp name)))
         (unless files
           (error "No matching file(s) found in %s using %s"
                  default-directory (or spec "default spec"))))
@@ -790,23 +757,29 @@ FILES is a list of (SOURCE . DEST) relative filepath pairs."
 If DUMP-ARCHIVE-CONTENTS is non-nil, the updated archive contents
 are subsequently dumped."
   (interactive (list (package-recipe-read-name) t))
-  (let ((start-time (current-time))
-        (rcp (package-recipe-lookup name)))
-    (unless (file-exists-p package-build-archive-dir)
-      (package-build--message "Creating directory %s" package-build-archive-dir)
-      (make-directory package-build-archive-dir))
+  (unless (file-exists-p package-build-archive-dir)
+    (package-build--message "Creating directory %s" package-build-archive-dir)
+    (make-directory package-build-archive-dir))
+  (let* ((start-time (current-time))
+         (rcp (package-recipe-lookup name))
+         (url (package-recipe--upstream-url rcp))
+         (repo (oref rcp repo))
+         (fetcher (package-recipe--fetcher rcp)))
+    (cond ((not noninteractive)
+           (message " • Building package %s (from %s)..." name
+                    (if repo (format "%s:%s" fetcher repo) url)))
+          (package-build-verbose
+           (message "Package: %s" name)
+           (message "Fetcher: %s" fetcher)
+           (message "Source:  %s\n" url)))
     (let ((default-directory package-build-working-dir)
           (version (package-build--checkout rcp)))
       (package-build--package rcp version)
-      (when package-build-write-melpa-badge-images
-        (package-build--write-melpa-badge-image
-         name version package-build-archive-dir))
-      (package-build--message "Built %s in %.3fs, finished at %s"
-                              name
-                              (float-time (time-since start-time))
-                              (format-time-string "%FT%T%z" nil t))))
-  (when dump-archive-contents
-    (package-build-dump-archive-contents)))
+      (when dump-archive-contents
+        (package-build-dump-archive-contents))
+      (message "Built %s in %.3fs, finished at %s" name
+               (float-time (time-since start-time))
+               (format-time-string "%FT%T%z" nil t)))))
 
 ;;;###autoload
 (defun package-build--package (rcp version)
@@ -815,18 +788,22 @@ Return the archive entry for the package and store the package
 in `package-build-archive-dir'."
   (let ((source-dir (package-recipe--working-tree rcp)))
     (unwind-protect
-        (let ((files (package-build-expand-files-spec rcp t))
+        (let ((name (oref rcp name))
+              (files (package-build-expand-files-spec rcp t))
               (commit (package-build--get-commit rcp)))
           (cond
            ((not version)
-            (error "Unable to check out repository for %s" (oref rcp name)))
+            (error "Unable to check out repository for %s" name))
            ((= (length files) 1)
             (package-build--build-single-file-package
              rcp version commit files source-dir))
            ((> (length files) 1)
             (package-build--build-multi-file-package
              rcp version commit files source-dir))
-           (t (error "Unable to find files matching recipe patterns"))))
+           (t (error "Unable to find files matching recipe patterns")))
+          (when package-build-write-melpa-badge-images
+            (package-build--write-melpa-badge-image
+             name version package-build-archive-dir)))
       (cond ((cl-typep rcp 'package-git-recipe)
              (package-build--run-process
               source-dir nil "git" "clean" "-f" "-d" "-x"))
@@ -849,7 +826,8 @@ in `package-build-archive-dir'."
       (error "Single file %s does not match package name %s" file name))
     (copy-file source target t)
     (let ((enable-local-variables nil)
-          (make-backup-files nil))
+          (make-backup-files nil)
+          (before-save-hook nil))
       (with-current-buffer (find-file target)
         (package-build--update-or-insert-header "Package-Commit" commit)
         (package-build--update-or-insert-header "Package-Version" version)

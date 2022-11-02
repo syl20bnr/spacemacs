@@ -204,9 +204,9 @@
       (add-hook 'company-box-selection-hook
                 (lambda (selection frame) (company-box-doc--hide frame)))
       (cl-case auto-completion-enable-help-tooltip
-        ('manual (define-key company-active-map
+        (manual (define-key company-active-map
                    (kbd "M-h") #'company-box-doc-manually))
-        ('t (setq company-box-doc-enable t))))))
+        (t (setq company-box-doc-enable t))))))
 
 (defun auto-completion/init-company-posframe ()
   (use-package company-posframe
@@ -271,7 +271,7 @@
       (spacemacs/set-leader-keys "is" 'spacemacs/ivy-yas))))
 
 (defun auto-completion/post-init-smartparens ()
-  (with-eval-after-load 'smartparens
+  (with-eval-after-load 'hippie-exp
     (add-hook 'yas-before-expand-snippet-hook
               #'spacemacs//smartparens-disable-before-expand-snippet)
     (add-hook 'yas-after-exit-snippet-hook

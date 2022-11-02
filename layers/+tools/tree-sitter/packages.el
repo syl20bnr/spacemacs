@@ -29,7 +29,7 @@
      :toggle tree-sitter-fold-enable
      :location (recipe
                 :fetcher github
-                :repo "jcs090218/ts-fold"))))
+                :repo "emacs-tree-sitter/ts-fold"))))
 
 (defun tree-sitter/init-tree-sitter ()
   (use-package tree-sitter

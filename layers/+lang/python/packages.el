@@ -100,14 +100,13 @@
   (use-package code-cells
     :if (not (configuration-layer/layer-used-p 'ipython-notebook))
     :defer t
-    :config
-    (progn
-      (add-hook 'python-mode-hook 'code-cells-mode)
-      (spacemacs/set-leader-keys-for-minor-mode 'code-cells-mode
-        "gB" 'code-cells-backward-cell
-        "gF" 'code-cells-forward-cell
-        "sc" 'code-cells-eval
-        "sa" 'code-cells-eval-above))))
+    :commands (code-cells-mode)
+    :init (add-hook 'python-mode-hook 'code-cells-mode)
+    :config (spacemacs/set-leader-keys-for-minor-mode 'code-cells-mode
+            "gB" 'code-cells-backward-cell
+            "gF" 'code-cells-forward-cell
+            "sc" 'code-cells-eval
+            "sa" 'code-cells-eval-above)))
 
 (defun python/post-init-company ()
   ;; backend specific
