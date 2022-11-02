@@ -890,6 +890,8 @@ The evilified org agenda supports the following bindings:
 |----------------------+-----------------------------------|
 | ~M-SPC~ or ~s-M-SPC~ | org-agenda transient state        |
 | ~SPC m a~            | org-agenda                        |
+| ~SPC m [~            | org-agenda-file-to-front          |
+| ~SPC m ]~            | org-remove-file                   |
 | ~SPC m ,~            | org-agenda-ctrl-c-ctrl-c          |
 | ~SPC m c~            | org-agenda-capture                |
 | ~SPC m C c~          | org-agenda-clock-cancel           |

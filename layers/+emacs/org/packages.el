@@ -256,6 +256,8 @@ Will work on both org-mode and any mode that accepts plain html."
         "fu" 'org-feed-update-all
 
         "a" 'org-agenda
+        "[" 'org-agenda-file-to-front
+        "]" 'org-remove-file
 
         "p" 'org-priority
 
