@@ -232,6 +232,7 @@
       :evil-leader "td")
     :config
     (progn
+      (nconc hungry-delete-except-modes '(term-mode vterm-mode))
       (setq-default hungry-delete-chars-to-skip " \t\f\v") ; only horizontal whitespace
       (define-key hungry-delete-mode-map (kbd "DEL") 'hungry-delete-backward)
       (define-key hungry-delete-mode-map (kbd "S-DEL") 'delete-backward-char))))
