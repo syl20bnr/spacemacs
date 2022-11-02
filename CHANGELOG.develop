@@ -2923,6 +2923,8 @@ files (thanks to Daniel Nicolai)
 - Fixed ocamlformat not properly initialized by following do (thanks to Nicolas Raymond)
 - Allow new OPAM share commandline syntax (thanks to Cody McKenzie)
 **** Org
+- Add ~SPC m [~ for =org-agenda-file-to-front= and ~SPC m ]~ for =org-remove-file=
+  (thanks to Keith Pinson).
 - Add initial =org-transclusion= support behind =org-enable-transclusion-support=
   flag (thanks to Keith Pinson).
 - When =org-appear= is set to be triggered manually and Spacemacs' editing mode is
