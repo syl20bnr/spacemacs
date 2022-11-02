@@ -779,7 +779,8 @@ ones created by `magit' and `dired'."
 (defun spacemacs/copy-file-name ()
   "Copy and show the file name of the current buffer."
   (interactive)
-  (if-let (file-name (file-name-nondirectory (spacemacs--file-path)))
+  (if-let* ((file-path (spacemacs--file-path))
+            (file-name (file-name-nondirectory file-path)))
       (progn
         (kill-new file-name)
         (message "%s" file-name))
