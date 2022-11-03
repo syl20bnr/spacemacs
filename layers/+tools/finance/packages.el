@@ -68,9 +68,6 @@
         "t" 'ledger-insert-effective-date)
       (spacemacs/set-leader-keys-for-major-mode 'ledger-reconcile-mode
         (or dotspacemacs-major-mode-leader-key ",") 'ledger-reconcile-toggle
-        "a" 'ledger-reconcile-add
-        "q" 'ledger-reconcile-quit
-        "t" 'ledger-reconcile-change-target
         "RET" 'ledger-reconcile-finish)
       ;; temporary hack to work-around an issue with evil-define-key
       ;; more info: https://github.com/emacs-evil/evil/issues/301
@@ -84,6 +81,9 @@
         (lambda () (when syntax-checking-enable-by-default
                      (global-flycheck-mode 1)))
         finance-lazy-load-flycheck)
+      (evilified-state-evilify-map ledger-reconcile-mode-map
+        :eval-after-load ledger-reconcile
+        :mode ledger-reconcile-mode)
       (evilified-state-evilify-map ledger-report-mode-map
         :eval-after-load ledger-report
         :mode ledger-report-mode))))
