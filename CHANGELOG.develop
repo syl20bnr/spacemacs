@@ -871,6 +871,8 @@ Other:
     (thanks to rayw000)
   - Added =string-edit= package to =spacemacs-editing= layer
     (thanks to Ivan Yonchovski)
+  - Remove package =evil-ediff=
+    (thanks to Xuanqing Xu)
 - Key bindings:
   - Toggle line numbers (i.e. toggle =display-line-numbers-mode=) via ~SPC t n n~
     without having to think about which variant of line numbers you have turned
