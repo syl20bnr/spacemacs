@@ -25,7 +25,7 @@ jobs:
           recent activity. It will be closed if no further activity occurs.
           Please let us know if this PR is still need merging!
         stale-issue-label: 'stale'
-        exempt-issue-label: 'High Priority'
+        exempt-issue-label: 'High Priority','Feature request'
         stale-pr-label: 'stale'
         exempt-pr-label: 'High Priority'
         exempt-all-pr-assignees: true
