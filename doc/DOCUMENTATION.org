@@ -3678,6 +3678,7 @@ To search in a project see [[#searching-in-a-project][project searching]].
 | ~SPC p e~   | edit dir-locals.el                                                                       |
 | ~SPC p f~   | find file                                                                                |
 | ~SPC p F~   | find file based on path around point                                                     |
+| ~SPC p E~   | find references                                                                      |
 | ~SPC p g~   | find tags                                                                                |
 | ~SPC p G~   | regenerate the project's =etags= / =gtags=                                               |
 | ~SPC p h~   | find file                                                                                |
