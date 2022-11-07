@@ -41,7 +41,7 @@
     (smartparens :toggle dotspacemacs-activate-smartparens-mode)
     (evil-swap-keys :toggle dotspacemacs-swap-number-row)
     (spacemacs-whitespace-cleanup :location (recipe :fetcher local))
-    string-edit
+    string-edit-at-point
     string-inflection
     multi-line
     undo-tree
@@ -507,8 +507,8 @@
         "xiu" 'string-inflection-underscore
         "xiU" 'string-inflection-upcase))))
 
-(defun spacemacs-editing/init-string-edit ()
-  (use-package string-edit
+(defun spacemacs-editing/init-string-edit-at-point ()
+  (use-package string-edit-at-point
     :defer t
     :init
     (spacemacs/set-leader-keys "xe" 'string-edit-at-point)
