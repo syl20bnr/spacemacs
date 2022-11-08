@@ -45,7 +45,7 @@
 (defun finance/init-evil-ledger ()
   (use-package evil-ledger
     :defer t
-    :init (add-hook 'ledger-mode 'evil-ledger-mode)))
+    :init (add-hook 'ledger-mode-hook 'evil-ledger-mode)))
 
 (defun finance/init-ledger-mode ()
   (use-package ledger-mode
