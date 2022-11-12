@@ -27,7 +27,6 @@
         evil-args
         evil-collection
         evil-cleverparens
-        evil-ediff
         (evil-escape :location (recipe :fetcher github
                                        :repo "smile13241324/evil-escape"))
         evil-exchange
