@@ -513,7 +513,7 @@
     :init
     (spacemacs/set-leader-keys "xe" 'string-edit-at-point)
     :config
-    (spacemacs/set-leader-keys-for-minor-mode 'string-edit-mode
+    (spacemacs/set-leader-keys-for-minor-mode 'string-edit-at-point-mode
       "," 'string-edit-conclude
       "c" 'string-edit-conclude
       "a" 'string-edit-abort
