@@ -3722,6 +3722,7 @@ files (thanks to Daniel Nicolai)
   (thanks to Dominic Pearson, Muneeb Shaikh)
 - Added highly accessible =modus-themes= (thanks to Muneeb Shaikh)
 - Added =doom-gruvbox-light= theme (thanks to John Stevenson)
+- Removed obsolete =darkburn-theme= (thanks to Muneeb Shaikh)
 **** Tmux
 - Prevent =tmux-command= at GUI mode (thanks to Isaac Zeng)
 - Fixed regression in tmux by setting keybindings using =use-package=
