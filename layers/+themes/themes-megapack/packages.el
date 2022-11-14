@@ -51,7 +51,7 @@
     espresso-theme
     exotica-theme
     eziam-theme
-    farmhouse-theme
+    farmhouse-themes
     flatland-theme
     flatui-theme
     gandalf-theme
