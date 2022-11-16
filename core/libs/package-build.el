@@ -12,7 +12,7 @@
 ;; Homepage: https://github.com/melpa/package-build
 ;; Keywords: maint tools
 
-;; Package-Version: 3.1-git
+;; Package-Version: 3.2-git
 ;; Package-Requires: ((emacs "25.1"))
 
 ;; SPDX-License-Identifier: GPL-3.0-or-later
@@ -116,6 +116,14 @@ of the recipe."
   :set-after '(package-build-stable)
   :type 'function)
 
+(defcustom package-build-predicate-function nil
+  "Predicate used by `package-build-all' to determine which packages to build.
+If non-nil, this function is called with the recipe object as
+argument, and must return non-nil if the package is to be build.
+If nil (the default), then all packages are build."
+  :group 'package-build
+  :type '(choice (const :tag "build all") function))
+
 (defcustom package-build-timeout-executable "timeout"
   "Path to a GNU coreutils \"timeout\" command if available.
 This must be a version which supports the \"-k\" option.
@@ -165,11 +173,8 @@ disallowed."
   :group 'package-build
   :type '(repeat string))
 
-(defvar package-build-use-hg-purge
-  "Whether `package-build--package' runs \"hg purge\" in mercurial repos."
-  (let ((value (ignore-errors
-                 (car (process-lines "hg" "config" "extensions.purge")))))
-    (and value (not (string-prefix-p "!" value)))))
+(defvar package-build-use-git-remote-hg nil
+  "Whether to use `git-remote-hg' remote helper for mercurial repos.")
 
 (defvar package-build--inhibit-fetch nil
   "Whether to inhibit fetching.  Useful for testing purposes.")
@@ -186,6 +191,7 @@ Otherwise do nothing.  FORMAT-STRING and ARGS are as per that function."
     (apply #'message format-string args)))
 
 ;;; Version Handling
+;;;; Release
 
 (defun package-build-get-tag-version (rcp)
   (let ((regexp (or (oref rcp version-regexp) package-build-version-regexp))
@@ -208,6 +214,18 @@ Otherwise do nothing.  FORMAT-STRING and ARGS are as per that function."
     (cons (package-build--get-commit rcp tag)
           (package-version-join version))))
 
+(cl-defmethod package-build--get-commit ((rcp package-git-recipe) &optional rev)
+  (let ((default-directory (package-recipe--working-tree rcp)))
+    (car (process-lines "git" "rev-parse" (or rev "HEAD")))))
+
+(cl-defmethod package-build--get-commit ((rcp package-hg-recipe) &optional rev)
+  (let ((default-directory (package-recipe--working-tree rcp)))
+    ;; "--debug" is needed to get the full hash.
+    (car (apply #'process-lines "hg" "--debug" "identify" "--id"
+                (and rev (list "--rev" rev))))))
+
+;;;; Snapshot
+
 (defun package-build-get-timestamp-version (rcp)
   (pcase-let ((`(,hash . ,time) (package-build--get-timestamp rcp)))
     (cons hash
@@ -216,6 +234,38 @@ Otherwise do nothing.  FORMAT-STRING and ARGS are as per that function."
           (concat (format-time-string "%Y%m%d." time t)
                   (format "%d" (string-to-number
                                 (format-time-string "%H%M" time t)))))))
+
+(cl-defmethod package-build--get-timestamp ((rcp package-git-recipe))
+  (pcase-let*
+      ((default-directory (package-recipe--working-tree rcp))
+       (commit (oref rcp commit))
+       (branch (oref rcp branch))
+       (branch (and branch (concat "origin/" branch)))
+       (rev (or commit branch "origin/HEAD"))
+       ;; `package-build-expand-files-spec' expects REV to be checked out.
+       (_ (package-build--checkout-1 rcp rev))
+       (`(,hash ,time)
+        (split-string
+         (car (apply #'process-lines
+                     "git" "log" "-n1" "--first-parent"
+                     "--pretty=format:%H %cd" "--date=unix" rev
+                     "--" (mapcar #'car (package-build-expand-files-spec rcp))))
+         " ")))
+    (cons hash (string-to-number time))))
+
+(cl-defmethod package-build--get-timestamp ((rcp package-hg-recipe))
+  (pcase-let*
+      ((default-directory (package-recipe--working-tree rcp))
+       (rev nil) ; TODO Respect commit and branch properties.
+       (`(,hash ,time ,_timezone)
+        (split-string
+         (car (apply #'process-lines
+                     "hg" "log" "--limit" "1"
+                     "--template" "{node} {date|hgdate}\n"
+                     `(,@(and rev (list "--rev" rev))
+                       ,@(mapcar #'car (package-build-expand-files-spec rcp)))))
+         " ")))
+    (cons hash (string-to-number time))))
 
 ;;; Run Process
 
@@ -258,7 +308,6 @@ Otherwise do nothing.  FORMAT-STRING and ARGS are as per that function."
         (kill-buffer temp-buffer)))))
 
 ;;; Checkout
-;;;; Git
 
 (cl-defmethod package-build--checkout ((rcp package-git-recipe))
   (let ((dir (package-recipe--working-tree rcp))
@@ -296,42 +345,6 @@ Otherwise do nothing.  FORMAT-STRING and ARGS are as per that function."
       (package-build--checkout-1 rcp rev)
       version)))
 
-(cl-defmethod package-build--checkout-1 ((rcp package-git-recipe) rev)
-  (unless package-build--inhibit-checkout
-    (package-build--message "Checking out %s" rev)
-    (package-build--run-process (package-recipe--working-tree rcp)
-                                nil "git" "reset" "--hard" rev)))
-
-(cl-defmethod package-build--get-timestamp ((rcp package-git-recipe))
-  (pcase-let*
-      ((default-directory (package-recipe--working-tree rcp))
-       (commit (oref rcp commit))
-       (branch (oref rcp branch))
-       (branch (and branch (concat "origin/" branch)))
-       (rev (or commit branch "origin/HEAD"))
-       ;; `package-build-expand-files-spec' expects REV to be checked out.
-       (_ (package-build--checkout-1 rcp rev))
-       (`(,hash ,time)
-        (split-string
-         (car (apply #'process-lines
-                     "git" "log" "-n1" "--first-parent"
-                     "--pretty=format:%H %cd" "--date=unix" rev
-                     "--" (mapcar #'car (package-build-expand-files-spec rcp))))
-         " ")))
-    (cons hash (string-to-number time))))
-
-(cl-defmethod package-build--get-commit-time ((rcp package-git-recipe) rev)
-  (let ((default-directory (package-recipe--working-tree rcp)))
-    (string-to-number
-     (car (process-lines "git" "log" "-n1" "--first-parent"
-                         "--pretty=format:%cd" "--date=unix" rev)))))
-
-(cl-defmethod package-build--get-commit ((rcp package-git-recipe) &optional rev)
-  (let ((default-directory (package-recipe--working-tree rcp)))
-    (car (process-lines "git" "rev-parse" (or rev "HEAD")))))
-
-;;;; Hg
-
 (cl-defmethod package-build--checkout ((rcp package-hg-recipe))
   (let ((dir (package-recipe--working-tree rcp))
         (url (package-recipe--upstream-url rcp)))
@@ -353,40 +366,17 @@ Otherwise do nothing.  FORMAT-STRING and ARGS are as per that function."
       (package-build--checkout-1 rcp rev)
       version)))
 
+(cl-defmethod package-build--checkout-1 ((rcp package-git-recipe) rev)
+  (unless package-build--inhibit-checkout
+    (package-build--message "Checking out %s" rev)
+    (package-build--run-process (package-recipe--working-tree rcp)
+                                nil "git" "reset" "--hard" rev)))
+
 (cl-defmethod package-build--checkout-1 ((rcp package-hg-recipe) rev)
   (when (and (not package-build--inhibit-checkout) rev)
     (package-build--message "Checking out %s" rev)
     (package-build--run-process (package-recipe--working-tree rcp)
                                 nil "hg" "update" rev)))
-
-(cl-defmethod package-build--get-timestamp ((rcp package-hg-recipe))
-  (pcase-let*
-      ((default-directory (package-recipe--working-tree rcp))
-       (rev nil) ; TODO Respect commit and branch properties.
-       (`(,hash ,time ,_timezone)
-        (split-string
-         (car (apply #'process-lines
-                     "hg" "log" "--limit" "1"
-                     "--template" "{node} {date|hgdate}\n"
-                     `(,@(and rev (list "--rev" rev))
-                       ,@(mapcar #'car (package-build-expand-files-spec rcp)))))
-         " ")))
-    (cons hash (string-to-number time))))
-
-(cl-defmethod package-build--get-commit-time ((rcp package-hg-recipe) rev)
-  (let ((default-directory (package-recipe--working-tree rcp)))
-    (string-to-number
-     (car (split-string
-           (car (process-lines "hg" "log" "--limit" "1"
-                               "--template" "{date|hgdate}\n"
-                               "--rev" rev))
-           " ")))))
-
-(cl-defmethod package-build--get-commit ((rcp package-hg-recipe) &optional rev)
-  (let ((default-directory (package-recipe--working-tree rcp)))
-    ;; "--debug" is needed to get the full hash.
-    (car (apply #'process-lines "hg" "--debug" "identify" "--id"
-                (and rev (list "--rev" rev))))))
 
 ;;; Generate Files
 
@@ -807,8 +797,7 @@ in `package-build-archive-dir'."
       (cond ((cl-typep rcp 'package-git-recipe)
              (package-build--run-process
               source-dir nil "git" "clean" "-f" "-d" "-x"))
-            ((and (cl-typep rcp 'package-hg-recipe)
-                  package-build-use-hg-purge)
+            ((cl-typep rcp 'package-hg-recipe)
              (package-build--run-process source-dir nil "hg" "purge"))))))
 
 (defun package-build--build-single-file-package (rcp version commit files source-dir)
@@ -858,34 +847,61 @@ in `package-build-archive-dir'."
           (package-build--write-archive-entry desc))
       (delete-directory tmp-dir t nil))))
 
+(cl-defmethod package-build--get-commit-time ((rcp package-git-recipe) rev)
+  (let ((default-directory (package-recipe--working-tree rcp)))
+    (string-to-number
+     (car (process-lines "git" "log" "-n1" "--first-parent"
+                         "--pretty=format:%cd" "--date=unix" rev)))))
+
+(cl-defmethod package-build--get-commit-time ((rcp package-hg-recipe) rev)
+  (let ((default-directory (package-recipe--working-tree rcp)))
+    (string-to-number
+     (car (split-string
+           (car (process-lines "hg" "log" "--limit" "1"
+                               "--template" "{date|hgdate}\n"
+                               "--rev" rev))
+           " ")))))
+
 ;;;###autoload
 (defun package-build-all ()
-  "Build a package for each of the available recipes."
+  "Build a package for each of the available recipes.
+If `package-build-predicate-function' is non-nil, then only
+packages for which that returns non-nil are build."
   (interactive)
-  (let* ((recipes (package-recipe-recipes))
+  (let* ((start (current-time))
+         (recipes (package-recipe-recipes))
          (total (length recipes))
          (success 0)
-         invalid failed)
+         skipped invalid failed)
     (dolist (name recipes)
-      (let ((rcp (with-demoted-errors "Build error: %S"
+      (let ((rcp (with-demoted-errors "Recipe error: %S"
                    (package-recipe-lookup name))))
-        (if rcp
-            (if (with-demoted-errors "Build error: %S"
-                  (package-build-archive name) t)
-                (cl-incf success)
-              (push name failed))
-          (push name invalid))))
-    (if (not (or invalid failed))
-        (message "Successfully built all %s packages" total)
-      (message "Successfully built %i of %s packages" success total)
-      (when invalid
-        (message "Did not built packages for %i invalid recipes:\n%s"
-                 (length invalid)
-                 (mapconcat (lambda (n) (concat "  " n)) invalid "\n")))
-      (when failed
-        (message "Building %i packages failed:\n%s"
-                 (length failed)
-                 (mapconcat (lambda (n) (concat "  " n)) failed "\n")))))
+        (cond ((not rcp)
+               (push name invalid))
+              ((and package-build-predicate-function
+                    (not (funcall package-build-predicate-function rcp)))
+               (push name skipped))
+              ((with-demoted-errors "Build error: %S"
+                 (package-build-archive name) t)
+               (cl-incf success))
+              ((push name failed)))))
+    (let ((duration (/ (float-time (time-subtract (current-time) start)) 60)))
+      (if (not (or skipped invalid failed))
+          (message "Successfully built all %s packages (%.0fm)" total duration)
+        (message "Successfully built %i of %s packages (%.0fm)"
+                 success total duration)
+        (when skipped
+          (message "Skipped %i packages:\n%s"
+                   (length skipped)
+                   (mapconcat (lambda (n) (concat "  " n)) (nreverse skipped) "\n")))
+        (when invalid
+          (message "Did not built packages for %i invalid recipes:\n%s"
+                   (length invalid)
+                   (mapconcat (lambda (n) (concat "  " n)) (nreverse invalid) "\n")))
+        (when failed
+          (message "Building %i packages failed:\n%s"
+                   (length failed)
+                   (mapconcat (lambda (n) (concat "  " n)) (nreverse failed) "\n"))))))
   (package-build-cleanup))
 
 (defun package-build-cleanup ()
