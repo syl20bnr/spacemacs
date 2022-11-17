@@ -945,7 +945,6 @@ each binding are listed bellow.
 | ~fc~        | by category         | org-agenda-filter-by-category     |
 | ~fd~        | delete all filters  | org-agenda-filter-remove-all      |
 | ~fh~        | by top headline     | org-agenda-filter-by-top-headline |
-| ~fr~        | refine by tag       | org-agenda-filter-by-tag-refine   |
 | ~ft~        | by tag              | org-agenda-filter-by-tag          |
 | ~fx~        | by regexp           | org-agenda-filter-by-regexp       |
 |-------------+---------------------+-----------------------------------|
