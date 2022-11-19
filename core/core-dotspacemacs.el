@@ -892,13 +892,11 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preliminary tests."
 
 (defun dotspacemacs/get-variable-string-list ()
   "Return a list of all the dotspacemacs variables as strings."
-  (all-completions "" obarray
+  (all-completions "dotspacemacs" obarray
                    (lambda (x)
                      (and (boundp x)
-                          (not (keywordp x))
                           ;; avoid private variables to show up
-                          (not (string-match-p "--" (symbol-name x)))
-                          (string-prefix-p "dotspacemacs" (symbol-name x))))))
+                          (not (string-match-p "--" (symbol-name x)))))))
 
 (defun dotspacemacs/get-variable-list ()
   "Return a list of all dotspacemacs variable symbols."
