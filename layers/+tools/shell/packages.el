@@ -43,8 +43,8 @@
     terminal-here
     vi-tilde-fringe
     window-purpose
-    (multi-vterm :toggle (not (spacemacs/system-is-mswindows)))
-    (vterm :toggle (not (spacemacs/system-is-mswindows)))))
+    (multi-vterm :toggle (and module-file-suffix (not (spacemacs/system-is-mswindows))))
+    (vterm :toggle (and module-file-suffix (not (spacemacs/system-is-mswindows))))))
 
 
 (defun shell/init-comint ()
