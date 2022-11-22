@@ -13,7 +13,7 @@
 This layer adds support for configuring the [[https://httpd.apache.org/][Apache]] web server.
 
 ** Features:
-- Syntax highlighting of nginx configuration files via [[https://github.com/emacs-php/apache-mode][apache-mode]].
+- Syntax highlighting of apache configuration files via [[https://github.com/emacs-php/apache-mode][apache-mode]].
 - Syntax-aware indentation
 
 * Install

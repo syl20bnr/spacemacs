@@ -1,4 +1,4 @@
-;;; packages.el --- nginx layer packages file for Spacemacs.
+;;; packages.el --- apache layer packages file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
