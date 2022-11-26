@@ -1,0 +1,22 @@
+#+TITLE: apache layer
+
+#+TAGS: layer|tool
+
+[[file:img/apache.png]]
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+
+* Description
+This layer adds support for configuring the [[https://httpd.apache.org/][Apache]] web server.
+
+** Features:
+- Syntax highlighting of apache configuration files via [[https://github.com/emacs-php/apache-mode][apache-mode]].
+- Syntax-aware indentation
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =apache= to the existing =dotspacemacs-configuration-layers= list in this
+file.
