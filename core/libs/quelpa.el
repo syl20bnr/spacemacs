@@ -324,9 +324,9 @@ already and should not be upgraded etc)."
                   (or (funcall package-strip-rcs-id-orig (lm-header "package-version"))
                       (funcall package-strip-rcs-id-orig (lm-header "version"))
                       "0"))))
-      (concat (mapconcat
-               #'number-to-string
-               (package-desc-version (quelpa-get-package-desc file-path)) ".")
+      (concat (if-let ((desc (quelpa-get-package-desc file-path)))
+                  (mapconcat #'number-to-string (package-desc-version desc) ".")
+                "0")
               (pcase version
                 (`original "")
                 (_ (concat "pre0." time-stamp)))))))
