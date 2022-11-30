@@ -39,7 +39,7 @@
     (phpactor :toggle (not (eq php-backend 'lsp)))
     (company-phpactor :requires company :toggle (not (eq php-backend 'lsp)))
     (company-php :requires company :toggle (not (eq php-backend 'lsp)))
-    (geben :toggle (not (eq php-backend 'lsp)))))
+    geben))
 
 (defun php/pre-init-dap-mode ()
   (when (eq php-backend 'lsp)
