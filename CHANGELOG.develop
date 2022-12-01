@@ -130,6 +130,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
     in Emacs 24.3 to ~timeclock-mode-line-display~ (thanks to Zach Pearson)
   - Added =vim-style-enable-undo-region= style variables to enable undo-region
     in Vim editing style; disabled by default. (thanks to Benedict HW)
+  - Added ~SPC m r R~ to show tide refactorings submenu (thanks to Roberto 
+    Previdi)
 - Other:
   - Support for multiple cursors using =evil-mc= is now encapsulated in the
     =multiple-cursors= layer (thanks to Codruț Constantin Gușoi)
