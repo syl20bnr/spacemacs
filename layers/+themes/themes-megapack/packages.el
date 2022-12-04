@@ -50,7 +50,7 @@
     dracula-theme
     espresso-theme
     exotica-theme
-    eziam-theme
+    eziam-themes
     farmhouse-themes
     flatland-theme
     flatui-theme
