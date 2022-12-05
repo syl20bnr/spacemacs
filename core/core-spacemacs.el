@@ -91,7 +91,9 @@ the final step of executing code in `emacs-startup-hook'.")
   (when dotspacemacs-undecorated-at-startup
     ;; this should be called before toggle-frame-maximized
     (set-frame-parameter nil 'undecorated t)
-    (add-to-list 'default-frame-alist '(undecorated . t)))
+    (set-frame-parameter nil 'internal-border-width 0)
+    (add-to-list 'default-frame-alist '(undecorated . t))
+    (add-to-list 'default-frame-alist '(internal-border-width . 0)))
   (when dotspacemacs-maximized-at-startup
     (unless (frame-parameter nil 'fullscreen)
       (toggle-frame-maximized))
