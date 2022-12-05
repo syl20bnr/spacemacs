@@ -472,7 +472,7 @@ to disable fullscreen animations on macOS."
   'boolean
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-maximized-at-startup nil
+(spacemacs|defc dotspacemacs-maximized-at-startup t
   "If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only).
 Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil."
   'boolean
