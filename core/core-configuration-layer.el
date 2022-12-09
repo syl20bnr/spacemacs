@@ -33,6 +33,7 @@
 (require 'core-funcs)
 (require 'core-progress-bar)
 (require 'core-spacemacs-buffer)
+(require 'core-load-paths)
 
 (defvar configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout
   "Timeout in seconds to reach a package archive page.")
