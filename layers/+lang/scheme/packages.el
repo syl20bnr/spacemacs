@@ -41,7 +41,7 @@
 
 (defun scheme/post-init-company ()
   ;; Geiser provides completion as long as company mode is loaded.
-  (spacemacs|add-company-backends :modes scheme-mode :backends geiser-company-backend))
+  (spacemacs|add-company-backends :modes scheme-mode :backends company-capf))
 
 (defun scheme/pre-init-evil-cleverparens ()
   (spacemacs|use-package-add-hook evil-cleverparens
