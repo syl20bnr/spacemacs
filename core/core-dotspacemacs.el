@@ -890,17 +890,18 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preliminary tests."
   (when (configuration-layer/package-used-p 'spaceline)
     (spacemacs//restore-buffers-powerline)))
 
-(defun dotspacemacs/get-variable-string-list ()
-  "Return a list of all the dotspacemacs variables as strings."
-  (all-completions "dotspacemacs" obarray
-                   (lambda (x)
-                     (and (boundp x)
-                          ;; avoid private variables to show up
-                          (not (string-match-p "--" (symbol-name x)))))))
+(eval-and-compile
+  (defun dotspacemacs/get-variable-string-list ()
+    "Return a list of all the dotspacemacs variables as strings."
+    (all-completions "dotspacemacs" obarray
+                     (lambda (x)
+                       (and (boundp x)
+                            ;; avoid private variables to show up
+                            (not (string-match-p "--" (symbol-name x)))))))
 
-(defun dotspacemacs/get-variable-list ()
-  "Return a list of all dotspacemacs variable symbols."
-  (mapcar 'intern (dotspacemacs/get-variable-string-list)))
+  (defun dotspacemacs/get-variable-list ()
+    "Return a list of all dotspacemacs variable symbols."
+    (mapcar 'intern (dotspacemacs/get-variable-string-list))))
 
 (defmacro dotspacemacs|symbol-value (symbol)
   "Return the value of SYMBOL corresponding to a dotspacemacs variable.

@@ -805,19 +805,20 @@ If MESSAGEBUF is not nil then MSG is also written in message buffer."
       (when messagebuf
         (message "(Spacemacs) %s" msg)))))
 
-(defun spacemacs-buffer//startup-list-jump-func-name (str)
-  "Given a string, return a spacemacs-buffer function name.
+(eval-and-compile
+  (defun spacemacs-buffer//startup-list-jump-func-name (str)
+    "Given a string, return a spacemacs-buffer function name.
 
 Given:           Return:
 \"[?]\"            \"spacemacs-buffer/jump-to-[?]\"
 \"Recent Files:\"  \"spacemacs-buffer/jump-to-recent-files\""
-  (let ((s (downcase str)))
-    ;; remove last char if it's a colon
-    (when (string-match ":$" s)
-      (setq s (substring s nil (1- (length s)))))
-    ;; replace any spaces with a dash
-    (setq s (replace-regexp-in-string " " "-" s))
-    (concat "spacemacs-buffer/jump-to-" s)))
+    (let ((s (downcase str)))
+      ;; remove last char if it's a colon
+      (when (string-match ":$" s)
+        (setq s (substring s nil (1- (length s)))))
+      ;; replace any spaces with a dash
+      (setq s (replace-regexp-in-string " " "-" s))
+      (concat "spacemacs-buffer/jump-to-" s))))
 
 (defmacro spacemacs-buffer||add-shortcut
     (shortcut-char search-label &optional no-next-line)
