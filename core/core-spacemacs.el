@@ -82,6 +82,8 @@ the final step of executing code in `emacs-startup-hook'.")
   ;; explicitly set the preferred coding systems to avoid annoying prompt
   ;; from emacs (especially on Microsoft Windows)
   (prefer-coding-system 'utf-8)
+  ;; Extend use package if already installed
+  (spacemacs/use-package-extend)
   ;; TODO move these variables when evil is removed from the bootstrapped
   ;; packages.
   (setq-default evil-want-C-u-scroll t
