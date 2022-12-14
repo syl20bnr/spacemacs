@@ -909,8 +909,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-org-trello ()
   (use-package org-trello
-    :after org
-    :config
+    :defer t
+    :init
     (progn
       (spacemacs/declare-prefix-for-mode 'org-mode "mmt" "trello")
       (spacemacs/declare-prefix-for-mode 'org-mode "mmtd" "sync down")
