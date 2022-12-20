@@ -355,7 +355,7 @@ If you wish to be able to access these functionalities from other modes,
 in your user config section, do:
 
 #+BEGIN_SRC elisp
-  (add-to-list 'spacemacs--python-pipenv-mode 'your-mode)
+  (add-to-list 'spacemacs--python-pipenv-modes 'your-mode)
 #+END_SRC
 
 This will allow you to use [[https://github.com/pwalsh/pipenv.el][pipenv]] bindings from the mode your-mode.
