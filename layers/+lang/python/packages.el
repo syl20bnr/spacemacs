@@ -319,7 +319,10 @@
                    'spacemacs//pyenv-mode-set-local-version)))
       ;; setup shell correctly on environment switch
       (dolist (func '(pyenv-mode-set pyenv-mode-unset))
-        (advice-add func :after 'spacemacs/python-setup-everything))
+        (advice-add func :after
+                    #'(lambda (&optional version)
+                        (spacemacs/python-setup-everything
+                         (when args (pyenv-mode-full-path version))))))
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "vu" 'pyenv-mode-unset
         "vs" 'pyenv-mode-set))))
@@ -387,10 +390,7 @@
                                'spacemacs/python-start-or-switch-repl "python")
       (spacemacs//bind-python-repl-keys)
       (add-hook 'python-mode-local-vars-hook 'spacemacs//python-setup-backend)
-      (add-hook 'python-mode-hook 'spacemacs//python-default)
-      ;; call `spacemacs//python-setup-shell' once, don't put it in a hook
-      ;; (see issue #5988)
-      (spacemacs//python-setup-shell))
+      (add-hook 'python-mode-hook 'spacemacs//python-default))
     :config
     (progn
       ;; add support for `ahs-range-beginning-of-defun' for python-mode
@@ -424,6 +424,8 @@
         "sl" 'spacemacs/python-shell-send-line
         "ss" 'spacemacs/python-shell-send-with-output)
 
+      (setq spacemacs--python-shell-interpreter-origin
+            (eval (car (get 'python-shell-interpreter 'standard-value))))
       ;; Set `python-indent-guess-indent-offset' to `nil' to prevent guessing `python-indent-offset
       ;; (we call python-indent-guess-indent-offset manually so python-mode does not need to do it)
       (setq-default python-indent-guess-indent-offset nil)

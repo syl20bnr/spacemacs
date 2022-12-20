@@ -150,35 +150,46 @@ as the pyenv version then also return nil. This works around https://github.com/
           executable))
     (executable-find command)))
 
-(defun spacemacs//python-setup-shell (&rest args)
-  (if (spacemacs/pyenv-executable-find "ipython")
-      (progn
-        (setq python-shell-interpreter "ipython")
-        (let ((version (replace-regexp-in-string "\\(\\.dev\\)?[\r\n|\n]$" ""
-                                                 (shell-command-to-string
-                                                  (format "\"%s\" --version"
-                                                          (string-trim (spacemacs/pyenv-executable-find "ipython")))))))
-          (if (or (version< version "5")
-                  (string-blank-p version))
-              (setq python-shell-interpreter-args "-i")
-            (setq python-shell-interpreter-args "--simple-prompt -i"))))
-    (progn
-      (setq python-shell-interpreter-args "-i"
-            python-shell-interpreter "python"))))
+(defun spacemacs//python-setup-shell (&optional root-dir)
+  "Setup the python shell if no customer prefered value or the value be cleaned.
+ROOT-DIR should be the directory path for the environment, `nil' for clean up."
+  (when (or (null python-shell-interpreter)
+            (equal python-shell-interpreter spacemacs--python-shell-interpreter-origin))
+    (if-let* ((root-dir)
+              (default-directory root-dir))
+        (if-let* ((ipython (spacemacs/pyenv-executable-find "ipython"))
+                  (version (replace-regexp-in-string
+                            "\\(\\.dev\\)?[\r\n|\n]$" ""
+                            (shell-command-to-string (format "\"%s\" --version" ipython)))))
+            (setq-local python-shell-interpreter ipython
+                        python-shell-interpreter-args
+                        (concat "-i" (unless (version< version "5") " --simple-prompt")))
+          ;; else try python3 or python
+          (setq-local python-shell-interpreter
+                      (or (spacemacs/pyenv-executable-find "python3")
+                          (spacemacs/pyenv-executable-find "python")
+                          "python3")
+                      python-shell-interpreter-args "-i"))
+      ;; args is nil, clean up the variables
+      (setq-local python-shell-interpreter nil
+                  python-shell-interpreter-args nil))))
 
-
-(defun spacemacs//python-setup-checkers (&rest args)
+(defun spacemacs//python-setup-checkers (&optional root-dir)
+  "Setup the checkers.
+ROOT-DIR should be the path for the environemnt, `nil' for clean up"
   (when (fboundp 'flycheck-set-checker-executable)
-    (let ((pylint (spacemacs/pyenv-executable-find "pylint"))
-          (flake8 (spacemacs/pyenv-executable-find "flake8")))
-      (when pylint
-        (flycheck-set-checker-executable "python-pylint" pylint))
-      (when flake8
-        (flycheck-set-checker-executable "python-flake8" flake8)))))
+    (if-let* ((root-dir)
+              (default-directory root-dir))
+        (dolist (x '("pylint" "flake8"))
+          (when-let ((exe (spacemacs/pyenv-executable-find x)))
+            (flycheck-set-checker-executable (concat "python-" x) exe)))
+      ;; else root-dir is nil
+      (dolist (x '("pylint" "flake8"))
+        (set (flycheck-checker-executable-variable (concat "python-" x)) nil)))))
 
-(defun spacemacs/python-setup-everything (&rest args)
-  (apply 'spacemacs//python-setup-shell args)
-  (apply 'spacemacs//python-setup-checkers args))
+(defun spacemacs/python-setup-everything (&optional root-dir)
+  (apply 'spacemacs//python-setup-shell root-dir)
+  (apply 'spacemacs//python-setup-checkers root-dir))
 
 (defun spacemacs/python-toggle-breakpoint ()
   "Add a break point, highlight it."
@@ -219,22 +230,20 @@ as the pyenv version then also return nil. This works around https://github.com/
 (defun spacemacs//pyenv-mode-set-local-version ()
   "Set pyenv version from \".python-version\" by looking in parent directories."
   (interactive)
-  (let ((root-path (locate-dominating-file default-directory
-                                           ".python-version")))
-    (when root-path
-      (let* ((file-path (expand-file-name ".python-version" root-path))
-             (version
-              (with-temp-buffer
-                (insert-file-contents-literally file-path)
-                (nth 0 (split-string (buffer-substring-no-properties
-                                      (line-beginning-position)
-                                      (line-end-position)))))))
-        (if (member version (pyenv-mode-versions))
-            (progn
-              (setenv "VIRTUAL_ENV" version)
-              (pyenv-mode-set version))
-          (message "pyenv: version `%s' is not installed (set by %s)"
-                   version file-path))))))
+  (when-let* ((root-path (locate-dominating-file default-directory
+                                                 ".python-version"))
+              (file-path (expand-file-name ".python-version" root-path))
+              (version
+               (with-temp-buffer
+                 (insert-file-contents-literally file-path)
+                 (nth 0 (split-string (buffer-substring-no-properties
+                                       (line-beginning-position)
+                                       (line-end-position)))))))
+    (cond ((member version (pyenv-mode-versions))
+           (setenv "VIRTUAL_ENV" version)
+           (pyenv-mode-set version))
+          (t (message "pyenv: version `%s' is not installed (set by %s)"
+                      version file-path)))))
 
 (defun spacemacs//pyvenv-mode-set-local-virtualenv ()
   "Set pyvenv virtualenv from \".venv\" by looking in parent directories.
@@ -242,25 +251,25 @@ Handle \".venv\" being a virtualenv directory or a file specifying either
 absolute or relative virtualenv path. Relative path is checked relative to
 location of \".venv\" file, then relative to pyvenv-workon-home()."
   (interactive)
-  (let ((root-path (locate-dominating-file default-directory ".venv")))
-    (when root-path
-      (let ((file-path (expand-file-name ".venv" root-path)))
-        (cond ((file-directory-p file-path)
-               (pyvenv-activate file-path) (setq-local pyvenv-activate file-path))
-              (t (let* ((virtualenv-path-in-file
-                         (with-temp-buffer
-                           (insert-file-contents-literally file-path)
-                           (buffer-substring-no-properties (line-beginning-position)
-                                                           (line-end-position))))
-                        (virtualenv-abs-path
-                         (if (file-name-absolute-p virtualenv-path-in-file)
-                             virtualenv-path-in-file
-                           (format "%s/%s" root-path virtualenv-path-in-file))))
-                   (cond ((file-directory-p virtualenv-abs-path)
-                          (pyvenv-activate virtualenv-abs-path)
-                          (setq-local pyvenv-activate virtualenv-abs-path))
-                         (t (pyvenv-workon virtualenv-path-in-file)
-                            (setq-local pyvenv-workon virtualenv-path-in-file))))))))))
+  (when-let* ((root-path (locate-dominating-file default-directory ".venv"))
+              (file-path (expand-file-name ".venv" root-path)))
+    (cond ((file-directory-p file-path)
+           (pyvenv-activate file-path)
+           (setq-local pyvenv-activate file-path))
+          (t (let* ((virtualenv-path-in-file
+                     (with-temp-buffer
+                       (insert-file-contents-literally file-path)
+                       (buffer-substring-no-properties (line-beginning-position)
+                                                       (line-end-position))))
+                    (virtualenv-abs-path
+                     (if (file-name-absolute-p virtualenv-path-in-file)
+                         virtualenv-path-in-file
+                       (format "%s/%s" root-path virtualenv-path-in-file))))
+               (cond ((file-directory-p virtualenv-abs-path)
+                      (pyvenv-activate virtualenv-abs-path)
+                      (setq-local pyvenv-activate virtualenv-abs-path))
+                     (t (pyvenv-workon virtualenv-path-in-file)
+                        (setq-local pyvenv-workon virtualenv-path-in-file))))))))
 
 ;; Tests
 
