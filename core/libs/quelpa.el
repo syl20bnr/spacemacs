@@ -292,13 +292,15 @@ already and should not be upgraded etc)."
          (version
           (cond
            ((or (not (equal ver-type 'elpa)) quelpa-stable-p) melpa-ver)
-           (t
+           (melpa-ver
             (let ((base-ver
-                   (if-let ((info (quelpa-build--pkg-info (symbol-name name) files build-dir)))
+                   (if-let ((info (quelpa-build--pkg-info (symbol-name name)
+                                                          files build-dir)))
                        (aref info 3)
                      '(0 0 0))))
               (while (< (length base-ver) 3) (setq base-ver (append base-ver '(0))))
-              (concat (package-version-join base-ver) "." melpa-ver))))))
+              (package-version-join
+               (nconc base-ver (version-to-list melpa-ver))))))))
     (prog1
         (if version
             (quelpa-archive-file-name

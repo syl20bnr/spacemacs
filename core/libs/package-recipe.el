@@ -47,6 +47,8 @@
    (files           :initarg :files          :initform nil)
    (branch          :initarg :branch         :initform nil)
    (commit          :initarg :commit         :initform nil)
+   (time                                     :initform nil)
+   (version                                  :initform nil)
    (version-regexp  :initarg :version-regexp :initform nil)
    (old-names       :initarg :old-names      :initform nil))
   :abstract t)
@@ -145,6 +147,14 @@ file is invalid, then raise an error."
 
 ;;; Validation
 
+(defun package-recipe-validate-all ()
+  "Validate all recipes."
+  (interactive)
+  (dolist (name (package-recipe-recipes))
+    (condition-case err
+        (package-recipe-lookup name)
+      (error (message "Invalid recipe for %s: %S" name (cdr err))))))
+
 (defun package-recipe--validate (recipe name)
   "Perform some basic checks on the raw RECIPE for the package named NAME."
   (pcase-let ((`(,ident . ,plist) recipe))
@@ -180,6 +190,24 @@ file is invalid, then raise an error."
         (let ((val (plist-get plist key)))
           (when val
             (cl-assert (stringp val) nil "%s must be a string but is %S" key val))))
+      (when-let ((spec (plist-get plist :files)))
+        ;; `:defaults' is only allowed as the first element.
+        ;; If we find it in that position, skip over it.
+        (when (eq (car spec) :defaults)
+          (setq spec (cdr spec)))
+        ;; All other elements have to be strings or lists of strings.
+        ;; A list whose first element is `:exclude' is also valid.
+        (dolist (entry spec)
+          (unless (or (and (stringp entry)
+                           (not (equal entry "*")))
+                      (and (listp entry)
+                           (or (eq (car entry) :exclude)
+                               (stringp (car entry)))
+                           (seq-every-p (lambda (e)
+                                          (and (stringp e)
+                                               (not (equal e "*"))))
+                                        (cdr entry))))
+            (error "Invalid files spec entry %S" entry))))
       ;; Silence byte compiler of Emacs 28.  It appears that uses
       ;; inside cl-assert sometimes, but not always, do not count.
       (list name ident all-keys))
