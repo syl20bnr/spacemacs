@@ -22,3 +22,7 @@
 
 
 (configuration-layer/declare-layers '(node html prettier javascript))
+
+(when (and (boundp 'vue-backend)
+           (eq vue-backend 'lsp))
+  (configuration-layer/declare-layer-dependencies '(lsp)))

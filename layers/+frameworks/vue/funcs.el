@@ -20,8 +20,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-
 ;; backend
 (defun spacemacs//vue-setup-backend ()
   "Conditionally setup vue backend."
@@ -31,8 +29,13 @@
 
 (defun spacemacs//vue-setup-company ()
   "Conditionally setup company based on backend."
-  (when (eq vue-backend 'dumb)
-    (spacemacs//vue-setup-dumb-company)))
+  (pcase vue-backend
+      ('dumb (spacemacs|add-company-backends
+               :backends (company-web-html company-css company-files company-dabbrev)
+               :modes vue-mode))
+      ('lsp (spacemacs|add-company-backends
+              :backends company-capf
+              :modes vue-mode))))
 
 
 ;; lsp
@@ -42,14 +45,14 @@
       (progn
         ;; error checking from lsp langserver sucks, turn it off
         ;; so eslint won't be overriden
-        (setq-local lsp-diagnostics-provider :none)
+        (when vue-ignore-lsp-diagnostics
+          (setq-local lsp-diagnostics-provider :none))
         (lsp-deferred))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
 
 
 ;; dumb
-
 (defun spacemacs//vue-setup-dumb ()
   (setq imenu-generic-expression '(("html" "^<template>$" 0)
                                    ("js" "^<script>$" 0)
@@ -65,13 +68,8 @@
                                    ("css" "^<css>$" 0))
         imenu-create-index-function #'imenu-default-create-index-function))
 
-(defun spacemacs//vue-setup-dumb-company ()
-  (spacemacs|add-company-backends :backends (company-web-html company-css company-files company-dabbrev)
-                                  :modes vue-mode
-                                  :variables company-minimum-prefix-length 2)
-  (company-mode))
-
 
+
 ;; Others
 (defun spacemacs//vue-setup-yasnippet ()
   (spacemacs/load-yasnippet)
