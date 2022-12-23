@@ -1275,24 +1275,34 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
 
 (defun spacemacs-buffer//insert-recent-files (list-size)
   (unless recentf-mode (recentf-mode))
-  (setq spacemacs-buffer//recent-files-list
-        (let ((agenda-files (if (fboundp 'org-agenda-files)
-                                (mapcar #'expand-file-name (org-agenda-files))
-                              nil)))
-          (cl-delete-if (lambda (x)
-                          (or (when (and (bound-and-true-p org-directory) (file-exists-p org-directory))
-                                (member x (directory-files org-directory t)))
-                              (member x agenda-files)))
-                        recentf-list)))
-  (setq spacemacs-buffer//recent-files-list
-        (spacemacs//subseq spacemacs-buffer//recent-files-list 0 list-size))
-  (when (spacemacs-buffer//insert-file-list
-         (spacemacs-buffer||propertize-heading
-          (when dotspacemacs-startup-buffer-show-icons
-            (all-the-icons-octicon "history" :face 'font-lock-keyword-face :v-adjust -0.05))
-          "Recent Files:" "r")
-         spacemacs-buffer//recent-files-list)
-    (spacemacs-buffer||add-shortcut "r" "Recent Files:"))
+  (let ((agenda-files
+         (let ((default-directory
+                (or (bound-and-true-p org-directory) default-directory))
+               (files
+                (if (or (not (fboundp 'org-agenda-files))
+                        (eq 'autoload (car (symbol-function 'org-agenda-files))))
+                    (bound-and-true-p org-agenda-files)
+                  (org-agenda-files))))
+           (mapcar #'expand-file-name files)))
+        (ignore-directory (or (and (boundp 'org-directory)
+                                   (expand-file-name org-directory))
+                              ""))
+        (recent-files-list))
+    (cl-loop for rfile in recentf-list
+             while (length< recent-files-list list-size)
+             collect (let ((full-path (expand-file-name rfile)))
+                       (unless (or (string-prefix-p ignore-directory full-path)
+                                   (member full-path agenda-files))
+                         (add-to-list 'recent-files-list rfile t))))
+
+    (when (spacemacs-buffer//insert-file-list
+           (spacemacs-buffer||propertize-heading
+            (when dotspacemacs-startup-buffer-show-icons
+              (all-the-icons-octicon
+               "history" :face 'font-lock-keyword-face :v-adjust -0.05))
+            "Recent Files:" "r")
+           recent-files-list)
+      (spacemacs-buffer||add-shortcut "r" "Recent Files:")))
   (insert spacemacs-buffer-list-separator))
 
 (defun spacemacs-buffer//insert-recent-files-by-project (list-size)
