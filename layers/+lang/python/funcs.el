@@ -188,8 +188,8 @@ ROOT-DIR should be the path for the environemnt, `nil' for clean up"
         (set (flycheck-checker-executable-variable (concat "python-" x)) nil)))))
 
 (defun spacemacs/python-setup-everything (&optional root-dir)
-  (apply 'spacemacs//python-setup-shell root-dir)
-  (apply 'spacemacs//python-setup-checkers root-dir))
+  (funcall 'spacemacs//python-setup-shell root-dir)
+  (funcall 'spacemacs//python-setup-checkers root-dir))
 
 (defun spacemacs/python-toggle-breakpoint ()
   "Add a break point, highlight it."
