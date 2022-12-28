@@ -320,9 +320,9 @@
       ;; setup shell correctly on environment switch
       (dolist (func '(pyenv-mode-set pyenv-mode-unset))
         (advice-add func :after
-                    #'(lambda (&optional version)
-                        (spacemacs/python-setup-everything
-                         (when args (pyenv-mode-full-path version))))))
+                    (lambda (&optional version)
+                      (spacemacs/python-setup-everything
+                       (when version (pyenv-mode-full-path version))))))
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "vu" 'pyenv-mode-unset
         "vs" 'pyenv-mode-set))))
