@@ -54,34 +54,6 @@
     (progn
       (add-hook 'rust-mode-hook #'tree-sitter-indent-mode))))
 
-(defconst tree-sitter--ts-fold-supported-major-mode-hooks
-  '(agda-mode-hook
-    sh-mode-hook
-    c-mode-hook
-    c++-mode-hook
-    csharp-mode-hook
-    css-mode-hook
-    ess-r-mode-hook
-    go-mode-hook
-    html-mode-hook
-    java-mode-hook
-    javascript-mode-hook
-    js-mode-hook
-    js2-mode-hook
-    js3-mode-hook
-    json-mode-hook
-    jsonc-mode-hook
-    nix-mode-hook
-    php-mode-hook
-    python-mode-hook
-    rjsx-mode-hook
-    ruby-mode-hook
-    rust-mode-hook
-    rustic-mode-hook
-    scala-mode-hook
-    swift-mode-hook
-    typescript-mode-hook))
-
 (defun tree-sitter/init-ts-fold ()
   (use-package ts-fold
     :if tree-sitter-fold-enable
@@ -89,12 +61,8 @@
     :init
     (progn
       (when tree-sitter-fold-enable
-        (dolist (mode-hook tree-sitter--ts-fold-supported-major-mode-hooks)
-          (when (boundp mode-hook)
-            (add-hook mode-hook #'ts-fold-mode)
-            (when tree-sitter-fold-indicators-enable
-              (add-hook mode-hook #'ts-fold-indicators-mode)))))
-
-      (when tree-sitter-fold-indicators-enable
-        ;; don't obscure lint and breakpoint indicators
-        (setq ts-fold-indicators-priority 0)))))
+        (if tree-sitter-fold-indicators-enable
+            (progn
+              (setq ts-fold-indicators-priority 0)
+              (global-ts-fold-indicators-mode))
+          (global-ts-fold-mode))))))
