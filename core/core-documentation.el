@@ -138,7 +138,7 @@ See `spacemacs//fetch-docs-from-root'"
                                           0 beginning-of-content-div-pos))
          (rest-of-content (substring content beginning-of-content-div-pos)))
     (if (not (null has-toc))
-        (format "%s\n%s\n%s%s" beginning-of-content doc-warning toc-string rest-of-content)
+        (format "%s\n%s%s" beginning-of-content toc-string rest-of-content)
       content)))
 
 
