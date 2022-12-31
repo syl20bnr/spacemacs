@@ -217,7 +217,7 @@ change your terminal color palette. More explanations can be found on
 This is a feature of Spacemacs, enabling you to easily escape from a lot of
 situations, like escaping from =insert state= to =normal state=.
 
-The sequence of characters used can be customized. See the [[http://spacemacs.org/doc/DOCUMENTATION.html#escaping][documentation]] for
+The sequence of characters used can be customized. See the [[https://develop.spacemacs.org/doc/DOCUMENTATION.html#escaping][documentation]] for
 more information.
 
 If you don't like this feature, you can deactivate it by adding =evil-escape= to

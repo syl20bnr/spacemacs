@@ -270,7 +270,7 @@ Returns height in units of line height with a minimum of 1."
           (let ((icons dotspacemacs-startup-buffer-show-icons)
                 lines)
             (setq dotspacemacs-startup-buffer-show-icons nil)
-	          (setq lines (with-temp-buffer
+            (setq lines (with-temp-buffer
                           (spacemacs-buffer//do-insert-startupify-lists)
                           (recentf-mode -1)
                           (line-number-at-pos)))
@@ -879,14 +879,14 @@ REAL-WIDTH: the real width of the line.  If the line contains an image, the size
                  :help-echo "Open the Spacemacs GitHub page in your browser."
                  :mouse-face 'highlight
                  :follow-link "\C-m"
-                 "http://spacemacs.org")
+                 "https://develop.spacemacs.org")
   (insert " ")
   (widget-create 'url-link
                  :tag (propertize "Documentation" 'face 'font-lock-keyword-face)
                  :help-echo "Open the Spacemacs documentation in your browser."
                  :mouse-face 'highlight
                  :follow-link "\C-m"
-                 "http://spacemacs.org/doc/DOCUMENTATION.html")
+                 "https://develop.spacemacs.org/doc/DOCUMENTATION.html")
   (insert " ")
   (widget-create 'url-link
                  :tag (propertize "Gitter Chat" 'face 'font-lock-keyword-face)
@@ -1385,7 +1385,7 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
           (spacemacs-buffer//insert-warnings))
          ((eq el 'recents) (spacemacs-buffer//insert-recent-files list-size))
          ((and (eq el 'recents-by-project)
-	       (fboundp 'projectile-mode))
+         (fboundp 'projectile-mode))
           (spacemacs-buffer//insert-recent-files-by-project list-size))
          ((eq el 'todos) (spacemacs-buffer//insert-todos list-size))
          ((eq el 'agenda) (spacemacs-buffer//insert-agenda list-size))

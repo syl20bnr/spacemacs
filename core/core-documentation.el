@@ -129,15 +129,6 @@ See `spacemacs//fetch-docs-from-root'"
          (div-string "<div id=\"content\" class=\"content\">")
          ;; onclick below tries to send user to the same path but at a different domain
          ;; the href attribute is a fallback in case javascript is disabled
-         (doc-warning "<div class=\"admonition warning\">
-<p class=\"first last\">
-You are viewing the documentation for the develop branch.
-The documentation for the release version is
-<a href=\"https://www.spacemacs.org/doc/DOCUMENTATION.html\"
-onclick=\"location='https://www.spacemacs.org'+location.pathname+location.search+location.hash;return false;\">here</a>
-.
-</p>
-</div>")
          (toc-string "<div id=\"toggle-sidebar\"><a href=\"#table-of-contents\"><h2>Table of Contents</h2></a></div>")
          (has-toc (s-index-of "Table of Contents" content))
          (indx-of-div-str (or (s-index-of div-string content t)
@@ -183,7 +174,7 @@ the current buffer already has headlines with -<N> postfixes.
 (defun spacemacs//org-heading-annotate-custom-id ()
   "Annotate headings with the indexes that GitHub uses for linking.
 `org-html-publish-to-html' will use them instead of the default #orgheadline{N}.
-This way the GitHub links and the http://spacemacs.org/ links will be
+This way the GitHub links and the https://develop.spacemacs.org/ links will be
 compatible."
   (let ((heading-regexp "^[\\*]+\s\\(.*\\).*$"))
     (goto-char (point-min))

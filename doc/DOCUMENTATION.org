@@ -1337,13 +1337,13 @@ over line numbers activation.
 
 Available properties:
 
-| Property              | Description                                                                                                                                                                                                                                     |
-|-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| =:disabled-for-modes= | list of major modes where line numbering is inhibited                                                                                                                                                                                           |
-| =:enabled-for-modes=  | disable for all major modes except those listed. Takes precedence over =:disabled-for-modes=                                                                                                                                                    |
-| =:relative=           | if non-nil, line numbers are relative to the position of the cursor                                                                                                                                                                             |
+| Property              | Description                                                                                                                                                                                                                                |
+|-----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| =:disabled-for-modes= | list of major modes where line numbering is inhibited                                                                                                                                                                                      |
+| =:enabled-for-modes=  | disable for all major modes except those listed. Takes precedence over =:disabled-for-modes=                                                                                                                                               |
+| =:relative=           | if non-nil, line numbers are relative to the position of the cursor                                                                                                                                                                        |
 | =:visual=             | if non-nil, line numbers are relative to the position of the cursor, but lines are separated by visual state - a wrapped line, for example, will be treated as more than one line. When set to t, this option takes precedence over =:relative= |
-| =:size-limit-kb=      | size limit in kilobytes after which line numbers are not activated                                                                                                                                                                              |
+| =:size-limit-kb=      | size limit in kilobytes after which line numbers are not activated                                                                                                                                                                         |
 
 Note that if =:enabled-for-modes= is =nil= or not specified, then the default is
 to enable line numbers in any =prog-mode= and =text-mode= that wasn't explicitly
@@ -1602,7 +1602,7 @@ squared symbols like =🅿=.
 | ~SPC t E h~   | =Ⓔh=    | Eh    | hybrid editing style (hybrid mode)                                   |
 | ~SPC t f~     | =ⓕ=     | f     | fill-column-indicator mode                                           |
 | ~SPC t F~     | =Ⓕ=     | F     | auto-fill mode                                                       |
-| ~SPC t G~     | =Ⓖ=     | G     | [[http://spacemacs.org/layers/+tags/gtags/README.html][ggtags]] mode                                                          |
+| ~SPC t G~     | =Ⓖ=     | G     | [[https://develop.spacemacs.org/layers/+tags/gtags/README.html][ggtags]] mode                                                          |
 | ~SPC t g~     | =ⓖ=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                                                    |
 | ~SPC t h i~   | =ⓗi=    | hi    | toggle highlight indentation levels                                  |
 | ~SPC t h c~   | =ⓗc=    | hc    | toggle highlight indentation current column                          |
