@@ -122,7 +122,7 @@ It's cleared when the idle timer runs.")
       (define-key map (kbd "8") 'spacemacs-buffer/jump-to-number-startup-list-line)
       (define-key map (kbd "9") 'spacemacs-buffer/jump-to-number-startup-list-line))
 
-    (define-key map [down-mouse-1] 'widget-button-click)
+    (define-key map [mouse-1] 'widget-button-click)
     (define-key map (kbd "RET") 'spacemacs-buffer/return)
 
     (define-key map [tab] 'widget-forward)
