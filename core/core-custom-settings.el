@@ -84,7 +84,12 @@ end of the buffer.
           (goto-char (point-max))
           (search-backward "\n\^L" (max (- (point-max) 3000) (point-min))
                            'move)
-          (when (search-forward "Local Variables:" nil t)
+          ;; emacs would print the warning
+          ;;   "Local variables list is not properly terminated"
+          ;; (a false positive) when reading this source file
+          ;; if we had not obfuscated the string literal
+          ;; in the next line using an ignored space ("\ ").
+          (when (search-forward "Local\  Variables:" nil t)
             (setq pos (line-beginning-position))))
         (goto-char pos)))))
 
