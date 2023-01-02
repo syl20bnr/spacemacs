@@ -1280,7 +1280,7 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
                 (or (bound-and-true-p org-directory) default-directory))
                (files
                 (if (or (not (fboundp 'org-agenda-files))
-                        (eq 'autoload (car (symbol-function 'org-agenda-files))))
+                        (autoloadp (symbol-function 'org-agenda-files)))
                     (bound-and-true-p org-agenda-files)
                   (org-agenda-files))))
            (mapcar #'expand-file-name files)))
