@@ -93,7 +93,7 @@ For more extensive support of references through BibTeX files, have a look at
 the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+lang/bibtex/README.org][BibTeX layer]].
 
 * Important Note
-Since version 0.300, spacemacs uses the =org= version from the ELPA repository
+Spacemacs uses the =org= version from the ELPA repository
 instead of the one shipped with emacs. Then, any =org= related code should not
 be loaded before =dotspacemacs/user-config=, otherwise both versions will be
 loaded and will conflict.
