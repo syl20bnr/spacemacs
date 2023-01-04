@@ -122,7 +122,7 @@ It's cleared when the idle timer runs.")
       (define-key map (kbd "8") 'spacemacs-buffer/jump-to-number-startup-list-line)
       (define-key map (kbd "9") 'spacemacs-buffer/jump-to-number-startup-list-line))
 
-    (define-key map [mouse-1] 'widget-button-click)
+    (define-key map [down-mouse-1] 'spacemacs-buffer//mouse-1)
     (define-key map (kbd "RET") 'spacemacs-buffer/return)
 
     (define-key map [tab] 'widget-forward)
@@ -1452,6 +1452,18 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
     (with-demoted-errors "spacemacs buffer error: %s"
       (search-forward "[")
       (left-char 2))))
+
+(defun spacemacs-buffer//mouse-1 (event)
+  "Action to open widget button at mouse click.
+
+NOTE: This is reserved only to use in spacemacs-buffer. It is a slimmed down
+version of `widget-button-press' since `widget-button-click' doesn't work."
+  (interactive "e")
+  (when (widget-event-point event)
+    (let ((pos (widget-event-point event)))
+      (goto-char pos)
+      (when-let ((button (get-char-property pos 'button)))
+        (widget-apply-action pos)))))
 
 (defun spacemacs-buffer/jump-to-number-startup-list-line ()
   "Jump to the startup list line with the typed number.
