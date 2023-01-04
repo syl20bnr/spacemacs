@@ -229,20 +229,6 @@
             "hh"  'hoogle
             "hG"  'haskell-hoogle-lookup-from-local)))
 
-      (evilified-state-evilify-map haskell-debug-mode-map
-        :mode haskell-debug-mode
-        :bindings
-        "RET" 'haskell-debug/select
-        "a" 'haskell-debug/abandon
-        "b" 'haskell-debug/break-on-function
-        "c" 'haskell-debug/continue
-        "d" 'haskell-debug/delete
-        "i" 'haskell-debug/step
-        "s" 'haskell-debug/next
-        "S" 'haskell-debug/previous
-        "r" 'haskell-debug/refresh
-        "t" 'haskell-debug/trace)
-
       ;; configure C-c C-l so it doesn't throw any errors
       (bind-key "C-c C-l" 'haskell-process-load-file haskell-mode-map)
       (bind-key "C-c C-z" 'haskell-interactive-switch haskell-mode-map)
@@ -296,7 +282,23 @@
       (add-to-list 'align-rules-list
                    '(haskell-left-arrows
                      (regexp . "\\(\\s-+\\)\\(<-\\|←\\)\\s-+")
-                     (modes . haskell-modes))))))
+                     (modes . haskell-modes)))))
+
+  (use-package haskell-debug
+    :config
+    (evilified-state-evilify-map haskell-debug-mode-map
+      :mode haskell-debug-mode
+      :bindings
+      "RET" 'haskell-debug/select
+      "a" 'haskell-debug/abandon
+      "b" 'haskell-debug/break-on-function
+      "c" 'haskell-debug/continue
+      "d" 'haskell-debug/delete
+      "i" 'haskell-debug/step
+      "s" 'haskell-debug/next
+      "S" 'haskell-debug/previous
+      "r" 'haskell-debug/refresh
+      "t" 'haskell-debug/trace)))
 
 (defun haskell/init-haskell-snippets ()
   ;; manually load the package since the current implementation is not lazy
