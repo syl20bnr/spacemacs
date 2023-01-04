@@ -284,7 +284,7 @@
                      (regexp . "\\(\\s-+\\)\\(<-\\|←\\)\\s-+")
                      (modes . haskell-modes)))))
 
-  (use-package haskell-debug-mode
+  (use-package haskell-debug
     :config
     (evilified-state-evilify-map haskell-debug-mode-map
       :mode haskell-debug-mode
