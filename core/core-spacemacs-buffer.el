@@ -1273,27 +1273,38 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
     (insert spacemacs-buffer-list-separator)))
 
 (defun spacemacs-buffer//insert-recent-files (list-size)
+  "Insert recent file entries to spacemacs-buffer.
+
+LIST-SIZE is specified in `dotspacemacs-startup-lists' for recent entries."
   (unless recentf-mode (recentf-mode))
-  (let ((agenda-files
-         (let ((default-directory
-                (or (bound-and-true-p org-directory) default-directory))
-               (files
-                (if (or (not (fboundp 'org-agenda-files))
-                        (autoloadp (symbol-function 'org-agenda-files)))
-                    (bound-and-true-p org-agenda-files)
-                  (org-agenda-files))))
+  (let (;; we need to remove `org-agenda-files' entries from recent files
+        (agenda-files
+         (when-let ((files
+                     (when (bound-and-true-p org-agenda-files)
+                       (if (listp org-agenda-files)
+                           ;; if it's a list, we take that value directly
+                           org-agenda-files
+                         ;; but if it's a string, it must be file where the list
+                         ;; of agenda files are stored in that file and we have
+                         ;;to load `org-agenda' to process the list.
+                         (when (y-or-n-p "`org-agenda-files' is a string and \
+not a list. Load `org' and continue?")
+                           (require 'org)
+                           (org-agenda-files))))))
            (mapcar #'expand-file-name files)))
-        (ignore-directory (or (and (boundp 'org-directory)
-                                   (expand-file-name org-directory))
+        ;; we also need to skip sub-directories of `org-directory'
+        (ignore-directory (or (when (bound-and-true-p org-directory)
+                                (expand-file-name org-directory))
                               ""))
         (recent-files-list))
     (cl-loop for rfile in recentf-list
-             while (length< recent-files-list list-size)
-             collect (let ((full-path (expand-file-name rfile)))
-                       (unless (or (string-prefix-p ignore-directory full-path)
-                                   (member full-path agenda-files))
-                         (add-to-list 'recent-files-list rfile t))))
-
+             while (> list-size 0)
+             do (let ((full-path (expand-file-name rfile)))
+                  (unless (or (string-prefix-p ignore-directory full-path)
+                              (member full-path agenda-files))
+                    (cl-pushnew rfile recent-files-list)
+                    (setq list-size (1- list-size))))
+             finally do (setq recent-files-list (nreverse recent-files-list)))
     (when (spacemacs-buffer//insert-file-list
            (spacemacs-buffer||propertize-heading
             (when dotspacemacs-startup-buffer-show-icons
