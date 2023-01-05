@@ -52,7 +52,7 @@
 
 (defun finance/init-ledger-mode ()
   (use-package ledger-mode
-    :mode ("\\.\\(ledger\\|ldg\\)\\'" . ledger-mode)
+    :mode ("\\.\\(ledger\\|journal\\|ldg\\)\\'" . ledger-mode)
     :defer t
     :init
     (progn
