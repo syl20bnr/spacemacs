@@ -1279,7 +1279,9 @@ LIST-SIZE is specified in `dotspacemacs-startup-lists' for recent entries."
   (unless recentf-mode (recentf-mode))
   (let (;; we need to remove `org-agenda-files' entries from recent files
         (agenda-files
-         (when-let ((files
+         (when-let ((default-directory
+                      (or (bound-and-true-p org-directory) "~/org"))
+                    (files
                      (when (bound-and-true-p org-agenda-files)
                        (if (listp org-agenda-files)
                            ;; if it's a list, we take that value directly
