@@ -1,8 +1,8 @@
-;;; config.el --- Spacemacs-evil Layer Configuration File for Spacemacs
+;;; packages.el --- apache layer packages file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
 ;;
-;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; Author: Nathaniel Waisbrot <code@waisbrot.net>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
@@ -21,15 +21,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+(defconst apache-packages '(apache-mode))
 
-(defvar vim-style-visual-feedback nil
-  "If non-nil objects are briefly highlighted performing an action.")
-
-(defvar hybrid-style-visual-feedback nil
-  "If non-nil objects are briefly highlighted performing an action.")
-
-(defvar evil-lisp-safe-structural-editing-modes '()
-  "A list of major mode symbols where safe structural editing is supported.")
-
-(defvar spacemacs-evil-collection-allowed-list '(eww dired quickrun ediff)
-  "List of modes Spacemacs will allow to be evilified by ‘evil-collection-init’.")
+(defun apache/init-apache-mode()
+  (use-package apache-mode :defer t))

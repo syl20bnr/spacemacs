@@ -20,8 +20,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-
 (defconst vue-packages
   '(web-mode
     add-node-modules-path
@@ -33,11 +31,17 @@
     yasnippet))
 
 (defun vue/post-init-web-mode ()
+
+  ;; Define vue-mode as kind of web-mode
   (define-derived-mode vue-mode web-mode "Vue")
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
-  (spacemacs/add-to-hook 'vue-mode-hook '(spacemacs//vue-setup-editor-style
-                                          spacemacs//vue-setup-keybindings))
+
+  ;; Setup stuff to be run each time we load the mode
   (add-hook 'vue-mode-local-vars-hook #'spacemacs//vue-setup-backend)
+  (spacemacs/add-to-hook 'vue-mode-hook '(spacemacs//vue-setup-editor-style))
+
+  ;; Add stuff to run just once
+  (spacemacs//vue-setup-keybindings)
   (spacemacs//vue-setup-transient-state))
 
 (defun vue/post-init-add-node-modules-path ()
@@ -51,10 +55,14 @@
   (add-hook 'vue-mode-hook 'turn-on-evil-matchit-mode))
 
 (defun vue/post-init-flycheck ()
-  (with-eval-after-load 'flycheck
-    (flycheck-add-mode 'javascript-eslint 'vue-mode))
   (spacemacs/enable-flycheck 'vue-mode)
-  (add-hook 'vue-mode-hook #'spacemacs//javascript-setup-checkers 'append))
+
+  ;; Load eslint in case lsp diagnostics are not used
+  (when (or (and vue-ignore-lsp-diagnostics (equal vue-backend 'lsp))
+            (equal vue-backend 'dumb))
+        (with-eval-after-load 'flycheck
+          (flycheck-add-mode 'javascript-eslint 'vue-mode)
+          (add-hook 'vue-mode-hook #'spacemacs//javascript-setup-checkers 'append))))
 
 (defun vue/pre-init-prettier-js ()
   (add-to-list 'spacemacs--prettier-modes 'vue-mode))

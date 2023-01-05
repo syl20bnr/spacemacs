@@ -129,15 +129,6 @@ See `spacemacs//fetch-docs-from-root'"
          (div-string "<div id=\"content\" class=\"content\">")
          ;; onclick below tries to send user to the same path but at a different domain
          ;; the href attribute is a fallback in case javascript is disabled
-         (doc-warning "<div class=\"admonition warning\">
-<p class=\"first last\">
-You are viewing the documentation for the develop branch.
-The documentation for the release version is
-<a href=\"https://www.spacemacs.org/doc/DOCUMENTATION.html\"
-onclick=\"location='https://www.spacemacs.org'+location.pathname+location.search+location.hash;return false;\">here</a>
-.
-</p>
-</div>")
          (toc-string "<div id=\"toggle-sidebar\"><a href=\"#table-of-contents\"><h2>Table of Contents</h2></a></div>")
          (has-toc (s-index-of "Table of Contents" content))
          (indx-of-div-str (or (s-index-of div-string content t)
@@ -147,7 +138,7 @@ onclick=\"location='https://www.spacemacs.org'+location.pathname+location.search
                                           0 beginning-of-content-div-pos))
          (rest-of-content (substring content beginning-of-content-div-pos)))
     (if (not (null has-toc))
-        (format "%s\n%s\n%s%s" beginning-of-content doc-warning toc-string rest-of-content)
+        (format "%s\n%s%s" beginning-of-content toc-string rest-of-content)
       content)))
 
 
@@ -183,7 +174,7 @@ the current buffer already has headlines with -<N> postfixes.
 (defun spacemacs//org-heading-annotate-custom-id ()
   "Annotate headings with the indexes that GitHub uses for linking.
 `org-html-publish-to-html' will use them instead of the default #orgheadline{N}.
-This way the GitHub links and the http://spacemacs.org/ links will be
+This way the GitHub links and the https://develop.spacemacs.org/ links will be
 compatible."
   (let ((heading-regexp "^[\\*]+\s\\(.*\\).*$"))
     (goto-char (point-min))
@@ -297,14 +288,6 @@ preprocessors for the exported .org files."
           <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>
           <script src=\"http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js\"></script>
           <script>
-          // Google Analytics
-                     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
-                         Date();a=s.createElement(o),
-                         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-                     ga('create', 'UA-28326243-2', 'auto'); ga('send', 'pageview');
 
           // Add permalinks to the documentation headings
           $(document).ready(function() {

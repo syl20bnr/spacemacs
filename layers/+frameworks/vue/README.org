@@ -11,7 +11,7 @@
 - [[#backends][Backends]]
   - [[#dumb][dumb]]
   - [[#lsp][lsp]]
-- [[#optional-configuration][Optional Configuration]]
+- [[#indentation][Indentation]]
 - [[#key-bindings][Key bindings]]
   - [[#web-mode][web-mode]]
   - [[#formatting-prettier][Formatting (prettier)]]
@@ -64,7 +64,7 @@ To use automatic code formatting you need to install =prettier= with:
 #+END_SRC
 
 If you want to use local =eslint= and =prettier= in your project, turn on node
- layer =dotspacemacs-configuration-layers= function:
+layer =dotspacemacs-configuration-layers= function:
 
 #+BEGIN_SRC elisp
   (node :variables node-add-modules-path t)
@@ -74,41 +74,35 @@ If you want to use local =eslint= and =prettier= in your project, turn on node
 ** dumb
 dumb backend is light weight and fast. =dumb-jump= is used to handled go to
 definition (=gd= vim key binding). Because of the template nature of Vue, it
-works very well. 
+works very well.
 
-Company backend is set to be very eager in suggestions. 
+Company backend is set to be very eager in suggestions.
 
 =eslint= is used for linting.
 
 ** lsp
-Vue language server needs to be installed
+Vue language server needs to be installed which one depends on the version of
+Vue you are using. For vue2 use:
 
 #+BEGIN_SRC sh
   $ npm install -g vls
 #+END_SRC
 
-This backend provides all the fancy features like: jump to definition,
-references, type inference... However, =eslint= is explicitly selected for
-linting because it works better than =lsp= linter.
+for vue3 use:
 
-* Optional Configuration
-~web-mode-script-padding~ is set to 0, so indent is zero at root level inside
-~script~ tag
-
-Same as =react= layer, you may refer to the =web-mode= configuration for fine
-tuning the indenting behaviour.
-
-For example, if you wan't two space indentation, put this in your
-=dotspacemacs/user-config=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default
-   ;; web-mode
-   web-mode-markup-indent-offset 2
-   web-mode-css-indent-offset 2
-   web-mode-code-indent-offset 2
-   web-mode-attr-indent-offset 2)
+#+BEGIN_SRC sh
+  $ npm install -g volar
 #+END_SRC
+
+These backends provide all the fancy features like: jump to definition,
+references, type inference...
+
+If you are not happy with the linting behaviour of your lsp server you can
+fallback to =eslint= by setting =vue-ignore-lsp-diagnostics= to =t=.
+
+* Indentation
+~web-mode-script-padding~ is set to 0, so indent is zero at root level inside
+~script~ tag.
 
 * Key bindings
 ** web-mode

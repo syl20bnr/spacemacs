@@ -93,7 +93,7 @@ For more extensive support of references through BibTeX files, have a look at
 the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+lang/bibtex/README.org][BibTeX layer]].
 
 * Important Note
-Since version 0.300, spacemacs uses the =org= version from the ELPA repository
+Spacemacs uses the =org= version from the ELPA repository
 instead of the one shipped with emacs. Then, any =org= related code should not
 be loaded before =dotspacemacs/user-config=, otherwise both versions will be
 loaded and will conflict.
@@ -890,6 +890,8 @@ The evilified org agenda supports the following bindings:
 |----------------------+-----------------------------------|
 | ~M-SPC~ or ~s-M-SPC~ | org-agenda transient state        |
 | ~SPC m a~            | org-agenda                        |
+| ~SPC m [~            | org-agenda-file-to-front          |
+| ~SPC m ]~            | org-remove-file                   |
 | ~SPC m ,~            | org-agenda-ctrl-c-ctrl-c          |
 | ~SPC m c~            | org-agenda-capture                |
 | ~SPC m C c~          | org-agenda-clock-cancel           |
@@ -943,7 +945,6 @@ each binding are listed bellow.
 | ~fc~        | by category         | org-agenda-filter-by-category     |
 | ~fd~        | delete all filters  | org-agenda-filter-remove-all      |
 | ~fh~        | by top headline     | org-agenda-filter-by-top-headline |
-| ~fr~        | refine by tag       | org-agenda-filter-by-tag-refine   |
 | ~ft~        | by tag              | org-agenda-filter-by-tag          |
 | ~fx~        | by regexp           | org-agenda-filter-by-regexp       |
 |-------------+---------------------+-----------------------------------|

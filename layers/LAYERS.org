@@ -209,6 +209,7 @@
   - [[#theming][Theming]]
 - [[#tools][Tools]]
   - [[#ansible][Ansible]]
+  - [[#apache][Apache]]
   - [[#bm][Bm]]
   - [[#cfengine][CFEngine]]
   - [[#chrome][Chrome]]
@@ -2741,6 +2742,15 @@ Features:
 - Syntax highlighting for Ansible-flavored YAML and Jinja2 templates.
 - Auto-completion via =company-ansible=.
 - Integration of =ansible-vault= into emacs for automatic encryption/decryption of files.
+
+** Apache
+[[file:+tools/apache/README.org][+tools/apache/README.org]]
+
+This layer adds support for configuring the [[https://httpd.apache.org/][Apache]] web server.
+
+Features:
+- Syntax highlighting of apache configuration files via [[https://github.com/emacs-php/apache-mode][apache-mode]].
+- Syntax-aware indentation
 
 ** Bm
 [[file:+tools/bm/README.org][+tools/bm/README.org]]

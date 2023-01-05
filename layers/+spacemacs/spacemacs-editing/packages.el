@@ -41,7 +41,7 @@
     (smartparens :toggle dotspacemacs-activate-smartparens-mode)
     (evil-swap-keys :toggle dotspacemacs-swap-number-row)
     (spacemacs-whitespace-cleanup :location (recipe :fetcher local))
-    string-edit
+    string-edit-at-point
     string-inflection
     multi-line
     undo-tree
@@ -232,6 +232,7 @@
       :evil-leader "td")
     :config
     (progn
+      (nconc hungry-delete-except-modes '(term-mode vterm-mode))
       (setq-default hungry-delete-chars-to-skip " \t\f\v") ; only horizontal whitespace
       (define-key hungry-delete-mode-map (kbd "DEL") 'hungry-delete-backward)
       (define-key hungry-delete-mode-map (kbd "S-DEL") 'delete-backward-char))))
@@ -506,13 +507,13 @@
         "xiu" 'string-inflection-underscore
         "xiU" 'string-inflection-upcase))))
 
-(defun spacemacs-editing/init-string-edit ()
-  (use-package string-edit
+(defun spacemacs-editing/init-string-edit-at-point ()
+  (use-package string-edit-at-point
     :defer t
     :init
     (spacemacs/set-leader-keys "xe" 'string-edit-at-point)
     :config
-    (spacemacs/set-leader-keys-for-minor-mode 'string-edit-mode
+    (spacemacs/set-leader-keys-for-minor-mode 'string-edit-at-point-mode
       "," 'string-edit-conclude
       "c" 'string-edit-conclude
       "a" 'string-edit-abort

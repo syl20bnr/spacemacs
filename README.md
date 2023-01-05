@@ -386,16 +386,13 @@ In other word, in default installation, Emacs find and load
 If you want to install Spacemacs to a different location, you need to make
 sure it's loaded by Emacs in one of its [init file][Emacs: Find Init].
 
-For example, if you've cloned Spacemacs to `$HOME/spacemacs`, and if you use
+For example, if you've cloned Spacemacs to `$HOME/Spacemacs`, and if you use
 `$HOME/.emacs.el` as Emacs init file, then the following lines in
 `$HOME/.emacs.el`:
 
 ```elisp
-;; set variable `spacemacs-start-directory' to point to your Spacemacs
-;; installation location, "~" is equivalent to "$HOME"
-(setq spacemacs-start-directory "~/.emacs.d/spacemacs")
-;; load Spacemacs's initialization file
-(load-file (expand-file-name "init.el" spacemacs-start-directory))
+;; load Spacemacs's initialization file, "~" is equivalent to "$HOME"
+(load-file "~/Spacemacs/init.el")
 ```
 
 # First Launch and Configuration

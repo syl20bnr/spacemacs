@@ -21,6 +21,8 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (require 'core-funcs)
+(require 'core-load-paths)
+
 (require 'core-spacemacs-buffer)
 
 (defvar spacemacs--diminished-minor-modes nil

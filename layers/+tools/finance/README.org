@@ -70,7 +70,7 @@ can for example use ~dix~ or ~vax~ to delete or mark the transaction at point.
 | Key binding | Description                                                               |
 |-------------+---------------------------------------------------------------------------|
 | ~SPC m ,~   | toggle the current transaction pending                                    |
-| ~SPC m a~   | quickly add a transaction, without exiting the reconciliation buffer      |
-| ~SPC m t~   | change the target amount for the selected account                         |
-| ~SPC m q~   | quit reconciliation                                                       |
+| ~a~         | quickly add a transaction, without exiting the reconciliation buffer      |
+| ~t~         | change the target amount for the selected account                         |
+| ~q~         | quit reconciliation                                                       |
 | ~SPC m RET~ | finalize the reconciliation, changing all pending transactions to cleared |

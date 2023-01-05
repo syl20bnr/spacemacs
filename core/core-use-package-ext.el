@@ -19,11 +19,15 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+(require 'core-fonts-support)
+(require 'core-spacebind)
 
 (defconst spacemacs--use-package-add-hook-keywords '(:pre-init
                                                      :post-init
                                                      :pre-config
                                                      :post-config))
+
+(defvar spacemacs--use-package-extended nil)
 
 (defmacro spacemacs|use-package-add-hook (name &rest plist)
   "Add post hooks to `:init' or `:config' arguments of an existing
@@ -58,5 +62,102 @@ override lazy-loaded settings."
                                       (substring (format "%s" keyword) 1)))))
             (push `(add-hook ',hook (lambda nil ,@body t)) expanded-forms)))))
     `(progn ,@expanded-forms)))
+
+
+
+(defun spacemacs/use-package-extend ()
+  "Extend use-package with custom keywords."
+  (when (and (require 'use-package nil t) (not spacemacs--use-package-extended))
+    (setq use-package-verbose init-file-debug
+          ;; inject use-package hooks for easy customization of stock package
+          ;; configuration
+          spacemacs--use-package-extended t
+          use-package-inject-hooks t)
+    (add-to-list 'use-package-keywords :spacebind t)
+    (add-to-list 'use-package-keywords :spacediminish t)))
+
+(defun use-package-normalize/:spacebind (name-symbol keyword args)
+  (use-package-only-one (symbol-name keyword) args
+    (lambda (label arg)
+      (if (and (listp arg) (keywordp (car arg)))
+          arg
+        (use-package-error
+         ":spacebind wants an arg list compatible with `spacebind' macro")))))
+
+(defun use-package-handler/:spacebind (name-symbol keyword args rest state)
+  (let ((body (use-package-process-keywords name-symbol rest state)))
+    (if (null args)
+        body
+      (use-package-concat
+       body
+       `((spacemacs|spacebind ,@args))))))
+
+(defun use-package-normalize/:spacediminish (name keyword args)
+  (use-package-as-one (symbol-name keyword) args
+    (apply-partially #'use-package-normalize-spacediminish name) t))
+
+(defun use-package-handler/:spacediminish (name _keyword arg rest state)
+  (let ((body (use-package-process-keywords name rest state)))
+    (use-package-concat
+     `((when (fboundp 'spacemacs|diminish)
+         ,@(if (consp (car arg)) ;; e.g. ((MODE FOO BAR) ...)
+               (mapcar (lambda (var) `(spacemacs|diminish ,@var))
+                       arg)
+             `((spacemacs|diminish ,@arg))))) ;; e.g. (MODE FOO BAR)
+     body)))
+
+(defun use-package-normalize-spacediminish (name label arg &optional recursed)
+  "Normalize the arguments to `spacemacs|diminish' to a list of one of six forms:
+     t
+     SYMBOL
+     STRING
+     (SYMBOL STRING)
+     (STRING STRING)
+     (SYMBOL STRING STRING)"
+  (let ((default-mode (use-package-as-mode name)))
+    (pcase arg
+      ;; (PATTERN ..) when not recursive -> go to recursive case
+      ((and (or `(,x . ,y) `(,x ,y))
+            (guard (and (not recursed)
+                        (listp x)
+                        (listp y))))
+       (mapcar (lambda (var) (use-package-normalize-spacediminish name label var t))
+               arg))
+      ;; t -> (<PKG>-mode)
+      ('t
+       (list default-mode))
+      ;; SYMBOL -> (SYMBOL)
+      ((pred use-package-non-nil-symbolp)
+       (list arg))
+      ;; STRING -> (<PKG>-mode STRING)
+      ((pred stringp)
+       (list default-mode arg))
+      ;; (SYMBOL) when recursed -> (SYMBOL)
+      ((and `(,x)
+            (guard (and recursed (use-package-non-nil-symbolp x))))
+       arg)
+      ;; (STRING) when recursed -> (<PKG>-mode STRING))
+      ((and `(,x)
+            (guard (and recursed (stringp x))))
+       (cons default-mode arg))
+      ;; (SYMBOL STRING) -> (SYMBOL STRING)
+      ((and `(,x ,y)
+            (guard (and (use-package-non-nil-symbolp x) (stringp y))))
+       arg)
+      ;; (STRING STRING) -> (<PKG>-mode STRING STRING)
+      ((and `(,x ,y)
+            (guard (and (stringp x) (stringp y))))
+       (cons default-mode arg))
+      ;; (SYMBOL STRING STRING) -> (SYMBOL STRING STRING)
+      ((and `(,x ,y ,z)
+            (guard (and (use-package-non-nil-symbolp x)
+                        (stringp y)
+                        (stringp z))))
+       arg)
+      (_
+       (use-package-error
+        (format
+         "%s wants a symbol, string, (symbol string), (string string), (symbol string string) or list of these: %S"
+         label arg))))))
 
 (provide 'core-use-package-ext)

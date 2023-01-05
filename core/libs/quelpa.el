@@ -292,13 +292,15 @@ already and should not be upgraded etc)."
          (version
           (cond
            ((or (not (equal ver-type 'elpa)) quelpa-stable-p) melpa-ver)
-           (t
+           (melpa-ver
             (let ((base-ver
-                   (if-let ((info (quelpa-build--pkg-info (symbol-name name) files build-dir)))
+                   (if-let ((info (quelpa-build--pkg-info (symbol-name name)
+                                                          files build-dir)))
                        (aref info 3)
                      '(0 0 0))))
               (while (< (length base-ver) 3) (setq base-ver (append base-ver '(0))))
-              (concat (package-version-join base-ver) "." melpa-ver))))))
+              (package-version-join
+               (nconc base-ver (version-to-list melpa-ver))))))))
     (prog1
         (if version
             (quelpa-archive-file-name
@@ -324,9 +326,9 @@ already and should not be upgraded etc)."
                   (or (funcall package-strip-rcs-id-orig (lm-header "package-version"))
                       (funcall package-strip-rcs-id-orig (lm-header "version"))
                       "0"))))
-      (concat (mapconcat
-               #'number-to-string
-               (package-desc-version (quelpa-get-package-desc file-path)) ".")
+      (concat (if-let ((desc (quelpa-get-package-desc file-path)))
+                  (mapconcat #'number-to-string (package-desc-version desc) ".")
+                "0")
               (pcase version
                 (`original "")
                 (_ (concat "pre0." time-stamp)))))))

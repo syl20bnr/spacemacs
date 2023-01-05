@@ -152,6 +152,7 @@
       :mode biblio-selection-mode
       :bindings
       "e" 'ebib-biblio-selection-import
+      "B" 'ebib-biblio-import-doi
       (kbd "C-j") 'biblio--selection-next
       (kbd "C-k") 'biblio--selection-previous)))
 

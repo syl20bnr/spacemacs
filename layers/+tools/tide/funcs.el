@@ -40,6 +40,7 @@
     "ri" #'tide-organize-imports
     "rr" #'tide-rename-symbol
     "rf" #'tide-rename-file
+    "rR" #'tide-refactor
     "S" "server"
     "Sr" #'tide-restart-server
     "Sj" #'spacemacs//tide-create-jsconfig-file))
