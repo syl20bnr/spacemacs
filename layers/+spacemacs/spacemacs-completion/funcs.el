@@ -43,8 +43,8 @@
   "Set the face of diretories for `.' and `..'"
   (set-face-attribute 'helm-ff-dotted-directory
                       nil
-                      :foreground nil
-                      :background nil
+                      :foreground 'unspecified
+                      :background 'unspecified
                       :inherit 'helm-ff-directory))
 
 (defun spacemacs//helm-find-files-enable-helm--in-fuzzy ()
