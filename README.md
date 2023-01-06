@@ -122,8 +122,8 @@ Last but not least there are a lot of high class tutorials available on YouTube:
 
 3. [git][Git] is required to download and update Spacemacs.
 
-4. Tar, either [GNU Tar][] or [BSD Tar][], is required to install and update
-   Emacs packages used by Spacemacs.
+4. Tar, in particular [GNU Tar][], is required to install and update Emacs
+   packages used by Spacemacs.
 
 5. *(Optional)* The default font used by Spacemacs is [Source Code Pro][]. You
    may customize your own font settings and choose another font. If you want to
@@ -241,7 +241,12 @@ Last but not least there are a lot of high class tutorials available on YouTube:
    brew install git
    ```
 
-4. macOS ships with [BSD Tar][] so you don't need to install it.
+4. macOS ships with [BSD Tar][], but there are reports of weird issues so we
+   require [GNU Tar][] instead.
+
+   ```sh
+   brew install gnu-tar
+   ```
 
 5. *(Optional)* To install Source Code Pro Font:
 
@@ -283,11 +288,10 @@ Last but not least there are a lot of high class tutorials available on YouTube:
    scoop install git
    ```
 
-4. Windows 10 build 17063 and later ships with [BSD Tar][] and you won't need to
-   install it manually.
-
-   If you're running an earlier version of Windows, Tar can be installed in
-   PowerShell:
+4. Windows 10 build 17063 and later ships with [BSD Tar][], but it's required to
+   install [GNU Tar][] instead to avoid possible issues. Alternatively, if
+   you are running an earlier version of Windows, Tar isn't installed. In either
+   case, you can install GNU Tar via:
 
    ```powershell
    scoop bucket add main
