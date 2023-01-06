@@ -67,19 +67,20 @@ For evil states that also need an entry to `spacemacs-evil-cursors' use
   ;; for example treemacs: it needs no cursor since it solely uses hl-line-mode
   ;; and having an evil cursor defined anyway leads to the cursor sometimes
   ;; visibly flashing in treemacs buffers
-  (eval `(defface ,(intern (format "spacemacs-%s-face" state))
-           `((t (:background ,color
-                             :foreground ,(face-background 'mode-line)
-                             :inherit 'mode-line)))
+  (eval `(defface ,(spacemacs/state-color-face (intern state))
+           `((t (:background ,color :inherit 'mode-line)))
            (format "%s state face." state)
-           :group 'spacemacs)))
+           :group 'spacemacs))
+  ;; 'unspecified may not be used in defface, so set it via set-face-attribute.
+  (set-face-attribute (spacemacs/state-color-face (intern state)) nil
+       :foreground (face-attribute 'mode-line :background)))
 
 (defun spacemacs/set-state-faces ()
-  (cl-loop for (state color cursor) in spacemacs-evil-cursors
-           do
-           (set-face-attribute (intern (format "spacemacs-%s-face" state))
-                               nil
-                               :foreground (face-background 'mode-line))))
+  (let ((ml-bg (face-attribute 'mode-line :background)))
+    (cl-loop for (state color cursor) in spacemacs-evil-cursors
+             do
+             (set-face-attribute (spacemacs/state-color-face (intern state)) nil
+                                 :foreground ml-bg))))
 
 (defun evil-insert-state-cursor-hide ()
   (setq evil-insert-state-cursor '((hbar . 0))))
