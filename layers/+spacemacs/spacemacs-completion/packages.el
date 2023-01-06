@@ -33,10 +33,10 @@
 (defun spacemacs-completion/init-default-helm-config ()
   (setq helm-prevent-escaping-from-minibuffer t
         helm-bookmark-show-location t
-        helm-display-header-line nil
         helm-split-window-inside-p t
         helm-always-two-windows t
         helm-echo-input-in-header-line t
+        helm-display-header-line t
         helm-imenu-execute-action-at-once-if-one nil
         helm-org-format-outline-path t
         helm-completion-style (if (eq helm-use-fuzzy 'always) 'helm-fuzzy 'helm)
