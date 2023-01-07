@@ -52,6 +52,7 @@
 (defun chinese/init-pyim ()
   (use-package pyim
     :if chinese-default-input-method
+    :defer t
     :init
     (progn
       (setq pyim-page-tooltip t
@@ -69,6 +70,7 @@
   "Initialize pyim-basedict"
   (use-package pyim-basedict
     :if (eq chinese-default-input-method 'pinyin)
+    :defer t
     :config
     (pyim-basedict-enable)))
 
@@ -76,6 +78,7 @@
   "Initialize pyim-wbdict"
   (use-package pyim-wbdict
     :if (member chinese-default-input-method '(wubi wubi86 wubi98))
+    :defer t
     :config
     (progn
       (setq pyim-default-scheme 'wubi)
@@ -86,7 +89,7 @@
 (defun chinese/init-youdao-dictionary ()
   (use-package youdao-dictionary
     :if chinese-enable-youdao-dict
-    :defer
+    :defer t
     :config
     (progn
       ;; Enable Cache

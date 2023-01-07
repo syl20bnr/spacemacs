@@ -107,6 +107,7 @@
 
 (defun c-c++/init-clang-format ()
   (use-package clang-format
+    :defer t
     :init (spacemacs//c-c++-setup-clang-format)))
 
 (defun c-c++/post-init-company ()
