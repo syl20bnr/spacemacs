@@ -1,6 +1,6 @@
 (defun dotspacemacs/layers ()
   (setq-default
-   dotspacemacs-distribution 'spacemacs-base
+   dotspacemacs-distribution 'spacemacs
    dotspacemacs-configuration-layers '(
                                        (org :variables
                                             org-enable-github-support t
