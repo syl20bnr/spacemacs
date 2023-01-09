@@ -217,14 +217,16 @@ ROOT-DIR should be the path for the environemnt, `nil' for clean up"
 
 ;; from https://www.snip2code.com/Snippet/127022/Emacs-auto-remove-unused-import-statemen
 (defun spacemacs/python-remove-unused-imports ()
-  "Use Autoflake to remove the unused imports.
-Eg: autoflake --remove-all-unused-imports -i <file.py>"
+  "Use Autoflake to remove unused imports.
+Equivalent to: autoflake --remove-all-unused-imports --inplace <FILE>"
   (interactive)
-  (cond ((executable-find "autoflake")
-         (shell-command (format "autoflake --remove-all-unused-imports -i %s"
-                                (shell-quote-argument (buffer-file-name))))
-         (revert-buffer t t t))
-        (t (user-error "Cannot find autoflake executable"))))
+  (if (executable-find "autoflake")
+      (if (not (eql 0
+                    (shell-command (format "autoflake --remove-all-unused-imports --inplace %s"
+                                           (shell-quote-argument (buffer-file-name))))))
+          (pop-to-buffer shell-command-buffer-name)
+        (revert-buffer t t t))
+    (user-error "Cannot find autoflake executable")))
 
 (defun spacemacs//pyenv-mode-set-local-version ()
   "Set pyenv version from \".python-version\" by looking in parent directories."
