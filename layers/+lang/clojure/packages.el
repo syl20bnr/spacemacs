@@ -479,7 +479,7 @@
 (defun clojure/post-init-company ()
   (spacemacs|add-company-backends
     :backends company-capf
-    :modes clojure-mode clojurec-mode clojurescript-mode clojurex-mode cide-clojure-interaction-mode cider-mode cider-repl-mode))
+    :modes clojure-mode clojurec-mode clojurescript-mode clojurex-mode cider-clojure-interaction-mode cider-mode cider-repl-mode))
 
 (defun clojure/post-init-ggtags ()
   (add-hook 'clojure-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
