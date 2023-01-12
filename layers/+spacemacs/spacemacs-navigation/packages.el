@@ -353,6 +353,8 @@
     :commands paradox-list-packages
     :init
     (setq paradox-execute-asynchronously nil)
+    (spacemacs/set-leader-keys
+      "ak" 'spacemacs/paradox-list-packages)
     :config
     (evilified-state-evilify-map paradox-menu-mode-map
       :mode paradox-menu-mode
@@ -361,9 +363,7 @@
       "J" 'paradox-next-describe
       "K" 'paradox-previous-describe
       "L" 'paradox-menu-view-commit-list
-      "o" 'paradox-menu-visit-homepage)
-    (spacemacs/set-leader-keys
-      "ak" 'spacemacs/paradox-list-packages)))
+      "o" 'paradox-menu-visit-homepage)))
 
 (defun spacemacs-navigation/init-restart-emacs ()
   (use-package restart-emacs
