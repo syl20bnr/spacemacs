@@ -115,8 +115,8 @@ If `global' is non-nil activate the respective global mode."
 (defun spacemacs//adaptive-smartparent-pair-overlay-face ()
   (set-face-attribute 'sp-pair-overlay-face nil
                       :inherit 'lazy-highlight
-                      :background nil
-                      :foreground nil))
+                      :background 'unspecified
+                      :foreground 'unspecified))
 
 (defun spacemacs//put-clean-aindent-last ()
   "Put `clean-aindent--check-last-point` to end of `post-command-hook`.

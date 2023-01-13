@@ -342,7 +342,7 @@ Returns the output of git status --porcelain."
                       (symbol-name state))
              :group 'spacemacs))
     (set-face-attribute fname nil
-                        :foreground foreground
+                        :foreground (or foreground 'unspecified)
                         :box (face-attribute 'mode-line :box))))
 
 (defun spacemacs//compute-version-score (version)
