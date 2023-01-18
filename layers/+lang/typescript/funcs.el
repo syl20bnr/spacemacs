@@ -160,4 +160,4 @@
 ;; Disable web-modes font-lock syntax highlighting for tsx files.
 ;; See: https://github.com/emacs-tree-sitter/tree-sitter-langs/issues/23#issuecomment-832815710
 (defun spacemacs//typescript-tsx-mode-fix-tree-sitter()
-  (set (make-local-variable 'tree-sitter-hl-use-font-lock-keywords) nil))
+  (setq-local tree-sitter-hl-use-font-lock-keywords nil))
