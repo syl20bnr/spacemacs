@@ -49,6 +49,8 @@
           (spacemacs/lsp-bind-upstream-keys)
         (spacemacs/lsp-bind-keys))
       (setq lsp-prefer-capf t)
+      ;; This sets the lsp indentation for all modes derived from web-mode.
+      (add-to-list 'lsp--formatting-indent-alist '(web-mode . web-mode-markup-indent-offset))
       (add-hook 'lsp-after-open-hook (lambda ()
                                        "Setup xref jump handler"
                                        (spacemacs//setup-lsp-jump-handler))))))
