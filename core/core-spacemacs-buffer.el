@@ -1553,9 +1553,10 @@ can be adjusted with the variable:
     (force-mode-line-update)
     (spacemacs-buffer/goto-link-line)))
 
-(defun spacemacs-buffer/goto-buffer (&optional refresh)
-  "Create the special buffer for `spacemacs-buffer-mode' and switch to it.
-REFRESH if the buffer should be redrawn.
+(defun spacemacs-buffer/goto-buffer (&optional refresh do-not-switch)
+  "Create the special buffer for `spacemacs-buffer-mode'.
+REFRESH if the buffer should be redrawn. This will automatically
+switch to the buffer unless DO-NOT-SWITCH is non nil.
 
 If a prefix argument is given, switch to it in an other, possibly new window."
   (interactive)
@@ -1597,8 +1598,9 @@ If a prefix argument is given, switch to it in an other, possibly new window."
                   (forward-line (1- save-line))
                   (forward-to-indentation 0))
          (spacemacs-buffer/goto-link-line)))
-      (if current-prefix-arg
-          (switch-to-buffer-other-window spacemacs-buffer-name)
+      (unless do-not-switch
+        (if current-prefix-arg
+            (switch-to-buffer-other-window spacemacs-buffer-name))
         (switch-to-buffer spacemacs-buffer-name))
       (spacemacs//redisplay))))
 

@@ -263,7 +263,7 @@ Note: the hooked function is not executed when in dumped mode."
      ;; Redraw the spacemacs buffer with full org support
      ;; Before it must be drawn without org related features to
      ;; avoid loading build in org in emacs >= 29
-     (spacemacs-buffer/goto-buffer t)))
+     (spacemacs-buffer/goto-buffer t t)))
 
   (if dotspacemacs-byte-compile
       (when (> 1 (spacemacs//dir-byte-compile-state
