@@ -72,6 +72,9 @@ You can choose either tslint (default) or eslint for linting:
                 typescript-linter 'tslint)))
 #+END_SRC
 
+Please be advised that tslint is now deprecated, and should only be used for
+legacy projects. [[https://github.com/palantir/tslint#tslint][See TSLint Repo for more]].
+
 ** Pre-requisites
 You will need =node.js v0.12.0= or greater.
 
