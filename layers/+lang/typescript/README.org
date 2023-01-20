@@ -170,7 +170,7 @@ then set the variable =typescript-lsp-linter= to =nil=.
 #+END_SRC
 
 * TSX Mode
-This layer also defines a layer for working with .tsx files called
+This layer also defines a major mode for working with .tsx files called
 =typescript-tsx-mode=. This mode is derived from web-mode and as such, will
 inherit the faces and behavior of web-mode. If you are using using tree-sitter
 for syntax highlighting, you may choose to switch to using tree-sitter for tsx
