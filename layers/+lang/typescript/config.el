@@ -38,6 +38,10 @@ If `nil' then `tide' is the default backend unless `lsp' layer is used.")
 (defvar typescript-linter 'tslint
   "The linter to use for typescript. Possible values are `tslint' `eslint'")
 
+(defvar typescript-use-treesitter-for-tsx nil
+  "If non-nil, then use tree-sitter rather than web-mode for tsx
+file syntax highlighting.")
+
 (defvar typescript-lsp-linter t
   "If the backend is `lsp', and this variable is non-nil, then
 use lsp as the linter, otherwise let flycheck choose the best

@@ -102,10 +102,11 @@
   (define-derived-mode typescript-tsx-mode web-mode "TypeScript-tsx")
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode))
   (spacemacs/typescript-mode-config 'typescript-tsx-mode)
-  (with-eval-after-load 'tree-sitter
+  (when typescript-use-treesitter-for-tsx
+    (with-eval-after-load 'tree-sitter
       (tree-sitter-require 'tsx)
       (add-hook 'typescript-tsx-mode-hook #'spacemacs//typescript-tsx-mode-fix-tree-sitter)
-      (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx))))
+      (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx)))))
 
 (defun typescript/init-typescript-mode ()
   (use-package typescript-mode
