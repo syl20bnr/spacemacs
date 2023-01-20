@@ -15,6 +15,7 @@
   - [[#tide][Tide]]
     - [[#notes][Notes]]
   - [[#language-server-protocol][Language Server Protocol]]
+- [[#tsx-mode][TSX Mode]]
 - [[#key-bindings][Key bindings]]
   - [[#typescript-major-mode][Typescript Major Mode]]
   - [[#reference-major-mode][Reference Major Mode]]
@@ -163,6 +164,19 @@ then set the variable =typescript-lsp-linter= to =nil=.
     (typescript :variables
                 typescript-backend 'lsp
                 typescript-lsp-linter nil)))
+#+END_SRC
+
+* TSX Mode
+This layer also defines a layer for working with .tsx files called
+=typescript-tsx-mode=. This mode is derived from web-mode and as such, will
+inherit the faces and behavior of web-mode. If you are using using tree-sitter
+for syntax highlighting, you may choose to switch to using tree-sitter for tsx
+by setting the =typescript-use-treesitter-for-tsx= to non-nil.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (typescript :variables
+                typescript-use-treesitter-for-tsx 1)))
 #+END_SRC
 
 * Key bindings
