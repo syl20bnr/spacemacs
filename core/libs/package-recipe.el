@@ -1,6 +1,6 @@
 ;;; package-recipe.el --- Package recipes as EIEIO objects  -*- lexical-binding:t; coding:utf-8 -*-
 
-;; Copyright (C) 2018-2022 Jonas Bernoulli
+;; Copyright (C) 2018-2023 Jonas Bernoulli
 
 ;; Author: Jonas Bernoulli <jonas@bernoul.li>
 ;; Homepage: https://github.com/melpa/package-build
@@ -28,6 +28,7 @@
 ;;; Code:
 
 (require 'eieio)
+(require 'subr-x)
 (require 'url-parse)
 
 (defvar package-build-use-git-remote-hg)
