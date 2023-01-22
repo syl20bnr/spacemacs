@@ -1,8 +1,8 @@
 ;;; package-recipe-mode.el --- Minor mode for editing package recipes  -*- lexical-binding:t; coding:utf-8 -*-
 
-;; Copyright (C) 2011-2022 Donald Ephraim Curtis
-;; Copyright (C) 2012-2022 Steve Purcell
-;; Copyright (C) 2016-2022 Jonas Bernoulli
+;; Copyright (C) 2011-2023 Donald Ephraim Curtis
+;; Copyright (C) 2012-2023 Steve Purcell
+;; Copyright (C) 2016-2023 Jonas Bernoulli
 ;; Copyright (C) 2009 Phil Hagelberg
 
 ;; Author: Donald Ephraim Curtis <dcurtis@milkbox.net>

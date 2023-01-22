@@ -1,8 +1,8 @@
 ;;; package-build.el --- Tools for assembling a package archive  -*- lexical-binding:t; coding:utf-8 -*-
 
-;; Copyright (C) 2011-2022 Donald Ephraim Curtis
-;; Copyright (C) 2012-2022 Steve Purcell
-;; Copyright (C) 2016-2022 Jonas Bernoulli
+;; Copyright (C) 2011-2023 Donald Ephraim Curtis
+;; Copyright (C) 2012-2023 Steve Purcell
+;; Copyright (C) 2016-2023 Jonas Bernoulli
 ;; Copyright (C) 2009 Phil Hagelberg
 
 ;; Author: Donald Ephraim Curtis <dcurtis@milkbox.net>
@@ -13,7 +13,7 @@
 ;; Keywords: maint tools
 
 ;; Package-Version: 4.0.0.50-git
-;; Package-Requires: ((emacs "25.1"))
+;; Package-Requires: ((emacs "26.1"))
 
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -830,6 +830,7 @@ FILES is a list of (SOURCE . DEST) relative filepath pairs."
                 ((and `(,dir . ,globs)
                       (guard (stringp dir))
                       (guard (cl-every #'stringp globs)))
+                 dir ; Silence byte-compiler of Emacs < 28.1.
                  (mapcan #'toargs globs))))
             (let ((spec (or (oref rcp files) package-build-default-files-spec)))
               (if (eq (car spec) :defaults)
