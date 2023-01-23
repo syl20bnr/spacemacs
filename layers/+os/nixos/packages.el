@@ -59,7 +59,7 @@
       (spacemacs/set-leader-keys-for-major-mode 'nix-mode
         "==" 'nix-format-buffer)
       (when nixos-format-on-save
-        (add-hook 'before-save-hook 'nix-format-before-save)))
+        (add-hook 'nix-mode-hook 'nixfmt-on-save-mode)))
     :config
     (electric-indent-mode -1)))
 
