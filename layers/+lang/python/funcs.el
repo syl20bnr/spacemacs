@@ -218,11 +218,11 @@ ROOT-DIR should be the path for the environemnt, `nil' for clean up"
 ;; from https://www.snip2code.com/Snippet/127022/Emacs-auto-remove-unused-import-statemen
 (defun spacemacs/python-remove-unused-imports ()
   "Use Autoflake to remove unused imports.
-Equivalent to: autoflake --remove-all-unused-imports --inplace <FILE>"
+Equivalent to: autoflake --remove-all-unused-imports --in-place <FILE>"
   (interactive)
   (if (executable-find "autoflake")
       (if (not (eql 0
-                    (shell-command (format "autoflake --remove-all-unused-imports --inplace %s"
+                    (shell-command (format "autoflake --remove-all-unused-imports --in-place %s"
                                            (shell-quote-argument (buffer-file-name))))))
           (pop-to-buffer shell-command-buffer-name)
         (revert-buffer t t t))
