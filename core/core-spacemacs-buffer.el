@@ -1294,9 +1294,12 @@ LIST-SIZE is specified in `dotspacemacs-startup-lists' for recent entries."
                            org-agenda-files
                          ;; but if it's a string, it must be file where the list
                          ;; of agenda files are stored in that file and we have
-                         ;;to load `org-agenda' to process the list.
-                         (when (y-or-n-p "`org-agenda-files' is a string and \
-not a list. Load `org' and continue?")
+                         ;; to load `org-agenda' to process the list. If org is
+                         ;; already loaded, then we assume that the user has
+                         ;; already called org-agenda-files.
+                         (when (and (not (featurep 'org))
+                                    (y-or-n-p "`org-agenda-files' is a string and \
+not a list. Load `org' and continue?"))
                            (require 'org)
                            (org-agenda-files))))))
            (mapcar #'expand-file-name files)))
