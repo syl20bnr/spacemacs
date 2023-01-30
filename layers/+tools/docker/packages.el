@@ -25,7 +25,7 @@
 (defconst docker-packages
   '(
     docker
-    (docker-tramp :toggle (version< emacs-version "29.1"))
+    (docker-tramp :toggle (version< emacs-version "29.0.50"))
     dockerfile-mode
     flycheck))
 

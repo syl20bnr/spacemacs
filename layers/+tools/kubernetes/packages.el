@@ -27,7 +27,7 @@
   '(
     kubernetes
     kubernetes-evil
-    kubernetes-tramp))
+    (kubernetes-tramp :toggle (version< emacs-version "29.0.50"))))
 
 (defun kubernetes/init-kubernetes ()
   (use-package kubernetes
