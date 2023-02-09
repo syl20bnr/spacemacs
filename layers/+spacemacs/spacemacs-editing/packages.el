@@ -545,6 +545,7 @@
             undo-limit 800000
             undo-strong-limit 12000000
             undo-outer-limit 120000000
+            undo-tree-auto-save-history nil
             undo-tree-history-directory-alist
             `(("." . ,(let ((dir (expand-file-name "undo-tree-history" spacemacs-cache-directory)))
                         (if (file-exists-p dir)
