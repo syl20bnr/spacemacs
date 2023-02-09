@@ -24,8 +24,16 @@
 ;; List of all packages to install and/or initialize. Built-in packages
 ;; which require an initialization must be listed explicitly in the list.
 (defconst search-engine-packages
-  '(engine-mode))
+  '(engine-mode google-this))
 
+(defun search-engine/init-google-this ()
+  (use-package google-this
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys "aws" 'google-this-ray)
+      (with-eval-after-load 'google-this
+        (fset 'google-this-url (lambda () "https://www.google.com/search?q=%s&pws=0&gl=us&gws_rd=cr"))))))
 
 (defun search-engine/init-engine-mode ()
   (use-package engine-mode
