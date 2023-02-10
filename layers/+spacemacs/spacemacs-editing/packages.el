@@ -435,6 +435,8 @@
         :off (spacemacs//deactivate-smartparens t)
         :documentation "Enable smartparens globally."
         :evil-leader "t C-p")
+      ;; spm and smartparens are mutually exclusive
+      (show-paren-mode -1)
       ;; key bindings
       (spacemacs/set-leader-keys
         "js" 'sp-split-sexp
