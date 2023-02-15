@@ -24,7 +24,7 @@
 (setq csharp-packages
       '(
         company
-        csharp-mode
+        (csharp-mode :toggle (version< emacs-version "29.0.60"))
         evil-matchit
         ggtags
         counsel-gtags
