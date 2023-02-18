@@ -33,6 +33,8 @@
 
 (require 'package-build)
 
+(defvar flycheck-checkers)
+
 ;;;###autoload
 (defvar package-recipe-mode-map
   (let ((map (make-sparse-keymap)))

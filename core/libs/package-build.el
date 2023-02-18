@@ -165,6 +165,10 @@ similar, which will provide the GNU timeout program as
   :group 'package-build
   :type '(file :must-match t))
 
+(defvar package-build--tar-type nil
+  "Type of `package-build-tar-executable'.
+Can be `gnu' or `bsd'; nil means the type is not decided yet.")
+
 (defcustom package-build-write-melpa-badge-images nil
   "When non-nil, write MELPA badge images alongside packages.
 These batches can, for example, be used on GitHub pages."
@@ -436,6 +440,18 @@ with a timeout so that no command can block the build process."
       (princ ";; Local Variables:\n;; no-byte-compile: t\n;; End:\n"
              (current-buffer)))))
 
+(defun package-build--tar-type ()
+  "Return `bsd' or `gnu' depending on type of Tar executable.
+Tests and sets variable `package-build--tar-type' if not already set."
+  (or package-build--tar-type
+      (and package-build-tar-executable
+           (let ((v (shell-command-to-string
+                     (format "%s --version" package-build-tar-executable))))
+             (setq package-build--tar-type
+                   (cond ((string-match-p "bsdtar" v) 'bsd)
+                         ((string-match-p "GNU tar" v) 'gnu)
+                         (t 'gnu)))))))
+
 (defun package-build--create-tar (rcp directory)
   "Create a tar file containing the package version specified by RCP.
 DIRECTORY is a temporary directory that contains the directory
@@ -446,7 +462,8 @@ that is put in the tarball."
          (tar (expand-file-name (concat name "-" version ".tar")
                                 package-build-archive-dir))
          (dir (concat name "-" version)))
-    (when (eq system-type 'windows-nt)
+    (when (and (eq system-type 'windows-nt)
+               (eq (package-build--tar-type) 'gnu))
       (setq tar (replace-regexp-in-string "^\\([a-z]\\):" "/\\1" tar)))
     (let ((default-directory directory))
       (process-file
@@ -669,6 +686,7 @@ is also tried.  If neither file exists, then return nil."
   (with-temp-file
       (expand-file-name (concat (package-desc-full-name desc) ".entry")
                         package-build-archive-dir)
+    (set-buffer-file-coding-system 'utf-8)
     (pp (cons (package-desc-name    desc)
               (vector (package-desc-version desc)
                       (package-desc-reqs    desc)
