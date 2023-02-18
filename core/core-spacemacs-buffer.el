@@ -1305,14 +1305,14 @@ startup list.")
                            (org-agenda-files))))))
            (mapcar #'expand-file-name files)))
         ;; we also need to skip sub-directories of `org-directory'
-        (ignore-directory (or (when (bound-and-true-p org-directory)
-                                (expand-file-name org-directory))
-                              ""))
+        (ignore-directory (when (bound-and-true-p org-directory)
+                            (expand-file-name org-directory)))
         (recent-files-list))
     (cl-loop for rfile in recentf-list
              while (> list-size 0)
              do (let ((full-path (expand-file-name rfile)))
-                  (unless (or (string-prefix-p ignore-directory full-path)
+                  (unless (or (and ignore-directory
+                                   (string-prefix-p ignore-directory full-path))
                               (member full-path agenda-files))
                     (cl-pushnew rfile recent-files-list)
                     (setq list-size (1- list-size))))
