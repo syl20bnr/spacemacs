@@ -526,14 +526,6 @@
       (add-hook 'diff-mode-hook 'spacemacs//set-whitespace-style-for-diff))
     :config
     (progn
-      (set-face-attribute 'whitespace-space nil
-                          :background 'unspecified
-                          :foreground (face-attribute 'font-lock-warning-face
-                                                      :foreground))
-      (set-face-attribute 'whitespace-tab nil
-                          :background 'unspecified)
-      (set-face-attribute 'whitespace-indentation nil
-                          :background 'unspecified)
       (spacemacs|diminish whitespace-mode " ⓦ" " w")
       (spacemacs|diminish global-whitespace-mode " ⓦ" " w"))))
 
