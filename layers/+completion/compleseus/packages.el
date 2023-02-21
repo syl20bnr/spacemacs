@@ -185,26 +185,27 @@
     ;; after lazily loading the package.
     :config
 
-    ;; Optionally configure preview. The default value
-    ;; is 'any, such that any key triggers the preview.
-    ;; (setq consult-preview-key 'any)
-    ;; (setq consult-preview-key (kbd "M-."))
-    ;; (setq consult-preview-key (list (kbd "<S-down>") (kbd "<S-up>")))
-    ;; For some commands and buffer sources it is useful to configure the
-    ;; :preview-key on a per-command basis using the `consult-customize' macro.
+    ;; disable automatic preview by default,
+    ;; selectively enable it for some prompts below.
+    (setq consult-preview-key "M-.")
+
+    ;; customize preview activation and delay while selecting candiates
     (consult-customize
      consult-theme
-     :preview-key '(:debounce 0.2 any)
-     consult-ripgrep consult-git-grep consult-grep
-     consult-bookmark consult-recent-file consult-xref
-     consult--source-recent-file consult--source-project-recent-file consult--source-bookmark
+     :preview-key '("M-."
+                    :debounce 0.2 any)
+
+     ;; slightly delayed preview upon candidate selection
+     ;; one usually wants quick feedback
+     consult-buffer
+     consult-ripgrep
+     consult-git-grep
+     consult-grep
+     consult-bookmark
      consult-yank-pop
-     spacemacs/compleseus-search-auto
-     spacemacs/compleseus-search-dir
-     spacemacs/compleseus-search-projectile
-     spacemacs/compleseus-search-default
-     spacemacs/compleseus-search-projectile-auto
-     :preview-key (list (kbd "C-SPC") (kbd "C-M-j") (kbd "C-M-k")))
+     :preview-key '("M-."
+                    :debounce 0.3 "<up>" "<down>" "C-n" "C-p"
+                    :debounce 0.6 any))
 
     ;; hide magit buffer
     (add-to-list 'consult-buffer-filter "magit.*:.*")
