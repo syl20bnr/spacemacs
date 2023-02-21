@@ -36,6 +36,7 @@
     ((emacs-lisp-mode lisp-mode) . lisp-indent-offset)
     (enh-ruby-mode . enh-ruby-indent-level)
     (erlang-mode . erlang-indent-level)
+    (go-mode . go-tab-width)
     (js2-mode . js2-basic-offset)
     (js3-mode . js3-indent-level)
     ((js-mode json-mode) . js-indent-level)
