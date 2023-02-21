@@ -44,3 +44,7 @@ Calls (tabs-headline-match)"
 (spacemacs|defc tabs-auto-hide-delay 2
   "Tabs auto hide delay in seconds."
   '(float))
+
+(defvar tabs-icons t
+  "When non-nil, use all-the-icons to display icons before tab titles.
+all-the-icons is provided by the `spacemacs-visual` layer, which also needs to be active.")

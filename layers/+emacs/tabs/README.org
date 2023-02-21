@@ -9,6 +9,7 @@
 - [[#configuration][Configuration]]
   - [[#selected-tab-bar][Selected tab bar]]
   - [[#hide-tabs-after-a-delay][Hide tabs after a delay]]
+  - [[#tab-icons][Tab icons]]
 - [[#key-bindings][Key bindings]]
 
 * Description
@@ -32,7 +33,7 @@ For example,
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-                '(tabs :variables tabs-highlight-current-tab 'left))
+                '(tabs :variables tabs-selected-tab-bar 'over))
 #+END_SRC
 
 Note that this has no effect when Emacs is running in daemon mode.
@@ -49,6 +50,14 @@ delay =tabs-auto-hide-delay= via the :variables keyword in your =.spacemacs=:
                 '(tabs :variables
                        tabs-auto-hide t
                        tabs-auto-hide-delay 3))
+#+END_SRC
+
+** Tab icons
+By default, tab icons are enabled, if the =spacemacs-visual= layer is enabled and the =all-the-icons= package is used.
+You can disable icons just for the tabs display by setting =tabs-icons= to =nil=:
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '(tabs :variables tabs-icons nil))
 #+END_SRC
 
 * Key bindings
