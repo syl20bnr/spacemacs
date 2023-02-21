@@ -25,12 +25,24 @@
   '(centaur-tabs))
 
 (defun tabs/init-centaur-tabs ()
+
+  (when (and tabs-icons (configuration-layer/package-used-p 'all-the-icons))
+    ;; centaur-tabs internally checks for `(featurep 'all-the-icons)`
+    ;; to draw icons even after we enabled `centaur-tabs-set-icons`
+    ;; but all-the-icons is inited in spacemacs-visual with `:defer t`,
+    ;; so the feature wouldn't be loaded...
+    (require 'all-the-icons))
+
   (use-package centaur-tabs
     :demand
     :custom
-    (centaur-tabs-set-icons t)
+    (centaur-tabs-set-icons tabs-icons)
+    (centaur-tabs-gray-out-icons 'buffer)
+    (centaur-tabs-set-bar 'left)
     (centaur-tabs-set-modified-marker t)
-    (centaur-tabs-modified-marker "⚠")
+    (centaur-tabs-show-navigation-buttons t)
+    (centaur-tabs-close-button "✕")
+    (centaur-tabs-modified-marker "•")
     (centaur-tabs-cycle-scope 'tabs)
     :config
     (progn

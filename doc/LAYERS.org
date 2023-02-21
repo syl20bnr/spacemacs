@@ -477,8 +477,8 @@ which is not what we want.
 ** Cross-dependencies
 Spacemacs provides a couple of additional useful functions you can use to check
 whether other layers or packages are included.
-- check if a layer is enabled
-- check if a package is or will be installed
+- check if a layer is enabled (=configuration-layer/layer-used-p=)
+- check if a package is or will be installed (=configuration-layer/package-used-p=)
 
 These are useful in some cases, but usually you can get the desired result just
 by using =post-init= functions.
