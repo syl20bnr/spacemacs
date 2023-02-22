@@ -26,15 +26,8 @@
         anzu
         (doom-modeline :toggle (eq (spacemacs/get-mode-line-theme-name) 'doom))
         fancy-battery
-        ;; dependency of spaceline-all-the-icons which came from
-        ;; the emacs wiki, we fetch it from Emacs Mirror for now.
-        ;; TODO eventually remove this if font-lock+ is available
-        ;; in an ELPA repository.
-        (font-lock+ :step pre
-                    :location (recipe :fetcher github
-                                      :repo emacsmirror/font-lock-plus))
         spaceline
-        spaceline-all-the-icons
+        (spaceline-all-the-icons :toggle (eq (spacemacs/get-mode-line-theme-name) 'all-the-icons))
         symon
         (vim-powerline :location (recipe :fetcher local))))
 
@@ -61,8 +54,6 @@
         :documentation "Display battery info in mode-line."
         :evil-leader "tmb")
       (setq-default fancy-battery-show-percentage t))))
-
-(defun spacemacs-modeline/init-font-lock+ ())
 
 (defun spacemacs-modeline/init-spaceline ()
   (use-package spaceline-config
