@@ -379,7 +379,7 @@
     :config
     (when (spacemacs//support-hjkl-navigation-p)
       (define-key vertico-map (kbd "M-RET") #'vertico-exit-input)
-      (define-key vertico-map (kbd "C-SPC") #'spacemacs/embark-preview)      
+      (define-key vertico-map (kbd "C-SPC") #'spacemacs/embark-preview)
       (define-key vertico-map (kbd "C-j") #'vertico-next)
       (define-key vertico-map (kbd "C-k") #'vertico-previous)
       (define-key vertico-map (kbd "C-l") #'vertico-insert)
