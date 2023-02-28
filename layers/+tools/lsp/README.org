@@ -67,7 +67,7 @@ under the derived mode t prefix by =(spacemacs/lsp-bind-keys-for-mode mode)=
 | =lsp-modeline-code-actions-enable=   | t                                    | When non-nil, shows available code actions in modeline.                                                         |
 | =lsp-modeline-code-actions-segments= | ='(count icon)=                      | Display the number of available code actions and an icon. See details below.                                    |
 | =lsp-navigation=                     | ='both=                              | ~'simple~ or ~'peek~ to bind only xref OR lsp-ui-peek navigation functions.                                     |
-| =lsp-use-lsp-ui=                     | nil                                  | When non-nil, install lsp-ui package                                                                            |
+| =lsp-use-lsp-ui=                     | t                                    | When non-nil, install lsp-ui package                                                                            |
 | =lsp-ui-remap-xref-keybindings=      | nil                                  | When non-nil, xref key bindings remapped to lsp-ui-peek-find-{definition,references}.                           |
 | =lsp-ui-doc-enable=                  | t                                    | When non-nil, the documentation overlay is displayed.                                                           |
 | =lsp-ui-doc-include-signature=       | nil                                  | When nil, signature omitted from lsp-ui-doc overlay (this is usually redundant).                                |
