@@ -113,8 +113,8 @@
     (consult-ripgrep dir)))
 
 (defun spacemacs/compleseus-find-file ()
-  "This solves the problem:
-Binding a key to: `find-file' calls: `ido-find-file'"
+  "Calls the interactive find-file browser.
+This solves the problem: Binding a key to: `find-file' calls: `ido-find-file'"
   (interactive)
   (call-interactively 'find-file))
 
