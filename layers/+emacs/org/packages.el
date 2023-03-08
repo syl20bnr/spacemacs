@@ -50,6 +50,7 @@
     org-download
     (org-jira :toggle org-enable-jira-support)
     org-mime
+    (org-modern :toggle org-enable-modern-support)
     org-pomodoro
     org-present
     org-cliplink
@@ -741,6 +742,17 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "em" 'org-mime-org-buffer-htmlize
         "es" 'org-mime-org-subtree-htmlize))))
+
+(defun org/init-org-modern ()
+  (use-package org-modern
+      :defer t
+      :init
+      (progn
+        (add-hook 'org-mode-hook 'org-modern-mode)
+        (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
+
+        (spacemacs/set-leader-keys-for-major-mode 'org-mode
+            "Tm" 'org-modern-mode))))
 
 (defun org/init-org-pomodoro ()
   (use-package org-pomodoro
