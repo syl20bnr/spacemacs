@@ -362,40 +362,43 @@
 
     :config
     (when (spacemacs//support-hjkl-navigation-p)
+      (define-key vertico-map (kbd "C-j") #'vertico-next)
+      (define-key vertico-map (kbd "C-k") #'vertico-previous)
+      (define-key vertico-map (kbd "C-l") #'vertico-insert)
+      (define-key vertico-map (kbd "C-S-j") #'vertico-next-group)
+      (define-key vertico-map (kbd "C-S-k") #'vertico-previous-group)
+      (define-key vertico-map (kbd "C-M-j") #'spacemacs/next-candidate-preview)
+      (define-key vertico-map (kbd "C-M-k") #'spacemacs/previous-candidate-preview)
       (define-key vertico-map (kbd "M-RET") #'vertico-exit-input)
       (define-key vertico-map (kbd "C-SPC") #'spacemacs/embark-preview)
-      (define-key vertico-map (kbd "C-j") #'vertico-next)
-      (define-key vertico-map (kbd "C-M-j") #'spacemacs/next-candidate-preview)
-      (define-key vertico-map (kbd "C-S-j") #'vertico-next-group)
-      (define-key vertico-map (kbd "C-k") #'vertico-previous)
-      (define-key vertico-map (kbd "C-M-k") #'spacemacs/previous-candidate-preview)
-      (define-key vertico-map (kbd "C-S-k") #'vertico-previous-group)
-      (define-key vertico-map (kbd "C-r") #'consult-history))))
+      (define-key vertico-map (kbd "C-r") #'consult-history)))
 
-(defun compleseus/init-vertico-quick ()
-  (use-package vertico-quick
-    :after vertico
-    :init
-    (define-key vertico-map "\M-q" #'vertico-quick-insert)
-    (define-key vertico-map "\C-q" #'vertico-quick-exit)))
-
-(defun compleseus/init-vertico-repeat ()
-  (use-package vertico-repeat
-    :after vertico
-    :init
-    (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
-    (spacemacs/set-leader-keys
-      "rl" 'vertico-repeat-last
-      "rL" 'vertico-repeat-select
-      "sl" 'vertico-repeat-last
-      "sL" 'vertico-repeat-select)))
-
-(defun compleseus/init-vertico-directory ()
   (use-package vertico-directory
-    ;; More convenient directory navigation commands
-    :init (bind-key "C-h" 'vertico-directory-delete-char vertico-map (spacemacs//support-hjkl-navigation-p))
-    ;; Tidy shadowed file names
-    :hook (rfn-eshadow-update-overlay . vertico-directory-tidy)))
+      :after vertico
+      :ensure nil
+      ;; More convenient directory navigation commands
+      :init (bind-key "C-h" 'vertico-directory-up vertico-map
+                      (spacemacs//support-hjkl-navigation-p))
+      ;; tidy shadowed file names
+      :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+
+  (use-package vertico-quick
+      :after vertico
+      :ensure nil
+      :init
+      (define-key vertico-map "\M-q" #'vertico-quick-insert)
+      (define-key vertico-map "\C-q" #'vertico-quick-exit))
+
+  (use-package vertico-repeat
+      :after vertico
+      :ensure nil
+      :init
+      (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
+      (spacemacs/set-leader-keys
+        "rl" 'vertico-repeat-last
+        "rL" 'vertico-repeat-select
+        "sl" 'vertico-repeat-last
+        "sL" 'vertico-repeat-select)))
 
 (defun spacemacs/compleseus-wgrep-change-to-wgrep-mode ()
   (interactive)
