@@ -74,11 +74,11 @@ used.")
   "If non-nil, Jira (https://www.atlassian.com/software/jira) related packages
 are configured.")
 
+(defvar org-enable-modern-support nil
+  "If non-nil, org-modern (https://github.com/minad/org-modern) is configured.")
+
 (defvar org-enable-verb-support nil
   "If non-nil, Verb (https://github.com/federicotdn/verb) is configured.")
-
-(defvar org-enable-roam-support (bound-and-true-p org-enable-roam-ui)
-  "If non-nil, org-roam (https://www.orgroam.com/) is configured")
 
 (defvar org-persp-startup-org-file nil
   "If non-nil, opens the specified file instead of the first in org-agenda-files")
@@ -92,6 +92,9 @@ ATTENTION: `valign-mode' will be laggy working with tables contain more than 100
 
 (defvar org-enable-appear-support nil
   "If non-nil, enable org-appear in org-mode buffers.")
+
+(defvar org-enable-roam-support (bound-and-true-p org-enable-roam-ui)
+  "If non-nil, org-roam (https://www.orgroam.com/) is configured")
 
 (defvar org-enable-roam-ui nil
   "If non-nil, enable org-roam-ui support.")

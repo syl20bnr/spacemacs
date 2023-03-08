@@ -34,6 +34,7 @@
   - [[#epub-support][Epub support]]
   - [[#jira-support][Jira support]]
   - [[#valign-support][Valign support]]
+  - [[#org-modern-support][Org-modern support]]
   - [[#org-appear-support][Org-appear support]]
   - [[#transclusion-support][Transclusion support]]
   - [[#verb-support][Verb support]]
@@ -543,6 +544,19 @@ Set the variable =org-enable-valign= to =t=:
 #+END_SRC
 
 [[https://github.com/casouri/valign#valignel][Known problem: Rendering large tables (≥100 lines) is laggy.]]
+
+** Org-modern support
+[[https://github.com/minad/org-modern][org-modern]] beautifies org files with many visual enhancements.
+It toggles visibility of some markers, changes faces of common elements and just "modernizes" the visual appearance.
+To enable it by default, set the =org-enable-modern-support= to =t=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+   '((org :variables org-enable-modern-support t)))
+#+END_SRC
+
+To toggle its features, either call ~M-x org-modern-mode~ or ~ESC , T m~.
+
 
 ** Org-appear support
 To install [[https://github.com/awth13/org-appear][org-appear]], which toggles visibility of emphasis markers, links, subscripts, and superscripts in org mode, set the =org-enable-appear-support= to =t=:
