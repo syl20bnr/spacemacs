@@ -1832,6 +1832,14 @@ Other:
     - Added ~SPC m s l~ for =coffee-send-line=
     - Added ~SPC m s r~ for =coffee-send-region=
     - Added ~SPC m T c~ for =coffee-cos-mode=
+**** Command-log
+- Key bindings:
+  -  ~SPC a t k h~ display keycast in buffer header (thanks to John Stevenson)
+  -  ~SPC a t k m~ display keycast in modeline (thanks to John Stevenson)
+  -  ~SPC a t k t~ display keycast in tab bar (thanks to John Stevenson)
+- Improvements:
+  - ~keycast-mode-line-insert-after~ variable used to include keycast in
+    mode-line-format (thanks to John Stevenson)
 **** Common Lisp
 - Improvements:
   - Added eval-thing-at-point functions to Common Lisp Layer
