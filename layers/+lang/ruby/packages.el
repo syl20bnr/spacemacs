@@ -276,6 +276,7 @@
                 "Rd" 'rubocop-check-directory
                 "RD" 'rubocop-autocorrect-directory
                 "Rf" 'rubocop-check-current-file
+                "RF" 'rubocop-autocorrect-current-file
                 "Rp" 'rubocop-check-project
                 "RP" 'rubocop-autocorrect-project))))
 

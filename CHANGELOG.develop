@@ -132,6 +132,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
     in Vim editing style; disabled by default. (thanks to Benedict HW)
   - Added ~SPC m r R~ to show tide refactorings submenu (thanks to Roberto 
     Previdi)
+  - Added ~SPC m R F~ to autocorrect the current ruby file.
 - Other:
   - Support for multiple cursors using =evil-mc= is now encapsulated in the
     =multiple-cursors= layer (thanks to Codruț Constantin Gușoi)
