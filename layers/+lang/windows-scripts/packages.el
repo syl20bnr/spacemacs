@@ -87,9 +87,6 @@
 (defun windows-scripts/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'bat-mode))
 
-(defun windows-scripts/post-init-helm-gtags ()
-  )
-
 (defun windows-scripts/init-powershell ()
   (use-package powershell
     :mode (("\\.ps1\\'"  . powershell-mode)
