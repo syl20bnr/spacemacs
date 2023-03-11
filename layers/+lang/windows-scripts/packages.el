@@ -27,7 +27,6 @@
     bmx-mode
     (counsel-gtags :if (configuration-layer/package-used-p 'counsel))
     ggtags
-    (helm-gtags :if (configuration-layer/package-used-p 'helm))
     powershell))
 
 (defun windows-scripts/init-bat-mode()
