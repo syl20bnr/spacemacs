@@ -236,7 +236,7 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'latex-mode))
 
 (defun latex/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'latex-mode))
+  )
 
 (defun latex/post-init-ggtags ()
   (add-hook 'latex-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

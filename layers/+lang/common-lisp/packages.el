@@ -70,7 +70,7 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'common-lisp-mode))
 
 (defun common-lisp/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'common-lisp-mode))
+  )
 
 (defun common-lisp/post-init-rainbow-identifiers ()
   (add-hook 'lisp-mode-hook #'colors//rainbow-identifiers-ignore-keywords))

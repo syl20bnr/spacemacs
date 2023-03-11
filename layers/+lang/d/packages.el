@@ -72,4 +72,4 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'd-mode))
 
 (defun d/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'd-mode))
+  )

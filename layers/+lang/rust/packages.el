@@ -94,7 +94,7 @@
   (add-hook 'rust-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun rust/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'rust-mode))
+  )
 
 (defun rust/init-racer ()
   (use-package racer

@@ -71,4 +71,4 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'erlang-mode))
 
 (defun erlang/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'erlang-mode))
+  )

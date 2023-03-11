@@ -63,7 +63,7 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'php-mode))
 
 (defun php/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'php-mode))
+  )
 
 (defun php/post-init-evil-matchit ()
   (add-hook 'php-mode-hook 'turn-on-evil-matchit-mode))

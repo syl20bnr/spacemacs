@@ -215,7 +215,7 @@
 
 (defun c-c++/post-init-helm-gtags ()
   (dolist (mode c-c++-modes)
-    (spacemacs/helm-gtags-define-keys-for-mode mode)))
+    ))
 
 (defun c-c++/init-helm-rtags ()
   (use-package helm-rtags

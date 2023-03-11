@@ -54,7 +54,7 @@
   (add-hook 'kotlin-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun kotlin/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'kotlin-mode))
+  )
 
 (defun kotlin/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'kotlin-mode))

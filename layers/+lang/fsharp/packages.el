@@ -82,4 +82,4 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'fsharp-mode))
 
 (defun fsharp/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'fsharp-mode))
+  )

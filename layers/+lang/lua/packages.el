@@ -78,4 +78,4 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'lua-mode))
 
 (defun lua/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'lua-mode))
+  )

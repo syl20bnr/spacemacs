@@ -149,7 +149,7 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'scheme-mode))
 
 (defun scheme/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'scheme-mode))
+  )
 
 (defun scheme/init-geiser-chez ()
   (use-package geiser-chez

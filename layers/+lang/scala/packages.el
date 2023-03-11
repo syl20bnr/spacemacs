@@ -121,4 +121,4 @@
 
 (defun scala/post-init-helm-gtags ()
   (when scala-enable-gtags
-    (spacemacs/helm-gtags-define-keys-for-mode 'scala-mode)))
+    ))

@@ -69,4 +69,4 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'vimrc-mode))
 
 (defun vimscript/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'vimrc-mode))
+  )

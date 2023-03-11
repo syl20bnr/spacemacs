@@ -66,4 +66,4 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'csharp-mode))
 
 (defun csharp/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'csharp-mode))
+  )

@@ -72,7 +72,7 @@
   (add-hook 'js2-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun javascript/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'js2-mode))
+  )
 
 (defun javascript/post-init-imenu ()
   ;; Required to make imenu functions work correctly

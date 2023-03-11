@@ -131,7 +131,7 @@
 
 (defun ruby/post-init-helm-gtags ()
   (dolist (mode '(ruby-mode enh-ruby-mode))
-    (spacemacs/helm-gtags-define-keys-for-mode mode)))
+    ))
 
 (defun ruby/init-minitest ()
   (use-package minitest

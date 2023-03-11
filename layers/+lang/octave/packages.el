@@ -53,4 +53,4 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'octave-mode))
 
 (defun octave/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'octave-mode))
+  )
