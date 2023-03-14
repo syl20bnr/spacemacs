@@ -68,11 +68,12 @@
              '((spacemacs/compleseus-pers-switch-project . project-file)
                ;; https://github.com/bbatsov/projectile/issues/1664
                ;; https://github.com/minad/marginalia/issues/110
+               (persp-switch-to-buffer . buffer)
                (projectile-find-file . project-file)
                (projectile-find-dir . project-file)
                (projectile-recentf . project-file)
                (projectile-switch-to-buffer . buffer)
-               (projectile-switch-project . file)))
+               (projectile-switch-project . project-file)))
       (push it marginalia-command-categories))
     (setq marginalia-align 'right)
     ;; The :init configuration is always executed (Not lazy!)
@@ -187,12 +188,12 @@
 
     ;; disable automatic preview by default,
     ;; selectively enable it for some prompts below.
-    (setq consult-preview-key "M-.")
+    (setq consult-preview-key '("M-." "C-SPC"))
 
     ;; customize preview activation and delay while selecting candiates
     (consult-customize
      consult-theme
-     :preview-key '("M-."
+     :preview-key '("M-." "C-SPC"
                     :debounce 0.2 any)
 
      ;; slightly delayed preview upon candidate selection
@@ -203,7 +204,7 @@
      consult-grep
      consult-bookmark
      consult-yank-pop
-     :preview-key '("M-."
+     :preview-key '("M-." "C-SPC"
                     :debounce 0.3 "<up>" "<down>" "C-n" "C-p"
                     :debounce 0.6 any))
 
@@ -260,10 +261,15 @@
 
     :init
     (spacemacs/set-leader-keys "?" #'embark-bindings)
-    ;; Optionally replace the key help with a completing-read interface
-    (setq prefix-help-command #'embark-prefix-help-command)
+    ;; this gets you the available-key preview minibuffer popup
+    (setq prefix-help-command #'embark-prefix-help-command
+          ;; don't use C-h for paging, instead `describe-prefix-bindings`.
+          which-key-use-C-h-commands nil)
+
     ;; same key binding as ivy-occur
     (define-key minibuffer-local-map (kbd "C-c C-o") #'embark-export)
+    (define-key minibuffer-local-map (kbd "C-c C-l") #'embark-collect)
+
     :config
     (define-key embark-file-map "s" 'spacemacs/compleseus-search-from)
 
@@ -301,8 +307,7 @@
     (setq orderless-component-separator "[ &]")
 
     ;; should be all in with orderless other wise the results are inconsistent.
-    ;; (setq completion-styles '(basic partial-completion orderless)
-    (setq completion-styles '(orderless)
+    (setq completion-styles '(orderless basic)
           completion-category-defaults nil
           completion-category-overrides '((file (styles basic partial-completion))))))
 
@@ -339,6 +344,7 @@
     (setq minibuffer-prompt-properties
           '(read-only t cursor-intangible t face minibuffer-prompt))
     (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+    (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
 
     ;; Cleans up path when moving directories with shadowed paths syntax, e.g.
     ;; cleans ~/foo/bar/// to /, and ~/foo/bar/~/ to ~/.
@@ -349,7 +355,12 @@
 
     ;; when vertico is used set this so tab when doing M-: will show suggestions
     ;; https://github.com/minad/vertico/issues/24
-    (setq completion-in-region-function #'consult-completion-in-region)
+    (setq-default completion-in-region-function
+                  (lambda (&rest args)
+                    (apply (if vertico-mode
+                               #'consult-completion-in-region
+                             #'completion--in-region)
+                           args)))
 
     (setq vertico-resize nil
           vertico-count 20

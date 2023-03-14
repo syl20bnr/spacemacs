@@ -371,17 +371,17 @@ Features:
 ** Compleseus
 [[file:+completion/compleseus/README.org][+completion/compleseus/README.org]]
 
-This layer adds a new way of completion provided by the following core packages:
+Completion through combined features of:
 - =consult=
 - =embark=
 - =marginalia=
 - =orderless=
 - =selectrum= or =vertico=
 
-This is an WIP and only supports emacs 27 or later. Please contribute.
+Supports emacs 27 or later.
 
 Features:
-- Same features as =ivy= or =helm=
+- Similar features as =ivy= or =helm=
 
 ** Helm
 [[file:+completion/helm/README.org][+completion/helm/README.org]]

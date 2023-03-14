@@ -4,7 +4,7 @@
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
-  - [[#features][Features]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#configuration][Configuration]]
     - [[#completion-engine][Completion engine]]
@@ -12,15 +12,15 @@
 
 * Description
 This layer implements completion provided by combining the following packages:
-- =consult=
-- =embark=
-- =marginalia=
-- =orderless=
-- =selectrum= or =vertico=
+- =selectrum= or =vertico=: vertical completion user interface
+- =consult=: useful commands using ~completing-read~
+- =embark=: provides minibuffer actions
+- =marginalia=: annotations to completion candidates
+- =orderless=: filtering enhancements
 
 It only supports emacs 27 or later.
 
-** Features
+** Features:
 - Similar features like =ivy= or =helm=
 
 * Install
