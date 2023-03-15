@@ -306,9 +306,12 @@
 
     (setq orderless-component-separator "[ &]")
 
-    ;; should be all in with orderless other wise the results are inconsistent.
+    ;; should be all in with orderless otherwise the results are inconsistent.
+    ;; the available styles are registered in `completion-styles-alist`.
     (setq completion-styles '(orderless basic)
           completion-category-defaults nil
+          ;; we need to have 'basic here first in order to support tramp connections...
+          ;; see `completion-styles`.
           completion-category-overrides '((file (styles basic partial-completion))))))
 
 (defun compleseus/init-selectrum ()
@@ -364,7 +367,15 @@
 
     (setq vertico-resize nil
           vertico-count 20
-          vertico-cycle nil)
+          vertico-cycle nil
+
+          ;; ignore case for all basic completions
+          ;; if we have orderless completion, we use it's `orderless-smart-case` feature anyway.
+          ;; this is the setting when we chose "basic" from `completion-styles`,
+          ;; which we do for filename completion.
+          read-file-name-completion-ignore-case t
+          read-buffer-completion-ignore-case t
+          completion-ignore-case t)
 
     ;; Disable ido. We want to use the regular find-file etc.; enhanced by vertico
     (setq ido-mode nil)
