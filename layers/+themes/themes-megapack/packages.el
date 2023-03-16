@@ -70,7 +70,7 @@
     light-soap-theme
     lush-theme
     madhat2r-theme
-    majapahit-theme
+    majapahit-themes
     material-theme
     minimal-theme
     modus-themes
