@@ -53,41 +53,41 @@
   (add-hook 'typescript-tsx-mode-hook #'spacemacs/typescript-emmet-mode))
 
 (defun typescript/set-tide-linter ()
-  (with-eval-after-load 'tide
-    (with-eval-after-load 'flycheck
-      (pcase typescript-linter
-        ('tslint (flycheck-add-mode 'typescript-tide 'typescript-tsx-mode)
-                 (flycheck-add-mode 'typescript-tslint 'typescript-tsx-mode))
-        ('eslint (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
-                 (flycheck-add-mode 'javascript-eslint 'typescript-mode)
-                 (add-to-list 'flycheck-disabled-checkers 'typescript-tslint)
-                 (flycheck-disable-checker 'typescript-tslint)
-                 (flycheck-add-mode 'tsx-tide 'typescript-tsx-mode)
-                 (flycheck-add-next-checker 'typescript-tide 'javascript-eslint 'append)
-                 (flycheck-add-next-checker 'tsx-tide 'javascript-eslint 'append))
-        (_ (message
-            "Invalid typescript-layer configuration, no such linter: %s" typescript-linter))))))
+  (pcase typescript-linter
+    ('tslint (flycheck-add-mode 'typescript-tide 'typescript-tsx-mode)
+             (flycheck-add-mode 'typescript-tslint 'typescript-tsx-mode))
+    ('eslint (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
+             (flycheck-add-mode 'javascript-eslint 'typescript-mode)
+             (add-to-list 'flycheck-disabled-checkers 'typescript-tslint)
+             (flycheck-add-mode 'tsx-tide 'typescript-tsx-mode)
+             (flycheck-add-next-checker 'typescript-tide 'javascript-eslint 'append)
+             (flycheck-add-next-checker 'tsx-tide 'javascript-eslint 'append))
+    (_ (message
+        "Invalid typescript-layer configuration, no such linter: %s" typescript-linter))))
 
 (defun typescript/set-lsp-linter ()
-  (with-eval-after-load 'lsp-ui
-    (with-eval-after-load 'flycheck
-      (pcase typescript-linter
-        ('tslint (flycheck-add-mode 'typescript-tslint 'typescript-tsx-mode))
-        ;; This sets tslint unconditionally for all lsp clients which is wrong
-        ;; Must be set for respective modes only, see go layer for examples.
-        ('eslint (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
-                 (flycheck-add-mode 'javascript-eslint 'typescript-mode))
-        (_ (message
-            "Invalid typescript-layer configuration, no such linter: %s" typescript-linter))))))
+  (pcase typescript-linter
+    ('tslint (flycheck-add-mode 'typescript-tslint 'typescript-tsx-mode))
+    ;; This sets tslint unconditionally for all lsp clients which is wrong
+    ;; Must be set for respective modes only, see go layer for examples.
+    ('eslint (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
+             (flycheck-add-mode 'javascript-eslint 'typescript-mode))
+    (_ (message
+        "Invalid typescript-layer configuration, no such linter: %s" typescript-linter))))
+
+(defun typescript/set-linter ()
+  (pcase typescript-backend
+    ('tide (typescript/set-tide-linter))
+    ('lsp (typescript/set-lsp-linter))))
 
 (defun typescript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'typescript-mode)
   (spacemacs/enable-flycheck 'typescript-tsx-mode)
-  (pcase typescript-backend
-    ('tide (typescript/set-tide-linter))
-    ('lsp (typescript/set-lsp-linter)))
   (spacemacs/add-to-hooks #'spacemacs//typescript-setup-checkers
                           '(typescript-mode-hook typescript-tsx-mode-hook)
+                          t)
+  (spacemacs/add-to-hooks #'typescript/set-linter
+                          '(typescript-mode-local-vars-hook typescript-tsx-mode-local-vars-hook)
                           t))
 
 (defun typescript/post-init-smartparens ()
