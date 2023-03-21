@@ -28,7 +28,6 @@
 (defun tide/init-tide ()
   (use-package tide
     :defer t
-    :commands (typescript/jump-to-type-def)
     :config
     (spacemacs//tide-setup-bindings)
     (add-hook 'tide-mode-hook #'spacemacs//tide-setup-jump-handle)))

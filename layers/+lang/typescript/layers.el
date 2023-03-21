@@ -21,8 +21,9 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(configuration-layer/declare-layer-dependencies '(node javascript prettier tide))
+(configuration-layer/declare-layer-dependencies '(node javascript prettier))
 
-(when (and (boundp 'typescript-backend)
-           (eq typescript-backend 'lsp))
-  (configuration-layer/declare-layer-dependencies '(lsp)))
+(when (boundp 'typescript-backend)
+  (pcase typescript-backend
+    ('lsp (configuration-layer/declare-layer-dependencies '(lsp)))
+    ('tide (configuration-layer/declare-layer-dependencies '(tide)))))
