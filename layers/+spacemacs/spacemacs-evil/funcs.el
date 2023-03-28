@@ -90,4 +90,5 @@ Otherwise, revert to the default behavior (i.e. enable `evil-insert-state')."
 
 (defun spacemacs//load-evil-lisp-state ()
   "Load evil-lisp-state lazily"
-  (require 'evil-lisp-state))
+  (require 'evil-lisp-state)
+  (remove-hook 'prog-mode-hook #'spacemacs//load-evil-lisp-state))
