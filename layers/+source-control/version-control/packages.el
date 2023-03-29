@@ -274,7 +274,7 @@
  [_N_/_p_] prev conflict  [_b_] keep base     [_=_] upper/lower [_U_] undo
  [_j_]^^   next line      [_l_] keep lower    [_>_] base/lower  [_q_] quit
  [_k_]^^   prev line      [_a_] keep all      [_r_] refine
- ^^^^                     [_c_] keep current  [_e_] ediff       [_?_]^^ toggle help
+ ^^^^                     [_c_] keep current  [_e_] ediff       [_?_] toggle help
  ^^^^                     [_K_] kill current")
       (spacemacs|define-transient-state smerge
         :title "Smerge Transient State"
