@@ -61,7 +61,7 @@
   (setq-local flycheck-checkers nil)
   (setq-local indent-tabs-mode nil)
   (setq-local require-final-newline t)
-  (add-hook 'before-save-hook #'whitespace-cleanup)
+  (add-hook 'before-save-hook #'whitespace-cleanup nil t)
   (message "%s" (substitute-command-keys "\
 Use \\[package-build-current-recipe] to build this recipe, \
 \\[package-build-create-recipe] to create a new recipe")))
