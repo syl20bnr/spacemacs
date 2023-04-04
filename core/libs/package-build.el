@@ -302,9 +302,11 @@ Otherwise do nothing.  FORMAT-STRING and ARGS are as per that function."
       (list rev-hash rev-time))))
 
 (cl-defmethod package-build--get-timestamp-version ((rcp package-hg-recipe))
-  ;; TODO Respect commit and branch properties.
-  ;; TODO Use latest release if appropriate.
-  (package-build--select-commit rcp "." nil))
+  (let* ((commit (oref rcp commit))
+         (branch (or (oref rcp branch) "default"))
+         (rev (format "sort(ancestors(%s), -rev)"
+                      (or commit (format "max(branch(%s))" branch)))))
+    (package-build--select-commit rcp rev nil)))
 
 ;;; Run Process
 
@@ -1026,7 +1028,7 @@ the \"archive-contents\" file inside `package-build-archive-dir'.
 If PRETTY-PRINT is non-nil, then pretty-print instead of using one
 line per entry."
   (let (entries)
-    (dolist (file (sort (directory-files package-build-archive-dir t ".*\.entry$")
+    (dolist (file (sort (directory-files package-build-archive-dir t ".*\\.entry$")
                         ;; Sort more recently-build packages first
                         (lambda (f1 f2)
                           (let ((default-directory package-build-archive-dir))
@@ -1076,7 +1078,8 @@ line per entry."
       (delete-file file))))
 
 (defun package-build--artifact-file (archive-entry)
-  "Return the path of the file in which the package for ARCHIVE-ENTRY is stored."
+  "Return the artifact file for the package specified by ARCHIVE-ENTRY.
+This is either a tarball or an Elisp file."
   (pcase-let* ((`(,name . ,desc) archive-entry)
                (version (package-version-join (aref desc 0)))
                (flavour (aref desc 3)))
@@ -1085,7 +1088,9 @@ line per entry."
      package-build-archive-dir)))
 
 (defun package-build--archive-entry-file (archive-entry)
-  "Return the path of the file in which the package for ARCHIVE-ENTRY is stored."
+  "Return the file in which ARCHIVE-ENTRY should be stored.
+ARCHIVE-ENTRY contains information about a specific version of
+a package."
   (pcase-let* ((`(,name . ,desc) archive-entry)
                (version (package-version-join (aref desc 0))))
     (expand-file-name
