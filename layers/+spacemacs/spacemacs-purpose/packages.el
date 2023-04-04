@@ -130,7 +130,8 @@
       (spacemacs/set-leader-keys
         "rb" 'purpose-switch-buffer-with-purpose
         "rB" 'switch-buffer-without-purpose
-        "rd" 'purpose-toggle-window-purpose-dedicated
+        "rdb" 'purpose-toggle-window-buffer-dedicated
+        "rdw" 'purpose-toggle-window-purpose-dedicated
         "rD" 'purpose-delete-non-dedicated-windows
         "rp" 'purpose-switch-buffer-with-some-purpose
         "rP" 'purpose-set-window-purpose))

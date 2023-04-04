@@ -133,7 +133,8 @@ This can easily be achieved by adding below code in
 |-------------+-------------------------------------------------------------------------------------|
 | ~SPC r b~   | Open a buffer. Only buffers with the same purpose as the current buffer are listed. |
 | ~SPC r B~   | Open any buffer and ignore window-purpose when displaying the buffer.               |
-| ~SPC r d~   | Toggle dedication of selected window to its current purpose.                        |
+| ~SPC r d b~ | Toggle dedication of selected window to its current buffer purpose.                 |
+| ~SPC r d w~ | Toggle dedication of selected window to its current purpose.                        |
 | ~SPC r D~   | Delete all non-dedicated windows.                                                   |
 | ~SPC r p~   | Choose a purpose and open a buffer with that purpose.                               |
 | ~SPC r P~   | Change the purpose of the selected window. Changes the window's buffer accordingly. |
