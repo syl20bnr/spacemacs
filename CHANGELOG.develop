@@ -501,6 +501,7 @@ In org-agenda-mode
 - hackernews
 - streamlink
 - twitch
+- openai (thanks to Hendrik Rommeswinkel)
 *** Renamed layers
 - =extra-langs= renamed to =major-modes= (thanks to Eivind Fonn)
 - =pdf-tools= renamed to =pdf=
