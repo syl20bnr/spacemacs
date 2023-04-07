@@ -332,7 +332,7 @@
     (progn
       (spacemacs/set-leader-keys "hj" 'info-display-manual)
       (setq Info-fontify-angle-bracketed-flag nil)
-      (add-hook 'Info-mode-hook (lambda () (require 'info+))))))
+      (with-eval-after-load "info" (require 'info+)))))
 
 (defun spacemacs-navigation/init-open-junk-file ()
   (use-package open-junk-file
