@@ -292,8 +292,6 @@
         ("a" smerge-keep-all)
         ("b" smerge-keep-base)
         ("l" smerge-keep-lower)
-        ("m" smerge-keep-mine)
-        ("o" smerge-keep-other)
         ("u" smerge-keep-upper)
         ("c" smerge-keep-current)
         ;; diff
