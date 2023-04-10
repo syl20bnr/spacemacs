@@ -37,7 +37,6 @@
     flycheck
     flyspell
     ggtags
-    helm-gtags
     (lsp-latex :requires lsp-mode)
     (magic-latex-buffer :toggle latex-enable-magic)
     smartparens
@@ -234,9 +233,6 @@
 
 (defun latex/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'latex-mode))
-
-(defun latex/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'latex-mode))
 
 (defun latex/post-init-ggtags ()
   (add-hook 'latex-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

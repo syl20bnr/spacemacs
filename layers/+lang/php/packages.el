@@ -30,7 +30,6 @@
     flycheck
     ggtags
     counsel-gtags
-    helm-gtags
     (php-auto-yasnippets :location (recipe :fetcher github :repo "emacs-php/php-auto-yasnippets"))
     (php-extras :location (recipe :fetcher github :repo "arnested/php-extras") :toggle (not (eq php-backend 'lsp)))
     php-mode
@@ -61,9 +60,6 @@
 
 (defun php/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'php-mode))
-
-(defun php/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'php-mode))
 
 (defun php/post-init-evil-matchit ()
   (add-hook 'php-mode-hook 'turn-on-evil-matchit-mode))

@@ -33,7 +33,6 @@
     evil-matchit
     flycheck
     ggtags
-    helm-gtags
     minitest
     org
     popwin
@@ -128,10 +127,6 @@
   (spacemacs/add-to-hooks 'spacemacs/ggtags-mode-enable
                           '(ruby-mode-local-vars-hook
                             enh-ruby-mode-local-vars-hook)))
-
-(defun ruby/post-init-helm-gtags ()
-  (dolist (mode '(ruby-mode enh-ruby-mode))
-    (spacemacs/helm-gtags-define-keys-for-mode mode)))
 
 (defun ruby/init-minitest ()
   (use-package minitest

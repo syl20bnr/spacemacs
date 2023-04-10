@@ -28,8 +28,7 @@
     (eglot-fsharp :toggle (eq fsharp-backend 'eglot))
     flycheck
     fsharp-mode
-    ggtags
-    helm-gtags))
+    ggtags))
 
 (defun fsharp/post-init-company ()
   (spacemacs//fsharp-setup-company))
@@ -80,6 +79,3 @@
 
 (defun fsharp/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'fsharp-mode))
-
-(defun fsharp/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'fsharp-mode))

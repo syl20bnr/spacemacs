@@ -32,7 +32,6 @@
     flycheck
     flycheck-credo
     ggtags
-    helm-gtags
     ob-elixir
     popwin
     smartparens))
@@ -187,9 +186,6 @@
 
 (defun elixir/post-init-ggtags ()
   (add-hook 'elixir-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
-
-(defun elixir/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'elixir-mode))
 
 (defun elixir/pre-init-ob-elixir ()
   (spacemacs|use-package-add-hook org

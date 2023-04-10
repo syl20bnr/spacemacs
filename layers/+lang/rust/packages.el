@@ -30,7 +30,6 @@
     flycheck
     (flycheck-rust :requires flycheck)
     ggtags
-    helm-gtags
     ron-mode
     (racer :toggle (eq rust-backend 'racer))
     rust-mode
@@ -92,9 +91,6 @@
 
 (defun rust/post-init-ggtags ()
   (add-hook 'rust-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
-
-(defun rust/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'rust-mode))
 
 (defun rust/init-racer ()
   (use-package racer

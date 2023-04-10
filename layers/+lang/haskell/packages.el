@@ -40,7 +40,6 @@
         haskell-mode
         haskell-snippets
         counsel-gtags
-        helm-gtags
         (helm-hoogle :requires helm)
         hindent
         hlint-refactor))
@@ -316,10 +315,6 @@
 
 (defun haskell/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'haskell-mode))
-
-(defun haskell/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'haskell-mode))
-
 
 ;; doesn't support haskell-literate-mode :(
 (defun haskell/init-hindent ()

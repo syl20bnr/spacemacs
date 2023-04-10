@@ -34,7 +34,6 @@
     flycheck
     ggtags
     helm-cscope
-    helm-gtags
     (helm-pydoc :requires helm)
     importmagic
     live-py-mode
@@ -169,9 +168,6 @@
 
 (defun python/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'python-mode))
-
-(defun python/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'python-mode))
 
 (defun python/post-init-ggtags ()
   (add-hook 'python-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

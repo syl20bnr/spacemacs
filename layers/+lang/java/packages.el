@@ -28,7 +28,6 @@
     flycheck
     ggtags
     counsel-gtags
-    helm-gtags
     (java-mode :location built-in)
     maven-test-mode
     (meghanada :toggle (eq java-backend 'meghanada))
@@ -57,9 +56,6 @@
 
 (defun java/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'java-mode))
-
-(defun java/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'java-mode))
 
 (defun java/pre-init-org ()
   (spacemacs|use-package-add-hook org

@@ -32,7 +32,6 @@
     (flycheck-golangci-lint :toggle (and go-use-golangci-lint
                                          (configuration-layer/package-used-p 'flycheck)))
     ggtags
-    helm-gtags
     go-eldoc
     go-fill-struct
     go-gen-test
@@ -76,9 +75,6 @@
 
 (defun go/post-init-ggtags ()
   (add-hook 'go-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
-
-(defun go/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'go-mode))
 
 (defun go/init-go-eldoc ()
   (use-package go-eldoc

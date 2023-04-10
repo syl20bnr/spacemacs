@@ -53,11 +53,6 @@ Otherwise does nothing."
   (interactive)
   (call-interactively 'helm-gtags-dwim))
 
-(defun spacemacs/helm-gtags-define-keys-for-mode (mode)
-  "Obsolete, does nothing."
-  (message "spacemacs/helm-gtags-define-keys-for-mode does nothing! %s doesn't have to call it anymore."
-           mode))
-
 (defun spacemacs/helm-ggtags-set-jump-handler ()
   (add-to-list 'spacemacs-jump-handlers 'spacemacs/helm-gtags-maybe-dwim))
 

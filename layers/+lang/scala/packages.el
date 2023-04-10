@@ -30,7 +30,6 @@
     flyspell
     counsel-gtags
     ggtags
-    helm-gtags
     sbt-mode
     scala-mode))
 
@@ -118,7 +117,3 @@
 (defun scala/post-init-counsel-gtags ()
   (when scala-enable-gtags
     (spacemacs/counsel-gtags-define-keys-for-mode 'scala-mode)))
-
-(defun scala/post-init-helm-gtags ()
-  (when scala-enable-gtags
-    (spacemacs/helm-gtags-define-keys-for-mode 'scala-mode)))

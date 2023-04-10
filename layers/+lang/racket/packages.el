@@ -28,7 +28,6 @@
         ggtags
         counsel-gtags
         evil-cleverparens
-        helm-gtags
         racket-mode
         ))
 
@@ -57,9 +56,6 @@
   (spacemacs|use-package-add-hook evil-cleverparens
     :pre-init
     (add-to-list 'evil-lisp-safe-structural-editing-modes 'racket-mode)))
-
-(defun racket/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'racket-mode))
 
 (defun racket/init-racket-mode ()
   (use-package racket-mode

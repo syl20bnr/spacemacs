@@ -29,7 +29,6 @@
         electric-indent-mode
         ggtags
         counsel-gtags
-        helm-gtags
         nasm-mode
         x86-lookup
         ))
@@ -82,6 +81,3 @@
 
 (defun asm/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'asm-mode))
-
-(defun asm/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'asm-mode))

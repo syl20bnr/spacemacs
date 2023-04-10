@@ -29,7 +29,6 @@
     (flycheck-ocaml :toggle (configuration-layer/layer-used-p 'syntax-checking))
     ggtags
     counsel-gtags
-    helm-gtags
     imenu
     merlin
     merlin-company
@@ -96,9 +95,6 @@
 
 (defun ocaml/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'ocaml-mode))
-
-(defun ocaml/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'ocaml-mode))
 
 (defun ocaml/init-merlin ()
   (use-package merlin

@@ -28,7 +28,6 @@
     flycheck
     ggtags
     counsel-gtags
-    helm-gtags
     lua-mode))
 
 (defun lua/post-init-flycheck ()
@@ -76,6 +75,3 @@
 
 (defun lua/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'lua-mode))
-
-(defun lua/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'lua-mode))

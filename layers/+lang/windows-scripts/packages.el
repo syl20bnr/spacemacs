@@ -27,7 +27,6 @@
     bmx-mode
     (counsel-gtags :if (configuration-layer/package-used-p 'counsel))
     ggtags
-    (helm-gtags :if (configuration-layer/package-used-p 'helm))
     powershell))
 
 (defun windows-scripts/init-bat-mode()
@@ -86,9 +85,6 @@
 
 (defun windows-scripts/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'bat-mode))
-
-(defun windows-scripts/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'bat-mode))
 
 (defun windows-scripts/init-powershell ()
   (use-package powershell
