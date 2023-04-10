@@ -2,7 +2,7 @@
 
 #+TAGS: layer|versioning
 
-* Table of Contents                     :TOC_5_gh:noexport:
+* Table of Contents                                       :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -222,10 +222,10 @@ Merge Actions:
 
 | Key binding | Description  |
 |-------------+--------------|
+| ~SPC g r u~ | Keep upper   |
 | ~SPC g r b~ | Keep base    |
-| ~SPC g r m~ | Keep mine    |
+| ~SPC g r l~ | Keep lower   |
 | ~SPC g r a~ | Keep all     |
-| ~SPC g r o~ | Keep other   |
 | ~SPC g r c~ | Keep current |
 | ~SPC g r K~ | Kill current |
 
@@ -244,7 +244,7 @@ Other:
 | Key binding | Description                    |
 |-------------+--------------------------------|
 | ~SPC g r C~ | Combine current and next hunks |
-| ~SPC g r u~ | Undo                           |
+| ~SPC g r U~ | Undo                           |
 | ~SPC g r q~ | Quit transient state           |
 
 ** Toggles
