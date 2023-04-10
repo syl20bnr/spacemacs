@@ -7,25 +7,25 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#configuration][Configuration]]
+    - [[#completion-engine][Completion engine]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds a new way of completion provided by the following core packages:
-- =consult=
-- =embark=
-- =marginalia=
-- =orderless=
-- =selectrum= or =vertico=
+This layer implements completion provided by combining the following packages:
+- =selectrum= or =vertico=: vertical completion user interface
+- =consult=: useful commands using ~completing-read~
+- =embark=: provides minibuffer actions
+- =marginalia=: annotations to completion candidates
+- =orderless=: filtering enhancements
 
-This is an WIP and only supports emacs 27 or later. Please contribute.
+It only supports emacs 27 or later.
 
 ** Features:
-- Same features as =ivy= or =helm=
+- Similar features like =ivy= or =helm=
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =compleseus= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+To use this configuration layer, add it to your =~/.spacemacs=: You will need to
+add =compleseus= to the =dotspacemacs-configuration-layers= list in this file.
 
 Make sure that the other completion layers: =helm= and =ivy= are removed or
 commented out in the =dotspacemacs-configuration-layers= list. Or add
@@ -33,6 +33,8 @@ commented out in the =dotspacemacs-configuration-layers= list. Or add
 layer that's listed last.
 
 ** Configuration
+
+*** Completion engine
 You can configure the completion engine by setting =compleseus-engine= to either
 =vertico= (default) or =selectrum= by editing the =compleseus-engine= variable
 like below to use =selectrum= as opposed to the default of =vertico=:
@@ -44,7 +46,8 @@ like below to use =selectrum= as opposed to the default of =vertico=:
 
 * Key bindings
 
-| Key binding | Description   |
-|-------------+---------------|
-| ~M-o~       | embark-action |
-| ~C-r~       | history       |
+| Key binding | Description               |
+|-------------+---------------------------|
+| ~M-o~         | embark-action             |
+| ~C-r~         | history                   |
+| ~M-.~         | preview selected item now |
