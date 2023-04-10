@@ -51,10 +51,10 @@
   (use-package keycast
     :init
     (progn
-      (spacemacs/declare-prefix "atk" "keycast")
-      (spacemacs/set-leader-keys "atkm" #'keycast-mode-line-mode)
-      (spacemacs/set-leader-keys "atkh" #'keycast-header-line-mode)
-      (spacemacs/set-leader-keys "atkt" #'keycast-tab-bar-mode)
+      (spacemacs/declare-prefix "atK" "keycast")
+      (spacemacs/set-leader-keys "atKm" #'keycast-mode-line-mode)
+      (spacemacs/set-leader-keys "atKh" #'keycast-header-line-mode)
+      (spacemacs/set-leader-keys "atKt" #'keycast-tab-bar-mode)
 
       ;; Include keycast in modeline
       (setq keycast-mode-line-insert-after "%e"))))

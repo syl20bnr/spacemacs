@@ -42,6 +42,6 @@ with the rest of the project.
 | Key binding   | Description                |
 |---------------+----------------------------|
 | ~SPC a t l l~ | Toggle the command log     |
-| ~SPC a t k h~ | Toggle keycast in header   |
-| ~SPC a t k m~ | Toggle keycast in modeline |
-| ~SPC a t k t~ | Toggle keycast in tab bar  |
+| ~SPC a t K h~ | Toggle keycast in header   |
+| ~SPC a t K m~ | Toggle keycast in modeline |
+| ~SPC a t K t~ | Toggle keycast in tab bar  |
