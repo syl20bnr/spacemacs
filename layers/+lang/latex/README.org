@@ -89,6 +89,12 @@ To explicitly choose LSP backend for =LaTeX= layer, add the following:
                 '((latex :variables latex-backend 'lsp)))
 #+END_SRC
 
+When LSP is chosen as the backend, auto-completions are provided by LSP.
+If you are not happy with the suggestions for completing citation keys and
+reference labels (in =\cite{...}=, =\ref{...}=, and related macros), you can
+press ~C-b~ in the auto-completion dropdown (see [[file:../../+completion/auto-completion/README.org][the auto-completion layer]])
+to switch to suggestions provided by RefTeX.
+
 *** Company-auctex
 This would be the backend if =LSP= layer is not enabled, and =latex-backend= is
 not set.

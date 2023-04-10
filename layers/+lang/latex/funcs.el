@@ -23,31 +23,31 @@
 
 (defun spacemacs//latex-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase latex-backend
-    ('lsp
-     (spacemacs|add-company-backends ;; Activate lsp company explicitly to activate
-       :backends company-capf        ;; standard backends as well
-       :modes LaTeX-mode))
-    ('company-auctex
-     (when (configuration-layer/package-used-p 'company-auctex)
-       (if (configuration-layer/package-used-p 'company-math)
-           (spacemacs|add-company-backends
-             :backends (company-math-symbols-unicode
-                        company-math-symbols-latex
-                        company-auctex-macros
-                        company-auctex-symbols
-                        company-auctex-environments)
-             :modes LaTeX-mode)
-         (spacemacs|add-company-backends
-           :backends (company-auctex-macros
-                      company-auctex-symbols
-                      company-auctex-environments)
-           :modes LaTeX-mode)))
-     (when (configuration-layer/package-used-p 'company-reftex)
-       (spacemacs|add-company-backends
-         :backends company-reftex-labels
-         company-reftex-citations
-         :modes LaTeX-mode)))))
+  ;; Always activate auctex and reftex backends so that they're
+  ;; accessible via company-other-backend even when using lsp.
+  (when (configuration-layer/package-used-p 'company-auctex)
+    (if (configuration-layer/package-used-p 'company-math)
+        (spacemacs|add-company-backends
+          :backends (company-math-symbols-unicode
+                     company-math-symbols-latex
+                     company-auctex-macros
+                     company-auctex-symbols
+                     company-auctex-environments)
+          :modes LaTeX-mode)
+      (spacemacs|add-company-backends
+        :backends (company-auctex-macros
+                   company-auctex-symbols
+                   company-auctex-environments)
+        :modes LaTeX-mode)))
+  (when (configuration-layer/package-used-p 'company-reftex)
+    (spacemacs|add-company-backends
+      :backends company-reftex-labels
+      company-reftex-citations
+      :modes LaTeX-mode))
+  (when (eq latex-backend 'lsp)
+    (spacemacs|add-company-backends
+      :backends company-capf
+      :modes LaTeX-mode)))
 
 (defun spacemacs//latex-setup-backend ()
   "Conditionally setup latex backend."

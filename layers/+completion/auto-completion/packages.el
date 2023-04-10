@@ -127,7 +127,8 @@
       (let ((map company-active-map))
         (define-key map (kbd "C-/")   'company-search-candidates)
         (define-key map (kbd "C-M-/") 'company-filter-candidates)
-        (define-key map (kbd "C-d")   'company-show-doc-buffer))
+        (define-key map (kbd "C-d")   'company-show-doc-buffer)
+        (define-key map (kbd "C-b")   'company-other-backend))
       (add-hook 'spacemacs-editing-style-hook 'spacemacs//company-active-navigation)
       ;; ensure that the correct bindings are set at startup
       (spacemacs//company-active-navigation dotspacemacs-editing-style))))

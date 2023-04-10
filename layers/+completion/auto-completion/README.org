@@ -225,6 +225,7 @@ For nicer-looking faces, try adding the following to `custom-set-faces` in your 
 | ~C-/~       | show candidates in Helm or Ivy (for fuzzy searching)                                                 |
 | ~C-M-/~     | filter the company dropdown menu                                                                     |
 | ~M-h~       | show current candidate's documentation in a tooltip (requires =auto-completion-enable-help-tooltip=) |
+| ~C-b~       | switch to next completion backend (=company-other-backend=)                                          |
 
 Vim Style:
 
