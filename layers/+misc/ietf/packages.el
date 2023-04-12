@@ -43,17 +43,12 @@
       (setq irfc-directory ietf-docs-cache)
       (setq irfc-assoc-mode t)
       (add-to-list 'auto-mode-alist
-                   '("/draft-\\([a-z0-9_]+-\\)+[0-9]+.txt" . irfc-mode))
-      (add-to-list 'auto-mode-alist
                    '("/draft-\\([a-z0-9_]+-\\)+[a-z0-9_]+.txt" . irfc-mode))
       (add-to-list 'auto-mode-alist
                    '("/rfc\\([a-z0-9_-]+\\).txt" . irfc-mode)))))
 
-
-
-(defun ietf/pre-init-ox-rfc ()
-  (spacemacs|use-package-add-hook org :post-config (require 'ox-rfc)))
-(defun ietf/init-ox-rfc ())
+(defun ietf/init-ox-rfc ()
+  (use-package ox-rfc :after ox))
 
 
 ;;; packages.el ends here
