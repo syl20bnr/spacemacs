@@ -117,7 +117,7 @@
 
 
 (defun spacemacs-layouts/post-init-helm ()
-  (with-eval-after-load 'helm (spacemacs//persp-helm-setup))
+  (with-eval-after-load 'helm-buffer (spacemacs//persp-helm-setup))
   (spacemacs/set-leader-keys
     "bB" 'spacemacs-layouts/non-restricted-buffer-list-helm
     "pl" 'spacemacs/helm-persp-switch-project))
