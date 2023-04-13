@@ -55,6 +55,7 @@ delay =tabs-auto-hide-delay= via the :variables keyword in your =.spacemacs=:
 ** Tab icons
 By default, tab icons are enabled, if the =spacemacs-visual= layer is enabled and the =all-the-icons= package is used.
 You can disable icons just for the tabs display by setting =tabs-icons= to =nil=:
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '(tabs :variables tabs-icons nil))

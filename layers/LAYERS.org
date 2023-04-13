@@ -371,17 +371,17 @@ Features:
 ** Compleseus
 [[file:+completion/compleseus/README.org][+completion/compleseus/README.org]]
 
-Completion through combined features of:
-- =consult=
-- =embark=
-- =marginalia=
-- =orderless=
-- =selectrum= or =vertico=
+This layer implements completion provided by combining the following packages:
+- =selectrum= or =vertico=: vertical completion user interface
+- =consult=: useful commands using ~completing-read~
+- =embark=: provides minibuffer actions
+- =marginalia=: annotations to completion candidates
+- =orderless=: filtering enhancements
 
-Supports emacs 27 or later.
+It only supports emacs 27 or later.
 
 Features:
-- Similar features as =ivy= or =helm=
+- Similar features like =ivy= or =helm=
 
 ** Helm
 [[file:+completion/helm/README.org][+completion/helm/README.org]]
