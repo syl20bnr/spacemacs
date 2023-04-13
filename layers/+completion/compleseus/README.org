@@ -33,7 +33,6 @@ commented out in the =dotspacemacs-configuration-layers= list. Or add
 layer that's listed last.
 
 ** Configuration
-
 *** Completion engine
 You can configure the completion engine by setting =compleseus-engine= to either
 =vertico= (default) or =selectrum= by editing the =compleseus-engine= variable
@@ -48,6 +47,6 @@ like below to use =selectrum= as opposed to the default of =vertico=:
 
 | Key binding | Description               |
 |-------------+---------------------------|
-| ~M-o~         | embark-action             |
-| ~C-r~         | history                   |
-| ~M-.~         | preview selected item now |
+| ~M-o~       | embark-action             |
+| ~C-r~       | history                   |
+| ~M-.~       | preview selected item now |

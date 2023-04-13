@@ -557,7 +557,6 @@ To enable it by default, set the =org-enable-modern-support= to =t=:
 
 To toggle its features, either call ~M-x org-modern-mode~ or ~ESC , T m~.
 
-
 ** Org-appear support
 To install [[https://github.com/awth13/org-appear][org-appear]], which toggles visibility of emphasis markers, links, subscripts, and superscripts in org mode, set the =org-enable-appear-support= to =t=:
 
