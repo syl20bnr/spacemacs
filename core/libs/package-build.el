@@ -362,7 +362,7 @@ with a timeout so that no command can block the build process."
       (unless package-build--inhibit-fetch
         (let ((default-directory dir))
           (package-build--message "Updating %s" dir)
-          (package-build--run-process "git" "fetch" "-f" "--all" "--tags")
+          (package-build--run-process "git" "fetch" "-f" "--tags" "origin")
           ;; We might later checkout "origin/HEAD". Sadly "git fetch"
           ;; cannot be told to keep it up-to-date, so we have to make
           ;; a second request.
@@ -1003,7 +1003,7 @@ packages for which that returns non-nil are build."
           (message "Building %i packages failed:\n%s"
                    (length failed)
                    (mapconcat (lambda (n) (concat "  " n)) (nreverse failed) "\n"))))))
-  (package-build-cleanup))
+  (package-build-dump-archive-contents))
 
 (defun package-build-cleanup ()
   "Remove previously built packages that no longer have recipes."
@@ -1023,36 +1023,54 @@ packages for which that returns non-nil are build."
 (defun package-build-dump-archive-contents (&optional file pretty-print)
   "Update and return the archive contents.
 
-If non-nil, then store the archive contents in FILE instead of in
-the \"archive-contents\" file inside `package-build-archive-dir'.
-If PRETTY-PRINT is non-nil, then pretty-print instead of using one
-line per entry."
-  (let (entries)
-    (dolist (file (sort (directory-files package-build-archive-dir t ".*\\.entry$")
-                        ;; Sort more recently-build packages first
-                        (lambda (f1 f2)
-                          (let ((default-directory package-build-archive-dir))
-                            (file-newer-than-file-p f1 f2)))))
+Update files \"archive-contents\" and \"elpa-packages.eld\" in
+`package-build-archive-dir'.  If optional FILE is non-nil,
+use that to store the archive contents and place the second
+file next to it.
+
+If optional PRETTY-PRINT is non-nil, then pretty-print
+\"archive-contents\" instead of using one line per entry.
+\"elpa-packages.eld\" always uses one line per entry."
+  (let ((default-directory package-build-archive-dir)
+        (entries nil)
+        (vc-pkgs nil))
+    (dolist (file (sort (directory-files default-directory t ".*\\.entry\\'")
+                        ;; Sort more recently build packages first.
+                        #'file-newer-than-file-p))
       (let* ((entry (with-temp-buffer
                       (insert-file-contents file)
                       (read (current-buffer))))
-             (name (car entry))
-             (newer-entry (assq name entries)))
-        (if (not (file-exists-p (expand-file-name (symbol-name name)
-                                                  package-build-recipes-dir)))
-            (package-build--remove-archive-files entry)
-          ;; Prefer the more-recently-built package, which may not
-          ;; necessarily have the highest version number, e.g. if
+             (symbol (car entry))
+             (name (symbol-name symbol))
+             (outdated (assq symbol entries)))
+        (cond
+         ((not (file-exists-p (expand-file-name name package-build-recipes-dir)))
+          ;; Recipe corresponding to this entry no longer exists.
+          (package-build--remove-archive-files entry))
+         (outdated
+          ;; Prefer the more recently built package, which may not
+          ;; necessarily have the highest version number, e.g., if
           ;; commit histories were changed.
-          (if newer-entry
-              (package-build--remove-archive-files entry)
-            (push entry entries)))))
-    (setq entries (sort entries (lambda (a b)
-                                  (string< (symbol-name (car a))
-                                           (symbol-name (car b))))))
-    (with-temp-file
-        (or file
-            (expand-file-name "archive-contents" package-build-archive-dir))
+          (package-build--remove-archive-files entry))
+         (t
+          (push entry entries)
+          ;; [Non]GNU ELPA recipes are not compatible with Melpa recipes.
+          ;; See around occurrences of "pkg-spec" in "package-vc.el";
+          ;; section "Specifications (elpa-packages)" in "README" of the
+          ;; "elpa-admin" branch in "emacs/elpa.git" repository; and also
+          ;; `elpaa--supported-keywords' and `elpaa--publish-package-spec'.
+          (let ((recipe (package-recipe-lookup name)))
+            (push
+             `(,symbol
+               :url ,(package-recipe--upstream-url recipe)
+               ,@(and (cl-typep recipe 'package-hg-recipe)
+                      (list :vc-backend 'Hg))
+               ,@(when-let* ((branch (oref recipe branch)))
+                   (list :branch branch)))
+             vc-pkgs))))))
+    (setq entries (cl-sort entries #'string<
+                           :key (lambda (e) (symbol-name (car e)))))
+    (with-temp-file (or file (expand-file-name "archive-contents"))
       (let ((print-level nil)
             (print-length nil))
         (if pretty-print
@@ -1062,7 +1080,18 @@ line per entry."
             (newline)
             (insert " ")
             (prin1 entry (current-buffer)))
-          (insert ")"))))
+          (insert ")\n"))))
+    (with-temp-file (expand-file-name "elpa-packages.eld"
+                                      (and file (file-name-nondirectory file)))
+      (let ((print-level nil)
+            (print-length nil))
+        (insert "((")
+        (prin1 (car vc-pkgs) (current-buffer))
+        (dolist (entry (cdr vc-pkgs))
+          (newline)
+          (insert "  ")
+          (prin1 entry (current-buffer)))
+        (insert ")\n :version 1 :default-vc Git)\n")))
     entries))
 
 (defun package-build--remove-archive-files (archive-entry)
