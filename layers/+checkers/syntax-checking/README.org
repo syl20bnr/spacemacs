@@ -128,7 +128,7 @@ margin string so the default value is defined in =flycheck=.
 If =flycheck-indication-mode= is =nil=, no indicator is displayed for errors.
 
 To change the indicator symbol, you can customize
-=syntax-checking-indicatin-symbol=, which is a cons cell of a fringe bitmap and
+=syntax-checking-indication-symbol=, which is a cons cell of a fringe bitmap and
 margin string. When any of the element is nil, it's left to =flycheck= to
 determine a default indicator. (At any time, only one of the fringe bitmap and
 margin string is needed, since error indicator cannot be both =*-fringe= and
