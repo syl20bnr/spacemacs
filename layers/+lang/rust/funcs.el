@@ -63,7 +63,20 @@
 
 (defun spacemacs//rust-setup-lsp-dap ()
   "Setup DAP integration."
-  (require 'dap-gdb-lldb))
+  (require 'dap-cpptools)
+  (require 'dap-lldb)
+  (require 'dap-gdb-lldb)
+  (dap-register-debug-template "Rust::GDB Run Configuration"
+                               (list :type "gdb"
+                                     :request "launch"
+                                     :name "GDB::Run"
+                                     :gdbpath "rust-gdb"
+                                     :target nil
+                                     :dap-compilation "cargo build"
+                                     :dap-compilation-dir "${workspaceFolder}"
+                                     :cwd "${workspaceFolder}"
+                                     ))
+  )
 
 (defun spacemacs/lsp-rust-analyzer-reload-workspace ()
   "Reload workspaces to pick up changes in Cargo.toml.
