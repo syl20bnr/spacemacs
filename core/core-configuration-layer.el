@@ -674,6 +674,7 @@ To prevent package from being installed or uninstalled set the variable
                  (not configuration-layer-exclude-all-layers))
         (configuration-layer/delete-orphan-packages packages))))
   ;; configure used packages
+  (package-activate-all)                ; try the package-quickstart-file first
   (configuration-layer//configure-packages configuration-layer--used-packages)
   ;; evaluate layer variables a second time to override default values set in
   ;; packages configuration above
