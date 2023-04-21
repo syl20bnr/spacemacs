@@ -122,11 +122,11 @@
     :defer t
     :init
     (progn
-      (defun spacemacs//org-babel-do-load-languages ()
-        "Load all the languages declared in `org-babel-load-languages'."
+      (define-advice org-babel-execute-src-block (:before (&rest _) load-lang)
         (org-babel-do-load-languages 'org-babel-load-languages
-                                     org-babel-load-languages))
-      (add-hook 'org-mode-hook 'spacemacs//org-babel-do-load-languages)
+                                     org-babel-load-languages)
+        (advice-remove 'org-babel-execute-src-block
+                       'org-babel-execute-src-block@load-lang))
       ;; Fix redisplay of inline images after a code block evaluation.
       (add-hook 'org-babel-after-execute-hook 'spacemacs/ob-fix-inline-images))))
 
