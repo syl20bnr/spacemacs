@@ -470,7 +470,7 @@ In a =forge-topic= buffer:
 | ~SPC m b~   | browse topic (open in web browser)              |
 | ~SPC m c~   | create comment post to existing topic)          |
 | ~SPC m C~   | Checkout pull request (not for issues)          |
-| ~SPC m d~   | toggle draft pull request
+| ~SPC m d~   | toggle draft pull request                       |
 | ~SPC m D~   | delete comment under cursor                     |
 | ~SPC m e~   | edit topic body                                 |
 | ~SPC m m~   | edit topic marks (mark is an unshared label)    |
