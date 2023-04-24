@@ -521,6 +521,7 @@
 
 (defun spacemacs-editing/init-multi-line ()
   (use-package multi-line
+    :defer t
     :init
     (progn
       (spacemacs|define-transient-state multi-line
