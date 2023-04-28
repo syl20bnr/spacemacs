@@ -477,17 +477,10 @@ Dock][icon-mac-instructions].
 
 # Update
 
-Spacemacs supports two different update schemes, the default is a rolling update
-scheme based on the latest version of packages available. This version can be
-found on the `develop` branch and is updated by a simple `git pull`.
+Spacemacs relies solely on a rolling update scheme based on the latest 
+version of packages available. To update Spacemacs, simply pull the latest
+changes of the default `develop` branch: 
 
-The second method is deprecated. It was a fixed version scheme which was based
-on a stable set of packages. The latest fixed version can be found on the
-`master` branch and would show a notification when a new version is available.
-Be warned that this method has not been updated in a long time, so packages will
-be very old.
-
-## Rolling update (on develop)
 1. Close Emacs and update the git repository:
 
     ```sh
@@ -496,39 +489,17 @@ be very old.
 
 2. Restart Emacs to complete the upgrade.
 
-## Deprecated automatic update (on master branch)
-When a new version is available, a little arrow will appear in the mode-line.
-
-Its color depends on the number of versions that have been released since the
-last update. Green means that you have a recent version, orange and red means
-that you have an older version.
-
-![powerline_update](doc/img/powerline-update.png)
-
-Click on the arrow to update Spacemacs to the latest version.
-
-## Manual update (on master branch)
-Remove the `<` and `>` angle brackets when you're typing the lines below into
-your shell. Make sure to also replace the text: "tag version which you are
-updating to" with a tagged version. This page lists the [latest tags][]
-
-```sh
-git fetch
-git reset --hard <tag version which you are updating to>
-```
-
-## Revert to a specific release version (on master branch)
-To revert to a specific release version, just checkout the corresponding branch.
-For instance, the following command reverts Spacemacs to version `0.200`:
-
-```sh
-git checkout origin/release-0.200
-```
-
-**After updating Spacemacs (either manually or automatically), you should also
+**After updating Spacemacs, you should also
 check if any updates are available for your packages. On the Spacemacs Home
 Buffer <kbd>SPC b h</kbd>, click (press <kbd>RET</kbd>) on the `[Update
 Packages]` button, or use the convenient keybinding <kbd>SPC f e U</kbd>**
+
+## Upgrading from the deprecated `master` branch
+
+If you are still on the old `master` branch (i.e., if 
+`git branch --show-current` shows `master` instead of `develop`),
+you need to [upgrade to `develop`](https://practical.li/spacemacs/install-spacemacs/switch-to-develop/)
+first.
 
 # Quotes
 [Quote][quote01] by [ashnur](https://github.com/ashnur):
