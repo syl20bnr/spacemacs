@@ -21,8 +21,6 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(require 'cl-lib)
-
 (defun spacemacs//run-local-vars-mode-hook ()
   "Run a hook for the major-mode after the local variables have been processed."
   (run-hooks (intern (format "%S-local-vars-hook" major-mode))))
@@ -1099,7 +1097,7 @@ the `kill-matching-buffers` for grateful killing. The optional 2nd argument
 indicates whether to kill internal buffers too.
 
 Returns the count of killed buffers."
-  (let* ((buffers (remove-if-not
+  (let* ((buffers (cl-remove-if-not
                    (lambda (buffer)
                      (let ((name (buffer-name buffer)))
                        (and name (not (string-equal name ""))
