@@ -52,7 +52,7 @@ non-nil."
 `dotspacemacs-loading-progress-bar' is non-nil, update the
 package-loading progress bar by incrementing its value by 1. The
 progress is displayed in chunks of size
-`spacemacs-loading-dots-chunk-threshold'.
+`spacemacs-loading-dots-chunk-threshold'".
   (when (and (not noninteractive)
              (> spacemacs-loading-dots-chunk-threshold 0)
              dotspacemacs-loading-progress-bar)
