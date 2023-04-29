@@ -33,9 +33,11 @@
 (defvar spacemacs-loading-dots-chunk-threshold 0)
 
 (defun spacemacs/init-progress-bar (max)
-  "Initialize the package-loading progress bar when the
-customziation variable `dotspacemacs-loading-progress-bar' is
-non-nil."
+  "Conditionally initialize the package-loading progress bar.
+
+When the customziation variable `dotspacemacs-loading-progress-bar' is non-nil,
+the progress bar is initialized by setting the mode-line to an empty progress
+bar."
   (setq spacemacs-loading-dots-count (window-total-size nil 'width))
   (setq spacemacs-loading-dots-chunk-size (/ spacemacs-loading-dots-count
                                              spacemacs-loading-dots-chunk-count))
@@ -48,11 +50,13 @@ non-nil."
   (spacemacs//redisplay))
 
 (defun spacemacs/update-progress-bar ()
-  "When the customization variable
-`dotspacemacs-loading-progress-bar' is non-nil, update the
-package-loading progress bar by incrementing its value by 1. The
-progress is displayed in chunks of size
-`spacemacs-loading-dots-chunk-threshold'".
+  "Conditionally update the package-loading progress bar.
+
+When the customization variable `dotspacemacs-loading-progress-bar' is non-nil,
+update the package-loading progress bar by incrementing its value by 1.
+
+The variable `spacemacs-loading-dots-chunk-threshold' controls the amount of
+progress required before another character is appended to indicate progress."
   (when (and (not noninteractive)
              (> spacemacs-loading-dots-chunk-threshold 0)
              dotspacemacs-loading-progress-bar)
@@ -70,6 +74,6 @@ progress is displayed in chunks of size
               (concat (make-string progress spacemacs-loading-char)
                       (make-string remain spacemacs-loading-char-light)))
         (spacemacs-buffer/set-mode-line spacemacs-loading-string))
-      (spacemacs//redisplay)))")
+      (spacemacs//redisplay))))
 
 (provide 'core-progress-bar)
