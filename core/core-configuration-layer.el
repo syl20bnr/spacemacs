@@ -1954,7 +1954,7 @@ RNAME is the name symbol of another existing layer."
 
 (defun configuration-layer//configure-packages (packages)
   "Configure all passed PACKAGES honoring the steps order."
-  (when dotspacemacs-loading-progress-bar (spacemacs/init-progress-bar (length packages)))
+  (spacemacs/init-progress-bar (length packages))
   (spacemacs-buffer/message "+ Configuring bootstrap packages...")
   (configuration-layer//configure-packages-2
    (configuration-layer/filter-objects
@@ -2089,7 +2089,7 @@ LAYER must not be the owner of PKG."
 
 (defun configuration-layer//configure-package (pkg)
   "Configure PKG object, i.e. call its post-init function."
-  (when dotspacemacs-loading-progress-bar (spacemacs/update-progress-bar))
+  (spacemacs/update-progress-bar)
   (let* ((pkg-name (oref pkg :name))
          (owner (car (oref pkg :owners))))
     ;; init
