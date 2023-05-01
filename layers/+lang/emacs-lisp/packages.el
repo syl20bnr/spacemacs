@@ -301,6 +301,9 @@
   ;; i.e (require 'company) will not give an error now
   (setq flycheck-emacs-lisp-load-path 'inherit))
 
+(defun emacs-lisp/init-treeview ()
+  (use-package treeview))
+
 (defun emacs-lisp/init-flycheck-package ()
   (use-package flycheck-package
     :hook (emacs-lisp-mode . flycheck-package-setup)))
