@@ -40,6 +40,7 @@
     ggtags
     counsel-gtags
     (ielm :location built-in)
+    treeview
     (inspector :location (recipe
                           :fetcher github
                           :repo "mmontone/emacs-inspector"))
