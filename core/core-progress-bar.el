@@ -49,7 +49,9 @@ Does nothing when `dotspacemacs-loading-progress-bar' is nil."
 
 (defun spacemacs/update-progress-bar ()
   "Update progress bar by incrementing its value by 1.
-Display the progress bar by chunks of size `spacemacs-loading-dots-chunk-threshold'"
+Display the progress bar by chunks of size
+`spacemacs-loading-dots-chunk-threshold'. Does nothing when
+`dotspacemacs-loading-progress-bar' is nil."
   (when (and (not noninteractive)
              (> spacemacs-loading-dots-chunk-threshold 0)
              dotspacemacs-loading-progress-bar)
