@@ -302,7 +302,8 @@
   (setq flycheck-emacs-lisp-load-path 'inherit))
 
 (defun emacs-lisp/init-treeview ()
-  (use-package treeview))
+  (use-package treeview
+    :defer t))
 
 (defun emacs-lisp/init-flycheck-package ()
   (use-package flycheck-package
