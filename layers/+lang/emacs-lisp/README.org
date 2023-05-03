@@ -112,7 +112,14 @@ function or press ~o~ to go out of it.
 
 ** Using the inspector
 This layer adds the [[https://github.com/mmontone/emacs-inspector][inspector]] package to provide an easy way for inspecting
-data structures. Find more information about its usage [[https://github.com/mmontone/emacs-inspector][here]] and see key bindings.
+data structures. To use the =tree-inspector=, you have to add the =treeview=
+to the additional packages list due the [[https://github.com/mmontone/emacs-inspector/pull/25][mmontone/emacs-inspector#25]].
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-additional-packages '(
+    treeview))
+#+end_src
+
+Find more information about its usage [[https://github.com/mmontone/emacs-inspector][here]] and see key bindings.
 
 * Nameless
 Nameless hides package namespaces in your emacs-lisp code, and replaces it by
