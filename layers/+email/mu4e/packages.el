@@ -73,7 +73,7 @@
       (evilified-state-evilify-map mu4e-main-mode-map
         :mode mu4e-main-mode
         :bindings
-        (kbd "j") 'mu4e~headers-jump-to-maildir
+        (kbd "j") 'mu4e-search-maildir
         (kbd "C-j") 'next-line
         (kbd "C-k") 'previous-line)
 
