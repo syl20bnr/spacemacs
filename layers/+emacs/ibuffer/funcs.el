@@ -51,7 +51,7 @@
           (list (cons "Home"
                       (spacemacs//ibuffer-get-major-modes-ibuff-rules-list
                        (cl-set-difference
-                        (remove-duplicates
+                        (cl-remove-duplicates
                          (spacemacs//ibuffer-get-major-modes-list))
                         ignore-modes) '())))))
     (setq ibuffer-saved-filter-groups cur-bufs)
