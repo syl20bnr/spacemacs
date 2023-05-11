@@ -737,20 +737,14 @@ Returns:
   "Retrieve the file path of the current buffer,
 including line and column number.
 
+This function respects the the `column-number-indicator-zero-based' variable.
+
 Returns:
   - A string containing the file path in case of success.
   - `nil' in case the current buffer does not have a directory."
   (when-let (file-path (spacemacs--file-path-with-line))
-    (concat
-     file-path
-     ":"
-     (number-to-string (if (and
-                            ;; Emacs 26 introduced this variable. Remove this
-                            ;; check once 26 becomes the minimum version.
-                            (boundp column-number-indicator-zero-based)
-                            (not column-number-indicator-zero-based))
-                           (1+ (current-column))
-                         (current-column))))))
+    (format "%s:%s" file-path
+            (+ (current-column) (if column-number-indicator-zero-based 0 1)))))
 
 (defun spacemacs/copy-directory-path ()
   "Copy and show the directory path of the current buffer.
