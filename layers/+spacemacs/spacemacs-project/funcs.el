@@ -59,23 +59,14 @@ Returns:
 (defun spacemacs--projectile-file-path-with-line-column ()
   "Retrieve the file path relative to project root, including line and column number.
 
-This function respects the value of the `column-number-indicator-zero-based'
-variable.
+This function respects the the `column-number-indicator-zero-based' value.
 
 Returns:
   - A string containing the file path in case of success.
   - `nil' in case the current buffer does not visit a file."
   (when-let (file-path (spacemacs--projectile-file-path-with-line))
-    (concat
-      file-path
-      ":"
-      (number-to-string (if (and
-                              ;; Emacs 26 introduced this variable.
-                              ;; Remove this check once 26 becomes the minimum version.
-                              (boundp column-number-indicator-zero-based)
-                              (not column-number-indicator-zero-based))
-                            (1+ (current-column))
-                          (current-column))))))
+    (format "%s:%s" file-path
+            (+ (current-column) (if column-number-indicator-zero-based 0 1)))))
 
 
 (defun spacemacs/projectile-copy-directory-path ()
