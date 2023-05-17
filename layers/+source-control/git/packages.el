@@ -348,8 +348,8 @@
     :after magit
     :init
     (progn
-      (setq forge-database-file (concat spacemacs-cache-directory
-                                        "forge-database.sqlite")
+      (setq forge-database-file (expand-file-name "forge-database.sqlite"
+                                                  spacemacs-cache-directory)
             forge-add-default-bindings nil)
       (spacemacs/set-leader-keys-for-major-mode 'forge-topic-mode
         "a" 'forge-edit-topic-assignees
