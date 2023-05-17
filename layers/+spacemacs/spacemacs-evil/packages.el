@@ -64,7 +64,7 @@
           (when anzu--state
             (let ((status
                    (cl-case anzu--state
-                     (search (format "(%s/%d%s)"
+                     (cl-search (format "(%s/%d%s)"
                                      (anzu--format-here-position here total)
                                      total (if anzu--overflow-p "+" "")))
                      (replace-query (format "(%d replace)" total))

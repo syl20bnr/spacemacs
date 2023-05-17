@@ -129,7 +129,7 @@ https://github.com/magit/forge/issues/80#issuecomment-456103195
 "
   (interactive "xs-exp: ")
   (message "%s" err)
-  (let* ((query_value (third (car err)))
+  (let* ((query_value (cl-third (car err)))
          (result (car (forge-sql
                        [:select [owner name]
                                 :from repository
