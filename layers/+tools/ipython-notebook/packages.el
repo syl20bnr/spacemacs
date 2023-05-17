@@ -108,7 +108,7 @@
     (cl-flet ((get-prefix
                (command)
                (intern (mapconcat #'identity
-                                  (subseq (split-string command (regexp-quote "-"))
+                                  (cl-subseq (split-string command (regexp-quote "-"))
                                           0 (1+ upto))
                                   "-"))))
       (mapc (lambda (command)
@@ -149,7 +149,7 @@ For example, return 2 if COMMANDS are '(ein:notebook-foo ein:notebook-foo-bar)."
          (max-col 3)
          (spread (min max-col (ceiling (/ n-main (* 1.3 n-other)))))
          (main-commands (cdr (assq main commands-by)))
-         (other-commands (cl-mapcan #'cdr (remove-if (lambda (lst)
+         (other-commands (cl-mapcan #'cdr (cl-remove-if (lambda (lst)
                                                        (eq (car lst) main))
                                                      commands-by)))
          (other-from (ipython-notebook/prefix other-commands))
@@ -160,7 +160,7 @@ For example, return 2 if COMMANDS are '(ein:notebook-foo ein:notebook-foo-bar)."
               (massage (command from to)
                        (let ((toks (split-string (symbol-name command) (regexp-quote "-"))))
                          (mapconcat #'identity
-                                    (subseq toks from (+ (length toks) to))
+                                    (cl-subseq toks from (+ (length toks) to))
                                     "-"))))
       (cl-macrolet ((rescol
                      (result commands from to)
@@ -173,7 +173,7 @@ For example, return 2 if COMMANDS are '(ein:notebook-foo ein:notebook-foo-bar)."
                                     (concat ,result
                                             (format format-str
                                                     (format "[_%s_]^^" (get-key command))
-                                                    (subseq massaged 0
+                                                    (cl-subseq massaged 0
                                                             (min (length massaged) col-width))))))
                           (setq ,result (concat ,result (format format-str "" "")))))))
         (cl-loop

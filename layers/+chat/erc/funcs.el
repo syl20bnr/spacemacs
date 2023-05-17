@@ -23,11 +23,11 @@
 
 (defun erc//servers (server-list)
   (dolist (s server-list)
-    (setq s (copy-list s))
+    (setq s (cl-copy-list s))
     (apply (if
                (plist-get (cdr s) :ssl)
                (progn
-                 (remf (cdr s) :ssl)
+                 (cl-remf (cdr s) :ssl)
                  'erc-tls)
              'erc)
            :server s)))

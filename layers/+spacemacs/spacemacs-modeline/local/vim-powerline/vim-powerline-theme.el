@@ -44,7 +44,7 @@ and if not, try to get the corresponding
   (let* ((face (replace-regexp-in-string "iedit-insert" "iedit" face))
          (split-face-name nil) (concat-face-name nil) ; some variables we'll use later on
          (report-wrong-prefix ; Our error reporter. Because we don't want to return nil.
-          (lambda () (let ((prefix (subseq (or split-face-name (split-string face "-")) 0 2)))
+          (lambda () (let ((prefix (cl-subseq (or split-face-name (split-string face "-")) 0 2)))
                        (error "There's no vim face with the prefix: %s"
                               (mapconcat 'identity prefix "-"))))))
 

@@ -73,7 +73,7 @@ Requires smartparens because all movement is done using `sp-up-sexp'."
       (let ((max 10))
         (while (and (> max 0)
                     (sp-point-in-string-or-comment))
-          (decf max)
+          (cl-decf max)
           (sp-up-sexp)))
       (sp-up-sexp arg)
       (call-interactively 'slime-eval-last-expression))))

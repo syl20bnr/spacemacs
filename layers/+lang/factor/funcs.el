@@ -59,7 +59,7 @@ currently loaded fuel implementation."
                                                (factor//fuel-feature-p fuel-directory f)))
                                (cl-set-difference next-features fuel-features))
            while new-features
-           finally (return fuel-features)))
+           finally (cl-return fuel-features)))
 
 (defun factor//unload-fuel ()
   "Close fuel connection and unload fuel code.
