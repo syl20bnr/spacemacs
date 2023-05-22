@@ -198,7 +198,7 @@ To preview =Main.elm=, press ~C-c C-m~ (or ~SPC m R m~).
 Alternatively, to preview from buffer, press ~C-u C-c C-n~ (or ~SPC m R
 n~). To preview in debug mode, prefix with ~C-u~ (or ~SPC u~).
 
-By default, =elm-reactor= with launch with its own generated index.html. To use
+By default, =elm-reactor= will launch with its own generated index.html. To use
 a custom html, you'd need to load the debuger excplictly and use an http daemon
 to serve your custom file.
 
