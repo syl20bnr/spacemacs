@@ -3953,6 +3953,8 @@ files (thanks to Daniel Nicolai)
   - private/local/README.md
     - Improved instructions on how to use private/local directory for packages
       (thanks to Daniel Nicolai)
+  - layers/+lang/elm/README.org
+    - Corrected typo in description of elm-reactor (thanks to Tanya Bouman)
   - layers/+lang/python/README.org
     - Corrected typo in python language server install command (thanks to Zach
       Pearson)
