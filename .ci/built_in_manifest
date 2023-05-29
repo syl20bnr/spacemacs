@@ -6,7 +6,7 @@ https://raw.githubusercontent.com/Malabarba/spinner.el/master/spinner.el core/li
 https://raw.githubusercontent.com/melpa/package-build/master/package-build-badges.el core/libs/package-build-badges.el
 https://raw.githubusercontent.com/melpa/package-build/master/package-recipe.el core/libs/package-recipe.el
 https://raw.githubusercontent.com/purcell/page-break-lines/master/page-break-lines.el core/libs/page-break-lines.el
-https://raw.githubusercontent.com/nashamri/spacemacs-theme/master/spacemacs-common.el core/libs/spacemacs-theme/spacemacs-common.el
+https://raw.githubusercontent.com/nashamri/spacemacs-theme/master/spacemacs-theme.el core/libs/spacemacs-theme/spacemacs-theme.el
 https://raw.githubusercontent.com/nashamri/spacemacs-theme/master/spacemacs-dark-theme.el core/libs/spacemacs-theme/spacemacs-dark-theme.el
 https://raw.githubusercontent.com/nashamri/spacemacs-theme/master/spacemacs-light-theme.el core/libs/spacemacs-theme/spacemacs-light-theme.el
 https://raw.githubusercontent.com/nashamri/spacemacs-theme/master/spacemacs-theme-pkg.el core/libs/spacemacs-theme/spacemacs-theme-pkg.el
