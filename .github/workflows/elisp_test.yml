@@ -66,7 +66,7 @@ jobs:
       uses: jcs090218/setup-emacs-windows@master
       with:
         version: ${{ matrix.emacs_version }}
-      if: ${{ matrix.os == 'windows-latest' &&  }}
+      if: ${{ matrix.os == 'windows-latest' }}
 
     - name: Install Emacs on Windows [retry 1]
       continue-on-error: true
