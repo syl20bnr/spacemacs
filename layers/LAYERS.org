@@ -2082,7 +2082,7 @@ Features:
 - syntax-highlighting
 - Auto-completion
 - Code Navigation
-- Python test runners (see [[file:+lang/hy/../python/README.org][python layer]])
+- Python test runners (see [[file:+lang/python/README.org][python layer]])
 - Virtual Environment using [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]]
 - Org Babel support
 
