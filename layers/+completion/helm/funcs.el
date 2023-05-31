@@ -93,7 +93,7 @@
    `(cond
      ,@(mapcar
         (lambda (x)
-          `((executable-find ,x)
+          `((executable-find ,x t)
             ',(let ((func
                      (intern
                       (format (if default-inputp
