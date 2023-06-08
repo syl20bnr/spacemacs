@@ -1,6 +1,6 @@
 ;;; packages.el --- OpenAI Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2023 Sylvain Benner & Contributors
 ;;
 ;; Author: Hendrik Rommeswinkel
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -22,12 +22,10 @@
 
 
 (defconst openai-packages
-  '(
-    (openai :location (recipe :fetcher github :repo "emacs-openai/openai"))
+  '((openai :location (recipe :fetcher github :repo "emacs-openai/openai"))
     (chatgpt :location (recipe :fetcher github :repo "emacs-openai/chatgpt"))
     (codegpt :location (recipe :fetcher github :repo "emacs-openai/codegpt"))
-    (dall-e :location (recipe :fetcher github :repo "emacs-openai/dall-e"))
-    ))
+    (dall-e :location (recipe :fetcher github :repo "emacs-openai/dall-e"))))
 
 (defun openai/init-openai ()
   (use-package openai
@@ -45,24 +43,23 @@
         "awoE" 'openai-embedding-create
         "awoie" 'openai-image-edit-prompt
         "awoii" 'openai-image-prompt
-        "awoiv" 'openai-image-variation-prompt)
-      )))
+        "awoiv" 'openai-image-variation-prompt))))
+
 (defun openai/init-chatgpt ()
   (use-package chatgpt
     :init
     (progn
       (spacemacs/set-leader-keys
         ;; ChatGPT session
-        "awog" 'chatgpt)
-      )
+        "awog" 'chatgpt))
     :config
     (progn
       (evilified-state-evilify-map chatgpt-mode-map
         :mode chatgpt-mode
         :bindings
-        (kbd "<return>") 'chatgpt-type-response
-        )
-    )))
+        (kbd "<return>") 'chatgpt-type-response))))
+
+
 (defun openai/init-codegpt ()
   (use-package codegpt
     :init
@@ -75,20 +72,17 @@
         "awocd" 'codegpt-doc
         "awocf" 'codegpt-fix
         "awoce" 'codegpt-explain
-        "awoci" 'codegpt-improve)
-        )))
+        "awoci" 'codegpt-improve))))
+
 (defun openai/init-dall-e ()
   (use-package dall-e
     :init
     (progn
       (spacemacs/set-leader-keys
-        "awoid" 'dall-e)
-      )
+        "awoid" 'dall-e))
     :config
     (progn
       (evilified-state-evilify-map dall-e-mode-map
         :mode dall-e-mode
         :bindings
-        (kbd "<return>") 'dall-e-type-response
-        )
-      )))
+        (kbd "<return>") 'dall-e-type-response))))

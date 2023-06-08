@@ -33,7 +33,6 @@ Also, most requests require setting a user, which is done via:
   =(setq openai-user "user")=
 where "user" can be substituted by other usernames.
 
-
 * Key bindings
 If you want to build your own OpenAI requests, you can use `openai-completion'.
 For further information, see the openai package documentation.
