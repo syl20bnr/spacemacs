@@ -414,7 +414,7 @@ Remember that you can also use `C-u' when you are done zooming."
                                  (setq arg  (if (not arg)
                                                 frame-zoom-font-difference
                                               (prefix-numeric-value arg)))
-                                 (cl-case base
+                                 (case base
                                    ((?+ ?=) arg)
                                    (?-      (- arg))
                                    (?0      0)
