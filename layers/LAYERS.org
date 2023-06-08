@@ -265,6 +265,7 @@
   - [[#hacker-news][Hacker News]]
   - [[#layer-for-reddit][Layer for reddit]]
   - [[#lobsters][Lobsters]]
+  - [[#openai][OpenAI]]
   - [[#pocket][Pocket]]
   - [[#search-engine][Search Engine]]
   - [[#streamlink][Streamlink]]
@@ -3384,6 +3385,18 @@ This layer adds support for reading [[https://lobste.rs/][lobsters]].
 
 Features:
 - Read Lobsters news
+
+** OpenAI
+[[file:+web-services/openai/README.org][+web-services/openai/README.org]]
+
+This layer provides applications to make requests to openai via its API.
+
+Features:
+- Provides access to openai via the emacs-openai suite of packages
+- Send visual selection or buffer and receive response in current buffer
+- Improve, edit, and document code
+- Chat sessions with chatgpt
+- Obtain AI generated images
 
 ** Pocket
 [[file:+web-services/pocket/README.org][+web-services/pocket/README.org]]
