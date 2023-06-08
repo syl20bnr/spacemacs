@@ -20,7 +20,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 (defconst openai-packages
   '((openai :location (recipe :fetcher github :repo "emacs-openai/openai"))
     (chatgpt :location (recipe :fetcher github :repo "emacs-openai/chatgpt"))
@@ -31,19 +30,19 @@
   (use-package openai
     :init
     (progn
-      (spacemacs/declare-prefix "awo" "OpenAI")
-      (spacemacs/declare-prefix "awoi" "OpenAI images")
+      (spacemacs/declare-prefix "$o" "OpenAI")
+      (spacemacs/declare-prefix "$oi" "OpenAI images")
       (spacemacs/set-leader-keys
-        "awob" 'openai-completion-buffer-insert
-        "awom" 'openai-list-models
-        "awoM" 'openai-retrieve-model
-        "awos" 'openai-completion-select-insert
-        "awoC" 'openai-chat-say
-        "awoe" 'openai-edit-prompt
-        "awoE" 'openai-embedding-create
-        "awoie" 'openai-image-edit-prompt
-        "awoii" 'openai-image-prompt
-        "awoiv" 'openai-image-variation-prompt))))
+        "$ob" 'openai-completion-buffer-insert
+        "$om" 'openai-list-models
+        "$oM" 'openai-retrieve-model
+        "$os" 'openai-completion-select-insert
+        "$oC" 'openai-chat-say
+        "$oe" 'openai-edit-prompt
+        "$oE" 'openai-embedding-create
+        "$oie" 'openai-image-edit-prompt
+        "$oii" 'openai-image-prompt
+        "$oiv" 'openai-image-variation-prompt))))
 
 (defun openai/init-chatgpt ()
   (use-package chatgpt
@@ -51,7 +50,7 @@
     (progn
       (spacemacs/set-leader-keys
         ;; ChatGPT session
-        "awog" 'chatgpt))
+        "$og" 'chatgpt))
     :config
     (progn
       (evilified-state-evilify-map chatgpt-mode-map
@@ -59,27 +58,26 @@
         :bindings
         (kbd "<return>") 'chatgpt-type-response))))
 
-
 (defun openai/init-codegpt ()
   (use-package codegpt
     :init
     (progn
-      (spacemacs/declare-prefix "awoc" "codegpt")
+      (spacemacs/declare-prefix "$oc" "codegpt")
       (spacemacs/set-leader-keys
         ;; Coding tools
-        "awocc" 'codegpt
-        "awocC" 'codegpt-custom
-        "awocd" 'codegpt-doc
-        "awocf" 'codegpt-fix
-        "awoce" 'codegpt-explain
-        "awoci" 'codegpt-improve))))
+        "$occ" 'codegpt
+        "$ocC" 'codegpt-custom
+        "$ocd" 'codegpt-doc
+        "$ocf" 'codegpt-fix
+        "$oce" 'codegpt-explain
+        "$oci" 'codegpt-improve))))
 
 (defun openai/init-dall-e ()
   (use-package dall-e
     :init
     (progn
       (spacemacs/set-leader-keys
-        "awoid" 'dall-e))
+        "$oid" 'dall-e))
     :config
     (progn
       (evilified-state-evilify-map dall-e-mode-map

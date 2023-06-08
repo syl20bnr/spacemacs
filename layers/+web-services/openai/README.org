@@ -40,32 +40,32 @@ For interactive requests via OpenAI, the following key bindings are available:
 
 | Key binding   | Command                         | Description                 |
 |---------------+---------------------------------+-----------------------------|
-| ~SPC a w o b~ | openai-completion-buffer-insert | Sends buffer to AI          |
-| ~SPC a w o s~ | openai-completion-select-insert | Sends selection to AI       |
-| ~SPC a w o g~ | chatgpt                         | Opens chatgpt session       |
-| ~SPC a w o e~ | openai-edit-prompt              | Asks to edit text           |
-| ~SPC a w o C~ | openai-chat-say                 | Single request and response |
-| ~SPC a w o m~ | openai-list-models              | Lists all models            |
-| ~SPC a w o M~ | openai-retrieve-model           | Details of specific model   |
-| ~SPC a w o E~ | openai-embedding-create         | Makes Embedding             |
+| ~SPC $ o b~ | openai-completion-buffer-insert | Sends buffer to AI          |
+| ~SPC $ o s~ | openai-completion-select-insert | Sends selection to AI       |
+| ~SPC $ o g~ | chatgpt                         | Opens chatgpt session       |
+| ~SPC $ o e~ | openai-edit-prompt              | Asks to edit text           |
+| ~SPC $ o C~ | openai-chat-say                 | Single request and response |
+| ~SPC $ o m~ | openai-list-models              | Lists all models            |
+| ~SPC $ o M~ | openai-retrieve-model           | Details of specific model   |
+| ~SPC $ o E~ | openai-embedding-create         | Makes Embedding             |
 
 For requests to improve, edit, or document code, the following key bindings are
 available:
 
 | Key binding     | Command         | Description         |
 |-----------------+-----------------+---------------------|
-| ~SPC a w o c c~ | codegpt         | Generates code      |
-| ~SPC a w o c C~ | codegpt-custom  | Custom instructions |
-| ~SPC a w o c d~ | codegpt-doc     | Documents code      |
-| ~SPC a w o c f~ | codegpt-fix     | Fixes code          |
-| ~SPC a w o c e~ | codegpt-explain | Explains code       |
-| ~SPC a w o c i~ | codegpt-improve | Improves code       |
+| ~SPC $ o c c~ | codegpt         | Generates code      |
+| ~SPC $ o c C~ | codegpt-custom  | Custom instructions |
+| ~SPC $ o c d~ | codegpt-doc     | Documents code      |
+| ~SPC $ o c f~ | codegpt-fix     | Fixes code          |
+| ~SPC $ o c e~ | codegpt-explain | Explains code       |
+| ~SPC $ o c i~ | codegpt-improve | Improves code       |
 
 For requests for OpenAI generated images, the following key bindings are available:
 
 | Key binding     | Command                              | Description                |
 |-----------------+--------------------------------------+----------------------------|
-| ~SPC a w o i d~ | dall-e                               | Dall-e requests            |
-| ~SPC a w o i i~ | openai-openai-image-prompt           | Generates image            |
-| ~SPC a w o i e~ | openai-openai-image-edit-prompt      | Edits existing image       |
-| ~SPC a w o i v~ | openai-openai-image-variation-prompt | Creates variation of image |
+| ~SPC $ o i d~ | dall-e                               | Dall-e requests            |
+| ~SPC $ o i i~ | openai-openai-image-prompt           | Generates image            |
+| ~SPC $ o i e~ | openai-openai-image-edit-prompt      | Edits existing image       |
+| ~SPC $ o i v~ | openai-openai-image-variation-prompt | Creates variation of image |
