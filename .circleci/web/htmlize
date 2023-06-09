@@ -14,6 +14,9 @@
 ## TODO: Figure out why it doesn't get created automatically
 mkdir -p ~/.emacs.d/.cache/.org-timestamps
 
+## Hopefully, this will fix web pub
+rm -rf /root/.emacs.d/elpa/28.2/develop/org-9.6.6
+
 emacs -batch \
       -l ~/.emacs.d/init.el \
       -l ~/.emacs.d/core/core-documentation.el \
