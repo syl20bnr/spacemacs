@@ -101,6 +101,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 - The property =:powerline-scale= of variable =dotspacemacs-default-font= has
   been removed and replaced by the property =:separator-scale= used in the new
   dotfile variable =dotspacemacs-mode-line-theme=.
+- Fix issue where clicking on the recent files list in the Spacemacs buffer would
+  produce a type error.
 **** Layers
 ***** Spacemacs distribution layers
 - Key bindings:
