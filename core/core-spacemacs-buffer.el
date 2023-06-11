@@ -1487,7 +1487,7 @@ version of `widget-button-press' since `widget-button-click' doesn't work."
     (let ((pos (widget-event-point event)))
       (goto-char pos)
       (when-let ((button (get-char-property pos 'button)))
-        (widget-apply-action pos)))))
+        (widget-apply-action button)))))
 
 (defun spacemacs-buffer/jump-to-number-startup-list-line ()
   "Jump to the startup list line with the typed number.
