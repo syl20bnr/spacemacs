@@ -117,15 +117,16 @@ If nil (the default), then all packages are build."
   :group 'package-build
   :type '(choice (const :tag "build all") function))
 
-(defcustom package-build-build-function nil
+(defcustom package-build-build-function
+  #'package-build--build-multi-file-package
   "Low-level function used to build a package.
-If nil (the default) then the funcion used depends on whether the
-package consists of more than one file or not.  One possible value
-is `package-build--build-multi-file-package', which would force
-building a tarball, even for packages that consist of a single
-file."
+By default a tarball is used for all packages, including those
+consisting of a single file.  It this is nil, then single-file
+packages are distributed without using tarballs."
   :group 'package-build
-  :type '(choice (const :tag "default, depending on number of files")
+  :type '(choice (const :tag "use tarball for all packages"
+                        package-build--build-multi-file-package)
+                 (const :tag "only use tarball for multi-file packages" nil)
                  function))
 
 ;; NOTE that these hooks are still experimental.  Let me know if these
@@ -191,19 +192,22 @@ are generated."
   :group 'package-build
   :type '(list (string :tag "Archive name") color))
 
-(defcustom package-build-version-regexp "\\`[rRvV]?\\(?1:.+\\)\\'"
+(defcustom package-build-version-regexp
+  "\\`[rRvV]?\\(?1:[0-9]+\\(\\.[0-9]+\\)*\\)\\'"
   "Regexp used to match valid version-strings.
 
-The string matched by the first capture group must be valid
-according to `version-to-list'.  The optional part before the
-capture group should match prefixes commonly used when naming
-version tags.  It is not part of the version string as such
-and thus not passed to `version-to-list'.  Individual package
-recipes can override this using the `:version-regexp' property.
+The first capture is used to extract the actual version string.
+Strings matched by that group must be valid according to
+`version-to-list', but the used regexp can be more strict.  The
+default value supports only releases but no pre-releases.  It
+also intentionally ignores cedrtain unfortunate version strings
+such as \"1A\" or \".5\", and only supports \".\" as separator.
 
-To match only releases but no pre-releases, and to support only
-\".\" as separator, use \
-\"\\\\`[rRvV]?\\\\([0-9]+\\\\(\\\\.[0-9]+\\\\)\\\\)\\\\'\"."
+The part before the first capture group should match prefixes
+commonly used in version tags.
+
+Note that this variable can be overriden in a package's recipe,
+using the `:version-regexp' slot."
   :group 'package-build
   :type 'string)
 
@@ -249,7 +253,7 @@ Otherwise do nothing.  FORMAT-STRING and ARGS are as per that function."
       ((`(,hash ,time)
         (split-string
          (car (apply #'process-lines
-                     "git" "log" "-n1" "--first-parent"
+                     "git" "log" "-n1" "--first-parent" "--no-show-signature"
                      "--pretty=format:%H %cd" "--date=unix" rev
                      (and (not exact)
                           (cons "--" (package-build--spec-globs rcp)))))
@@ -309,7 +313,7 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING)."
   "Determine timestamp version corresponding to latest relevant commit for RCP.
 Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING), where
 VERSION-STRING has the format \"%Y%m%d.%H%M\"."
-  (pcase-let ((`(,hash ,time) (package-build--get-timestamp-version rcp)))
+  (pcase-let ((`(,hash ,time) (package-build--timestamp-version rcp)))
     (list hash time
           ;; We remove zero-padding of the HH portion, as
           ;; that is lost when stored in archive-contents.
@@ -317,7 +321,7 @@ VERSION-STRING has the format \"%Y%m%d.%H%M\"."
                   (format "%d" (string-to-number
                                 (format-time-string "%H%M" time t)))))))
 
-(cl-defmethod package-build--get-timestamp-version ((rcp package-git-recipe))
+(cl-defmethod package-build--timestamp-version ((rcp package-git-recipe))
   (pcase-let*
       ((commit (oref rcp commit))
        (branch (oref rcp branch))
@@ -339,7 +343,7 @@ VERSION-STRING has the format \"%Y%m%d.%H%M\"."
         (list tag-hash tag-time)
       (list rev-hash rev-time))))
 
-(cl-defmethod package-build--get-timestamp-version ((rcp package-hg-recipe))
+(cl-defmethod package-build--timestamp-version ((rcp package-hg-recipe))
   (let* ((commit (oref rcp commit))
          (branch (or (oref rcp branch) "default"))
          (rev (format "sort(ancestors(%s), -rev)"
@@ -413,6 +417,7 @@ with a timeout so that no command can block the build process."
       (when (file-exists-p dir)
         (delete-directory dir t))
       (package-build--message "Cloning %s to %s" url dir)
+      (make-directory package-build-working-dir t)
       (let ((default-directory package-build-working-dir))
         (apply #'package-build--run-process "git" "clone" url dir
                ;; This can dramatically reduce the size of large repos.
@@ -439,6 +444,7 @@ with a timeout so that no command can block the build process."
       (when (file-exists-p dir)
         (delete-directory dir t))
       (package-build--message "Cloning %s to %s" url dir)
+      (make-directory package-build-working-dir t)
       (let ((default-directory package-build-working-dir))
         (package-build--run-process "hg" "clone" url dir))))))
 
@@ -959,7 +965,7 @@ in `package-build-archive-dir'."
              ((= (length files) 0)
               (error "Unable to find files matching recipe patterns"))
              (package-build-build-function
-              (funcall package-build-build-function))
+              (funcall package-build-build-function rcp files))
              ((= (length files) 1)
               (package-build--build-single-file-package rcp files))
              (t
