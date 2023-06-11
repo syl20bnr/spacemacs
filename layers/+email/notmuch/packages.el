@@ -28,8 +28,8 @@
     notmuch
     org
     persp-mode
+    ol-notmuch
     window-purpose))
-
 
 (defun notmuch/init-counsel-notmuch ()
   (use-package counsel-notmuch
@@ -40,6 +40,10 @@
   (use-package helm-notmuch
     :defer t
     :init (spacemacs/set-leader-keys "aenn" 'helm-notmuch)))
+
+(defun notmuch/init-ol-notmuch ()
+  (use-package ol-notmuch)
+  :defer t)
 
 (defun notmuch/init-notmuch ()
   (use-package notmuch
