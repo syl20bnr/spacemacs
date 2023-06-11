@@ -14,8 +14,8 @@
   - [[#format][Format]]
   - [[#format-on-save][Format on save]]
   - [[#backends][Backends]]
-    - [[#shell-script-mode][Shell-script-mode]]
     - [[#lsp][LSP]]
+    - [[#shell-script-mode][Shell-script-mode]]
 - [[#key-bindings][Key bindings]]
 
 * Description
@@ -66,19 +66,8 @@ To enable automatic formatting on save, set the layer variable
 You have the choice between two different backends
 with different setup instructions and different capabilities.
 
-The LSP backend is automatically selected when the =lsp= layer is used.
-
-*** Shell-script-mode
-This is the recommended way for working with shell scripts in emacs. It works
-by using an emacs major mode.
-
-It supports =bash= and =fish= shell scripts.
-
-Set =shell-scripts-backend= to =nil= explicitly to use this simple backend even when the =lsp= layer is loaded.
-
-#+BEGIN_SRC elisp
-  (shell-scripts :variables shell-scripts-backend nil)
-#+END_SRC
+The LSP backend is automatically selected when the =lsp= layer is used
+and is the recommended one.
 
 *** LSP
 This backend uses an external server to provide the various IDE integrations
@@ -99,6 +88,18 @@ This will result in the =lsp= layer being loaded.
 
 #+BEGIN_SRC elisp
   (shell-scripts :variables shell-scripts-backend 'lsp)
+#+END_SRC
+
+*** Shell-script-mode
+This is the more basic alternative for working with shell scripts in emacs. It works
+by using an emacs major mode and is slower and less complete than the LSP alternative.
+
+It supports =bash= and =fish= shell scripts.
+
+Set =shell-scripts-backend= to =nil= explicitly to use this simple backend.
+
+#+BEGIN_SRC elisp
+  (shell-scripts :variables shell-scripts-backend nil)
 #+END_SRC
 
 * Key bindings
