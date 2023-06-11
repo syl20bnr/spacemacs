@@ -23,6 +23,7 @@
 
 (defconst git-packages
   '(
+    code-review
     evil-collection
     evil-surround
     fill-column-indicator
@@ -81,6 +82,10 @@
 
 (defun git/init-git-commit ()
   (use-package git-commit
+    :defer t))
+
+(defun git/init-code-review ()
+  (use-package code-review
     :defer t))
 
 (defun git/init-git-link ()

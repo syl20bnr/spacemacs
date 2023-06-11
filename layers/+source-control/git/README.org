@@ -50,6 +50,7 @@ This layers adds extensive support for [[http://git-scm.com/][git]] to Spacemacs
 - colorize buffer line by age of commit with [[https://github.com/syohex/emacs-smeargle][smeargle]]
 - git grep with [[https://github.com/yasuyk/helm-git-grep][helm-git-grep]]
 - org integration with magit via [[https://github.com/magit/orgit][orgit]]
+- support for code-reviews via [[https://github.com/wandersoncferreira/code-review][code-review]]
 
 New to Magit? Checkout the [[https://magit.vc/about/][official intro]] and [[https://practical.li/spacemacs/source-control/][Practicalli Spacemacs]]
 guide to configuring and using the Git and version control layers.
