@@ -30,6 +30,7 @@
   (use-package openai
     :init
     (progn
+      (spacemacs/declare-prefix "$" "AI")
       (spacemacs/declare-prefix "$o" "OpenAI")
       (spacemacs/declare-prefix "$oi" "OpenAI images")
       (spacemacs/set-leader-keys
