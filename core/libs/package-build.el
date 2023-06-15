@@ -227,6 +227,9 @@ disallowed."
 (defvar package-build--inhibit-checkout nil
   "Whether to inhibit checkout.  Useful for testing purposes.")
 
+(defvar package-build--inhibit-build nil
+  "Whether to inhibit building.  Useful for testing purposes.")
+
 ;;; Generic Utilities
 
 (defun package-build--message (format-string &rest args)
@@ -943,10 +946,11 @@ are subsequently dumped."
            (message "Fetcher: %s" fetcher)
            (message "Source:  %s\n" url)))
     (funcall package-build-fetch-function rcp)
-    (package-build--select-version rcp)
-    (package-build--package rcp)
-    (when dump-archive-contents
-      (package-build-dump-archive-contents))
+    (unless package-build--inhibit-build
+      (package-build--select-version rcp)
+      (package-build--package rcp)
+      (when dump-archive-contents
+        (package-build-dump-archive-contents)))
     (message "Built %s in %.3fs, finished at %s" name
              (float-time (time-since start-time))
              (format-time-string "%FT%T%z" nil t))))
