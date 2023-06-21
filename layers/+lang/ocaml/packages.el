@@ -25,6 +25,7 @@
   '(
     company
     dune
+    evil-matchit
     flycheck
     (flycheck-ocaml :toggle (configuration-layer/layer-used-p 'syntax-checking))
     ggtags
@@ -77,6 +78,9 @@
         "iy" 'dune-insert-ocamlyacc-form
         "tP" 'dune-promote
         "tp" 'dune-runtest-and-promote))))
+
+(defun ocaml/post-init-evil-matchit ()
+  (add-hook 'tuareg-mode-hook #'evil-matchit-mode))
 
 (defun ocaml/post-init-flycheck ()
   (spacemacs/enable-flycheck 'tuareg-mode))
