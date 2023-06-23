@@ -37,22 +37,21 @@
   (use-package coffee-mode
     :defer t
     :init
-    (progn
-      (spacemacs/register-repl 'coffee-mode 'coffee-repl "coffeescript")
-      ;; keybindings
-      (spacemacs/declare-prefix-for-mode 'coffee-mode "mc" "compile")
-      (spacemacs/declare-prefix-for-mode 'coffee-mode "ms" "REPL")
-      (spacemacs/set-leader-keys-for-major-mode 'coffee-mode
-        "'"  'coffee-repl
-        "cc" 'coffee-compile-buffer
-        "cr" 'coffee-compile-region
-        "sb" 'coffee-send-buffer
-        "si" 'coffee-repl
-        "sl" 'coffee-send-line
-        "sr" 'coffee-send-region
-        "Tc" 'coffee-cos-mode)
-      ;; indent to right position after `evil-open-below' and `evil-open-above'
-      (add-hook 'coffee-mode-hook 'spacemacs//coffeescript-indent-hook))))
+    (spacemacs/register-repl 'coffee-mode 'coffee-repl "coffeescript")
+    ;; keybindings
+    (spacemacs/declare-prefix-for-mode 'coffee-mode "mc" "compile")
+    (spacemacs/declare-prefix-for-mode 'coffee-mode "ms" "REPL")
+    (spacemacs/set-leader-keys-for-major-mode 'coffee-mode
+      "'"  'coffee-repl
+      "cc" 'coffee-compile-buffer
+      "cr" 'coffee-compile-region
+      "sb" 'coffee-send-buffer
+      "si" 'coffee-repl
+      "sl" 'coffee-send-line
+      "sr" 'coffee-send-region
+      "Tc" 'coffee-cos-mode)
+    ;; indent to right position after `evil-open-below' and `evil-open-above'
+    (add-hook 'coffee-mode-hook 'spacemacs//coffeescript-indent-hook)))
 
 (defun coffeescript/post-init-company ()
   (spacemacs|add-company-backends

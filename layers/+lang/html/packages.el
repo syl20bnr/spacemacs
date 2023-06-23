@@ -66,36 +66,34 @@
   (use-package company-web
     :defer t
     :init
-    (progn
-      (spacemacs|add-company-backends
-        :backends (company-web-html company-css)
-        :modes web-mode)
-      (spacemacs|add-company-backends
-        :backends company-web-jade
-        :modes pug-mode)
-      (spacemacs|add-company-backends
-        :backends company-web-slim
-        :modes slim-mode))))
+    (spacemacs|add-company-backends
+     :backends (company-web-html company-css)
+     :modes web-mode)
+    (spacemacs|add-company-backends
+     :backends company-web-jade
+     :modes pug-mode)
+    (spacemacs|add-company-backends
+     :backends company-web-slim
+     :modes slim-mode)))
 
 (defun html/init-css-mode ()
   (use-package css-mode
     :defer t
     :init
-    (progn
-      ;; Mark `css-indent-offset' as safe-local variable
-      (put 'css-indent-offset 'safe-local-variable #'integerp)
+    ;; Mark `css-indent-offset' as safe-local variable
+    (put 'css-indent-offset 'safe-local-variable #'integerp)
 
-      (when css-enable-lsp
-        (add-hook 'css-mode-hook
-                  #'spacemacs//setup-lsp-for-web-mode-buffers t))
+    (when css-enable-lsp
+      (add-hook 'css-mode-hook
+                #'spacemacs//setup-lsp-for-web-mode-buffers t))
 
-      (spacemacs/declare-prefix-for-mode 'css-mode "m=" "format")
-      (spacemacs/declare-prefix-for-mode 'css-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'css-mode "mz" "foldz")
+    (spacemacs/declare-prefix-for-mode 'css-mode "m=" "format")
+    (spacemacs/declare-prefix-for-mode 'css-mode "mg" "goto")
+    (spacemacs/declare-prefix-for-mode 'css-mode "mz" "foldz")
 
-      (spacemacs/set-leader-keys-for-major-mode 'css-mode
-        "zc" 'spacemacs/css-contract-statement
-        "zo" 'spacemacs/css-expand-statement))))
+    (spacemacs/set-leader-keys-for-major-mode 'css-mode
+      "zc" 'spacemacs/css-contract-statement
+      "zo" 'spacemacs/css-expand-statement)))
 
 (defun html/init-emmet-mode ()
   (use-package emmet-mode
@@ -106,9 +104,8 @@
                                                 scss-mode-hook
                                                 web-mode-hook))
     :config
-    (progn
-      (define-key emmet-mode-keymap (kbd "<C-return>") 'spacemacs/emmet-expand)
-      (spacemacs|hide-lighter emmet-mode))))
+    (define-key emmet-mode-keymap (kbd "<C-return>") 'spacemacs/emmet-expand)
+    (spacemacs|hide-lighter emmet-mode)))
 
 (defun html/post-init-evil-matchit ()
   (evilmi-load-plugin-rules '(web-mode) '(simple template html))
@@ -147,9 +144,8 @@
   (use-package impatient-mode
     :defer t
     :init
-    (progn
-      (dolist (mode '(web-mode css-mode))
-        (spacemacs/set-leader-keys-for-major-mode 'web-mode "I" 'spacemacs/impatient-mode)))))
+    (dolist (mode '(web-mode css-mode))
+      (spacemacs/set-leader-keys-for-major-mode 'web-mode "I" 'spacemacs/impatient-mode))))
 
 (defun html/init-less-css-mode ()
   (use-package less-css-mode
@@ -197,41 +193,38 @@
   (use-package tagedit
     :defer t
     :config
-    (progn
-      (tagedit-add-experimental-features)
-      (add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))
-      (spacemacs|diminish tagedit-mode " Ⓣ" " T"))))
+    (tagedit-add-experimental-features)
+    (add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))
+    (spacemacs|diminish tagedit-mode " Ⓣ" " T")))
 
 (defun html/init-web-mode ()
   (use-package web-mode
     :defer t
     :init
-    (progn
-      (spacemacs//web-setup-transient-state)
-      (when html-enable-lsp
-        (add-hook 'web-mode-hook #'spacemacs//setup-lsp-for-html-buffer t))
-      (when html-enable-leex-support
-        (add-to-list 'auto-mode-alist '("\\.leex\\'" . web-mode))))
+    (spacemacs//web-setup-transient-state)
+    (when html-enable-lsp
+      (add-hook 'web-mode-hook #'spacemacs//setup-lsp-for-html-buffer t))
+    (when html-enable-leex-support
+      (add-to-list 'auto-mode-alist '("\\.leex\\'" . web-mode)))
     :config
-    (progn
-      (spacemacs/declare-prefix-for-mode 'web-mode "m=" "format")
-      (spacemacs/declare-prefix-for-mode 'web-mode "mE" "errors")
-      (spacemacs/declare-prefix-for-mode 'web-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'web-mode "mh" "dom")
-      (spacemacs/declare-prefix-for-mode 'web-mode "mr" "refactor")
-      (spacemacs/set-leader-keys-for-major-mode 'web-mode
-        "El" 'web-mode-dom-errors-show
-        "gb" 'web-mode-element-beginning
-        "gc" 'web-mode-element-child
-        "gp" 'web-mode-element-parent
-        "gs" 'web-mode-element-sibling-next
-        "hp" 'web-mode-dom-xpath
-        "rc" 'web-mode-element-clone
-        "rd" 'web-mode-element-vanish
-        "rk" 'web-mode-element-kill
-        "rr" 'web-mode-element-rename
-        "rw" 'web-mode-element-wrap
-        "z" 'web-mode-fold-or-unfold))
+    (spacemacs/declare-prefix-for-mode 'web-mode "m=" "format")
+    (spacemacs/declare-prefix-for-mode 'web-mode "mE" "errors")
+    (spacemacs/declare-prefix-for-mode 'web-mode "mg" "goto")
+    (spacemacs/declare-prefix-for-mode 'web-mode "mh" "dom")
+    (spacemacs/declare-prefix-for-mode 'web-mode "mr" "refactor")
+    (spacemacs/set-leader-keys-for-major-mode 'web-mode
+      "El" 'web-mode-dom-errors-show
+      "gb" 'web-mode-element-beginning
+      "gc" 'web-mode-element-child
+      "gp" 'web-mode-element-parent
+      "gs" 'web-mode-element-sibling-next
+      "hp" 'web-mode-dom-xpath
+      "rc" 'web-mode-element-clone
+      "rd" 'web-mode-element-vanish
+      "rk" 'web-mode-element-kill
+      "rr" 'web-mode-element-rename
+      "rw" 'web-mode-element-wrap
+      "z" 'web-mode-fold-or-unfold)
     ;; TODO element close would be nice but broken with evil.
     :mode
     (("\\.phtml\\'"      . web-mode)

@@ -80,30 +80,29 @@
            ("\\.[Jj][Mm][Dd]\\'" . ess-jags-mode))
     :commands (R stata julia SAS ess-julia-mode)
     :init
-    (progn
-      (setq ess-use-company nil
-            ess-offset-continued 'straight
-            ess-nuke-trailing-whitespace-p t
-            ess-default-style 'DEFAULT)
+    (setq ess-use-company nil
+          ess-offset-continued 'straight
+          ess-nuke-trailing-whitespace-p t
+          ess-default-style 'DEFAULT)
 
-      ;; add support for evil states
-      (evil-set-initial-state 'ess-help-mode 'motion)
+    ;; add support for evil states
+    (evil-set-initial-state 'ess-help-mode 'motion)
 
-      (spacemacs/register-repl 'ess-site #'spacemacs/ess-start-repl)
+    (spacemacs/register-repl 'ess-site #'spacemacs/ess-start-repl)
 
-      (add-hook 'ess-r-mode-hook #'spacemacs//ess-may-setup-r-lsp)
-      (add-hook 'inferior-ess-mode-hook
-                'spacemacs//ess-fix-read-only-inferior-ess-mode)
+    (add-hook 'ess-r-mode-hook #'spacemacs//ess-may-setup-r-lsp)
+    (add-hook 'inferior-ess-mode-hook
+              'spacemacs//ess-fix-read-only-inferior-ess-mode)
 
-      (with-eval-after-load 'ess-julia
-        (spacemacs/ess-bind-keys-for-julia))
-      (with-eval-after-load 'ess-r-mode
-        (spacemacs/ess-bind-keys-for-r)
-        (unless (eq ess-r-backend 'lsp)
-          (spacemacs/declare-prefix-for-mode 'ess-r-mode "mg" "goto")
-          (define-key ess-doc-map "h" #'ess-display-help-on-object)))
-      (with-eval-after-load 'ess-inf-mode
-        (spacemacs/ess-bind-keys-for-inferior)))
+    (with-eval-after-load 'ess-julia
+      (spacemacs/ess-bind-keys-for-julia))
+    (with-eval-after-load 'ess-r-mode
+      (spacemacs/ess-bind-keys-for-r)
+      (unless (eq ess-r-backend 'lsp)
+        (spacemacs/declare-prefix-for-mode 'ess-r-mode "mg" "goto")
+        (define-key ess-doc-map "h" #'ess-display-help-on-object)))
+    (with-eval-after-load 'ess-inf-mode
+      (spacemacs/ess-bind-keys-for-inferior))
     :config
     (define-key ess-mode-map (kbd "<s-return>") #'ess-eval-line))
 

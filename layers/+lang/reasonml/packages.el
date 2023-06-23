@@ -71,26 +71,25 @@
   (use-package merlin
     :defer t
     :init
-    (progn
-      (setq merlin-completion-with-doc t)
+    (setq merlin-completion-with-doc t)
 
-      (spacemacs/set-leader-keys-for-major-mode 'reason-mode
-        "cp" 'merlin-project-check
-        "cv" 'merlin-goto-project-file
-        "eC" 'merlin-error-check
-        "en" 'merlin-error-next
-        "eN" 'merlin-error-prev
-        "gb" 'merlin-pop-stack
-        "gg" 'merlin-locate
-        "gG" 'spacemacs/merlin-locate-other-window
-        "gl" 'merlin-locate-ident
-        "gi" 'merlin-switch-to-ml
-        "gI" 'merlin-switch-to-mli
-        "go" 'merlin-occurrences
-        "hh" 'merlin-document
-        "ht" 'merlin-type-enclosing
-        "hT" 'merlin-type-expr
-        "rd" 'merlin-destruct))))
+    (spacemacs/set-leader-keys-for-major-mode 'reason-mode
+      "cp" 'merlin-project-check
+      "cv" 'merlin-goto-project-file
+      "eC" 'merlin-error-check
+      "en" 'merlin-error-next
+      "eN" 'merlin-error-prev
+      "gb" 'merlin-pop-stack
+      "gg" 'merlin-locate
+      "gG" 'spacemacs/merlin-locate-other-window
+      "gl" 'merlin-locate-ident
+      "gi" 'merlin-switch-to-ml
+      "gI" 'merlin-switch-to-mli
+      "go" 'merlin-occurrences
+      "hh" 'merlin-document
+      "ht" 'merlin-type-enclosing
+      "hT" 'merlin-type-expr
+      "rd" 'merlin-destruct)))
 
 (defun reasonml/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
@@ -103,43 +102,41 @@
     :defer t
     :mode ("\\.rei?\\'" . reason-mode)
     :init
-    (progn
-      (add-hook 'reason-mode-hook 'merlin-mode)
-      (add-hook 'reason-mode-hook 'utop-minor-mode)
-      (when (configuration-layer/layer-used-p 'syntax-checking)
-        (add-hook 'reason-mode-hook 'flycheck-mode))
+    (add-hook 'reason-mode-hook 'merlin-mode)
+    (add-hook 'reason-mode-hook 'utop-minor-mode)
+    (when (configuration-layer/layer-used-p 'syntax-checking)
+      (add-hook 'reason-mode-hook 'flycheck-mode))
 
-      (add-hook 'reason-mode-hook
-                (lambda ()
-                  (when reason-auto-refmt
-                    (add-hook 'before-save-hook 'refmt nil t))))
+    (add-hook 'reason-mode-hook
+              (lambda ()
+                (when reason-auto-refmt
+                  (add-hook 'before-save-hook 'refmt nil t))))
 
-      (spacemacs|add-toggle reason-auto-refmt
-        :documentation "Toggle automatic refmt on save."
-        :status reason-auto-refmt
-        :on (progn
-              (setq reason-auto-refmt t)
-              (add-hook 'before-save-hook 'refmt nil t))
-        :off (progn
-               (setq reason-auto-refmt nil)
-               (remove-hook 'before-save-hook 'refmt t))))
+    (spacemacs|add-toggle reason-auto-refmt
+      :documentation "Toggle automatic refmt on save."
+      :status reason-auto-refmt
+      :on (progn
+            (setq reason-auto-refmt t)
+            (add-hook 'before-save-hook 'refmt nil t))
+      :off (progn
+             (setq reason-auto-refmt nil)
+             (remove-hook 'before-save-hook 'refmt t)))
 
     :config
-    (progn
-      (spacemacs/declare-prefix-for-mode 'reason-mode "mc" "compile")
-      (spacemacs/declare-prefix-for-mode 'reason-mode "mt" "toggle")
-      (spacemacs/declare-prefix-for-mode 'reason-mode "me" "errors/eval")
-      (spacemacs/declare-prefix-for-mode 'reason-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'reason-mode "mh" "help/show")
-      (spacemacs/declare-prefix-for-mode 'reason-mode "mr" "refactor")
-      (spacemacs/declare-prefix-for-mode 'reason-mode "m=" "refmt")
+    (spacemacs/declare-prefix-for-mode 'reason-mode "mc" "compile")
+    (spacemacs/declare-prefix-for-mode 'reason-mode "mt" "toggle")
+    (spacemacs/declare-prefix-for-mode 'reason-mode "me" "errors/eval")
+    (spacemacs/declare-prefix-for-mode 'reason-mode "mg" "goto")
+    (spacemacs/declare-prefix-for-mode 'reason-mode "mh" "help/show")
+    (spacemacs/declare-prefix-for-mode 'reason-mode "mr" "refactor")
+    (spacemacs/declare-prefix-for-mode 'reason-mode "m=" "refmt")
 
-      (spacemacs/set-leader-keys-for-major-mode 'reason-mode
-        "cr" 'refmt
-        "==" 'refmt
-        "tr" 'spacemacs/toggle-reason-auto-refmt
-        "=mr" 'reason/refmt-ml-to-re
-        "=rm" 'reason/refmt-re-to-ml))))
+    (spacemacs/set-leader-keys-for-major-mode 'reason-mode
+      "cr" 'refmt
+      "==" 'refmt
+      "tr" 'spacemacs/toggle-reason-auto-refmt
+      "=mr" 'reason/refmt-ml-to-re
+      "=rm" 'reason/refmt-re-to-ml)))
 
 (defun reasonml/pre-init-utop ()
   (spacemacs|use-package-add-hook utop

@@ -33,30 +33,29 @@
     :init
     (spacemacs/register-repl 'extempore-mode 'extempore-repl "extempore")
     :config
-    (progn
-      (spacemacs/declare-prefix-for-mode 'extempore-mode "mc" "process")
-      (spacemacs/declare-prefix-for-mode 'extempore-mode "me" "eval")
+    (spacemacs/declare-prefix-for-mode 'extempore-mode "mc" "process")
+    (spacemacs/declare-prefix-for-mode 'extempore-mode "me" "eval")
 
-      (spacemacs/set-leader-keys-for-major-mode 'extempore-mode
-        "'"  'extempore-repl
-        ","  'lisp-state-toggle-lisp-state
+    (spacemacs/set-leader-keys-for-major-mode 'extempore-mode
+      "'"  'extempore-repl
+      ","  'lisp-state-toggle-lisp-state
 
-        "cc" 'switch-to-extempore
-        "cj" 'extempore-connect
+      "cc" 'switch-to-extempore
+      "cj" 'extempore-connect
 
-        "ee" 'extempore-send-last-sexp
-        "ef" 'extempore-send-definition
-        "er" 'extempore-send-region
-        "eb" 'extempore-send-buffer-or-region
-        (setq extempore-tab-completion nil)
+      "ee" 'extempore-send-last-sexp
+      "ef" 'extempore-send-definition
+      "er" 'extempore-send-region
+      "eb" 'extempore-send-buffer-or-region
+      (setq extempore-tab-completion nil)
 
-        (set-face-attribute 'extempore-blink-face nil :foreground "#272822" :background "#FD971F")
-        (set-face-attribute 'extempore-sb-blink-face nil :foreground "#272822" :background "#39FF14")
+      (set-face-attribute 'extempore-blink-face nil :foreground "#272822" :background "#FD971F")
+      (set-face-attribute 'extempore-sb-blink-face nil :foreground "#272822" :background "#39FF14")
 
-        ;; stop the ' (quote) character being paired by smartparens
-        (with-eval-after-load 'smartparens
-          (sp-local-pair 'extempore-mode "'" nil :actions nil)
-          (sp-local-pair 'extempore-mode "`" nil :actions nil))))))
+      ;; stop the ' (quote) character being paired by smartparens
+      (with-eval-after-load 'smartparens
+        (sp-local-pair 'extempore-mode "'" nil :actions nil)
+        (sp-local-pair 'extempore-mode "`" nil :actions nil)))))
 
 (defun extempore/post-init-eldoc ()
   (add-hook 'extempore-mode-hook #'spacemacs//extempore-setup-eldoc))

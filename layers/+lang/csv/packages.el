@@ -27,22 +27,21 @@
   (use-package csv-mode
     :defer t
     :config
-    (progn
-      (spacemacs/declare-prefix-for-mode 'csv-mode "ms" "sort")
-      (spacemacs/declare-prefix-for-mode 'csv-mode "mv" "yank")
-      (spacemacs/set-leader-keys-for-major-mode 'csv-mode
-        "a"  'csv-align-fields
-        "d"  'csv-kill-fields
-        "h"  'csv-header-line
-        "i"  'csv-toggle-invisibility
-        "n"  'csv-forward-field
-        "p"  'csv-backward-field
-        "r"  'csv-reverse-region
-        "sf" 'csv-sort-fields
-        "sn" 'csv-sort-numeric-fields
-        "so" 'csv-toggle-descending
-        "t"  'csv-transpose
-        "u"  'csv-unalign-fields
-        "vf" 'csv-yank-fields
-        "vt" 'csv-yank-as-new-table)
-      (spacemacs/inherit-leader-keys-from-parent-mode 'tsv-mode))))
+    (spacemacs/declare-prefix-for-mode 'csv-mode "ms" "sort")
+    (spacemacs/declare-prefix-for-mode 'csv-mode "mv" "yank")
+    (spacemacs/set-leader-keys-for-major-mode 'csv-mode
+      "a"  'csv-align-fields
+      "d"  'csv-kill-fields
+      "h"  'csv-header-line
+      "i"  'csv-toggle-invisibility
+      "n"  'csv-forward-field
+      "p"  'csv-backward-field
+      "r"  'csv-reverse-region
+      "sf" 'csv-sort-fields
+      "sn" 'csv-sort-numeric-fields
+      "so" 'csv-toggle-descending
+      "t"  'csv-transpose
+      "u"  'csv-unalign-fields
+      "vf" 'csv-yank-fields
+      "vt" 'csv-yank-as-new-table)
+    (spacemacs/inherit-leader-keys-from-parent-mode 'tsv-mode)))

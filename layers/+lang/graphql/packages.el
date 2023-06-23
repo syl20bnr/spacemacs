@@ -30,15 +30,14 @@
   (use-package graphql-mode
     :defer t
     :init
-    (progn
-      (add-to-list 'spacemacs-jump-handlers-graphql-mode 'ahs-backward-definition)
-      (when (configuration-layer/layer-used-p 'prettier)
-        (spacemacs/declare-prefix-for-mode 'graphql-mode "m=" "format"))
-      (spacemacs/declare-prefix-for-mode 'graphql-mode "mg" "goto")
-      (spacemacs/set-leader-keys-for-major-mode 'graphql-mode
-        "s" 'graphql-send-query
-        "e" 'graphql-select-endpoint
-        "h" 'graphql-edit-headers))))
+    (add-to-list 'spacemacs-jump-handlers-graphql-mode 'ahs-backward-definition)
+    (when (configuration-layer/layer-used-p 'prettier)
+      (spacemacs/declare-prefix-for-mode 'graphql-mode "m=" "format"))
+    (spacemacs/declare-prefix-for-mode 'graphql-mode "mg" "goto")
+    (spacemacs/set-leader-keys-for-major-mode 'graphql-mode
+      "s" 'graphql-send-query
+      "e" 'graphql-select-endpoint
+      "h" 'graphql-edit-headers)))
 
 (defun graphql/post-init-company ()
   (spacemacs|add-company-backends

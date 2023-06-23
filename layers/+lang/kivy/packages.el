@@ -32,8 +32,7 @@
   (use-package kivy-mode
     :defer t
     :init
-    (progn
-      ;; config goes here.
-      )))
+    ;; config goes here.
+    ))
 
 ;;; packages.el ends here

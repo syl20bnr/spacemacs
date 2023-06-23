@@ -36,12 +36,11 @@
   (use-package sparql-mode
     :mode ("\\.\\(sparql\\|rq\\)\\'" . sparql-mode)
     :init
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'sparql-mode "q" 'sparql-query-region)
-      (when (configuration-layer/package-used-p 'company)
-        (spacemacs|add-company-backends
-          :backends company-sparql
-          :modes sparql-mode)))))
+    (spacemacs/set-leader-keys-for-major-mode 'sparql-mode "q" 'sparql-query-region)
+    (when (configuration-layer/package-used-p 'company)
+      (spacemacs|add-company-backends
+       :backends company-sparql
+       :modes sparql-mode))))
 
 (defun semantic-web/pre-init-org ()
   (spacemacs|use-package-add-hook org

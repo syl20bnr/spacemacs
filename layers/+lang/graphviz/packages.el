@@ -38,28 +38,27 @@
            ("\\.gv\\'"        . graphviz-dot-mode))
     :init (setq graphviz-dot-indent-width tab-width)
     :config
-    (progn
-      (spacemacs|add-toggle graphviz-live-reload
-        :status graphviz-dot-auto-preview-on-save
-        :on (graphviz-turn-on-live-preview)
-        :off (graphviz-turn-off-live-preview)
-        :documentation "Enable Graphviz live reload.")
+    (spacemacs|add-toggle graphviz-live-reload
+      :status graphviz-dot-auto-preview-on-save
+      :on (graphviz-turn-on-live-preview)
+      :off (graphviz-turn-off-live-preview)
+      :documentation "Enable Graphviz live reload.")
+    (spacemacs/set-leader-keys-for-major-mode 'graphviz-dot-mode
+      "=" 'graphviz-dot-indent-graph
+      "c" 'compile
+      "t" 'spacemacs/toggle-graphviz-live-reload)
+    (when dotspacemacs-major-mode-emacs-leader-key
       (spacemacs/set-leader-keys-for-major-mode 'graphviz-dot-mode
-        "=" 'graphviz-dot-indent-graph
-        "c" 'compile
-        "t" 'spacemacs/toggle-graphviz-live-reload)
-      (when dotspacemacs-major-mode-emacs-leader-key
-        (spacemacs/set-leader-keys-for-major-mode 'graphviz-dot-mode
-          dotspacemacs-major-mode-emacs-leader-key 'graphviz-dot-preview))
-      (when dotspacemacs-major-mode-leader-key
-        (spacemacs/set-leader-keys-for-major-mode 'graphviz-dot-mode
-          dotspacemacs-major-mode-leader-key 'graphviz-dot-preview)))))
+        dotspacemacs-major-mode-emacs-leader-key 'graphviz-dot-preview))
+    (when dotspacemacs-major-mode-leader-key
+      (spacemacs/set-leader-keys-for-major-mode 'graphviz-dot-mode
+        dotspacemacs-major-mode-leader-key 'graphviz-dot-preview))))
 
 (defun graphviz/pre-init-smartparens ()
   (spacemacs|use-package-add-hook graphviz-dot-mode
     :post-config
     (progn
-      ;; allow smartparens to work properly
+    ;; allow smartparens to work properly
       (define-key graphviz-dot-mode-map "{" nil)
       (define-key graphviz-dot-mode-map "}" nil))))
 
@@ -67,8 +66,8 @@
   (spacemacs|use-package-add-hook org
     :post-config
     (progn
-      (add-to-list 'org-babel-load-languages '(dot . t))
       ;; replace fundamental mode by graphiz one
+      (add-to-list 'org-babel-load-languages '(dot . t))
       (setq org-src-lang-modes
             (append '(("dot" . graphviz-dot))
-                    (delete '("dot" . fundamental) org-src-lang-modes))))))
+                     (delete '("dot" . fundamental) org-src-lang-modes))))))

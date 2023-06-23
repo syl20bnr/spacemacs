@@ -53,94 +53,93 @@
     :commands run-geiser
     :init (spacemacs/register-repl 'geiser 'run-geiser "geiser")
     :config
-    (progn
-      ;; prefixes
-      (spacemacs/declare-prefix-for-mode 'scheme-mode "mc" "compiling")
-      (spacemacs/declare-prefix-for-mode 'scheme-mode "mg" "navigation")
-      (spacemacs/declare-prefix-for-mode 'scheme-mode "mh" "documentation")
-      (spacemacs/declare-prefix-for-mode 'scheme-mode "mi" "insertion")
-      (spacemacs/declare-prefix-for-mode 'scheme-mode "mm" "macroexpansion")
-      (spacemacs/declare-prefix-for-mode 'scheme-mode "ms" "repl")
-      ;; key bindings
-      (spacemacs/set-leader-keys-for-major-mode 'scheme-mode
-        "'"  'geiser-mode-switch-to-repl
-        ","  'lisp-state-toggle-lisp-state
+    ;; prefixes
+    (spacemacs/declare-prefix-for-mode 'scheme-mode "mc" "compiling")
+    (spacemacs/declare-prefix-for-mode 'scheme-mode "mg" "navigation")
+    (spacemacs/declare-prefix-for-mode 'scheme-mode "mh" "documentation")
+    (spacemacs/declare-prefix-for-mode 'scheme-mode "mi" "insertion")
+    (spacemacs/declare-prefix-for-mode 'scheme-mode "mm" "macroexpansion")
+    (spacemacs/declare-prefix-for-mode 'scheme-mode "ms" "repl")
+    ;; key bindings
+    (spacemacs/set-leader-keys-for-major-mode 'scheme-mode
+      "'"  'geiser-mode-switch-to-repl
+      ","  'lisp-state-toggle-lisp-state
 
-        "cc" 'geiser-compile-current-buffer
-        "cp" 'geiser-add-to-load-path
+      "cc" 'geiser-compile-current-buffer
+      "cp" 'geiser-add-to-load-path
 
-        "eb" 'geiser-eval-buffer
-        "ee" 'geiser-eval-last-sexp
-        "ef" 'geiser-eval-definition
-        "el" 'lisp-state-eval-sexp-end-of-line
-        "er" 'geiser-eval-region
+      "eb" 'geiser-eval-buffer
+      "ee" 'geiser-eval-last-sexp
+      "ef" 'geiser-eval-definition
+      "el" 'lisp-state-eval-sexp-end-of-line
+      "er" 'geiser-eval-region
 
-        "gm" 'geiser-edit-module
-        "gn" 'next-error
-        "gN" 'previous-error
+      "gm" 'geiser-edit-module
+      "gn" 'next-error
+      "gN" 'previous-error
 
-        "hh" 'geiser-doc-symbol-at-point
-        "hd" 'geiser-doc-look-up-manual
-        "hm" 'geiser-doc-module
-        "h<" 'geiser-xref-callers
-        "h>" 'geiser-xref-callees
+      "hh" 'geiser-doc-symbol-at-point
+      "hd" 'geiser-doc-look-up-manual
+      "hm" 'geiser-doc-module
+      "h<" 'geiser-xref-callers
+      "h>" 'geiser-xref-callees
 
-        "il" 'geiser-insert-lambda
+      "il" 'geiser-insert-lambda
 
-        "me" 'geiser-expand-last-sexp
-        "mf" 'geiser-expand-definition
-        "mr" 'geiser-expand-region
+      "me" 'geiser-expand-last-sexp
+      "mf" 'geiser-expand-definition
+      "mr" 'geiser-expand-region
 
-        "si" 'geiser-mode-switch-to-repl
-        "sb" 'geiser-eval-buffer
-        "sB" 'geiser-eval-buffer-and-go
-        "sf" 'geiser-eval-definition
-        "sF" 'geiser-eval-definition-and-go
-        "se" 'geiser-eval-last-sexp
-        "sr" 'geiser-eval-region
-        "sR" 'geiser-eval-region-and-go
-        "ss" 'geiser-set-scheme)
+      "si" 'geiser-mode-switch-to-repl
+      "sb" 'geiser-eval-buffer
+      "sB" 'geiser-eval-buffer-and-go
+      "sf" 'geiser-eval-definition
+      "sF" 'geiser-eval-definition-and-go
+      "se" 'geiser-eval-last-sexp
+      "sr" 'geiser-eval-region
+      "sR" 'geiser-eval-region-and-go
+      "ss" 'geiser-set-scheme)
 
-      (evil-define-key 'insert geiser-repl-mode-map
-        (kbd "S-<return>") 'geiser-repl--newline-and-indent
-        (kbd "C-l") 'geiser-repl-clear-buffer
-        (kbd "C-d") 'geiser-repl-exit)
+    (evil-define-key 'insert geiser-repl-mode-map
+      (kbd "S-<return>") 'geiser-repl--newline-and-indent
+      (kbd "C-l") 'geiser-repl-clear-buffer
+      (kbd "C-d") 'geiser-repl-exit)
 
-      (evil-define-key 'normal geiser-repl-mode-map
-        "]]" 'geiser-repl-next-prompt
-        "[[" 'geiser-repl-previous-prompt
-        "gj" 'geiser-repl-next-prompt
-        "gk" 'geiser-repl-previous-prompt)
+    (evil-define-key 'normal geiser-repl-mode-map
+      "]]" 'geiser-repl-next-prompt
+      "[[" 'geiser-repl-previous-prompt
+      "gj" 'geiser-repl-next-prompt
+      "gk" 'geiser-repl-previous-prompt)
 
-      (spacemacs/declare-prefix-for-mode 'geiser-repl-mode "mh" "help")
-      (spacemacs/declare-prefix-for-mode 'geiser-repl-mode "mi" "insert")
-      (spacemacs/set-leader-keys-for-major-mode 'geiser-repl-mode
-        "C" 'geiser-repl-clear-buffer
-        "k" 'geiser-repl-interrupt
-        "f" 'geiser-load-file
-        "il" 'geiser-insert-lambda
-        "im" 'geiser-repl-import-module
-        "u" 'geiser-repl-unload-function
-        "hh" 'geiser-doc-symbol-at-point
-        "s" 'geiser-squarify
-        "q" 'geiser-repl-exit)
+    (spacemacs/declare-prefix-for-mode 'geiser-repl-mode "mh" "help")
+    (spacemacs/declare-prefix-for-mode 'geiser-repl-mode "mi" "insert")
+    (spacemacs/set-leader-keys-for-major-mode 'geiser-repl-mode
+      "C" 'geiser-repl-clear-buffer
+      "k" 'geiser-repl-interrupt
+      "f" 'geiser-load-file
+      "il" 'geiser-insert-lambda
+      "im" 'geiser-repl-import-module
+      "u" 'geiser-repl-unload-function
+      "hh" 'geiser-doc-symbol-at-point
+      "s" 'geiser-squarify
+      "q" 'geiser-repl-exit)
 
-      (evilified-state-evilify-map geiser-doc-mode-map
-        :mode geiser-doc-mode
-        :eval-after-load geiser-doc
-        :bindings
-        "o" 'link-hint-open-link
+    (evilified-state-evilify-map geiser-doc-mode-map
+      :mode geiser-doc-mode
+      :eval-after-load geiser-doc
+      :bindings
+      "o" 'link-hint-open-link
 
-        "]]" 'geiser-doc-next-section
-        "[[" 'geiser-doc-previous-section
-        ">" 'geiser-doc-next
-        "<" 'geiser-doc-previous
+      "]]" 'geiser-doc-next-section
+      "[[" 'geiser-doc-previous-section
+      ">" 'geiser-doc-next
+      "<" 'geiser-doc-previous
 
-        "gp" 'geiser-doc-previous
-        "gn" 'geiser-doc-next
-        "gz" 'geiser-doc-switch-to-repl
-        (kbd "C-j") 'forward-button
-        (kbd "C-k") 'backward-button))))
+      "gp" 'geiser-doc-previous
+      "gn" 'geiser-doc-next
+      "gz" 'geiser-doc-switch-to-repl
+      (kbd "C-j") 'forward-button
+      (kbd "C-k") 'backward-button)))
 
 (defun scheme/post-init-ggtags ()
   (add-hook 'scheme-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

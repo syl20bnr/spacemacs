@@ -53,31 +53,30 @@
   (use-package dune
     :defer t
     :init
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
-        "tP" 'dune-promote
-        "tp" 'dune-runtest-and-promote)
-      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mt" "test")
-      (spacemacs/declare-prefix-for-mode 'dune-mode "mc" "compile/check")
-      (spacemacs/declare-prefix-for-mode 'dune-mode "mi" "insert-form")
-      (spacemacs/declare-prefix-for-mode 'dune-mode "mt" "test")
-      (spacemacs/set-leader-keys-for-major-mode 'dune-mode
-        "cc" 'compile
-        "ia" 'dune-insert-alias-form
-        "ic" 'dune-insert-copyfiles-form
-        "id" 'dune-insert-ignored-subdirs-form
-        "ie" 'dune-insert-executable-form
-        "ii" 'dune-insert-install-form
-        "il" 'dune-insert-library-form
-        "im" 'dune-insert-menhir-form
-        "ip" 'dune-insert-ocamllex-form
-        "ir" 'dune-insert-rule-form
-        "it" 'dune-insert-tests-form
-        "iv" 'dune-insert-env-form
-        "ix" 'dune-insert-executables-form
-        "iy" 'dune-insert-ocamlyacc-form
-        "tP" 'dune-promote
-        "tp" 'dune-runtest-and-promote))))
+    (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+      "tP" 'dune-promote
+      "tp" 'dune-runtest-and-promote)
+    (spacemacs/declare-prefix-for-mode 'tuareg-mode "mt" "test")
+    (spacemacs/declare-prefix-for-mode 'dune-mode "mc" "compile/check")
+    (spacemacs/declare-prefix-for-mode 'dune-mode "mi" "insert-form")
+    (spacemacs/declare-prefix-for-mode 'dune-mode "mt" "test")
+    (spacemacs/set-leader-keys-for-major-mode 'dune-mode
+      "cc" 'compile
+      "ia" 'dune-insert-alias-form
+      "ic" 'dune-insert-copyfiles-form
+      "id" 'dune-insert-ignored-subdirs-form
+      "ie" 'dune-insert-executable-form
+      "ii" 'dune-insert-install-form
+      "il" 'dune-insert-library-form
+      "im" 'dune-insert-menhir-form
+      "ip" 'dune-insert-ocamllex-form
+      "ir" 'dune-insert-rule-form
+      "it" 'dune-insert-tests-form
+      "iv" 'dune-insert-env-form
+      "ix" 'dune-insert-executables-form
+      "iy" 'dune-insert-ocamlyacc-form
+      "tP" 'dune-promote
+      "tp" 'dune-runtest-and-promote)))
 
 (defun ocaml/post-init-evil-matchit ()
   (add-hook 'tuareg-mode-hook #'evil-matchit-mode))
@@ -89,10 +88,9 @@
   (use-package flycheck-ocaml
     :defer t
     :init
-    (progn
-      (with-eval-after-load 'merlin
-        (setq merlin-error-after-save nil)
-        (flycheck-ocaml-setup)))))
+    (with-eval-after-load 'merlin
+      (setq merlin-error-after-save nil)
+      (flycheck-ocaml-setup))))
 
 (defun ocaml/post-init-ggtags ()
   (add-hook 'ocaml-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
@@ -104,32 +102,31 @@
   (use-package merlin
     :defer t
     :init
-    (progn
-      (add-to-list 'spacemacs-jump-handlers-tuareg-mode
-                   'spacemacs/merlin-locate)
-      (add-hook 'tuareg-mode-hook 'merlin-mode)
+    (add-to-list 'spacemacs-jump-handlers-tuareg-mode
+                 'spacemacs/merlin-locate)
+    (add-hook 'tuareg-mode-hook 'merlin-mode)
 
-      (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
-        "cp" 'merlin-project-check
-        "cv" 'merlin-goto-project-file
-        "Ec" 'merlin-error-check
-        "En" 'merlin-error-next
-        "EN" 'merlin-error-prev
-        "gb" 'merlin-pop-stack
-        "gG" 'spacemacs/merlin-locate-other-window
-        "gl" 'merlin-locate-ident
-        "gi" 'merlin-switch-to-ml
-        "gI" 'merlin-switch-to-mli
-        "go" 'merlin-occurrences
-        "hh" 'merlin-document
-        "ht" 'merlin-type-enclosing
-        "hT" 'merlin-type-expr
-        "rd" 'merlin-destruct)
-      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mc" "compile/check")
-      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mE" "errors")
-      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mh" "help")
-      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mr" "refactor"))))
+    (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+      "cp" 'merlin-project-check
+      "cv" 'merlin-goto-project-file
+      "Ec" 'merlin-error-check
+      "En" 'merlin-error-next
+      "EN" 'merlin-error-prev
+      "gb" 'merlin-pop-stack
+      "gG" 'spacemacs/merlin-locate-other-window
+      "gl" 'merlin-locate-ident
+      "gi" 'merlin-switch-to-ml
+      "gI" 'merlin-switch-to-mli
+      "go" 'merlin-occurrences
+      "hh" 'merlin-document
+      "ht" 'merlin-type-enclosing
+      "hT" 'merlin-type-expr
+      "rd" 'merlin-destruct)
+    (spacemacs/declare-prefix-for-mode 'tuareg-mode "mc" "compile/check")
+    (spacemacs/declare-prefix-for-mode 'tuareg-mode "mE" "errors")
+    (spacemacs/declare-prefix-for-mode 'tuareg-mode "mg" "goto")
+    (spacemacs/declare-prefix-for-mode 'tuareg-mode "mh" "help")
+    (spacemacs/declare-prefix-for-mode 'tuareg-mode "mr" "refactor")))
 
 (defun ocaml/init-merlin-company ()
   (use-package merlin-company
@@ -139,9 +136,8 @@
   (use-package merlin-iedit
     :defer t
     :init
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
-        "re" 'merlin-iedit-occurrences))))
+    (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+      "re" 'merlin-iedit-occurrences)))
 
 (defun ocaml/post-init-imenu ()
   (add-hook 'merlin-mode-hook #'merlin-use-merlin-imenu))
@@ -181,61 +177,58 @@
            ("\\.topml$" . tuareg-mode))
     :defer t
     :init
-    (progn
-      (spacemacs//init-ocaml-opam)
-      (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
-        "ga" 'tuareg-find-alternate-file
-        "cc" 'compile)
-      ;; Make OCaml-generated files invisible to filename completion
-      (dolist (ext '(".cmo" ".cmx" ".cma" ".cmxa" ".cmi" ".cmxs" ".cmt" ".cmti" ".annot"))
-        (add-to-list 'completion-ignored-extensions ext)))))
+    (spacemacs//init-ocaml-opam)
+    (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+      "ga" 'tuareg-find-alternate-file
+      "cc" 'compile)
+    ;; Make OCaml-generated files invisible to filename completion
+    (dolist (ext '(".cmo" ".cmx" ".cma" ".cmxa" ".cmi" ".cmxs" ".cmt" ".cmti" ".annot"))
+      (add-to-list 'completion-ignored-extensions ext))))
 
 (defun ocaml/init-utop ()
   (use-package utop
     :defer t
     :init
-    (progn
-      (add-hook 'tuareg-mode-hook 'utop-minor-mode)
-      (spacemacs/register-repl 'utop 'utop "ocaml"))
+    (add-hook 'tuareg-mode-hook 'utop-minor-mode)
+    (spacemacs/register-repl 'utop 'utop "ocaml")
     :config
-    (progn
-      (if (executable-find "opam")
-          (setq utop-command "opam config exec -- utop -emacs")
-        (spacemacs-buffer/warning "Cannot find \"opam\" executable."))
+    (if (executable-find "opam")
+        (setq utop-command "opam config exec -- utop -emacs")
+      (spacemacs-buffer/warning "Cannot find \"opam\" executable."))
 
-      (defun spacemacs/utop-eval-phrase-and-go ()
-        "Send phrase to REPL and evaluate it and switch to the REPL in
+    (defun spacemacs/utop-eval-phrase-and-go ()
+      "Send phrase to REPL and evaluate it and switch to the REPL in
 `insert state'"
-        (interactive)
-        (utop-eval-phrase)
-        (utop)
-        (evil-insert-state))
+      (interactive)
+      (utop-eval-phrase)
+      (utop)
+      (evil-insert-state))
 
-      (defun spacemacs/utop-eval-buffer-and-go ()
-        "Send buffer to REPL and evaluate it and switch to the REPL in
+    (defun spacemacs/utop-eval-buffer-and-go ()
+      "Send buffer to REPL and evaluate it and switch to the REPL in
 `insert state'"
-        (interactive)
-        (utop-eval-buffer)
-        (utop)
-        (evil-insert-state))
+      (interactive)
+      (utop-eval-buffer)
+      (utop)
+      (evil-insert-state))
 
-      (defun spacemacs/utop-eval-region-and-go (start end)
-        "Send region to REPL and evaluate it and switch to the REPL in
+    (defun spacemacs/utop-eval-region-and-go (start end)
+      "Send region to REPL and evaluate it and switch to the REPL in
 `insert state'"
-        (interactive "r")
-        (utop-eval-region start end)
-        (utop)
-        (evil-insert-state))
+      (interactive "r")
+      (utop-eval-region start end)
+      (utop)
+      (evil-insert-state))
 
-      (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
-        "'"  'utop
-        "sb" 'utop-eval-buffer
-        "sB" 'spacemacs/utop-eval-buffer-and-go
-        "si" 'utop
-        "sp" 'utop-eval-phrase
-        "sP" 'spacemacs/utop-eval-phrase-and-go
-        "sr" 'utop-eval-region
-        "sR" 'spacemacs/utop-eval-region-and-go)
-      (spacemacs/declare-prefix-for-mode 'tuareg-mode "ms" "send"))
+    (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+      "'"  'utop
+      "sb" 'utop-eval-buffer
+      "sB" 'spacemacs/utop-eval-buffer-and-go
+      "si" 'utop
+      "sp" 'utop-eval-phrase
+      "sP" 'spacemacs/utop-eval-phrase-and-go
+      "sr" 'utop-eval-region
+      "sR" 'spacemacs/utop-eval-region-and-go)
+    (spacemacs/declare-prefix-for-mode 'tuareg-mode "ms" "send")
     (define-key utop-mode-map (kbd "C-j") 'utop-history-goto-next)
     (define-key utop-mode-map (kbd "C-k") 'utop-history-goto-prev)))

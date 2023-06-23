@@ -50,43 +50,42 @@
     :mode ("\\.hy\\'" . hy-mode)
     :interpreter ("hy" . hy-mode)
     :config
-    (progn
-      ;; Disable this unless using special branch
-      (setq hy-shell-use-control-codes? nil)
-      ;; key bindings
-      (spacemacs/declare-prefix-for-mode 'hy-mode "md" "debug")
-      (spacemacs/declare-prefix-for-mode 'hy-mode "mt" "test")
-      (spacemacs/declare-prefix-for-mode 'hy-mode "me" "eval")
-      (spacemacs/declare-prefix-for-mode 'hy-mode "ms" "REPL")
-      (spacemacs/declare-prefix-for-mode 'hy-mode "mv" "pyvenv")
-      (spacemacs/declare-prefix-for-mode 'hy-mode "mh" "help")
-      (spacemacs/set-leader-keys-for-major-mode 'hy-mode
-        "'" 'run-hy
+    ;; Disable this unless using special branch
+    (setq hy-shell-use-control-codes? nil)
+    ;; key bindings
+    (spacemacs/declare-prefix-for-mode 'hy-mode "md" "debug")
+    (spacemacs/declare-prefix-for-mode 'hy-mode "mt" "test")
+    (spacemacs/declare-prefix-for-mode 'hy-mode "me" "eval")
+    (spacemacs/declare-prefix-for-mode 'hy-mode "ms" "REPL")
+    (spacemacs/declare-prefix-for-mode 'hy-mode "mv" "pyvenv")
+    (spacemacs/declare-prefix-for-mode 'hy-mode "mh" "help")
+    (spacemacs/set-leader-keys-for-major-mode 'hy-mode
+      "'" 'run-hy
 
-        "dd" 'hy-insert-pdb
-        "dt" 'hy-insert-pdb-threaded
-        "hh" 'hy-describe-thing-at-point
+      "dd" 'hy-insert-pdb
+      "dt" 'hy-insert-pdb-threaded
+      "hh" 'hy-describe-thing-at-point
 
-        "eb" 'hy-shell-eval-buffer
-        "eB" 'spacemacs/hy-shell-eval-buffer-and-go
-        "ec" 'hy-shell-eval-current-form
-        "eC" 'spacemacs/hy-shell-eval-current-form-and-go
-        "ei" 'run-hy
-        "er" 'hy-shell-eval-region
-        "eR" 'spacemacs/hy-shell-eval-region-and-go
+      "eb" 'hy-shell-eval-buffer
+      "eB" 'spacemacs/hy-shell-eval-buffer-and-go
+      "ec" 'hy-shell-eval-current-form
+      "eC" 'spacemacs/hy-shell-eval-current-form-and-go
+      "ei" 'run-hy
+      "er" 'hy-shell-eval-region
+      "eR" 'spacemacs/hy-shell-eval-region-and-go
 
-        "sb" 'hy-shell-eval-buffer
-        "sB" 'spacemacs/hy-shell-eval-buffer-and-go
-        "sc" 'hy-shell-eval-current-form
-        "sC" 'spacemacs/hy-shell-eval-current-form-and-go
-        "si" 'hy-shell-start-or-switch-to-shell
-        "sr" 'hy-shell-eval-region
-        "sR" 'spacemacs/hy-shell-eval-region-and-go
+      "sb" 'hy-shell-eval-buffer
+      "sB" 'spacemacs/hy-shell-eval-buffer-and-go
+      "sc" 'hy-shell-eval-current-form
+      "sC" 'spacemacs/hy-shell-eval-current-form-and-go
+      "si" 'hy-shell-start-or-switch-to-shell
+      "sr" 'hy-shell-eval-region
+      "sR" 'spacemacs/hy-shell-eval-region-and-go
 
-        "tA" 'spacemacs/python-test-pdb-all
-        "ta" 'spacemacs/python-test-all
-        "tM" 'spacemacs/python-test-pdb-module
-        "tm" 'spacemacs/python-test-module))))
+      "tA" 'spacemacs/python-test-pdb-all
+      "ta" 'spacemacs/python-test-all
+      "tM" 'spacemacs/python-test-pdb-module
+      "tm" 'spacemacs/python-test-module)))
 
 (defun hy/pre-init-ob-hy ()
   (spacemacs|use-package-add-hook org

@@ -43,158 +43,156 @@
   (use-package sql
     :defer t
     :init
-    (progn
-      (spacemacs/register-repl 'sql 'spacemacs/sql-start "sql")
-      (add-hook 'sql-mode-hook
-                'spacemacs//sql-setup-backend))
+    (spacemacs/register-repl 'sql 'spacemacs/sql-start "sql")
+    (add-hook 'sql-mode-hook
+              'spacemacs//sql-setup-backend)
     :config
-    (progn
-      (setq
-       ;; should not set this to anything else than nil
-       ;; the focus of SQLi is handled by spacemacs conventions
-       sql-pop-to-buffer-after-send-region nil)
-      (advice-add 'sql-add-product :after #'spacemacs/sql-populate-products-list)
-      (advice-add 'sql-del-product :after #'spacemacs/sql-populate-products-list)
-      (spacemacs/sql-populate-products-list)
-      (defun spacemacs//sql-source (products)
-        "return a source for helm selection"
-        `((name . "SQL Products")
-          (candidates . ,(mapcar (lambda (product)
-                                   (cons (sql-get-product-feature (car product) :name)
-                                         (car product)))
-                                 products))
-          (action . (lambda (candidate) (helm-marked-candidates)))))
+    (setq
+     ;; should not set this to anything else than nil
+     ;; the focus of SQLi is handled by spacemacs conventions
+     sql-pop-to-buffer-after-send-region nil)
+    (advice-add 'sql-add-product :after #'spacemacs/sql-populate-products-list)
+    (advice-add 'sql-del-product :after #'spacemacs/sql-populate-products-list)
+    (spacemacs/sql-populate-products-list)
+    (defun spacemacs//sql-source (products)
+      "return a source for helm selection"
+      `((name . "SQL Products")
+        (candidates . ,(mapcar (lambda (product)
+                                 (cons (sql-get-product-feature (car product) :name)
+                                       (car product)))
+                               products))
+        (action . (lambda (candidate) (helm-marked-candidates)))))
 
-      (defun spacemacs/sql-highlight ()
-        "set SQL dialect-specific highlighting"
-        (interactive)
-        (let ((product (car (helm
-                             :sources (list (spacemacs//sql-source spacemacs-sql-highlightable))))))
-          (sql-set-product product)))
+    (defun spacemacs/sql-highlight ()
+      "set SQL dialect-specific highlighting"
+      (interactive)
+      (let ((product (car (helm
+                           :sources (list (spacemacs//sql-source spacemacs-sql-highlightable))))))
+        (sql-set-product product)))
 
-      (defun spacemacs/sql-start ()
-        "set SQL dialect-specific highlighting and start inferior SQLi process"
-        (interactive)
-        (let ((product (car (helm
-                             :sources (list (spacemacs//sql-source spacemacs-sql-startable))))))
-          (sql-set-product product)
-          (sql-product-interactive product)))
+    (defun spacemacs/sql-start ()
+      "set SQL dialect-specific highlighting and start inferior SQLi process"
+      (interactive)
+      (let ((product (car (helm
+                           :sources (list (spacemacs//sql-source spacemacs-sql-startable))))))
+        (sql-set-product product)
+        (sql-product-interactive product)))
 
-      (defun spacemacs/sql-send-string-and-focus ()
-        "Send a string to SQLi and switch to SQLi in `insert state'."
-        (interactive)
-        (let ((sql-pop-to-buffer-after-send-region t))
-          (call-interactively 'sql-send-string)
-          (evil-insert-state)))
+    (defun spacemacs/sql-send-string-and-focus ()
+      "Send a string to SQLi and switch to SQLi in `insert state'."
+      (interactive)
+      (let ((sql-pop-to-buffer-after-send-region t))
+        (call-interactively 'sql-send-string)
+        (evil-insert-state)))
 
-      (defun spacemacs/sql-send-buffer-and-focus ()
-        "Send the buffer to SQLi and switch to SQLi in `insert state'."
-        (interactive)
-        (let ((sql-pop-to-buffer-after-send-region t))
-          (sql-send-buffer)
-          (evil-insert-state)))
+    (defun spacemacs/sql-send-buffer-and-focus ()
+      "Send the buffer to SQLi and switch to SQLi in `insert state'."
+      (interactive)
+      (let ((sql-pop-to-buffer-after-send-region t))
+        (sql-send-buffer)
+        (evil-insert-state)))
 
-      (defun spacemacs/sql-send-paragraph-and-focus ()
-        "Send the paragraph to SQLi and switch to SQLi in `insert state'."
-        (interactive)
-        (let ((sql-pop-to-buffer-after-send-region t))
-          (sql-send-paragraph)
-          (evil-insert-state)))
+    (defun spacemacs/sql-send-paragraph-and-focus ()
+      "Send the paragraph to SQLi and switch to SQLi in `insert state'."
+      (interactive)
+      (let ((sql-pop-to-buffer-after-send-region t))
+        (sql-send-paragraph)
+        (evil-insert-state)))
 
-      (defun spacemacs/sql-send-region-and-focus (start end)
-        "Send region to SQLi and switch to SQLi in `insert state'."
-        (interactive "r")
-        (let ((sql-pop-to-buffer-after-send-region t))
-          (sql-send-region start end)
-          (evil-insert-state)))
+    (defun spacemacs/sql-send-region-and-focus (start end)
+      "Send region to SQLi and switch to SQLi in `insert state'."
+      (interactive "r")
+      (let ((sql-pop-to-buffer-after-send-region t))
+        (sql-send-region start end)
+        (evil-insert-state)))
 
-      (defun spacemacs/sql-send-line-and-next-and-focus ()
-        "Send the current line to SQLi and switch to SQLi in `insert state'."
-        (interactive)
-        (let ((sql-pop-to-buffer-after-send-region t))
-          (sql-send-line-and-next)))
+    (defun spacemacs/sql-send-line-and-next-and-focus ()
+      "Send the current line to SQLi and switch to SQLi in `insert state'."
+      (interactive)
+      (let ((sql-pop-to-buffer-after-send-region t))
+        (sql-send-line-and-next)))
 
-      (defun spacemacs/sql-send-string ()
-        "Send a string to SQLi and stays in the same region."
-        (interactive)
-        (let ((sql-pop-to-buffer-after-send-region nil))
-          (call-interactively 'sql-send-string)))
+    (defun spacemacs/sql-send-string ()
+      "Send a string to SQLi and stays in the same region."
+      (interactive)
+      (let ((sql-pop-to-buffer-after-send-region nil))
+        (call-interactively 'sql-send-string)))
 
-      (defun spacemacs/sql-send-buffer ()
-        "Send the buffer to SQLi and stays in the same region."
-        (interactive)
-        (let ((sql-pop-to-buffer-after-send-region nil))
-          (sql-send-buffer)))
+    (defun spacemacs/sql-send-buffer ()
+      "Send the buffer to SQLi and stays in the same region."
+      (interactive)
+      (let ((sql-pop-to-buffer-after-send-region nil))
+        (sql-send-buffer)))
 
-      (defun spacemacs/sql-send-paragraph ()
-        "Send the paragraph to SQLi and stays in the same region."
-        (interactive)
-        (let ((sql-pop-to-buffer-after-send-region nil))
-          (sql-send-paragraph)))
+    (defun spacemacs/sql-send-paragraph ()
+      "Send the paragraph to SQLi and stays in the same region."
+      (interactive)
+      (let ((sql-pop-to-buffer-after-send-region nil))
+        (sql-send-paragraph)))
 
-      (defun spacemacs/sql-send-region (start end)
-        "Send region to SQLi and stays in the same region."
-        (interactive "r")
-        (let ((sql-pop-to-buffer-after-send-region nil))
-          (sql-send-region start end)))
+    (defun spacemacs/sql-send-region (start end)
+      "Send region to SQLi and stays in the same region."
+      (interactive "r")
+      (let ((sql-pop-to-buffer-after-send-region nil))
+        (sql-send-region start end)))
 
-      (defun spacemacs/sql-send-line-and-next ()
-        "Send the current line to SQLi and stays in the same region."
-        (interactive)
-        (let ((sql-pop-to-buffer-after-send-region nil))
-          (sql-send-line-and-next)))
+    (defun spacemacs/sql-send-line-and-next ()
+      "Send the current line to SQLi and stays in the same region."
+      (interactive)
+      (let ((sql-pop-to-buffer-after-send-region nil))
+        (sql-send-line-and-next)))
 
-      (spacemacs/declare-prefix-for-mode 'sql-mode "mb" "buffer")
-      (spacemacs/declare-prefix-for-mode 'sql-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'sql-mode "mh" "dialects")
-      (spacemacs/declare-prefix-for-mode 'sql-mode "ml" "listing")
-      (spacemacs/declare-prefix-for-mode 'sql-mode "ms" "REPL")
-      (spacemacs/set-leader-keys-for-major-mode 'sql-mode
-        "'" 'spacemacs/sql-start
+    (spacemacs/declare-prefix-for-mode 'sql-mode "mb" "buffer")
+    (spacemacs/declare-prefix-for-mode 'sql-mode "mg" "goto")
+    (spacemacs/declare-prefix-for-mode 'sql-mode "mh" "dialects")
+    (spacemacs/declare-prefix-for-mode 'sql-mode "ml" "listing")
+    (spacemacs/declare-prefix-for-mode 'sql-mode "ms" "REPL")
+    (spacemacs/set-leader-keys-for-major-mode 'sql-mode
+      "'" 'spacemacs/sql-start
 
-        ;; sqli buffer
-        "bb" 'sql-show-sqli-buffer
-        "bc" 'sql-connect
-        "bs" 'sql-set-sqli-buffer
+      ;; sqli buffer
+      "bb" 'sql-show-sqli-buffer
+      "bc" 'sql-connect
+      "bs" 'sql-set-sqli-buffer
 
-        ;; dialects
-        "hk" 'spacemacs/sql-highlight
+      ;; dialects
+      "hk" 'spacemacs/sql-highlight
 
-        ;; repl
-        "sb" 'sql-send-buffer
-        "sB" 'spacemacs/sql-send-buffer-and-focus
-        "si" 'spacemacs/sql-start
-        ;; paragraph gets "f" here because they can be assimilated to functions.
-        ;; If you separate your commands in a SQL file, this key will send the
-        ;; command around point, which is what you probably want.
-        "sf" 'spacemacs/sql-send-paragraph
-        "sF" 'spacemacs/sql-send-paragraph-and-focus
-        "sl" 'spacemacs/sql-send-line-and-next
-        "sL" 'spacemacs/sql-send-line-and-next-and-focus
-        "sq" 'spacemacs/sql-send-string
-        "sQ" 'spacemacs/sql-send-string-and-focus
-        "sr" 'spacemacs/sql-send-region
-        "sR" 'spacemacs/sql-send-region-and-focus
+      ;; repl
+      "sb" 'sql-send-buffer
+      "sB" 'spacemacs/sql-send-buffer-and-focus
+      "si" 'spacemacs/sql-start
+      ;; paragraph gets "f" here because they can be assimilated to functions.
+      ;; If you separate your commands in a SQL file, this key will send the
+      ;; command around point, which is what you probably want.
+      "sf" 'spacemacs/sql-send-paragraph
+      "sF" 'spacemacs/sql-send-paragraph-and-focus
+      "sl" 'spacemacs/sql-send-line-and-next
+      "sL" 'spacemacs/sql-send-line-and-next-and-focus
+      "sq" 'spacemacs/sql-send-string
+      "sQ" 'spacemacs/sql-send-string-and-focus
+      "sr" 'spacemacs/sql-send-region
+      "sR" 'spacemacs/sql-send-region-and-focus
 
-        ;; listing
-        "la" 'sql-list-all
-        "lt" 'sql-list-table)
+      ;; listing
+      "la" 'sql-list-all
+      "lt" 'sql-list-table)
 
-      (spacemacs/declare-prefix-for-mode 'sql-interactive-mode "mb" "buffer")
-      (spacemacs/set-leader-keys-for-major-mode 'sql-interactive-mode
-        ;; sqli buffer
-        "br" 'sql-rename-buffer
-        "bS" 'sql-save-connection)
+    (spacemacs/declare-prefix-for-mode 'sql-interactive-mode "mb" "buffer")
+    (spacemacs/set-leader-keys-for-major-mode 'sql-interactive-mode
+      ;; sqli buffer
+      "br" 'sql-rename-buffer
+      "bS" 'sql-save-connection)
 
-      (add-hook 'sql-interactive-mode-hook
-                (lambda () (toggle-truncate-lines t)))
+    (add-hook 'sql-interactive-mode-hook
+              (lambda () (toggle-truncate-lines t)))
 
-      ;; lsp-sqls
-      (let ((path-config (cond
-                          ((equal sql-lsp-sqls-workspace-config-path 'workspace) "workspace")
-                          ((equal sql-lsp-sqls-workspace-config-path 'root) "root")
-                          (t nil))))
-        (setq lsp-sqls-workspace-config-path path-config)))))
+    ;; lsp-sqls
+    (let ((path-config (cond
+                        ((equal sql-lsp-sqls-workspace-config-path 'workspace) "workspace")
+                        ((equal sql-lsp-sqls-workspace-config-path 'root) "root")
+                        (t nil))))
+      (setq lsp-sqls-workspace-config-path path-config))))
 
 (defun sql/init-sql-indent ()
   (use-package sql-indent
@@ -216,17 +214,15 @@
   (use-package sqlup-mode
     :defer t
     :init
-    (progn
-      (add-hook 'sql-mode-hook 'sqlup-mode)
-      (unless sql-capitalize-keywords-disable-interactive
-        (add-hook 'sql-interactive-mode-hook 'sqlup-mode))
-      (spacemacs/set-leader-keys-for-major-mode 'sql-mode
-        "c" 'sqlup-capitalize-keywords-in-region))
+    (add-hook 'sql-mode-hook 'sqlup-mode)
+    (unless sql-capitalize-keywords-disable-interactive
+      (add-hook 'sql-interactive-mode-hook 'sqlup-mode))
+    (spacemacs/set-leader-keys-for-major-mode 'sql-mode
+      "c" 'sqlup-capitalize-keywords-in-region)
     :config
-    (progn
-      (spacemacs|hide-lighter sqlup-mode)
-      (setq sqlup-blacklist (append sqlup-blacklist
-                                    sql-capitalize-keywords-blacklist)))))
+    (spacemacs|hide-lighter sqlup-mode)
+    (setq sqlup-blacklist (append sqlup-blacklist
+                                  sql-capitalize-keywords-blacklist))))
 
 (defun sql/post-init-company ()
   (spacemacs//sql-setup-company))

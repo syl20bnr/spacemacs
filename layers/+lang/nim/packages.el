@@ -43,20 +43,18 @@
   (use-package nim-mode
     :defer t
     :init
-    (progn
-      (add-hook 'nim-mode-hook #'spacemacs//nim-setup-backend)
-      (add-to-list 'spacemacs-jump-handlers-nim-mode 'nimsuggest-find-definition))
+    (add-hook 'nim-mode-hook #'spacemacs//nim-setup-backend)
+    (add-to-list 'spacemacs-jump-handlers-nim-mode 'nimsuggest-find-definition)
     :config
-    (progn
-      ;; Set non lsp bindings
-      (when (eq nim-backend 'company-nim)
-        (spacemacs/declare-prefix-for-mode 'nim-mode "mg" "goto")
-        (spacemacs/declare-prefix-for-mode 'nim-mode "mh" "help")
-        (spacemacs/set-leader-keys-for-major-mode 'nim-mode
-          "hh" 'nimsuggest-show-doc))
-
-      ;; Set general bindings
-      (spacemacs/declare-prefix-for-mode 'nim-mode "mc" "compile")
+    ;; Set non lsp bindings
+    (when (eq nim-backend 'company-nim)
+      (spacemacs/declare-prefix-for-mode 'nim-mode "mg" "goto")
+      (spacemacs/declare-prefix-for-mode 'nim-mode "mh" "help")
       (spacemacs/set-leader-keys-for-major-mode 'nim-mode
-        "cr" 'spacemacs/nim-compile-run
-        "gb" 'pop-tag-mark))))
+        "hh" 'nimsuggest-show-doc))
+
+    ;; Set general bindings
+    (spacemacs/declare-prefix-for-mode 'nim-mode "mc" "compile")
+    (spacemacs/set-leader-keys-for-major-mode 'nim-mode
+      "cr" 'spacemacs/nim-compile-run
+      "gb" 'pop-tag-mark)))

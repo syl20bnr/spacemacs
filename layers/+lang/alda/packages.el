@@ -34,9 +34,8 @@
                alda-play-line
                alda-play-buffer)
     :init
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'alda-mode
-        "b" 'alda-play-buffer
-        "c" 'alda-play-block
-        "n" 'alda-play-line
-        "r" 'alda-play-region))))
+    (spacemacs/set-leader-keys-for-major-mode 'alda-mode
+      "b" 'alda-play-buffer
+      "c" 'alda-play-block
+      "n" 'alda-play-line
+      "r" 'alda-play-region)))
