@@ -44,18 +44,17 @@
     :init
     :mode ("\\.m\\'" . metal-mercury-mode)
     :config
-    (progn
-      (dolist (x '(
-                   ;; ("m=" . "format")
-                   ("mc" . "mercury/compile")
-                   ;; ("mh" . "help")
-                   ))
-        (spacemacs/declare-prefix-for-mode 'metal-mercury-mode (car x) (cdr x)))
+    (dolist (x '(
+                 ;; ("m=" . "format")
+                 ("mc" . "mercury/compile")
+                 ;; ("mh" . "help")
+                 ))
+      (spacemacs/declare-prefix-for-mode 'metal-mercury-mode (car x) (cdr x)))
 
-      (spacemacs/set-leader-keys-for-major-mode 'metal-mercury-mode
-        ;; make
-        "cb" 'metal-mercury-mode-compile
-        "cr" 'metal-mercury-mode-runner))))
+    (spacemacs/set-leader-keys-for-major-mode 'metal-mercury-mode
+      ;; make
+      "cb" 'metal-mercury-mode-compile
+      "cr" 'metal-mercury-mode-runner)))
 
 (defun mercury/post-init-smartparens ()
   (add-hook 'metal-mercury-mode-hook #'spacemacs//activate-smartparens))

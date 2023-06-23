@@ -40,35 +40,33 @@
   (use-package ameba
     :defer t
     :init
-    (progn
-      (add-hook 'crystal-mode-hook 'ameba-mode)
-      (spacemacs/declare-prefix-for-mode 'crystal-mode "mua" "ameba")
-      (spacemacs/set-leader-keys-for-major-mode 'crystal-mode
-        "uad" 'ameba-check-directory
-        "uaf" 'ameba-check-current-file
-        "uap" 'ameba-check-project))))
+    (add-hook 'crystal-mode-hook 'ameba-mode)
+    (spacemacs/declare-prefix-for-mode 'crystal-mode "mua" "ameba")
+    (spacemacs/set-leader-keys-for-major-mode 'crystal-mode
+      "uad" 'ameba-check-directory
+      "uaf" 'ameba-check-current-file
+      "uap" 'ameba-check-project)))
 
 (defun crystal/init-crystal-mode ()
   (use-package crystal-mode
     :defer t
     :init
-    (progn
-      (add-hook 'crystal-mode-hook 'spacemacs//crystal-auto-format-setup)
-      (add-hook 'crystal-mode-hook #'spacemacs//crystal-setup-backend)
-      (spacemacs/declare-prefix-for-mode 'crystal-mode "mu" "tool")
-      (unless (eq crystal-backend 'lsp)
-        (spacemacs/declare-prefix-for-mode 'crystal-mode "mg" "goto")
-        (spacemacs/declare-prefix-for-mode 'crystal-mode "mt" "test")
-        (spacemacs/declare-prefix-for-mode 'crystal-mode "ma" "action"))
-      (spacemacs/set-leader-keys-for-major-mode 'crystal-mode
-        "ga" 'crystal-spec-switch
-        "tb" 'crystal-spec-buffer
-        "tp" 'crystal-spec-all
-        "uc" 'crystal-tool-context
-        "ue" 'crystal-tool-expand
-        "uf" 'crystal-tool-format
-        "ui" 'crystal-tool-imp
-        "ax" 'spacemacs/crystal-run-main))))
+    (add-hook 'crystal-mode-hook 'spacemacs//crystal-auto-format-setup)
+    (add-hook 'crystal-mode-hook #'spacemacs//crystal-setup-backend)
+    (spacemacs/declare-prefix-for-mode 'crystal-mode "mu" "tool")
+    (unless (eq crystal-backend 'lsp)
+      (spacemacs/declare-prefix-for-mode 'crystal-mode "mg" "goto")
+      (spacemacs/declare-prefix-for-mode 'crystal-mode "mt" "test")
+      (spacemacs/declare-prefix-for-mode 'crystal-mode "ma" "action"))
+    (spacemacs/set-leader-keys-for-major-mode 'crystal-mode
+      "ga" 'crystal-spec-switch
+      "tb" 'crystal-spec-buffer
+      "tp" 'crystal-spec-all
+      "uc" 'crystal-tool-context
+      "ue" 'crystal-tool-expand
+      "uf" 'crystal-tool-format
+      "ui" 'crystal-tool-imp
+      "ax" 'spacemacs/crystal-run-main)))
 
 (defun crystal/post-init-flycheck ()
   (spacemacs/enable-flycheck 'crystal-mode))
@@ -80,20 +78,19 @@
   (use-package inf-crystal
     :defer t
     :init
-    (progn
-      (spacemacs/register-repl 'inf-crystal 'inf-crystal "inf-crystal")
-      (add-hook 'crystal-mode-hook 'inf-crystal-minor-mode)
-      (spacemacs/declare-prefix-for-mode 'crystal-mode "ms" "repl")
-      (spacemacs/set-leader-keys-for-major-mode 'crystal-mode
-        "'" 'inf-crystal
-        "sb" 'crystal-send-buffer
-        "sB" 'crystal-send-buffer-and-go
-        "sf" 'crystal-send-definition
-        "sF" 'crystal-send-definition-and-go
-        "si" 'inf-crystal
-        "sr" 'crystal-send-region
-        "sR" 'crystal-send-region-and-go
-        "ss" 'crystal-switch-to-inf))))
+    (spacemacs/register-repl 'inf-crystal 'inf-crystal "inf-crystal")
+    (add-hook 'crystal-mode-hook 'inf-crystal-minor-mode)
+    (spacemacs/declare-prefix-for-mode 'crystal-mode "ms" "repl")
+    (spacemacs/set-leader-keys-for-major-mode 'crystal-mode
+      "'" 'inf-crystal
+      "sb" 'crystal-send-buffer
+      "sB" 'crystal-send-buffer-and-go
+      "sf" 'crystal-send-definition
+      "sF" 'crystal-send-definition-and-go
+      "si" 'inf-crystal
+      "sr" 'crystal-send-region
+      "sR" 'crystal-send-region-and-go
+      "ss" 'crystal-switch-to-inf)))
 
 (defun crystal/pre-init-ob-crystal ()
   (spacemacs|use-package-add-hook org
@@ -106,10 +103,9 @@
   (use-package play-crystal
     :defer t
     :init
-    (progn
-      (spacemacs/declare-prefix-for-mode 'crystal-mode "me" "play")
-      (spacemacs/set-leader-keys-for-major-mode 'crystal-mode
-        "eb" 'play-crystal-submit-buffer
-        "ee" 'play-crystal-browse
-        "ei" 'play-crystal-insert
-        "er" 'play-crystal-submit-region))))
+    (spacemacs/declare-prefix-for-mode 'crystal-mode "me" "play")
+    (spacemacs/set-leader-keys-for-major-mode 'crystal-mode
+      "eb" 'play-crystal-submit-buffer
+      "ee" 'play-crystal-browse
+      "ei" 'play-crystal-insert
+      "er" 'play-crystal-submit-region)))

@@ -31,28 +31,27 @@
     :mode (("\\.adoc?\\'" . adoc-mode))
 		:defer t
     :config
-    (progn
-      ;; We have quite a lot of possible keybindings.
-      ;; See `adoc-mode.el', its bottom part where the huge easy-menu
-      ;; is defined and after that, where the various `tempo-template-*'
-      ;; functions are defined.
+    ;; We have quite a lot of possible keybindings.
+    ;; See `adoc-mode.el', its bottom part where the huge easy-menu
+    ;; is defined and after that, where the various `tempo-template-*'
+    ;; functions are defined.
 
-      ;; See /doc/CONVENTIONS.md#plain-text-markup-languages
-      (spacemacs/set-leader-keys-for-major-mode 'adoc-mode
-        "h1" 'tempo-template-adoc-title-1
-        ;; Alternative method of inserting top-level heading
-        "hI" 'tempo-template-adoc-title-1
-        "h2" 'tempo-template-adoc-title-2
-        ;; Alternative method of inserting the most usual heading
-        "hi" 'tempo-template-adoc-title-2
-        "h3" 'tempo-template-adoc-title-3
-        "h4" 'tempo-template-adoc-title-4
-        "h5" 'tempo-template-adoc-title-5
-        "xb" 'tempo-template-adoc-strong
-        "xi" 'tempo-template-adoc-emphasis)
-      ;; yes, exactly like that. To "promote" title is to INCREASE its size.
-      ;; `adoc-demote' does the opposite: increases its LEVEL,
-      ;; which DECREASES its size.
-      (define-key adoc-mode-map (kbd "M-h") 'adoc-demote)
-      ;; see the comment about  adoc-demote above
-      (define-key adoc-mode-map (kbd "M-l") 'adoc-promote))))
+    ;; See /doc/CONVENTIONS.md#plain-text-markup-languages
+    (spacemacs/set-leader-keys-for-major-mode 'adoc-mode
+      "h1" 'tempo-template-adoc-title-1
+      ;; Alternative method of inserting top-level heading
+      "hI" 'tempo-template-adoc-title-1
+      "h2" 'tempo-template-adoc-title-2
+      ;; Alternative method of inserting the most usual heading
+      "hi" 'tempo-template-adoc-title-2
+      "h3" 'tempo-template-adoc-title-3
+      "h4" 'tempo-template-adoc-title-4
+      "h5" 'tempo-template-adoc-title-5
+      "xb" 'tempo-template-adoc-strong
+      "xi" 'tempo-template-adoc-emphasis)
+    ;; yes, exactly like that. To "promote" title is to INCREASE its size.
+    ;; `adoc-demote' does the opposite: increases its LEVEL,
+    ;; which DECREASES its size.
+    (define-key adoc-mode-map (kbd "M-h") 'adoc-demote)
+    ;; see the comment about  adoc-demote above
+    (define-key adoc-mode-map (kbd "M-l") 'adoc-promote)))

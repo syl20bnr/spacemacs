@@ -52,48 +52,45 @@
     ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
     (setq sbt:program-options '("-Dsbt.supershell=false"))
     :init
-    (progn
-      (spacemacs/declare-prefix-for-mode 'scala-mode "mb" "sbt")
-      (spacemacs/declare-prefix-for-mode 'scala-mode "mg" "goto")
-      (spacemacs/set-leader-keys-for-major-mode 'scala-mode
-        "b." 'sbt-hydra
-        "bb" 'sbt-command
-        "bc" #'spacemacs/scala-sbt-compile
-        "bt" #'spacemacs/scala-sbt-test
-        "bI" #'spacemacs/scala-sbt-compile-it
-        "bT" #'spacemacs/scala-sbt-compile-test
-        "b=" #'spacemacs/scala-sbt-scalafmt-all))))
+    (spacemacs/declare-prefix-for-mode 'scala-mode "mb" "sbt")
+    (spacemacs/declare-prefix-for-mode 'scala-mode "mg" "goto")
+    (spacemacs/set-leader-keys-for-major-mode 'scala-mode
+      "b." 'sbt-hydra
+      "bb" 'sbt-command
+      "bc" #'spacemacs/scala-sbt-compile
+      "bt" #'spacemacs/scala-sbt-test
+      "bI" #'spacemacs/scala-sbt-compile-it
+      "bT" #'spacemacs/scala-sbt-compile-test
+      "b=" #'spacemacs/scala-sbt-scalafmt-all)))
 
 (defun scala/init-scala-mode ()
   (use-package scala-mode
     :defer t
     :init
-    (progn
-      (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
-        (add-to-list 'completion-ignored-extensions ext)))
+    (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
+      (add-to-list 'completion-ignored-extensions ext))
     :config
-    (progn
-      ;; Automatically insert asterisk in a comment when enabled
-      (defun scala/newline-and-indent-with-asterisk ()
-        (interactive)
-        (newline-and-indent)
-        (when scala-auto-insert-asterisk-in-comments
-          (scala-indent:insert-asterisk-on-multiline-comment)))
+    ;; Automatically insert asterisk in a comment when enabled
+    (defun scala/newline-and-indent-with-asterisk ()
+      (interactive)
+      (newline-and-indent)
+      (when scala-auto-insert-asterisk-in-comments
+        (scala-indent:insert-asterisk-on-multiline-comment)))
 
-      (evil-define-key 'insert scala-mode-map
-        (kbd "RET") 'scala/newline-and-indent-with-asterisk)
+    (evil-define-key 'insert scala-mode-map
+      (kbd "RET") 'scala/newline-and-indent-with-asterisk)
 
-      (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
+    (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
 
-      (when (eq scala-sbt-window-position 'bottom)
-        (setq sbt:display-buffer-action
-              (list #'spacemacs//scala-display-sbt-at-bottom)))
+    (when (eq scala-sbt-window-position 'bottom)
+      (setq sbt:display-buffer-action
+            (list #'spacemacs//scala-display-sbt-at-bottom)))
 
-      ;; Compatibility with `aggressive-indent'
-      (setq scala-indent:align-forms t
-            scala-indent:align-parameters t
-            scala-indent:default-run-on-strategy
-            scala-indent:operator-strategy))))
+    ;; Compatibility with `aggressive-indent'
+    (setq scala-indent:align-forms t
+          scala-indent:align-parameters t
+          scala-indent:default-run-on-strategy
+          scala-indent:operator-strategy)))
 
 (defun scala/pre-init-dap-mode ()
   (when (spacemacs//scala-backend-metals-p)

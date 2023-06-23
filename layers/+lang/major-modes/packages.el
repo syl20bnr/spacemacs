@@ -46,23 +46,21 @@
   (use-package ebuild-mode
     :mode ("\\.\\(ebuild\\|eclass\\)" . ebuild-mode)
     :init
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'ebuild-mode
-        "n" 'ebuild-mode-insert-skeleton
-        "k" 'ebuild-mode-keyword
-        "e" 'ebuild-run-command
-        "a" 'ebuild-run-echangelog))))
+    (spacemacs/set-leader-keys-for-major-mode 'ebuild-mode
+      "n" 'ebuild-mode-insert-skeleton
+      "k" 'ebuild-mode-keyword
+      "e" 'ebuild-run-command
+      "a" 'ebuild-run-echangelog)))
 
 (defun major-modes/init-gemini-mode ()
   (use-package gemini-mode
     :init
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'gemini-mode
-        "l" 'gemini-insert-link
-        "o" 'gemini-open-link-at-point
-        "RET" 'gemini-insert-list-item
-        "t" 'gemini-insert-time-stamp
-        "n" 'gemini-insert-tinylog-header))))
+    (spacemacs/set-leader-keys-for-major-mode 'gemini-mode
+      "l" 'gemini-insert-link
+      "o" 'gemini-open-link-at-point
+      "RET" 'gemini-insert-list-item
+      "t" 'gemini-insert-time-stamp
+      "n" 'gemini-insert-tinylog-header)))
 
 (defun major-modes/init-hoon-mode ())
 
@@ -83,15 +81,14 @@
     :mode ("\\`PKGBUILD\\'" . pkgbuild-mode)
     :defer t
     :init
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'pkgbuild-mode
-        "r" 'pkgbuild-increase-release-tag
-        "b" 'pkgbuild-makepkg
-        "a" 'pkgbuild-tar
-        "u" 'pkgbuild-browse-url
-        "m" 'pkgbuild-update-sums-line
-        "s" 'pkgbuild-update-srcinfo
-        "e" 'pkgbuild-etags))))
+    (spacemacs/set-leader-keys-for-major-mode 'pkgbuild-mode
+      "r" 'pkgbuild-increase-release-tag
+      "b" 'pkgbuild-makepkg
+      "a" 'pkgbuild-tar
+      "u" 'pkgbuild-browse-url
+      "m" 'pkgbuild-update-sums-line
+      "s" 'pkgbuild-update-srcinfo
+      "e" 'pkgbuild-etags)))
 
 (defun major-modes/init-qml-mode ()
   (use-package qml-mode

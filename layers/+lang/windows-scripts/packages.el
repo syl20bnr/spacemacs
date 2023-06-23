@@ -35,10 +35,9 @@
     :mode (("\\.bat\\'" . bat-mode)
            ("\\.cmd\\'" . bat-mode))
     :init
-    (progn
-      (spacemacs/declare-prefix-for-mode 'bat-mode "me" "eval")
-      (spacemacs/declare-prefix-for-mode 'bat-mode "mh" "help")
-      (spacemacs/declare-prefix-for-mode 'bat-mode "mi" "insert"))
+    (spacemacs/declare-prefix-for-mode 'bat-mode "me" "eval")
+    (spacemacs/declare-prefix-for-mode 'bat-mode "mh" "help")
+    (spacemacs/declare-prefix-for-mode 'bat-mode "mi" "insert")
     :spacebind
     (:major
      (bat-mode
@@ -92,14 +91,13 @@
            ("\\.psm1\\'" . powershell-mode))
     :defer t
     :init
-    (progn
-      (defun powershell/define-text-objects ()
-        (spacemacs|define-text-object "$" "dollarparen" "$(" ")"))
-      (add-hook 'powershell-mode-hook 'powershell/define-text-objects)
-      (spacemacs/set-leader-keys
-        "atsp" 'powershell)
-      (spacemacs/set-leader-keys-for-major-mode 'powershell-mode
-        "rr" 'powershell-regexp-to-regex))))
+    (defun powershell/define-text-objects ()
+      (spacemacs|define-text-object "$" "dollarparen" "$(" ")"))
+    (add-hook 'powershell-mode-hook 'powershell/define-text-objects)
+    (spacemacs/set-leader-keys
+      "atsp" 'powershell)
+    (spacemacs/set-leader-keys-for-major-mode 'powershell-mode
+      "rr" 'powershell-regexp-to-regex)))
 ;; TODO
 ;; - split out powershell
 ;; - get help output with mgg (Get-Help) or Get-Help -online

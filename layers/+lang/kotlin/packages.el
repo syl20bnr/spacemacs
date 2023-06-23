@@ -45,9 +45,8 @@
   (use-package kotlin-mode
     :defer t
     :init
-    (progn
-      (setq lsp-clients-kotlin-server-executable kotlin-lsp-jar-path)
-      (add-hook 'kotlin-mode-hook #'spacemacs//kotlin-setup-backend))))
+    (setq lsp-clients-kotlin-server-executable kotlin-lsp-jar-path)
+    (add-hook 'kotlin-mode-hook #'spacemacs//kotlin-setup-backend)))
 
 (defun kotlin/post-init-ggtags ()
   (add-hook 'kotlin-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

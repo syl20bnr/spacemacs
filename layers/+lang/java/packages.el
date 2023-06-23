@@ -65,9 +65,8 @@
   (use-package java-mode
     :defer t
     :init
-    (progn
-      (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-backend)
-      (put 'java-backend 'safe-local-variable 'symbolp))))
+    (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-backend)
+    (put 'java-backend 'safe-local-variable 'symbolp)))
 
 (defun java/init-maven-test-mode ()
   (use-package maven-test-mode
@@ -79,123 +78,119 @@
       (spacemacs/declare-prefix-for-mode 'java-mode "mmg" "goto")
       (spacemacs/declare-prefix-for-mode 'java-mode "mmt" "tests"))
     :config
-    (progn
-      (spacemacs|hide-lighter maven-test-mode)
-      (spacemacs/set-leader-keys-for-minor-mode 'maven-test-mode
-        "mga"    'maven-test-toggle-between-test-and-class
-        "mgA"    'maven-test-toggle-between-test-and-class-other-window
-        "mta"    'maven-test-all
-        "mt C-a" 'maven-test-clean-test-all
-        "mtb"    'maven-test-file
-        "mti"    'maven-test-install
-        "mtt"    'maven-test-method))))
+    (spacemacs|hide-lighter maven-test-mode)
+    (spacemacs/set-leader-keys-for-minor-mode 'maven-test-mode
+      "mga"    'maven-test-toggle-between-test-and-class
+      "mgA"    'maven-test-toggle-between-test-and-class-other-window
+      "mta"    'maven-test-all
+      "mt C-a" 'maven-test-clean-test-all
+      "mtb"    'maven-test-file
+      "mti"    'maven-test-install
+      "mtt"    'maven-test-method)))
 
 (defun java/init-meghanada ()
   (use-package meghanada
     :defer t
     :init
-    (progn
-      (setq meghanada-server-install-dir (concat spacemacs-cache-directory
-                                                 "meghanada/")
-            company-meghanada-prefix-length 1
-            ;; let spacemacs handle company and flycheck itself
-            meghanada-use-company nil
-            meghanada-use-flycheck nil))
+    (setq meghanada-server-install-dir (concat spacemacs-cache-directory
+                                               "meghanada/")
+          company-meghanada-prefix-length 1
+          ;; let spacemacs handle company and flycheck itself
+          meghanada-use-company nil
+          meghanada-use-flycheck nil)
     :config
-    (progn
-      ;; key bindings
-      (dolist (prefix '(("mc" . "compile")
-                        ("mD" . "daemon")
-                        ("mg" . "goto")
-                        ("mr" . "refactor")
-                        ("mt" . "test")
-                        ("mx" . "execute")))
-        (spacemacs/declare-prefix-for-mode
-          'java-mode (car prefix) (cdr prefix)))
-      (spacemacs/set-leader-keys-for-major-mode 'java-mode
-        "cb" 'meghanada-compile-file
-        "cc" 'meghanada-compile-project
+    ;; key bindings
+    (dolist (prefix '(("mc" . "compile")
+                      ("mD" . "daemon")
+                      ("mg" . "goto")
+                      ("mr" . "refactor")
+                      ("mt" . "test")
+                      ("mx" . "execute")))
+      (spacemacs/declare-prefix-for-mode
+        'java-mode (car prefix) (cdr prefix)))
+    (spacemacs/set-leader-keys-for-major-mode 'java-mode
+      "cb" 'meghanada-compile-file
+      "cc" 'meghanada-compile-project
 
-        "Dc" 'meghanada-client-direct-connect
-        "Dd" 'meghanada-client-disconnect
-        "Di" 'meghanada-install-server
-        "Dk" 'meghanada-server-kill
-        "Dl" 'meghanada-clear-cache
-        "Dp" 'meghanada-ping
-        "Dr" 'meghanada-restart
-        "Ds" 'meghanada-client-connect
-        "Du" 'meghanada-update-server
-        "Dv" 'meghanada-version
+      "Dc" 'meghanada-client-direct-connect
+      "Dd" 'meghanada-client-disconnect
+      "Di" 'meghanada-install-server
+      "Dk" 'meghanada-server-kill
+      "Dl" 'meghanada-clear-cache
+      "Dp" 'meghanada-ping
+      "Dr" 'meghanada-restart
+      "Ds" 'meghanada-client-connect
+      "Du" 'meghanada-update-server
+      "Dv" 'meghanada-version
 
-        "gb" 'meghanada-back-jump
+      "gb" 'meghanada-back-jump
 
-        "=" 'meghanada-code-beautify
-        "ri" 'meghanada-optimize-import
-        "rI" 'meghanada-import-all
+      "=" 'meghanada-code-beautify
+      "ri" 'meghanada-optimize-import
+      "rI" 'meghanada-import-all
 
-        "ta" 'meghanada--run-junit
-        "tc" 'meghanada-run-junit-class
-        "tl" 'meghanada-run-junit-recent
-        "tt" 'meghanada-run-junit-test-case
+      "ta" 'meghanada--run-junit
+      "tc" 'meghanada-run-junit-class
+      "tl" 'meghanada-run-junit-recent
+      "tt" 'meghanada-run-junit-test-case
 
-        ;; meghanada-switch-testcase
-        ;; meghanada-local-variable
+      ;; meghanada-switch-testcase
+      ;; meghanada-local-variable
 
-        "x:" 'meghanada-run-task))))
+      "x:" 'meghanada-run-task)))
 
 (defun java/init-lsp-java ()
   (use-package lsp-java
     :defer t
     :if (eq java-backend 'lsp)
     :config
-    (progn
-      ;; key bindings
-      (dolist (prefix '(("mc" . "compile/create")
-                        ("mgk" . "type hierarchy")
-                        ("mra" . "add/assign")
-                        ("mrc" . "create/convert")
-                        ("mrg" . "generate")
-                        ("mre" . "extract")
-                        ("mt" . "test")))
-        (spacemacs/declare-prefix-for-mode
-          'java-mode (car prefix) (cdr prefix)))
-      (spacemacs/set-leader-keys-for-major-mode 'java-mode
-        "wu"  'lsp-java-update-project-configuration
+    ;; key bindings
+    (dolist (prefix '(("mc" . "compile/create")
+                      ("mgk" . "type hierarchy")
+                      ("mra" . "add/assign")
+                      ("mrc" . "create/convert")
+                      ("mrg" . "generate")
+                      ("mre" . "extract")
+                      ("mt" . "test")))
+      (spacemacs/declare-prefix-for-mode
+        'java-mode (car prefix) (cdr prefix)))
+    (spacemacs/set-leader-keys-for-major-mode 'java-mode
+      "wu"  'lsp-java-update-project-configuration
 
-        ;; refactoring
-        "ro" 'lsp-java-organize-imports
-        "rcp" 'lsp-java-create-parameter
-        "rcf" 'lsp-java-create-field
-        "rci" 'lsp-java-conver-to-static-import
-        "rec" 'lsp-java-extract-to-constant
-        "rel" 'lsp-java-extract-to-local-variable
-        "rem" 'lsp-java-extract-method
+      ;; refactoring
+      "ro" 'lsp-java-organize-imports
+      "rcp" 'lsp-java-create-parameter
+      "rcf" 'lsp-java-create-field
+      "rci" 'lsp-java-conver-to-static-import
+      "rec" 'lsp-java-extract-to-constant
+      "rel" 'lsp-java-extract-to-local-variable
+      "rem" 'lsp-java-extract-method
 
-        ;; assign/add
-        "rai" 'lsp-java-add-import
-        "ram" 'lsp-java-add-unimplemented-methods
-        "rat" 'lsp-java-add-throws
-        "raa" 'lsp-java-assign-all
-        "raf" 'lsp-java-assign-to-field
-        "raF" 'lsp-java-assign-statement-to-field
-        "ral" 'lsp-java-assign-statement-to-local
+      ;; assign/add
+      "rai" 'lsp-java-add-import
+      "ram" 'lsp-java-add-unimplemented-methods
+      "rat" 'lsp-java-add-throws
+      "raa" 'lsp-java-assign-all
+      "raf" 'lsp-java-assign-to-field
+      "raF" 'lsp-java-assign-statement-to-field
+      "ral" 'lsp-java-assign-statement-to-local
 
-        ;; generate
-        "rgt" 'lsp-java-generate-to-string
-        "rge" 'lsp-java-generate-equals-and-hash-code
-        "rgo" 'lsp-java-generate-overrides
-        "rgg" 'lsp-java-generate-getters-and-setters
+      ;; generate
+      "rgt" 'lsp-java-generate-to-string
+      "rge" 'lsp-java-generate-equals-and-hash-code
+      "rgo" 'lsp-java-generate-overrides
+      "rgg" 'lsp-java-generate-getters-and-setters
 
-        ;; create/compile
-        "cc"  'lsp-java-build-project
-        "cp"  'lsp-java-spring-initializr
+      ;; create/compile
+      "cc"  'lsp-java-build-project
+      "cp"  'lsp-java-spring-initializr
 
-        "gkk" 'lsp-java-type-hierarchy
-        "gku" 'spacemacs/lsp-java-super-type
-        "gks" 'spacemacs/lsp-java-sub-type
+      "gkk" 'lsp-java-type-hierarchy
+      "gku" 'spacemacs/lsp-java-super-type
+      "gks" 'spacemacs/lsp-java-sub-type
 
-        ;; test
-        "tb" 'lsp-jt-browser))))
+      ;; test
+      "tb" 'lsp-jt-browser)))
 
 (defun java/init-mvn ()
   (use-package mvn

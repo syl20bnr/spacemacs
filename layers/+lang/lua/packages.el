@@ -39,28 +39,27 @@
     :mode ("\\.lua\\'" . lua-mode)
     :interpreter ("lua" . lua-mode)
     :init
-    (progn
-      (spacemacs/register-repl 'lua #'lua-show-process-buffer "lua")
-      (add-hook 'lua-mode-local-vars-hook #'spacemacs//lua-setup-backend)
+    (spacemacs/register-repl 'lua #'lua-show-process-buffer "lua")
+    (add-hook 'lua-mode-local-vars-hook #'spacemacs//lua-setup-backend)
 
-      ;; Set global settings
-      (setq lua-indent-level 2
-            lua-indent-string-contents t)
+    ;; Set global settings
+    (setq lua-indent-level 2
+          lua-indent-string-contents t)
 
-      ;; Set general bindings
-      (spacemacs/declare-prefix-for-mode 'lua-mode "ms" "REPL")
-      (spacemacs/set-leader-keys-for-major-mode 'lua-mode
-        "hd" 'lua-search-documentation
-        "sb" 'lua-send-buffer
-        "sf" 'lua-send-defun
-        "sl" 'lua-send-current-line
-        "sr" 'lua-send-region
-        "'" 'lua-show-process-buffer)
+    ;; Set general bindings
+    (spacemacs/declare-prefix-for-mode 'lua-mode "ms" "REPL")
+    (spacemacs/set-leader-keys-for-major-mode 'lua-mode
+      "hd" 'lua-search-documentation
+      "sb" 'lua-send-buffer
+      "sf" 'lua-send-defun
+      "sl" 'lua-send-current-line
+      "sr" 'lua-send-region
+      "'" 'lua-show-process-buffer)
 
-      ;; Set lua-mode specific bindings
-      (when (eq lua-backend 'lua-mode)
-        (spacemacs/declare-prefix-for-mode 'lua-mode "mh" "help")
-        (spacemacs/declare-prefix-for-mode 'lua-mode "mg" "goto")))))
+    ;; Set lua-mode specific bindings
+    (when (eq lua-backend 'lua-mode)
+      (spacemacs/declare-prefix-for-mode 'lua-mode "mh" "help")
+      (spacemacs/declare-prefix-for-mode 'lua-mode "mg" "goto"))))
 
 (defun lua/post-init-company ()
   (add-hook 'lua-mode-local-vars-hook #'spacemacs//lua-setup-company))

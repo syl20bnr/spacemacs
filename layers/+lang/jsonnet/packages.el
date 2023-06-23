@@ -34,8 +34,7 @@
   (use-package jsonnet-mode
     :defer t
     :init
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'jsonnet-mode
-        "=" 'jsonnet-reformat-buffer
-        "gg" 'jsonnet-jump
-        "eb" 'jsonnet-eval-buffer))))
+    (spacemacs/set-leader-keys-for-major-mode 'jsonnet-mode
+      "=" 'jsonnet-reformat-buffer
+      "gg" 'jsonnet-jump
+      "eb" 'jsonnet-eval-buffer)))

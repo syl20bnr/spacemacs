@@ -38,11 +38,10 @@
     :init
     (spacemacs/set-leader-keys-for-major-mode 'asm-mode "h" 'x86-lookup)
     :config
-    (progn
-      ;; We need to insert a non-indented line, otherwise it's annoying
-      ;; every time we insert a comment for a routine
-      (define-key asm-mode-map (kbd "C-j") 'newline)
-      (add-hook 'asm-mode-hook #'asm-generic-setup))))
+    ;; We need to insert a non-indented line, otherwise it's annoying
+    ;; every time we insert a comment for a routine
+    (define-key asm-mode-map (kbd "C-j") 'newline)
+    (add-hook 'asm-mode-hook #'asm-generic-setup)))
 
 (defun asm/post-init-electric-indent-mode ()
   (spacemacs/add-to-hooks 'asm-electric-indent-local-mode-off
@@ -52,26 +51,23 @@
   "Setup for built-in `nasm-mode', which could be thought as improved `asm-mode'"
   (use-package nasm-mode
     :init
-    (progn
-      (add-hook 'nasm-mode-hook #'asm-generic-setup)
-      (add-to-list 'auto-mode-alist '("\\.[n]*\\(asm\\|s\\)\\'" . nasm-mode))
-      (spacemacs/set-leader-keys-for-major-mode 'nasm-mode "h" 'x86-lookup))
+    (add-hook 'nasm-mode-hook #'asm-generic-setup)
+    (add-to-list 'auto-mode-alist '("\\.[n]*\\(asm\\|s\\)\\'" . nasm-mode))
+    (spacemacs/set-leader-keys-for-major-mode 'nasm-mode "h" 'x86-lookup)
     :config
-    (progn
-      ;; We need to insert a non-indented line, otherwise it's annoying
-      ;; every time we insert a comment for a routine
-      (define-key nasm-mode-map (kbd "C-j") 'newline)
-      ;; we use the advised `asm-colon' because `nasm-colon indents the whole line, even
-      ;; inside a comment
-      (define-key nasm-mode-map (kbd ":") 'asm-colon))))
+    ;; We need to insert a non-indented line, otherwise it's annoying
+    ;; every time we insert a comment for a routine
+    (define-key nasm-mode-map (kbd "C-j") 'newline)
+    ;; we use the advised `asm-colon' because `nasm-colon indents the whole line, even
+    ;; inside a comment
+    (define-key nasm-mode-map (kbd ":") 'asm-colon)))
 
 (defun asm/init-x86-lookup ()
   (use-package x86-lookup
     :init
-    (progn
-      ;; when a user installed `pdf-tools', use it for viewing PDF document.
-      (when (package-installed-p 'pdf-tools)
-        (setq x86-lookup-browse-pdf-function 'x86-lookup-browse-pdf-pdf-tools)))))
+    ;; when a user installed `pdf-tools', use it for viewing PDF document.
+    (when (package-installed-p 'pdf-tools)
+      (setq x86-lookup-browse-pdf-function 'x86-lookup-browse-pdf-pdf-tools))))
 
 (defun asm/post-init-company ()
   (spacemacs|add-company-backends :modes asm-mode nasm-mode))

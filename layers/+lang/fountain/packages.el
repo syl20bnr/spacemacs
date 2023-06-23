@@ -35,45 +35,44 @@
   (use-package fountain-mode
     :defer t
     :config
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'fountain-mode
-        ;; Editing commands
-        "RET" 'fountain-upcase-line-and-newline
-        "xU" 'fountain-upcase-line
-        "cd" 'fountain-add-continued-dialog
-        "cD" 'fountain-remove-continued-dialog
-        "in" 'fountain-insert-note
-        "is" 'fountain-insert-synopsis
-        "ii" 'auto-insert
-        "cn" 'fountain-add-scene-numbers
-        "cN" 'fountain-remove-scene-numbers
-        "ib" 'fountain-insert-page-break
-        "]" 'fountain-completion-update
+    (spacemacs/set-leader-keys-for-major-mode 'fountain-mode
+      ;; Editing commands
+      "RET" 'fountain-upcase-line-and-newline
+      "xU" 'fountain-upcase-line
+      "cd" 'fountain-add-continued-dialog
+      "cD" 'fountain-remove-continued-dialog
+      "in" 'fountain-insert-note
+      "is" 'fountain-insert-synopsis
+      "ii" 'auto-insert
+      "cn" 'fountain-add-scene-numbers
+      "cN" 'fountain-remove-scene-numbers
+      "ib" 'fountain-insert-page-break
+      "]" 'fountain-completion-update
 
-        "Tm" 'fountain-toggle-hide-emphasis-markup
-        "Te" 'fountain-toggle-hide-element-markup
+      "Tm" 'fountain-toggle-hide-emphasis-markup
+      "Te" 'fountain-toggle-hide-element-markup
 
-        ;; Navigation commands
-        "js" 'fountain-goto-scene
-        "jp" 'fountain-goto-page
+      ;; Navigation commands
+      "js" 'fountain-goto-scene
+      "jp" 'fountain-goto-page
 
-        ;; Outline commands
-        "TAB"  'fountain-outline-cycle
-        "o"  'fountain-outline-to-indirect-buffer
-        "ih" 'fountain-insert-section-heading
+      ;; Outline commands
+      "TAB"  'fountain-outline-cycle
+      "o"  'fountain-outline-to-indirect-buffer
+      "ih" 'fountain-insert-section-heading
 
-        ;; Pagination commands
-        "cp" 'fountain-count-pages
-        "cu" 'fountain-pagination-update
+      ;; Pagination commands
+      "cp" 'fountain-count-pages
+      "cu" 'fountain-pagination-update
 
-        ;; Exporting commands
-        "ee" 'fountain-export-command
-        "ev" 'fountain-export-view)
+      ;; Exporting commands
+      "ee" 'fountain-export-command
+      "ev" 'fountain-export-view)
 
-      (spacemacs/declare-prefix-for-mode 'fountain-mode "mi" "fountain/insert")
-      (spacemacs/declare-prefix-for-mode 'fountain-mode "mx" "fountain/text")
-      (spacemacs/declare-prefix-for-mode 'fountain-mode "mc" "fountain/command")
-      (spacemacs/declare-prefix-for-mode 'fountain-mode "mT" "fountain/toggle")
-      (spacemacs/declare-prefix-for-mode 'fountain-mode "mj" "fountain/jump")
-      (spacemacs/declare-prefix-for-mode 'fountain-mode "me" "fountain/export")
-      )))
+    (spacemacs/declare-prefix-for-mode 'fountain-mode "mi" "fountain/insert")
+    (spacemacs/declare-prefix-for-mode 'fountain-mode "mx" "fountain/text")
+    (spacemacs/declare-prefix-for-mode 'fountain-mode "mc" "fountain/command")
+    (spacemacs/declare-prefix-for-mode 'fountain-mode "mT" "fountain/toggle")
+    (spacemacs/declare-prefix-for-mode 'fountain-mode "mj" "fountain/jump")
+    (spacemacs/declare-prefix-for-mode 'fountain-mode "me" "fountain/export")
+    ))

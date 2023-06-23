@@ -107,11 +107,10 @@
   (use-package typescript-mode
     :defer t
     :init
-    (progn
-      (spacemacs/typescript-safe-local-variables '(lsp tide))
-      (spacemacs/typescript-mode-init 'typescript-mode-local-vars-hook)
-      ;; init tsx locals here to get proper order 
-      (spacemacs/typescript-mode-init 'typescript-tsx-mode-local-vars-hook))
+    (spacemacs/typescript-safe-local-variables '(lsp tide))
+    (spacemacs/typescript-mode-init 'typescript-mode-local-vars-hook)
+    ;; init tsx locals here to get proper order 
+    (spacemacs/typescript-mode-init 'typescript-tsx-mode-local-vars-hook)
     :config (spacemacs/typescript-mode-config 'typescript-mode)))
 
 (defun typescript/pre-init-import-js ()

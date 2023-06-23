@@ -76,42 +76,41 @@
                isbn-to-bibtex
                pubmed-insert-bibtex-from-pmid)
     :init
-    (progn
-      (add-hook 'org-mode-hook (lambda () (require 'org-ref)))
+    (add-hook 'org-mode-hook (lambda () (require 'org-ref)))
 
-      (cond ((configuration-layer/layer-used-p 'helm)
-             (setq org-ref-completion-library 'org-ref-helm-bibtex))
-            ((configuration-layer/layer-used-p 'ivy)
-             (setq org-ref-completion-library 'org-ref-ivy-cite)))
+    (cond ((configuration-layer/layer-used-p 'helm)
+           (setq org-ref-completion-library 'org-ref-helm-bibtex))
+          ((configuration-layer/layer-used-p 'ivy)
+           (setq org-ref-completion-library 'org-ref-ivy-cite)))
 
-      (evil-define-key 'normal bibtex-mode-map
-        (kbd "C-j") 'org-ref-bibtex-next-entry
-        (kbd "C-k") 'org-ref-bibtex-previous-entry
-        "gj" 'org-ref-bibtex-next-entry
-        "gk" 'org-ref-bibtex-previous-entry)
+    (evil-define-key 'normal bibtex-mode-map
+      (kbd "C-j") 'org-ref-bibtex-next-entry
+      (kbd "C-k") 'org-ref-bibtex-previous-entry
+      "gj" 'org-ref-bibtex-next-entry
+      "gk" 'org-ref-bibtex-previous-entry)
 
-      (spacemacs/declare-prefix-for-mode 'bibtex-mode "ml" "lookup")
-      (spacemacs/set-leader-keys-for-major-mode 'bibtex-mode
-        ;; Navigation
-        "j" 'org-ref-bibtex-next-entry
-        "k" 'org-ref-bibtex-previous-entry
+    (spacemacs/declare-prefix-for-mode 'bibtex-mode "ml" "lookup")
+    (spacemacs/set-leader-keys-for-major-mode 'bibtex-mode
+      ;; Navigation
+      "j" 'org-ref-bibtex-next-entry
+      "k" 'org-ref-bibtex-previous-entry
 
-        ;; Open
-        "b" 'org-ref-open-in-browser
-        "n" 'org-ref-open-bibtex-notes
-        "p" 'org-ref-open-bibtex-pdf
+      ;; Open
+      "b" 'org-ref-open-in-browser
+      "n" 'org-ref-open-bibtex-notes
+      "p" 'org-ref-open-bibtex-pdf
 
-        ;; Misc
-        "h" 'org-ref-bibtex-hydra/body
-        "i" 'org-ref-bibtex-hydra/org-ref-bibtex-new-entry/body-and-exit
-        "s" 'org-ref-sort-bibtex-entry
+      ;; Misc
+      "h" 'org-ref-bibtex-hydra/body
+      "i" 'org-ref-bibtex-hydra/org-ref-bibtex-new-entry/body-and-exit
+      "s" 'org-ref-sort-bibtex-entry
 
-        ;; Lookup utilities
-        "la" 'arxiv-add-bibtex-entry
-        "lA" 'arxiv-get-pdf-add-bibtex-entry
-        "ld" 'doi-utils-add-bibtex-entry-from-doi
-        "li" 'isbn-to-bibtex
-        "lp" 'pubmed-insert-bibtex-from-pmid))))
+      ;; Lookup utilities
+      "la" 'arxiv-add-bibtex-entry
+      "lA" 'arxiv-get-pdf-add-bibtex-entry
+      "ld" 'doi-utils-add-bibtex-entry-from-doi
+      "li" 'isbn-to-bibtex
+      "lp" 'pubmed-insert-bibtex-from-pmid)))
 
 (defun bibtex/init-ebib ()
   (use-package ebib

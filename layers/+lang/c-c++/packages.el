@@ -80,25 +80,23 @@
   (use-package cc-mode
     :defer t
     :init
-    (progn
-      (add-hook 'c-mode-local-vars-hook #'spacemacs//c-c++-setup-backend)
-      (add-hook 'c++-mode-local-vars-hook #'spacemacs//c-c++-setup-backend)
-      (put 'c-c++-backend 'safe-local-variable 'symbolp)
-      (when c-c++-default-mode-for-headers
-        (add-to-list 'auto-mode-alist
-                     `("\\.h\\'" . ,c-c++-default-mode-for-headers)))
-      (when c-c++-enable-auto-newline
-        (add-hook 'c-mode-common-hook 'spacemacs//c-toggle-auto-newline)))
+    (add-hook 'c-mode-local-vars-hook #'spacemacs//c-c++-setup-backend)
+    (add-hook 'c++-mode-local-vars-hook #'spacemacs//c-c++-setup-backend)
+    (put 'c-c++-backend 'safe-local-variable 'symbolp)
+    (when c-c++-default-mode-for-headers
+      (add-to-list 'auto-mode-alist
+                   `("\\.h\\'" . ,c-c++-default-mode-for-headers)))
+    (when c-c++-enable-auto-newline
+      (add-hook 'c-mode-common-hook 'spacemacs//c-toggle-auto-newline))
     :config
-    (progn
-      (require 'compile)
-      (dolist (mode c-c++-modes)
-        (spacemacs/declare-prefix-for-mode mode "mc" "compile")
-        (spacemacs/declare-prefix-for-mode mode "mg" "goto")
-        (spacemacs/declare-prefix-for-mode mode "mp" "project")
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "ga" 'projectile-find-other-file
-          "gA" 'projectile-find-other-file-other-window)))))
+    (require 'compile)
+    (dolist (mode c-c++-modes)
+      (spacemacs/declare-prefix-for-mode mode "mc" "compile")
+      (spacemacs/declare-prefix-for-mode mode "mg" "goto")
+      (spacemacs/declare-prefix-for-mode mode "mp" "project")
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "ga" 'projectile-find-other-file
+        "gA" 'projectile-find-other-file-other-window))))
 
 (defun c-c++/init-ccls ()
   (use-package ccls
@@ -137,15 +135,14 @@
   (use-package cpp-auto-include
     :defer t
     :init
-    (progn
-      (when c-c++-enable-organize-includes-on-save
-        (add-hook 'c++-mode-hook #'spacemacs/c-c++-organize-includes-on-save))
+    (when c-c++-enable-organize-includes-on-save
+      (add-hook 'c++-mode-hook #'spacemacs/c-c++-organize-includes-on-save))
 
-      (spacemacs/declare-prefix-for-mode 'c++-mode
-        "mr" "refactor")
+    (spacemacs/declare-prefix-for-mode 'c++-mode
+      "mr" "refactor")
 
-      (spacemacs/set-leader-keys-for-major-mode 'c++-mode
-        "ri" #'spacemacs/c-c++-organize-includes))))
+    (spacemacs/set-leader-keys-for-major-mode 'c++-mode
+      "ri" #'spacemacs/c-c++-organize-includes)))
 
 (defun c-c++/pre-init-dap-mode ()
   (pcase c-c++-backend
@@ -161,10 +158,9 @@
     :defer t
     :commands (disaster)
     :init
-    (progn
-      (dolist (mode c-c++-modes)
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "D" 'disaster)))))
+    (dolist (mode c-c++-modes)
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "D" 'disaster))))
 
 (defun c-c++/post-init-eldoc ()
   (add-hook 'c-mode-local-vars-hook #'spacemacs//c-c++-setup-eldoc)
@@ -200,11 +196,10 @@
   (use-package google-c-style
     :defer t
     :init
-    (progn
-      (when c-c++-enable-google-style
-        (add-hook 'c-mode-common-hook 'google-set-c-style))
-      (when c-c++-enable-google-newline
-        (add-hook 'c-mode-common-hook 'google-make-newline-indent)))))
+    (when c-c++-enable-google-style
+      (add-hook 'c-mode-common-hook 'google-set-c-style))
+    (when c-c++-enable-google-newline
+      (add-hook 'c-mode-common-hook 'google-make-newline-indent))))
 
 (defun c-c++/pre-init-helm-cscope ()
   (spacemacs|use-package-add-hook xcscope
@@ -229,12 +224,11 @@
 (defun c-c++/pre-init-projectile ()
   (spacemacs|use-package-add-hook projectile
     :post-config
-    (progn
-      (when c-c++-adopt-subprojects
-        (setq projectile-project-root-files-top-down-recurring
-              (append '("compile_commands.json"
-                        ".ccls")
-                      projectile-project-root-files-top-down-recurring))))))
+    (when c-c++-adopt-subprojects
+      (setq projectile-project-root-files-top-down-recurring
+            (append '("compile_commands.json"
+                      ".ccls")
+                    projectile-project-root-files-top-down-recurring)))))
 
 (defun c-c++/init-rtags ()
   ;; config in `funcs.el'
@@ -267,9 +261,8 @@
   (use-package ycmd
     :defer t
     :init
-    (progn
-      (unless (boundp 'ycmd-global-config)
-        (setq-default ycmd-global-config
-                      (concat (configuration-layer/get-layer-path 'ycmd)
-                              "global_conf.py")))
-      (setq-default ycmd-parse-conditions '(save mode-enabled)))))
+    (unless (boundp 'ycmd-global-config)
+      (setq-default ycmd-global-config
+                    (concat (configuration-layer/get-layer-path 'ycmd)
+                            "global_conf.py")))
+    (setq-default ycmd-parse-conditions '(save mode-enabled))))

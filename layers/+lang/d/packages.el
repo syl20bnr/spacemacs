@@ -43,13 +43,12 @@
   (use-package company-dcd
     :defer t
     :init
-    (progn
-      (spacemacs|add-company-backends :backends company-dcd :modes d-mode)
-      (spacemacs/set-leader-keys-for-major-mode 'd-mode
-        "gg" 'company-dcd-goto-definition
-        "gb" 'company-dcd-goto-def-pop-marker
-        "hh" 'company-dcd-show-ddoc-with-buffer
-        "gr" 'company-dcd-ivy-search-symbol))))
+    (spacemacs|add-company-backends :backends company-dcd :modes d-mode)
+    (spacemacs/set-leader-keys-for-major-mode 'd-mode
+      "gg" 'company-dcd-goto-definition
+      "gb" 'company-dcd-goto-def-pop-marker
+      "hh" 'company-dcd-show-ddoc-with-buffer
+      "gr" 'company-dcd-ivy-search-symbol)))
 
 (defun d/init-d-mode ()
   (use-package d-mode :defer t))
@@ -60,9 +59,8 @@
 (defun d/init-flycheck-dmd-dub ()
   (use-package flycheck-dmd-dub :defer t
     :init
-    (progn
-      (add-hook 'd-mode-hook 'flycheck-dmd-dub-set-include-path)
-      (add-hook 'd-mode-hook 'flycheck-dmd-dub-set-variables))))
+    (add-hook 'd-mode-hook 'flycheck-dmd-dub-set-include-path)
+    (add-hook 'd-mode-hook 'flycheck-dmd-dub-set-variables)))
 
 (defun d/post-init-ggtags ()
   (add-hook 'd-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

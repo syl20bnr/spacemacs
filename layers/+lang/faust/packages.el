@@ -38,11 +38,10 @@
     :defer t
     :mode "\\.\\(dsp\\|lib\\)\\'"
     :init
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'faust-mode
-        "cf" 'spacemacs/faust-to-firefox
-        "cg" 'spacemacs/faust-to-jack-gtk
-        "cq" 'spacemacs/faust-to-jack-qt))))
+    (spacemacs/set-leader-keys-for-major-mode 'faust-mode
+      "cf" 'spacemacs/faust-to-firefox
+      "cg" 'spacemacs/faust-to-jack-gtk
+      "cq" 'spacemacs/faust-to-jack-qt)))
 
 (defun faust/post-init-yasnippet ()
   (add-hook 'faust-mode-hook 'spacemacs/load-yasnippet))

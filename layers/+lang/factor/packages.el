@@ -43,65 +43,62 @@
     :commands factor-mode run-factor fuel-mode
     :mode ("factor\\'" . factor-mode)
     :init
-    (progn
-      (spacemacs/register-repl 'fuel-mode 'run-factor))
+    (spacemacs/register-repl 'fuel-mode 'run-factor)
     :config
-    (progn
-      (require 'fuel-mode)
-      (mapc (lambda (x)
-              (spacemacs/declare-prefix-for-mode 'factor-mode (car x) (cdr x)))
-            '(("mh" . "help")
-              ("me" . "eval")
-              ("mc" . "compile")
-              ("mg" . "nav")
-              ("ms" . "repl")
-              ("mS" . "scaffold")))
-      (spacemacs/set-leader-keys-for-major-mode 'factor-mode
-        "'" 'run-factor
+    (require 'fuel-mode)
+    (mapc (lambda (x)
+            (spacemacs/declare-prefix-for-mode 'factor-mode (car x) (cdr x)))
+          '(("mh" . "help")
+            ("me" . "eval")
+            ("mc" . "compile")
+            ("mg" . "nav")
+            ("ms" . "repl")
+            ("mS" . "scaffold")))
+    (spacemacs/set-leader-keys-for-major-mode 'factor-mode
+      "'" 'run-factor
 
-        "cc" 'fuel-run-file
+      "cc" 'fuel-run-file
 
-        "ef" 'fuel-eval-definition
-        "er" 'fuel-eval-region
-        "eR" 'fuel-eval-extended-region
+      "ef" 'fuel-eval-definition
+      "er" 'fuel-eval-region
+      "eR" 'fuel-eval-extended-region
 
-        "gg" 'fuel-edit-word-at-point
-        "ga" 'factor-visit-other-file
+      "gg" 'fuel-edit-word-at-point
+      "ga" 'factor-visit-other-file
 
-        "ta" 'fuel-test-vocab
+      "ta" 'fuel-test-vocab
 
-        "rs" 'fuel-refactor-extract-sexp
-        "rr" 'fuel-refactor-extract-region
-        "rv" 'fuel-refactor-extract-vocab
-        "ri" 'fuel-refactor-inline-word
-        "rw" 'fuel-refactor-rename-word
-        "ra" 'fuel-refactor-extract-article
-        "rg" 'fuel-refactor-make-generic
-        "ru" 'fuel-update-usings
+      "rs" 'fuel-refactor-extract-sexp
+      "rr" 'fuel-refactor-extract-region
+      "rv" 'fuel-refactor-extract-vocab
+      "ri" 'fuel-refactor-inline-word
+      "rw" 'fuel-refactor-rename-word
+      "ra" 'fuel-refactor-extract-article
+      "rg" 'fuel-refactor-make-generic
+      "ru" 'fuel-update-usings
 
-        "ss" 'run-factor
+      "ss" 'run-factor
 
-        "hh" 'fuel-help
-        "he" 'factor//fuel-stack-effect
-        "hp" 'fuel-apropos
-        "hv" 'fuel-show-file-words
-        "h<" 'fuel-show-callers
-        "h>" 'fuel-show-callees
+      "hh" 'fuel-help
+      "he" 'factor//fuel-stack-effect
+      "hp" 'fuel-apropos
+      "hv" 'fuel-show-file-words
+      "h<" 'fuel-show-callers
+      "h>" 'fuel-show-callees
 
-        "Sv" 'fuel-scaffold-vocab
-        "Sh" 'fuel-scaffold-help
-        )
+      "Sv" 'fuel-scaffold-vocab
+      "Sh" 'fuel-scaffold-help
+      )
 
-      (spacemacs/set-leader-keys-for-major-mode 'fuel-listener-mode
-        "v" 'fuel-edit-vocabulary
-        "r" 'fuel-refresh-all
-        "Ts" 'fuel-stack-mode
-        "h" 'fuel-help
-        "Sv" 'fuel-scaffold-vocab
-        )
+    (spacemacs/set-leader-keys-for-major-mode 'fuel-listener-mode
+      "v" 'fuel-edit-vocabulary
+      "r" 'fuel-refresh-all
+      "Ts" 'fuel-stack-mode
+      "h" 'fuel-help
+      "Sv" 'fuel-scaffold-vocab
+      )
 
-      (evilified-state-evilify-map fuel-help-mode-map
-        :mode fuel-help-mode)
-      (dolist (mode '(fuel-debug-uses-mode fuel-debug-mode))
-        (evil-set-initial-state mode 'insert))))
-  )
+    (evilified-state-evilify-map fuel-help-mode-map
+      :mode fuel-help-mode)
+    (dolist (mode '(fuel-debug-uses-mode fuel-debug-mode))
+      (evil-set-initial-state mode 'insert))))
