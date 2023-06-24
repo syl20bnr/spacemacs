@@ -85,8 +85,7 @@ Other situations are just ignored and left to users themselves."
             (looking-at "^[ \t]*$"))
           (insert (concat newitem " "))
         (insert (concat "\n" newitem " ")))
-    (progn
-      (insert (concat "\n\n" newitem " ")))))
+    (insert (concat "\n\n" newitem " "))))
 
 (defun rst-list-insert-list-new-bullet ()
   "Insert a new list bullet.
@@ -168,13 +167,12 @@ use a prefix (\\[universal-argument]).
                                  (regexp-quote (concat rst-list-bullets))) curitem)
            (setq newitem curitem))
           ((string-match "[0-9]+" curitem)
-           (progn
-             (setq itemno (1+
-                           (string-to-number
-                            (match-string 0 curitem))))
-             (setq newitem (replace-match
-                            (number-to-string itemno)
-                            nil nil curitem))))
+           (setq itemno (1+
+                         (string-to-number
+                          (match-string 0 curitem))))
+           (setq newitem (replace-match
+                          (number-to-string itemno)
+                          nil nil curitem)))
           ((and (string-match "[IVXLCDMivxlcdm]+" curitem)
                 (progn
                   (setq tmpitem (match-string 0 curitem))
@@ -188,27 +186,23 @@ use a prefix (\\[universal-argument]).
                                  (setq previtem (match-string 0 previtem))))
                              (or (> (length previtem) 1)
                                  (= (length previtem) 0)))))))
-           (progn
-             (string-match "[IVXLCDMivxlcdm]+" curitem)
-             (if (isearch-no-upper-case-p tmpitem nil)
-                 (progn
-                   (setq itemno (car (cdr (member
-                                           (match-string 0 (upcase curitem))
-                                           rst-list-roman-number-list))))
-                   (setq newitem (replace-match (downcase itemno) nil nil curitem)))
-               (progn
-                 (setq itemno (car (cdr (member
-                                         (match-string 0 curitem)
-                                        rst-list-roman-number-list))))
-                 (setq newitem (replace-match itemno nil nil curitem))))))
+           (string-match "[IVXLCDMivxlcdm]+" curitem)
+           (if (isearch-no-upper-case-p tmpitem nil)
+               (setq itemno (car (cdr (member
+                                       (match-string 0 (upcase curitem))
+                                       rst-list-roman-number-list)))
+                     newitem (replace-match (downcase itemno) nil nil curitem))
+             (setq itemno (car (cdr (member
+                                     (match-string 0 curitem)
+                                     rst-list-roman-number-list)))
+                   newitem (replace-match itemno nil nil curitem))))
           ((string-match "[a-yA-Y]" curitem)
-           (progn
-             (setq itemno (1+
-                           (string-to-char
-                            (match-string 0 curitem))))
-             (setq newitem (replace-match
-                            (char-to-string itemno)
-                            nil nil curitem)))))
+           (setq itemno (1+
+                         (string-to-char
+                          (match-string 0 curitem)))
+                 newitem (replace-match
+                          (char-to-string itemno)
+                          nil nil curitem))))
     (insert (concat "\n" newitem))))
 
 (defun rst-list-insert (itemno)

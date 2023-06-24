@@ -94,11 +94,9 @@
                     (goto-char p)
                     (message "formatted.")
                     (kill-buffer outputbuf))
-                (progn
-                  (message "Formatting failed!")
-                  (display-buffer outputbuf)))
-              (progn
-                (delete-file tmpfile)))))
+                (message "Formatting failed!")
+                (display-buffer outputbuf))
+              (delete-file tmpfile))))
     (error "tsfmt not found. Run \"npm install -g typescript-formatter\"")))
 
 (defun spacemacs/typescript-format ()

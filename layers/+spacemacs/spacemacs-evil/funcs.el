@@ -61,11 +61,10 @@ Otherwise, revert to the default behavior (i.e. enable `evil-insert-state')."
           (kbd "TAB") 'iedit-toggle-selection)
         (define-key iedit-occurrence-keymap-default
           [tab] 'iedit-toggle-selection))
-    (progn
-      (define-key iedit-occurrence-keymap-default
-        (kbd "TAB") 'iedit-next-occurrence)
-      (define-key iedit-occurrence-keymap-default
-        [tab] 'iedit-next-occurrence))))
+    (define-key iedit-occurrence-keymap-default
+      (kbd "TAB") 'iedit-next-occurrence)
+    (define-key iedit-occurrence-keymap-default
+      [tab] 'iedit-next-occurrence)))
 
 (defun spacemacs//evil-escape-deactivate-in-holy-mode  (style)
   "Deactivate `evil-escape' if STYLE is `emacs' otherwise enable it."
