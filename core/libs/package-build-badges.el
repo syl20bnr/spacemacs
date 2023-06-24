@@ -32,7 +32,6 @@
 
 ;;; Code:
 
-(defvar package-build-stable)
 (defvar package-build-badge-data)
 
 (defun package-build--write-badge-image ( name version target-dir
@@ -40,9 +39,9 @@
   "Make badge svg file.
 This is essentially a copy of `elpaa--make-badge'."
   (let* ((file (expand-file-name (concat name "-badge.svg") target-dir))
-         (left (or archive (car package-build-badge-data)))
+         (left (or archive (car package-build-badge-data) "myElpa"))
          (right (url-hexify-string version))
-         (color (or color (cadr package-build-badge-data)))
+         (color (or color (cadr package-build-badge-data) "#ff491b"))
          (lw (package-build-badge--string-width left))
          (rw (package-build-badge--string-width right))
          (pad (package-build-badge--string-width "x"))
