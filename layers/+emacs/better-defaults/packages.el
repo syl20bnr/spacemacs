@@ -32,14 +32,13 @@
   (use-package mwim
     :defer t
     :init
-    (progn
-      (if better-defaults-move-to-beginning-of-code-first
-	  (global-set-key (kbd "C-a") 'mwim-beginning-of-code-or-line)
-	(global-set-key (kbd "C-a") 'mwim-beginning-of-line-or-code))
+    (if better-defaults-move-to-beginning-of-code-first
+        (global-set-key (kbd "C-a") 'mwim-beginning-of-code-or-line)
+      (global-set-key (kbd "C-a") 'mwim-beginning-of-line-or-code))
 
-      (if better-defaults-move-to-end-of-code-first
-	  (global-set-key (kbd "C-e") 'mwim-end-of-code-or-line)
-	(global-set-key (kbd "C-e") 'mwim-end-of-line-or-code)))))
+    (if better-defaults-move-to-end-of-code-first
+        (global-set-key (kbd "C-e") 'mwim-end-of-code-or-line)
+      (global-set-key (kbd "C-e") 'mwim-end-of-line-or-code))))
 
 (defun better-defaults/init-unfill ()
   (use-package unfill

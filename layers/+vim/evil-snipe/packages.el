@@ -15,12 +15,11 @@
           evil-snipe-show-prompt nil
           evil-snipe-smart-case t)
     :config
-    (progn
-      (spacemacs|hide-lighter evil-snipe-local-mode)
-      (evil-snipe-mode 1)
-      (when  evil-snipe-enable-alternate-f-and-t-behaviors
-        (setq evil-snipe-repeat-scope 'whole-buffer)
-        (evil-snipe-override-mode 1)))))
+    (spacemacs|hide-lighter evil-snipe-local-mode)
+    (evil-snipe-mode 1)
+    (when  evil-snipe-enable-alternate-f-and-t-behaviors
+      (setq evil-snipe-repeat-scope 'whole-buffer)
+      (evil-snipe-override-mode 1))))
 
 (defun evil-snipe/post-init-magit ()
   (add-hook 'magit-mode-hook 'turn-off-evil-snipe-mode)

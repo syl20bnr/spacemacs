@@ -31,52 +31,50 @@
   (use-package zetteldeft
     :if (eq deft-zetteldeft t)
     :init
-    (progn
-      (spacemacs/declare-prefix-for-mode 'deft-mode "mz" "zetteldeft")
-      (spacemacs/declare-prefix-for-mode 'org-mode "mz" "zetteldeft")
-      (spacemacs/declare-prefix "ardz" "zetteldeft")
-      ;; zetteldeft actions in deft mode
-      (spacemacs/set-leader-keys-for-major-mode 'deft-mode
-        "zT" 'zetteldeft-tag-buffer
-        "zn" 'zetteldeft-new-file)
-      ;; zetteldeft actions in org mode
-      (spacemacs/set-leader-keys-for-major-mode 'org-mode
-        "zc" 'zetteldeft-search-current-id
-        "zf" 'zetteldeft-follow-link
-        "zt" 'zetteldeft-avy-tag-search
-        "zN" 'zetteldeft-new-file-and-link
-        "zr" 'zetteldeft-file-rename
-        "zi" 'zetteldeft-find-file-id-insert
-        "zI" 'zetteldeft-find-file-full-title-insert
-        "zs" 'zetteldeft-search-at-point
-        "zl" 'zetteldeft-avy-link-search
-        "zF" 'zetteldeft-avy-file-search-ace-window
-        "zo" 'zetteldeft-find-file)
-      ;; new zetteldeft file under capture
-      (spacemacs/set-leader-keys "Cz" 'zetteldeft-new-file)
-      ;; actions under applications/deft/zetteldeft
-      (spacemacs/set-leader-keys "ardzn" 'zetteldeft-new-file)
-      (spacemacs/set-leader-keys "ardzT" 'zetteldeft-tag-buffer)
-      (spacemacs/set-leader-keys "ardzs" 'zetteldeft-search-at-point)
-      (spacemacs/set-leader-keys "ardzo" 'zetteldeft-find-file))))
+    (spacemacs/declare-prefix-for-mode 'deft-mode "mz" "zetteldeft")
+    (spacemacs/declare-prefix-for-mode 'org-mode "mz" "zetteldeft")
+    (spacemacs/declare-prefix "ardz" "zetteldeft")
+    ;; zetteldeft actions in deft mode
+    (spacemacs/set-leader-keys-for-major-mode 'deft-mode
+      "zT" 'zetteldeft-tag-buffer
+      "zn" 'zetteldeft-new-file)
+    ;; zetteldeft actions in org mode
+    (spacemacs/set-leader-keys-for-major-mode 'org-mode
+      "zc" 'zetteldeft-search-current-id
+      "zf" 'zetteldeft-follow-link
+      "zt" 'zetteldeft-avy-tag-search
+      "zN" 'zetteldeft-new-file-and-link
+      "zr" 'zetteldeft-file-rename
+      "zi" 'zetteldeft-find-file-id-insert
+      "zI" 'zetteldeft-find-file-full-title-insert
+      "zs" 'zetteldeft-search-at-point
+      "zl" 'zetteldeft-avy-link-search
+      "zF" 'zetteldeft-avy-file-search-ace-window
+      "zo" 'zetteldeft-find-file)
+    ;; new zetteldeft file under capture
+    (spacemacs/set-leader-keys "Cz" 'zetteldeft-new-file)
+    ;; actions under applications/deft/zetteldeft
+    (spacemacs/set-leader-keys "ardzn" 'zetteldeft-new-file)
+    (spacemacs/set-leader-keys "ardzT" 'zetteldeft-tag-buffer)
+    (spacemacs/set-leader-keys "ardzs" 'zetteldeft-search-at-point)
+    (spacemacs/set-leader-keys "ardzo" 'zetteldeft-find-file)))
 
 (defun deft/init-deft ()
   (use-package deft
     :defer t
     :init
-    (progn
-      (setq deft-extensions '("org" "md" "txt")
-            deft-text-mode 'org-mode
-            deft-use-filename-as-title t
-            deft-use-filter-string-for-filename t)
-      ;; in applications prefix, NOTE: backward incompatible keybindings
-      (if deft-zetteldeft
-          (progn
-            (spacemacs/declare-prefix "ard" "deft")
-            (spacemacs/set-leader-keys "ardn" 'spacemacs/deft))
-        (spacemacs/set-leader-keys "ard" 'spacemacs/deft))
-      ;; put in capture prefix
-      (spacemacs/set-leader-keys "Cd" 'deft-new-file))
+    (setq deft-extensions '("org" "md" "txt")
+          deft-text-mode 'org-mode
+          deft-use-filename-as-title t
+          deft-use-filter-string-for-filename t)
+    ;; in applications prefix, NOTE: backward incompatible keybindings
+    (if deft-zetteldeft
+        (progn
+          (spacemacs/declare-prefix "ard" "deft")
+          (spacemacs/set-leader-keys "ardn" 'spacemacs/deft))
+      (spacemacs/set-leader-keys "ard" 'spacemacs/deft))
+    ;; put in capture prefix
+    (spacemacs/set-leader-keys "Cd" 'deft-new-file)
     :config (spacemacs/set-leader-keys-for-major-mode 'deft-mode
              "c" 'deft-filter-clear
              "d" 'deft-delete-file

@@ -28,25 +28,24 @@
     :init
     (spacemacs/set-leader-keys "atp" 'prodigy)
     :config
-    (progn
-      (evilified-state-evilify-map prodigy-mode-map
-        :mode prodigy-mode
-        :bindings
-        "c" 'prodigy-view-clear-buffer
-        "h" 'prodigy-first
-        "j" 'prodigy-next
-        "k" 'prodigy-prev
-        "l" 'prodigy-last
-        "H" 'prodigy-display-process
-        "J" 'prodigy-next-with-status
-        "K" 'prodigy-prev-with-status
-        "L" 'prodigy-start
-        "d" 'prodigy-jump-file-manager
-        "g" 'prodigy-jump-magit
-        "Y" 'prodigy-copy-cmd
-        "R" 'revert-buffer)
-      (evilified-state-evilify-map prodigy-view-mode-map
-        :mode prodigy-view-mode
-        :bindings
-        "gf" 'find-file-at-point
-        "q" 'quit-window))))
+    (evilified-state-evilify-map prodigy-mode-map
+      :mode prodigy-mode
+      :bindings
+      "c" 'prodigy-view-clear-buffer
+      "h" 'prodigy-first
+      "j" 'prodigy-next
+      "k" 'prodigy-prev
+      "l" 'prodigy-last
+      "H" 'prodigy-display-process
+      "J" 'prodigy-next-with-status
+      "K" 'prodigy-prev-with-status
+      "L" 'prodigy-start
+      "d" 'prodigy-jump-file-manager
+      "g" 'prodigy-jump-magit
+      "Y" 'prodigy-copy-cmd
+      "R" 'revert-buffer)
+    (evilified-state-evilify-map prodigy-view-mode-map
+      :mode prodigy-view-mode
+      :bindings
+      "gf" 'find-file-at-point
+      "q" 'quit-window)))

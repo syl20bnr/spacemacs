@@ -35,8 +35,8 @@
 (defun twitch/init-helm-twitch ()
   (use-package helm-twitch
     :defer t
-    :init (progn
-            (spacemacs/set-leader-keys
-              "awst" 'helm-twitch)
-            (setq helm-twitch-enable-livestreamer-actions t
-                  helm-twitch-enable-chat-actions t))))
+    :init 
+    (spacemacs/set-leader-keys
+      "awst" 'helm-twitch)
+    (setq helm-twitch-enable-livestreamer-actions t
+          helm-twitch-enable-chat-actions t)))

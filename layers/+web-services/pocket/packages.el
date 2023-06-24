@@ -28,9 +28,8 @@
     :defer t
     :init (spacemacs/set-leader-keys "awp" 'pocket-reader)
     :config
-    (progn
-      (evilified-state-evilify-map pocket-reader-mode-map
-        :mode pocket-reader-mode
-        :bindings
-        "gr" 'pocket-reader-resort
-        "gR" 'pocket-reader-refresh))))
+    (evilified-state-evilify-map pocket-reader-mode-map
+      :mode pocket-reader-mode
+      :bindings
+      "gr" 'pocket-reader-resort
+      "gR" 'pocket-reader-refresh)))

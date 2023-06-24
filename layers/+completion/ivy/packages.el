@@ -76,109 +76,107 @@
 (defun ivy/init-counsel ()
   (use-package counsel
     :init
-    (progn
-      (spacemacs/set-leader-keys
-        dotspacemacs-emacs-command-key 'counsel-M-x
-        ;; files
-        "ff"  'spacemacs/counsel-find-file
-        "fel" 'counsel-find-library
-        "fL"  'counsel-locate
-        ;; help
-        "?"   'counsel-descbinds
-        "gff" 'counsel-git
-        "hda" 'counsel-apropos
-        "hdf" 'counsel-describe-function
-        "hdF" 'counsel-describe-face
-        "hdm" 'spacemacs/describe-mode
-        "hdv" 'counsel-describe-variable
-        "hdx" 'spacemacs/describe-ex-command
-        "hi"  'counsel-info-lookup-symbol
-        "hm"  (if (spacemacs/system-is-mswindows) 'woman 'man)
-        "hR"  'spacemacs/counsel-search-docs
-        ;; insert
-        "iu"  'counsel-unicode-char
-        ;; jump
-        ;; register/ring
-        "ry"  'counsel-yank-pop
-        "rm"  'counsel-mark-ring
-        ;; jumping
-        "sj"  'spacemacs/counsel-jump-in-buffer
-        ;; themes
-        "Ts"  'counsel-load-theme
-        ;; search
-        "/"   'spacemacs/search-project-auto
-        "*"   'spacemacs/search-project-auto-region-or-symbol
-        "sd"  'spacemacs/search-dir-auto
-        "sD"  'spacemacs/search-dir-auto-region-or-symbol
-        "sf"  'spacemacs/search-auto
-        "sF"  'spacemacs/search-auto-region-or-symbol
-        "sp"  'spacemacs/search-project-auto
-        "sP"  'spacemacs/search-project-auto-region-or-symbol
-        "sad" 'spacemacs/search-dir-ag
-        "saD" 'spacemacs/search-dir-ag-region-or-symbol
-        "saf" 'spacemacs/search-ag
-        "saF" 'spacemacs/search-ag-region-or-symbol
-        "sap" 'spacemacs/search-project-ag
-        "saP" 'spacemacs/search-project-ag-region-or-symbol
-        "sgd" 'spacemacs/search-dir-grep
-        "sgD" 'spacemacs/search-dir-grep-region-or-symbol
-        "sgf" 'spacemacs/search-grep
-        "sgF" 'spacemacs/search-grep-region-or-symbol
-        "sgp" 'counsel-git-grep
-        "sgP" 'spacemacs/counsel-git-grep-region-or-symbol
-        "skd" 'spacemacs/search-dir-ack
-        "skD" 'spacemacs/search-dir-ack-region-or-symbol
-        "skf" 'spacemacs/search-ack
-        "skF" 'spacemacs/search-ack-region-or-symbol
-        "skp" 'spacemacs/search-project-ack
-        "skP" 'spacemacs/search-project-ack-region-or-symbol
-        "srd" 'spacemacs/search-dir-rg
-        "srD" 'spacemacs/search-dir-rg-region-or-symbol
-        "srf" 'spacemacs/search-rg
-        "srF" 'spacemacs/search-rg-region-or-symbol
-        "srp" 'spacemacs/search-project-rg
-        "srP" 'spacemacs/search-project-rg-region-or-symbol
-        "std" 'spacemacs/search-dir-pt
-        "stD" 'spacemacs/search-dir-pt-region-or-symbol
-        "stf" 'spacemacs/search-pt
-        "stF" 'spacemacs/search-pt-region-or-symbol
-        "stp" 'spacemacs/search-project-pt
-        "stP" 'spacemacs/search-project-pt-region-or-symbol))
+    (spacemacs/set-leader-keys
+      dotspacemacs-emacs-command-key 'counsel-M-x
+      ;; files
+      "ff"  'spacemacs/counsel-find-file
+      "fel" 'counsel-find-library
+      "fL"  'counsel-locate
+      ;; help
+      "?"   'counsel-descbinds
+      "gff" 'counsel-git
+      "hda" 'counsel-apropos
+      "hdf" 'counsel-describe-function
+      "hdF" 'counsel-describe-face
+      "hdm" 'spacemacs/describe-mode
+      "hdv" 'counsel-describe-variable
+      "hdx" 'spacemacs/describe-ex-command
+      "hi"  'counsel-info-lookup-symbol
+      "hm"  (if (spacemacs/system-is-mswindows) 'woman 'man)
+      "hR"  'spacemacs/counsel-search-docs
+      ;; insert
+      "iu"  'counsel-unicode-char
+      ;; jump
+      ;; register/ring
+      "ry"  'counsel-yank-pop
+      "rm"  'counsel-mark-ring
+      ;; jumping
+      "sj"  'spacemacs/counsel-jump-in-buffer
+      ;; themes
+      "Ts"  'counsel-load-theme
+      ;; search
+      "/"   'spacemacs/search-project-auto
+      "*"   'spacemacs/search-project-auto-region-or-symbol
+      "sd"  'spacemacs/search-dir-auto
+      "sD"  'spacemacs/search-dir-auto-region-or-symbol
+      "sf"  'spacemacs/search-auto
+      "sF"  'spacemacs/search-auto-region-or-symbol
+      "sp"  'spacemacs/search-project-auto
+      "sP"  'spacemacs/search-project-auto-region-or-symbol
+      "sad" 'spacemacs/search-dir-ag
+      "saD" 'spacemacs/search-dir-ag-region-or-symbol
+      "saf" 'spacemacs/search-ag
+      "saF" 'spacemacs/search-ag-region-or-symbol
+      "sap" 'spacemacs/search-project-ag
+      "saP" 'spacemacs/search-project-ag-region-or-symbol
+      "sgd" 'spacemacs/search-dir-grep
+      "sgD" 'spacemacs/search-dir-grep-region-or-symbol
+      "sgf" 'spacemacs/search-grep
+      "sgF" 'spacemacs/search-grep-region-or-symbol
+      "sgp" 'counsel-git-grep
+      "sgP" 'spacemacs/counsel-git-grep-region-or-symbol
+      "skd" 'spacemacs/search-dir-ack
+      "skD" 'spacemacs/search-dir-ack-region-or-symbol
+      "skf" 'spacemacs/search-ack
+      "skF" 'spacemacs/search-ack-region-or-symbol
+      "skp" 'spacemacs/search-project-ack
+      "skP" 'spacemacs/search-project-ack-region-or-symbol
+      "srd" 'spacemacs/search-dir-rg
+      "srD" 'spacemacs/search-dir-rg-region-or-symbol
+      "srf" 'spacemacs/search-rg
+      "srF" 'spacemacs/search-rg-region-or-symbol
+      "srp" 'spacemacs/search-project-rg
+      "srP" 'spacemacs/search-project-rg-region-or-symbol
+      "std" 'spacemacs/search-dir-pt
+      "stD" 'spacemacs/search-dir-pt-region-or-symbol
+      "stf" 'spacemacs/search-pt
+      "stF" 'spacemacs/search-pt-region-or-symbol
+      "stp" 'spacemacs/search-project-pt
+      "stP" 'spacemacs/search-project-pt-region-or-symbol)
     :config
-    (progn
-      ;; Temporarily handle older versions of ivy
-      ;; https://github.com/abo-abo/swiper/pull/1863/files
-      (unless (fboundp 'counsel--elisp-to-pcre)
-        (defalias 'counsel--elisp-to-pcre 'counsel-unquote-regex-parens))
+    ;; Temporarily handle older versions of ivy
+    ;; https://github.com/abo-abo/swiper/pull/1863/files
+    (unless (fboundp 'counsel--elisp-to-pcre)
+      (defalias 'counsel--elisp-to-pcre 'counsel-unquote-regex-parens))
 
-      ;; set additional ivy actions
+    ;; set additional ivy actions
+    (ivy-set-actions
+     'counsel-find-file
+     spacemacs--ivy-file-actions)
+
+    (dolist (action '(spacemacs/counsel-search counsel-rg counsel-ag))
       (ivy-set-actions
-       'counsel-find-file
-       spacemacs--ivy-file-actions)
+       action
+       spacemacs--ivy-grep-actions))
 
-      (dolist (action '(spacemacs/counsel-search counsel-rg counsel-ag))
-        (ivy-set-actions
-         action
-         spacemacs--ivy-grep-actions))
+    (when (or (eq 'vim dotspacemacs-editing-style)
+              (and (eq 'hybrid dotspacemacs-editing-style)
+                   hybrid-style-enable-hjkl-bindings))
+      (define-key counsel-find-file-map (kbd "C-h") 'counsel-up-directory))
 
-      (when (or (eq 'vim dotspacemacs-editing-style)
-                (and (eq 'hybrid dotspacemacs-editing-style)
-                     hybrid-style-enable-hjkl-bindings))
-        (define-key counsel-find-file-map (kbd "C-h") 'counsel-up-directory))
-
-      (define-key read-expression-map (kbd "C-r") 'counsel-minibuffer-history)
-      (spacemacs//counsel-search-add-extra-bindings counsel-ag-map)
-      ;; remaps built-in commands that have a counsel replacement
-      (counsel-mode 1)
-      (spacemacs|hide-lighter counsel-mode)
-      ;; TODO Commands to port
-      (spacemacs//ivy-command-not-implemented-yet "jI")
-      ;; Set syntax highlighting for counsel search results
-      (ivy-set-display-transformer 'spacemacs/counsel-search
-                                   'counsel-git-grep-transformer)
-      ;; Enable better auto completion of counsel-find-file
-      ;; by recognizing file at point.
-      (setq counsel-find-file-at-point t))))
+    (define-key read-expression-map (kbd "C-r") 'counsel-minibuffer-history)
+    (spacemacs//counsel-search-add-extra-bindings counsel-ag-map)
+    ;; remaps built-in commands that have a counsel replacement
+    (counsel-mode 1)
+    (spacemacs|hide-lighter counsel-mode)
+    ;; TODO Commands to port
+    (spacemacs//ivy-command-not-implemented-yet "jI")
+    ;; Set syntax highlighting for counsel search results
+    (ivy-set-display-transformer 'spacemacs/counsel-search
+                                 'counsel-git-grep-transformer)
+    ;; Enable better auto completion of counsel-find-file
+    ;; by recognizing file at point.
+    (setq counsel-find-file-at-point t)))
 
 (defun ivy/pre-init-counsel-projectile ()
   ;; overwrite projectile settings
@@ -215,11 +213,10 @@
   (use-package helm-make
     :defer t
     :init
-    (progn
-      (setq helm-make-completion-method 'ivy)
-      (spacemacs/set-leader-keys
-        "cc" 'helm-make-projectile
-        "cm" 'helm-make))))
+    (setq helm-make-completion-method 'ivy)
+    (spacemacs/set-leader-keys
+      "cc" 'helm-make-projectile
+      "cm" 'helm-make)))
 
 (defun ivy/post-init-imenu ()
   (spacemacs/set-leader-keys "ji" 'spacemacs/counsel-jump-in-buffer))
@@ -227,75 +224,73 @@
 (defun ivy/init-ivy ()
   (use-package ivy
     :init
-    (progn
-      ;; Key bindings
-      (spacemacs/set-leader-keys
-        "a'" 'spacemacs/ivy-available-repls
-        "Ce" 'counsel-colors-emacs
-        "Cf" 'counsel-faces
-        "Cw" 'counsel-colors-web
-        "fr" 'spacemacs/counsel-recentf
-        "rl" 'ivy-resume
-        "sl" 'ivy-resume
-        "bb" 'ivy-switch-buffer)
-      ;; Common Ctrl-TAB buffer switch behavior
-      (with-eval-after-load 'evil
-        (evil-global-set-key 'motion (kbd "<C-tab>") 'ivy-switch-buffer)
-        (evil-global-set-key 'motion (kbd "<C-iso-lefttab>") 'ivy-switch-buffer))
-      (define-key ivy-mode-map (kbd "<C-tab>") 'ivy-next-line-and-call)
-      (define-key ivy-mode-map (kbd "<C-iso-lefttab>") 'ivy-previous-line-and-call)
-      ;; Moved C-k to C-M-k
-      (define-key ivy-switch-buffer-map (kbd "C-M-k") 'ivy-switch-buffer-kill)
-      (define-key ivy-reverse-i-search-map
-        (kbd "C-M-k") 'ivy-reverse-i-search-kill))
+    ;; Key bindings
+    (spacemacs/set-leader-keys
+      "a'" 'spacemacs/ivy-available-repls
+      "Ce" 'counsel-colors-emacs
+      "Cf" 'counsel-faces
+      "Cw" 'counsel-colors-web
+      "fr" 'spacemacs/counsel-recentf
+      "rl" 'ivy-resume
+      "sl" 'ivy-resume
+      "bb" 'ivy-switch-buffer)
+    ;; Common Ctrl-TAB buffer switch behavior
+    (with-eval-after-load 'evil
+      (evil-global-set-key 'motion (kbd "<C-tab>") 'ivy-switch-buffer)
+      (evil-global-set-key 'motion (kbd "<C-iso-lefttab>") 'ivy-switch-buffer))
+    (define-key ivy-mode-map (kbd "<C-tab>") 'ivy-next-line-and-call)
+    (define-key ivy-mode-map (kbd "<C-iso-lefttab>") 'ivy-previous-line-and-call)
+    ;; Moved C-k to C-M-k
+    (define-key ivy-switch-buffer-map (kbd "C-M-k") 'ivy-switch-buffer-kill)
+    (define-key ivy-reverse-i-search-map
+      (kbd "C-M-k") 'ivy-reverse-i-search-kill)
     :config
-    (progn
-      ;; custom actions for recentf
-      (ivy-set-actions
-       'counsel-recentf
-       spacemacs--ivy-file-actions)
+    ;; custom actions for recentf
+    (ivy-set-actions
+     'counsel-recentf
+     spacemacs--ivy-file-actions)
 
-      ;; add spacemacs/counsel-search command to ivy-highlight-grep-commands
-      (add-to-list 'ivy-highlight-grep-commands 'spacemacs/counsel-search)
+    ;; add spacemacs/counsel-search command to ivy-highlight-grep-commands
+    (add-to-list 'ivy-highlight-grep-commands 'spacemacs/counsel-search)
 
-      ;; mappings to quit minibuffer or enter transient state
-      (define-key ivy-minibuffer-map [escape] 'minibuffer-keyboard-quit)
-      (define-key ivy-minibuffer-map (kbd "M-SPC") 'hydra-ivy/body)
-      (define-key ivy-minibuffer-map (kbd "C-<return>") #'ivy-alt-done)
-      (define-key ivy-minibuffer-map (kbd "C-.") #'ivy-mark)
-      (define-key ivy-minibuffer-map (kbd "C-,") #'ivy-unmark)
-      (define-key ivy-minibuffer-map (kbd "C-<") #'ivy-unmark-backward)
-      (define-key ivy-minibuffer-map (kbd "C->") #'ivy-toggle-marks)
-      (define-key ivy-minibuffer-map (kbd "C-SPC") #'ivy-call-and-recenter)
+    ;; mappings to quit minibuffer or enter transient state
+    (define-key ivy-minibuffer-map [escape] 'minibuffer-keyboard-quit)
+    (define-key ivy-minibuffer-map (kbd "M-SPC") 'hydra-ivy/body)
+    (define-key ivy-minibuffer-map (kbd "C-<return>") #'ivy-alt-done)
+    (define-key ivy-minibuffer-map (kbd "C-.") #'ivy-mark)
+    (define-key ivy-minibuffer-map (kbd "C-,") #'ivy-unmark)
+    (define-key ivy-minibuffer-map (kbd "C-<") #'ivy-unmark-backward)
+    (define-key ivy-minibuffer-map (kbd "C->") #'ivy-toggle-marks)
+    (define-key ivy-minibuffer-map (kbd "C-SPC") #'ivy-call-and-recenter)
 
-      (when ivy-ret-visits-directory
-        (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
-        (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-done))
+    (when ivy-ret-visits-directory
+      (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
+      (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-done))
 
-      (ivy-mode 1)
-      (global-set-key (kbd "C-c C-r") 'ivy-resume)
-      (global-set-key (kbd "<f6>") 'ivy-resume)
-      ;; Occur
-      (evil-make-overriding-map ivy-occur-grep-mode-map)
-      (evil-make-overriding-map ivy-occur-mode-map 'normal)
-      (dolist (mode-map (list ivy-occur-mode-map ivy-occur-grep-mode-map))
-        (define-key mode-map "g" nil)
-        (define-key mode-map "U" 'ivy-occur-revert-buffer))
-      (ivy-set-occur 'spacemacs/counsel-search
-                     'spacemacs//counsel-occur)
-      (spacemacs/set-leader-keys-for-major-mode 'ivy-occur-grep-mode
-        "w" 'spacemacs/ivy-wgrep-change-to-wgrep-mode
-        "s" 'wgrep-save-all-buffers)
+    (ivy-mode 1)
+    (global-set-key (kbd "C-c C-r") 'ivy-resume)
+    (global-set-key (kbd "<f6>") 'ivy-resume)
+    ;; Occur
+    (evil-make-overriding-map ivy-occur-grep-mode-map)
+    (evil-make-overriding-map ivy-occur-mode-map 'normal)
+    (dolist (mode-map (list ivy-occur-mode-map ivy-occur-grep-mode-map))
+      (define-key mode-map "g" nil)
+      (define-key mode-map "U" 'ivy-occur-revert-buffer))
+    (ivy-set-occur 'spacemacs/counsel-search
+                   'spacemacs//counsel-occur)
+    (spacemacs/set-leader-keys-for-major-mode 'ivy-occur-grep-mode
+      "w" 'spacemacs/ivy-wgrep-change-to-wgrep-mode
+      "s" 'wgrep-save-all-buffers)
 
-      ;; emacs 27 extend line for ivy highlight
-      (setf (alist-get 't ivy-format-functions-alist)
-            #'ivy-format-function-line)
+    ;; emacs 27 extend line for ivy highlight
+    (setf (alist-get 't ivy-format-functions-alist)
+          #'ivy-format-function-line)
 
-      ;; Why do we do this ?
-      (ido-mode -1)
+    ;; Why do we do this ?
+    (ido-mode -1)
 
-      ;; allow to select prompt in some ivy functions
-      (setq ivy-use-selectable-prompt t))))
+    ;; allow to select prompt in some ivy functions
+    (setq ivy-use-selectable-prompt t)))
 
 (defun ivy/init-ivy-avy ()
   (use-package ivy-avy
@@ -313,13 +308,11 @@
     ;; transformers
     :after counsel
     :init
-    (progn
-      (setq ivy-rich-path-style 'abbrev
-            ivy-virtual-abbreviate 'full))
+    (setq ivy-rich-path-style 'abbrev
+          ivy-virtual-abbreviate 'full)
     :config
-    (progn
-      (ivy-rich-mode)
-      (ivy-rich-project-root-cache-mode))))
+    (ivy-rich-mode)
+    (ivy-rich-project-root-cache-mode)))
 
 (defun ivy/init-ivy-spacemacs-help ()
   (use-package ivy-spacemacs-help
@@ -343,18 +336,17 @@
   (use-package ivy-xref
     :defer t
     :init
-    (progn
-      (setq xref-prompt-for-identifier '(not xref-find-definitions
-                                             xref-find-definitions-other-window
-                                             xref-find-definitions-other-frame
-                                             xref-find-references
-                                             spacemacs/jump-to-definition))
+    (setq xref-prompt-for-identifier '(not xref-find-definitions
+                                           xref-find-definitions-other-window
+                                           xref-find-definitions-other-frame
+                                           xref-find-references
+                                           spacemacs/jump-to-definition))
 
-      ;; Use ivy-xref to display `xref.el' results.
-      (setq xref-show-xrefs-function #'ivy-xref-show-xrefs)
-      (ivy-set-actions
-       'ivy-xref-show-xrefs
-       '(("j" spacemacs/ivy-xref-open-in-other-window "other window"))))))
+    ;; Use ivy-xref to display `xref.el' results.
+    (setq xref-show-xrefs-function #'ivy-xref-show-xrefs)
+    (ivy-set-actions
+     'ivy-xref-show-xrefs
+     '(("j" spacemacs/ivy-xref-open-in-other-window "other window")))))
 
 (defun ivy/post-init-org ()
   (add-hook 'org-ctrl-c-ctrl-c-hook 'spacemacs//counsel-org-ctrl-c-ctrl-c-org-tag))
@@ -424,13 +416,12 @@
 (defun ivy/init-swiper ()
   (use-package swiper
     :config
-    (progn
-      (spacemacs/set-leader-keys
-        "ss" 'swiper
-        "sS" 'swiper-thing-at-point
-        "sb" 'swiper-all
-        "sB" 'swiper-all-thing-at-point)
-      (global-set-key "\C-s" 'swiper))))
+    (spacemacs/set-leader-keys
+      "ss" 'swiper
+      "sS" 'swiper-thing-at-point
+      "sb" 'swiper-all
+      "sB" 'swiper-all-thing-at-point)
+    (global-set-key "\C-s" 'swiper)))
 
 (defun ivy/init-wgrep ()
   (evil-define-key 'normal wgrep-mode-map ",," 'wgrep-finish-edit)

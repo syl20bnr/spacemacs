@@ -76,76 +76,74 @@
   (use-package eshell
     :defer t
     :init
-    (progn
-      (spacemacs/register-repl 'eshell 'eshell)
-      (setq eshell-cmpl-cycle-completions nil
-            ;; auto truncate after 20k lines
-            eshell-buffer-maximum-lines 20000
-            ;; history size
-            eshell-history-size 350
-            ;; no duplicates in history
-            eshell-hist-ignoredups t
-            ;; my prompt is easy enough to see
-            eshell-highlight-prompt nil
-            ;; treat 'echo' like shell echo
-            eshell-plain-echo-behavior t
-            ;; cache directory
-            eshell-directory-name (concat spacemacs-cache-directory "eshell/"))
+    (spacemacs/register-repl 'eshell 'eshell)
+    (setq eshell-cmpl-cycle-completions nil
+          ;; auto truncate after 20k lines
+          eshell-buffer-maximum-lines 20000
+          ;; history size
+          eshell-history-size 350
+          ;; no duplicates in history
+          eshell-hist-ignoredups t
+          ;; my prompt is easy enough to see
+          eshell-highlight-prompt nil
+          ;; treat 'echo' like shell echo
+          eshell-plain-echo-behavior t
+          ;; cache directory
+          eshell-directory-name (concat spacemacs-cache-directory "eshell/"))
 
-      (when shell-protect-eshell-prompt
-        (add-hook 'eshell-after-prompt-hook 'spacemacs//protect-eshell-prompt))
+    (when shell-protect-eshell-prompt
+      (add-hook 'eshell-after-prompt-hook 'spacemacs//protect-eshell-prompt))
 
-      (autoload 'eshell-delchar-or-maybe-eof "em-rebind")
+    (autoload 'eshell-delchar-or-maybe-eof "em-rebind")
 
-      (add-hook 'eshell-mode-hook 'spacemacs//init-eshell)
-      (add-hook 'eshell-mode-hook 'spacemacs/disable-hl-line-mode)
-      (with-eval-after-load 'centered-cursor-mode
-        (add-hook 'eshell-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode)))
+    (add-hook 'eshell-mode-hook 'spacemacs//init-eshell)
+    (add-hook 'eshell-mode-hook 'spacemacs/disable-hl-line-mode)
+    (with-eval-after-load 'centered-cursor-mode
+      (add-hook 'eshell-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode))
     :config
-    (progn
 
-      ;; Work around bug in eshell's preoutput-filter code.
-      ;; Eshell doesn't call preoutput-filter functions in the context of the eshell
-      ;; buffer. This breaks the xterm color filtering when the eshell buffer is updated
-      ;; when it's not currently focused.
-      ;; To remove if/when fixed upstream.
-      (defun eshell-output-filter@spacemacs-with-buffer (fn process string)
-        (let ((proc-buf (if process (process-buffer process)
-                          (current-buffer))))
-          (when proc-buf
-            (with-current-buffer proc-buf
-              (funcall fn process string)))))
-      (advice-add
-       #'eshell-output-filter
-       :around
-       #'eshell-output-filter@spacemacs-with-buffer)
+    ;; Work around bug in eshell's preoutput-filter code.
+    ;; Eshell doesn't call preoutput-filter functions in the context of the eshell
+    ;; buffer. This breaks the xterm color filtering when the eshell buffer is updated
+    ;; when it's not currently focused.
+    ;; To remove if/when fixed upstream.
+    (defun eshell-output-filter@spacemacs-with-buffer (fn process string)
+      (let ((proc-buf (if process (process-buffer process)
+                        (current-buffer))))
+        (when proc-buf
+          (with-current-buffer proc-buf
+            (funcall fn process string)))))
+    (advice-add
+     #'eshell-output-filter
+     :around
+     #'eshell-output-filter@spacemacs-with-buffer)
 
-      (require 'esh-opt)
+    (require 'esh-opt)
 
-      ;; quick commands
-      (defalias 'eshell/e 'find-file-other-window)
-      (defalias 'eshell/d 'dired)
+    ;; quick commands
+    (defalias 'eshell/e 'find-file-other-window)
+    (defalias 'eshell/d 'dired)
 
-      (require 'esh-var)
-      (add-to-list 'eshell-variable-aliases-list
-                   `("PAGER" ,(lambda (_indices) "cat") t))
+    (require 'esh-var)
+    (add-to-list 'eshell-variable-aliases-list
+                 `("PAGER" ,(lambda (_indices) "cat") t))
 
-      ;; support `em-smart'
-      (when shell-enable-smart-eshell
-        (require 'em-smart)
-        (setq eshell-where-to-jump 'begin
-              eshell-review-quick-commands nil
-              eshell-smart-space-goes-to-end t)
-        (add-hook 'eshell-mode-hook 'eshell-smart-initialize))
+    ;; support `em-smart'
+    (when shell-enable-smart-eshell
+      (require 'em-smart)
+      (setq eshell-where-to-jump 'begin
+            eshell-review-quick-commands nil
+            eshell-smart-space-goes-to-end t)
+      (add-hook 'eshell-mode-hook 'eshell-smart-initialize))
 
-      ;; Visual commands
-      (require 'em-term)
-      (mapc (lambda (x) (add-to-list 'eshell-visual-commands x))
-            '("el" "elinks" "htop" "less" "ssh" "tmux" "top"))
+    ;; Visual commands
+    (require 'em-term)
+    (mapc (lambda (x) (add-to-list 'eshell-visual-commands x))
+          '("el" "elinks" "htop" "less" "ssh" "tmux" "top"))
 
-      ;; automatically truncate buffer after output
-      (when (boundp 'eshell-output-filter-functions)
-        (add-hook 'eshell-output-filter-functions #'eshell-truncate-buffer)))))
+    ;; automatically truncate buffer after output
+    (when (boundp 'eshell-output-filter-functions)
+      (add-hook 'eshell-output-filter-functions #'eshell-truncate-buffer))))
 
 (defun shell/pre-init-evil-collection ()
   (add-to-list 'spacemacs-evil-collection-allowed-list 'vterm))
@@ -190,19 +188,17 @@
   (use-package multi-term
     :defer t
     :init
-    (progn
-      (spacemacs/register-repl 'multi-term 'multi-term))
+    (spacemacs/register-repl 'multi-term 'multi-term)
     :config
-    (progn
-      (add-to-list 'term-bind-key-alist '("<tab>" . term-send-tab))
-      ;; multi-term commands to create terminals and move through them.
-      (spacemacs/set-leader-keys-for-major-mode 'term-mode
-        "c" 'multi-term
-        "C" 'term-char-mode
-        "l" 'term-line-mode
-        "n" 'multi-term-next
-        "N" 'multi-term-prev
-        "p" 'multi-term-prev))))
+    (add-to-list 'term-bind-key-alist '("<tab>" . term-send-tab))
+    ;; multi-term commands to create terminals and move through them.
+    (spacemacs/set-leader-keys-for-major-mode 'term-mode
+      "c" 'multi-term
+      "C" 'term-char-mode
+      "l" 'term-line-mode
+      "n" 'multi-term-next
+      "N" 'multi-term-prev
+      "p" 'multi-term-prev)))
 
 (defun shell/pre-init-org ()
   (spacemacs|use-package-add-hook org
@@ -246,36 +242,35 @@
   (use-package shell-pop
     :defer t
     :init
-    (progn
-      (setq shell-pop-window-position shell-default-position
-            shell-pop-window-size     shell-default-height
-            shell-pop-term-shell      shell-default-term-shell
-            shell-pop-full-span       shell-default-full-span)
-      (make-shell-pop-command "eshell" eshell)
-      (make-shell-pop-command "term" term shell-pop-term-shell)
-      (make-shell-pop-command "ansi-term" ansi-term shell-pop-term-shell)
-      (make-shell-pop-command "inferior-shell" inferior-shell)
-      (make-shell-pop-command "multiterm" multiterm)
+    (setq shell-pop-window-position shell-default-position
+          shell-pop-window-size     shell-default-height
+          shell-pop-term-shell      shell-default-term-shell
+          shell-pop-full-span       shell-default-full-span)
+    (make-shell-pop-command "eshell" eshell)
+    (make-shell-pop-command "term" term shell-pop-term-shell)
+    (make-shell-pop-command "ansi-term" ansi-term shell-pop-term-shell)
+    (make-shell-pop-command "inferior-shell" inferior-shell)
+    (make-shell-pop-command "multiterm" multiterm)
 
-      (let* ((initial-shell-mode-name (format "%S-mode" shell-default-shell))
-             (initial-shell-mode (intern initial-shell-mode-name)))
-        (evil-set-initial-state initial-shell-mode 'insert))
+    (let* ((initial-shell-mode-name (format "%S-mode" shell-default-shell))
+           (initial-shell-mode (intern initial-shell-mode-name)))
+      (evil-set-initial-state initial-shell-mode 'insert))
 
-      (when (fboundp 'spacemacs/make-variable-layout-local)
-        (spacemacs/make-variable-layout-local 'shell-pop-last-shell-buffer-index 1
-                                              'shell-pop-last-shell-buffer-name ""
-                                              'shell-pop-last-buffer nil))
+    (when (fboundp 'spacemacs/make-variable-layout-local)
+      (spacemacs/make-variable-layout-local 'shell-pop-last-shell-buffer-index 1
+                                            'shell-pop-last-shell-buffer-name ""
+                                            'shell-pop-last-buffer nil))
 
-      (add-hook 'term-mode-hook 'ansi-term-handle-close)
+    (add-hook 'term-mode-hook 'ansi-term-handle-close)
 
-      (spacemacs/set-leader-keys
-        "'"   'spacemacs/default-pop-shell
-        "atse" 'spacemacs/shell-pop-eshell
-        "atsi" 'spacemacs/shell-pop-inferior-shell
-        "atsm" 'spacemacs/shell-pop-multiterm
-        "atst" 'spacemacs/shell-pop-ansi-term
-        "atsT" 'spacemacs/shell-pop-term)
-      (spacemacs/declare-prefix "'" "open shell"))
+    (spacemacs/set-leader-keys
+      "'"   'spacemacs/default-pop-shell
+      "atse" 'spacemacs/shell-pop-eshell
+      "atsi" 'spacemacs/shell-pop-inferior-shell
+      "atsm" 'spacemacs/shell-pop-multiterm
+      "atst" 'spacemacs/shell-pop-ansi-term
+      "atsT" 'spacemacs/shell-pop-term)
+    (spacemacs/declare-prefix "'" "open shell")
     :config
     (add-hook 'shell-pop-out-hook #'spacemacs//shell-pop-restore-window)))
 
@@ -314,23 +309,21 @@
 (defun shell/init-xterm-color ()
   (use-package xterm-color
     :init
-    (progn
-      ;; Comint and Shell
-      (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter)
-      (setq comint-output-filter-functions
-            (remove 'ansi-color-process-output comint-output-filter-functions))
-      (add-hook 'eshell-mode-hook 'spacemacs/init-eshell-xterm-color))))
+    ;; Comint and Shell
+    (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter)
+    (setq comint-output-filter-functions
+          (remove 'ansi-color-process-output comint-output-filter-functions))
+    (add-hook 'eshell-mode-hook 'spacemacs/init-eshell-xterm-color)))
 
 (defun shell/init-terminal-here ()
   (use-package terminal-here
     :defer t
     :commands (terminal-here-launch terminal-here-project-launch)
     :init
-    (progn
-      (spacemacs/register-repl 'terminal-here 'terminal-here)
-      (spacemacs/set-leader-keys
-        "\"" 'terminal-here-launch
-        "p \"" 'terminal-here-project-launch))))
+    (spacemacs/register-repl 'terminal-here 'terminal-here)
+    (spacemacs/set-leader-keys
+      "\"" 'terminal-here-launch
+      "p \"" 'terminal-here-project-launch)))
 
 
 (defun shell/post-init-vi-tilde-fringe ()
@@ -345,48 +338,44 @@
     :defer t
     :commands (vterm vterm-other-window)
     :init
-    (progn
-      (make-shell-pop-command "vterm" vterm)
-      (spacemacs/set-leader-keys "atsv" 'spacemacs/shell-pop-vterm)
-      (spacemacs/register-repl 'vterm 'vterm))
+    (make-shell-pop-command "vterm" vterm)
+    (spacemacs/set-leader-keys "atsv" 'spacemacs/shell-pop-vterm)
+    (spacemacs/register-repl 'vterm 'vterm)
     :config
-    (progn
-      (setq vterm-shell shell-default-term-shell)
-      (define-key vterm-mode-map (kbd "M-n") 'vterm-send-down)
-      (define-key vterm-mode-map (kbd "M-p") 'vterm-send-up)
-      (define-key vterm-mode-map (kbd "M-y") 'vterm-yank-pop)
-      (define-key vterm-mode-map (kbd "M-/") 'vterm-send-tab)
-      (when spacemacs-vterm-history-file-location
-        (spacemacs//vterm-bind-m-r vterm-mode-map))
-      (evil-define-key 'insert vterm-mode-map (kbd "C-y") 'vterm-yank)
-      (evil-define-key 'insert vterm-mode-map (kbd "C-o") 'evil-execute-in-normal-state)
-      (evil-define-key 'normal vterm-mode-map
-        [escape] 'vterm-send-escape
-        [return] 'vterm-send-return
-        (kbd "p") 'vterm-yank
-        (kbd "u") 'vterm-undo)
-      (add-hook 'vterm-mode-hook 'spacemacs/disable-hl-line-mode)
-      (with-eval-after-load 'centered-cursor-mode
-        (add-hook 'vterm-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode)))))
+    (setq vterm-shell shell-default-term-shell)
+    (define-key vterm-mode-map (kbd "M-n") 'vterm-send-down)
+    (define-key vterm-mode-map (kbd "M-p") 'vterm-send-up)
+    (define-key vterm-mode-map (kbd "M-y") 'vterm-yank-pop)
+    (define-key vterm-mode-map (kbd "M-/") 'vterm-send-tab)
+    (when spacemacs-vterm-history-file-location
+      (spacemacs//vterm-bind-m-r vterm-mode-map))
+    (evil-define-key 'insert vterm-mode-map (kbd "C-y") 'vterm-yank)
+    (evil-define-key 'insert vterm-mode-map (kbd "C-o") 'evil-execute-in-normal-state)
+    (evil-define-key 'normal vterm-mode-map
+      [escape] 'vterm-send-escape
+      [return] 'vterm-send-return
+      (kbd "p") 'vterm-yank
+      (kbd "u") 'vterm-undo)
+    (add-hook 'vterm-mode-hook 'spacemacs/disable-hl-line-mode)
+    (with-eval-after-load 'centered-cursor-mode
+      (add-hook 'vterm-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode))))
 
 (defun shell/init-multi-vterm ()
   (use-package multi-vterm
     :defer t
     :init
-    (progn
-      (make-shell-pop-command "multivterm" multivterm)
-      (spacemacs/set-leader-keys "atsM" 'spacemacs/shell-pop-multivterm)
-      (spacemacs/register-repl 'multi-vterm 'multi-vterm))
+    (make-shell-pop-command "multivterm" multivterm)
+    (spacemacs/set-leader-keys "atsM" 'spacemacs/shell-pop-multivterm)
+    (spacemacs/register-repl 'multi-vterm 'multi-vterm)
     :config
-    (progn
-      (setq vterm-shell shell-default-term-shell)
-      ;; multi-term commands to create terminals and move through them.
-      (spacemacs/set-leader-keys-for-major-mode 'vterm-mode
-        "c" 'multi-vterm
-        "n" 'multi-vterm-next
-        "N" 'multi-vterm-prev
-        "p" 'multi-vterm-prev
-        "r" 'multi-vterm-rename-buffer))))
+    (setq vterm-shell shell-default-term-shell)
+    ;; multi-term commands to create terminals and move through them.
+    (spacemacs/set-leader-keys-for-major-mode 'vterm-mode
+      "c" 'multi-vterm
+      "n" 'multi-vterm-next
+      "N" 'multi-vterm-prev
+      "p" 'multi-vterm-prev
+      "r" 'multi-vterm-rename-buffer)))
 
 (defun shell/post-init-window-purpose ()
   (purpose-set-extension-configuration

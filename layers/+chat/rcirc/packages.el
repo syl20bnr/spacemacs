@@ -121,56 +121,54 @@
   (use-package rcirc
     :defer t
     :init
-    (progn
-      (spacemacs/add-to-hook 'rcirc-mode-hook '(rcirc-omit-mode
-                                                rcirc-track-minor-mode))
+    (spacemacs/add-to-hook 'rcirc-mode-hook '(rcirc-omit-mode
+                                              rcirc-track-minor-mode))
 
-      (spacemacs/set-leader-keys "acir" 'spacemacs/rcirc)
-      (spacemacs/declare-prefix "aci"  "irc")
-      (evil-set-initial-state 'rcirc-mode 'insert)
-      (setq rcirc-fill-column 80
-            rcirc-buffer-maximum-lines 2048
-            rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY" "MODE")
-            rcirc-time-format "%Y-%m-%d %H:%M "
-            rcirc-omit-threshold 20
-            rcirc-log-directory (concat spacemacs-cache-directory "/rcirc-logs/")
-            rcirc-log-flag t))
+    (spacemacs/set-leader-keys "acir" 'spacemacs/rcirc)
+    (spacemacs/declare-prefix "aci"  "irc")
+    (evil-set-initial-state 'rcirc-mode 'insert)
+    (setq rcirc-fill-column 80
+          rcirc-buffer-maximum-lines 2048
+          rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY" "MODE")
+          rcirc-time-format "%Y-%m-%d %H:%M "
+          rcirc-omit-threshold 20
+          rcirc-log-directory (concat spacemacs-cache-directory "/rcirc-logs/")
+          rcirc-log-flag t)
     :config
-    (progn
-      ;; (set-input-method "latin-1-prefix")
-      (setq-local scroll-conservatively 8192)
+    ;; (set-input-method "latin-1-prefix")
+    (setq-local scroll-conservatively 8192)
 
-      ;; Exclude rcirc properties when yanking, in order to be able to send mails
-      ;; for example.
-      (add-to-list 'yank-excluded-properties 'rcirc-text)
+    ;; Exclude rcirc properties when yanking, in order to be able to send mails
+    ;; for example.
+    (add-to-list 'yank-excluded-properties 'rcirc-text)
 
-      ;; load this file from the dropbox location load-path
-      ;; this is where you can store personal information
-      (require 'pinit-rcirc nil 'noerror)
+    ;; load this file from the dropbox location load-path
+    ;; this is where you can store personal information
+    (require 'pinit-rcirc nil 'noerror)
 
-      (evil-define-key 'normal rcirc-mode-map
-        (kbd "C-j") 'rcirc-insert-prev-input
-        (kbd "C-k") 'rcirc-insert-next-input)
+    (evil-define-key 'normal rcirc-mode-map
+      (kbd "C-j") 'rcirc-insert-prev-input
+      (kbd "C-k") 'rcirc-insert-next-input)
 
-      ;; add a key for EMMS integration
-      (when (boundp 'emms-track-description)
-        (define-key rcirc-mode-map (kbd "C-c C-e") 'spacemacs/rcirc-insert-current-emms-track))
+    ;; add a key for EMMS integration
+    (when (boundp 'emms-track-description)
+      (define-key rcirc-mode-map (kbd "C-c C-e") 'spacemacs/rcirc-insert-current-emms-track))
 
-      ;; Minimal logging to `~/.emacs.d/.cache/rcirc-logs/'
-      ;; by courtesy of Trent Buck.
-      (add-hook 'rcirc-print-hooks 'spacemacs//rcirc-write-log)
+    ;; Minimal logging to `~/.emacs.d/.cache/rcirc-logs/'
+    ;; by courtesy of Trent Buck.
+    (add-hook 'rcirc-print-hooks 'spacemacs//rcirc-write-log)
 
-      ;; dependencies
-      ;; will autoload rcirc-notify
-      (rcirc-notify-add-hooks)
-      (require 'rcirc-color)
-      (when rcirc-enable-styles
-        (require 'rcirc-styles)
-        (spacemacs/declare-prefix-for-mode 'rcirc-mode "mi" "insert")
-        (spacemacs/set-leader-keys-for-major-mode 'rcirc-mode
-          "ic" 'rcirc-styles-insert-color
-          "ia" 'rcirc-styles-insert-attribute
-          "ip" 'rcirc-styles-toggle-preview)))))
+    ;; dependencies
+    ;; will autoload rcirc-notify
+    (rcirc-notify-add-hooks)
+    (require 'rcirc-color)
+    (when rcirc-enable-styles
+      (require 'rcirc-styles)
+      (spacemacs/declare-prefix-for-mode 'rcirc-mode "mi" "insert")
+      (spacemacs/set-leader-keys-for-major-mode 'rcirc-mode
+        "ic" 'rcirc-styles-insert-color
+        "ia" 'rcirc-styles-insert-attribute
+        "ip" 'rcirc-styles-toggle-preview))))
 
 (defun rcirc/init-rcirc-color ()
   (use-package rcirc-color :defer t))
@@ -188,8 +186,7 @@
   (use-package rcirc-notify
     :defer t
     :config
-    (progn
-      (add-hook 'rcirc-notify-page-me-hooks 'spacemacs/rcirc-notify-beep))))
+    (add-hook 'rcirc-notify-page-me-hooks 'spacemacs/rcirc-notify-beep)))
 
 (defun rcirc/post-init-window-purpose ()
   (purpose-set-extension-configuration

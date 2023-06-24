@@ -40,21 +40,19 @@
   (use-package ranger
     :commands (ranger deer deer-jump-other-window ranger-override-dired-mode)
     :init
-    (progn
-      (ranger//set-leader-keys)
+    (ranger//set-leader-keys)
 
-      (when (memq ranger-enter-with-minus '(deer ranger))
-        (define-key evil-motion-state-map (kbd "-") ranger-enter-with-minus))
+    (when (memq ranger-enter-with-minus '(deer ranger))
+      (define-key evil-motion-state-map (kbd "-") ranger-enter-with-minus))
 
-      ;; set up image-dired to allow picture resize
-      (setq image-dired-dir (concat spacemacs-cache-directory "image-dir"))
-      (unless (file-directory-p image-dired-dir)
-        (make-directory image-dired-dir)))
+    ;; set up image-dired to allow picture resize
+    (setq image-dired-dir (concat spacemacs-cache-directory "image-dir"))
+    (unless (file-directory-p image-dired-dir)
+      (make-directory image-dired-dir))
     :config
-    (progn
-      (when (memq 'helm dotspacemacs-configuration-layers)
-        (require 'helm))
-      (define-key ranger-mode-map (kbd "-") 'ranger-up-directory))))
+    (when (memq 'helm dotspacemacs-configuration-layers)
+      (require 'helm))
+    (define-key ranger-mode-map (kbd "-") 'ranger-up-directory)))
 
 (defun ranger/post-init-dired ()
   ;; Be sure to override dired bindings

@@ -73,144 +73,142 @@
   (use-package helm
     :defer (spacemacs/defer)
     :init
-    (progn
-      (spacemacs|diminish helm-ff-cache-mode)
-      (spacemacs|add-transient-hook completing-read
-        (lambda (&rest _args) (require 'helm))
-        lazy-load-helm-for-completing-read)
-      (spacemacs|add-transient-hook completion-at-point
-        (lambda (&rest _args) (require 'helm))
-        lazy-load-helm-for-completion-at-point)
-      (spacemacs|add-transient-hook read-file-name
-        (lambda (&rest _args) (require 'helm))
-        lazy-load-helm-for-read-file-name)
-      (add-hook 'helm-cleanup-hook #'spacemacs//helm-cleanup)
-      ;; key bindings
-      ;; Use helm to provide :ls, unless ibuffer is used
-      (unless (configuration-layer/package-used-p 'ibuffer)
-        (evil-ex-define-cmd "buffers" 'helm-buffers-list))
-      ;; use helm by default for M-x, C-x C-f, and C-x b
-      (unless (configuration-layer/layer-usedp 'smex)
-        (global-set-key (kbd "M-x") 'spacemacs/helm-M-x-fuzzy-matching))
-      (global-set-key (kbd "C-x C-f") 'spacemacs/helm-find-files)
-      (global-set-key (kbd "C-x b") 'helm-buffers-list)
-      ;; use helm to switch last(/previous) visited buffers with C(-S)-tab
-      (evil-global-set-key 'motion (kbd "<C-tab>") 'helm-buffers-list)
-      (evil-global-set-key 'motion (kbd "<C-iso-lefttab>") 'helm-buffers-list)
-      ;; use helm everywhere
-      (spacemacs||set-helm-key "<f1>" helm-apropos)
-      (spacemacs||set-helm-key "a'"   helm-available-repls)
-      (spacemacs||set-helm-key "bb"   helm-mini)
-      (spacemacs||set-helm-key "bU"   spacemacs/helm-buffers-list-unfiltered)
-      (spacemacs||set-helm-key "Cl"   helm-colors)
-      (spacemacs||set-helm-key "ff"   spacemacs/helm-find-files)
-      (spacemacs||set-helm-key "fF"   helm-find-files)
-      (spacemacs||set-helm-key "fL"   helm-locate)
-      (spacemacs||set-helm-key "fr"   helm-recentf)
-      (spacemacs||set-helm-key "hda"  helm-apropos)
-      (spacemacs||set-helm-key "hdF"  spacemacs/helm-faces)
-      (spacemacs||set-helm-key "hi"   helm-info-at-point)
-      (spacemacs||set-helm-key "hm"   helm-man-woman)
-      (spacemacs||set-helm-key "iu"   helm-ucs)
-      (spacemacs||set-helm-key "jI"   helm-imenu-in-all-buffers)
-      (spacemacs||set-helm-key "rm"   helm-all-mark-rings)
-      (spacemacs||set-helm-key "rl"   helm-resume)
-      (spacemacs||set-helm-key "rr"   helm-register)
-      (spacemacs||set-helm-key "rs"   spacemacs/resume-last-search-buffer)
-      (spacemacs||set-helm-key "ry"   helm-show-kill-ring)
-      (spacemacs||set-helm-key "sl"   spacemacs/resume-last-search-buffer)
-      (spacemacs||set-helm-key "sj"   spacemacs/helm-jump-in-buffer)
-      ;; search with grep
-      (spacemacs||set-helm-key "sgb"  spacemacs/helm-buffers-do-grep)
-      (spacemacs||set-helm-key "sgB"  spacemacs/helm-buffers-do-grep-region-or-symbol)
-      (spacemacs||set-helm-key "sgf"  spacemacs/helm-files-do-grep)
-      (spacemacs||set-helm-key "sgF"  spacemacs/helm-files-do-grep-region-or-symbol)
-      (spacemacs||set-helm-key "sgg"  spacemacs/helm-file-do-grep)
-      (spacemacs||set-helm-key "sgG"  spacemacs/helm-file-do-grep-region-or-symbol)
-      ;; various key bindings
-      (spacemacs||set-helm-key "fel" helm-locate-library)
-      (spacemacs||set-helm-key "hdm" describe-mode)
-      (spacemacs||set-helm-key "hdx" spacemacs/describe-ex-command)
-      (spacemacs||set-helm-key "swg" helm-google-suggest)
-      (with-eval-after-load 'helm-files
-        (define-key helm-find-files-map
-          (kbd "C-c C-e") 'spacemacs/helm-find-files-edit)
-        (define-key helm-find-files-map
-          (kbd "S-<return>") 'helm-ff-run-switch-other-window)
-        (defun spacemacs//add-action-helm-find-files-edit ()
-          (helm-add-action-to-source
-           "Edit files in dired `C-c C-e'" 'spacemacs//helm-find-files-edit
-           helm-source-find-files))
-        (add-hook 'helm-find-files-before-init-hook
-                  'spacemacs//add-action-helm-find-files-edit))
-      (with-eval-after-load 'helm-buffers
-        (define-key helm-buffer-map
-          (kbd "S-<return>") 'helm-buffer-switch-other-window))
-      ;; Add minibuffer history with `helm-minibuffer-history'
-      (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
-      ;; Delay this key bindings to override the defaults
-      (add-hook 'emacs-startup-hook
-                (lambda ()
-                  (spacemacs||set-helm-key "hdb" describe-bindings)
-                  (spacemacs||set-helm-key "hdc" describe-char)
-                  (spacemacs||set-helm-key "hdf" describe-function)
-                  (spacemacs||set-helm-key "hdk" describe-key)
-                  (spacemacs||set-helm-key "hdl" spacemacs/describe-last-keys)
-                  (spacemacs||set-helm-key "hdp" describe-package)
-                  (spacemacs||set-helm-key "hdP" configuration-layer/describe-package)
-                  (spacemacs||set-helm-key "hds" spacemacs/describe-system-info)
-                  (spacemacs||set-helm-key "hdt" describe-theme)
-                  (spacemacs||set-helm-key "hdv" describe-variable)
-                  (spacemacs||set-helm-key "hI"  spacemacs/report-issue)
-                  (spacemacs||set-helm-key "hn"  view-emacs-news)
-                  (spacemacs||set-helm-key "hPs" profiler-start)
-                  (spacemacs||set-helm-key "hPk" profiler-stop)
-                  (spacemacs||set-helm-key "hPr" profiler-report)
-                  (spacemacs||set-helm-key "hPw" profiler-report-write-profile)
-                  ;; define the key binding at the very end in order to allow the user
-                  ;; to overwrite any key binding
-                  (unless (configuration-layer/layer-usedp 'smex)
-                    (spacemacs/set-leader-keys
-                      dotspacemacs-emacs-command-key 'spacemacs/helm-M-x-fuzzy-matching))))
-      ;; avoid duplicates in `helm-M-x' history.
-      (setq history-delete-duplicates t))
+    (spacemacs|diminish helm-ff-cache-mode)
+    (spacemacs|add-transient-hook completing-read
+      (lambda (&rest _args) (require 'helm))
+      lazy-load-helm-for-completing-read)
+    (spacemacs|add-transient-hook completion-at-point
+      (lambda (&rest _args) (require 'helm))
+      lazy-load-helm-for-completion-at-point)
+    (spacemacs|add-transient-hook read-file-name
+      (lambda (&rest _args) (require 'helm))
+      lazy-load-helm-for-read-file-name)
+    (add-hook 'helm-cleanup-hook #'spacemacs//helm-cleanup)
+    ;; key bindings
+    ;; Use helm to provide :ls, unless ibuffer is used
+    (unless (configuration-layer/package-used-p 'ibuffer)
+      (evil-ex-define-cmd "buffers" 'helm-buffers-list))
+    ;; use helm by default for M-x, C-x C-f, and C-x b
+    (unless (configuration-layer/layer-usedp 'smex)
+      (global-set-key (kbd "M-x") 'spacemacs/helm-M-x-fuzzy-matching))
+    (global-set-key (kbd "C-x C-f") 'spacemacs/helm-find-files)
+    (global-set-key (kbd "C-x b") 'helm-buffers-list)
+    ;; use helm to switch last(/previous) visited buffers with C(-S)-tab
+    (evil-global-set-key 'motion (kbd "<C-tab>") 'helm-buffers-list)
+    (evil-global-set-key 'motion (kbd "<C-iso-lefttab>") 'helm-buffers-list)
+    ;; use helm everywhere
+    (spacemacs||set-helm-key "<f1>" helm-apropos)
+    (spacemacs||set-helm-key "a'"   helm-available-repls)
+    (spacemacs||set-helm-key "bb"   helm-mini)
+    (spacemacs||set-helm-key "bU"   spacemacs/helm-buffers-list-unfiltered)
+    (spacemacs||set-helm-key "Cl"   helm-colors)
+    (spacemacs||set-helm-key "ff"   spacemacs/helm-find-files)
+    (spacemacs||set-helm-key "fF"   helm-find-files)
+    (spacemacs||set-helm-key "fL"   helm-locate)
+    (spacemacs||set-helm-key "fr"   helm-recentf)
+    (spacemacs||set-helm-key "hda"  helm-apropos)
+    (spacemacs||set-helm-key "hdF"  spacemacs/helm-faces)
+    (spacemacs||set-helm-key "hi"   helm-info-at-point)
+    (spacemacs||set-helm-key "hm"   helm-man-woman)
+    (spacemacs||set-helm-key "iu"   helm-ucs)
+    (spacemacs||set-helm-key "jI"   helm-imenu-in-all-buffers)
+    (spacemacs||set-helm-key "rm"   helm-all-mark-rings)
+    (spacemacs||set-helm-key "rl"   helm-resume)
+    (spacemacs||set-helm-key "rr"   helm-register)
+    (spacemacs||set-helm-key "rs"   spacemacs/resume-last-search-buffer)
+    (spacemacs||set-helm-key "ry"   helm-show-kill-ring)
+    (spacemacs||set-helm-key "sl"   spacemacs/resume-last-search-buffer)
+    (spacemacs||set-helm-key "sj"   spacemacs/helm-jump-in-buffer)
+    ;; search with grep
+    (spacemacs||set-helm-key "sgb"  spacemacs/helm-buffers-do-grep)
+    (spacemacs||set-helm-key "sgB"  spacemacs/helm-buffers-do-grep-region-or-symbol)
+    (spacemacs||set-helm-key "sgf"  spacemacs/helm-files-do-grep)
+    (spacemacs||set-helm-key "sgF"  spacemacs/helm-files-do-grep-region-or-symbol)
+    (spacemacs||set-helm-key "sgg"  spacemacs/helm-file-do-grep)
+    (spacemacs||set-helm-key "sgG"  spacemacs/helm-file-do-grep-region-or-symbol)
+    ;; various key bindings
+    (spacemacs||set-helm-key "fel" helm-locate-library)
+    (spacemacs||set-helm-key "hdm" describe-mode)
+    (spacemacs||set-helm-key "hdx" spacemacs/describe-ex-command)
+    (spacemacs||set-helm-key "swg" helm-google-suggest)
+    (with-eval-after-load 'helm-files
+      (define-key helm-find-files-map
+        (kbd "C-c C-e") 'spacemacs/helm-find-files-edit)
+      (define-key helm-find-files-map
+        (kbd "S-<return>") 'helm-ff-run-switch-other-window)
+      (defun spacemacs//add-action-helm-find-files-edit ()
+        (helm-add-action-to-source
+         "Edit files in dired `C-c C-e'" 'spacemacs//helm-find-files-edit
+         helm-source-find-files))
+      (add-hook 'helm-find-files-before-init-hook
+                'spacemacs//add-action-helm-find-files-edit))
+    (with-eval-after-load 'helm-buffers
+      (define-key helm-buffer-map
+        (kbd "S-<return>") 'helm-buffer-switch-other-window))
+    ;; Add minibuffer history with `helm-minibuffer-history'
+    (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
+    ;; Delay this key bindings to override the defaults
+    (add-hook 'emacs-startup-hook
+              (lambda ()
+                (spacemacs||set-helm-key "hdb" describe-bindings)
+                (spacemacs||set-helm-key "hdc" describe-char)
+                (spacemacs||set-helm-key "hdf" describe-function)
+                (spacemacs||set-helm-key "hdk" describe-key)
+                (spacemacs||set-helm-key "hdl" spacemacs/describe-last-keys)
+                (spacemacs||set-helm-key "hdp" describe-package)
+                (spacemacs||set-helm-key "hdP" configuration-layer/describe-package)
+                (spacemacs||set-helm-key "hds" spacemacs/describe-system-info)
+                (spacemacs||set-helm-key "hdt" describe-theme)
+                (spacemacs||set-helm-key "hdv" describe-variable)
+                (spacemacs||set-helm-key "hI"  spacemacs/report-issue)
+                (spacemacs||set-helm-key "hn"  view-emacs-news)
+                (spacemacs||set-helm-key "hPs" profiler-start)
+                (spacemacs||set-helm-key "hPk" profiler-stop)
+                (spacemacs||set-helm-key "hPr" profiler-report)
+                (spacemacs||set-helm-key "hPw" profiler-report-write-profile)
+                ;; define the key binding at the very end in order to allow the user
+                ;; to overwrite any key binding
+                (unless (configuration-layer/layer-usedp 'smex)
+                  (spacemacs/set-leader-keys
+                    dotspacemacs-emacs-command-key 'spacemacs/helm-M-x-fuzzy-matching))))
+    ;; avoid duplicates in `helm-M-x' history.
+    (setq history-delete-duplicates t)
     :config
-    (progn
-      (helm-mode)
-      (spacemacs|hide-lighter helm-mode)
-      (advice-add 'helm-grep-save-results-1 :after 'spacemacs//gne-init-helm-grep)
-      ;; helm-locate uses es (from everything on windows which doesn't like fuzzy)
-      (helm-locate-set-command)
-      (setq helm-locate-fuzzy-match (and (bound-and-true-p helm-use-fuzzy)
-                                         (string-match "locate" helm-locate-command)
-                                         t))
-      (setq helm-boring-buffer-regexp-list
-            (append helm-boring-buffer-regexp-list
-                    spacemacs-useless-buffers-regexp))
-      (setq helm-white-buffer-regexp-list
-            (append helm-white-buffer-regexp-list
-                    spacemacs-useful-buffers-regexp))
-      ;; use helm to switch last(/previous) visited buffers with C(-S)-tab
-      (define-key helm-map (kbd "<C-tab>") 'helm-follow-action-forward)
-      (define-key helm-map (kbd "<C-iso-lefttab>") 'helm-follow-action-backward)
-      ;; alter helm-bookmark key bindings to be simpler
-      (defun simpler-helm-bookmark-keybindings ()
-        (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)
-        (define-key helm-bookmark-map (kbd "C-e") 'helm-bookmark-run-edit)
-        (define-key helm-bookmark-map
-          (kbd "C-f") 'helm-bookmark-toggle-filename)
-        (define-key helm-bookmark-map
-          (kbd "S-<return>") 'helm-bookmark-run-jump-other-window)
-        (define-key helm-bookmark-map (kbd "C-/") 'helm-bookmark-help))
-      (with-eval-after-load 'helm-bookmark
-        (simpler-helm-bookmark-keybindings))
-      (when (configuration-layer/package-used-p 'winum)
-        (define-key helm-buffer-map
-          (kbd "RET") 'spacemacs/helm-find-buffers-windows)
-        (define-key helm-generic-files-map
-          (kbd "RET") 'spacemacs/helm-find-files-windows)
-        (define-key helm-find-files-map
-          (kbd "RET") 'spacemacs/helm-find-files-windows)))))
+    (helm-mode)
+    (spacemacs|hide-lighter helm-mode)
+    (advice-add 'helm-grep-save-results-1 :after 'spacemacs//gne-init-helm-grep)
+    ;; helm-locate uses es (from everything on windows which doesn't like fuzzy)
+    (helm-locate-set-command)
+    (setq helm-locate-fuzzy-match (and (bound-and-true-p helm-use-fuzzy)
+                                       (string-match "locate" helm-locate-command)
+                                       t))
+    (setq helm-boring-buffer-regexp-list
+          (append helm-boring-buffer-regexp-list
+                  spacemacs-useless-buffers-regexp))
+    (setq helm-white-buffer-regexp-list
+          (append helm-white-buffer-regexp-list
+                  spacemacs-useful-buffers-regexp))
+    ;; use helm to switch last(/previous) visited buffers with C(-S)-tab
+    (define-key helm-map (kbd "<C-tab>") 'helm-follow-action-forward)
+    (define-key helm-map (kbd "<C-iso-lefttab>") 'helm-follow-action-backward)
+    ;; alter helm-bookmark key bindings to be simpler
+    (defun simpler-helm-bookmark-keybindings ()
+      (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)
+      (define-key helm-bookmark-map (kbd "C-e") 'helm-bookmark-run-edit)
+      (define-key helm-bookmark-map
+        (kbd "C-f") 'helm-bookmark-toggle-filename)
+      (define-key helm-bookmark-map
+        (kbd "S-<return>") 'helm-bookmark-run-jump-other-window)
+      (define-key helm-bookmark-map (kbd "C-/") 'helm-bookmark-help))
+    (with-eval-after-load 'helm-bookmark
+      (simpler-helm-bookmark-keybindings))
+    (when (configuration-layer/package-used-p 'winum)
+      (define-key helm-buffer-map
+        (kbd "RET") 'spacemacs/helm-find-buffers-windows)
+      (define-key helm-generic-files-map
+        (kbd "RET") 'spacemacs/helm-find-files-windows)
+      (define-key helm-find-files-map
+        (kbd "RET") 'spacemacs/helm-find-files-windows))))
 
 (defun helm/init-helm-ag ()
   (use-package helm-ag
@@ -305,10 +303,9 @@
   (use-package helm-descbinds
     :defer (spacemacs/defer)
     :init
-    (progn
-      (setq helm-descbinds-window-style 'split)
-      (add-hook 'helm-mode-hook 'helm-descbinds-mode)
-      (spacemacs/set-leader-keys "?" 'helm-descbinds))))
+    (setq helm-descbinds-window-style 'split)
+    (add-hook 'helm-mode-hook 'helm-descbinds-mode)
+    (spacemacs/set-leader-keys "?" 'helm-descbinds)))
 
 (defun helm/init-helm-ls-git ()
   (use-package helm-ls-git
@@ -370,12 +367,11 @@
                helm-projectile
                helm-projectile-switch-project)
     :init
-    (progn
-      ;; needed for smart search if user's default tool is grep
-      (defalias 'spacemacs/helm-project-do-grep 'helm-projectile-grep)
-      (defalias
-        'spacemacs/helm-project-do-grep-region-or-symbol
-        'helm-projectile-grep))
+    ;; needed for smart search if user's default tool is grep
+    (defalias 'spacemacs/helm-project-do-grep 'helm-projectile-grep)
+    (defalias
+      'spacemacs/helm-project-do-grep-region-or-symbol
+      'helm-projectile-grep)
     :config (when (configuration-layer/package-used-p 'winum)
               (define-key helm-projectile-find-file-map
                 (kbd "RET") 'spacemacs/helm-find-files-windows))))
@@ -407,44 +403,43 @@
   (use-package helm-swoop
     :defer (spacemacs/defer)
     :init
-    (progn
-      (setq helm-swoop-split-with-multiple-windows t
-            helm-swoop-split-direction 'split-window-vertically
-            helm-swoop-split-window-function 'spacemacs/helm-swoop-split-window-function
-            helm-swoop-pre-input-function (lambda () ""))
+    (setq helm-swoop-split-with-multiple-windows t
+          helm-swoop-split-direction 'split-window-vertically
+          helm-swoop-split-window-function 'spacemacs/helm-swoop-split-window-function
+          helm-swoop-pre-input-function (lambda () ""))
 
-      (defun spacemacs/helm-swoop-split-window-function (&rest args)
-        "Override to make helm settings (like `helm-split-window-default-side') work"
-        (let (;; current helm-swoop implemenatation prevents it from being used fullscreen
-               (helm-full-frame nil)
-               (pop-up-windows t))
-          (apply 'helm-default-display-buffer args)))
+    (defun spacemacs/helm-swoop-split-window-function (&rest args)
+      "Override to make helm settings (like `helm-split-window-default-side') work"
+      (let (;; current helm-swoop implemenatation prevents it from being used fullscreen
+            (helm-full-frame nil)
+            (pop-up-windows t))
+        (apply 'helm-default-display-buffer args)))
 
-      (defun spacemacs/helm-swoop-region-or-symbol ()
-        "Call `helm-swoop' with default input."
-        (interactive)
-        (let ((helm-swoop-pre-input-function
-               (lambda ()
-                 (if (region-active-p)
-                     (buffer-substring-no-properties (region-beginning)
-                                                     (region-end))
-                   (let ((thing (thing-at-point 'symbol t)))
-                     (if thing thing ""))))))
-          (call-interactively 'helm-swoop)))
+    (defun spacemacs/helm-swoop-region-or-symbol ()
+      "Call `helm-swoop' with default input."
+      (interactive)
+      (let ((helm-swoop-pre-input-function
+             (lambda ()
+               (if (region-active-p)
+                   (buffer-substring-no-properties (region-beginning)
+                                                   (region-end))
+                 (let ((thing (thing-at-point 'symbol t)))
+                   (if thing thing ""))))))
+        (call-interactively 'helm-swoop)))
 
-      (defun spacemacs/helm-swoop-clear-cache ()
-        "Call `helm-swoop--clear-cache' to clear the cache"
-        (interactive)
-        (helm-swoop--clear-cache)
-        (message "helm-swoop cache cleaned."))
+    (defun spacemacs/helm-swoop-clear-cache ()
+      "Call `helm-swoop--clear-cache' to clear the cache"
+      (interactive)
+      (helm-swoop--clear-cache)
+      (message "helm-swoop cache cleaned."))
 
-      (spacemacs/set-leader-keys
-        "sC"    'spacemacs/helm-swoop-clear-cache
-        "ss"    'helm-swoop
-        "sS"    'spacemacs/helm-swoop-region-or-symbol
-        "s C-s" 'helm-multi-swoop-all)
-      (defadvice helm-swoop (before add-evil-jump activate)
-        (evil-set-jump)))))
+    (spacemacs/set-leader-keys
+      "sC"    'spacemacs/helm-swoop-clear-cache
+      "ss"    'helm-swoop
+      "sS"    'spacemacs/helm-swoop-region-or-symbol
+      "s C-s" 'helm-multi-swoop-all)
+    (defadvice helm-swoop (before add-evil-jump activate)
+      (evil-set-jump))))
 
 (defun helm/init-helm-themes ()
   (use-package helm-themes
@@ -457,17 +452,16 @@
   (use-package helm-xref
     :commands (helm-xref-show-xrefs-27 helm-xref-show-xrefs)
     :init
-    (progn
-      ;; This is required to make `xref-find-references' not give a prompt.
-      ;; `xref-find-references' asks the identifier (which has no text property)
-      ;; and then passes it to `lsp-mode', which requires the text property at
-      ;; point to locate the references.
-      ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=29619
-      (setq xref-prompt-for-identifier '(not xref-find-definitions
-                                             xref-find-definitions-other-window
-                                             xref-find-definitions-other-frame
-                                             xref-find-references
-                                             spacemacs/jump-to-definition)))))
+    ;; This is required to make `xref-find-references' not give a prompt.
+    ;; `xref-find-references' asks the identifier (which has no text property)
+    ;; and then passes it to `lsp-mode', which requires the text property at
+    ;; point to locate the references.
+    ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=29619
+    (setq xref-prompt-for-identifier '(not xref-find-definitions
+                                           xref-find-definitions-other-window
+                                           xref-find-definitions-other-frame
+                                           xref-find-references
+                                           spacemacs/jump-to-definition))))
 
 (defun helm/post-init-imenu ()
   (spacemacs/set-leader-keys "ji" 'spacemacs/helm-jump-in-buffer))

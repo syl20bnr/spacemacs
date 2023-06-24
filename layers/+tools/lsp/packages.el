@@ -44,32 +44,30 @@
           lsp-imenu-index-function #'lsp-imenu-create-categorized-index)
     ;; If you find something else should be ignored, you could also set them here
     :config
-    (progn
-      (if lsp-use-upstream-bindings
-          (spacemacs/lsp-bind-upstream-keys)
-        (spacemacs/lsp-bind-keys))
-      (setq lsp-prefer-capf t)
-      ;; This sets the lsp indentation for all modes derived from web-mode.
-      (add-to-list 'lsp--formatting-indent-alist '(web-mode . web-mode-markup-indent-offset))
-      (add-hook 'lsp-after-open-hook (lambda ()
-                                       "Setup xref jump handler"
-                                       (spacemacs//setup-lsp-jump-handler))))))
+    (if lsp-use-upstream-bindings
+        (spacemacs/lsp-bind-upstream-keys)
+      (spacemacs/lsp-bind-keys))
+    (setq lsp-prefer-capf t)
+    ;; This sets the lsp indentation for all modes derived from web-mode.
+    (add-to-list 'lsp--formatting-indent-alist '(web-mode . web-mode-markup-indent-offset))
+    (add-hook 'lsp-after-open-hook (lambda ()
+                                     "Setup xref jump handler"
+                                     (spacemacs//setup-lsp-jump-handler)))))
 
 (defun lsp/init-lsp-ui ()
   (use-package lsp-ui
     :defer t
     :config
-    (progn
-      (if lsp-remap-xref-keybindings
-          (progn (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-                 (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)))
+    (if lsp-remap-xref-keybindings
+        (progn (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+               (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)))
 
-      (spacemacs/lsp-define-key
-       lsp-ui-peek-mode-map
-       "h" #'lsp-ui-peek--select-prev-file
-       "j" #'lsp-ui-peek--select-next
-       "k" #'lsp-ui-peek--select-prev
-       "l" #'lsp-ui-peek--select-next-file))))
+    (spacemacs/lsp-define-key
+     lsp-ui-peek-mode-map
+     "h" #'lsp-ui-peek--select-prev-file
+     "j" #'lsp-ui-peek--select-next
+     "k" #'lsp-ui-peek--select-prev
+     "l" #'lsp-ui-peek--select-next-file)))
 
 (defun lsp/init-helm-lsp ()
   (use-package helm-lsp :defer t))

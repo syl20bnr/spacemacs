@@ -29,36 +29,34 @@
   (use-package typo
     :defer t
     :init
-    (progn
-      (when typography-enable-typographic-editing
-        (add-hook 'text-mode-hook 'typo-mode))
+    (when typography-enable-typographic-editing
+      (add-hook 'text-mode-hook 'typo-mode))
 
-      (spacemacs|add-toggle typographic-substitutions
-        :mode typo-mode
-        :documentation "Enable typographic substitutions"
-        :evil-leader "tT")
-      (spacemacs|diminish typo-mode " Ⓣ" " T"))
+    (spacemacs|add-toggle typographic-substitutions
+      :mode typo-mode
+      :documentation "Enable typographic substitutions"
+      :evil-leader "tT")
+    (spacemacs|diminish typo-mode " Ⓣ" " T")
     :config (setq-default typo-language "English")))
 
 (defun typography/init-tildify ()
   (use-package tildify
     :defer t
     :init
-    (progn
-      (when typography-enable-typographic-editing
-        (add-hook 'text-mode-hook 'tildify-mode))
+    (when typography-enable-typographic-editing
+      (add-hook 'text-mode-hook 'tildify-mode))
 
-      (spacemacs/set-leader-keys
-        "x~" 'tildify-region)
+    (spacemacs/set-leader-keys
+      "x~" 'tildify-region)
 
-      ;; Use the symbolic non-breaking space for LaTeX
-      (defun typography/tildify-latex-space ()
-        "Set tildify space for LaTeX"
-        (setq-local tildify-space-string "~"))
-      (add-hook 'LaTeX-mode-hook 'typography/tildify-latex-space)
+    ;; Use the symbolic non-breaking space for LaTeX
+    (defun typography/tildify-latex-space ()
+      "Set tildify space for LaTeX"
+      (setq-local tildify-space-string "~"))
+    (add-hook 'LaTeX-mode-hook 'typography/tildify-latex-space)
 
-      (spacemacs|add-toggle tildify-space
-        :mode tildify-mode
-        :documentation "Enable electric non-breaking space"
-        :evil-leader "t~")
-      (spacemacs|diminish tildify-mode " ~" " ~"))))
+    (spacemacs|add-toggle tildify-space
+      :mode tildify-mode
+      :documentation "Enable electric non-breaking space"
+      :evil-leader "t~")
+    (spacemacs|diminish tildify-mode " ~" " ~")))

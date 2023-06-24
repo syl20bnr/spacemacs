@@ -29,96 +29,95 @@
     :defer t
     :init (spacemacs/set-leader-keys "att" 'transmission)
     :config
-    (progn
-      (spacemacs/declare-prefix-for-mode 'transmission-mode "ma" "add")
-      (spacemacs/declare-prefix-for-mode 'transmission-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'transmission-mode "ms" "set")
-      (spacemacs/declare-prefix-for-mode 'transmission-mode "mt" "toggle")
-      (spacemacs/set-leader-keys-for-major-mode 'transmission-mode
-        "D"  'transmission-delete
-        "m"  'transmission-toggle-mark
-        "q"  'transmission-quit
-        "r"  'transmission-move
-        "R"  'transmission-remove
-        "S"  'tabulated-list-sort
-        "v"  'transmission-verify
+    (spacemacs/declare-prefix-for-mode 'transmission-mode "ma" "add")
+    (spacemacs/declare-prefix-for-mode 'transmission-mode "mg" "goto")
+    (spacemacs/declare-prefix-for-mode 'transmission-mode "ms" "set")
+    (spacemacs/declare-prefix-for-mode 'transmission-mode "mt" "toggle")
+    (spacemacs/set-leader-keys-for-major-mode 'transmission-mode
+      "D"  'transmission-delete
+      "m"  'transmission-toggle-mark
+      "q"  'transmission-quit
+      "r"  'transmission-move
+      "R"  'transmission-remove
+      "S"  'tabulated-list-sort
+      "v"  'transmission-verify
 
-        ;; add
-        "aa" 'transmission-add
-        "at" 'transmission-trackers-add
+      ;; add
+      "aa" 'transmission-add
+      "at" 'transmission-trackers-add
 
-        ;; goto
-        "gi" 'transmission-info
-        "gf" 'transmission-files
-        "gp" 'transmission-peers
+      ;; goto
+      "gi" 'transmission-info
+      "gf" 'transmission-files
+      "gp" 'transmission-peers
 
-        ;; set
-        "sd" 'transmission-set-download
-        "sl" 'transmission-label
-        "sp" 'transmission-set-bandwidth-priority
-        "sr" 'transmission-set-ratio
-        "su" 'transmission-set-upload
+      ;; set
+      "sd" 'transmission-set-download
+      "sl" 'transmission-label
+      "sp" 'transmission-set-bandwidth-priority
+      "sr" 'transmission-set-ratio
+      "su" 'transmission-set-upload
 
-        ;; toggle
-        "ts" 'transmission-toggle
-        "tt" 'transmission-turtle-mode)
+      ;; toggle
+      "ts" 'transmission-toggle
+      "tt" 'transmission-turtle-mode)
 
-      (evil-define-key 'normal transmission-mode-map
-        "H" 'transmission-queue-move-top
-        "J" 'transmission-queue-move-down
-        "K" 'transmission-queue-move-up
-        "L" 'transmission-queue-move-bottom)
+    (evil-define-key 'normal transmission-mode-map
+      "H" 'transmission-queue-move-top
+      "J" 'transmission-queue-move-down
+      "K" 'transmission-queue-move-up
+      "L" 'transmission-queue-move-bottom)
 
-      (spacemacs|diminish transmission-turtle-mode " 🐢" " [T]")
-      (spacemacs/declare-prefix-for-minor-mode 'transmission-turtle-mode "ms" "set")
-      (spacemacs/set-leader-keys-for-minor-mode 'transmission-turtle-mode
-        ;; set
-        "sD" 'transmission-turtle-set-days
-        "sS" 'transmission-turtle-set-speeds
-        "sT" 'transmission-turtle-set-times)
+    (spacemacs|diminish transmission-turtle-mode " 🐢" " [T]")
+    (spacemacs/declare-prefix-for-minor-mode 'transmission-turtle-mode "ms" "set")
+    (spacemacs/set-leader-keys-for-minor-mode 'transmission-turtle-mode
+      ;; set
+      "sD" 'transmission-turtle-set-days
+      "sS" 'transmission-turtle-set-speeds
+      "sT" 'transmission-turtle-set-times)
 
-      (spacemacs/declare-prefix-for-mode 'transmission-info-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'transmission-info-mode "ms" "set")
-      (spacemacs/set-leader-keys-for-major-mode 'transmission-info-mode
-        "a"  'transmission-trackers-add
-        "c"  'transmission-copy-magnet
-        "r"  'transmission-move
-        "T"  'transmission-trackers-remove
+    (spacemacs/declare-prefix-for-mode 'transmission-info-mode "mg" "goto")
+    (spacemacs/declare-prefix-for-mode 'transmission-info-mode "ms" "set")
+    (spacemacs/set-leader-keys-for-major-mode 'transmission-info-mode
+      "a"  'transmission-trackers-add
+      "c"  'transmission-copy-magnet
+      "r"  'transmission-move
+      "T"  'transmission-trackers-remove
 
-        ;; goto
-        "gf" 'transmission-files
-        "gp" 'transmission-peers
+      ;; goto
+      "gf" 'transmission-files
+      "gp" 'transmission-peers
 
-        ;; set
-        "sd" 'transmission-set-torrent-download
-        "sl" 'transmission-label
-        "sp" 'transmission-set-bandwidth-priority
-        "sr" 'transmission-set-torrent-ratio
-        "su" 'transmission-set-torrent-upload)
+      ;; set
+      "sd" 'transmission-set-torrent-download
+      "sl" 'transmission-label
+      "sp" 'transmission-set-bandwidth-priority
+      "sr" 'transmission-set-torrent-ratio
+      "su" 'transmission-set-torrent-upload)
 
-      (spacemacs/declare-prefix-for-mode 'transmission-files-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'transmission-files-mode "ms" "set")
-      (spacemacs/declare-prefix-for-mode 'transmission-files-mode "mm" "toggle")
-      (spacemacs/set-leader-keys-for-major-mode 'transmission-files-mode
-        "m"  'transmission-toggle-mark
-        "X"  'transmission-files-command
+    (spacemacs/declare-prefix-for-mode 'transmission-files-mode "mg" "goto")
+    (spacemacs/declare-prefix-for-mode 'transmission-files-mode "ms" "set")
+    (spacemacs/declare-prefix-for-mode 'transmission-files-mode "mm" "toggle")
+    (spacemacs/set-leader-keys-for-major-mode 'transmission-files-mode
+      "m"  'transmission-toggle-mark
+      "X"  'transmission-files-command
 
-        ;; goto
-        "gf" 'transmission-find-file
-        "gi" 'transmission-info
-        "gp" 'transmission-peers
+      ;; goto
+      "gf" 'transmission-find-file
+      "gi" 'transmission-info
+      "gp" 'transmission-peers
 
-        ;; set
-        "sp" 'transmission-files-priority
+      ;; set
+      "sp" 'transmission-files-priority
 
-        ;; toggle
-        "tu" 'transmission-files-unwant
-        "tw" 'transmission-files-want)
+      ;; toggle
+      "tu" 'transmission-files-unwant
+      "tw" 'transmission-files-want)
 
-      (spacemacs/set-leader-keys-for-major-mode 'transmission-peers-mode
-        "i" 'transmission-info)
-      (when transmission-auto-refresh-all
-        (setq transmission-refresh-modes '(transmission-mode
-                                           transmission-files-mode
-                                           transmission-info-mode
-                                           transmission-peers-mode))))))
+    (spacemacs/set-leader-keys-for-major-mode 'transmission-peers-mode
+      "i" 'transmission-info)
+    (when transmission-auto-refresh-all
+      (setq transmission-refresh-modes '(transmission-mode
+                                         transmission-files-mode
+                                         transmission-info-mode
+                                         transmission-peers-mode)))))

@@ -32,18 +32,17 @@
     :if cmake-enable-cmake-ide-support
     :commands (cmake-ide-delete-file cide--mode-hook)
     :init
-    (progn
-      (dolist (hook '(c-mode-hook c++-mode-hook))
-        ;; append the `cide--mode-hook' in order to load it last
-        (add-hook hook 'cide--mode-hook 'append))
-      (dolist (mode cmake-modes)
-        (spacemacs/declare-prefix-for-mode mode "mc" "compile")
-        (spacemacs/declare-prefix-for-mode mode "mp" "project")
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "cc" 'cmake-ide-compile
-          "pc" 'cmake-ide-run-cmake
-          "pC" 'cmake-ide-maybe-run-cmake
-          "pd" 'cmake-ide-delete-file)))
+    (dolist (hook '(c-mode-hook c++-mode-hook))
+      ;; append the `cide--mode-hook' in order to load it last
+      (add-hook hook 'cide--mode-hook 'append))
+    (dolist (mode cmake-modes)
+      (spacemacs/declare-prefix-for-mode mode "mc" "compile")
+      (spacemacs/declare-prefix-for-mode mode "mp" "project")
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "cc" 'cmake-ide-compile
+        "pc" 'cmake-ide-run-cmake
+        "pC" 'cmake-ide-maybe-run-cmake
+        "pd" 'cmake-ide-delete-file))
     :config (cmake-ide-setup)))
 
 (defun cmake/init-cmake-mode ()

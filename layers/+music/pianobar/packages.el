@@ -30,14 +30,13 @@
   (use-package pianobar
     :defer t
     :init
-    (progn
-      (spacemacs/declare-prefix
-        "am"  "music"
-        "amp" "Pianobar")
-      (spacemacs/set-leader-keys
-        "ampp" 'pianobar-play-or-pause
-        "ampn" 'pianobar-next-song
-        "amp+" 'pianobar-love-current-song
-        "amp-" 'pianobar-ban-current-song
-        "ampt" 'pianobar-shelve-current-song
-        "amps" 'pianobar-change-station))))
+    (spacemacs/declare-prefix
+      "am"  "music"
+      "amp" "Pianobar")
+    (spacemacs/set-leader-keys
+      "ampp" 'pianobar-play-or-pause
+      "ampn" 'pianobar-next-song
+      "amp+" 'pianobar-love-current-song
+      "amp-" 'pianobar-ban-current-song
+      "ampt" 'pianobar-shelve-current-song
+      "amps" 'pianobar-change-station)))

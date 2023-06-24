@@ -36,19 +36,17 @@
   (use-package osx-location
     :defer t
     :init
-    (progn
-      (add-hook 'osx-location-changed-hook 'spacemacs//osx-location-changed)
-      (osx-location-watch))))
+    (add-hook 'osx-location-changed-hook 'spacemacs//osx-location-changed)
+    (osx-location-watch)))
 
 (defun geolocation/init-rase ()
   (use-package rase
     :defer t
     :init
-    (progn
-      (add-hook 'osx-location-changed-hook 'spacemacs//osx-location-changed-rase)
-      (osx-location-watch)
-      (defadvice rase-start (around test-calendar activate)
-        "Don't call `raise-start' if `calendar-latitude' or
+    (add-hook 'osx-location-changed-hook 'spacemacs//osx-location-changed-rase)
+    (osx-location-watch)
+    (defadvice rase-start (around test-calendar activate)
+      "Don't call `raise-start' if `calendar-latitude' or
 `calendar-longitude' are not bound yet, or still nil.
 
 This is setup this way because `rase.el' does not test these
@@ -57,43 +55,40 @@ values, and will fail under such conditions, when calling
 
 Also, it allows users who enabled service such as `osx-location'
 to not have to set these variables manually when enabling this layer."
-        (if (and (bound-and-true-p calendar-longitude)
-                 (bound-and-true-p calendar-latitude))
-            ad-do-it))
-      (rase-start t))))
+      (if (and (bound-and-true-p calendar-longitude)
+               (bound-and-true-p calendar-latitude))
+          ad-do-it))
+    (rase-start t)))
 
 (defun geolocation/init-sunshine ()
   "Initialize sunshine"
   (use-package sunshine
     :commands (sunshine-forecast sunshine-quick-forecast)
     :init
-    (progn
-      (spacemacs/declare-prefix "atg" "geolocation")
-      (spacemacs/set-leader-keys
-        "atgw" 'sunshine-forecast
-        "atgW" 'sunshine-quick-forecast))
+    (spacemacs/declare-prefix "atg" "geolocation")
+    (spacemacs/set-leader-keys
+      "atgw" 'sunshine-forecast
+      "atgW" 'sunshine-quick-forecast)
     :config
-    (progn
-      (evilified-state-evilify-map sunshine-mode-map
-        :mode sunshine-mode
-        :bindings
-        (kbd "q") 'quit-window
-        (kbd "i") 'sunshine-toggle-icons)
+    (evilified-state-evilify-map sunshine-mode-map
+      :mode sunshine-mode
+      :bindings
+      (kbd "q") 'quit-window
+      (kbd "i") 'sunshine-toggle-icons)
 
-      ;; just in case location was not set by user, or on macOS,
-      ;; if wasn't set up automatically, will not work with Emacs'
-      ;; default for `calendar-location-name'
-      (unless (boundp 'sunshine-location)
-        (setq sunshine-location (format "%s, %s"
-                                        calendar-latitude
-                                        calendar-longitude))))))
+    ;; just in case location was not set by user, or on macOS,
+    ;; if wasn't set up automatically, will not work with Emacs'
+    ;; default for `calendar-location-name'
+    (unless (boundp 'sunshine-location)
+      (setq sunshine-location (format "%s, %s"
+                                      calendar-latitude
+                                      calendar-longitude)))))
 
 (defun geolocation/init-theme-changer ()
   "Initialize theme-changer"
   (use-package theme-changer
     :init
-    (progn
-      (spacemacs/defer-until-after-user-config #'geolocation//activate-theme-changer))))
+    (spacemacs/defer-until-after-user-config #'geolocation//activate-theme-changer)))
 
 (defun geolocation/pre-init-popwin ()
   "Pin the weather forecast to the bottom window"

@@ -56,89 +56,87 @@
   (use-package mu4e
     :commands (mu4e mu4e-compose-new)
     :init
-    (progn
-      (spacemacs/set-leader-keys "aem" 'mu4e)
-      (global-set-key (kbd "C-x m") 'mu4e-compose-new)
-      (setq mu4e-completing-read-function 'completing-read
-            mu4e-use-fancy-chars 't
-            mu4e-view-show-images 't
-            message-kill-buffer-on-exit 't
-            mu4e-org-support nil)
-      (let ((dir "~/Downloads"))
-        (when (file-directory-p dir)
-          (setq mu4e-attachment-dir dir))))
+    (spacemacs/set-leader-keys "aem" 'mu4e)
+    (global-set-key (kbd "C-x m") 'mu4e-compose-new)
+    (setq mu4e-completing-read-function 'completing-read
+          mu4e-use-fancy-chars 't
+          mu4e-view-show-images 't
+          message-kill-buffer-on-exit 't
+          mu4e-org-support nil)
+    (let ((dir "~/Downloads"))
+      (when (file-directory-p dir)
+        (setq mu4e-attachment-dir dir)))
 
     :config
-    (progn
-      (evilified-state-evilify-map mu4e-main-mode-map
-        :mode mu4e-main-mode
-        :bindings
-        (kbd "j") 'mu4e-search-maildir
-        (kbd "C-j") 'next-line
-        (kbd "C-k") 'previous-line)
+    (evilified-state-evilify-map mu4e-main-mode-map
+      :mode mu4e-main-mode
+      :bindings
+      (kbd "j") 'mu4e-search-maildir
+      (kbd "C-j") 'next-line
+      (kbd "C-k") 'previous-line)
 
-      (evilified-state-evilify-map
-        mu4e-headers-mode-map
-        :mode mu4e-headers-mode
-        :bindings
-        (kbd "C-j") 'mu4e-headers-next
-        (kbd "C-k") 'mu4e-headers-prev
-        (kbd "J") (lambda ()
-                    (interactive)
-                    (mu4e-headers-mark-thread nil '(read))))
+    (evilified-state-evilify-map
+      mu4e-headers-mode-map
+      :mode mu4e-headers-mode
+      :bindings
+      (kbd "C-j") 'mu4e-headers-next
+      (kbd "C-k") 'mu4e-headers-prev
+      (kbd "J") (lambda ()
+                  (interactive)
+                  (mu4e-headers-mark-thread nil '(read))))
 
-      (evilified-state-evilify-map
-        mu4e-view-mode-map
-        :mode mu4e-view-mode
-        :bindings
-        (kbd "C-j") 'mu4e-view-headers-next
-        (kbd "C-k") 'mu4e-view-headers-prev
-        (kbd "J") (lambda ()
-                    (interactive)
-                    (mu4e-view-mark-thread '(read)))
-        (kbd "gu") 'mu4e-view-go-to-url)
+    (evilified-state-evilify-map
+      mu4e-view-mode-map
+      :mode mu4e-view-mode
+      :bindings
+      (kbd "C-j") 'mu4e-view-headers-next
+      (kbd "C-k") 'mu4e-view-headers-prev
+      (kbd "J") (lambda ()
+                  (interactive)
+                  (mu4e-view-mark-thread '(read)))
+      (kbd "gu") 'mu4e-view-go-to-url)
 
-      (spacemacs/set-leader-keys-for-major-mode 'mu4e-compose-mode
-        dotspacemacs-major-mode-leader-key 'message-send-and-exit
-        "c" 'message-send-and-exit
-        "k" 'message-kill-buffer
-        "a" 'message-kill-buffer
-        "s" 'message-dont-send         ; saves as draft
-        "f" 'mml-attach-file)
+    (spacemacs/set-leader-keys-for-major-mode 'mu4e-compose-mode
+      dotspacemacs-major-mode-leader-key 'message-send-and-exit
+      "c" 'message-send-and-exit
+      "k" 'message-kill-buffer
+      "a" 'message-kill-buffer
+      "s" 'message-dont-send         ; saves as draft
+      "f" 'mml-attach-file)
 
-      (when mu4e-enable-async-operations
-        (require 'smtpmail-async)
-        (setq send-mail-function         'async-smtpmail-send-it
-              message-send-mail-function 'async-smtpmail-send-it))
+    (when mu4e-enable-async-operations
+      (require 'smtpmail-async)
+      (setq send-mail-function         'async-smtpmail-send-it
+            message-send-mail-function 'async-smtpmail-send-it))
 
-      (when (fboundp 'imagemagick-register-types)
-        (imagemagick-register-types))
+    (when (fboundp 'imagemagick-register-types)
+      (imagemagick-register-types))
 
-      (when mu4e-autorun-background-at-startup
-        (mu4e t))
+    (when mu4e-autorun-background-at-startup
+      (mu4e t))
 
-      (add-to-list 'mu4e-view-actions
-                   '("View in browser" . mu4e-action-view-in-browser) t)
+    (add-to-list 'mu4e-view-actions
+                 '("View in browser" . mu4e-action-view-in-browser) t)
 
-      (add-hook 'mu4e-compose-mode-hook
-                (lambda () (use-hard-newlines t 'guess)))
+    (add-hook 'mu4e-compose-mode-hook
+              (lambda () (use-hard-newlines t 'guess)))
 
-      ;; from http://www.djcbsoftware.nl/code/mu/mu4e/Attaching-files-with-dired.html
-      (require 'gnus-dired)
-      ;; make the `gnus-dired-mail-buffers' function also work on
-      ;; message-mode derived modes, such as mu4e-compose-mode
-      (defun gnus-dired-mail-buffers ()
-        "Return a list of active message buffers."
-        (let (buffers)
-          (save-current-buffer
-            (dolist (buffer (buffer-list t))
-              (set-buffer buffer)
-              (when (and (derived-mode-p 'message-mode)
-                         (null message-sent-message-via))
-                (push (buffer-name buffer) buffers))))
-          (nreverse buffers)))
-      (setq gnus-dired-mail-mode 'mu4e-user-agent)
-      (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode))))
+    ;; from http://www.djcbsoftware.nl/code/mu/mu4e/Attaching-files-with-dired.html
+    (require 'gnus-dired)
+    ;; make the `gnus-dired-mail-buffers' function also work on
+    ;; message-mode derived modes, such as mu4e-compose-mode
+    (defun gnus-dired-mail-buffers ()
+      "Return a list of active message buffers."
+      (let (buffers)
+        (save-current-buffer
+          (dolist (buffer (buffer-list t))
+            (set-buffer buffer)
+            (when (and (derived-mode-p 'message-mode)
+                       (null message-sent-message-via))
+              (push (buffer-name buffer) buffers))))
+        (nreverse buffers)))
+    (setq gnus-dired-mail-mode 'mu4e-user-agent)
+    (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)))
 
 (defun mu4e/init-mu4e-alert ()
   (use-package mu4e-alert
