@@ -1037,6 +1037,16 @@ This will perform an checkout or a reset if FORCE."
   (let ((url (format "https://gitlab.com/%s.git" (plist-get config :repo))))
     (quelpa-build--checkout-git name (plist-put (copy-sequence config) :url url) dir)))
 
+(defun quelpa-build--checkout-codeberg (name config dir)
+  "Check package NAME with config CONFIG out of codeberg into DIR."
+  (let ((url (format "https://codeberg.org/%s.git" (plist-get config :repo))))
+    (quelpa-build--checkout-git name (plist-put (copy-sequence config) :url url) dir)))
+
+(defun quelpa-build--checkout-sourcehut (name config dir)
+  "Check package NAME with config CONFIG out of sourcehut into DIR."
+  (let ((url (format "https://git.sr.ht/~%s" (plist-get config :repo))))
+    (quelpa-build--checkout-git name (plist-put (copy-sequence config) :url url) dir)))
+
 ;;;; Bzr
 
 (defun quelpa-build--bzr-repo (dir)
