@@ -39,79 +39,77 @@
   (use-package eww
     :defer t
     :init
-    (progn
-      (add-to-list 'evil-buffer-regexps '("\\*eww\\*" . normal))
-      (spacemacs//eww-setup-transient-state)
-      (spacemacs/declare-prefix "awe" "eww")
-      (spacemacs/set-leader-keys "awee" 'eww)
-      (spacemacs/set-leader-keys "awew" 'eww-switch-to-buffer))
+    (add-to-list 'evil-buffer-regexps '("\\*eww\\*" . normal))
+    (spacemacs//eww-setup-transient-state)
+    (spacemacs/declare-prefix "awe" "eww")
+    (spacemacs/set-leader-keys "awee" 'eww)
+    (spacemacs/set-leader-keys "awew" 'eww-switch-to-buffer)
     :config
-    (progn
-      (define-key eww-link-keymap "f" 'eww-follow-link)
-      (define-key eww-link-keymap "F" (lambda () (interactive) (eww-follow-link 2)))
-      (let ((mode 'eww-mode))
-        (spacemacs/declare-prefix-for-mode mode "mv" "view")
-        (spacemacs/declare-prefix-for-mode mode "ml" "list")
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "s" 'helm-google-suggest
-          "S" 'browse-web
-          "t" 'spacemacs/eww-toggle-render-latex
-          "r" 'eww-reload
-          "p" 'eww-previous-url
-          "n" 'eww-next-url
-          "h" 'eww-list-histories
-          "d" 'eww-download
-          "a" 'eww-add-bookmark
-          "lb" 'eww-list-buffers
-          "lo" 'eww-list-bookmarks
-          "vx" 'eww-browse-with-external-browser
-          "vf" 'eww-toggle-fonts
-          "vr" 'eww-readable
-          "vs" 'eww-view-source)
-        (evil-define-key 'normal eww-mode-map
-          (kbd "C-o") 'eww-back-url
-          (kbd "C-i") 'eww-forward-url
-          "<" 'eww-back-url
-          ">" 'eww-forward-url
-          "[" 'eww-previous-url
-          "]" 'eww-next-url
-          "L" 'spacemacs/eww-jump-next-buffer
-          "H" 'spacemacs/eww-jump-previous-buffer
-          (kbd "C-j") 'shr-next-link
-          (kbd "C-k") 'shr-previous-link
-          "+" 'zoom-frm-in
-          "-" 'zoom-frm-out
-          "=" 'zoom-frm-unzoom))
+    (define-key eww-link-keymap "f" 'eww-follow-link)
+    (define-key eww-link-keymap "F" (lambda () (interactive) (eww-follow-link 2)))
+    (let ((mode 'eww-mode))
+      (spacemacs/declare-prefix-for-mode mode "mv" "view")
+      (spacemacs/declare-prefix-for-mode mode "ml" "list")
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "s" 'helm-google-suggest
+        "S" 'browse-web
+        "t" 'spacemacs/eww-toggle-render-latex
+        "r" 'eww-reload
+        "p" 'eww-previous-url
+        "n" 'eww-next-url
+        "h" 'eww-list-histories
+        "d" 'eww-download
+        "a" 'eww-add-bookmark
+        "lb" 'eww-list-buffers
+        "lo" 'eww-list-bookmarks
+        "vx" 'eww-browse-with-external-browser
+        "vf" 'eww-toggle-fonts
+        "vr" 'eww-readable
+        "vs" 'eww-view-source)
+      (evil-define-key 'normal eww-mode-map
+        (kbd "C-o") 'eww-back-url
+        (kbd "C-i") 'eww-forward-url
+        "<" 'eww-back-url
+        ">" 'eww-forward-url
+        "[" 'eww-previous-url
+        "]" 'eww-next-url
+        "L" 'spacemacs/eww-jump-next-buffer
+        "H" 'spacemacs/eww-jump-previous-buffer
+        (kbd "C-j") 'shr-next-link
+        (kbd "C-k") 'shr-previous-link
+        "+" 'zoom-frm-in
+        "-" 'zoom-frm-out
+        "=" 'zoom-frm-unzoom))
 
-      (let ((mode 'eww-history-mode))
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "f" 'eww-history-browse)
-        (evil-define-key 'normal eww-history-mode-map "f" 'eww-history-browse
-          "q" 'quit-window))
+    (let ((mode 'eww-history-mode))
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "f" 'eww-history-browse)
+      (evil-define-key 'normal eww-history-mode-map "f" 'eww-history-browse
+        "q" 'quit-window))
 
-      (let ((mode 'eww-bookmark-mode))
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "d" 'eww-bookmark-kill
-          "y" 'eww-bookmark-yank
-          "f" 'eww-bookmark-browse)
-        (evil-define-key 'normal eww-bookmark-mode-map
-          "q" 'quit-window
-          "f" 'eww-bookmark-browse
-          "d" 'eww-bookmark-kill
-          "y" 'eww-bookmark-yank))
+    (let ((mode 'eww-bookmark-mode))
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "d" 'eww-bookmark-kill
+        "y" 'eww-bookmark-yank
+        "f" 'eww-bookmark-browse)
+      (evil-define-key 'normal eww-bookmark-mode-map
+        "q" 'quit-window
+        "f" 'eww-bookmark-browse
+        "d" 'eww-bookmark-kill
+        "y" 'eww-bookmark-yank))
 
-      (let ((mode 'eww-buffers-mode))
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "f" 'eww-buffer-select
-          "d" 'eww-buffer-kill
-          "n" 'eww-buffer-show-next
-          "p" 'eww-buffer-show-previous)
-        (evil-define-key 'normal eww-buffers-mode-map
-          "q" 'quit-window
-          "f" 'eww-buffer-select
-          "d" 'eww-buffer-kill
-          "n" 'eww-buffer-show-next
-          "p" 'eww-buffer-show-previous)))))
+    (let ((mode 'eww-buffers-mode))
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "f" 'eww-buffer-select
+        "d" 'eww-buffer-kill
+        "n" 'eww-buffer-show-next
+        "p" 'eww-buffer-show-previous)
+      (evil-define-key 'normal eww-buffers-mode-map
+        "q" 'quit-window
+        "f" 'eww-buffer-select
+        "d" 'eww-buffer-kill
+        "n" 'eww-buffer-show-next
+        "p" 'eww-buffer-show-previous))))
 
 (defun eww/init-texfrag ()
   (use-package texfrag

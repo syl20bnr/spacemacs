@@ -35,11 +35,10 @@
                conda-env-autoactivate-mode
                conda-env-activate-for-buffer)
     :init
-    (progn
-      (spacemacs/declare-prefix-for-mode 'python-mode "mn" "anaconda")
-      (spacemacs/set-leader-keys-for-major-mode 'python-mode
-        "nl" 'conda-env-list
-        "na" 'conda-env-activate
-        "nd" 'conda-env-deactivate
-        "nA" 'conda-env-autoactivate-mode
-        "nb" 'conda-env-activate-for-buffer))))
+    (spacemacs/declare-prefix-for-mode 'python-mode "mn" "anaconda")
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode
+      "nl" 'conda-env-list
+      "na" 'conda-env-activate
+      "nd" 'conda-env-deactivate
+      "nA" 'conda-env-autoactivate-mode
+      "nb" 'conda-env-activate-for-buffer)))

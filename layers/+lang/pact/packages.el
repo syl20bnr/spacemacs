@@ -62,22 +62,20 @@
                  (or pop-up-frames
                      (get-buffer-window inferior-lisp-buffer t))))
             (pop-to-buffer inferior-lisp-buffer))
-        (progn
           (spacemacs/new-empty-buffer-right)
           (pact-mode)
-          (run-lisp inferior-lisp-program))))
+          (run-lisp inferior-lisp-program)))
 
     (defun spacemacs/pact-load-file ()
       "Load the current buffer into the Pact repl, optionally starting
 the repl if it hasn't yet been."
       (interactive)
       (let ((curr (current-buffer)))
-        (progn
-          (unless (get-buffer-process inferior-lisp-buffer)
+         (unless (get-buffer-process inferior-lisp-buffer)
             (spacemacs/pact-repl)
             (pop-to-buffer curr))
-          (pact-load-file nil)
-          (pop-to-buffer curr))))
+         (pact-load-file nil)
+         (pop-to-buffer curr)))
 
     (dolist (prefix '(("ms" . "repl")))
       (spacemacs/declare-prefix-for-mode 'pact-mode (car prefix) (cdr prefix)))

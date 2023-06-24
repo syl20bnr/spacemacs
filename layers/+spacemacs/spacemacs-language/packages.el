@@ -41,33 +41,32 @@
     (with-eval-after-load 'google-translate-tk
       (defun google-translate--search-tkk () "Search TKK." (list 430675 2721866130)))
 
-    (progn
-      (defun spacemacs/set-google-translate-languages (&optional override-p)
-        "Set source language for google translate.
+    (defun spacemacs/set-google-translate-languages (&optional override-p)
+      "Set source language for google translate.
 For instance pass En as source for English."
-        (interactive "P")
-        (autoload 'google-translate-read-args "google-translate-default-ui")
-        (let* ((langs (google-translate-read-args override-p nil))
-               (source-language (car langs))
-               (target-language (cadr langs)))
-          (setq google-translate-default-source-language source-language)
-          (setq google-translate-default-target-language target-language)
-          (message
-           (format "Set google translate source language to %s and target to %s"
-                   source-language target-language))))
+      (interactive "P")
+      (autoload 'google-translate-read-args "google-translate-default-ui")
+      (let* ((langs (google-translate-read-args override-p nil))
+             (source-language (car langs))
+             (target-language (cadr langs)))
+        (setq google-translate-default-source-language source-language)
+        (setq google-translate-default-target-language target-language)
+        (message
+         (format "Set google translate source language to %s and target to %s"
+                 source-language target-language))))
 
-      (defun spacemacs/set-google-translate-target-language ()
-        "Set the target language for google translate."
-        (interactive)
-        (spacemacs/set-google-translate-languages nil))
+    (defun spacemacs/set-google-translate-target-language ()
+      "Set the target language for google translate."
+      (interactive)
+      (spacemacs/set-google-translate-languages nil))
 
-      (spacemacs/set-leader-keys
-        "xgL" 'spacemacs/set-google-translate-languages
-        "xgl" 'spacemacs/set-google-translate-target-language
-        "xgQ" 'google-translate-query-translate-reverse
-        "xgq" 'google-translate-query-translate
-        "xgT" 'google-translate-at-point-reverse
-        "xgt" 'google-translate-at-point)
-      (setq google-translate-enable-ido-completion t)
-      (setq google-translate-show-phonetic t)
-      (setq google-translate-default-source-language "auto"))))
+    (spacemacs/set-leader-keys
+      "xgL" 'spacemacs/set-google-translate-languages
+      "xgl" 'spacemacs/set-google-translate-target-language
+      "xgQ" 'google-translate-query-translate-reverse
+      "xgq" 'google-translate-query-translate
+      "xgT" 'google-translate-at-point-reverse
+      "xgt" 'google-translate-at-point)
+    (setq google-translate-enable-ido-completion t)
+    (setq google-translate-show-phonetic t)
+    (setq google-translate-default-source-language "auto")))

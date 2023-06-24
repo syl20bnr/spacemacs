@@ -30,29 +30,27 @@
   (use-package jabber
     :defer t
     :init
-    (progn
-      (add-hook 'jabber-post-connect-hooks 'spacemacs/jabber-connect-hook)
-      (spacemacs/set-leader-keys "acj" 'jabber-connect-all))
+    (add-hook 'jabber-post-connect-hooks 'spacemacs/jabber-connect-hook)
+    (spacemacs/set-leader-keys "acj" 'jabber-connect-all)
     :config
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'jabber-roster-mode
-        "a" 'jabber-send-presence
-        "b" 'jabber-get-browse
-        "d" 'jabber-disconnect
-        "e" 'jabber-roster-edit-action-at-point
-        "g" 'jabber-display-roster
-        "i" 'jabber-get-disco-items
-        "j" 'jabber-muc-join
-        "q" 'bury-buffer
-        "r" 'jabber-roster-toggle-offline-display
-        "s" 'jabber-send-subscription-request
-        "v" 'jabber-get-version
-        "RET" 'jabber-roster-ret-action-at-point)
-      (evilified-state-evilify-map jabber-roster-mode-map
-        :mode jabber-roster-mode
-        :bindings
-        "j" 'jabber-go-to-next-roster-item
-        "k" 'jabber-go-to-previous-roster-item))))
+    (spacemacs/set-leader-keys-for-major-mode 'jabber-roster-mode
+      "a" 'jabber-send-presence
+      "b" 'jabber-get-browse
+      "d" 'jabber-disconnect
+      "e" 'jabber-roster-edit-action-at-point
+      "g" 'jabber-display-roster
+      "i" 'jabber-get-disco-items
+      "j" 'jabber-muc-join
+      "q" 'bury-buffer
+      "r" 'jabber-roster-toggle-offline-display
+      "s" 'jabber-send-subscription-request
+      "v" 'jabber-get-version
+      "RET" 'jabber-roster-ret-action-at-point)
+    (evilified-state-evilify-map jabber-roster-mode-map
+      :mode jabber-roster-mode
+      :bindings
+      "j" 'jabber-go-to-next-roster-item
+      "k" 'jabber-go-to-previous-roster-item)))
 
 (defun jabber/post-init-window-purpose ()
   (purpose-set-extension-configuration

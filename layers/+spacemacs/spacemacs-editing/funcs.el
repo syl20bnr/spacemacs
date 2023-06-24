@@ -101,10 +101,9 @@ If `global' is non-nil activate the respective global mode."
         (when smartparens-global-strict-mode
           (smartparens-global-strict-mode -1))
         (smartparens-global-mode -1))
-    (progn
-      (when smartparens-strict-mode
-        (smartparens-strict-mode -1))
-      (smartparens-mode -1))))
+    (when smartparens-strict-mode
+      (smartparens-strict-mode -1))
+    (smartparens-mode -1)))
 
 (defun spacemacs//conditionally-enable-smartparens-mode ()
   "Enable `smartparens-mode' in the minibuffer, during `eval-expression'."

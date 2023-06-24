@@ -34,12 +34,11 @@
                geeknote-remove
                geeknote-move)
     :init
-    (progn
-      (spacemacs/declare-prefix "awe" "applications-evernote")
-      (spacemacs/set-leader-keys
-        "awec" 'geeknote-create
-        "awee" 'geeknote-edit
-        "awef" 'geeknote-find
-        "awes" 'geeknote-show
-        "awer" 'geeknote-remove
-        "awem" 'geeknote-move))))
+    (spacemacs/declare-prefix "awe" "applications-evernote")
+    (spacemacs/set-leader-keys
+      "awec" 'geeknote-create
+      "awee" 'geeknote-edit
+      "awef" 'geeknote-find
+      "awes" 'geeknote-show
+      "awer" 'geeknote-remove
+      "awem" 'geeknote-move)))

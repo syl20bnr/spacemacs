@@ -30,15 +30,14 @@
   (use-package spotify
     :defer t
     :init
-    (progn
-      (spacemacs/declare-prefix
-        "am"  "music"
-        "ams" "Spotify")
-      (spacemacs/set-leader-keys
-        "amsp" 'spotify-playpause
-        "amsn" 'spotify-next
-        "amsN" 'spotify-previous
-        "amsQ" 'spotify-quit))))
+    (spacemacs/declare-prefix
+      "am"  "music"
+      "ams" "Spotify")
+    (spacemacs/set-leader-keys
+      "amsp" 'spotify-playpause
+      "amsn" 'spotify-next
+      "amsN" 'spotify-previous
+      "amsQ" 'spotify-quit)))
 
 (defun spotify/init-helm-spotify-plus ()
   (use-package helm-spotify-plus
@@ -54,13 +53,12 @@
                counsel-spotify-search-tracks-by-artist
                counsel-spotify-search-tracks-by-album)
     :init
-    (progn
-      (spacemacs/declare-prefix
-        "amss"  "search"
-        "amssT" "tracks")
-      (spacemacs/set-leader-keys
-        "amssa" 'counsel-spotify-search-artist
-        "amssA" 'counsel-spotify-search-album
-        "amsst" 'counsel-spotify-search-track
-        "amssTa" 'counsel-spotify-search-tracks-by-artist
-        "amssTA" 'counsel-spotify-search-tracks-by-album))))
+    (spacemacs/declare-prefix
+      "amss"  "search"
+      "amssT" "tracks")
+    (spacemacs/set-leader-keys
+      "amssa" 'counsel-spotify-search-artist
+      "amssA" 'counsel-spotify-search-album
+      "amsst" 'counsel-spotify-search-track
+      "amssTa" 'counsel-spotify-search-tracks-by-artist
+      "amssTA" 'counsel-spotify-search-tracks-by-album)))

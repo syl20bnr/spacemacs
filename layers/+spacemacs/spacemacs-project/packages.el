@@ -49,52 +49,50 @@
                projectile-switch-to-buffer
                projectile-vc)
     :init
-    (progn
-      ;; note for Windows: GNU find or Cygwin find must be in path to enable
-      ;; fast indexing. Also, because windows ships with a program called
-      ;; c:\windows\system32\find.exe that is very much not findutils find
-      ;; we ignore that specific executable
-      (when (and (spacemacs/system-is-mswindows) (executable-find "find")
-                 (not (file-in-directory-p
-                       (executable-find "find") "C:\\Windows")))
-        (setq  projectile-indexing-method 'alien
-               projectile-generic-command "find . -type f"))
-      (setq projectile-sort-order 'recentf
-            projectile-cache-file (concat spacemacs-cache-directory
-                                          "projectile.cache")
-            projectile-known-projects-file (concat spacemacs-cache-directory
-                                                   "projectile-bookmarks.eld"))
-      (spacemacs/set-leader-keys
-        ;; File path
-        "fyC" 'spacemacs/projectile-copy-file-path-with-line-column
-        "fyD" 'spacemacs/projectile-copy-directory-path
-        "fyL" 'spacemacs/projectile-copy-file-path-with-line
-        "fyY" 'spacemacs/projectile-copy-file-path
-        ;; Project
-        "p!" 'projectile-run-shell-command-in-root
-        "p&" 'projectile-run-async-shell-command-in-root
-        "p%" 'projectile-replace-regexp
-        "pa" 'projectile-toggle-between-implementation-and-test
-        "pb" 'projectile-switch-to-buffer
-        "pc" 'projectile-compile-project
-        "pu" 'projectile-run-project
-        "pd" 'projectile-find-dir
-        "pD" 'projectile-dired
-        "pe" 'projectile-edit-dir-locals
-        "pf" 'projectile-find-file
-        "pF" 'projectile-find-file-dwim
-        "pE" 'projectile-find-references
-        "pg" 'projectile-find-tag
-        "pG" 'projectile-regenerate-tags
-        "pi" 'projectile-install-project
-        "pI" 'projectile-invalidate-cache
-        "pk" 'projectile-kill-buffers
-        "pp" 'projectile-switch-project
-        "pr" 'projectile-recentf
-        "pR" 'projectile-replace
-        "pT" 'projectile-test-project
-        "pv" 'projectile-vc))
+    ;; note for Windows: GNU find or Cygwin find must be in path to enable
+    ;; fast indexing. Also, because windows ships with a program called
+    ;; c:\windows\system32\find.exe that is very much not findutils find
+    ;; we ignore that specific executable
+    (when (and (spacemacs/system-is-mswindows) (executable-find "find")
+               (not (file-in-directory-p
+                     (executable-find "find") "C:\\Windows")))
+      (setq  projectile-indexing-method 'alien
+             projectile-generic-command "find . -type f"))
+    (setq projectile-sort-order 'recentf
+          projectile-cache-file (concat spacemacs-cache-directory
+                                        "projectile.cache")
+          projectile-known-projects-file (concat spacemacs-cache-directory
+                                                 "projectile-bookmarks.eld"))
+    (spacemacs/set-leader-keys
+      ;; File path
+      "fyC" 'spacemacs/projectile-copy-file-path-with-line-column
+      "fyD" 'spacemacs/projectile-copy-directory-path
+      "fyL" 'spacemacs/projectile-copy-file-path-with-line
+      "fyY" 'spacemacs/projectile-copy-file-path
+      ;; Project
+      "p!" 'projectile-run-shell-command-in-root
+      "p&" 'projectile-run-async-shell-command-in-root
+      "p%" 'projectile-replace-regexp
+      "pa" 'projectile-toggle-between-implementation-and-test
+      "pb" 'projectile-switch-to-buffer
+      "pc" 'projectile-compile-project
+      "pu" 'projectile-run-project
+      "pd" 'projectile-find-dir
+      "pD" 'projectile-dired
+      "pe" 'projectile-edit-dir-locals
+      "pf" 'projectile-find-file
+      "pF" 'projectile-find-file-dwim
+      "pE" 'projectile-find-references
+      "pg" 'projectile-find-tag
+      "pG" 'projectile-regenerate-tags
+      "pi" 'projectile-install-project
+      "pI" 'projectile-invalidate-cache
+      "pk" 'projectile-kill-buffers
+      "pp" 'projectile-switch-project
+      "pr" 'projectile-recentf
+      "pR" 'projectile-replace
+      "pT" 'projectile-test-project
+      "pv" 'projectile-vc)
     :config
-    (progn
-      (projectile-mode)
-      (spacemacs|hide-lighter projectile-mode))))
+    (projectile-mode)
+    (spacemacs|hide-lighter projectile-mode)))

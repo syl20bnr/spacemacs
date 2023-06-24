@@ -139,9 +139,8 @@ If not in such a search box, fall back on `Custom-newline'."
         (progn
           (indent-region (region-beginning) (region-end))
           (message "Indented selected region."))
-      (progn
-        (evil-indent (point-min) (point-max))
-        (message "Indented buffer.")))
+      (evil-indent (point-min) (point-max))
+      (message "Indented buffer."))
     (whitespace-cleanup)))
 
 ;; http://emacsblog.org/2007/01/17/indent-whole-buffer/
@@ -153,12 +152,11 @@ If not in such a search box, fall back on `Custom-newline'."
         (progn
           (untabify (region-beginning) (region-end))
           (indent-region (region-beginning) (region-end)))
-      (progn
-        (set-buffer-file-coding-system default-file-name-coding-system)
-        ;; (set-buffer-file-coding-system 'utf-8-unix)
-        (untabify (point-min) (point-max))
-        (indent-region (point-min) (point-max))
-        (whitespace-cleanup)))))
+      (set-buffer-file-coding-system default-file-name-coding-system)
+      ;; (set-buffer-file-coding-system 'utf-8-unix)
+      (untabify (point-min) (point-max))
+      (indent-region (point-min) (point-max))
+      (whitespace-cleanup))))
 
 (defun spacemacs//trailing-whitespace ()
   (setq show-trailing-whitespace dotspacemacs-show-trailing-whitespace))

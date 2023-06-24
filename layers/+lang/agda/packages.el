@@ -43,9 +43,8 @@
       (setq agda-mode-path (let ((coding-system-for-read 'utf-8))
                              (shell-command-to-string "agda-mode locate"))))
 
-    (progn
-      (setq agda-version-out (let ((coding-system-for-read 'utf-8))
-                               (shell-command-to-string "agda --version")))
+    (setq agda-version-out (let ((coding-system-for-read 'utf-8))
+                               (shell-command-to-string "agda --version"))
       (string-match "\\([0-9]+\\.\\)*[0-9]+" agda-version-out)
       (setq agda-version (match-string 0 agda-version-out)))
 

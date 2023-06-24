@@ -34,12 +34,11 @@
 (defun unicode-fonts/init-unicode-fonts ()
   (use-package unicode-fonts
     :init
-    (progn
-      (when (and unicode-fonts-force-multi-color-on-mac
-                 (eq window-system 'ns))
-        (setq unicode-fonts-skip-font-groups
-	      '(decorative low-quality-glyphs)))
-      (unicode-fonts//setup-fonts (selected-frame)))))
+    (when (and unicode-fonts-force-multi-color-on-mac
+               (eq window-system 'ns))
+      (setq unicode-fonts-skip-font-groups
+            '(decorative low-quality-glyphs)))
+    (unicode-fonts//setup-fonts (selected-frame))))
 
 (defun unicode-fonts/init-ligature ()
   (use-package ligature

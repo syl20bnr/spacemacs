@@ -36,56 +36,53 @@
     :defer t
     :spacediminish (" ⓢ" " s")
     :init
-    (progn
-      (spacemacs|add-transient-hook prog-mode-hook
-        (lambda () (when syntax-checking-enable-by-default
-                     (global-flycheck-mode 1)))
-        lazy-load-flycheck)
-      (setq flycheck-standard-error-navigation syntax-checking-use-standard-error-navigation
-            flycheck-global-modes nil)
-      ;; key bindings
-      (spacemacs/set-leader-keys
-        "eb" #'flycheck-buffer
-        "ec" #'flycheck-clear
-        "ed" #'flycheck-disable-checker
-        "eh" #'flycheck-describe-checker
-        "el" #'spacemacs/toggle-flycheck-error-list
-        "eL" #'spacemacs/goto-flycheck-error-list
-        "es" #'flycheck-select-checker
-        "eS" #'flycheck-set-checker-executable
-        "ev" #'flycheck-verify-setup
-        "ey" #'flycheck-copy-errors-as-kill
-        "ex" #'flycheck-explain-error-at-point)
-      (spacemacs|add-toggle syntax-checking
-        :mode flycheck-mode
-        :documentation "Enable error and syntax checking."
-        :evil-leader "ts"))
+    (spacemacs|add-transient-hook prog-mode-hook
+      (lambda () (when syntax-checking-enable-by-default
+                   (global-flycheck-mode 1)))
+      lazy-load-flycheck)
+    (setq flycheck-standard-error-navigation syntax-checking-use-standard-error-navigation
+          flycheck-global-modes nil)
+    ;; key bindings
+    (spacemacs/set-leader-keys
+      "eb" #'flycheck-buffer
+      "ec" #'flycheck-clear
+      "ed" #'flycheck-disable-checker
+      "eh" #'flycheck-describe-checker
+      "el" #'spacemacs/toggle-flycheck-error-list
+      "eL" #'spacemacs/goto-flycheck-error-list
+      "es" #'flycheck-select-checker
+      "eS" #'flycheck-set-checker-executable
+      "ev" #'flycheck-verify-setup
+      "ey" #'flycheck-copy-errors-as-kill
+      "ex" #'flycheck-explain-error-at-point)
+    (spacemacs|add-toggle syntax-checking
+      :mode flycheck-mode
+      :documentation "Enable error and syntax checking."
+      :evil-leader "ts")
     :config
-    (progn
-      ;; Custom fringe/margin indicator
-      (pcase-let ((`(,bitmap . ,margin-str) syntax-checking-indication-symbol))
-        (when (booleanp syntax-checking-use-original-bitmaps)
-          (warn "`syntax-checking-use-original-bitmaps' is deprecated. Use `syntax-checking-indication-symbol' instead.")
-          (setq bitmap (unless syntax-checking-use-original-bitmaps
-                         'syntax-checking--fringe-indicator)))
-        (flycheck-redefine-standard-error-levels margin-str bitmap))
+    ;; Custom fringe/margin indicator
+    (pcase-let ((`(,bitmap . ,margin-str) syntax-checking-indication-symbol))
+      (when (booleanp syntax-checking-use-original-bitmaps)
+        (warn "`syntax-checking-use-original-bitmaps' is deprecated. Use `syntax-checking-indication-symbol' instead.")
+        (setq bitmap (unless syntax-checking-use-original-bitmaps
+                       'syntax-checking--fringe-indicator)))
+      (flycheck-redefine-standard-error-levels margin-str bitmap))
 
-      (evilified-state-evilify-map flycheck-error-list-mode-map
-        :mode flycheck-error-list-mode
-        :bindings
-        "j" #'flycheck-error-list-next-error
-        "k" #'flycheck-error-list-previous-error
-        "J" #'next-line
-        "K" #'previous-line))))
+    (evilified-state-evilify-map flycheck-error-list-mode-map
+      :mode flycheck-error-list-mode
+      :bindings
+      "j" #'flycheck-error-list-next-error
+      "k" #'flycheck-error-list-previous-error
+      "J" #'next-line
+      "K" #'previous-line)))
 
 (defun syntax-checking/init-flycheck-pos-tip ()
   (use-package flycheck-pos-tip
     :if syntax-checking-enable-tooltips
     :after (flycheck)
     :init
-    (progn
-      (flycheck-pos-tip-mode)
-      (setq flycheck-pos-tip-timeout (or syntax-checking-auto-hide-tooltips 0)))))
+    (flycheck-pos-tip-mode)
+    (setq flycheck-pos-tip-timeout (or syntax-checking-auto-hide-tooltips 0))))
 
 (defun syntax-checking/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin

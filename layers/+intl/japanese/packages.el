@@ -80,18 +80,18 @@
 (defun japanese/init-pangu-spacing ()
   (use-package pangu-spacing
     :init
-    (progn ;; replacing `chinese-two-byte' by `japanese'
-      (setq pangu-spacing-chinese-before-english-regexp
-            (rx (group-n 1 (category japanese))
-                (group-n 2 (in "a-zA-Z0-9"))))
-      (setq pangu-spacing-chinese-after-english-regexp
-            (rx (group-n 1 (in "a-zA-Z0-9"))
-                (group-n 2 (category japanese))))
-      (spacemacs|hide-lighter pangu-spacing-mode)
-      ;; Always insert `real' space in text-mode including org-mode.
-      (setq pangu-spacing-real-insert-separtor t)
-      ;; (global-pangu-spacing-mode 1)
-      (add-hook 'text-mode-hook 'pangu-spacing-mode))))
+    ;; replacing `chinese-two-byte' by `japanese'
+    (setq pangu-spacing-chinese-before-english-regexp
+          (rx (group-n 1 (category japanese))
+              (group-n 2 (in "a-zA-Z0-9"))))
+    (setq pangu-spacing-chinese-after-english-regexp
+          (rx (group-n 1 (in "a-zA-Z0-9"))
+              (group-n 2 (category japanese))))
+    (spacemacs|hide-lighter pangu-spacing-mode)
+    ;; Always insert `real' space in text-mode including org-mode.
+    (setq pangu-spacing-real-insert-separtor t)
+    ;; (global-pangu-spacing-mode 1)
+    (add-hook 'text-mode-hook 'pangu-spacing-mode)))
 
 (defun japanese/post-init-org ()
   (defadvice org-html-paragraph (before org-html-paragraph-advice

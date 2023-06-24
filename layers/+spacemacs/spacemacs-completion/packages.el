@@ -168,66 +168,65 @@
   (use-package ido-vertical-mode
     :defer t
     :init
-    (progn
-      (add-hook 'ido-minibuffer-setup-hook ido-vertical-mode)
-      (add-hook 'ido-minibuffer-setup-hook 'spacemacs//ido-minibuffer-setup)
-      (add-hook 'ido-setup-hook 'spacemacs//ido-setup)
+    (add-hook 'ido-minibuffer-setup-hook ido-vertical-mode)
+    (add-hook 'ido-minibuffer-setup-hook 'spacemacs//ido-minibuffer-setup)
+    (add-hook 'ido-setup-hook 'spacemacs//ido-setup)
 
-      (defadvice ido-read-internal
-          (around ido-read-internal-with-minibuffer-other-window activate)
-        (let* (ido-exit-minibuffer-target-window
-               (this-buffer (current-buffer))
-               (result ad-do-it))
-          (cond
-           ((equal ido-exit-minibuffer-target-window 'other)
-            (if (= 1 (count-windows))
-                (spacemacs/split-window-horizontally-and-switch)
-              (other-window 1)))
-           ((equal ido-exit-minibuffer-target-window 'horizontal)
-            (spacemacs/split-window-horizontally-and-switch))
+    (defadvice ido-read-internal
+        (around ido-read-internal-with-minibuffer-other-window activate)
+      (let* (ido-exit-minibuffer-target-window
+             (this-buffer (current-buffer))
+             (result ad-do-it))
+        (cond
+         ((equal ido-exit-minibuffer-target-window 'other)
+          (if (= 1 (count-windows))
+              (spacemacs/split-window-horizontally-and-switch)
+            (other-window 1)))
+         ((equal ido-exit-minibuffer-target-window 'horizontal)
+          (spacemacs/split-window-horizontally-and-switch))
 
-           ((equal ido-exit-minibuffer-target-window 'vertical)
-            (spacemacs/split-window-vertically-and-switch))
-           ((equal ido-exit-minibuffer-target-window 'frame)
-            (make-frame)))
-          ;; why? Some ido commands, such as textmate.el's
-          ;; textmate-goto-symbol don't switch the current buffer
-          (switch-to-buffer this-buffer)
-          result))
+         ((equal ido-exit-minibuffer-target-window 'vertical)
+          (spacemacs/split-window-vertically-and-switch))
+         ((equal ido-exit-minibuffer-target-window 'frame)
+          (make-frame)))
+        ;; why? Some ido commands, such as textmate.el's
+        ;; textmate-goto-symbol don't switch the current buffer
+        (switch-to-buffer this-buffer)
+        result))
 
-      (defvar spacemacs--ido-navigation-ts-enabled nil
-        "Flag which is non nil when ido navigation transient-state is enabled.")
+    (defvar spacemacs--ido-navigation-ts-enabled nil
+      "Flag which is non nil when ido navigation transient-state is enabled.")
 
-      (defvar spacemacs--ido-navigation-ts-face-cookie-minibuffer nil
-        "Cookie pointing to the local face remapping.")
+    (defvar spacemacs--ido-navigation-ts-face-cookie-minibuffer nil
+      "Cookie pointing to the local face remapping.")
 
-      (defface spacemacs-ido-navigation-ts-face
-        `((t :background ,(face-attribute 'error :foreground)
-             :foreground "black"
-             :weight bold))
-        "Face for ido minibuffer prompt when ido transient-state is activated."
-        :group 'spacemacs)
+    (defface spacemacs-ido-navigation-ts-face
+      `((t :background ,(face-attribute 'error :foreground)
+           :foreground "black"
+           :weight bold))
+      "Face for ido minibuffer prompt when ido transient-state is activated."
+      :group 'spacemacs)
 
-      (spacemacs|define-transient-state ido-navigation
-        :title "ido Transient State"
-        :foreign-keys run
-        :on-enter (spacemacs//ido-navigation-ts-on-enter)
-        :on-exit  (spacemacs//ido-navigation-ts-on-exit)
-        :bindings
-        ;;("?" nil (spacemacs//ido-navigation-ts-full-doc))
-        ("<RET>" ido-exit-minibuffer :exit t)
-        ("<escape>" nil :exit t)
-        ("e" ido-select-text :exit t)
-        ("h" ido-delete-backward-updir)
-        ("j" ido-next-match)
-        ("J" ido-next-match-dir)
-        ("k" ido-prev-match)
-        ("K" ido-prev-match-dir)
-        ("l" ido-exit-minibuffer :exit t)
-        ("n" ido-next-match-dir)
-        ("o" spacemacs/ido-invoke-in-other-window :exit t)
-        ("p" ido-prev-match-dir)
-        ("q" nil :exit t)
-        ("s" spacemacs/ido-invoke-in-vertical-split :exit t)
-        ("t" spacemacs/ido-invoke-in-new-frame :exit t)
-        ("v" spacemacs/ido-invoke-in-horizontal-split :exit t)))))
+    (spacemacs|define-transient-state ido-navigation
+      :title "ido Transient State"
+      :foreign-keys run
+      :on-enter (spacemacs//ido-navigation-ts-on-enter)
+      :on-exit  (spacemacs//ido-navigation-ts-on-exit)
+      :bindings
+      ;;("?" nil (spacemacs//ido-navigation-ts-full-doc))
+      ("<RET>" ido-exit-minibuffer :exit t)
+      ("<escape>" nil :exit t)
+      ("e" ido-select-text :exit t)
+      ("h" ido-delete-backward-updir)
+      ("j" ido-next-match)
+      ("J" ido-next-match-dir)
+      ("k" ido-prev-match)
+      ("K" ido-prev-match-dir)
+      ("l" ido-exit-minibuffer :exit t)
+      ("n" ido-next-match-dir)
+      ("o" spacemacs/ido-invoke-in-other-window :exit t)
+      ("p" ido-prev-match-dir)
+      ("q" nil :exit t)
+      ("s" spacemacs/ido-invoke-in-vertical-split :exit t)
+      ("t" spacemacs/ido-invoke-in-new-frame :exit t)
+      ("v" spacemacs/ido-invoke-in-horizontal-split :exit t))))

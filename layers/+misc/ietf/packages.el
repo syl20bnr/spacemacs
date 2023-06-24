@@ -31,21 +31,19 @@
   (use-package ietf-docs
     :commands ietf-docs-open-at-point
     :init
-    (progn
-      (spacemacs/set-leader-keys "f I" 'ietf-docs-open-at-point)
-      (setq ietf-docs-cache-directory ietf-docs-cache))))
+    (spacemacs/set-leader-keys "f I" 'ietf-docs-open-at-point)
+    (setq ietf-docs-cache-directory ietf-docs-cache)))
 
 (defun ietf/init-irfc ()
   (use-package irfc
     :commands irfc-mode
     :init
-    (progn
-      (setq irfc-directory ietf-docs-cache)
-      (setq irfc-assoc-mode t)
-      (add-to-list 'auto-mode-alist
-                   '("/draft-\\([a-z0-9_]+-\\)+[a-z0-9_]+.txt" . irfc-mode))
-      (add-to-list 'auto-mode-alist
-                   '("/rfc\\([a-z0-9_-]+\\).txt" . irfc-mode)))))
+    (setq irfc-directory ietf-docs-cache)
+    (setq irfc-assoc-mode t)
+    (add-to-list 'auto-mode-alist
+                 '("/draft-\\([a-z0-9_]+-\\)+[a-z0-9_]+.txt" . irfc-mode))
+    (add-to-list 'auto-mode-alist
+                 '("/rfc\\([a-z0-9_-]+\\).txt" . irfc-mode))))
 
 (defun ietf/init-ox-rfc ()
   (use-package ox-rfc :after ox))

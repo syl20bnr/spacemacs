@@ -51,14 +51,13 @@
   (use-package company-emoji
     :defer t
     :init
-    (progn
-      ;; For when Emacs is started in GUI mode:
-      (spacemacs//set-emoji-font nil)
-      ;; Hook for when a frame is created with emacsclient
-      (spacemacs|do-after-display-system-init
-       (spacemacs//set-emoji-font-for-current-frame))
-      (spacemacs|add-company-backends
-        :backends company-emoji
-        :modes text-mode))
+    ;; For when Emacs is started in GUI mode:
+    (spacemacs//set-emoji-font nil)
+    ;; Hook for when a frame is created with emacsclient
+    (spacemacs|do-after-display-system-init
+     (spacemacs//set-emoji-font-for-current-frame))
+    (spacemacs|add-company-backends
+     :backends company-emoji
+     :modes text-mode)
     :config
     (advice-add 'emoji-cheat-sheet-plus--insert-selection :after #'spacemacs/emoji-insert-and-possibly-complete)))

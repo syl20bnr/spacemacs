@@ -26,11 +26,9 @@
 (defun templates/init-yatemplate ()
   (use-package yatemplate
     :init
-    (progn
-      (setq yatemplate-dir templates-private-directory)
-      (unless templates-use-default-templates
-        (setq auto-insert-alist nil)))
+    (setq yatemplate-dir templates-private-directory)
+    (unless templates-use-default-templates
+      (setq auto-insert-alist nil))
     :config
-    (progn
-      (yatemplate-fill-alist)
-      (auto-insert-mode +1))))
+    (yatemplate-fill-alist)
+    (auto-insert-mode +1)))

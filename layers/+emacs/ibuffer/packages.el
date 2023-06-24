@@ -31,17 +31,16 @@
   (use-package ibuffer
     :defer t
     :init
-    (progn
-      (spacemacs/set-leader-keys "bI" 'ibuffer)
-      (global-set-key (kbd "C-x C-b") 'ibuffer)
-      (defun spacemacs//ibuffer-group-by-modes ()
-        "Group buffers by modes."
-        (when (eq 'modes ibuffer-group-buffers-by)
-          (spacemacs//ibuffer-create-buffs-group)))
-      (add-hook 'ibuffer-hook 'spacemacs//ibuffer-group-by-modes)
+    (spacemacs/set-leader-keys "bI" 'ibuffer)
+    (global-set-key (kbd "C-x C-b") 'ibuffer)
+    (defun spacemacs//ibuffer-group-by-modes ()
+      "Group buffers by modes."
+      (when (eq 'modes ibuffer-group-buffers-by)
+        (spacemacs//ibuffer-create-buffs-group)))
+    (add-hook 'ibuffer-hook 'spacemacs//ibuffer-group-by-modes)
 
-      ;; Use ibuffer to provide :ls
-      (evil-ex-define-cmd "buffers" 'ibuffer))
+    ;; Use ibuffer to provide :ls
+    (evil-ex-define-cmd "buffers" 'ibuffer)
     :config
     (evilified-state-evilify-map ibuffer-mode-map
       :mode ibuffer-mode
@@ -56,11 +55,10 @@
     (use-package ibuffer-projectile
       :defer t
       :init
-      (progn
-        (defun spacemacs//ibuffer-group-by-projects ()
-          "Group buffers by projects."
-          (when (eq 'projects ibuffer-group-buffers-by)
-            (ibuffer-projectile-set-filter-groups)
-            (unless (eq ibuffer-sorting-mode 'alphabetic)
-              (ibuffer-do-sort-by-alphabetic))))
-        (add-hook 'ibuffer-hook 'spacemacs//ibuffer-group-by-projects))))
+      (defun spacemacs//ibuffer-group-by-projects ()
+        "Group buffers by projects."
+        (when (eq 'projects ibuffer-group-buffers-by)
+          (ibuffer-projectile-set-filter-groups)
+          (unless (eq ibuffer-sorting-mode 'alphabetic)
+            (ibuffer-do-sort-by-alphabetic))))
+      (add-hook 'ibuffer-hook 'spacemacs//ibuffer-group-by-projects)))

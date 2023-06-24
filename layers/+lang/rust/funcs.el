@@ -117,8 +117,7 @@ When one of the following is true, it won't reload:
 
 (defun spacemacs//rust-setup-racer ()
   "Setup racer backend"
-  (progn
-    (racer-mode)))
+  (racer-mode))
 
 (defun spacemacs//rust-setup-racer-company ()
   "Setup racer auto-completion."
