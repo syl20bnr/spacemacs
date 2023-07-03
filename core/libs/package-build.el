@@ -435,9 +435,13 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING)."
             (save-excursion
               (package-build--insert-pkgfile rcp c file))
             (when-let* ((n (ignore-errors (nth 2 (read (current-buffer)))))
-                        (v (ignore-errors (version-to-list
-                                           (and (string-match regexp n)
-                                                (match-string 1 n))))))
+                        (v (ignore-errors
+                             (version-to-list
+                              (and (string-match regexp n)
+                                   ;; Use match-group 0, not 1, because in
+                                   ;; this file a version string without a
+                                   ;; prefix is expected.
+                                   (match-string 0 n))))))
               (when (and version (not (equal v version)))
                 (throw 'before-latest nil))
               (setq commit c)
@@ -1266,7 +1270,9 @@ are subsequently dumped."
          (repo (oref rcp repo))
          (fetcher (package-recipe--fetcher rcp)))
     (cond ((not noninteractive)
-           (message " • Building package %s (from %s)..." name
+           (message " • %s package %s (from %s)..."
+                    (if package-build--inhibit-build "Fetching" "Building")
+                    name
                     (if repo (format "%s:%s" fetcher repo) url)))
           (package-build-verbose
            (message "Package: %s" name)
@@ -1278,7 +1284,9 @@ are subsequently dumped."
       (package-build--package rcp)
       (when dump-archive-contents
         (package-build-dump-archive-contents)))
-    (message "Built %s in %.3fs, finished at %s" name
+    (message "%s %s in %.3fs, finished at %s"
+             (if package-build--inhibit-build "Fetched" "Built")
+             name
              (float-time (time-since start-time))
              (format-time-string "%FT%T%z" nil t))))
 
