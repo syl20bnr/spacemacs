@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq spacemacs-editing-packages
+(defconst spacemacs-editing-packages
       '(aggressive-indent
         avy
         (bracketed-paste :toggle (version<= emacs-version "25.0.92"))
@@ -237,10 +237,10 @@
       ("<tab>" origami-recursively-toggle-node)
       ("q" nil :exit t)
       ("C-g" nil :exit t)
-      ("<SPC>" nil :exit t))
+      ("<SPC>" nil :exit t))))
     ;; Note: The key binding for the fold transient state is defined in
     ;; evil config
-    ))
+
 
 (defun spacemacs-editing/init-smartparens ()
   (use-package smartparens
@@ -319,14 +319,44 @@
     (spacemacs|diminish global-spacemacs-whitespace-cleanup-mode
                         " Ⓦ" " W")))
 
+
 (defun spacemacs-editing/init-undo-tree ()
   (use-package undo-tree
+    :defer t
     :init
+    (setq undo-tree-visualizer-timestamps t
+          undo-tree-visualizer-diff t
+          ;; See `vim-style-enable-undo-region'.
+          undo-tree-enable-undo-in-region t
+          ;; 10X bump of the undo limits to avoid issues with premature
+          ;; Emacs GC which truncages the undo history very aggresively
+          undo-limit 800000
+          undo-strong-limit 12000000
+          undo-outer-limit 120000000
+          undo-tree-history-directory-alist
+          `(("." . ,(let ((dir (expand-file-name "undo-tree-history" spacemacs-cache-directory)))
+                      (if (file-exists-p dir)
+                          (unless (file-accessible-directory-p dir)
+                            (warn "Cannot access directory `%s'.
+ Perhaps you don't have required permissions, or it's not a directory.
+ See variable `undo-tree-history-directory-alist'." dir))
+                        (make-directory dir))
+                      dir))))
     (global-undo-tree-mode)
-    (setq undo-tree-visualizer-timestamps t)
-    (setq undo-tree-visualizer-diff t)
     :config
-    (spacemacs|hide-lighter undo-tree-mode)))
+    ;; restore diff window after quit.  TODO fix upstream
+    (defun spacemacs/undo-tree-restore-default ()
+      (setq undo-tree-visualizer-diff t))
+    (advice-add 'undo-tree-visualizer-quit :after #'spacemacs/undo-tree-restore-default)
+    (spacemacs|hide-lighter undo-tree-mode)
+    (evilified-state-evilify-map undo-tree-visualizer-mode-map
+      :mode undo-tree-visualizer-mode
+      :bindings
+      (kbd "j") 'undo-tree-visualize-redo
+      (kbd "k") 'undo-tree-visualize-undo
+      (kbd "h") 'undo-tree-visualize-switch-branch-left
+      (kbd "l") 'undo-tree-visualize-switch-branch-right)))
+
 
 (defun spacemacs-editing/init-uuidgen ()
   (use-package uuidgen
