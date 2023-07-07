@@ -55,8 +55,7 @@
     (setq avy-background t)
     (spacemacs/set-leader-keys
       "jb" 'avy-pop-mark
-      "jj" 'evil-avy-goto-char
-      "jJ" 'evil-avy-goto-char-2
+      "jj" 'evil-avy-goto-char-timer
       "jl" 'evil-avy-goto-line
       "ju" 'spacemacs/avy-goto-url
       "jw" 'evil-avy-goto-word-or-subword-1
