@@ -29,13 +29,14 @@
     :defer t
     :commands 'langtool-correct-buffer
     :init
-    ;; The whitespace rules give a lot of false positives when linting rich
-    ;; text.
-    (setq-default langtool-disabled-rules '("WHITESPACE_RULE"))
-    (spacemacs/set-leader-keys
-      "Sl" 'spacemacs/languagetool-toggle
-      "SL" 'langtool-correct-buffer)
-    (define-key evil-normal-state-map (kbd "[ a")
-      'spacemacs/languagetool-previous-error)
-    (define-key evil-normal-state-map (kbd "] a")
-      'spacemacs/languagetool-next-error)))
+    (progn
+      ;; The whitespace rules give a lot of false positives when linting rich
+      ;; text.
+      (setq-default langtool-disabled-rules '("WHITESPACE_RULE"))
+      (spacemacs/set-leader-keys
+        "Sl" 'spacemacs/languagetool-toggle
+        "SL" 'langtool-correct-buffer)
+      (define-key evil-normal-state-map (kbd "[ a")
+        'spacemacs/languagetool-previous-error)
+      (define-key evil-normal-state-map (kbd "] a")
+        'spacemacs/languagetool-next-error))))

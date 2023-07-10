@@ -45,21 +45,22 @@
     (centaur-tabs-modified-marker "•")
     (centaur-tabs-cycle-scope 'tabs)
     :config
-    (unless (daemonp)
-      (setq centaur-tabs-set-bar tabs-selected-tab-bar))
-    (when tabs-headline-match
-      (centaur-tabs-headline-match))
-    (if tabs-group-by-project
-        (centaur-tabs-group-by-projectile-project)
-      (centaur-tabs-group-buffer-groups))
-    (centaur-tabs-mode t)
+    (progn
+      (unless (daemonp)
+        (setq centaur-tabs-set-bar tabs-selected-tab-bar))
+      (when tabs-headline-match
+        (centaur-tabs-headline-match))
+      (if tabs-group-by-project
+          (centaur-tabs-group-by-projectile-project)
+        (centaur-tabs-group-buffer-groups))
+      (centaur-tabs-mode t)
 
-    (when tabs-auto-hide
-      (add-hook 'window-setup-hook 'spacemacs//tabs-timer-hide)
-      (add-hook 'find-file-hook 'spacemacs//tabs-timer-hide)
-      (add-hook 'change-major-mode-hook 'spacemacs//tabs-timer-hide))
+      (when tabs-auto-hide
+        (add-hook 'window-setup-hook 'spacemacs//tabs-timer-hide)
+        (add-hook 'find-file-hook 'spacemacs//tabs-timer-hide)
+        (add-hook 'change-major-mode-hook 'spacemacs//tabs-timer-hide))
 
-    (which-key-add-keymap-based-replacements evil-normal-state-map  "C-c t" "tab")
+      (which-key-add-keymap-based-replacements evil-normal-state-map  "C-c t" "tab"))
     :bind
     (:map evil-normal-state-map
           ("g t"     . spacemacs/tabs-forward)

@@ -32,16 +32,17 @@
   (use-package dumb-jump
     :defer t
     :init
-    ;; Use Helm or Ivy as the selector for dumb-jump.
-    (cond
-     ((configuration-layer/layer-used-p 'ivy)
-      (setq dumb-jump-selector 'ivy))
-     ((configuration-layer/layer-used-p 'helm)
-      (setq dumb-jump-selector 'helm)))
+    (progn
+      ;; Use Helm or Ivy as the selector for dumb-jump.
+      (cond
+       ((configuration-layer/layer-used-p 'ivy)
+        (setq dumb-jump-selector 'ivy))
+       ((configuration-layer/layer-used-p 'helm)
+        (setq dumb-jump-selector 'helm)))
 
-    ;; Enable xref-backend of dumb-jump. It's chosen only when no better
-    ;; options is available
-    (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)))
+      ;; Enable xref-backend of dumb-jump. It's chosen only when no better
+      ;; options is available
+      (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))))
 
 (defun spacemacs-misc/init-request ()
   (setq request-storage-directory
@@ -51,5 +52,6 @@
   (use-package devdocs
     :defer t
     :init
-    (defalias 'spacemacs/browse-docs-online-at-point 'devdocs-search)
-    (spacemacs/set-leader-keys "hbd" #'spacemacs/browse-docs-online-at-point)))
+    (progn
+      (defalias 'spacemacs/browse-docs-online-at-point 'devdocs-search)
+      (spacemacs/set-leader-keys "hbd" #'spacemacs/browse-docs-online-at-point))))

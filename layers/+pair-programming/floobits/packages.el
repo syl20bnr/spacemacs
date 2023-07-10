@@ -30,14 +30,15 @@
   (use-package floobits
     :defer t
     :init
-    (spacemacs/declare-prefix "P" "PP/floobits")
-    (spacemacs/set-leader-keys
-      "Pc" 'floobits-clear-highlights
-      "Pd" 'spacemacs/floobits-load-rcfile
-      "Pf" 'floobits-follow-user
-      "Pj" 'floobits-join-workspace
-      "Pl" 'floobits-leave-workspace
-      "PR" 'floobits-share-dir-private
-      "Ps" 'floobits-summon
-      "Pt" 'floobits-follow-mode-toggle
-      "PU" 'floobits-share-dir-public)))
+    (progn
+      (spacemacs/declare-prefix "P" "PP/floobits")
+      (spacemacs/set-leader-keys
+        "Pc" 'floobits-clear-highlights
+        "Pd" 'spacemacs/floobits-load-rcfile
+        "Pf" 'floobits-follow-user
+        "Pj" 'floobits-join-workspace
+        "Pl" 'floobits-leave-workspace
+        "PR" 'floobits-share-dir-private
+        "Ps" 'floobits-summon
+        "Pt" 'floobits-follow-mode-toggle
+        "PU" 'floobits-share-dir-public))))

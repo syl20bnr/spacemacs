@@ -30,7 +30,8 @@
   (spacemacs|add-company-backends :modes yang-mode))
 
 (defun yang/post-init-flycheck ()
-  (flycheck-define-command-checker 'yang-pyang
+  (progn
+    (flycheck-define-command-checker 'yang-pyang
       "A YANG syntax checker using the pyang parser."
       :command '("pyang"
                  (eval (concat "--" yang-pyang-rules))
@@ -44,7 +45,7 @@
       :error-filter (lambda (errors)
                        (-> errors
                            flycheck-dedent-error-messages
-                           flycheck-sanitize-errors))
+                           flycheck-sanitize-errors)))
     (add-to-list 'flycheck-checkers 'yang-pyang)
     (spacemacs/enable-flycheck 'yang-mode)))
 

@@ -36,8 +36,9 @@
     :commands global-command-log-mode
     ;; :commands (clm/open-command-log-buffer global-command-log-mode spacemacs/toggle-command-log-mode)
     :init
-    (spacemacs/declare-prefix "atl" "command log")
-    (spacemacs/set-leader-keys "atll" #'global-command-log-mode)
+    (progn
+      (spacemacs/declare-prefix "atl" "command log")
+      (spacemacs/set-leader-keys "atll" #'global-command-log-mode))
     :config
     (setq clm/log-command-exceptions* (append clm/log-command-exceptions*
                                               '(evil-next-line
@@ -49,10 +50,11 @@
 (defun command-log/init-keycast ()
   (use-package keycast
     :init
-    (spacemacs/declare-prefix "atK" "keycast")
-    (spacemacs/set-leader-keys "atKm" #'keycast-mode-line-mode)
-    (spacemacs/set-leader-keys "atKh" #'keycast-header-line-mode)
-    (spacemacs/set-leader-keys "atKt" #'keycast-tab-bar-mode)
+    (progn
+      (spacemacs/declare-prefix "atK" "keycast")
+      (spacemacs/set-leader-keys "atKm" #'keycast-mode-line-mode)
+      (spacemacs/set-leader-keys "atKh" #'keycast-header-line-mode)
+      (spacemacs/set-leader-keys "atKt" #'keycast-tab-bar-mode)
 
-    ;; Include keycast in modeline
-    (setq keycast-mode-line-insert-after "%e")))
+      ;; Include keycast in modeline
+      (setq keycast-mode-line-insert-after "%e"))))

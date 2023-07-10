@@ -75,21 +75,23 @@
   (use-package tetris
     :defer t
     :init
-    (push '("Tetris" . (tetris :quit spacemacs/tetris-quit-game
-                               :reset tetris-start-game))
-          helm-games-list)
-    (setq tetris-score-file (concat spacemacs-games-cache-directory
-                                    "tetris-scores.txt"))
+    (progn
+      (push '("Tetris" . (tetris :quit spacemacs/tetris-quit-game
+                                 :reset tetris-start-game))
+            helm-games-list)
+      (setq tetris-score-file (concat spacemacs-games-cache-directory
+                                      "tetris-scores.txt")))
     :config
-    (evilified-state-evilify-map tetris-mode-map
-      :mode  tetris-mode
-      :bindings
-      "h" 'tetris-move-left
-      "i" 'tetris-rotate-prev
-      "j" 'tetris-move-bottom
-      "k" 'tetris-rotate-next
-      "l" 'tetris-move-right
-      "q" 'spacemacs/tetris-quit-game)))
+    (progn
+      (evilified-state-evilify-map tetris-mode-map
+        :mode  tetris-mode
+        :bindings
+        "h" 'tetris-move-left
+        "i" 'tetris-rotate-prev
+        "j" 'tetris-move-bottom
+        "k" 'tetris-rotate-next
+        "l" 'tetris-move-right
+        "q" 'spacemacs/tetris-quit-game))))
 
 (defun games/init-sudoku ()
   (use-package sudoku
@@ -143,13 +145,14 @@
   (use-package typit
     :defer t
     :init
-    (push '("typit (beginner)" .
-            (spacemacs/games-start-typit-beginner
-             :quit (kill-buffer-ask (get-buffer "*typit*"))
-             :reset spacemacs/games-start-typit-beginner))
-          helm-games-list)
-    (push '("typit (expert)" .
-            (spacemacs/games-start-typit-expert
-             :quit (kill-buffer-ask (get-buffer "*typit*"))
-             :reset spacemacs/games-start-typit-expert))
-          helm-games-list)))
+    (progn
+      (push '("typit (beginner)" .
+              (spacemacs/games-start-typit-beginner
+               :quit (kill-buffer-ask (get-buffer "*typit*"))
+               :reset spacemacs/games-start-typit-beginner))
+            helm-games-list)
+      (push '("typit (expert)" .
+              (spacemacs/games-start-typit-expert
+               :quit (kill-buffer-ask (get-buffer "*typit*"))
+               :reset spacemacs/games-start-typit-expert))
+            helm-games-list))))

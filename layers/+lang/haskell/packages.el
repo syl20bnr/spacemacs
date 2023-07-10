@@ -92,8 +92,9 @@
       (spacemacs/set-leader-keys-for-major-mode mode "hf" 'helm-hoogle))))
 
 (defun haskell/post-init-flycheck ()
-  (add-hook 'dante-mode-hook
-              (lambda () (flycheck-add-next-checker 'haskell-dante '(warning . haskell-hlint)))
+  (progn
+    (add-hook 'dante-mode-hook
+              (lambda () (flycheck-add-next-checker 'haskell-dante '(warning . haskell-hlint))))
   (spacemacs/enable-flycheck 'haskell-mode)))
 
 

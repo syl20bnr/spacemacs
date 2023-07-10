@@ -27,13 +27,14 @@
   (use-package smex
     :defer t
     :init
-    (setq-default smex-history-length 32
-                  smex-save-file (concat spacemacs-cache-directory
-                                         ".smex-items"))
-    ;; define the key binding at the very end in order to allow the user
-    ;; to overwrite any key binding
-    (add-hook 'emacs-startup-hook
-              (lambda () (spacemacs/set-leader-keys
-                           dotspacemacs-emacs-command-key 'spacemacs/smex)))
-    (spacemacs/set-leader-keys "m:" 'spacemacs/smex-major-mode-commands)
-    (global-set-key (kbd "M-x") 'spacemacs/smex)))
+    (progn
+      (setq-default smex-history-length 32
+                    smex-save-file (concat spacemacs-cache-directory
+                                           ".smex-items"))
+      ;; define the key binding at the very end in order to allow the user
+      ;; to overwrite any key binding
+      (add-hook 'emacs-startup-hook
+                (lambda () (spacemacs/set-leader-keys
+                             dotspacemacs-emacs-command-key 'spacemacs/smex)))
+      (spacemacs/set-leader-keys "m:" 'spacemacs/smex-major-mode-commands)
+      (global-set-key (kbd "M-x") 'spacemacs/smex))))

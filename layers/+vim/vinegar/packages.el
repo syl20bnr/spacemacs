@@ -32,18 +32,22 @@
   (use-package dired+
     :defer t
     :init
-    (setq diredp-hide-details-initially-flag t)
-    (setq diredp-hide-details-propagate-flag t)
-    ;; use single buffer for all dired navigation
-    ;; disable font themeing from dired+
-    (setq font-lock-maximum-decoration (quote ((dired-mode . 1) (t . t))))
-    (toggle-diredp-find-file-reuse-dir 1)))
+    (progn
+      (setq diredp-hide-details-initially-flag t)
+      (setq diredp-hide-details-propagate-flag t)
+      ;; use single buffer for all dired navigation
+      ;; disable font themeing from dired+
+      (setq font-lock-maximum-decoration (quote ((dired-mode . 1) (t . t))))
+      (toggle-diredp-find-file-reuse-dir 1)
+      )))
 
 (defun vinegar/post-init-diff-hl ()
   (use-package diff-hl
     :defer t
     :init
-    (add-hook 'dired-mode-hook 'diff-hl-dired-mode)))
+    (progn
+      (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+      )))
 
 (defun vinegar/post-init-dired ()
   (use-package dired

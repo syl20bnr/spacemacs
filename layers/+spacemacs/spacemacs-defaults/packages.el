@@ -81,10 +81,11 @@
   (use-package bookmark
     :defer t
     :init
-    (setq bookmark-default-file (concat spacemacs-cache-directory "bookmarks")
-          ;; autosave each change
-          bookmark-save-flag 1)
-    (spacemacs/set-leader-keys "fb" 'bookmark-jump)))
+    (progn
+      (setq bookmark-default-file (concat spacemacs-cache-directory "bookmarks")
+            ;; autosave each change
+            bookmark-save-flag 1)
+      (spacemacs/set-leader-keys "fb" 'bookmark-jump))))
 
 (defun spacemacs-defaults/init-conf-mode ()
   :init
@@ -195,43 +196,46 @@
   (use-package ediff
     :defer t
     :init
-    ;; first we set some sane defaults
-    (setq-default
-     ediff-window-setup-function 'ediff-setup-windows-plain
-     ;; emacs is evil and decrees that vertical shall henceforth be horizontal
-     ediff-split-window-function 'split-window-horizontally
-     ediff-merge-split-window-function 'split-window-horizontally)
-    ;; show org ediffs unfolded
-    (require 'outline)
-    (add-hook 'ediff-prepare-buffer-hook #'show-all)
-    ;; restore window layout when done
-    (add-hook 'ediff-quit-hook #'winner-undo)))
+    (progn
+      ;; first we set some sane defaults
+      (setq-default
+       ediff-window-setup-function 'ediff-setup-windows-plain
+       ;; emacs is evil and decrees that vertical shall henceforth be horizontal
+       ediff-split-window-function 'split-window-horizontally
+       ediff-merge-split-window-function 'split-window-horizontally)
+      ;; show org ediffs unfolded
+      (require 'outline)
+      (add-hook 'ediff-prepare-buffer-hook #'show-all)
+      ;; restore window layout when done
+      (add-hook 'ediff-quit-hook #'winner-undo))))
 
 (defun spacemacs-defaults/init-eldoc ()
   (use-package eldoc
     :defer (spacemacs/defer)
     :init (spacemacs|require-when-dumping 'eldoc)
     :config
-    ;; enable eldoc in `eval-expression'
-    (add-hook 'eval-expression-minibuffer-setup-hook #'eldoc-mode)
-    ;; enable eldoc in IELM
-    (add-hook 'ielm-mode-hook #'eldoc-mode)
-    ;; don't display eldoc on modeline
-    (spacemacs|hide-lighter eldoc-mode)
+    (progn
+      ;; enable eldoc in `eval-expression'
+      (add-hook 'eval-expression-minibuffer-setup-hook #'eldoc-mode)
+      ;; enable eldoc in IELM
+      (add-hook 'ielm-mode-hook #'eldoc-mode)
+      ;; don't display eldoc on modeline
+      (spacemacs|hide-lighter eldoc-mode)
 
-    ;; eldoc-message-commands
-    (eldoc-add-command #'evil-insert)
-    (eldoc-add-command #'evil-insert-line)
-    (eldoc-add-command #'evil-append)
-    (eldoc-add-command #'evil-append-line)
-    (eldoc-add-command #'evil-force-normal-state)))
+      ;; eldoc-message-commands
+      (eldoc-add-command #'evil-insert)
+      (eldoc-add-command #'evil-insert-line)
+      (eldoc-add-command #'evil-append)
+      (eldoc-add-command #'evil-append-line)
+      (eldoc-add-command #'evil-force-normal-state))))
 
 (defun spacemacs-defaults/init-help-fns+ ()
   (use-package help-fns+
     :commands (describe-keymap)
     :init
-    (spacemacs/set-leader-keys "hdK" 'describe-keymap)
-    (advice-add 'help-do-xref :after (lambda (_pos _func _args) (setq-local tab-width 8)))))
+    (progn
+      (spacemacs/set-leader-keys "hdK" 'describe-keymap)
+      (advice-add 'help-do-xref :after (lambda (_pos _func _args) (setq-local tab-width 8))))))
 
 (defun spacemacs-defaults/init-hi-lock ()
   (with-eval-after-load 'hi-lock
@@ -241,25 +245,26 @@
   (use-package image-mode
     :defer t
     :init
-    (setq image-animate-loop t)
-    (spacemacs/declare-prefix-for-mode 'image-mode "ma" "animate")
-    (spacemacs/declare-prefix-for-mode 'image-mode "mg" "goto file")
-    (spacemacs/declare-prefix-for-mode 'image-mode "mt" "transform/resize")
-    (spacemacs/set-leader-keys-for-major-mode 'image-mode
-      "aa" 'image-toggle-animation
-      "a+" 'image-increase-speed
-      "a-" 'image-decrease-speed
-      "ar" 'image-reset-speed
-      "gn" 'image-next-file
-      "gN" 'image-previous-file
-      "t+" 'image-increase-size
-      "t-" 'image-decrease-size
-      "tf" 'image-mode-fit-frame
-      "tr" 'image-transform-reset
-      "th" 'image-transform-fit-to-height
-      "tw" 'image-transform-fit-to-width
-      "ts" 'image-transform-set-scale
-      "tr" 'image-transform-rotation)
+    (progn
+      (setq image-animate-loop t)
+      (spacemacs/declare-prefix-for-mode 'image-mode "ma" "animate")
+      (spacemacs/declare-prefix-for-mode 'image-mode "mg" "goto file")
+      (spacemacs/declare-prefix-for-mode 'image-mode "mt" "transform/resize")
+      (spacemacs/set-leader-keys-for-major-mode 'image-mode
+        "aa" 'image-toggle-animation
+        "a+" 'image-increase-speed
+        "a-" 'image-decrease-speed
+        "ar" 'image-reset-speed
+        "gn" 'image-next-file
+        "gN" 'image-previous-file
+        "t+" 'image-increase-size
+        "t-" 'image-decrease-size
+        "tf" 'image-mode-fit-frame
+        "tr" 'image-transform-reset
+        "th" 'image-transform-fit-to-height
+        "tw" 'image-transform-fit-to-width
+        "ts" 'image-transform-set-scale
+        "tr" 'image-transform-rotation))
     :config (evilified-state-evilify-map image-mode-map
               :mode image-mode
               :bindings
@@ -277,95 +282,98 @@
   (use-package display-line-numbers
     :defer t
     :init
-    (setq display-line-numbers-type (spacemacs/line-numbers-type))
+    (progn
+      (setq display-line-numbers-type (spacemacs/line-numbers-type))
 
-    (spacemacs/declare-prefix "tn" "line-numbers")
+      (spacemacs/declare-prefix "tn" "line-numbers")
 
-    (spacemacs|add-toggle line-numbers
-      :status (and (featurep 'display-line-numbers)
-                   display-line-numbers-mode)
-      :on (prog1 (display-line-numbers-mode)
-            (setq display-line-numbers (spacemacs/line-numbers-type)))
-      :off (display-line-numbers-mode -1)
-      :on-message "Line numbers enabled per dotspacemacs-line-numbers."
-      :off-message "Line numbers disabled."
-      :documentation "Show line numbers as configured in .spacemacs."
-      :evil-leader "tnn")
+      (spacemacs|add-toggle line-numbers
+        :status (and (featurep 'display-line-numbers)
+                     display-line-numbers-mode)
+        :on (prog1 (display-line-numbers-mode)
+              (setq display-line-numbers (spacemacs/line-numbers-type)))
+        :off (display-line-numbers-mode -1)
+        :on-message "Line numbers enabled per dotspacemacs-line-numbers."
+        :off-message "Line numbers disabled."
+        :documentation "Show line numbers as configured in .spacemacs."
+        :evil-leader "tnn")
 
-    (spacemacs|add-toggle absolute-line-numbers
-      :status (and (featurep 'display-line-numbers)
-                   display-line-numbers-mode
-                   (eq display-line-numbers t))
-      :on (prog1 (display-line-numbers-mode)
-            (setq display-line-numbers t))
-      :off (display-line-numbers-mode -1)
-      :on-message "Absolute line numbers enabled."
-      :off-message "Line numbers disabled."
-      :documentation "Show absolute line numbers."
-      :evil-leader "tna")
+      (spacemacs|add-toggle absolute-line-numbers
+        :status (and (featurep 'display-line-numbers)
+                     display-line-numbers-mode
+                     (eq display-line-numbers t))
+        :on (prog1 (display-line-numbers-mode)
+              (setq display-line-numbers t))
+        :off (display-line-numbers-mode -1)
+        :on-message "Absolute line numbers enabled."
+        :off-message "Line numbers disabled."
+        :documentation "Show absolute line numbers."
+        :evil-leader "tna")
 
-    (spacemacs|add-toggle relative-line-numbers
-      :status (and (featurep 'display-line-numbers)
-                   display-line-numbers-mode
-                   (eq display-line-numbers 'relative))
-      :on (prog1 (display-line-numbers-mode)
-            (setq display-line-numbers 'relative))
-      :off (display-line-numbers-mode -1)
-      :documentation "Show relative line numbers."
-      :on-message "Relative line numbers enabled."
-      :off-message "Line numbers disabled."
-      :evil-leader "tnr")
+      (spacemacs|add-toggle relative-line-numbers
+        :status (and (featurep 'display-line-numbers)
+                     display-line-numbers-mode
+                     (eq display-line-numbers 'relative))
+        :on (prog1 (display-line-numbers-mode)
+              (setq display-line-numbers 'relative))
+        :off (display-line-numbers-mode -1)
+        :documentation "Show relative line numbers."
+        :on-message "Relative line numbers enabled."
+        :off-message "Line numbers disabled."
+        :evil-leader "tnr")
 
-    (spacemacs|add-toggle visual-line-numbers
-      :status (and (featurep 'display-line-numbers)
-                   display-line-numbers-mode
-                   (eq display-line-numbers 'visual))
-      :on (prog1 (display-line-numbers-mode)
-            (setq display-line-numbers 'visual))
-      :off (display-line-numbers-mode -1)
-      :documentation "Show relative visual line numbers."
-      :on-message "Visual line numbers enabled."
-      :off-message "Line numbers disabled."
-      :evil-leader "tnv")
+      (spacemacs|add-toggle visual-line-numbers
+        :status (and (featurep 'display-line-numbers)
+                     display-line-numbers-mode
+                     (eq display-line-numbers 'visual))
+        :on (prog1 (display-line-numbers-mode)
+              (setq display-line-numbers 'visual))
+        :off (display-line-numbers-mode -1)
+        :documentation "Show relative visual line numbers."
+        :on-message "Visual line numbers enabled."
+        :off-message "Line numbers disabled."
+        :evil-leader "tnv")
 
-    (when (spacemacs//linum-backward-compabitility)
-      (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-      (add-hook 'text-mode-hook 'display-line-numbers-mode))
+      (when (spacemacs//linum-backward-compabitility)
+        (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+        (add-hook 'text-mode-hook 'display-line-numbers-mode))
 
-    ;; it's ok to add an advice before the function is defined, and we must
-    ;; add this advice before calling `global-display-line-numbers-mode'
-    (advice-add #'display-line-numbers--turn-on :around #'spacemacs//linum-on)
-    (when dotspacemacs-line-numbers
-      ;; delay the initialization of number lines when opening Spacemacs
-      ;; normally. If opened via the command line with a file to visit then
-      ;; load it immediately
-      (add-hook 'emacs-startup-hook
-                (lambda ()
-                  (if (string-equal "*scratch*" (buffer-name))
-                      (spacemacs|add-transient-hook window-configuration-change-hook
-                        (lambda ()
-                          (global-display-line-numbers-mode))
-                        lazy-loading-line-numbers)
-                    (global-display-line-numbers-mode)))))))
+      ;; it's ok to add an advice before the function is defined, and we must
+      ;; add this advice before calling `global-display-line-numbers-mode'
+      (advice-add #'display-line-numbers--turn-on :around #'spacemacs//linum-on)
+      (when dotspacemacs-line-numbers
+        ;; delay the initialization of number lines when opening Spacemacs
+        ;; normally. If opened via the command line with a file to visit then
+        ;; load it immediately
+        (add-hook 'emacs-startup-hook
+                  (lambda ()
+                    (if (string-equal "*scratch*" (buffer-name))
+                        (spacemacs|add-transient-hook window-configuration-change-hook
+                          (lambda ()
+                            (global-display-line-numbers-mode))
+                          lazy-loading-line-numbers)
+                      (global-display-line-numbers-mode))))))))
 
 (defun spacemacs-defaults/init-linum ()
   (use-package linum
     :init
-    (setq linum-format "%4d")
-    (spacemacs|add-toggle line-numbers
-      :mode linum-mode
-      :documentation "Show the line numbers."
-      :evil-leader "tn")
-    (advice-add #'linum-update-window
-                :after #'spacemacs//linum-update-window-scale-fix)
-    (advice-add #'linum-on
-                :around #'spacemacs//linum-on)
+    (progn
+      (setq linum-format "%4d")
+      (spacemacs|add-toggle line-numbers
+        :mode linum-mode
+        :documentation "Show the line numbers."
+        :evil-leader "tn")
+      (advice-add #'linum-update-window
+                  :after #'spacemacs//linum-update-window-scale-fix)
+      (advice-add #'linum-on
+                  :around #'spacemacs//linum-on))
     :config
-    (when (spacemacs//linum-backward-compabitility)
-      (add-hook 'prog-mode-hook 'linum-mode)
-      (add-hook 'text-mode-hook 'linum-mode))
-    (when dotspacemacs-line-numbers
-      (global-linum-mode))))
+    (progn
+      (when (spacemacs//linum-backward-compabitility)
+        (add-hook 'prog-mode-hook 'linum-mode)
+        (add-hook 'text-mode-hook 'linum-mode))
+      (when dotspacemacs-line-numbers
+        (global-linum-mode)))))
 
 (defun spacemacs-defaults/init-occur-mode ()
   (evilified-state-evilify-map occur-mode-map
@@ -399,75 +407,80 @@
     :defer (spacemacs/defer)
     :commands (recentf-save-list)
     :init
-    (spacemacs|require-when-dumping 'recentf)
-    (when (spacemacs/defer)
-      (add-hook 'find-file-hook (lambda () (unless recentf-mode
-                                             (recentf-mode)
-                                             (recentf-track-opened-file)))))
-    (setq recentf-save-file (concat spacemacs-cache-directory "recentf")
-          recentf-max-saved-items 1000
-          recentf-auto-cleanup 'never
-          recentf-auto-save-timer (run-with-idle-timer 600 t
-                                                       'recentf-save-list))
+    (progn
+      (spacemacs|require-when-dumping 'recentf)
+      (when (spacemacs/defer)
+        (add-hook 'find-file-hook (lambda () (unless recentf-mode
+                                               (recentf-mode)
+                                               (recentf-track-opened-file)))))
+      (setq recentf-save-file (concat spacemacs-cache-directory "recentf")
+            recentf-max-saved-items 1000
+            recentf-auto-cleanup 'never
+            recentf-auto-save-timer (run-with-idle-timer 600 t
+                                                         'recentf-save-list)))
     :config
-    (add-to-list 'recentf-exclude
-                 (recentf-expand-file-name spacemacs-cache-directory))
-    (add-to-list 'recentf-exclude (recentf-expand-file-name package-user-dir))
-    (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
-    (when custom-file
-      (add-to-list 'recentf-exclude (recentf-expand-file-name custom-file)))))
+    (progn
+      (add-to-list 'recentf-exclude
+                   (recentf-expand-file-name spacemacs-cache-directory))
+      (add-to-list 'recentf-exclude (recentf-expand-file-name package-user-dir))
+      (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
+      (when custom-file
+        (add-to-list 'recentf-exclude (recentf-expand-file-name custom-file))))))
 
 (defun spacemacs-defaults/init-savehist ()
   (use-package savehist
     :init
-    ;; Minibuffer history
-    (setq savehist-file (concat spacemacs-cache-directory "savehist")
-          enable-recursive-minibuffers t ; Allow commands in minibuffers
-          history-length 1000
-          savehist-additional-variables '(mark-ring
-                                          global-mark-ring
-                                          search-ring
-                                          regexp-search-ring
-                                          extended-command-history
-                                          kill-ring)
-          savehist-autosave-interval 60)
-    (savehist-mode t)))
+    (progn
+      ;; Minibuffer history
+      (setq savehist-file (concat spacemacs-cache-directory "savehist")
+            enable-recursive-minibuffers t ; Allow commands in minibuffers
+            history-length 1000
+            savehist-additional-variables '(mark-ring
+                                            global-mark-ring
+                                            search-ring
+                                            regexp-search-ring
+                                            extended-command-history
+                                            kill-ring)
+            savehist-autosave-interval 60)
+      (savehist-mode t))))
 
 (defun spacemacs-defaults/init-saveplace ()
   (use-package saveplace
     :init
-    (if (fboundp 'save-place-mode)
-        ;; Emacs 25 has a proper mode for `save-place'
-        (save-place-mode)
-      (setq save-place t))
-    ;; Save point position between sessions
-    (setq save-place-file (concat spacemacs-cache-directory "places"))))
+    (progn
+      (if (fboundp 'save-place-mode)
+          ;; Emacs 25 has a proper mode for `save-place'
+          (save-place-mode)
+        (setq save-place t))
+      ;; Save point position between sessions
+      (setq save-place-file (concat spacemacs-cache-directory "places")))))
 
 (defun spacemacs-defaults/init-subword ()
   (use-package subword
     :defer t
     :init
-    (unless (category-docstring ?U)
-      (define-category ?U "Uppercase")
-      (define-category ?u "Lowercase"))
-    (modify-category-entry (cons ?A ?Z) ?U)
-    (modify-category-entry (cons ?a ?z) ?u)
-    (make-variable-buffer-local 'evil-cjk-word-separating-categories)
-    (defun spacemacs//subword-enable-camel-case ()
-      "Add support for camel case to subword."
-      (if subword-mode
-          (push '(?u . ?U) evil-cjk-word-separating-categories)
-        (setq evil-cjk-word-separating-categories
-              (default-value 'evil-cjk-word-separating-categories))))
-    (add-hook 'subword-mode-hook 'spacemacs//subword-enable-camel-case)
-    (spacemacs|add-toggle camel-case-motion
-      :mode subword-mode
-      :documentation "Toggle CamelCase motions."
-      :evil-leader "tc")
-    (spacemacs|add-toggle camel-case-motion-globally
-      :mode global-subword-mode
-      :documentation "Globally toggle CamelCase motions."
-      :evil-leader "t C-c")
+    (progn
+      (unless (category-docstring ?U)
+        (define-category ?U "Uppercase")
+        (define-category ?u "Lowercase"))
+      (modify-category-entry (cons ?A ?Z) ?U)
+      (modify-category-entry (cons ?a ?z) ?u)
+      (make-variable-buffer-local 'evil-cjk-word-separating-categories)
+      (defun spacemacs//subword-enable-camel-case ()
+        "Add support for camel case to subword."
+        (if subword-mode
+            (push '(?u . ?U) evil-cjk-word-separating-categories)
+          (setq evil-cjk-word-separating-categories
+                (default-value 'evil-cjk-word-separating-categories))))
+      (add-hook 'subword-mode-hook 'spacemacs//subword-enable-camel-case)
+      (spacemacs|add-toggle camel-case-motion
+        :mode subword-mode
+        :documentation "Toggle CamelCase motions."
+        :evil-leader "tc")
+      (spacemacs|add-toggle camel-case-motion-globally
+        :mode global-subword-mode
+        :documentation "Globally toggle CamelCase motions."
+        :evil-leader "t C-c"))
     :config
     (spacemacs|diminish subword-mode " ⓒ" " c")))
 
@@ -492,27 +505,29 @@
   (use-package whitespace
     :defer t
     :init
-    (when dotspacemacs-show-trailing-whitespace
-      (set-face-attribute
-       'trailing-whitespace nil
-       :background (face-attribute 'font-lock-comment-face :foreground)))
-    (add-hook 'prog-mode-hook 'spacemacs//trailing-whitespace)
-    (add-hook 'text-mode-hook 'spacemacs//trailing-whitespace)
+    (progn
+      (when dotspacemacs-show-trailing-whitespace
+        (set-face-attribute
+         'trailing-whitespace nil
+         :background (face-attribute 'font-lock-comment-face :foreground)))
+      (add-hook 'prog-mode-hook 'spacemacs//trailing-whitespace)
+      (add-hook 'text-mode-hook 'spacemacs//trailing-whitespace)
 
-    (spacemacs|add-toggle whitespace
-      :mode whitespace-mode
-      :documentation "Display whitespace."
-      :evil-leader "tw")
-    (spacemacs|add-toggle whitespace-globally
-      :mode global-whitespace-mode
-      :documentation "Display whitespace globally."
-      :evil-leader "t C-w")
+      (spacemacs|add-toggle whitespace
+        :mode whitespace-mode
+        :documentation "Display whitespace."
+        :evil-leader "tw")
+      (spacemacs|add-toggle whitespace-globally
+        :mode global-whitespace-mode
+        :documentation "Display whitespace globally."
+        :evil-leader "t C-w")
 
-    (add-hook 'diff-mode-hook 'whitespace-mode)
-    (add-hook 'diff-mode-hook 'spacemacs//set-whitespace-style-for-diff)
+      (add-hook 'diff-mode-hook 'whitespace-mode)
+      (add-hook 'diff-mode-hook 'spacemacs//set-whitespace-style-for-diff))
     :config
-    (spacemacs|diminish whitespace-mode " ⓦ" " w")
-    (spacemacs|diminish global-whitespace-mode " ⓦ" " w")))
+    (progn
+      (spacemacs|diminish whitespace-mode " ⓦ" " w")
+      (spacemacs|diminish global-whitespace-mode " ⓦ" " w"))))
 
 (defun spacemacs-defaults/init-winner ()
   (use-package winner
@@ -542,31 +557,32 @@
   (use-package zone
     :commands (zone zone-when-idle)
     :init
-    (when (and dotspacemacs-zone-out-when-idle
-               (numberp dotspacemacs-zone-out-when-idle))
-      (zone-when-idle dotspacemacs-zone-out-when-idle))
-    ;; remove not interesting programs
-    (setq zone-programs [
-                         ;; zone-pgm-jitter
-                         zone-pgm-putz-with-case
-                         zone-pgm-dissolve
-                         ;; zone-pgm-explode
-                         zone-pgm-whack-chars
-                         zone-pgm-rotate
-                         zone-pgm-rotate-LR-lockstep
-                         zone-pgm-rotate-RL-lockstep
-                         zone-pgm-rotate-LR-variable
-                         zone-pgm-rotate-RL-variable
-                         zone-pgm-drip
-                         ;; zone-pgm-drip-fretfully
-                         ;; zone-pgm-five-oclock-swan-dive
-                         ;; zone-pgm-martini-swan-dive
-                         zone-pgm-rat-race
-                         zone-pgm-paragraph-spaz])
-    ;; zone-pgm-stress
-    ;; zone-pgm-stress-destress
-    ;; zone-pgm-random-life
-    (spacemacs/set-leader-keys "TZ" 'zone)
+    (progn
+      (when (and dotspacemacs-zone-out-when-idle
+                 (numberp dotspacemacs-zone-out-when-idle))
+        (zone-when-idle dotspacemacs-zone-out-when-idle))
+      ;; remove not interesting programs
+      (setq zone-programs [
+                           ;; zone-pgm-jitter
+                           zone-pgm-putz-with-case
+                           zone-pgm-dissolve
+                           ;; zone-pgm-explode
+                           zone-pgm-whack-chars
+                           zone-pgm-rotate
+                           zone-pgm-rotate-LR-lockstep
+                           zone-pgm-rotate-RL-lockstep
+                           zone-pgm-rotate-LR-variable
+                           zone-pgm-rotate-RL-variable
+                           zone-pgm-drip
+                           ;; zone-pgm-drip-fretfully
+                           ;; zone-pgm-five-oclock-swan-dive
+                           ;; zone-pgm-martini-swan-dive
+                           zone-pgm-rat-race
+                           zone-pgm-paragraph-spaz])
+      ;; zone-pgm-stress
+      ;; zone-pgm-stress-destress
+      ;; zone-pgm-random-life
+      (spacemacs/set-leader-keys "TZ" 'zone))
     :config
     ;; be sure to disable running zone if the user does not want it
     (unless dotspacemacs-zone-out-when-idle

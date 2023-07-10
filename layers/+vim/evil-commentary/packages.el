@@ -29,6 +29,7 @@
 (defun evil-commentary/init-evil-commentary ()
   (use-package evil-commentary
     :init
-    (evil-commentary-mode)
-    (spacemacs/set-leader-keys ";" 'evil-commentary)
+    (progn
+      (evil-commentary-mode)
+      (spacemacs/set-leader-keys ";" 'evil-commentary))
     :config (spacemacs|hide-lighter evil-commentary-mode)))

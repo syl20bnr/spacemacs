@@ -28,8 +28,9 @@
   (use-package sailfish-scratchbox
     :defer t
     :init
-    (spacemacs/declare-prefix "cs" "sailfish os developer menu")
-    (spacemacs/set-leader-keys
-      "csb" 'sailfish-scratchbox-mb2-build
-      "csd" 'sailfish-scratchbox-deploy-rpms
-      "csi" 'sailfish-scratchbox-install-rpms)))
+    (progn
+      (spacemacs/declare-prefix "cs" "sailfish os developer menu")
+      (spacemacs/set-leader-keys
+        "csb" 'sailfish-scratchbox-mb2-build
+        "csd" 'sailfish-scratchbox-deploy-rpms
+        "csi" 'sailfish-scratchbox-install-rpms))))

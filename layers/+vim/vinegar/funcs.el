@@ -31,8 +31,8 @@
           (message "h")
           (dired-mark-files-regexp "^\\\.")
           (dired-do-kill-lines))
-      (revert-buffer) ; otherwise just revert to re-show
-      (setq-local dired-dotfiles-show-p t))))
+      (progn (revert-buffer) ; otherwise just revert to re-show
+             (setq-local dired-dotfiles-show-p t)))))
 
 (defun vinegar/back-to-top ()
   "Move to first file"

@@ -29,53 +29,59 @@
 (defun openai/init-openai ()
   (use-package openai
     :init
-    (spacemacs/declare-prefix "$" "AI")
-    (spacemacs/declare-prefix "$o" "OpenAI")
-    (spacemacs/declare-prefix "$oi" "OpenAI images")
-    (spacemacs/set-leader-keys
-      "$ob" 'openai-completion-buffer-insert
-      "$om" 'openai-list-models
-      "$oM" 'openai-retrieve-model
-      "$os" 'openai-completion-select-insert
-      "$oC" 'openai-chat-say
-      "$oe" 'openai-edit-prompt
-      "$oE" 'openai-embedding-create
-      "$oie" 'openai-image-edit-prompt
-      "$oii" 'openai-image-prompt
-      "$oiv" 'openai-image-variation-prompt)))
+    (progn
+      (spacemacs/declare-prefix "$" "AI")
+      (spacemacs/declare-prefix "$o" "OpenAI")
+      (spacemacs/declare-prefix "$oi" "OpenAI images")
+      (spacemacs/set-leader-keys
+        "$ob" 'openai-completion-buffer-insert
+        "$om" 'openai-list-models
+        "$oM" 'openai-retrieve-model
+        "$os" 'openai-completion-select-insert
+        "$oC" 'openai-chat-say
+        "$oe" 'openai-edit-prompt
+        "$oE" 'openai-embedding-create
+        "$oie" 'openai-image-edit-prompt
+        "$oii" 'openai-image-prompt
+        "$oiv" 'openai-image-variation-prompt))))
 
 (defun openai/init-chatgpt ()
   (use-package chatgpt
     :init
-    (spacemacs/set-leader-keys
-      ;; ChatGPT session
-      "$og" 'chatgpt)
+    (progn
+      (spacemacs/set-leader-keys
+        ;; ChatGPT session
+        "$og" 'chatgpt))
     :config
-    (evilified-state-evilify-map chatgpt-mode-map
-      :mode chatgpt-mode
-      :bindings
-      (kbd "<return>") 'chatgpt-type-response)))
+    (progn
+      (evilified-state-evilify-map chatgpt-mode-map
+        :mode chatgpt-mode
+        :bindings
+        (kbd "<return>") 'chatgpt-type-response))))
 
 (defun openai/init-codegpt ()
   (use-package codegpt
     :init
-    (spacemacs/declare-prefix "$oc" "codegpt")
-    (spacemacs/set-leader-keys
-      ;; Coding tools
-      "$occ" 'codegpt
-      "$ocC" 'codegpt-custom
-      "$ocd" 'codegpt-doc
-      "$ocf" 'codegpt-fix
-      "$oce" 'codegpt-explain
-      "$oci" 'codegpt-improve)))
+    (progn
+      (spacemacs/declare-prefix "$oc" "codegpt")
+      (spacemacs/set-leader-keys
+        ;; Coding tools
+        "$occ" 'codegpt
+        "$ocC" 'codegpt-custom
+        "$ocd" 'codegpt-doc
+        "$ocf" 'codegpt-fix
+        "$oce" 'codegpt-explain
+        "$oci" 'codegpt-improve))))
 
 (defun openai/init-dall-e ()
   (use-package dall-e
     :init
-    (spacemacs/set-leader-keys
-      "$oid" 'dall-e)
+    (progn
+      (spacemacs/set-leader-keys
+        "$oid" 'dall-e))
     :config
-    (evilified-state-evilify-map dall-e-mode-map
-      :mode dall-e-mode
-      :bindings
-      (kbd "<return>") 'dall-e-type-response)))
+    (progn
+      (evilified-state-evilify-map dall-e-mode-map
+        :mode dall-e-mode
+        :bindings
+        (kbd "<return>") 'dall-e-type-response))))

@@ -68,9 +68,10 @@
 
 (defun latex/build ()
   (interactive)
-  (let ((TeX-save-query nil))
-    (TeX-save-document (TeX-master-file)))
-  (TeX-command latex-build-command 'TeX-master-file -1))
+  (progn
+    (let ((TeX-save-query nil))
+      (TeX-save-document (TeX-master-file)))
+    (TeX-command latex-build-command 'TeX-master-file -1)))
 ;; (setq build-proc (TeX-command latex-build-command 'TeX-master-file -1))
 ;; ;; Sometimes, TeX-command returns nil causing an error in set-process-sentinel
 ;; (when build-proc

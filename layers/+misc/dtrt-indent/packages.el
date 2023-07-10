@@ -31,6 +31,7 @@
                 (dtrt-indent-mode)
                 (dtrt-indent-adapt)))
     :config
-    (spacemacs|hide-lighter dtrt-indent-mode)))
+    (progn
+      (spacemacs|hide-lighter dtrt-indent-mode))))
 
 ;;; packages.el ends here

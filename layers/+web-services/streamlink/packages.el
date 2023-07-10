@@ -27,6 +27,7 @@
   (use-package streamlink
     :defer t
     :init
-    (spacemacs/declare-prefix "aws" "stream")
-    (spacemacs/set-leader-keys
-      "awss" 'streamlink-open-url)))
+    (progn
+      (spacemacs/declare-prefix "aws" "stream")
+      (spacemacs/set-leader-keys
+        "awss" 'streamlink-open-url))))

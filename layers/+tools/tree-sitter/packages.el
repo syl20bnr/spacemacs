@@ -35,10 +35,12 @@
   (use-package tree-sitter
     :defer t
     :init
-    (when tree-sitter-syntax-highlight-enable
-      (add-hook 'tree-sitter-after-on-hook #'spacemacs//tree-sitter-hl-maybe))
+    (progn
+      (when tree-sitter-syntax-highlight-enable
+        (add-hook 'tree-sitter-after-on-hook #'spacemacs//tree-sitter-hl-maybe)))
     :config
-    (global-tree-sitter-mode)))
+    (progn
+      (global-tree-sitter-mode))))
 
 (defun tree-sitter/init-tree-sitter-langs ()
   (use-package tree-sitter-langs
@@ -49,16 +51,18 @@
     :if tree-sitter-indent-enable
     :defer t
     :init
-    (add-hook 'rust-mode-hook #'tree-sitter-indent-mode)))
+    (progn
+      (add-hook 'rust-mode-hook #'tree-sitter-indent-mode))))
 
 (defun tree-sitter/init-ts-fold ()
   (use-package ts-fold
     :if tree-sitter-fold-enable
     :defer t
     :init
-    (when tree-sitter-fold-enable
-      (if tree-sitter-fold-indicators-enable
-          (progn
-            (setq ts-fold-indicators-priority 0)
-            (global-ts-fold-indicators-mode))
-        (global-ts-fold-mode)))))
+    (progn
+      (when tree-sitter-fold-enable
+        (if tree-sitter-fold-indicators-enable
+            (progn
+              (setq ts-fold-indicators-priority 0)
+              (global-ts-fold-indicators-mode))
+          (global-ts-fold-mode))))))
