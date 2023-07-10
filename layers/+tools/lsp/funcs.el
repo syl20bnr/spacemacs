@@ -319,7 +319,7 @@ EXTRA is an additional parameter that's passed to the LSP function"
   (mapcar 'lsp--client-server-id (mapcar 'lsp--workspace-client (lsp-workspaces))))
 
 
-;; ivy integration
+;; avy integration
 
 (defun spacemacs//lsp-avy-document-symbol (all)
   (interactive)
@@ -340,7 +340,9 @@ EXTRA is an additional parameter that's passed to the LSP function"
                                  :startLine ,start-line :endLine ,end-line)))
                for range = (if ccls
                                loc
-                             (->> loc (gethash "location") (gethash "range")))
+                             (if (gethash "location" loc)
+                                 (->> loc (gethash "location") (gethash "range"))
+                               (->> loc (gethash "range"))))
                for range_start = (gethash "start" range)
                for range_end = (gethash "end" range)
                for l0 = (gethash "line" range_start)
