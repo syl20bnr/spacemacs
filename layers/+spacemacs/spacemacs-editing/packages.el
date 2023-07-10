@@ -168,25 +168,25 @@
       (defadvice er/prepare-for-more-expansions-internal
           (around helm-ag/prepare-for-more-expansions-internal activate)
         ad-do-it
-        (let ((new-msg (concat (car ad-return-value
+        (let ((new-msg (concat (car ad-return-value)
                                 ", / to search in project, "
                                 "f to search in files, "
-                                "b to search in opened buffers")))
+                                "b to search in opened buffers"))
               (new-bindings (cdr ad-return-value)))
           (cl-pushnew
             '("/" (lambda ()
-                    (call-interactively)
-                    'spacemacs/helm-project-smart-do-search-region-or-symbol))
+                    (call-interactively
+                    'spacemacs/helm-project-smart-do-search-region-or-symbol)))
             new-bindings)
           (cl-pushnew
             '("f" (lambda ()
-                    (call-interactively)
-                    'spacemacs/helm-files-smart-do-search-region-or-symbol))
+                    (call-interactively
+                    'spacemacs/helm-files-smart-do-search-region-or-symbol)))
             new-bindings)
           (cl-pushnew
             '("b" (lambda ()
-                    (call-interactively)
-                    'spacemacs/helm-buffers-smart-do-search-region-or-symbol))
+                    (call-interactively
+                    'spacemacs/helm-buffers-smart-do-search-region-or-symbol)))
             new-bindings)
           (setq ad-return-value (cons new-msg new-bindings))))
       (setq expand-region-contract-fast-key "V"
