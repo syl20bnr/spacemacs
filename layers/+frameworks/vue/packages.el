@@ -37,9 +37,8 @@
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
 
   ;; Setup stuff to be run each time we load the mode
-  (add-hook 'vue-mode-local-vars-hook #'spacemacs//vue-setup-backend)
-  (spacemacs/add-to-hook 'vue-mode-hook '(spacemacs//vue-setup-editor-style))
-
+  (spacemacs/add-local-var-hook #'spacemacs//vue-setup-backend
+                                :major-mode 'vue-mode)
   ;; Add stuff to run just once
   (spacemacs//vue-setup-keybindings)
   (spacemacs//vue-setup-transient-state))
@@ -48,7 +47,8 @@
   (add-hook 'vue-mode-hook #'add-node-modules-path))
 
 (defun vue/post-init-company ()
-  (add-hook 'vue-mode-local-vars-hook #'spacemacs//vue-setup-company))
+  (spacemacs/add-local-var-hook #'spacemacs//vue-setup-company
+                                :major-mode 'vue-mode))
 
 (defun vue/post-init-evil-matchit ()
   (evilmi-load-plugin-rules '(vue-mode) '(template simple html))
