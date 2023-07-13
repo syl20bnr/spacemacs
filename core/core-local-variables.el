@@ -63,12 +63,12 @@ This variable should a buffer local variable.")
   "Run major mode hook configuration and enable projet minor modes.
 
 This function is run after the local variables have been processed."
-  (run-hooks (intern (format "spacemacs-%S-local-vars-major-mode-hook"
-                             major-mode)))
   (when spacemacs-project-types
     (dolist (type spacemacs-project-types)
       (run-hooks (intern (format "spacemacs-%S-local-vars-project-type-hook"
-                                 type))))))
+                                 type)))))
+  (run-hooks (intern (format "spacemacs-%S-local-vars-major-mode-hook"
+                             major-mode))))
 
 ;; install spacemacs hack local variables system
 (add-hook 'hack-local-variables-hook
