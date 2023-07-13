@@ -50,7 +50,7 @@
                                                     js2-mode-hook)))
 
 (defun javascript/post-init-company ()
-  (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-company))
+  (spacemacs/add-local-var-hook #'spacemacs//javascript-setup-company :major-mode 'js2-mode))
 
 (defun javascript/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'js2-mode))
@@ -58,7 +58,7 @@
 (defun javascript/pre-init-dap-mode ()
   (when (eq javascript-backend 'lsp)
     (add-to-list 'spacemacs--dap-supported-modes 'js2-mode))
-  (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-dap))
+  (spacemacs/add-local-var-hook #'spacemacs//javascript-setup-dap :major-mode 'js2-mode))
 
 (defun javascript/post-init-evil-matchit ()
   (add-hook `js2-mode-hook `turn-on-evil-matchit-mode))
@@ -68,7 +68,7 @@
   (add-hook 'js2-mode-hook #'spacemacs//javascript-setup-checkers 'append))
 
 (defun javascript/post-init-ggtags ()
-  (add-hook 'js2-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (spacemacs/add-local-var-hook #'spacemacs/ggtags-mode-enable :major-mode 'js2-mode))
 
 (defun javascript/post-init-imenu ()
   ;; Required to make imenu functions work correctly
@@ -109,15 +109,15 @@
     :defer t
     :mode (("\\.[cm]?js\\'"  . js2-mode))
     :init
-    (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-backend)
-    (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-next-error-fn)
+    (spacemacs/add-local-var-hook #'spacemacs//javascript-setup-backend :major-mode 'js2-mode)
+    (spacemacs/add-local-var-hook #'spacemacs//javascript-setup-next-error-fn :major-mode 'js2-mode)
     ;; safe values for backend to be used in directory file variables
     (dolist (value '(lsp tern tide))
       (add-to-list 'safe-local-variable-values
                    (cons 'javascript-backend value)))
     :config
     (when javascript-fmt-on-save
-      (add-hook 'js2-mode-local-vars-hook 'spacemacs/javascript-fmt-before-save-hook))
+      (spacemacs/add-local-var-hook #'spacemacs/javascript-fmt-before-save-hook :major-mode 'js2-mode))
     ;; prefixes
     (spacemacs/declare-prefix-for-mode 'js2-mode "mh" "documentation")
     (spacemacs/declare-prefix-for-mode 'js2-mode "mg" "goto")
