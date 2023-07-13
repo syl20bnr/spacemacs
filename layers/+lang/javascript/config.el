@@ -29,6 +29,7 @@
   "The backend to use for IDE features.
 Possible values are `tern', `tide' and `lsp'.
 If `nil' then `tern' is the default backend unless `lsp' layer is used.")
+(put 'javascript-backend 'safe-local-variable #'symbolp)
 
 (defvar javascript-fmt-tool 'web-beautify
   "The formatter to format a JavaScript file. Possible values are `web-beautify' and `prettier'.")
