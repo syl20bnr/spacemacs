@@ -47,6 +47,9 @@
         ;; so eslint won't be overriden
         (when vue-ignore-lsp-diagnostics
           (setq-local lsp-diagnostics-provider :none))
+        (setq lsp-volar-take-over-mode nil)
+        ;; (setq lsp-enabled-clients '(vue-semantic-server))
+        ;; (require 'lsp-volar)
         (lsp-deferred))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
