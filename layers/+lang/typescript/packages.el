@@ -40,14 +40,12 @@
                                                     typescript-tsx-mode-hook)))
 
 (defun typescript/post-init-company ()
-  (spacemacs/add-to-hooks #'spacemacs//typescript-setup-company
-                          '(typescript-mode-local-vars-hook
-                            typescript-tsx-mode-local-vars-hook)))
+  (spacemacs/add-local-var-hook #'spacemacs//typescript-setup-company :major-mode 'typescript-mode)
+  (spacemacs/add-local-var-hook #'spacemacs//typescript-setup-company :major-mode 'typescript-tsx-mode))
 
 (defun typescript/post-init-eldoc ()
-  (spacemacs/add-to-hooks #'spacemacs//typescript-setup-eldoc
-                          '(typescript-mode-local-vars-hook
-                            typescript-tsx-mode-local-vars-hook) t))
+  (spacemacs/add-local-var-hook #'spacemacs//typescript-setup-eldoc :major-mode 'typescript-mode)
+  (spacemacs/add-local-var-hook #'spacemacs//typescript-setup-eldoc :major-mode 'typescript-tsx-mode))
 
 (defun typescript/post-init-emmet-mode ()
   (add-hook 'typescript-tsx-mode-hook #'spacemacs/typescript-emmet-mode))
@@ -86,9 +84,8 @@
   (spacemacs/add-to-hooks #'spacemacs//typescript-setup-checkers
                           '(typescript-mode-hook typescript-tsx-mode-hook)
                           t)
-  (spacemacs/add-to-hooks #'typescript/set-linter
-                          '(typescript-mode-local-vars-hook typescript-tsx-mode-local-vars-hook)
-                          t))
+  (spacemacs/add-local-var-hook #'typescript/set-linter :major-mode 'typescript-mode)
+  (spacemacs/add-local-var-hook #'typescript/set-linter :major-mode 'typescript-tsx-mode))
 
 (defun typescript/post-init-smartparens ()
   (spacemacs/add-to-hooks #'spacemacs//activate-smartparens '(typescript-mode-hook
@@ -107,11 +104,13 @@
   (use-package typescript-mode
     :defer t
     :init
-    (spacemacs/typescript-safe-local-variables '(lsp tide))
-    (spacemacs/typescript-mode-init 'typescript-mode-local-vars-hook)
+    (spacemacs/add-local-var-hook #'spacemacs//typescript-setup-backend :major-mode 'typescript-mode)
+    (when typescript-fmt-on-save
+      (spacemacs/add-local-var-hook #'spacemacs/typescript-fmt-before-save-hook :major-mode 'typescript-mode))
     ;; init tsx locals here to get proper order 
-    (spacemacs/typescript-mode-init 'typescript-tsx-mode-local-vars-hook)
-    :config (spacemacs/typescript-mode-config 'typescript-mode)))
+    (spacemacs/add-local-var-hook #'spacemacs//typescript-setup-backend :major-mode 'typescript-tsx-mode)
+    :config
+    (spacemacs/typescript-mode-config 'typescript-mode)))
 
 (defun typescript/pre-init-import-js ()
   (when (eq javascript-import-tool 'import-js)
