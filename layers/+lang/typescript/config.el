@@ -34,6 +34,7 @@ Possible values are 'tide (default), 'typescript-formatter and 'prettier.")
   "The backend to use for IDE features.
 Possible values are `tide' and `lsp'.
 If `nil' then `tide' is the default backend unless `lsp' layer is used.")
+(put 'typescript-backend 'safe-local-variable #'symbolp)
 
 (defvar typescript-linter 'tslint
   "The linter to use for typescript. Possible values are `tslint' `eslint'")
