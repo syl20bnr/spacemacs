@@ -407,8 +407,6 @@
       "sl" 'spacemacs/python-shell-send-line
       "ss" 'spacemacs/python-shell-send-with-output)
 
-    (setq spacemacs--python-shell-interpreter-origin
-          (eval (car (get 'python-shell-interpreter 'standard-value))))
     ;; Set `python-indent-guess-indent-offset' to `nil' to prevent guessing `python-indent-offset
     ;; (we call python-indent-guess-indent-offset manually so python-mode does not need to do it)
     (setq-default python-indent-guess-indent-offset nil)
@@ -436,10 +434,15 @@
     ;; add this optional key binding for Emacs user, since it is unbound
     (define-key inferior-python-mode-map
       (kbd "C-c M-l") 'spacemacs/comint-clear-buffer)
-    ;; setup the global variables for python shell
-    (spacemacs//python-setup-shell default-directory)
-    (dolist (x '(python-shell-interpreter python-shell-interpreter-args))
-      (set-default-toplevel-value x (symbol-value x)))))
+
+    (setq spacemacs--python-shell-interpreter-origin
+          (eval (car (get 'python-shell-interpreter 'standard-value))))
+    ;; setup the global variables for python shell if no custom value
+    (when (equal python-shell-interpreter spacemacs--python-shell-interpreter-origin)
+      (spacemacs//python-setup-shell default-directory)
+      (setq spacemacs--python-shell-interpreter-origin python-shell-interpreter)
+      (dolist (x '(python-shell-interpreter python-shell-interpreter-args))
+        (set-default-toplevel-value x (symbol-value x))))))
 
 (defun python/post-init-semantic ()
   (when (configuration-layer/package-used-p 'anaconda-mode)
