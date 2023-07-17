@@ -438,16 +438,14 @@ to using it:
   (use-package package-name
     :defer t
     :init
-    (progn
-      ;; Change some variables
-      (setq variable1 t variable2 nil)
-      ;; Define a function
-      (defun foo ()
-        (message "%s" "Hello, World!")))
+    ;; Change some variables
+    (setq variable1 t variable2 nil)
+    ;; Define a function
+    (defun foo ()
+      (message "%s" "Hello, World!"))
     :config
-    (progn
-      ;; Calling a function that is defined when the package loads
-      (function-defined-when-package-loads)))
+    ;; Calling a function that is defined when the package loads
+    (function-defined-when-package-loads))
 #+END_SRC
 
 This is just a very basic overview of =use-package=. There are many other ways
