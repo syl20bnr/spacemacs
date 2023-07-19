@@ -9,16 +9,12 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
-  - [[#choosing-a-backend][Choosing a backend]]
-    - [[#racer][Racer]]
-    - [[#lsp][LSP]]
-      - [[#switch-to-another-lsp-server][Switch to another LSP server]]
-      - [[#autocompletion][Autocompletion]]
-      - [[#debugger-dap-integration][Debugger (dap integration)]]
-      - [[#automatically-reload-workspace][Automatically Reload Workspace]]
+  - [[#lsp][LSP]]
+    - [[#autocompletion][Autocompletion]]
+    - [[#debugger-dap-integration][Debugger (dap integration)]]
+    - [[#automatically-reload-workspace][Automatically Reload Workspace]]
   - [[#cargo][Cargo]]
     - [[#cargo-edit][cargo-edit]]
-    - [[#cargo-audit][cargo-audit]]
     - [[#cargo-outdated][cargo-outdated]]
   - [[#rustfmt][Rustfmt]]
   - [[#clippy][Clippy]]
@@ -29,7 +25,7 @@
 This layer supports [[https://www.rust-lang.org][Rust]] development in Spacemacs.
 
 ** Features:
-- Auto-completion and navigation support through [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] or [[https://github.com/phildawes/racer][Racer]]
+- Auto-completion and navigation support through [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]]
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 - Support for the Rust package manager [[http://doc.crates.io/index.html][Cargo]]
 - Support for [[https://github.com/nabero/ron-mode][Rusty Object Notation (RON)]]
@@ -40,61 +36,16 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =rust= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-** Choosing a backend
-To choose a default backend set the layer variable =rust-backend=:
+** LSP
+The =lsp= backend will be automatically enabled if the layer =lsp= is used.
 
-#+BEGIN_SRC elisp
-  (rust :variables rust-backend 'racer)
-#+END_SRC
-
-Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
-is used and you did not specify any value for =rust-backend=.
-
-Backend can be chosen on a per project basis using directory local variables
-(files named =.dir-locals.el= at the root of a project), an example to use the
-=lsp= backend:
-
-#+BEGIN_SRC elisp
-  ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
-
-  ((rust-mode (rust-backend . lsp)))
-#+END_SRC
-
-*Note:* you can easily add a directory local variable with ~SPC f v d~.
-
-*** Racer
-You must install [[https://github.com/phildawes/racer][Racer]] to use this backend. Make sure the =racer= binary is available in
-your =PATH= and to set the environment variable =RUST_SRC_PATH=, as described in
-the [[https://github.com/phildawes/racer#installation][installation instructions]].
-
+*** Autocompletion
 To enable auto-completion, ensure that the =auto-completion= layer is enabled.
 
-*** LSP
-You must add =lsp= to the existing =dotspacemacs-configuration-layers= in your =~/.spacemacs=.
-
-Consult the installation command for the desired language server found at [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] for instructions.
-
-The default LSP server for Rust is [[https://github.com/rust-lang/rls][rls]], i.e. rust language server.
-To choose the experimental [[https://github.com/rust-analyzer/rust-analyzer][rust-analyzer]], you need to set the layer variable =lsp-rust-server= of =lsp= layer:
-
-#+BEGIN_SRC elisp
-  (setq-default dotspacemacs-configuration-layers
-                 '(lsp :variables lsp-rust-server 'rust-analyzer))
-#+END_SRC
-
-**** Switch to another LSP server
-If both =rls= and =rust-analyzer= server are installed, you can press ~SPC m s s~ to switch to another LSP server backend.
-
-**** Autocompletion
-To enable auto-completion, ensure that the =auto-completion= layer is enabled.
-
-By default, currently [[https://github.com/phildawes/racer][Racer]] is the only code completion backend of [[https://github.com/rust-lang/rls][rls]], so you also need to install it.
-
-**** Debugger (dap integration)
+*** Debugger (dap integration)
 To install the debug adapter you may run =M-x dap-gdb-lldb-setup= when you are on Linux or download it manually from [[https://marketplace.visualstudio.com/items?itemName=webfreak.debug][Native Debug]] and adjust =dap-gdb-lldb-path=.
 
-**** Automatically Reload Workspace
+*** Automatically Reload Workspace
 When the LSP server is =rust-analyzer=, it may needs to reload the workspace to pickup changes made in =Cargo.toml=.
 You can call =spacemacs/lsp-rust-analyzer-reload-workspace=, which would be faster than restarting the LSP backend.
 
@@ -106,8 +57,7 @@ one of the following is run:
 
 #+BEGIN_SRC elisp
   (setq-default dotspacemacs-configuration-layers
-                 '(lsp :variables lsp-rust-server 'rust-analyzer
-                                  cargo-process-reload-on-modify t))
+                 '(lsp :variables cargo-process-reload-on-modify t))
 #+END_SRC
 
 ** Cargo

@@ -23,20 +23,12 @@
 
 (defun spacemacs//rust-setup-backend ()
   "Conditionally setup rust backend."
-  (pcase rust-backend
-    ('racer (spacemacs//rust-setup-racer))
-    ('lsp (spacemacs//rust-setup-lsp))))
-
-(defun spacemacs//rust-setup-company ()
-  "Conditionally setup company based on backend."
-  (when (eq rust-backend 'racer)
-    (spacemacs//rust-setup-racer-company)))
+  (spacemacs//rust-setup-lsp))
 
 (defun spacemacs//rust-setup-dap ()
   "Conditionally setup rust DAP integration."
   ;; currently DAP is only available using LSP
-  (when (eq rust-backend 'lsp)
-    (spacemacs//rust-setup-lsp-dap)))
+  (spacemacs//rust-setup-lsp-dap))
 
 
 ;; lsp
@@ -125,27 +117,6 @@ When one of the following is true, it won't reload:
     (call-interactively 'cargo-process-upgrade)
     (spacemacs//cargo-maybe-reload)))
 
-
-;; racer
-
-(defun spacemacs//rust-setup-racer ()
-  "Setup racer backend"
-  (racer-mode))
-
-(defun spacemacs//rust-setup-racer-company ()
-  "Setup racer auto-completion."
-  (spacemacs|add-company-backends
-    :backends company-capf
-    :modes rustic-mode
-    :variables company-tooltip-align-annotations t))
-
-(defun spacemacs/racer-describe ()
-  "Show a *Racer Help* buffer for the function or type at point.
-If `help-window-select' is non-nil, also select the help window."
-  (interactive)
-  (let ((window (racer-describe)))
-    (when help-window-select
-      (select-window window))))
 
 ;; Misc
 

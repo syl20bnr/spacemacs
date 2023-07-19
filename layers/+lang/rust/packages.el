@@ -23,7 +23,6 @@
 
 (defconst rust-packages
   '(
-    company
     counsel-gtags
     dap-mode
     ggtags
@@ -32,10 +31,6 @@
     smartparens
     toml-mode))
 
-
-(defun rust/post-init-company ()
-  ;; backend specific
-  (spacemacs//rust-setup-company))
 
 (defun rust/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'rustic-mode))
