@@ -121,6 +121,7 @@
       "hh" 'merlin-document
       "ht" 'merlin-type-enclosing
       "hT" 'merlin-type-expr
+      "rc" 'merlin-construct
       "rd" 'merlin-destruct)
     (spacemacs/declare-prefix-for-mode 'tuareg-mode "mc" "compile/check")
     (spacemacs/declare-prefix-for-mode 'tuareg-mode "mE" "errors")
