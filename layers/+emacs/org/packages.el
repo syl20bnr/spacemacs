@@ -479,7 +479,11 @@ Will work on both org-mode and any mode that accepts plain html."
       ("g" org-babel-goto-named-src-block)
       ("z" recenter-top-bottom)
       ("e" org-babel-execute-maybe)
-      ("'" org-edit-special :exit t))))
+      ("'" org-edit-special :exit t))
+
+    (evilified-state-evilify-map org-lint--report-mode-map
+      :mode org-lint--report-mode
+      :eval-after-load org-lint)))
 
 (defun org/init-org-agenda ()
   (use-package org-agenda
