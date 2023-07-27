@@ -114,13 +114,13 @@ You can find a quick introductions to them [[https://www.masteringemacs.org/arti
 
 To define the default shell you can set the layer variable =shell-default-shell=
 to the following variables:
+- =ansi-term= (default on Linux/macOS)
 - =eshell= (default on Windows)
 - =shell=
 - =term=
-- =ansi-term= (default on Linux/macOS)
+- =vterm=
 - =multi-term=
 - =multi-vterm=
-- =vterm=
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
