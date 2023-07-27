@@ -110,8 +110,6 @@
 ;; TODO: Should also catch any IO error such as permission error (Apr 25 2021 Lucius)
 (unless (file-exists-p spacemacs-cache-directory)
   (make-directory spacemacs-cache-directory))
-
-(setq pcache-directory (concat spacemacs-cache-directory "pcache/"))
 
 ;;;; Load Paths
 (dolist (subdirectory '(nil "libs/" "libs/spacemacs-theme/" "libs/forks/"))
