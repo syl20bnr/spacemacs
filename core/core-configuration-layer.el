@@ -446,16 +446,17 @@ cache folder.")
     (setq package-enable-at-startup nil)
     (package-initialize 'noactivate)))
 
+(autoload 'quelpa "quelpa")
+(autoload 'quelpa-checkout "quelpa")
 (defun configuration-layer//configure-quelpa ()
   "Configure `quelpa' package."
-  (setq quelpa-verbose init-file-debug
-        quelpa-dir (concat spacemacs-cache-directory "quelpa/")
-        quelpa-build-dir (expand-file-name "build" quelpa-dir)
-        quelpa-persistent-cache-file (expand-file-name "cache" quelpa-dir)
-        quelpa-update-melpa-p nil)
-  (require 'quelpa)
-  (when (eq (quelpa--tar-type) 'gnu)
-    (setq quelpa-build-explicit-tar-format-p t)))
+  (with-eval-after-load 'quelpa
+    (setq quelpa-verbose init-file-debug
+          quelpa-dir (concat spacemacs-cache-directory "quelpa/")
+          quelpa-build-dir (expand-file-name "build" quelpa-dir)
+          quelpa-persistent-cache-file (expand-file-name "cache" quelpa-dir)
+          quelpa-update-melpa-p nil
+          quelpa-build-explicit-tar-format-p (eq (quelpa--tar-type) 'gnu))))
 
 (defun configuration-layer//make-quelpa-recipe (pkg)
   "Read recipe in PKG if :fetcher is local, then turn it to a correct file recepe.
