@@ -419,6 +419,7 @@
   "hdc" 'describe-char
   "hdf" 'describe-function
   "hdk" 'describe-key
+  "hdK" 'describe-keymap
   "hdl" 'spacemacs/describe-last-keys
   "hdp" 'describe-package
   "hdP" 'configuration-layer/describe-package

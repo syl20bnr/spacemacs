@@ -38,7 +38,8 @@
     (electric-indent-mode :location built-in)
     (ediff :location built-in)
     (eldoc :location built-in)
-    (help-fns+ :location (recipe :fetcher local))
+    (help-fns+ :location local
+               :toggle (not (fboundp 'describe-keymap))) ; built in emacs28+
     (hi-lock :location built-in)
     (image-mode :location built-in)
     (imenu :location built-in)
@@ -230,7 +231,6 @@
   (use-package help-fns+
     :commands (describe-keymap)
     :init
-    (spacemacs/set-leader-keys "hdK" 'describe-keymap)
     (advice-add 'help-do-xref :after (lambda (_pos _func _args) (setq-local tab-width 8)))))
 
 (defun spacemacs-defaults/init-hi-lock ()
