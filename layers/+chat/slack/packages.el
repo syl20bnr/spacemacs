@@ -28,7 +28,6 @@
     alert
     emoji-cheat-sheet-plus
     flyspell
-    linum
     persp-mode
     slack
     window-purpose))
@@ -43,9 +42,6 @@
 
 (defun slack/post-init-flyspell ()
   (add-hook 'lui-mode-hook 'flyspell-mode))
-
-(defun slack/post-init-linum ()
-  (add-hook 'slack-mode-hook 'spacemacs/no-linum))
 
 (defun slack/pre-init-persp-mode ()
   (spacemacs|use-package-add-hook persp-mode

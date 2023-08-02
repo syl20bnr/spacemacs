@@ -26,9 +26,6 @@
     auto-complete
     ;; Disabled due to package is not longer maintained
     ;; (auto-complete-rst :requires auto-complete)
-
-    ;; Linum is deprecated, use nlinum layer or native line numbers
-    ;; linum
     (rst :location built-in)
     (rst-directives :location local)
     (rst-lists :location local)
@@ -45,12 +42,6 @@
 ;;                auto-complete-rst-init)
 ;;     :init (spacemacs/add-to-hook 'rst-mode-hook '(auto-complete-rst-init
 ;;                                                   auto-complete-rst-add-sources))))
-
-;; (defun restructuredtext/post-init-linum ()
-;;   ;; important auto-complete work-around to be applied to make both linum
-;;   ;; and auto-complete to work together
-;;   (when (configuration-layer/package-used-p 'auto-complete)
-;;     (add-hook 'rst-mode-hook 'ac-linum-workaround t)))
 
 (defun restructuredtext/init-rst-directives ()
   (use-package rst-directives))

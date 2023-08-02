@@ -40,7 +40,6 @@
     erc-view-log
     (erc-yank :location local :excluded t)
     erc-yt
-    linum
     persp-mode
     window-purpose
     ))
@@ -242,10 +241,6 @@
 (defun erc/init-erc-terminal-notifier ()
   (use-package erc-terminal-notifier
     :if (executable-find "terminal-notifier")))
-
-(defun erc/post-init-linum ()
-  (spacemacs/add-to-hooks 'spacemacs/no-linum '(erc-mode-hook
-                                                erc-insert-pre-hook)))
 
 (defun erc/pre-init-persp-mode ()
   (spacemacs|use-package-add-hook persp-mode
