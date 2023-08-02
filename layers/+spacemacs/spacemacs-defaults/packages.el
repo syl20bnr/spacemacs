@@ -348,25 +348,6 @@
                         lazy-loading-line-numbers)
                     (global-display-line-numbers-mode)))))))
 
-(defun spacemacs-defaults/init-linum ()
-  (use-package linum
-    :init
-    (setq linum-format "%4d")
-    (spacemacs|add-toggle line-numbers
-      :mode linum-mode
-      :documentation "Show the line numbers."
-      :evil-leader "tn")
-    (advice-add #'linum-update-window
-                :after #'spacemacs//linum-update-window-scale-fix)
-    (advice-add #'linum-on
-                :around #'spacemacs//linum-on)
-    :config
-    (when (spacemacs//linum-backward-compabitility)
-      (add-hook 'prog-mode-hook 'linum-mode)
-      (add-hook 'text-mode-hook 'linum-mode))
-    (when dotspacemacs-line-numbers
-      (global-linum-mode))))
-
 (defun spacemacs-defaults/init-occur-mode ()
   (evilified-state-evilify-map occur-mode-map
     :mode occur-mode))

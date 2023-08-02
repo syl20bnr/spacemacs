@@ -2,7 +2,7 @@
 
 #+TAGS: layer|misc|spacemacs
 
-* Table of Contents                     :TOC_5_gh:noexport:
+* Table of Contents                                       :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 
@@ -28,7 +28,6 @@ defaults.
   - hi-lock
   - image-mode
   - imenu
-  - linum (only in Emacs 25.x and older)
   - occur-mode
   - package-menu
   - page-break-lines
