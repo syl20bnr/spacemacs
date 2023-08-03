@@ -46,7 +46,7 @@
    Possible values are `super' `meta' `hyper' `alt' `none'.
    Default: `meta'.
    For backwards compatibility the variable `osx-use-option-as-meta'
-   takes precedence is set to t.")
+   takes precedence if set to t.")
 (defvar osx-function-as nil
   "Sets the key binding of the `FUNCTION' key on macOS.
    Possible values are `super' `meta' `hyper' `alt' `nil'.
