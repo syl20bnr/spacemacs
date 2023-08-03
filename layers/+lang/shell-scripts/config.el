@@ -32,6 +32,10 @@ When `lsp' layer is used, defaults to `lsp'.")
 (defvar shell-scripts-format-on-save nil
   "If non-nil, automatically format code with shfmt on save.")
 
+(defvar shell-scripts-mark-executable-after-save
+  (not (spacemacs/system-is-mswindows))
+  "If non-nil, automatically changes file to executable after buffer saved.")
+
 (defcustom shell-scripts-shfmt-args ()
   "Arguments passed to shfmt."
   :type '(list string))
