@@ -96,7 +96,8 @@
                  (string-match-p "\\.zsh\\'" buffer-file-name))
         (sh-set-shell "zsh")))
     (add-hook 'sh-mode-hook 'spacemacs//setup-shell)
-    (add-hook 'sh-mode-hook 'spacemacs//shell-scripts-setup-backend)))
+    (add-hook 'sh-mode-hook 'spacemacs//shell-scripts-setup-backend)
+    (add-hook 'after-save-hook 'spacemacs/scripts-make-buffer-file-executable-maybe)))
 
 (defun shell-scripts/init-shfmt ()
   (use-package shfmt
