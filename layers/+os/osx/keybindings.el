@@ -47,7 +47,7 @@
 
   ;; Backwards compatibility
   (cl-case osx-use-option-as-meta
-    (nil (setf osx-option-as 'none))
+    ((nil) (setf osx-option-as 'none))
     (deprecated nil)
     (t (setf osx-option-as 'meta)))
 
