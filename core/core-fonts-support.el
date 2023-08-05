@@ -56,6 +56,9 @@ The return value is nil if no font was found, truthy otherwise."
             (`gnu/linux
              (setq fallback-font-name "NanumGothic")
              (setq fallback-font-name2 "NanumGothic"))
+            (`android
+             (setq fallback-font-name "NanumGothic")
+             (setq fallback-font-name2 "NanumGothic"))
             (`darwin
              (setq fallback-font-name "Arial Unicode MS")
              (setq fallback-font-name2 "Arial Unicode MS"))
