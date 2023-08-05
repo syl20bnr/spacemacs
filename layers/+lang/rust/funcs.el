@@ -66,9 +66,9 @@
                                      :target nil
                                      :dap-compilation "cargo build"
                                      :dap-compilation-dir "${workspaceFolder}"
-                                     :cwd "${workspaceFolder}"
-                                     ))
-  )
+                                     :cwd "${workspaceFolder}")))
+
+
 
 (defun spacemacs/lsp-rust-analyzer-reload-workspace ()
   "Reload workspaces to pick up changes in Cargo.toml.
@@ -87,7 +87,8 @@ When one of the following is true, it won't reload:
 - Backend is not rust-analyzer.
 - `cargo-process-reload-on-modify' is nil."
     (when (and cargo-process-reload-on-modify
-               (eq rust-backend 'lsp)
+               (and (boundp 'rust-backend)
+                    (eq rust-backend 'lsp))
                (member 'rust-analyzer (spacemacs//lsp-client-server-id)))
       (lsp-rust-analyzer-reload-workspace)))
 

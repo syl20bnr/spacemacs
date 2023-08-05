@@ -36,7 +36,8 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'rustic-mode))
 
 (defun rust/pre-init-dap-mode ()
-  (when (eq rust-backend 'lsp)
+  (when (and (boundp 'rust-backend)
+             (eq rust-backend 'lsp))
     (add-to-list 'spacemacs--dap-supported-modes 'rustic-mode)
     (add-hook 'rustic-mode-local-vars-hook #'spacemacs//rust-setup-dap)))
 
