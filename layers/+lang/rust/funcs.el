@@ -23,20 +23,12 @@
 
 (defun spacemacs//rust-setup-backend ()
   "Conditionally setup rust backend."
-  (pcase rust-backend
-    ('racer (spacemacs//rust-setup-racer))
-    ('lsp (spacemacs//rust-setup-lsp))))
-
-(defun spacemacs//rust-setup-company ()
-  "Conditionally setup company based on backend."
-  (when (eq rust-backend 'racer)
-    (spacemacs//rust-setup-racer-company)))
+  (spacemacs//rust-setup-lsp))
 
 (defun spacemacs//rust-setup-dap ()
-  "Conditionally setup elixir DAP integration."
+  "Conditionally setup rust DAP integration."
   ;; currently DAP is only available using LSP
-  (when (eq rust-backend 'lsp)
-    (spacemacs//rust-setup-lsp-dap)))
+  (spacemacs//rust-setup-lsp-dap))
 
 
 ;; lsp
@@ -55,15 +47,28 @@
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
         (lsp-deferred)
-        (spacemacs/declare-prefix-for-mode 'rust-mode "ms" "switch")
-        (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+        (spacemacs/declare-prefix-for-mode 'rustic-mode "ms" "switch")
+        (spacemacs/set-leader-keys-for-major-mode 'rustic-mode
           "ss" 'spacemacs/lsp-rust-switch-server
           (if lsp-use-upstream-bindings "wR" "bR") 'spacemacs/lsp-rust-analyzer-reload-workspace))
     (spacemacs//lsp-layer-not-installed-message)))
 
 (defun spacemacs//rust-setup-lsp-dap ()
   "Setup DAP integration."
-  (require 'dap-gdb-lldb))
+  (require 'dap-cpptools)
+  (require 'dap-lldb)
+  (require 'dap-gdb-lldb)
+  (dap-register-debug-template "Rust::GDB Run Configuration"
+                               (list :type "gdb"
+                                     :request "launch"
+                                     :name "GDB::Run"
+                                     :gdbpath "rust-gdb"
+                                     :target nil
+                                     :dap-compilation "cargo build"
+                                     :dap-compilation-dir "${workspaceFolder}"
+                                     :cwd "${workspaceFolder}"
+                                     ))
+  )
 
 (defun spacemacs/lsp-rust-analyzer-reload-workspace ()
   "Reload workspaces to pick up changes in Cargo.toml.
@@ -112,27 +117,6 @@ When one of the following is true, it won't reload:
     (call-interactively 'cargo-process-upgrade)
     (spacemacs//cargo-maybe-reload)))
 
-
-;; racer
-
-(defun spacemacs//rust-setup-racer ()
-  "Setup racer backend"
-  (racer-mode))
-
-(defun spacemacs//rust-setup-racer-company ()
-  "Setup racer auto-completion."
-  (spacemacs|add-company-backends
-    :backends company-capf
-    :modes rust-mode
-    :variables company-tooltip-align-annotations t))
-
-(defun spacemacs/racer-describe ()
-  "Show a *Racer Help* buffer for the function or type at point.
-If `help-window-select' is non-nil, also select the help window."
-  (interactive)
-  (let ((window (racer-describe)))
-    (when help-window-select
-      (select-window window))))
 
 ;; Misc
 
