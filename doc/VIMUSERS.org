@@ -491,7 +491,7 @@ that is loaded at startup. Here is an example:
                                           gotham)))
 #+END_SRC
 
-All installed themes can be listed and chosen using the ~SPC T h~ key binding.
+All installed themes can be listed and chosen using the ~SPC T s~ key binding.
 
 *** Nohlsearch
 Spacemacs emulates the default vim behavior which highlights search results even
