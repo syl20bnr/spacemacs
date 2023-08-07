@@ -448,6 +448,8 @@ cache folder.")
 
 (autoload 'quelpa "quelpa")
 (autoload 'quelpa-checkout "quelpa")
+(defvar quelpa-upgrade-p)
+
 (defun configuration-layer//configure-quelpa ()
   "Configure `quelpa' package."
   (with-eval-after-load 'quelpa
