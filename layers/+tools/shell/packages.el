@@ -126,7 +126,7 @@
 
     (require 'esh-var)
     (add-to-list 'eshell-variable-aliases-list
-                 `("PAGER" ,(lambda (_indices) "cat") t))
+                 `("PAGER" ,(lambda (&optional _indices _quoted) "cat") t))
 
     ;; support `em-smart'
     (when shell-enable-smart-eshell
