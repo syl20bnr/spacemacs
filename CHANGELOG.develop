@@ -3483,6 +3483,7 @@ files (thanks to Daniel Nicolai)
 - Migrated to =rustic-mode= (thanks to Elric Milon)
 - Removed support for obsoleted =Racer= and =RLS= and made ==rust-analyzer= the
   default (thanks to Elric Milon)
+- Updated layer documentation to correctly configure =rustfmt= on save (thanks to Mariusz Klochowicz)
 **** Sailfish-Developer
 - Key bindings:
   - Added =sailfish-scratchbox= key bindings (thanks to Victor Polevoy):
