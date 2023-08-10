@@ -85,7 +85,7 @@ Format Rust code according to style guidelines using [[https://github.com/rust-l
   rustup component add rustfmt
 #+END_SRC
 
-To enable automatic buffer formatting on save, set the variable =rust-format-on-save= to =t=.
+To enable automatic buffer formatting on save, set the variable =rustic-format-on-save= to =t=.
 
 ** Clippy
 [[https://github.com/rust-lang/rust-clippy][Clippy]] provides a collection of lints to to catch common mistakes and improve your code.
