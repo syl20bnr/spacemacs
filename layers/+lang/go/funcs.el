@@ -157,6 +157,16 @@
   (shell-command
    (concat go-run-command " . " go-run-args)))
 
+(defun spacemacs/go-run-generate-current-dir ()
+  (interactive)
+  (compilation-start (concat go-generate-command " " (file-name-directory buffer-file-name))
+                     nil (lambda (n) go-generate-buffer-name) nil))
+
+(defun spacemacs/go-run-generate-current-buffer ()
+  (interactive)
+  (compilation-start (concat go-generate-command " " (buffer-file-name))
+                     nil (lambda (n) go-generate-buffer-name) nil))
+
 ;; misc
 (defun spacemacs/go-packages-gopkgs ()
   "Return a list of all Go packages, using `gopkgs'."
