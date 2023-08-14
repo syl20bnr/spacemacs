@@ -298,6 +298,8 @@ integration =dap-go,= to do so set the layer variable =go-dap-mode= as shown bel
 | ~SPC m t s~   | run "go test" for the suite you're currently in (requires gocheck)                    |
 | ~SPC m t t~   | run "go test" for the function you're currently in (while you're in a _.test.go file) |
 | ~SPC m x x~   | run "go run" for the current 'main' package                                           |
+| ~SPC m x g~   | run "go generate" for the current file                                                |
+| ~SPC m x G~   | run "go generate" for the current package                                             |
 
 ** Go Guru
 

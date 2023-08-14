@@ -75,6 +75,14 @@ If not set then `go-mode' is the default backend unless `lsp' layer is used."
   "Go test command. Default is `go test`."
   'string nil t)
 
+(spacemacs|defc go-generate-command "go generate"
+  "Go generate command. Default is `go generate`."
+  'string nil t)
+
+(spacemacs|defc go-generate-buffer-name "*go gen*"
+  "Name of the buffer for go generate output. Default is *go gen*."
+  'string nil t)
+
 (spacemacs|defc go-dap-mode 'dap-dlv-go
   "Go dap mode. This variable defines which kind of dap integration will be used.
 

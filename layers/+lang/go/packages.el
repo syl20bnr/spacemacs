@@ -159,7 +159,9 @@
       "tp" 'spacemacs/go-run-package-tests
       "ts" 'spacemacs/go-run-test-current-suite
       "tt" 'spacemacs/go-run-test-current-function
-      "xx" 'spacemacs/go-run-main)))
+      "xx" 'spacemacs/go-run-main
+      "xg" 'spacemacs/go-run-generate-current-buffer
+      "xG" 'spacemacs/go-run-generate-current-dir)))
 
 (defun go/init-go-rename ()
   (use-package go-rename
