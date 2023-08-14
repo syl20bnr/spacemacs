@@ -191,6 +191,15 @@
         "a" 'org-edit-src-abort
         "k" 'org-edit-src-abort))
 
+    (with-eval-after-load 'org
+      (define-minor-mode spacemacs//org-note-mode
+        "A minor mode to provide Spacemacs key bindings for *Org Node* buffers.")
+      (spacemacs/set-leader-keys-for-minor-mode 'spacemacs//org-note-mode
+        dotspacemacs-major-mode-leader-key 'org-ctrl-c-ctrl-c
+        "c" 'org-ctrl-c-ctrl-c
+        "k" 'org-kill-note-or-show-branches)
+      (add-hook 'org-log-buffer-setup-hook 'spacemacs//org-note-mode))
+
     (autoload #'org-clock-jump-to-current-clock "org-clock")
     (add-hook 'org-mode-hook 'dotspacemacs//prettify-spacemacs-docs)
 
