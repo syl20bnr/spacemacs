@@ -373,7 +373,7 @@
 
 (defun emacs-lisp/init-inspector ()
   (use-package inspector
-    :commands (inspect-expression inspect-last-sexp)
+    :defer t
     :config
     (evilified-state-evilify-map inspector-mode-map
       :mode inspector-mode)))
