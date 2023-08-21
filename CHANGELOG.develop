@@ -133,7 +133,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
     in Emacs 24.3 to ~timeclock-mode-line-display~ (thanks to Zach Pearson)
   - Added =vim-style-enable-undo-region= style variables to enable undo-region
     in Vim editing style; disabled by default. (thanks to Benedict HW)
-  - Added ~SPC m r R~ to show tide refactorings submenu (thanks to Roberto 
+  - Added ~SPC m r R~ to show tide refactorings submenu (thanks to Roberto
     Previdi)
   - Added ~SPC m R F~ to autocorrect the current ruby file.
 - Other:
@@ -3314,6 +3314,7 @@ files (thanks to Daniel Nicolai)
 - Added =spacemacs/python-shell-send-statement= support (thanks to Lin Sun)
 - Added =sphinx-doc= support (thanks to Stefan Ruschke)
 - Fix ipython version parsing for dev branches (thanks to Corentin Risselin)
+- Fix pyvenv-workon path (thanks to Eugene Kim)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 - Updated racket logo (thanks to Vityou)
