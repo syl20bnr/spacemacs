@@ -53,8 +53,7 @@
     :if chinese-default-input-method
     :defer t
     :init
-    (setq pyim-page-tooltip t
-          pyim-directory (expand-file-name "pyim/" spacemacs-cache-directory)
+    (setq pyim-directory (expand-file-name "pyim/" spacemacs-cache-directory)
           pyim-dcache-directory (expand-file-name "dcache/" pyim-directory)
           pyim-assistant-scheme-enable t
           default-input-method "pyim")
