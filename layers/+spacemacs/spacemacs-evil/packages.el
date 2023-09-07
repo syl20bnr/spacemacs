@@ -138,6 +138,9 @@
                   lazy-load-evil-escape-2)))
     :config
     (add-hook 'spacemacs-editing-style-hook #'spacemacs//evil-escape-deactivate-in-holy-mode)
+    (add-hook 'evil-normal-state-entry-hook (lambda ()
+                                              (when (and (fboundp 'company--active-p) (company--active-p))
+                                                (company-abort))))
     ;; apply once when emacs starts
     (spacemacs//evil-escape-deactivate-in-holy-mode dotspacemacs-editing-style)
     (spacemacs|hide-lighter evil-escape-mode)))
