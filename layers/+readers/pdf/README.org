@@ -56,7 +56,7 @@ After installing the dependencies, add this to your =~/.spacemacs=.
   (setq-default dotspacemacs-configuration-layers '(pdf))
 #+END_SRC
 
-After that, syncronize your configuration with ~SPC f e R~. This will pop up a
+After that, synchronize your configuration with ~SPC f e R~. This will pop up a
 window showing the compilation process.
 
 If everything goes right, the compilation won't display any error and you will
