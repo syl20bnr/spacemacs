@@ -88,10 +88,10 @@
       (progn
         (pcase python-lsp-server
           ('pylsp (progn
-                    (setq lsp-enabled-clients '(pylsp))
+                    (setq-local lsp-enabled-clients '(pylsp))
                     (require 'lsp-pylsp)))
           ('pyright (progn
-                      (setq lsp-enabled-clients '(pyright))
+                      (setq-local lsp-enabled-clients '(pyright))
                       (require 'lsp-pyright)))
           (x (user-error "Unknown value for `python-lsp-server': %s" x)))
         (lsp))
