@@ -47,8 +47,11 @@
   (use-package ivy-bibtex
     :defer t
     :init
-    (spacemacs/set-leader-keys-for-major-mode 'bibtex-mode
-      "m" 'ivy-bibtex)))
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'bibtex-mode
+        "m" 'ivy-bibtex)
+
+      (spacemacs/set-leader-keys "ab" 'ivy-bibtex))))
 
 (defun bibtex/post-init-markdown-mode ()
   (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
