@@ -31,6 +31,7 @@
     eshell-z
     evil-collection
     helm
+    helm-comint
     ivy
     magit
     multi-term
