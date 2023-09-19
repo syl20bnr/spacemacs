@@ -1,0 +1,16 @@
+#+TITLE: Direnv layer
+
+#+TAGS: layer|tool
+
+* Description
+This layer adds direnv support to Spacemacs.
+
+** Features:
+  - Direnv support
+
+* Install
+Just add =direnv= to =dotspacemacs-configuration-layers= in your =~/.spacemacs= file. If you have direnv installed in your system, it will "just work".
+
+* Usage
+This layer requires no special configuration and provide no key bindinds.
+
