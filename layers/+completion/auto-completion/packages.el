@@ -160,11 +160,14 @@
     :hook '(company-mode . company-box-mode)
     :commands 'company-box-doc-manually
     :custom
-    (company-box-backends-colors nil)
     (company-box-max-candidates 1000)
     (company-box-doc-enable nil)
     (company-box-icons-alist 'company-box-icons-all-the-icons)
-    (company-box-icons-all-the-icons
+    :init
+    :config
+    (spacemacs|hide-lighter company-box-mode)
+    (setq company-box-backends-colors nil)
+    (setq company-box-icons-all-the-icons
      `((Unknown . ,(all-the-icons-octicon "file-text" :height 0.8 :v-adjust -0.05))
        (Text . ,(all-the-icons-faicon "file-text-o" :height 0.8 :v-adjust -0.0575))
        (Method . ,(all-the-icons-faicon "cube" :height 0.8 :v-adjust -0.0575))
@@ -192,9 +195,6 @@
        (Operator . ,(all-the-icons-faicon "tag" :height 0.8 :v-adjust -0.0575))
        (TypeParameter . ,(all-the-icons-faicon "cog" :height 0.8 :v-adjust -0.0575))
        (Template . ,(all-the-icons-octicon "file-code" :height 0.8 :v-adjust -0.05))))
-    :init
-    :config
-    (spacemacs|hide-lighter company-box-mode)
     (add-hook 'company-box-selection-hook
               (lambda (selection frame) (company-box-doc--hide frame)))
     (cl-case auto-completion-enable-help-tooltip
