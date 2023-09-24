@@ -54,7 +54,8 @@
         ("/" spacemacs/compleseus-search-projectile-auto :exit t)))))
 
 (defun compleseus/post-init-imenu ()
-  (spacemacs/set-leader-keys "ji" 'spacemacs/consult-jump-in-buffer))
+  (spacemacs/set-leader-keys "ji" 'spacemacs/consult-jump-in-buffer)
+  (spacemacs/set-leader-keys "sj" 'spacemacs/consult-jump-in-buffer))
 
 (defun compleseus/init-marginalia ()
   (use-package marginalia
@@ -101,7 +102,6 @@
            ("C-M-#" . consult-register)
            ;; Other custom bindings
            ("M-y" . consult-yank-pop)                ;; orig. yank-pop
-           ("<help> a" . consult-apropos)            ;; orig. apropos-command
            ;; M-g bindings (goto-map)
            ("M-g e" . consult-compile-error)
            ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
@@ -148,7 +148,8 @@
       "ff" #'spacemacs/compleseus-find-file
       "fL" #'consult-locate
       "fr" #'consult-recent-file
-      "hda" #'consult-apropos
+      "hda" #'apropos-command
+      "hdm" #'describe-mode
       "jm" #'consult-mark
       "jM" #'consult-global-mark
       "sb" #'consult-line-multi
