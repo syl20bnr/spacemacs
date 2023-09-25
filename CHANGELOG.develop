@@ -1854,6 +1854,8 @@ Other:
 - Improvements:
   - Added eval-thing-at-point functions to Common Lisp Layer
     (thanks to Lukas Woell)
+  - Make ~SPC m '~ switch to REPL if slime is already connected instead of asking
+    if another inferior process should be started. (thanks to Lou Woell)
   - Make rainbow-identifiers not colorize special operators and macros, so they
     always visually stand out. (thanks to Andriy Kmit)
 - New packages:

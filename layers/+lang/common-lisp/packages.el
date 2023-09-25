@@ -99,7 +99,7 @@
     (slime-setup)
     ;; TODO: Add bindings for the SLIME debugger?
     (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
-      "'" 'slime
+      "'" 'spacemacs/slime-repl
 
       "cc" 'slime-compile-file
       "cC" 'slime-compile-and-load-file
