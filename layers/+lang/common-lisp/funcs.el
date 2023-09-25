@@ -88,3 +88,12 @@ Requires smartparens because all movement is done using `sp-forward-symbol'."
     (save-excursion
       (sp-forward-symbol)
       (call-interactively 'slime-eval-last-expression))))
+
+
+(defun spacemacs/slime-repl ()
+  "Switches to slime repl if slime is connected, starts up slime if
+not."
+  (interactive)
+  (if (slime-connected-p)
+      (slime-switch-to-output-buffer)
+    (slime)))
