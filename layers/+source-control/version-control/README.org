@@ -37,8 +37,8 @@ file.
 You can choose the package to facilitate the diff transient-state and show
 margins by setting the =version-control-diff-tool= variable to one of the
 supported packages:
-- [[https://github.com/dgutov/diff-hl][diff-hl]]
-- [[https://github.com/syohex/emacs-git-gutter][git-gutter]] (default)
+- [[https://github.com/dgutov/diff-hl][diff-hl]] (default)
+- [[https://github.com/syohex/emacs-git-gutter][git-gutter]]
 - [[https://github.com/nonsequitur/git-gutter-plus][git-gutter+]]
 
 #+BEGIN_SRC emacs-lisp
