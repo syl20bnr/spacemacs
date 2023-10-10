@@ -24,7 +24,7 @@
 (setq bm-packages '(bm))
 
 (defun bm/init-bm ()
-  "initializes bm-emacs and adds a key binding to `SPC f z'"
+  "Initializes bm-emacs and adds a key binding to `SPC f z'"
   (use-package bm
     :defer t
     :commands (bm-buffer-restore)
@@ -41,30 +41,48 @@
     (spacemacs|define-transient-state bm
       :title "BM Transient State"
       :doc "
- Go to bookmark^^^^       Toggle^^                 Other^^
- ──────────────^^^^─────  ──────^^───────────────  ─────^^───
- [_n_/_N_] next/previous  [_t_] bookmark at point  [_q_] quit"
+ Go to bookmark^^^^       Toggle^^                 Show^^      Other^^
+ ──────────────^^^^─────  ──────^^───────────────  ────^^────  ─────^^───
+ [_n_/_N_] next/previous  [_t_] bookmark at point  [_s_] show  [_q_] quit"
       :bindings
       ("q" nil :exit t)
       ;; Go to bookmark
       ("n" bm-next)
       ("N" bm-previous)
       ;; Toggle
-      ("t" bm-toggle))
+      ("t" bm-toggle)
+      ;; Show
+      ("s" bm-show-all :exit t))
     (evil-leader/set-key
       "atb" 'spacemacs/bm-transient-state/body)
     (advice-add 'spacemacs/bm-transient-state/body
                 :before #'bm-buffer-restore)
-    :config 
+    :config
     ;; Saving bookmarks
     (add-hook 'kill-buffer-hook #'bm-buffer-save)
+
     ;; Saving the repository to file when on exit.
     ;; kill-buffer-hook is not called when Emacs is killed, so we
     ;; must save all bookmarks first.
-    (add-hook 'kill-emacs-hook (lambda nil
-                                 (bm-buffer-save-all)
-                                 (bm-repository-save)))
+    (add-hook 'kill-emacs-hook #'(lambda nil
+                                   (bm-buffer-save-all)
+                                   (bm-repository-save)))
+
+    ;; The `after-save-hook' is not necessary to use to achieve persistence,
+    ;; but it makes the bookmark data in repository more in sync with the file
+    ;; state.
+    (add-hook 'after-save-hook #'bm-buffer-save)
+
     ;; Restoring bookmarks
     (add-hook 'find-file-hooks   #'bm-buffer-restore)
+    (add-hook 'after-revert-hook #'bm-buffer-restore)
+
+    ;; The `after-revert-hook' is not necessary to use to achieve persistence,
+    ;; but it makes the bookmark data in repository more in sync with the file
+    ;; state. This hook might cause trouble when using packages
+    ;; that automatically reverts the buffer (like vc after a check-in).
+    ;; This can easily be avoided if the package provides a hook that is
+    ;; called before the buffer is reverted (like `vc-before-checkin-hook').
+    ;; Then new bookmarks can be saved before the buffer is reverted.
     ;; Make sure bookmarks is saved before check-in (and revert-buffer)
     (add-hook 'vc-before-checkin-hook #'bm-buffer-save)))
