@@ -1573,6 +1573,9 @@ Other:
   - Replaced =org-ref-helm-insert-cite-link= with =org-ref-insert-link=
     (thanks to Tianshu Wang)
   - Add [[https://joostkremers.github.io/ebib/ebib-manual.html][ebib]] support (thanks to Daniel Nicolai)
+**** Bm
+- Add more package's recommended hooks, as per docs (thanks to Alfonso Montero)
+- Key binds: Add ~s~ for =bm-show-all= in transient (thanks to Alfonso Montero)
 **** C-C++
 - Breaking changes:
   - Moved =cmake-ide= and cmake script support to separate =cmake= layer
