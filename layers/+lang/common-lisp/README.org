@@ -115,10 +115,10 @@ As this state works the same for all files, the documentation is in global
 
 | Key binding | Description                                             |
 |-------------+---------------------------------------------------------|
-| ~SPC m '~     | Start Slime or Switch to REPL if it's already connected |
-| ~SPC m s i~   | Start an inferior process                               |
-| ~SPC m s e~   | Evaluate last expression in REPL                        |
-| ~SPC m s q~   | Quit                                                    |
+| ~SPC m '~   | Start Slime or Switch to REPL if it's already connected |
+| ~SPC m s i~ | Start an inferior process                               |
+| ~SPC m s e~ | Evaluate last expression in REPL                        |
+| ~SPC m s q~ | Quit                                                    |
 
 *** Compile
 
