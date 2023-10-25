@@ -30,3 +30,9 @@
 
 (defvar dap-enable-ui-controls t
   "If non-nil, enable `dap-mode''s UI controls.")
+
+;; Force dap-mode's default for debugpy which is the new
+;; engine. `ptvsd` is now deprecated, but their default is
+;; hasn't yet been updated. `ptvsd` is currently broken
+;; with spacemacs.
+(setq dap-python-debugger 'debugpy)
