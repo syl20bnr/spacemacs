@@ -2754,7 +2754,7 @@ Features:
 ** Bm
 [[file:+tools/bm/README.org][+tools/bm/README.org]]
 
-[[https://github.com/joodland/bm/blob/master/README.md][BM]] provides visible, buffer local, bookmarks and the ability to jump forward and backward to the next bookmark.
+[[https://github.com/joodland/bm][bm]] provides visible, buffer local, bookmarks and the ability to jump forward and backward to the next bookmark.
 
 Features:
 - Auto remove bookmark after jump to it by =bm-next= or =bm-previous=
@@ -2765,7 +2765,7 @@ Features:
 - Annotate bookmarks.
 - Different wrapping modes.
 - Different bookmarks styles, line-only, fringe-only or both.
-- Persistent bookmarks.
+- Persistent bookmarks (buffer local), also in non-file buffers (info) and indirect buffers.
 - List bookmarks (in all buffers) in a separate buffer.
 - Cycle through bookmarks in all open buffers.
 
