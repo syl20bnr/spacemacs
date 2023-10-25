@@ -305,7 +305,7 @@ To use =pylookup= on ~SPC m h H~, make sure you update the database first, using
 To use =dap-mode= for debugging do:
 
 #+BEGIN_SRC bash
-  pip install "ptvsd>=4.2"
+  pip install debugpy
 #+END_SRC
 
 ** Notebook and code cells

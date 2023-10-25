@@ -2778,6 +2778,8 @@ files (thanks to Daniel Nicolai)
   - Added global binding under ~SPC d~
 - Improvements:
   - Evilfied =dap= debug windows
+- Changed the dap-python debugger from =ptvsd= to =debugpy=. =ptvsd= is
+  deprecated in =dap-mode= and is broken in Spacemacs.
 **** Markdown
 - Fontify code blocks natively by default, for parity with the Org layer (thanks
   to Keith Pinson)
