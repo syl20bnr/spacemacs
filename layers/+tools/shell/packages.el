@@ -31,7 +31,6 @@
     eshell-z
     evil-collection
     helm
-    helm-comint
     ivy
     magit
     multi-term
@@ -172,10 +171,6 @@
       ;;shell
       (spacemacs/set-leader-keys-for-major-mode 'shell-mode
         "H" 'spacemacs/helm-shell-history))))
-
-(defun shell/pre-init-helm ()
-  (spacemacs|use-package-add-hook helm-comint
-    :after helm))
 
 (defun shell/pre-init-ivy ()
   (spacemacs|use-package-add-hook ivy

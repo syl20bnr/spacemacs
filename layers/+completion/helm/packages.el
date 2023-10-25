@@ -35,6 +35,7 @@
     helm-projectile
     helm-swoop
     helm-themes
+    helm-comint
     (helm-spacemacs-help :location local)
     (helm-spacemacs-faq :location local)
     helm-xref
@@ -209,6 +210,11 @@
         (kbd "RET") 'spacemacs/helm-find-files-windows)
       (define-key helm-find-files-map
         (kbd "RET") 'spacemacs/helm-find-files-windows))))
+
+(defun helm/init-helm-comint ()
+  (use-package helm-comint
+    :defer (spacemacs/defer)
+    :after helm))
 
 (defun helm/init-helm-ag ()
   (use-package helm-ag
