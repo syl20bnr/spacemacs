@@ -35,7 +35,7 @@
     helm-projectile
     helm-swoop
     helm-themes
-    helm-comint
+    (helm-comint :toggle (not (version< emacs-version "29.1")))
     (helm-spacemacs-help :location local)
     (helm-spacemacs-faq :location local)
     helm-xref
