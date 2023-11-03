@@ -23,17 +23,17 @@
 
 (defconst auto-completion-packages
       '(
-        auto-yasnippet
-        auto-complete
-        ac-ispell
-        company
+        (auto-yasnippet :toggle (not (eq auto-completion-front-end 'company)))
+        (auto-complete :toggle (not (eq auto-completion-front-end 'company)))
+        (ac-ispell :toggle (not (eq auto-completion-front-end 'company)))
+        (company :toggle (eq auto-completion-front-end 'company))
         (company-posframe :toggle auto-completion-use-company-posframe)
         (company-box :toggle auto-completion-use-company-box)
         (company-quickhelp :toggle auto-completion-enable-help-tooltip)
         (company-statistics :toggle auto-completion-enable-sort-by-usage)
         counsel
-        fuzzy
-        (helm-company :requires helm)
+        (fuzzy :toggle (not (eq auto-completion-front-end 'company)))
+        (helm-company :requires helm :toggle (eq auto-completion-front-end 'company))
         (helm-c-yasnippet :requires helm)
         hippie-exp
         (ivy-yasnippet :requires ivy)
