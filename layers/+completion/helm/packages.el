@@ -27,6 +27,7 @@
     bookmark
     helm
     helm-ag
+    helm-comint
     helm-descbinds
     (helm-ls-git :toggle (configuration-layer/layer-used-p 'git))
     helm-make
@@ -35,7 +36,6 @@
     helm-projectile
     helm-swoop
     helm-themes
-    (helm-comint :toggle (not (version< emacs-version "29.1")))
     (helm-spacemacs-help :location local)
     (helm-spacemacs-faq :location local)
     helm-xref
