@@ -200,6 +200,8 @@
         - [[#in-iedit-insert-state][In iedit-insert state]]
       - [[#examples][Examples]]
     - [[#replacing-text-in-several-files][Replacing text in several files]]
+      - [[#helm][Helm]]
+      - [[#compleseus][Compleseus]]
     - [[#renaming-files-in-a-directory][Renaming files in a directory]]
     - [[#commenting][Commenting]]
     - [[#regular-expressions][Regular expressions]]
@@ -3457,6 +3459,7 @@ an ~occurrence~.
   ~SPC v e p ESC ESC~
 
 *** Replacing text in several files
+**** Helm
 If you have =rg=, =ag=, =pt= or =ack= installed, replacing an occurrence of text
 in several files can be performed via [[https://github.com/syohex/emacs-helm-ag][helm-ag]].
 
@@ -3470,6 +3473,19 @@ project:
 
 *Note*: In Spacemacs, =helm-ag= despite its name works with =rg=, =pt= and =ack=
 as well (but not with =grep=).
+
+**** Compleseus
+The same above steps as with the =helm= layer work with the =compleseus= layer.
+Spacemacs provides functions to be able to keep the same workflow as with
+=helm-ag=.
+
+For reference here are the steps to do it with plain =consult= and =embark=:
+ - initiate a search with =SPC s f=
+ - open =embark-act= with =M-o e=
+ - go in edit mode with =SPC m w=
+ - do the changes you want (pro tip: use =iedit state= with ~SPC s e~)
+ - save changes in all affected files with =C-x C-s=
+ - or cancel all changes with =C-c C-k=
 
 *** Renaming files in a directory
 It is possible to batch rename files in a directory using =wdired= from an
