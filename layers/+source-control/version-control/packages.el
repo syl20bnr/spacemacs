@@ -143,6 +143,7 @@
 
 (defun version-control/init-diff-hl ()
   (use-package diff-hl
+    :if (eq version-control-diff-tool 'diff-hl)
     :defer t
     :init
     (spacemacs/set-leader-keys "gv=" 'diff-hl-diff-goto-hunk)
@@ -162,6 +163,7 @@
 
 (defun version-control/init-git-gutter ()
   (use-package git-gutter
+    :if (eq version-control-diff-tool 'git-gutter)
     :defer t
     :init
     ;; If you enable global minor mode
