@@ -356,7 +356,7 @@
 
 (defun spacemacs-navigation/init-restart-emacs ()
   (use-package restart-emacs
-    :after files
+    :defer (spacemacs/defer)
     :init
     (spacemacs/set-leader-keys
       "qd" 'spacemacs/restart-emacs-debug-init
