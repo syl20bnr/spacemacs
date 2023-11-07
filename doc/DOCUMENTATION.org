@@ -3342,12 +3342,12 @@ Spacemacs provides functions to be able to keep the same workflow as with
 =helm-ag=.
 
 For reference here are the steps to do it with plain =consult= and =embark=:
- - initiate a search with =SPC s f=
- - open =embark-act= with =M-o e=
- - go in edit mode with =SPC m w=
- - do the changes you want (pro tip: use =iedit state= with ~SPC s e~)
- - save changes in all affected files with =C-x C-s=
- - or cancel all changes with =C-c C-k=
+- initiate a search with =SPC s f=
+- open =embark-act= with =M-o e=
+- go in edit mode with =SPC m w=
+- do the changes you want (pro tip: use =iedit state= with ~SPC s e~)
+- save changes in all affected files with =C-x C-s=
+- or cancel all changes with =C-c C-k=
 
 *** Renaming files in a directory
 It is possible to batch rename files in a directory using =wdired= from an
