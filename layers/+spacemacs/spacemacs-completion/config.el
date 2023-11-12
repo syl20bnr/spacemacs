@@ -49,4 +49,4 @@
   (defvar helm-source-header-default-box
     (face-attribute 'helm-source-header :box))
   (defvar helm-source-header-default-height
-    (face-attribute 'helm-source-header :height) ))
+    (face-attribute 'helm-source-header :height)))
