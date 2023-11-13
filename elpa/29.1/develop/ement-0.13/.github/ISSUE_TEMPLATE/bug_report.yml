@@ -1,0 +1,78 @@
+name: Bug Report
+description: File a bug report
+labels: ["bug"]
+assignees:
+  - alphapapa
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: input
+    id: os-platform
+    attributes:
+      label: OS/platform
+      description: What operating system or platform are you running Emacs on?
+    validations:
+      required: true
+  - type: textarea
+    id: emacs-provenance
+    attributes:
+      label: Emacs version and provenance
+      description: What version of Emacs are you using, where did you acquire it, and how did you install it?
+    validations:
+      required: true
+  - type: input
+    id: emacs-command
+    attributes:
+      label: Emacs command
+      description: By what method did you run Emacs?  (i.e. what command did you run?)
+    validations:
+      required: true
+  - type: input
+    id: emacs-frame
+    attributes:
+      label: Emacs frame type
+      description: Did the problem happen on a GUI or tty Emacs frame?
+    validations:
+      required: true
+  - type: input
+    id: package-provenance
+    attributes:
+      label: Ement package version and provenance
+      description: What version of Ement.el are you using, where did you acquire it, and how did you install it?
+    validations:
+      required: true
+  - type: textarea
+    id: actions
+    attributes:
+      label: Actions taken
+      description: What actions did you take, step-by-step, in order, before the problem was noticed?
+    validations:
+      required: true
+  - type: textarea
+    id: results
+    attributes:
+      label: Observed results
+      description: What behavior did you observe that seemed wrong?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected results
+      description: What behavior did you expect to observe?
+    validations:
+      required: true
+  - type: textarea
+    id: backtrace
+    attributes:
+      label: Backtrace
+      description: If an error was signaled, please use `M-x toggle-debug-on-error RET` and cause the error to happen again, then paste the contents of the `*Backtrace*` buffer here.
+      render: elisp
+  - type: textarea
+    id: etc
+    attributes:
+      label: Etc.
+      description: Any other information that seems relevant
+

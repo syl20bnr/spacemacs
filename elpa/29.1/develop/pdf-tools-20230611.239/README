@@ -1,0 +1,645 @@
+#+TITLE:     PDF Tools README
+#+AUTHOR:    Andreas Politz
+#+EMAIL:     mail@andreas-politz.de
+#+Maintainer: Vedang Manerikar
+#+Maintainer_Email: vedang.manerikar@gmail.com
+
+[[https://app.circleci.com/pipelines/github/vedang/pdf-tools][https://circleci.com/gh/vedang/pdf-tools.svg?style=svg]]
+[[https://elpa.nongnu.org/nongnu/pdf-tools.html][http://elpa.nongnu.org/nongnu/pdf-tools.svg]]
+[[https://stable.melpa.org/#/pdf-tools][http://stable.melpa.org/packages/pdf-tools-badge.svg]]
+[[https://melpa.org/#/pdf-tools][http://melpa.org/packages/pdf-tools-badge.svg]] [[https://ci.appveyor.com/project/vedang/pdf-tools][https://ci.appveyor.com/api/projects/status/yqic2san0wi7o5v8/branch/master?svg=true]]
+
+The ~pdf-tools~ Wiki is maintained at https://pdftools.wiki. Head to the site if you find it easier to navigate a website for reading a manual. All the topics on the site are listed at https://pdftools.wiki/impulse.
+
+* Table of Contents                                            :noexport:TOC_3_gh:
+- [[#about-pdf-tools][About PDF Tools]]
+- [[#installing-pdf-tools][Installing pdf-tools]]
+  - [[#installing-the-epdfinfo-server][Installing the epdfinfo server]]
+    - [[#installing-the-epdfinfo-server-from-package-managers][Installing the epdfinfo server from package managers]]
+    - [[#installing-the-epdfinfo-server-from-source-on-windows--gotchas][Installing the epdfinfo server from source on Windows (+ Gotchas)]]
+    - [[#installing-the-epdfinfo-server-from-source-on-macos--gotchas][Installing the epdfinfo server from source on macOS (+ Gotchas)]]
+    - [[#common-installation-gotchas][Common installation gotchas]]
+    - [[#installing-optional-features][Installing optional features]]
+  - [[#installing-pdf-tools-elisp-code][Installing pdf-tools elisp code]]
+  - [[#updating-pdf-tools][Updating pdf-tools]]
+- [[#features][Features]]
+  - [[#view-and-navigate-pdfs][View and Navigate PDFs]]
+    - [[#keybindings-for-navigating-pdf-documents][Keybindings for navigating PDF documents]]
+    - [[#keybindings-for-manipulating-display-of-pdf][Keybindings for manipulating display of PDF]]
+  - [[#annotations][Annotations]]
+    - [[#keybindings-for-working-with-annotations][Keybindings for working with Annotations]]
+  - [[#working-with-auctex][Working with AUCTeX]]
+    - [[#keybindings-for-working-with-auctex][Keybindings for working with AUCTeX]]
+  - [[#miscellaneous-features][Miscellaneous features]]
+    - [[#keybindings-for-miscellaneous-features-in-pdf-tools][Keybindings for miscellaneous features in PDF tools]]
+  - [[#easy-help-for-pdf-tools-features][Easy Help for PDF Tools features]]
+  - [[#configuring-pdf-tools-features][Configuring PDF Tools features]]
+- [[#known-problems][Known problems]]
+  - [[#linum-mode][linum-mode]]
+  - [[#display-line-numbers-mode][display-line-numbers-mode]]
+  - [[#auto-revert][auto-revert]]
+  - [[#sublimity][sublimity]]
+  - [[#text-selection-is-not-transparent-in-pdfs-ocred-with-tesseract][Text selection is not transparent in PDFs OCRed with Tesseract]]
+- [[#key-bindings-in-pdf-tools][Key-bindings in PDF Tools]]
+- [[#tips-and-tricks-for-developers][Tips and Tricks for Developers]]
+  - [[#turn-on-debug-mode][Turn on debug mode]]
+  - [[#run-emacs-lisp-tests-locally][Run Emacs lisp tests locally]]
+  - [[#run-server-compilation-tests-locally][Run server compilation tests locally]]
+  - [[#add-a-dockerfile-to-automate-server-compilation-testing][Add a Dockerfile to automate server compilation testing]]
+  - [[#issue-template-for-bug-reports][Issue Template for Bug Reports]]
+    - [[#describe-the-bug][Describe the bug]]
+    - [[#steps-to-reproduce-the-behaviour][Steps To Reproduce the behaviour:]]
+    - [[#what-is-the-expected-behaviour][What is the expected behaviour?]]
+    - [[#desktop][Desktop]]
+    - [[#your-pdf-tools-install][Your pdf-tools install]]
+    - [[#additional-context][Additional context]]
+- [[#faqs][FAQs]]
+  - [[#pdfs-are-not-rendering-well][PDFs are not rendering well!]]
+  - [[#what-emacs-versions-does-pdf-tools-support][What Emacs versions does pdf-tools support?]]
+  - [[#i-want-to-add-support-for-pdf-tools-on-my-fav-os-how-do-i-do-that][I want to add support for pdf-tools on "My Fav OS". How do I do that?]]
+  - [[#i-am-on-a-macbook-m1-and-pdf-tools-installation-fails-with-a-stack-trace][I am on a Macbook M1 and pdf-tools installation fails with a stack-trace]]
+  - [[#i-am-a-developer-making-changes-to-the-pdf-tools-source-code][I am a developer, making changes to the pdf-tools source code]]
+
+* About PDF Tools
+:PROPERTIES:
+:CREATED:  [2021-12-29 Wed 18:34]
+:ID:       5a884389-6aec-498a-90d5-f37168809b4f
+:EXPORT_FILE_NAME: index
+:END:
+PDF Tools is, among other things, a replacement of DocView for PDF files. The key difference is that pages are not pre-rendered by, say, ~ghostscript~ and stored in the file-system, but rather created on-demand and stored in memory.
+
+This rendering is performed by a special library named, for whatever reason, ~poppler~, running inside a server program. This program is called ~epdfinfo~ and its job is to successively read requests from Emacs and produce the proper results, i.e. the PNG image of a PDF page.
+
+Actually, displaying PDF files is just one part of ~pdf-tools~. Since ~poppler~ can provide us with all kinds of information about a document and is also able to modify it, there is a lot more we can do with it. [[https://www.dailymotion.com/video/x2bc1is][Watch this video for a detailed demo!]]
+
+* Installing pdf-tools
+:PROPERTIES:
+:CREATED:  [2021-12-29 Wed 18:34]
+:ID:       6ceea50c-cbaa-4d8a-b450-8067c5e8c9da
+:NEURON_DIRTREE_DISPLAY: false
+:END:
+Installing this package via NonGNU ELPA or MELPA or any of the other package managers is straightforward and should just work! You should not require any manual changes. The documentation below is *only if you are installing from source*, or for troubleshooting / debugging purposes.
+
+~pdf-tools~ requires a server ~epdfinfo~ to run against, which it will try to compile and build when it is activated for the first time. The following steps need to be followed *in this order*, to install ~pdf-tools~ and ~epdfinfo~ correctly:
+
+- [[brain-child:e305cd0a-e798-4c2b-af27-21bcd936c1c9][Installing the epdfinfo server]]
+- [[brain-child:32c4fc3b-b4ea-43bd-b92c-bdf2d3831fcf][Installing pdf-tools elisp code]]
+
+** Installing the epdfinfo server
+:PROPERTIES:
+:CREATED:  [2021-12-29 Wed 18:34]
+:ID:       e305cd0a-e798-4c2b-af27-21bcd936c1c9
+:END:
+If you install ~pdf-tools~ via NonGNU ELPA or MELPA, *you don't need to worry about this separate server installation at all*.
+
+Note: You'll need GNU Emacs \ge 26.3 and some form of a GNU/Linux OS. Other operating systems are not officially supported, but ~pdf-tools~ is known to work on many of them.
+
+The ~epdfinfo~ install script takes care of installing all the necessary pre-requisites on supported operating systems (see list below). See the section on [[id:A34704B9-1B51-4614-8806-C4059F7B42D5][I want to add support for ~pdf-tools~ on =My Fav OS=. How do I do that?]] to learn how to add your favorite Operating System to this list.
+
+Similarly, package-managers are not officially supported, but ~pdf-tools~ is known to be available on some of them. See the section on [[id:fb5cef15-fed4-4dec-a443-52f7c00c7831][Installing the ~epdfinfo~ server from package managers]] to avoid manual installation of server / server prerequisites.
+
+Installation Instructions for ~epdfinfo~:
+#+begin_src sh
+  $ git clone https://github.com/vedang/pdf-tools
+  $ cd /path/to/pdf-tools
+  $ make -s # If you don't have make installed, run ./server/autobuild and it will install make
+#+end_src
+
+This should give you no error and should compile the ~epdfinfo~ server. If you face a problem, please report on the issue tracker!
+
+The following Operating Systems / package managers are supported. *Note*: The package manager used to install pre-requisites should be installed on your OS for the script to work:
+
+- Debian-based systems (~debian~, ~ubuntu~): ~apt-get~
+- Fedora: ~dnf~
+- macOS: ~brew~
+- Windows (MSYS2/ MingW): ~pacman~
+- NixOS: ~nix-shell~
+- openSUSE (Tumbleweed and Leap): ~zypper~
+- Void Linux: ~xbps-install~
+- Apline Linux: ~apk~
+- FreeBSD: ~pkg~
+- OpenBSD: ~pkg_add~
+- NetBSD: ~pkgin~
+- Arch Linux: ~pacman~
+- Gentoo: ~emerge~
+- CentOS: ~yum~
+
+*** Installing the epdfinfo server from package managers
+:PROPERTIES:
+:CREATED:  [2022-02-13 Sun 23:10]
+:ID:       fb5cef15-fed4-4dec-a443-52f7c00c7831
+:END:
+~pdf-tools~ can be directly installed from the package manager on some operating systems. Note that the packages available on these package managers are not maintained by the author and might be outdated.
+
+- Debian:  https://packages.debian.org/buster/elpa-pdf-tools-server
+- Ubuntu: https://packages.ubuntu.com/impish/elpa-pdf-tools-server
+- MSYS2 / MINGW (Windows): https://packages.msys2.org/package/mingw-w64-x86_64-emacs-pdf-tools-server?repo=mingw64
+- FreeBSD: https://repology.org/metapackages/?search=pdf-tools&inrepo=freebsd
+
+*** Installing the epdfinfo server from source on Windows (+ Gotchas)
+:PROPERTIES:
+:CREATED:  [2021-12-29 Wed 18:34]
+:ID:       d14e01ff-9bd5-47ee-86fc-859b4499d5d7
+:END:
+If using the GNU binaries for Windows, support for PNG and ~zlib~ must first be installed by copying the appropriate dlls into emacs' ~bin/~ directory. Most third-party binaries come with this already done.
+
+1. [[https://www.msys2.org/][install MSYS2]] and update the package database and core packages using the instructions provided.
+2. Open ~mingw64~ shell (*Note:* You must use ~mingw64.exe~ and not ~msys2.exe~)
+3. Compile the ~epdfinfo~ server using Installation steps described in [[id:e305cd0a-e798-4c2b-af27-21bcd936c1c9][Installing the ~epdfinfo~ server]]
+4. This should produce a file ~server/epdfinfo.exe~. Copy this file into the ~pdf-tools/~ installation directory in your Emacs.
+5. Make sure Emacs can find ~epdfinfo.exe~. Either add the MINGW install location (e.g. ~C:/msys2/mingw64/bin~) to the system path with ~setx PATH "C:\msys2\mingw64\bin;%PATH%"~ or set Emacs's path with ~(setenv "PATH" (concat "C:\\msys64\\mingw64\\bin;" (getenv "PATH")))~. Note that libraries from other GNU utilities, such as Git for Windows, may interfere with those needed by ~pdf-tools~. ~pdf-info-check-epdinfo~ will succeed, but errors occur when trying to view a PDF file. This can be fixed by ensuring that the MSYS libraries are always preferred.
+6. ~pdf-tools~ will successfully compile using Cygwin, but it will not be able to open PDFs properly due to the way binaries compiled with Cygwin handle file paths. Please use MSYS2.
+
+*** Installing the epdfinfo server from source on macOS (+ Gotchas)
+:PROPERTIES:
+:CREATED:  [2022-10-11 Tue 11:42]
+:ID:       60CBCD65-5654-400A-913F-8B31901D071C
+:END:
+On macOS, ~autobuild~ adjusts ~PKG_CONFIG_PATH~ so that ~pdf-tools~ can find some of the keg-only packages installed by ~brew~. It is recommended that you review the output logs printed by ~brew~ during the installation process to also export the relevant paths to the appropriate ENV variables.
+
+*** Common installation gotchas
+:PROPERTIES:
+:CREATED:  [2022-10-11 Tue 11:04]
+:ID:       3F4C0FDF-6AC0-4845-BA2D-ED7C2F40D894
+:END:
+In case you decide to install ~libpoppler~ from source, make sure to run its configure script with the ~--enable-xpdf-headers~ option.
+
+*** Installing optional features
+:PROPERTIES:
+:CREATED:  [2022-10-11 Tue 11:15]
+:ID:       97FC4447-B567-457F-A498-7CCA74DD5657
+:END:
+One feature -- following links of a PDF document by plain keystrokes -- requires ~imagemagick~'s convert utility. This requirement is optional, the installation process will detect if you have ~imagemagick~ installed or not.
+** Installing pdf-tools elisp code
+:PROPERTIES:
+:CREATED:  [2021-12-29 Wed 18:34]
+:ID:       32c4fc3b-b4ea-43bd-b92c-bdf2d3831fcf
+:END:
+~pdf-tools~ requires ~tablist~ package (>= version 0.70) to be installed, for it to work correctly. Please make sure that the latest version of ~tablist~ is installed.
+
+We have already run the steps necessary to install ~pdf-tools~ as part of [[id:e305cd0a-e798-4c2b-af27-21bcd936c1c9][the server installation]]! These are:
+#+BEGIN_SRC sh
+  $ git clone https://github.com/vedang/pdf-tools
+  $ cd /path/to/pdf-tools
+  $ make -s
+#+END_SRC
+
+If the ~make~ command produced the ELP file ~pdf-tools-${VERSION}.tar~ you are fine! This package contains all the necessary files for Emacs and may be installed by either using
+#+begin_src sh
+    $ make install-package
+#+end_src
+or executing the Emacs command
+#+begin_src elisp
+  M-x package-install-file RET pdf-tools-${VERSION}.tar RET
+#+end_src
+
+You can test if the package has been installed correctly, by running
+#+begin_src elisp
+  M-x pdf-info-check-epdfinfo RET
+#+end_src
+
+To complete the installation process, you need to activate the package by putting the code below somewhere in your ~.emacs~.  Alternatively, and if you care about startup time, you may want to use the loader version instead.
+#+begin_src elisp
+  (pdf-tools-install)  ; Standard activation command
+  (pdf-loader-install) ; On demand loading, leads to faster startup time
+#+end_src
+
+Once the Installation process is complete, check out [[id:19a3daea-6fa6-4ac3-9201-d2034c46ad8c][Easy Help for PDF Tools features]] and [[id:8dccd685-18b8-4c98-977a-0fe2d66b724c][Configuring PDF Tools features]] to get started!
+** Updating pdf-tools
+:PROPERTIES:
+:CREATED:  [2021-12-29 Wed 18:34]
+:ID:       9dd62314-f5ad-4bd4-83fa-8e28343e3d9c
+:END:
+Some day you might want to update this package via ~git pull~ and then reinstall it. Sometimes this may fail, especially if Lisp-Macros are involved and the version hasn't changed. To avoid this kind of problems, you should delete the old package via ~list-packages~, restart Emacs, run ~make distclean~ and then reinstall the package. Follow the steps described in [[id:32c4fc3b-b4ea-43bd-b92c-bdf2d3831fcf][Installing pdf-tools elisp code]].
+
+This also applies when updating via MELPA / NonGNU ELPA (except for running the ~make distclean~ step).
+
+* Features
+:PROPERTIES:
+:CREATED:  [2021-12-29 Wed 18:34]
+:ID:       555b4a2a-7881-49ac-a066-7e3f10034ca4
+:END:
++ View :: View PDF documents in a buffer with DocView-like bindings. [[id:18d362e1-a1a3-4c51-9d45-04e2c53d8c0c][More information here]].
++ Isearch :: Interactively search PDF documents like any other buffer, either for a string or a PCRE.
++ Occur :: List lines matching a string or regexp in one or more PDF documents.
++ Follow :: Click on highlighted links, moving to some part of a different page, some external file, a website or any other URI. Links may also be followed by keyboard commands.
++ Annotations :: Display and list text and markup annotations (like underline), edit their contents and attributes (e.g. color), move them around, delete them or create new ones and then save the modifications back to the PDF file. [[id:5fff6471-a933-46d7-8ae9-b2fa4a9de952][More information here]].
++ Attachments :: Save files attached to the PDF-file or list them in a dired buffer.
++ Outline :: Use ~imenu~ or a special buffer (=M-x pdf-outline=) to examine and navigate the PDF's outline.
++ SyncTeX :: Jump from a position on a page directly to the TeX source and vice versa.
++ Virtual :: Use a collection of documents as if it were one, big single PDF.
++ Misc ::
+  - Display PDF's metadata.
+  - Mark a region and kill the text from the PDF.
+  - Keep track of visited pages via a history.
+  - Apply a color filter for reading in low light conditions.
+** View and Navigate PDFs
+:PROPERTIES:
+:CREATED:  [2021-12-30 Thu 18:25]
+:ID:       18d362e1-a1a3-4c51-9d45-04e2c53d8c0c
+:END:
+PDFView Mode is an Emacs PDF viewer. It displays PDF files as PNG images in Emacs buffers. PDFs are navigable using DocView-like bindings. Once you have installed ~pdf-tools~, opening a PDF in Emacs will automatically trigger this mode.
+*** Keybindings for navigating PDF documents
+:PROPERTIES:
+:CREATED:  [2021-12-30 Thu 18:25]
+:ID:       01864499-2286-4e64-91f5-f8133f53ec61
+:END:
+| Navigation                                    |                         |
+|-----------------------------------------------+-------------------------|
+| Scroll Up / Down by Page-full                 | ~space~ / ~backspace~   |
+| Scroll Up / Down by Line                      | ~C-n~ / ~C-p~           |
+| Scroll Right / Left                           | ~C-f~ / ~C-b~           |
+| First Page / Last Page                        | ~<~, ~M-<~ / ~>~, ~M->~ |
+| Next Page / Previous Page                     | ~n~ / ~p~               |
+| Incremental Search Forward / Backward         | ~C-s~ / ~C-r~           |
+| Occur (list all lines containing a phrase)    | ~M-s o~                 |
+| Jump to Occur Line                            | ~RETURN~                |
+| Pick a Link and Jump                          | ~F~                     |
+| Incremental Search in Links                   | ~f~                     |
+| History Back / Forwards                       | ~l~ / ~r~               |
+| Display Outline                               | ~o~                     |
+| Jump to Section from Outline                  | ~RETURN~                |
+| Jump to Page                                  | ~M-g g~                 |
+| Store position / Jump to position in register | ~m~ / ~'~               |
+|-----------------------------------------------+-------------------------|
+|                                               |                         |
+Note that ~pdf-tools~ renders the PDF as images inside Emacs. This means that all the keybindings of ~image-mode~ work on individual PDF pages as well.
+| Image Mode             |                                             |
+|------------------------+---------------------------------------------|
+| image-scroll-right     | ~C-x >~ / ~<remap> <scroll-right>~          |
+| image-scroll-left      | ~C-x <~ / ~<remap> <scroll-left>~           |
+| image-scroll-up        | ~C-v~ / ~<remap> <scroll-up>~               |
+| image-scroll-down      | ~M-v~ / ~<remap> <scroll-down>~             |
+| image-forward-hscroll  | ~C-f~ / ~right~ / ~<remap> <forward-char>~  |
+| image-backward-hscroll | ~C-b~ / ~left~  / ~<remap> <backward-char>~ |
+| image-bob              | ~<remap> <beginning-of-buffer>~             |
+| image-eob              | ~<remap> <end-of-buffer>~                   |
+| image-bol              | ~<remap> <move-beginning-of-line>~          |
+| image-eol              | ~<remap> <move-end-of-line>~                |
+| image-scroll-down      | ~<remap> <scroll-down>~                     |
+| image-scroll-up        | ~<remap> <scroll-up>~                       |
+| image-scroll-left      | ~<remap> <scroll-left>~                     |
+| image-scroll-right     | ~<remap> <scroll-right>~                    |
+|------------------------+---------------------------------------------|
+|                        |                                             |
+
+*** Keybindings for manipulating display of PDF
+:PROPERTIES:
+:CREATED:  [2021-12-30 Thu 18:33]
+:ID:       73a18ea8-aa21-48d4-9d8b-dc64e3601000
+:END:
+| Display                                  |                 |
+|------------------------------------------+-----------------|
+| Zoom in / Zoom out                       | ~+~ / ~-~       |
+| Fit Height / Fit Width / Fit Page        | ~H~ / ~W~ / ~P~ |
+| Trim Margins (set slice to bounding box) | ~s b~           |
+| Reset Margins                            | ~s r~           |
+| Reset Zoom                               | ~0~             |
+| Rotate Page                              | ~R~             |
+|------------------------------------------+-----------------|
+
+** Annotations
+:PROPERTIES:
+:CREATED:  [2021-12-30 Thu 16:58]
+:ID:       5fff6471-a933-46d7-8ae9-b2fa4a9de952
+:END:
+~pdf-tools~ supports working with PDF Annotations. You can display and list text and markup annotations (like squiggly, highlight), edit their contents and attributes (e.g. color), move them around, delete them or create new ones and then save the modifications back to the PDF file.
+*** Keybindings for working with Annotations
+:PROPERTIES:
+:CREATED:  [2021-12-30 Thu 17:08]
+:ID:       243b3843-b912-430b-884a-641304755b92
+:END:
+| Annotations                          |                                                    |
+|--------------------------------------+----------------------------------------------------|
+| List Annotations                     | ~C-c C-a l~                                        |
+| Jump to Annotations from List        | ~SPACE~                                            |
+| Mark Annotation for Deletion         | ~d~                                                |
+| Delete Marked Annotations            | ~x~                                                |
+| Unmark Annotations                   | ~u~                                                |
+| Close Annotation List                | ~q~                                                |
+| Enable/Disable Following Annotations | ~C-c C-f~                                          |
+|--------------------------------------+----------------------------------------------------|
+| Add and Edit Annotations             | Select region via Mouse selection.                 |
+|                                      | Then left-click context menu OR keybindings below  |
+|--------------------------------------+----------------------------------------------------|
+| Add a Markup Annotation              | ~C-c C-a m~                                        |
+| Add a Highlight Markup Annotation    | ~C-c C-a h~                                        |
+| Add a Strikeout Markup Annotation    | ~C-c C-a o~                                        |
+| Add a Squiggly Markup Annotation     | ~C-c C-a s~                                        |
+| Add an Underline Markup Annotation   | ~C-c C-a u~                                        |
+| Add a Text Annotation                | ~C-c C-a t~                                        |
+|--------------------------------------+----------------------------------------------------|
+| Highlight an arbitrary region        | Section region with Mouse Drag (Hold down Meta and |
+|                                      | drag). Then ~C-c C-a h~ to highlight that region.  |
+|--------------------------------------+----------------------------------------------------|
+|                                      |                                                    |
+
+** Working with AUCTeX
+:PROPERTIES:
+:CREATED:  [2021-12-30 Thu 18:37]
+:ID:       698bdbad-e5f1-4958-b61e-9ed12d4b1234
+:END:
+*** Keybindings for working with AUCTeX
+:PROPERTIES:
+:CREATED:  [2021-12-30 Thu 18:37]
+:ID:       ab7872c1-edd6-465d-9d1d-b621db6364a3
+:END:
+| Syncing with AUCTeX                           |             |
+|-----------------------------------------------+-------------|
+| Refresh File (e.g., after recompiling source) | ~g~         |
+| Jump to PDF Location from Source              | ~C-c C-g~   |
+| Jump Source Location from PDF                 | ~C-mouse-1~ |
+
+** Miscellaneous features
+:PROPERTIES:
+:CREATED:  [2021-12-30 Thu 18:37]
+:ID:       bbefb49d-fca8-4d4f-9d16-4a4ad1946d89
+:END:
+*** Keybindings for miscellaneous features in PDF tools
+:PROPERTIES:
+:CREATED:  [2021-12-30 Thu 18:35]
+:ID:       9148deff-dd5a-46be-a48f-cd2f96b7ce19
+:END:
+| Miscellaneous                                 |           |
+|-----------------------------------------------+-----------|
+| Print File                                    | ~C-c C-p~ |
+
+** Easy Help for PDF Tools features
+:PROPERTIES:
+:CREATED:  [2021-12-29 Wed 13:49]
+:ID:       19a3daea-6fa6-4ac3-9201-d2034c46ad8c
+:END:
+#+begin_src elisp
+  M-x pdf-tools-help RET
+#+end_src
+
+Run =M-x pdf-tools-help= inside Emacs, as shown above. It will list all the features provided by ~pdf-tools~ as well as the key-bindings for these features.
+
+** Configuring PDF Tools features
+:PROPERTIES:
+:CREATED:  [2021-12-29 Wed 13:51]
+:ID:       8dccd685-18b8-4c98-977a-0fe2d66b724c
+:END:
+Once you have read through the features provided by ~pdf-tools~, you probably want to customize the behavior of the features as per your requirements. Full customization of features is available by running the following:
+#+begin_src elisp
+  M-x pdf-tools-customize RET
+#+end_src
+
+* Known problems
+:PROPERTIES:
+:CREATED:  [2021-12-29 Wed 18:29]
+:ID:       4baf936a-2454-41c9-99db-177133ee9568
+:END:
+
+** linum-mode
+:PROPERTIES:
+:CREATED:  [2021-12-29 Wed 18:34]
+:ID:       73625d02-d472-4e7d-9805-db6d3b60e0ff
+:END:
+~pdf-tools~ does not work well together with ~linum-mode~ and activating it in a ~pdf-view-mode~, e.g. via ~global-linum-mode~, might make Emacs choke.
+
+** display-line-numbers-mode
+:PROPERTIES:
+:CREATED:  [2022-01-03 Mon 08:31]
+:ID:       f178ba41-0f5a-4d22-b4a8-889af1af566e
+:END:
+This mode is an alternative to ~linum-mode~ and is available since Emacs 26. ~pdf-tools~ does not work well with it. For example, it makes horizontal navigation (such as ~C-f~, ~C-b~, ~C-x <~ or ~C-x >~ ) in a document impossible.
+
+** auto-revert
+:PROPERTIES:
+:CREATED:  [2021-12-29 Wed 18:34]
+:ID:       24b671c6-c242-4983-9d11-38421d2752e9
+:END:
+Autorevert works by polling the file-system every ~auto-revert-interval~ seconds, optionally combined with some event-based reverting via [[https://www.gnu.org/software/emacs/manual/html_node/elisp/File-Notifications.html][file notification]]. But this currently does not work reliably, such that Emacs may revert the PDF-buffer while the corresponding file is still being written to (e.g. by LaTeX), leading to a potential error.
+
+With a recent [[https://www.gnu.org/software/auctex/][AUCTeX]] installation, you might want to put the following somewhere in your dotemacs, which will revert the PDF-buffer *after* the TeX compilation has finished.
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+#+END_SRC
+
+** sublimity
+:PROPERTIES:
+:CREATED:  [2021-12-29 Wed 18:34]
+:ID:       4766d18a-c02a-456d-8398-701bbea3ee80
+:END:
+L/R scrolling breaks while zoomed into a pdf, with usage of sublimity smooth scrolling features
+
+** Text selection is not transparent in PDFs OCRed with Tesseract
+:PROPERTIES:
+:CREATED:  [2022-09-19 Mon 18:50]
+:ID:       C3A4A7C0-6BBB-4923-AD39-3707C8482A76
+:END:
+
+In such PDFs the selected text becomes hidden behind the selection; see [[https://github.com/vedang/pdf-tools/issues/149][this issue]], which also describes the workaround in detail. The following function, which depends on the [[https://github.com/orgtre/qpdf.el][qpdf.el]] package, can be used to convert such a PDF file into one where text selection is transparent:
+#+begin_src elisp
+  (defun my-fix-pdf-selection ()
+    "Replace pdf with one where selection shows transparently."
+    (interactive)
+    (unless (equal (file-name-extension (buffer-file-name)) "pdf")
+      (error "Buffer should visit a pdf file."))
+    (unless (equal major-mode 'pdf-view-mode)
+      (pdf-view-mode))
+    ;; save file in QDF-mode
+    (qpdf-run (list
+               (concat "--infile="
+                       (buffer-file-name))
+               "--qdf --object-streams=disable"
+               "--replace-input"))
+    ;; do replacements
+    (text-mode)
+    (read-only-mode -1)
+    (while (re-search-forward "3 Tr" nil t)
+      (replace-match "7 Tr" nil nil))
+    (save-buffer)
+    (pdf-view-mode))
+#+end_src
+Note that this overwrites the PDF file visited in the buffer from which it is run! To avoid this replace the ~--replace-input~ with ~(concat "--outfile=" (file-truename (read-file-name "Outfile: ")))~.
+
+* Key-bindings in PDF Tools
+:PROPERTIES:
+:CREATED:  [2021-12-29 Wed 18:34]
+:ID:       fa99285a-437e-4be4-9a65-426db019019f
+:END:
+- [[brain-child:01864499-2286-4e64-91f5-f8133f53ec61][Keybindings for navigating PDF documents]]
+- [[brain-child:243b3843-b912-430b-884a-641304755b92][Keybindings for working with Annotations]]
+- [[brain-child:73a18ea8-aa21-48d4-9d8b-dc64e3601000][Keybindings for manipulating display of PDF]]
+- [[brain-child:ab7872c1-edd6-465d-9d1d-b621db6364a3][Keybindings for working with AUCTeX]]
+- [[brain-child:9148deff-dd5a-46be-a48f-cd2f96b7ce19][Keybindings for miscellaneous features in PDF tools]]
+
+* Tips and Tricks for Developers
+:PROPERTIES:
+:CREATED:  [2021-12-29 Wed 18:34]
+:ID:       fd64c10c-4ea5-4ece-8d95-b723098dd4f6
+:END:
+** Turn on debug mode
+:PROPERTIES:
+:CREATED:  [2021-12-29 Wed 18:34]
+:ID:       100fc888-7064-4dd3-9db4-c84a7e8f4af0
+:END:
+#+begin_src elisp
+  M-x pdf-tools-toggle-debug RET
+#+end_src
+Toggling debug mode prints information about various operations in the ~*Messages*~ buffer, and this is useful to see what is happening behind the scenes
+
+** Run Emacs lisp tests locally
+:PROPERTIES:
+:CREATED:  [2022-05-09 Mon 21:27]
+:ID:       1CBE7325-A5A1-479B-9A98-BEEFBAC9D8FF
+:END:
+You can go to the ~pdf-tools~ folder and run ~make test~ to run the ERT tests and check if the changes you have made to the code break any of the tests.
+
+The tests are written in ERT, which is the built-in testing system in Emacs. However, they are run using ~Cask~ which you will have to install first, if you don't have it already. You can install ~Cask~ by following the instructions on their site at https://github.com/cask/cask
+** Run server compilation tests locally
+:PROPERTIES:
+:CREATED:  [2022-07-20 Wed 16:42]
+:ID:       5327945D-9D92-4462-8172-7237DEF4C359
+:END:
+You can go to the ~pdf-tools~ folder and run ~make server-test~ to check if the changes you have made to the server code break compilation on any of the supported operating systems.
+
+The tests build ~Podman~ images for all supported operating systems, so you will have to install ~Podman~ first, if you don't have already. You can install ~Podman~ by following the instructions on their site at https://podman.io/getting-started/installation
+
+Podman is compatible with Docker, so if you already have ~docker~ installed, you should be able to ~alias podman=docker~ on your shell and run the tests, without having to install Docker. (Note: I have not tested this)
+
+** Add a Dockerfile to automate server compilation testing
+:PROPERTIES:
+:CREATED:  [2022-07-20 Wed 16:52]
+:ID:       A401543C-308B-4175-8212-5B78CD6C8389
+:END:
+The ~server/test/docker~ folder contains Dockerfile templates used for testing that the ~epdfinfo~ server compiles correctly on various operating systems ([[id:5327945D-9D92-4462-8172-7237DEF4C359][more details here]]).
+
+To see the list of operating systems where compilation testing is supported, run ~make server-test-supported~. To see the list of operating systems where testing is unsupported, run ~make server-test-unsupported~. To add support, look into the ~server/test/docker/templates~ folder (~ubuntu~ files are a good example to refer to)
+
+** Issue Template for Bug Reports
+:PROPERTIES:
+:CREATED:  [2022-12-02 Fri 13:30]
+:ID:       F563A2A4-FCF8-4F04-94CA-19E80E4841A6
+:END:
+Please use the 'Bug Report' issue template when reporting bugs. The template is as follows:
+
+*** Describe the bug
+A clear and concise description of what the bug is.
+
+*** Steps To Reproduce the behaviour:
+1. Go to '...'
+2. Click on '....'
+3. Scroll down to '....'
+4. See error
+
+*** What is the expected behaviour?
+A clear and concise description of what you expected to happen.
+
+*** Desktop
+Please complete the following information:
+
+- OS: [eg: MacOS Catalina]
+- Emacs Version: [This should be the output of =M-x emacs-version= ]
+- Poppler Version: [eg: output of ~brew info poppler~ and similarly for other OSs]
+
+*** Your pdf-tools install
+Please complete the following information:
+- ~pdf-tools~ Version: [ =M-x package-list-packages= -> Search for ~pdf-tools~ -> Hit Enter and copy all the details that pop up in the Help buffer]
+- ~pdf-tools~ customization / configuration that you use:
+
+*** Additional context
+- If you are reporting a crash, please try and add the Backtrace / Stacktrace of the crash.
+- If you are reporting a bug, please try and attach an example PDF file where I can reproduce the bug.
+- If you can attach screenshots or recordings, that is a great help
+- Please try reproducing the bug yourself on Vanilla Emacs before reporting the problem.
+
+* FAQs
+:PROPERTIES:
+:CREATED:  [2021-12-30 Thu 22:04]
+:ID:       3be6abe7-163e-4c3e-a7df-28e8470fe37f
+:END:
+** Epdfinfo has stopped working!
+:PROPERTIES:
+:CREATED:  [2023-06-10 Sat 23:25]
+:ID:       9B5F797F-9BB3-45D9-B364-D4E5F13222BF
+:END:
+Have you upgraded ~poppler~ recently? This can cause ~epdfinfo~ to stop working, since it was compiled with the previous version of ~poppler~. Just run =M-x pdf-tools-install= and this should be fixed.
+
+** PDFs are not rendering well!
+:PROPERTIES:
+:CREATED:  [2021-12-30 Thu 22:04]
+:ID:       20ef86be-7c92-4cda-97ec-70a22484e689
+:END:
+~pdf-tools~ version ~1.1.0~ release changed the default value of ~pdf-view-use-scaling~ to ~t~ (previously, it was ~nil~). This has been done keeping in mind that most modern monitors are HiDPI screens, so the default configuration should cater to this user. If you are not using a HiDPI screen, you might have to change this value to ~nil~ in your configuration
+
+#+begin_src elisp
+  (setq pdf-view-use-scaling nil)
+#+end_src
+
+to scale the images correctly when rendering them.
+
+** What Emacs versions does pdf-tools support?
+:PROPERTIES:
+:CREATED:  [2022-01-02 Sun 10:12]
+:ID:       f44c66e6-402d-4154-b806-6bb4180a0a5b
+:END:
+~pdf-tools~ supports the 3 latest versions of Emacs major releases. At the moment of this writing, this means that the minimum supported Emacs version is ~26.3~.
+
+** I want to add support for pdf-tools on "My Fav OS". How do I do that?
+:PROPERTIES:
+:CREATED:  [2022-04-25 Mon 21:50]
+:ID:       A34704B9-1B51-4614-8806-C4059F7B42D5
+:END:
+I'm working on automating ~pdf-tools~ installation as much as possible, in order to improve the installation experience. If you want to add support for a new / currently unsupported Operating System, please modify the ~server/autobuild~ script. Say you want to support a new Operating System called MyFavOS. You need to do the following work:
+
+1. Search for the ~Figure out where we are~ section. Here, add a call to ~os_myfavos~ right below ~handle_options~ at the end of the existing call chain. Here we try and pick up the correct Operating System and install the relevant dependencies.
+2. Add handling for the ~--os~ argument in ~os_argument~ for ~myfavos~, so that the appropriate function can be called to install pre-requisites. ~--os~ is the argument that we pass to the script from the command-line to indicate which OS we are on.
+3. Create a ~os_myfavos~ function. This function checks if we are running on MyFavOS. If we are running on MyFavOS, it sets up ~PKGCMD~, ~PKGARGS~ and ~PACKAGES~ variables so that the appropriate package manager can install the dependencies as part of the rest of the ~autobuild~ script.
+4. If you are adding support for your favorite operating system, consider adding automated testing support as well, to help me ensure that ~epdfinfo~ continues to compile correctly. See [[id:A401543C-308B-4175-8212-5B78CD6C8389][Add a Dockerfile to automate server compilation testing]] for more details.
+
+The idea here is to make the ~server/autobuild~ file the single place from which installation can happen on any Operating System. This makes building ~pdf-tools~ dead simple via the ~Makefile~.
+
+This seems like a lot of work, but it is not. If you need a reference, search for ~os_gentoo~ or ~os_debian~ in the ~server/autobuild~ file and see how these are setup and used. The functions are used to install dependencies on Gentoo and Debian respectively, and are simple to copy / change.
+
+When you make your changes, please be sure to test [[id:1CBE7325-A5A1-479B-9A98-BEEFBAC9D8FF][the elisp changes]] as well as [[id:5327945D-9D92-4462-8172-7237DEF4C359][the server code changes]] as described in the linked articles.
+
+** I am on a Macbook M1 and pdf-tools installation fails with a stack-trace
+:PROPERTIES:
+:CREATED:  [2022-05-09 Mon 20:29]
+:ID:       96D389D8-DD23-4FB0-996C-2D6F70A76BB2
+:END:
+There have been a number of issues around ~pdf-tools~ installation problems on M1. =M-x pdf-tools-install= throws the following stack trace:
+#+begin_example
+  1 warning generated.
+  ld: warning: ignoring file /opt/homebrew/opt/gettext/lib/libintl.dylib, building for macOS-x86_64 but attempting to link with file built for macOS-arm64
+  ld: warning: ignoring file /opt/homebrew/Cellar/glib/2.72.1/lib/libglib-2.0.dylib, building for macOS-x86_64 but attempting to link with file built for macOS-arm64
+  ld: warning: ignoring file /opt/homebrew/Cellar/poppler/22.02.0/lib/libpoppler-glib.dylib, building for macOS-x86_64 but attempting to link with file built for macOS-arm64
+  ld: warning: ignoring file /opt/homebrew/Cellar/glib/2.72.1/lib/libgobject-2.0.dylib, building for macOS-x86_64 but attempting to link with file built for macOS-arm64
+  ld: warning: ignoring file /opt/homebrew/Cellar/poppler/22.02.0/lib/libpoppler.dylib, building for macOS-x86_64 but attempting to link with file built for macOS-arm64
+  ld: warning: ignoring file /opt/homebrew/Cellar/cairo/1.16.0_5/lib/libcairo.dylib, building for macOS-x86_64 but attempting to link with file built for macOS-arm64
+  ld: warning: ignoring file /opt/homebrew/Cellar/libpng/1.6.37/lib/libpng16.dylib, building for macOS-x86_64 but attempting to link with file built for macOS-arm64
+  ld: warning: ignoring file /opt/homebrew/Cellar/zlib/1.2.11/lib/libz.dylib, building for macOS-x86_64 but attempting to link with file built for macOS-arm64
+  Undefined symbols for architecture x86_64:
+#+end_example
+
+This happens because M1 architecture is =ARM64=, whereas the Emacs App you are using has been compiled for the =x86_64= architecture. The way to solve this problem is to install a version of Emacs which has been compiled for the M1. As of today, [2022-05-09 Mon], the latest version of Emacs available on https://emacsformacosx.com/ is natively compiled and you will not face these issues on it. Please remove your current Emacs App and install it from https://emacsformacosx.com/.
+
+Thank you.
+
+PS: How do I know if the Emacs I'm running has been compiled correctly?
+
+You can see this by opening the =Activity Monitor=, selecting =Emacs=, clicking on the =Info= key, and then clicking on =Sample=. The =Code Type= field in the Sample output will show you how your Application has been compiled. Here is the output for EmacsForMacOSX (you can see that it's =ARM64=):
+#+begin_example
+  Sampling process 61824 for 3 seconds with 1 millisecond of run time between samples
+  Sampling completed, processing symbols...
+  Analysis of sampling Emacs-arm64-11 (pid 61824) every 1 millisecond
+  Process:         Emacs-arm64-11 [61824]
+  Path:            /Applications/Emacs.app/Contents/MacOS/Emacs-arm64-11
+  Load Address:    0x1007f0000
+  Identifier:      org.gnu.Emacs
+  Version:         Version 28.1 (9.0)
+  Code Type:       ARM64
+  Platform:        macOS
+#+end_example
+
+If your Emacs is compiled for x86, the =Code Type= will be =x86_64=.
+
+** I am a developer, making changes to the pdf-tools source code
+:PROPERTIES:
+:CREATED:  [2022-05-09 Mon 21:31]
+:ID:       2D173424-C211-4474-B0D0-83F4381CAFFA
+:END:
+Thank you for taking the time to contribute back to the code. You may find some useful notes in the [[id:fd64c10c-4ea5-4ece-8d95-b723098dd4f6][Tips and Tricks for Developers]] section. Please be sure to check it out!

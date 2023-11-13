@@ -1,0 +1,16 @@
+* smerge
+
+  The table below shows the binding changes that are made to smerge-mode.
+
+| Command                     | Original Binding | evil-collection-smerge |
+|-----------------------------+------------------+------------------------|
+| =smerge-next=               | =C-c ^ n=        | =gj, ]]=               |
+| =smerge-prev=               | =C-c ^ p=        | =gk, [[=               |
+| =smerge-keep-all=           | =C-c ^ a=        | =ga=                   |
+| =smerge-keep-upper=         | =C-c ^ u=        | =gu=                   |
+| =smerge-keep-lower=         | =C-c ^ l=        | =gl=                   |
+| =smerge-keep-other=         | =C-c ^ o=        | =go=                   |
+| =smerge-keep-mine=          | =C-c ^ m=        | =gm=                   |
+| =smerge-combine-with-next=  | =C-c ^ C=        | =gc=                   |
+| =smerge-refine=             | =C-c ^ R=        | =gr=                   |
+| =smerge-keep-base=          | =C-c ^ b=        | =gb=                   |

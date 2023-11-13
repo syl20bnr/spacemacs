@@ -1,0 +1,211 @@
+* Black magic
+
+  This library configures Magit and Evil to play well with each other. For some
+  background see [[https://github.com/justbur/evil-magit/issues/1][Issue #1]].
+
+  *Note*: I intend to track the latest commits to the master branch of the [[https://github.com/magit/magit][magit
+  repo]], meaning the keybindings here are potentially ahead of the last stable
+  release of magit. Once the code in evil-collection-magit stabilizes, I may switch to
+  primarily tracking the stable release of magit and secondarily track the latest
+  commits to master. Any help is welcomed.
+
+* Recent Changes (most recent first)
+
+  1. [2019-09-04] Don't use =evil-next-visual-line= and
+     =evil=previous-visual-line=. See [[https://github.com/emacs-evil/evil-magit/issues/70][Issue #70]].
+  1. [2019-06-16] Added =evil-collection-magit-stage-untracked-file-with-intent= at
+     =I=. See [[https://github.com/emacs-evil/evil-magit/issues/67][Issue #67]].
+  2. [2019-02-15] Added =forge-dispatch= at =@=.
+  3. [2018-05-22] Added =evil-collection-magit-use-z-for-folds=. See docstring for more
+     information.
+  4. [2018-03-13] Added basic evil support for =magit-list-repositories=.
+  5. [2016-07-27] Moved submodules popup to ' and added the new subtree popup at
+     ". This is not mnemonic in any way but easy to reach and keeps the two keys
+     together.
+  6. [2016-03-24] Moved =magit-diff-less-context= to = to fix conflict with
+     moved revert.
+  7. [2016-03-21] Moved revert commands from =o= and =O= to =-= and
+     =_=. Rationale is that you are subtracting a commit. This makes room for
+     =o= and =O= to be reset and the new reset popup command. Think of resetting
+     to an "old" state. =¯\_(ツ)_/¯=
+  8. Added =evil-collection-magit-want-horizontal-movement=. Use =h= and =l= for movement
+     like vim, moving =h= to =H=, =l= to =L=, and =L= to =C-l=.
+  9. Added =evil-collection-magit-toggle-text-mode= on =C-t=. This is a quick way to enter
+     text mode in a magit buffer, which allows arbitrary movement, copying, etc.
+     Use =C-t= to return to the previous magit mode.
+  10. When =evil-collection-magit-use-y-for-yank= is non nil, =C-w= will prefix the evil
+      window switching functions from magit buffers.
+  11. =evil-collection-magit-use-y-for-yank= is now the default. It has worked well for me so
+      far, and I've had good feedback, but please let me know if you see issues.
+      You can use the original behavior with =(setq evil-collection-magit-use-y-for-yank
+      nil)=. See the table below for a summary of differences.
+
+
+* Installation and Use
+
+  Evil and Magit are both required. After requiring those packages, the following
+  will setup the new key bindings for you.
+
+  #+BEGIN_SRC emacs-lisp
+  ;; optional: this is the evil state that evil-collection-magit will use
+  ;; (setq evil-collection-magit-state 'normal)
+  ;; optional: disable additional bindings for yanking text
+  ;; (setq evil-collection-magit-use-y-for-yank nil)
+  (evil-collection-init)
+  #+END_SRC emacs-lisp
+
+** Note on Evil usage
+
+   This package assumes that you either use the global variant of evil mode (e.g.,
+   through =(evil-mode 1)=), or at least have =evil-local-mode= (the local variant)
+   enabled in the magit buffers you want these bindings to take effect in. When
+   evil is disabled in a magit buffer, this package will not affect the default key
+   bindings (with one minor exception).
+
+** Note on =evil-collection-magit-use-y-for-yank=
+
+   =evil-collection-magit-use-y-for-yank= enables evil's visual state for linewise selection,
+   and as a consequnce =y= will yank text from the buffer.
+
+   With this enabled which it is by default evil-collection-magit uses =v= and =V= to select
+   by line. Selection in magit occurs linewise, so this choice is to avoid
+   confusion that might arise if someone thought they could stage part of a line
+   with =v= for example.
+
+** Text mode
+
+   Text mode can be toggled with =evil-collection-magit-toggle-text-mode= (triggered with
+   =C-t= or =\=). This takes nearly any magit buffer out of the related magit mode
+   and puts it into =text-mode=. This allows free movement in the buffer using the
+   standard evil movement and selection commands, making it easy to for example
+   copy arbitrary text in the buffer. It also effectively prevents magit keys from
+   shadowing evil ones, so =f= runs =evil-find-char= instead of
+   =magit-fetch-popup=, allowing all vim related movement commands to be used in
+   magit buffers. You can think of this if you like as another state for evil-collection-magit
+   to be in.
+
+   Several requests have been made to allow selecting and copying arbitrary text in
+   the magit buffers, but there are many conflicts between evil bindings and magit
+   bindings and there is no elegant solution to this problem in my opinion. Text
+   mode is the best that I have come up with.
+
+* Key Bindings
+
+  The basic key binding scheme for evil-collection-magit (EM) is described in the following
+  tables. Blank columns indicate that the key is carried over from the left.
+
+  | Category               | Default | EM w/o yank opt        | w/ yank opt (default) | w/ horiz move | w/ folds |
+  |------------------------+---------+------------------------+-----------------------+---------------+----------|
+  | cherry pick            | =a/A=   |                        |                       |               |          |
+  | branch                 | =b=     |                        |                       |               |          |
+  | bisect                 | =B=     |                        |                       |               |          |
+  | commit                 | =c=     |                        |                       |               |          |
+  | diff                   | =d/D=   |                        |                       |               |          |
+  | ediff                  | =e/E=   |                        |                       |               |          |
+  | fetch                  | =f=     |                        |                       |               |          |
+  | pull                   | =F=     |                        |                       |               |          |
+  | refresh                | =g=     | =gr/gR= (=g= in popup) |                       |               |          |
+  | help                   | =h/?=   |                        |                       | =H/?=         |          |
+  | ignore                 | =i/I=   |                        |                       |               |          |
+  | intent to stage        | =I=     |                        |                       |               |          |
+  | jump                   | =j=     | =g=                    |                       |               |          |
+  | delete                 | =k=     | =x=                    |                       |               |          |
+  | untrack                | =K=     | =X=                    |                       |               |          |
+  | log                    | =l/L=   |                        |                       | =L/C-l=       |          |
+  | merge                  | =m=     |                        |                       |               |          |
+  | remote                 | =M=     |                        |                       |               |          |
+  | next section           | =n=     | =C-j=                  |                       |               |          |
+  | next section sibling   | =M-n=   | =gj= or =]=            |                       |               |          |
+  | submodule              | =o=     | '                      |                       |               |          |
+  | subtree                | =O=     | "                      |                       |               |          |
+  | prev section           | =p=     | =C-k=                  |                       |               |          |
+  | prev section sibling   | =M-p=   | =gk= or =[=            |                       |               |          |
+  | push                   | =P=     | =P= or =p=             |                       |               |          |
+  | quit                   | =q=     | =q= or =ESC=           |                       |               |          |
+  | rebase                 | =r=     |                        |                       |               |          |
+  | rename                 | =R=     |                        |                       |               |          |
+  | stage                  | =s/S=   |                        |                       |               |          |
+  | tag                    | =t=     |                        |                       |               |          |
+  | notes                  | =T=     |                        |                       |               |          |
+  | unstage                | =u/U=   |                        |                       |               |          |
+  | revert                 | =v/V=   | =-/_=                  |                       |               |          |
+  | am                     | =w=     |                        |                       |               |          |
+  | patch                  | =W=     |                        |                       |               |          |
+  | reset                  | =x/X=   | =o/O=                  |                       |               |          |
+  | show-refs              | =y=     |                        | =yr= (=y= in popup)   |               |          |
+  | cherry                 | =Y=     |                        |                       |               |          |
+  | stash                  | =z/Z=   |                        |                       |               | =Z=      |
+  | git-cmd                | =:=     | =¦=                    |                       |               |          |
+  | run                    | =!=     |                        |                       |               |          |
+  | forge                  | =@=     |                        |                       |               |          |
+  | diff less/more context | =-/+=   | = / +                  |                       |               |          |
+  | copy section info      | =C-w=   |                        | =ys=                  |               |          |
+  | copy buffer info       | =M-w=   |                        | =yb=                  |               |          |
+
+** New Commands
+
+   | Command                     | EM w/o yank opt          | EM w/ yank opt (default) | w/ horiz move |
+   |-----------------------------+--------------------------+--------------------------+---------------|
+   | evil-goto-line              | =G=                      |                          |               |
+   | evil-next-visual-line       | =j=                      |                          |               |
+   | evil-previous-visual-line   | =k=                      |                          |               |
+   | evil-backward-char          | under =M-x=              |                          | =h=           |
+   | evil-forward-char           | under =M-x=              |                          | =l=           |
+   | evil-search-next            | =n=                      |                          |               |
+   | evil-search-previous        | =N=                      |                          |               |
+   | set-mark-command            | =v= or =V=               | =C-SPC=                  |               |
+   | evil-visual-line            | under =M-x=              | =v= or =V=               |               |
+   | evil-ex                     | =:=                      |                          |               |
+   | evil-search-forward         | =/=                      |                          |               |
+   | evil-scroll-page-up         | =C-b=                    |                          |               |
+   | evil-scroll-down            | =C-d=                    |                          |               |
+   | evil-scroll-page-down       | =C-f=                    |                          |               |
+   | evil-scroll-up              | =C-u= (if =C-u= scrolls) |                          |               |
+   | evil-emacs-state            | =C-z=                    |                          |               |
+   | evil-yank-line              | under =M-x=              | =yy=                     |               |
+   | evil-window-map             | under =M-x=              | =C-w=                    |               |
+   | evil-collection-magit-toggle-text-mode | =C-t/\=                  |                          |               |
+
+
+   Any other bindings are meant to be consistent with these.
+
+   Use =evil-collection-magit-revert= to revert changes made by evil-collection-magit to the default
+   evil+magit behavior.
+
+** To add other common evil commands
+
+   Some may want =?= to search backward instead of launching the popup which is
+   also bound to =h=. To get this behavior, add the following line after
+   =(evil-collection-init)= in your configuration.
+
+   #+BEGIN_SRC emacs-lisp
+(evil-define-key evil-collection-magit-state magit-mode-map "?" 'evil-search-backward)
+   #+END_SRC
+
+   Most (but not all) magit bindings are in =magit-mode-map=, so other commands can
+   be bound in this way too.
+
+** To remove commands
+
+   Typically, to prevent evil-collection-magit from overriding the default behavior with evil
+   and magit loaded, you should bind the respective key to =nil= after loading
+   evil-collection-magit. For example, to make =escape= behave as default:
+
+   #+BEGIN_SRC emacs-lisp
+(evil-define-key* evil-collection-magit-state magit-mode-map [escape] nil)
+   #+END_SRC
+
+* Known Conflicts
+
+  These are the third-party packages that conflict with these bindings and will
+  probably need to be disabled in magit buffers for evil-collection-magit to work properly.
+
+  1. [[https://github.com/hlissner/evil-snipe][evil-snipe]]
+  2. [[https://github.com/syl20bnr/evil-escape][evil-escape]] with [[https://github.com/justbur/evil-magit/issues/4][certain escape sequences]]
+
+* Disclaimer
+
+  Given the complexity of magit key bindings combined with the complexity of git
+  itself, it is possible that there are some rough edges where the current binding
+  is not the expected one in a buffer. It will be very helpful for you to report
+  any such instances.

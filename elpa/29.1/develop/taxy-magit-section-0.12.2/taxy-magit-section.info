@@ -1,0 +1,200 @@
+This is README.info, produced by makeinfo version 5.2 from README.texi.
+
+INFO-DIR-SECTION Emacs
+START-INFO-DIR-ENTRY
+* Taxy Magit Section: (taxy-magit-section). Render Taxy structs with Magit Section.
+END-INFO-DIR-ENTRY
+
+
+File: README.info,  Node: Top,  Next: COMMENT Examples,  Up: (dir)
+
+taxy-magit-section.el
+*********************
+
+https://elpa.gnu.org/packages/taxy-magit-section.svg
+(https://elpa.gnu.org/packages/taxy-magit-section.html)
+
+   This library renders Taxy (https://github.com/alphapapa/taxy.el)
+structs with magit-section (https://melpa.org/#/magit-section).
+
+* Menu:
+
+* COMMENT Examples::
+* Installation::
+* COMMENT Usage::
+* Changelog::
+* Development::
+* Credits::
+* License::
+
+— The Detailed Node Listing —
+
+Changelog
+
+* 0.12.2: 0122. 
+* 0.12.1: 0121. 
+* 0.12: 012. 
+* 0.11: 011. 
+* 0.10: 010. 
+* 0.9.1: 091. 
+* 0.9: 09. 
+
+
+
+File: README.info,  Node: COMMENT Examples,  Next: Installation,  Prev: Top,  Up: Top
+
+1 COMMENT Examples
+******************
+
+
+File: README.info,  Node: Installation,  Next: COMMENT Usage,  Prev: COMMENT Examples,  Up: Top
+
+2 Installation
+**************
+
+‘taxy-magit-section’ is distributed in GNU ELPA (https://elpa.gnu.org/),
+which is available in Emacs by default.  Use ‘M-x package-install RET
+taxy-magit-section RET’, then ‘(require 'taxy-magit-section)’ in your
+Elisp project.
+
+
+File: README.info,  Node: COMMENT Usage,  Next: Changelog,  Prev: Installation,  Up: Top
+
+3 COMMENT Usage
+***************
+
+
+File: README.info,  Node: Changelog,  Next: Development,  Prev: COMMENT Usage,  Up: Top
+
+4 Changelog
+***********
+
+* Menu:
+
+* 0.12.2: 0122. 
+* 0.12.1: 0121. 
+* 0.12: 012. 
+* 0.11: 011. 
+* 0.10: 010. 
+* 0.9.1: 091. 
+* 0.9: 09. 
+
+
+File: README.info,  Node: 0122,  Next: 0121,  Up: Changelog
+
+4.1 0.12.2
+==========
+
+*Fixes*
+   • Header alignment.
+
+
+File: README.info,  Node: 0121,  Next: 012,  Prev: 0122,  Up: Changelog
+
+4.2 0.12.1
+==========
+
+*Fixes*
+   • Compilation error.
+
+
+File: README.info,  Node: 012,  Next: 011,  Prev: 0121,  Up: Changelog
+
+4.3 0.12
+========
+
+*Fixes*
+   • Section visibility caching.
+
+
+File: README.info,  Node: 011,  Next: 010,  Prev: 012,  Up: Changelog
+
+4.4 0.11
+========
+
+*Additions*
+   • Truncated column values receive help-echo tooltips so the full
+     value can be viewed.
+
+
+File: README.info,  Node: 010,  Next: 091,  Prev: 011,  Up: Changelog
+
+4.5 0.10
+========
+
+*Fixes*
+   • Require package ‘taxy’ in package headers.
+
+
+File: README.info,  Node: 091,  Next: 09,  Prev: 010,  Up: Changelog
+
+4.6 0.9.1
+=========
+
+*Fixes*
+   • ‘taxy-magit-section-insert’ appends heading faces, so users can
+     override (or merge with) the default.
+   • ‘taxy-magit-section-format-items’ uses columns’ headers as their
+     minimum width, which preserves each column’s width regardless of
+     items’ values.
+
+
+File: README.info,  Node: 09,  Prev: 091,  Up: Changelog
+
+4.7 0.9
+=======
+
+   • ‘taxy-magit-section’ moved to separate package.
+   • Better align columns whose values are images.
+
+
+File: README.info,  Node: Development,  Next: Credits,  Prev: Changelog,  Up: Top
+
+5 Development
+*************
+
+‘taxy-magit-section’ is developed in a branch of the main Taxy repo
+(https://github.com/alphapapa/taxy.el).
+
+
+File: README.info,  Node: Credits,  Next: License,  Prev: Development,  Up: Top
+
+6 Credits
+*********
+
+   • Thanks to Stefan Monnier for his feedback, and for maintaining GNU
+     ELPA.
+
+
+File: README.info,  Node: License,  Prev: Credits,  Up: Top
+
+7 License
+*********
+
+GPLv3
+
+
+
+Tag Table:
+Node: Top221
+Node: COMMENT Examples850
+Node: Installation978
+Node: COMMENT Usage1349
+Node: Changelog1474
+Node: 01221703
+Node: 01211823
+Node: 0121956
+Node: 0112093
+Node: 0102294
+Node: 0912449
+Node: 092841
+Node: Development3031
+Node: Credits3258
+Node: License3448
+
+End Tag Table
+
+
+Local Variables:
+coding: utf-8
+End:

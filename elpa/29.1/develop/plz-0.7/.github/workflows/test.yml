@@ -1,0 +1,88 @@
+# * test.yml --- Test Emacs packages using makem.sh on GitHub Actions
+
+# URL: https://github.com/alphapapa/makem.sh
+# Version: 0.6-pre
+
+# * Commentary:
+
+# Based on Steve Purcell's examples at
+# <https://github.com/purcell/setup-emacs/blob/master/.github/workflows/test.yml>,
+# <https://github.com/purcell/package-lint/blob/master/.github/workflows/test.yml>.
+
+# * License:
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# * Code:
+
+name: "CI"
+on:
+  pull_request:
+  push:
+    # Comment out this section to enable testing of all branches.
+    # branches:
+    #   - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        emacs_version:
+          - 26.3
+          - 27.1
+          - 27.2
+          - 28.1
+          - 28.2
+          - snapshot
+    steps:
+    - uses: purcell/setup-emacs@master
+      with:
+        version: ${{ matrix.emacs_version }}
+
+    - uses: actions/checkout@v2
+
+    - name: Install Ispell
+      run: |
+        sudo apt-get install ispell
+
+    - name: Initialize sandbox
+      run: |
+        SANDBOX_DIR=$(mktemp -d) || exit 1
+        echo "SANDBOX_DIR=$SANDBOX_DIR" >> $GITHUB_ENV
+        ./makem.sh -vv --sandbox=$SANDBOX_DIR --install-deps --install-linters
+
+    - name: Run httpbin with Docker
+      run: docker run -d -p 80:80 -P kennethreitz/httpbin
+
+    # The "all" rule is not used, because it treats compilation warnings
+    # as failures, so linting and testing are run as separate steps.
+
+    - name: Lint
+      # NOTE: Uncomment this line to treat lint failures as passing so
+      #       the job doesn't show failure.  (Enabled for now because
+      #       Emacs 29 indents some cl- forms differently, which
+      #       causes lint-indent to fail, and what matters most is
+      #       that the tests pass.)
+      continue-on-error: true
+      run: ./makem.sh -vv --sandbox=$SANDBOX_DIR lint
+
+    - name: Test
+      if: always()  # Run test even if linting fails.
+      run: ./makem.sh -vv --sandbox=$SANDBOX_DIR test
+
+# Local Variables:
+# eval: (outline-minor-mode)
+# End:

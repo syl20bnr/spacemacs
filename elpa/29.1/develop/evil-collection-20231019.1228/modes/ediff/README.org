@@ -1,0 +1,21 @@
+* ediff
+
+  The table below shows the binding changes that are made to ediff-mode.
+
+| Command                     | Original Binding | evil-collection-ediff |
+|-----------------------------+------------------+-----------------------|
+| =ediff-next-difference=     | =n, SPC=         | =j, n, SPC=           |
+| =ediff-previous-difference= | =p, DEL=         | =k, N, p, DEL=        |
+| =ediff-jump-to-difference=  | =j=              | =d=                   |
+| jump to first difference    | =1j=             | =gg, 1d=              |
+| jump to last difference     | N/A              | =G=                   |
+| copy region A to region B   | =a=              | =a, l=                |
+| copy region B to region A   | =b=              | =b, h=                |
+| scroll down 1 line          | =C-u 1 v=        | =C-e=                 |
+| scroll up 1 line            | =C-u 1 V=        | =C-y=                 |
+| scroll down half page       | =v, C-v=         | =C-d, v, C-v=         |
+| scroll up half page         | =V, M-v=         | =C-u, V, M-v=         |
+| scroll left                 | =>=              | =zh=                  |
+| scroll right                | =<=              | =zl=                  |
+| toggle highlighting         | =h=              | =H=                   |
+| =ediff-suspend=             | =z=              | =C-z=                 |

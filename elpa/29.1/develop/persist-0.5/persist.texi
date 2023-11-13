@@ -1,0 +1,153 @@
+\input texinfo
+@setfilename persist.info
+@settitle persist persistant variables
+
+@dircategory Emacs
+@direntry
+* Persist: (persist).  Persistant variables for Emacs.
+@end direntry
+
+@copying
+Copyright @copyright{} 2019 Phillip Lord
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.2 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover, or Back-Cover Texts.  A copy of
+the license is included in the section entitled ``GNU Free Documentation
+License'' in the Emacs manual.
+
+This document is part of a collection distributed under the GNU Free
+Documentation License.  If you want to distribute this document
+separately from the collection, you can do so by adding a copy of the
+license to the document, as described in section 6 of the license.
+
+All Emacs Lisp code contained in this document may be used, distributed,
+and modified without restriction.
+@end quotation
+@end copying
+
+@titlepage
+@title Persist -- Persistant Variables for Emacs
+@author by Phillip Lord
+@page
+@insertcopying
+@end titlepage
+
+@contents
+
+@node Top
+@top Persist -- Persistant Variables for Emacs
+
+Perist is a library for making variables persistant; that it, their
+state can be changed from the default and the new value will remain even
+after Emacs has been closed and restarted.
+
+@menu
+* Persist::                     Simple Usage
+* The details::        All functions for interacting with Persist
+* Comparison::                  How this relates to other, similar techniques
+* Implementation::              How variables are saved
+@end menu
+
+@node Persist
+@section Persist
+
+This section describes simple usage of persist.
+
+@defmac persist-defvar (var initvalue docstring) body@dots{}
+This macro is equivalent in form to @code{defvar}, except any changes to
+the value of @code{var} will persist between sessions.  This macro does
+not support the lower arity versions of @code{defvar}. Both an
+@code{initvalue} and @code{docstring} needs to be provided.
+@end defmac
+
+@example
+@group
+(persist-defvar my-persistant-variable 10
+   "A variable of no purpose.
+   
+This variable is persistant between sessions")
+@end group
+@end example
+
+
+@node The details
+@section The details
+
+
+@defmac persist-defvar (var initvalue docstring) body@dots{}
+This macro is equivalent to @code{defvar} and can be used to make a
+variable persistant.
+@end defmac
+
+@defun persist-symbol (symbol &optional initvalue)
+This function takes @code{symbol} for an existing, non-persistant variable
+and makes it persistant. If @code{initvalue} is not given, then the
+current value is used. For package developers, @code{persist-defvar}
+would generally be prefered; this function might be useful for making
+third-party variables persistant.
+@end defun
+
+@example
+@group
+(defvar my-persistant-variable 10
+    "A variable of no purpose")
+
+(persist-symbol 'my-persistant-variable 10)
+@end group
+@end example
+
+@defun persist-save (symbol)
+This function saves @code{symbol} immediately rather than waiting till
+the normal time
+@end defun
+
+@defun persist-default (symbol)
+Return the default value for @code{symbol}. The default value is
+actually set for each session and does not persist from session to
+session, although if the value is set by either @code{persist-defvar} or
+@code{persist-symbol} saved it in a file, it will be set to the same
+value across sessions.
+@end defun
+
+@defun persist-reset (symbol)
+Change the value of @code{symbol} to the last saved value if it exists.
+@end defun
+
+@defun persist-location (symbol directory)
+Values are usually persisted to a standard location; it is possible to
+change this for individual symbol using this function. Be aware that
+this does not call @code{persist-load}, so this will not restore a
+previously saved value.
+@end defun
+
+@node Comparison
+@section Comparison
+
+There are several other packages which also persist aspects of Emacs
+across sessions, however, these fulfil a different purpose.
+
+Custom persists values of variables across sessions. However, it does
+this for user options, and is associated with a user interface for
+editing the value.
+
+desktop.el is also user-centric and is aimed at persisting the session
+in terms of buffers, modes and minor modes. It can be used to persist
+individual variables, but this will also save the session which the user
+may or may not want.
+
+savehist.el can save individual variables but, as with desktop.el, is a
+a global setting and has other implications such as saving mini-buffer
+history.
+
+@node Implementation
+@section Implementation
+
+persist is implemented by saving values for each symbol into an
+different. This makes it relatively easy to update or delete the stored
+value for a variable by hand if necessary. It should scale to 10 or 100
+variables, but may get a bit slow after this.
+
+@bye

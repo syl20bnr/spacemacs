@@ -1,0 +1,1554 @@
+This is ledger-mode.info, produced by makeinfo version 6.7 from
+ledger-mode.texi.
+
+Copyright © 2013, Craig Earls.  All rights reserved.
+
+   Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+   • Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+
+   • Redistributions in binary form must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the
+     distribution.
+
+   • Neither the name of New Artisans LLC nor the names of its
+     contributors may be used to endorse or promote products derived
+     from this software without specific prior written permission.
+
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+INFO-DIR-SECTION Emacs
+START-INFO-DIR-ENTRY
+* Ledger Mode: (ledger-mode).           Command-Line Accounting
+END-INFO-DIR-ENTRY
+
+
+File: ledger-mode.info,  Node: Top,  Next: Introduction to Ledger-mode,  Prev: (dir),  Up: (dir)
+
+Overview
+********
+
+Ledger is a command line accounting tool that provides double-entry
+accounting based on a text journal.  It provides no bells or whistles,
+and returns the user to the days before user interfaces were even a
+twinkling in their father’s CRT.
+
+   Ledger-mode assists you in maintaining input files for Ledger,
+running reports and much more...
+
+* Menu:
+
+* Introduction to Ledger-mode::
+* The Ledger Buffer::
+* The Reconcile Buffer::
+* The Report Buffer::
+* Scheduling Transactions::
+* Customizing Ledger-mode::
+* Generating Ledger Regression Tests::
+* Embedding Example results in Ledger Documentation::
+* Hacking Ledger-mode::
+* Concept Index::
+* Command & Variable Index::
+* Keystroke Index::
+
+
+File: ledger-mode.info,  Node: Introduction to Ledger-mode,  Next: The Ledger Buffer,  Prev: Top,  Up: Top
+
+1 Introduction to Ledger-mode
+*****************************
+
+* Menu:
+
+* Quick Installation::
+* Menus::
+* Quick Demo::
+
+
+File: ledger-mode.info,  Node: Quick Installation,  Next: Menus,  Prev: Introduction to Ledger-mode,  Up: Introduction to Ledger-mode
+
+1.1 Quick Installation
+======================
+
+The Emacs lisp source for Ledger-mode is included with the source
+distribution of Ledger.  It is entirely included in the ‘lisp’
+subdirectory.  To use Ledger-mode, include the following in your Emacs
+initialization file (‘~/.emacs’, ‘~/.emacs.d/init.el’, or
+‘~/.Aquamacs/Preferences.el’).
+
+     (autoload 'ledger-mode "ledger-mode" "A major mode for Ledger" t)
+     (add-to-list 'load-path
+                  (expand-file-name "/path/to/ledger/source/lisp/"))
+     (add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
+
+   This sets up Emacs to automatically recognize files that end with
+‘.ledger’ and start Ledger-mode.  Nothing else should be required as
+long as the ledger command line utility is properly installed.
+
+
+File: ledger-mode.info,  Node: Menus,  Next: Quick Demo,  Prev: Quick Installation,  Up: Introduction to Ledger-mode
+
+1.2 Menus
+=========
+
+The vast majority of Ledger-mode functionality is available from the
+Emacs menu system.  The keystrokes are shown in the menu to help you
+learn the faster keyboard methods.
+
+
+File: ledger-mode.info,  Node: Quick Demo,  Prev: Menus,  Up: Introduction to Ledger-mode
+
+1.3 Quick Demo
+==============
+
+Load the demo file ‘demo.ledger’ from the Ledger source ‘test/input’
+directory.  The ledger will be loaded and font highlighted.  At this
+point you could manually edit transactions and run Ledger from a
+convenient command line.
+
+* Menu:
+
+* Quick Add::
+* Reconciliation::
+* Reports::
+* Narrowing::
+
+
+File: ledger-mode.info,  Node: Quick Add,  Next: Reconciliation,  Prev: Quick Demo,  Up: Quick Demo
+
+1.3.1 Quick Add
+---------------
+
+As simple as the Ledger transaction format is, it can still be daunting
+to add many transactions manually.  Ledger provides two ways to add
+transactions with minimal typing.  Both are based on the idea that most
+transactions are repetitions of earlier transactions.
+
+   In the ‘demo.ledger’ buffer enter a date using the correct format.
+Then type the first few characters of another payee in the ‘demo.ledger’
+buffer.  Type ‘C-c TAB’.  Ledger-mode will search for a Payee that has
+the same beginning and copy the rest of the transaction to you new
+entry.
+
+   Additionally you can use the ledger ‘xact’ command, by either typing
+‘C-c C-a’ or using ‘Add Transaction’ menu entry.  Then typing a close
+match to the payee.  Ledger-mode will call ‘ledger xact’ with the data
+you enter and place the transaction in the proper chronological place in
+the ledger.  The date format can be changed by modifying
+‘ledger-default-date-format’.
+
+
+File: ledger-mode.info,  Node: Reconciliation,  Next: Reports,  Prev: Quick Add,  Up: Quick Demo
+
+1.3.2 Reconciliation
+--------------------
+
+The biggest task of maintaining a ledger is ensuring that it matches the
+outside world.  This process is called reconciliation (*note Basics of
+Reconciliation::) and can be quite onerous.  Ledger-mode attempts to
+make it as painless as possible.
+
+   In the ‘demo.ledger’ buffer type ‘C-c C-r’.  If cursor is on an
+account, Ledger-mode will propose this account, or in the Minibuffer,
+will prompt for an account to reconcile.  Hit ‘RET’ if you are happy
+with proposed account, or enter ‘Checking’ as example.  Emacs will then
+prompt for a target value.  The target value is the amount you want the
+cleared transactions in the buffer to total.  Normally this would be the
+ending value from your bank statement, or the latest value in your
+on-line transaction summary.  Enter ‘1710’.  Note that Ledger-mode
+assumes you are using ‘$’ (USD) as your default commodity, this can be
+easily changed in the customization variables.  *Note Ledger-mode
+Customization::.
+
+   You now see a list of uncleared transactions in a buffer below the
+‘demo.ledger’ buffer.  Touching the ‘SPC’ bar will mark a transaction as
+pending and display the current cleared (and pending) balance, along
+with the difference remaining to meet your target.  Clear the first
+three transactions, and you will see the difference to target reach
+‘$0’.  End the reconciliation by typing ‘C-c C-c’.  This saves the
+‘demo.ledger’ buffer and marks the transactions and finally cleared.
+Type ‘q’ to close out the reconciliation buffer.
+
+
+File: ledger-mode.info,  Node: Reports,  Next: Narrowing,  Prev: Reconciliation,  Up: Quick Demo
+
+1.3.3 Reports
+-------------
+
+The real power of Ledger is in its reporting capabilities.  Reports can
+be run and displayed in a separate Emacs buffer.  In the ‘demo.ledger’
+buffer, type ‘C-c C-o C-r’.  In the Minibuffer Emacs will prompt for a
+report name.  There are a few built-in reports, and you can add any
+report you need *Note Adding and Editing Reports::.
+
+   In the Minibuffer type ‘account’.  When prompted for an account type
+‘checking’.  In a buffer named ‘*Ledger Report*’, you will see a Ledger
+register report.  You can move around the buffer, with the point on a
+transaction, type ‘RET’.  Ledger-mode will take you directly to that
+transaction in the ‘demo.ledger’ buffer.
+
+   Another built-in report is the balance report.  In the ‘demo.ledger’
+buffer, type ‘C-c C-o C-r’.  When prompted for a report to run, type
+‘bal’, and a balance report of all accounts will be shown.
+
+
+File: ledger-mode.info,  Node: Narrowing,  Prev: Reports,  Up: Quick Demo
+
+1.3.4 Narrowing
+---------------
+
+A ledger file can get very large.  It can be helpful to collapse the
+buffer to display only the transactions you are interested in.
+Ledger-mode copies the ‘occur’ mode functionality.  Typing ‘C-c C-f’ and
+entering any regex in the Minibuffer will show only transactions that
+match the regex.  The regex can be on any field, or amount.  Use ‘C-c
+C-g’ after editing transactions to re-apply the current regex.  Cancel
+the narrowing by typing ‘C-c C-f’ again.
+
+
+File: ledger-mode.info,  Node: The Ledger Buffer,  Next: The Reconcile Buffer,  Prev: Introduction to Ledger-mode,  Up: Top
+
+2 The Ledger Buffer
+*******************
+
+* Menu:
+
+* Navigating Transactions::
+* Adding Transactions::
+* Copying Transactions::
+* Editing Amounts::
+* Marking Transactions::
+* Formatting Transactions::
+* Deleting Transactions::
+* Sorting Transactions::
+* Narrowing Transactions::
+
+
+File: ledger-mode.info,  Node: Navigating Transactions,  Next: Adding Transactions,  Prev: The Ledger Buffer,  Up: The Ledger Buffer
+
+2.1 Navigating Transactions
+===========================
+
+In addition to the usual Emacs navigation commands, ledger-mode offers
+several additional commands to ease navigation.  ‘M-n’ and ‘M-p’
+navigate between next and previous xacts or directives.
+
+   Additionally, M-x ledger-navigate-previous-uncleared and M-x
+ledger-navigate-next-uncleared navigate to the next and previous
+uncleared transactions.
+
+
+File: ledger-mode.info,  Node: Adding Transactions,  Next: Copying Transactions,  Prev: Navigating Transactions,  Up: The Ledger Buffer
+
+2.2 Adding Transactions
+=======================
+
+Beyond the two ways of quickly adding transactions (*note Quick Add::)
+Ledger-mode assists you by providing robust ‘TAB’ completion for payees
+and accounts.  Ledger-mode will scan the existing buffer for payees and
+accounts.  Included files are not currently included in the completion
+scan.  Ledger-mode respects Emacs’s variables that govern ‘TAB’
+completion, see especially ‘tab-always-indent’.
+
+   To cycle between completions when hitting ‘TAB’ multiple times, you
+can adjust the standard completion configuration like this:
+
+     (add-hook 'ledger-mode-hook
+               (lambda ()
+                 (setq-local tab-always-indent 'complete)
+                 (setq-local completion-cycle-threshold t)
+                 (setq-local ledger-complete-in-steps t)))
+
+   Ledger-mode will help you keep your amounts aligned.  When indenting
+or completing, Ledger-mode will automatically place any amounts such
+that their last digit is aligned to the column specified by
+‘ledger-post-amount-alignment-column’, which defaults to ‘52’.  *Note
+Ledger Post Customization Group::.
+
+   To prevent the automatic realignment of amounts, disable
+‘ledger-post-auto-align’.  *Note Ledger Post Customization Group::.
+
+* Menu:
+
+* Setting a Transactions Effective Date::
+* Quick Balance Display::
+
+
+File: ledger-mode.info,  Node: Setting a Transactions Effective Date,  Next: Quick Balance Display,  Prev: Adding Transactions,  Up: Adding Transactions
+
+2.2.1 Setting a Transactions Effective Date
+-------------------------------------------
+
+Ledger provides for adding information to a transaction that add details
+to the dates.  For example, you can specify when the transaction was
+entered, when the transaction was cleared, or when individual postings
+were cleared.  Ledger-mode refers to these additional dates as
+_effective_ dates.  To set the effective date of a transaction, place
+the point in the first line of a transaction and type ‘C-c C-t’.  The
+effective date will be added to the transaction.  To set the effective
+date for an individual posting, place point in the posting and type ‘C-c
+C-t’ and the effective date for that posting will be added at the end of
+the posting.
+
+
+File: ledger-mode.info,  Node: Quick Balance Display,  Prev: Setting a Transactions Effective Date,  Up: Adding Transactions
+
+2.2.2 Quick Balance Display
+---------------------------
+
+You will often want to quickly check the balance of an account.  The
+easiest way is to position point on the account you are interested in,
+and type ‘C-c C-p’.  The Minibuffer will ask you to verify the name of
+the account you want, if it is already correct hit ‘RET’, then the
+balance of the account will be displayed in the Minibuffer.
+
+
+File: ledger-mode.info,  Node: Copying Transactions,  Next: Editing Amounts,  Prev: Adding Transactions,  Up: The Ledger Buffer
+
+2.3 Copying Transactions
+========================
+
+An easy way to copy a transaction is to type ‘C-c C-k’ or menu entry
+‘Copy Trans at Point’.  You will be prompted the new date for the copied
+transaction, and after having confirmed with ‘RET’, new transaction will
+be inserted at _date_ position in buffer.
+
+   If you prefer to keep blank lines between your transactions, you can
+change the default in ‘ledger-copy-transaction-insert-blank-line-after’.
+
+
+File: ledger-mode.info,  Node: Editing Amounts,  Next: Marking Transactions,  Prev: Copying Transactions,  Up: The Ledger Buffer
+
+2.4 Editing Amounts
+===================
+
+GNU Emacs Calculator, aka ‘Calc’, is a very powerful Reverse Polish
+Notation calculator built into all recent version of Emacs.  Ledger-mode
+makes it easy to calculate values for amount by integrating ‘Calc’.
+With the point anywhere in the same line as a posting, typing ‘C-c C-b’
+will bring up the ‘Calc’ buffer, and push the current amount for the
+posting onto the top of the ‘Calc’ stack.  Perform any calculations you
+need to arrive at the final value, then type ‘y’ to yank the value at
+the top of stack back into the ledger buffer.  Note: ‘Calc’ does not
+directly support commas as decimal separators.  Ledger-mode will
+translate values from decimal-comma format to decimal-period format for
+use in ‘Calc’, but it cannot intercept the value being yanked from the
+‘Calc’ stack, so decimal-comma users will have to manually replace the
+period with a comma.
+
+
+File: ledger-mode.info,  Node: Marking Transactions,  Next: Formatting Transactions,  Prev: Editing Amounts,  Up: The Ledger Buffer
+
+2.5 Marking Transactions
+========================
+
+Ledger considers transaction or posting to be in one of three states:
+uncleared, cleared, and pending.  For calculation Ledger ignores these
+states unless specifically instructed to use them.  Ledger-mode assigns
+some additional meaning to the states:
+
+   • Uncleared.  No state.  This is equivalent to sticking a check in
+     the mail.  It has been obligated, but not been cashed by the
+     recipient.  It could also apply to credit/debit card transactions
+     that have not been cleared into your account balance.  You bank may
+     call these transactions _pending_, but Ledger-mode uses a slightly
+     different meaning.
+
+   • Pending.  Ledger-mode’s reconciliation function see pending
+     transactions as an intermediate step in reconciling an account.
+     When doing a reconciliation (*note Reconciliation::), marking a
+     transaction as pending means that you have seen the transaction
+     finally recorded by the recipient, but you have not completely
+     reconciled the account.
+
+   • Cleared.  The transaction has been completely recognized by all
+     parties to the transaction.
+
+   Typing ‘C-c C-c’, depending where is the point, will clear the
+complete transaction, or an individual posting.  This places an asterisk
+‘*’ prior to the payee for the complete transaction, or prior to the
+account for an individual posting.  When point is inside a transaction,
+specifically on an individual posting, you can still clear the complete
+transaction by typing ‘C-c C-e’.
+
+
+File: ledger-mode.info,  Node: Formatting Transactions,  Next: Deleting Transactions,  Prev: Marking Transactions,  Up: The Ledger Buffer
+
+2.6 Formatting Transactions
+===========================
+
+When editing a transaction, liberal use of the ‘TAB’ key can keep the
+transaction well formatted.  If you want to have Ledger-mode cleanup the
+formatting of a transaction you can use ‘Align Transaction’ or ‘Align
+Region’ from the menu bar.
+
+   The menu item ‘Clean-up Buffer’ sorts all transactions in the buffer
+by date, removes extraneous empty lines and aligns every transaction.
+
+
+File: ledger-mode.info,  Node: Deleting Transactions,  Next: Sorting Transactions,  Prev: Formatting Transactions,  Up: The Ledger Buffer
+
+2.7 Deleting Transactions
+=========================
+
+Along with normal buffer editing methods to delete text, Ledger-mode
+provides an easy way to delete the transaction under point: ‘C-c C-d’.
+The advantage to using this method is that the complete transaction
+operation is in the undo buffer.
+
+
+File: ledger-mode.info,  Node: Sorting Transactions,  Next: Narrowing Transactions,  Prev: Deleting Transactions,  Up: The Ledger Buffer
+
+2.8 Sorting Transactions
+========================
+
+As you operating on the Ledger files, they may become disorganized.  For
+the most part, Ledger doesn’t care, but our human brains prefer a bit of
+order.  Sorting the transactions in a buffer into chronological order
+can help bring order to chaos.  Either using ‘Sort Region’ menu entry or
+typing ‘C-c C-s’ will sort all of the transactions in a region by date.
+Ledger-mode isn’t particularly smart about handling dates and it simply
+sorts the transactions using the string at the beginning of the
+transaction.  So, you should use the preferred ISO 8601 standard date
+format ‘YYYY/MM/DD’ which easily sorts.
+
+   Note, there is a menu entry ‘Sort Buffer’ to sort the entire buffer.
+Special transactions like automated transaction, will be moved in the
+sorting process and may not function correctly afterwards.  For this
+reason there is no key sequence.
+
+   You can limit the allowed sort region by using embedded Ledger-mode
+markup within your ledger.  For example:
+
+     <<< information to not sort >>>
+
+     ; Ledger-mode: Start sort
+
+     <<< transactions to sort >>>
+
+     ; Ledger-mode: End sort
+
+     <<< information to not sort >>>
+
+   You can use menu entries ‘Mark Sort Beginning’ to insert start and
+‘Mark Sort End’ to insert end markers.  These functions will
+automatically delete old markers and put new marker at point.
+
+
+File: ledger-mode.info,  Node: Narrowing Transactions,  Prev: Sorting Transactions,  Up: The Ledger Buffer
+
+2.9 Narrowing Transactions
+==========================
+
+Often you will want to run Ledger register reports just to look at a
+specific set of transactions.  If you don’t need the running total
+calculation handled by Ledger, Ledger-mode provides a rapid way of
+narrowing what is displayed in the buffer in a way that is simpler than
+the Ledger register command.
+
+   Based on the Emacs Occur mode by Alexey Veretennikov, Ledger-occur
+hides all transactions that do _not_ meet a specific regular expression.
+The regular expression can match on any part of the transaction.  If you
+want to find all transactions whose amount ends in ‘.37’, you can do
+that (I don’t know why, but hey, whatever ever floats you aerostat).
+
+   Using ‘C-c C-f’ or the ‘Narrow to Regex’ menu entry, enter a regular
+expression in the Minibuffer.  Ledger-mode will hide all other
+transactions.  For details of the regular expression syntax, see your
+Emacs documentation.  A few examples using the ‘demo.ledger’ are given
+here:
+
+‘Groceries’
+     Show only transactions that have a posting to the ‘Groceries’
+     account.
+
+‘^2011/01’
+     Show only transactions occurring in January of 2011.
+
+‘^2011/.*/25’
+     Show only transactions occurring on the 25th of the month in 2011.
+
+‘auto’
+     Show only transactions with payees or accounts or comments
+     containing.  ‘auto’
+
+‘harley$’
+     Show only transactions with any line ending with ‘harley’.
+
+   To show back all transactions simply invoke ‘Narrow to Regex’ or ‘C-c
+C-f’ again.
+
+   If you’ve edited some transactions after narrowing such that they
+would no longer match the regular expression, you can refresh the
+narrowed view using ‘C-c C-g’.
+
+
+File: ledger-mode.info,  Node: The Reconcile Buffer,  Next: The Report Buffer,  Prev: The Ledger Buffer,  Up: Top
+
+3 The Reconcile Buffer
+**********************
+
+* Menu:
+
+* Basics of Reconciliation::
+* Starting a Reconciliation::
+* Mark Transactions Pending::
+* Edit Transactions During Reconciliation::
+* Finalize Reconciliation::
+* Adding and Deleting Transactions during Reconciliation::
+* Changing Reconciliation Account::
+* Changing Reconciliation Target::
+
+
+File: ledger-mode.info,  Node: Basics of Reconciliation,  Next: Starting a Reconciliation,  Prev: The Reconcile Buffer,  Up: The Reconcile Buffer
+
+3.1 Basics of Reconciliation
+============================
+
+Even in this relatively modern era, financial transactions do not happen
+instantaneously, unless you are paying cash.  When you swipe your debit
+card the money may take several days to actually come out of your
+account, or a check may take several days to _clear_.  That is the root
+of the difference between _obligating_ funds and _expending_ funds.
+Obligation says you have agreed to pay it, the expenditure doesn’t
+happen until the money actually leaves your account.  Or in the case of
+receiving payment, you have an account receivable until the money has
+actually made it to you.
+
+   After an account has been reconciled you have verified that all the
+transactions in that account have been correctly recorded and all
+parties agree.
+
+
+File: ledger-mode.info,  Node: Starting a Reconciliation,  Next: Mark Transactions Pending,  Prev: Basics of Reconciliation,  Up: The Reconcile Buffer
+
+3.2 Starting a Reconciliation
+=============================
+
+To start reconciling an account you must have a target, both the
+transactions that you know about and the transactions the bank knows
+about.  You can get this from a monthly statement, or from checking your
+on-line transaction history.  It also helps immensely to know the final
+cleared balance you are aiming for.
+
+   Use menu ‘Reconcile Account’ or keyboard shortcut ‘C-c C-r’ to start
+reconciliation.
+
+   If cursor is on an account, Ledger-mode will propose this account, or
+in the Minibuffer, will prompt for an account to reconcile.  Hit ‘RET’
+if you are happy with proposed account, or enter ‘Checking’ as example.
+Ledger-mode is not particular about what you enter for the account.  You
+can leave it blank and ‘*Reconcile*’ buffer will show you _all_
+uncleared transactions.
+
+   After you enter the account enter the target amount.  It is helpful
+to enter an amount with a commodity.  You can also leave it blank, you
+will be able to clear transactions but not benefit from balance
+calculations.  It assumes initially that you are using ‘$’ (USD) as your
+default commodity.  If you are working in a different currency you can
+change the default in variable ‘ledger-reconcile-default-commodity’ to
+whatever you need.  If you work in multiple commodities simply enter the
+commoditized amount (for example ‘340 VSDX’, for 340 shares of VSDX).
+
+   Ledger-mode reconcile cannot currently reconcile accounts that have
+multiple commodities, such as brokerage accounts.  You may use
+reconciliation mode to clear transactions, but balance calculations will
+not display the complete list of commodities.
+
+
+File: ledger-mode.info,  Node: Mark Transactions Pending,  Next: Edit Transactions During Reconciliation,  Prev: Starting a Reconciliation,  Up: The Reconcile Buffer
+
+3.3 Mark Transactions Pending
+=============================
+
+The ‘*Reconcile*’ buffer will show all the uncleared transactions that
+meet the criteria set in the regex.  By default uncleared transactions
+are shown in red.  When you have verified that a transaction has been
+correctly and completely recorded by the opposing party, mark the
+transaction as pending using the ‘SPC’ bar.  Continue this process until
+you agree with the opposing party and the difference from your target is
+zero.
+
+
+File: ledger-mode.info,  Node: Edit Transactions During Reconciliation,  Next: Finalize Reconciliation,  Prev: Mark Transactions Pending,  Up: The Reconcile Buffer
+
+3.4 Edit Transactions during Reconciliation
+===========================================
+
+If you find errors during reconciliation.  You can visit the transaction
+under point in the ‘*Reconcile*’ buffer by hitting the ‘RET’ key.  This
+will take you to the transaction in the Ledger buffer.  When you have
+finished editing the transaction, saving the buffer will automatically
+return you to the ‘*Reconcile*’ buffer and you can mark the transaction
+if appropriate.
+
+
+File: ledger-mode.info,  Node: Finalize Reconciliation,  Next: Adding and Deleting Transactions during Reconciliation,  Prev: Edit Transactions During Reconciliation,  Up: The Reconcile Buffer
+
+3.5 Finalize Reconciliation
+===========================
+
+Once you have marked all transactions as pending and the cleared balance
+is correct.  Finish the reconciliation by typing ‘C-c C-c’.  This marks
+all pending transactions as cleared and saves the ledger buffer.
+
+   Type ‘q’ to close out the reconciliation buffer.  If variable
+LEDGER-RECONCILE-FINISH-FORCE-QUIT is set, the reconciliation buffer
+will be killed automatically after ‘C-c C-c’.
+
+
+File: ledger-mode.info,  Node: Adding and Deleting Transactions during Reconciliation,  Next: Changing Reconciliation Account,  Prev: Finalize Reconciliation,  Up: The Reconcile Buffer
+
+3.6 Adding and Deleting Transactions during Reconciliation
+==========================================================
+
+While reconciling, you may find new transactions that need to be entered
+into your ledger.  Simply type ‘a’ to bring up the quick add for the
+ledger buffer.
+
+   Typing ‘d’ will delete the transaction under point in the
+‘*Reconcile*’ buffer from the ledger buffer.
+
+
+File: ledger-mode.info,  Node: Changing Reconciliation Account,  Next: Changing Reconciliation Target,  Prev: Adding and Deleting Transactions during Reconciliation,  Up: The Reconcile Buffer
+
+3.7 Changing Reconciliation Account
+===================================
+
+You can conveniently switch the account being reconciled by typing ‘g’,
+and entering a new account to reconcile.  This simply restarts the
+reconcile process.  Any transactions that were marked _pending_ in the
+ledger buffer are left in that state when the account is switched.
+
+
+File: ledger-mode.info,  Node: Changing Reconciliation Target,  Prev: Changing Reconciliation Account,  Up: The Reconcile Buffer
+
+3.8 Changing Reconciliation Target
+==================================
+
+If for some reason during reconciliation your target amount changes,
+type ‘t’ and enter the new target value.
+
+
+File: ledger-mode.info,  Node: The Report Buffer,  Next: Scheduling Transactions,  Prev: The Reconcile Buffer,  Up: Top
+
+4 The Report Buffer
+*******************
+
+* Menu:
+
+* Running Basic Reports::
+* Adding and Editing Reports::
+* Reversing Report Order::
+
+
+File: ledger-mode.info,  Node: Running Basic Reports,  Next: Adding and Editing Reports,  Prev: The Report Buffer,  Up: The Report Buffer
+
+4.1 Running Reports
+===================
+
+The real power behind Ledger is in its amazing reporting capability.
+Ledger-mode provides easy facility to run reports directly from Emacs.
+It has four reports built-in and facilities for adding custom reports.
+
+   Typing ‘C-c C-o C-r’ or using menu ‘Run Report’ prompts for the name
+of a saved report.  The built-in reports are:
+
+BAL
+     Produce a balance reports of all accounts.
+
+REG
+     Produce a register report of all transactions.
+
+PAYEE
+     Prompt for a payee, then produce a register report of all
+     transactions involving that payee.
+
+ACCOUNT
+     Prompt for an account, then produce a register report of all
+     transactions involving that account.
+
+   While viewing reports you can easily switch back and forth between
+the ledger buffer and the ‘*Ledger Report*’ buffer.  In ‘*Ledger
+Report*’ buffer, typing ‘RET’ will take you to that transaction in the
+ledger buffer.  While in the ledger buffer ‘C-c C-o C-g’ returns you to
+the ‘*Ledger Report*’ buffer.
+
+   By default Ledger-mode will refresh the report buffer when the ledger
+buffer is saved.  If you want to rerun the report at another time ‘C-c
+C-o C-a’.  This is useful if you have other programs altering your
+ledger file outside of Emacs.
+
+
+File: ledger-mode.info,  Node: Adding and Editing Reports,  Next: Reversing Report Order,  Prev: Running Basic Reports,  Up: The Report Buffer
+
+4.2 Adding and Editing Reports
+==============================
+
+* Menu:
+
+* Expansion Formats::
+* Make Report Transactions Active::
+
+If you type a report name that Ledger-mode doesn’t recognize it will
+prompt you for a ledger command line to run.  That command is
+automatically saved with the name given and you can re-run it at any
+time.
+
+   There are two ways to edit the command line for a report.  The first
+is to provide a prefix argument to the run-report command.  For example,
+type ‘M-1 C-c C-o C-r’.  This will prompt you for the report name, then
+present the report command line to be edited.  When you hit ‘RET’, the
+report will be run, but it will not be permanently saved.  If you want
+to save it, type ‘S’ in the ‘*Ledger Report*’ buffer you will have the
+option to give it a new name, or overwrite the old report.
+
+   Deleting reports is accomplished by typing ‘C-c C-o C-e’ or using
+‘Edit Report’ menu in the ledger buffer, or typing ‘e’ in the ‘*Ledger
+Report*’ buffer.  This takes you to the Emacs customization window for
+the Ledger Reports variables.  Use the widgets to delete the report you
+want removed.
+
+   Typing ‘C-c C-o C-s’ will prompt for a name and save the current
+report.
+
+
+File: ledger-mode.info,  Node: Expansion Formats,  Next: Make Report Transactions Active,  Prev: Adding and Editing Reports,  Up: Adding and Editing Reports
+
+4.2.1 Expansion Formats
+-----------------------
+
+It is sometimes convenient to leave room to customize a report without
+saving the command line every time.  For example running a register
+report for a specific account entered at runtime by the user.  The
+built-in report ACCOUNT does exactly that, using a variable expansion to
+prompt the user for the account to use.  There are four variables that
+can be expanded to run a report:
+
+LEDGER-FILE
+     Returns the file to be operated on.
+
+PAYEE
+     Prompts for a payee.
+
+ACCOUNT
+     Prompt for an account.
+
+TAGNAME
+     Prompt for a meta-data tag name.
+
+TAGVALUE
+     Prompt for a meta-data tag value.
+
+MONTH
+     Return the current month.
+
+   You can use these expansion values in your ledger report commands.
+For example, if you wanted to specify a register report the displayed
+transactions from a user-determined account with a particular meta-data
+tag value, you specify the following command line:
+
+     ledger -f %(ledger-file) reg %(account) \
+       --limit \"tag('my-tag') =~/%(value)/\"
+
+   Note how the double-quotes are escaped with back-slashes.
+
+   Additionally, if you want a report showing a particular month and be
+able to easily change that month, you can specify a period using the
+‘%(month)’ specifier like this:
+
+     ledger -f %(ledger-file) balance --period %(month) ^Income ^Expenses
+
+   When you do this, you can use ‘M-p’ or ‘M-n’ to re-open the same
+report with the previous or next month.
+
+
+File: ledger-mode.info,  Node: Make Report Transactions Active,  Prev: Expansion Formats,  Up: Adding and Editing Reports
+
+4.2.2 Make Report Transactions Active
+-------------------------------------
+
+In a large register report it is convenient to be able to jump to the
+source transaction.  Ledger-mode will automatically include source
+information in every register file that doesn’t contain a ‘--subtotal’
+option.  It does this by adding
+‘--prepend-format='%(filename):%(beg_line):'’ to the register report
+command-line you specify.  You should never have to see this, but if
+there is an error in your ledger output this additional information may
+not get stripped out of the visible report.
+
+
+File: ledger-mode.info,  Node: Reversing Report Order,  Prev: Adding and Editing Reports,  Up: The Report Buffer
+
+4.3 Reversing Report Order
+==========================
+
+Often, banks show their on-line transaction histories with the most
+recent transaction at the top.  Ledger itself cannot do a sensible
+ledger report in reverse chronological order, if you sort on reverse
+date the calculation will also run in the opposite direction.  If you
+want to compare a ledger register report to a bank report with the most
+recent transactions at the top, type ‘R’ in the ‘*Ledger Report*’ buffer
+and it will reverse the order of the transactions and maintain the
+proper mathematical sense.
+
+
+File: ledger-mode.info,  Node: Scheduling Transactions,  Next: Customizing Ledger-mode,  Prev: The Report Buffer,  Up: Top
+
+5 Scheduling Transactions
+*************************
+
+The Ledger program provides for automating transactions but these
+transaction aren’t _real_, they only exist inside a ledger session and
+are not reflected in the actual data file.  Many transactions are very
+repetitive, but may vary slightly in the date they occur on, or the
+amount.  Some transactions are weekly, monthly, quarterly or annually.
+Ledger mode provides a way to schedule upcoming transaction with a
+flexible scheduler that allows you to specify the transactions in a
+separate ledger file and calculate the upcoming occurrences of those
+transactions.  You can then copy the transactions into your live data
+file.
+
+* Menu:
+
+* Specifying Upcoming Transactions::
+
+
+File: ledger-mode.info,  Node: Specifying Upcoming Transactions,  Prev: Scheduling Transactions,  Up: Scheduling Transactions
+
+5.1 Specifying Upcoming Transactions
+====================================
+
+The format for specifying transactions is identical to Ledger’s file
+format with the exception of the date field.  The data field is modified
+by surrounding it with brackets and using wild cards and special
+characters to specify when the transactions should appear.
+
+* Menu:
+
+* Transactions that occur on specific dates::
+* Transactions that occur on specific days::
+
+
+File: ledger-mode.info,  Node: Transactions that occur on specific dates,  Next: Transactions that occur on specific days,  Prev: Specifying Upcoming Transactions,  Up: Specifying Upcoming Transactions
+
+5.1.1 Transactions that occur on specific dates
+-----------------------------------------------
+
+Many times you will enter repetitive transactions that occur on the same
+day of the month each month.  These can be specified using a wild card
+in the year and month with a fixed date in the day.  The following entry
+specifies a transaction that occurs on the first and fifteenth of every
+month in every year.
+     [*/*/1,15] Paycheck
+         Income:Job       $1000.00
+         Assets:Checking
+
+   Some transactions do not occur every month.  Comma separated lists of
+the months, or ‘E’ for even, or ‘O’ for odd number months can also be
+specified.  The following entry specifies a bi-monthly exterminator bill
+that occurs in the even months:
+     [*/E/01]  Exterminator
+         Expenses:Home   $100.00
+         Assets:Checking
+
+
+File: ledger-mode.info,  Node: Transactions that occur on specific days,  Prev: Transactions that occur on specific dates,  Up: Specifying Upcoming Transactions
+
+5.1.2 Transactions that occur on specific days
+----------------------------------------------
+
+Some transactions occur every relative to the day of the week rather
+than the date of the month.  For example, many people are paid every two
+weeks without regard to the day of the month.  Other events may occur on
+specific days regardless of the date.  For example the following
+transactions creates a transaction every other Thursday:
+
+     [2014/11/27+2Th]  Paycheck
+         Income:Job       $1000.00
+         Assets:Checking
+
+   It is necessary to specify a starting date in order for this type of
+recurrence relation to be specified.  The day names are two character
+codes that default to Mo, Tu, We, Th, Fr, Sa, Su, for Monday, Tuesday,
+Wednesday, Thursday, Friday, Saturday, Sunday respectively.  You can
+change the codes to something more convenient for your locale by
+customizing the ledger ‘ledger-schedule-week-days’.  They must be two
+characters long.
+
+
+File: ledger-mode.info,  Node: Customizing Ledger-mode,  Next: Generating Ledger Regression Tests,  Prev: Scheduling Transactions,  Up: Top
+
+6 Customizing Ledger-mode
+*************************
+
+* Menu:
+
+* Ledger-mode Customization::
+* Customization Variables::
+
+
+File: ledger-mode.info,  Node: Ledger-mode Customization,  Next: Customization Variables,  Prev: Customizing Ledger-mode,  Up: Customizing Ledger-mode
+
+6.1 Ledger-mode Customization
+=============================
+
+Ledger-mode has several options available for configuration.  All
+options can be configured through the Emacs customization menus, or
+specified in your Emacs initialization file.  The complete list of
+options is shown below.  To change the option using the Emacs
+customization menu, simply choose customize in the Options menu and look
+for Ledger under the data options.  Alternatively you can choose
+‘Customize Specific Group’ and enter ‘Ledger’ as the group.
+
+
+File: ledger-mode.info,  Node: Customization Variables,  Prev: Ledger-mode Customization,  Up: Customizing Ledger-mode
+
+6.2 Customization Variables
+===========================
+
+* Menu:
+
+* Ledger Customization Group::
+* Ledger Reconcile Customization Group::
+* Ledger Report Customization Group::
+* Ledger Faces Customization Group::
+* Ledger Post Customization Group::
+* Ledger Exec Customization Group::
+* Ledger Test Customization Group::
+* Ledger Texi Customization Group::
+
+
+File: ledger-mode.info,  Node: Ledger Customization Group,  Next: Ledger Reconcile Customization Group,  Prev: Customization Variables,  Up: Customization Variables
+
+6.2.1 Ledger Customization Group
+--------------------------------
+
+‘ledger-occur-use-face-shown’
+     If non-nil, use a custom face for transactions shown in
+     ‘ledger-occur’ mode using ‘ledger-occur-xact-face’.
+
+‘ledger-clear-whole-transactions’
+     If non-nil, clear whole transactions, not individual postings.
+
+‘ledger-highlight-xact-under-point’
+     If non-nil, highlight transaction under point using
+     ‘ledger-font-highlight-face’.
+
+
+File: ledger-mode.info,  Node: Ledger Reconcile Customization Group,  Next: Ledger Report Customization Group,  Prev: Ledger Customization Group,  Up: Customization Variables
+
+6.2.2 Ledger Reconcile Customization Group
+------------------------------------------
+
+‘ledger-recon-buffer-name’
+     Name to use for reconciliation buffer.  Defaults to ‘*Reconcile*’.
+
+‘ledger-narrow-on-reconcile’
+     If t, limit transactions shown in main buffer to those matching the
+     reconcile regex.
+
+‘ledger-buffer-tracks-reconcile-buffer’
+     If t, then when the cursor is moved to a new transaction in the
+     ‘*Reconcile*’ buffer.  Then that transaction will be shown in its
+     source buffer.
+
+‘ledger-reconcile-force-window-bottom’
+     If t, make the ‘*Reconcile*’ window appear along the bottom of the
+     register window and resize.
+
+‘ledger-reconcile-toggle-to-pending’
+     If t, then toggle between uncleared and pending ‘!’.  If false
+     toggle between uncleared and cleared ‘*’.
+
+‘ledger-reconcile-default-date-format’
+     Date format for the reconcile buffer.  Defaults to
+     ‘ledger-default-date-format’.
+
+‘ledger-reconcile-target-prompt-string’
+     Prompt for recon target.  Defaults to "Target amount for
+     reconciliation ".
+
+‘ledger-reconcile-buffer-header’
+     Header string for the reconcile buffer.  If non-nil, the name of
+     the account being reconciled will be substituted into the ’%s’.  If
+     nil, no header will be displayed.  Defaults to "Reconciling account
+     %s\n\n".
+
+‘ledger-reconcile-buffer-line-format’
+     Format string for the ledger reconcile posting format.  Available
+     fields are date, status, code, payee, account, amount.  The format
+     for each field is %WIDTH(FIELD), WIDTH can be preceded by a minus
+     sign which mean to left justify and pad the field.  WIDTH is the
+     minimum number of characters to display; if string is longer, it is
+     not truncated unless ‘ledger-reconcile-buffer-payee-max-chars’ or
+     ‘ledger-reconcile-buffer-account-max-chars’ is defined.  Defaults
+     to "%(date)s %-4(code)s %-50(payee)s %-30(account)s %15(amount)s\n"
+
+‘ledger-reconcile-buffer-payee-max-chars’
+     If positive, truncate payee name right side to max number of
+     characters.
+
+‘ledger-reconcile-buffer-account-max-chars’
+     If positive, truncate account name left side to max number of
+     characters.
+
+‘ledger-reconcile-sort-key’
+     Key for sorting reconcile buffer.  Possible values are ’(date)’,
+     ’(amount)’, ’(payee)’ or ’(0)’ for no sorting, i.e.  using ledger
+     file order.  Defaults to ’(0)’.
+
+‘ledger-reconcile-insert-effective-date nil’
+     If t, prompt for effective date when clearing transactions during
+     reconciliation.
+
+‘ledger-reconcile-finish-force-quit nil’
+     If t, will force closing reconcile window after ‘C-c C-c’.
+
+
+File: ledger-mode.info,  Node: Ledger Report Customization Group,  Next: Ledger Faces Customization Group,  Prev: Ledger Reconcile Customization Group,  Up: Customization Variables
+
+6.2.3 Ledger Report Customization Group
+---------------------------------------
+
+‘ledger-reports’
+     Definition of reports to run.
+
+‘ledger-report-format-specifiers’
+     An alist mapping ledger report format specifiers to implementing
+     functions.
+
+‘ledger-report-use-native-highlighting’
+     Whether reports should be displayed using the same colors as when
+     calling ledger on the command line.
+
+‘ledger-report-auto-width’
+     Whether reports should fill the whole width of the ‘*Report*’
+     window
+
+
+File: ledger-mode.info,  Node: Ledger Faces Customization Group,  Next: Ledger Post Customization Group,  Prev: Ledger Report Customization Group,  Up: Customization Variables
+
+6.2.4 Ledger Faces Customization Group
+--------------------------------------
+
+Ledger Faces: Ledger-mode highlighting
+
+‘ledger-font-uncleared-face’
+     Default face for Ledger.
+
+‘ledger-font-cleared-face’
+     Default face for cleared ‘*’ transactions.
+
+‘ledger-font-highlight-face’
+     Default face for transaction under point.
+
+‘ledger-font-pending-face’
+     Default face for pending ‘!’ transactions.
+
+‘ledger-font-other-face’
+     Default face for other transactions.
+
+‘ledger-font-posting-account-face’
+     Face for Ledger accounts.
+
+‘ledger-font-posting-account-cleared-face’
+     Face for cleared Ledger accounts.
+
+‘ledger-font-posting-account-pending-face’
+     Face for Ledger pending accounts.
+
+‘ledger-font-posting-amount-face’
+     Face for Ledger amounts.
+
+‘ledger-occur-narrowed-face’
+     Default face for Ledger occur mode hidden transactions.
+
+‘ledger-occur-xact-face’
+     Default face for Ledger occur mode shown transactions.
+
+‘ledger-font-comment-face’
+     Face for Ledger comments.
+
+‘ledger-font-reconciler-uncleared-face’
+     Default face for uncleared transactions in the ‘*Reconcile*’
+     buffer.
+
+‘ledger-font-reconciler-cleared-face’
+     Default face for cleared ‘*’ transactions in the ‘*Reconcile*’
+     buffer.
+
+‘ledger-font-reconciler-pending-face’
+     Default face for pending ‘!’ transactions in the ‘*Reconcile*’
+     buffer.
+
+‘ledger-font-report-clickable-face’
+     Face applied to clickable entries in the ‘*Report*’ buffer.
+
+
+File: ledger-mode.info,  Node: Ledger Post Customization Group,  Next: Ledger Exec Customization Group,  Prev: Ledger Faces Customization Group,  Up: Customization Variables
+
+6.2.5 Ledger Post Customization Group
+-------------------------------------
+
+Ledger Post:
+
+‘ledger-post-account-alignment-column’
+     The column Ledger-mode attempts to align accounts to.
+
+‘ledger-post-amount-alignment-at’
+     Position at which the amount is aligned.
+
+     Can be ‘:end’ to align on the last number of the amount (can be
+     followed by unaligned commodity) or ‘:decimal’ to align at the
+     decimal separator.
+
+‘ledger-post-amount-alignment-column’
+     The column Ledger-mode attempts to align amounts to.
+
+‘ledger-post-auto-align’
+     When non-nil, realign post amounts when indenting or completing.
+
+
+File: ledger-mode.info,  Node: Ledger Exec Customization Group,  Next: Ledger Test Customization Group,  Prev: Ledger Post Customization Group,  Up: Customization Variables
+
+6.2.6 Ledger Exec Customization Group
+-------------------------------------
+
+Ledger Exec: Interface to the Ledger command-line accounting program.
+
+‘ledger-binary-path’
+     Path to the ledger executable.
+
+‘ledger-init-file-name’
+     Location of the ledger initialization file.  nil if you don’t have
+     one.
+
+
+File: ledger-mode.info,  Node: Ledger Test Customization Group,  Next: Ledger Texi Customization Group,  Prev: Ledger Exec Customization Group,  Up: Customization Variables
+
+6.2.7 Ledger Test Customization Group
+-------------------------------------
+
+‘ledger-source-directory’
+     Directory where the Ledger sources are located.
+
+‘ledger-test-binary’
+     Directory where the debug binary.
+
+
+File: ledger-mode.info,  Node: Ledger Texi Customization Group,  Prev: Ledger Test Customization Group,  Up: Customization Variables
+
+6.2.8 Ledger Texi Customization Group
+-------------------------------------
+
+‘ledger-texi-sample-doc-path’
+     Location for sample data to be used in texi tests, defaults to
+     ‘~/ledger/doc/sample.dat’.
+
+‘ledger-texi-normalization-args’
+     texi normalization for producing ledger output, defaults to
+     ‘--args-only --columns 80’.
+
+
+File: ledger-mode.info,  Node: Generating Ledger Regression Tests,  Next: Embedding Example results in Ledger Documentation,  Prev: Customizing Ledger-mode,  Up: Top
+
+7 Generating Ledger Regression Tests
+************************************
+
+Work in Progress.
+
+
+File: ledger-mode.info,  Node: Embedding Example results in Ledger Documentation,  Next: Hacking Ledger-mode,  Prev: Generating Ledger Regression Tests,  Up: Top
+
+8 Embedding Example results in Ledger Documentation
+***************************************************
+
+Work in Progress.
+
+
+File: ledger-mode.info,  Node: Hacking Ledger-mode,  Next: Concept Index,  Prev: Embedding Example results in Ledger Documentation,  Up: Top
+
+9 Hacking Ledger-mode
+*********************
+
+* Menu:
+
+* Use org-like outlines::
+
+
+File: ledger-mode.info,  Node: Use org-like outlines,  Prev: Hacking Ledger-mode,  Up: Hacking Ledger-mode
+
+9.1 Use org-like outlines
+=========================
+
+Some users like to have org-like outlines for their ledger files.  A
+suggested customization is to include something like the following in
+your Emacs configuration:
+
+     (eval-after-load 'ledger-mode
+       (progn
+         ;; org-cycle allows completion to work whereas outline-toggle-children does not
+         (define-key ledger-mode-map (kbd "TAB") #'org-cycle)
+         (add-hook 'ledger-mode-hook #'outline-minor-mode)
+         (font-lock-add-keywords 'ledger-mode outline-font-lock-keywords)))
+
+
+File: ledger-mode.info,  Node: Concept Index,  Next: Command & Variable Index,  Prev: Hacking Ledger-mode,  Up: Top
+
+Concept Index
+*************
+
+ [index ]
+* Menu:
+
+* balance:                               Quick Balance Display.
+                                                               (line  6)
+* Calc:                                  Editing Amounts.      (line  6)
+* cleared:                               Marking Transactions. (line  6)
+* customization, executable:             Ledger Exec Customization Group.
+                                                               (line  6)
+* customization, faces:                  Ledger Faces Customization Group.
+                                                               (line  6)
+* customization, ledger-mode:            Ledger Customization Group.
+                                                               (line  6)
+* customization, post:                   Ledger Post Customization Group.
+                                                               (line  6)
+* customization, reconcile:              Ledger Reconcile Customization Group.
+                                                               (line  6)
+* customization, report:                 Ledger Report Customization Group.
+                                                               (line  6)
+* customization, test:                   Ledger Test Customization Group.
+                                                               (line  6)
+* customization, texi:                   Ledger Texi Customization Group.
+                                                               (line  6)
+* demo:                                  Quick Demo.           (line  6)
+* effective date:                        Setting a Transactions Effective Date.
+                                                               (line  6)
+* folding:                               Use org-like outlines.
+                                                               (line 10)
+* GNU Emacs Calculator:                  Editing Amounts.      (line  6)
+* installation:                          Quick Installation.   (line  6)
+* menu:                                  Menus.                (line  6)
+* org:                                   Use org-like outlines.
+                                                               (line 10)
+* outline:                               Use org-like outlines.
+                                                               (line 10)
+* pending:                               Marking Transactions. (line  6)
+* reconciliation, account changing:      Changing Reconciliation Account.
+                                                               (line  6)
+* reconciliation, basics:                Basics of Reconciliation.
+                                                               (line  6)
+* reconciliation, finalizing:            Finalize Reconciliation.
+                                                               (line  6)
+* reconciliation, starting:              Starting a Reconciliation.
+                                                               (line  6)
+* reconciliation, target changing:       Changing Reconciliation Target.
+                                                               (line  6)
+* reconciliation, transaction adding and deleting: Adding and Deleting Transactions during Reconciliation.
+                                                               (line  6)
+* reconciliation, transaction editing:   Edit Transactions During Reconciliation.
+                                                               (line  6)
+* reconciliation, transaction marking:   Mark Transactions Pending.
+                                                               (line  6)
+* report, adding and editing:            Adding and Editing Reports.
+                                                               (line  6)
+* report, custom command:                Make Report Transactions Active.
+                                                               (line  6)
+* report, custom variable:               Expansion Formats.    (line  6)
+* report, order reversing:               Reversing Report Order.
+                                                               (line  6)
+* report, running:                       Running Basic Reports.
+                                                               (line  6)
+* transaction, adding:                   Adding Transactions.  (line  6)
+* transaction, copying:                  Copying Transactions. (line  6)
+* transaction, deleting:                 Deleting Transactions.
+                                                               (line  6)
+* transaction, display filtering:        Narrowing Transactions.
+                                                               (line  6)
+* transaction, editing amounts:          Editing Amounts.      (line  6)
+* transaction, formatting:               Formatting Transactions.
+                                                               (line  6)
+* transaction, marking:                  Marking Transactions. (line  6)
+* transaction, narrowing:                Narrowing Transactions.
+                                                               (line  6)
+* transaction, navigation:               Navigating Transactions.
+                                                               (line  6)
+* transaction, sorting:                  Sorting Transactions. (line  6)
+* uncleared:                             Marking Transactions. (line  6)
+
+
+File: ledger-mode.info,  Node: Command & Variable Index,  Next: Keystroke Index,  Prev: Concept Index,  Up: Top
+
+Command & Variable Index
+************************
+
+ [index ]
+* Menu:
+
+* ledger-binary-path:                    Ledger Exec Customization Group.
+                                                               (line  8)
+* ledger-buffer-tracks-reconcile-buffer: Ledger Reconcile Customization Group.
+                                                               (line 13)
+* ledger-clear-whole-transactions:       Ledger Customization Group.
+                                                               (line 10)
+* ledger-font-cleared-face:              Ledger Faces Customization Group.
+                                                               (line 11)
+* ledger-font-comment-face:              Ledger Faces Customization Group.
+                                                               (line 41)
+* ledger-font-highlight-face:            Ledger Faces Customization Group.
+                                                               (line 14)
+* ledger-font-other-face:                Ledger Faces Customization Group.
+                                                               (line 20)
+* ledger-font-pending-face:              Ledger Faces Customization Group.
+                                                               (line 17)
+* ledger-font-posting-account-cleared-face: Ledger Faces Customization Group.
+                                                               (line 26)
+* ledger-font-posting-account-face:      Ledger Faces Customization Group.
+                                                               (line 23)
+* ledger-font-posting-account-pending-face: Ledger Faces Customization Group.
+                                                               (line 29)
+* ledger-font-posting-amount-face:       Ledger Faces Customization Group.
+                                                               (line 32)
+* ledger-font-reconciler-cleared-face:   Ledger Faces Customization Group.
+                                                               (line 48)
+* ledger-font-reconciler-pending-face:   Ledger Faces Customization Group.
+                                                               (line 52)
+* ledger-font-reconciler-uncleared-face: Ledger Faces Customization Group.
+                                                               (line 44)
+* ledger-font-report-clickable-face:     Ledger Faces Customization Group.
+                                                               (line 56)
+* ledger-font-uncleared-face:            Ledger Faces Customization Group.
+                                                               (line  8)
+* ledger-highlight-xact-under-point:     Ledger Customization Group.
+                                                               (line 13)
+* ledger-init-file-name:                 Ledger Exec Customization Group.
+                                                               (line 11)
+* ledger-narrow-on-reconcile:            Ledger Reconcile Customization Group.
+                                                               (line  9)
+* ledger-navigate-next-uncleared:        Navigating Transactions.
+                                                               (line 10)
+* ledger-navigate-next-xact-or-directive: Navigating Transactions.
+                                                               (line  6)
+* ledger-navigate-prev-xact-or-directive: Navigating Transactions.
+                                                               (line  6)
+* ledger-navigate-previous-uncleared:    Navigating Transactions.
+                                                               (line 10)
+* ledger-occur-narrowed-face:            Ledger Faces Customization Group.
+                                                               (line 35)
+* ledger-occur-use-face-shown:           Ledger Customization Group.
+                                                               (line  6)
+* ledger-occur-xact-face:                Ledger Faces Customization Group.
+                                                               (line 38)
+* ledger-post-account-alignment-column:  Ledger Post Customization Group.
+                                                               (line  8)
+* ledger-post-amount-alignment-at:       Ledger Post Customization Group.
+                                                               (line 11)
+* ledger-post-amount-alignment-column:   Adding Transactions.  (line  6)
+* ledger-post-amount-alignment-column <1>: Ledger Post Customization Group.
+                                                               (line 18)
+* ledger-post-auto-align:                Ledger Post Customization Group.
+                                                               (line 21)
+* ledger-recon-buffer-name:              Ledger Reconcile Customization Group.
+                                                               (line  6)
+* ledger-reconcile-buffer-account-max-chars: Ledger Reconcile Customization Group.
+                                                               (line 54)
+* ledger-reconcile-buffer-header:        Ledger Reconcile Customization Group.
+                                                               (line 34)
+* ledger-reconcile-buffer-line-format:   Ledger Reconcile Customization Group.
+                                                               (line 40)
+* ledger-reconcile-buffer-payee-max-chars: Ledger Reconcile Customization Group.
+                                                               (line 50)
+* ledger-reconcile-default-commodity:    Starting a Reconciliation.
+                                                               (line  6)
+* ledger-reconcile-default-date-format:  Ledger Reconcile Customization Group.
+                                                               (line 26)
+* ledger-reconcile-finish-force-quit nil: Ledger Reconcile Customization Group.
+                                                               (line 67)
+* ledger-reconcile-force-window-bottom:  Ledger Reconcile Customization Group.
+                                                               (line 18)
+* ledger-reconcile-insert-effective-date nil: Ledger Reconcile Customization Group.
+                                                               (line 63)
+* ledger-reconcile-sort-key:             Ledger Reconcile Customization Group.
+                                                               (line 58)
+* ledger-reconcile-target-prompt-string: Ledger Reconcile Customization Group.
+                                                               (line 30)
+* ledger-reconcile-toggle-to-pending:    Ledger Reconcile Customization Group.
+                                                               (line 22)
+* ledger-report-auto-width:              Ledger Report Customization Group.
+                                                               (line 17)
+* ledger-report-format-specifiers:       Ledger Report Customization Group.
+                                                               (line  9)
+* ledger-report-use-native-highlighting: Ledger Report Customization Group.
+                                                               (line 13)
+* ledger-reports:                        Adding and Editing Reports.
+                                                               (line  6)
+* ledger-reports <1>:                    Ledger Report Customization Group.
+                                                               (line  6)
+* ledger-source-directory:               Ledger Test Customization Group.
+                                                               (line  6)
+* ledger-test-binary:                    Ledger Test Customization Group.
+                                                               (line  9)
+* ledger-texi-normalization-args:        Ledger Texi Customization Group.
+                                                               (line 10)
+* ledger-texi-sample-doc-path:           Ledger Texi Customization Group.
+                                                               (line  6)
+
+
+File: ledger-mode.info,  Node: Keystroke Index,  Prev: Command & Variable Index,  Up: Top
+
+Keystroke Index
+***************
+
+ [index ]
+* Menu:
+
+* a:                                     Adding and Deleting Transactions during Reconciliation.
+                                                               (line  6)
+* C-c C-a:                               Quick Add.            (line  6)
+* C-c C-b:                               Editing Amounts.      (line  6)
+* C-c C-c:                               Reconciliation.       (line  6)
+* C-c C-c <1>:                           Reports.              (line  6)
+* C-c C-c <2>:                           Marking Transactions. (line 28)
+* C-c C-c <3>:                           Edit Transactions During Reconciliation.
+                                                               (line  6)
+* C-c C-c <4>:                           Finalize Reconciliation.
+                                                               (line  6)
+* C-c C-d:                               Deleting Transactions.
+                                                               (line  6)
+* C-c C-e:                               Marking Transactions. (line 28)
+* C-c C-f:                               Narrowing.            (line  6)
+* C-c C-f <1>:                           Narrowing Transactions.
+                                                               (line  6)
+* C-c C-g:                               Narrowing.            (line  6)
+* C-c C-g <1>:                           Narrowing Transactions.
+                                                               (line  6)
+* C-c C-k:                               Copying Transactions. (line  6)
+* C-c C-o C-a:                           Running Basic Reports.
+                                                               (line  6)
+* C-c C-o C-e:                           Adding and Editing Reports.
+                                                               (line  6)
+* C-c C-o C-g:                           Running Basic Reports.
+                                                               (line  6)
+* C-c C-o C-r:                           Reports.              (line  6)
+* C-c C-o C-r <1>:                       Running Basic Reports.
+                                                               (line  6)
+* C-c C-p:                               Quick Balance Display.
+                                                               (line  6)
+* C-c C-r:                               Reconciliation.       (line  6)
+* C-c C-r <1>:                           Starting a Reconciliation.
+                                                               (line  6)
+* C-c C-s:                               Sorting Transactions. (line  6)
+* C-c C-t:                               Setting a Transactions Effective Date.
+                                                               (line  6)
+* C-c TAB:                               Quick Add.            (line  6)
+* d:                                     Adding and Deleting Transactions during Reconciliation.
+                                                               (line  6)
+* e:                                     Adding and Editing Reports.
+                                                               (line  6)
+* g:                                     Changing Reconciliation Account.
+                                                               (line  6)
+* M-1 C-c C-o C-r:                       Adding and Editing Reports.
+                                                               (line  6)
+* M-n:                                   Navigating Transactions.
+                                                               (line  6)
+* M-p:                                   Navigating Transactions.
+                                                               (line  6)
+* q:                                     Reconciliation.       (line  6)
+* q <1>:                                 Finalize Reconciliation.
+                                                               (line  6)
+* R:                                     Reversing Report Order.
+                                                               (line  6)
+* RET:                                   Edit Transactions During Reconciliation.
+                                                               (line  6)
+* S:                                     Adding and Editing Reports.
+                                                               (line  6)
+* SPC:                                   Reconciliation.       (line  6)
+* SPC <1>:                               Mark Transactions Pending.
+                                                               (line  6)
+* t:                                     Changing Reconciliation Target.
+                                                               (line  6)
+* TAB:                                   Adding Transactions.  (line  6)
+* y:                                     Editing Amounts.      (line  6)
+
+
+
+Tag Table:
+Node: Top1742
+Node: Introduction to Ledger-mode2555
+Node: Quick Installation2784
+Node: Menus3716
+Node: Quick Demo4031
+Node: Quick Add4461
+Node: Reconciliation5559
+Node: Reports7243
+Node: Narrowing8273
+Node: The Ledger Buffer8857
+Node: Navigating Transactions9263
+Node: Adding Transactions9811
+Node: Setting a Transactions Effective Date11310
+Node: Quick Balance Display12210
+Node: Copying Transactions12742
+Node: Editing Amounts13344
+Node: Marking Transactions14415
+Node: Formatting Transactions16110
+Node: Deleting Transactions16708
+Node: Sorting Transactions17148
+Node: Narrowing Transactions18700
+Node: The Reconcile Buffer20550
+Node: Basics of Reconciliation21015
+Node: Starting a Reconciliation21964
+Node: Mark Transactions Pending23813
+Node: Edit Transactions During Reconciliation24482
+Node: Finalize Reconciliation25125
+Node: Adding and Deleting Transactions during Reconciliation25782
+Node: Changing Reconciliation Account26366
+Node: Changing Reconciliation Target26916
+Node: The Report Buffer27234
+Node: Running Basic Reports27492
+Node: Adding and Editing Reports28925
+Node: Expansion Formats30312
+Node: Make Report Transactions Active31953
+Node: Reversing Report Order32660
+Node: Scheduling Transactions33353
+Node: Specifying Upcoming Transactions34209
+Node: Transactions that occur on specific dates34783
+Node: Transactions that occur on specific days35824
+Node: Customizing Ledger-mode36953
+Node: Ledger-mode Customization37217
+Node: Customization Variables37902
+Node: Ledger Customization Group38382
+Node: Ledger Reconcile Customization Group39022
+Node: Ledger Report Customization Group41965
+Node: Ledger Faces Customization Group42684
+Node: Ledger Post Customization Group44431
+Node: Ledger Exec Customization Group45258
+Node: Ledger Test Customization Group45757
+Node: Ledger Texi Customization Group46159
+Node: Generating Ledger Regression Tests46651
+Node: Embedding Example results in Ledger Documentation46914
+Node: Hacking Ledger-mode47203
+Node: Use org-like outlines47428
+Node: Concept Index48093
+Node: Command & Variable Index53609
+Node: Keystroke Index61719
+
+End Tag Table
+
+
+Local Variables:
+coding: utf-8
+End:

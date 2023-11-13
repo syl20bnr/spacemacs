@@ -1,0 +1,544 @@
+This is annalist.info, produced by makeinfo version 6.7 from
+annalist.texi.
+
+INFO-DIR-SECTION Emacs
+START-INFO-DIR-ENTRY
+* Annalist: (annalist). Record and display information such as keybindings.
+END-INFO-DIR-ENTRY
+
+
+File: annalist.info,  Node: Top,  Next: Usage,  Up: (dir)
+
+Annalist User Manual
+********************
+
+file:https://melpa.org/packages/annalist-badge.svg
+(https://melpa.org/#/annalist)
+https://travis-ci.org/noctuid/annalist.el.svg?branch=master
+(https://travis-ci.org/noctuid/annalist.el)
+
+     Incessant wind sweeps the plain.  It murmurs on across grey stone,
+     carrying dust from far climes to nibble eternally at the memorial
+     pillars.  There are a few shadows out there still but they are the
+     weak and the timid and the hopelessly lost.
+
+     It is immortality of a sort.
+
+     Memory is immortality of a sort.
+
+     In the night, when the wind dies and silence rules the place of
+     glittering stone, I remember.  And they all live again.
+
+   ‘annalist.el’ is a library that can be used to record information and
+later print that information using ‘org-mode’ headings and tables.  It
+allows defining different types of things that can be recorded (e.g.
+keybindings, settings, hooks, and advice) and supports custom filtering,
+sorting, and formatting.  ‘annalist’ is primarily intended for use in
+other packages like ‘general’ and ‘evil-collection’, but it can also be
+used directly in a user’s configuration.
+
+[https://user-images.githubusercontent.com/4250696/63480582-64e2cb00-c460-11e9-9571-706b5b96992c]
+* Menu:
+
+* Usage::
+
+— The Detailed Node Listing —
+
+Usage
+
+* Disabling Annalist::
+* Terminology::
+* Settings::
+* Defining New Types::
+* Defining Views::
+* Recording::
+* Describing::
+* Helper Functions::
+* Builtin Types::
+
+Defining New Types
+
+* Type Top-level Settings::
+* Type Item Settings::
+* ‘:record-update’, ‘:preprocess’, and ‘:postprocess’ Settings Argument: record-update preprocess and postprocess Settings Argument.
+
+Defining Views
+
+* View Top-level Settings::
+* View Item Settings::
+
+Helper Functions
+
+* List Helpers::
+* Formatting Helpers::
+* Sorting Helpers::
+
+Builtin Types
+
+* Keybindings Type::
+
+
+
+File: annalist.info,  Node: Usage,  Prev: Top,  Up: Top
+
+1 Usage
+*******
+
+* Menu:
+
+* Disabling Annalist::
+* Terminology::
+* Settings::
+* Defining New Types::
+* Defining Views::
+* Recording::
+* Describing::
+* Helper Functions::
+* Builtin Types::
+
+
+File: annalist.info,  Node: Disabling Annalist,  Next: Terminology,  Up: Usage
+
+1.1 Disabling Annalist
+======================
+
+     What fool always has his nose in everywhere because he thinks he
+     has to know so he can record it in his precious Annals?
+
+   If you use a library that uses ‘annalist’ (e.g.  ‘evil-collection’ or
+‘general’) but don’t need it’s functionality during init or at all, you
+can set ‘annalist-record’ to nil to shave some milliseconds off of your
+init time (especially if you have a lot of keybindings).  Alternatively,
+if you only want to prevent ‘annalist’ from recording certain things or
+have it only record certain things, you can configure
+‘annalist-record-blacklist’ or ‘annalist-record-whitelist’ respectively.
+
+
+File: annalist.info,  Node: Terminology,  Next: Settings,  Prev: Disabling Annalist,  Up: Usage
+
+1.2 Terminology
+===============
+
+   • item - and individual recorded item; may be displayed as a heading
+     or as a table column entry (e.g.  a key such as ‘C-c’)
+   • record - a list of related, printable items corresponding to one
+     piece of information (e.g.  a single keybinding: a list of a
+     keymap, key, and definition)
+   • metadata - a plist of information about a data list that should not
+     be printed; appears as the last item in a record
+   • tome - a collection of records of a specific type
+
+
+File: annalist.info,  Node: Settings,  Next: Defining New Types,  Prev: Terminology,  Up: Usage
+
+1.3 Settings
+============
+
+Annalist provides ‘annalist-describe-hook’ which is run in annalist
+description buffers after they have been populated but before they are
+marked read-only:
+     (add-hook 'annalist-describe-hook
+               (lambda () (visual-fill-column-mode -1)))
+
+
+File: annalist.info,  Node: Defining New Types,  Next: Defining Views,  Prev: Settings,  Up: Usage
+
+1.4 Defining New Types
+======================
+
+     Three huge tomes bound in worn, cracked dark leather rested on a
+     large, long stone lectern, as though waiting for three speakers to
+     step up and read at the same time.
+
+   Annalist provides the function ‘annalist-define-tome’ for defining
+new types of tomes:
+     (annalist-define-tome 'battles
+       '(:primary-key (year name)
+         :table-start-index 1
+         year
+         name
+         casualties
+         ...))
+
+   At minimum, a type definition must include ‘:primary-key’,
+‘:table-start-index’, and a symbol for each item records should store.
+Items should be defined in the order they should appear in org headings
+and then in the table.
+
+* Menu:
+
+* Type Top-level Settings::
+* Type Item Settings::
+* ‘:record-update’, ‘:preprocess’, and ‘:postprocess’ Settings Argument: record-update preprocess and postprocess Settings Argument.
+
+
+File: annalist.info,  Node: Type Top-level Settings,  Next: Type Item Settings,  Up: Defining New Types
+
+1.4.1 Type Top-level Settings
+-----------------------------
+
+These settings apply to the entirety of the recorded information.
+
+   • ‘:table-start-index’ - the index of the first item to be printed in
+     an org table; previous items are printed as headings (default:
+     none)
+   • ‘:primary-key’ - the item or list of items that uniquely identifies
+     the record; used with the ‘:test’ values for those items to check
+     for an old record that should be replaced/updated (default: none)
+   • ‘:record-update’ - a function used to update a record before
+     recording it; this can be used to, for example, set the value of an
+     item to store the previous value of another item; the function is
+     called with ‘old-record’ (nil if none), ‘new-record’, and
+     ‘settings’; see ‘annalist--update-keybindings’ for an example of
+     how to create such a function (default: none)
+   • ‘:preprocess’ - a function used to alter a record before doing
+     anything with it; it is passed ‘record’ and ‘settings’ and should
+     return the altered record; see the default keybindings type for an
+     example (default: none)
+   • ‘:test’ - test function used for comparing the primary key (as a
+     list of each item in the order it appears in the definition); you
+     will need to create the test with ‘define-hash-table-test’ if it
+     does not exist (default: ‘equal’; generally should be unnecessary
+     to change)
+   • ‘:defaults’ - a plist of default item settings; see below for valid
+     item settings (default: none)
+
+
+File: annalist.info,  Node: Type Item Settings,  Next: record-update preprocess and postprocess Settings Argument,  Prev: Type Top-level Settings,  Up: Defining New Types
+
+1.4.2 Type Item Settings
+------------------------
+
+Item settings only apply to a specific item.  Defaults for items that
+don’t explicitly specify a setting can be set using the top-level
+‘:defaults’ keyword.
+
+   • ‘:test’ - test function used for comparing items; only applicable
+     to heading items; you will need to create the test with
+     ‘define-hash-table-test’ if it does not exist (default: ‘equal’;
+     generally should be unnecessary to change)
+
+
+File: annalist.info,  Node: record-update preprocess and postprocess Settings Argument,  Prev: Type Item Settings,  Up: Defining New Types
+
+1.4.3 ‘:record-update’, ‘:preprocess’, and ‘:postprocess’ Settings Argument
+---------------------------------------------------------------------------
+
+The settings plist past to the ‘:record-update’ function contains all
+information for both the tome type and view.  The information is
+converted into a valid plist and some extra keywords are added.  Here is
+an example:
+     '(:table-start-index 2
+       :primary-key (keymap state key)
+       ;; the following keywords are generated for convenience
+       :type keybindings
+       :key-indices (2 1 0)
+       :final-index 4
+       :metadata-index 5
+       ;; item settings can be accessed by their symbol or their index
+       keymap (:name keymap :index 0 :format annalist-code)
+       0 (:name keymap :index 0 :format annalist-code)
+       ...)
+
+
+File: annalist.info,  Node: Defining Views,  Next: Recording,  Prev: Defining New Types,  Up: Usage
+
+1.5 Defining Views
+==================
+
+     In those days the company was in service to…
+
+   Views contain settings for formatting and displaying recorded
+information.  Settings from the type definition cannot be changed later.
+On the other hand, views are for all settings that a user may want to
+change for a particular ‘annalist-describe’ call.  They are defined
+using the same format as tome types:
+     (annalist-define-view 'battles 'default
+       '(:defaults (:format capitalize)
+         year
+         name
+         (casualties :title "Deaths")
+         ...))
+
+   The ‘default’ view is what ‘annalist-describe’ will use if no view
+name is explicitly specified.  To prevent naming conflicts, external
+packages that create views should prefix the views with their symbol
+(e.g.  ‘general-alternate-view’).
+
+* Menu:
+
+* View Top-level Settings::
+* View Item Settings::
+
+
+File: annalist.info,  Node: View Top-level Settings,  Next: View Item Settings,  Up: Defining Views
+
+1.5.1 View Top-level Settings
+-----------------------------
+
+These settings apply to the entirety of the recorded information.
+
+   • ‘:predicate’ - a function that is passed the entire record and
+     returns non-nil if the record should be printed (default: none)
+   • ‘:sort’ - a function used to sort records in each printed table;
+     the function is passed two records and and should return non-nil if
+     the first record should come first (default: none; tables are
+     printed in recorded order)
+   • ‘:hooks’ - a function or a list of functions to run in the describe
+     buffer after printing all headings and tables before making the
+     buffer readonly; these run before ‘annalist-describe-hook’
+     (default: none)
+   • ‘:postprocess’ - a function used to alter a record just before
+     printing it; it is passed ‘record’ and ‘settings’ and should return
+     the altered record; an example use case would be to alter the
+     record using its metadata (e.g.  by replacing a keybinding
+     definition with a which-key description, if one exists) (default:
+     none)
+   • ‘:defaults’ - a plist of default item settings; see below for valid
+     item settings (default: none)
+
+   There is also a special ‘:inherit’ keyword that can be used to create
+a new type of tome that is based on another type:
+     (annalist-define-view 'keybindings 'alternate
+       ;; override title for key column
+       '((key :title "Keybinding")
+         ...)
+       :inherit 'keybindings)
+
+
+File: annalist.info,  Node: View Item Settings,  Prev: View Top-level Settings,  Up: Defining Views
+
+1.5.2 View Item Settings
+------------------------
+
+Item settings only apply to a specific item.  Defaults for items that
+don’t explicitly specify a setting can be set using the top-level
+‘:defaults’ keyword.
+     (annalist-define-view 'keybindings 'my-view
+       '(:defaults (:format #'capitalize)
+         ;; surround key with = instead of capitalizing
+         (key :format #'annalist-verbatim)
+         ;; perform no formatting on definition
+         (definition :format nil)))
+
+   Sorting/filtering (only for items displayed in headings):
+   • ‘:predicate’ - a function that is passed the item and returns
+     non-nil if it should be printed; only applicable to heading items
+     (default: none)
+   • ‘:prioritize’ - list of items that should be printed before any
+     others; only applicable to heading items (default: none)
+   • ‘:sort’ - a function used to sort records; only applicable to
+     heading items; the function is passed two items and and should
+     return non-nil if the first item should come first (default: none;
+     printed in recorded order)
+
+   Formatting:
+   • ‘:title’ - a description of the item; used as the column title
+     (default: capitalize the symbol name; local only)
+   • ‘:format’ - function to run on the item value before it is printed
+     (e.g.  ‘#'capitalize’, ‘#'annalist-code’, ‘#'annalist-verbatim’,
+     etc.); note that this is run on the item as-is if it has not been
+     truncated, so the function may need to convert the item to a string
+     first; has no effect if the item is extracted to a footnote/source
+     block (default: none)
+   • ‘:max-width’ - the max character width for an item; note that this
+     is compared to the item as-is before any formatting (default: 50)
+   • ‘:extractp’ - function to determine whether to extract longer
+     entries into footnotes instead of truncating them; (default:
+     ‘listp’)
+   • ‘:src-block-p’ function to determine whether to extract to a source
+     block when the ‘:extractp’ function returns non-nil (default:
+     ‘listp’)
+
+
+File: annalist.info,  Node: Recording,  Next: Describing,  Prev: Defining Views,  Up: Usage
+
+1.6 Recording
+=============
+
+     The Lady said, “I wanted you to see this, Annalist.” […] “What is
+     about to transpire.  So that it is properly recorded in at least
+     one place.”
+
+   ‘annalist-record’ is used to record information.  It requires three
+arguments: ‘annalist’ ‘type’ ‘record’.  The ‘annalist’ argument will
+usually be the same as the package prefix that is recording the data.
+‘annalist’ and any other names prefixed by ‘annalist’ are reserved for
+this package.  ‘type’ is the type of data to record, and ‘record’ is the
+actual data.  Optionally, the user can also specify metadata that won’t
+be printed after the final item.  Buffer-local records should
+additionally specify ‘:local t’.  Here is an example:
+     (annalist-record 'me 'keybindings
+                      (list
+                       ;; keymap state key definition previous-definition
+                       'global-map nil (kbd "C-+") #'text-scale-increase nil
+                       ;; metadata can be specified after final item
+                       (list :zoom-related-binding t)))
+
+     ;; alternatively, record using plist instead of ordered list
+     (annalist-record 'me 'keybindings
+                      (list
+                       'keymap 'global-map
+                       'state nil
+                       'key (kbd "C-+")
+                       'definition #'text-scale-increase
+                       ;; metadata can be specified with `t' key
+                       t (list :zoom-related-binding t))
+                      :plist t)
+
+   Some items can potentially be recorded as nil.  In the previous
+example, the evil ‘state’ is recorded as nil (which will always be the
+case for non-evil users).  When a heading item is nil, the heading at
+that level will just be skipped/not printed.
+
+
+File: annalist.info,  Node: Describing,  Next: Helper Functions,  Prev: Recording,  Up: Usage
+
+1.7 Describing
+==============
+
+     Once each month, in the evening, the entire Company assembles so
+     the Annalist can read from his predecessors.
+
+   ‘annalist-describe’ is used to describe information.  It takes three
+arguments: ‘name’ ‘type view’.  ‘view’ is optional (defaults to
+‘default’).  For example:
+     (annalist-describe 'me 'keybindings)
+
+   It is possible to have custom filtering/sorting behavior by using a
+custom view:
+     (annalist-define-view 'keybindings 'active-keybindings-only
+       '((keymap
+          ;; only show keys bound in active keymaps
+          :predicate #'annalist--active-keymap
+          ;; sort keymaps alphabetically
+          :sort #'annalist--string-<)))
+
+     (annalist-describe 'my 'keybindings 'active-keybindings-only)
+
+   ‘annalist-org-startup-folded’ will determine what
+‘org-startup-folded’ setting to use (defaults to nil; all headings will
+be unfolded).
+
+
+File: annalist.info,  Node: Helper Functions,  Next: Builtin Types,  Prev: Describing,  Up: Usage
+
+1.8 Helper Functions
+====================
+
+* Menu:
+
+* List Helpers::
+* Formatting Helpers::
+* Sorting Helpers::
+
+
+File: annalist.info,  Node: List Helpers,  Next: Formatting Helpers,  Up: Helper Functions
+
+1.8.1 List Helpers
+------------------
+
+‘annalist-plistify-record’ can be used to convert a record that is an
+ordered list to a plist.  ‘annalist-listify-record’ can be used to do
+the opposite.  This is what the ‘:plist’ argument for ‘annalist-record’
+uses internally.  These functions can be useful, for example, inside a
+‘:record-update’ function, so that you can get record items by their
+name instead of by their index.  However, if there will be a lot of data
+recorded for a type during Emacs initialization time, the extra time to
+convert between list types can add up, so it’s recommended that you
+don’t use these functions or ‘:plist’ in such cases.
+
+
+File: annalist.info,  Node: Formatting Helpers,  Next: Sorting Helpers,  Prev: List Helpers,  Up: Helper Functions
+
+1.8.2 Formatting Helpers
+------------------------
+
+  1. ‘:format’ Helpers
+
+     Annalist provides ‘annalist-verbatim’ (e.g.  ‘=verbatim text=’),
+     ‘annalist-code’ (e.g.  ‘~my-function~’), and ‘annalist-capitalize’.
+     There is also an ‘annalist-compose’ helper for combining different
+     formatting functions.
+
+  2. Formatting Emacs Lisp Source Blocks
+
+     By default, Emacs Lisp extracted into source blocks will just be
+     one long line.  You can add ‘annalist-multiline-source-blocks’ to a
+     view’s ‘:hooks’ keyword or to ‘annalist-describe-hook’ to
+     autoformat org source blocks if lispy is installed.  By default, it
+     uses ‘lispy-alt-multiline’.  To use ‘lispy-multiline’ instead,
+     customize ‘annalist-multiline-function’.
+
+     The builtin types have ‘annlist-multiline-source-blocks’ in their
+     ‘:hooks’ setting by default.
+
+     Here is an example of what this looks like:
+
+[https://user-images.githubusercontent.com/4250696/62338313-1025e300-b4a6-11e9-845f-179c02abef35]
+
+File: annalist.info,  Node: Sorting Helpers,  Prev: Formatting Helpers,  Up: Helper Functions
+
+1.8.3 Sorting Helpers
+---------------------
+
+Annalist provides ‘annalist-string-<’ and ‘annalist-key-<’ (e.g.  ‘(kbd
+"C-c a")’ vs ‘(kbd "C-c b")’).
+
+
+File: annalist.info,  Node: Builtin Types,  Prev: Helper Functions,  Up: Usage
+
+1.9 Builtin Types
+=================
+
+* Menu:
+
+* Keybindings Type::
+
+
+File: annalist.info,  Node: Keybindings Type,  Up: Builtin Types
+
+1.9.1 Keybindings Type
+----------------------
+
+Annalist provides a type for recording keybindings that is used by
+‘evil-collection’ and ‘general’.  When recording a keybinding, the
+keymap must be provided as a symbol.  Here is an example:
+     (annalist-record 'annalist 'keybindings
+                      (list 'org-mode-map nil (kbd "C-c g") #'counsel-org-goto))
+
+   In addition to the default view, it has a ‘valid’ to only show
+keybindings for keymaps/states that exist (since some keybindings may be
+in a ‘with-eval-after-load’).  It also has an ‘active’ view to only show
+keybindings that are currently active.
+
+
+
+Tag Table:
+Node: Top217
+Node: Usage2195
+Node: Disabling Annalist2443
+Node: Terminology3226
+Node: Settings3855
+Node: Defining New Types4239
+Node: Type Top-level Settings5272
+Node: Type Item Settings6987
+Node: record-update preprocess and postprocess Settings Argument7641
+Node: Defining Views8601
+Node: View Top-level Settings9596
+Node: View Item Settings11236
+Node: Recording13459
+Node: Describing15400
+Node: Helper Functions16437
+Node: List Helpers16651
+Node: Formatting Helpers17431
+Node: Sorting Helpers18619
+Node: Builtin Types18881
+Node: Keybindings Type19031
+
+End Tag Table
+
+
+Local Variables:
+coding: utf-8
+End:

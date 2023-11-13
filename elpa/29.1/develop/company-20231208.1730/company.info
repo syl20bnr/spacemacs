@@ -1,0 +1,1707 @@
+This is company.info, produced by makeinfo version 6.7 from
+company.texi.
+
+This user manual is for Company version 0.10.0 (16 April 2023).
+
+Copyright © 2021-2023 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation.
+INFO-DIR-SECTION Emacs misc features
+START-INFO-DIR-ENTRY
+* Company: (company).           A modular text completion framework.
+END-INFO-DIR-ENTRY
+
+
+File: company.info,  Node: Top,  Next: Overview,  Up: (dir)
+
+Company
+*******
+
+Company is a modular text completion framework for GNU Emacs.
+
+The goal of this document is to lay out the foundational knowledge of
+the package, so that the readers of the manual could competently start
+adapting Company to their needs and preferences.
+
+This user manual is for Company version 0.10.0 (16 April 2023).
+
+Copyright © 2021-2023 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation.
+
+* Menu:
+
+* Overview:: Terminology and Structure
+* Getting Started:: Quick Start Guide
+* Customization:: User Options
+* Frontends:: Frontends Usage Instructions
+* Backends:: Backends Usage Instructions
+* Troubleshooting:: When Something Goes Wrong
+* Index::
+
+— The Detailed Node Listing —
+
+Overview
+
+* Terminology::
+* Structure::
+
+Getting Started
+
+* Installation::
+* Initial Setup::
+* Usage Basics::
+* Commands::
+
+Customization
+
+* Customization Interface::
+* Configuration File::
+
+Frontends
+
+* Tooltip Frontends::
+* Preview Frontends::
+* Echo Frontends::
+* Candidates Search::
+* Filter Candidates::
+* Quick Access a Candidate::
+
+Backends
+
+* Backends Usage Basics::
+* Grouped Backends::
+* Package Backends::
+* Candidates Post-Processing::
+
+
+
+File: company.info,  Node: Overview,  Next: Getting Started,  Prev: Top,  Up: Top
+
+1 Overview
+**********
+
+“Company” is a modular text completion framework for GNU Emacs.
+
+In other words, it is a package for retrieving, manipulating, and
+displaying text completion candidates.  It aims to assist developers,
+writers, and scientists during code and text writing.
+
+* Menu:
+
+* Terminology::
+* Structure::
+
+
+File: company.info,  Node: Terminology,  Next: Structure,  Up: Overview
+
+1.1 Terminology
+===============
+
+“Completion” is an act of intelligibly guessing possible variants of
+words based on already typed characters.  To “complete” a word means to
+insert a correctly guessed variant into the buffer.
+
+Consequently, the “candidates” are the aforementioned guessed variants
+of words.  Each of the candidates has the potential to be chosen for
+successful completion.  And each of the candidates contains the
+initially typed characters: either only at the beginning (so-called
+“prefix matches”), or also inside (“non-prefix matches”) of a candidate
+(1).
+
+The package’s name “Company” is based on the combination of the two
+words: ‘Complete’ and ‘Anything’.  These words reflect the package’s
+commitment to handling completion candidates and its extensible nature
+allowing it to cover a wide range of usage scenarios.
+
+   ---------- Footnotes ----------
+
+   (1) A good starting point to learn about types of matches is to play
+with the Emacs’s user option ‘completion-styles’.  For illustrations on
+how Company visualizes the matches, *note Frontends::.
+
+
+File: company.info,  Node: Structure,  Prev: Terminology,  Up: Overview
+
+1.2 Structure
+=============
+
+The Company is easily extensible because its significant building blocks
+are pluggable modules: backends (*note Backends::) and frontends (*note
+Frontends::).
+
+The “backends” are responsible for retrieving completion candidates;
+which are then outputted by the “frontends”.  For an easy and quick
+initial setup, Company is supplied with the preconfigured sets of the
+backends and frontends.  The default behavior of the modules can be
+adjusted per particular needs, goals, and preferences.  It is also
+typical to utilize backends from a variety of third-party libraries
+(https://github.com/company-mode/company-mode/wiki/Third-Party-Packages),
+developed to be pluggable with Company.
+
+But Company consists not only of the backends and frontends.
+
+A core of the package plays the role of a controller, connecting the
+modules, making them work together; and exposing configurations and
+commands for a user to operate with.  For more details, *note
+Customization:: and *note Commands::.
+
+Also, Company is bundled with an alternative workflow configuration
+“company-tng” — defining ‘company-tng-frontend’, ‘company-tng-mode’, and
+‘company-tng-map’ — that allows performing completion with just <TAB>.
+To enable this configuration, add the following line to the Emacs
+initialization file (*note (emacs)Init File::):
+
+     (add-hook 'after-init-hook 'company-tng-mode)
+
+
+File: company.info,  Node: Getting Started,  Next: Customization,  Prev: Overview,  Up: Top
+
+2 Getting Started
+*****************
+
+This chapter provides basic instructions for Company setup and usage.
+
+* Menu:
+
+* Installation::
+* Initial Setup::
+* Usage Basics::
+* Commands::
+
+
+File: company.info,  Node: Installation,  Next: Initial Setup,  Up: Getting Started
+
+2.1 Installation
+================
+
+Company package is distributed via commonly used package archives in a
+form of both stable and development releases.  To install Company, type
+‘M-x package-install <RET> company <RET>’.
+
+For more details on Emacs package archives, *note (emacs)Packages::.
+
+
+File: company.info,  Node: Initial Setup,  Next: Usage Basics,  Prev: Installation,  Up: Getting Started
+
+2.2 Initial Setup
+=================
+
+The package Company provides a minor mode “company-mode”.
+
+To activate the _company-mode_, execute the command ‘M-x company-mode’
+that toggles the mode on and off.  When it is switched on, the mode line
+(*note (emacs)Mode line::) should indicate its presence with an
+indicator ‘company’.
+
+After _company-mode_ had been enabled, the package auto-starts
+suggesting completion candidates.  The candidates are retrieved and
+shown according to the typed characters and the default (until a user
+specifies otherwise) configurations.
+
+To have Company always enabled for the following sessions, add the line
+‘(global-company-mode)’ to the Emacs configuration file (*note
+(emacs)Init File::).
+
+
+File: company.info,  Node: Usage Basics,  Next: Commands,  Prev: Initial Setup,  Up: Getting Started
+
+2.3 Usage Basics
+================
+
+By default — having _company-mode_ enabled (*note Initial Setup::) — a
+tooltip with completion candidates is shown when a user types in a few
+characters.
+
+To initiate completion manually, use the command ‘M-x company-complete’.
+
+To select next or previous of the shown completion candidates, use
+respectively key bindings ‘C-n’ and ‘C-p’, then do one of the following:
+
+   • Hit <RET> to choose a selected candidate for completion.
+
+   • Hit <TAB> to complete with the “common part”: characters present at
+     the beginning of all the candidates.
+
+   • Hit ‘C-g’ to stop activity of Company.
+
+
+File: company.info,  Node: Commands,  Prev: Usage Basics,  Up: Getting Started
+
+2.4 Commands
+============
+
+Under the hood, mentioned in the previous section keys are bound to the
+commands of the out-of-the-box Company.
+
+‘C-n’
+‘M-n’
+     Select the next candidate (‘company-select-next-or-abort’,
+     ‘company-select-next’).
+
+‘C-p’
+‘M-p’
+     Select the previous candidate (‘company-select-previous-or-abort’,
+     ‘company-select-previous’).
+
+‘RET’
+‘<return>’
+     Insert the selected candidate (‘company-complete-selection’).
+
+‘TAB’
+‘<tab>’
+     Insert the common part of all the candidates
+     (‘company-complete-common’).
+
+‘C-g’
+‘<ESC ESC ESC>’
+     Cancel _company-mode_ activity (‘company-abort’).
+
+‘C-h’
+‘<F1>’
+     Display a buffer with the documentation for the selected candidate
+     (‘company-show-doc-buffer’).  With a prefix argument (‘C-u C-h’,
+     ‘C-u <F1>’), this command toggles between temporary showing the
+     documentation and keeping the documentation buffer up-to-date
+     whenever the selection changes.
+
+‘C-w’
+     Display a buffer with the definition of the selected candidate
+     (‘company-show-location’).
+
+The full list of the default key bindings is stored in the variables
+‘company-active-map’ and ‘company-search-map’ (1).
+
+Moreover, Company is bundled with a number of convenience commands that
+do not have default key bindings defined.  The following examples
+illustrate how to assign key bindings to such commands.
+
+     (global-set-key (kbd "<tab>") #'company-indent-or-complete-common)
+
+     (with-eval-after-load 'company
+       (define-key company-active-map (kbd "M-/") #'company-complete))
+
+     (with-eval-after-load 'company
+       (define-key company-active-map
+                   (kbd "TAB")
+                   #'company-complete-common-or-cycle)
+       (define-key company-active-map
+                   (kbd "<backtab>")
+                   (lambda ()
+                     (interactive)
+                     (company-complete-common-or-cycle -1))))
+
+In the same manner, an additional key can be assigned to a command or a
+command can be unbound from a key.  For instance:
+
+     (with-eval-after-load 'company
+       (define-key company-active-map (kbd "M-.") #'company-show-location)
+       (define-key company-active-map (kbd "RET") nil))
+
+   ---------- Footnotes ----------
+
+   (1) For a more user-friendly output of the pre-defined key bindings,
+utilize ‘M-x describe-keymap <RET> company-active-map’ or
+‘C-h f <RET> company-mode’.
+
+
+File: company.info,  Node: Customization,  Next: Frontends,  Prev: Getting Started,  Up: Top
+
+3 Customization
+***************
+
+Emacs provides two equally acceptable ways for user preferences
+configuration: via customization interface (for more details, *note
+(emacs)Easy Customization::) and a configuration file (*note (emacs)Init
+File::).  Naturally, Company can be configured by both of these
+approaches.
+
+* Menu:
+
+* Customization Interface::
+* Configuration File::
+
+
+File: company.info,  Node: Customization Interface,  Next: Configuration File,  Up: Customization
+
+3.1 Customization Interface
+===========================
+
+In order to employ the customization interface, run
+‘M-x customize-group <RET> company’.
+
+This interface outputs all the options available for user customization,
+so you may find it beneficial to review this list even if you are going
+to configure Company with the configuration file.
+
+For instructions on how to change the settings, *note (emacs)Changing a
+Variable::.
+
+
+File: company.info,  Node: Configuration File,  Prev: Customization Interface,  Up: Customization
+
+3.2 Configuration File
+======================
+
+Company is a customization-rich package.  This section lists some of the
+core settings that influence the overall behavior of the _company-mode_.
+
+ -- User Option: company-minimum-prefix-length
+     This is one of the values (together with ‘company-idle-delay’),
+     based on which Company auto-stars looking up completion candidates.
+     This option configures how many characters have to be typed in by a
+     user before candidates start to be collected and displayed.  An
+     often choice nowadays is to configure this option to a lower number
+     than the default value of ‘3’.
+
+ -- User Option: company-idle-delay
+     This is the second of the options that configure Company’s
+     auto-start behavior (together with
+     ‘company-minimum-prefix-length’).  The value of this option defines
+     how fast Company is going to react to the typed input, such that
+     setting ‘company-idle-delay’ to ‘0’ makes Company react
+     immediately, ‘nil’ disables auto-starting, and a larger value
+     postpones completion auto-start for that number of seconds.  For an
+     even fancier setup, set this option value to a predicate function,
+     as shown in the following example:
+
+          (setq company-idle-delay
+                (lambda () (if (company-in-string-or-comment) nil 0.3)))
+
+ -- User Option: company-global-modes
+     This option allows to specify in which major modes _company-mode_
+     can be enabled by ‘(global-company-mode)’.  *Note Initial Setup::.
+     The default value of ‘t’ enables Company in all major modes.
+     Setting ‘company-global-modes’ to ‘nil’ equal in action to toggling
+     off _global-company-mode_.  Providing a list of major modes results
+     in having _company-mode_ enabled in the listed modes only.  For the
+     opposite result, provide a list of major modes with ‘not’ being the
+     first element of the list, as shown in the following example:
+
+          (setq company-global-modes '(not erc-mode message-mode eshell-mode))
+
+ -- User Option: company-selection-wrap-around
+     Enable this option to loop (cycle) the candidates’ selection: after
+     selecting the last candidate on the list, a command to select the
+     next candidate does so with the first candidate.  By default, this
+     option is disabled, which means the selection of the next candidate
+     stops on the last item.  The selection of the previous candidate is
+     influenced by this option similarly.
+
+ -- User Option: company-require-match
+     To allow typing in characters that don’t match the candidates, set
+     the value of this option to ‘nil’.  For an opposite behavior (that
+     is, to disallow non-matching input), set it to ‘t’.  By default,
+     Company is configured to require a matching input only if a user
+     manually enables completion or selects a candidate; by having the
+     option configured to call the function ‘company-explicit-action-p’.
+
+ -- User Option: company-lighter-base
+     This user options allows to configure a string indicator of the
+     enabled _company-mode_ in the mode line.  The default value is
+     ‘company’.
+
+ -- User Option: company-insertion-on-trigger
+     One more pair of the user options may instruct Company to complete
+     with the selected candidate by typing one of the
+     ‘company-insertion-triggers’.  The user option
+     ‘company-insertion-on-trigger’ can be enabled or disabled by
+     setting its value to one of: ‘nil’, ‘t’, or a predicate function
+     name.  *note Predicate: (eintr)Wrong Type of Argument.
+
+ -- User Option: company-insertion-triggers
+     This option has an effect only when ‘company-insertion-on-trigger’
+     is enabled.  The value can be one of: a string of characters, a
+     list of syntax description characters (*note (elisp)Syntax Class
+     Table::), or a predicate function.  By default, this user option is
+     set to the list of the syntax characters: ‘(?\ ?\) ?.)’, which
+     translates to the whitespaces, close parenthesis, and punctuation.
+     It is safe to configure the value to a character that can
+     potentially be part of a valid completion; in this case, Company
+     does not treat such characters as triggers.
+
+Hooks
+-----
+
+Company exposes the following life-cycle hooks:
+
+ -- User Option: company-completion-started-hook
+
+ -- User Option: company-completion-cancelled-hook
+
+ -- User Option: company-completion-finished-hook
+
+ -- User Option: company-after-completion-hook
+
+
+File: company.info,  Node: Frontends,  Next: Backends,  Prev: Customization,  Up: Top
+
+4 Frontends
+***********
+
+Company is packaged with several frontends and provides a predefined set
+of enabled frontends.  A list of the enabled frontends can be changed by
+configuring the user option ‘company-frontends’.
+
+Each frontend is simply a function that receives a command and acts
+accordingly to it: outputs candidates, hides its output, refreshes
+displayed data, and so on.
+
+All of the Company frontends can be categorized by the type of the
+output into the three groups: “tooltip-”, “preview-”, and “echo-”
+frontends.  We overview these groups in the first sections of this
+chapter.  The sections that follow are dedicated to the ways the
+displayed candidates can be searched, filtered, and quick-accessed.
+
+* Menu:
+
+* Tooltip Frontends::
+* Preview Frontends::
+* Echo Frontends::
+* Candidates Search::
+* Filter Candidates::
+* Quick Access a Candidate::
+
+
+File: company.info,  Node: Tooltip Frontends,  Next: Preview Frontends,  Up: Frontends
+
+4.1 Tooltip Frontends
+=====================
+
+This group of frontends displays completion candidates in an overlayed
+tooltip (aka pop-up).  Company provides three _tooltip frontends_,
+listed below.
+
+ -- Function: company-pseudo-tooltip-unless-just-one-frontend
+     This is one of the default frontends.  It starts displaying a
+     tooltip only if more than one completion candidate is available,
+     which nicely combines — and it is done so by default — with
+     ‘company-preview-if-just-one-frontend’, *note Preview Frontends::.
+
+ -- Function: company-pseudo-tooltip-frontend
+     This frontend outputs a tooltip for any number of completion
+     candidates.
+
+ -- Function: company-pseudo-tooltip-unless-just-one-frontend-with-delay
+     This is a peculiar frontend, that displays a tooltip only if more
+     than one candidate is available, and only after a delay.  The delay
+     can be configured with the user option
+     ‘company-tooltip-idle-delay’.  A typical use case for plugging in
+     this frontend would be displaying a tooltip only on a manual
+     request (when needed), as shown in the following example:
+
+          (setq company-idle-delay 0
+                company-tooltip-idle-delay 10
+                company-require-match nil
+                company-frontends
+                '(company-pseudo-tooltip-unless-just-one-frontend-with-delay
+                  company-preview-frontend
+                  company-echo-metadata-frontend)
+                company-backends '(company-capf))
+
+          (global-set-key (kbd "<tab>")
+                          (lambda ()
+                            (interactive)
+                            (let ((company-tooltip-idle-delay 0.0))
+                              (company-complete)
+                              (and company-candidates
+                                   (company-call-frontends 'post-command)))))
+
+User Options
+------------
+
+To change the _tooltip frontends_ configuration, adjust the following
+user options.
+
+ -- User Option: company-tooltip-align-annotations
+     An “annotation” is a string that carries additional information
+     about a candidate; such as a data type, function arguments, or
+     whatever a backend appoints to be a valuable piece of information
+     about a candidate.  By default, the annotations are shown right
+     beside the candidates.  Setting the option value to ‘t’ aligns
+     annotations to the right side of the tooltip.
+
+          (setq company-tooltip-align-annotations t)
+
+          [image src="./images/small/tooltip-annotations.png" ]
+
+ -- User Option: company-tooltip-annotation-padding
+     Adds left padding to the candidates’ annotations.  It is disabled
+     by default.  If ‘company-tooltip-align-annotations’ is enabled,
+     ‘company-tooltip-annotation-padding’ defines the minimum spacing
+     between a candidate and annotation, with the default value of 1.
+
+          (setq company-tooltip-annotation-padding 1)
+
+ -- User Option: company-tooltip-limit
+     Controls the maximum number of the candidates shown simultaneously
+     in the tooltip (the default value is ‘10’).  When the number of the
+     available candidates is larger than this option’s value, Company
+     paginates the results.
+
+          (setq company-tooltip-limit 4)
+
+             [image src="./images/small/tooltip-limit.png" ]
+
+ -- User Option: company-tooltip-offset-display
+     Use this option to choose in which way to output paginated results.
+     The default value is ‘scrollbar’.  Another supported value is
+     ‘lines’; choose it to show the quantity of the candidates not
+     displayed by the current tooltip page.
+
+          (setq company-tooltip-offset-display 'lines)
+
+         [image src="./images/small/tooltip-offset-display.png" ]
+
+ -- User Option: company-tooltip-minimum
+     This user option acts only when a tooltip is shown close to the
+     bottom of a window.  It guarantees visibility of this number of
+     completion candidates below point.  When the number of lines
+     between point and the bottom of a window is less than
+     ‘company-tooltip-minimum’ value, the tooltip is displayed above
+     point.
+
+          (setq company-tooltip-minimum 4)
+
+         [image src="./images/small/tooltip-minimum-below.png" ]
+
+
+         [image src="./images/small/tooltip-minimum-above.png" ]
+
+ -- User Option: company-tooltip-flip-when-above
+     This is one of the fancy features Company has to suggest.  When
+     this setting is enabled, no matter if a tooltip is shown above or
+     below point, the candidates are always listed starting near point.
+     (Putting it differently, the candidates are mirrored horizontally
+     if a tooltip changes its position, instead of being commonly listed
+     top-to-bottom.)
+
+          (setq company-tooltip-flip-when-above t)
+
+              [image src="./images/small/tooltip-flip.png" ]
+
+ -- User Option: company-tooltip-minimum-width
+     Sets the minimum width of a tooltip, excluding the margins and the
+     scroll bar.  Changing this value especially makes sense if a user
+     navigates between tooltip pages.  Keeping this value at the default
+     ‘0’ allows Company to always adapt the width of the tooltip to the
+     longest shown candidate.  Enlarging ‘company-tooltip-minimum-width’
+     prevents possible significant shifts in the width of the tooltip
+     when navigating to the next/previous tooltip page.  (For an
+     alternate solution, see ‘company-tooltip-width-grow-only’.)
+
+ -- User Option: company-tooltip-width-grow-only
+     This is another way to restrict auto-adaptation of the tooltip
+     width (another is by adjusting ‘company-tooltip-minimum-width’
+     value) when navigating between the tooltip pages.
+
+ -- User Option: company-tooltip-maximum-width
+     This user option controls the maximum width of the tooltip inner
+     area.  By default, its value is pseudo-limitless, potentially
+     permitting the output of extremely long candidates.  But if long
+     lines become an issue, set this option to a smaller number, such as
+     ‘60’ or ‘70’.
+
+ -- User Option: company-tooltip-margin
+     Controls the width of the “margin” on the sides of the tooltip
+     inner area.  If ‘company-format-margin-function’ is set,
+     ‘company-tooltip-margin’ defines only the right margin.
+
+          (setq company-tooltip-margin 3)
+
+             [image src="./images/small/tooltip-margin.png" ]
+
+Candidates Icons
+----------------
+
+An “icon” is an image or a text that represents a candidate’s kind; it
+is displayed in front of a candidate.  The term “kind” here stands for a
+high-level category a candidate fits into.  (Such as ‘array’,
+‘function’, ‘file’, ‘string’, ‘color’, etc.  For an extended list of the
+possible _kinds_, see the user option ‘company-text-icons-mapping’ or
+the variable ‘company-vscode-icons-mapping’.)
+
+ -- User Option: company-format-margin-function
+     Allows setting a function to format the left margin of a tooltip
+     inner area; namely, to output candidate’s _icons_.  The predefined
+     formatting functions are listed below.  A user may also set this
+     option to a custom function.  To disable left margin formatting,
+     set the value of the option to ‘nil’ (this way control over the
+     size of the left margin returns to the user option
+     ‘company-tooltip-margin’).
+
+ -- Function: company-vscode-dark-icons-margin
+ -- Function: company-vscode-light-icons-margin
+     These functions utilize VSCode dark and light theme icon sets (1).
+     The related two user options are ‘company-icon-size’ and
+     ‘company-icon-margin’.
+
+          [image src="./images/small/tooltip-icons-vscode.png" ]
+
+ -- Function: company-text-icons-margin
+     This function produces letters and symbols formatted according to
+     the ‘company-text-icons-format’.  The rest of the user options
+     affecting this function behavior are listed below.
+
+           [image src="./images/small/tooltip-icons-text.png" ]
+
+ -- Function: company-dot-icons-margin
+     This function produces a colored Unicode symbol of a circle
+     formatted according to the ‘company-dot-icons-format’.  Other user
+     options that affect the resulting output are listed below.
+
+           [image src="./images/small/tooltip-icons-dot.png" ]
+
+The following user options influence appearance of the _text_ and _dot_
+_icons_.
+
+ -- User Option: company-text-icons-mapping
+     Lists candidates’ _kinds_ with their corresponding _icons_
+     configurations.
+
+ -- User Option: company-text-face-extra-attributes
+     A list of face attributes to be applied to the _icons_.
+
+          (setq company-text-face-extra-attributes
+                '(:weight bold :slant italic))
+
+           [image src="./images/small/tooltip-icon-face.png" ]
+
+ -- User Option: company-text-icons-add-background
+     If this option is enabled, when an _icon_ doesn’t have a background
+     configured by ‘company-text-icons-mapping’, then a generated
+     background is applied.
+
+          (setq company-text-icons-add-background t)
+
+            [image src="./images/small/tooltip-icon-bg.png" ]
+
+ -- Function: company-detect-icons-margin
+     This is the default margin formatting function, that applies one of
+     the ‘company-vscode-*-icons-margin’ functions if ‘vscode’ icons set
+     is supported; otherwise applies a ‘company-text-icons-margin’
+     function.
+
+Faces
+-----
+
+Out-of-the-box Company defines and configures distinguished faces (*note
+(emacs)Faces::) for light and dark themes.  Moreover, some of the
+built-in and third-party themes fine-tune Company to fit their palettes.
+That is why there’s often no real need to make such adjustments on a
+user side.  However, this chapter presents some hints on where to start
+customizing Company interface.
+
+Namely, the look of a tooltip is controlled by the ‘company-tooltip*’
+named faces.
+
+The following example hints how a user may approach tooltip faces
+customization:
+
+     (custom-set-faces
+      '(company-tooltip
+        ((t (:background "ivory" :foreground "MistyRose3"))))
+      '(company-tooltip-selection
+        ((t (:background "LemonChiffon1" :foreground "MistyRose4"))))
+      '(company-tooltip-common ((t (:weight bold :foreground "pink1"))))
+      '(company-scrollbar-fg ((t (:background "ivory3"))))
+      '(company-scrollbar-bg ((t (:background "ivory2"))))
+      '(company-tooltip-annotation ((t (:foreground "MistyRose2")))))
+
+          [image src="./images/small/tooltip-faces-light.png" ]
+
+   ---------- Footnotes ----------
+
+   (1) SVG images support has to be enabled in Emacs for these icons set
+to be used.  The supported images types can be checked with ‘C-h v
+image-types’.  Before compiling Emacs, make sure ‘librsvg’ is installed
+on your system.
+
+
+File: company.info,  Node: Preview Frontends,  Next: Echo Frontends,  Prev: Tooltip Frontends,  Up: Frontends
+
+4.2 Preview Frontends
+=====================
+
+Frontends in this group output a completion candidate or a common part
+of the candidates temporarily inline, as if a word had already been
+completed (1).
+
+ -- Function: company-preview-if-just-one-frontend
+     This is one of the frontends enabled by default.  This frontend
+     outputs a preview if only one completion candidate is available; it
+     is a good suit to be combined with
+     ‘company-pseudo-tooltip-unless-just-one-frontend’, *note Tooltip
+     Frontends::.
+
+ -- Function: company-preview-frontend
+     This frontend outputs the first of the available completion
+     candidates inline for a preview.
+
+ -- Function: company-preview-common-frontend
+     As the name of this frontend suggests, it outputs for a preview
+     only a common part of the candidates.
+
+The look of the preview is controlled by the following faces:
+‘company-preview’, ‘company-preview-common’, and
+‘company-preview-search’.
+
+             [image src="./images/small/preview-light.png" ]
+
+
+              [image src="./images/small/preview-dark.png" ]
+
+   ---------- Footnotes ----------
+
+   (1) The candidates retrieved according to ‘non-prefix’ matches (*note
+Terminology::) may be shown in full after point.
+
+
+File: company.info,  Node: Echo Frontends,  Next: Candidates Search,  Prev: Preview Frontends,  Up: Frontends
+
+4.3 Echo Frontends
+==================
+
+The frontends listed in this section display information in the Emacs’s
+echo area, *note (emacs)Echo Area::.
+
+ -- Function: company-echo-metadata-frontend
+     This frontend is a part of the predefined frontends set.  Its
+     responsibility is to output a short documentation string for a
+     completion candidate in the echo area.
+
+               [image src="./images/small/echo-meta.png" ]
+
+
+The last pair of the built-in frontends isn’t that commonly used and not
+as full-featured as the previously reviewed _tooltip-_ and _preview-_
+frontends, but still, feel free to play with them and have some fun!
+
+ -- Function: company-echo-frontend
+     This frontend outputs all the available completion candidates in
+     the echo area.
+
+                  [image src="./images/small/echo.png" ]
+
+ -- Function: company-echo-strip-common-frontend
+     It acts similarly to the previous frontend but outputs a common
+     part of the candidates once for all of them.
+
+               [image src="./images/small/echo-strip.png" ]
+
+ -- User Option: company-echo-truncate-lines
+     This is the only _echo frontends_ targeted setting.  When enabled,
+     the output is truncated to fit the echo area.  This setting is set
+     to ‘t’ by default.
+
+To apply visual changes to the output of these frontends, configure the
+faces ‘company-echo’ and ‘company-echo-common’.
+
+
+File: company.info,  Node: Candidates Search,  Next: Filter Candidates,  Prev: Echo Frontends,  Up: Frontends
+
+4.4 Candidates Search
+=====================
+
+By default, when _company-mode_ is in action, a key binding ‘C-s’ starts
+looking for matches to additionally typed characters among the displayed
+candidates.  When a search is initiated, an indicator
+‘Search: CHARACTERS’ is shown in the Emacs’s mode line.
+
+To quit the search mode, hit ‘C-g’.
+
+ -- User Option: company-search-regexp-function
+     The value of this user option must be a function that interprets
+     the search input.  By default it is set to the function
+     ‘regexp-quote’, with looks for an exact match.  Company defines
+     several more functions suitable for this option.  They are listed
+     below.
+
+ -- Function: company-search-words-regexp
+     Searches for words separated with spaces in the given order.
+
+ -- Function: company-search-words-in-any-order-regexp
+     Searches for words separated with spaces in any order.
+
+ -- Function: company-search-flex-regexp
+     Searches for characters in the given order, with anything in
+     between.
+
+Search matches are distinguished by the ‘company-tooltip-search’ and
+‘company-tooltip-search-selection’ faces.
+
+             [image src="./images/small/tooltip-search.png" ]
+
+
+File: company.info,  Node: Filter Candidates,  Next: Quick Access a Candidate,  Prev: Candidates Search,  Up: Frontends
+
+4.5 Filter Candidates
+=====================
+
+Candidates filtering is started by typing the default key binding
+‘C-M-s’.  Filtering acts on a par with the search (*note Candidates
+Search::), indicating its activation by the text ‘Filter: CHARACTERS’ in
+the mode line and influencing the displayed candidates.  The difference
+is that the filtering, as its name suggests, keeps displaying only the
+matching candidates (in addition to distinguishing the matches with a
+face).
+
+To quit the filtering, hit ‘C-g’.  To toggle between search and filter
+states, use key binding ‘C-o’.
+
+             [image src="./images/small/tooltip-filter.png" ]
+
+
+File: company.info,  Node: Quick Access a Candidate,  Prev: Filter Candidates,  Up: Frontends
+
+4.6 Quick Access a Candidate
+============================
+
+Company provides a way to choose a candidate for completion without
+having to navigate to that candidate: by hitting one of the quick-access
+keys.  By default, quick-access key bindings utilize a modifier <META>
+and one of the digits, such that pressing ‘M-1’ completes with the first
+candidate on the list and ‘M-0’ with the tenth candidate.
+
+If ‘company-show-quick-access’ is enabled, _tooltip-_ and _echo-_
+frontends show quick-access hints.
+
+     (setq company-show-quick-access 'left)
+
+          [image src="./images/small/tooltip-quick-access.png" ]
+
+
+                [image src="./images/small/echo-qa.png" ]
+
+
+             [image src="./images/small/echo-strip-qa.png" ]
+
+To customize the key bindings, either do it via Customization Interface
+(*note Customization Interface::) or use the following approach:
+
+     (custom-set-variables
+      '(company-quick-access-keys '("a" "o" "e" "u" "i"))
+      '(company-quick-access-modifier 'super))
+
+A modifier should be one of ‘meta’, ‘super’, ‘hyper’, ‘ control’.
+
+The following example applies a bit of customization and demonstrates
+how to change quick-access hints faces.
+
+     (setq company-show-quick-access t)
+
+     (custom-set-faces
+      '(company-tooltip-quick-access ((t (:foreground "pink1"))))
+      '(company-tooltip-quick-access-selection
+        ((t (:foreground "pink1" :slant italic)))))
+
+         [image src="./images/small/tooltip-qa-faces-light.png" ]
+
+
+File: company.info,  Node: Backends,  Next: Troubleshooting,  Prev: Frontends,  Up: Top
+
+5 Backends
+**********
+
+We can metaphorically say that each backend is like an engine.  (The
+reality is even better since backends are just functions.)  Fueling such
+an engine with a command causes the production of material for Company
+to move further on.  Typically, moving on means outputting that material
+to a user via one or several configured frontends, *note Frontends::.
+
+Just like Company provides a preconfigured list of the enabled
+frontends, it also defines a list of the backends to rely on by default.
+This list is stored in the user option ‘company-backends’.  The
+docstring of this variable has been a source of valuable information for
+years.  That’s why we’re going to stick to a tradition and suggest
+reading the output of ‘C-h v company-backends’ for insightful details
+about backends.  Nevertheless, the fundamental concepts are described in
+this user manual too.
+
+* Menu:
+
+* Backends Usage Basics::
+* Grouped Backends::
+* Package Backends::
+* Candidates Post-Processing::
+
+
+File: company.info,  Node: Backends Usage Basics,  Next: Grouped Backends,  Up: Backends
+
+5.1 Backends Usage Basics
+=========================
+
+One of the significant concepts to understand about Company is that the
+package relies on one backend at a time (1).  The backends are invoked
+one by one, in the sequential order of the items on the
+‘company-backends’ list.
+
+The name of the currently active backend is shown in the mode line and
+in the output of the command ‘M-x company-diag’.
+
+In most cases (mainly to exclude false-positive results), the next
+backend is not invoked automatically.  For the purpose of invoking the
+next backend, use the command ‘company-other-backend’: either by calling
+it with ‘M-x’ or by binding the command to the keys of your choice, such
+as:
+
+     (global-set-key (kbd "C-c C-/") #'company-other-backend)
+
+It is also possible to specifically start a backend with the command
+‘M-x company-begin-backend’ or by calling a backend by its name, for
+instance: ‘M-x company-capf’.  As usual for Emacs, such backends calls
+can be assigned to key bindings, for example:
+
+     (global-set-key (kbd "C-c y") 'company-yasnippet)
+
+   ---------- Footnotes ----------
+
+   (1) The grouped backends act as one complex backend.  *Note Grouped
+Backends::.
+
+
+File: company.info,  Node: Grouped Backends,  Next: Package Backends,  Prev: Backends Usage Basics,  Up: Backends
+
+5.2 Grouped Backends
+====================
+
+In many cases, it can be desirable to receive candidates from several
+backends simultaneously.  This can be achieved by configuring “grouped
+backends”: a sub-list of backends in the ‘company-backends’ list, that
+is handled specifically by Company.
+
+The most important part of this handling is the merge of the completion
+candidates from the grouped backends.  (But only from the backends that
+return the same _prefix_ value, see ‘C-h v company-backends’ for more
+details.)
+
+To keep the candidates organized in accordance with the grouped backends
+order, add the keyword ‘:separate’ to the list of the grouped backends.
+The following example illustrates this.
+
+     (defun my-text-mode-hook ()
+       (setq-local company-backends
+                   '((company-dabbrev company-ispell :separate)
+                     company-files)))
+
+     (add-hook 'text-mode-hook #'my-text-mode-hook)
+
+Another keyword ‘:with’ helps to make sure the results from major/minor
+mode agnostic backends (such as _company-yasnippet_,
+_company-dabbrev-code_) are returned without preventing results from
+context-aware backends (such as _company-capf_ or _company-clang_).  For
+this feature to work, put backends dependent on a mode at the beginning
+of the grouped backends list, then put a keyword ‘:with’, and only then
+put context agnostic backend(s), as shown in the following concise
+example:
+
+     (setq company-backends '((company-capf :with company-yasnippet)))
+
+
+File: company.info,  Node: Package Backends,  Next: Candidates Post-Processing,  Prev: Grouped Backends,  Up: Backends
+
+5.3 Package Backends
+====================
+
+The following sections give a short overview of the commonly used
+backends bundled with Company.  Each section is devoted to one of the
+roughly outlined groups of the backends.
+
+Some of the backends expose user options for customization; a few of
+these options are introduced below.  For those who would like to fetch
+the full list of a backend’s user options, we suggest doing one of the
+following:
+
+   • Execute command ‘M-x customize-group <RET> <backend-name>’.
+
+   • Open the source file of the backend and run
+     ‘M-x occur <RET> ^(defcustom’.
+
+        − Optionally, search for the matches with
+          ‘M-x isearch <RET> (defcustom’.
+
+* Menu:
+
+* Code Completion::
+* Text Completion::
+* File Name Completion::
+* Template Expansion::
+
+
+File: company.info,  Node: Code Completion,  Next: Text Completion,  Up: Package Backends
+
+5.3.1 Code Completion
+---------------------
+
+ -- Function: company-capf
+     In the Emacs’s world, the current tendency is to have the
+     completion logic provided by ‘completion-at-point-functions’ (CAPF)
+     implementations.  [Among the other things, this is what the popular
+     packages that support language server protocol (LSP) also rely on.]
+
+     Since _company-capf_ works as a bridge to the standard CAPF
+     facility, it is probably the most often used and recommended
+     backend nowadays, including for Emacs Lisp coding.
+
+     Just to illustrate, the following minimal backends setup
+
+          (setq company-backends '((company-capf company-dabbrev-code)))
+
+     might cover a large number of basic use cases, especially so in
+     major modes that have CAPF support implemented.
+
+     For more details on CAPF, *note (elisp)Completion in Buffers::.
+
+ -- Function: company-dabbrev-code
+     This backend works similarly to the built-in Emacs package
+     _dabbrev_, searching for completion candidates inside the contents
+     of the open buffer(s).  Internally, its based on the backend
+     _company-dabbrev_ (*note Text Completion::).
+
+ -- Function: company-keywords
+     This backend provides completions for many of the widely spread
+     programming languages _keywords_: words bearing specific meaning in
+     a language.
+
+ -- Function: company-clang
+     As the name suggests, use this backend to get completions from
+     _Clang_ compiler; that is, for the languages in the _C_ language
+     family: _C_, _C++_, _Objective-C_.
+
+ -- Function: company-semantic
+     This backend relies on a built-in Emacs package that provides
+     language-aware editing commands based on source code parsers, *note
+     (emacs)Semantic::.  Having enabled _semantic-mode_ makes it to be
+     used by the CAPF mechanism (*note (emacs)Symbol Completion::),
+     hence a user may consider enabling _company-capf_ backend instead.
+
+ -- Function: company-etags
+     This backend works on top of a built-in Emacs package _etags_,
+     *note (emacs)Tags Tables::.  Similarly to aforementioned _Semantic_
+     usage, tags-based completions now are a part of the Emacs’ CAPF
+     facility, therefore a user may consider switching to _company-capf_
+     backend.
+
+
+File: company.info,  Node: Text Completion,  Next: File Name Completion,  Prev: Code Completion,  Up: Package Backends
+
+5.3.2 Text Completion
+---------------------
+
+ -- Function: company-dabbrev
+     This backend works similarly to the built-in Emacs package
+     _dabbrev_, searching for completion candidates inside the contents
+     of the open buffer(s).  It is one of the often used backends, and
+     it has several interesting options for configuration.  Let’s review
+     a few of them.
+
+      -- User Option: company-dabbrev-minimum-length
+          This option sets the minimum length of a completion candidate
+          to collect from the text.  The default value of ‘4’ is
+          intended to prevent potential performance issues.  But in many
+          scenarios, it may be acceptable to lower this value.  Note
+          that this option also affects the behavior of the
+          _company-dabbrev-code_ backend.
+
+               (setq company-dabbrev-minimum-length 2)
+
+      -- User Option: company-dabbrev-other-buffers
+          By default, _company-dabbrev_ collects completion candidates
+          from all not ignored buffers (see more on that below).  This
+          behavior can be changed to collecting candidates from the
+          current buffer only (by setting the value to ‘nil’) or from
+          the buffers with the same major mode:
+
+               (setq company-dabbrev-other-buffers t)
+
+      -- User Option: company-dabbrev-ignore-buffers
+          The value of this option should be a regexp or a predicate
+          function that can be used to match a buffer name.  The matched
+          buffers are omitted from the search for completion candidates.
+
+     The last two options described here relate to handling uppercase
+     and lowercase letters in completion candidates.  The illustrative
+     examples given below can be reproduced in the ‘*scratch*’ buffer,
+     with the word ‘Enjoy’ typed in, and with this initial setup:
+
+          (setq-local company-backends '(company-dabbrev)
+                      company-dabbrev-other-buffers nil
+                      company-dabbrev-ignore-case nil
+                      company-dabbrev-downcase nil)
+
+      -- User Option: company-dabbrev-ignore-case
+          This user option controls whether the case is ignored when
+          collecting completion candidates.  When the option is set to
+          ‘nil’, ‘Enjoy’ is suggested as a completion candidate for the
+          typed ‘Enj’ letters, but not for ‘enj’.  When the option is
+          set to ‘t’, ‘Enjoy’ is suggested as a candidate for both ‘Enj’
+          and ‘enj’ input; note that ‘enj’ prefix is “overwritten” by
+          completing with the ‘Enjoy’ candidate.  The third, default,
+          type of behavior solves this issue, keeping the case of the
+          typed prefix (and still collecting candidates
+          case-insensitively):
+
+               (setq company-dabbrev-ignore-case 'keep-prefix)
+
+          Now we can type ‘enj’, complete it with the suggested ‘Enjoy’,
+          and _enjoy_ the result.
+
+      -- User Option: company-dabbrev-downcase
+          This user option controls whether completion candidates are
+          down-cased before their display.  When the option is set to
+          ‘nil’, no transformation is performed; in the environment
+          described above, typing ‘Enj’ results in the candidate ‘Enjoy’
+          being suggested.  When the option is set to ‘t’, the
+          down-cased candidate ‘enjoy’ is suggested.  By default, this
+          option is set to ‘case-replace’, meaning taking a value of the
+          Emacs’s variable ‘case-replace’ (‘t’ is the current default).
+
+
+ -- Function: company-ispell
+     This backend returns completion candidates collected by _Ispell_, a
+     built-in Emacs package that performs spell-checking.  *Note
+     Checking and Correcting Spelling: (emacs)Spelling.  Note that
+     _Ispell_ uses only one dictionary at a time (combining several
+     dictionaries into one file is an accepted practice).  By default,
+     _company-ispell_ suggests candidates from a dictionary specified by
+     the Emacs’s setting ‘ispell-complete-word-dict’.
+
+      -- User Option: company-ispell-dictionary
+          Optionally, set a file path for _company-ispell_ to use
+          another dictionary.
+
+
+File: company.info,  Node: File Name Completion,  Next: Template Expansion,  Prev: Text Completion,  Up: Package Backends
+
+5.3.3 File Name Completion
+--------------------------
+
+ -- Function: company-files
+     This backend can be used to retrieve completion candidates for the
+     absolute and relative paths in the directory structure of an
+     operating system.  The behavior of the _company-files_ backend can
+     be adjusted with the two user options.
+
+      -- User Option: company-files-exclusions
+          It may be desirable to exclude directories or files from the
+          list of suggested completion candidates.  For example,
+          someone’s setup might look this way:
+
+               (setq company-files-exclusions '(".git/" ".DS_Store"))
+
+      -- User Option: company-files-chop-trailing-slash
+          This setting is enabled by default, which results in stripping
+          off a trailing slash from an inserted directory name.  On
+          typing a trailing slash, the process of completion gets
+          started again, from inside the just inserted directory.
+
+          Setting ‘company-files-chop-trailing-slash’ to ‘nil’ makes
+          directory names to be inserted as is, with a trailing slash.
+          In this case, the completion process can be continued, for
+          example, either by explicitly calling _company-files_ backend
+          (*note Backends Usage Basics::) or by starting typing a name
+          of a file/directory known to be located under the inserted
+          directory.
+
+
+File: company.info,  Node: Template Expansion,  Prev: File Name Completion,  Up: Package Backends
+
+5.3.4 Template Expansion
+------------------------
+
+ -- Function: company-abbrev
+     This is a completion backend for a built-in word abbreviation mode
+     (*note (emacs)Abbrevs::), that allows completing abbreviations with
+     their expansions.
+
+ -- Function: company-tempo
+     A backend for users of Tempo
+     (https://www.lysator.liu.se/~davidk/elisp/), one more built-in
+     Emacs package for creating and inserting (expanding) templates.
+
+ -- Function: company-yasnippet
+     Used as a completion backend for the popular third-party template
+     system YASnippet (https://github.com/joaotavora/yasnippet).
+
+
+File: company.info,  Node: Candidates Post-Processing,  Prev: Package Backends,  Up: Backends
+
+5.4 Candidates Post-Processing
+==============================
+
+A list of completion candidates, supplied by a backend, can be
+additionally manipulated (reorganized, reduced, sorted, etc) before its
+output.  This is done by adding a processing function name to the user
+option ‘company-transformers’ list, for example:
+
+     (setq company-transformers '(delete-consecutive-dups
+                                  company-sort-by-occurrence))
+
+Company is bundled with several such transformer functions.  They are
+listed below.
+
+ -- Function: company-sort-by-occurrence
+     Sorts candidates using ‘company-occurrence-weight-function’
+     algorithm.
+
+ -- User Option: company-occurrence-weight-function
+     Can be set to one of ‘company-occurrence-prefer-closest-above’
+     (default) or ‘company-occurrence-prefer-any-closest’.  This user
+     option defines the behavior of the ‘company-sort-by-occurrence’
+     transformer function.
+
+ -- Function: company-sort-by-backend-importance
+     Sorts candidates as two priority groups, differentiated by the
+     keyword ‘:with’ (*note Grouped Backends::).  Backends positioned in
+     the backends list before the keyword ‘:with’ are treated as more
+     important.
+
+ -- Function: company-sort-prefer-same-case-prefix
+     Gives preference to the candidates that match the prefix
+     case-insensitively.
+
+
+File: company.info,  Node: Troubleshooting,  Next: Index,  Prev: Backends,  Up: Top
+
+6 Troubleshooting
+*****************
+
+If something goes wrong, the first thing we recommend doing is to
+execute command ‘M-x company-diag’ and thoroughly study its output.
+
+This command outputs important details about the internal workings of
+Company at the moment of the ‘company-diag’ command execution, including
+a responsible backend and a list of completion candidates provided by
+it.
+
+Based on the value of the ‘Used backend’ in the output of the command
+‘M-x company-diag’, these possible actions may follow:
+
+   • If the used backend does not belong to the Company package, report
+     the issue to the corresponding third-party package maintainer(s).
+
+   • If the used backend is ‘company-capf’, then take a look at the line
+     starting with ‘Value of c-a-p-f:’.  The issue could have been
+     caused by a function listed there.  To identify to which package it
+     belongs, type ‘M-x find-function <RET> <function-name> <RET>’.
+
+If the aforementioned steps didn’t help to find the cause of the issue,
+then file a bug report to
+the Company Issue Tracker (https://github.com/company-mode/company-mode/issues),
+attaching the following information:
+
+  1. Output of the ‘M-x company-diag’.
+
+  2. The exact error message: you can find it in the ‘*Messages*’
+     buffer.
+
+  3. The steps to reproduce the behavior.  Ideally, if you can, starting
+     with a bare Emacs session: ‘emacs -Q’.
+
+  4. The backtrace of the error, which you can get by running the
+     command: ‘M-x toggle-debug-on-error’ before reproducing the error.
+
+
+File: company.info,  Node: Index,  Prev: Troubleshooting,  Up: Top
+
+Index
+*****
+
+* Menu:
+
+* Key Index::
+* Variable Index::
+* Function Index::
+* Concept Index::
+
+
+File: company.info,  Node: Key Index,  Next: Variable Index,  Up: Index
+
+Key Index
+=========
+
+ [index ]
+* Menu:
+
+* C-g:                                   Usage Basics.         (line 20)
+* C-g <1>:                               Commands.             (line 30)
+* C-g <2>:                               Candidates Search.    (line 11)
+* C-g <3>:                               Filter Candidates.    (line 14)
+* C-h:                                   Commands.             (line 34)
+* C-M-s:                                 Filter Candidates.    (line  6)
+* C-n:                                   Usage Basics.         (line 12)
+* C-n <1>:                               Commands.             (line 11)
+* C-o:                                   Filter Candidates.    (line 14)
+* C-p:                                   Usage Basics.         (line 12)
+* C-p <1>:                               Commands.             (line 16)
+* C-s:                                   Candidates Search.    (line  6)
+* C-w:                                   Commands.             (line 42)
+* M-<digit>:                             Quick Access a Candidate.
+                                                               (line  6)
+* RET:                                   Usage Basics.         (line 15)
+* RET <1>:                               Commands.             (line 21)
+* TAB:                                   Usage Basics.         (line 17)
+* TAB <1>:                               Commands.             (line 25)
+
+
+File: company.info,  Node: Variable Index,  Next: Function Index,  Prev: Key Index,  Up: Index
+
+Variable Index
+==============
+
+ [index ]
+* Menu:
+
+* company-after-completion-hook:         Configuration File.  (line  94)
+* company-backends:                      Backends.            (line  12)
+* company-backends <1>:                  Backends Usage Basics.
+                                                              (line   6)
+* company-backends <2>:                  Grouped Backends.    (line   6)
+* company-completion-cancelled-hook:     Configuration File.  (line  90)
+* company-completion-finished-hook:      Configuration File.  (line  92)
+* company-completion-started-hook:       Configuration File.  (line  88)
+* company-dabbrev-downcase:              Text Completion.     (line  64)
+* company-dabbrev-ignore-buffers:        Text Completion.     (line  32)
+* company-dabbrev-ignore-case:           Text Completion.     (line  47)
+* company-dabbrev-minimum-length:        Text Completion.     (line  13)
+* company-dabbrev-other-buffers:         Text Completion.     (line  23)
+* company-dot-icons-format:              Tooltip Frontends.   (line 187)
+* company-echo-truncate-lines:           Echo Frontends.      (line  33)
+* company-files-chop-trailing-slash:     File Name Completion.
+                                                              (line  19)
+* company-files-exclusions:              File Name Completion.
+                                                              (line  12)
+* company-format-margin-function:        Tooltip Frontends.   (line 161)
+* company-frontends:                     Frontends.           (line   6)
+* company-global-modes:                  Configuration File.  (line  31)
+* company-icon-margin:                   Tooltip Frontends.   (line 172)
+* company-icon-size:                     Tooltip Frontends.   (line 172)
+* company-idle-delay:                    Configuration File.  (line  17)
+* company-insertion-on-trigger:          Configuration File.  (line  64)
+* company-insertion-triggers:            Configuration File.  (line  72)
+* company-ispell-dictionary:             Text Completion.     (line  84)
+* company-lighter-base:                  Configuration File.  (line  59)
+* company-minimum-prefix-length:         Configuration File.  (line   9)
+* company-mode:                          Initial Setup.       (line   6)
+* company-occurrence-weight-function:    Candidates Post-Processing.
+                                                              (line  21)
+* company-require-match:                 Configuration File.  (line  51)
+* company-search-regexp-function:        Candidates Search.   (line  13)
+* company-selection-wrap-around:         Configuration File.  (line  43)
+* company-show-quick-access:             Quick Access a Candidate.
+                                                              (line  14)
+* company-text-face-extra-attributes:    Tooltip Frontends.   (line 200)
+* company-text-icons-add-background:     Tooltip Frontends.   (line 208)
+* company-text-icons-format:             Tooltip Frontends.   (line 179)
+* company-text-icons-mapping:            Tooltip Frontends.   (line 196)
+* company-tooltip-align-annotations:     Tooltip Frontends.   (line  52)
+* company-tooltip-annotation-padding:    Tooltip Frontends.   (line  64)
+* company-tooltip-flip-when-above:       Tooltip Frontends.   (line 107)
+* company-tooltip-idle-delay:            Tooltip Frontends.   (line  22)
+* company-tooltip-limit:                 Tooltip Frontends.   (line  72)
+* company-tooltip-margin:                Tooltip Frontends.   (line 141)
+* company-tooltip-maximum-width:         Tooltip Frontends.   (line 134)
+* company-tooltip-minimum:               Tooltip Frontends.   (line  92)
+* company-tooltip-minimum-width:         Tooltip Frontends.   (line 119)
+* company-tooltip-offset-display:        Tooltip Frontends.   (line  82)
+* company-tooltip-width-grow-only:       Tooltip Frontends.   (line 129)
+* company-transformers:                  Candidates Post-Processing.
+                                                              (line   6)
+
+
+File: company.info,  Node: Function Index,  Next: Concept Index,  Prev: Variable Index,  Up: Index
+
+Function Index
+==============
+
+ [index ]
+* Menu:
+
+* company-abbrev:                        Template Expansion.  (line   6)
+* company-abort:                         Commands.            (line  30)
+* company-begin-backend:                 Backends Usage Basics.
+                                                              (line  23)
+* company-capf:                          Code Completion.     (line   6)
+* company-clang:                         Code Completion.     (line  36)
+* company-complete:                      Usage Basics.        (line  10)
+* company-complete-common:               Commands.            (line  25)
+* company-complete-selection:            Commands.            (line  21)
+* company-dabbrev:                       Text Completion.     (line   6)
+* company-dabbrev-code:                  Code Completion.     (line  25)
+* company-detect-icons-margin:           Tooltip Frontends.   (line 217)
+* company-diag:                          Backends Usage Basics.
+                                                              (line  11)
+* company-diag <1>:                      Troubleshooting.     (line   6)
+* company-dot-icons-margin:              Tooltip Frontends.   (line 186)
+* company-echo-frontend:                 Echo Frontends.      (line  21)
+* company-echo-metadata-frontend:        Echo Frontends.      (line   9)
+* company-echo-strip-common-frontend:    Echo Frontends.      (line  27)
+* company-etags:                         Code Completion.     (line  48)
+* company-files:                         File Name Completion.
+                                                              (line   6)
+* company-ispell:                        Text Completion.     (line  75)
+* company-keywords:                      Code Completion.     (line  31)
+* company-mode:                          Initial Setup.       (line   6)
+* company-other-backend:                 Backends Usage Basics.
+                                                              (line  14)
+* company-preview-common-frontend:       Preview Frontends.   (line  21)
+* company-preview-frontend:              Preview Frontends.   (line  17)
+* company-preview-if-just-one-frontend:  Preview Frontends.   (line  10)
+* company-pseudo-tooltip-frontend:       Tooltip Frontends.   (line  17)
+* company-pseudo-tooltip-unless-just-one-frontend: Tooltip Frontends.
+                                                              (line  11)
+* company-pseudo-tooltip-unless-just-one-frontend-with-delay: Tooltip Frontends.
+                                                              (line  21)
+* company-search-flex-regexp:            Candidates Search.   (line  26)
+* company-search-words-in-any-order-regexp: Candidates Search.
+                                                              (line  23)
+* company-search-words-regexp:           Candidates Search.   (line  20)
+* company-select-next:                   Commands.            (line  11)
+* company-select-next-or-abort:          Commands.            (line  11)
+* company-select-previous:               Commands.            (line  16)
+* company-select-previous-or-abort:      Commands.            (line  16)
+* company-semantic:                      Code Completion.     (line  41)
+* company-show-doc-buffer:               Commands.            (line  34)
+* company-show-location:                 Commands.            (line  42)
+* company-sort-by-backend-importance:    Candidates Post-Processing.
+                                                              (line  28)
+* company-sort-by-occurrence:            Candidates Post-Processing.
+                                                              (line  17)
+* company-sort-prefer-same-case-prefix:  Candidates Post-Processing.
+                                                              (line  34)
+* company-tempo:                         Template Expansion.  (line  11)
+* company-text-icons-margin:             Tooltip Frontends.   (line 178)
+* company-tng-frontend:                  Structure.           (line  26)
+* company-tng-mode:                      Structure.           (line  26)
+* company-vscode-dark-icons-margin:      Tooltip Frontends.   (line 170)
+* company-vscode-light-icons-margin:     Tooltip Frontends.   (line 171)
+* company-yasnippet:                     Template Expansion.  (line  16)
+* global-company-mode:                   Initial Setup.       (line  18)
+
+
+File: company.info,  Node: Concept Index,  Prev: Function Index,  Up: Index
+
+Concept Index
+=============
+
+ [index ]
+* Menu:
+
+* abbrev:                                Template Expansion.  (line   6)
+* abort:                                 Usage Basics.        (line  20)
+* abort <1>:                             Commands.            (line  30)
+* activate:                              Initial Setup.       (line   8)
+* active backend:                        Backends Usage Basics.
+                                                              (line  11)
+* active backend <1>:                    Troubleshooting.     (line  15)
+* annotation:                            Tooltip Frontends.   (line  53)
+* auto-start:                            Initial Setup.       (line  13)
+* backend:                               Structure.           (line   6)
+* backend <1>:                           Structure.           (line  10)
+* backend <2>:                           Backends Usage Basics.
+                                                              (line  11)
+* backend <3>:                           Backends Usage Basics.
+                                                              (line  14)
+* backend <4>:                           Troubleshooting.     (line  15)
+* backends:                              Backends.            (line   6)
+* backends <1>:                          Backends Usage Basics.
+                                                              (line   6)
+* backends <2>:                          Grouped Backends.    (line   6)
+* backends <3>:                          Package Backends.    (line   6)
+* basics:                                Usage Basics.        (line   6)
+* bug:                                   Troubleshooting.     (line   6)
+* bug <1>:                               Troubleshooting.     (line  27)
+* bundled backends:                      Package Backends.    (line   6)
+* cancel:                                Usage Basics.        (line  20)
+* cancel <1>:                            Commands.            (line  30)
+* candidate:                             Terminology.         (line  10)
+* candidate <1>:                         Usage Basics.        (line  12)
+* candidate <2>:                         Usage Basics.        (line  15)
+* candidate <3>:                         Preview Frontends.   (line   6)
+* color:                                 Tooltip Frontends.   (line 227)
+* color <1>:                             Quick Access a Candidate.
+                                                              (line  37)
+* common part:                           Usage Basics.        (line  17)
+* common part <1>:                       Commands.            (line  25)
+* common part <2>:                       Preview Frontends.   (line   6)
+* company-echo:                          Echo Frontends.      (line   6)
+* company-preview:                       Preview Frontends.   (line   6)
+* company-tng:                           Structure.           (line  26)
+* company-tooltip:                       Tooltip Frontends.   (line 227)
+* company-tooltip-search:                Candidates Search.   (line   6)
+* complete:                              Terminology.         (line   6)
+* complete <1>:                          Usage Basics.        (line  12)
+* complete <2>:                          Usage Basics.        (line  15)
+* complete <3>:                          Usage Basics.        (line  17)
+* complete <4>:                          Commands.            (line  21)
+* complete <5>:                          Preview Frontends.   (line   6)
+* completion:                            Terminology.         (line   6)
+* completion <1>:                        Usage Basics.        (line  12)
+* completion <2>:                        Usage Basics.        (line  15)
+* completion <3>:                        Usage Basics.        (line  17)
+* configure:                             Customization.       (line   6)
+* configure <1>:                         Customization Interface.
+                                                              (line   6)
+* configure <2>:                         Configuration File.  (line   6)
+* configure <3>:                         Tooltip Frontends.   (line  49)
+* configure <4>:                         Tooltip Frontends.   (line 227)
+* configure <5>:                         Preview Frontends.   (line  25)
+* configure <6>:                         Echo Frontends.      (line  38)
+* configure <7>:                         Candidates Search.   (line  30)
+* configure <8>:                         Quick Access a Candidate.
+                                                              (line  28)
+* configure <9>:                         Quick Access a Candidate.
+                                                              (line  37)
+* custom:                                Customization.       (line   6)
+* custom <1>:                            Customization Interface.
+                                                              (line   6)
+* custom <2>:                            Configuration File.  (line   6)
+* custom <3>:                            Tooltip Frontends.   (line  49)
+* custom <4>:                            Tooltip Frontends.   (line 227)
+* custom <5>:                            Preview Frontends.   (line  25)
+* custom <6>:                            Echo Frontends.      (line  38)
+* custom <7>:                            Candidates Search.   (line  30)
+* custom <8>:                            Quick Access a Candidate.
+                                                              (line  28)
+* custom <9>:                            Quick Access a Candidate.
+                                                              (line  37)
+* definition:                            Commands.            (line  42)
+* distribution:                          Installation.        (line   6)
+* doc:                                   Commands.            (line  34)
+* duplicate:                             Candidates Post-Processing.
+                                                              (line   6)
+* echo:                                  Echo Frontends.      (line   6)
+* enable:                                Initial Setup.       (line   8)
+* error:                                 Troubleshooting.     (line   6)
+* error <1>:                             Troubleshooting.     (line  27)
+* expansion:                             Template Expansion.  (line   6)
+* extensible:                            Structure.           (line   6)
+* face:                                  Tooltip Frontends.   (line 227)
+* face <1>:                              Preview Frontends.   (line   6)
+* face <2>:                              Preview Frontends.   (line  25)
+* face <3>:                              Echo Frontends.      (line   6)
+* face <4>:                              Echo Frontends.      (line  38)
+* face <5>:                              Candidates Search.   (line   6)
+* face <6>:                              Candidates Search.   (line  30)
+* face <7>:                              Filter Candidates.   (line   6)
+* face <8>:                              Quick Access a Candidate.
+                                                              (line  37)
+* filter:                                Filter Candidates.   (line   6)
+* finish:                                Usage Basics.        (line  20)
+* finish <1>:                            Commands.            (line  30)
+* font:                                  Tooltip Frontends.   (line 227)
+* font <1>:                              Quick Access a Candidate.
+                                                              (line  37)
+* frontend:                              Structure.           (line   6)
+* frontend <1>:                          Structure.           (line  10)
+* frontends:                             Frontends.           (line   6)
+* grouped backends:                      Grouped Backends.    (line   6)
+* icon:                                  Tooltip Frontends.   (line 153)
+* install:                               Installation.        (line   6)
+* interface:                             Tooltip Frontends.   (line  49)
+* interface <1>:                         Tooltip Frontends.   (line 227)
+* interface <2>:                         Preview Frontends.   (line  25)
+* interface <3>:                         Echo Frontends.      (line  38)
+* interface <4>:                         Candidates Search.   (line  30)
+* interface <5>:                         Quick Access a Candidate.
+                                                              (line  37)
+* intro:                                 Initial Setup.       (line   6)
+* issue:                                 Troubleshooting.     (line   6)
+* issue tracker:                         Troubleshooting.     (line  27)
+* kind:                                  Tooltip Frontends.   (line 153)
+* location:                              Commands.            (line  42)
+* manual:                                Initial Setup.       (line   8)
+* manual <1>:                            Usage Basics.        (line  10)
+* margin:                                Tooltip Frontends.   (line 142)
+* margin <1>:                            Tooltip Frontends.   (line 162)
+* minor-mode:                            Initial Setup.       (line   6)
+* module:                                Structure.           (line   6)
+* module <1>:                            Structure.           (line  10)
+* navigate:                              Usage Basics.        (line  12)
+* next backend:                          Backends Usage Basics.
+                                                              (line  14)
+* non-prefix matches:                    Terminology.         (line  10)
+* package:                               Installation.        (line   6)
+* package backends:                      Package Backends.    (line   6)
+* pluggable:                             Structure.           (line   6)
+* pop-up:                                Tooltip Frontends.   (line   6)
+* prefix matches:                        Terminology.         (line  10)
+* preview:                               Preview Frontends.   (line   6)
+* quick start:                           Initial Setup.       (line   6)
+* quick-access:                          Quick Access a Candidate.
+                                                              (line   6)
+* quit:                                  Usage Basics.        (line  20)
+* quit <1>:                              Commands.            (line  30)
+* search:                                Candidates Search.   (line   6)
+* select:                                Usage Basics.        (line  12)
+* select <1>:                            Commands.            (line  11)
+* select <2>:                            Commands.            (line  16)
+* snippet:                               Template Expansion.  (line   6)
+* sort:                                  Candidates Post-Processing.
+                                                              (line   6)
+* stop:                                  Usage Basics.        (line  20)
+* stop <1>:                              Commands.            (line  30)
+* TAB:                                   Structure.           (line  26)
+* Tab and Go:                            Structure.           (line  26)
+* template:                              Template Expansion.  (line   6)
+* third-party:                           Structure.           (line  10)
+* third-party <1>:                       Troubleshooting.     (line  18)
+* tooltip:                               Tooltip Frontends.   (line   6)
+* troubleshoot:                          Troubleshooting.     (line   6)
+* usage:                                 Usage Basics.        (line   6)
+
+
+
+Tag Table:
+Node: Top563
+Node: Overview1982
+Node: Terminology2390
+Ref: Terminology-Footnote-13377
+Node: Structure3583
+Node: Getting Started5079
+Node: Installation5357
+Node: Initial Setup5740
+Node: Usage Basics6586
+Node: Commands7349
+Ref: Commands-Footnote-19784
+Node: Customization9951
+Node: Customization Interface10423
+Node: Configuration File10956
+Node: Frontends15622
+Node: Tooltip Frontends16591
+Ref: Tooltip Frontends-Footnote-127358
+Node: Preview Frontends27595
+Ref: Preview Frontends-Footnote-128851
+Node: Echo Frontends28978
+Node: Candidates Search30511
+Node: Filter Candidates31845
+Node: Quick Access a Candidate32625
+Node: Backends34243
+Node: Backends Usage Basics35341
+Ref: Backends Usage Basics-Footnote-136556
+Node: Grouped Backends36640
+Node: Package Backends38269
+Node: Code Completion39198
+Node: Text Completion41567
+Node: File Name Completion46001
+Node: Template Expansion47549
+Node: Candidates Post-Processing48268
+Node: Troubleshooting49745
+Node: Index51418
+Node: Key Index51581
+Node: Variable Index53080
+Node: Function Index57203
+Node: Concept Index61684
+
+End Tag Table
+
+
+Local Variables:
+coding: utf-8
+End:

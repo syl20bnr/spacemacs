@@ -1,0 +1,50 @@
+#+TITLE: Taxy Examples
+
+Some example applcations using ~taxy~.
+
+* Bookmarky
+
+=bookmarky= shows Emacs bookmarks grouped in a customizeable way:
+
+[[../images/bookmarky.png]]
+
+* Deffy
+
+=deffy= shows definitions and top-level forms in an Elisp project or file.
+
+[[../images/deffy.png]]
+
+* Diredy
+
+[[file:diredy.el][Diredy]] rearranges a Dired buffer, grouping files and directories by their size and MIME type.  Use it like:
+
+#+BEGIN_SRC elisp
+  (require 'diredy)
+#+END_SRC
+
+Then open a Dired buffer and =M-x diredy RET=, and it will be rearranged like so:
+
+[[../images/diredy.png]]
+
+* Musicy
+
+[[file:musicy.el][Musicy]] displays a music library in a ~magit-section~ buffer.  Use it like:
+
+#+BEGIN_SRC elisp
+  (require 'musicy)
+
+  (musicy "~/Music")
+#+END_SRC
+
+Since it calls the =mediainfo= program on every file, it can be slow on large music libraries, so you might want to test it on only a subset of them, like:
+
+#+BEGIN_SRC elisp
+  (musicy-files
+   (seq-take (directory-files-recursively
+              "~/Music" (rx "." (or "mp3" "ogg") eos))
+             100))
+#+END_SRC
+
+The resulting buffer shows tracks organized by genre, then artist, then year, then album, then track name:
+
+[[../images/musicy.png]]
