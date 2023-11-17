@@ -12,7 +12,6 @@
   - [[#view-mode][View mode]]
   - [[#compose-mode][Compose mode]]
 - [[#configuration][Configuration]]
-  - [[#maildirs-extension][Maildirs extension]]
   - [[#multiple-accounts][Multiple Accounts]]
   - [[#async-mode][Async mode]]
   - [[#attachment-directory][Attachment directory]]
@@ -35,8 +34,8 @@ This layer adds support for the =Mu4e= email client.
 - UI optimized for speed: quick keystrokes for common actions.
 - Very extendable and customizable.
 - Integration with Helm.
-- Maildir summary using [[https://github.com/agpchil/mu4e-maildirs-extension][mu4e-mailidirs-extension]]
-- Notifications using [[https://github.com/iqbalansari/mu4e-alert][mu4e-alert]]
+- Maildir summary.
+- Notifications using [[https://github.com/iqbalansari/mu4e-alert][mu4e-alert]].
 
 * Install
 In order to use this layer you must install =mu= and =mu4e= separately.
@@ -103,20 +102,6 @@ existing =dotspacemacs-configuration-layers= list in this file.
 Configuration varies too much to give precise instructions. What follows is one
 example configuration. Refer to =mu4e='s manual for more detailed configuration
 instructions.
-
-** Maildirs extension
-The [[https://github.com/agpchil/mu4e-maildirs-extension][maildirs extension]] adds a list of all your maildirs to the main =mu4e= view
-that by default shows the unread and total mail counts for all your mail under
-your base mail directory.
-
-The maildirs extension is not enabled by default. To activate it, change the
-variable =mu4e-use-maildirs-extension= to a non-nil value:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-                '((mu4e :variables
-                        mu4e-use-maildirs-extension t)))
-#+END_SRC
 
 ** Multiple Accounts
 With =mu 0.9.16=, =mu4e= comes with a native contexts feature for managing
