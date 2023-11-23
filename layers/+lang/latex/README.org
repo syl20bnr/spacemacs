@@ -77,8 +77,15 @@ This layer provides two alternative backends to choose from.
 This is the default backend if =LSP= layer is enabled.
 It provides proper IDE support and is recommended over =company-auctex=.
 
-Currently, the LaTeX LSP backend depends on =TexLab=. You may built it from
-source, install it in your package manager, or get the
+Currently, the LaTeX LSP backend depends on =TexLab=. You may built the newest version from
+[[https://github.com/latex-lsp/texlab#building-from-source]][[source]] by first installing
+[[https://rustup.rs/]][[Rust]] and then running 
+
+#+BEGIN_SRC shell
+  cargo install --git https://github.com/latex-lsp/texlab
+#+END_SRC
+
+Alternatively, you can install it in your package manager, or get the
 [[https://github.com/latex-lsp/texlab/releases][pre-compiled binaries]]. You also need to enable =LSP= layer in your
 =~/.spacemacs=.
 
