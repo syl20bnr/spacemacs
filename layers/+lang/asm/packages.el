@@ -1,6 +1,6 @@
 ;;; packages.el --- Asm Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2023 Sylvain Benner & Contributors
 ;;
 ;; Author: Tu, Do Hoang <tuhdo1710@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

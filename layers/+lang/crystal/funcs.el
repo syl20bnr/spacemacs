@@ -1,6 +1,6 @@
 ;;; funcs.el --- Crystal Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2023 Sylvain Benner & Contributors
 ;;
 ;; Author: Brantou <brantou89@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

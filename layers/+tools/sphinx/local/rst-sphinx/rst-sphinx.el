@@ -1,6 +1,6 @@
 ;;; rst-sphinx.el --- Build Sphinx projects.
 
-;; Copyright (C) 2012-2022 Wei-Wei Guo.
+;; Copyright (C) 2012-2023 Wei-Wei Guo.
 
 ;; Author: Wei-Wei Guo <wwguocn at gmail dot com>
 ;; Version: 0.1

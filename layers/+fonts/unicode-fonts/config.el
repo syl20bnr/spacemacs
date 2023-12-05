@@ -1,6 +1,6 @@
 ;;; config.el --- unicode-fonts configuration file for Spacemacs. -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2023 Sylvain Benner & Contributors
 ;;
 ;; Author: Aaron Jensen <aaronjensen@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

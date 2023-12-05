@@ -1,6 +1,6 @@
 ;;; config.el --- (const eaf configuration file
 ;;
-;; Copyright (c) 2021-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2021-2023 Sylvain Benner & Contributors
 ;;
 ;; Author: Leslie Huang <lesliebinbin19900129@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

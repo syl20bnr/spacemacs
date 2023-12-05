@@ -1,6 +1,6 @@
 ;;; packages.el --- swift Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2023 Sylvain Benner & Contributors
 ;;
 ;; Author: Uri Sharf <uri.sharf@me.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

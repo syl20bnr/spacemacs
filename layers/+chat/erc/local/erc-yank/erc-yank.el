@@ -1,6 +1,6 @@
 ;;; erc-yank --- Automagically create a Gist if pasting more than 5 lines
 
-;; Copyright (C) 2012-2022 John Wiegley
+;; Copyright (C) 2012-2023 John Wiegley
 
 ;; Author: John Wiegley <jwiegley@gmail.com>
 ;; Created: 17 Jun 2012

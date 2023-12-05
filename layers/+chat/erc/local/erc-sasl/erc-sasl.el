@@ -1,6 +1,6 @@
 ;; erc-sasl.el -- handle SASL PLAIN authentication
 
-;; Copyright (C) 2012-2022 Joseph Gay
+;; Copyright (C) 2012-2023 Joseph Gay
 
 ;; Author: Joseph Gay <ysph@psy.ai>
 ;; Keywords: comm
