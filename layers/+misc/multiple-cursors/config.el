@@ -2,7 +2,7 @@
 ;;
 ;;; config.el --- Spacemacs Multiple Cursors Layer packages File
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2023 Sylvain Benner & Contributors
 ;;
 ;; Author: Codruț Constantin Gușoi <codrut.gusoi@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

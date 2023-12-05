@@ -1,6 +1,6 @@
 ;;; layers.el --- Julia Layer layers File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2023 Sylvain Benner & Contributors
 ;;
 ;; Author: Adam Beckmeyer <adam_git@thebeckmeyers.xyz>
 ;; URL: https://github.com/syl20bnr/spacemacs

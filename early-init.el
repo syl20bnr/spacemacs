@@ -1,6 +1,6 @@
 ;;; early-init.el --- Spacemacs Early Init File -*- no-byte-compile: t -*-
 ;;
-;; Copyright (c) 2020-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2020-2023 Sylvain Benner & Contributors
 ;;
 ;; Author: Miciah Dashiel Butler Masters <miciah.masters@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

@@ -1,6 +1,6 @@
 ;;; layers.el --- svelte Layer layers File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2023 Sylvain Benner & Contributors
 ;;
 ;; Author: Marco Süß <msuess@mailbox.org>
 ;; URL: https://github.com/msuess

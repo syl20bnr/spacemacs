@@ -1,6 +1,6 @@
 ;;; packages.el --- helpful layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2023 Sylvain Benner & Contributors
 ;;
 ;; Author: Johnson Denen <johnson@johnsons-macbook-pro.local>
 ;; URL: https://github.com/syl20bnr/spacemacs

@@ -1,6 +1,6 @@
 ;;; packages.el --- Extempore Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2020-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2020-2023 Sylvain Benner & Contributors
 ;;
 ;; Author: Ben Swift <ben@benswift.me>
 ;; URL: https://github.com/syl20bnr/spacemacs

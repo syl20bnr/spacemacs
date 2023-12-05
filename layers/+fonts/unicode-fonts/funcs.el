@@ -1,6 +1,6 @@
 ;;; funcs.el --- unicode-fonts layer funcs file for Spacemacs. -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2023 Sylvain Benner & Contributors
 ;;
 ;; Author: Lucius Hu
 ;; URL: https://github.com/syl20bnr/spacemacs
