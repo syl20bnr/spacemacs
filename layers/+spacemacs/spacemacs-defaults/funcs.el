@@ -1009,7 +1009,7 @@ as a means to remove windows, regardless of the value in
         (delete-other-windows))
     (funcall spacemacs-window-split-delete-function))
   (if (spacemacs--window-split-splittable-windows)
-      (let* ((previous-files (buffer-list))
+      (let* ((previous-files (seq-filter #'buffer-file-name (buffer-list)))
              (second (split-window-right))
              (third (split-window second nil 'right)))
         (set-window-buffer second (or (nth 1 previous-files) "*scratch*"))
