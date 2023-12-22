@@ -60,8 +60,7 @@
       (spacemacs/declare-prefix-for-mode 'rustic-mode "mh" "help")
       (spacemacs/declare-prefix-for-mode 'rustic-mode "m=" "format")
       (spacemacs/set-leader-keys-for-major-mode 'rustic-mode
-        ;; Deactivated for now see https://github.com/syl20bnr/spacemacs/issues/16203 for details
-        ;; "c." 'spacemacs/rustic-cargo-repeat
+        "c." 'rustic-cargo-run-rerun
         "c=" 'rustic-cargo-fmt
         "ca" 'rustic-cargo-add
         "cc" 'rustic-cargo-build
