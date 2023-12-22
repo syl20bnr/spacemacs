@@ -66,7 +66,7 @@
         "cc" 'rustic-cargo-build
         "cC" 'rustic-cargo-clean
         "cd" 'rustic-cargo-doc
-        "cs" 'rustic-cargo-doc-search
+        "cs" 'rustic-doc-search
         "ce" 'rustic-cargo-bench
         "ci" 'rustic-cargo-init
         "cl" 'rustic-cargo-clippy
