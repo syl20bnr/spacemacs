@@ -51,7 +51,7 @@
     :mode ("\\.rs\\'" . rustic-mode)
     :init
     (progn
-      (spacemacs/add-to-hook 'rustic-mode-hook '(spacemacs//rust-setup-backend))
+      (add-hook 'rustic-mode-hook #'spacemacs//rust-setup-backend)
 
       ;; (push 'rustic-clippy flycheck-checkers)
 
