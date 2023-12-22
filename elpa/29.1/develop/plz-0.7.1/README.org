@@ -1,0 +1,330 @@
+#+TITLE: plz.el
+
+#+PROPERTY: LOGGING nil
+
+# Note: This readme works with the org-make-toc <https://github.com/alphapapa/org-make-toc> package, which automatically updates the table of contents.
+
+[[http://elpa.gnu.org/packages/plz.html][file:http://elpa.gnu.org/packages/plz.svg]]
+
+#+HTML: <img src="images/mascot.png" align="right">
+
+~plz~ is an HTTP library for Emacs.  It uses ~curl~ as a backend, which avoids some of the issues with using Emacs's built-in ~url~ library.  It supports both synchronous and asynchronous requests.  Its API is intended to be simple, natural, and expressive.  Its code is intended to be simple and well-organized.  Every feature is tested against [[https://httpbin.org/][httpbin]].
+
+* Contents                                                         :noexport:
+:PROPERTIES:
+:TOC:      :include siblings
+:END:
+:CONTENTS:
+- [[#installation][Installation]]
+- [[#usage][Usage]]
+  - [[#examples][Examples]]
+  - [[#functions][Functions]]
+  - [[#queueing][Queueing]]
+- [[#changelog][Changelog]]
+- [[#credits][Credits]]
+- [[#development][Development]]
+  - [[#copyright-assignment][Copyright assignment]]
+:END:
+
+* Installation
+:PROPERTIES:
+:TOC:      :depth 0
+:END:
+
+** GNU ELPA
+
+~plz~ is available in [[http://elpa.gnu.org/packages/plz.html][GNU ELPA]].  It may be installed in Emacs using the ~package-install~ command.
+
+** Manual
+
+ ~plz~ has no dependencies other than Emacs and ~curl~.  It's known to work on Emacs 26.3 or later.  To install it manually, simply place =plz.el= in your ~load-path~ and ~(require 'plz)~.
+
+* Usage
+:PROPERTIES:
+:TOC:      :depth 1
+:END:
+
+The main public function is ~plz~, which sends an HTTP request and returns either the result of the specified type (for a synchronous request), or the ~curl~ process object (for asynchronous requests).  For asynchronous requests, callback, error-handling, and finalizer functions may be specified, as well as various other options.
+
+** Examples
+
+Synchronously =GET= a URL and return the response body as a decoded string (here, raw JSON):
+
+#+BEGIN_SRC elisp :exports both :results value code :cache yes
+  (plz 'get "https://httpbin.org/user-agent")
+#+END_SRC
+
+#+RESULTS[47fef7e4780e9fac6c99d7661c29de580bf0fa14]:
+#+begin_src elisp
+  "{\n \"user-agent\": \"curl/7.35.0\"\n}\n"
+#+end_src
+
+Synchronously =GET= a URL that returns a JSON object, and parse and return it as an alist:
+
+#+BEGIN_SRC elisp :exports both :results value code :cache yes
+  (plz 'get "https://httpbin.org/get" :as #'json-read)
+#+END_SRC
+
+#+RESULTS[a117174ba62b2be3ea3f23e5c43662047b81bccf]:
+#+begin_src elisp
+  ((args)
+   (headers
+    (Accept . "*/*")
+    (Accept-Encoding . "deflate, gzip")
+    (Host . "httpbin.org")
+    (User-Agent . "curl/7.35.0"))
+   (url . "https://httpbin.org/get"))
+#+end_src
+
+Asynchronously =POST= a JSON object in the request body, then parse a JSON object from the response body, and call a function with the result:
+
+#+BEGIN_SRC elisp :exports both :cache yes
+  (plz 'post "https://httpbin.org/post"
+    :headers '(("Content-Type" . "application/json"))
+    :body (json-encode '(("key" . "value")))
+    :as #'json-read
+    :then (lambda (alist)
+            (message "Result: %s" (alist-get 'data alist))))
+#+END_SRC
+
+#+RESULTS[3f4fdd16c4980bf36c3930e91f69cc379cca4a35]:
+: Result: {"key":"value"}
+
+Synchronously download a JPEG file, then create an Emacs image object from the data:
+
+#+BEGIN_SRC elisp :exports both :cache yes
+  (let ((jpeg-data (plz 'get "https://httpbin.org/image/jpeg" :as 'binary)))
+    (create-image jpeg-data nil 'data))
+#+END_SRC
+
+#+RESULTS[fbe8a6c8cb097ac08e992ea90bdbd50e7337a385]:
+: (image :type jpeg :data ""ÿØÿà^@^PJFIF...")
+
+** Functions
+
++  ~plz~ :: /(method url &key headers body else finally noquery (as 'string) (then 'sync) (body-type 'text) (decode t decode-s) (connect-timeout plz-connect-timeout) (timeout plz-timeout))/
+
+   Request ~METHOD~ from ~URL~ with curl.  Return the curl process object or, for a synchronous request, the selected result.
+
+   ~HEADERS~ may be an alist of extra headers to send with the request.
+
+   ~BODY~ may be a string, a buffer, or a list like ~(file FILENAME)~ to upload a file from disk.
+
+   ~BODY-TYPE~ may be ~text~ to send ~BODY~ as text, or ~binary~ to send it as binary.
+
+   ~AS~ selects the kind of result to pass to the callback function ~THEN~, or the kind of result to return for synchronous requests.  It may be:
+
+   - ~buffer~ to pass the response buffer, which will be narrowed to the response body and decoded according to ~DECODE~.
+   - ~binary~ to pass the response body as an un-decoded string.
+   - ~string~ to pass the response body as a decoded string.
+   - ~response~ to pass a ~plz-response~ structure.
+   - ~file~ to pass a temporary filename to which the response body has been saved without decoding.
+   - ~(file ~FILENAME)~ to pass ~FILENAME~ after having saved the response body to it without decoding.  ~FILENAME~ must be a non-existent file; if it exists, it will not be overwritten, and an error will be signaled.
+   - A function, which is called in the response buffer with it narrowed to the response body (suitable for, e.g. ~json-read~).
+
+   If ~DECODE~ is non-nil, the response body is decoded automatically.  For binary content, it should be nil.  When ~AS~ is ~binary~, ~DECODE~ is automatically set to nil.
+
+   ~THEN~ is a callback function, whose sole argument is selected above with ~AS~; if the request fails and no ~ELSE~ function is given (see below), the argument will be a ~plz-error~ structure describing the error.  Or ~THEN~ may be ~sync~ to make a synchronous request, in which case the result is returned directly from this function.
+
+   ~ELSE~ is an optional callback function called when the request fails (i.e. if curl fails, or if the ~HTTP~ response has a non-2xx status code).  It is called with one argument, a ~plz-error~ structure.  If ~ELSE~ is nil, a ~plz-curl-error~ or ~plz-http-error~ is signaled when the request fails, with a ~plz-error~ structure as the error data.  For synchronous requests, this argument is ignored.
+
+   ~NOTE~: In v0.8 of ~plz~, only one error will be signaled: ~plz-error~.  The existing errors, ~plz-curl-error~ and ~plz-http-error~, inherit from ~plz-error~ to allow applications to update their code while using v0.7 (i.e. any ~condition-case~ forms should now handle only ~plz-error~, not the other two).
+
+   ~FINALLY~ is an optional function called without argument after ~THEN~ or ~ELSE~, as appropriate.  For synchronous requests, this argument is ignored.
+
+   ~CONNECT-TIMEOUT~ and ~TIMEOUT~ are a number of seconds that limit how long it takes to connect to a host and to receive a response from a host, respectively.
+
+   ~NOQUERY~ is passed to ~make-process~, which see.
+
+** Queueing
+
+~plz~ provides a simple system for queueing HTTP requests.  First, make a ~plz-queue~ struct by calling ~make-plz-queue~.  Then call ~plz-queue~ with the struct as the first argument, and the rest of the arguments being the same as those passed to ~plz~.  Then call ~plz-run~ to run the queued requests.
+
+All of the queue-related functions return the queue as their value, making them easy to use.  For example:
+
+#+begin_src elisp :exports code
+  (defvar my-queue (make-plz-queue :limit 2))
+
+  (plz-run
+   (plz-queue my-queue
+     'get "https://httpbin.org/get?foo=0"
+     :then (lambda (body) (message "%s" body))))
+#+end_src
+
+Or:
+
+#+begin_src elisp :exports code
+  (let ((queue (make-plz-queue :limit 2
+                               :finally (lambda ()
+                                          (message "Queue empty."))))
+        (urls '("https://httpbin.org/get?foo=0"
+                "https://httpbin.org/get?foo=1")))
+    (plz-run
+     (dolist (url urls queue)
+       (plz-queue queue 'get url
+         :then (lambda (body) (message "%s" body))))))
+#+end_src
+
+You may also clear a queue with ~plz-clear~, which cancels any active or queued requests and calls their ~:else~ functions.  And ~plz-length~ returns the number of a queue's active and queued requests.
+
+** Tips
+:PROPERTIES:
+:TOC:      :ignore (this)
+:END:
+
++ You can customize settings in the =plz= group, but this can only be used to adjust a few defaults.  It's not intended that changing or binding global variables be necessary for normal operation.
+
+* Changelog
+:PROPERTIES:
+:TOC:      :depth 0
+:END:
+
+** 0.7.1
+
+*Fixes*
++ Handle HTTP 303 redirects.  (Thanks to [[https://github.com/hubisan][Daniel Hubmann]] for reporting.)
+
+** 0.7
+
+*Changes*
++ A new error signal, ~plz-error~, is defined.  The existing signals, ~plz-curl-error~ and ~plz-http-error~, inherit from it, so handling ~plz-error~ catches both.
+
+  *NOTE:* The existing signals, ~plz-curl-error~ and ~plz-http-error~, are hereby deprecated, and they will be removed in v0.8.  Applications should be updated while using v0.7 to only expect ~plz-error~.
+
+*Fixes*
++ Significant improvement in reliability by implementing failsafes and workarounds for Emacs's process-handling code.  (See [[https://github.com/alphapapa/plz.el/issues/3][#3]].)
++ STDERR output from curl processes is not included in response bodies (which sometimes happened, depending on Emacs's internal race conditions).  (Fixes [[https://github.com/alphapapa/plz.el/issues/23][#23]].)
++ Use ~with-local-quit~ for synchronous requests (preventing Emacs from complaining sometimes).  (Fixes [[https://github.com/alphapapa/plz.el/issues/26][#26]].)
++ Various fixes for ~:as 'buffer~ result type: decode body when appropriate; unset multibyte for binary; narrow to body; don't kill buffer prematurely.
++ When clearing a queue, don't try to kill finished processes.
+
+*Internal*
++ Response processing now happens outside the process sentinel, so any errors (e.g. in user callbacks) are not signaled from inside the sentinel.  (This avoids the 2-second pause Emacs imposes in such cases.)
++ Tests run against a local instance of [[https://github.com/postmanlabs/httpbin][httpbin]] (since the ~httpbin.org~ server is often overloaded).
++ No buffer-local variables are defined anymore; process properties are used instead.
+
+** 0.6
+
+*Additions*
++ Function ~plz~'s ~:body~ argument now accepts a list like ~(file FILENAME)~ to upload a file from disk (by passing the filename to curl, rather than reading its content into Emacs and sending it to curl through the pipe).
+
+*Fixes*
++ Function ~plz~'s docstring now mentions that the ~:body~ argument may also be a buffer (an intentional feature that was accidentally undocumented).
++ Handle HTTP 3xx redirects when using ~:as 'response~.
+
+** 0.5.4
+
+*Fixes*
++ Only run queue's ~finally~ function after queue is empty.  (New features should not be designed and released on a Friday.)
+
+** 0.5.3
+
+*Fixes*
++ Move new slot in ~plz-queue~ struct to end to prevent invalid byte-compiler expansions for already-compiled applications (which would require them to be recompiled after upgrading ~plz~).
+
+** 0.5.2
+
+*Fixes*
++ When clearing a queue, only call ~plz-queue~'s ~finally~ function when specified.
+
+** 0.5.1
+
+*Fixes*
++ Only call ~plz-queue~'s ~finally~ function when specified.  (Thanks to [[https://github.com/redchops][Dan Oriani]] for reporting.)
+
+** 0.5
+
+*Additions*
++ Struct ~plz-queue~'s ~finally~ slot, a function called when the queue is finished.
+
+** 0.4
+
+*Additions*
++ Support for HTTP ~HEAD~ requests.  (Thanks to [[https://ushin.org/][USHIN, Inc.]] for sponsoring.)
+
+*Changes*
++ Allow sending ~POST~ and ~PUT~ requests without bodies.  ([[https://github.com/alphapapa/plz.el/issues/16][#16]].  Thanks to [[https://github.com/josephmturner][Joseph Turner]] for reporting.  Thanks to [[https://ushin.org/][USHIN, Inc.]] for sponsoring.)
+
+*Fixes*
++ All 2xx HTTP status codes are considered successful.  ([[https://github.com/alphapapa/plz.el/issues/17][#17]].  Thanks to [[https://github.com/josephmturner][Joseph Turner]] for reporting.  Thanks to [[https://ushin.org/][USHIN, Inc.]] for sponsoring.)
++ Errors are signaled with error data correctly.
+
+*Internal*
++ Test suite explicitly tests with both HTTP/1.1 and HTTP/2.
++ Test suite also tests with Emacs versions 27.2, 28.1, and 28.2.
+
+** 0.3
+
+*Additions*
++ Handle HTTP proxy headers from Curl. ([[https://github.com/alphapapa/plz.el/issues/2][#2]].  Thanks to [[https://github.com/alanthird][Alan Third]] and [[https://github.com/sawyerzheng][Sawyer Zheng]] for reporting.)
+
+*Fixes*
++ Replaced words not in Ispell's default dictionaries (so ~checkdoc~ linting succeeds).
+
+** 0.2.1
+
+*Fixes*
++ Handle when Curl process is interrupted.
+
+** 0.2
+
+*Added*
++ Simple request queueing.
+
+** 0.1
+
+Initial release.
+
+* Credits
+
++  Thanks to [[https://github.com/skeeto][Chris Wellons]], author of the [[https://github.com/skeeto/elfeed][Elfeed]] feed reader and the popular blog [[https://nullprogram.com/][null program]], for his invaluable advice, review, and encouragement.
+
+* Development
+
+Bug reports, feature requests, suggestions — /oh my/!
+
+Note that ~plz~ is a young library, and its only client so far is [[https://github.com/alphapapa/ement.el][Ement.el]].  There are a variety of HTTP and ~curl~ features it does not yet support, since they have not been needed by the author.  Patches are welcome, as long as they include passing tests.
+
+** Copyright assignment
+
+This package is part of [[https://www.gnu.org/software/emacs/][GNU Emacs]], being distributed in [[https://elpa.gnu.org/][GNU ELPA]].  Contributions to this project must follow GNU guidelines, which means that, as with other parts of Emacs, patches of more than a few lines must be accompanied by having assigned copyright for the contribution to the FSF.  Contributors who wish to do so may contact [[mailto:emacs-devel@gnu.org][emacs-devel@gnu.org]] to request the assignment form.
+
+* License
+:PROPERTIES:
+:TOC:      :ignore (this)
+:END:
+
+GPLv3
+
+* COMMENT Export setup                                             :noexport:
+:PROPERTIES:
+:TOC:      :ignore (this descendants)
+:END:
+
+# Copied from org-super-agenda's readme, in which much was borrowed from Org's =org-manual.org=.
+
+#+OPTIONS: broken-links:t *:t
+
+** Info export options
+
+#+TEXINFO_DIR_CATEGORY: Emacs
+#+TEXINFO_DIR_TITLE: Plz: (plz)
+#+TEXINFO_DIR_DESC: HTTP library using Curl as a backend
+
+# NOTE: We could use these, but that causes a pointless error, "org-compile-file: File "..README.info" wasn't produced...", so we just rename the files in the after-save-hook instead.
+# #+TEXINFO_FILENAME: plz.info
+# #+EXPORT_FILE_NAME: plz.texi
+
+** File-local variables
+
+# NOTE: Setting org-comment-string buffer-locally is a nasty hack to work around GitHub's org-ruby's HTML rendering, which does not respect noexport tags.  The only way to hide this tree from its output is to use the COMMENT keyword, but that prevents Org from processing the export options declared in it.  So since these file-local variables don't affect org-ruby, wet set org-comment-string to an unused keyword, which prevents Org from deleting this tree from the export buffer, which allows it to find the export options in it.  And since org-export does respect the noexport tag, the tree is excluded from the info page.
+
+# Local Variables:
+# eval: (require 'org-make-toc)
+# after-save-hook: (lambda nil (when (and (require 'ox-texinfo nil t) (org-texinfo-export-to-info)) (delete-file "README.texi") (rename-file "README.info" "plz.info" t)))
+# before-save-hook: org-make-toc
+# org-export-with-properties: ()
+# org-export-with-title: t
+# org-export-initial-scope: buffer
+# org-comment-string: "NOTCOMMENT"
+# End:

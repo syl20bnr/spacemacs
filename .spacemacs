@@ -796,7 +796,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil unicode symbols are displayed in the mode line.
    ;; If you use Emacs as a daemon and wants unicode characters only in GUI set
    ;; the value to quoted `display-graphic-p'. (default t)
-   dotspacemacs-mode-line-unicode-symbols nil
+   dotspacemacs-mode-line-unicode-symbols t
 
    ;; If non-nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
@@ -1108,26 +1108,26 @@ package is loaded, you should place your code here."
                                    file pages file file file)))
               (pdf-view-revert-buffer nil t)
             (error "Rotation error!"))))))
-
+  
   (defun pdf-view-rotate-clockwise (&optional arg)
     "Rotate PDF page 90 degrees clockwise.  With prefix ARG, rotate
   entire document."
     (interactive "P")
     (pdf-view--rotate nil (not arg)))
-
+  
   (defun pdf-view-rotate-counterclockwise (&optional arg)
     "Rotate PDF page 90 degrees counterclockwise.  With prefix ARG,
   rotate entire document."
     (interactive "P")
     (pdf-view--rotate :counterclockwise (not arg)))
-
+  
   (define-key spacemacs-pdf-view-mode-map (kbd "R") 'pdf-view-rotate-clockwise)
   (setf forge-owned-accounts '(("BenedictHW" :remote-name "origin"))
         magit-save-repository-buffers 'dontask)
   ;;-------------------------------------------------------------------------
   ;; ***  Emacs Jupyter Config
   ;;-------------------------------------------------------------------------
-
+  
   ;; Changes the dired buffer to display less details.
   (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode)))
   (global-auto-revert-mode t)
@@ -1325,7 +1325,7 @@ package is loaded, you should place your code here."
                   (or (string= msg "Modified buffers exist; exit anyway? ")
                       (funcall real-yes-or-no-p msg)))))
       (funcall oldfn arg)))
-
+  
   (advice-add #'save-buffers-kill-emacs :around #'site/always-save-advice)
   ;; Spacemacs default is 60 seconds. Ridiculous.
   (setf auto-save-interval 1000
@@ -1396,13 +1396,13 @@ package is loaded, you should place your code here."
     ;; See /home/ben/.config/fd/ignore
     (require 'helm-fd)
     (require 'helm-ag)
-
+  
     (defvar bhw/helm-source-fd
       (helm-make-source
           (format "fd (%s)"
                   (abbreviate-file-name default-directory)) 'helm-fd-class)
       "For use of FD in `helm-for-files'. See also `helm-fd-switches'")
-
+  
     (defvar bhw/helm-source-maria-ag
       (helm-make-source "Project Maria - AG" 'helm-do-ag-class
         :candidates-process
@@ -1412,7 +1412,7 @@ package is loaded, you should place your code here."
       "To search Project Maria files from `helm-for-files'.
   `helm-ag--do-ag-set-source' used as exemplar. You may have to run
   `helm-projectile-ag' once for fuzzy matching to kick in :O.")
-
+  
     (defvar bhw/helm-source-emacs-commands
       (helm-build-sync-source "Emacs Commands"
         :candidates (lambda ()
@@ -1450,7 +1450,7 @@ package is loaded, you should place your code here."
           ;; https://github.com/bbatsov/projectile/issues/1788
           projectile-generic-command "fdfind . -0 --type f --color=never"
           projectile-git-fd-args "-H -0 -E .git -tf")
-
+  
     (spacemacs/set-leader-keys "SPC" #'helm-for-files)
     (define-key helm-map (kbd "C-q") nil) ; Replace default binding.
     (define-key helm-map (kbd "C-d") 'ace-jump-helm-line)
@@ -1530,45 +1530,30 @@ package is loaded, you should place your code here."
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "hn" 'org-next-visible-heading)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "hp" 'org-previous-visible-heading)
   (setq org-sticky-header-full-path 'full)
-  ;;-------------------------------------------------------------------------
-  ;; ***  Org Contacts Config
-  ;;-------------------------------------------------------------------------
   ;; Require org-contacts to work with mu4e
   (require 'org-contacts)
   (setf org-contacts-files (list (concat +project-maria-dir+ "task-management/0contacts.org")))
   (require 'org-re-reveal)
   (setq org-re-reveal-revealjs-version "4"
         org-re-reveal-root  "https://cdn.jsdelivr.net/npm/reveal.js")
-  ;;-------------------------------------------------------------------------
-  ;; ***  Org Mime Config
-  ;;-------------------------------------------------------------------------
-  (setq org-mime-export-options '(:section-numbers nil
+  (setf org-mime-export-options '(:section-numbers nil
                                                    ;; otherwise tables will not work
                                                    :with-broken-links t
                                                    :with-author nil
                                                    :with-toc nil
                                                    :with-latex dvipng))
-  ;;-------------------------------------------------------------------------
-  ;; ***  Org Export Config
-  ;;-------------------------------------------------------------------------
   (setq org-export-backends '(ascii html icalendar latex odt beamer man md
                                          org texinfo))
-  ;;-------------------------------------------------------------------------
-  ;; ***  Org Download Config
-  ;;-------------------------------------------------------------------------
-  (setq org-download-method 'attach)
-  ;;-------------------------------------------------------------------------
-  ;; ***  Org Expiry Config
-  ;;-------------------------------------------------------------------------
+  (setf org-download-method 'attach)
   ;; Add key bindings for org-expiry package
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "dc" 'org-expiry-insert-created)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "de" 'org-expiry-insert-expiry)
   ;; Add call to org-expiry-insert-created every time org-id-get-create is run
   (advice-add 'org-id-get-create :after 'org-expiry-insert-created)
   (org-clock-persistence-insinuate)
-
+  
   (add-hook 'org-clock-in-prepare-hook 'my-org-mode-ask-effort)
-
+  
   (defun my-org-mode-ask-effort ()
     "Ask for an effort estimate when clocking in if none exists."
     (unless (org-entry-get (point) "Effort")
@@ -1578,16 +1563,16 @@ package is loaded, you should place your code here."
               (org-entry-get-multivalued-property (point) "Effort"))))
         (unless (equal effort "")
           (org-set-property "Effort" effort)))))
-
+  
   (defun eos/org-clock-in ()
     (interactive)
     (org-clock-in '(4)))
-
+  
   ;; Exclude DONE state tasks from refile targets
   (defun bh/verify-refile-target ()
     "Exclude todo keywords with a done state from refile targets"
     (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-
+  
   ;; https://orgmode.org/worg/org-contrib/org-depend.html
   (defun mm/org-insert-trigger ()
     "Automatically insert chain-find-next trigger when entry becomes NEXT"
@@ -1597,7 +1582,7 @@ package is loaded, you should place your code here."
           ((not (member org-state org-done-keywords))
            (org-delete-property "TRIGGER"))))
   (add-hook 'org-after-todo-state-change-hook 'mm/org-insert-trigger)
-
+  
   (spacemacs/set-leader-keys "oa" 'hanshen/default-custom-agenda)
   (spacemacs/set-leader-keys "oj" 'spacemacs/org-clock-jump-to-current-clock)
   (spacemacs/set-leader-keys "oi" 'eos/org-clock-in)
@@ -1605,7 +1590,7 @@ package is loaded, you should place your code here."
   (spacemacs/set-leader-keys "oo" 'org-clock-out)
   (spacemacs/set-leader-keys "or" 'org-resolve-clocks)
   (spacemacs/set-leader-keys "oc" 'org-capture)
-
+  
   ;; Press t to change task todo state
   (setf org-use-fast-todo-selection t
         org-treat-S-cursor-todo-selection-as-state-change t
@@ -1748,7 +1733,7 @@ package is loaded, you should place your code here."
                                        (next-single-property-change (point) 'day))
                                       ")"))
           (forward-line)))))
-
+  
   (add-hook 'org-agenda-finalize-hook 'my/org-agenda-insert-efforts)
   ;; (defun org-agenda-log-mode-colorize-block ()
   ;;   "Set different line spacing and coloring based on clock time duration."
@@ -1824,7 +1809,7 @@ package is loaded, you should place your code here."
   ;; This is no longer needed, obsoleted by function above =org-agenda-log-mode-colorize-block=
   (setq org-agenda-start-with-clockreport-mode nil)
   ;; Function found here https://emacs.stackexchange.com/questions/21380/show-sum-of-efforts-for-a-day-in-org-agenda-day-title
-
+  
   ;; Set default column properties for org agenda
   ;; Context Padding Function
   ;; If my elisp improves, I'll modify the function to
@@ -1994,7 +1979,7 @@ package is loaded, you should place your code here."
                         (org-agenda-entry-types '(:timestamp :sexp :scheduled))
                         (org-agenda-overriding-header "Routine & Appointments\n")
                         ))
-
+  
             )
            ((org-agenda-tag-filter-preset '("-SDAY")))
            )
@@ -2345,13 +2330,13 @@ package is loaded, you should place your code here."
                                     <h1 class=\"title\">%t</h1>
                                     <p class=\"subtitle\">%s</p> <br/>
                                     <p class=\"updated\"><a href=\"/contact#article-history\">Updated:</a> %C</p>"
-
+  
            ;; Article Postamble includes
            ;; Javascript snippet to insert anchor links to Table of Contents
            ;; HTML Footer
            :html-postamble "<script>
                               const headers = Array.from( document.querySelectorAll('h2, h3, h4, h5, h6') );
-
+  
                               headers.forEach( header => {
                                 header.insertAdjacentHTML('afterbegin',
                                  '<a href=\"#table-of-contents\">&#8689;</a>'
@@ -2390,10 +2375,10 @@ package is loaded, you should place your code here."
   (defun my/ensure-headline-ids (&rest _)
     "Org trees without a custom ID will have
                               All non-alphanumeric characters are cleverly replaced with ‘-’.
-
+  
                               If multiple trees end-up with the same id property, issue a
                               message and undo any property insertion thus far.
-
+  
                               E.g., ↯ We'll go on a ∀∃⇅ adventure
                                  ↦  We'll-go-on-a-adventure
                               "
@@ -2416,7 +2401,7 @@ package is loaded, you should place your code here."
                  (undo)
                  (setq quit-flag t))
                (org-entry-put nil "CUSTOM_ID" id))))))))
-
+  
   ;; Whenever html & md export happens, ensure we have headline ids.
   (advice-add 'org-html-export-to-html   :before 'my/ensure-headline-ids)
   (advice-add 'org-md-export-to-markdown :before 'my/ensure-headline-ids)
@@ -2524,14 +2509,14 @@ package is loaded, you should place your code here."
   (setf org-noter-always-create-frame nil
         org-noter-hide-other nil
         org-noter-auto-save-last-location t)
-
+  
   (spacemacs/set-leader-keys
     "aon" 'org-noter)
   (require 'org-brain)
   (require 'org-expiry)
   ;; Add CREATED property when adding a new org-brain headline entry
   (add-hook 'org-brain-new-entry-hook #'org-expiry-insert-created)
-
+  
   (spacemacs/set-leader-keys "o SPC" 'org-brain-visualize-dwim)
   ;; For evil users,
   (with-eval-after-load 'evil
@@ -2554,7 +2539,7 @@ package is loaded, you should place your code here."
                                 org-expiry-created-property-name)))))
       (cond ((if ta (and tb (< ta tb)) tb) -1)
             ((if tb (and ta (< tb ta)) ta) +1))))
-
+  
   (defun org-brain-timeline ()
     "List all org-brain headlines in chronological order."
     (interactive)
@@ -2562,7 +2547,7 @@ package is loaded, you should place your code here."
           (org-agenda-cmp-user-defined #'org-expiry-created-comp)
           (org-agenda-sorting-strategy '(user-defined-down)))
       (org-tags-view nil (format "+%s>\"\"" org-expiry-created-property-name))))
-
+  
   (defun org-brain-cliplink-resource ()
     "Add a URL from the clipboard as an org-brain resource.
                   Suggest the URL title as a description for resource."
@@ -2572,9 +2557,9 @@ package is loaded, you should place your code here."
        url
        (org-cliplink-retrieve-title-synchronously url)
        t)))
-
+  
   (define-key org-brain-visualize-mode-map (kbd "L") #'org-brain-cliplink-resource)
-
+  
   ;; Prettify the lines via aa2u package, or ascii art to unicode
   (defface aa2u-face '((t . nil))
     "Face for aa2u box drawing characters")
@@ -2642,9 +2627,6 @@ package is loaded, you should place your code here."
   ;; ;; ;;   (if (equal (plist-get org-capture-plist :key) "a") ; Get buffer key & compare
   ;; ;; ;;       (progn (org-capture-goto-last-stored) (org-gcal-post-at-point))))
   ;; ;; ;; (add-hook 'org-capture-after-finalize-hook 'hanshen/org-post-appt-to-gcal)
-    ;;-------------------------------------------------------------------------
-  ;; *** Cdlatex Config
-  ;; -------------------------------------------------------------------------
   ;; https://old.reddit.com/r/emacs/comments/g8ecpj/advice_for_auclatex_what_keybinds_do_you_find/foo64ge/
   ;; What really increased my speed is having snippets (yasnippet) for
   ;; frequently used patterns, auto paired parentheses
@@ -2653,14 +2635,14 @@ package is loaded, you should place your code here."
   ;; subscript/superscripts. There's still a lot more to be done for speed,
   ;; learning these packages and creating keybindings though. All in due
   ;; time! Turns on unicode characters for org-mode
-  (setq org-pretty-entities t)
-  (setq org-pretty-entities-include-sub-superscripts nil)
-  ;; Bigger latex fragment
-  (setq org-format-latex-options (plist-put org-format-latex-options :scale 3))
+  (setf org-pretty-entities t
+        org-pretty-entities-include-sub-superscripts nil
+        ;; Bigger latex fragment
+        org-format-latex-options (plist-put org-format-latex-options :scale 3))
   ;; It generates a a png and overlays it onto the text as soon as your cursor
   ;; moves away from the math mode dollar signs. Automatically toggle org-mode
   ;; latex fragment previews as the cursor enters and exits them
-    (add-hook 'org-mode-hook 'org-fragtog-mode)
+  (add-hook 'org-mode-hook 'org-fragtog-mode)
   (defun my/org-ref-open-pdf-at-point ()
     "Open the pdf for bibtex key under point if it exists."
     (interactive)
@@ -2670,9 +2652,9 @@ package is loaded, you should place your code here."
       (if (file-exists-p pdf-file)
           (find-file pdf-file)
         (message "No PDF found for %s" key))))
-
+  
   (spacemacs/set-leader-keys "s SPC" 'helm-bibtex)
-
+  
   (setf org-bibtex-file (concat +project-maria-dir+ "project-jerome.bib")
         reftex-default-bibliography (list (concat +project-maria-dir+ "project-jerome.bib"))
         helm-bibtex-full-frame nil
@@ -2816,7 +2798,7 @@ package is loaded, you should place your code here."
        (lambda (msg _param)
          (memq 'unread (mu4e-msg-field msg :flags))))
       (mu4e-mark-execute-all t))
-
+  
     (defun mu4e-headers-refile-all ()
       "Refile all messages in buffer."
       (interactive)
@@ -2825,7 +2807,7 @@ package is loaded, you should place your code here."
        (lambda (_msg _param) t))
       (mu4e-mark-execute-all t)
       (mu4e-search-prev))
-
+  
     (setf mu4e-change-filenames-when-moving t  ; mbsync specific.
           ;; see an ASCII table for the character decimal codes
           mu4e-bookmarks '(("maildir:/INBOX" "Inbox" 105 )
@@ -2962,7 +2944,7 @@ package is loaded, you should place your code here."
     (let ((browse-url-browser-function (lambda (url _)
                                          (org-web-tools-read-url-as-org url))))
       (ap/elfeed-search-selected-map #'ap/elfeed-search-browse-entry)))
-
+  
   (defun ap/elfeed-search-browse-entry (entry)
     "Browse ENTRY with `browse-url' and mark as read.
       If ENTRY is unread, it will also be unstarred.  To override the
@@ -2975,11 +2957,11 @@ package is loaded, you should place your code here."
       (elfeed-untag entry 'unread)
       (elfeed-search-update-entry entry)
       (browse-url url)))
-
+  
   (cl-defun ap/elfeed-search-selected-map (fn)
     "Map FN across selected entries in elfeed-search buffer using `mapcar'."
     (mapcar fn (elfeed-search-selected)))
-
+  
   (defun ben/elfeed-search-browse-url (&optional use-generic-p)
     "Visit the current entry in your browser using `browse-url'.
   If there is a prefix argument, visit the current entry in the
@@ -3046,7 +3028,8 @@ package is loaded, you should place your code here."
   ;; Sets default browser
   (setf browse-url-generic-program  "/mnt/c/Windows/System32/cmd.exe"
         browse-url-generic-args     '("/c" "start")
-        browse-url-browser-function #'browse-url-generic)
+        browse-url-browser-function #'browse-url-generic
+        package-install-upgrade-built-in t)
   ;; Useful trick to share snippets between modes. Whenever a major mode
   ;; is loaded, fundamental-mode is also loaded
   (add-hook 'yas-minor-mode-hook (lambda ()
@@ -3065,22 +3048,3 @@ package is loaded, you should place your code here."
   ;; (setq powerline-scale 0.50)
   ;; Self explanatory (menu-bar-mode 1) (tool-bar-mode 1)
   )
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(ledger-mode company helm magit magit-section git-commit transient org-noter async mu4e youtube-sub-extractor ws-butler with-editor winum window-purpose which-key wfnames unfill undo-tree transmission symbol-overlay string-edit-at-point spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline space-doc sly-macrostep shell-pop rainbow-delimiters posframe popwin poly-org plantuml-mode persp-mode pdf-view-restore pcre2el paradox ox-rss orgit-forge org-web-tools org-vcard org-tanglesync org-superstar org-ref org-re-reveal org-pdftools org-mime org-fragtog org-download org-contrib org-contacts org-cliplink org-brain org-appear link-hint lexic info+ holy-mode hl-todo highlight-parentheses helpful helm-xref helm-projectile helm-org helm-mu helm-core helm-comint helm-c-yasnippet helm-bibtex helm-ag greader google-translate gnuplot git-link flyspell-correct-helm flycheck-ledger eyebrowse exec-path-from-shell evil-textobj-line evil-surround evil-snipe evil-org evil-nerd-commenter evil-matchit evil-lion evil-ledger evil-evilified-state evil-collection evil-cleverparens ement elisp-slime-nav elisp-def elfeed-tube-mpv elfeed-org ebib dumb-jump dired-quick-sort diminish company-quickhelp column-enforce-mode cdlatex bind-map better-jumper ascii-art-to-unicode ace-jump-helm-line)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)

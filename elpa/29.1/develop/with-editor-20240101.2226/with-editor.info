@@ -1,0 +1,382 @@
+This is with-editor.info, produced by makeinfo version 6.7 from
+with-editor.texi.
+
+     Copyright (C) 2015-2024 Jonas Bernoulli <jonas@bernoul.li>
+
+     You can redistribute this document and/or modify it under the terms
+     of the GNU General Public License as published by the Free Software
+     Foundation, either version 3 of the License, or (at your option)
+     any later version.
+
+     This document is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+     General Public License for more details.
+
+INFO-DIR-SECTION Emacs
+START-INFO-DIR-ENTRY
+* With-Editor: (with-editor). Using the Emacsclient as $EDITOR.
+END-INFO-DIR-ENTRY
+
+
+File: with-editor.info,  Node: Top,  Next: Using the With-Editor package,  Up: (dir)
+
+With-Editor User Manual
+***********************
+
+The library ‘with-editor’ makes it easy to use the Emacsclient as the
+‘$EDITOR’ of child processes, making sure they know how to call home.
+For remote processes a substitute is provided, which communicates with
+Emacs on standard output instead of using a socket as the Emacsclient
+does.
+
+   This library was written because Magit has to be able to do the above
+to allow the user to edit commit messages gracefully and to edit rebase
+sequences, which wouldn’t be possible at all otherwise.
+
+   Because other packages can benefit from such functionality, this
+library is made available as a separate package.  It also defines some
+additional functionality which makes it useful even for end-users, who
+don’t use Magit or another package which uses it internally.
+
+This manual is for With-Editor version 3.3.2.
+
+     Copyright (C) 2015-2024 Jonas Bernoulli <jonas@bernoul.li>
+
+     You can redistribute this document and/or modify it under the terms
+     of the GNU General Public License as published by the Free Software
+     Foundation, either version 3 of the License, or (at your option)
+     any later version.
+
+     This document is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+     General Public License for more details.
+
+* Menu:
+
+* Using the With-Editor package::
+* Using With-Editor as a library::
+* Debugging::
+* Function and Command Index::
+* Variable Index::
+
+— The Detailed Node Listing —
+
+Using the With-Editor package
+
+* Configuring With-Editor::
+* Using With-Editor commands::
+
+
+
+File: with-editor.info,  Node: Using the With-Editor package,  Next: Using With-Editor as a library,  Prev: Top,  Up: Top
+
+1 Using the With-Editor package
+*******************************
+
+The ‘With-Editor’ package is used internally by Magit when editing
+commit messages and rebase sequences.  It also provides some commands
+and features which are useful by themselves, even if you don’t use
+Magit.
+
+   For information about using this library in you own package, see
+*note Using With-Editor as a library::.
+
+* Menu:
+
+* Configuring With-Editor::
+* Using With-Editor commands::
+
+
+File: with-editor.info,  Node: Configuring With-Editor,  Next: Using With-Editor commands,  Up: Using the With-Editor package
+
+1.1 Configuring With-Editor
+===========================
+
+With-Editor tries very hard to locate a suitable ‘emacsclient’
+executable, so ideally you should never have to customize the option
+‘with-editor-emacsclient-executable’.  When it fails to do so, then the
+most likely reason is that someone found yet another way to package
+Emacs (most likely on macOS) without putting the executable on ‘$PATH’,
+and we have to add another kludge to find it anyway.
+
+ -- User Option: with-editor-emacsclient-executable
+     The ‘emacsclient’ executable used as the editor by child process of
+     this Emacs instance.  By using this executable, child processes can
+     call home to their parent process.
+
+     This option is automatically set at startup by looking in
+     ‘exec-path’, and other places where the executable could be
+     installed, to find the ‘emacsclient’ executable most suitable for
+     the current Emacs instance.
+
+     You should *not* customize this option permanently.  If you have to
+     do it, then you should consider that a temporary kludge and inform
+     the Magit maintainer as described in *note Debugging::.
+
+     If With-Editor fails to find a suitable ‘emacsclient’ on you
+     system, then this should be fixed for all users at once, by
+     teaching ‘with-editor-locate-emacsclient’ how to do so on your
+     system and system like yours.  Doing it this way has the advantage,
+     that you won’t have do it again every time you update Emacs, and
+     that other users who have installed Emacs the same way as you have,
+     won’t have to go through the same trouble.
+
+     Note that there also is a nuclear option; setting this variable to
+     ‘nil’ causes the "sleeping editor" described below to be used even
+     for local child processes.  Obviously we don’t recommend that you
+     use this except in "emergencies", i.e., before we had a change to
+     add a kludge appropriate for you setup.
+
+ -- Function: with-editor-locate-emacsclient
+     The function used to set the initial value of the option
+     ‘with-editor-emacsclient-executable’.  There’s a lot of voodoo
+     here.
+
+   The ‘emacsclient’ cannot be used when using Tramp to run a process on
+a remote machine.  (Theoretically it could, but that would be hard to
+setup, very fragile, and rather insecure).
+
+   With-Editor provides an alternative "editor" which can be used by
+remote processes in much the same way as local processes use an
+‘emacsclient’ executable.  This alternative is known as the "sleeping
+editor" because it is implemented as a shell script which sleeps until
+it receives a signal.
+
+ -- User Option: with-editor-sleeping-editor
+     The sleeping editor is a shell script used as the editor of child
+     processes when the ‘emacsclient’ executable cannot be used.
+
+     This fallback is used for asynchronous process started inside the
+     macro ‘with-editor’, when the process runs on a remote machine or
+     for local processes when ‘with-editor-emacsclient-executable’ is
+     ‘nil’.
+
+     Where the latter uses a socket to communicate with Emacs’ server,
+     this substitute prints edit requests to its standard output on
+     which a process filter listens for such requests.  As such it is
+     not a complete substitute for a proper ‘emacsclient’, it can only
+     be used as ‘$EDITOR’ of child process of the current Emacs
+     instance.
+
+     Some shells do not execute traps immediately when waiting for a
+     child process, but by default we do use such a blocking child
+     process.
+
+     If you use such a shell (e.g., ‘csh’ on FreeBSD, but not Debian),
+     then you have to edit this option.  You can either replace ‘sh’
+     with ‘bash’ (and install that), or you can use the older, less
+     performant implementation:
+
+          "sh -c '\
+          echo \"WITH-EDITOR: $$ OPEN $0$1 IN $(pwd)\"; \
+          trap \"exit 0\" USR1; \
+          trap \"exit 1\" USR2; \
+          while true; do sleep 1; done'"
+
+     Note that the unit separator character () right after the file name
+     ($0) is required.
+
+     Also note that using this alternative implementation leads to a
+     delay of up to a second.  The delay can be shortened by replacing
+     ‘sleep 1’ with ‘sleep 0.01’, or if your implementation does not
+     support floats, then by using ‘nanosleep’ instead.
+
+
+File: with-editor.info,  Node: Using With-Editor commands,  Prev: Configuring With-Editor,  Up: Using the With-Editor package
+
+1.2 Using With-Editor commands
+==============================
+
+This section describes how to use the ‘with-editor’ library _outside_ of
+Magit.  You don’t need to know any of this just to create commits using
+Magit.
+
+   The commands ‘with-editor-async-shell-command’ and
+‘with-editor-shell-command’ are intended as drop in replacements for
+‘async-shell-command’ and ‘shell-command’.  They automatically export
+‘$EDITOR’ making sure the executed command uses the current Emacs
+instance as "the editor".  With a prefix argument these commands prompt
+for an alternative environment variable such as ‘$GIT_EDITOR’.
+
+ -- Command: with-editor-async-shell-command
+     This command is like ‘async-shell-command’, but it runs the shell
+     command with the current Emacs instance exported as ‘$EDITOR’.
+
+ -- Command: with-editor-shell-command
+     This command is like ‘shell-command’, but if the shell command ends
+     with ‘&’ and is therefore run asynchronously, then the current
+     Emacs instance is exported as ‘$EDITOR’.
+
+   To always use these variants add this to you init file:
+
+     (keymap-global-set "<remap> <async-shell-command>"
+                        #'with-editor-async-shell-command)
+     (keymap-global-set "<remap> <shell-command>"
+                        #'with-editor-shell-command)
+
+   Alternatively use the global ‘shell-command-with-editor-mode’.
+
+ -- Variable: shell-command-with-editor-mode
+     When this mode is active, then ‘$EDITOR’ is exported whenever
+     ultimately ‘shell-command’ is called to asynchronously run some
+     shell command.  This affects most variants of that command, whether
+     they are defined in Emacs or in some third-party package.
+
+   The command ‘with-editor-export-editor’ exports ‘$EDITOR’ or another
+such environment variable in ‘shell-mode’, ‘eshell-mode’, ‘term-mode’
+and ‘vterm-mode’ buffers.  Use this Emacs command before executing a
+shell command which needs the editor set, or always arrange for the
+current Emacs instance to be used as editor by adding it to the
+appropriate mode hooks:
+
+     (add-hook 'shell-mode-hook  'with-editor-export-editor)
+     (add-hook 'eshell-mode-hook 'with-editor-export-editor)
+     (add-hook 'term-exec-hook   'with-editor-export-editor)
+     (add-hook 'vterm-mode-hook  'with-editor-export-editor)
+
+   Some variants of this function exist; these two forms are equivalent:
+
+     (add-hook 'shell-mode-hook
+               (apply-partially 'with-editor-export-editor "GIT_EDITOR"))
+     (add-hook 'shell-mode-hook 'with-editor-export-git-editor)
+
+ -- Command: with-editor-export-editor
+     When invoked in a ‘shell-mode’, ‘eshell-mode’, ‘term-mode’ or
+     ‘vterm-mode’ buffer, this command teaches shell commands to use the
+     current Emacs instance as the editor, by exporting ‘$EDITOR’.
+
+ -- Command: with-editor-export-git-editor
+     This command is like ‘with-editor-export-editor’ but exports
+     ‘$GIT_EDITOR’.
+
+ -- Command: with-editor-export-hg-editor
+     This command is like ‘with-editor-export-editor’ but exports
+     ‘$HG_EDITOR’.
+
+
+File: with-editor.info,  Node: Using With-Editor as a library,  Next: Debugging,  Prev: Using the With-Editor package,  Up: Top
+
+2 Using With-Editor as a library
+********************************
+
+This section describes how to use the ‘with-editor’ library _outside_ of
+Magit to teach another package how to have its child processes call
+home, just like Magit does.  You don’t need to know any of this just to
+create commits using Magit.  You can also ignore this if you use
+‘with-editor’ outside of Magit, but only as an end-user.
+
+   For information about interactive use and options that affect both
+interactive and non-interactive use, see *note Using the With-Editor
+package::.
+
+ -- Macro: with-editor &rest body
+     This macro arranges for the ‘emacsclient’ or the sleeping editor to
+     be used as the editor of child processes, effectively teaching them
+     to call home to the current Emacs instance when they require that
+     the user edits a file.
+
+     This is done by establishing a local binding for
+     ‘process-environment’ and changing the value of the ‘EDITOR’
+     environment variable in that scope.  This affects all
+     (asynchronous) processes started by forms (dynamically) inside
+     BODY.
+
+     If BODY begins with a literal string, then that variable is set
+     instead of ‘EDITOR’.
+
+ -- Macro: with-editor envvar &rest body
+     This macro is like ‘with-editor’ instead that the ENVVAR argument
+     is required and that it is evaluated at run-time.
+
+ -- Function: with-editor-set-process-filter process filter
+     This function is like ‘set-process-filter’ but ensures that adding
+     the new FILTER does not remove the ‘with-editor-process-filter’.
+     This is done by wrapping the two filter functions using a lambda,
+     which becomes the actual filter.  It calls FILTER first, which may
+     or may not insert the text into the PROCESS’s buffer.  Then it
+     calls ‘with-editor-process-filter’, passing t as
+     NO-STANDARD-FILTER.
+
+
+File: with-editor.info,  Node: Debugging,  Next: Function and Command Index,  Prev: Using With-Editor as a library,  Up: Top
+
+3 Debugging
+***********
+
+With-Editor tries very hard to locate a suitable ‘emacsclient’
+executable, and then sets option ‘with-editor-emacsclient-executable’
+accordingly.  In very rare cases this fails.  When it does fail, then
+the most likely reason is that someone found yet another way to package
+Emacs (most likely on macOS) without putting the executable on ‘$PATH’,
+and we have to add another kludge to find it anyway.
+
+   If you are having problems using ‘with-editor’, e.g., you cannot
+commit in Magit, then please open a new issue at
+<https://github.com/magit/with-editor/issues> and provide information
+about your Emacs installation.  Most importantly how did you install
+Emacs and what is the output of ‘M-x with-editor-debug RET’.
+
+
+File: with-editor.info,  Node: Function and Command Index,  Next: Variable Index,  Prev: Debugging,  Up: Top
+
+Appendix A Function and Command Index
+*************************************
+
+ [index ]
+* Menu:
+
+* with-editor:                           Using With-Editor as a library.
+                                                               (line 16)
+* with-editor <1>:                       Using With-Editor as a library.
+                                                               (line 31)
+* with-editor-async-shell-command:       Using With-Editor commands.
+                                                               (line 17)
+* with-editor-export-editor:             Using With-Editor commands.
+                                                               (line 59)
+* with-editor-export-git-editor:         Using With-Editor commands.
+                                                               (line 64)
+* with-editor-export-hg-editor:          Using With-Editor commands.
+                                                               (line 68)
+* with-editor-locate-emacsclient:        Configuring With-Editor.
+                                                               (line 41)
+* with-editor-set-process-filter:        Using With-Editor as a library.
+                                                               (line 35)
+* with-editor-shell-command:             Using With-Editor commands.
+                                                               (line 21)
+
+
+File: with-editor.info,  Node: Variable Index,  Prev: Function and Command Index,  Up: Top
+
+Appendix B Variable Index
+*************************
+
+ [index ]
+* Menu:
+
+* shell-command-with-editor-mode:        Using With-Editor commands.
+                                                               (line 35)
+* with-editor-emacsclient-executable:    Configuring With-Editor.
+                                                               (line 13)
+* with-editor-sleeping-editor:           Configuring With-Editor.
+                                                               (line 56)
+
+
+
+Tag Table:
+Node: Top773
+Node: Using the With-Editor package2563
+Node: Configuring With-Editor3149
+Node: Using With-Editor commands7698
+Node: Using With-Editor as a library10999
+Node: Debugging13024
+Node: Function and Command Index13916
+Node: Variable Index15414
+
+End Tag Table
+
+
+Local Variables:
+coding: utf-8
+End:
