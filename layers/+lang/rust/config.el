@@ -32,6 +32,3 @@ Currently, only `lsp' is supported.  It is automatically used if
 the `lsp' layer is enabled.
 
 If `nil', LSP support is disabled.")
-
-(defvar cargo-process-reload-on-modify nil
-  "When non-nil, reload workspace after a cargo-process command modifies Cargo.toml.")

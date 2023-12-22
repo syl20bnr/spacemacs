@@ -73,7 +73,7 @@
         "cf" 'rustic-cargo-clippy-fix
         "cn" 'rustic-cargo-new
         "co" 'rustic-cargo-outdated
-        "cr" 'spacemacs/rustic-cargo-rm
+        "cr" 'rustic-cargo-rm
         "cu" 'rustic-cargo-update
         "cU" 'rustic-cargo-upgrade
         "cv" 'rustic-cargo-check
