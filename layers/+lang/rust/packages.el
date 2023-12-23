@@ -46,15 +46,10 @@
 (defun rust/init-rustic ()
   (use-package rustic
     :defer t
-    :after (lsp-mode flycheck)
     :mode ("\\.rs\\'" . rustic-mode)
     :init
     (progn
-      (spacemacs/enable-flycheck 'rustic-mode)
-
       (add-hook 'rustic-mode-hook #'spacemacs//rust-setup-backend)
-
-      ;; (push 'rustic-clippy flycheck-checkers)
 
       (spacemacs/declare-prefix-for-mode 'rustic-mode "mc" "cargo")
       (spacemacs/declare-prefix-for-mode 'rustic-mode "mt" "tests")
@@ -81,21 +76,28 @@
         "cv" 'rustic-cargo-check
         "cx" 'rustic-cargo-run
         "ta" 'rustic-cargo-test
-        "tt" 'rustic-cargo-current-test
+        "tt" 'rustic-cargo-current-test)
 
-        "=j" 'lsp-rust-analyzer-join-lines
-        "==" 'lsp-format-buffer
-        "Ti" 'lsp-inlay-hints-mode
-        "bD" 'lsp-rust-analyzer-status
-        "bS" 'lsp-rust-switch-server
-        "gp" 'lsp-rust-find-parent-module
-        "gg" 'lsp-find-definition
-        "hm" 'lsp-rust-analyzer-expand-macro
-        "hs" 'lsp-rust-analyzer-syntax-tree
-        "v" 'lsp-extend-selection
+      (with-eval-after-load 'flycheck
+        (spacemacs/enable-flycheck 'rustic-mode)
+        ;; (push 'rustic-clippy flycheck-checkers)
+        )
 
-        "," 'lsp-rust-analyzer-rerun
-        "."  'lsp-rust-analyzer-run))))
+      (with-eval-after-load 'lsp-mode
+        (spacemacs/set-leader-keys-for-major-mode 'rustic-mode
+          "=j" 'lsp-rust-analyzer-join-lines
+          "==" 'lsp-format-buffer
+          "Ti" 'lsp-inlay-hints-mode
+          "bD" 'lsp-rust-analyzer-status
+          "bS" 'lsp-rust-switch-server
+          "gp" 'lsp-rust-find-parent-module
+          "gg" 'lsp-find-definition
+          "hm" 'lsp-rust-analyzer-expand-macro
+          "hs" 'lsp-rust-analyzer-syntax-tree
+          "v" 'lsp-extend-selection
+
+          "," 'lsp-rust-analyzer-rerun
+          "."  'lsp-rust-analyzer-run)))))
 
 (defun rust/post-init-smartparens ()
   (with-eval-after-load 'smartparens
