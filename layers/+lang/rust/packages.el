@@ -80,8 +80,7 @@
 
       (with-eval-after-load 'flycheck
         (spacemacs/enable-flycheck 'rustic-mode)
-        ;; (push 'rustic-clippy flycheck-checkers)
-        )
+        (push 'rustic-clippy flycheck-checkers))
 
       (with-eval-after-load 'lsp-mode
         (spacemacs/set-leader-keys-for-major-mode 'rustic-mode
