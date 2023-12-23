@@ -48,55 +48,54 @@
     :defer t
     :mode ("\\.rs\\'" . rustic-mode)
     :init
-    (progn
-      (add-hook 'rustic-mode-hook #'spacemacs//rust-setup-backend)
+    (add-hook 'rustic-mode-hook #'spacemacs//rust-setup-backend)
 
-      (spacemacs/declare-prefix-for-mode 'rustic-mode "mc" "cargo")
-      (spacemacs/declare-prefix-for-mode 'rustic-mode "mt" "tests")
-      (spacemacs/declare-prefix-for-mode 'rustic-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'rustic-mode "mh" "help")
-      (spacemacs/declare-prefix-for-mode 'rustic-mode "m=" "format")
+    (spacemacs/declare-prefix-for-mode 'rustic-mode "mc" "cargo")
+    (spacemacs/declare-prefix-for-mode 'rustic-mode "mt" "tests")
+    (spacemacs/declare-prefix-for-mode 'rustic-mode "mg" "goto")
+    (spacemacs/declare-prefix-for-mode 'rustic-mode "mh" "help")
+    (spacemacs/declare-prefix-for-mode 'rustic-mode "m=" "format")
+    (spacemacs/set-leader-keys-for-major-mode 'rustic-mode
+      "c." 'rustic-cargo-run-rerun
+      "c=" 'rustic-cargo-fmt
+      "ca" 'rustic-cargo-add
+      "cc" 'rustic-cargo-build
+      "cC" 'rustic-cargo-clean
+      "cd" 'rustic-cargo-doc
+      "cs" 'rustic-doc-search
+      "ce" 'rustic-cargo-bench
+      "ci" 'rustic-cargo-init
+      "cl" 'rustic-cargo-clippy
+      "cf" 'rustic-cargo-clippy-fix
+      "cn" 'rustic-cargo-new
+      "co" 'rustic-cargo-outdated
+      "cr" 'rustic-cargo-rm
+      "cu" 'rustic-cargo-update
+      "cU" 'rustic-cargo-upgrade
+      "cv" 'rustic-cargo-check
+      "cx" 'rustic-cargo-run
+      "ta" 'rustic-cargo-test
+      "tt" 'rustic-cargo-current-test)
+
+    (with-eval-after-load 'flycheck
+      (spacemacs/enable-flycheck 'rustic-mode)
+      (push 'rustic-clippy flycheck-checkers))
+
+    (with-eval-after-load 'lsp-mode
       (spacemacs/set-leader-keys-for-major-mode 'rustic-mode
-        "c." 'rustic-cargo-run-rerun
-        "c=" 'rustic-cargo-fmt
-        "ca" 'rustic-cargo-add
-        "cc" 'rustic-cargo-build
-        "cC" 'rustic-cargo-clean
-        "cd" 'rustic-cargo-doc
-        "cs" 'rustic-doc-search
-        "ce" 'rustic-cargo-bench
-        "ci" 'rustic-cargo-init
-        "cl" 'rustic-cargo-clippy
-        "cf" 'rustic-cargo-clippy-fix
-        "cn" 'rustic-cargo-new
-        "co" 'rustic-cargo-outdated
-        "cr" 'rustic-cargo-rm
-        "cu" 'rustic-cargo-update
-        "cU" 'rustic-cargo-upgrade
-        "cv" 'rustic-cargo-check
-        "cx" 'rustic-cargo-run
-        "ta" 'rustic-cargo-test
-        "tt" 'rustic-cargo-current-test)
+        "=j" 'lsp-rust-analyzer-join-lines
+        "==" 'lsp-format-buffer
+        "Ti" 'lsp-inlay-hints-mode
+        "bD" 'lsp-rust-analyzer-status
+        "bS" 'lsp-rust-switch-server
+        "gp" 'lsp-rust-find-parent-module
+        "gg" 'lsp-find-definition
+        "hm" 'lsp-rust-analyzer-expand-macro
+        "hs" 'lsp-rust-analyzer-syntax-tree
+        "v" 'lsp-extend-selection
 
-      (with-eval-after-load 'flycheck
-        (spacemacs/enable-flycheck 'rustic-mode)
-        (push 'rustic-clippy flycheck-checkers))
-
-      (with-eval-after-load 'lsp-mode
-        (spacemacs/set-leader-keys-for-major-mode 'rustic-mode
-          "=j" 'lsp-rust-analyzer-join-lines
-          "==" 'lsp-format-buffer
-          "Ti" 'lsp-inlay-hints-mode
-          "bD" 'lsp-rust-analyzer-status
-          "bS" 'lsp-rust-switch-server
-          "gp" 'lsp-rust-find-parent-module
-          "gg" 'lsp-find-definition
-          "hm" 'lsp-rust-analyzer-expand-macro
-          "hs" 'lsp-rust-analyzer-syntax-tree
-          "v" 'lsp-extend-selection
-
-          "," 'lsp-rust-analyzer-rerun
-          "."  'lsp-rust-analyzer-run)))))
+        "," 'lsp-rust-analyzer-rerun
+        "."  'lsp-rust-analyzer-run))))
 
 (defun rust/post-init-smartparens ()
   (with-eval-after-load 'smartparens
