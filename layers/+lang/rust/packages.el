@@ -50,6 +50,8 @@
     :mode ("\\.rs\\'" . rustic-mode)
     :init
     (progn
+      (spacemacs/enable-flycheck 'rustic-mode)
+
       (add-hook 'rustic-mode-hook #'spacemacs//rust-setup-backend)
 
       ;; (push 'rustic-clippy flycheck-checkers)
@@ -94,9 +96,6 @@
 
         "," 'lsp-rust-analyzer-rerun
         "."  'lsp-rust-analyzer-run))))
-
-(defun rust/post-init-rustic ()
-  (spacemacs/enable-flycheck 'rustic-mode))
 
 (defun rust/post-init-smartparens ()
   (with-eval-after-load 'smartparens
