@@ -35,8 +35,8 @@ Possible values are 'tide (default), 'typescript-formatter and 'prettier.")
 Possible values are `tide' and `lsp'.
 If `nil' then `tide' is the default backend unless `lsp' layer is used.")
 
-(defvar typescript-linter 'tslint
-  "The linter to use for typescript. Possible values are `tslint' `eslint'")
+(defvar typescript-linter 'eslint
+  "The linter to use for typescript. Possible values are `eslint' `tslint'")
 
 (defvar typescript-lsp-linter t
   "If the backend is `lsp', and this variable is non-nil, then

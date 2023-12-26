@@ -27,7 +27,7 @@ This layer adds support for TypeScript and TSX editing.
 - Eldoc-mode
 - Documentation at point
 - Auto complete
-- Flycheck with either tslint or eslint
+- Flycheck with either eslint or tslint
 - Jump to definition, Jump to type definition
 - Find occurrences (Imenu-mode)
 - Rename symbol
@@ -64,12 +64,12 @@ You can choose formatting tool:
                 typescript-fmt-tool 'typescript-formatter)))
 #+END_SRC
 
-You can choose either tslint (default) or eslint for linting:
+You can choose either eslint (default) or tslint (deprecated by upstream) for linting:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (typescript :variables
-                typescript-linter 'tslint)))
+                typescript-linter 'eslint)))
 #+END_SRC
 
 Please be advised that tslint is now deprecated, and should only be used for
@@ -78,16 +78,16 @@ legacy projects. [[https://github.com/palantir/tslint#tslint][See TSLint Repo fo
 ** Pre-requisites
 You will need =node.js v0.12.0= or greater.
 
-If you want linting with tslint run:
-
-#+BEGIN_SRC shell
-  npm install -g typescript tslint
-#+END_SRC
-
 If you want linting with eslint run:
 
 #+BEGIN_SRC shell
   npm install eslint
+#+END_SRC
+
+If you want linting with tslint run:
+
+#+BEGIN_SRC shell
+  npm install -g typescript tslint
 #+END_SRC
 
 We need to use the project-local eslint installation in order to pick up plugins
