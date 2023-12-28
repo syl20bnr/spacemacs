@@ -459,8 +459,8 @@ ivy"
 (defun spacemacs/restart-emacs (&optional args)
   "Restart emacs."
   (interactive)
-  (setq spacemacs-really-kill-emacs t)
-  (restart-emacs args))
+  (let ((spacemacs-really-kill-emacs t))
+    (restart-emacs args)))
 
 (defun spacemacs/restart-emacs-resume-layouts (&optional args)
   "Restart emacs and resume layouts."

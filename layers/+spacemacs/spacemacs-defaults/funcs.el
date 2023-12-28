@@ -1139,21 +1139,21 @@ dotspacemacs-persistent-server to be t"
 (defun spacemacs/save-buffers-kill-emacs ()
   "Save all changed buffers and exit Spacemacs"
   (interactive)
-  (setq spacemacs-really-kill-emacs t)
-  (save-buffers-kill-emacs))
+  (let ((spacemacs-really-kill-emacs t))
+    (save-buffers-kill-emacs)))
 
 (defun spacemacs/kill-emacs ()
   "Lose all changes and exit Spacemacs"
   (interactive)
-  (setq spacemacs-really-kill-emacs t)
-  (kill-emacs))
+  (let ((spacemacs-really-kill-emacs t))
+    (kill-emacs)))
 
 (defun spacemacs/prompt-kill-emacs ()
   "Prompt to save changed buffers and exit Spacemacs"
   (interactive)
-  (setq spacemacs-really-kill-emacs t)
   (save-some-buffers nil t)
-  (kill-emacs))
+  (let ((spacemacs-really-kill-emacs t))
+    (kill-emacs)))
 
 (defun spacemacs/frame-killer ()
   "Kill server buffer and hide the main Emacs window"
