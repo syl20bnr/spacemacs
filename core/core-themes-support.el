@@ -437,10 +437,7 @@ When BACKWARD is non-nil, or with universal-argument, cycle backwards."
 (defadvice load-theme (after spacemacs/load-theme-adv activate)
   "Perform post load processing."
   (let ((theme (ad-get-arg 0)))
-    ;; Without this a popup is raised every time emacs25 starts up for
-    ;; assignment to a free variable
-    (with-no-warnings
-      (setq spacemacs--cur-theme theme))
+    (setq spacemacs--cur-theme theme)
     (spacemacs/post-theme-init theme)))
 
 (defun spacemacs/theme-loader ()
