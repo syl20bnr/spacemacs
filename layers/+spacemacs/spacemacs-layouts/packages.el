@@ -229,7 +229,7 @@
       (spacemacs/find-dotfile))
     :config
     (spacemacs|hide-lighter persp-mode)
-    (defadvice persp-activate (before spacemacs//save-toggle-layout activate)
+    (define-advice persp-activate (:before (&rest _) spacemacs//save-toggle-layout)
       (setq spacemacs--last-selected-layout persp-last-persp-name))
     (add-hook 'persp-mode-hook 'spacemacs//layout-autosave)
     (advice-add 'persp-load-state-from-file

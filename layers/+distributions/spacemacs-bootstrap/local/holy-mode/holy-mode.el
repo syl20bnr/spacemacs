@@ -28,22 +28,22 @@
 
 ;;; Code:
 
-(defadvice evil-insert-state (around holy-insert-to-emacs-state disable)
-  "Forces Emacs state."
-  (if (equal -1 (ad-get-arg 0))
-      ad-do-it
+(defun holy-insert-to-emacs-state (f &optional arg &rest args)
+  "Advice around `evil-insert-state' to force Emacs state."
+  (if (equal -1 arg)
+      (apply f arg args)
     (evil-emacs-state)))
 
-(defadvice evil-motion-state (around holy-motion-to-emacs-state disable)
-  "Forces Emacs state."
-  (if (equal -1 (ad-get-arg 0))
-      ad-do-it
+(defun holy-motion-to-emacs-state (f &optional arg &rest args)
+  "Advice around `evil-motion-state' to force Emacs state."
+  (if (equal -1 arg)
+      (apply f arg args)
     (evil-emacs-state)))
 
-(defadvice evil-normal-state (around holy-normal-to-emacs-state disable)
-  "Forces Emacs state."
-  (if (equal -1 (ad-get-arg 0))
-      ad-do-it
+(defun holy-normal-to-emacs-state (f &optional arg &rest args)
+  "Advice around `evil-normal-state' to force Emacs state."
+  (if (equal -1 arg)
+      (apply f arg args)
     (evil-emacs-state)))
 
 ;;;###autoload
@@ -63,12 +63,9 @@ The `insert state' is replaced by the `emacs state'."
   ;; make all buffers' initial state emacs
   (push '("." . emacs) evil-buffer-regexps)
   ;; replace evil states by `emacs state'
-  (ad-enable-advice 'evil-insert-state 'around 'holy-insert-to-emacs-state)
-  (ad-enable-advice 'evil-motion-state 'around 'holy-motion-to-emacs-state)
-  (ad-enable-advice 'evil-normal-state 'around 'holy-normal-to-emacs-state)
-  (ad-activate 'evil-insert-state)
-  (ad-activate 'evil-motion-state)
-  (ad-activate 'evil-normal-state)
+  (advice-add 'evil-insert-state :around #'holy-insert-to-emacs-state)
+  (advice-add 'evil-motion-state :around #'holy-motion-to-emacs-state)
+  (advice-add 'evil-normal-state :around #'holy-normal-to-emacs-state)
   ;; key bindings hooks for dynamic switching of editing styles
   (run-hook-with-args 'spacemacs-editing-style-hook 'emacs)
   ;; initiate `emacs state' and enter the church
@@ -79,12 +76,9 @@ The `insert state' is replaced by the `emacs state'."
   ;; restore defaults
   (setq evil-buffer-regexps (delete '("." . emacs) evil-buffer-regexps))
   ;; restore evil states
-  (ad-disable-advice 'evil-insert-state 'around 'holy-insert-to-emacs-state)
-  (ad-disable-advice 'evil-motion-state 'around 'holy-motion-to-emacs-state)
-  (ad-disable-advice 'evil-normal-state 'around 'holy-normal-to-emacs-state)
-  (ad-activate 'evil-insert-state)
-  (ad-activate 'evil-motion-state)
-  (ad-activate 'evil-normal-state)
+  (advice-remove 'evil-insert-state #'holy-insert-to-emacs-state)
+  (advice-remove 'evil-motion-state #'holy-motion-to-emacs-state)
+  (advice-remove 'evil-normal-state #'holy-normal-to-emacs-state)
   ;; restore key bindings
   (run-hook-with-args 'spacemacs-editing-style-hook 'vim)
   ;; restore the states

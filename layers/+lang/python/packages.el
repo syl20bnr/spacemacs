@@ -89,7 +89,7 @@
         (kbd "C-k") 'previous-error-no-select
         (kbd "RET") 'spacemacs/anaconda-view-forward-and-push))
     (spacemacs|hide-lighter anaconda-mode)
-    (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
+    (define-advice anaconda-mode-goto (:before (&rest _) python/anaconda-mode-goto)
       (evil--jumps-push))
     (add-to-list 'spacemacs-jump-handlers-python-mode
                  '(anaconda-mode-find-definitions :async t))))
@@ -451,25 +451,25 @@
   (spacemacs/add-to-hook 'python-mode-hook
                          '(semantic-mode
                            spacemacs//python-imenu-create-index-use-semantic-maybe))
-  (defadvice semantic-python-get-system-include-path
-      (around semantic-python-skip-error-advice activate)
+  (define-advice semantic-python-get-system-include-path
+      (:around (f &rest args) semantic-python-skip-error-advice)
     "Don't cause error when Semantic cannot retrieve include
 paths for Python then prevent the buffer to be switched. This
 issue might be fixed in Emacs 25. Until then, we need it here to
 fix this issue."
     (condition-case-unless-debug nil
-        ad-do-it
+        (apply f args)
       (error nil))))
 
 (defun python/pre-init-smartparens ()
   (spacemacs|use-package-add-hook smartparens
     :post-config
-    (defadvice python-indent-dedent-line-backspace
-        (around python/sp-backward-delete-char activate)
+    (define-advice python-indent-dedent-line-backspace
+        (:around (f &rest args) python/sp-backward-delete-char)
       (let ((pythonp (or (not smartparens-strict-mode)
                          (char-equal (char-before) ?\s))))
         (if pythonp
-            ad-do-it
+            (apply f args)
           (call-interactively 'sp-backward-delete-char))))))
 (defun python/post-init-smartparens ()
   (add-hook 'inferior-python-mode-hook #'spacemacs//activate-smartparens))

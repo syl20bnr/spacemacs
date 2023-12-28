@@ -109,18 +109,18 @@
          'type 'help-url
          'help-args (cdr l))))))
 
-(defadvice configuration-layer/initialize (before zemacs/initialize activate)
+(define-advice configuration-layer/initialize (:before (&rest _) zemacs/initialize)
   (setq dotspacemacs-startup-banner "~/.emacs.d/core/banners/img/zemacs.png"))
 
-(defadvice spacemacs-buffer//inject-version
-    (around zemacs/inject-version activate)
+(define-advice spacemacs-buffer//inject-version
+    (:around (f &rest args) zemacs/inject-version)
   (let ((emacs-version "99.9999999")
         (dotspacemacs-distribution "zemacs")
         (spacemacs-version "af-1.01"))
-    ad-do-it))
+    (apply f args)))
 
-(defadvice spacemacs-buffer/insert-banner-and-buttons
-    (after zemacs/insert-banner-and-buttons activate)
+(define-advice spacemacs-buffer/insert-banner-and-buttons
+    (:after (&rest _) zemacs/insert-banner-and-buttons)
   ;; always display the release note
   (spacemacs-buffer//insert-release-note-widget
    (concat spacemacs-release-notes-directory

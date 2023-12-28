@@ -54,8 +54,7 @@
   (interactive)
   (exwm-workspace-switch exwm--toggle-workspace))
 
-(defadvice exwm-workspace-switch
-    (before save-toggle-workspace activate)
+(define-advice exwm-workspace-switch (:before (&rest _) save-toggle-workspace)
   (setq exwm--toggle-workspace exwm-workspace-current-index))
 
 

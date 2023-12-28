@@ -434,11 +434,10 @@ When BACKWARD is non-nil, or with universal-argument, cycle backwards."
   (interactive)
   (spacemacs/cycle-spacemacs-theme t))
 
-(defadvice load-theme (after spacemacs/load-theme-adv activate)
+(define-advice load-theme (:after (theme &rest _) spacemacs/load-theme-adv)
   "Perform post load processing."
-  (let ((theme (ad-get-arg 0)))
-    (setq spacemacs--cur-theme theme)
-    (spacemacs/post-theme-init theme)))
+  (setq spacemacs--cur-theme theme)
+  (spacemacs/post-theme-init theme))
 
 (defun spacemacs/theme-loader ()
   "Call appropriate theme loader based on completion framework."
