@@ -49,7 +49,9 @@ for Linux/macOS), `eshell' (default for windows), `shell', `term', `vterm',
 (defvar shell-default-width 30
   "Width in percents for the shell window.")
 
-(defvar shell-default-term-shell shell-file-name
+(defvar shell-default-term-shell (or explicit-shell-file-name
+                                     (getenv "ESHELL")
+                                     shell-file-name)
   "Default shell to use in `term', `ansi-term' and `vterm' shells.")
 
 (defvar shell-enable-smart-eshell nil
