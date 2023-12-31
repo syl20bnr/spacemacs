@@ -100,7 +100,6 @@ To enable automatic buffer formatting on save, set the variable =rustic-format-o
 |-------------+--------------------------------------------------------|
 | ~SPC m = =~ | reformat the buffer                                    |
 | ~SPC m b R~ | reload Rust-Analyzer workspace                         |
-| ~SPC m c .~ | repeat the last Cargo command                          |
 | ~SPC m c =~ | format all project files with rustfmt                  |
 | ~SPC m c a~ | add a new dependency with cargo-edit                   |
 | ~SPC m c c~ | compile project                                        |
