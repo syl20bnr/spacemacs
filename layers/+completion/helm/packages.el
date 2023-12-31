@@ -26,7 +26,10 @@
     auto-highlight-symbol
     bookmark
     helm
-    helm-ag
+    (helm-ag :location (recipe
+                        :fetcher github
+                        :repo "zozowell/helm-ag"
+                        :branch "further-support-rg"))
     helm-comint
     helm-descbinds
     (helm-ls-git :toggle (configuration-layer/layer-used-p 'git))
