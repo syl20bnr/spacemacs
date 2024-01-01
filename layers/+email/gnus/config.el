@@ -1,6 +1,6 @@
 ;;; config.el --- gnus Layer configuration File for Spacemacs
 ;;
-;; Copyright (c) 2019-2023 Sylvain Benner & Contributors
+;; Copyright (c) 2019-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Matthew Leach <matthew@mattleach.net>
 ;; URL: https://github.com/syl20bnr/spacemacs

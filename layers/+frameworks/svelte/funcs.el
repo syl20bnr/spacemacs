@@ -1,6 +1,6 @@
 ;;; funcs.el --- svelte layer funcs file for Spacemacs. -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2023 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Marco Süß <msuess@mailbox.org>
 ;; URL: https://github.com/msuess

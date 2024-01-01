@@ -1,6 +1,6 @@
 ;;; packages.el --- geolocation configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2023 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Uri Sharf <uri.sharf@me.com>
 ;; URL: https://github.com/usharf/spacemacs

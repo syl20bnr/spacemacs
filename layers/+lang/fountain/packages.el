@@ -1,6 +1,6 @@
 ;;; packages.el --- Fountain layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2022-2023 Sylvain Benner & Contributors
+;; Copyright (c) 2022-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Damien Picard <dam.pic@free.fr>
 ;; URL: https://github.com/syl20bnr/spacemacs
