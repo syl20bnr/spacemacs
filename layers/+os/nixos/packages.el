@@ -52,7 +52,7 @@
     :defer t
     :mode "\\.nix\\'"
     :init
-    (spacemacs/add-to-hook 'nix-mode-hook '(spacemacs//nix-setup-backend))
+    (add-hook 'nix-mode-hook #'spacemacs//nix-setup-backend)
     (add-to-list 'spacemacs-indent-sensitive-modes 'nix-mode)
     (spacemacs/set-leader-keys-for-major-mode 'nix-mode
       "==" 'nix-format-buffer)
