@@ -1,6 +1,6 @@
 ;;; layers.el --- reasonml layer layers file for Spacemacs
 ;;
-;; Copyright (c) 2012-2023 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Dave Aitken <dave.aitken@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

@@ -1,6 +1,6 @@
 ;;; packages.el --- NixOS Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2015-2023 Sylvain Benner & Contributors
+;; Copyright (c) 2015-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

@@ -1,6 +1,6 @@
 ;;; packages.el --- docker Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2023 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;; Copyright (c) 2015 Alan Zimmerman & Contributors
 ;;
 ;; Author: Alan Zimmerman <alan.zimm@gmail.com>

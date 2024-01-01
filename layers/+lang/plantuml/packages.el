@@ -1,6 +1,6 @@
 ;;; packages.el --- plantuml layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2023 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Robert O'Connor <robby.oconnor@gmail.com>
 ;; Contributor: Carlo Sciolla <carlo.sciolla@gmail.com>
