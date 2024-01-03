@@ -1,8 +1,8 @@
 ;;; package-build-badges.el --- Create badges for packages  -*- lexical-binding:t; coding:utf-8 -*-
 
-;; Copyright (C) 2011-2023 Donald Ephraim Curtis
-;; Copyright (C) 2012-2023 Steve Purcell
-;; Copyright (C) 2018-2023 Jonas Bernoulli
+;; Copyright (C) 2011-2024 Donald Ephraim Curtis
+;; Copyright (C) 2012-2024 Steve Purcell
+;; Copyright (C) 2018-2024 Jonas Bernoulli
 ;; Copyright (C) 2021-2023 Free Software Foundation, Inc
 ;; Copyright (C) 2009 Phil Hagelberg
 

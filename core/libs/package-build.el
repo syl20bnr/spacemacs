@@ -1,8 +1,8 @@
 ;;; package-build.el --- Tools for assembling a package archive  -*- lexical-binding:t; coding:utf-8 -*-
 
-;; Copyright (C) 2011-2023 Donald Ephraim Curtis
-;; Copyright (C) 2012-2023 Steve Purcell
-;; Copyright (C) 2016-2023 Jonas Bernoulli
+;; Copyright (C) 2011-2024 Donald Ephraim Curtis
+;; Copyright (C) 2012-2024 Steve Purcell
+;; Copyright (C) 2016-2024 Jonas Bernoulli
 ;; Copyright (C) 2009 Phil Hagelberg
 
 ;; Author: Donald Ephraim Curtis <dcurtis@milkbox.net>
@@ -13,7 +13,7 @@
 ;; Keywords: maint tools
 
 ;; Package-Version: 4.0.0.50-git
-;; Package-Requires: ((emacs "27.1"))
+;; Package-Requires: ((emacs "26.1") (compat "27.1"))
 
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -42,6 +42,7 @@
 ;;; Code:
 
 (require 'cl-lib)
+(require 'compat nil t)
 (require 'pcase)
 (require 'subr-x)
 
