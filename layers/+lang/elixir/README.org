@@ -155,16 +155,16 @@ The =lsp= backend uses [[https://github.com/JakeBecker/elixir-ls][elixir-ls]] as
 Clone the project to your system and follow the building instructions [[https://github.com/JakeBecker/elixir-ls#building-and-running][here]].
 Or the lsp-elixir [[https://github.com/elixir-lsp/elixir-ls][fork]], which is actively maintained as well.
 A third choice would be [[https://github.com/lexical-lsp/lexical][lexical]] which is said to be working especially well in bigger projects.
-    For all of these some config must be applied in your dotfile.
+ For all of these some config must be applied in your dotfile.
 
-    For =elixir-ls= this would be:
+For =elixir-ls= this would be:
 
 #+BEGIN_SRC elisp
   (elixir :variables elixir-backend 'lsp
                      elixir-ls-path "*path to folder*/elixir-ls/release")
 #+END_SRC
 
-    For =lexical= this would be:
+For =lexical= this would be:
 
 #+BEGIN_SRC elisp
   (elixir :variables elixir-backend 'lsp

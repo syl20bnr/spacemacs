@@ -38,9 +38,9 @@ This layer adds support for the =Mu4e= email client.
 - Notifications using [[https://github.com/iqbalansari/mu4e-alert][mu4e-alert]].
 
 * Install
-  In order to use this layer you must install two applications on your system,
-  =mu= and =mu4e=. On many Linux distributions they are bundled together,
-  but make sure you have both before proceeding.
+In order to use this layer you must install two applications on your system,
+=mu= and =mu4e=. On many Linux distributions they are bundled together,
+but make sure you have both before proceeding.
 
 If you're on macOS and install =mu= using Homebrew, you must specify the
 location of your Emacs binary at install time using the EMACS environment
