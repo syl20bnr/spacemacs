@@ -152,22 +152,24 @@ Then run in your shell:
 
 ** Language server protocol
 The =lsp= backend uses [[https://github.com/JakeBecker/elixir-ls][elixir-ls]] as its language server implementation
-Clone the project to your system and follow the building instructions [[https://github.com/JakeBecker/elixir-ls#building-and-running][here]]
-Or the lsp-elixir [[https://github.com/elixir-lsp/elixir-ls][fork]], which is actively maintained as well
+Clone the project to your system and follow the building instructions [[https://github.com/JakeBecker/elixir-ls#building-and-running][here]].
+Or the lsp-elixir [[https://github.com/elixir-lsp/elixir-ls][fork]], which is actively maintained as well.
+A third choice would be [[https://github.com/lexical-lsp/lexical][lexical]] which is said to be working especially well in bigger projects.
+    For all of these some config must be applied in your dotfile.
 
-set the =elixir-ls-path= to the release folder of =elixir-ls= in .spacemacs =dotspacemacs/user-config=
-
-#+BEGIN_SRC elisp
-  (setq elixir-ls-path "*path to folder*/elixir-ls/release")
-#+END_SRC
-
-or in the layer definition
+    For =elixir-ls= this would be:
 
 #+BEGIN_SRC elisp
-  (elixir :variables elixir-backend 'lsp elixir-ls-path "*path to folder*/elixir-ls/release")
+  (elixir :variables elixir-backend 'lsp
+                     elixir-ls-path "*path to folder*/elixir-ls/release")
 #+END_SRC
 
-by default =elixir-ls-path= is equal to ="~/elixir-ls/release"=
+    For =lexical= this would be:
+
+#+BEGIN_SRC elisp
+  (elixir :variables elixir-backend 'lsp
+                     lsp-elixir-server-command "*path to folder*/lexical/bin/start_lexical.sh")
+#+END_SRC
 
 ** Debugger
 For =lsp= backend only
