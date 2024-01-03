@@ -251,6 +251,8 @@
         dotspacemacs-display-default-layout))
 
 
+(defun spacemacs-layouts/init-counsel-projectile ()
+  (use-package counsel-projectile :defer t))
 
 (defun spacemacs-layouts/post-init-counsel-projectile ()
   (spacemacs/set-leader-keys "pl" 'spacemacs/ivy-persp-switch-project)
