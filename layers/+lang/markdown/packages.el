@@ -29,7 +29,6 @@
     gh-md
     markdown-mode
     markdown-toc
-    mmm-mode
     smartparens
     valign
     (vmd-mode :toggle (eq 'vmd markdown-live-preview-engine))))
@@ -194,15 +193,6 @@
     (dolist (mode markdown--key-bindings-modes)
       (spacemacs/set-leader-keys-for-major-mode mode
         "it" 'markdown-toc-generate-toc))))
-
-(defun markdown/init-mmm-mode ()
-  (use-package mmm-mode
-    :commands mmm-mode
-    :init (add-hook 'markdown-mode-hook 'spacemacs/activate-mmm-mode)
-    ;; Automatically add mmm class for languages
-    :config
-    (mapc 'markdown/mmm-auto-class markdown-mmm-auto-modes)
-    (spacemacs|hide-lighter mmm-mode)))
 
 (defun markdown/init-vmd-mode ()
   (use-package vmd-mode

@@ -21,11 +21,6 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs/activate-mmm-mode ()
-  (unless (bound-and-true-p git-commit-mode)
-    ;; Enable `mmm-mode'.
-    (mmm-mode 1)))
-
 ;; Insert key for org-mode and markdown a la C-h k
 ;; Based on SE https://emacs.stackexchange.com/a/2208
 (defun spacemacs/insert-keybinding-markdown (key)
@@ -38,21 +33,6 @@ Will work on both org-mode and any mode that accepts plain html."
          (format tag (help-key-description key nil)))
       (insert (format tag ""))
       (forward-char -6))))
-
-;; from Jason Blevins http://jblevins.org/log/mmm
-(defun markdown/mmm-auto-class (lang)
-  (let* ((l (if (listp lang) (car lang) lang))
-         (s (if (listp lang) (cadr lang) lang))
-         (class (intern (concat "markdown-" l)))
-         (submode (intern (concat s "-mode")))
-         (front (concat "^```" l "[\n\r]+"))
-         (back "^```$"))
-    (mmm-add-classes (list (list class
-                                 :submode submode
-                                 :front front
-                                 :back back)))
-    (dolist (mode markdown--key-bindings-modes)
-      (mmm-add-mode-ext-class mode nil class))))
 
 (defun spacemacs//markdown-hjkl-promotion-demotion (style)
   "Set promotion/demotiion on 'hjkl' for the given editing STYLE."
