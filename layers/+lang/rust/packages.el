@@ -36,8 +36,7 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'rustic-mode))
 
 (defun rust/pre-init-dap-mode ()
-  (when (and (boundp 'rust-backend)
-             (eq rust-backend 'lsp))
+  (when (eq rust-backend 'lsp)
     (add-to-list 'spacemacs--dap-supported-modes 'rustic-mode)
     (add-hook 'rustic-mode-local-vars-hook #'spacemacs//rust-setup-dap)))
 
@@ -47,42 +46,43 @@
 (defun rust/init-rustic ()
   (use-package rustic
     :defer t
-    :after (lsp-mode flycheck)
     :mode ("\\.rs\\'" . rustic-mode)
     :init
-    (progn
-      (add-hook 'rustic-mode-hook #'spacemacs//rust-setup-backend)
+    (add-hook 'rustic-mode-hook #'spacemacs//rust-setup-backend)
 
-      ;; (push 'rustic-clippy flycheck-checkers)
+    (spacemacs/declare-prefix-for-mode 'rustic-mode "mc" "cargo")
+    (spacemacs/declare-prefix-for-mode 'rustic-mode "mt" "tests")
+    (spacemacs/declare-prefix-for-mode 'rustic-mode "mg" "goto")
+    (spacemacs/declare-prefix-for-mode 'rustic-mode "mh" "help")
+    (spacemacs/declare-prefix-for-mode 'rustic-mode "m=" "format")
+    (spacemacs/set-leader-keys-for-major-mode 'rustic-mode
+      "c." 'rustic-cargo-run-rerun
+      "c=" 'rustic-cargo-fmt
+      "ca" 'rustic-cargo-add
+      "cc" 'rustic-cargo-build
+      "cC" 'rustic-cargo-clean
+      "cd" 'rustic-cargo-doc
+      "cs" 'rustic-doc-search
+      "ce" 'rustic-cargo-bench
+      "ci" 'rustic-cargo-init
+      "cl" 'rustic-cargo-clippy
+      "cf" 'rustic-cargo-clippy-fix
+      "cn" 'rustic-cargo-new
+      "co" 'rustic-cargo-outdated
+      "cr" 'rustic-cargo-rm
+      "cu" 'rustic-cargo-update
+      "cU" 'rustic-cargo-upgrade
+      "cv" 'rustic-cargo-check
+      "cx" 'rustic-cargo-run
+      "ta" 'rustic-cargo-test
+      "tt" 'rustic-cargo-current-test)
 
-      (spacemacs/declare-prefix-for-mode 'rustic-mode "mc" "cargo")
-      (spacemacs/declare-prefix-for-mode 'rustic-mode "mt" "tests")
-      (spacemacs/declare-prefix-for-mode 'rustic-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'rustic-mode "mh" "help")
-      (spacemacs/declare-prefix-for-mode 'rustic-mode "m=" "format")
+    (with-eval-after-load 'flycheck
+      (spacemacs/enable-flycheck 'rustic-mode)
+      (push 'rustic-clippy flycheck-checkers))
+
+    (with-eval-after-load 'lsp-mode
       (spacemacs/set-leader-keys-for-major-mode 'rustic-mode
-        ;; Deactivated for now see https://github.com/syl20bnr/spacemacs/issues/16203 for details
-        ;; "c." 'spacemacs/rustic-cargo-repeat
-        "c=" 'rustic-cargo-fmt
-        "ca" 'rustic-cargo-add
-        "cc" 'rustic-cargo-build
-        "cC" 'rustic-cargo-clean
-        "cd" 'rustic-cargo-doc
-        "cs" 'rustic-cargo-doc-search
-        "ce" 'rustic-cargo-bench
-        "ci" 'rustic-cargo-init
-        "cl" 'rustic-cargo-clippy
-        "cf" 'rustic-cargo-clippy-fix
-        "cn" 'rustic-cargo-new
-        "co" 'rustic-cargo-outdated
-        "cr" 'spacemacs/rustic-cargo-rm
-        "cu" 'rustic-cargo-update
-        "cU" 'rustic-cargo-upgrade
-        "cv" 'rustic-cargo-check
-        "cx" 'rustic-cargo-run
-        "ta" 'rustic-cargo-test
-        "tt" 'rustic-cargo-current-test
-
         "=j" 'lsp-rust-analyzer-join-lines
         "==" 'lsp-format-buffer
         "Ti" 'lsp-inlay-hints-mode
@@ -96,9 +96,6 @@
 
         "," 'lsp-rust-analyzer-rerun
         "."  'lsp-rust-analyzer-run))))
-
-(defun rust/post-init-rustic ()
-  (spacemacs/enable-flycheck 'rustic-mode))
 
 (defun rust/post-init-smartparens ()
   (with-eval-after-load 'smartparens

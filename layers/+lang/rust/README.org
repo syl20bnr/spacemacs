@@ -12,7 +12,7 @@
   - [[#lsp][LSP]]
     - [[#autocompletion][Autocompletion]]
     - [[#debugger-dap-integration][Debugger (dap integration)]]
-    - [[#automatically-reload-workspace][Automatically Reload Workspace]]
+    - [[#reloading-workspace][Reloading Workspace]]
   - [[#cargo][Cargo]]
     - [[#cargo-edit][cargo-edit]]
     - [[#cargo-outdated][cargo-outdated]]
@@ -45,20 +45,14 @@ To enable auto-completion, ensure that the =auto-completion= layer is enabled.
 *** Debugger (dap integration)
 To install the debug adapter you may run =M-x dap-gdb-lldb-setup= when you are on Linux or download it manually from [[https://marketplace.visualstudio.com/items?itemName=webfreak.debug][Native Debug]] and adjust =dap-gdb-lldb-path=.
 
-*** Automatically Reload Workspace
-When the LSP server is =rust-analyzer=, it may needs to reload the workspace to pickup changes made in =Cargo.toml=.
-You can call =spacemacs/lsp-rust-analyzer-reload-workspace=, which would be faster than restarting the LSP backend.
+*** Reloading Workspace
+By default, rust-analyzer will automatically reload the workspace
+after you make changes to =Cargo.toml= (such as adding dependencies).
 
-You can also set =cargo-process-reload-on-modify= to =t=, then it will automatically reload the workspace after
-one of the following is run:
-- =rustic-cargo-add=
-- =rustic-cargo-rm=
-- =rustic-cargo-upgrade=
-
-#+BEGIN_SRC elisp
-  (setq-default dotspacemacs-configuration-layers
-                 '(lsp :variables cargo-process-reload-on-modify t))
-#+END_SRC
+However, if =lsp-rust-analyzer-cargo-auto-reload= is set to nil, you
+will need to reload the workspace manually for the LSP to notice those
+changes.  You can call =spacemacs/lsp-rust-analyzer-reload-workspace=,
+which would be faster than restarting the LSP backend.
 
 ** Cargo
 [[http://doc.crates.io/index.html][Cargo]] is a project management command line tool for Rust. Installation
@@ -100,6 +94,7 @@ To enable automatic buffer formatting on save, set the variable =rustic-format-o
 |-------------+--------------------------------------------------------|
 | ~SPC m = =~ | reformat the buffer                                    |
 | ~SPC m b R~ | reload Rust-Analyzer workspace                         |
+| ~SPC m c .~ | rerun the default binary with the same arguments       |
 | ~SPC m c =~ | format all project files with rustfmt                  |
 | ~SPC m c a~ | add a new dependency with cargo-edit                   |
 | ~SPC m c c~ | compile project                                        |
