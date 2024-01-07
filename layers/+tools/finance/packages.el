@@ -88,4 +88,6 @@
       :mode ledger-reconcile-mode)
     (evilified-state-evilify-map ledger-report-mode-map
       :eval-after-load ledger-report
-      :mode ledger-report-mode)))
+      :mode ledger-report-mode)
+    (define-advice ledger-add-transaction (:before (&rest _) add-evil-jump)
+      (evil-set-jump))))
