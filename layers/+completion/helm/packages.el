@@ -447,8 +447,8 @@
       "ss"    'helm-swoop
       "sS"    'spacemacs/helm-swoop-region-or-symbol
       "s C-s" 'helm-multi-swoop-all)
-    (defadvice helm-swoop (before add-evil-jump activate)
-      (evil-set-jump))))
+
+    (evil-add-command-properties 'helm-swoop :jump t)))
 
 (defun helm/init-helm-themes ()
   (use-package helm-themes
