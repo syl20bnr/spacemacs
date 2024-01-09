@@ -19,11 +19,13 @@ Adds support for the [[http://www.smlnj.org][SML]] programming language to Space
 - Syntax highlighting
 - Integration of the =SML Repl= into Emacs
 - Basic completion of SML forms via =sml-electric-space=
+- Basic buffer formatting with =smlfmt=
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+- To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =sml= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+- (Optional) To add support for formatting, [[https://github.com/shwestrick/smlfmt][Install smlfmt.]]
 
 * Key bindings
 ** Form Completion
@@ -32,6 +34,7 @@ file.
 |-------------+-------------------------------------------------------------------------------------------|
 | ~M-SPC~     | Inserts a space and completes the form before the cursor.                                 |
 | ~\vert{}~   | Inserts a pipe and adds a double arrow or copies the function name. Generally just works. |
+| ~SPC m s =~ | Format the current buffer using 'smlfmt'                                                  |
 
 ** REPL
 
