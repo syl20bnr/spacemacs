@@ -2338,7 +2338,7 @@ Windows manipulation commands (start with ~w~):
 | ~SPC w c C~            | toggle visual distraction free mode                                         |
 | ~SPC w c .~            | center buffer and enable centering transient state                          |
 | ~SPC w d~              | delete a window                                                             |
-| ~SPC u SPC w d~        | delete a window and its current buffer (does not delete the file)           |
+| ~NUM SPC w d~          | delete window number NUM                                                    |
 | ~SPC w D~              | delete another window using [[https://github.com/abo-abo/ace-window][ace-window]]                                      |
 | ~SPC u SPC w D~        | delete another window and its current buffer using [[https://github.com/abo-abo/ace-window][ace-window]]               |
 | ~SPC w t~              | toggle window dedication (dedicated window cannot be reused by a mode)      |
@@ -2368,6 +2368,7 @@ Windows manipulation commands (start with ~w~):
 | ~SPC w w~              | cycle and focus between windows                                             |
 | ~SPC w W~              | select window using [[https://github.com/abo-abo/ace-window][ace-window]]                                              |
 | ~SPC w x~              | delete a window and its current buffer (does not delete the file)           |
+| ~NUM SPC w x~          | delete window number NUM and its current buffer (does not delete the file)  |
 | ~SPC w [~              | shrink window horizontally (enter transient state)                          |
 | ~SPC w ]~              | enlarge window horizontally (enter transient state)                         |
 | ~SPC w {~              | shrink window vertically (enter transient state)                            |

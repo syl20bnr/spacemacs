@@ -630,13 +630,40 @@ FILENAME is deleted using `spacemacs/delete-file' function.."
       (buffer-disable-undo)
       (fundamental-mode))))
 
-(defun spacemacs/delete-window (&optional arg)
+(defun spacemacs/delete-window (&optional winum)
   "Delete the current window.
-If the universal prefix argument is used then kill the buffer too."
+If numerical prefix WINUM, kill window number ARG."
   (interactive "P")
-  (if (equal '(4) arg)
-      (kill-buffer-and-window)
-    (delete-window)))
+  (when (and winum (not (integerp winum)))
+    (user-error "Prefix WINUM must be an integer or nil"))
+  (delete-window (when winum (winum-get-window-by-number winum))))
+
+;; Adapted from kill-buffer-and-window
+(defun spacemacs/kill-buffer-and-window (&optional winum)
+  "Kill the current buffer and delete the selected window.
+If numerical prefix WINUM, kill window number ARG and its current
+buffer."
+  (interactive "P")
+  (when (and winum (not (integerp winum)))
+      (user-error "Prefix WINUM must be an integer or nil"))
+  (let* ((window-to-delete (if winum
+                               (winum-get-window-by-number winum)
+                             (selected-window)))
+	 (buffer-to-kill (window-buffer window-to-delete))
+	 (delete-window-hook (lambda () (ignore-errors (delete-window)))))
+    (unwind-protect
+	(with-selected-window window-to-delete
+	  (add-hook 'kill-buffer-hook delete-window-hook t t)
+	  (if (kill-buffer (current-buffer))
+	      ;; If `delete-window' failed before, we rerun it to regenerate
+	      ;; the error so it can be seen in the echo area.
+	      (when (eq (selected-window) window-to-delete)
+		(delete-window))))
+      ;; If the buffer is not dead for some reason (probably because
+      ;; of a `quit' signal), remove the hook again.
+      (ignore-errors
+        (with-current-buffer buffer-to-kill
+	  (remove-hook 'kill-buffer-hook delete-window-hook t))))))
 
 ;; our own implementation of kill-this-buffer from menu-bar.el
 (defun spacemacs/kill-this-buffer (&optional arg)

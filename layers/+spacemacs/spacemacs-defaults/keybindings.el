@@ -261,7 +261,7 @@
    ("R" spacemacs/safe-revert-buffer "Revert buffer...")
    ("s" spacemacs/switch-to-scratch-buffer "Scratch buffer")
    ("u" spacemacs/reopen-killed-buffer "Reopen last killed buffer")
-   ("x" kill-buffer-and-window "Kill buffer and close window")
+   ("x" spacemacs/kill-buffer-and-window "Kill buffer and close window")
    ("Y" spacemacs/copy-whole-buffer-to-clipboard "Copy buffer")
    ("w" read-only-mode "Toggle read-only"))))
 ;; Cycling settings -----------------------------------------------------------
@@ -685,7 +685,7 @@ respond to this toggle."
   "wv"  'split-window-right
   "wV"  'split-window-right-and-focus
   "ww"  'other-window
-  "wx"  'kill-buffer-and-window
+  "wx"  'spacemacs/kill-buffer-and-window
   "w/"  'split-window-right
   "w="  'balance-windows-area
   "w+"  'spacemacs/window-layout-toggle
