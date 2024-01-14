@@ -147,7 +147,7 @@ BHW-THINKPAD is my laptop. localhost is my rooted termux phone."
      ;; (latex :variables
      ;;        latex-build-command "LatexMk")
      (mu4e :variables
-           mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e"
+           mu4e-installation-path "/usr/share/emacs/site-lisp/elpa/mu4e-1.10.8"
            :packages (not
                       mu4e-maildirs-extension
                       mu4e-alert))
@@ -1128,14 +1128,10 @@ package is loaded, you should place your code here."
   ;; ***  Emacs Jupyter Config
   ;;-------------------------------------------------------------------------
   
-  ;; Changes the dired buffer to display less details.
-  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode)))
-  (global-auto-revert-mode t)
   (setf dired-omit-mode t
-        global-auto-revert-non-file-buffers t
-        auto-revert-verbose nil
         ;; Stop asking to quit dired buffers of deleted files
         dired-clean-up-buffers-too nil)
+  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode)))
   ;; Rebinds "s" from "hydra-dired-quick-sort/body" to "avy-goto-word-or-subword-1"
   (with-eval-after-load "dired"
     (evil-define-key 'normal dired-mode-map (kbd "s") #'avy-goto-word-or-subword-1)
@@ -2643,6 +2639,8 @@ package is loaded, you should place your code here."
   ;; moves away from the math mode dollar signs. Automatically toggle org-mode
   ;; latex fragment previews as the cursor enters and exits them
   (add-hook 'org-mode-hook 'org-fragtog-mode)
+  (require 'org-ref)
+  (require 'org-ref-helm)
   (defun my/org-ref-open-pdf-at-point ()
     "Open the pdf for bibtex key under point if it exists."
     (interactive)
@@ -2692,7 +2690,7 @@ package is loaded, you should place your code here."
           "~/project-jerome/000-generalities-information-computers/040-special-topics"
           "~/project-jerome/000-generalities-information-computers/050-general-serials-indexes"
           "~/project-jerome/000-generalities-information-computers/060-general-organizations-museums"
-          "~/project-jerome/000-generalities-information-computers/070-news-media-jounalism-publishing"
+          "~/project-jerome/000-generalities-information-computers/070-news-media-journalism-publishing"
           "~/project-jerome/000-generalities-information-computers/080-general-collections"
           "~/project-jerome/000-generalities-information-computers/090-manuscripts-rare-books"
           "~/project-jerome/100-philosphy-psychology"
@@ -2720,7 +2718,7 @@ package is loaded, you should place your code here."
           "~/project-jerome/200-religion/280-christian-denominations-sects"
           "~/project-jerome/200-religion/290-other-comparative-religions"
           "~/project-jerome/300-social-sciences"
-          "~/project-jerome/300-social-sciences/310-general-statisticnbox.cs"
+          "~/project-jerome/300-social-sciences/310-general-statistics"
           "~/project-jerome/300-social-sciences/320-political-science"
           "~/project-jerome/300-social-sciences/330-economics"
           "~/project-jerome/300-social-sciences/340-law"
@@ -2788,8 +2786,14 @@ package is loaded, you should place your code here."
           "~/project-jerome/900-history-geography-biography/960-general-history-of-africa"
           "~/project-jerome/900-history-geography-biography/970-general-history-of-north-america"
           "~/project-jerome/900-history-geography-biography/980-general-history-of-south-america"
-          "~/project-jerome/900-history-geography-biography/990-general-history-of-other-areas"))
-  (with-system-name "BHW-THINKPAD"
+          "~/project-jerome/900-history-geography-biography/990-general-history-of-other-areas")
+        bibtex-completion-format-citation-functions
+        '((org-mode      . org-ref-helm-bibtex-insert-citation)
+          (latex-mode    . bibtex-completion-format-citation-cite)
+          (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
+          (default       . bibtex-completion-format-citation-default))
+        helm-source-bibtex org-ref-helm-source-bibtex)
+  (with-system-name "bhw-thinkpad"
     (defun mu4e-headers-mark-all-unread-read ()
       "Put a ! \(read) mark on all visible unread messages."
       (interactive)
@@ -2828,7 +2832,7 @@ package is loaded, you should place your code here."
           smtpmail-smtp-service 587
           message-sendmail-f-is-evil t
           mu4e-index-update-in-background t
-          mu4e-update-interval 300
+          mu4e-update-interval 1800
           mu4e-autorun-background-at-startup t
           mu4e-get-mail-command "mbsync -a"
           mu4e-hide-index-messages t
@@ -2837,7 +2841,7 @@ package is loaded, you should place your code here."
          ;; Instead emails will silently fail to send.
           mu4e-enable-async-operations nil
           mu4e-headers-show-threads t
-          mu4e-headers-skip-duplicates t
+          mu4e-search-skip-duplicates t
           ;; Multipart html/plaintext email default, if the html portion is larger
           ;; by a factor of 5, it is assumed the user wants to view html. This
           ;; sets the factor to the largest possible fixnum, for we prefer the
@@ -2995,18 +2999,11 @@ package is loaded, you should place your code here."
   ;; (setq shell-command-switch "-ic")
   ;; Default value was "-c"
   (setq shell-command-switch "-c")
-  ;; Try to find and set a font if one exists. Emacsclient -c being unable to find fonts is behaviour only seen with emacs-gtk29.0 and not emacs-pgtk29.0
-  (defun my/set-font ()
-    (cond
-     ((find-font (font-spec :family "Iosevka Term Slab"))
-      (set-face-attribute 'default nil
-                          :family "Iosevka Term Slab"
-                          :weight 'normal))))
-  (add-hook 'after-make-frame-functions
-            (defun my/set-new-frame-font (frame)
-              (with-selected-frame frame
-                (my/set-font))))
-  (my/set-font)
+  (setf auto-revert-interval 30)
+  (auto-revert-set-timer)
+  ;; https://github.com/syl20bnr/spacemacs/issues/11321
+  (spacemacs|do-after-display-system-init
+   (spacemacs/set-default-font dotspacemacs-default-font))
   ;; https://rufflewind.com/2014-07-20/pasting-unicode-in-emacs-on-windows
   ;; (set-selection-coding-system 'utf-16-le)
   ;; Based on https://stackoverflow.com/questions/12102554/emacs-skip-whitespace-kills

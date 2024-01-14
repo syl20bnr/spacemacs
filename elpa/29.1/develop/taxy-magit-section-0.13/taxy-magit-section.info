@@ -1,0 +1,201 @@
+This is README.info, produced by makeinfo version 6.7 from README.texi.
+
+INFO-DIR-SECTION Emacs
+START-INFO-DIR-ENTRY
+* Taxy Magit Section: (taxy-magit-section). Render Taxy structs with Magit Section.
+END-INFO-DIR-ENTRY
+
+
+File: README.info,  Node: Top,  Next: Installation,  Up: (dir)
+
+taxy-magit-section.el
+*********************
+
+https://elpa.gnu.org/packages/taxy-magit-section.svg
+(https://elpa.gnu.org/packages/taxy-magit-section.html)
+
+   This library renders Taxy (https://github.com/alphapapa/taxy.el)
+structs with magit-section (https://melpa.org/#/magit-section).
+
+* Menu:
+
+* Installation::
+* Changelog::
+* Development::
+* Credits::
+* License::
+
+— The Detailed Node Listing —
+
+Changelog
+
+* 0.13: 013.
+* 0.12.2: 0122.
+* 0.12.1: 0121.
+* 0.12: 012.
+* 0.11: 011.
+* 0.10: 010.
+* 0.9.1: 091.
+* 0.9: 09.
+
+
+
+File: README.info,  Node: Installation,  Next: Changelog,  Prev: Top,  Up: Top
+
+1 Installation
+**************
+
+‘taxy-magit-section’ is distributed in GNU ELPA (https://elpa.gnu.org/),
+which is available in Emacs by default.  Use ‘M-x package-install RET
+taxy-magit-section RET’, then ‘(require 'taxy-magit-section)’ in your
+Elisp project.
+
+
+File: README.info,  Node: Changelog,  Next: Development,  Prev: Installation,  Up: Top
+
+2 Changelog
+***********
+
+* Menu:
+
+* 0.13: 013.
+* 0.12.2: 0122.
+* 0.12.1: 0121.
+* 0.12: 012.
+* 0.11: 011.
+* 0.10: 010.
+* 0.9.1: 091.
+* 0.9: 09.
+
+
+File: README.info,  Node: 013,  Next: 0122,  Up: Changelog
+
+2.1 0.13
+========
+
+*Additions*
+
+   • Function ‘taxy-magit-section-insert’ takes a ‘:section-class’
+     argument, which is passed to ‘magit-insert-section’ as its ‘class’
+     argument.  This allows a custom subclass of ‘magit-section’ to be
+     passed, which, with a custom method on ‘magit-section-ident-value’,
+     allows section visibility to be cached concisely.
+
+
+File: README.info,  Node: 0122,  Next: 0121,  Prev: 013,  Up: Changelog
+
+2.2 0.12.2
+==========
+
+*Fixes*
+   • Header alignment.
+
+
+File: README.info,  Node: 0121,  Next: 012,  Prev: 0122,  Up: Changelog
+
+2.3 0.12.1
+==========
+
+*Fixes*
+   • Compilation error.
+
+
+File: README.info,  Node: 012,  Next: 011,  Prev: 0121,  Up: Changelog
+
+2.4 0.12
+========
+
+*Fixes*
+   • Section visibility caching.
+
+
+File: README.info,  Node: 011,  Next: 010,  Prev: 012,  Up: Changelog
+
+2.5 0.11
+========
+
+*Additions*
+   • Truncated column values receive help-echo tooltips so the full
+     value can be viewed.
+
+
+File: README.info,  Node: 010,  Next: 091,  Prev: 011,  Up: Changelog
+
+2.6 0.10
+========
+
+*Fixes*
+   • Require package ‘taxy’ in package headers.
+
+
+File: README.info,  Node: 091,  Next: 09,  Prev: 010,  Up: Changelog
+
+2.7 0.9.1
+=========
+
+*Fixes*
+   • ‘taxy-magit-section-insert’ appends heading faces, so users can
+     override (or merge with) the default.
+   • ‘taxy-magit-section-format-items’ uses columns’ headers as their
+     minimum width, which preserves each column’s width regardless of
+     items’ values.
+
+
+File: README.info,  Node: 09,  Prev: 091,  Up: Changelog
+
+2.8 0.9
+=======
+
+   • ‘taxy-magit-section’ moved to separate package.
+   • Better align columns whose values are images.
+
+
+File: README.info,  Node: Development,  Next: Credits,  Prev: Changelog,  Up: Top
+
+3 Development
+*************
+
+‘taxy-magit-section’ is developed in a branch of the main Taxy repo
+(https://github.com/alphapapa/taxy.el).
+
+
+File: README.info,  Node: Credits,  Next: License,  Prev: Development,  Up: Top
+
+4 Credits
+*********
+
+   • Thanks to Stefan Monnier for his feedback, and for maintaining GNU
+     ELPA.
+
+
+File: README.info,  Node: License,  Prev: Credits,  Up: Top
+
+5 License
+*********
+
+GPLv3
+
+
+
+Tag Table:
+Node: Top221
+Node: Installation813
+Node: Changelog1167
+Node: 0131401
+Node: 01221860
+Node: 01211992
+Node: 0122125
+Node: 0112262
+Node: 0102463
+Node: 0912618
+Node: 093010
+Node: Development3200
+Node: Credits3427
+Node: License3617
+
+End Tag Table
+
+
+Local Variables:
+coding: utf-8
+End:

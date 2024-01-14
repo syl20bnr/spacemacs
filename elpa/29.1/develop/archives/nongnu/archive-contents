@@ -221,13 +221,13 @@
 	    (:url . "https://elpa.nongnu.org/nongnu/cdlatex.html")
 	    (:commit . "33770dec73138909714711b05a63e79da5a19ccd"))])
  (cider .
-	[(1 12 0)
+	[(1 13 0)
 	 ((emacs
 	   (26))
 	  (clojure-mode
 	   (5 18 1))
 	  (parseedn
-	   (1 2 0))
+	   (1 2 1))
 	  (queue
 	   (0 2))
 	  (spinner
@@ -249,7 +249,7 @@
 	   ("Artur Malabarba" . "bruce.connor.am@gmail.com")
 	   ("Hugo Duncan" . "hugo@hugoduncan.org")
 	   ("Steve Purcell" . "steve@sanityinc.com"))
-	  (:commit . "2bafc1ec67308de500ce7ce8ac8f79eae449dee8"))])
+	  (:commit . "9f7e55b08af9256213d90ce2d6492e98db854f2a"))])
  (clojure-mode .
 	       [(5 18 1)
 		((emacs
@@ -442,7 +442,7 @@
 	 ("Akib Azmain Turja" . "akib@disroot.org"))
 	(:commit . "c91451f2d17453c19d3fa76faa4945cbe54e14ce"))])
  (edit-indirect .
-		[(0 1 11)
+		[(0 1 13)
 		 ((emacs
 		   (24 3)))
 		 "Edit regions in separate buffers" tar
@@ -450,7 +450,7 @@
 		  (:maintainer "Fanael Linithien" . "fanael4@gmail.com")
 		  (:authors
 		   ("Fanael Linithien" . "fanael4@gmail.com"))
-		  (:commit . "d0378d9747791fcd78370a0e52ec018d5970c482"))])
+		  (:commit . "82a28d8a85277cfe453af464603ea330eae41c05"))])
  (editorconfig .
 	       [(0 10 1)
 		((emacs
@@ -1857,7 +1857,7 @@
 	       ("David Christiansen" . "david@davidchristiansen.dk"))
 	      (:keywords "convenience"))])
  (racket-mode .
-	      [(1 0 20231224 162603)
+	      [(1 0 20240130 151349)
 	       ((emacs
 		 (25 1)))
 	       "Racket editing, REPL, and more" tar
@@ -2016,15 +2016,15 @@
 	      ("Chen Bin" . "chenbin.sh@gmail.com"))
 	     (:commit . "4e71f5b9199a0ad10017104a6b2bf5ef5f207dfc"))])
  (slime .
-	[(2 28)
-	 ((cl-lib
-	   (0 5))
+	[(2 29 1)
+	 ((emacs
+	   (24 3))
 	  (macrostep
 	   (0 9)))
 	 "Superior Lisp Interaction Mode for Emacs" tar
 	 ((:url . "https://github.com/slime/slime")
 	  (:keywords "languages" "lisp" "slime")
-	  (:commit . "28adf1dca0eea36d113d942bbf050fa92150981d"))])
+	  (:commit . "3c343756704bdde829d07cd758473ddfcef95898"))])
  (sly .
       [(1 0 43)
        ((emacs
@@ -2433,14 +2433,14 @@
 	      (:authors
 	       ("Le Wang")))])
  (xah-fly-keys .
-	       [(24 19 20240101152046)
+	       [(24 20 20240120121202)
 		((emacs
 		  (27)))
 		"ergonomic modal keybinding minor mode." tar
 		((:url . "http://xahlee.info/emacs/misc/xah-fly-keys.html")
 		 (:keywords "convenience" "vi" "vim" "ergoemacs" "keybinding")
 		 (:maintainer "Xah Lee" . "xah@xahlee.org")
-		 (:commit . "d74760a2553f2b2275495ae99659451156639deb"))])
+		 (:commit . "0e5aa069fe7fc32c40c5ebd7272e31d70ebeb4dc"))])
  (xkcd .
        [(1 1)
 	((json
