@@ -19,6 +19,12 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;;
+;; Parts of this file are used with permission under the terms of other
+;; GPL-compatible licenses. Specifically, the functions
+;; `spacemacs//ediff-in-comparison-buffer-p' and
+;; `spacemacs/ediff-balance-windows' are included under the terms of the MIT
+;; license: <https://github.com/roman/golden-ratio.el/blob/master/LICENSE>
 
 
 
@@ -288,9 +294,9 @@ in the window where the Symbol Highlight Transient State was closed."
         (let* ((symbol-at-point (symbol-overlay-get-symbol))
                (keyword (symbol-overlay-assoc symbol-at-point))
                (symbol (car keyword))
-	             (before (symbol-overlay-get-list -1 symbol))
-	             (after (symbol-overlay-get-list 1 symbol))
-	             (count (length before))
+                     (before (symbol-overlay-get-list -1 symbol))
+                     (after (symbol-overlay-get-list 1 symbol))
+                     (count (length before))
                (scope (format "%s"
                               (if (cadr keyword)
                                   "Scope"
@@ -319,6 +325,21 @@ in the window where the Symbol Highlight Transient State was closed."
   "Disable golden-ratio for guide-key popwin buffer."
   (or (spacemacs/no-golden-ratio-for-buffers " *guide-key*")
       (spacemacs/no-golden-ratio-for-buffers " *popwin-dummy*")))
+
+
+;; ediff
+
+(defun spacemacs//ediff-in-comparison-buffer-p (&optional buffer)
+  "Return non-nil if BUFFER is part of an ediff comparison."
+  (with-current-buffer (or buffer (current-buffer))
+    (and (boundp 'ediff-this-buffer-ediff-sessions)
+         ediff-this-buffer-ediff-sessions)))
+
+(defun spacemacs/ediff-balance-windows ()
+  "Balance the width of ediff windows."
+  (interactive)
+  (ediff-toggle-split)
+  (ediff-toggle-split))
 
 
 ;; smooth scrolling
