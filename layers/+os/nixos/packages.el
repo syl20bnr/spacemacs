@@ -55,7 +55,8 @@
     (add-hook 'nix-mode-hook #'spacemacs//nix-setup-backend)
     (add-to-list 'spacemacs-indent-sensitive-modes 'nix-mode)
     (spacemacs/set-leader-keys-for-major-mode 'nix-mode
-      "==" 'nix-format-buffer)
+      "==" 'nix-format-buffer
+      "f"  'nix-flake)
     (when nixos-format-on-save
       (add-hook 'before-save-hook 'nix-format-before-save))
     :config
