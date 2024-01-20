@@ -2966,6 +2966,14 @@ and they may also provide extensions; check the language server's website for
 details.
 ~M-x lsp-describe-session~ in a LSP buffer to list capabilities of the server.
 
+Warning:
+This layers main purpose is to turn Spacemacs into an IDE it will therefore also
+load the =syntax-checking= and =auto-completion= layers, this may activate additional packages
+like =flycheck= and =company= in your buffer.
+
+So if you want to use this layer but only part of the IDE features
+expect to do some manual configuring in your dotfile.
+
 Features:
 - Cross references (definitions, references, document symbol, workspace symbol
   search and others)
