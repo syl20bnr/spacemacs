@@ -4,7 +4,7 @@
 
 [[file:img/haskell.png]]
 
-* Table of Contents                     :TOC_5_gh:noexport:
+* Table of Contents                                       :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#quick-start-and-how-to-use-this-readme][Quick start (and how to use this README)]]
@@ -394,9 +394,9 @@ placing the following snippet in your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
   (when (configuration-layer/layer-used-p 'haskell)
-      (defadvice haskell-interactive-switch (after spacemacs/haskell-interactive-switch-advice activate)
-        (when (eq dotspacemacs-editing-style 'vim)
-          (call-interactively 'evil-insert))))
+    (define-advice haskell-interactive-switch (:after (&rest _) spacemacs/haskell-interactive-switch-advice)
+      (when (eq dotspacemacs-editing-style 'vim)
+        (call-interactively 'evil-insert))))
 #+END_SRC
 
 ** Indentation doesn't reset when pressing return after an empty line

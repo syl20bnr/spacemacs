@@ -1127,7 +1127,7 @@ such as is done by \\[spacemacs/prompt-kill-emacs].")
        (server-running-p)
        dotspacemacs-persistent-server))
 
-(defadvice kill-emacs (around spacemacs-really-exit activate)
+(define-advice kill-emacs (:around (f &rest args) spacemacs-really-exit)
   "Do not actually kill Emacs if a persistent server is running.
 
 If `dotspacemacs-persistent-server' is non-nil and the Emacs
@@ -1138,9 +1138,9 @@ Setting `spacemacs-really-kill-emacs' non-nil overrides this advice."
   (if (and (not spacemacs-really-kill-emacs)
            (spacemacs//persistent-server-running-p))
       (spacemacs/frame-killer)
-    ad-do-it))
+    (apply f args)))
 
-(defadvice save-buffers-kill-emacs (around spacemacs-really-exit activate)
+(define-advice save-buffers-kill-emacs (:around (f &rest args) spacemacs-really-exit)
   "Do not actually kill Emacs if a persistent server is running.
 
 If `dotspacemacs-persistent-server' is non-nil and the Emacs
@@ -1151,7 +1151,7 @@ Setting `spacemacs-really-kill-emacs' non-nil overrides this advice."
   (if (and (not spacemacs-really-kill-emacs)
            (spacemacs//persistent-server-running-p))
       (spacemacs/frame-killer)
-    ad-do-it))
+    (apply f args)))
 
 (defun spacemacs/save-buffers-kill-emacs ()
   "Save all changed buffers and exit Spacemacs"

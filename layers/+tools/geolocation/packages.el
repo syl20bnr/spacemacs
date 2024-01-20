@@ -45,7 +45,7 @@
     :init
     (add-hook 'osx-location-changed-hook 'spacemacs//osx-location-changed-rase)
     (osx-location-watch)
-    (defadvice rase-start (around test-calendar activate)
+    (define-advice rase-start (:before-while (&rest _) test-calendar)
       "Don't call `raise-start' if `calendar-latitude' or
 `calendar-longitude' are not bound yet, or still nil.
 
@@ -55,9 +55,8 @@ values, and will fail under such conditions, when calling
 
 Also, it allows users who enabled service such as `osx-location'
 to not have to set these variables manually when enabling this layer."
-      (if (and (bound-and-true-p calendar-longitude)
-               (bound-and-true-p calendar-latitude))
-          ad-do-it))
+      (and (bound-and-true-p calendar-longitude)
+           (bound-and-true-p calendar-latitude)))
     (rase-start t)))
 
 (defun geolocation/init-sunshine ()

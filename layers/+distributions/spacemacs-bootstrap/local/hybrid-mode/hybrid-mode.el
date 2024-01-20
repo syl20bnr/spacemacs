@@ -67,16 +67,16 @@ behavior (for instance it support C-r pasting)."
 (defvar hybrid-mode-default-state-backup evil-default-state
   "Backup of `evil-default-state'.")
 
-(defadvice evil-insert-state (around hybrid-insert-to-hybrid-state disable)
-  "Forces Hybrid state."
+(defun hybrid-insert-to-hybrid-state (f &optional arg)
+  "Advice around `evil-insert-state' to force Hybrid state."
   (evil-hybrid-state))
 
-(defadvice evil-evilified-state (around hybrid-evilified-to-hybrid-state disable)
-  "Forces Hybrid state."
-  (if (equal -1 (ad-get-arg 0))
-      ad-do-it
+(defun hybrid-evilified-to-hybrid-state (f &optional arg)
+  "Advice around `evil-evilified-state' to force Hybrid state."
+  (if (equal -1 arg)
+      (apply f arg)
     (if hybrid-style-enable-evilified-state
-        ad-do-it
+        (apply f arg)
       ;; seems better to set the emacs state instead of hybrid for evilified
       ;; buffers
       (evil-emacs-state))))
@@ -96,12 +96,10 @@ behavior (for instance it support C-r pasting)."
   (setq hybrid-mode-default-state-backup evil-default-state
         evil-default-state hybrid-style-default-state)
   ;; replace evil states by `hybrid state'
-  (ad-enable-advice 'evil-insert-state
-                    'around 'hybrid-insert-to-hybrid-state)
-  (ad-enable-advice 'evil-evilified-state
-                    'around 'hybrid-evilified-to-hybrid-state)
-  (ad-activate 'evil-insert-state)
-  (ad-activate 'evil-evilified-state)
+  (advice-add 'evil-insert-state
+              :around #'hybrid-insert-to-hybrid-state)
+  (advice-add 'evil-evilified-state
+              :around #'hybrid-evilified-to-hybrid-state)
   ;; key bindings hooks for dynamic switching of editing styles
   (run-hook-with-args 'spacemacs-editing-style-hook 'hybrid)
   ;; initiate `hybrid state'
@@ -111,12 +109,10 @@ behavior (for instance it support C-r pasting)."
   "Disable the hybrid editing style (reverting to 'vim style)."
   (setq evil-default-state hybrid-mode-default-state-backup)
   ;; restore evil states
-  (ad-disable-advice 'evil-insert-state
-                     'around 'hybrid-insert-to-hybrid-state)
-  (ad-disable-advice 'evil-evilified-state
-                     'around 'hybrid-evilified-to-hybrid-state)
-  (ad-activate 'evil-insert-state)
-  (ad-activate 'evil-evilified-state)
+  (advice-remove 'evil-insert-state
+                 #'hybrid-insert-to-hybrid-state)
+  (advice-remove 'evil-evilified-state
+                 #'hybrid-evilified-to-hybrid-state)
   ;; restore key bindings
   (run-hook-with-args 'spacemacs-editing-style-hook 'vim)
   ;; restore the states

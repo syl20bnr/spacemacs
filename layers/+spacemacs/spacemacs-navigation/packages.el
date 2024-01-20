@@ -188,15 +188,14 @@
       (kbd "C-k") 'doc-view-kill-proc
       (kbd "C-u") 'doc-view-scroll-down-or-previous-page)
     ;; fixed a weird issue where toggling display does not
-    ;; swtich to text mode
-    (defadvice doc-view-toggle-display
-        (around spacemacs/doc-view-toggle-display activate)
+    ;; switch to text mode
+    (define-advice doc-view-toggle-display (:around (f &rest args) spacemacs/doc-view-toggle-display)
       (if (eq major-mode 'doc-view-mode)
           (progn
-            ad-do-it
+            (apply f args)
             (text-mode)
             (doc-view-minor-mode))
-        ad-do-it))))
+        (apply f args)))))
 
 (defun spacemacs-navigation/init-view ()
   (use-package view

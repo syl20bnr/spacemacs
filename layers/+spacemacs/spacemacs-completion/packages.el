@@ -62,8 +62,8 @@
     (add-hook 'helm-find-files-after-init-hook
               'spacemacs//helm-find-files-enable-helm--in-fuzzy)
     ;; setup advices
-    (defadvice spacemacs/post-theme-init
-        (after spacemacs/helm-header-line-adv activate)
+    (define-advice spacemacs/post-theme-init
+        (:after (&rest _) spacemacs/helm-header-line-adv)
       "Update defaults for `helm' header line whenever a new theme is loaded"
       ;; TODO factorize face definition with those defined in config.el
       (setq helm-source-header-default-foreground
@@ -172,11 +172,11 @@
     (add-hook 'ido-minibuffer-setup-hook 'spacemacs//ido-minibuffer-setup)
     (add-hook 'ido-setup-hook 'spacemacs//ido-setup)
 
-    (defadvice ido-read-internal
-        (around ido-read-internal-with-minibuffer-other-window activate)
+    (define-advice ido-read-internal
+        (:around (f &rest args) ido-read-internal-with-minibuffer-other-window)
       (let* (ido-exit-minibuffer-target-window
              (this-buffer (current-buffer))
-             (result ad-do-it))
+             (result (apply f args)))
         (cond
          ((equal ido-exit-minibuffer-target-window 'other)
           (if (= 1 (count-windows))

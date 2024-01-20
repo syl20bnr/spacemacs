@@ -308,13 +308,13 @@
       (cond ((configuration-layer/layer-used-p 'helm) 'spacemacs/helm-find-files)
             ((configuration-layer/layer-used-p 'ivy) 'spacemacs/counsel-find-file))))
 
-  ;; support smart 1parens-strict-mode
+  ;; support smartparens-strict-mode
   (when (configuration-layer/package-used-p 'smartparens)
-    (defadvice evil-delete-backward-char-and-join
-        (around spacemacs/evil-delete-backward-char-and-join activate)
+    (define-advice evil-delete-backward-char-and-join
+        (:around (f &rest args) spacemacs/evil-delete-backward-char-and-join)
       (if (bound-and-true-p smartparens-strict-mode)
           (call-interactively 'sp-backward-delete-char)
-        ad-do-it)))
+        (apply f args))))
 
   ;; Define history commands for comint
   (when (eq dotspacemacs-editing-style 'vim)
