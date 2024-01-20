@@ -23,6 +23,7 @@ Adds support for the [[http://www.smlnj.org][SML]] programming language to Space
 
 * Install
 - To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+
 add =sml= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 - (Optional) To add support for formatting, [[https://github.com/shwestrick/smlfmt][Install smlfmt.]]

@@ -4,7 +4,7 @@
 
 [[file:img/haskell.png]]
 
-* Table of Contents                                       :TOC_5_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#quick-start-and-how-to-use-this-readme][Quick start (and how to use this README)]]

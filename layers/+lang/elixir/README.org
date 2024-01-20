@@ -167,8 +167,8 @@ For =elixir-ls= this would be:
 For =lexical= this would be:
 
 #+BEGIN_SRC elisp
-      (elixir :variables elixir-backend 'lsp
-                         lsp-elixir-server-command '("*path to folder*/lexical/bin/start_lexical.sh"))
+  (elixir :variables elixir-backend 'lsp
+                     lsp-elixir-server-command '("*path to folder*/lexical/bin/start_lexical.sh"))
 #+END_SRC
 
 ** Debugger

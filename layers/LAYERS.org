@@ -2329,6 +2329,7 @@ Features:
 - Syntax highlighting
 - Integration of the =SML Repl= into Emacs
 - Basic completion of SML forms via =sml-electric-space=
+- Basic buffer formatting with =smlfmt=
 
 **** Swift
 [[file:+lang/swift/README.org][+lang/swift/README.org]]
