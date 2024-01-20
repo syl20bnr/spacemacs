@@ -5,7 +5,7 @@
 ;; Author: Steve Purcell <steve@sanityinc.com>
 ;; URL: https://github.com/purcell/page-break-lines
 ;; Package-Version: 0.15
-;; Package-Requires: ((emacs "24.4"))
+;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: convenience, faces
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -125,17 +125,11 @@ its display table will be modified as necessary."
               (setq buffer-display-table (make-display-table)))
             (let ((default-height (face-attribute 'default :height nil 'default)))
               (set-face-attribute 'page-break-lines nil :height default-height)
-              (let* ((cwidth (char-width page-break-lines-char))
-                     (wwidth-pix (- (window-width nil t)
-                                    (if (and (bound-and-true-p display-line-numbers)
-                                             (fboundp 'line-number-display-width))
-                                        (line-number-display-width t)
-                                      0)))
-                     (width (- (/ wwidth-pix (frame-char-width) cwidth)
-                               (if (display-graphic-p) 0 1)))
-                     (width (if page-break-lines-max-width
-                                (min width page-break-lines-max-width)
-                              width))
+              (let* ((char-relative-width (if (fboundp 'string-pixel-width)
+                                              (/ (string-pixel-width (make-string 100 page-break-lines-char))
+                                                 (string-pixel-width (make-string 100 ?a)))
+                                            (char-width page-break-lines-char)))
+                     (width (floor (window-max-chars-per-line) char-relative-width))
                      (glyph (make-glyph-code page-break-lines-char 'page-break-lines))
                      (new-display-entry (vconcat (make-list width glyph))))
                 (unless (equal new-display-entry (elt buffer-display-table ?\^L))
