@@ -175,7 +175,7 @@
     ;; add search capability to expand-region
     (when (configuration-layer/package-used-p 'helm-ag)
       (define-advice er/prepare-for-more-expansions-internal (:around (f &rest args) helm-ag/prepare-for-more-expansions-internal)
-        (let* ((return-val (apply f args))
+        (let* ((return-value (apply f args))
                (new-msg (concat (car return-value)
                                 ", / to search in project, "
                                 "f to search in files, "
