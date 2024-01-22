@@ -969,6 +969,17 @@ Possible values:
     (defun my-delete-other-windows () (delete-other-windows))
     (setq spacemacs-window-split-delete-function 'my-delete-other-windows)")
 
+(defun spacemacs//window-split-eligible-buffers ()
+  "Return a list of buffers to display automatically when splitting windows.
+
+This excludes ephemeral buffers (those whose names begin with a
+space), unless they are visitin a file, just as `list-buffers' does."
+  (seq-remove
+   (lambda (b)
+     (and (string= (substring (buffer-name b) 0 1) " ")
+          (not (buffer-file-name b))))
+   (buffer-list)))
+
 (defun spacemacs/window-split-grid (&optional purge)
   "Set the layout to a 2x2 grid.
 
@@ -984,7 +995,7 @@ as a means to remove windows, regardless of the value in
         (delete-other-windows))
     (funcall spacemacs-window-split-delete-function))
   (if (spacemacs--window-split-splittable-windows)
-      (let* ((previous-files (buffer-list))
+      (let* ((previous-files (spacemacs//window-split-eligible-buffers))
              (second (split-window-below))
              (third (split-window-right))
              (fourth (split-window second nil 'right)))
@@ -1009,7 +1020,7 @@ as a means to remove windows, regardless of the value in
         (delete-other-windows))
     (funcall spacemacs-window-split-delete-function))
   (if (spacemacs--window-split-splittable-windows)
-      (let* ((previous-files (seq-filter #'buffer-file-name (buffer-list)))
+      (let* ((previous-files (spacemacs//window-split-eligible-buffers))
              (second (split-window-right))
              (third (split-window second nil 'right)))
         (set-window-buffer second (or (nth 1 previous-files) "*scratch*"))
