@@ -74,9 +74,9 @@ behavior (for instance it support C-r pasting)."
 (defun hybrid-evilified-to-hybrid-state (f &optional arg)
   "Advice around `evil-evilified-state' to force Hybrid state."
   (if (equal -1 arg)
-      (apply f arg)
+      (funcall f arg)
     (if hybrid-style-enable-evilified-state
-        (apply f arg)
+        (funcall f arg)
       ;; seems better to set the emacs state instead of hybrid for evilified
       ;; buffers
       (evil-emacs-state))))
