@@ -33,7 +33,6 @@
     (php-auto-yasnippets :location (recipe :fetcher github :repo "emacs-php/php-auto-yasnippets"))
     (php-extras :location (recipe :fetcher github :repo "arnested/php-extras") :toggle (not (eq php-backend 'lsp)))
     php-mode
-    (phpcbf :location (recipe :fetcher github :repo "nishimaki10/emacs-phpcbf"))
     phpunit
     (phpactor :toggle (not (eq php-backend 'lsp)))
     (company-phpactor :requires company :toggle (not (eq php-backend 'lsp)))
@@ -118,10 +117,6 @@
       "Ps"  #'phpactor-status
       "Pu"  #'phpactor-install-or-update)
     (setq-default phpactor-references-list-col1-width 72)))
-
-(defun php/init-phpcbf ()
-  (use-package phpcbf
-    :defer t))
 
 (defun php/init-phpunit ()
   (use-package phpunit
