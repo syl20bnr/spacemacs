@@ -31,6 +31,11 @@
         symon
         (vim-powerline :location (recipe :fetcher local))))
 
+(defun spacemacs-modeline/init-anzu ()
+  (use-package anzu
+    :defer t
+    :init (setq-default anzu-cons-mode-line-p nil)))
+
 (defun spacemacs-modeline/post-init-anzu ()
   (when (eq 'all-the-icons (spacemacs/get-mode-line-theme-name))
     (spaceline-all-the-icons--setup-anzu)))
