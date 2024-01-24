@@ -25,7 +25,8 @@
   '(
     company
     flycheck
-    flycheck-nim
+    (flycheck-nim :location (recipe :fetcher github
+                                    :repo "smile13241324/flycheck-nim"))
     nim-mode))
 
 (defun nim/post-init-company ()
