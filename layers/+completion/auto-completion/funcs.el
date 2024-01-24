@@ -373,6 +373,12 @@ MODE parameter must match the :modes values used in the call to
   (call-interactively 'aya-expand)
   (evil-insert-state))
 
+(defun spacemacs/auto-yasnippet-expand-from-history ()
+  "Call `yas-expand-from-history' and switch to `insert state'"
+  (interactive)
+  (call-interactively 'aya-expand-from-history)
+  (evil-insert-state))
+
 
 ;; Yasnippet and Smartparens
 
