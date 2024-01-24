@@ -278,6 +278,10 @@
       ("p" smerge-prev)
       ("j" evil-next-line)
       ("k" evil-previous-line)
+      ("<down>" evil-next-line)
+      ("<up>" evil-previous-line)
+      ("<next>" scroll-up-command)
+      ("<prior>" scroll-down-command)
       ;; merge action
       ("a" smerge-keep-all)
       ("b" smerge-keep-base)
