@@ -780,15 +780,10 @@ are caught and signaled to user in spacemacs buffer."
   (interactive)
   (dotspacemacs|call-func dotspacemacs/user-env "Calling dotfile user env..."))
 
-(defun dotspacemacs/go-to-function (func)
-  "Open the dotfile and goes to FUNC function."
-  (interactive)
-  (find-function func))
-
 (defun dotspacemacs/go-to-user-env ()
   "Go to the `dotspacemacs/user-env' function."
   (interactive)
-  (dotspacemacs/go-to-function 'dotspacemacs/user-env))
+  (find-function 'dotspacemacs/user-env))
 
 (defun dotspacemacs//check-layers-changed ()
   "Check if the value of `dotspacemacs-configuration-layers'
