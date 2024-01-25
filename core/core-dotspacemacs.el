@@ -1257,4 +1257,32 @@ Return non-nil if all the tests passed."
                          :initial-value t)
             (goto-char (point-min))))))))
 
+(define-advice en/disable-command (:around (orig-f &rest args) write-to-dotspacemacs-instead)
+  "Attempt to modify `dotspacemacs/user-config' rather than ~/.emacs.d/init.el."
+  (let ((orig-f-called))
+    (condition-case-unless-debug e
+        (let* ((location (find-function-noselect 'dotspacemacs/user-config 'lisp-only))
+               (buffer (car location))
+               (start (cdr location))
+               (user-init-file (buffer-file-name buffer)))
+          (with-current-buffer buffer
+            (save-excursion
+              (save-restriction
+                ;; Set `user-init-file' and narrow the buffer visiting that
+                ;; file, to trick en/disable-command into writing inside the
+                ;; body of `dotspacemacs/user-config' instead of
+                ;; ~/.emacs.d/init.el.
+                (goto-char start)
+                (forward-sexp)
+                (backward-char)
+                (narrow-to-region start (point))
+                (setq orig-f-called t)
+                (apply orig-f args)))))
+      (error
+       ;; If the error happened before we managed to call the advised function,
+       ;; just allow the original function to run and modify ~/.emacs.d/init.el,
+       ;; which is better than failing completely.
+       (unless orig-f-called
+         (apply orig-f args))))))
+
 (provide 'core-dotspacemacs)
