@@ -23,7 +23,7 @@
 
 (defconst auto-completion-packages
       '(
-        (auto-yasnippet :toggle (eq auto-completion-front-end 'company))
+        (auto-yasnippet)
         (auto-complete :toggle (not (eq auto-completion-front-end 'company)))
         (ac-ispell :toggle (not (eq auto-completion-front-end 'company)))
         (company :toggle (eq auto-completion-front-end 'company))
