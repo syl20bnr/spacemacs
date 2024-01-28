@@ -145,6 +145,9 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 - LSP code navigation / completion added via clangd or ccls
   (thanks to Cormac Cannon)
 - Removed cquery.
+***** D
+- Fixed layer crashing because of a deprecated function in flycheck-dmd-dub
+  (thanks to Alecu Ștefan-Iulian)
 ***** EPUB
 - Add ~J/K~ for scrolling down/up (thanks to Daniel Nicolai)
 ***** ESS

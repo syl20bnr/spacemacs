@@ -31,8 +31,8 @@
         flycheck
         (flycheck-dmd-dub :requires flycheck)
         ggtags
-        counsel-gtags
-        ))
+        counsel-gtags))
+
 
 (defun d/post-init-company ()
   ;; Need to convince company that this C-derived mode is a code mode.
@@ -59,7 +59,6 @@
 (defun d/init-flycheck-dmd-dub ()
   (use-package flycheck-dmd-dub :defer t
     :init
-    (add-hook 'd-mode-hook 'flycheck-dmd-dub-set-include-path)
     (add-hook 'd-mode-hook 'flycheck-dmd-dub-set-variables)))
 
 (defun d/post-init-ggtags ()
