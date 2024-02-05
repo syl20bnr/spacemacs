@@ -41,6 +41,8 @@
     (holy-mode :location (recipe :fetcher local) :step pre)
     (hybrid-mode :location (recipe :fetcher local) :step pre)
     (spacemacs-theme :location built-in)
+    (which-key-posframe :step pre :toggle (and (consp dotspacemacs-which-key-position)
+                                               (eq (car dotspacemacs-which-key-position) 'posframe)))
     dash))
 
 ;; bootstrap packages
@@ -576,10 +578,11 @@ Press \\[which-key-toggle-persistent] to hide."
 
   ;; disable special key handling for spacemacs, since it can be
   ;; disorienting if you don't understand it
-  (pcase dotspacemacs-which-key-position
-    ('right (which-key-setup-side-window-right))
-    ('bottom (which-key-setup-side-window-bottom))
-    ('right-then-bottom (which-key-setup-side-window-right-bottom)))
+  (when (symbolp dotspacemacs-which-key-position)
+    (pcase dotspacemacs-which-key-position
+      ('right (which-key-setup-side-window-right))
+      ('bottom (which-key-setup-side-window-bottom))
+      ('right-then-bottom (which-key-setup-side-window-right-bottom))))
 
   (which-key-mode)
   (spacemacs|diminish which-key-mode " Ⓚ" " K"))
@@ -643,3 +646,16 @@ Press \\[which-key-toggle-persistent] to hide."
 (defun spacemacs-bootstrap/init-dash ()
   (use-package dash
     :defer t))
+
+(defun spacemacs-bootstrap/init-which-key-posframe ()
+  (use-package which-key-posframe
+    :config
+    (setq which-key-posframe-parameters
+          '((left-fringe . 10)
+            (right-fringe . 10)
+            (internal-border-width . 10)  ;; expected to add padding but seems to have no effect
+            ))
+    (setq which-key-posframe-poshandler
+          (intern (format "posframe-poshandler-frame-%s"
+                          (cdr dotspacemacs-which-key-position))))
+    (which-key-posframe-mode)))
