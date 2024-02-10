@@ -154,7 +154,7 @@
     (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
       (concat prefix-char "s") #'lsp-ivy-workspace-symbol
       (concat prefix-char "S") #'lsp-ivy-global-workspace-symbol))
-   ((configuration-layer/package-usedp 'consult)
+   ((configuration-layer/package-usedp 'consult-lsp)
     (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
       (concat prefix-char "s") #'consult-lsp-symbols))
    (t (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
