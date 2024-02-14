@@ -80,7 +80,7 @@
     (spacemacs//latex-setup-pdf-tools)
 
     ;; Key bindings for plain TeX
-    (dolist (mode '(tex-mode latex-mode context-mode))
+    (dolist (mode '(tex-mode latex-mode context-mode TeX-mode LaTeX-mode ConTeXt-mode))
       (spacemacs/set-leader-keys-for-major-mode mode
         "\\"  'TeX-insert-macro                            ;; C-c C-m
         "-"   'TeX-recenter-output-buffer                  ;; C-c C-l
@@ -106,7 +106,7 @@
         "xfr" 'latex/font-serif)
       (spacemacs/declare-prefix-for-mode mode "mxf" "fonts")
       (unless (and (eq latex-backend 'lsp)
-                   (eq mode 'latex-mode))
+                   (or (eq mode 'latex-mode) (eq mode 'LaTeX-mode)))
         (spacemacs/declare-prefix-for-mode mode "mh" "help")
         (spacemacs/declare-prefix-for-mode mode "mx" "text/fonts")
         (spacemacs/set-leader-keys-for-major-mode mode
@@ -135,46 +135,47 @@
           "zz" 'TeX-fold-dwim)
         (spacemacs/declare-prefix-for-mode mode "mz" "fold")))
 
-    ;; Key bindings specific to LaTeX
-    (spacemacs/set-leader-keys-for-major-mode 'latex-mode
-      "*"   'LaTeX-mark-section      ;; C-c *
-      "."   'LaTeX-mark-environment  ;; C-c .
-      "ii"   'LaTeX-insert-item       ;; C-c C-j
-      "s"   'LaTeX-section           ;; C-c C-s
-      "fe"  'LaTeX-fill-environment  ;; C-c C-q C-e
-      "fp"  'LaTeX-fill-paragraph    ;; C-c C-q C-p
-      "fr"  'LaTeX-fill-region       ;; C-c C-q C-r
-      "fs"  'LaTeX-fill-section      ;; C-c C-q C-s
-      "pb"  'preview-buffer
-      "pc"  'preview-clearout
-      "pd"  'preview-document
-      "pe"  'preview-environment
-      "pf"  'preview-cache-preamble
-      "pp"  'preview-at-point
-      "pr"  'preview-region
-      "ps"  'preview-section
-      "xB"  'latex/font-medium
-      "xr"  'latex/font-clear
-      "xfa" 'latex/font-calligraphic
-      "xfn" 'latex/font-normal
-      "xfu" 'latex/font-upright)
+    (dolist (mode '(latex-mode LaTeX-mode))
+      ;; Key bindings specific to LaTeX
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "*"   'LaTeX-mark-section      ;; C-c *
+        "."   'LaTeX-mark-environment  ;; C-c .
+        "ii"   'LaTeX-insert-item       ;; C-c C-j
+        "s"   'LaTeX-section           ;; C-c C-s
+        "fe"  'LaTeX-fill-environment  ;; C-c C-q C-e
+        "fp"  'LaTeX-fill-paragraph    ;; C-c C-q C-p
+        "fr"  'LaTeX-fill-region       ;; C-c C-q C-r
+        "fs"  'LaTeX-fill-section      ;; C-c C-q C-s
+        "pb"  'preview-buffer
+        "pc"  'preview-clearout
+        "pd"  'preview-document
+        "pe"  'preview-environment
+        "pf"  'preview-cache-preamble
+        "pp"  'preview-at-point
+        "pr"  'preview-region
+        "ps"  'preview-section
+        "xB"  'latex/font-medium
+        "xr"  'latex/font-clear
+        "xfa" 'latex/font-calligraphic
+        "xfn" 'latex/font-normal
+        "xfu" 'latex/font-upright)
 
-    ;; Rebind latex keys to avoid conflicts with lsp mode
-    (if (eq latex-backend 'lsp)
-        (spacemacs/set-leader-keys-for-major-mode 'latex-mode
-          "au"   'TeX-command-run-all
-          "c"    'latex/build
-          "iC"   'org-ref-insert-cite-key
-          "ic"   'LaTeX-close-environment ;; C-c ]
-          "ie"   'LaTeX-environment)       ;; C-c C-e
-      (spacemacs/set-leader-keys-for-major-mode 'latex-mode
-        "c"   'LaTeX-close-environment ;; C-c ]
-        "e"   'LaTeX-environment))       ;; C-c C-e
+      ;; Rebind latex keys to avoid conflicts with lsp mode
+      (if (eq latex-backend 'lsp)
+          (spacemacs/set-leader-keys-for-major-mode mode
+            "au"   'TeX-command-run-all
+            "c"    'latex/build
+            "iC"   'org-ref-insert-cite-key
+            "ic"   'LaTeX-close-environment ;; C-c ]
+            "ie"   'LaTeX-environment)       ;; C-c C-e
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "c"   'LaTeX-close-environment ;; C-c ]
+          "e"   'LaTeX-environment))       ;; C-c C-e
 
-    ;; Declare prefixes
-    (spacemacs/declare-prefix-for-mode 'latex-mode "mi" "insert")
-    (spacemacs/declare-prefix-for-mode 'latex-mode "mp" "preview")
-    (spacemacs/declare-prefix-for-mode 'latex-mode "mf" "fill")))
+      ;; Declare prefixes
+      (spacemacs/declare-prefix-for-mode mode "mi" "insert")
+      (spacemacs/declare-prefix-for-mode mode "mp" "preview")
+      (spacemacs/declare-prefix-for-mode mode "mf" "fill"))))
 
 (defun latex/pre-init-auctex-latexmk ()
   (spacemacs|use-package-add-hook tex
