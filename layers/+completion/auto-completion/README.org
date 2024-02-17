@@ -265,4 +265,5 @@ Emacs style:
 |-------------+---------------------------------------------------------------------------|
 | ~SPC i S c~ | create a snippet from an active region                                    |
 | ~SPC i S e~ | Expand the snippet just created with ~SPC i y~                            |
+| ~SPC i S h~ | Expand a snippet from history which was previously created with ~SPC i y~ |
 | ~SPC i S w~ | Write the snippet inside =private/snippets= directory for future sessions |
