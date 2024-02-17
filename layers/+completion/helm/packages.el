@@ -312,7 +312,8 @@
   (use-package helm-descbinds
     :defer (spacemacs/defer)
     :init
-    (setq helm-descbinds-window-style 'split)
+    (setq helm-descbinds-window-style 'split
+          helm-descbinds-disable-which-key nil)
     (add-hook 'helm-mode-hook 'helm-descbinds-mode)
     (spacemacs/set-leader-keys "?" 'helm-descbinds)))
 
