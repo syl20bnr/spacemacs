@@ -40,7 +40,7 @@
 This is essentially a copy of `elpaa--make-badge'."
   (let* ((file (expand-file-name (concat name "-badge.svg") target-dir))
          (left (or archive (car package-build-badge-data) "myElpa"))
-         (right (url-hexify-string version))
+         (right version)
          (color (or color (cadr package-build-badge-data) "#ff491b"))
          (lw (package-build-badge--string-width left))
          (rw (package-build-badge--string-width right))

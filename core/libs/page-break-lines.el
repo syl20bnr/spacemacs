@@ -126,7 +126,7 @@ its display table will be modified as necessary."
             (let ((default-height (face-attribute 'default :height nil 'default)))
               (set-face-attribute 'page-break-lines nil :height default-height)
               (let* ((char-relative-width (if (fboundp 'string-pixel-width)
-                                              (/ (string-pixel-width (make-string 100 page-break-lines-char))
+                                              (/ (float (string-pixel-width (make-string 100 page-break-lines-char)))
                                                  (string-pixel-width (make-string 100 ?a)))
                                             (char-width page-break-lines-char)))
                      (width (floor (window-max-chars-per-line) char-relative-width))
