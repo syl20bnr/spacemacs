@@ -23,7 +23,7 @@
   - [[#default-shell][Default shell]]
   - [[#default-shell-position-width-and-height][Default shell position, width, and height]]
   - [[#external-terminal-emulator][External terminal emulator]]
-  - [[#set-shell-for-term-ansi-term-and-vterm][Set shell for term, ansi-term and vterm]]
+  - [[#set-shell-for-term-ansi-term-eat-and-vterm][Set shell for term, ansi-term, eat and vterm]]
   - [[#set-shell-for-multi-term][Set shell for multi-term]]
   - [[#width-of-the-shell-popup-buffers][Width of the shell popup buffers]]
   - [[#enable-em-smart-in-eshell][Enable em-smart in Eshell]]
@@ -156,7 +156,7 @@ By default =terminal-here= finds an appropriate default shell for you.
 If this does not work please check the package documentation how to
 change it.
 
-** Set shell for term, ansi-term and vterm
+** Set shell for term, ansi-term, eat and vterm
 The default shell can be set by setting the variable =shell-default-term-shell=.
 Default value is =/bin/bash=.
 
@@ -295,6 +295,7 @@ Some advanced configuration is setup for =eshell= in this layer:
 | ~SPC "​~       | Open external terminal emulator in current directory     |
 | ~SPC a t s e~ | Toggle pop-shell with =eshell=                           |
 | ~SPC a t s i~ | Toggle pop-shell with =shell=                            |
+| ~SPC a t s a~ | Toggle pop-shell with =eat=                              |
 | ~SPC a t s m~ | Toggle pop-shell with =multi-term=                       |
 | ~SPC a t s M~ | Toggle pop-shell with =multi-vterm=                      |
 | ~SPC a t s t~ | Toggle pop-shell with =ansi-term=                        |
