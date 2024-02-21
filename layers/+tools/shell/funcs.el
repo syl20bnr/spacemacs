@@ -39,7 +39,9 @@ view; to pop-up a full width buffer, use
 `spacemacs/projectile-shell-pop'."
   (interactive)
   (call-interactively
-   (or (and (eq shell-default-shell 'multi-term) #'projectile-multi-term-in-root)
+   (or (pcase shell-default-shell
+         ('multi-term #'projectile-multi-term-in-root)
+         ('eat #'eat-project))
        (intern-soft (format "projectile-run-%s" shell-default-shell))
        #'projectile-run-shell)))
 
