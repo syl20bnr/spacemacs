@@ -65,6 +65,24 @@ variable =ess-r-backend=:
 #+END_SRC
 
 * Options
+To automatically set the R working directory to the current file location, add 
+the following line to your ~dotspacemacs/user-config~:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default ess-ask-for-ess-directory nil)
+#+END_SRC
+
+For more advanced configuration, use ~ess-directory-function~ or ~ess-directory~.
+
+By default, ~#~ comments are right indented (40 spaces), ~##~ comments are
+indented at the current position, and ~###~ are left indented.
+To avoid this automatic indentation, add the following line to your
+~dotspacemacs/user-config~:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default ess-indent-with-fancy-comments nil)
+#+END_SRC
+
 Use a key binding to insert =<-=:
 
 #+BEGIN_SRC emacs-lisp
