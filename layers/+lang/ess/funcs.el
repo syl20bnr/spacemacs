@@ -22,7 +22,7 @@
 
 
 
-;; R
+;; R Setup
 
 (defun spacemacs//ess-may-setup-r-lsp ()
   "Conditionally setup LSP based on backend."
