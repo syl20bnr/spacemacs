@@ -150,6 +150,13 @@
     (evil-define-key 'normal dired-mode-map (kbd "N") 'evil-search-previous)))
 
 (defun spacemacs-defaults/init-dired-x ()
+  ;; dired-x used to be autoloaded with command dired-jump, which is the major
+  ;; entrance to dired in spacemacs. Now dired-jump was moved to dired.el so
+  ;; this autoloading is not needed for latest dired. But dired-x still provides
+  ;; additional key bindings such as "* ." to dired. To keep the old behavior,
+  ;; load dired-x after dired.
+  (with-eval-after-load 'dired
+        (require 'dired-x))
   (use-package dired-x
     :commands (dired-jump
                dired-jump-other-window
