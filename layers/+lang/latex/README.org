@@ -289,11 +289,16 @@ By default, the underlying latex code is echoed in the echo area.
 | ~SPC m f r~                         | fill LaTeX region                          |
 | ~SPC m f s~                         | fill LaTeX section                         |
 | ~SPC m p r~                         | preview region                             |
+| ~SPC m p R~                         | clear previews in region                   |
 | ~SPC m p b~                         | preview buffer                             |
+| ~SPC m p B~                         | clear previews in buffer                   |
 | ~SPC m p d~                         | preview document                           |
+| ~SPC m p D~                         | clear previews in document                 |
 | ~SPC m p e~                         | preview environment                        |
 | ~SPC m p s~                         | preview section                            |
+| ~SPC m p S~                         | clear previews in section                  |
 | ~SPC m p p~                         | preview at point                           |
+| ~SPC m p P~                         | clear preview at point                     |
 | ~SPC m p f~                         | cache preamble for preview                 |
 | ~SPC m p c~                         | clear previews                             |
 | ~SPC m v~                           | view                                       |
@@ -314,13 +319,19 @@ By default, the underlying latex code is echoed in the echo area.
 ** Folding
 Available only when =latex-enable-folding= is non nil.
 
-| Key binding | Description          |
-|-------------+----------------------|
-| ~SPC m z =~ | fold TeX math        |
-| ~SPC m z b~ | fold TeX buffer      |
-| ~SPC m z e~ | fold TeX environment |
-| ~SPC m z m~ | fold TeX macro       |
-| ~SPC m z r~ | fold TeX region      |
+| Key binding | Description                  |
+|-------------+------------------------------|
+| ~SPC m z =~ | fold TeX math                |
+| ~SPC m z b~ | fold TeX buffer              |
+| ~SPC m z B~ | clear TeX folds in buffer    |
+| ~SPC m z e~ | fold TeX environment         |
+| ~SPC m z p~ | fold TeX paragraph           |
+| ~SPC m z P~ | clear TeX folds in paragraph |
+| ~SPC m z m~ | fold TeX macro at point      |
+| ~SPC m z I~ | clear TeX fold at point      |
+| ~SPC m z r~ | fold TeX region              |
+| ~SPC m z R~ | clear TeX folds in region    |
+| ~SPC m z z~ | fold TeX dwim                |
 
 ** RefTeX
 
