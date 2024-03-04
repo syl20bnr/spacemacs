@@ -22,10 +22,7 @@
 
 (setq gpu-packages
       '(
-        (company-glsl :location (recipe
-                                 :fetcher github
-                                 :repo "Kaali/company-glsl")
-                      :requires company
+        (company-glsl :requires company
                       :toggle (executable-find "glslangValidator"))
         cuda-mode
         glsl-mode
