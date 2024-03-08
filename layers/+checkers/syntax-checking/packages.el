@@ -41,6 +41,7 @@
                    (global-flycheck-mode 1)))
       lazy-load-flycheck)
     (setq flycheck-standard-error-navigation syntax-checking-use-standard-error-navigation
+          flycheck-display-errors-delay (or syntax-checking-tooltips-delay 0.9)
           flycheck-global-modes nil)
     ;; key bindings
     (spacemacs/set-leader-keys
