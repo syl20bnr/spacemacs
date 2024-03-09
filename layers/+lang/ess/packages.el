@@ -101,7 +101,7 @@
       (unless (eq ess-r-backend 'lsp)
         (spacemacs/declare-prefix-for-mode 'ess-r-mode "mg" "goto")
         (define-key ess-doc-map "h" #'ess-display-help-on-object)))
-    (with-eval-after-load 'ess-inf-mode
+    (with-eval-after-load 'ess-inf
       (spacemacs/ess-bind-keys-for-inferior))
     :config
     (define-key ess-mode-map (kbd "<s-return>") #'ess-eval-line))

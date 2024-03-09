@@ -90,12 +90,13 @@
   (when ess-assign-key
     (define-key inferior-ess-r-mode-map ess-assign-key #'ess-insert-assign))
 
-  (spacemacs/declare-prefix-for-mode 'inferior-ess-mode "ms" "repl")
-  (spacemacs/declare-prefix-for-mode 'inferior-ess-mode "me" "eval")
-  (spacemacs/declare-prefix-for-mode 'inferior-ess-mode "mg" "xref")
-  (spacemacs/set-leader-keys-for-major-mode 'inferior-ess-mode
-    ","  #'ess-smart-comma
-    "ss" #'ess-switch-to-inferior-or-script-buffer))
+  (dolist (mode '(inferior-ess-mode inferior-ess-r-mode))
+    (spacemacs/declare-prefix-for-mode mode "ms" "repl")
+    (spacemacs/declare-prefix-for-mode mode "me" "eval")
+    (spacemacs/declare-prefix-for-mode mode "mg" "xref")
+    (spacemacs/set-leader-keys-for-major-mode mode
+      ","  #'ess-smart-comma
+      "ss" #'ess-switch-to-inferior-or-script-buffer)))
 
 
 ;; REPL
