@@ -102,6 +102,7 @@
           company-minimum-prefix-length auto-completion-minimum-prefix-length
           company-require-match nil
           company-dabbrev-ignore-case nil
+          company-dabbrev-other-buffers t
           company-dabbrev-downcase nil)
 
     (add-hook 'company-completion-started-hook 'company-turn-off-fci)
