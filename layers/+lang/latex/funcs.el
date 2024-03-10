@@ -62,7 +62,6 @@
         (progn
           (setf (alist-get 'output-pdf TeX-view-program-selection) '("PDF Tools"))
           (when latex-view-pdf-in-split-window
-            (require 'pdf-sync)
             (setq pdf-sync-forward-display-action t)))
       (spacemacs-buffer/warning "Latex Layer: latex-view-with-pdf-tools is non-nil but pdf layer is not installed, this setting will have no effect."))))
 
