@@ -632,7 +632,7 @@ refreshed during the current session."
 
 (defun configuration-layer//load ()
   "Actually load the layers.
-CHANGEDP non-nil means that layers list has changed since last dump
+
 To prevent package from being installed or uninstalled set the variable
 `spacemacs-sync-packages' to nil."
   ;; declare used layers then packages as soon as possible to resolve
