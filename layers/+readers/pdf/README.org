@@ -194,7 +194,6 @@ differently from the default Evil search. To go to the next match, use ~C-s~.
 | ~M-RET~       | Follow link and close outline window                  |
 | ~o~           | Go to pdf view window                                 |
 | ~``~          | Move to the heading correspondent to the current page |
-| ~''~          | Move to the heading correspondent to the current page |
 | ~f~           | Go to selected heading without leaving outline buffer |
 | ~F~           | Enable follow mode                                    |
 | ~q~           | Quit                                                  |
