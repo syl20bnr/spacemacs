@@ -895,7 +895,9 @@ behave more like Vim in a consistent manner, they use a special state called
 =C-d=, =C-e=, =C-o=, =C-i=, =C-u=, =C-y= and =C-z=. All other keys work as
 intended by the underlying mode.
 
-Shadowed keys are moved according to the pattern: =a= → =A= → =C-a= → =C-A=
+Shadowed keys are moved according to the pattern: =a= → =A= → =C-a= → =C-A=.
+Some other keys are also moved: =SPC= -> ='=, =/= -> =\=, and =:= -> =|=.
+
 
 For example, if the mode binds a function to =n=, that is found under =C-n= in
 evilified state, since both =n= and =N= are reserved, but =C-n= is not. On the

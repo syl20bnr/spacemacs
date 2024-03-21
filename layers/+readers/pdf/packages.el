@@ -125,7 +125,6 @@
       [mouse-1]          'pdf-outline-mouse-display-link
       "o"                'pdf-outline-select-pdf-window
       "``"               'pdf-outline-move-to-current-page
-      "''"               'pdf-outline-move-to-current-page
       "Q"                'pdf-outline-quit-and-kill
       "q"                'quit-window
       "F"                'pdf-outline-follow-mode)
