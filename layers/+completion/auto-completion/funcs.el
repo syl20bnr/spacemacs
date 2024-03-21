@@ -114,10 +114,8 @@ Available PROPS:
                            (mapcar 'spacemacs//show-snippets-in-company
                                    ,raw-backends-var-name))
                    (setq ,backends-var-name ,raw-backends-var-name))
-                 (set (make-variable-buffer-local 'auto-completion-front-end)
-                      'company)
-                 (set (make-variable-buffer-local 'company-backends)
-                      ,backends-var-name)) result)
+                 (setq-local auto-completion-front-end 'company
+                             company-backends ,backends-var-name)) result)
         (when call-hooks
           (push `(,init-func-name) result))
         (when hooks
