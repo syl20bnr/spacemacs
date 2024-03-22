@@ -44,7 +44,7 @@ by this layer.
 To use the original implementation of these key bindings while the
 helpful layer is active, you can use the following commands:
 
-| Key Binding                                  | Description         |
+| Key binding                                  | Description         |
 |----------------------------------------------+---------------------|
 | =SPC SPC helpful/original-describe-function= | =describe-function= |
 | =SPC SPC helpful/original-describe-variable= | =describe-variable= |
