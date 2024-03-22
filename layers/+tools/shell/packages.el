@@ -25,6 +25,7 @@
   '(
     (comint :location built-in)
     company
+    eat
     esh-help
     (eshell :location built-in)
     eshell-prompt-extras
@@ -332,6 +333,17 @@
                             eshell-mode-hook
                             shell-mode-hook
                             term-mode-hook)))
+
+(defun shell/init-eat ()
+  (use-package eat
+    :defer t
+    :commands (eat eat-other-window eat-project eat-project-other-window)
+    :init
+    (make-shell-pop-command "eat" eat)
+    (spacemacs/set-leader-keys "atsa" 'spacemacs/shell-pop-eat)
+    (spacemacs/register-repl 'eat 'eat)
+    :config
+    (setq eat-shell shell-default-term-shell)))
 
 (defun shell/init-vterm ()
   (use-package vterm

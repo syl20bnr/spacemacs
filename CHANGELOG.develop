@@ -363,6 +363,8 @@ both Racer and RLS not being maintained anymore.
   - Add ~o~ to link-hint-open-link in woman-mode
 ***** Shaders
 - =shaders= layer has been moved to =gpu= layer.
+***** Shell
+- Add support for "eat" shell (thanks to Ryan Prior)
 ***** Shell-scripts
 - Add variable =shell-scripts-shfmt-args= to pass through arguments to =shfmt= package.
 ***** Syntax checking

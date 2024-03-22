@@ -34,8 +34,8 @@
                                 'eshell
                               'ansi-term)
   "Default shell to use in Spacemacs. Possible values are `ansi-term' (default
-for Linux/macOS), `eshell' (default for windows), `shell', `term', `vterm',
-`multi-term' and `multi-vterm'.")
+for Linux/macOS), `eshell' (default for windows), `shell',
+`term', `eat', `vterm', `multi-term' and `multi-vterm'.")
 
 (spacemacs|defc shell-default-position 'bottom
   "Position of the shell. Possible values are `top', `bottom', `full',
