@@ -26,15 +26,7 @@
         company
         org
         sql
-        ;; This mode is more up-to-date than the MELPA one.
-        ;; Turns out that it is available in GNU ELPA but we cannot
-        ;; force Spacemacs to fetch from it for now, it will always
-        ;; pickup the MELPA version. So for now we use an explicit
-        ;; recip to fetch from GitHUb the package.
-        (sql-indent :location (recipe
-                               :fetcher github
-                               :repo "alex-hhh/emacs-sql-indent"
-                               :files ("sql-indent.el")))
+        (sql-indent :location elpa)
         (sqlfmt :location local)
         (sqlup-mode :toggle sql-capitalize-keywords)
         ))
