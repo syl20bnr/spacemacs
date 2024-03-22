@@ -183,17 +183,14 @@ file is invalid, then raise an error."
               (cl-assert (not (plist-get plist :url)) ":url is redundant"))
           (cl-assert (plist-get plist :url) ":url is missing")))
       (dolist (key symbol-keys)
-        (let ((val (plist-get plist key)))
-          (when val
-            (cl-assert (symbolp val) nil "%s must be a symbol but is %S" key val))))
+        (when-let ((val (plist-get plist key)))
+          (cl-assert (symbolp val) nil "%s must be a symbol but is %S" key val)))
       (dolist (key list-keys)
-        (let ((val (plist-get plist key)))
-          (when val
-            (cl-assert (listp val) nil "%s must be a list but is %S" key val))))
+        (when-let ((val (plist-get plist key)))
+          (cl-assert (listp val) nil "%s must be a list but is %S" key val)))
       (dolist (key string-keys)
-        (let ((val (plist-get plist key)))
-          (when val
-            (cl-assert (stringp val) nil "%s must be a string but is %S" key val))))
+        (when-let ((val (plist-get plist key)))
+          (cl-assert (stringp val) nil "%s must be a string but is %S" key val)))
       (when-let ((spec (plist-get plist :files)))
         ;; `:defaults' is only allowed as the first element.
         ;; If we find it in that position, skip over it.
