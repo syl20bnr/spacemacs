@@ -406,7 +406,7 @@ main library to a version that qualifies as a release, ignoring
 any pre-releases.
 
 Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING)."
-  (when-let ((lib (package-build--main-library rcp)))
+  (and-let* ((lib (package-build--main-library rcp)))
     (with-temp-buffer
       (let (commit date version)
         (save-excursion
@@ -467,7 +467,7 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING)."
 (defun package-build-pkg-version (rcp)
   "Return version specified in the \"NAME-pkg.el\" file.
 Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING)."
-  (when-let ((file (package-build--pkgfile rcp)))
+  (and-let* ((file (package-build--pkgfile rcp)))
     (let ((regexp (or (oref rcp version-regexp) package-build-version-regexp))
           commit date version)
       (catch 'before-latest
@@ -1076,7 +1076,7 @@ value specified in the file \"NAME.el\"."
                  (if (fboundp 'lm-maintainers)
                      (lm-maintainers)
                    (with-no-warnings
-                     (when-let ((maintainer (lm-maintainer)))
+                     (and-let* ((maintainer (lm-maintainer)))
                        (list maintainer)))))
            (package-desc-from-define
             name version
@@ -1575,15 +1575,15 @@ If optional PRETTY-PRINT is non-nil, then pretty-print
           ;; section "Specifications (elpa-packages)" in "README" of the
           ;; "elpa-admin" branch in "emacs/elpa.git" repository; and also
           ;; `elpaa--supported-keywords' and `elpaa--publish-package-spec'.
-          (let ((recipe (package-recipe-lookup name)))
-            (push
-             `(,symbol
-               :url ,(package-recipe--upstream-url recipe)
-               ,@(and (cl-typep recipe 'package-hg-recipe)
-                      (list :vc-backend 'Hg))
-               ,@(when-let* ((branch (oref recipe branch)))
-                   (list :branch branch)))
-             vc-pkgs))))))
+          (and-let* ((recipe (with-demoted-errors "Recipe error: %S"
+                               (package-recipe-lookup name))))
+            (push `(,symbol
+                    :url ,(package-recipe--upstream-url recipe)
+                    ,@(and (cl-typep recipe 'package-hg-recipe)
+                           (list :vc-backend 'Hg))
+                    ,@(and-let* ((branch (oref recipe branch)))
+                        (list :branch branch)))
+                  vc-pkgs))))))
     (setq entries (cl-sort entries #'string< :key #'car))
     (with-temp-file (or file (expand-file-name "archive-contents"))
       (let ((print-level nil)
@@ -1652,7 +1652,7 @@ a package."
      (json-encode
       (cl-mapcan
        (lambda (name)
-         (ignore-errors ; Silently ignore corrupted recipes.
+         (with-demoted-errors "Recipe error: %S"
            (and (package-recipe-lookup name)
                 (with-temp-buffer
                   (insert-file-contents

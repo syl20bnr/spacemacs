@@ -130,6 +130,9 @@ its display table will be modified as necessary."
                                                  (string-pixel-width (make-string 100 ?a)))
                                             (char-width page-break-lines-char)))
                      (width (floor (window-max-chars-per-line) char-relative-width))
+                     (width (if page-break-lines-max-width
+                                (min width page-break-lines-max-width)
+                              width))
                      (glyph (make-glyph-code page-break-lines-char 'page-break-lines))
                      (new-display-entry (vconcat (make-list width glyph))))
                 (unless (equal new-display-entry (elt buffer-display-table ?\^L))
