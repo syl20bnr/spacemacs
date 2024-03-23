@@ -258,7 +258,7 @@
    ("m" spacemacs/switch-to-messages-buffer "Messages buffer")
    ("P" spacemacs/copy-clipboard-to-whole-buffer "Paste and replace buffer")
    ("p" previous-buffer "Previous buffer")
-   ("R" spacemacs/safe-revert-buffer "Revert buffer...")
+   ("R" revert-buffer "Revert buffer...")
    ("s" spacemacs/switch-to-scratch-buffer "Scratch buffer")
    ("u" spacemacs/reopen-killed-buffer "Reopen last killed buffer")
    ("x" kill-buffer-and-window "Kill buffer and close window")
