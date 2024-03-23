@@ -42,7 +42,7 @@
                                 (buffer-modified-p buff)))
               ;; :directory 'project
               :as #'buffer-name)))
-  "Per perpecstive modified buffer source.")
+  "Per-perspective modified buffer source.")
 
 (defvar consult--source-persp-buffers
   `(
@@ -59,4 +59,4 @@
         :sort 'visibility
         :predicate #'persp-contain-buffer-p
         :as #'buffer-name)))
-  "Per perpecstive buffer source.")
+  "Per-perspective buffer source.")
