@@ -163,10 +163,6 @@
     (push "magit: .*" spacemacs-useless-buffers-regexp)
     (push "magit-.*: .*"  spacemacs-useless-buffers-regexp)
     (spacemacs|require-when-dumping 'magit)
-    (setq magit-completing-read-function
-          (if (configuration-layer/layer-used-p 'ivy)
-              'ivy-completing-read
-            'magit-builtin-completing-read))
     (setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
     ;; On Windows, we must use Git GUI to enter username and password
     ;; See: https://github.com/magit/magit/wiki/FAQ#windows-cannot-push-via-https
