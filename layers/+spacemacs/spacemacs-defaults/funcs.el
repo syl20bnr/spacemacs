@@ -1228,11 +1228,6 @@ useful to use full screen on macOS without animations."
                  'maximized)
            'fullboth)))))
 
-(defun spacemacs/safe-revert-buffer ()
-  "Prompt before reverting the file."
-  (interactive)
-  (revert-buffer nil nil))
-
 (defun spacemacs/safe-erase-buffer ()
   "Prompt before erasing the content of the file."
   (interactive)
