@@ -40,9 +40,10 @@
   "`consult-buffer' with buffers provided by persp."
   (interactive)
   (consult-buffer
-   '(consult--source-hidden-buffer
-     consult--source-persp-buffers
-     consult--source-modified-buffers
+   `(consult--source-hidden-buffer
+     ,@(when (configuration-layer/package-used-p 'persp-mode)
+         '(consult--source-persp-buffers
+           consult--source-modified-buffers))
      consult--source-recent-file
      consult--source-bookmark
      consult--source-project-buffer
