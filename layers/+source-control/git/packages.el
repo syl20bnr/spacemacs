@@ -357,7 +357,7 @@
     :init
     (setq forge-database-file (expand-file-name "forge-database.sqlite"
                                                 spacemacs-cache-directory)
-          forge-add-default-bindings nil)
+          forge-add-default-bindings (eq dotspacemacs-editing-style 'emacs))
     (spacemacs/set-leader-keys-for-major-mode 'forge-topic-mode
       "a" 'forge-edit-topic-assignees
       "c" 'forge-create-post
