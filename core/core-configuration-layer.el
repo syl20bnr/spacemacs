@@ -2436,8 +2436,10 @@ depends on it."
     (message "Can't remove package %s since it isn't installed." pkg-name)))
 
 (defun configuration-layer/delete-orphan-packages (packages)
-  "Delete PACKAGES if they are orphan."
-  (interactive)
+  "Delete PACKAGES if they are orphan.
+
+When called interactively, delete all orphan packages."
+  (interactive (list (configuration-layer/get-packages-list)))
   (let* ((dependencies
           (configuration-layer//get-packages-upstream-dependencies-from-alist))
          (implicit-packages
