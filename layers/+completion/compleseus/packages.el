@@ -146,6 +146,7 @@
       "bB" #'consult-buffer
       "fb" #'consult-bookmark
       "ff" #'spacemacs/compleseus-find-file
+      "fel" #'find-library
       "fL" #'consult-locate
       "fr" #'consult-recent-file
       "hda" #'apropos-command
