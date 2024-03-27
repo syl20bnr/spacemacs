@@ -14,7 +14,6 @@
   - [[#anaconda][Anaconda]]
   - [[#language-server-protocol][Language Server Protocol]]
     - [[#python-lsp-server][python-lsp-server]]
-    - [[#microsoft-python-language-server][Microsoft python language server]]
     - [[#microsoft-pyright-language-server][Microsoft pyright language server]]
 - [[#additional-tools][Additional tools]]
   - [[#syntax-checking][Syntax checking]]
@@ -54,9 +53,9 @@ This layer adds support for the Python language.
 ** Features:
 - Support for the following backends:
   - [[https://github.com/proofit404/anaconda-mode][anaconda]] (default),
-  - [[https://github.com/emacs-lsp/lsp-python-ms][Language Server Protocol]] (experimental - 2 implementations),
+  - [[https://github.com/emacs-lsp/lsp-mode/blob/master/clients/lsp-pylsp.el][Language Server Protocol]] (experimental - 2 implementations),
     - python-lsp-server
-    - Microsoft python language server
+    - Microsoft pyright language server
 - Auto-completion
 - Code Navigation
 - Documentation Lookup using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] and [[https://github.com/tsgates/pylookup][pylookup]]
@@ -140,18 +139,15 @@ The =lsp= backend can use either of the following language server implementation
 | symbol   | description                         |
 |----------+-------------------------------------|
 | 'pylsp   | [[https://pypi.org/project/python-lsp-server/][python-lsp-server package]] (default) |
-| 'mspyls  | [[https://github.com/emacs-lsp/lsp-python-ms][Microsoft python language server]]    |
 | 'pyright | [[https://github.com/emacs-lsp/lsp-pyright][Microsoft pyright language server]]   |
 
-=pylsp= is used by default - to use the Microsoft python language server, set the
-=python-lsp-server= layer variable as follows:
-
+=pylsp= is default value for =python-lsp-server=, an example for use =pylsp=:
 #+BEGIN_SRC elisp
-  (python :variables python-backend 'lsp python-lsp-server 'mspyls)
+  (python :variables python-backend 'lsp)
 #+END_SRC
 
-To setup the pyright language server instead, use:
-
+To use the Microsoft pyright language server, set the =python-lsp-server= layer
+variable as follows:
 #+BEGIN_SRC elisp
   (python :variables python-backend 'lsp python-lsp-server 'pyright)
 #+END_SRC
@@ -177,41 +173,14 @@ dependencies in a pipenv environment, you'll want to set the ~python-pipenv-acti
 config variable to ~t~. This activates your pipenv before enabling the
 lsp backend. The same applies for ~python-poetry-activate~.
 
-*** Microsoft python language server
-Paraphrasing the instructions provided by the author of the =lsp-python-ms= package:
-
-#+BEGIN_SRC sh
-  git clone https://github.com/Microsoft/python-language-server.git
-  cd python-language-server/src/LanguageServer/Impl
-  dotnet build -c Release
-  dotnet publish -c Release -r <RUNTIME>
-#+END_SRC
-
-where ~<RUNTIME>~ is one of the [[https://docs.microsoft.com/en-us/dotnet/core/rid-catalog][runtime IDs supported by dotnet core]]. One of ~linux-x64~, ~osx-x64~, ~win10-x64~ should
-cover most use cases.
-
-The default package configuration assumes the executable is located in a folder included in your system path.
-To use the latest built version in a cloned git repo, use the ~python-lsp-git-root~ config variable, e.g.:
-
-#+BEGIN_SRC elisp
-  (setq-default dotspacemacs-configuration-layers
-    '((python :variables
-              python-backend 'lsp
-              python-lsp-server 'mspyls
-              python-lsp-git-root "~/dev/python/python-language-server")))
-#+END_SRC
-
-N.B. If you're using Arch linux or a derivative distribution, you can install the =microsoft-python-language-server=
-package from the AUR.
-
 *** Microsoft pyright language server
-[[https://github.com/microsoft/pyright][Pyright]] is a new language server by Microsoft rewritten from scratch. Microsoft
-python language server is planned to be deprecated in favor of pyright. Pyright
-offers improved performance and better features compared to the old
-implementation. It can be installed via yarn or npm as follows:
+[[https://github.com/microsoft/pyright][Pyright]] is a language server by Microsoft rewritten from scratch. It can be
+installed via pip, yarn or npm as follows:
 
 #+BEGIN_SRC sh
-  # via yarn
+  # via pip
+  pip install pyright
+  # or via yarn
   yarn global add pyright
   # or via npm
   npm install -g pyright

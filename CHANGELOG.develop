@@ -3330,6 +3330,7 @@ files (thanks to Daniel Nicolai)
 - Added =sphinx-doc= support (thanks to Stefan Ruschke)
 - Fix ipython version parsing for dev branches (thanks to Corentin Risselin)
 - Fix pyvenv-workon path (thanks to Eugene Kim)
+- Remove mspyls for it was deprecated, use pyright instead (thanks to Lin Sun)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 - Updated racket logo (thanks to Vityou)
