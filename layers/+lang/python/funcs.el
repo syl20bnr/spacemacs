@@ -91,7 +91,6 @@
       (progn
         (require (pcase python-lsp-server
                    ('pylsp 'lsp-pylsp)
-                   ('mspyls 'lsp-python-ms)
                    ('pyright 'lsp-pyright)
                    (x (user-error "Unknown value for `python-lsp-server': %s" x))))
         (lsp-deferred))

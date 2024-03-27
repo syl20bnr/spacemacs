@@ -60,8 +60,6 @@
     ;; packages for anaconda backend
     anaconda-mode
     (company-anaconda :requires company)
-    ;; packages for Microsoft LSP backend
-    (lsp-python-ms :requires lsp-mode)
     ;; packages for Microsoft's pyright language server
     (lsp-pyright :requires lsp-mode)))
 
@@ -492,28 +490,6 @@ fix this issue."
                (eq 'yapf python-formatter))
       (add-hook 'python-mode-hook 'yapf-mode))
     :config (spacemacs|hide-lighter yapf-mode)))
-
-(defun python/init-lsp-python-ms ()
-  (use-package lsp-python-ms
-    :if (eq python-lsp-server 'mspyls)
-    :ensure nil
-    :defer t
-    :config
-    (when python-lsp-git-root
-      ;; Use dev version of language server checked out from github
-      (setq lsp-python-ms-dir
-            (expand-file-name (concat python-lsp-git-root
-                                      "/output/bin/Release/")))
-      (message "lsp-python-ms: Using version at `%s'" lsp-python-ms-dir)
-      ;; Use a precompiled exe
-      (setq lsp-python-ms-executable (concat lsp-python-ms-dir
-                                             (pcase system-type
-                                               ('gnu/linux "linux-x64/publish/")
-                                               ('darwin "osx-x64/publish/")
-                                               ('windows-nt "win-x64/publish/"))
-                                             "Microsoft.Python.LanguageServer"
-                                             (and (eq system-type 'windows-nt)
-                                                  ".exe"))))))
 
 (defun python/init-lsp-pyright ()
   (use-package lsp-pyright

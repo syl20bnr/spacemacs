@@ -33,8 +33,7 @@ If `nil' then `anaconda' is the default backend unless `lsp' layer is used.")
 (put 'python-backend 'safe-local-variable #'symbolp)
 
 (defvar python-lsp-server 'pylsp
-  "Language server to use for lsp backend. Possible values are `pylsp', `pyright'
-and `mspyls'")
+  "Language server for lsp backend. Possible values are `pylsp', `pyright'")
 (put 'python-lsp-server 'safe-local-variable #'symbolp)
 
 (defvar python-lsp-git-root nil
