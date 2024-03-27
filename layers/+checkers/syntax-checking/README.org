@@ -101,7 +101,6 @@ Example:
                                    syntax-checking-tooltips-delay 5)))
 #+END_SRC
 
-
 ** Error List Pop-up
 By default, the =flycheck-error-list-mode= is displayed in a pop window to the
 bottom of the frame, with 30% of the frame's height.
