@@ -28,8 +28,7 @@
     ggtags
     ron-mode
     rustic
-    smartparens
-    toml-mode))
+    smartparens))
 
 
 (defun rust/post-init-counsel-gtags ()
@@ -101,10 +100,6 @@
   (with-eval-after-load 'smartparens
     ;; Don't pair lifetime specifiers
     (sp-local-pair 'rustic-mode "'" nil :actions nil)))
-
-(defun rust/init-toml-mode ()
-  (use-package toml-mode
-    :mode "/\\(Cargo.lock\\|\\.cargo/config\\)\\'"))
 
 (defun rust/init-ron-mode ()
   (use-package ron-mode
