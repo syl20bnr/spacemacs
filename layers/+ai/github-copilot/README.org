@@ -1,0 +1,17 @@
+#+TITLE: GitHub Copilot layer
+
+#+TAGS: general|layer|programming|ai
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+
+* Description
+This layer enables usage of [[https://github.com/features/copilot][GitHub Copilot]] in Spacemacs using [[https://github.com/copilot-emacs/copilot.el][copilot.el]].
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =github-copilot= to the existing =dotspacemacs-configuration-layers= list in this
+file.
