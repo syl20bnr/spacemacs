@@ -206,6 +206,7 @@ MODE parameter must match the :modes values used in the call to
   (when auto-completion-complete-with-key-sequence
     (let ((first-key (elt auto-completion-complete-with-key-sequence 0)))
       (cond ((eq 'company package)
+             (evil-declare-change-repeat 'spacemacs//auto-completion-key-sequence-end)
              (define-key company-active-map (kbd (char-to-string first-key))
                'spacemacs//auto-completion-key-sequence-start))
             (t (message "Not yet implemented for package %S" package))))))
