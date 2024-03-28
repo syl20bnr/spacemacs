@@ -36,6 +36,8 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =rust= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+The =toml= layer is automatically loaded when using this layer.
+
 ** LSP
 The =lsp= backend will be automatically enabled if the layer =lsp= is used.
 
