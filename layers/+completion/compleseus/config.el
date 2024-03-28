@@ -37,7 +37,7 @@
           ,(lambda ()
              (consult--buffer-query ;; :sort 'visibility
               :predicate (lambda (buff)
-                           (and (persp-contain-buffer-p buff)
+                           (and (compleseus//persp-contain-buffer-p buff)
                                 (buffer-file-name buff)
                                 (buffer-modified-p buff)))
               ;; :directory 'project
@@ -57,6 +57,6 @@
     ,(lambda ()
        (consult--buffer-query
         :sort 'visibility
-        :predicate #'persp-contain-buffer-p
+        :predicate #'compleseus//persp-contain-buffer-p
         :as #'buffer-name)))
   "Per-perspective buffer source.")

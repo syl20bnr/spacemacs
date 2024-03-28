@@ -36,14 +36,23 @@
     (define-key selectrum-minibuffer-map (kbd "C-k") 'selectrum-previous-candidate))))
 
 
+(defun compleseus//persp-contain-buffer-p (buf)
+  "Return non-nil if BUF is part of the current perspective.
+
+If persp-mode is not currently used, this function always returns
+non-nil."
+  (if (fboundp 'persp-contain-buffer-p)
+      (persp-contain-buffer-p buf)
+    t))
+
+
 (defun spacemacs/compleseus-switch-to-buffer ()
   "`consult-buffer' with buffers provided by persp."
   (interactive)
   (consult-buffer
    `(consult--source-hidden-buffer
-     ,@(when (configuration-layer/package-used-p 'persp-mode)
-         '(consult--source-persp-buffers
-           consult--source-modified-buffers))
+     consult--source-persp-buffers
+     consult--source-modified-buffers
      consult--source-recent-file
      consult--source-bookmark
      consult--source-project-buffer
