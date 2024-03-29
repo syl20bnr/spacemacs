@@ -1226,7 +1226,8 @@ The default font used by Spacemacs is [[https://github.com/adobe-fonts/source-co
 recommended to install it on your system if you wish to use it.
 
 To change the default font set the variable =dotspacemacs-default-font= in your
-=.spacemacs= file. By default its value is:
+=.spacemacs= file, this setting will be used for the =default= and =fixed-pitch= faces.
+By default its value is:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-default-font '("Source Code Pro"

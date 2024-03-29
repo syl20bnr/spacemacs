@@ -55,11 +55,15 @@ The return value is nil if no font was found, truthy otherwise."
           ;; that the font is applied to future frames is to modify
           ;; default-frame-alist, and Customization causes issues, see
           ;; https://github.com/syl20bnr/spacemacs/issues/5353.
-          ;; INHIBIT-CUSTOMIZE is only present in recent emacs versions. 
+          ;; INHIBIT-CUSTOMIZE is only present in recent emacs versions.
           (if (version< emacs-version "28.0.90")
               (set-frame-font fontspec nil t)
             (set-frame-font fontspec nil t t))
           (push `(font . ,(frame-parameter nil 'font)) default-frame-alist)
+
+          ;; Make sure that our font is used for fixed-pitch face as well
+          (set-face-attribute 'fixed-pitch nil :family 'unspecified)
+
           ;; fallback font for unicode characters used in spacemacs
           (pcase system-type
             (`gnu/linux
