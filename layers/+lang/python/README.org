@@ -142,12 +142,14 @@ The =lsp= backend can use either of the following language server implementation
 | 'pyright | [[https://github.com/emacs-lsp/lsp-pyright][Microsoft pyright language server]]   |
 
 =pylsp= is default value for =python-lsp-server=, an example for use =pylsp=:
+
 #+BEGIN_SRC elisp
   (python :variables python-backend 'lsp)
 #+END_SRC
 
 To use the Microsoft pyright language server, set the =python-lsp-server= layer
 variable as follows:
+
 #+BEGIN_SRC elisp
   (python :variables python-backend 'lsp python-lsp-server 'pyright)
 #+END_SRC
