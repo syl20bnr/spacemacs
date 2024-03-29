@@ -23,7 +23,8 @@
 
 (defun spacemacs//rust-setup-backend ()
   "Conditionally setup rust backend."
-  (spacemacs//rust-setup-lsp))
+  (when (eq rust-backend 'lsp)
+    (spacemacs//rust-setup-lsp)))
 
 (defun spacemacs//rust-setup-dap ()
   "Conditionally setup rust DAP integration."
