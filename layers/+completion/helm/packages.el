@@ -320,12 +320,17 @@
 (defun helm/init-helm-ls-git ()
   (use-package helm-ls-git
     :defer t
-    :init (spacemacs/set-leader-keys "gff" 'helm-ls-git-ls)
-    :config
-    ;; Set `helm-ls-git-status-command' conditonally on `git' layer
-    ;; If `git' is in use, use default `\'magit-status-setup-buffer'
-    ;; Otherwise, use defaault `\'vc-dir'
+    :init
+    (spacemacs/set-leader-keys "gff" 'helm-ls-git-ls)
     (when (configuration-layer/package-usedp 'magit)
+      ;; Do not use helm-ls-git-rebase-todo-mode for git-rebase-todo,
+      ;; instead let it be handled by magit
+      (delete '("/git-rebase-todo$" . helm-ls-git-rebase-todo-mode) auto-mode-alist))
+    :config
+    (when (configuration-layer/package-usedp 'magit)
+      ;; Set `helm-ls-git-status-command' conditonally on `git' layer
+      ;; If `git' is in use, use default `\'magit-status-setup-buffer'
+      ;; Otherwise, use defaault `\'vc-dir'
       (setq helm-ls-git-status-command 'magit-status-setup-buffer))))
 
 (defun helm/init-helm-make ()
