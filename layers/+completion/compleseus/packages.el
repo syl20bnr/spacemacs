@@ -151,6 +151,7 @@
       "fr" #'consult-recent-file
       "hda" #'apropos-command
       "hdm" #'describe-mode
+      "hm" #'consult-man
       "jm" #'consult-mark
       "jM" #'consult-global-mark
       "sb" #'consult-line-multi
