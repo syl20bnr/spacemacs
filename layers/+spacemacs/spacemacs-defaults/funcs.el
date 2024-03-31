@@ -735,7 +735,7 @@ Returns:
   "Retrieve the file path of the current buffer,
 including line and column number.
 
-This function respects the the `column-number-indicator-zero-based' variable.
+This function respects the `column-number-indicator-zero-based' variable.
 
 Returns:
   - A string containing the file path in case of success.
