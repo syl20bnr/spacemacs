@@ -399,7 +399,10 @@ Will work on both org-mode and any mode that accepts plain html."
       "aof" "feeds"
       "aoC" (org-clocks-prefix))
     ;; org-agenda
-    (when (configuration-layer/layer-used-p 'ivy)
+    (unless (when-let ((pkg (configuration-layer/get-package 'helm-org-rifle)))
+              ;; TODO: `configuration-layer/package-used-p' doesn't check
+              ;; :toggle status.  When it is fixed, we can use it again.
+              (cfgl-package-used-p pkg))
       (spacemacs/set-leader-keys "ao/" 'org-occur-in-agenda-files))
     (spacemacs/set-leader-keys
       "ao#" 'org-agenda-list-stuck-projects
