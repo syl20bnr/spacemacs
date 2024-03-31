@@ -59,7 +59,7 @@ Returns:
 (defun spacemacs--projectile-file-path-with-line-column ()
   "Retrieve the file path relative to project root, including line and column number.
 
-This function respects the the `column-number-indicator-zero-based' value.
+This function respects the `column-number-indicator-zero-based' value.
 
 Returns:
   - A string containing the file path in case of success.

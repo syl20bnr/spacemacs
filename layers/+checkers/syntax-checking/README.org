@@ -89,7 +89,7 @@ hide it after 5 seconds:
 #+END_SRC
 
 Because flycheck almost immediately shows the tooltip pop-up window it can
-potentially hide code before or after the the current line you're on.
+potentially hide code before or after the current line you're on.
 If you prefer it to show up only after a certain amount of time has passed,
 you can set the variable =syntax-checking-tooltips-delay= to a positive value.
 Otherwise flychecks default value of 0.9 is used.

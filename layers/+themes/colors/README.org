@@ -127,7 +127,7 @@ can be adjusted live via the following transient-state:
 =rainbow-mode= mode is different from both rainbow-identifiers and color-identifiers.
 It can be used together with either (or none) of the identifier colorizers.
 
-All detected color codes in the current buffer will be be highlighted as their
+All detected color codes in the current buffer will be highlighted as their
 actual color. However, for accurate display, this mode requires that you use
 GUI Emacs and that you haven't disabled sRGB mode (if your platform uses that).
 

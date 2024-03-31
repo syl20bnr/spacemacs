@@ -31,7 +31,7 @@ add =raku= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** Jump to definition
-Jump to definition requires [[https://github.com/universal-ctags/ctags][ctags-universal]] to be be installed.
+Jump to definition requires [[https://github.com/universal-ctags/ctags][ctags-universal]] to be installed.
 Then you can generate the =TAGS= file for your projects like this:
 
 #+BEGIN_SRC shell
