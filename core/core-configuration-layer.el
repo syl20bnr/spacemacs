@@ -317,14 +317,14 @@ is ignored."
     (eval toggle)))
 
 (cl-defmethod cfgl-package-reqs-satisfied-p ((pkg cfgl-package) &optional inhibit-messages)
-  "Check if requirements of a package are all enabled.
+  "Check if requirements of a package are all used.
 If INHIBIT-MESSAGES is non nil then any message emitted by the toggle evaluation
 is ignored."
   (cl-every
    (lambda (dep-pkg)
      (let ((pkg-obj (configuration-layer/get-package dep-pkg)))
        (when pkg-obj
-         (cfgl-package-enabled-p pkg-obj inhibit-messages))))
+         (cfgl-package-used-p pkg-obj inhibit-messages))))
    (oref pkg requires)))
 
 (cl-defmethod cfgl-package-enabled-p ((pkg cfgl-package) &optional inhibit-messages)
