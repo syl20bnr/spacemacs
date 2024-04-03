@@ -1207,7 +1207,7 @@ Return nil if package object is not found."
 
 (defun configuration-layer//sort-packages (packages)
   "Return a sorted list of PACKAGES objects."
-  (sort packages (lambda (x y) (string< (symbol-name x) (symbol-name y)))))
+  (sort packages #'string<))
 
 (defun configuration-layer/make-all-packages (&optional skip-layer-discovery skip-layer-deps)
   "Create objects for _all_ packages supported by Spacemacs.
