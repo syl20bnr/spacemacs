@@ -1,10 +1,10 @@
 #+TITLE: Large Language Model Client layer
 
-#+TAGS: general|layer|programming|ai
+#+TAGS: general|layer|web service
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
-    - [[#features][Features:]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 
 * Description
