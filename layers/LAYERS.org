@@ -174,6 +174,7 @@
       - [[#elm][Elm]]
       - [[#haskell][Haskell]]
       - [[#idris][Idris]]
+    - [[#toml][TOML]]
   - [[#utilities][Utilities]]
     - [[#conda-layer][Conda Layer]]
     - [[#dotnet][Dotnet]]
@@ -218,6 +219,7 @@
   - [[#dap][DAP]]
   - [[#debug][Debug]]
   - [[#docker][Docker]]
+  - [[#eglot][Eglot]]
   - [[#eww][Eww]]
   - [[#exwm][EXWM]]
   - [[#fasd][Fasd]]
@@ -262,7 +264,9 @@
   - [[#confluence][Confluence]]
   - [[#eaf][Eaf]]
   - [[#evernote][Evernote]]
+  - [[#github-copilot][GitHub Copilot]]
   - [[#hacker-news][Hacker News]]
+  - [[#large-language-model-client][Large Language Model Client]]
   - [[#layer-for-reddit][Layer for reddit]]
   - [[#lobsters][Lobsters]]
   - [[#openai][OpenAI]]
@@ -2402,6 +2406,14 @@ Features:
 - Integration of the =Idris= REPL
 - Integration of the =Idris= build system
 
+*** TOML
+[[file:+lang/toml/README.org][+lang/toml/README.org]]
+
+This layer supports [[https://toml.io][TOML]] development in Spacemacs.
+
+Features:
+- Provide editing capabilities for [[https://toml.io][TOML]] files.
+
 ** Utilities
 *** Conda Layer
 [[file:+tools/conda/README.org][+tools/conda/README.org]]
@@ -2863,6 +2875,15 @@ Features:
 - =docker-compose= integration via [[https://github.com/Silex/docker.el][docker.el]]
 - Syntax checking via [[https://github.com/hadolint/hadolint][hadolint]]
 - Code-Completion via =lsp=
+
+** Eglot
+[[file:+tools/eglot/README.org][+tools/eglot/README.org]]
+
+This layer adds support for basic language server protocol packages speaking
+[[https://microsoft.github.io/language-server-protocol/specification][language server protocol]] using [[https://github.com/joaotavora/eglot][eglot]].
+
+Features:
+- Provide LSP support using eglot.
 
 ** Eww
 [[file:+web/eww/README.org][+web/eww/README.org]]
@@ -3365,6 +3386,14 @@ Features:
 - Search for notes using keywords
 - Move notes between notebooks
 
+** GitHub Copilot
+[[file:+web-services/github-copilot/README.org][+web-services/github-copilot/README.org]]
+
+This layer enables usage of [[https://github.com/features/copilot][GitHub Copilot]] in Spacemacs using [[https://github.com/copilot-emacs/copilot.el][copilot.el]].
+
+Features:
+- Provide access to ai powered code completions powered by [[https://github.com/features/copilot][GitHub Copilot]]
+
 ** Hacker News
 [[file:+web-services/hackernews/README.org][+web-services/hackernews/README.org]]
 
@@ -3372,6 +3401,29 @@ This layer adds support for reading [[https://news.ycombinator.com/][Hacker News
 
 Features:
 - Read Hacker News
+
+** Large Language Model Client
+[[file:+web-services/llm-client/README.org][+web-services/llm-client/README.org]]
+
+This layer enables usage of GPT Clients in Spacemacs using [[https://github.com/karthink/gptel][GPTel]].
+
+Features:
+
+You will have access to the following tools:
+- ChatGPT
+- Azure
+- Ollama
+- GPT4All
+- Gemini
+- Llama.cpp
+- Llamafile
+- Kagi FastGPT
+- Kagi Summarizer
+- together.ai
+- Anyscale
+- Perplexity
+- Anthropic (Claude)
+- Groq
 
 ** Layer for reddit
 [[file:+web-services/reddit/README.org][+web-services/reddit/README.org]]
