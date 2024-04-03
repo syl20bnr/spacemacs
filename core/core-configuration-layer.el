@@ -336,11 +336,11 @@ is ignored."
        (cfgl-package-reqs-satisfied-p pkg inhibit-messages)
        (cfgl-package-toggled-p pkg inhibit-messages)))
 
-(cl-defmethod cfgl-package-used-p ((pkg cfgl-package))
+(cl-defmethod cfgl-package-used-p ((pkg cfgl-package) &optional inhibit-messages)
   "Return non-nil if PKG is a used package."
   (and (not (null (oref pkg :owners)))
        (not (oref pkg :excluded))
-       (cfgl-package-enabled-p pkg t)))
+       (cfgl-package-enabled-p pkg inhibit-messages)))
 
 (cl-defmethod cfgl-package-distant-p ((pkg cfgl-package))
   "Return non-nil if PKG is a distant package (i.e. not built-in Emacs)."
@@ -1330,7 +1330,7 @@ PREDICATE is an additional expression that eval to a boolean."
        (if pkg
            (and (cfgl-package-distant-p pkg)
                 (or (null usedp)
-                    (cfgl-package-used-p pkg))
+                    (cfgl-package-used-p pkg t))
                 (or (null predicate)
                     (funcall predicate pkg)))
          (spacemacs-buffer/warning "Cannot find package for %s" x)
@@ -1650,6 +1650,7 @@ RNAME is the name symbol of another existing layer."
          (not (memq nil (mapcar
                          'configuration-layer/package-used-p
                          (oref obj :requires)))))))
+
 (defalias 'configuration-layer/package-usedp
   'configuration-layer/package-used-p)
 
