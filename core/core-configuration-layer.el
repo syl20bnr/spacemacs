@@ -319,12 +319,12 @@ is ignored."
   "Check if requirements of a package are all enabled.
 If INHIBIT-MESSAGES is non nil then any message emitted by the toggle evaluation
 is ignored."
-  (not (memq nil (mapcar
-                  (lambda (dep-pkg)
-                    (let ((pkg-obj (configuration-layer/get-package dep-pkg)))
-                      (when pkg-obj
-                        (cfgl-package-enabled-p pkg-obj inhibit-messages))))
-                  (oref pkg :requires)))))
+  (cl-every
+   (lambda (dep-pkg)
+     (let ((pkg-obj (configuration-layer/get-package dep-pkg)))
+       (when pkg-obj
+         (cfgl-package-enabled-p pkg-obj inhibit-messages))))
+   (oref pkg :requires)))
 
 (cl-defmethod cfgl-package-enabled-p ((pkg cfgl-package) &optional inhibit-messages)
   "Check if a package is enabled.
@@ -1655,12 +1655,11 @@ RNAME is the name symbol of another existing layer."
   'configuration-layer/package-used-p)
 
 (defun configuration-layer//package-reqs-used-p (pkg)
-  "Returns non-nil if all requirements of PKG are used."
-  (not (memq nil (mapcar
-                  'configuration-layer/package-used-p
-                  (oref pkg :requires)))))
+  "Return non-nil if all requirements of PKG are used."
+  (cl-every #'configuration-layer/package-used-p
+            (oref pkg :requires)))
 
-(defun  configuration-layer/package-lazy-install-p (name)
+(defun configuration-layer/package-lazy-install-p (name)
   "Return non-nil if NAME is the name of a package to be lazily installed."
   (let ((obj (configuration-layer/get-package name)))
     (when obj (oref obj :lazy-install))))
@@ -2058,12 +2057,12 @@ LAYER must not be the owner of PKG."
          (disabled (when owner (oref owner :disabled-for)))
          (enabled (when owner (oref owner :enabled-for))))
     (and owner
-         (not (memq nil (mapcar
-                         (lambda (dep-pkg)
-                           (let ((pkg-obj (configuration-layer/get-package dep-pkg)))
-                             (when pkg-obj
-                               (configuration-layer//package-enabled-p pkg-obj layer))))
-                         (oref pkg :requires))))
+         (cl-every
+          (lambda (dep-pkg)
+            (let ((pkg-obj (configuration-layer/get-package dep-pkg)))
+              (when pkg-obj
+                (configuration-layer//package-enabled-p pkg-obj layer))))
+          (oref pkg :requires))
          (if (not (eq 'unspecified enabled))
              (memq layer enabled)
            (not (memq layer disabled))))))
