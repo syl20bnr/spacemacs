@@ -190,37 +190,8 @@
   (use-package utop
     :defer t
     :init
-    (add-hook 'tuareg-mode-hook 'utop-minor-mode)
+    (add-hook 'tuareg-mode-hook #'utop-minor-mode)
     (spacemacs/register-repl 'utop 'utop "ocaml")
-    :config
-    (if (executable-find "opam")
-        (setq utop-command "opam config exec -- utop -emacs")
-      (spacemacs-buffer/warning "Cannot find \"opam\" executable."))
-
-    (defun spacemacs/utop-eval-phrase-and-go ()
-      "Send phrase to REPL and evaluate it and switch to the REPL in
-`insert state'"
-      (interactive)
-      (utop-eval-phrase)
-      (utop)
-      (evil-insert-state))
-
-    (defun spacemacs/utop-eval-buffer-and-go ()
-      "Send buffer to REPL and evaluate it and switch to the REPL in
-`insert state'"
-      (interactive)
-      (utop-eval-buffer)
-      (utop)
-      (evil-insert-state))
-
-    (defun spacemacs/utop-eval-region-and-go (start end)
-      "Send region to REPL and evaluate it and switch to the REPL in
-`insert state'"
-      (interactive "r")
-      (utop-eval-region start end)
-      (utop)
-      (evil-insert-state))
-
     (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
       "'"  'utop
       "sb" 'utop-eval-buffer
@@ -231,5 +202,9 @@
       "sr" 'utop-eval-region
       "sR" 'spacemacs/utop-eval-region-and-go)
     (spacemacs/declare-prefix-for-mode 'tuareg-mode "ms" "send")
+    :config
+    (if (executable-find "opam")
+        (setq utop-command "opam config exec -- utop -emacs")
+      (spacemacs-buffer/warning "Cannot find \"opam\" executable."))
     (define-key utop-mode-map (kbd "C-j") 'utop-history-goto-next)
     (define-key utop-mode-map (kbd "C-k") 'utop-history-goto-prev)))
