@@ -1315,9 +1315,7 @@ USEDP if non-nil indicates that made packages are used packages."
 
 (defun configuration-layer/filter-objects (objects ffunc)
   "Return a filtered OBJECTS list where each element satisfies FFUNC."
-  (reverse (cl-reduce (lambda (acc x) (if (funcall ffunc x) (push x acc) acc))
-                      objects
-                      :initial-value nil)))
+  (cl-remove-if-not ffunc objects))
 
 (defun configuration-layer//filter-distant-packages
     (packages usedp &optional predicate)
