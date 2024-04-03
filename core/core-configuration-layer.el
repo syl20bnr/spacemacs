@@ -1618,12 +1618,8 @@ RNAME is the name symbol of another existing layer."
 
 (defun configuration-layer/package-used-p (name)
   "Return non-nil if NAME is the name of a used package."
-  (let ((obj (configuration-layer/get-package name)))
-    (and obj (cfgl-package-get-safe-owner obj)
-         (not (oref obj excluded))
-         (not (memq nil (mapcar
-                         'configuration-layer/package-used-p
-                         (oref obj requires)))))))
+  (when-let ((obj (configuration-layer/get-package name)))
+    (cfgl-package-used-p obj t)))
 
 (defalias 'configuration-layer/package-usedp
   'configuration-layer/package-used-p)
