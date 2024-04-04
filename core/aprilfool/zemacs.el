@@ -110,7 +110,7 @@
          'help-args (cdr l))))))
 
 (define-advice configuration-layer/initialize (:before (&rest _) zemacs/initialize)
-  (setq dotspacemacs-startup-banner "~/.emacs.d/core/banners/img/zemacs.png"))
+  (setq dotspacemacs-startup-banner (concat spacemacs-banner-directory "img/zemacs.png")))
 
 (define-advice spacemacs-buffer//inject-version
     (:around (f &rest args) zemacs/inject-version)
