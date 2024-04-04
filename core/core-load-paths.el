@@ -96,7 +96,7 @@
 
 ;; ~/.emacs.d/.cache
 (defconst spacemacs-cache-directory
-  (concat user-emacs-directory ".cache/")
+  (concat spacemacs-start-directory ".cache/")
   "Spacemacs storage area for persistent files.")
 
 ;; ~/.emacs.d/.cache/auto-save
