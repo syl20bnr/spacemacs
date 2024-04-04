@@ -34,7 +34,7 @@
 
 ;; ~/.emacs.d
 (defvar spacemacs-start-directory
-  (concat (file-name-directory (or load-file-name buffer-file-name)) "../")
+  (expand-file-name "../" (file-name-directory (or load-file-name buffer-file-name)))
   "Spacemacs start directory.")
 
 ;; ~/.emacs.d/assets
