@@ -118,14 +118,6 @@ The return value is nil if no font was found, truthy otherwise."
                    powerline-scale 1)))
     (truncate (* scale (frame-char-height)))))
 
-(defun spacemacs/set-font (&rest args)
-  "Deprecated function, display a warning message."
-  (spacemacs-buffer/warning (concat "spacemacs/set-font is deprecated. "
-                             "Use the variable `dotspacemacs-default-font' "
-                             "instead (see Font section in "
-                             "~/.emacs.d/doc/DOCUMENTATION.org for more "
-                             "info).")))
-
 (defmacro spacemacs|diminish (mode &optional unicode ascii)
   "Diminish MODE name in mode line to UNICODE or ASCII depending on the value
 `dotspacemacs-mode-line-unicode-symbols'.
