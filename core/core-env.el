@@ -25,7 +25,7 @@
 (require 'load-env-vars)
 
 (defvar spacemacs-env-vars-file
-  (concat (or dotspacemacs-directory user-home-directory) ".spacemacs.env")
+  (concat (or dotspacemacs-directory "~/") ".spacemacs.env")
   "Absolute path to the env file where environment variables are set.")
 
 (defvar spacemacs-ignored-environment-variables

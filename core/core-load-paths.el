@@ -28,10 +28,6 @@
 
 ;;;; PATH variables/constants
 
-(defconst user-home-directory
-  (expand-file-name "~/")
-  "User home directory (default ~/).")
-
 ;; ~/.emacs.d
 (defvar spacemacs-start-directory
   (concat (file-name-directory (or load-file-name buffer-file-name)) "../")
