@@ -40,7 +40,7 @@
     (cl-defmethod gts-text ((_ translate//reference-paragraph-texter))
       (translate-get-reference-paragraph-text-at-point))
     (defclass translate//reference-paragraph-picker (gts-picker)
-      ((texter :initarg :texter :initform '(translate//reference-paragraph-texter))))
+      ((texter :initarg :texter :initform (translate//reference-paragraph-texter))))
     (cl-defmethod gts-pick ((o translate//reference-paragraph-picker))
       (let ((text (gts-text (oref o texter))))
         (when (= 0 (length (if text (string-trim text) "")))
