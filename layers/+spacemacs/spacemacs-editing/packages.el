@@ -444,6 +444,7 @@
     (show-smartparens-global-mode +1)
     ;; don't create a pair with single quote in minibuffer
     (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
+    (sp-local-pair 'minibuffer-mode "'" nil :actions nil)
     (sp-pair "{" nil :post-handlers
               '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
     (sp-pair "[" nil :post-handlers
