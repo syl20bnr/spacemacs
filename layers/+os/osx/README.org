@@ -32,9 +32,6 @@ encourage you to do so :)
 
 * Install
 ** Layer
-Layer has been updated for new config variables. The variable =osx-use-option-as-meta=
-is still available for backwards compatibility and will take precedence if set.
-
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =osx= to the existing =dotspacemacs-configuration-layers= list in this file.
 The different modifier keys can be set as follows:

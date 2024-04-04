@@ -45,12 +45,6 @@
   ;; The allowed non-nil values for the config variables.
   (setq allowed-values '(super meta hyper control alt none left))
 
-  ;; Backwards compatibility
-  (cl-case osx-use-option-as-meta
-    ((nil) (setf osx-option-as 'none))
-    (deprecated nil)
-    (t (setf osx-option-as 'meta)))
-
   ;; Set internal variables according to the given config variables
   (cl-loop for (key-var . internal-var) in modifier-keys do
            (let ((key-value (symbol-value key-var)))
