@@ -221,6 +221,16 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
   (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function))
 (add-hook 'server-visit-hook 'server-remove-kill-buffer-hook)
 
+(defun spacemacs-defaults//discourage-editing-installed-packages ()
+  "Turn on `read-only-mode' in installed Elisp packages.
+
+This is meant as a small deterrent to accidentally editing
+installed package files."
+  (when (and buffer-file-name
+             (file-in-directory-p buffer-file-name package-user-dir))
+    (read-only-mode)))
+(add-hook 'emacs-lisp-mode-hook #'spacemacs-defaults//discourage-editing-installed-packages)
+
 ;; ---------------------------------------------------------------------------
 ;; Other
 ;; ---------------------------------------------------------------------------
