@@ -64,14 +64,11 @@ Enable or disable advices to popwin, according to the state of `purpose-mode'."
   (require 'window-purpose)
   (if purpose-mode
       (progn
-        (ad-enable-advice 'popwin:create-popup-window
-                          'before 'window-purpose/save-dedicated-windows)
-        (ad-enable-advice 'popwin:create-popup-window
-                          'after 'window-purpose/restore-dedicated-windows)
-        (ad-update 'popwin:create-popup-window)
-        (ad-activate 'popwin:create-popup-window))
-    (ad-disable-advice 'popwin:create-popup-window
-                       'before 'window-purpose/save-dedicated-windows)
-    (ad-disable-advice 'popwin:create-popup-window
-                       'after 'window-purpose/restore-dedicated-windows)
-    (ad-update 'popwin:create-popup-window)))
+        (advice-add #'popwin:create-popup-window
+                    :before #'window-purpose/save-dedicated-windows)
+        (advice-add #'popwin:create-popup-window
+                    :after #'window-purpose/restore-dedicated-windows))
+    (advice-remove #'popwin:create-popup-window
+                   #'window-purpose/save-dedicated-windows)
+    (advice-remove #'popwin:create-popup-window
+                   #'window-purpose/restore-dedicated-windows)))
