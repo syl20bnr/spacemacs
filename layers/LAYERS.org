@@ -205,7 +205,6 @@
   - [[#helm-gtags][Helm Gtags]]
 - [[#themes][Themes]]
   - [[#colors][Colors]]
-  - [[#nyan-mode][Nyan-mode]]
   - [[#themes-megapack][Themes Megapack]]
   - [[#theming][Theming]]
 - [[#tools][Tools]]
@@ -2709,22 +2708,7 @@ Features:
 - Colorize only identifiers recognized as variables with [[https://github.com/ankurdave/color-identifiers-mode][color-identifiers]].
 - Colorize strings representing colors with the color they represent as background with
   [[https://jblevins.org/log/rainbow-mode][rainbow-mode]].
-- Display a Nyan cat progress bar in the mode-line with [[https://github.com/syl20bnr/nyan-mode][nyan-mode]].
-
-** Nyan-mode
-[[file:+themes/colors/local/nyan-mode/README.org][+themes/colors/local/nyan-mode/README.org]]
-
-Nyan Mode - Turn your Emacs into Nyanmacs! :)
-The mode is an analog indicator of your position in the buffer. The
-Cat should go from left to right in your mode-line, as you move your
-point from 0% to 100%.
-
-Features:
-- Mind dumbing content included,
-- Experimental animation (M-x nyan-start-animation, M-x nyan-stop-animation),
-- Wavy rainbow (M-x set-variable <ret> nyan-wavy-trail <ret> t),
-- Music, mplayer is needed (M-x nyan-start-music, M-x nyan-stop-music),
-- Customizable properties.
+- Display a Nyan cat progress bar in the mode-line with [[https://github.com/TeMPOraL/nyan-mode][nyan-mode]].
 
 ** Themes Megapack
 [[file:+themes/themes-megapack/README.org][+themes/themes-megapack/README.org]]
