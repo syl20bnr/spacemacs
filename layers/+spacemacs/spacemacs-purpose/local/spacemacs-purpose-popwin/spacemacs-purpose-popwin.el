@@ -211,7 +211,7 @@ Popwin's settings are taken from `popwin:special-display-config'."
     (remove-hook 'purpose-display-buffer-functions #'pupo/after-display)
     (remove-hook 'purpose-display-buffer-functions #'pupo/auto-delete-windows)))
 
-(defadvice popwin:create-popup-window (before pupo/before-popwin-create)
+(define-advice popwin:create-popup-window (:before pupo/before-popwin-create)
   "Save current popup windows for later restoration.
 The windows are restored in `pupo/after-popwin-create'.
 Note that the windows themselves aren't saved, but some internal
@@ -219,7 +219,7 @@ variables are updated instead."
   (setq pupo--saved-buffers (mapcar #'window-buffer pupo--windows))
   (setq pupo--saved-auto-buffers (mapcar #'window-buffer pupo--auto-windows)))
 
-(defadvice popwin:create-popup-window (after pupo/after-popwin-create)
+(define-advice popwin:create-popup-window (:after pupo/after-popwin-create)
   "Restore popup windows.
 The windows were saved in `pupo/before-popwin-create'.
 Note that the windows themselves aren't restored, but some internal
@@ -238,13 +238,10 @@ variables are updated instead."
 (defun pupo/sync-advices ()
   (if pupo-mode
       (progn
-        (ad-enable-advice 'popwin:create-popup-window 'before 'pupo/before-popwin-create)
-        (ad-enable-advice 'popwin:create-popup-window 'after 'pupo/after-popwin-create)
-        (ad-update 'popwin:create-popup-window)
-        (ad-activate 'popwin:create-popup-window))
-    (ad-disable-advice 'popwin:create-popup-window 'before 'pupo/before-popwin-create)
-    (ad-disable-advice 'popwin:create-popup-window 'after 'pupo/after-popwin-create)
-    (ad-update 'popwin:create-popup-window)))
+        (advice-add #'popwin:create-popup-window :before #'pupo/before-popwin-create)
+        (advice-add #'popwin:create-popup-window :after #'pupo/after-popwin-create))
+    (advice-remove #'popwin:create-popup-window #'pupo/before-popwin-create)
+    (advice-remove #'popwin:create-popup-window #'pupo/after-popwin-create)))
 (add-hook 'pupo-mode-hook #'pupo/sync-advices)
 
 (provide 'spacemacs-purpose-popwin)

@@ -79,14 +79,14 @@
     :post-config
     (progn
       (defvar window-purpose--dedicated-windows nil)
-      (defadvice popwin:create-popup-window
-          (before window-purpose/save-dedicated-windows)
+      (define-advice popwin:create-popup-window
+          (:before window-purpose/save-dedicated-windows)
         (setq window-purpose--dedicated-windows
               (cl-loop for window in (window-list)
                        if (purpose-window-purpose-dedicated-p window)
                        collect (window-buffer window))))
-      (defadvice popwin:create-popup-window
-          (after window-purpose/restore-dedicated-windows)
+      (define-advice popwin:create-popup-window
+          (:after window-purpose/restore-dedicated-windows)
         (cl-loop for buffer in window-purpose--dedicated-windows
                  do (cl-loop for window in (get-buffer-window-list buffer)
                              do (purpose-set-window-purpose-dedicated-p
