@@ -193,6 +193,7 @@
     ;; customize preview activation and delay while selecting candiates
     (consult-customize
      consult-theme
+     spacemacs/theme-loader
      :preview-key '("M-." "C-SPC"
                     :debounce 0.2 any)
 

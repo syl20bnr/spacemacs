@@ -447,6 +447,8 @@ When BACKWARD is non-nil, or with universal-argument, cycle backwards."
     (call-interactively 'spacemacs/helm-themes))
    ((configuration-layer/layer-used-p 'ivy)
     (call-interactively 'counsel-load-theme))
+   ((configuration-layer/layer-used-p 'compleseus)
+    (call-interactively 'consult-theme))
    (t (call-interactively 'load-theme))))
 
 (defun spacemacs/post-theme-init (theme)
