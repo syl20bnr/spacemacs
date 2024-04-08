@@ -43,7 +43,6 @@
     (hi-lock :location built-in)
     (image-mode :location built-in)
     (imenu :location built-in)
-    (occur-mode :location built-in)
     (package-menu :location built-in)
     ;; page-break-lines is shipped with spacemacs core
     (page-break-lines :location built-in)
@@ -354,10 +353,6 @@
                           (global-display-line-numbers-mode))
                         lazy-loading-line-numbers)
                     (global-display-line-numbers-mode)))))))
-
-(defun spacemacs-defaults/init-occur-mode ()
-  (evilified-state-evilify-map occur-mode-map
-    :mode occur-mode))
 
 (defun spacemacs-defaults/init-package-menu ()
   (evilified-state-evilify-map package-menu-mode-map
