@@ -87,8 +87,6 @@
 (defun spacemacs/ess-bind-keys-for-inferior ()
   (define-key inferior-ess-mode-map (kbd "C-j") #'comint-next-input)
   (define-key inferior-ess-mode-map (kbd "C-k") #'comint-previous-input)
-  (when ess-assign-key
-    (define-key inferior-ess-r-mode-map ess-assign-key #'ess-insert-assign))
 
   (dolist (mode '(inferior-ess-mode inferior-ess-r-mode))
     (spacemacs/declare-prefix-for-mode mode "ms" "repl")
