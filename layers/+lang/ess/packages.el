@@ -50,7 +50,7 @@
   (spacemacs/enable-flycheck 'ess-r-mode))
 
 (defun ess/init-ess ()
-  (use-package ess-site
+  (use-package ess
     :mode (("\\.sp\\'"           . S-mode)
            ("/R/.*\\.q\\'"       . R-mode)
            ("\\.[qsS]\\'"        . S-mode)
@@ -94,17 +94,15 @@
     (add-hook 'inferior-ess-mode-hook
               'spacemacs//ess-fix-read-only-inferior-ess-mode)
 
-    (with-eval-after-load 'ess-julia
-      (spacemacs/ess-bind-keys-for-julia))
-    (with-eval-after-load 'ess-r-mode
-      (spacemacs/ess-bind-keys-for-r)
-      (unless (eq ess-r-backend 'lsp)
-        (spacemacs/declare-prefix-for-mode 'ess-r-mode "mg" "goto")
-        (define-key ess-doc-map "h" #'ess-display-help-on-object)))
-    (with-eval-after-load 'ess-inf
-      (spacemacs/ess-bind-keys-for-inferior))
     :config
-    (define-key ess-mode-map (kbd "<s-return>") #'ess-eval-line))
+    (require 'ess-site)                 ; ensure fully loaded for config to work
+    (define-key ess-mode-map (kbd "<s-return>") #'ess-eval-line)
+    (spacemacs/ess-bind-keys-for-julia)
+    (spacemacs/ess-bind-keys-for-r)
+    (unless (eq ess-r-backend 'lsp)
+      (spacemacs/declare-prefix-for-mode 'ess-r-mode "mg" "goto")
+      (define-key ess-doc-map "h" #'ess-display-help-on-object))
+    (spacemacs/ess-bind-keys-for-inferior))
 
   ;; xref integration added with #96ef5a6
   (spacemacs|define-jump-handlers ess-mode 'xref-find-definitions))
