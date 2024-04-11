@@ -82,13 +82,13 @@ A COUNT argument matches the indentation to the next COUNT lines."
     python-mode
     yaml-mode)
   "Modes for which auto-indenting is suppressed."
-  :type 'list
+  :type '(repeat symbol)
   :group 'spacemacs)
 
 (defcustom spacemacs-yank-indent-modes '(latex-mode)
   "Modes in which to indent regions that are yanked (or yank-popped).
 Only modes that don't derive from `prog-mode' should be listed here."
-  :type 'list
+  :type '(repeat symbol)
   :group 'spacemacs)
 
 (defcustom spacemacs-yank-indent-threshold 1000
@@ -103,7 +103,7 @@ Only modes that don't derive from `prog-mode' should be listed here."
   "Major modes which `spacemacs/check-large-file' will not be
 automatically applied to."
   :group 'spacemacs
-  :type '(list symbol))
+  :type '(repeat symbol))
 
 (defun spacemacs/custom-newline (pos)
   "Make `RET' in a Custom-mode search box trigger that field's action, rather
