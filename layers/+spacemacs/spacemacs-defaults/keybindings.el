@@ -418,6 +418,7 @@
   "hdb" 'describe-bindings
   "hdc" 'describe-char
   "hdf" 'describe-function
+  "hdF" 'describe-face
   "hdk" 'describe-key
   "hdK" 'describe-keymap
   "hdl" 'spacemacs/describe-last-keys
