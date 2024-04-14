@@ -324,50 +324,12 @@ Note: this function relies on embark internals and might break upon embark updat
              (car (nth (1+ idx) consult--narrow-keys))))
        (caar consult--narrow-keys)))))
 
-(defun spacemacs/compleseus-grep-change-to-wgrep-mode ()
-  (interactive)
-  (require 'wgrep)
-  (wgrep-change-to-wgrep-mode)
-  (evil-normal-state))
-
 (defun spacemacs/consult-edit ()
   "Export the consult buffer and make the buffer editable righ away."
   (interactive)
   (require 'embark)
-  (let ((embark-after-export-hook
-         '(spacemacs/compleseus-grep-change-to-wgrep-mode)))
+  (let ((embark-after-export-hook '(spacemacs/grep-change-to-wgrep-mode)))
     (embark-export)))
-
-(defun spacemacs/wgrep-finish-edit ()
-  "Set back the default evil state when finishing editing."
-  (interactive)
-  (wgrep-finish-edit)
-  (spacemacs//grep-set-evil-state))
-
-(defun spacemacs/wgrep-abort-changes ()
-  "Set back the default evil state when aborting editing."
-  (interactive)
-  (wgrep-abort-changes)
-  (spacemacs//grep-set-evil-state))
-
-(defun spacemacs//grep-set-evil-state ()
-  "Set the evil state for the read-only grep buffer given the current editing style."
-  (if (eq dotspacemacs-editing-style 'emacs)
-      (evil-emacs-state)
-    (evil-motion-state)))
-
-(defun spacemacs/wgrep-abort-changes-and-quit ()
-  "Abort changes and quit."
-  (interactive)
-  (spacemacs/wgrep-abort-changes)
-  (quit-window))
-
-(defun spacemacs/wgrep-save-changes-and-quit ()
-  "Save changes and quit."
-  (interactive)
-  (spacemacs/wgrep-finish-edit)
-  (wgrep-save-all-buffers)
-  (quit-window))
 
 (defvar compleseus--previous-preview-keys nil
   "variable to store the former value of preview keys or nil if the preview

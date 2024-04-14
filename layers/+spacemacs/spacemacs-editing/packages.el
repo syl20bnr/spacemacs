@@ -54,6 +54,7 @@
     (vimish-fold :toggle (eq 'vimish dotspacemacs-folding-method))
     (evil-vimish-fold :toggle (eq 'vimish dotspacemacs-folding-method))
     (evil-easymotion :toggle (memq dotspacemacs-editing-style '(vim hybrid)))
+    wgrep
     ws-butler))
 
 ;; Initialization of packages
@@ -664,3 +665,18 @@ See variable `undo-fu-session-directory'." dir))
     :init
     (setq unkillable-scratch-do-not-reset-scratch-buffer t)
     (unkillable-scratch dotspacemacs-scratch-buffer-unkillable)))
+
+(defun spacemacs-editing/init-wgrep ()
+  (spacemacs/set-leader-keys-for-major-mode 'grep-mode
+    "s" 'wgrep-save-all-buffers
+    "w" 'spacemacs/grep-change-to-wgrep-mode
+    "f" 'next-error-follow-minor-mode)
+  (evil-define-key 'normal wgrep-mode-map ",," #'spacemacs/wgrep-finish-edit)
+  (evil-define-key 'normal wgrep-mode-map ",c" #'spacemacs/wgrep-finish-edit)
+  (evil-define-key 'normal wgrep-mode-map ",a" #'spacemacs/wgrep-abort-changes)
+  (evil-define-key 'normal wgrep-mode-map ",k" #'spacemacs/wgrep-abort-changes)
+  (evil-define-key 'normal wgrep-mode-map ",q" #'spacemacs/wgrep-abort-changes-and-quit)
+  (evil-define-key 'normal wgrep-mode-map ",s" #'spacemacs/wgrep-save-changes-and-quit)
+  (evil-define-key 'normal wgrep-mode-map ",r" #'wgrep-toggle-readonly-area)
+  (evil-define-key 'normal wgrep-mode-map ",d" #'wgrep-mark-deletion)
+  (evil-define-key 'normal wgrep-mode-map ",f" #'next-error-follow-minor-mode))
