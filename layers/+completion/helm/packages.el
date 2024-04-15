@@ -321,7 +321,7 @@
   (use-package helm-ls-git
     :defer t
     :init
-    (spacemacs/set-leader-keys "gff" 'helm-ls-git-ls)
+    (spacemacs/set-leader-keys "gff" 'helm-ls-git)
     (when (configuration-layer/package-usedp 'magit)
       ;; Do not use helm-ls-git-rebase-todo-mode for git-rebase-todo,
       ;; instead let it be handled by magit
