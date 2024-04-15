@@ -325,9 +325,16 @@
     (when (configuration-layer/package-usedp 'magit)
       ;; Do not use helm-ls-git-rebase-todo-mode for git-rebase-todo,
       ;; instead let it be handled by magit
-      (delete '("/git-rebase-todo$" . helm-ls-git-rebase-todo-mode) auto-mode-alist))
+      (setq auto-mode-alist
+            (delete '("/git-rebase-todo$" . helm-ls-git-rebase-todo-mode)
+                    auto-mode-alist)))
     :config
     (when (configuration-layer/package-usedp 'magit)
+      ;; Undo the forced action of adding helm-ls-git-rebase-todo-mode to
+      ;; auto-mode-alist by helm-ls-git.
+      (setq auto-mode-alist
+            (delete '("/git-rebase-todo$" . helm-ls-git-rebase-todo-mode)
+                    auto-mode-alist))
       ;; Set `helm-ls-git-status-command' conditonally on `git' layer
       ;; If `git' is in use, use default `\'magit-status-setup-buffer'
       ;; Otherwise, use defaault `\'vc-dir'
