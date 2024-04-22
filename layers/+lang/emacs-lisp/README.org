@@ -39,6 +39,7 @@ always be in your dotfile, it is not recommended to uninstall it.
 - Nameless package prefix with optional [[https://github.com/Malabarba/Nameless][nameless]]
 - Structurally safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 - Visual feedback when evaluation using [[https://github.com/hchbaw/eval-sexp-fu.el][eval-sexp-fu]]
+- Provide Emacs Lisp API usage examples using [[https://github.com/xuchunyang/elisp-demos][elisp-demos]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
