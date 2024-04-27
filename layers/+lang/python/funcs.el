@@ -474,16 +474,10 @@ Bind formatter to '==' for LSP and '='for all other backends."
     (python-shell-send-region start end)))
 
 (defun spacemacs/python-shell-send-statement ()
-  "Send the current statement to shell, same as `python-shell-send-statement' in Emacs27."
+  "Send the statement under cursor to shell."
   (interactive)
-  (if (fboundp 'python-shell-send-statement)
-      (call-interactively #'python-shell-send-statement)
-    (if (region-active-p)
-        (call-interactively #'python-shell-send-region)
-      (let ((python-mode-hook nil))
-        (python-shell-send-region
-         (save-excursion (python-nav-beginning-of-statement))
-         (save-excursion (python-nav-end-of-statement)))))))
+  (let ((python-mode-hook nil))
+    (call-interactively #'python-shell-send-statement)))
 
 (defun spacemacs/python-shell-send-statement-switch ()
   "Send statement to shell and switch to it in insert mode."
