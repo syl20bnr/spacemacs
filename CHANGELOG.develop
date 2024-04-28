@@ -3816,6 +3816,16 @@ files (thanks to Daniel Nicolai)
     =typescript/jump-to-type-def= (thanks to Roy Choo)
   - ~SPC m r i~ to organize imports (thanks to Stéphane Bisinger)
   - ~SPC m r f~ to rename file (thanks to Stéphane Bisinger)
+  - Added =npm-mode= key bindings:
+    - ~SPC m n i~ to run the =npm install= command in the project root
+    - ~SPC m n r~ to show a list of available npm scripts, and execute the selected one
+    - ~SPC m n c~ to run the =npm clean= command in the project root
+    - ~SPC m n s~ to prompt for the name of an npm package, install it and save to =dependencies=
+    - ~SPC m n d~ to prompt for the name of an npm package, install it and save to =devDependencies=
+    - ~SPC m n n~ to initialize new project
+    - ~SPC m n u~ to remove project dependency
+    - ~SPC m n l~ to list installed project dependencies
+    - ~SPC m n p~ to visit project =package.json= file
 - Changed the default linter from tslint to eslint
 - Call tsfmt with extension of current buffer for TSX formatting
   (thanks to Victor Andrée)
