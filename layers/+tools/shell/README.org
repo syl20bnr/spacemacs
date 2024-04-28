@@ -286,6 +286,8 @@ Some advanced configuration is setup for =eshell= in this layer:
 - add support for auto-completion via =company= (when the =auto-completion=
   layer is installed)
 - pressing ~i~ in normal state will automatically jump to the prompt
+- color support with package ~xterm-color~ on Emacs28 and before
+- color support with built-in ~ansi-color~ by default on Emacs29 and later
 
 * Key bindings
 
