@@ -33,8 +33,7 @@
 
 (defun translate/init-go-translate ()
   (use-package go-translate
-    :demand t
-    :after posframe
+    :commands (gts-translate)
     :config
     (defclass translate//reference-paragraph-texter (gts-texter) ())
     (cl-defmethod gts-text ((_ translate//reference-paragraph-texter))
