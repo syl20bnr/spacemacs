@@ -178,7 +178,11 @@
   (use-package importmagic
     :defer t
     :init
-    (add-hook 'python-mode-hook 'importmagic-mode)
+    (add-hook 'python-mode-hook
+              #'(lambda ()
+                  ;; skip temp buffer which bufer-name begin with space
+                  (unless (eq ?\s (string-to-char (buffer-name)))
+                    (importmagic-mode))))
     (spacemacs|diminish importmagic-mode " ⓘ" " [i]")
     (spacemacs/set-leader-keys-for-major-mode 'python-mode
       "rf" 'importmagic-fix-symbol-at-point)))
