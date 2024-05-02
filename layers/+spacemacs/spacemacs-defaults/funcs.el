@@ -558,16 +558,18 @@ FILENAME is deleted using `spacemacs/delete-file' function.."
   (funcall-interactively #'spacemacs/delete-file filename t))
 
 ;; from magnars
-(defun spacemacs/delete-current-buffer-file ()
-  "Removes file connected to current buffer and kills buffer."
-  (interactive)
+(defun spacemacs/delete-current-buffer-file (&optional arg)
+  "Removes file connected to current buffer and kills buffer.
+If ARG is not nil, assume yes for default."
+  (interactive "P")
   (let ((filename (buffer-file-name))
         (buffer (current-buffer))
         (name (buffer-name)))
     (if (not (and filename (file-exists-p filename)))
         (ido-kill-buffer)
-      (if (yes-or-no-p
-           (format "Are you sure you want to delete this file: '%s'?" name))
+      (if (or arg
+              (yes-or-no-p
+               (format "Are you sure you want to delete this file: '%s'?" name)))
           (progn
             (delete-file filename t)
             (kill-buffer buffer)
@@ -576,6 +578,11 @@ FILENAME is deleted using `spacemacs/delete-file' function.."
               (call-interactively #'projectile-invalidate-cache))
             (message "File deleted: '%s'" filename))
         (message "Canceled: File deletion")))))
+
+(defun spacemacs/delete-current-buffer-file-yes ()
+  "Removes file connected to current buffer and kills buffer with assume yes."
+  (interactive)
+  (funcall #'spacemacs/delete-current-buffer-file t))
 
 ;; from magnars
 (defun spacemacs/sudo-edit (&optional arg)
