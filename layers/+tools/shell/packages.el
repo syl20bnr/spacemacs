@@ -107,9 +107,14 @@
     (defalias 'eshell/e 'find-file-other-window)
     (defalias 'eshell/d 'dired)
 
-    (require 'esh-var)
-    (add-to-list 'eshell-variable-aliases-list
-                 `("PAGER" ,(lambda (&optional _indices _quoted) "cat") t))
+    (when (version< emacs-version "28.1")
+      (with-eval-after-load 'esh-var
+        (add-to-list 'eshell-variable-aliases-list
+                     `("PAGER" (,(lambda () (or comint-pager (getenv "PAGER")))
+                                . ,(lambda (_ value)
+                                     (unless value (setenv "PAGER"))
+                                     (setq comint-pager value)))
+                       t t))))
 
     ;; support `em-smart'
     (when shell-enable-smart-eshell
