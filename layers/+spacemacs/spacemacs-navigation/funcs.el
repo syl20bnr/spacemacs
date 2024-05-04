@@ -101,6 +101,12 @@ before enabling it for the transient state.
 This function always has to be called just before activating
 the Symbol Highlight Transient State. (Setting it as the :on-enter
 property of the transient state would not execute it early enough.)"
+  (unless (thing-at-point 'symbol t)
+    ;; Here it makes no sense to enter the transient state.
+    ;; Alternatively, we could implement behaviour similar to
+    ;; `evil-ex-search-unbounded-word-forward', i. e. move to
+    ;; the next or previous symbol.
+    (user-error "No symbol found at point"))
   (unless (bound-and-true-p auto-highlight-symbol-mode)
     (setq-local spacemacs//ahs-was-disabled t))
   (auto-highlight-symbol-mode)
@@ -108,7 +114,7 @@ property of the transient state would not execute it early enough.)"
 
 (defun spacemacs/enter-ahs-forward ()
   "Go to the next occurrence of symbol under point with
- `auto-highlight-symbol'"
+`auto-highlight-symbol-mode' and enter the Symbol Highlight Transient State."
   (interactive)
   (setq spacemacs--ahs-searching-forward t)
   (spacemacs//ahs-setup)
@@ -116,7 +122,7 @@ property of the transient state would not execute it early enough.)"
 
 (defun spacemacs/enter-ahs-backward ()
   "Go to the previous occurrence of symbol under point with
- `auto-highlight-symbol'"
+`auto-highlight-symbol-mode' and enter the Symbol Highlight Transient State."
   (interactive)
   (setq spacemacs--ahs-searching-forward nil)
   (spacemacs//ahs-setup)
@@ -141,8 +147,8 @@ the Symbol Highlight Transient State. Otherwise use `spacemacs/enter-ahs-backwar
   (spacemacs//quick-ahs-move nil))
 
 (defun spacemacs//quick-ahs-move (forward)
-  "Go to the next occurrence of symbol under point with
- `auto-highlight-symbol'"
+  "Go to the next or previous occurrence of symbol under point with
+`auto-highlight-symbol-mode'."
   (evil-set-jump)
   ;; Prevent ahs from blocking when navigating quickly between occurrences.
   (ahs-highlight-now)
@@ -154,7 +160,8 @@ the Symbol Highlight Transient State. Otherwise use `spacemacs/enter-ahs-backwar
     (ahs-backward)))
 
 (defun spacemacs/symbol-highlight ()
-  "Highlight the symbol under point with `auto-highlight-symbol'."
+  "Highlight the symbol under point with `auto-highlight-symbol-mode' and
+enter the Symbol Highlight Transient State."
   (interactive)
   (spacemacs/integrate-evil-search t)
   (spacemacs//remember-last-ahs-highlight)
@@ -223,35 +230,35 @@ in the window where the Symbol Highlight Transient State was closed."
   (setq-local spacemacs//ahs-was-disabled nil))
 
 (defun spacemacs/symbol-highlight-reset-range ()
-  "Reset the range for `auto-highlight-symbol'."
+  "Reset the range for `auto-highlight-symbol-mode'."
   (interactive)
   (ahs-change-range ahs-default-range))
 
 ;; transient state
 (defun spacemacs//symbol-highlight-doc ()
-        (let* ((i 0)
-               (overlay-list (ahs-overlay-list-window))
-               (overlay-count (length overlay-list))
-               (overlay (format "%s" (nth i overlay-list)))
-               (current-overlay (format "%s" (ahs-current-overlay-window)))
-               (st (ahs-stat))
-               (plighter (ahs-current-plugin-prop 'lighter))
-               (plugin (format "%s"
-                               (cond ((string= plighter "HS")  "Display")
-                                     ((string= plighter "HSA") "Buffer")
-                                     ((string= plighter "HSD") "Function"))))
-               (face (cond ((string= plighter "HS")  ahs-plugin-default-face)
-                           ((string= plighter "HSA") ahs-plugin-whole-buffer-face)
-                           ((string= plighter "HSD") ahs-plugin-bod-face))))
-          (while (not (string= overlay current-overlay))
-            (setq i (1+ i))
-            (setq overlay (format "%s" (nth i overlay-list))))
-          (let* ((x/y (format "[%s/%s]" (- overlay-count i) overlay-count))
-                 (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" "")))
-            (concat
-             (propertize (format " %s " plugin) 'face face)
-             (propertize (format " %s%s " x/y hidden) 'face
-                         `(:foreground "#ffffff" :background "#000000"))))))
+  (let* ((i 0)
+         (overlay-list (ahs-overlay-list-window))
+         (overlay-count (length overlay-list))
+         (overlay (format "%s" (nth i overlay-list)))
+         (current-overlay (format "%s" (ahs-current-overlay-window)))
+         (st (ahs-stat))
+         (plighter (ahs-current-plugin-prop 'lighter))
+         (plugin (format "%s"
+                         (cond ((string= plighter "HS")  "Display")
+                               ((string= plighter "HSA") "Buffer")
+                               ((string= plighter "HSD") "Function"))))
+         (face (cond ((string= plighter "HS")  ahs-plugin-default-face)
+                     ((string= plighter "HSA") ahs-plugin-whole-buffer-face)
+                     ((string= plighter "HSD") ahs-plugin-bod-face))))
+    (while (not (string= overlay current-overlay))
+      (setq i (1+ i))
+      (setq overlay (format "%s" (nth i overlay-list))))
+    (let* ((x/y (format "[%s/%s]" (- overlay-count i) overlay-count))
+           (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" "")))
+      (concat
+       (propertize (format " %s " plugin) 'face face)
+       (propertize (format " %s%s " x/y hidden) 'face
+                   `(:foreground "#ffffff" :background "#000000"))))))
 
 (defun spacemacs/ahs-to-iedit ()
   "Trigger iedit from ahs."
@@ -285,22 +292,22 @@ in the window where the Symbol Highlight Transient State was closed."
   (spacemacs/symbol-overlay-transient-state/body))
 
 (defun spacemacs//symbol-overlay-doc ()
-        (let* ((symbol-at-point (symbol-overlay-get-symbol))
-               (keyword (symbol-overlay-assoc symbol-at-point))
-               (symbol (car keyword))
-                     (before (symbol-overlay-get-list -1 symbol))
-                     (after (symbol-overlay-get-list 1 symbol))
-                     (count (length before))
-               (scope (format "%s"
-                              (if (cadr keyword)
-                                  "Scope"
-                                "Buffer")))
-               (color (cddr keyword))
-               (x/y (format "[%s/%s]" (+ count 1) (+ count (length after)))))
-            (concat
-             (propertize (format " %s " scope) 'face color))
-             (propertize (format " %s " x/y) 'face
-                         `(:foreground "#ffffff" :background "#000000"))))
+  (let* ((symbol-at-point (symbol-overlay-get-symbol))
+         (keyword (symbol-overlay-assoc symbol-at-point))
+         (symbol (car keyword))
+         (before (symbol-overlay-get-list -1 symbol))
+         (after (symbol-overlay-get-list 1 symbol))
+         (count (length before))
+         (scope (format "%s"
+                        (if (cadr keyword)
+                            "Scope"
+                          "Buffer")))
+         (color (cddr keyword))
+         (x/y (format "[%s/%s]" (+ count 1) (+ count (length after)))))
+    (concat
+     (propertize (format " %s " scope) 'face color))
+    (propertize (format " %s " x/y) 'face
+                `(:foreground "#ffffff" :background "#000000"))))
 
 (defun spacemacs//symbol-overlay-ts-doc ()
   (spacemacs//transient-state-make-doc
