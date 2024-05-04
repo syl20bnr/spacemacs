@@ -51,7 +51,7 @@
     (spacemacs/transient-state-register-add-bindings 'symbol-highlight
       '(("s" spacemacs/consult-line :exit t)
         ("f" spacemacs/compleseus-search-auto :exit t)
-        ("/" spacemacs/compleseus-search-projectile-auto :exit t)))))
+        ("/" spacemacs/compleseus-search-projectile :exit t)))))
 
 (defun compleseus/post-init-imenu ()
   (spacemacs/set-leader-keys "ji" 'spacemacs/consult-jump-in-buffer)
