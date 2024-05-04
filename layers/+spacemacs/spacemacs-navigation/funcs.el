@@ -68,31 +68,41 @@ If the universal prefix argument is used then kill also the window."
              (spacemacs/symbol-highlight-transient-state/body))
     (message "No previously searched for symbol found")))
 
-(defun spacemacs/integrate-evil-search (forward)
-        ;; isearch-string is last searched item.  Next time
-        ;; "n" is hit we will use this.
-        (let* ((symbol (evil-find-thing forward 'symbol))
-               (regexp (concat "\\<" symbol "\\>")))
-          (setq isearch-string regexp
-                isearch-regexp regexp
-                evil-ex-search-pattern (evil-ex-make-search-pattern regexp)))
-        ;; Next time "n" is hit, go the correct direction.
-        (setq isearch-forward forward)
-        (setq evil-ex-search-direction (if forward 'forward 'backward))
-        ;; ahs does a case sensitive search.  We could set
-        ;; this, but it would break the user's current
-        ;; sensitivity settings.  We could save the setting,
-        ;; then next time the user starts a search we could
-        ;; restore the setting.
-        ;;(setq case-fold-search nil)
-        ;; Place the search term into the search rings.
-        (isearch-update-ring isearch-string t)
-        (evil-push-search-history isearch-string forward)
-        ;; Use this search term for empty pattern "%s//replacement/"
-        ;; Append case sensitivity
-        (setq evil-ex-last-was-search nil
-              evil-ex-substitute-pattern `(,(concat isearch-string "\\C")
-                                           nil (0 0))))
+(defun spacemacs//integrate-evil-search (forward)
+  "Set relevant variables for repeating the search with 'n' or 'N'
+after having left the Symbol Highlight Transient State.
+
+This function has to handle both possible values of `evil-search-module':
+'isearch' and 'evil-search'."
+  ;; Due to the new `user-error' in `spacemacs//ahs-setup', a `let*'-form
+  ;; would suffice here. However, the function in itself only
+  ;; makes sense if there is a symbol at point, hence the `when-let*'.
+  (when-let* ((symbol (thing-at-point 'symbol t))
+              (regexp (concat "\\<" symbol "\\>")))
+    (setq isearch-string regexp
+          isearch-regexp regexp
+          evil-ex-search-pattern (evil-ex-make-search-pattern regexp))
+    ;; Set the search direction.
+    ;; `isearch-forward' is the only variable that has to be set when leaving
+    ;; the transient state because it can get changed when navigating using ahs.
+    ;; The other variables could in principle be set earlier (for example in
+    ;; `spacemacs//ahs-setup') because they would not change.
+    (setq isearch-forward forward)
+    (setq evil-ex-search-direction (if forward 'forward 'backward))
+    ;; ahs does a case sensitive search.  We could set
+    ;; this, but it would break the user's current
+    ;; sensitivity settings.  We could save the setting,
+    ;; then next time the user starts a search we could
+    ;; restore the setting.
+    ;;(setq case-fold-search nil)
+    ;; Place the search term into the search rings.
+    (isearch-update-ring isearch-string t)
+    (evil-push-search-history isearch-string forward)
+    ;; Use this search term for empty pattern "%s//replacement/"
+    ;; Append case sensitivity
+    (setq evil-ex-last-was-search nil
+          evil-ex-substitute-pattern `(,(concat isearch-string "\\C")
+                                       nil (0 0)))))
 
 (defun spacemacs//ahs-setup ()
   "Remember the `auto-highlight-symbol-mode' state,
@@ -153,17 +163,14 @@ the Symbol Highlight Transient State. Otherwise use `spacemacs/enter-ahs-backwar
   ;; Prevent ahs from blocking when navigating quickly between occurrences.
   (ahs-highlight-now)
   (if (eq forward spacemacs--ahs-searching-forward)
-      (progn
-        (spacemacs/integrate-evil-search t)
-        (ahs-forward))
-    (spacemacs/integrate-evil-search nil)
+      (ahs-forward)
     (ahs-backward)))
 
 (defun spacemacs/symbol-highlight ()
   "Highlight the symbol under point with `auto-highlight-symbol-mode' and
 enter the Symbol Highlight Transient State."
   (interactive)
-  (spacemacs/integrate-evil-search t)
+  (setq spacemacs--ahs-searching-forward t)
   (spacemacs//remember-last-ahs-highlight)
   (spacemacs//ahs-setup)
   (spacemacs/symbol-highlight-transient-state/body))
@@ -198,9 +205,7 @@ ahs mode is only disabled if it was disabled before a symbol was highlighted.")
 
 (defun spacemacs//ahs-ts-on-exit ()
   (setq spacemacs//ahs-ts-exit-window (selected-window))
-  ;; Restore user search direction state as ahs has exitted in a state
-  ;; good for <C-s>, but not for 'n' and 'N'"
-  (setq isearch-forward spacemacs--ahs-searching-forward)
+  (spacemacs//integrate-evil-search spacemacs--ahs-searching-forward)
   (spacemacs//disable-symbol-highlight-after-ahs-ts-exit))
 
 (defun spacemacs//disable-symbol-highlight-after-ahs-ts-exit ()
