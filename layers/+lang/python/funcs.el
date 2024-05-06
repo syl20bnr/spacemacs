@@ -525,6 +525,20 @@ If region is not active then send line."
     (pop-to-buffer (process-buffer shell-process))
     (evil-insert-state)))
 
+(defun spacemacs/python-shell-restart ()
+  "Restart python shell."
+  (interactive)
+  (let ((python-mode-hook nil))
+    (python-shell-restart)))
+
+(defun spacemacs/python-shell-restart-switch ()
+  "Restart python shell and switch to it in insert mode."
+  (interactive)
+  (let ((python-mode-hook nil))
+    (python-shell-restart)
+    (python-shell-switch-to-shell)
+    (evil-insert-state)))
+
 (defun spacemacs/python-execute-file (arg)
   "Execute a python script in a shell."
   (interactive "P")
