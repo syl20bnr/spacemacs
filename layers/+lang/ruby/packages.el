@@ -217,6 +217,7 @@
         "sf" 'ruby-send-definition
         "sF" 'ruby-send-definition-and-go
         "si" 'robe-start
+        "sq" 'ruby-quit
         "sl" 'ruby-send-line
         "sL" 'ruby-send-line-and-go
         "sr" 'ruby-send-region
