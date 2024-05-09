@@ -25,7 +25,8 @@
   '(
     company
     dap-mode
-    (company-go :requires company)
+    (company-go :requires company
+                :toggle (eq go-backend 'go-mode))
     counsel-gtags
     eldoc
     flycheck
