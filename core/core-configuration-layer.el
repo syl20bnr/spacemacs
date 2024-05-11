@@ -319,12 +319,12 @@ is ignored."
   "Check if requirements of a package are all enabled.
 If INHIBIT-MESSAGES is non nil then any message emitted by the toggle evaluation
 is ignored."
-  (not (memq nil (mapcar
-                  (lambda (dep-pkg)
-                    (let ((pkg-obj (configuration-layer/get-package dep-pkg)))
-                      (when pkg-obj
-                        (cfgl-package-enabled-p pkg-obj inhibit-messages))))
-                  (oref pkg :requires)))))
+  (cl-every
+   (lambda (dep-pkg)
+     (let ((pkg-obj (configuration-layer/get-package dep-pkg)))
+       (when pkg-obj
+         (cfgl-package-enabled-p pkg-obj inhibit-messages))))
+   (oref pkg :requires)))
 
 (cl-defmethod cfgl-package-enabled-p ((pkg cfgl-package) &optional inhibit-messages)
   "Check if a package is enabled.
@@ -336,11 +336,11 @@ is ignored."
        (cfgl-package-reqs-satisfied-p pkg inhibit-messages)
        (cfgl-package-toggled-p pkg inhibit-messages)))
 
-(cl-defmethod cfgl-package-used-p ((pkg cfgl-package))
+(cl-defmethod cfgl-package-used-p ((pkg cfgl-package) &optional inhibit-messages)
   "Return non-nil if PKG is a used package."
   (and (not (null (oref pkg :owners)))
        (not (oref pkg :excluded))
-       (cfgl-package-enabled-p pkg t)))
+       (cfgl-package-enabled-p pkg inhibit-messages)))
 
 (cl-defmethod cfgl-package-distant-p ((pkg cfgl-package))
   "Return non-nil if PKG is a distant package (i.e. not built-in Emacs)."
@@ -1207,7 +1207,7 @@ Return nil if package object is not found."
 
 (defun configuration-layer//sort-packages (packages)
   "Return a sorted list of PACKAGES objects."
-  (sort packages (lambda (x y) (string< (symbol-name x) (symbol-name y)))))
+  (sort packages #'string<))
 
 (defun configuration-layer/make-all-packages (&optional skip-layer-discovery skip-layer-deps)
   "Create objects for _all_ packages supported by Spacemacs.
@@ -1315,9 +1315,7 @@ USEDP if non-nil indicates that made packages are used packages."
 
 (defun configuration-layer/filter-objects (objects ffunc)
   "Return a filtered OBJECTS list where each element satisfies FFUNC."
-  (reverse (cl-reduce (lambda (acc x) (if (funcall ffunc x) (push x acc) acc))
-                      objects
-                      :initial-value nil)))
+  (cl-remove-if-not ffunc objects))
 
 (defun configuration-layer//filter-distant-packages
     (packages usedp &optional predicate)
@@ -1332,7 +1330,7 @@ PREDICATE is an additional expression that eval to a boolean."
        (if pkg
            (and (cfgl-package-distant-p pkg)
                 (or (null usedp)
-                    (cfgl-package-used-p pkg))
+                    (cfgl-package-used-p pkg t))
                 (or (null predicate)
                     (funcall predicate pkg)))
          (spacemacs-buffer/warning "Cannot find package for %s" x)
@@ -1652,16 +1650,16 @@ RNAME is the name symbol of another existing layer."
          (not (memq nil (mapcar
                          'configuration-layer/package-used-p
                          (oref obj :requires)))))))
+
 (defalias 'configuration-layer/package-usedp
   'configuration-layer/package-used-p)
 
 (defun configuration-layer//package-reqs-used-p (pkg)
-  "Returns non-nil if all requirements of PKG are used."
-  (not (memq nil (mapcar
-                  'configuration-layer/package-used-p
-                  (oref pkg :requires)))))
+  "Return non-nil if all requirements of PKG are used."
+  (cl-every #'configuration-layer/package-used-p
+            (oref pkg :requires)))
 
-(defun  configuration-layer/package-lazy-install-p (name)
+(defun configuration-layer/package-lazy-install-p (name)
   "Return non-nil if NAME is the name of a package to be lazily installed."
   (let ((obj (configuration-layer/get-package name)))
     (when obj (oref obj :lazy-install))))
@@ -2059,12 +2057,12 @@ LAYER must not be the owner of PKG."
          (disabled (when owner (oref owner :disabled-for)))
          (enabled (when owner (oref owner :enabled-for))))
     (and owner
-         (not (memq nil (mapcar
-                         (lambda (dep-pkg)
-                           (let ((pkg-obj (configuration-layer/get-package dep-pkg)))
-                             (when pkg-obj
-                               (configuration-layer//package-enabled-p pkg-obj layer))))
-                         (oref pkg :requires))))
+         (cl-every
+          (lambda (dep-pkg)
+            (let ((pkg-obj (configuration-layer/get-package dep-pkg)))
+              (when pkg-obj
+                (configuration-layer//package-enabled-p pkg-obj layer))))
+          (oref pkg :requires))
          (if (not (eq 'unspecified enabled))
              (memq layer enabled)
            (not (memq layer disabled))))))
