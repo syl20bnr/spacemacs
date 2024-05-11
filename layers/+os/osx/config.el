@@ -20,14 +20,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-(defvar osx-use-option-as-meta 'deprecated
-  "DEPRECATED. See README for OSX layer for new variables. If this
-   variable is set it will take precedence (for backwards compatibility).
-   If non nil the option key is mapped to meta. Set to `nil` if you need the
-   option key to type common characters.
-   Default: `deprecated'")
-
 (defvar osx-command-as 'hyper
   "Sets the key binding of the `COMMAND' key on macOS.
    Possible values are `super', `meta', `hyper', `alt', and `none'.
@@ -44,9 +36,7 @@
 (defvar osx-option-as 'meta
   "Sets the key binding of the `OPTION' key on macOS.
    Possible values are `super' `meta' `hyper' `alt' `none'.
-   Default: `meta'.
-   For backwards compatibility the variable `osx-use-option-as-meta'
-   takes precedence if set to t.")
+   Default: `meta'.")
 (defvar osx-function-as nil
   "Sets the key binding of the `FUNCTION' key on macOS.
    Possible values are `super' `meta' `hyper' `alt' `nil'.
