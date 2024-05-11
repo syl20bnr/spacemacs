@@ -93,9 +93,9 @@ This is a list of strings used as shell commands.")
 NAME is the name for process.
 COMMAND is the shell command to run.
 DIRECTORY is the working directory in which the process is run.  It defaults to
-  `user-home-directory' if not provided.
+  \"~/\" if not provided.
 The started process is also added to `exwm--autostart-process-list'."
-  (add-to-list (let ((default-directory (or directory user-home-directory)))
+  (add-to-list (let ((default-directory (or directory "~/")))
                    (start-process-shell-command name nil command))
                exwm--autostart-process-list))
 
@@ -109,7 +109,7 @@ The started process is also added to `exwm--autostart-process-list'."
               (basename (gethash "Name" xdg))
               (cmd (gethash "Exec" xdg))
                             ;; (dbus-p (gethash "DBusActivatable" xdg)) ; TODO: support
-              (directory (or (gethash "Path" xdg) user-home-directory))
+              (directory (or (gethash "Path" xdg) "~/"))
               (_include? (and (null (gethash "Hidden" xdg))
                               (if-let ((only-show (gethash "OnlyShowIn" xdg)))
                                   (member "EXWM" (split-string only-show ";" t))

@@ -22,7 +22,7 @@
 
 (defun spacemacs/floobits-rclocation ()
   "Return the absolute path to the floobits dotfile."
-  (concat user-home-directory ".floorc.json"))
+  "~/.floorc.json")
 
 (defun spacemacs/floobits-load-rcfile ()
   "Load ~/.floobitsrc if it exists."

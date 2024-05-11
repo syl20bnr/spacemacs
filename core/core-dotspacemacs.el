@@ -24,7 +24,7 @@
 (require 'core-customization)
 
 (defconst dotspacemacs-template-directory
-  (expand-file-name (concat spacemacs-core-directory "templates/"))
+  (concat spacemacs-core-directory "templates/")
   "Templates directory.")
 
 (defconst dotspacemacs-test-results-buffer "*dotfile-test-results*"
@@ -38,32 +38,32 @@ their configuration.")
 (defconst dotspacemacs-directory
   (let* ((spacemacs-dir-env (getenv "SPACEMACSDIR"))
          (spacemacs-dir (if spacemacs-dir-env
-                            (expand-file-name (concat spacemacs-dir-env "/"))
-                          (expand-file-name ".spacemacs.d/" user-home-directory))))
+                            (file-name-as-directory spacemacs-dir-env)
+                          "~/.spacemacs.d/")))
     (when (file-directory-p spacemacs-dir)
       spacemacs-dir))
   "Directory containing Spacemacs customizations (defaults to nil).
-- If environment variable SPACEMACSDIR is set and the directory exists,
+- If environment variable SPACEMACSDIR is set and that directory exists,
   use that value.
-- Otherwise use $HOME/.spacemacs.d if it exists.")
+- Otherwise use ~/.spacemacs.d if it exists.")
 
 (defconst dotspacemacs-filepath
   (let* ((spacemacs-dir-env (getenv "SPACEMACSDIR"))
          (spacemacs-init (if spacemacs-dir-env
-                             (expand-file-name "init.el" spacemacs-dir-env)
-                           (expand-file-name ".spacemacs" user-home-directory))))
+                             (concat (file-name-as-directory spacemacs-dir-env)
+                                     "init.el")
+                           "~/.spacemacs")))
       (if (file-regular-p spacemacs-init)
           spacemacs-init
-        (let ((fallback-init (expand-file-name ".spacemacs.d/init.el"
-                                               user-home-directory)))
+        (let ((fallback-init "~/.spacemacs.d/init.el"))
           (if (file-regular-p fallback-init)
               fallback-init
             spacemacs-init))))
   "Filepath to Spacemacs configuration file (defaults to ~/.spacemacs).
-- If environment variable SPACEMACSDIR is set and SPACEMACSDIR/init.el
+- If environment variable SPACEMACSDIR is set and $SPACEMACSDIR/init.el
   exists, use that value.
 - Otherwise use ~/.spacemacs if it exists.
-- Otherwise use $HOME/.spacemacs.d/init.el if it exists.")
+- Otherwise use ~/.spacemacs.d/init.el if it exists.")
 
 (spacemacs|defc dotspacemacs-distribution 'spacemacs
   "Base distribution to use. This is a layer contained in the directory
@@ -932,7 +932,7 @@ before copying the file if the destination already exists."
                      (format "%s already exists. Do you want to overwrite it ? "
                              dotspacemacs-filepath)) t)))
     (when copy?
-      (copy-file (expand-file-name ".spacemacs.template" dotspacemacs-template-directory)
+      (copy-file (concat dotspacemacs-template-directory ".spacemacs.template")
                  dotspacemacs-filepath t)
       (message "%s has been installed." dotspacemacs-filepath))))
 
