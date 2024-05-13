@@ -132,7 +132,6 @@
     (spacemacs||set-helm-key "sgG"  spacemacs/helm-file-do-grep-region-or-symbol)
     ;; various key bindings
     (spacemacs||set-helm-key "fel" helm-locate-library)
-    (spacemacs||set-helm-key "hdm" describe-mode)
     (spacemacs||set-helm-key "hdx" spacemacs/describe-ex-command)
     (spacemacs||set-helm-key "swg" helm-google-suggest)
     (with-eval-after-load 'helm-files
