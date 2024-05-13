@@ -88,7 +88,6 @@
       "hda" 'counsel-apropos
       "hdf" 'counsel-describe-function
       "hdF" 'counsel-describe-face
-      "hdm" 'spacemacs/describe-mode
       "hdv" 'counsel-describe-variable
       "hdx" 'spacemacs/describe-ex-command
       "hi"  'counsel-info-lookup-symbol

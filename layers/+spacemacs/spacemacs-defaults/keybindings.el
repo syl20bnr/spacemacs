@@ -425,7 +425,9 @@
   "hdk" 'describe-key
   "hdK" 'describe-keymap
   "hdl" 'spacemacs/describe-last-keys
-  "hdm" 'describe-mode
+  "hdm" (if (configuration-layer/package-used-p 'helm)
+            'spacemacs/describe-mode
+          'describe-mode)
   "hdp" 'describe-package
   "hdP" 'configuration-layer/describe-package
   "hds" 'spacemacs/describe-system-info

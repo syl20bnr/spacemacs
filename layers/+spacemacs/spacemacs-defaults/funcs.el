@@ -131,6 +131,17 @@ If not in such a search box, fall back on `Custom-newline'."
 (defalias 'spacemacs/display-buffer-other-frame 'display-buffer-other-frame)
 (defalias 'spacemacs/find-file-and-replace-buffer 'find-alternate-file)
 
+;; By default the emacs leader is M-m, turns out that Helm does this:
+;;    (cl-dolist (k (where-is-internal 'describe-mode global-map))
+;;         (define-key map k 'helm-help))
+;; after doing this:
+;;    (define-key map (kbd \"M-m\") 'helm-toggle-all-marks)
+;; So when Helm is loaded we get the error:
+;;    Key sequence M-m h d m starts with non-prefix key M-m
+;; To prevent this error we just alias `describe-mode' to defeat the Helm hack.
+(when (configuration-layer/package-used-p 'helm)
+  (defalias 'spacemacs/describe-mode 'describe-mode))
+
 (defun spacemacs/indent-region-or-buffer ()
   "Indent a region if selected, otherwise the whole buffer."
   (interactive)
