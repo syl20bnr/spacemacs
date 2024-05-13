@@ -7,7 +7,7 @@
 
 ;; Author: Donald Ephraim Curtis <dcurtis@milkbox.net>
 ;;     Steve Purcell <steve@sanityinc.com>
-;;     Jonas Bernoulli <jonas@bernoul.li>
+;;     Jonas Bernoulli <emacs.package-build@jonas.bernoulli.dev>
 ;;     Phil Hagelberg <technomancy@gmail.com>
 ;; Homepage: https://github.com/melpa/package-build
 ;; Keywords: maint tools
