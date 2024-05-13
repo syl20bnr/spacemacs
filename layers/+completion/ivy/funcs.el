@@ -343,24 +343,6 @@ that directory."
   (ignore-errors
     (call-interactively 'counsel-up-directory)))
 
-(when (configuration-layer/package-used-p 'counsel)
-  (with-eval-after-load 'counsel
-    (defun spacemacs/describe-mode ()
-      "Dummy wrapper to prevent an key binding error from helm.
-
-By default the emacs leader is M-m, turns out that Helm does this:
-   (cl-dolist (k (where-is-internal 'describe-mode global-map))
-        (define-key map k 'helm-help))
-after doing this:
-   (define-key map (kbd \"M-m\") 'helm-toggle-all-marks)
-So when Helm is loaded we get the error:
-   Key sequence M-m h d m starts with non-prefix key M-m
-
-To prevent this error we just wrap `describe-mode' to defeat the
- Helm hack."
-      (interactive)
-      (call-interactively 'describe-mode))))
-
 (defun spacemacs//counsel-with-git-grep (func x)
   "This function should be kept in sync with `counsel-git-grep-action'.
 
