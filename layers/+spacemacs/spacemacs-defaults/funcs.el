@@ -139,8 +139,9 @@ If not in such a search box, fall back on `Custom-newline'."
 ;; So when Helm is loaded we get the error:
 ;;    Key sequence M-m h d m starts with non-prefix key M-m
 ;; To prevent this error we just alias `describe-mode' to defeat the Helm hack.
-(when (configuration-layer/package-used-p 'helm)
-  (defalias 'spacemacs/describe-mode 'describe-mode))
+(defalias 'spacemacs/describe-mode 'describe-mode
+  "To avoid Helm key binding issue for `describe-mode'.
+Refer Spacemacs #16397 for details.")
 
 (defun spacemacs/indent-region-or-buffer ()
   "Indent a region if selected, otherwise the whole buffer."
