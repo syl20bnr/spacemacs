@@ -447,6 +447,8 @@ Send code to inferior process commands:
 | ~SPC m s F~ | send function and switch to REPL in insert mode              |
 | ~SPC m s i~ | start inferior REPL process                                  |
 | ~SPC m s l~ | send line and keep code buffer focused                       |
+| ~SPC m s n~ | restart REPL process and keep code buffer focused            |
+| ~SPC m s N~ | restart REPL process and switch to REPL in insert mode       |
 | ~SPC m s r~ | send region and keep code buffer focused                     |
 | ~SPC m s R~ | send region and switch to REPL in insert mode                |
 | ~CTRL+j~    | next item in REPL history                                    |
