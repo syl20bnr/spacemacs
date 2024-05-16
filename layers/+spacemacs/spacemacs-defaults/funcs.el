@@ -1243,6 +1243,7 @@ Emacs server.
 
 Setting `spacemacs-really-kill-emacs' non-nil overrides this advice."
   (if (and (not spacemacs-really-kill-emacs)
+           (not noninteractive)         ;in batch mode, just kill emacs
            (spacemacs//persistent-server-running-p))
       (spacemacs/frame-killer)
     (apply f args)))
