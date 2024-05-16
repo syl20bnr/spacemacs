@@ -163,11 +163,13 @@
 
 (defun emacs-lisp/init-elisp-demos ()
   (use-package elisp-demos
-    :defer t)
-  (advice-add 'describe-function-1
-              :after #'elisp-demos-advice-describe-function-1)
-  (advice-add 'helpful-update
-              :after #'elisp-demos-advice-helpful-update))
+    :defer t
+    :init
+    (advice-add 'describe-function-1
+                :after #'elisp-demos-advice-describe-function-1)
+    (advice-add 'helpful-update
+                :after #'elisp-demos-advice-helpful-update)
+    :commands (elisp-demos-add-demo elisp-demos-find-demo)))
 
 (defun emacs-lisp/init-elisp-slime-nav ()
   ;; Elisp go-to-definition with M-. and back again with M-,
