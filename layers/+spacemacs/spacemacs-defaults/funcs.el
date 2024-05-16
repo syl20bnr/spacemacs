@@ -570,6 +570,16 @@ FILENAME is deleted using `spacemacs/delete-file' function.."
   (funcall-interactively #'spacemacs/delete-file filename t))
 
 ;; from magnars
+(defcustom spacemacs-keep-legacy-current-buffer-delete-bindings nil
+  "User deletes current buffer and file without confirmation."
+  :type 'boolean
+  :group 'spacemacs)
+
+(defcustom spacemacs-prompt-current-buffer-delete-bindings t
+  "User deletes current buffer and file without confirmation."
+  :type 'boolean
+  :group 'spacemacs)
+
 (defun spacemacs/delete-current-buffer-file (&optional arg)
   "Removes file connected to current buffer and kills buffer.
 If ARG is not nil, assume yes for default."
@@ -592,9 +602,16 @@ If ARG is not nil, assume yes for default."
         (message "Canceled: File deletion")))))
 
 (defun spacemacs/delete-current-buffer-file-yes ()
-  "Removes file connected to current buffer and kills buffer with assume yes."
+  "Removes file connected to current buffer and kills buffer with assume yes.
+Custom the `spacemacs-keep-legacy-current-buffer-delete-bindings' with t
+to follow legacy behavior."
   (interactive)
-  (funcall #'spacemacs/delete-current-buffer-file t))
+  (prog1
+      (funcall #'spacemacs/delete-current-buffer-file
+               (not spacemacs-keep-legacy-current-buffer-delete-bindings))
+    (when spacemacs-prompt-current-buffer-delete-bindings
+      (message "Customer the `spacemacs-keep-legacy-current-buffer-delete-bindings'\
+ with t to ask for confirmation."))))
 
 ;; from magnars
 (defun spacemacs/sudo-edit (&optional arg)
