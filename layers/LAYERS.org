@@ -1214,6 +1214,7 @@ Features:
 - Nameless package prefix with optional [[https://github.com/Malabarba/Nameless][nameless]]
 - Structurally safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 - Visual feedback when evaluation using [[https://github.com/hchbaw/eval-sexp-fu.el][eval-sexp-fu]]
+- Provide Emacs Lisp API usage examples using [[https://github.com/xuchunyang/elisp-demos][elisp-demos]]
 
 **** Scheme
 [[file:+lang/scheme/README.org][+lang/scheme/README.org]]
