@@ -289,20 +289,20 @@ path for you.
 
 ** layers.el
 This file is the first file to be loaded and this is the place where additional
-layers can be declared.
+layers can be declared as dependencies.
 
 For instance, if layer A depends on some functionality of layer B, then in the
 file =layers.el= of layer A, we can add:
 
 #+BEGIN_SRC emacs-lisp
-  (configuration-layer/declare-layer 'B)
+  (configuration-layer/declare-layer-dependencies '(B))
 #+END_SRC
 
 The effect is that B is considered a used layer and will be loaded as if it
 was added to =dotspacemacs-configuration-layers= variables.
 
 ** packages.el
-It contains this list of packages of the layer and the actual configuration for
+It contains the list of packages of the layer and the actual configuration for
 the packages included in the layer.
 
 This file is loaded after =layers.el=.
