@@ -404,6 +404,8 @@
       "sF" 'spacemacs/python-shell-send-defun-switch
       "sf" 'spacemacs/python-shell-send-defun
       "si" 'spacemacs/python-start-or-switch-repl
+      "sK" 'spacemacs/python-shell-send-block-switch
+      "sk" 'spacemacs/python-shell-send-block
       "sn" 'spacemacs/python-shell-restart
       "sN" 'spacemacs/python-shell-restart-switch
       "sR" 'spacemacs/python-shell-send-region-switch
