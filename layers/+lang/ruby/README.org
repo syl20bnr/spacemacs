@@ -178,6 +178,7 @@ Note that the =prettier= binary must be available in the project's
 | ~SPC m s f~ | send function definition                          |
 | ~SPC m s F~ | send function definition and switch to REPL       |
 | ~SPC m s i~ | start REPL                                        |
+| ~SPC m s q~ | quit REPL                                         |
 | ~SPC m s l~ | send line                                         |
 | ~SPC m s L~ | send line and switch to REPL                      |
 | ~SPC m s r~ | send region                                       |
