@@ -91,8 +91,12 @@
   "Spacemacs tests directory.")
 
 ;; ~/.emacs.d/.cache
+;;
+;; This is based on `user-emacs-directory', not `spacemacs-start-directory',
+;; because Spacemacs may be installed to a shared location and this directory
+;; and its children should be per-user.
 (defconst spacemacs-cache-directory
-  (concat spacemacs-start-directory ".cache/")
+  (concat user-emacs-directory ".cache/")
   "Spacemacs storage area for persistent files.")
 
 ;; ~/.emacs.d/.cache/auto-save
