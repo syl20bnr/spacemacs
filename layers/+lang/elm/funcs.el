@@ -29,16 +29,12 @@
        :backends company-capf        ;; standard backends as well
        :modes elm-mode))
     ('company-elm
-     (spacemacs|add-company-backends
-       :backends elm-company
-       :modes elm-mode))))
+      (message "Warning: `company-elm' backend is no longer supported for `elm' layer, use `lsp' instead."))))
 
 (defun spacemacs//elm-setup-backend ()
   "Conditionally setup elm backend."
   (spacemacs/init-elm-mode)
-  (pcase elm-backend
-    ('lsp (lsp-deferred))
-    ('company-elm (elm-oracle-setup-completion))))
+  (when (eq elm-backend 'lsp) (lsp-deferred)))
 
 
 ;; elm-mode
