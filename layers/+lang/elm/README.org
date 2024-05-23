@@ -16,10 +16,9 @@
   - [[#elm-format][elm-format]]
   - [[#elm-test][elm-test]]
 - [[#configuration][Configuration]]
-  - [[#choosing-a-backend][Choosing a backend]]
-    - [[#company-elm][Company-elm]]
-      - [[#elm-oracle][elm-oracle]]
+  - [[#backend][Backend]]
     - [[#lsp][LSP]]
+    - [[#none][None]]
 - [[#basic-usage-tips][Basic usage tips]]
   - [[#compilation][Compilation]]
   - [[#reactor][Reactor]]
@@ -35,7 +34,6 @@
   - [[#elm-test-runner][elm-test-runner]]
   - [[#elm-package][elm-package]]
     - [[#package-list-buffer][package list buffer]]
-  - [[#elm-oracle-1][elm-oracle]]
   - [[#elm-format-1][elm-format]]
   - [[#refactoring][Refactoring]]
 
@@ -126,37 +124,10 @@ To install =elm-test= run below command:
 All layer configurations can be done by setting layer variables in your dotfile.
 No custom user config lines are necessary
 
-** Choosing a backend
-This layer provides two alternative backends to choose from.
-
-*** Company-elm
-This is the default choice if nothing is set and no lsp layer
-is loaded in your dotfile. This mode only provides very
-limited IDE capabilities. Used best if only small programs
-are edited. To set explicitly set the following in your
-dotfile:
-
-#+BEGIN_SRC emacs-lisp
-  (elm :variables elm-backend 'company-elm)
-#+END_SRC
-
-**** elm-oracle
-=elm-oracle= can be used to show type signatures and docs for tokens under the
-cursor and provide support for auto-completion, but it is not part of the
-standard elm-platform.
-
-Both the "company" and "auto-complete" backends are supported, but this layer
-is configured with company.
-
-To install =elm-oracle=, install =node.js= and =npm=, then
-run this command:
-
-#+BEGIN_SRC sh
-  npm install -g elm-oracle
-#+END_SRC
+** Backend
 
 *** LSP
-For proper IDE support this backend should be used. It is
+For proper IDE support the =lsp= backend should be used. It is
 based on an external server which will be started automatically
 by emacs, once an elm file is opened. The key bindings are
 the same for all lsp modes so if you are already familiar with
@@ -181,6 +152,14 @@ NOTE: Key bindings for LSP are defined in the
 LSP layer. Also it is advisable to have a look
 at the autocomplete layer for an optimal
 intellisense config for LSP.
+
+*** None
+If the =lsp= layer is loaded in your dotfile and nothing is set for =elm-backend=, =lsp= will be
+automatically selected. To explicitly disable the =lsp= backend set the following in your dotfile:
+#+BEGIN_SRC emacs-lisp
+  (elm :variables elm-backend nil)
+#+END_SRC
+
 
 * Basic usage tips
 ** Compilation
@@ -303,13 +282,6 @@ using a =dir-locals.el= file.
 | ~u~         | elm-package-unmark  |
 | ~x~         | elm-package-install |
 | ~q~         | quit-window         |
-
-** elm-oracle
-
-| Key binding | Description              |
-|-------------+--------------------------|
-| ~SPC m h h~ | elm-oracle-doc-at-point  |
-| ~SPC m h t~ | elm-oracle-type-at-point |
 
 ** elm-format
 

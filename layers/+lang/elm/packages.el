@@ -53,13 +53,10 @@
     (add-hook 'elm-mode-hook 'spacemacs//elm-setup-backend)
     :config
     ;; Bind non-lsp keys
-    (when (eq elm-backend 'company-elm)
+    (when (not (eq elm-backend 'lsp))
       (spacemacs/set-leader-keys-for-major-mode 'elm-mode
         ;; format
-        "=b" 'elm-format-buffer
-        ;; oracle
-        "hh" 'elm-oracle-doc-at-point
-        "ht" 'elm-oracle-type-at-point)
+        "=b" 'elm-format-buffer)
 
       ;; Bind prefixes
       (dolist (x '(("m=" . "format")

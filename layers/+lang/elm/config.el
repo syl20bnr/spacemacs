@@ -25,7 +25,7 @@
 
 (spacemacs|define-jump-handlers elm-mode)
 
-(defvar elm-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'company-elm)
+(defvar elm-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp nil)
   "The backend to use for IDE features.
-Possible values are `lsp' and `company-elm'.
-If `nil' then 'company-elm` is the default backend unless `lsp' layer is used")
+Possible values are `lsp' or `nil'.
+Default is `nil' unless `lsp' layer is used")
