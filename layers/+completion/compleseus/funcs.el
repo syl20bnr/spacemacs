@@ -58,37 +58,50 @@ non-nil."
      consult--source-project-buffer
      consult--source-project-recent-file)))
 
+(defun spacemacs/initial-search-input (&optional force-input)
+  "Get initial input from region for consult search functions. If region is not
+active and `force-input' is not nil, `thing-at-point' will be returned."
+  (if (region-active-p)
+      (buffer-substring-no-properties
+       (region-beginning) (region-end))
+    (if force-input (thing-at-point 'symbol t) ""))
+  )
 
-(defun spacemacs/compleseus-search (use-initial-input initial-directory)
-  (let* ((initial-input (if use-initial-input
-                            (rxt-quote-pcre
-                             (if (region-active-p)
-                                 (buffer-substring-no-properties
-                                  (region-beginning) (region-end))
-                               (or (thing-at-point 'symbol t) "")))
-                          ""))
+(defun spacemacs/compleseus-search (force-initial-input initial-directory)
+  (let* ((initial-input (rxt-quote-pcre
+                         (spacemacs/initial-search-input force-initial-input)))
          (default-directory
-           (or initial-directory (read-directory-name "Start from directory: "))))
+          (or initial-directory (read-directory-name "Start from directory: "))))
     (consult-ripgrep default-directory initial-input)))
 
 (defun spacemacs/consult-line ()
   (interactive)
   (consult-line
-   (if (region-active-p)
-       (buffer-substring-no-properties
-        (region-beginning) (region-end))
-     (thing-at-point 'symbol t))))
+   (spacemacs/initial-search-input)))
+
+(defun spacemacs/consult-line-symbol ()
+  (interactive)
+  (consult-line
+   (spacemacs/initial-search-input t)))
 
 (defun spacemacs/consult-line-multi ()
   (interactive)
   (consult-line-multi
    nil
-   (if (region-active-p)
-       (buffer-substring-no-properties
-        (region-beginning) (region-end))
-     (thing-at-point 'symbol t))))
+   (spacemacs/initial-search-input)))
+
+(defun spacemacs/consult-line-multi-symbol ()
+  (interactive)
+  (consult-line-multi
+   nil
+   (spacemacs/initial-search-input t)))
 
 (defun spacemacs/compleseus-search-auto ()
+  "Choose folder to search."
+  (interactive)
+  (spacemacs/compleseus-search nil nil))
+
+(defun spacemacs/compleseus-search-auto-symbol ()
   "Choose folder to search."
   (interactive)
   (spacemacs/compleseus-search t nil))
@@ -96,9 +109,19 @@ non-nil."
 (defun spacemacs/compleseus-search-dir ()
   "Search current folder."
   (interactive)
+  (spacemacs/compleseus-search nil default-directory))
+
+(defun spacemacs/compleseus-search-dir-symbol ()
+  "Search current folder."
+  (interactive)
   (spacemacs/compleseus-search t default-directory))
 
 (defun spacemacs/compleseus-search-projectile ()
+  "Search in current project."
+  (interactive)
+  (spacemacs/compleseus-search nil (projectile-project-root)))
+
+(defun spacemacs/compleseus-search-projectile-symbol ()
   "Search in current project."
   (interactive)
   (spacemacs/compleseus-search t (projectile-project-root)))
@@ -107,11 +130,6 @@ non-nil."
   "Search."
   (interactive)
   (spacemacs/compleseus-search-projectile))
-
-(defun spacemacs/compleseus-search-projectile-auto ()
-  "Search in current project."
-  (interactive)
-  (spacemacs/compleseus-search nil (projectile-project-root)))
 
 (defun spacemacs/compleseus-search-from (input)
   "Embark action to start ripgrep search from candidate's directory."
