@@ -141,7 +141,7 @@
       dotspacemacs-emacs-command-key 'execute-extended-command
       "#" #'consult-register
       "*" #'spacemacs/compleseus-search-default
-      "/" #'spacemacs/compleseus-search-projectile-auto
+      "/" #'spacemacs/compleseus-search-projectile
       "bb" #'spacemacs/compleseus-switch-to-buffer
       "bB" #'consult-buffer
       "fb" #'consult-bookmark
@@ -151,16 +151,19 @@
       "hm" #'consult-man
       "jm" #'consult-mark
       "jM" #'consult-global-mark
-      "sb" #'consult-line-multi
-      "sB" #'spacemacs/consult-line-multi
-      "ss" #'consult-line
-      "sS" #'spacemacs/consult-line
+      "sb" #'spacemacs/consult-line-multi
+      "sB" #'spacemacs/consult-line-multi-symbol
+      "ss" #'spacemacs/consult-line
+      "sS" #'spacemacs/consult-line-symbol
       "sk" #'consult-keep-lines
       "rc" #'consult-complex-command
       "su" #'consult-focus-lines
       "sf" #'spacemacs/compleseus-search-auto
+      "sF" #'spacemacs/compleseus-search-auto-symbol
       "sd" #'spacemacs/compleseus-search-dir
+      "sD" #'spacemacs/compleseus-search-dir-symbol
       "sp" #'spacemacs/compleseus-search-projectile
+      "sP" #'spacemacs/compleseus-search-projectile-symbol
       "ry" #'consult-yank-from-kill-ring
       "Ts" #'consult-theme)
 
