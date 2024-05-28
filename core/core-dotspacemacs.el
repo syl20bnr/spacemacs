@@ -720,14 +720,14 @@ If it does deactivate it here. (default t)"
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-swap-number-row nil
-  "Shift number row for easier access.
+  "Shift number row for easier symbol access.
 
 If non-nil shift your number row to match the entered keyboard layout
 (only in insert mode). Currently the keyboard layouts
-(qwerty-us qwertz-de) are supported.
-New layouts can be added in `spacemacs-editing' layer.
+(qwerty-us qwertz-de qwerty-ca-fr) are supported.
+New layouts can be added in the `spacemacs-editing' layer.
 (default nil)"
-  'boolean
+  '(choice (const qwerty-us) (const qwertz-de) (const qwerty-ca-fr) (const nil))
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-home-shorten-agenda-source nil
