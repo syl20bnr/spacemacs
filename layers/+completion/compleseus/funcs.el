@@ -291,12 +291,6 @@ Note: this function relies on embark internals and might break upon embark updat
          '(spacemacs/compleseus-grep-change-to-wgrep-mode)))
     (embark-export)))
 
-(defun spacemacs//set-initial-grep-state ()
-  "Set the initial evil state for the grep buffers."
-  (if (eq dotspacemacs-editing-style 'emacs)
-      (evil-set-initial-state 'grep-mode 'emacs)
-    (evil-set-initial-state 'grep-mode 'motion)))
-
 (defun spacemacs/wgrep-finish-edit ()
   "Set back the default evil state when finishing editing."
   (interactive)
