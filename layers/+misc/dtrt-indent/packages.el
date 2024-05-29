@@ -27,7 +27,6 @@
   (use-package dtrt-indent
     :hook (prog-mode .
               (lambda ()
-                (modify-syntax-entry ?_ "w")
                 (dtrt-indent-mode)
                 (dtrt-indent-adapt)))
     :config
