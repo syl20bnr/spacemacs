@@ -612,7 +612,7 @@ Press \\[which-key-toggle-persistent] to hide."
                      (hybrid-mode -1)
                      (spacemacs/declare-prefix "tEh" "hybrid (hybrid-mode)"))
                    (holy-mode)
-                   (spacemacs/declare-prefix "tEe" "vim (evil-mode"))
+                   (spacemacs/declare-prefix "tEe" "vim (evil-mode)"))
         :off (progn (holy-mode -1)
                     (spacemacs/declare-prefix "tEe" "emacs (holy-mode)"))
         :off-message "evil-mode enabled."

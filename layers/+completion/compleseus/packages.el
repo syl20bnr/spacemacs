@@ -432,7 +432,6 @@
     "w" 'spacemacs/compleseus-grep-change-to-wgrep-mode))
 
 (defun compleseus/init-wgrep ()
-  (add-hook 'spacemacs-editing-style-hook #'spacemacs//set-initial-grep-state)
   (evil-define-key 'normal wgrep-mode-map ",," #'spacemacs/wgrep-finish-edit)
   (evil-define-key 'normal wgrep-mode-map ",c" #'spacemacs/wgrep-finish-edit)
   (evil-define-key 'normal wgrep-mode-map ",a" #'spacemacs/wgrep-abort-changes)
