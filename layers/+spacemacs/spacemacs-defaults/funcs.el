@@ -571,18 +571,23 @@ FILENAME is deleted using `spacemacs/delete-file' function.."
 
 ;; from magnars
 (defcustom spacemacs-keep-legacy-current-buffer-delete-bindings nil
-  "User deletes current buffer and file without confirmation."
+  "If nil, \\[spacemacs/delete-current-buffer-file-yes] deletes without confirmation.
+
+This variable exists to preserve the previous behavior of the SPC
+f D key binding, since users may be accustomed to seeing a prompt
+before deleting."
   :type 'boolean
   :group 'spacemacs)
 
 (defcustom spacemacs-prompt-current-buffer-delete-bindings t
-  "User deletes current buffer and file without confirmation."
+  "If non-nil, teach the user about an upcoming change to the SPC f D key binding."
   :type 'boolean
   :group 'spacemacs)
 
 (defun spacemacs/delete-current-buffer-file (&optional arg)
   "Removes file connected to current buffer and kills buffer.
-If ARG is not nil, assume yes for default."
+
+If prefix ARG is non-nil, delete without confirmation."
   (interactive "P")
   (let ((filename (buffer-file-name))
         (buffer (current-buffer))
@@ -602,9 +607,13 @@ If ARG is not nil, assume yes for default."
         (message "Canceled: File deletion")))))
 
 (defun spacemacs/delete-current-buffer-file-yes ()
-  "Removes file connected to current buffer and kills buffer with assume yes.
-Custom the `spacemacs-keep-legacy-current-buffer-delete-bindings' with t
-to follow legacy behavior."
+  "Removes file connected to current buffer and kills buffer, without prompting.
+
+For backwards compatibility, this command actually still prompts
+the user if
+`spacemacs-keep-legacy-current-buffer-delete-bindings' is
+non-nil.  That customization is planned to be removed (and this
+function will never prompt) in the future."
   (interactive)
   (prog1
       (funcall #'spacemacs/delete-current-buffer-file
