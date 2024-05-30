@@ -58,6 +58,22 @@ windows correctly."
 
 ;; Popwin integration
 
+(defun spacemacs/window-purpose-save-dedicated-windows (&rest args)
+  "Saves the dedicated windows before popwin:create-popup-windows"
+
+  ;; save the dedicated windows
+  (setq window-purpose--dedicated-windows
+        (cl-loop for window in (window-list)
+                 if (purpose-window-purpose-dedicated-p window)
+                 collect (window-buffer window))))
+
+(defun spacemacs/window-purpose-restore-dedicated-windows (&rest args)
+  "Restores the dedicated windows after popwin:create-popup-windows"
+  (cl-loop for buffer in window-purpose--dedicated-windows
+           do (cl-loop for window in (get-buffer-window-list buffer)
+                       do (purpose-set-window-purpose-dedicated-p
+                           window t))))
+
 (defun spacemacs/window-purpose-sync-popwin ()
   "Synchronize window-purpose layer with popwin.
 Enable or disable advices to popwin, according to the state of `purpose-mode'."
@@ -65,10 +81,11 @@ Enable or disable advices to popwin, according to the state of `purpose-mode'."
   (if purpose-mode
       (progn
         (advice-add #'popwin:create-popup-window
-                    :before #'window-purpose/save-dedicated-windows)
+                    :before #'spacemacs/window-purpose-save-dedicated-windows)
         (advice-add #'popwin:create-popup-window
-                    :after #'window-purpose/restore-dedicated-windows))
+                    :after #'spacemacs/window-purpose-restore-dedicated-windows))
+
     (advice-remove #'popwin:create-popup-window
-                   #'window-purpose/save-dedicated-windows)
+                   #'spacemacs/window-purpose-save-dedicated-windows)
     (advice-remove #'popwin:create-popup-window
-                   #'window-purpose/restore-dedicated-windows)))
+                   #'spacemacs/window-purpose-restore-dedicated-windows)))
