@@ -570,19 +570,19 @@ FILENAME is deleted using `spacemacs/delete-file' function.."
   (funcall-interactively #'spacemacs/delete-file filename t))
 
 ;; from magnars
-(defcustom spacemacs-keep-legacy-current-buffer-delete-bindings nil
-  "User deletes current buffer and file without confirmation."
-  :type 'boolean
-  :group 'spacemacs)
+(defcustom spacemacs-keep-legacy-current-buffer-delete-bindings t
+  "If nil, \\[spacemacs/delete-current-buffer-file-yes] deletes without confirmation.
 
-(defcustom spacemacs-prompt-current-buffer-delete-bindings t
-  "User deletes current buffer and file without confirmation."
+This variable exists to preserve the previous behavior of the SPC
+f D key binding, since users may be accustomed to seeing a prompt
+before deleting."
   :type 'boolean
   :group 'spacemacs)
 
 (defun spacemacs/delete-current-buffer-file (&optional arg)
   "Removes file connected to current buffer and kills buffer.
-If ARG is not nil, assume yes for default."
+
+If prefix ARG is non-nil, delete without confirmation."
   (interactive "P")
   (let ((filename (buffer-file-name))
         (buffer (current-buffer))
@@ -602,16 +602,30 @@ If ARG is not nil, assume yes for default."
         (message "Canceled: File deletion")))))
 
 (defun spacemacs/delete-current-buffer-file-yes ()
-  "Removes file connected to current buffer and kills buffer with assume yes.
-Custom the `spacemacs-keep-legacy-current-buffer-delete-bindings' with t
-to follow legacy behavior."
+  "Removes file connected to current buffer and kills buffer, without prompting.
+
+For backwards compatibility, this command actually still prompts
+the user if
+`spacemacs-keep-legacy-current-buffer-delete-bindings' is
+non-nil.  That customization is planned to be removed (and this
+function will never prompt) in the future."
   (interactive)
-  (prog1
-      (funcall #'spacemacs/delete-current-buffer-file
-               (not spacemacs-keep-legacy-current-buffer-delete-bindings))
-    (when spacemacs-prompt-current-buffer-delete-bindings
-      (message "Customer the `spacemacs-keep-legacy-current-buffer-delete-bindings'\
- with t to ask for confirmation."))))
+  ;; Warn the user about the upcoming change to the defaults, which is
+  ;; potentially dangerous.
+  (when spacemacs-keep-legacy-current-buffer-delete-bindings
+    (display-warning '(spacemacs delete-current-file-key-bindings-change)
+                     (substitute-command-keys "\
+\\[spacemacs/delete-current-buffer-file-yes] will stop prompting for confirmation in a future version of Spacemacs.
+
+Use \\[spacemacs/delete-current-buffer-file] to delete files if you want to be prompted for confirmation.
+
+Customize `spacemacs-keep-legacy-current-buffer-delete-bindings'
+to nil to make \\[spacemacs/delete-current-buffer-file-yes] stop
+prompting (opting into the future behavior).  Doing so will also
+suppress this warning.")))
+
+  (funcall #'spacemacs/delete-current-buffer-file
+           (not spacemacs-keep-legacy-current-buffer-delete-bindings)))
 
 ;; from magnars
 (defun spacemacs/sudo-edit (&optional arg)
