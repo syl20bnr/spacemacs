@@ -570,7 +570,7 @@ FILENAME is deleted using `spacemacs/delete-file' function.."
   (funcall-interactively #'spacemacs/delete-file filename t))
 
 ;; from magnars
-(defcustom spacemacs-keep-legacy-current-buffer-delete-bindings nil
+(defcustom spacemacs-keep-legacy-current-buffer-delete-bindings t
   "If nil, \\[spacemacs/delete-current-buffer-file-yes] deletes without confirmation.
 
 This variable exists to preserve the previous behavior of the SPC
