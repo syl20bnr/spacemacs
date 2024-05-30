@@ -125,7 +125,6 @@ All layer configurations can be done by setting layer variables in your dotfile.
 No custom user config lines are necessary
 
 ** Backend
-
 *** LSP
 For proper IDE support the =lsp= backend should be used. It is
 based on an external server which will be started automatically
@@ -156,10 +155,10 @@ intellisense config for LSP.
 *** None
 If the =lsp= layer is loaded in your dotfile and nothing is set for =elm-backend=, =lsp= will be
 automatically selected. To explicitly disable the =lsp= backend set the following in your dotfile:
+
 #+BEGIN_SRC emacs-lisp
   (elm :variables elm-backend nil)
 #+END_SRC
-
 
 * Basic usage tips
 ** Compilation
