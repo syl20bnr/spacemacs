@@ -1,0 +1,97 @@
+#+TITLE: Gleam layer
+
+#+TAGS: general|layer|programming|pure
+
+[[file:img/gleam.png]]
+
+* Table of Contents                                       :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#lsp][LSP]]
+  - [[#formatting][Formatting]]
+  - [[#execution][Execution]]
+- [[#key-bindings][Key bindings]]
+  - [[#lsp-1][LSP]]
+  - [[#formatting-1][Formatting]]
+  - [[#execution-1][Execution]]
+
+* Description
+This layers adds support for [[https://gleam.run/][Gleam]]. It relies on the official [[https://github.com/gleam-lang/gleam-mode][gleam-mode]] package and [[https://github.com/emacsmirror/tree-sitter-indent][tree-sitter-indent]].
+
+** Features:
+- [[https://gleam.run/news/v0.21-introducing-the-gleam-language-server/][Gleam language server]] integration
+- Formatting (=gleam format=)
+- Execution (=gleam build=, =gleam run=, =gleam test=)
+
+* Install
+
+To use this configuration layer, add ~gleam~ to the existing =dotspacemacs-configuration-layers= list in your =~/.spacemacs= file.
+
+You also need to [[https://gleam.run/getting-started/installing/][install Gleam]] and make sure the =gleam= command was properly added to you =PATH=.
+
+* Configuration
+** LSP
+=lsp-gleam= is the official implementation of the Gleam language server that comes pre-installed with the built-in =gleam lsp= command.
+
+If the =lsp= layer was already added to your dotfile, the LSP backend will be enabled by default. To explicitly disable it for the =gleam= layer, set the following:
+#+BEGIN_SRC elisp
+  (gleam :variables gleam-enable-lsp nil)
+#+END_SRC
+
+If the =lsp= layer is not already installed, the LSP backend must be explicitely enabled for =lsp-mode= to start automatically when visiting a gleam file:
+#+BEGIN_SRC elisp
+  (gleam :variables gleam-enable-lsp nil)
+#+END_SRC
+
+When enabled, the =gleam-lsp= server will be automatically initialized when visiting a gleam file.
+
+More details can be found in the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/lsp#configuration][lsp layer configuration section]].
+
+** Formatting
+=gleam-mode= provides the ~gleam-format~ command (~SPC m = =~) to format source code in the official Gleam style.
+
+To automatically apply formatting files before saving:
+#+BEGIN_SRC elisp
+  (gleam :variables gleam-format-on-save t)
+#+END_SRC
+
+If the LSP backend is enabled, automatic formatting will use the =lsp-format-buffer= command (~SPC m = b~) instead.
+
+** Execution
+The platform to target during compilation is set to =erlang= by default. To select =javascript= instead:
+#+BEGIN_SRC elisp
+  (gleam :variables gleam-target 'javascript)
+#+END_SRC
+
+The default runtime for the =javascript= target is =nodejs=. To select a different runtime:
+#+BEGIN_SRC elisp
+  (gleam :variables gleam-target 'javascript
+                    gleam-runtime 'bun)
+#+END_SRC
+
+By default, the ~spacemacs//gleam-run~ command (~SPC m c c~) is set up to execute =gleam run= inside the project root directory. To run the module associated with the current instead:
+#+BEGIN_SRC elisp
+  (gleam :variables gleam-run-scope 'module)
+#+END_SRC
+
+
+* Key bindings
+** LSP
+Detailed keybindings can be found in the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/lsp#key-bindings][lsp layer keybindings section]]
+
+** Formatting
+| Key Binding | Description                                     |
+|-------------+-------------------------------------------------|
+| ~SPC m = =~ | Run =gleam-format=                              |
+| ~SPC m T =~ | Toggle =gleam-format-on-save= in current buffer |
+
+** Execution
+| Key Binding | Description                                    |
+|-------------+------------------------------------------------|
+| ~SPC m c b~ | Build project (run =gleam build=)             |
+| ~SPC m c a~ | Run project (run =gleam run= in project root)  |
+| ~SPC m c m~ | Run module (run =gleam run --module <module>=)   |
+| ~SPC m c c~ | Run project or module (see ~gleam-run-scope~) |
+| ~SPC m t a~ | Test project (run =gleam test=)               |
