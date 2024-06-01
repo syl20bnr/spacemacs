@@ -547,7 +547,7 @@ Ensure that helm is required before calling FUNC."
                   (symbol-name func))
          (interactive)
          (require 'helm)
-         (call-interactively ',func))
+         (command-execute ',func))
        (spacemacs/set-leader-keys ,keys ',func-name))))
 
  ;; Find files tweaks
