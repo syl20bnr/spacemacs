@@ -68,6 +68,7 @@ transient/
 url/*
 var/
 workspace
+undo/*
 
 # Private directory
 /doc/COMMUNITY.org
