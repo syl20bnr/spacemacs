@@ -129,7 +129,7 @@ active and `force-input' is not nil, `thing-at-point' will be returned."
 (defun spacemacs/compleseus-search-default ()
   "Search."
   (interactive)
-  (spacemacs/compleseus-search-projectile))
+  (spacemacs/compleseus-search-projectile-symbol))
 
 (defun spacemacs/compleseus-search-from (input)
   "Embark action to start ripgrep search from candidate's directory."
