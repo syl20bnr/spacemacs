@@ -330,8 +330,7 @@ Dedicated (locked) windows are left untouched."
           (when follow-focus-p (winum-select-window-by-number windownum)))))
   ;; when the winum package isn't used
   (defun spacemacs//message-winum-package-required ()
-    (interactive)
-    (message (concat "This command requires the winum package," "\n"
+    (user-error (concat "This command requires the winum package," "\n"
                      "winum is part of the spacemacs-navigation layer."))))
 
 ;; define and evaluate numbered functions:
@@ -681,12 +680,41 @@ suppress this warning.")))
       (fundamental-mode))))
 
 (defun spacemacs/delete-window (&optional arg)
-  "Delete the current window.
-If the universal prefix argument is used then kill the buffer too."
+  "Delete the current window or the window with number indicated by
+the prefix argument ARG.
+
+If the raw \\[universal-argument] prefix argument is used then delete the current window
+and kill the buffer too."
   (interactive "P")
-  (if (equal '(4) arg)
-      (kill-buffer-and-window)
-    (delete-window)))
+  (when (and (integerp arg) (not (configuration-layer/package-used-p 'winum)))
+    (spacemacs//message-winum-package-required))
+  (pcase arg
+    ('nil (delete-window))
+    ('(4) (kill-buffer-and-window))
+    ((and (pred integerp)
+          (let window-to-delete (winum-get-window-by-number arg))
+          (guard window-to-delete))
+     (delete-window window-to-delete))
+    (_ (user-error (substitute-command-keys "Prefix argument must be either \
+the (winum) number of a live window, or \\[universal-argument], or nil")))))
+
+(defun spacemacs/kill-buffer-and-window (&optional winum)
+  "Kill the current buffer and delete the selected window.
+If the prefix argument WINUM is the number of a live window,
+delete this window instead and kill its current buffer."
+  (interactive "P")
+  (when (and (integerp winum) (not (configuration-layer/package-used-p 'winum)))
+      (spacemacs//message-winum-package-required))
+  (pcase winum
+    ;; Ignore SPC u prefix argument, to be consistent with `spacemacs/delete-window'
+    ((or 'nil '(4)) (kill-buffer-and-window))
+    ((and (pred integerp)
+          (let window-to-delete (winum-get-window-by-number winum))
+          (guard window-to-delete))
+     (with-selected-window window-to-delete
+       (kill-buffer-and-window)))
+    (_ (user-error "Prefix argument must be either \
+the (winum) number of a live window, or nil"))))
 
 ;; our own implementation of kill-this-buffer from menu-bar.el
 (defun spacemacs/kill-this-buffer (&optional arg)
