@@ -52,9 +52,9 @@
            spacemacs--symbol-highlight-transient-state-doc
            "  Search: [_s_] consult-line  [_f_] files  [_/_] project"))
     (spacemacs/transient-state-register-add-bindings 'symbol-highlight
-      '(("s" spacemacs/consult-line :exit t)
-        ("f" spacemacs/compleseus-search-auto :exit t)
-        ("/" spacemacs/compleseus-search-projectile :exit t)))))
+      '(("s" spacemacs/consult-line-symbol :exit t)
+        ("f" spacemacs/compleseus-search-auto-symbol :exit t)
+        ("/" spacemacs/compleseus-search-projectile-symbol :exit t)))))
 
 (defun compleseus/post-init-imenu ()
   (spacemacs/set-leader-keys "ji" 'spacemacs/consult-jump-in-buffer)
