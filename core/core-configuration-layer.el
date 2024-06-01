@@ -1344,7 +1344,7 @@ PREDICATE is an additional expression that eval to a boolean."
 (defun configuration-layer//copy-template (name template &optional layer-dir)
   "Copy and replace special values of TEMPLATE to layer string NAME.
 If LAYER_DIR is nil, the private directory is used."
-  (cl-flet ((substitute (old new) (let ((case-fold-search nil))
+  (cl-flet ((cl-substitute (old new) (let ((case-fold-search nil))
                                     (save-excursion
                                       (goto-char (point-min))
                                       (while (search-forward old nil t)
@@ -1357,14 +1357,14 @@ If LAYER_DIR is nil, the private directory is used."
                           (format "%s" template)))))
       (copy-file src dest)
       (find-file dest)
-      (substitute "%LAYER_NAME%" name)
+      (cl-substitute "%LAYER_NAME%" name)
       (cond
        (user-full-name
-        (substitute "%USER_FULL_NAME%" user-full-name)
-        (substitute "%USER_MAIL_ADDRESS%" user-mail-address))
+        (cl-substitute "%USER_FULL_NAME%" user-full-name)
+        (cl-substitute "%USER_MAIL_ADDRESS%" user-mail-address))
        (t
-        (substitute "%USER_FULL_NAME%" "Sylvain Benner & Contributors")
-        (substitute "%USER_MAIL_ADDRESS%" "sylvain.benner@gmail.com")))
+        (cl-substitute "%USER_FULL_NAME%" "Sylvain Benner & Contributors")
+        (cl-substitute "%USER_MAIL_ADDRESS%" "sylvain.benner@gmail.com")))
       (save-buffer))))
 
 (defun configuration-layer//directory-type (path)
