@@ -56,9 +56,7 @@ The return value is nil if no font was found, truthy otherwise."
           ;; default-frame-alist, and Customization causes issues, see
           ;; https://github.com/syl20bnr/spacemacs/issues/5353.
           ;; INHIBIT-CUSTOMIZE is only present in recent emacs versions.
-          (if (version< emacs-version "28.0.90")
-              (set-frame-font fontspec nil t)
-            (set-frame-font fontspec nil t t))
+          (set-frame-font fontspec nil t t)
           (push `(font . ,(frame-parameter nil 'font)) default-frame-alist)
 
           ;; Make sure that our font is used for fixed-pitch face as well

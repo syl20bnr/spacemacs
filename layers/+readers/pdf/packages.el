@@ -110,9 +110,7 @@
       "k"                'previous-line
       "gk"               'outline-backward-same-level
       "gj"               'outline-forward-same-level
-      (kbd "<backtab>")  (if (version< emacs-version "28.0")
-                             'outline-show-all
-                           'outline-cycle-buffer)
+      (kbd "<backtab>")  'outline-cycle-buffer
       "gh"               'pdf-outline-up-heading
       "gg"               'beginning-of-buffer
       "G"                'pdf-outline-end-of-buffer

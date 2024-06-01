@@ -25,6 +25,6 @@
 ;;    Define Spacemacs version and minimum supported Emacs version.
 
 (defconst spacemacs-version          "0.999.0" "Spacemacs version.")
-(defconst spacemacs-emacs-min-version   "27.1" "Minimal version of Emacs.")
+(defconst spacemacs-emacs-min-version   "28.2" "Minimal version of Emacs.")
 
 (provide 'core-versions)
