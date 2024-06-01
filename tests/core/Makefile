@@ -22,15 +22,15 @@
 
 TEST_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
-LOAD_FILES = core/core-versions.el core/core-load-paths.el
+LOAD_FILES = init.el core/core-versions.el core/core-load-paths.el
 UNIT_TEST_FILES = \
-  core-configuration-layer-utest.el \
-  core-spacebind-utest.el \
-  core-funcs-utest.el
+	core-configuration-layer-utest.el \
+	core-spacebind-utest.el \
+	core-funcs-utest.el
 FUNC_TEST_FILES = \
-  core-spacemacs-ftest.el \
-  core-spacemacs-buffer-ftest.el \
-  core-configuration-layer-ftest.el \
-  core-release-management-ftest.el
+	core-spacemacs-ftest.el \
+	core-spacemacs-buffer-ftest.el \
+	core-configuration-layer-ftest.el \
+	core-release-management-ftest.el
 
 include ../../spacemacs.mk
