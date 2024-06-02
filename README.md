@@ -117,7 +117,7 @@ Last but not least there are a lot of high class tutorials available on YouTube:
 2. Spacemacs is an extension of a popular text editor called [Emacs][GNU Emacs].
    So you'll need Emacs installed first.
 
-   Spacemacs requires Emacs 27.1 or above. The development version of Emacs is
+   Spacemacs requires Emacs 28.2 or above. The development version of Emacs is
    not *officially* supported, but it should nevertheless be expected to work.
 
 3. [git][Git] is required to download and update Spacemacs.
@@ -170,7 +170,7 @@ Last but not least there are a lot of high class tutorials available on YouTube:
    differences][Emacs And XEmacs].
 
    **N.B.** Some Linux distributions support only Emacs versions older than
-   27.1. In this case you should
+   28.2. In this case you should
    [build it from source][Build Emacs from Source] instead.
 
 3. Very likely Git is already installed on your system. Otherwise, you should
@@ -265,9 +265,18 @@ Last but not least there are a lot of high class tutorials available on YouTube:
    ```
 
 ### Windows
+We recommend using wsl2 with wslg support especially with a pgtk build of emacs and wayland.
+For the installation please refer to the linux installation section. When running emacs
+within your wsl2 environment emacs will be handled like any other windows application.
 
-1. We recommend [Scoop][] as the package manager for Windows users. You can
-   install it via PowerShell:
+If this is not possible you can fallback to a native windows installation, however note
+that this will create a lot of subtle bugs especially with tls which we will most likely
+not be able to help with.
+
+If you need to follow that path we recommend to at least use a package manager like
+[Scoop][] to install the needed packages.
+
+1. You can install [Scoop][] via PowerShell:
 
    ```powershell
    Set-ExecutionPolicy RemoteSigned -Scope CurrentUser # Optional: Needed to run a remote script the first time
