@@ -84,16 +84,16 @@ active and `force-input' is not nil, `thing-at-point' will be returned."
   (consult-line
    (spacemacs/initial-search-input t)))
 
-(defun spacemacs/consult-line-multi ()
-  (interactive)
+(defun spacemacs/consult-line-multi (&optional query)
+  (interactive "P")
   (consult-line-multi
-   nil
+   query
    (spacemacs/initial-search-input)))
 
-(defun spacemacs/consult-line-multi-symbol ()
-  (interactive)
+(defun spacemacs/consult-line-multi-symbol (&optional query)
+  (interactive "P")
   (consult-line-multi
-   nil
+   query
    (spacemacs/initial-search-input t)))
 
 (defun spacemacs/compleseus-search-auto ()
