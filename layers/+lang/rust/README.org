@@ -18,6 +18,7 @@
     - [[#cargo-outdated][cargo-outdated]]
   - [[#rustfmt][Rustfmt]]
   - [[#clippy][Clippy]]
+  - [[#analyzer][Analyzer]]
 - [[#key-bindings][Key bindings]]
   - [[#debugger][Debugger]]
 
@@ -56,6 +57,14 @@ will need to reload the workspace manually for the LSP to notice those
 changes. You can call =spacemacs/lsp-rust-analyzer-reload-workspace=,
 which would be faster than restarting the LSP backend.
 
+You can configure it in your =~/.spacemacs=.
+
+#+BEGIN_SRC #+begin_src emacs-lisp :tangle yes
+(rust :variables
+       lsp-rust-analyzer-cargo-auto-reload t
+       rustic-format-on-save t)
+#+end_src
+
 ** Cargo
 [[http://doc.crates.io/index.html][Cargo]] is a project management command line tool for Rust. Installation
 instructions can be found on the main page of [[http://doc.crates.io/index.html][Cargo]].
@@ -88,6 +97,13 @@ To enable automatic buffer formatting on save, set the variable =rustic-format-o
 
 #+BEGIN_SRC sh
   rustup component add clippy
+#+END_SRC
+
+** Analyzer
+[[https://rust-analyzer.github.io/][Analyzer]] provides IDE-like features for Rust.
+
+#+BEGIN_SRC sh
+  rustup component add rust-analyzer
 #+END_SRC
 
 * Key bindings
