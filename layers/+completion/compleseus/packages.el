@@ -66,7 +66,7 @@
     :init
     ;; TODO: Ideally, this should use vertico instead, but helm-make can't do
     ;; that yet: blocked on https://github.com/abo-abo/helm-make/pull/62
-    (setq helm-make-completion-method 'ido)
+    (setq helm-make-completion-method 'emacs)
     (spacemacs/set-leader-keys
       "cc" 'helm-make-projectile
       "cm" 'helm-make)))
