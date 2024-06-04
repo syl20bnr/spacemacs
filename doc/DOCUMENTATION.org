@@ -2627,6 +2627,7 @@ In =vim= style and =hybrid= style with the variable
 | ~C-j~       | go to previous candidate          |
 | ~C-k~       | go to next candidate              |
 | ~C-l~       | enter current directory           |
+| ~C-o~       | go to next source                 |
 
 **** Popup buffers
 =popwin= is used to manage buffers such as ~*Help*~, ~*Completions*~,
