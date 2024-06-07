@@ -295,6 +295,8 @@
     (which-key-add-keymap-based-replacements minibuffer-local-map "C-z" "Embark actions...")
     :config
     (define-key embark-file-map "s" 'spacemacs/compleseus-search-from)
+    (define-key embark-buffer-map "s" #'spacemacs/embark-consult-line-multi)
+    (add-to-list 'embark-multitarget-actions #'spacemacs/embark-consult-line-multi)
     ;; which key integration setup
     ;; https://github.com/oantolin/embark/wiki/Additional-Configuration#use-which-key-like-a-key-menu-prompt
     (setq embark-indicators

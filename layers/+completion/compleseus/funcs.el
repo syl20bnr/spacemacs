@@ -96,6 +96,13 @@ active and `force-input' is not nil, `thing-at-point' will be returned."
    query
    (spacemacs/initial-search-input t)))
 
+(defun spacemacs/embark-consult-line-multi (buffer-names)
+  "Embark action to search in any subset of buffers using `consult-line-multi'.
+If there is an active region, it is used as the initial input."
+  (consult-line-multi
+   (list :predicate (lambda (buf) (member (buffer-name buf) buffer-names)))
+   (spacemacs/initial-search-input)))
+
 (defun spacemacs/compleseus-search-auto ()
   "Choose folder to search."
   (interactive)
