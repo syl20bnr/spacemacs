@@ -59,11 +59,11 @@ which would be faster than restarting the LSP backend.
 
 You can configure it in your =~/.spacemacs=.
 
-#+BEGIN_SRC #+begin_src emacs-lisp :tangle yes
-(rust :variables
-       lsp-rust-analyzer-cargo-auto-reload t
-       rustic-format-on-save t)
-#+end_src
+#+BEGIN_SRC #+begin_src
+  (rust :variables
+         lsp-rust-analyzer-cargo-auto-reload t
+         rustic-format-on-save t)
+#+END_SRC
 
 ** Cargo
 [[http://doc.crates.io/index.html][Cargo]] is a project management command line tool for Rust. Installation
