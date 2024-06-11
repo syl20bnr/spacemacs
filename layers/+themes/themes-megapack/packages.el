@@ -48,6 +48,7 @@
     django-theme
     doom-themes
     dracula-theme
+    ef-themes
     espresso-theme
     exotica-theme
     eziam-themes
