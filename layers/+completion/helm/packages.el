@@ -191,6 +191,10 @@
     (setq helm-white-buffer-regexp-list
           (append helm-white-buffer-regexp-list
                   spacemacs-useful-buffers-regexp))
+
+    ;; allow to leave helm result groups with evil bindings
+    (setq helm-move-to-line-cycle-in-source nil)
+
     ;; use helm to switch last(/previous) visited buffers with C(-S)-tab
     (define-key helm-map (kbd "<C-tab>") 'helm-follow-action-forward)
     (define-key helm-map (kbd "<C-iso-lefttab>") 'helm-follow-action-backward)
