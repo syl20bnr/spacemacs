@@ -198,7 +198,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
                         `(".*" ,autosave-dir t) 'append)
            (unless (file-exists-p autosave-dir)
              (make-directory autosave-dir t))))
-  (original (setq auto-save-visited-file-name t))
+  (original (auto-save-visited-mode t))
   (_ (setq auto-save-default nil
            auto-save-list-file-prefix nil)))
 
