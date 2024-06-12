@@ -196,10 +196,16 @@
     :config (spacemacs|hide-lighter elisp-slime-nav-mode)))
 
 (defun emacs-lisp/init-emacs-lisp ()
+
+  ;; Format buffers automatically if required
+  (spacemacs//make-elisp-buffers-format-on-save-maybe)
+
+  ;; Set default keybindings in the repl and elisp mode
   (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
     (spacemacs/declare-prefix-for-mode mode "mc" "compile")
     (spacemacs/declare-prefix-for-mode mode "me" "eval")
     (spacemacs/declare-prefix-for-mode mode "mt" "tests")
+    (spacemacs/declare-prefix-for-mode mode "m=" "format")
     (spacemacs/set-leader-keys-for-major-mode mode
       "cc" 'emacs-lisp-byte-compile
       "e$" 'lisp-state-eval-sexp-end-of-line
@@ -211,6 +217,7 @@
       "el" 'lisp-state-eval-sexp-end-of-line
       "gG" 'spacemacs/nav-find-elisp-thing-at-point-other-window
       ","  'lisp-state-toggle-lisp-state
+      "==" 'spacemacs/indent-region-or-buffer
       "tb" 'spacemacs/ert-run-tests-buffer
       "tq" 'ert)))
 
@@ -335,7 +342,6 @@
                srefactor-lisp-one-line)
     :init
     (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
-      (spacemacs/declare-prefix-for-mode mode "m=" "srefactor")
       (spacemacs/set-leader-keys-for-major-mode mode
         "=b" 'srefactor-lisp-format-buffer
         "=d" 'srefactor-lisp-format-defun

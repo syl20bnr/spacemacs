@@ -138,3 +138,20 @@ Requires smartparens because all movement is done using `sp-forward-symbol'."
   "Define a text object and a surround pair for elisp comments.
 Intended for use in mode hooks."
   (spacemacs|define-text-object ";" "elisp-comment" ";; " ""))
+
+
+;; Elisp autoformat buffer functions
+
+(defun spacemacs//make-elisp-buffers-format-on-save-maybe ()
+  "Add a function to format buffers on save when required."
+  (when emacs-lisp-format-on-save
+    (add-hook 'emacs-lisp-mode-hook #'spacemacs//make-buffer-format-on-save nil nil)))
+
+(defun spacemacs//make-buffer-format-on-save ()
+  "Make sure that this buffer is formatted on save"
+  (add-hook 'before-save-hook #'spacemacs//format-buffer nil t))
+
+(defun spacemacs//format-buffer ()
+  "Format the given buffer if required."
+  (when emacs-lisp-format-on-save
+    (spacemacs/indent-region-or-buffer)))

@@ -77,7 +77,7 @@ layer documentation file in Spacemacs using ~SPC h l emacs-lisp RET~. This will
 open the current file in =space-doc-mode=. Toggle off =space-doc-mode= using =,
 T V= so that Spacemacs will switch to =org-mode=. Now you can place the cursor
 somewhere inside the code block and press ~, '~ to open the code in an
-interactive =emacs-lisp-buffer=. 
+interactive =emacs-lisp-buffer=.
 
 #+BEGIN_SRC elisp
   (defun helloworld (name)
@@ -214,14 +214,16 @@ If =smartparens= is used the following additional key bindings are available:
 | ~SPC m e s~ | evaluate symbol around point |
 
 ** Format code
-The [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bemacs/semantic/README.org][semantic]] layer should be installed for these key bindings to become active.
+Code formatting is provided by spacemacs core. In addition formatting with
+semantic can be used if the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bemacs/semantic/README.org][semantic]] layer is installed.
 
-| Key binding | Description             |
-|-------------+-------------------------|
-| ~SPC m = b~ | format current buffer   |
-| ~SPC m = d~ | format current function |
-| ~SPC m = o~ | format all on one line  |
-| ~SPC m = s~ | format current sexp     |
+| Key binding | Description                                   |
+|-------------+-----------------------------------------------|
+| ~SPC m = =~ | format current buffer or region with the core |
+| ~SPC m = b~ | format current buffer with semantic           |
+| ~SPC m = d~ | format current function with semantic         |
+| ~SPC m = o~ | format all on one line with semantic          |
+| ~SPC m = s~ | format current sexp with semantic             |
 
 ** Debugging
 To start debugging:
