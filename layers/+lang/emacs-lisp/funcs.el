@@ -145,7 +145,7 @@ Intended for use in mode hooks."
 (defun spacemacs//make-elisp-buffers-format-on-save-maybe ()
   "Add a function to format buffers on save when required."
   (when emacs-lisp-format-on-save
-    (add-hook 'emacs-lisp-mode-hook #'spacemacs//make-elisp-buffer-format-on-save nil nil)))
+    (add-hook 'emacs-lisp-mode-hook #'spacemacs//make-elisp-buffer-format-on-save)))
 
 (defun spacemacs//make-elisp-buffer-format-on-save ()
   "Make sure that this buffer is formatted on save"
