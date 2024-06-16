@@ -154,4 +154,5 @@ Intended for use in mode hooks."
 (defun spacemacs//format-elisp-buffer ()
   "Format the given buffer if required."
   (when emacs-lisp-format-on-save
-    (spacemacs/indent-region-or-buffer)))
+    (indent-region (point-min) (point-max))
+    (whitespace-cleanup)))
