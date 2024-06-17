@@ -46,8 +46,8 @@
 
 (defvar consult--source-persp-buffers
   `(
-    :name     "Buffer"
-    :narrow   ?b
+    :name     "Perspective Buffer"
+    :narrow   ?B
     :category buffer
     :face     consult-buffer
     :history  buffer-name-history
