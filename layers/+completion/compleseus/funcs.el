@@ -55,8 +55,8 @@ non-nil."
      consult--source-modified-buffers
      consult--source-recent-file
      consult--source-bookmark
-     consult--source-project-buffer
-     consult--source-project-recent-file)))
+     consult--source-project-buffer-hidden
+     consult--source-project-recent-file-hidden)))
 
 (defun spacemacs/initial-search-input (&optional force-input)
   "Get initial input from region for consult search functions. If region is not
