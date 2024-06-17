@@ -194,6 +194,8 @@
 
     ;; allow to leave helm result groups with evil bindings
     (setq helm-move-to-line-cycle-in-source nil)
+    ;; allow find file on non-exists file at point
+    (setq helm-ff-allow-non-existing-file-at-point t)
 
     ;; use helm to switch last(/previous) visited buffers with C(-S)-tab
     (define-key helm-map (kbd "<C-tab>") 'helm-follow-action-forward)
