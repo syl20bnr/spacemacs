@@ -145,8 +145,8 @@
 (spacemacs/set-leader-keys "u" 'universal-argument)
 (when (memq dotspacemacs-editing-style '(vim hybrid))
   (define-key universal-argument-map
-    (kbd (concat dotspacemacs-leader-key " u"))
-    'universal-argument-more))
+              (kbd (concat dotspacemacs-leader-key " u"))
+              'universal-argument-more))
 ;; shell command  -------------------------------------------------------------
 (spacemacs/set-leader-keys "!" 'shell-command)
 ;; kmacros --------------------------------------------------------------------
@@ -764,14 +764,37 @@ respond to this toggle."
 
 ;; Buffer transient state
 
+(defvar spacemacs--buffer-ts-full-hint-toggle t
+  "Display buffer transient state documentation.")
+
+(defun spacemacs//buffer-ts-toggle-hint ()
+  "Toggle the full hint docstring for the buffer transient state."
+  (interactive)
+  (setq spacemacs--buffer-ts-full-hint-toggle
+        (not spacemacs--buffer-ts-full-hint-toggle)))
+
+(defun spacemacs//buffer-ts-hint ()
+  "Return a condensed/full hint for the buffer transient state"
+  (concat
+   " "
+   (if spacemacs--buffer-ts-full-hint-toggle
+       spacemacs--buffer-ts-full-hint
+     (concat "[" (propertize "?" 'face 'hydra-face-red) "] help"))))
+
+(spacemacs|transient-state-format-hint buffer
+  spacemacs--buffer-ts-full-hint
+  (format "\n[_?_] toggle help
+ [_C-1_.._C-9_] goto nth window            [_n_/_<right>_]^^  next buffer       [_d_]   kill buffer
+ [_1_.._9_]     move buffer to nth window  [_N_/_p_/_<left>_] previous buffer   [_C-d_] bury buffer
+ [_M-1_.._M-9_] swap buffer w/ nth window  [_b_]^^^^          buffer list       [_x_]   kill buffer and window
+ [_o_]^^        other window               [_z_]^^^^          recenter          [_q_]   quit"))
+
 (spacemacs|define-transient-state buffer
   :title "Buffer Transient State"
-  :doc "
- [_C-1_.._C-9_] goto nth window            [_n_/_<right>_]^^  next buffer       [_b_]   buffer list
- [_1_.._9_]     move buffer to nth window  [_N_/_p_/_<left>_] previous buffer   [_C-d_] bury buffer
- [_M-1_.._M-9_] swap buffer w/ nth window  [_d_]^^^^          kill buffer       [_o_]   other window
- ^^^^                                      [_z_]^^^^          recenter          [_q_]   quit"
+  :hint-is-doc t
+  :dynamic-hint (spacemacs//buffer-ts-hint)
   :bindings
+  ("?" spacemacs//buffer-ts-toggle-hint)
   ("n" next-buffer)
   ("<right>" next-buffer)
   ("p" previous-buffer)
@@ -785,6 +808,7 @@ respond to this toggle."
              ((configuration-layer/layer-used-p 'compleseus)
               (spacemacs/compleseus-switch-to-buffer))))
   ("d" spacemacs/kill-this-buffer)
+  ("x" kill-buffer-and-window)
   ("C-d" bury-buffer)
   ("z" recenter-top-bottom)
   ("q" nil :exit t)
@@ -870,10 +894,10 @@ Select: _a_ _h_ _j_ _k_ _l_ _w_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s
  ──────^^^^─────────────  ────^^^^────────────  ─────^^^^^^─────────────  ──────^^───────────  ─────^^──────────────────
  [_j_/_k_]  down/up       [_J_/_K_] down/up     [_s_]^^^^ horizontal      [_[_] shrink horiz   [_d_] close current
  [_h_/_l_]  left/right    [_H_/_L_] left/right  [_S_]^^^^ horiz & follow  [_]_] enlarge horiz  [_D_] close other
- [_0_.._9_] window 0..9   [_r_]^^   rotate fwd  [_v_]^^^^ vertical        [_{_] shrink verti   [_u_] restore prev layout
- [_a_]^^    ace-window    [_R_]^^   rotate bwd  [_V_]^^^^ verti & follow  [_}_] enlarge verti  [_U_] restore next layout
- [_o_]^^    other frame   ^^^^                  [_m_/_|_/___] maximize    %s^^^^^^^^^^^^^^^^^  [_q_] quit
- [_w_]^^    other window"
+ [_0_.._9_] window 0..9   [_r_]^^   rotate fwd  [_v_]^^^^ vertical        [_{_] shrink verti   [_x_] close and kill buffer
+ [_a_]^^    ace-window    [_R_]^^   rotate bwd  [_V_]^^^^ verti & follow  [_}_] enlarge verti  [_u_] restore prev layout
+ [_o_]^^    other frame   ^^^^                  [_m_/_|_/___] maximize    %s^^^^^^^^^^^^^^^^^  [_U_] restore next layout
+ [_w_]^^    other window  ^^^^                  ^^^^^^                    ^^                   [_q_] quit"
           (if (configuration-layer/package-used-p 'golden-ratio)
               ;; the following strings need to be the same length as:
               ;; %s^^^^^^^^^^^^^^^^^ (above) to keep the following key aligned
@@ -937,6 +961,7 @@ Select: _a_ _h_ _j_ _k_ _l_ _w_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s
   ;; Other
   ("d" delete-window)
   ("D" delete-other-windows)
+  ("x" kill-buffer-and-window)
   ("u" winner-undo)
   ("U" winner-redo)
   ("q" nil :exit t))

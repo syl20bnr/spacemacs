@@ -2468,6 +2468,7 @@ listed above. For example window resizing.
 | ~v~             | vertical split                                                |
 | ~V~             | vertical split and focus new window                           |
 | ~w~             | focus other window                                            |
+| ~x~             | delete window and kill buffer                                 |
 
 **** Golden ratio
 If you resize windows like crazy you may want to give a try to [[https://github.com/roman/golden-ratio.el][golden-ratio]].
@@ -2528,6 +2529,7 @@ open buffers and closing them.
 
 | Key binding            | Description                                                                                |
 |------------------------+--------------------------------------------------------------------------------------------|
+| ~?~                    | toggle displaying the full documentation in minibuffer                                  |
 | ~SPC b .~              | initiate transient state                                                                   |
 | ~[1..9]~               | move current buffer to nth window                                                          |
 | ~[C-1..C-9]~           | switch focus to nth window                                                                 |
@@ -2538,6 +2540,7 @@ open buffers and closing them.
 | ~n~ or ~<right>~       | go to next buffer (avoid buffers matching =spacemacs-useless-buffers-regexp=)              |
 | ~N~ or ~p~ or ~<left>~ | go to previous buffer (avoid buffers matching =spacemacs-useless-buffers-regexp=)          |
 | ~o~                    | switch focus to other window                                                               |
+| ~x~                    | kill buffer and window                                                                     |
 | ~z~                    | recenter buffer in window                                                                  |
 | ~q~                    | quit transient state                                                                       |
 
