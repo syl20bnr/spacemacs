@@ -649,6 +649,7 @@ respond to this toggle."
     (golden-ratio)))
 
 (spacemacs/set-leader-keys
+  "O"   'other-window-prefix
   "w TAB"  'spacemacs/alternate-window
   "w1"  'spacemacs/window-split-single-column
   "w2"  'spacemacs/window-split-double-columns

@@ -2375,6 +2375,16 @@ Windows manipulation commands (start with ~w~):
 | ~SPC w {~              | shrink window vertically (enter transient state)                            |
 | ~SPC w }~              | enlarge window vertically (enter transient state)                           |
 
+You can prefix many commands that display a buffer with the handy
+=other-window-prefix= to use or create another window instead of reusing the
+current one:
+
+| Key binding | Description                                              |
+|-------------+----------------------------------------------------------|
+| ~SPC O~     | display the buffer of the next command in another window |
+
+Try for example ~SPC O g d~ to jump to definition in another window.
+
 Split the current window into multiple ones, deleting all others using the
 following commands:
 
