@@ -24,7 +24,6 @@ defaults.
   - easypg
   - ediff
   - eldoc
-  - help-fns+ (only in Emacs 27.x and older)
   - hi-lock
   - image-mode
   - imenu
