@@ -43,7 +43,7 @@
     :init (spacemacs/set-leader-keys "aenn" 'helm-notmuch)))
 
 (defun notmuch/init-consult-notmuch ()
-  (use-package helm-notmuch
+  (use-package consult-notmuch
     :defer t
     :init (spacemacs/set-leader-keys "aenn" 'consult-notmuch)))
 
