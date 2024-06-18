@@ -147,6 +147,10 @@ If you use Emacs editing style, check the key bindings at the [[https://github.c
 | ~+/-~                | Zoom in/out                               |
 | ~zr~                 | Reset zoom                                |
 |----------------------+-------------------------------------------|
+| *Theme*              |                                           |
+|----------------------+-------------------------------------------|
+| ~n~                  | Midnight mode (dark theme)                |
+| ~t~                  | Themed mode (matches emacs theme)         |
 
 /For evil users/: Note that the search keys activate =isearch=, which works
 differently from the default Evil search. To go to the next match, use ~C-s~.
