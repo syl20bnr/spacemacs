@@ -22,7 +22,7 @@ This layer integrates offline API browsers into Emacs. It provides one for macOS
 
 ** Features:
 - Searching for word at point in offline API browser's UI.
-- Integration of offline API browser search results in Helm and Ivy.
+- Integration of offline API browser search results in Helm, Ivy and Consult.
 - Support for [[https://kapeli.com/dash][dash]] offline API browser for macOS.
 - Support for [[https://zealdocs.org/][zeal]] offline API browser for Linux.
 
@@ -66,8 +66,9 @@ To change the location of the installed docsets, set:
 The result will be displayed in the offline browser's UI.
 
 However having to leave emacs to have a look at the search results may be a bit awkward.
-To help with this it is also possible to integrate the search results directly in =helm= or =ivy=
-and show the details in a browser. To do so [[https://github.com/dash-docs-el/helm-dash][helm-dash]] can be used for =helm= and [[https://github.com/dash-docs-el/counsel-dash][counsel-dash]] for =ivy=.
+To help with this it is also possible to integrate the search results directly in =helm=, =ivy= or =consult=
+and show the details in a browser. To do so [[https://github.com/dash-docs-el/helm-dash][helm-dash]] can be used for =helm=, [[https://github.com/dash-docs-el/counsel-dash][counsel-dash]] for =ivy= and [[https://codeberg.org/ravi/consult-dash][consult-dash]]
+for =consult=.
 
 To get them working it is necessary to set =dash-docs-docset-newpath= to the location of your docsets.
 
@@ -84,5 +85,5 @@ For more details please check [[https://github.com/stanaka/dash-at-point#Usage][
 |---------------+-----------------------------------------------------------------|
 | ~SPC a r z d~ | Lookup thing at point in Dash or Zeal                           |
 | ~SPC a r z D~ | Lookup thing at point in Dash or Zeal within a specified Docset |
-| ~SPC a r z h~ | Lookup thing at point in helm-dash or counsel-dash              |
-| ~SPC a r z H~ | Lookup in helm-dash or counsel-dash within a specified Docset   |
+| ~SPC a r z h~ | Lookup thing at point in helm/counsel/consult-dash              |
+| ~SPC a r z H~ | Lookup in helm/counsel/consult-dash within a specified Docset   |
