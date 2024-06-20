@@ -232,7 +232,7 @@
 ;;
 ;;; Code:
 
-(eval-when-compile (require 'cl)) ;; case
+(eval-when-compile (require 'cl)) ;; cl-case
 
 (require 'frame-cmds) ;; enlarge-font
 
@@ -414,7 +414,7 @@ Remember that you can also use `C-u' when you are done zooming."
                                  (setq arg  (if (not arg)
                                                 frame-zoom-font-difference
                                               (prefix-numeric-value arg)))
-                                 (case base
+                                 (cl-case base
                                    ((?+ ?=) arg)
                                    (?-      (- arg))
                                    (?0      0)
