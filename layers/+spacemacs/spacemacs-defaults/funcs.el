@@ -1802,10 +1802,7 @@ Decision is based on `dotspacemacs-line-numbers'."
 (defun spacemacs/relative-line-numbers-p ()
   "Return non-nil if line numbers should be relative.
 Decision is based on `dotspacemacs-line-numbers'."
-  (or (eq dotspacemacs-line-numbers 'relative)
-      (and (listp dotspacemacs-line-numbers)
-           (car (spacemacs/mplist-get-values dotspacemacs-line-numbers
-                                             :relative)))))
+  (eq (spacemacs/line-numbers-type) 'relative))
 
 (defun spacemacs/visual-line-numbers-p ()
   "Return non-nil if line numbers should be visual.
@@ -1813,9 +1810,7 @@ This is similar to relative line numbers, but wrapped lines are
 treated as multiple lines.
 
 Decision is based on `dotspacemacs-line-numbers'."
-  (or (eq dotspacemacs-line-numbers 'visual)
-      (and (listp dotspacemacs-line-numbers)
-           (car (spacemacs/mplist-get-values dotspacemacs-line-numbers :visual)))))
+  (eq (spacemacs/line-numbers-type) 'visual))
 
 (defun spacemacs/line-numbers-type ()
   "Returns a valid value for `display-line-numbers', activating
