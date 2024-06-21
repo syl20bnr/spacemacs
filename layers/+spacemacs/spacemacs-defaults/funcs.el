@@ -1785,7 +1785,7 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
   (interactive)
   (if compilation-last-buffer
       (pop-to-buffer compilation-last-buffer)
-    (user-error "There is no compilation buffer?")))
+    (user-error "There is no compilation buffer")))
 
 
 ;; Line number
