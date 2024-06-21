@@ -155,7 +155,7 @@
   ;; additional key bindings such as "* ." to dired. To keep the old behavior,
   ;; load dired-x after dired.
   (with-eval-after-load 'dired
-        (require 'dired-x))
+    (require 'dired-x))
   (use-package dired-x
     :commands (dired-jump
                dired-jump-other-window

@@ -32,8 +32,8 @@ values."
   (eq system-type 'darwin))
 
 (defun spacemacs/system-is-linux ()
- (or  (eq system-type 'gnu/linux)
-      (eq system-type 'android)))
+  (or  (eq system-type 'gnu/linux)
+       (eq system-type 'android)))
 
 (defun spacemacs/system-is-mswindows ()
   (eq system-type 'windows-nt))

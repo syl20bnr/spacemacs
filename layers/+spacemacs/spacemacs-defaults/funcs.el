@@ -519,27 +519,27 @@ With Ivy, the path isn't editable, just remove the MSG after SEC."
   (run-at-time
    0 nil
    (lambda (msg sec)
-       (let* ((prev-prompt-contents
-               (buffer-substring (line-beginning-position)
-                                 (line-end-position)))
-              (prev-prompt-contents-p
-               (not (string= prev-prompt-contents "")))
-              (helmp (fboundp 'helm-mode)))
-         (when prev-prompt-contents-p
-           (delete-region (line-beginning-position)
-                          (line-end-position)))
-         (insert (propertize msg 'face 'warning))
-         ;; stop checking for candidates
-         ;; and update the helm prompt
-         (when helmp (helm-suspend-update t))
-         (sit-for sec)
+     (let* ((prev-prompt-contents
+             (buffer-substring (line-beginning-position)
+                               (line-end-position)))
+            (prev-prompt-contents-p
+             (not (string= prev-prompt-contents "")))
+            (helmp (fboundp 'helm-mode)))
+       (when prev-prompt-contents-p
          (delete-region (line-beginning-position)
-                        (line-end-position))
-         (when prev-prompt-contents-p
-           (insert prev-prompt-contents)
-           ;; start checking for candidates
-           ;; and update the helm prompt
-           (when helmp (helm-suspend-update nil)))))
+                        (line-end-position)))
+       (insert (propertize msg 'face 'warning))
+       ;; stop checking for candidates
+       ;; and update the helm prompt
+       (when helmp (helm-suspend-update t))
+       (sit-for sec)
+       (delete-region (line-beginning-position)
+                      (line-end-position))
+       (when prev-prompt-contents-p
+         (insert prev-prompt-contents)
+         ;; start checking for candidates
+         ;; and update the helm prompt
+         (when helmp (helm-suspend-update nil)))))
    msg sec))
 
 (defun spacemacs/delete-file (filename &optional ask-user)
