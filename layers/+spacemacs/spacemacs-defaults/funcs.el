@@ -1821,11 +1821,6 @@ line numbers, with respect to `dotspacemacs-line-numbers'."
             (t t))
     dotspacemacs-line-numbers))
 
-(defun spacemacs//linum-on (origfunc &rest args)
-  "Advice function to improve `linum-on' function."
-  (when (spacemacs/enable-line-numbers-p)
-    (apply origfunc args)))
-
 (defun spacemacs//linum-backward-compabitility ()
   "Return non-nil if `dotspacemacs-line-numbers' has an old format and if
 `linum' should be enabled."

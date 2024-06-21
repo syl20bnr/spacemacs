@@ -340,7 +340,8 @@
 
     ;; it's ok to add an advice before the function is defined, and we must
     ;; add this advice before calling `global-display-line-numbers-mode'
-    (advice-add #'display-line-numbers--turn-on :around #'spacemacs//linum-on)
+    (define-advice display-line-numbers--turn-on (:before-while (&rest _) spacemacs//enable-line-numbers)
+      (spacemacs/enable-line-numbers-p))
     (when dotspacemacs-line-numbers
       ;; delay the initialization of number lines when opening Spacemacs
       ;; normally. If opened via the command line with a file to visit then
