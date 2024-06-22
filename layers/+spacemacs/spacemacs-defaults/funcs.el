@@ -1797,9 +1797,7 @@ Decision is based on `dotspacemacs-line-numbers'."
        (spacemacs//enable-line-numbers-for-buffer-size-p)
        (if (listp dotspacemacs-line-numbers)
            (spacemacs//linum-enabled-for-current-major-mode)
-         (and (or (eq dotspacemacs-line-numbers t)
-                  (eq dotspacemacs-line-numbers 'relative)
-                  (eq dotspacemacs-line-numbers 'visual))
+         (and (memq dotspacemacs-line-numbers '(t relative visual))
               (derived-mode-p 'prog-mode 'text-mode)))))
 
 (defun spacemacs/relative-line-numbers-p ()
