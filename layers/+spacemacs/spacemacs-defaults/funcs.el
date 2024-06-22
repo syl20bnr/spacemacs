@@ -1795,9 +1795,12 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
 Decision is based on `dotspacemacs-line-numbers'."
   (and dotspacemacs-line-numbers
        (spacemacs//enable-line-numbers-for-buffer-size-p)
-       (or (spacemacs//linum-backward-compabitility)
-           (and (listp dotspacemacs-line-numbers)
-                (spacemacs//linum-enabled-for-current-major-mode)))))
+       (if (listp dotspacemacs-line-numbers)
+           (spacemacs//linum-enabled-for-current-major-mode)
+         (and (or (eq dotspacemacs-line-numbers t)
+                  (eq dotspacemacs-line-numbers 'relative)
+                  (eq dotspacemacs-line-numbers 'visual))
+              (derived-mode-p 'prog-mode 'text-mode)))))
 
 (defun spacemacs/relative-line-numbers-p ()
   "Return non-nil if line numbers should be relative.
@@ -1820,16 +1823,6 @@ line numbers, with respect to `dotspacemacs-line-numbers'."
             ((car (spacemacs/mplist-get-values dotspacemacs-line-numbers :relative)) 'relative)
             (t t))
     dotspacemacs-line-numbers))
-
-(defun spacemacs//linum-backward-compabitility ()
-  "Return non-nil if `dotspacemacs-line-numbers' has an old format and if
-`linum' should be enabled."
-  (and dotspacemacs-line-numbers
-       (not (listp dotspacemacs-line-numbers))
-       (or (eq dotspacemacs-line-numbers t)
-           (eq dotspacemacs-line-numbers 'relative)
-           (eq dotspacemacs-line-numbers 'visual))
-       (derived-mode-p 'prog-mode 'text-mode)))
 
 (defun spacemacs//enable-line-numbers-for-buffer-size-p ()
   "Return non-nil if the current buffer's size is not too big.
