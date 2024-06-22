@@ -6,7 +6,7 @@
 (defmacro test--enable-linum-for-mode (mode)
   (declare (indent defun) (debug body))
   `(let ((major-mode ,mode))
-     (spacemacs//linum-enabled-for-current-major-mode)))
+     (spacemacs//line-numbers-enabled-for-current-major-mode)))
 
 (ert-deftest test-enable-linum-for-mode--1 ()
   (let ((dotspacemacs-line-numbers '(:size-limit-kb 1024)))

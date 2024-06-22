@@ -1796,7 +1796,7 @@ Decision is based on `dotspacemacs-line-numbers'."
   (and dotspacemacs-line-numbers
        (spacemacs//enable-line-numbers-for-buffer-size-p)
        (if (listp dotspacemacs-line-numbers)
-           (spacemacs//linum-enabled-for-current-major-mode)
+           (spacemacs//line-numbers-enabled-for-current-major-mode)
          (and (memq dotspacemacs-line-numbers '(t relative visual))
               (derived-mode-p 'prog-mode 'text-mode)))))
 
@@ -1836,7 +1836,7 @@ This is controlled by the `:size-limit-kb' property of
 
 ;; see tests in tests/layers/+distribution/spacemacs-base/line-numbers-utest.el
 ;; for the different possible cases
-(defun spacemacs//linum-enabled-for-current-major-mode ()
+(defun spacemacs//line-numbers-enabled-for-current-major-mode ()
   "Return non-nil if line number is enabled for current major-mode."
   (let* ((disabled-for-modes
           (spacemacs/mplist-get-values dotspacemacs-line-numbers
