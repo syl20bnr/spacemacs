@@ -1794,7 +1794,7 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
   "Return non-nil if line numbers should be enabled for current buffer.
 Decision is based on `dotspacemacs-line-numbers'."
   (and dotspacemacs-line-numbers
-       (spacemacs//linum-curent-buffer-is-not-too-big)
+       (spacemacs//enable-line-numbers-for-buffer-size-p)
        (or (spacemacs//linum-backward-compabitility)
            (and (listp dotspacemacs-line-numbers)
                 (spacemacs//linum-enabled-for-current-major-mode)))))
@@ -1831,15 +1831,17 @@ line numbers, with respect to `dotspacemacs-line-numbers'."
            (eq dotspacemacs-line-numbers 'visual))
        (derived-mode-p 'prog-mode 'text-mode)))
 
-(defun spacemacs//linum-curent-buffer-is-not-too-big ()
-  "Return non-nil if buffer size is not too big."
-  (not (and (listp dotspacemacs-line-numbers)
-            (spacemacs/mplist-get-values dotspacemacs-line-numbers
-                                         :size-limit-kb)
-            (> (buffer-size)
-               (* 1000
-                  (car (spacemacs/mplist-get-values dotspacemacs-line-numbers
-                                                    :size-limit-kb)))))))
+(defun spacemacs//enable-line-numbers-for-buffer-size-p ()
+  "Return non-nil if the current buffer's size is not too big.
+
+This is controlled by the `:size-limit-kb' property of
+`dotspacemacs-line-numbers'."
+  (if-let ((size-limit-kb
+            (and (listp dotspacemacs-line-numbers)
+                 (spacemacs/mplist-get-value dotspacemacs-line-numbers
+                                             :size-limit-kb))))
+      (<= (buffer-size) (* 1000 size-limit-kb))
+    t))
 
 ;; see tests in tests/layers/+distribution/spacemacs-base/line-numbers-utest.el
 ;; for the different possible cases
