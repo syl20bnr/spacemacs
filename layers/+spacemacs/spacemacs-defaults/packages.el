@@ -334,10 +334,6 @@
       :off-message "Line numbers disabled."
       :evil-leader "tnv")
 
-    (when (spacemacs//linum-backward-compabitility)
-      (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-      (add-hook 'text-mode-hook 'display-line-numbers-mode))
-
     ;; it's ok to add an advice before the function is defined, and we must
     ;; add this advice before calling `global-display-line-numbers-mode'
     (define-advice display-line-numbers--turn-on (:before-while (&rest _) spacemacs//enable-line-numbers)
