@@ -1579,55 +1579,6 @@ The advice can be removed with:
            dotspacemacs-scroll-bar-while-scrolling)
   (advice-add 'mwheel-scroll :after #'spacemacs//scroll-bar-show-delayed-hide))
 
-;; BEGIN linum mouse helpers
-
-(defvar spacemacs-linum-mdown-line nil
-  "Define persistent variable for linum selection")
-
-(defun spacemacs//line-at-click ()
-  "Determine the visual line at click"
-  (save-excursion
-    (let ((click-y (cddr (mouse-position)))
-          (debug-on-error t)
-          (line-move-visual t))
-      (goto-char (window-start))
-      (next-line (1- click-y))
-      (1+ (line-number-at-pos)))))
-
-
-(defun spacemacs/md-select-linum (event)
-  "Set point as spacemacs-linum-mdown-line"
-  (interactive "e")
-  (mouse-select-window event)
-  (goto-line (spacemacs//line-at-click))
-  (set-mark (point))
-  (setq spacemacs-linum-mdown-line
-        (line-number-at-pos)))
-
-(defun spacemacs/mu-select-linum ()
-  "Select code block between point and spacemacs-linum-mdown-line"
-  (interactive)
-  (when spacemacs-linum-mdown-line
-    (let (mu-line)
-      (setq mu-line (spacemacs//line-at-click))
-      (goto-line (max spacemacs-linum-mdown-line mu-line))
-      (set-mark (line-end-position))
-      (goto-line (min spacemacs-linum-mdown-line mu-line))
-      (setq spacemacs-linum-mdown-line nil))))
-
-(defun spacemacs/select-current-block ()
-  "Select the current block of text between blank lines."
-  (interactive)
-  (let (p1)
-    (when (re-search-backward "\n[ \t]*\n" nil "move")
-      (re-search-forward "\n[ \t]*\n"))
-    (setq p1 (point))
-    (if (re-search-forward "\n[ \t]*\n" nil "move")
-        (re-search-backward "\n[ \t]*\n"))
-    (set-mark p1)))
-
-;; END linum mouse helpers
-
 ;; from http://www.emacswiki.org/emacs/WordCount
 (defun spacemacs/count-words-analysis (start end)
   "Count how many times each word is used in the region.

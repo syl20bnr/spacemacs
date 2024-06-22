@@ -132,12 +132,6 @@
 (define-key minibuffer-local-map (kbd "C-n") 'next-line-or-history-element)
 (define-key minibuffer-local-map (kbd "C-p") 'previous-line-or-history-element)
 
-;; linum margin bindings-------------------------------------------------------
-(global-set-key (kbd "<left-margin> <down-mouse-1>") 'spacemacs/md-select-linum)
-(global-set-key (kbd "<left-margin> <mouse-1>") 'spacemacs/mu-select-linum)
-(global-set-key (kbd "<left-margin> <double-mouse-1>") 'spacemacs/select-current-block)
-(global-set-key (kbd "<left-margin> <drag-mouse-1>") 'spacemacs/mu-select-linum)
-
 ;; ---------------------------------------------------------------------------
 ;; spacemacs leader key bindings
 ;; ---------------------------------------------------------------------------
