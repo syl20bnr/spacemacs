@@ -1866,7 +1866,7 @@ This is controlled by the `:size-limit-kb' property of
               ;; :enabled-for-modes and in :disabled-for-modes. Return non-nil
               ;; if enabled-for-parent is the more specific parent (IOW derives
               ;; from disabled-for-parent)
-              (spacemacs/derived-mode-p enabled-for-parent disabled-for-parent)))
+              (provided-mode-derived-p enabled-for-parent disabled-for-parent)))
      ;; current mode (or parent) not explicitly disabled
      (and (null user-enabled-for-modes)
           enabled-for-parent            ; mode is one of default allowed modes
