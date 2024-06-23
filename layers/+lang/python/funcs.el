@@ -152,7 +152,8 @@ as the pyenv version then also return nil. This works around https://github.com/
 (defun spacemacs//python-setup-shell (&optional root-dir)
   "Setup the python shell if no customer prefered value or the value be cleaned.
 ROOT-DIR should be the directory path for the environment, `nil' for clean up."
-  (when (or (null python-shell-interpreter)
+  (when (or (null (boundp 'python-shell-interpreter))
+            (null python-shell-interpreter)
             (equal python-shell-interpreter spacemacs--python-shell-interpreter-origin))
     (if-let* ((default-directory root-dir))
         (if-let* ((ipython (cl-find-if 'spacemacs/pyenv-executable-find
