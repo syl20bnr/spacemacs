@@ -1775,7 +1775,7 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
 (defun spacemacs/show-hide-compilation-window ()
   "Show/Hide the window containing the compilation buffer."
   (interactive)
-  (when-let ((buffer compilation-last-buffer))
+  (when-let ((buffer next-error-last-buffer))
     (if (get-buffer-window buffer 'visible)
         (delete-windows-on buffer)
       (spacemacs/switch-to-compilation-buffer))))
@@ -1783,9 +1783,9 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
 (defun spacemacs/switch-to-compilation-buffer ()
   "Go to last compilation buffer."
   (interactive)
-  (if compilation-last-buffer
-      (pop-to-buffer compilation-last-buffer)
-    (user-error "There is no compilation buffer?")))
+  (if (buffer-live-p next-error-last-buffer)
+      (pop-to-buffer next-error-last-buffer)
+    (user-error "There is no compilation buffer")))
 
 
 ;; Line number
