@@ -56,5 +56,5 @@
       (if tree-sitter-fold-indicators-enable
           (progn
             (setq ts-fold-indicators-priority 0)
-            (global-ts-fold-indicators-mode))
+            (add-hook 'tree-sitter-after-on-hook #'ts-fold-indicators-mode))
         (global-ts-fold-mode)))))
