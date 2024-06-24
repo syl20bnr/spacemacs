@@ -58,7 +58,8 @@
       "ss" 'pdf-occur
       "p" 'pdf-misc-print-document
       "O" 'pdf-outline
-      "n" 'pdf-view-midnight-minor-mode)
+      "n" 'pdf-view-midnight-minor-mode
+      "t" 'pdf-view-themed-minor-mode)
 
     (evil-define-key 'visual pdf-view-mode-map
       "y" 'pdf-view-kill-ring-save
