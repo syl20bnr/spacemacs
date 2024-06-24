@@ -25,6 +25,7 @@
   '(
     (counsel-notmuch :requires ivy)
     (helm-notmuch :requires helm)
+    (consult-notmuch :requires consult)
     notmuch
     org
     persp-mode
@@ -40,6 +41,11 @@
   (use-package helm-notmuch
     :defer t
     :init (spacemacs/set-leader-keys "aenn" 'helm-notmuch)))
+
+(defun notmuch/init-consult-notmuch ()
+  (use-package consult-notmuch
+    :defer t
+    :init (spacemacs/set-leader-keys "aenn" 'consult-notmuch)))
 
 (defun notmuch/init-ol-notmuch ()
   (use-package ol-notmuch)
