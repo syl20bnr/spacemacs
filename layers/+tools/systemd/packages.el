@@ -43,12 +43,8 @@
 (defun systemd/init-journalctl-mode ()
   (use-package journalctl-mode
     :ensure t
-    :init 
-    (spacemacs/declare-prefix "atj"  "journalctl")
+    :init
     (spacemacs/set-leader-keys
-      "atjj" 'journalctl
-      "atjs" 'journalctl-unit
-      "atju" 'journalctl-user-unit
-      "atjb" 'journalctl-boot)))
+      "atj" 'journalctl)))
 
 ;;; packages.el ends here

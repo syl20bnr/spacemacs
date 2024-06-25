@@ -36,9 +36,6 @@ To use this contribution add it to your =~/.spacemacs=
 
 ** Journalctl-mode
 
-| Key binding   | Description                                                          |
-|---------------+----------------------------------------------------------------------|
-| ~SPC a t j b~ | Select and show boot-log with =journalctl-mode=.                     |
-| ~SPC a t j j~ | Run =journalctl-mode= with custom option                             |
-| ~SPC a t j s~ | Select and show journal for UNIT in =journalctl-mode=.               |
-| ~SPC a t j u~ | Select and show journal for the user-unit UNIT in =journalctl-mode=. |
+| Key binding | Description                     |
+|-------------+---------------------------------|
+| ~SPC a t j~ | Run =journalctl= transient menu |
