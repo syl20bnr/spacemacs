@@ -25,9 +25,9 @@
   "Options are `selectrum', and `vertico' to use as completion
   engine.")
 
-(defvar consult--source-modified-buffers
+(defvar consult--source-modified-persp-buffers
   `(:name "Modified Buffers"
-          :narrow   (?M . "Modified Buffers")
+          :narrow   (?* . "Modified Layout Buffers")
           :hidden   t
           :category buffer
           :face     consult-buffer
@@ -46,7 +46,7 @@
 
 (defvar consult--source-persp-buffers
   `(
-    :name     "Buffer"
+    :name     "Layout Buffers"
     :narrow   ?b
     :category buffer
     :face     consult-buffer
