@@ -519,27 +519,27 @@ With Ivy, the path isn't editable, just remove the MSG after SEC."
   (run-at-time
    0 nil
    (lambda (msg sec)
-       (let* ((prev-prompt-contents
-               (buffer-substring (line-beginning-position)
-                                 (line-end-position)))
-              (prev-prompt-contents-p
-               (not (string= prev-prompt-contents "")))
-              (helmp (fboundp 'helm-mode)))
-         (when prev-prompt-contents-p
-           (delete-region (line-beginning-position)
-                          (line-end-position)))
-         (insert (propertize msg 'face 'warning))
-         ;; stop checking for candidates
-         ;; and update the helm prompt
-         (when helmp (helm-suspend-update t))
-         (sit-for sec)
+     (let* ((prev-prompt-contents
+             (buffer-substring (line-beginning-position)
+                               (line-end-position)))
+            (prev-prompt-contents-p
+             (not (string= prev-prompt-contents "")))
+            (helmp (fboundp 'helm-mode)))
+       (when prev-prompt-contents-p
          (delete-region (line-beginning-position)
-                        (line-end-position))
-         (when prev-prompt-contents-p
-           (insert prev-prompt-contents)
-           ;; start checking for candidates
-           ;; and update the helm prompt
-           (when helmp (helm-suspend-update nil)))))
+                        (line-end-position)))
+       (insert (propertize msg 'face 'warning))
+       ;; stop checking for candidates
+       ;; and update the helm prompt
+       (when helmp (helm-suspend-update t))
+       (sit-for sec)
+       (delete-region (line-beginning-position)
+                      (line-end-position))
+       (when prev-prompt-contents-p
+         (insert prev-prompt-contents)
+         ;; start checking for candidates
+         ;; and update the helm prompt
+         (when helmp (helm-suspend-update nil)))))
    msg sec))
 
 (defun spacemacs/delete-file (filename &optional ask-user)
@@ -1579,55 +1579,6 @@ The advice can be removed with:
            dotspacemacs-scroll-bar-while-scrolling)
   (advice-add 'mwheel-scroll :after #'spacemacs//scroll-bar-show-delayed-hide))
 
-;; BEGIN linum mouse helpers
-
-(defvar spacemacs-linum-mdown-line nil
-  "Define persistent variable for linum selection")
-
-(defun spacemacs//line-at-click ()
-  "Determine the visual line at click"
-  (save-excursion
-    (let ((click-y (cddr (mouse-position)))
-          (debug-on-error t)
-          (line-move-visual t))
-      (goto-char (window-start))
-      (next-line (1- click-y))
-      (1+ (line-number-at-pos)))))
-
-
-(defun spacemacs/md-select-linum (event)
-  "Set point as spacemacs-linum-mdown-line"
-  (interactive "e")
-  (mouse-select-window event)
-  (goto-line (spacemacs//line-at-click))
-  (set-mark (point))
-  (setq spacemacs-linum-mdown-line
-        (line-number-at-pos)))
-
-(defun spacemacs/mu-select-linum ()
-  "Select code block between point and spacemacs-linum-mdown-line"
-  (interactive)
-  (when spacemacs-linum-mdown-line
-    (let (mu-line)
-      (setq mu-line (spacemacs//line-at-click))
-      (goto-line (max spacemacs-linum-mdown-line mu-line))
-      (set-mark (line-end-position))
-      (goto-line (min spacemacs-linum-mdown-line mu-line))
-      (setq spacemacs-linum-mdown-line nil))))
-
-(defun spacemacs/select-current-block ()
-  "Select the current block of text between blank lines."
-  (interactive)
-  (let (p1)
-    (when (re-search-backward "\n[ \t]*\n" nil "move")
-      (re-search-forward "\n[ \t]*\n"))
-    (setq p1 (point))
-    (if (re-search-forward "\n[ \t]*\n" nil "move")
-        (re-search-backward "\n[ \t]*\n"))
-    (set-mark p1)))
-
-;; END linum mouse helpers
-
 ;; from http://www.emacswiki.org/emacs/WordCount
 (defun spacemacs/count-words-analysis (start end)
   "Count how many times each word is used in the region.
@@ -1790,27 +1741,20 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
 
 ;; Line number
 
-(defun spacemacs/no-linum (&rest ignore)
-  "Disable linum in current buffer."
-  (when (or 'linum-mode global-linum-mode)
-    (linum-mode 0)))
-
 (defun spacemacs/enable-line-numbers-p ()
   "Return non-nil if line numbers should be enabled for current buffer.
 Decision is based on `dotspacemacs-line-numbers'."
   (and dotspacemacs-line-numbers
-       (spacemacs//linum-curent-buffer-is-not-too-big)
-       (or (spacemacs//linum-backward-compabitility)
-           (and (listp dotspacemacs-line-numbers)
-                (spacemacs//linum-enabled-for-current-major-mode)))))
+       (spacemacs//enable-line-numbers-for-buffer-size-p)
+       (if (listp dotspacemacs-line-numbers)
+           (spacemacs//line-numbers-enabled-for-current-major-mode)
+         (and (memq dotspacemacs-line-numbers '(t relative visual))
+              (derived-mode-p 'prog-mode 'text-mode)))))
 
 (defun spacemacs/relative-line-numbers-p ()
   "Return non-nil if line numbers should be relative.
 Decision is based on `dotspacemacs-line-numbers'."
-  (or (eq dotspacemacs-line-numbers 'relative)
-      (and (listp dotspacemacs-line-numbers)
-           (car (spacemacs/mplist-get-values dotspacemacs-line-numbers
-                                             :relative)))))
+  (eq (spacemacs/line-numbers-type) 'relative))
 
 (defun spacemacs/visual-line-numbers-p ()
   "Return non-nil if line numbers should be visual.
@@ -1818,9 +1762,7 @@ This is similar to relative line numbers, but wrapped lines are
 treated as multiple lines.
 
 Decision is based on `dotspacemacs-line-numbers'."
-  (or (eq dotspacemacs-line-numbers 'visual)
-      (and (listp dotspacemacs-line-numbers)
-           (car (spacemacs/mplist-get-values dotspacemacs-line-numbers :visual)))))
+  (eq (spacemacs/line-numbers-type) 'visual))
 
 (defun spacemacs/line-numbers-type ()
   "Returns a valid value for `display-line-numbers', activating
@@ -1831,49 +1773,21 @@ line numbers, with respect to `dotspacemacs-line-numbers'."
             (t t))
     dotspacemacs-line-numbers))
 
-(defun spacemacs//linum-on (origfunc &rest args)
-  "Advice function to improve `linum-on' function."
-  (when (spacemacs/enable-line-numbers-p)
-    (apply origfunc args)))
+(defun spacemacs//enable-line-numbers-for-buffer-size-p ()
+  "Return non-nil if the current buffer's size is not too big.
 
-(defun spacemacs//linum-update-window-scale-fix (win)
-  "Fix linum for scaled text in the window WIN."
-  (when (display-multi-font-p)
-    (unless (boundp 'text-scale-mode-step)
-      (setq window-initial-margins (window-margins win)))
-    (set-window-margins win
-                        (ceiling (* (if (boundp 'text-scale-mode-step)
-                                        (expt text-scale-mode-step
-                                              text-scale-mode-amount)
-                                      1)
-                                    (or (car (if (boundp 'window-initial-margins)
-                                                 window-initial-margins
-                                               (window-margins win)))
-                                        1))))))
-
-(defun spacemacs//linum-backward-compabitility ()
-  "Return non-nil if `dotspacemacs-line-numbers' has an old format and if
-`linum' should be enabled."
-  (and dotspacemacs-line-numbers
-       (not (listp dotspacemacs-line-numbers))
-       (or (eq dotspacemacs-line-numbers t)
-           (eq dotspacemacs-line-numbers 'relative)
-           (eq dotspacemacs-line-numbers 'visual))
-       (derived-mode-p 'prog-mode 'text-mode)))
-
-(defun spacemacs//linum-curent-buffer-is-not-too-big ()
-  "Return non-nil if buffer size is not too big."
-  (not (and (listp dotspacemacs-line-numbers)
-            (spacemacs/mplist-get-values dotspacemacs-line-numbers
-                                         :size-limit-kb)
-            (> (buffer-size)
-               (* 1000
-                  (car (spacemacs/mplist-get-values dotspacemacs-line-numbers
-                                                    :size-limit-kb)))))))
+This is controlled by the `:size-limit-kb' property of
+`dotspacemacs-line-numbers'."
+  (if-let ((size-limit-kb
+            (and (listp dotspacemacs-line-numbers)
+                 (spacemacs/mplist-get-value dotspacemacs-line-numbers
+                                             :size-limit-kb))))
+      (<= (buffer-size) (* 1000 size-limit-kb))
+    t))
 
 ;; see tests in tests/layers/+distribution/spacemacs-base/line-numbers-utest.el
 ;; for the different possible cases
-(defun spacemacs//linum-enabled-for-current-major-mode ()
+(defun spacemacs//line-numbers-enabled-for-current-major-mode ()
   "Return non-nil if line number is enabled for current major-mode."
   (let* ((disabled-for-modes
           (spacemacs/mplist-get-values dotspacemacs-line-numbers
@@ -1903,7 +1817,7 @@ line numbers, with respect to `dotspacemacs-line-numbers'."
               ;; :enabled-for-modes and in :disabled-for-modes. Return non-nil
               ;; if enabled-for-parent is the more specific parent (IOW derives
               ;; from disabled-for-parent)
-              (spacemacs/derived-mode-p enabled-for-parent disabled-for-parent)))
+              (provided-mode-derived-p enabled-for-parent disabled-for-parent)))
      ;; current mode (or parent) not explicitly disabled
      (and (null user-enabled-for-modes)
           enabled-for-parent            ; mode is one of default allowed modes
