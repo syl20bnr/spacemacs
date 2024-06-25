@@ -1094,7 +1094,7 @@ value specified in the file \"NAME.el\"."
                           (lm-header-multiline "package-requires")))
                 (package--prepare-dependencies
                  (package-read-from-string
-                  (mapconcat #'identity require-lines " "))))))
+                  (string-join require-lines " "))))))
             ;; `:kind' and `:archive' are handled separately.
             :kind       (or kind 'single)
             ;; The other keyword arguments are appended to the alist
