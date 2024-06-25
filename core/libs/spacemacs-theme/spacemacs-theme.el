@@ -1004,6 +1004,11 @@ to 'auto, tags may not be properly aligned. "
      `(whitespace-tab ((,class (:background unspecified :foreground ,act2))))
      `(whitespace-trailing ((,class (:background ,err :foreground ,war))))
 
+;;;;; window-tool-bar-mode
+     `(window-tool-bar-button ((,class (:foreground ,base :background ,bg1 :weight bold :box (:line-width -1 :style released-button)))))
+     `(window-tool-bar-button-hover ((,class (:inherit window-tool-bar-button :inverse-video t))))
+     `(window-tool-bar-button-disabled ((,class (:inherit window-tool-bar-button :foreground ,base-dim :background ,bg2))))
+
 ;;;;; other, need more work
      `(ac-completion-face ((,class (:underline t :foreground ,keyword))))
      `(ffap ((,class (:foreground ,base))))
