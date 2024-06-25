@@ -2529,7 +2529,7 @@ open buffers and closing them.
 
 | Key binding            | Description                                                                                |
 |------------------------+--------------------------------------------------------------------------------------------|
-| ~?~                    | toggle displaying the full documentation in minibuffer                                  |
+| ~?~                    | toggle displaying the full documentation in minibuffer                                     |
 | ~SPC b .~              | initiate transient state                                                                   |
 | ~[1..9]~               | move current buffer to nth window                                                          |
 | ~[C-1..C-9]~           | switch focus to nth window                                                                 |

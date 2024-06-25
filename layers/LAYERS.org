@@ -843,7 +843,6 @@ Features:
   - easypg
   - ediff
   - eldoc
-  - help-fns+ (only in Emacs 27.x and older)
   - hi-lock
   - image-mode
   - imenu
@@ -2472,7 +2471,7 @@ This layer integrates offline API browsers into Emacs. It provides one for macOS
 
 Features:
 - Searching for word at point in offline API browser's UI.
-- Integration of offline API browser search results in Helm and Ivy.
+- Integration of offline API browser search results in Helm, Ivy and Consult.
 - Support for [[https://kapeli.com/dash][dash]] offline API browser for macOS.
 - Support for [[https://zealdocs.org/][zeal]] offline API browser for Linux.
 
