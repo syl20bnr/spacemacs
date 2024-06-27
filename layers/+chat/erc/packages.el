@@ -27,6 +27,7 @@
     company-emoji
     emoji-cheat-sheet-plus
     erc
+    erc-tweet
     (erc-gitter :location (recipe
                            :fetcher github
                            :repo "jleechpe/erc-gitter")
@@ -150,6 +151,14 @@
       :init (with-eval-after-load 'erc
               (add-to-list 'erc-modules 'youtube)))))
 (defun erc/init-erc-yt ())
+
+(defun erc/pre-init-erc-tweet ()
+  (spacemacs|use-package-add-hook erc
+    :post-config
+    (use-package erc-tweet
+      :init (with-eval-after-load 'erc
+              (add-to-list 'erc-modules 'tweet)))))
+(defun erc/init-erc-tweet ())
 
 (defun erc/pre-init-erc-yank ()
   (spacemacs|use-package-add-hook erc

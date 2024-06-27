@@ -27,9 +27,9 @@
     company-emoji
     emoji-cheat-sheet-plus
     emojify
-    (erc-image :toggle rcirc-enable-erc-image)
-    (erc-tweet :toggle rcirc-enable-erc-tweet)
-    (erc-yt :toggle rcirc-enable-erc-yt)
+    erc-image
+    erc-tweet
+    erc-yt
     flyspell
     (helm-rcirc :location local
                 :requires helm)
@@ -59,7 +59,7 @@
       :hook (rcirc-mode . emojify-mode)
       :if rcirc-enable-emojify)))
 
-(defun rcirc/init-erc-image ()
+(defun rcirc/post-init-erc-image ()
   (spacemacs|use-package-add-hook rcirc
     :post-config
     (use-package erc-image
@@ -71,7 +71,7 @@
               (add-hook 'rcirc-markup-text-functions
                         #'spacemacs//rcirc-image-show-url)))))
 
-(defun rcirc/init-erc-tweet ()
+(defun rcirc/post-init-erc-tweet ()
   (spacemacs|use-package-add-hook rcirc
     :post-config
     (use-package erc-tweet
@@ -83,7 +83,7 @@
               (add-hook 'rcirc-markup-text-functions
                         #'spacemacs//rcirc-tweet-show-tweet)))))
 
-(defun rcirc/init-erc-yt ()
+(defun rcirc/post-init-erc-yt ()
   (spacemacs|use-package-add-hook rcirc
     :post-config
     (use-package erc-yt
