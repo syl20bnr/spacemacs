@@ -172,6 +172,7 @@
     - [[#purely-functional][Purely functional]]
       - [[#agda][Agda]]
       - [[#elm][Elm]]
+      - [[#gleam][Gleam]]
       - [[#haskell][Haskell]]
       - [[#idris][Idris]]
     - [[#toml][TOML]]
@@ -2384,6 +2385,16 @@ Features:
 - Integration with elm-repl
 - Integration with elm-reactor
 - Integration with elm-package
+
+**** Gleam
+[[file:+lang/gleam/README.org][+lang/gleam/README.org]]
+
+This layers adds support for [[https://gleam.run/][Gleam]]. It relies on the official [[https://github.com/gleam-lang/gleam-mode][gleam-mode]] package and [[https://github.com/emacsmirror/tree-sitter-indent][tree-sitter-indent]].
+
+Features:
+- [[https://gleam.run/news/v0.21-introducing-the-gleam-language-server/][Gleam language server]] integration
+- Formatting (=gleam format=)
+- Execution (=gleam build=, =gleam run=, =gleam test=)
 
 **** Haskell
 [[file:+lang/haskell/README.org][+lang/haskell/README.org]]
