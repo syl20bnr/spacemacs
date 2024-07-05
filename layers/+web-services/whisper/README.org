@@ -1,0 +1,35 @@
+#+TITLE: Whisper Layer for Spacemacs
+
+#+TAGS: audio|layer|speech-to-text
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer integrates the Whisper speech-to-text tool into Spacemacs, allowing for efficient transcription and audio processing within Emacs.
+
+** Features:
+- Real-time transcription of audio files.
+- Support for multiple languages.
+- Selection of different base models for transcription.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to add =whisper= to the existing =dotspacemacs-configuration-layers= list in this file.
+
+* Configuration
+Refer to the official [[https://github.com/natrys/whisper.el/][whisper.el]] documentation for advanced configurations and
+additional information.
+
+* Key bindings
+The layer provides several key bindings to interact with Whisper efficiently. Here are some of the key bindings available:
+
+| Key binding | Command                           | Description                                    |
+|-------------+-----------------------------------+------------------------------------------------|
+| ~SPC $ w r~   | whisper-run                       | Start recording and transcribe/translate audio |
+| ~SPC $ w f~   | whisper-file                      | Transcribe/translate a local file              |
+| ~SPC $ w l~   | spacemacs/whisper-select-language | Select transcription language                  |
+| ~SPC $ w m~   | spacemacs/whisper-select-model    | Select base model for transcription            |
