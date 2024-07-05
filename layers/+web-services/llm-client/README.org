@@ -6,6 +6,8 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+- [[#configuration][Configuration]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer enables usage of GPT Clients in Spacemacs using [[https://github.com/karthink/gptel][GPTel]].
@@ -31,3 +33,30 @@ You will have access to the following tools:
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =llm-client= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+* Configuration
+Refer to the official [[https://github.com/karthink/gptel][GPTel]] documentation for advanced configurations and
+additional information.
+
+* Key bindings
+The layer provides several key bindings to interact with LLMs efficiently. Here
+are some of the key bindings available:
+
+| Key binding | Command                  | Description                |
+|-------------+--------------------------+----------------------------|
+| ~SPC $ g g~   | gptel                    | Start a new GPTel session  |
+| ~SPC $ g s~   | gptel-send               | Send a message to GPTel    |
+| ~SPC $ g m~   | gptel-menu               | Open the GPTel menu        |
+| ~SPC $ g c~   | gptel-context-add        | Add context                |
+| ~SPC $ g f~   | gptel-add-file           | Add a file                 |
+| ~SPC $ g o~   | gptel-org-set-topic      | Set topic in Org-mode      |
+| ~SPC $ g p~   | gptel-org-set-properties | Set properties in Org-mode |
+
+
+In addition, this layer adds the following keybindings to =org-mode=
+
+
+| Key binding   | Command                  | Description                |
+|---------------+--------------------------+----------------------------|
+| ~SPC m $ g o~ | gptel-org-set-topic      | Set topic in Org-mode      |
+| ~SPC m $ g p~   | gptel-org-set-properties | Set properties in Org-mode |
