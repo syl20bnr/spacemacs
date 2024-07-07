@@ -87,4 +87,5 @@
     (evilified-state-evilify-map ledger-report-mode-map
       :eval-after-load ledger-report
       :mode ledger-report-mode)
-    (evil-add-command-properties 'ledger-add-transaction :jump t)))
+    (evil-add-command-properties 'ledger-add-transaction :jump t)
+    (evil-add-command-properties 'ledger-copy-transaction-at-point :jump t)))
