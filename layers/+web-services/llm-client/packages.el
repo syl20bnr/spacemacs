@@ -46,7 +46,7 @@
 
 (defun llm-client/post-init-org ()
   "Set up Org-mode keybindings for GPTel."
-  (spacemacs/declare-prefix "m$g" "Gptel")
+  (spacemacs/declare-prefix-for-mode 'org-mode "m$g" "Gptel")
   (spacemacs/set-leader-keys-for-major-mode 'org-mode
     "$go" 'gptel-org-set-topic
     "$gp" 'gptel-org-set-properties))
