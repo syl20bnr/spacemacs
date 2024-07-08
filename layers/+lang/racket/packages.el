@@ -49,8 +49,7 @@
 (defun racket/post-init-ggtags ()
   (add-hook 'racket-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
-(defun racket/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'racket-mode))
+(defun racket/post-init-counsel-gtags nil)
 
 (defun racket/pre-init-evil-cleverparens ()
   (spacemacs|use-package-add-hook evil-cleverparens

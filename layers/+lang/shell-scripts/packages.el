@@ -118,8 +118,7 @@
 (defun shell-scripts/post-init-ggtags ()
   (add-hook 'sh-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
-(defun shell-scripts/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'sh-mode))
+(defun shell-scripts/post-init-counsel-gtags nil)
 
 (defun shell-scripts/pre-init-org ()
   (spacemacs|use-package-add-hook org

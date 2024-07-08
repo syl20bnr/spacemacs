@@ -48,5 +48,4 @@
 (defun octave/post-init-ggtags ()
   (add-hook 'octave-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
-(defun octave/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'octave-mode))
+(defun octave/post-init-counsel-gtags nil)

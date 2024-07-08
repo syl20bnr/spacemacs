@@ -72,5 +72,4 @@
 (defun lua/post-init-ggtags ()
   (add-hook 'lua-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
-(defun lua/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'lua-mode))
+(defun lua/post-init-counsel-gtags nil)

@@ -52,8 +52,7 @@
 (defun javascript/post-init-company ()
   (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-company))
 
-(defun javascript/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'js2-mode))
+(defun javascript/post-init-counsel-gtags nil)
 
 (defun javascript/pre-init-dap-mode ()
   (when (eq javascript-backend 'lsp)

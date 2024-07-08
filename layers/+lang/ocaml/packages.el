@@ -95,8 +95,7 @@
 (defun ocaml/post-init-ggtags ()
   (add-hook 'ocaml-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
-(defun ocaml/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'ocaml-mode))
+(defun ocaml/post-init-counsel-gtags nil)
 
 (defun ocaml/init-merlin ()
   (use-package merlin

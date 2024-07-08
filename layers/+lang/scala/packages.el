@@ -111,6 +111,4 @@
   (when scala-enable-gtags
     (add-hook 'scala-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)))
 
-(defun scala/post-init-counsel-gtags ()
-  (when scala-enable-gtags
-    (spacemacs/counsel-gtags-define-keys-for-mode 'scala-mode)))
+(defun scala/post-init-counsel-gtags nil)

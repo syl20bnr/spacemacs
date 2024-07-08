@@ -157,8 +157,7 @@
   ;; backend specific
   (add-hook 'elixir-mode-local-vars-hook #'spacemacs//elixir-setup-company))
 
-(defun elixir/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'elixir-mode))
+(defun elixir/post-init-counsel-gtags nil)
 
 (defun elixir/pre-init-dap-mode ()
   (when (eq elixir-backend 'lsp) (add-to-list 'spacemacs--dap-supported-modes 'elixir-mode))

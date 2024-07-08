@@ -127,9 +127,7 @@
     :defer t
     :commands company-ycmd))
 
-(defun c-c++/post-init-counsel-gtags ()
-  (dolist (mode c-c++-modes)
-    (spacemacs/counsel-gtags-define-keys-for-mode mode)))
+(defun c-c++/post-init-counsel-gtags nil)
 
 (defun c-c++/init-cpp-auto-include ()
   (use-package cpp-auto-include
