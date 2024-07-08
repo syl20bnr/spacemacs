@@ -54,8 +54,7 @@
   (with-eval-after-load 'smartparens
     (sp-local-pair 'java-mode "/** " " */" :trigger "/**")))
 
-(defun java/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'java-mode))
+(defun java/post-init-counsel-gtags nil)
 
 (defun java/pre-init-org ()
   (spacemacs|use-package-add-hook org

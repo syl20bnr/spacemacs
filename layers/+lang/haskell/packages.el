@@ -309,8 +309,7 @@
 
   (with-eval-after-load 'yasnippet (haskell-snippets-initialize)))
 
-(defun haskell/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'haskell-mode))
+(defun haskell/post-init-counsel-gtags nil)
 
 ;; doesn't support haskell-literate-mode :(
 (defun haskell/init-hindent ()

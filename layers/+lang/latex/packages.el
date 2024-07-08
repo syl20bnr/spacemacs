@@ -233,8 +233,7 @@
       (concat prefix "T")    'reftex-toc-recenter
       (concat prefix "v")    'reftex-view-crossref)))
 
-(defun latex/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'latex-mode))
+(defun latex/post-init-counsel-gtags nil)
 
 (defun latex/post-init-ggtags ()
   (add-hook 'latex-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

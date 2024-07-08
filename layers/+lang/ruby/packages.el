@@ -80,9 +80,7 @@
 (defun ruby/post-init-company ()
   (add-hook 'ruby-mode-local-vars-hook #'spacemacs//ruby-setup-company))
 
-(defun ruby/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'ruby-mode)
-  (spacemacs/counsel-gtags-define-keys-for-mode 'enh-ruby-mode))
+(defun ruby/post-init-counsel-gtags nil)
 
 (defun ruby/pre-init-dap-mode ()
   (when (eq ruby-backend 'lsp)

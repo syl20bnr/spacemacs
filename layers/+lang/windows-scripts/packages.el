@@ -82,8 +82,7 @@
 (defun windows-scripts/post-init-ggtags ()
   (add-hook 'bat-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
-(defun windows-scripts/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'bat-mode))
+(defun windows-scripts/post-init-counsel-gtags nil)
 
 (defun windows-scripts/init-powershell ()
   (use-package powershell

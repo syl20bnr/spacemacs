@@ -476,8 +476,7 @@
 (defun clojure/post-init-ggtags ()
   (add-hook 'clojure-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
-(defun clojure/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'clojure-mode))
+(defun clojure/post-init-counsel-gtags nil)
 
 (defun clojure/init-clojure-snippets ()
   (use-package clojure-snippets

@@ -162,8 +162,7 @@
     :post-init
     (spacemacs/setup-helm-cscope 'python-mode)))
 
-(defun python/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'python-mode))
+(defun python/post-init-counsel-gtags nil)
 
 (defun python/post-init-ggtags ()
   (add-hook 'python-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
