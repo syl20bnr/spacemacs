@@ -1,6 +1,6 @@
 ;;; packages.el --- sailfish-developer layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2020-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2020-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Victor Polevoy <fx@thefx.co>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -28,9 +28,8 @@
   (use-package sailfish-scratchbox
     :defer t
     :init
-    (progn
-      (spacemacs/declare-prefix "cs" "sailfish os developer menu")
-      (spacemacs/set-leader-keys
-        "csb" 'sailfish-scratchbox-mb2-build
-        "csd" 'sailfish-scratchbox-deploy-rpms
-        "csi" 'sailfish-scratchbox-install-rpms))))
+    (spacemacs/declare-prefix "cs" "sailfish os developer menu")
+    (spacemacs/set-leader-keys
+      "csb" 'sailfish-scratchbox-mb2-build
+      "csd" 'sailfish-scratchbox-deploy-rpms
+      "csi" 'sailfish-scratchbox-install-rpms)))

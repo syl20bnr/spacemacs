@@ -1,6 +1,6 @@
 ;;; config.el --- Go Layer config File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -73,6 +73,14 @@ If not set then `go-mode' is the default backend unless `lsp' layer is used."
 
 (spacemacs|defc go-test-command "go test"
   "Go test command. Default is `go test`."
+  'string nil t)
+
+(spacemacs|defc go-generate-command "go generate"
+  "Go generate command. Default is `go generate`."
+  'string nil t)
+
+(spacemacs|defc go-generate-buffer-name "*go gen*"
+  "Name of the buffer for go generate output. Default is *go gen*."
   'string nil t)
 
 (spacemacs|defc go-dap-mode 'dap-dlv-go

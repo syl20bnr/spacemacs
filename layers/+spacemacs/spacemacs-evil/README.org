@@ -14,7 +14,6 @@ throughout the entirety of Spacemacs.
 
 ** Features:
 - Add evil tutorial with =evil-tutor=
-- Add relative line number with =linum-relative= (only in Emacs 25.x and older)
 - Add escaping under ~fd~ by default with =evil-escape=
 - Add occurrences count in mode-line when searching a buffer
 - Add support for lisp structure manipulation with =evil-lisp-state=

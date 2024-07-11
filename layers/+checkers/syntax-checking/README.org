@@ -88,6 +88,19 @@ hide it after 5 seconds:
                                    syntax-checking-auto-hide-tooltips 5)))
 #+END_SRC
 
+Because flycheck almost immediately shows the tooltip pop-up window it can
+potentially hide code before or after the current line you're on.
+If you prefer it to show up only after a certain amount of time has passed,
+you can set the variable =syntax-checking-tooltips-delay= to a positive value.
+Otherwise flychecks default value of 0.9 is used.
+Example:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((syntax-checking :variables
+                                   syntax-checking-tooltips-delay 5)))
+#+END_SRC
+
 ** Error List Pop-up
 By default, the =flycheck-error-list-mode= is displayed in a pop window to the
 bottom of the frame, with 30% of the frame's height.
@@ -128,7 +141,7 @@ margin string so the default value is defined in =flycheck=.
 If =flycheck-indication-mode= is =nil=, no indicator is displayed for errors.
 
 To change the indicator symbol, you can customize
-=syntax-checking-indicatin-symbol=, which is a cons cell of a fringe bitmap and
+=syntax-checking-indication-symbol=, which is a cons cell of a fringe bitmap and
 margin string. When any of the element is nil, it's left to =flycheck= to
 determine a default indicator. (At any time, only one of the fringe bitmap and
 margin string is needed, since error indicator cannot be both =*-fringe= and

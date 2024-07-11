@@ -41,6 +41,15 @@ by this layer.
 | =C-h f=     | Open helpful buffer for any callable object            |
 | =C-h v=     | Open helpful buffer for variable                       |
 
+To use the original implementation of these key bindings while the
+helpful layer is active, you can use the following commands:
+
+| Key binding                                  | Description         |
+|----------------------------------------------+---------------------|
+| =SPC SPC helpful/original-describe-function= | =describe-function= |
+| =SPC SPC helpful/original-describe-variable= | =describe-variable= |
+| =SPC SPC helpful/original-describe-key=      | =describe-key=      |
+
 ** Helpful mode bindings
 Additional key bindings available in the helpful-mode buffers.
 

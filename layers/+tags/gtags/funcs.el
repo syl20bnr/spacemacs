@@ -1,6 +1,6 @@
 ;;; funcs.el --- gtags functions File
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -52,11 +52,6 @@ Otherwise does nothing."
   "helm-gtags-dwim in same window"
   (interactive)
   (call-interactively 'helm-gtags-dwim))
-
-(defun spacemacs/helm-gtags-define-keys-for-mode (mode)
-  "Obsolete, does nothing."
-  (message "spacemacs/helm-gtags-define-keys-for-mode does nothing! %s doesn't have to call it anymore."
-           mode))
 
 (defun spacemacs/helm-ggtags-set-jump-handler ()
   (add-to-list 'spacemacs-jump-handlers 'spacemacs/helm-gtags-maybe-dwim))

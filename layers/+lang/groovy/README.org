@@ -88,7 +88,7 @@ NOTE: The build on [[https://github.com/prominic/groovy-language-server]] will g
 | Key binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~SPC m s b~ | send buffer to REPL and stay in buffer                |
-| ~SPC m s B~ | send buffer and and switch to REPL buffer             |
+| ~SPC m s B~ | send buffer and switch to REPL buffer                 |
 | ~SPC m s e~ | send sexp in front of the cursor to the REPL          |
 | ~SPC m s f~ | send function to REPL and stay in buffer              |
 | ~SPC m s F~ | send function to REPL and switch to REPL buffer       |

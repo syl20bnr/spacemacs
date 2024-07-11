@@ -1,6 +1,6 @@
 ;;; funcs.el --- Auctex Layer Functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -23,31 +23,31 @@
 
 (defun spacemacs//latex-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase latex-backend
-    ('lsp
-     (spacemacs|add-company-backends ;; Activate lsp company explicitly to activate
-       :backends company-capf        ;; standard backends as well
-       :modes LaTeX-mode))
-    ('company-auctex
-     (when (configuration-layer/package-used-p 'company-auctex)
-       (if (configuration-layer/package-used-p 'company-math)
-           (spacemacs|add-company-backends
-             :backends (company-math-symbols-unicode
-                        company-math-symbols-latex
-                        company-auctex-macros
-                        company-auctex-symbols
-                        company-auctex-environments)
-             :modes LaTeX-mode)
-         (spacemacs|add-company-backends
-           :backends (company-auctex-macros
-                      company-auctex-symbols
-                      company-auctex-environments)
-           :modes LaTeX-mode)))
-     (when (configuration-layer/package-used-p 'company-reftex)
-       (spacemacs|add-company-backends
-         :backends company-reftex-labels
-         company-reftex-citations
-         :modes LaTeX-mode)))))
+  ;; Always activate auctex and reftex backends so that they're
+  ;; accessible via company-other-backend even when using lsp.
+  (when (configuration-layer/package-used-p 'company-auctex)
+    (if (configuration-layer/package-used-p 'company-math)
+        (spacemacs|add-company-backends
+          :backends (company-math-symbols-unicode
+                     company-math-symbols-latex
+                     company-auctex-macros
+                     company-auctex-symbols
+                     company-auctex-environments)
+          :modes LaTeX-mode)
+      (spacemacs|add-company-backends
+        :backends (company-auctex-macros
+                   company-auctex-symbols
+                   company-auctex-environments)
+        :modes LaTeX-mode)))
+  (when (configuration-layer/package-used-p 'company-reftex)
+    (spacemacs|add-company-backends
+      :backends company-reftex-labels
+      company-reftex-citations
+      :modes LaTeX-mode))
+  (when (eq latex-backend 'lsp)
+    (spacemacs|add-company-backends
+      :backends company-capf
+      :modes LaTeX-mode)))
 
 (defun spacemacs//latex-setup-backend ()
   "Conditionally setup latex backend."
@@ -62,16 +62,14 @@
         (progn
           (setf (alist-get 'output-pdf TeX-view-program-selection) '("PDF Tools"))
           (when latex-view-pdf-in-split-window
-            (require 'pdf-sync)
             (setq pdf-sync-forward-display-action t)))
       (spacemacs-buffer/warning "Latex Layer: latex-view-with-pdf-tools is non-nil but pdf layer is not installed, this setting will have no effect."))))
 
 (defun latex/build ()
   (interactive)
-  (progn
-    (let ((TeX-save-query nil))
-      (TeX-save-document (TeX-master-file)))
-    (TeX-command latex-build-command 'TeX-master-file -1)))
+  (let ((TeX-save-query nil))
+    (TeX-save-document (TeX-master-file)))
+  (TeX-command latex-build-command 'TeX-master-file -1))
 ;; (setq build-proc (TeX-command latex-build-command 'TeX-master-file -1))
 ;; ;; Sometimes, TeX-command returns nil causing an error in set-process-sentinel
 ;; (when build-proc

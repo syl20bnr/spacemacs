@@ -25,30 +25,41 @@
   '(centaur-tabs))
 
 (defun tabs/init-centaur-tabs ()
+
+  (when (and tabs-icons (configuration-layer/package-used-p 'all-the-icons))
+    ;; centaur-tabs internally checks for `(featurep 'all-the-icons)`
+    ;; to draw icons even after we enabled `centaur-tabs-set-icons`
+    ;; but all-the-icons is inited in spacemacs-visual with `:defer t`,
+    ;; so the feature wouldn't be loaded...
+    (require 'all-the-icons))
+
   (use-package centaur-tabs
     :demand
     :custom
-    (centaur-tabs-set-icons t)
+    (centaur-tabs-set-icons tabs-icons)
+    (centaur-tabs-gray-out-icons 'buffer)
+    (centaur-tabs-set-bar 'left)
     (centaur-tabs-set-modified-marker t)
-    (centaur-tabs-modified-marker "⚠")
+    (centaur-tabs-show-navigation-buttons t)
+    (centaur-tabs-close-button "✕")
+    (centaur-tabs-modified-marker "•")
     (centaur-tabs-cycle-scope 'tabs)
     :config
-    (progn
-      (unless (daemonp)
-        (setq centaur-tabs-set-bar tabs-selected-tab-bar))
-      (when tabs-headline-match
-        (centaur-tabs-headline-match))
-      (if tabs-group-by-project
-          (centaur-tabs-group-by-projectile-project)
-        (centaur-tabs-group-buffer-groups))
-      (centaur-tabs-mode t)
+    (unless (daemonp)
+      (setq centaur-tabs-set-bar tabs-selected-tab-bar))
+    (when tabs-headline-match
+      (centaur-tabs-headline-match))
+    (if tabs-group-by-project
+        (centaur-tabs-group-by-projectile-project)
+      (centaur-tabs-group-buffer-groups))
+    (centaur-tabs-mode t)
 
-      (when tabs-auto-hide
-        (add-hook 'window-setup-hook 'spacemacs//tabs-timer-hide)
-        (add-hook 'find-file-hook 'spacemacs//tabs-timer-hide)
-        (add-hook 'change-major-mode-hook 'spacemacs//tabs-timer-hide))
+    (when tabs-auto-hide
+      (add-hook 'window-setup-hook 'spacemacs//tabs-timer-hide)
+      (add-hook 'find-file-hook 'spacemacs//tabs-timer-hide)
+      (add-hook 'change-major-mode-hook 'spacemacs//tabs-timer-hide))
 
-      (which-key-add-keymap-based-replacements evil-normal-state-map  "C-c t" "tab"))
+    (which-key-add-keymap-based-replacements evil-normal-state-map  "C-c t" "tab")
     :bind
     (:map evil-normal-state-map
           ("g t"     . spacemacs/tabs-forward)

@@ -1,6 +1,6 @@
 ;;; packages.el --- Template Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -26,11 +26,9 @@
 (defun templates/init-yatemplate ()
   (use-package yatemplate
     :init
-    (progn
-      (setq yatemplate-dir templates-private-directory)
-      (unless templates-use-default-templates
-        (setq auto-insert-alist nil)))
+    (setq yatemplate-dir templates-private-directory)
+    (unless templates-use-default-templates
+      (setq auto-insert-alist nil))
     :config
-    (progn
-      (yatemplate-fill-alist)
-      (auto-insert-mode +1))))
+    (yatemplate-fill-alist)
+    (auto-insert-mode +1)))

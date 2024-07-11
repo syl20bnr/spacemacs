@@ -1,6 +1,6 @@
 ;;; packages.el --- languagetool layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Robbert van der Helm <mail@robbertvanderhelm.nl>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -29,14 +29,13 @@
     :defer t
     :commands 'langtool-correct-buffer
     :init
-    (progn
-      ;; The whitespace rules give a lot of false positives when linting rich
-      ;; text.
-      (setq-default langtool-disabled-rules '("WHITESPACE_RULE"))
-      (spacemacs/set-leader-keys
-        "Sl" 'spacemacs/languagetool-toggle
-        "SL" 'langtool-correct-buffer)
-      (define-key evil-normal-state-map (kbd "[ a")
-        'spacemacs/languagetool-previous-error)
-      (define-key evil-normal-state-map (kbd "] a")
-        'spacemacs/languagetool-next-error))))
+    ;; The whitespace rules give a lot of false positives when linting rich
+    ;; text.
+    (setq-default langtool-disabled-rules '("WHITESPACE_RULE"))
+    (spacemacs/set-leader-keys
+      "Sl" 'spacemacs/languagetool-toggle
+      "SL" 'langtool-correct-buffer)
+    (define-key evil-normal-state-map (kbd "[ a")
+      'spacemacs/languagetool-previous-error)
+    (define-key evil-normal-state-map (kbd "] a")
+      'spacemacs/languagetool-next-error)))

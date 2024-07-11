@@ -1,6 +1,6 @@
 ;;; config.el --- Spacemacs Defaults Layer configuration File
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -47,8 +47,6 @@
 (setq ring-bell-function 'ignore
       visible-bell nil)
 
-;; Hack to fix a bug with tabulated-list.el
-;; see: http://redd.it/2dgy52
 (defun tabulated-list-revert (&rest ignored)
   "The `revert-buffer-function' for `tabulated-list-mode'.
 It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
@@ -56,9 +54,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
   (unless (derived-mode-p 'tabulated-list-mode)
     (error "The current buffer is not in Tabulated List mode"))
   (run-hooks 'tabulated-list-revert-hook)
-  ;; hack is here
-  ;; (tabulated-list-print t)
-  (tabulated-list-print))
+  (tabulated-list-print t))
 
 ;; Highlight and allow to open http link at point in programming buffers
 ;; goto-address-prog-mode only highlights links in strings and comments
@@ -202,7 +198,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
                         `(".*" ,autosave-dir t) 'append)
            (unless (file-exists-p autosave-dir)
              (make-directory autosave-dir t))))
-  (original (setq auto-save-visited-file-name t))
+  (original (auto-save-visited-mode t))
   (_ (setq auto-save-default nil
            auto-save-list-file-prefix nil)))
 

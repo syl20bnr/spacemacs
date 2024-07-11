@@ -1,6 +1,6 @@
 ;;; config.el --- shell configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -33,8 +33,9 @@
 (defvar shell-default-shell (if (spacemacs/system-is-mswindows)
                                 'eshell
                               'ansi-term)
-  "Default shell to use in Spacemacs. Possible values are `eshell' (default),
-`shell', `term', `ansi-term', `multi-term' and `vterm'.")
+  "Default shell to use in Spacemacs. Possible values are `ansi-term' (default
+for Linux/macOS), `eshell' (default for windows), `shell',
+`term', `eat', `vterm', `multi-term' and `multi-vterm'.")
 
 (spacemacs|defc shell-default-position 'bottom
   "Position of the shell. Possible values are `top', `bottom', `full',

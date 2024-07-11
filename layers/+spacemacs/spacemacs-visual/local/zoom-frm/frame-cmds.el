@@ -4,13 +4,13 @@
 ;; Description: Frame and window commands (interactive functions).
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
-;; Copyright (C) 1996-2021, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2023, Drew Adams, all rights reserved.
 ;; Created: Tue Mar  5 16:30:45 1996
 ;; Version: 0
 ;; Package-Requires: ((frame-fns "0"))
-;; Last-Updated: Thu Apr 22 09:05:03 2021 (-0700)
+;; Last-Updated: Mon Dec 26 08:33:38 2022 (-0800)
 ;;           By: dradams
-;;     Update #: 3188
+;;     Update #: 3189
 ;; URL: https://www.emacswiki.org/emacs/download/frame-cmds.el
 ;; Doc URL: https://emacswiki.org/emacs/FrameModes
 ;; Doc URL: https://www.emacswiki.org/emacs/OneOnOneEmacs
@@ -946,7 +946,7 @@ Only displayed buffers are completion candidates."
                    nil t nil 'minibuffer-history (buffer-name (current-buffer)) t))
 
 (defsubst frcmds-frame-iconified-p (frame)
-  "Return non-nil if FRAME is `frame-live-p' and `frame-visible-p'."
+  "Return non-nil if FRAME is live and `frame-visible-p' is `icon'."
   (and (frame-live-p frame)  (eq (frame-visible-p frame) 'icon)))
 
 ;; (defun remove-window (&optional window)

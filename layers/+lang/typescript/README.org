@@ -18,6 +18,7 @@
 - [[#key-bindings][Key bindings]]
   - [[#typescript-major-mode][Typescript Major Mode]]
   - [[#reference-major-mode][Reference Major Mode]]
+  - [[#running-npm-npm-mode][Running NPM (npm-mode)]]
 
 * Description
 This layer adds support for TypeScript and TSX editing.
@@ -27,7 +28,7 @@ This layer adds support for TypeScript and TSX editing.
 - Eldoc-mode
 - Documentation at point
 - Auto complete
-- Flycheck with either tslint or eslint
+- Flycheck with either eslint or tslint
 - Jump to definition, Jump to type definition
 - Find occurrences (Imenu-mode)
 - Rename symbol
@@ -64,27 +65,30 @@ You can choose formatting tool:
                 typescript-fmt-tool 'typescript-formatter)))
 #+END_SRC
 
-You can choose either tslint (default) or eslint for linting:
+You can choose either eslint (default) or tslint (deprecated by upstream) for linting:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (typescript :variables
-                typescript-linter 'tslint)))
+                typescript-linter 'eslint)))
 #+END_SRC
+
+Please be advised that tslint is now deprecated, and should only be used for
+legacy projects. [[https://github.com/palantir/tslint#tslint][See TSLint Repo for more]].
 
 ** Pre-requisites
 You will need =node.js v0.12.0= or greater.
-
-If you want linting with tslint run:
-
-#+BEGIN_SRC shell
-  npm install -g typescript tslint
-#+END_SRC
 
 If you want linting with eslint run:
 
 #+BEGIN_SRC shell
   npm install eslint
+#+END_SRC
+
+If you want linting with tslint run:
+
+#+BEGIN_SRC shell
+  npm install -g typescript tslint
 #+END_SRC
 
 We need to use the project-local eslint installation in order to pick up plugins
@@ -192,3 +196,17 @@ then set the variable =typescript-lsp-linter= to =nil=.
 | ~C-j~       | find previous reference |
 | ~C-k~       | find next reference     |
 | ~C-l~       | goto reference          |
+
+** Running NPM (npm-mode)
+
+| Key binding | Description                                                                     |
+|-------------+---------------------------------------------------------------------------------|
+| ~SPC m n i~ | Run the =npm install= command in the project root                               |
+| ~SPC m n r~ | Show a list of available npm scripts, and execute the selected one              |
+| ~SPC m n c~ | Run the =npm clean= command in the project root                                 |
+| ~SPC m n s~ | Prompt for the name of an npm package, install it and save to =dependencies=    |
+| ~SPC m n d~ | Prompt for the name of an npm package, install it and save to =devDependencies= |
+| ~SPC m n n~ | Initialize new project                                                          |
+| ~SPC m n u~ | Remove project dependency                                                       |
+| ~SPC m n l~ | List installed project dependencies                                             |
+| ~SPC m n p~ | Visit project =package.json= file                                               |

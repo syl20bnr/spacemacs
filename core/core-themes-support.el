@@ -1,6 +1,6 @@
 ;;; core-themes-support.el --- Spacemacs Core File -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -231,6 +231,38 @@
     (doom-xcode                       . doom-themes)
     (doom-zenburn                     . doom-themes)
     (dorsey                           . sublime-themes)
+    (ef-arbutus                       . ef-themes)
+    (ef-autumn                        . ef-themes)
+    (ef-bio                           . ef-themes)
+    (ef-cherie                        . ef-themes)
+    (ef-cyprus                        . ef-themes)
+    (ef-dark                          . ef-themes)
+    (ef-day                           . ef-themes)
+    (ef-deuteranopia-dark             . ef-themes)
+    (ef-deuteranopia-light            . ef-themes)
+    (ef-dream                         . ef-themes)
+    (ef-duo-dark                      . ef-themes)
+    (ef-duo-light                     . ef-themes)
+    (ef-elea-dark                     . ef-themes)
+    (ef-elea-light                    . ef-themes)
+    (ef-frost                         . ef-themes)
+    (ef-kassio                        . ef-themes)
+    (ef-light                         . ef-themes)
+    (ef-maris-dark                    . ef-themes)
+    (ef-maris-light                   . ef-themes)
+    (ef-melissa-dark                  . ef-themes)
+    (ef-melissa-light                 . ef-themes)
+    (ef-night                         . ef-themes)
+    (ef-reverie                       . ef-themes)
+    (ef-rosa                          . ef-themes)
+    (ef-spring                        . ef-themes)
+    (ef-summer                        . ef-themes)
+    (ef-symbiosis                     . ef-themes)
+    (ef-trio-dark                     . ef-themes)
+    (ef-trio-light                    . ef-themes)
+    (ef-tritanopia-dark               . ef-themes)
+    (ef-tritanopia-light              . ef-themes)
+    (ef-winter                        . ef-themes)
     (eziam-dark                       . eziam-themes)
     (eziam-dusk                       . eziam-themes)
     (eziam-light                      . eziam-themes)
@@ -261,8 +293,8 @@
     (kaolin-temple                    . kaolin-themes)
     (kaolin-valley-dark               . kaolin-themes)
     (kaolin-valley-light              . kaolin-themes)
-    (majapahit-dark                   . majapahit-theme)
-    (majapahit-light                  . majapahit-theme)
+    (majapahit-dark                   . majapahit-themes)
+    (majapahit-light                  . majapahit-themes)
     (material-light                   . material-theme)
     (mccarthy                         . sublime-themes)
     (minimal-light                    . minimal-theme)
@@ -434,14 +466,10 @@ When BACKWARD is non-nil, or with universal-argument, cycle backwards."
   (interactive)
   (spacemacs/cycle-spacemacs-theme t))
 
-(defadvice load-theme (after spacemacs/load-theme-adv activate)
+(define-advice load-theme (:after (theme &rest _) spacemacs/load-theme-adv)
   "Perform post load processing."
-  (let ((theme (ad-get-arg 0)))
-    ;; Without this a popup is raised every time emacs25 starts up for
-    ;; assignment to a free variable
-    (with-no-warnings
-      (setq spacemacs--cur-theme theme))
-    (spacemacs/post-theme-init theme)))
+  (setq spacemacs--cur-theme theme)
+  (spacemacs/post-theme-init theme))
 
 (defun spacemacs/theme-loader ()
   "Call appropriate theme loader based on completion framework."
@@ -451,6 +479,8 @@ When BACKWARD is non-nil, or with universal-argument, cycle backwards."
     (call-interactively 'spacemacs/helm-themes))
    ((configuration-layer/layer-used-p 'ivy)
     (call-interactively 'counsel-load-theme))
+   ((configuration-layer/layer-used-p 'compleseus)
+    (call-interactively 'consult-theme))
    (t (call-interactively 'load-theme))))
 
 (defun spacemacs/post-theme-init (theme)

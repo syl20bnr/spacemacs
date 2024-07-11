@@ -1,6 +1,6 @@
 ;;; packages.el --- Tide Layer packages file for Spacemacs. -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Thanh Vuong <thanhvg@gmail.com>
 ;; URL: https://github.com/thanhvg
@@ -28,7 +28,6 @@
 (defun tide/init-tide ()
   (use-package tide
     :defer t
-    :commands (typescript/jump-to-type-def)
     :config
     (spacemacs//tide-setup-bindings)
     (add-hook 'tide-mode-hook #'spacemacs//tide-setup-jump-handle)))

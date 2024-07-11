@@ -1,6 +1,6 @@
 ;;; config.el --- Shell Scripts Layer Configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -31,6 +31,10 @@ When `lsp' layer is used, defaults to `lsp'.")
 
 (defvar shell-scripts-format-on-save nil
   "If non-nil, automatically format code with shfmt on save.")
+
+(defvar shell-scripts-mark-executable-after-save
+  (not (spacemacs/system-is-mswindows))
+  "If non-nil, automatically changes file to executable after buffer saved.")
 
 (defcustom shell-scripts-shfmt-args ()
   "Arguments passed to shfmt."

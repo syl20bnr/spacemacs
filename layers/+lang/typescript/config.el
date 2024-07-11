@@ -1,6 +1,6 @@
 ;;; config.el --- Typescript Layer Configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -35,8 +35,8 @@ Possible values are 'tide (default), 'typescript-formatter and 'prettier.")
 Possible values are `tide' and `lsp'.
 If `nil' then `tide' is the default backend unless `lsp' layer is used.")
 
-(defvar typescript-linter 'tslint
-  "The linter to use for typescript. Possible values are `tslint' `eslint'")
+(defvar typescript-linter 'eslint
+  "The linter to use for typescript. Possible values are `eslint' `tslint'")
 
 (defvar typescript-lsp-linter t
   "If the backend is `lsp', and this variable is non-nil, then

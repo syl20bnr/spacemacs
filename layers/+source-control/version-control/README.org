@@ -37,8 +37,8 @@ file.
 You can choose the package to facilitate the diff transient-state and show
 margins by setting the =version-control-diff-tool= variable to one of the
 supported packages:
-- [[https://github.com/dgutov/diff-hl][diff-hl]]
-- [[https://github.com/syohex/emacs-git-gutter][git-gutter]] (default)
+- [[https://github.com/dgutov/diff-hl][diff-hl]] (default)
+- [[https://github.com/syohex/emacs-git-gutter][git-gutter]]
 - [[https://github.com/nonsequitur/git-gutter-plus][git-gutter+]]
 
 #+BEGIN_SRC emacs-lisp
@@ -222,10 +222,10 @@ Merge Actions:
 
 | Key binding | Description  |
 |-------------+--------------|
+| ~SPC g r u~ | Keep upper   |
 | ~SPC g r b~ | Keep base    |
-| ~SPC g r m~ | Keep mine    |
+| ~SPC g r l~ | Keep lower   |
 | ~SPC g r a~ | Keep all     |
-| ~SPC g r o~ | Keep other   |
 | ~SPC g r c~ | Keep current |
 | ~SPC g r K~ | Kill current |
 
@@ -244,7 +244,7 @@ Other:
 | Key binding | Description                    |
 |-------------+--------------------------------|
 | ~SPC g r C~ | Combine current and next hunks |
-| ~SPC g r u~ | Undo                           |
+| ~SPC g r U~ | Undo                           |
 | ~SPC g r q~ | Quit transient state           |
 
 ** Toggles

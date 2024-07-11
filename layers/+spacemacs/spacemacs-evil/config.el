@@ -1,6 +1,6 @@
 ;;; config.el --- Spacemacs-evil Layer Configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -31,5 +31,5 @@
 (defvar evil-lisp-safe-structural-editing-modes '()
   "A list of major mode symbols where safe structural editing is supported.")
 
-(defvar spacemacs-evil-collection-allowed-list '(eww dired quickrun ediff)
+(defvar spacemacs-evil-collection-allowed-list '(dired ediff eww quickrun replace simple)
   "List of modes Spacemacs will allow to be evilified by ‘evil-collection-init’.")

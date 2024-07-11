@@ -1,6 +1,6 @@
 ;;; funcs.el --- Language Server Protocol Layer functions file for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Fangrui Song <i@maskray.me>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -154,6 +154,9 @@
     (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
       (concat prefix-char "s") #'lsp-ivy-workspace-symbol
       (concat prefix-char "S") #'lsp-ivy-global-workspace-symbol))
+   ((configuration-layer/package-usedp 'consult-lsp)
+    (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+      (concat prefix-char "s") #'consult-lsp-symbols))
    (t (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
         (concat prefix-char "s") #'lsp-ui-find-workspace-symbol))))
 
@@ -319,7 +322,7 @@ EXTRA is an additional parameter that's passed to the LSP function"
   (mapcar 'lsp--client-server-id (mapcar 'lsp--workspace-client (lsp-workspaces))))
 
 
-;; ivy integration
+;; avy integration
 
 (defun spacemacs//lsp-avy-document-symbol (all)
   (interactive)
@@ -340,7 +343,9 @@ EXTRA is an additional parameter that's passed to the LSP function"
                                  :startLine ,start-line :endLine ,end-line)))
                for range = (if ccls
                                loc
-                             (->> loc (gethash "location") (gethash "range")))
+                             (if (gethash "location" loc)
+                                 (->> loc (gethash "location") (gethash "range"))
+                               (->> loc (gethash "range"))))
                for range_start = (gethash "start" range)
                for range_end = (gethash "end" range)
                for l0 = (gethash "line" range_start)

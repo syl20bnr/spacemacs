@@ -289,20 +289,20 @@ path for you.
 
 ** layers.el
 This file is the first file to be loaded and this is the place where additional
-layers can be declared.
+layers can be declared as dependencies.
 
 For instance, if layer A depends on some functionality of layer B, then in the
 file =layers.el= of layer A, we can add:
 
 #+BEGIN_SRC emacs-lisp
-  (configuration-layer/declare-layer 'B)
+  (configuration-layer/declare-layer-dependencies '(B))
 #+END_SRC
 
 The effect is that B is considered a used layer and will be loaded as if it
 was added to =dotspacemacs-configuration-layers= variables.
 
 ** packages.el
-It contains this list of packages of the layer and the actual configuration for
+It contains the list of packages of the layer and the actual configuration for
 the packages included in the layer.
 
 This file is loaded after =layers.el=.
@@ -477,8 +477,8 @@ which is not what we want.
 ** Cross-dependencies
 Spacemacs provides a couple of additional useful functions you can use to check
 whether other layers or packages are included.
-- check if a layer is enabled
-- check if a package is or will be installed
+- check if a layer is enabled (=configuration-layer/layer-used-p=)
+- check if a package is or will be installed (=configuration-layer/package-used-p=)
 
 These are useful in some cases, but usually you can get the desired result just
 by using =post-init= functions.

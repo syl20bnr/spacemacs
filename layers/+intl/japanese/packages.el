@@ -1,6 +1,6 @@
 ;;; packages.el --- Japanese Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Kenji Miyazaki <kenjimyzk@gmail.com>
 ;; URL: https://github.com/kenjimyzk/
@@ -80,28 +80,28 @@
 (defun japanese/init-pangu-spacing ()
   (use-package pangu-spacing
     :init
-    (progn ;; replacing `chinese-two-byte' by `japanese'
-      (setq pangu-spacing-chinese-before-english-regexp
-            (rx (group-n 1 (category japanese))
-                (group-n 2 (in "a-zA-Z0-9"))))
-      (setq pangu-spacing-chinese-after-english-regexp
-            (rx (group-n 1 (in "a-zA-Z0-9"))
-                (group-n 2 (category japanese))))
-      (spacemacs|hide-lighter pangu-spacing-mode)
-      ;; Always insert `real' space in text-mode including org-mode.
-      (setq pangu-spacing-real-insert-separtor t)
-      ;; (global-pangu-spacing-mode 1)
-      (add-hook 'text-mode-hook 'pangu-spacing-mode))))
+    ;; replacing `chinese-two-byte' by `japanese'
+    (setq pangu-spacing-chinese-before-english-regexp
+          (rx (group-n 1 (category japanese))
+              (group-n 2 (in "a-zA-Z0-9"))))
+    (setq pangu-spacing-chinese-after-english-regexp
+          (rx (group-n 1 (in "a-zA-Z0-9"))
+              (group-n 2 (category japanese))))
+    (spacemacs|hide-lighter pangu-spacing-mode)
+    ;; Always insert `real' space in text-mode including org-mode.
+    (setq pangu-spacing-real-insert-separtor t)
+    ;; (global-pangu-spacing-mode 1)
+    (add-hook 'text-mode-hook 'pangu-spacing-mode)))
 
 (defun japanese/post-init-org ()
-  (defadvice org-html-paragraph (before org-html-paragraph-advice
-                                        (paragraph contents info) activate)
+  (define-advice org-html-paragraph
+      (:around (f paragraph contents info) org-html-paragraph-advice)
     "Join consecutive Japanese lines into a single long line without
 unwanted space when exporting org-mode to html."
-    (let* ((origin-contents (ad-get-arg 1))
+    (let* ((origin-contents contents)
            (fix-regexp "[[:multibyte:]]")
            (fixed-contents
             (replace-regexp-in-string
              (concat
               "\\(" fix-regexp "\\) *\n *\\(" fix-regexp "\\)") "\\1\\2" origin-contents)))
-      (ad-set-arg 1 fixed-contents))))
+      (funcall f paragraph fixed-contents info))))

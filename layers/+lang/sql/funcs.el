@@ -1,6 +1,6 @@
 ;;; funcs.el --- SQL Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -25,7 +25,7 @@
   "Update Spacemacs list of sql products"
   (setq
    spacemacs-sql-highlightable sql-product-alist
-   spacemacs-sql-startable (remove-if-not
+   spacemacs-sql-startable (cl-remove-if-not
                             (lambda (product) (sql-get-product-feature (car product) :sqli-program))
                             sql-product-alist)))
 

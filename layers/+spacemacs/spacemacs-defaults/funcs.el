@@ -1,6 +1,6 @@
 ;;; funcs.el --- Spacemacs Defaults Layer functions File
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,8 +20,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-(require 'cl-lib)
 
 (defun spacemacs//run-local-vars-mode-hook ()
   "Run a hook for the major-mode after the local variables have been processed."
@@ -84,13 +82,13 @@ A COUNT argument matches the indentation to the next COUNT lines."
     python-mode
     yaml-mode)
   "Modes for which auto-indenting is suppressed."
-  :type 'list
+  :type '(repeat symbol)
   :group 'spacemacs)
 
 (defcustom spacemacs-yank-indent-modes '(latex-mode)
   "Modes in which to indent regions that are yanked (or yank-popped).
 Only modes that don't derive from `prog-mode' should be listed here."
-  :type 'list
+  :type '(repeat symbol)
   :group 'spacemacs)
 
 (defcustom spacemacs-yank-indent-threshold 1000
@@ -105,7 +103,7 @@ Only modes that don't derive from `prog-mode' should be listed here."
   "Major modes which `spacemacs/check-large-file' will not be
 automatically applied to."
   :group 'spacemacs
-  :type '(list symbol))
+  :type '(repeat symbol))
 
 (defun spacemacs/custom-newline (pos)
   "Make `RET' in a Custom-mode search box trigger that field's action, rather
@@ -133,6 +131,18 @@ If not in such a search box, fall back on `Custom-newline'."
 (defalias 'spacemacs/display-buffer-other-frame 'display-buffer-other-frame)
 (defalias 'spacemacs/find-file-and-replace-buffer 'find-alternate-file)
 
+;; By default the emacs leader is M-m, turns out that Helm does this:
+;;    (cl-dolist (k (where-is-internal 'describe-mode global-map))
+;;         (define-key map k 'helm-help))
+;; after doing this:
+;;    (define-key map (kbd \"M-m\") 'helm-toggle-all-marks)
+;; So when Helm is loaded we get the error:
+;;    Key sequence M-m h d m starts with non-prefix key M-m
+;; To prevent this error we just alias `describe-mode' to defeat the Helm hack.
+(defalias 'spacemacs/describe-mode 'describe-mode
+  "To avoid Helm key binding issue for `describe-mode'.
+Refer Spacemacs #16397 for details.")
+
 (defun spacemacs/indent-region-or-buffer ()
   "Indent a region if selected, otherwise the whole buffer."
   (interactive)
@@ -141,9 +151,8 @@ If not in such a search box, fall back on `Custom-newline'."
         (progn
           (indent-region (region-beginning) (region-end))
           (message "Indented selected region."))
-      (progn
-        (evil-indent (point-min) (point-max))
-        (message "Indented buffer.")))
+      (evil-indent (point-min) (point-max))
+      (message "Indented buffer."))
     (whitespace-cleanup)))
 
 ;; http://emacsblog.org/2007/01/17/indent-whole-buffer/
@@ -155,12 +164,11 @@ If not in such a search box, fall back on `Custom-newline'."
         (progn
           (untabify (region-beginning) (region-end))
           (indent-region (region-beginning) (region-end)))
-      (progn
-        (set-buffer-file-coding-system default-file-name-coding-system)
-        ;; (set-buffer-file-coding-system 'utf-8-unix)
-        (untabify (point-min) (point-max))
-        (indent-region (point-min) (point-max))
-        (whitespace-cleanup)))))
+      (set-buffer-file-coding-system default-file-name-coding-system)
+      ;; (set-buffer-file-coding-system 'utf-8-unix)
+      (untabify (point-min) (point-max))
+      (indent-region (point-min) (point-max))
+      (whitespace-cleanup))))
 
 (defun spacemacs//trailing-whitespace ()
   (setq show-trailing-whitespace dotspacemacs-show-trailing-whitespace))
@@ -511,27 +519,27 @@ With Ivy, the path isn't editable, just remove the MSG after SEC."
   (run-at-time
    0 nil
    (lambda (msg sec)
-       (let* ((prev-prompt-contents
-               (buffer-substring (line-beginning-position)
-                                 (line-end-position)))
-              (prev-prompt-contents-p
-               (not (string= prev-prompt-contents "")))
-              (helmp (fboundp 'helm-mode)))
-         (when prev-prompt-contents-p
-           (delete-region (line-beginning-position)
-                          (line-end-position)))
-         (insert (propertize msg 'face 'warning))
-         ;; stop checking for candidates
-         ;; and update the helm prompt
-         (when helmp (helm-suspend-update t))
-         (sit-for sec)
+     (let* ((prev-prompt-contents
+             (buffer-substring (line-beginning-position)
+                               (line-end-position)))
+            (prev-prompt-contents-p
+             (not (string= prev-prompt-contents "")))
+            (helmp (fboundp 'helm-mode)))
+       (when prev-prompt-contents-p
          (delete-region (line-beginning-position)
-                        (line-end-position))
-         (when prev-prompt-contents-p
-           (insert prev-prompt-contents)
-           ;; start checking for candidates
-           ;; and update the helm prompt
-           (when helmp (helm-suspend-update nil)))))
+                        (line-end-position)))
+       (insert (propertize msg 'face 'warning))
+       ;; stop checking for candidates
+       ;; and update the helm prompt
+       (when helmp (helm-suspend-update t))
+       (sit-for sec)
+       (delete-region (line-beginning-position)
+                      (line-end-position))
+       (when prev-prompt-contents-p
+         (insert prev-prompt-contents)
+         ;; start checking for candidates
+         ;; and update the helm prompt
+         (when helmp (helm-suspend-update nil)))))
    msg sec))
 
 (defun spacemacs/delete-file (filename &optional ask-user)
@@ -562,16 +570,28 @@ FILENAME is deleted using `spacemacs/delete-file' function.."
   (funcall-interactively #'spacemacs/delete-file filename t))
 
 ;; from magnars
-(defun spacemacs/delete-current-buffer-file ()
-  "Removes file connected to current buffer and kills buffer."
-  (interactive)
+(defcustom spacemacs-keep-legacy-current-buffer-delete-bindings t
+  "If nil, \\[spacemacs/delete-current-buffer-file-yes] deletes without confirmation.
+
+This variable exists to preserve the previous behavior of the SPC
+f D key binding, since users may be accustomed to seeing a prompt
+before deleting."
+  :type 'boolean
+  :group 'spacemacs)
+
+(defun spacemacs/delete-current-buffer-file (&optional arg)
+  "Removes file connected to current buffer and kills buffer.
+
+If prefix ARG is non-nil, delete without confirmation."
+  (interactive "P")
   (let ((filename (buffer-file-name))
         (buffer (current-buffer))
         (name (buffer-name)))
     (if (not (and filename (file-exists-p filename)))
         (ido-kill-buffer)
-      (if (yes-or-no-p
-           (format "Are you sure you want to delete this file: '%s'?" name))
+      (if (or arg
+              (yes-or-no-p
+               (format "Are you sure you want to delete this file: '%s'?" name)))
           (progn
             (delete-file filename t)
             (kill-buffer buffer)
@@ -580,6 +600,32 @@ FILENAME is deleted using `spacemacs/delete-file' function.."
               (call-interactively #'projectile-invalidate-cache))
             (message "File deleted: '%s'" filename))
         (message "Canceled: File deletion")))))
+
+(defun spacemacs/delete-current-buffer-file-yes ()
+  "Removes file connected to current buffer and kills buffer, without prompting.
+
+For backwards compatibility, this command actually still prompts
+the user if
+`spacemacs-keep-legacy-current-buffer-delete-bindings' is
+non-nil.  That customization is planned to be removed (and this
+function will never prompt) in the future."
+  (interactive)
+  ;; Warn the user about the upcoming change to the defaults, which is
+  ;; potentially dangerous.
+  (when spacemacs-keep-legacy-current-buffer-delete-bindings
+    (display-warning '(spacemacs delete-current-file-key-bindings-change)
+                     (substitute-command-keys "\
+\\[spacemacs/delete-current-buffer-file-yes] will stop prompting for confirmation in a future version of Spacemacs.
+
+Use \\[spacemacs/delete-current-buffer-file] to delete files if you want to be prompted for confirmation.
+
+Customize `spacemacs-keep-legacy-current-buffer-delete-bindings'
+to nil to make \\[spacemacs/delete-current-buffer-file-yes] stop
+prompting (opting into the future behavior).  Doing so will also
+suppress this warning.")))
+
+  (funcall #'spacemacs/delete-current-buffer-file
+           (not spacemacs-keep-legacy-current-buffer-delete-bindings)))
 
 ;; from magnars
 (defun spacemacs/sudo-edit (&optional arg)
@@ -739,20 +785,14 @@ Returns:
   "Retrieve the file path of the current buffer,
 including line and column number.
 
+This function respects the `column-number-indicator-zero-based' variable.
+
 Returns:
   - A string containing the file path in case of success.
   - `nil' in case the current buffer does not have a directory."
   (when-let (file-path (spacemacs--file-path-with-line))
-    (concat
-     file-path
-     ":"
-     (number-to-string (if (and
-                            ;; Emacs 26 introduced this variable. Remove this
-                            ;; check once 26 becomes the minimum version.
-                            (boundp column-number-indicator-zero-based)
-                            (not column-number-indicator-zero-based))
-                           (1+ (current-column))
-                         (current-column))))))
+    (format "%s:%s" file-path
+            (+ (current-column) (if column-number-indicator-zero-based 0 1)))))
 
 (defun spacemacs/copy-directory-path ()
   "Copy and show the directory path of the current buffer.
@@ -979,6 +1019,17 @@ Possible values:
     (defun my-delete-other-windows () (delete-other-windows))
     (setq spacemacs-window-split-delete-function 'my-delete-other-windows)")
 
+(defun spacemacs//window-split-eligible-buffers ()
+  "Return a list of buffers to display automatically when splitting windows.
+
+This excludes ephemeral buffers (those whose names begin with a
+space), unless they are visitin a file, just as `list-buffers' does."
+  (seq-remove
+   (lambda (b)
+     (and (string= (substring (buffer-name b) 0 1) " ")
+          (not (buffer-file-name b))))
+   (buffer-list)))
+
 (defun spacemacs/window-split-grid (&optional purge)
   "Set the layout to a 2x2 grid.
 
@@ -994,7 +1045,7 @@ as a means to remove windows, regardless of the value in
         (delete-other-windows))
     (funcall spacemacs-window-split-delete-function))
   (if (spacemacs--window-split-splittable-windows)
-      (let* ((previous-files (buffer-list))
+      (let* ((previous-files (spacemacs//window-split-eligible-buffers))
              (second (split-window-below))
              (third (split-window-right))
              (fourth (split-window second nil 'right)))
@@ -1019,7 +1070,7 @@ as a means to remove windows, regardless of the value in
         (delete-other-windows))
     (funcall spacemacs-window-split-delete-function))
   (if (spacemacs--window-split-splittable-windows)
-      (let* ((previous-files (buffer-list))
+      (let* ((previous-files (spacemacs//window-split-eligible-buffers))
              (second (split-window-right))
              (third (split-window second nil 'right)))
         (set-window-buffer second (or (nth 1 previous-files) "*scratch*"))
@@ -1099,7 +1150,7 @@ the `kill-matching-buffers` for grateful killing. The optional 2nd argument
 indicates whether to kill internal buffers too.
 
 Returns the count of killed buffers."
-  (let* ((buffers (remove-if-not
+  (let* ((buffers (cl-remove-if-not
                    (lambda (buffer)
                      (let ((name (buffer-name buffer)))
                        (and name (not (string-equal name ""))
@@ -1120,50 +1171,67 @@ Returns a message with the count of killed buffers."
    (format "%d buffer(s) killed."
            (spacemacs/rudekill-matching-buffers regexp internal-too))))
 
-;; advise to prevent server from closing
+;; advise to prevent server from closing when the window manager closes the last
+;; Emacs frame, and `dotspacemacs-persistent-server' is non-nil.
 
 (defvar spacemacs-really-kill-emacs nil
-  "prevent window manager close from closing instance.")
+  "If nil, prevent window manager and \\[save-buffers-kill-emacs] from killing Emacs.
+
+This only has an effect if `dotspacemacs-persistent-server' is non-nil.
+
+This variable should be let-bound to t to actually kill Emacs,
+such as is done by \\[spacemacs/prompt-kill-emacs].")
 
 (defun spacemacs//persistent-server-running-p ()
-  "Requires spacemacs-really-kill-emacs to be toggled and
-dotspacemacs-persistent-server to be t"
+  "Return t if `spacemacs-really-kill-emacs' should prevent killing Emacs."
   (and (fboundp 'server-running-p)
        (server-running-p)
        dotspacemacs-persistent-server))
 
-(defadvice kill-emacs (around spacemacs-really-exit activate)
-  "Only kill emacs if a prefix is set"
-  (if (and (not spacemacs-really-kill-emacs)
-           (spacemacs//persistent-server-running-p))
-      (spacemacs/frame-killer)
-    ad-do-it))
+(define-advice kill-emacs (:around (f &rest args) spacemacs-really-exit)
+  "Do not actually kill Emacs if a persistent server is running.
 
-(defadvice save-buffers-kill-emacs (around spacemacs-really-exit activate)
-  "Only kill emacs if a prefix is set"
+If `dotspacemacs-persistent-server' is non-nil and the Emacs
+server is running, just kill the current frame instead of the
+Emacs server.
+
+Setting `spacemacs-really-kill-emacs' non-nil overrides this advice."
   (if (and (not spacemacs-really-kill-emacs)
            (spacemacs//persistent-server-running-p))
       (spacemacs/frame-killer)
-    ad-do-it))
+    (apply f args)))
+
+(define-advice save-buffers-kill-emacs (:around (f &rest args) spacemacs-really-exit)
+  "Do not actually kill Emacs if a persistent server is running.
+
+If `dotspacemacs-persistent-server' is non-nil and the Emacs
+server is running, just kill the current frame instead of the
+Emacs server.
+
+Setting `spacemacs-really-kill-emacs' non-nil overrides this advice."
+  (if (and (not spacemacs-really-kill-emacs)
+           (spacemacs//persistent-server-running-p))
+      (spacemacs/frame-killer)
+    (apply f args)))
 
 (defun spacemacs/save-buffers-kill-emacs ()
   "Save all changed buffers and exit Spacemacs"
   (interactive)
-  (setq spacemacs-really-kill-emacs t)
-  (save-buffers-kill-emacs))
+  (let ((spacemacs-really-kill-emacs t))
+    (save-buffers-kill-emacs)))
 
 (defun spacemacs/kill-emacs ()
   "Lose all changes and exit Spacemacs"
   (interactive)
-  (setq spacemacs-really-kill-emacs t)
-  (kill-emacs))
+  (let ((spacemacs-really-kill-emacs t))
+    (kill-emacs)))
 
 (defun spacemacs/prompt-kill-emacs ()
   "Prompt to save changed buffers and exit Spacemacs"
   (interactive)
-  (setq spacemacs-really-kill-emacs t)
   (save-some-buffers nil t)
-  (kill-emacs))
+  (let ((spacemacs-really-kill-emacs t))
+    (kill-emacs)))
 
 (defun spacemacs/frame-killer ()
   "Kill server buffer and hide the main Emacs window"
@@ -1209,11 +1277,6 @@ useful to use full screen on macOS without animations."
              (if (eq (frame-parameter nil 'maximized) 'maximized)
                  'maximized)
            'fullboth)))))
-
-(defun spacemacs/safe-revert-buffer ()
-  "Prompt before reverting the file."
-  (interactive)
-  (revert-buffer nil nil))
 
 (defun spacemacs/safe-erase-buffer ()
   "Prompt before erasing the content of the file."
@@ -1516,55 +1579,6 @@ The advice can be removed with:
            dotspacemacs-scroll-bar-while-scrolling)
   (advice-add 'mwheel-scroll :after #'spacemacs//scroll-bar-show-delayed-hide))
 
-;; BEGIN linum mouse helpers
-
-(defvar spacemacs-linum-mdown-line nil
-  "Define persistent variable for linum selection")
-
-(defun spacemacs//line-at-click ()
-  "Determine the visual line at click"
-  (save-excursion
-    (let ((click-y (cddr (mouse-position)))
-          (debug-on-error t)
-          (line-move-visual t))
-      (goto-char (window-start))
-      (next-line (1- click-y))
-      (1+ (line-number-at-pos)))))
-
-
-(defun spacemacs/md-select-linum (event)
-  "Set point as spacemacs-linum-mdown-line"
-  (interactive "e")
-  (mouse-select-window event)
-  (goto-line (spacemacs//line-at-click))
-  (set-mark (point))
-  (setq spacemacs-linum-mdown-line
-        (line-number-at-pos)))
-
-(defun spacemacs/mu-select-linum ()
-  "Select code block between point and spacemacs-linum-mdown-line"
-  (interactive)
-  (when spacemacs-linum-mdown-line
-    (let (mu-line)
-      (setq mu-line (spacemacs//line-at-click))
-      (goto-line (max spacemacs-linum-mdown-line mu-line))
-      (set-mark (line-end-position))
-      (goto-line (min spacemacs-linum-mdown-line mu-line))
-      (setq spacemacs-linum-mdown-line nil))))
-
-(defun spacemacs/select-current-block ()
-  "Select the current block of text between blank lines."
-  (interactive)
-  (let (p1)
-    (when (re-search-backward "\n[ \t]*\n" nil "move")
-      (re-search-forward "\n[ \t]*\n"))
-    (setq p1 (point))
-    (if (re-search-forward "\n[ \t]*\n" nil "move")
-        (re-search-backward "\n[ \t]*\n"))
-    (set-mark p1)))
-
-;; END linum mouse helpers
-
 ;; from http://www.emacswiki.org/emacs/WordCount
 (defun spacemacs/count-words-analysis (start end)
   "Count how many times each word is used in the region.
@@ -1712,7 +1726,7 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
 (defun spacemacs/show-hide-compilation-window ()
   "Show/Hide the window containing the compilation buffer."
   (interactive)
-  (when-let ((buffer compilation-last-buffer))
+  (when-let ((buffer next-error-last-buffer))
     (if (get-buffer-window buffer 'visible)
         (delete-windows-on buffer)
       (spacemacs/switch-to-compilation-buffer))))
@@ -1720,34 +1734,27 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
 (defun spacemacs/switch-to-compilation-buffer ()
   "Go to last compilation buffer."
   (interactive)
-  (if compilation-last-buffer
-      (pop-to-buffer compilation-last-buffer)
-    (user-error "There is no compilation buffer?")))
+  (if (buffer-live-p next-error-last-buffer)
+      (pop-to-buffer next-error-last-buffer)
+    (user-error "There is no compilation buffer")))
 
 
 ;; Line number
-
-(defun spacemacs/no-linum (&rest ignore)
-  "Disable linum in current buffer."
-  (when (or 'linum-mode global-linum-mode)
-    (linum-mode 0)))
 
 (defun spacemacs/enable-line-numbers-p ()
   "Return non-nil if line numbers should be enabled for current buffer.
 Decision is based on `dotspacemacs-line-numbers'."
   (and dotspacemacs-line-numbers
-       (spacemacs//linum-curent-buffer-is-not-too-big)
-       (or (spacemacs//linum-backward-compabitility)
-           (and (listp dotspacemacs-line-numbers)
-                (spacemacs//linum-enabled-for-current-major-mode)))))
+       (spacemacs//enable-line-numbers-for-buffer-size-p)
+       (if (listp dotspacemacs-line-numbers)
+           (spacemacs//line-numbers-enabled-for-current-major-mode)
+         (and (memq dotspacemacs-line-numbers '(t relative visual))
+              (derived-mode-p 'prog-mode 'text-mode)))))
 
 (defun spacemacs/relative-line-numbers-p ()
   "Return non-nil if line numbers should be relative.
 Decision is based on `dotspacemacs-line-numbers'."
-  (or (eq dotspacemacs-line-numbers 'relative)
-      (and (listp dotspacemacs-line-numbers)
-           (car (spacemacs/mplist-get-values dotspacemacs-line-numbers
-                                             :relative)))))
+  (eq (spacemacs/line-numbers-type) 'relative))
 
 (defun spacemacs/visual-line-numbers-p ()
   "Return non-nil if line numbers should be visual.
@@ -1755,9 +1762,7 @@ This is similar to relative line numbers, but wrapped lines are
 treated as multiple lines.
 
 Decision is based on `dotspacemacs-line-numbers'."
-  (or (eq dotspacemacs-line-numbers 'visual)
-      (and (listp dotspacemacs-line-numbers)
-           (car (spacemacs/mplist-get-values dotspacemacs-line-numbers :visual)))))
+  (eq (spacemacs/line-numbers-type) 'visual))
 
 (defun spacemacs/line-numbers-type ()
   "Returns a valid value for `display-line-numbers', activating
@@ -1768,49 +1773,21 @@ line numbers, with respect to `dotspacemacs-line-numbers'."
             (t t))
     dotspacemacs-line-numbers))
 
-(defun spacemacs//linum-on (origfunc &rest args)
-  "Advice function to improve `linum-on' function."
-  (when (spacemacs/enable-line-numbers-p)
-    (apply origfunc args)))
+(defun spacemacs//enable-line-numbers-for-buffer-size-p ()
+  "Return non-nil if the current buffer's size is not too big.
 
-(defun spacemacs//linum-update-window-scale-fix (win)
-  "Fix linum for scaled text in the window WIN."
-  (when (display-multi-font-p)
-    (unless (boundp 'text-scale-mode-step)
-      (setq window-initial-margins (window-margins win)))
-    (set-window-margins win
-                        (ceiling (* (if (boundp 'text-scale-mode-step)
-                                        (expt text-scale-mode-step
-                                              text-scale-mode-amount)
-                                      1)
-                                    (or (car (if (boundp 'window-initial-margins)
-                                                 window-initial-margins
-                                               (window-margins win)))
-                                        1))))))
-
-(defun spacemacs//linum-backward-compabitility ()
-  "Return non-nil if `dotspacemacs-line-numbers' has an old format and if
-`linum' should be enabled."
-  (and dotspacemacs-line-numbers
-       (not (listp dotspacemacs-line-numbers))
-       (or (eq dotspacemacs-line-numbers t)
-           (eq dotspacemacs-line-numbers 'relative)
-           (eq dotspacemacs-line-numbers 'visual))
-       (derived-mode-p 'prog-mode 'text-mode)))
-
-(defun spacemacs//linum-curent-buffer-is-not-too-big ()
-  "Return non-nil if buffer size is not too big."
-  (not (and (listp dotspacemacs-line-numbers)
-            (spacemacs/mplist-get-values dotspacemacs-line-numbers
-                                         :size-limit-kb)
-            (> (buffer-size)
-               (* 1000
-                  (car (spacemacs/mplist-get-values dotspacemacs-line-numbers
-                                                    :size-limit-kb)))))))
+This is controlled by the `:size-limit-kb' property of
+`dotspacemacs-line-numbers'."
+  (if-let ((size-limit-kb
+            (and (listp dotspacemacs-line-numbers)
+                 (spacemacs/mplist-get-value dotspacemacs-line-numbers
+                                             :size-limit-kb))))
+      (<= (buffer-size) (* 1000 size-limit-kb))
+    t))
 
 ;; see tests in tests/layers/+distribution/spacemacs-base/line-numbers-utest.el
 ;; for the different possible cases
-(defun spacemacs//linum-enabled-for-current-major-mode ()
+(defun spacemacs//line-numbers-enabled-for-current-major-mode ()
   "Return non-nil if line number is enabled for current major-mode."
   (let* ((disabled-for-modes
           (spacemacs/mplist-get-values dotspacemacs-line-numbers
@@ -1840,7 +1817,7 @@ line numbers, with respect to `dotspacemacs-line-numbers'."
               ;; :enabled-for-modes and in :disabled-for-modes. Return non-nil
               ;; if enabled-for-parent is the more specific parent (IOW derives
               ;; from disabled-for-parent)
-              (spacemacs/derived-mode-p enabled-for-parent disabled-for-parent)))
+              (provided-mode-derived-p enabled-for-parent disabled-for-parent)))
      ;; current mode (or parent) not explicitly disabled
      (and (null user-enabled-for-modes)
           enabled-for-parent            ; mode is one of default allowed modes

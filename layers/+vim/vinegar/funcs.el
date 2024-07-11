@@ -1,6 +1,6 @@
 ;;; funcs.el --- Vinegar Layer Functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -31,8 +31,8 @@
           (message "h")
           (dired-mark-files-regexp "^\\\.")
           (dired-do-kill-lines))
-      (progn (revert-buffer) ; otherwise just revert to re-show
-             (setq-local dired-dotfiles-show-p t)))))
+      (revert-buffer) ; otherwise just revert to re-show
+      (setq-local dired-dotfiles-show-p t))))
 
 (defun vinegar/back-to-top ()
   "Move to first file"

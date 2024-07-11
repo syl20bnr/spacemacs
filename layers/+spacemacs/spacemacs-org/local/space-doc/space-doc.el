@@ -1,6 +1,6 @@
 ;;; space-doc.el --- Spacemacs org minor mode. -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -248,7 +248,6 @@ The character should be one of the markers from `org-emphasis-alist'."
          begin
          end
          '(invisible spacemacs--space-doc-invisible-marker))))))
-(byte-compile 'spacemacs//space-doc-emphasis-region)
 
 (defun spacemacs//space-doc-alternative-emphasis (&optional enable)
   "Emphasis overlays.
@@ -367,7 +366,6 @@ NOTE: Not using `advice-add' because it is global modification.
 FIXME: Find cleaner solution."
   (font-lock-default-fontify-region  start end verbose)
   (spacemacs//space-doc-tags-fontify start end))
-(byte-compile 'spacemacs//space-doc-font-lock-fontify-region-function)
 
 (defun spacemacs//space-doc-alternative-tags-look (&optional enable)
   "Modify meta tag appearance.

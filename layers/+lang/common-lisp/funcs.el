@@ -1,6 +1,6 @@
 ;;; funcs.el --- Slime Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -73,7 +73,7 @@ Requires smartparens because all movement is done using `sp-up-sexp'."
       (let ((max 10))
         (while (and (> max 0)
                     (sp-point-in-string-or-comment))
-          (decf max)
+          (cl-decf max)
           (sp-up-sexp)))
       (sp-up-sexp arg)
       (call-interactively 'slime-eval-last-expression))))
@@ -88,3 +88,12 @@ Requires smartparens because all movement is done using `sp-forward-symbol'."
     (save-excursion
       (sp-forward-symbol)
       (call-interactively 'slime-eval-last-expression))))
+
+
+(defun spacemacs/slime-repl ()
+  "Switches to slime repl if slime is connected, starts up slime if
+not."
+  (interactive)
+  (if (slime-connected-p)
+      (slime-switch-to-output-buffer)
+    (slime)))

@@ -1,6 +1,6 @@
 ;;; funcs.el --- Colors Layer functions File
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -129,7 +129,7 @@ https://github.com/magit/forge/issues/80#issuecomment-456103195
 "
   (interactive "xs-exp: ")
   (message "%s" err)
-  (let* ((query_value (third (car err)))
+  (let* ((query_value (cl-third (car err)))
          (result (car (forge-sql
                        [:select [owner name]
                                 :from repository

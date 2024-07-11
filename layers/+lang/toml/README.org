@@ -1,0 +1,19 @@
+#+TITLE: TOML layer
+
+#+TAGS: general|layer|programming
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+
+* Description
+This layer supports [[https://toml.io][TOML]] development in Spacemacs.
+
+** Features:
+- Provide editing capabilities for [[https://toml.io][TOML]] files.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =toml= to the existing =dotspacemacs-configuration-layers= list in this
+file.

@@ -1,6 +1,6 @@
 ;;; packages.el --- tree-sitter layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Elliott Shugerman <eeshugerman@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -33,36 +33,28 @@
 
 (defun tree-sitter/init-tree-sitter ()
   (use-package tree-sitter
-    :defer t
     :init
-    (progn
-      (when tree-sitter-syntax-highlight-enable
-        (add-hook 'tree-sitter-after-on-hook #'spacemacs//tree-sitter-hl-maybe)))
+    (when tree-sitter-syntax-highlight-enable
+      (add-hook 'tree-sitter-after-on-hook #'spacemacs//tree-sitter-hl-maybe))
     :config
-    (progn
-      (global-tree-sitter-mode))))
+    (global-tree-sitter-mode)))
 
 (defun tree-sitter/init-tree-sitter-langs ()
-  (use-package tree-sitter-langs
-    :defer t))
+  (use-package tree-sitter-langs))
 
 (defun tree-sitter/init-tree-sitter-indent ()
   (use-package tree-sitter-indent
     :if tree-sitter-indent-enable
-    :defer t
     :init
-    (progn
-      (add-hook 'rust-mode-hook #'tree-sitter-indent-mode))))
+    (add-hook 'rust-mode-hook #'tree-sitter-indent-mode)))
 
 (defun tree-sitter/init-ts-fold ()
   (use-package ts-fold
     :if tree-sitter-fold-enable
-    :defer t
     :init
-    (progn
-      (when tree-sitter-fold-enable
-        (if tree-sitter-fold-indicators-enable
-            (progn
-              (setq ts-fold-indicators-priority 0)
-              (global-ts-fold-indicators-mode))
-          (global-ts-fold-mode))))))
+    (when tree-sitter-fold-enable
+      (if tree-sitter-fold-indicators-enable
+          (progn
+            (setq ts-fold-indicators-priority 0)
+            (add-hook 'tree-sitter-after-on-hook #'ts-fold-indicators-mode))
+        (global-ts-fold-mode)))))

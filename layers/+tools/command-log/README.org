@@ -31,7 +31,7 @@ buffer which logs all executed commands in the current window.
 * Keycast
 This is an experimental addition to this layer which will show the last
 used keystroke and command in the modeline. However as we support multiple
-modelines it may require some tweaking of =keycast-insert-after= which will
+modelines it may require some tweaking of =keycast-mode-line-insert-after= which will
 be defaulted to =%e= for now.
 
 If you have a working configuration for your modeline feel free to share it
@@ -39,7 +39,9 @@ with the rest of the project.
 
 * Key bindings
 
-| Key binding   | Description            |
-|---------------+------------------------|
-| ~SPC a t l l~ | Toggle the command log |
-| ~SPC a t l k~ | Toggle keycast         |
+| Key binding   | Description                |
+|---------------+----------------------------|
+| ~SPC a t l l~ | Toggle the command log     |
+| ~SPC a t K h~ | Toggle keycast in header   |
+| ~SPC a t K m~ | Toggle keycast in modeline |
+| ~SPC a t K t~ | Toggle keycast in tab bar  |

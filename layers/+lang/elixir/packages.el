@@ -1,6 +1,6 @@
 ;;; packages.el --- Elixir Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -32,7 +32,6 @@
     flycheck
     flycheck-credo
     ggtags
-    helm-gtags
     ob-elixir
     popwin
     smartparens))
@@ -42,13 +41,12 @@
     :if (eq elixir-backend 'alchemist)
     :defer t
     :init
-    (progn
-      (spacemacs/register-repl 'alchemist 'alchemist-iex-run "alchemist")
-      (add-hook 'elixir-mode-hook 'alchemist-mode)
-      (setq alchemist-project-compile-when-needed t
-            alchemist-test-status-modeline nil)
-      (add-to-list 'spacemacs-jump-handlers-elixir-mode
-                   '(alchemist-goto-definition-at-point :async t)))
+    (spacemacs/register-repl 'alchemist 'alchemist-iex-run "alchemist")
+    (add-hook 'elixir-mode-hook 'alchemist-mode)
+    (setq alchemist-project-compile-when-needed t
+          alchemist-test-status-modeline nil)
+    (add-to-list 'spacemacs-jump-handlers-elixir-mode
+                 '(alchemist-goto-definition-at-point :async t))
     :config
     (spacemacs/declare-prefix-for-mode 'elixir-mode "mX" "hex")
     (spacemacs/declare-prefix-for-mode 'elixir-mode "mc" "compile")
@@ -187,9 +185,6 @@
 
 (defun elixir/post-init-ggtags ()
   (add-hook 'elixir-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
-
-(defun elixir/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'elixir-mode))
 
 (defun elixir/pre-init-ob-elixir ()
   (spacemacs|use-package-add-hook org

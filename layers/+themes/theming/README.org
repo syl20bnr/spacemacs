@@ -49,7 +49,7 @@ It should be a list of the following form:
              ;; Font locking
              (font-lock-comment-face :slant italic)
              (web-mode-html-attr-name-face :inherit font-lock-variable-name-face
-                                           :foreground nil)
+                                           :foreground 'unspecified)
              ;; Modeline
              (powerline-active1 :box (:color "#999999"
                                       :line-width 1

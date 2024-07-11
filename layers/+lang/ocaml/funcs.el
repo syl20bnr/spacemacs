@@ -1,6 +1,6 @@
 ;;; funcs.el --- ocaml Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -58,3 +58,27 @@
   (interactive)
   (let ((merlin-locate-in-new-window 'always))
     (merlin-locate)))
+
+(defun spacemacs/utop-eval-phrase-and-go ()
+  "Send phrase to REPL and evaluate it and switch to the REPL in
+`insert state'"
+  (interactive)
+  (utop-eval-phrase)
+  (utop)
+  (evil-insert-state))
+
+(defun spacemacs/utop-eval-buffer-and-go ()
+  "Send buffer to REPL and evaluate it and switch to the REPL in
+`insert state'"
+  (interactive)
+  (utop-eval-buffer)
+  (utop)
+  (evil-insert-state))
+
+(defun spacemacs/utop-eval-region-and-go (start end)
+  "Send region to REPL and evaluate it and switch to the REPL in
+`insert state'"
+  (interactive "r")
+  (utop-eval-region start end)
+  (utop)
+  (evil-insert-state))

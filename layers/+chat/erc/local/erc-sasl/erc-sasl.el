@@ -1,6 +1,6 @@
 ;; erc-sasl.el -- handle SASL PLAIN authentication
 
-;; Copyright (C) 2012-2022 Joseph Gay
+;; Copyright (C) 2012-2024 Joseph Gay
 
 ;; Author: Joseph Gay <ysph@psy.ai>
 ;; Keywords: comm
@@ -75,13 +75,12 @@ current session"
                    (base64-encode-string
                     (concat "\0" (erc-current-nick)
                             "\0" erc-session-password) t)))))
-    (progn
-      (erc-display-message
-       parsed 'error
-       (if erc-server-connected 'active proc)
-       "You must set a password in order to use SASL authentication.")
-      ;; aborting SASL auth
-      (erc-server-send (erc-server-send "AUTHENTICATE *")))))
+    (erc-display-message
+     parsed 'error
+     (if erc-server-connected 'active proc)
+     "You must set a password in order to use SASL authentication.")
+    ;; aborting SASL auth
+    (erc-server-send (erc-server-send "AUTHENTICATE *"))))
 
 (define-erc-response-handler (903)
   "Handling a successful SASL authentication." nil

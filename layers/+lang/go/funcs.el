@@ -1,6 +1,6 @@
 ;;; funcs.el --- Go Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -156,6 +156,16 @@
   (interactive)
   (shell-command
    (concat go-run-command " . " go-run-args)))
+
+(defun spacemacs/go-run-generate-current-dir ()
+  (interactive)
+  (compilation-start (concat go-generate-command " " (file-name-directory buffer-file-name))
+                     nil (lambda (n) go-generate-buffer-name) nil))
+
+(defun spacemacs/go-run-generate-current-buffer ()
+  (interactive)
+  (compilation-start (concat go-generate-command " " (buffer-file-name))
+                     nil (lambda (n) go-generate-buffer-name) nil))
 
 ;; misc
 (defun spacemacs/go-packages-gopkgs ()

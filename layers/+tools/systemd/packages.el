@@ -1,6 +1,6 @@
 ;;; packages.el --- systemd layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Fabien Dubosson <fabien.dubosson@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -43,12 +43,8 @@
 (defun systemd/init-journalctl-mode ()
   (use-package journalctl-mode
     :ensure t
-    :init (progn
-            (spacemacs/declare-prefix "atj"  "journalctl")
-            (spacemacs/set-leader-keys
-              "atjj" 'journalctl
-              "atjs" 'journalctl-unit
-              "atju" 'journalctl-user-unit
-              "atjb" 'journalctl-boot))))
+    :init
+    (spacemacs/set-leader-keys
+      "atj" 'journalctl)))
 
 ;;; packages.el ends here

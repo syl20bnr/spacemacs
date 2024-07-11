@@ -117,13 +117,13 @@ Last but not least there are a lot of high class tutorials available on YouTube:
 2. Spacemacs is an extension of a popular text editor called [Emacs][GNU Emacs].
    So you'll need Emacs installed first.
 
-   Spacemacs requires Emacs 27.1 or above. The development version of Emacs is
+   Spacemacs requires Emacs 28.2 or above. The development version of Emacs is
    not *officially* supported, but it should nevertheless be expected to work.
 
 3. [git][Git] is required to download and update Spacemacs.
 
-4. Tar, either [GNU Tar][] or [BSD Tar][], is required to install and update
-   Emacs packages used by Spacemacs.
+4. Tar, in particular [GNU Tar][], is required to install and update Emacs
+   packages used by Spacemacs.
 
 5. *(Optional)* The default font used by Spacemacs is [Source Code Pro][]. You
    may customize your own font settings and choose another font. If you want to
@@ -170,7 +170,7 @@ Last but not least there are a lot of high class tutorials available on YouTube:
    differences][Emacs And XEmacs].
 
    **N.B.** Some Linux distributions support only Emacs versions older than
-   27.1. In this case you should
+   28.2. In this case you should
    [build it from source][Build Emacs from Source] instead.
 
 3. Very likely Git is already installed on your system. Otherwise, you should
@@ -241,7 +241,12 @@ Last but not least there are a lot of high class tutorials available on YouTube:
    brew install git
    ```
 
-4. macOS ships with [BSD Tar][] so you don't need to install it.
+4. macOS ships with [BSD Tar][], but there are reports of weird issues so we
+   require [GNU Tar][] instead.
+
+   ```sh
+   brew install gnu-tar
+   ```
 
 5. *(Optional)* To install Source Code Pro Font:
 
@@ -260,9 +265,18 @@ Last but not least there are a lot of high class tutorials available on YouTube:
    ```
 
 ### Windows
+We recommend using wsl2 with wslg support especially with a pgtk build of emacs and wayland.
+For the installation please refer to the linux installation section. When running emacs
+within your wsl2 environment emacs will be handled like any other windows application.
 
-1. We recommend [Scoop][] as the package manager for Windows users. You can
-   install it via PowerShell:
+If this is not possible you can fallback to a native windows installation, however note
+that this will create a lot of subtle bugs especially with tls which we will most likely
+not be able to help with.
+
+If you need to follow that path we recommend to at least use a package manager like
+[Scoop][] to install the needed packages.
+
+1. You can install [Scoop][] via PowerShell:
 
    ```powershell
    Set-ExecutionPolicy RemoteSigned -Scope CurrentUser # Optional: Needed to run a remote script the first time
@@ -283,11 +297,10 @@ Last but not least there are a lot of high class tutorials available on YouTube:
    scoop install git
    ```
 
-4. Windows 10 build 17063 and later ships with [BSD Tar][] and you won't need to
-   install it manually.
-
-   If you're running an earlier version of Windows, Tar can be installed in
-   PowerShell:
+4. Windows 10 build 17063 and later ships with [BSD Tar][], but it's required to
+   install [GNU Tar][] instead to avoid possible issues. Alternatively, if
+   you are running an earlier version of Windows, Tar isn't installed. In either
+   case, you can install GNU Tar via:
 
    ```powershell
    scoop bucket add main
@@ -473,17 +486,10 @@ Dock][icon-mac-instructions].
 
 # Update
 
-Spacemacs supports two different update schemes, the default is a rolling update
-scheme based on the latest version of packages available. This version can be
-found on the `develop` branch and is updated by a simple `git pull`.
+Spacemacs relies solely on a rolling update scheme based on the latest
+changes available. To update Spacemacs, simply pull the latest
+changes from the `develop` branch:
 
-The second method is deprecated. It was a fixed version scheme which was based
-on a stable set of packages. The latest fixed version can be found on the
-`master` branch and would show a notification when a new version is available.
-Be warned that this method has not been updated in a long time, so packages will
-be very old.
-
-## Rolling update (on develop)
 1. Close Emacs and update the git repository:
 
     ```sh
@@ -492,39 +498,17 @@ be very old.
 
 2. Restart Emacs to complete the upgrade.
 
-## Deprecated automatic update (on master branch)
-When a new version is available, a little arrow will appear in the mode-line.
-
-Its color depends on the number of versions that have been released since the
-last update. Green means that you have a recent version, orange and red means
-that you have an older version.
-
-![powerline_update](doc/img/powerline-update.png)
-
-Click on the arrow to update Spacemacs to the latest version.
-
-## Manual update (on master branch)
-Remove the `<` and `>` angle brackets when you're typing the lines below into
-your shell. Make sure to also replace the text: "tag version which you are
-updating to" with a tagged version. This page lists the [latest tags][]
-
-```sh
-git fetch
-git reset --hard <tag version which you are updating to>
-```
-
-## Revert to a specific release version (on master branch)
-To revert to a specific release version, just checkout the corresponding branch.
-For instance, the following command reverts Spacemacs to version `0.200`:
-
-```sh
-git checkout origin/release-0.200
-```
-
-**After updating Spacemacs (either manually or automatically), you should also
+**After updating Spacemacs, you should also
 check if any updates are available for your packages. On the Spacemacs Home
 Buffer <kbd>SPC b h</kbd>, click (press <kbd>RET</kbd>) on the `[Update
 Packages]` button, or use the convenient keybinding <kbd>SPC f e U</kbd>**
+
+## Upgrading from the deprecated `master` branch
+
+If you are still on the old `master` branch (i.e., if
+`git branch --show-current` shows `master` instead of `develop`),
+you need to [upgrade to `develop`](https://practical.li/spacemacs/install-spacemacs/switch-to-develop/)
+first.
 
 # Quotes
 [Quote][quote01] by [ashnur](https://github.com/ashnur):

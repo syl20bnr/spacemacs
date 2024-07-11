@@ -94,6 +94,7 @@ variable =ocaml-format-on-save=, e.g.,
 | ~SPC m h h~ | Document the identifier under point                      |
 | ~SPC m h t~ | Highlight identifier under cursor and print its type     |
 | ~SPC m h T~ | Prompt for expression and show its type                  |
+| ~SPC m r c~ | Construct expression at hole (_) based on its type       |
 | ~SPC m r d~ | Case analyze the current enclosing                       |
 | ~SPC m t p~ | Dune run tests and promote.                              |
 | ~SPC m t P~ | Dune promote.                                            |

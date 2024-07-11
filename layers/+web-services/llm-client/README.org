@@ -1,0 +1,33 @@
+#+TITLE: Large Language Model Client layer
+
+#+TAGS: general|layer|web service
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+
+* Description
+This layer enables usage of GPT Clients in Spacemacs using [[https://github.com/karthink/gptel][GPTel]].
+
+** Features:
+You will have access to the following tools:
+- ChatGPT
+- Azure
+- Ollama
+- GPT4All
+- Gemini
+- Llama.cpp
+- Llamafile
+- Kagi FastGPT
+- Kagi Summarizer
+- together.ai
+- Anyscale
+- Perplexity
+- Anthropic (Claude)
+- Groq
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =llm-client= to the existing =dotspacemacs-configuration-layers= list in this
+file.

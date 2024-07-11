@@ -1,6 +1,6 @@
 ;;; funcs.el --- Shell Scripts Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -49,3 +49,11 @@
   (require 'insert-shebang)
   (insert-shebang-get-extension-and-insert
    (file-name-nondirectory (buffer-file-name))))
+
+(defun spacemacs/scripts-make-buffer-file-executable-maybe ()
+  "Make buffer file executable when `shell-scripts-mark-executable-after-save' is
+`t' and the shebang exists after saved a `sh-mode' buffer."
+  (interactive)
+  (when (and (eq major-mode 'sh-mode)
+             shell-scripts-mark-executable-after-save)
+    (executable-make-buffer-file-executable-if-script-p)))

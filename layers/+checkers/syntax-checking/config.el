@@ -1,6 +1,6 @@
 ;;; config.el --- Syntax Checking Layer configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -33,6 +33,12 @@
 (spacemacs|defc syntax-checking-auto-hide-tooltips nil
   "Auto hide tooltips after the given number of seconds.
 If non-positive or nil, do not hide tooltip."
+  '(number))
+
+(spacemacs|defc syntax-checking-tooltips-delay nil
+  "Show tooltips only after the given number of seconds have passed.
+If non-positive or nil, wait the default amount of time before
+showing tooltip."
   '(number))
 
 ;; a small circle used for flycheck-indication-mode

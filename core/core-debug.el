@@ -1,6 +1,6 @@
 ;;; core-debug.el --- Spacemacs Core File  -*- lexical-binding: t; -*-
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -229,7 +229,8 @@ When the time taken for loading a package exceeds
           'helm)
          ((configuration-layer/layer-used-p 'ivy)
           'ivy)
-         ((configuration-layer/layer-used-p 'compleseus))
+         ((configuration-layer/layer-used-p 'compleseus)
+          'compleseus)
          (t 'helm))
    (pp-to-string dotspacemacs--configuration-layers-saved)
    (bound-and-true-p system-configuration-features)))

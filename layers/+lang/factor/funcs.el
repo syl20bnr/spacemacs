@@ -1,6 +1,6 @@
 ;;; funcs.el --- Factor Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: timor <timor.dd@googlemail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -59,7 +59,7 @@ currently loaded fuel implementation."
                                                (factor//fuel-feature-p fuel-directory f)))
                                (cl-set-difference next-features fuel-features))
            while new-features
-           finally (return fuel-features)))
+           finally (cl-return fuel-features)))
 
 (defun factor//unload-fuel ()
   "Close fuel connection and unload fuel code.

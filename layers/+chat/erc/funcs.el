@@ -1,6 +1,6 @@
 ;;; funcs.el --- Spacemacs ERC Layer functions File
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -23,11 +23,11 @@
 
 (defun erc//servers (server-list)
   (dolist (s server-list)
-    (setq s (copy-list s))
+    (setq s (cl-copy-list s))
     (apply (if
                (plist-get (cdr s) :ssl)
                (progn
-                 (remf (cdr s) :ssl)
+                 (cl-remf (cdr s) :ssl)
                  'erc-tls)
              'erc)
            :server s)))

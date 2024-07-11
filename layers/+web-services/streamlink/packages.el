@@ -1,6 +1,6 @@
 ;;; packages.el --- Streamlink Layer Packages File For Spacemacs.
 ;;
-;; Copyright (c) 2021-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2021-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Benedikt Broich <b.broich@posteo.de>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -27,7 +27,6 @@
   (use-package streamlink
     :defer t
     :init
-    (progn
-      (spacemacs/declare-prefix "aws" "stream")
-      (spacemacs/set-leader-keys
-        "awss" 'streamlink-open-url))))
+    (spacemacs/declare-prefix "aws" "stream")
+    (spacemacs/set-leader-keys
+      "awss" 'streamlink-open-url)))

@@ -1,6 +1,6 @@
 ;;; packages.el --- slack layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Kosta Harlan <kosta@kostaharlan.net>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -28,7 +28,6 @@
     alert
     emoji-cheat-sheet-plus
     flyspell
-    linum
     persp-mode
     slack
     window-purpose))
@@ -43,9 +42,6 @@
 
 (defun slack/post-init-flyspell ()
   (add-hook 'lui-mode-hook 'flyspell-mode))
-
-(defun slack/post-init-linum ()
-  (add-hook 'slack-mode-hook 'spacemacs/no-linum))
 
 (defun slack/pre-init-persp-mode ()
   (spacemacs|use-package-add-hook persp-mode

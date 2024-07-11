@@ -1,6 +1,6 @@
 ;;; packages.el --- Auto-completion Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -23,17 +23,17 @@
 
 (defconst auto-completion-packages
       '(
-        auto-yasnippet
-        auto-complete
-        ac-ispell
-        company
+        (auto-yasnippet)
+        (auto-complete :toggle (not (eq auto-completion-front-end 'company)))
+        (ac-ispell :toggle (not (eq auto-completion-front-end 'company)))
+        (company :toggle (eq auto-completion-front-end 'company))
         (company-posframe :toggle auto-completion-use-company-posframe)
         (company-box :toggle auto-completion-use-company-box)
         (company-quickhelp :toggle auto-completion-enable-help-tooltip)
         (company-statistics :toggle auto-completion-enable-sort-by-usage)
         counsel
-        fuzzy
-        (helm-company :requires helm)
+        (fuzzy :toggle (not (eq auto-completion-front-end 'company)))
+        (helm-company :requires helm :toggle (eq auto-completion-front-end 'company))
         (helm-c-yasnippet :requires helm)
         hippie-exp
         (ivy-yasnippet :requires ivy)
@@ -48,10 +48,9 @@
   (use-package ac-ispell
     :defer t
     :init
-    (progn
-      (setq ac-ispell-requires 4)
-      (with-eval-after-load 'auto-complete
-        (ac-ispell-setup)))))
+    (setq ac-ispell-requires 4)
+    (with-eval-after-load 'auto-complete
+      (ac-ispell-setup))))
 ;; (add-hook 'markdown-mode-hook 'ac-ispell-ac-setup)
 
 
@@ -69,77 +68,75 @@
           tab-always-indent 'complete
           ac-dwim t)
     :config
-    (progn
-      (require 'auto-complete-config)
-      (setq-default ac-sources '(ac-source-abbrev
-                                 ac-source-dictionary
-                                 ac-source-words-in-same-mode-buffers))
-      (when (configuration-layer/package-used-p 'yasnippet)
-        (add-to-list 'ac-sources 'ac-source-yasnippet))
-      (add-to-list 'completion-styles 'initials t)
-      (define-key ac-completing-map (kbd "C-j") 'ac-next)
-      (define-key ac-completing-map (kbd "C-k") 'ac-previous)
-      (define-key ac-completing-map (kbd "<S-tab>") 'ac-previous)
-      (spacemacs|diminish auto-complete-mode " ⓐ" " a"))))
+    (require 'auto-complete-config)
+    (setq-default ac-sources '(ac-source-abbrev
+                               ac-source-dictionary
+                               ac-source-words-in-same-mode-buffers))
+    (when (configuration-layer/package-used-p 'yasnippet)
+      (add-to-list 'ac-sources 'ac-source-yasnippet))
+    (add-to-list 'completion-styles 'initials t)
+    (define-key ac-completing-map (kbd "C-j") 'ac-next)
+    (define-key ac-completing-map (kbd "C-k") 'ac-previous)
+    (define-key ac-completing-map (kbd "<S-tab>") 'ac-previous)
+    (spacemacs|diminish auto-complete-mode " ⓐ" " a")))
 
 (defun auto-completion/init-auto-yasnippet ()
   (use-package auto-yasnippet
     :defer t
     :init
-    (progn
-      (setq aya-persist-snippets-dir
-            (or auto-completion-private-snippets-directory
-                (concat spacemacs-private-directory "snippets/")))
-      (spacemacs/declare-prefix "iS" "auto-yasnippet")
-      (spacemacs/set-leader-keys
-        "iSc" 'aya-create
-        "iSe" 'spacemacs/auto-yasnippet-expand
-        "iSw" 'aya-persist-snippet))))
+    (setq aya-persist-snippets-dir
+          (or auto-completion-private-snippets-directory
+              (concat spacemacs-private-directory "snippets/")))
+    (spacemacs/declare-prefix "iS" "auto-yasnippet")
+    (spacemacs/set-leader-keys
+      "iSc" 'aya-create
+      "iSe" 'spacemacs/auto-yasnippet-expand
+      "iSh" 'spacemacs/auto-yasnippet-expand-from-history
+      "iSw" 'aya-persist-snippet)))
 
 (defun auto-completion/init-company ()
   (use-package company
     :defer t
     :init
-    (progn
-      (setq company-idle-delay auto-completion-idle-delay
-            company-minimum-prefix-length auto-completion-minimum-prefix-length
-            company-require-match nil
-            company-dabbrev-ignore-case nil
-            company-dabbrev-downcase nil)
+    (setq company-idle-delay auto-completion-idle-delay
+          company-minimum-prefix-length auto-completion-minimum-prefix-length
+          company-require-match nil
+          company-dabbrev-ignore-case nil
+          company-dabbrev-other-buffers t
+          company-dabbrev-downcase nil)
 
-      (add-hook 'company-completion-started-hook 'company-turn-off-fci)
-      (add-hook 'company-completion-finished-hook 'company-maybe-turn-on-fci)
-      (add-hook 'company-completion-cancelled-hook 'company-maybe-turn-on-fci))
+    (add-hook 'company-completion-started-hook 'company-turn-off-fci)
+    (add-hook 'company-completion-finished-hook 'company-maybe-turn-on-fci)
+    (add-hook 'company-completion-cancelled-hook 'company-maybe-turn-on-fci)
     :config
-    (progn
-      (spacemacs|diminish company-mode " ⓐ" " a")
+    (spacemacs|diminish company-mode " ⓐ" " a")
 
-      (spacemacs|add-company-backends :modes text-mode)
-      ;; key bindings
-      (defun spacemacs//company-complete-common-or-cycle-backward ()
-        "Complete common prefix or cycle backward."
-        (interactive)
-        (company-complete-common-or-cycle -1))
-      (spacemacs//auto-completion-set-RET-key-behavior 'company)
-      (spacemacs//auto-completion-set-TAB-key-behavior 'company)
-      (spacemacs//auto-completion-setup-key-sequence 'company)
+    (spacemacs|add-company-backends :modes text-mode)
+    ;; key bindings
+    (defun spacemacs//company-complete-common-or-cycle-backward ()
+      "Complete common prefix or cycle backward."
+      (interactive)
+      (company-complete-common-or-cycle -1))
+    (spacemacs//auto-completion-set-RET-key-behavior 'company)
+    (spacemacs//auto-completion-set-TAB-key-behavior 'company)
+    (spacemacs//auto-completion-setup-key-sequence 'company)
 
-      (let ((map company-active-map))
-        (define-key map (kbd "C-/")   'company-search-candidates)
-        (define-key map (kbd "C-M-/") 'company-filter-candidates)
-        (define-key map (kbd "C-d")   'company-show-doc-buffer))
-      (add-hook 'spacemacs-editing-style-hook 'spacemacs//company-active-navigation)
-      ;; ensure that the correct bindings are set at startup
-      (spacemacs//company-active-navigation dotspacemacs-editing-style))))
+    (let ((map company-active-map))
+      (define-key map (kbd "C-/")   'company-search-candidates)
+      (define-key map (kbd "C-M-/") 'company-filter-candidates)
+      (define-key map (kbd "C-d")   'company-show-doc-buffer)
+      (define-key map (kbd "C-b")   'company-other-backend))
+    (add-hook 'spacemacs-editing-style-hook 'spacemacs//company-active-navigation)
+    ;; ensure that the correct bindings are set at startup
+    (spacemacs//company-active-navigation dotspacemacs-editing-style)))
 
 (defun auto-completion/init-company-statistics ()
   (use-package company-statistics
     :defer t
     :init
-    (progn
-      (setq company-statistics-file (concat spacemacs-cache-directory
-                                            "company-statistics-cache.el"))
-      (add-hook 'company-mode-hook 'company-statistics-mode))))
+    (setq company-statistics-file (concat spacemacs-cache-directory
+                                          "company-statistics-cache.el"))
+    (add-hook 'company-mode-hook 'company-statistics-mode)))
 
 (defun auto-completion/pre-init-counsel ()
   (spacemacs|use-package-add-hook company
@@ -165,11 +162,14 @@
     :hook '(company-mode . company-box-mode)
     :commands 'company-box-doc-manually
     :custom
-    (company-box-backends-colors nil)
     (company-box-max-candidates 1000)
     (company-box-doc-enable nil)
     (company-box-icons-alist 'company-box-icons-all-the-icons)
-    (company-box-icons-all-the-icons
+    :init
+    :config
+    (spacemacs|hide-lighter company-box-mode)
+    (setq company-box-backends-colors nil)
+    (setq company-box-icons-all-the-icons
      `((Unknown . ,(all-the-icons-octicon "file-text" :height 0.8 :v-adjust -0.05))
        (Text . ,(all-the-icons-faicon "file-text-o" :height 0.8 :v-adjust -0.0575))
        (Method . ,(all-the-icons-faicon "cube" :height 0.8 :v-adjust -0.0575))
@@ -197,16 +197,12 @@
        (Operator . ,(all-the-icons-faicon "tag" :height 0.8 :v-adjust -0.0575))
        (TypeParameter . ,(all-the-icons-faicon "cog" :height 0.8 :v-adjust -0.0575))
        (Template . ,(all-the-icons-octicon "file-code" :height 0.8 :v-adjust -0.05))))
-    :init
-    :config
-    (progn
-      (spacemacs|hide-lighter company-box-mode)
-      (add-hook 'company-box-selection-hook
-                (lambda (selection frame) (company-box-doc--hide frame)))
-      (cl-case auto-completion-enable-help-tooltip
-        (manual (define-key company-active-map
-                   (kbd "M-h") #'company-box-doc-manually))
-        (t (setq company-box-doc-enable t))))))
+    (add-hook 'company-box-selection-hook
+              (lambda (selection frame) (company-box-doc--hide frame)))
+    (cl-case auto-completion-enable-help-tooltip
+      (manual (define-key company-active-map
+                (kbd "M-h") #'company-box-doc-manually))
+      (t (setq company-box-doc-enable t)))))
 
 (defun auto-completion/init-company-posframe ()
   (use-package company-posframe
@@ -218,9 +214,8 @@
   (use-package helm-c-yasnippet
     :defer t
     :init
-    (progn
-      (spacemacs/set-leader-keys "is" 'spacemacs/helm-yas)
-      (setq helm-yas-space-match-any-greedy t))))
+    (spacemacs/set-leader-keys "is" 'spacemacs/helm-yas)
+    (setq helm-yas-space-match-any-greedy t)))
 
 (defun auto-completion/pre-init-helm-company ()
   (spacemacs|use-package-add-hook company
@@ -266,9 +261,8 @@
   (use-package ivy-yasnippet
     :defer t
     :init
-    (progn
-      (setq ivy-yasnippet-expand-keys nil)
-      (spacemacs/set-leader-keys "is" 'spacemacs/ivy-yas))))
+    (setq ivy-yasnippet-expand-keys nil)
+    (spacemacs/set-leader-keys "is" 'spacemacs/ivy-yas)))
 
 (defun auto-completion/post-init-smartparens ()
   (with-eval-after-load 'hippie-exp
@@ -281,61 +275,60 @@
   (use-package yasnippet
     :commands (yas-global-mode yas-minor-mode yas-activate-extra-mode)
     :init
-    (progn
-      ;; We don't want undefined variable errors
-      (defvar yas-global-mode nil)
-      (setq yas-triggers-in-field t
-            yas-wrap-around-region t
-            helm-yas-display-key-on-candidate t)
-      ;; on multiple keys, fall back to completing read
-      ;; typically this means helm
-      (setq yas-prompt-functions '(yas-completing-prompt))
-      ;; disable yas minor mode map
-      ;; use hippie-expand instead
-      (setq yas-minor-mode-map (make-sparse-keymap))
-      ;; this makes it easy to get out of a nested expansion
-      (define-key yas-minor-mode-map (kbd "M-s-/") 'yas-next-field)
-      ;; configure snippet directories
-      (let* ((spacemacs--auto-completion-dir
-              (configuration-layer/get-layer-local-dir 'auto-completion))
-             (emacs-directory-snippets-dir (concat
-                                            spacemacs-private-directory
-                                            "snippets/"))
-             (spacemacs-layer-snippets-dir (expand-file-name
-                                            "snippets"
-                                            spacemacs--auto-completion-dir))
-             (dotspacemacs-directory-snippets-dir
-              (when dotspacemacs-directory
-                (let ((snippet-dir (expand-file-name
-                                    "snippets"
-                                    dotspacemacs-directory)))
-                  (when (file-accessible-directory-p snippet-dir)
-                    snippet-dir)))))
-        (setq yas-snippet-dirs nil)
-        ;; ~/.emacs.d/layers/auto-completion/snippets
-        (add-to-list 'yas-snippet-dirs spacemacs-layer-snippets-dir)
-        ;; ~/.emacs.d/private/snippets
-        (add-to-list 'yas-snippet-dirs emacs-directory-snippets-dir)
-        ;; ~/.spacemacs.d/snippets
-        (when dotspacemacs-directory-snippets-dir
-          (add-to-list 'yas-snippet-dirs dotspacemacs-directory-snippets-dir))
-        ;; arbitrary directories in `auto-completion-private-snippets-directory'
-        (when auto-completion-private-snippets-directory
-          (if (listp auto-completion-private-snippets-directory)
-              (setq yas-snippet-dirs (append yas-snippet-dirs auto-completion-private-snippets-directory))
-            (add-to-list 'yas-snippet-dirs auto-completion-private-snippets-directory))))
-      (spacemacs|add-toggle yasnippet
-        :mode yas-minor-mode
-        :documentation "Enable snippets."
-        :evil-leader "ty")
-      (spacemacs/add-to-hooks
-       'spacemacs/force-yasnippet-off '(term-mode-hook
-                                        shell-mode-hook
-                                        eshell-mode-hook))
-      (spacemacs|require-when-dumping 'yasnippet)
-      (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
-                                                          markdown-mode-hook
-                                                          org-mode-hook)))
+    ;; We don't want undefined variable errors
+    (defvar yas-global-mode nil)
+    (defvar yas-snippet-dirs nil)
+    (setq yas-triggers-in-field t
+          yas-wrap-around-region t
+          helm-yas-display-key-on-candidate t)
+    ;; on multiple keys, fall back to completing read
+    ;; typically this means helm
+    (setq yas-prompt-functions '(yas-completing-prompt))
+    ;; disable yas minor mode map
+    ;; use hippie-expand instead
+    (setq yas-minor-mode-map (make-sparse-keymap))
+    ;; this makes it easy to get out of a nested expansion
+    (define-key yas-minor-mode-map (kbd "M-s-/") 'yas-next-field)
+    ;; configure snippet directories
+    (let* ((spacemacs--auto-completion-dir
+            (configuration-layer/get-layer-local-dir 'auto-completion))
+           (emacs-directory-snippets-dir (concat
+                                          spacemacs-private-directory
+                                          "snippets/"))
+           (spacemacs-layer-snippets-dir (expand-file-name
+                                          "snippets"
+                                          spacemacs--auto-completion-dir))
+           (dotspacemacs-directory-snippets-dir
+            (when dotspacemacs-directory
+              (let ((snippet-dir (expand-file-name
+                                  "snippets"
+                                  dotspacemacs-directory)))
+                (when (file-accessible-directory-p snippet-dir)
+                  snippet-dir)))))
+      ;; ~/.emacs.d/layers/auto-completion/snippets
+      (add-to-list 'yas-snippet-dirs spacemacs-layer-snippets-dir)
+      ;; ~/.emacs.d/private/snippets
+      (add-to-list 'yas-snippet-dirs emacs-directory-snippets-dir)
+      ;; ~/.spacemacs.d/snippets
+      (when dotspacemacs-directory-snippets-dir
+        (add-to-list 'yas-snippet-dirs dotspacemacs-directory-snippets-dir))
+      ;; arbitrary directories in `auto-completion-private-snippets-directory'
+      (when auto-completion-private-snippets-directory
+        (if (listp auto-completion-private-snippets-directory)
+            (setq yas-snippet-dirs (append yas-snippet-dirs auto-completion-private-snippets-directory))
+          (add-to-list 'yas-snippet-dirs auto-completion-private-snippets-directory))))
+    (spacemacs|add-toggle yasnippet
+      :mode yas-minor-mode
+      :documentation "Enable snippets."
+      :evil-leader "ty")
+    (spacemacs/add-to-hooks
+     'spacemacs/force-yasnippet-off '(term-mode-hook
+                                      shell-mode-hook
+                                      eshell-mode-hook))
+    (spacemacs|require-when-dumping 'yasnippet)
+    (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
+                                                        markdown-mode-hook
+                                                        org-mode-hook))
 
     :config (spacemacs|diminish yas-minor-mode " ⓨ" " y")))
 

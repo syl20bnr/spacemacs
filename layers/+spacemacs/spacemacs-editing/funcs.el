@@ -1,6 +1,6 @@
 ;;; funcs.el --- Spacemacs editing Layer functions File
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -101,10 +101,9 @@ If `global' is non-nil activate the respective global mode."
         (when smartparens-global-strict-mode
           (smartparens-global-strict-mode -1))
         (smartparens-global-mode -1))
-    (progn
-      (when smartparens-strict-mode
-        (smartparens-strict-mode -1))
-      (smartparens-mode -1))))
+    (when smartparens-strict-mode
+      (smartparens-strict-mode -1))
+    (smartparens-mode -1)))
 
 (defun spacemacs//conditionally-enable-smartparens-mode ()
   "Enable `smartparens-mode' in the minibuffer, during `eval-expression'."
@@ -115,8 +114,8 @@ If `global' is non-nil activate the respective global mode."
 (defun spacemacs//adaptive-smartparent-pair-overlay-face ()
   (set-face-attribute 'sp-pair-overlay-face nil
                       :inherit 'lazy-highlight
-                      :background nil
-                      :foreground nil))
+                      :background 'unspecified
+                      :foreground 'unspecified))
 
 (defun spacemacs//put-clean-aindent-last ()
   "Put `clean-aindent--check-last-point` to end of `post-command-hook`.

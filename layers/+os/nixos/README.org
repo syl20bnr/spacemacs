@@ -68,3 +68,4 @@ see the section on disabling the [[https://github.com/syl20bnr/spacemacs/blob/de
 |-------------+----------------------------|
 | ~SPC h >~   | Call helm-nixos-options    |
 | ~SPC m = =~ | Format buffer using nixfmt |
+| ~SPC m f~   | Call nix-flake transient   |

@@ -1,6 +1,6 @@
 ;;; config.el --- tabs configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -44,3 +44,7 @@ Calls (tabs-headline-match)"
 (spacemacs|defc tabs-auto-hide-delay 2
   "Tabs auto hide delay in seconds."
   '(float))
+
+(defvar tabs-icons t
+  "When non-nil, use all-the-icons to display icons before tab titles.
+all-the-icons is provided by the `spacemacs-visual` layer, which also needs to be active.")

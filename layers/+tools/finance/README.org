@@ -65,6 +65,9 @@ your =dotspacemacs/user-config=. The default value, set in the layer, is =62=.
 evil-ledger additionally adds a transaction text object, bound to ~x~, so you
 can for example use ~dix~ or ~vax~ to delete or mark the transaction at point.
 
+To navigate the calendar when adding a transaction, use ~S-<arrow>~ for days,
+and ~<~ or ~>~ for months.
+
 ** Ledger-Reconcile
 
 | Key binding | Description                                                               |

@@ -1,6 +1,6 @@
 ;;; packages.el --- jsonnet layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Liz <liz@kazkaan>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -34,8 +34,7 @@
   (use-package jsonnet-mode
     :defer t
     :init
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'jsonnet-mode
-        "=" 'jsonnet-reformat-buffer
-        "gg" 'jsonnet-jump
-        "eb" 'jsonnet-eval-buffer))))
+    (spacemacs/set-leader-keys-for-major-mode 'jsonnet-mode
+      "=" 'jsonnet-reformat-buffer
+      "gg" 'jsonnet-jump
+      "eb" 'jsonnet-eval-buffer)))

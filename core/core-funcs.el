@@ -1,6 +1,6 @@
 ;;; core-funcs.el --- Spacemacs Core File -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -30,8 +30,11 @@ values."
 
 (defun spacemacs/system-is-mac ()
   (eq system-type 'darwin))
+
 (defun spacemacs/system-is-linux ()
-  (eq system-type 'gnu/linux))
+  (or  (eq system-type 'gnu/linux)
+       (eq system-type 'android)))
+
 (defun spacemacs/system-is-mswindows ()
   (eq system-type 'windows-nt))
 
@@ -316,14 +319,7 @@ buffer."
   (let ((message-log-max nil))
     (apply 'message msg args)))
 
-(defun spacemacs/derived-mode-p (mode &rest modes)
-  "Non-nil if MODE is derived from one of MODES."
-  ;; We could have copied the built-in `derived-mode-p' and modified it a bit so
-  ;; it works on arbitrary modes instead of only the current major-mode. We
-  ;; don't do that because then we will need to modify the function if
-  ;; `derived-mode-p' changes.
-  (let ((major-mode mode))
-    (apply #'derived-mode-p modes)))
+(define-obsolete-function-alias 'spacemacs/derived-mode-p 'provided-mode-derived-p "2024-06")
 
 (defun spacemacs/alternate-buffer (&optional window)
   "Switch back and forth between current and last buffer in the

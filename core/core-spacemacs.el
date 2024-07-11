@@ -1,6 +1,6 @@
 ;;; core-spacemacs.el --- Spacemacs Core File -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -257,13 +257,14 @@ Note: the hooked function is not executed when in dumped mode."
      (spacemacs/check-for-new-version nil spacemacs-version-check-interval)
      (spacemacs-buffer/goto-link-line)
      (setq spacemacs-initialized t)
-     (setq gc-cons-threshold (car dotspacemacs-gc-cons)
-           gc-cons-percentage (cadr dotspacemacs-gc-cons))
      (setq read-process-output-max dotspacemacs-read-process-output-max)
      ;; Redraw the spacemacs buffer with full org support
      ;; Before it must be drawn without org related features to
      ;; avoid loading build in org in emacs >= 29
-     (spacemacs-buffer/goto-buffer t)))
+     (spacemacs-buffer/goto-buffer t t)
+     ;; change gc settings at the last for it will take effect immediately
+     (setq gc-cons-threshold (car dotspacemacs-gc-cons)
+           gc-cons-percentage (cadr dotspacemacs-gc-cons))))
 
   (if dotspacemacs-byte-compile
       (when (> 1 (spacemacs//dir-byte-compile-state

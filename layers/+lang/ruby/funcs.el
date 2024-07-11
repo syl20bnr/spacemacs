@@ -1,6 +1,6 @@
 ;;; funcs.el --- Ruby Layer functions File
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -138,9 +138,9 @@ Called interactively it prompts for a directory."
   "Highlight break point lines."
   (interactive)
   (when ruby-highlight-debugger-keywords
-    (highlight-lines-matching-regexp "byebug")
-    (highlight-lines-matching-regexp "binding.irb")
-    (highlight-lines-matching-regexp "binding.pry")))
+    (highlight-lines-matching-regexp "^\s*byebug")
+    (highlight-lines-matching-regexp "^\s*binding.irb")
+    (highlight-lines-matching-regexp "^\s*binding.pry")))
 
 
 ;; Insert text

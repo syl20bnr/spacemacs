@@ -1,6 +1,6 @@
 ;;; config.el --- Spacemacs Completion Layer configuration File
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -49,4 +49,4 @@
   (defvar helm-source-header-default-box
     (face-attribute 'helm-source-header :box))
   (defvar helm-source-header-default-height
-    (face-attribute 'helm-source-header :height) ))
+    (face-attribute 'helm-source-header :height)))

@@ -1,6 +1,6 @@
 ;;; config.el --- Emacs Lisp Layer configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -34,3 +34,6 @@
 
 (defvar emacs-lisp-hide-namespace-prefix nil
   "If non-nil, hide namespace prefixes using nameless-mode.")
+
+(defvar emacs-lisp-format-on-save t
+  "If non-nil, format elisp buffers before saving.")

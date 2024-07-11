@@ -72,6 +72,16 @@ the latest version of the lsp server from [[https://github.com/fwcd/kotlin-langu
 The path to the server jar must be given in the layer
 variable =kotlin-lsp-jar-path=.
 
+Maybe you want to set the kotlin-language-server path in user-config, you can put the following in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq lsp-clients-kotlin-server-executable "path/to/kotlin/installdir/install/server/bin/kotlin-language-server")
+#+END_SRC
+
+You can check the emacs-lsp document for more configurations at [[https://emacs-lsp.github.io/lsp-mode/page/lsp-kotlin/][official document page]]
+
+NOTE: put =lsp-clients-kotlin-server-executable= in layer variables will also be ok, but the reverse that set =kotlin-lsp-jar-path= in user-config will not work.
+
 NOTE: Key bindings for LSP are defined in the
 LSP layer. Also it is advisable to have a look
 at the autocomplete layer for an optimal

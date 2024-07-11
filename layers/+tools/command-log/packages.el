@@ -1,6 +1,6 @@
 ;;; packages.el --- command-log Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -36,9 +36,8 @@
     :commands global-command-log-mode
     ;; :commands (clm/open-command-log-buffer global-command-log-mode spacemacs/toggle-command-log-mode)
     :init
-    (progn
-      (spacemacs/declare-prefix "atl" "command log")
-      (spacemacs/set-leader-keys "atll" #'global-command-log-mode))
+    (spacemacs/declare-prefix "atl" "command log")
+    (spacemacs/set-leader-keys "atll" #'global-command-log-mode)
     :config
     (setq clm/log-command-exceptions* (append clm/log-command-exceptions*
                                               '(evil-next-line
@@ -50,6 +49,10 @@
 (defun command-log/init-keycast ()
   (use-package keycast
     :init
-    (progn
-      (spacemacs/set-leader-keys "atlk" #'keycast-mode)
-      (setq keycast-insert-after "%e"))))
+    (spacemacs/declare-prefix "atK" "keycast")
+    (spacemacs/set-leader-keys "atKm" #'keycast-mode-line-mode)
+    (spacemacs/set-leader-keys "atKh" #'keycast-header-line-mode)
+    (spacemacs/set-leader-keys "atKt" #'keycast-tab-bar-mode)
+
+    ;; Include keycast in modeline
+    (setq keycast-mode-line-insert-after "%e")))

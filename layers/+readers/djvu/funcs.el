@@ -1,6 +1,6 @@
 ;;; funcs.el --- DjVu Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2021-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2021-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Daniel Nicolai <dalanicolai@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -62,7 +62,7 @@ Use the command `djvu-search-forward-continue' to continue the search."
   (unless (eq (djvu-ref page) (djvu-ref pagemax))
     (search-forward query nil t))
   (djvu-goto-page (let ((page (djvu-ref page))
-                        (return 1))
+                        (cl-return 1))
                     (while (and (/= return 0) (< page (+ (djvu-ref pagemax) 1)))
                       (setq page (1+ page))
                       (setq return (call-process-shell-command

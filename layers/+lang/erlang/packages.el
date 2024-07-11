@@ -1,6 +1,6 @@
 ;;; packages.el --- Erlang Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -28,7 +28,6 @@
         dap-mode
         ggtags
         counsel-gtags
-        helm-gtags
         flycheck))
 
 
@@ -45,17 +44,16 @@
           (erlang-mode . spacemacs//erlang-default)
           (erlang-mode-local-vars . spacemacs//erlang-setup-backend)
     :init
-    (progn
-      ;; (setq erlang-root-dir "/usr/lib/erlang/erts-5.10.3")
-      ;; (add-to-list 'exec-path "/usr/lib/erlang/erts-5.10.3/bin")
-      ;; (setq erlang-man-root-dir "/usr/lib/erlang/erts-5.10.3/man")
-      ;; (add-hook 'erlang-mode-hook
-      ;;           (lambda ()
-      ;;             (setq mode-name "Erlang")
-      ;;             ;; when starting an Erlang shell in Emacs, with a custom node name
-      ;;             (setq inferior-erlang-machine-options '("-sname" "syl20bnr"))
-      ;;             ))
-      (setq erlang-compile-extra-opts '(debug_info)))
+    ;; (setq erlang-root-dir "/usr/lib/erlang/erts-5.10.3")
+    ;; (add-to-list 'exec-path "/usr/lib/erlang/erts-5.10.3/bin")
+    ;; (setq erlang-man-root-dir "/usr/lib/erlang/erts-5.10.3/man")
+    ;; (add-hook 'erlang-mode-hook
+    ;;           (lambda ()
+    ;;             (setq mode-name "Erlang")
+    ;;             ;; when starting an Erlang shell in Emacs, with a custom node name
+    ;;             (setq inferior-erlang-machine-options '("-sname" "syl20bnr"))
+    ;;             ))
+    (setq erlang-compile-extra-opts '(debug_info))
     :config (require 'erlang-start)))
 
 (defun erlang/pre-init-dap-mode ()
@@ -69,6 +67,3 @@
 
 (defun erlang/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'erlang-mode))
-
-(defun erlang/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'erlang-mode))

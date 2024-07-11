@@ -1,0 +1,70 @@
+#+TITLE: OpenAI layer
+
+#+TAGS: general|layer|web service
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer provides applications to make requests to openai via its API.
+
+** Features:
+- Provides access to openai via the emacs-openai suite of packages
+- Send visual selection or buffer and receive response in current buffer
+- Improve, edit, and document code
+- Chat sessions with chatgpt
+- Obtain AI generated images
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =openai= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Configuration
+You need to set your openai key. If you have stored the key in the environment
+variable OPENAI_API_KEY, then you need to add to your user-config:
+ =(setq openai-key (getenv "OPENAI_API_KEY"))=
+Also, most requests require setting a user, which is done via:
+ =(setq openai-user "user")=
+where "user" can be substituted by other usernames.
+
+* Key bindings
+If you want to build your own OpenAI requests, you can use `openai-completion'.
+For further information, see the openai package documentation.
+For interactive requests via OpenAI, the following key bindings are available:
+
+| Key binding | Command                         | Description                 |
+|-------------+---------------------------------+-----------------------------|
+| ~SPC $ o b~ | openai-completion-buffer-insert | Sends buffer to AI          |
+| ~SPC $ o s~ | openai-completion-select-insert | Sends selection to AI       |
+| ~SPC $ o g~ | chatgpt                         | Opens chatgpt session       |
+| ~SPC $ o e~ | openai-edit-prompt              | Asks to edit text           |
+| ~SPC $ o C~ | openai-chat-say                 | Single request and response |
+| ~SPC $ o m~ | openai-list-models              | Lists all models            |
+| ~SPC $ o M~ | openai-retrieve-model           | Details of specific model   |
+| ~SPC $ o E~ | openai-embedding-create         | Makes Embedding             |
+
+For requests to improve, edit, or document code, the following key bindings are
+available:
+
+| Key binding   | Command         | Description         |
+|---------------+-----------------+---------------------|
+| ~SPC $ o c c~ | codegpt         | Generates code      |
+| ~SPC $ o c C~ | codegpt-custom  | Custom instructions |
+| ~SPC $ o c d~ | codegpt-doc     | Documents code      |
+| ~SPC $ o c f~ | codegpt-fix     | Fixes code          |
+| ~SPC $ o c e~ | codegpt-explain | Explains code       |
+| ~SPC $ o c i~ | codegpt-improve | Improves code       |
+
+For requests for OpenAI generated images, the following key bindings are available:
+
+| Key binding   | Command                              | Description                |
+|---------------+--------------------------------------+----------------------------|
+| ~SPC $ o i d~ | dall-e                               | Dall-e requests            |
+| ~SPC $ o i i~ | openai-openai-image-prompt           | Generates image            |
+| ~SPC $ o i e~ | openai-openai-image-edit-prompt      | Edits existing image       |
+| ~SPC $ o i v~ | openai-openai-image-variation-prompt | Creates variation of image |

@@ -1,6 +1,6 @@
 ;;; packages.el --- pocket Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -28,9 +28,8 @@
     :defer t
     :init (spacemacs/set-leader-keys "awp" 'pocket-reader)
     :config
-    (progn
-      (evilified-state-evilify-map pocket-reader-mode-map
-        :mode pocket-reader-mode
-        :bindings
-        "gr" 'pocket-reader-resort
-        "gR" 'pocket-reader-refresh))))
+    (evilified-state-evilify-map pocket-reader-mode-map
+      :mode pocket-reader-mode
+      :bindings
+      "gr" 'pocket-reader-resort
+      "gR" 'pocket-reader-refresh)))

@@ -57,6 +57,7 @@ org-journal.cache
 projectile-bookmarks.eld
 projectile.cache
 python-*-docs-html
+quelpa/
 quickurls
 racket-mode/
 semanticdb/
@@ -67,6 +68,7 @@ transient/
 url/*
 var/
 workspace
+undo/*
 
 # Private directory
 /doc/COMMUNITY.org

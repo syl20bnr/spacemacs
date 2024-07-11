@@ -1,6 +1,6 @@
 ;;; core-fonts-support.el --- Spacemacs Core File -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -49,11 +49,25 @@ The return value is nil if no font was found, truthy otherwise."
                             :powerline-offset))
                (fontspec (apply 'font-spec :name font font-props)))
           (spacemacs-buffer/message "Setting font \"%s\"..." font)
-          (set-frame-font fontspec nil t)
+          ;; We set the INHIBIT-CUSTOMIZE parameter to t to tell set-frame-font
+          ;; not to fiddle with the default face in the user's Customization
+          ;; settings. We don't need Customization because our way of ensuring
+          ;; that the font is applied to future frames is to modify
+          ;; default-frame-alist, and Customization causes issues, see
+          ;; https://github.com/syl20bnr/spacemacs/issues/5353.
+          ;; INHIBIT-CUSTOMIZE is only present in recent emacs versions.
+          (set-frame-font fontspec nil t t)
           (push `(font . ,(frame-parameter nil 'font)) default-frame-alist)
+
+          ;; Make sure that our font is used for fixed-pitch face as well
+          (set-face-attribute 'fixed-pitch nil :family 'unspecified)
+
           ;; fallback font for unicode characters used in spacemacs
           (pcase system-type
             (`gnu/linux
+             (setq fallback-font-name "NanumGothic")
+             (setq fallback-font-name2 "NanumGothic"))
+            (`android
              (setq fallback-font-name "NanumGothic")
              (setq fallback-font-name2 "NanumGothic"))
             (`darwin
@@ -101,14 +115,6 @@ The return value is nil if no font was found, truthy otherwise."
   (let ((scale (if (and (boundp 'powerline-scale) powerline-scale)
                    powerline-scale 1)))
     (truncate (* scale (frame-char-height)))))
-
-(defun spacemacs/set-font (&rest args)
-  "Deprecated function, display a warning message."
-  (spacemacs-buffer/warning (concat "spacemacs/set-font is deprecated. "
-                             "Use the variable `dotspacemacs-default-font' "
-                             "instead (see Font section in "
-                             "~/.emacs.d/doc/DOCUMENTATION.org for more "
-                             "info).")))
 
 (defmacro spacemacs|diminish (mode &optional unicode ascii)
   "Diminish MODE name in mode line to UNICODE or ASCII depending on the value

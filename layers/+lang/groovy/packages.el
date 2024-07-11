@@ -1,6 +1,6 @@
 ;;; packages.el --- Groovy Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -38,28 +38,26 @@
   (use-package groovy-imports
     :defer t
     :init
-    (progn
-      (add-hook 'groovy-mode-hook 'groovy-imports-scan-file)
-      (spacemacs/set-leader-keys-for-major-mode 'groovy-mode
-        "ri" 'groovy-imports-add-import-dwim))))
+    (add-hook 'groovy-mode-hook 'groovy-imports-scan-file)
+    (spacemacs/set-leader-keys-for-major-mode 'groovy-mode
+      "ri" 'groovy-imports-add-import-dwim)))
 
 (defun groovy/init-groovy-mode ()
   (use-package groovy-mode
     :defer t
     :hook (groovy-mode-local-vars . spacemacs//groovy-setup-backend)
     :init
-    (progn
-      (setq lsp-groovy-server-file groovy-lsp-jar-path)
-      (spacemacs/declare-prefix-for-mode 'groovy-mode "ms" "REPL")
-      (spacemacs/set-leader-keys-for-major-mode 'groovy-mode
-        "'"  'run-groovy
-        "sB" 'spacemacs/groovy-load-file-switch
-        "sb" 'spacemacs/groovy-load-file
-        "sF" 'spacemacs/groovy-send-definition-switch
-        "sf" 'groovy-send-definition
-        "si" 'run-groovy
-        "sR" 'spacemacs/groovy-send-region-switch
-        "sr" 'groovy-send-region))))
+    (setq lsp-groovy-server-file groovy-lsp-jar-path)
+    (spacemacs/declare-prefix-for-mode 'groovy-mode "ms" "REPL")
+    (spacemacs/set-leader-keys-for-major-mode 'groovy-mode
+      "'"  'run-groovy
+      "sB" 'spacemacs/groovy-load-file-switch
+      "sb" 'spacemacs/groovy-load-file
+      "sF" 'spacemacs/groovy-send-definition-switch
+      "sf" 'groovy-send-definition
+      "si" 'run-groovy
+      "sR" 'spacemacs/groovy-send-region-switch
+      "sr" 'groovy-send-region)))
 
 (defun groovy/pre-init-org ()
   (spacemacs|use-package-add-hook org

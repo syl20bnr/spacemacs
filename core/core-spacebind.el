@@ -1,6 +1,6 @@
 ;;; core-spacebind.el --- Spacemacs Core File -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Eugene "JAremko" Yaremenko <w3techplayground@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -24,7 +24,7 @@
 (require 'core-keybindings)
 
 (defvar spacebind--eager-bind t
-  "If true bind keys right after `spacmeacs|spacebind' macro-expanse.
+  "If true bind keys right after `spacemacs|spacebind' macro-expanse.
 Otherwise binding happens at the next event loop.")
 
 ;;;; Binding stacks

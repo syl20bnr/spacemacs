@@ -1,6 +1,6 @@
 ;;; packages.el --- Puppet layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -32,19 +32,18 @@
   (use-package puppet-mode
     :defer t
     :init
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'puppet-mode
-        "{" 'beginning-of-defun
-        "}" 'end-of-defun
-        "$" 'puppet-interpolate
-        "a" 'puppet-align-block
-        "'" 'puppet-toggle-string-quotes
-        ";" 'puppet-clear-string
-        "j" 'imenu
-        "c" 'puppet-apply
-        "v" 'puppet-validate
-        "l" 'puppet-lint
-      ))))
+    (spacemacs/set-leader-keys-for-major-mode 'puppet-mode
+      "{" 'beginning-of-defun
+      "}" 'end-of-defun
+      "$" 'puppet-interpolate
+      "a" 'puppet-align-block
+      "'" 'puppet-toggle-string-quotes
+      ";" 'puppet-clear-string
+      "j" 'imenu
+      "c" 'puppet-apply
+      "v" 'puppet-validate
+      "l" 'puppet-lint
+      )))
 
 (defun puppet/post-init-company ()
   (spacemacs|add-company-backends :modes puppet-mode))

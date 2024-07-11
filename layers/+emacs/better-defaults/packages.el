@@ -1,6 +1,6 @@
 ;;; packages.el --- Better Emacs Defaults Layer functions File
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Thomas de Beauchêne <thomas.de.beauchene@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -32,14 +32,13 @@
   (use-package mwim
     :defer t
     :init
-    (progn
-      (if better-defaults-move-to-beginning-of-code-first
-	  (global-set-key (kbd "C-a") 'mwim-beginning-of-code-or-line)
-	(global-set-key (kbd "C-a") 'mwim-beginning-of-line-or-code))
+    (if better-defaults-move-to-beginning-of-code-first
+        (global-set-key (kbd "C-a") 'mwim-beginning-of-code-or-line)
+      (global-set-key (kbd "C-a") 'mwim-beginning-of-line-or-code))
 
-      (if better-defaults-move-to-end-of-code-first
-	  (global-set-key (kbd "C-e") 'mwim-end-of-code-or-line)
-	(global-set-key (kbd "C-e") 'mwim-end-of-line-or-code)))))
+    (if better-defaults-move-to-end-of-code-first
+        (global-set-key (kbd "C-e") 'mwim-end-of-code-or-line)
+      (global-set-key (kbd "C-e") 'mwim-end-of-line-or-code))))
 
 (defun better-defaults/init-unfill ()
   (use-package unfill

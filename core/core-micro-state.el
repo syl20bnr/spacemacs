@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 ;;; core-micro-state.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -26,8 +26,8 @@
   "Define faces for micro-states."
   (let* ((hname 'spacemacs-micro-state-header-face)
          (bname 'spacemacs-micro-state-binding-face)
-         (box '(:line-width -1 :color (plist-get (face-attribute
-                                                  'mode-line :box) :color)))
+         (box `(:line-width -1 :color ,(plist-get (face-attribute
+                                                   'mode-line :box) :color)))
          (err (face-attribute 'error :foreground)))
     (eval `(defface ,hname '((t ()))
              "Face for micro-state header in echo area.

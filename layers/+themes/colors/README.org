@@ -26,7 +26,7 @@ process indicator.
 - Colorize only identifiers recognized as variables with [[https://github.com/ankurdave/color-identifiers-mode][color-identifiers]].
 - Colorize strings representing colors with the color they represent as background with
   [[https://jblevins.org/log/rainbow-mode][rainbow-mode]].
-- Display a Nyan cat progress bar in the mode-line with [[https://github.com/syl20bnr/nyan-mode][nyan-mode]].
+- Display a Nyan cat progress bar in the mode-line with [[https://github.com/TeMPOraL/nyan-mode][nyan-mode]].
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -127,7 +127,7 @@ can be adjusted live via the following transient-state:
 =rainbow-mode= mode is different from both rainbow-identifiers and color-identifiers.
 It can be used together with either (or none) of the identifier colorizers.
 
-All detected color codes in the current buffer will be be highlighted as their
+All detected color codes in the current buffer will be highlighted as their
 actual color. However, for accurate display, this mode requires that you use
 GUI Emacs and that you haven't disabled sRGB mode (if your platform uses that).
 

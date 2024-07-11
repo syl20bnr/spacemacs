@@ -1,6 +1,6 @@
 ;;; packages.el --- GPU layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Evan Klitzke <evan@eklitzke.org>
 ;; URL: https://github.com/eklitzke
@@ -22,10 +22,7 @@
 
 (setq gpu-packages
       '(
-        (company-glsl :location (recipe
-                                 :fetcher github
-                                 :repo "Kaali/company-glsl")
-                      :requires company
+        (company-glsl :requires company
                       :toggle (executable-find "glslangValidator"))
         cuda-mode
         glsl-mode

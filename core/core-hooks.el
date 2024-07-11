@@ -1,6 +1,6 @@
 ;;; core-hooks.el --- Spacemacs Core File -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -37,10 +37,6 @@
   "Add function to hooks"
   (dolist (hook hooks)
     (add-hook hook fun append local)))
-
-(defun spacemacs/add-all-to-hook (hook &rest funs)
-  "Add functions to hook."
-  (spacemacs/add-to-hook hook funs))
 
 (defun spacemacs/add-to-hook (hook funs)
   "Add list of functions to hook."

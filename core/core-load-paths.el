@@ -1,6 +1,6 @@
 ;;; core-load-paths.el --- Spacemacs Core File  -*- no-byte-compile: t; lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -28,13 +28,9 @@
 
 ;;;; PATH variables/constants
 
-(defconst user-home-directory
-  (expand-file-name "~/")
-  "User home directory (default ~/).")
-
 ;; ~/.emacs.d
 (defvar spacemacs-start-directory
-  (concat (file-name-directory (or load-file-name buffer-file-name)) "../")
+  (expand-file-name "../" (file-name-directory (or load-file-name buffer-file-name)))
   "Spacemacs start directory.")
 
 ;; ~/.emacs.d/assets
@@ -95,6 +91,10 @@
   "Spacemacs tests directory.")
 
 ;; ~/.emacs.d/.cache
+;;
+;; This is based on `user-emacs-directory', not `spacemacs-start-directory',
+;; because Spacemacs may be installed to a shared location and this directory
+;; and its children should be per-user.
 (defconst spacemacs-cache-directory
   (concat user-emacs-directory ".cache/")
   "Spacemacs storage area for persistent files.")
@@ -107,11 +107,7 @@
 
 ;;;; Setup cache directories
 
-;; TODO: Should also catch any IO error such as permission error (Apr 25 2021 Lucius)
-(unless (file-exists-p spacemacs-cache-directory)
-  (make-directory spacemacs-cache-directory))
-
-(setq pcache-directory (concat spacemacs-cache-directory "pcache/"))
+(make-directory spacemacs-cache-directory 'parents)
 
 ;;;; Load Paths
 (dolist (subdirectory '(nil "libs/" "libs/spacemacs-theme/" "libs/forks/"))

@@ -56,7 +56,7 @@ After installing the dependencies, add this to your =~/.spacemacs=.
   (setq-default dotspacemacs-configuration-layers '(pdf))
 #+END_SRC
 
-After that, syncronize your configuration with ~SPC f e R~. This will pop up a
+After that, synchronize your configuration with ~SPC f e R~. This will pop up a
 window showing the compilation process.
 
 If everything goes right, the compilation won't display any error and you will
@@ -147,6 +147,10 @@ If you use Emacs editing style, check the key bindings at the [[https://github.c
 | ~+/-~                | Zoom in/out                               |
 | ~zr~                 | Reset zoom                                |
 |----------------------+-------------------------------------------|
+| *Theme*              |                                           |
+|----------------------+-------------------------------------------|
+| ~n~                  | Midnight mode (dark theme)                |
+| ~t~                  | Themed mode (matches emacs theme)         |
 
 /For evil users/: Note that the search keys activate =isearch=, which works
 differently from the default Evil search. To go to the next match, use ~C-s~.
@@ -194,7 +198,6 @@ differently from the default Evil search. To go to the next match, use ~C-s~.
 | ~M-RET~       | Follow link and close outline window                  |
 | ~o~           | Go to pdf view window                                 |
 | ~``~          | Move to the heading correspondent to the current page |
-| ~''~          | Move to the heading correspondent to the current page |
 | ~f~           | Go to selected heading without leaving outline buffer |
 | ~F~           | Enable follow mode                                    |
 | ~q~           | Quit                                                  |

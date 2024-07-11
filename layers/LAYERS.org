@@ -174,6 +174,7 @@
       - [[#elm][Elm]]
       - [[#haskell][Haskell]]
       - [[#idris][Idris]]
+    - [[#toml][TOML]]
   - [[#utilities][Utilities]]
     - [[#conda-layer][Conda Layer]]
     - [[#dotnet][Dotnet]]
@@ -204,7 +205,6 @@
   - [[#helm-gtags][Helm Gtags]]
 - [[#themes][Themes]]
   - [[#colors][Colors]]
-  - [[#nyan-mode][Nyan-mode]]
   - [[#themes-megapack][Themes Megapack]]
   - [[#theming][Theming]]
 - [[#tools][Tools]]
@@ -218,6 +218,7 @@
   - [[#dap][DAP]]
   - [[#debug][Debug]]
   - [[#docker][Docker]]
+  - [[#eglot][Eglot]]
   - [[#eww][Eww]]
   - [[#exwm][EXWM]]
   - [[#fasd][Fasd]]
@@ -262,9 +263,12 @@
   - [[#confluence][Confluence]]
   - [[#eaf][Eaf]]
   - [[#evernote][Evernote]]
+  - [[#github-copilot][GitHub Copilot]]
   - [[#hacker-news][Hacker News]]
+  - [[#large-language-model-client][Large Language Model Client]]
   - [[#layer-for-reddit][Layer for reddit]]
   - [[#lobsters][Lobsters]]
+  - [[#openai][OpenAI]]
   - [[#pocket][Pocket]]
   - [[#search-engine][Search Engine]]
   - [[#streamlink][Streamlink]]
@@ -371,17 +375,17 @@ Features:
 ** Compleseus
 [[file:+completion/compleseus/README.org][+completion/compleseus/README.org]]
 
-This layer adds a new way of completion provided by the following core packages:
-- =consult=
-- =embark=
-- =marginalia=
-- =orderless=
-- =selectrum= or =vertico=
+This layer implements completion provided by combining the following packages:
+- =selectrum= or =vertico=: vertical completion user interface
+- =consult=: useful commands using ~completing-read~
+- =embark=: provides minibuffer actions
+- =marginalia=: annotations to completion candidates
+- =orderless=: filtering enhancements
 
-This is an WIP and only supports emacs 27 or later. Please contribute.
+It only supports emacs 27 or later.
 
 Features:
-- Same features as =ivy= or =helm=
+- Similar features like =ivy= or =helm=
 
 ** Helm
 [[file:+completion/helm/README.org][+completion/helm/README.org]]
@@ -455,8 +459,8 @@ Features:
 - UI optimized for speed: quick keystrokes for common actions.
 - Very extendable and customizable.
 - Integration with Helm.
-- Maildir summary using [[https://github.com/agpchil/mu4e-maildirs-extension][mu4e-mailidirs-extension]]
-- Notifications using [[https://github.com/iqbalansari/mu4e-alert][mu4e-alert]]
+- Maildir summary.
+- Notifications using [[https://github.com/iqbalansari/mu4e-alert][mu4e-alert]].
 
 ** Notmuch
 [[file:+email/notmuch/README.org][+email/notmuch/README.org]]
@@ -839,11 +843,9 @@ Features:
   - easypg
   - ediff
   - eldoc
-  - help-fns+
   - hi-lock
   - image-mode
   - imenu
-  - linum (only in Emacs 25.x and older)
   - occur-mode
   - package-menu
   - page-break-lines
@@ -915,7 +917,6 @@ throughout the entirety of Spacemacs.
 
 Features:
 - Add evil tutorial with =evil-tutor=
-- Add relative line number with =linum-relative= (only in Emacs 25.x and older)
 - Add escaping under ~fd~ by default with =evil-escape=
 - Add occurrences count in mode-line when searching a buffer
 - Add support for lisp structure manipulation with =evil-lisp-state=
@@ -1211,6 +1212,7 @@ Features:
 - Nameless package prefix with optional [[https://github.com/Malabarba/Nameless][nameless]]
 - Structurally safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 - Visual feedback when evaluation using [[https://github.com/hchbaw/eval-sexp-fu.el][eval-sexp-fu]]
+- Provide Emacs Lisp API usage examples using [[https://github.com/xuchunyang/elisp-demos][elisp-demos]]
 
 **** Scheme
 [[file:+lang/scheme/README.org][+lang/scheme/README.org]]
@@ -1882,7 +1884,7 @@ Features:
 - Eldoc-mode
 - Documentation at point
 - Auto complete
-- Flycheck with either tslint or eslint
+- Flycheck with either eslint or tslint
 - Jump to definition, Jump to type definition
 - Find occurrences (Imenu-mode)
 - Rename symbol
@@ -2082,7 +2084,7 @@ Features:
 - syntax-highlighting
 - Auto-completion
 - Code Navigation
-- Python test runners (see [[file:+lang/hy/../python/README.org][python layer]])
+- Python test runners (see [[file:+lang/python/README.org][python layer]])
 - Virtual Environment using [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]]
 - Org Babel support
 
@@ -2219,9 +2221,9 @@ This layer adds support for the Python language.
 Features:
 - Support for the following backends:
   - [[https://github.com/proofit404/anaconda-mode][anaconda]] (default),
-  - [[https://github.com/emacs-lsp/lsp-python-ms][Language Server Protocol]] (experimental - 2 implementations),
+  - [[https://github.com/emacs-lsp/lsp-mode/blob/master/clients/lsp-pylsp.el][Language Server Protocol]] (experimental - 2 implementations),
     - python-lsp-server
-    - Microsoft python language server
+    - Microsoft pyright language server
 - Auto-completion
 - Code Navigation
 - Documentation Lookup using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] and [[https://github.com/tsgates/pylookup][pylookup]]
@@ -2299,7 +2301,7 @@ Features:
 This layer supports [[https://www.rust-lang.org][Rust]] development in Spacemacs.
 
 Features:
-- Auto-completion and navigation support through [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] or [[https://github.com/phildawes/racer][Racer]]
+- Auto-completion and navigation support through [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]]
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 - Support for the Rust package manager [[http://doc.crates.io/index.html][Cargo]]
 - Support for [[https://github.com/nabero/ron-mode][Rusty Object Notation (RON)]]
@@ -2330,6 +2332,7 @@ Features:
 - Syntax highlighting
 - Integration of the =SML Repl= into Emacs
 - Basic completion of SML forms via =sml-electric-space=
+- Basic buffer formatting with =smlfmt=
 
 **** Swift
 [[file:+lang/swift/README.org][+lang/swift/README.org]]
@@ -2402,6 +2405,14 @@ Features:
 - Integration of the =Idris= REPL
 - Integration of the =Idris= build system
 
+*** TOML
+[[file:+lang/toml/README.org][+lang/toml/README.org]]
+
+This layer supports [[https://toml.io][TOML]] development in Spacemacs.
+
+Features:
+- Provide editing capabilities for [[https://toml.io][TOML]] files.
+
 ** Utilities
 *** Conda Layer
 [[file:+tools/conda/README.org][+tools/conda/README.org]]
@@ -2460,7 +2471,7 @@ This layer integrates offline API browsers into Emacs. It provides one for macOS
 
 Features:
 - Searching for word at point in offline API browser's UI.
-- Integration of offline API browser search results in Helm and Ivy.
+- Integration of offline API browser search results in Helm, Ivy and Consult.
 - Support for [[https://kapeli.com/dash][dash]] offline API browser for macOS.
 - Support for [[https://zealdocs.org/][zeal]] offline API browser for Linux.
 
@@ -2696,22 +2707,7 @@ Features:
 - Colorize only identifiers recognized as variables with [[https://github.com/ankurdave/color-identifiers-mode][color-identifiers]].
 - Colorize strings representing colors with the color they represent as background with
   [[https://jblevins.org/log/rainbow-mode][rainbow-mode]].
-- Display a Nyan cat progress bar in the mode-line with [[https://github.com/syl20bnr/nyan-mode][nyan-mode]].
-
-** Nyan-mode
-[[file:+themes/colors/local/nyan-mode/README.org][+themes/colors/local/nyan-mode/README.org]]
-
-Nyan Mode - Turn your Emacs into Nyanmacs! :)
-The mode is an analog indicator of your position in the buffer. The
-Cat should go from left to right in your mode-line, as you move your
-point from 0% to 100%.
-
-Features:
-- Mind dumbing content included,
-- Experimental animation (M-x nyan-start-animation, M-x nyan-stop-animation),
-- Wavy rainbow (M-x set-variable <ret> nyan-wavy-trail <ret> t),
-- Music, mplayer is needed (M-x nyan-start-music, M-x nyan-stop-music),
-- Customizable properties.
+- Display a Nyan cat progress bar in the mode-line with [[https://github.com/TeMPOraL/nyan-mode][nyan-mode]].
 
 ** Themes Megapack
 [[file:+themes/themes-megapack/README.org][+themes/themes-megapack/README.org]]
@@ -2755,7 +2751,7 @@ Features:
 ** Bm
 [[file:+tools/bm/README.org][+tools/bm/README.org]]
 
-[[https://github.com/joodland/bm/blob/master/README.md][BM]] provides visible, buffer local, bookmarks and the ability to jump forward and backward to the next bookmark.
+[[https://github.com/joodland/bm][bm]] provides visible, buffer local, bookmarks and the ability to jump forward and backward to the next bookmark.
 
 Features:
 - Auto remove bookmark after jump to it by =bm-next= or =bm-previous=
@@ -2766,7 +2762,7 @@ Features:
 - Annotate bookmarks.
 - Different wrapping modes.
 - Different bookmarks styles, line-only, fringe-only or both.
-- Persistent bookmarks.
+- Persistent bookmarks (buffer local), also in non-file buffers (info) and indirect buffers.
 - List bookmarks (in all buffers) in a separate buffer.
 - Cycle through bookmarks in all open buffers.
 
@@ -2863,6 +2859,15 @@ Features:
 - =docker-compose= integration via [[https://github.com/Silex/docker.el][docker.el]]
 - Syntax checking via [[https://github.com/hadolint/hadolint][hadolint]]
 - Code-Completion via =lsp=
+
+** Eglot
+[[file:+tools/eglot/README.org][+tools/eglot/README.org]]
+
+This layer adds support for basic language server protocol packages speaking
+[[https://microsoft.github.io/language-server-protocol/specification][language server protocol]] using [[https://github.com/joaotavora/eglot][eglot]].
+
+Features:
+- Provide LSP support using eglot.
 
 ** Eww
 [[file:+web/eww/README.org][+web/eww/README.org]]
@@ -2965,6 +2970,14 @@ Different language servers may support the language server protocol to varying d
 and they may also provide extensions; check the language server's website for
 details.
 ~M-x lsp-describe-session~ in a LSP buffer to list capabilities of the server.
+
+Warning:
+This layers main purpose is to turn Spacemacs into an IDE it will therefore also
+load the =syntax-checking= and =auto-completion= layers, this may activate additional packages
+like =flycheck= and =company= in your buffer.
+
+So if you want to use this layer but only part of the IDE features
+expect to do some manual configuring in your dotfile.
 
 Features:
 - Cross references (definitions, references, document symbol, workspace symbol
@@ -3179,7 +3192,7 @@ Features:
 ** Tide Layer
 [[file:+tools/tide/README.org][+tools/tide/README.org]]
 
-This layer installs [[https://github.com/ananthakumaran/tide][tide]] package which allows communication with 
+This layer installs [[https://github.com/ananthakumaran/tide][tide]] package which allows communication with
 [[https://github.com/Microsoft/TypeScript/wiki/Standalone-Server-%28tsserver%29][standalone typescript server]] =tsserver= for JavaScript/TypeScript development.
 
 Features:
@@ -3357,6 +3370,14 @@ Features:
 - Search for notes using keywords
 - Move notes between notebooks
 
+** GitHub Copilot
+[[file:+web-services/github-copilot/README.org][+web-services/github-copilot/README.org]]
+
+This layer enables usage of [[https://github.com/features/copilot][GitHub Copilot]] in Spacemacs using [[https://github.com/copilot-emacs/copilot.el][copilot.el]].
+
+Features:
+- Provide access to ai powered code completions powered by [[https://github.com/features/copilot][GitHub Copilot]]
+
 ** Hacker News
 [[file:+web-services/hackernews/README.org][+web-services/hackernews/README.org]]
 
@@ -3364,6 +3385,29 @@ This layer adds support for reading [[https://news.ycombinator.com/][Hacker News
 
 Features:
 - Read Hacker News
+
+** Large Language Model Client
+[[file:+web-services/llm-client/README.org][+web-services/llm-client/README.org]]
+
+This layer enables usage of GPT Clients in Spacemacs using [[https://github.com/karthink/gptel][GPTel]].
+
+Features:
+
+You will have access to the following tools:
+- ChatGPT
+- Azure
+- Ollama
+- GPT4All
+- Gemini
+- Llama.cpp
+- Llamafile
+- Kagi FastGPT
+- Kagi Summarizer
+- together.ai
+- Anyscale
+- Perplexity
+- Anthropic (Claude)
+- Groq
 
 ** Layer for reddit
 [[file:+web-services/reddit/README.org][+web-services/reddit/README.org]]
@@ -3384,6 +3428,18 @@ This layer adds support for reading [[https://lobste.rs/][lobsters]].
 
 Features:
 - Read Lobsters news
+
+** OpenAI
+[[file:+web-services/openai/README.org][+web-services/openai/README.org]]
+
+This layer provides applications to make requests to openai via its API.
+
+Features:
+- Provides access to openai via the emacs-openai suite of packages
+- Send visual selection or buffer and receive response in current buffer
+- Improve, edit, and document code
+- Chat sessions with chatgpt
+- Obtain AI generated images
 
 ** Pocket
 [[file:+web-services/pocket/README.org][+web-services/pocket/README.org]]

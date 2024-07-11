@@ -1,6 +1,6 @@
 ;;; packages.el --- Common Lisp Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -30,7 +30,6 @@
     ggtags
     counsel-gtags
     helm
-    helm-gtags
     rainbow-identifiers
     slime
     (slime-company :requires company)))
@@ -43,14 +42,14 @@
 (defun common-lisp/init-common-lisp-snippets ())
 
 (defun common-lisp/post-init-evil ()
-  (defadvice slime-last-expression (around evil activate)
+  (define-advice slime-last-expression (:around (f &rest args) evil)
     "In normal-state or motion-state, last sexp ends at point."
     (if (and (not evil-move-beyond-eol)
              (or (evil-normal-state-p) (evil-motion-state-p)))
         (save-excursion
           (unless (or (eobp) (eolp)) (forward-char))
-          ad-do-it)
-      ad-do-it)))
+          (apply f args))
+      (apply f args))))
 
 (defun common-lisp/pre-init-evil-cleverparens ()
   (spacemacs|use-package-add-hook evil-cleverparens
@@ -69,9 +68,6 @@
 (defun common-lisp/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'common-lisp-mode))
 
-(defun common-lisp/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'common-lisp-mode))
-
 (defun common-lisp/post-init-rainbow-identifiers ()
   (add-hook 'lisp-mode-hook #'colors//rainbow-identifiers-ignore-keywords))
 
@@ -87,81 +83,79 @@
   (use-package slime
     :commands slime-mode
     :init
-    (progn
-      (spacemacs/register-repl 'slime 'slime)
-      (setq slime-contribs '(slime-asdf
-                             slime-fancy
-                             slime-indentation
-                             slime-sbcl-exts
-                             slime-scratch)
-            inferior-lisp-program "sbcl")
-      ;; enable fuzzy matching in code buffer and SLIME REPL
-      (setq slime-complete-symbol*-fancy t)
-      (setq slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
-      (add-hook 'slime-repl-mode-hook #'spacemacs//deactivate-smartparens)
-      (spacemacs/add-to-hooks 'slime-mode '(lisp-mode-hook)))
+    (spacemacs/register-repl 'slime 'slime)
+    (setq slime-contribs '(slime-asdf
+                           slime-fancy
+                           slime-indentation
+                           slime-sbcl-exts
+                           slime-scratch)
+          inferior-lisp-program "sbcl")
+    ;; enable fuzzy matching in code buffer and SLIME REPL
+    (setq slime-complete-symbol*-fancy t)
+    (setq slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
+    (add-hook 'slime-repl-mode-hook #'spacemacs//deactivate-smartparens)
+    (spacemacs/add-to-hooks 'slime-mode '(lisp-mode-hook))
     :config
-    (progn
-      (slime-setup)
-      ;; TODO: Add bindings for the SLIME debugger?
-      (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
-        "'" 'slime
+    (slime-setup)
+    ;; TODO: Add bindings for the SLIME debugger?
+    (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
+      "'" 'spacemacs/slime-repl
 
-        "cc" 'slime-compile-file
-        "cC" 'slime-compile-and-load-file
-        "cl" 'slime-load-file
-        "cf" 'slime-compile-defun
-        "cr" 'slime-compile-region
-        "cn" 'slime-remove-notes
+      "cc" 'slime-compile-file
+      "cC" 'slime-compile-and-load-file
+      "cl" 'slime-load-file
+      "cf" 'slime-compile-defun
+      "cr" 'slime-compile-region
+      "cn" 'slime-remove-notes
 
-        "eb" 'slime-eval-buffer
-        "ef" 'slime-eval-defun
-        "eF" 'slime-undefine-function
-        "ee" 'slime-eval-last-expression
-        "el" 'spacemacs/slime-eval-sexp-end-of-line
-        "er" 'slime-eval-region
+      "eb" 'slime-eval-buffer
+      "ef" 'slime-eval-defun
+      "eF" 'slime-undefine-function
+      "ee" 'slime-eval-last-expression
+      "el" 'spacemacs/slime-eval-sexp-end-of-line
+      "er" 'slime-eval-region
 
-        "gb" 'slime-pop-find-definition-stack
-        "gn" 'slime-next-note
-        "gN" 'slime-previous-note
+      "gb" 'slime-pop-find-definition-stack
+      "gn" 'slime-next-note
+      "gN" 'slime-previous-note
 
-        "ha" 'slime-apropos
-        "hA" 'slime-apropos-all
-        "hd" 'slime-disassemble-symbol
-        "hh" 'slime-describe-symbol
-        "hH" 'slime-hyperspec-lookup
-        "hi" 'slime-inspect-definition
-        "hp" 'slime-apropos-package
-        "ht" 'slime-toggle-trace-fdefinition
-        "hT" 'slime-untrace-all
-        "h<" 'slime-who-calls
-        "h>" 'slime-calls-who
-        ;; TODO: Add key bindings for who binds/sets globals?
-        "hr" 'slime-who-references
-        "hm" 'slime-who-macroexpands
-        "hs" 'slime-who-specializes
+      "ha" 'slime-apropos
+      "hA" 'slime-apropos-all
+      "hd" 'slime-disassemble-symbol
+      "hh" 'slime-describe-symbol
+      "hH" 'slime-hyperspec-lookup
+      "hi" 'slime-inspect-definition
+      "hp" 'slime-apropos-package
+      "ht" 'slime-toggle-trace-fdefinition
+      "hT" 'slime-untrace-all
+      "h<" 'slime-who-calls
+      "h>" 'slime-calls-who
+      ;; TODO: Add key bindings for who binds/sets globals?
+      "hr" 'slime-who-references
+      "hm" 'slime-who-macroexpands
+      "hs" 'slime-who-specializes
 
-        "ma" 'slime-macroexpand-all
-        "mo" 'slime-macroexpand-1
+      "ma" 'slime-macroexpand-all
+      "mo" 'slime-macroexpand-1
 
-        "se" 'slime-eval-last-expression-in-repl
-        "si" 'slime
-        "sq" 'slime-quit-lisp
+      "se" 'slime-eval-last-expression-in-repl
+      "si" 'slime
+      "sq" 'slime-quit-lisp
 
-        "tf" 'slime-toggle-fancy-trace
+      "tf" 'slime-toggle-fancy-trace
 
-        ;; Add key bindings for custom eval functions
-        "ec" 'spacemacs/cl-eval-current-form-sp
-        "eC" 'spacemacs/cl-eval-current-form
-        "es" 'spacemacs/cl-eval-current-symbol-sp)
+      ;; Add key bindings for custom eval functions
+      "ec" 'spacemacs/cl-eval-current-form-sp
+      "eC" 'spacemacs/cl-eval-current-form
+      "es" 'spacemacs/cl-eval-current-symbol-sp)
 
-      ;; prefix names for which-key
-      (mapc (lambda (x)
-              (spacemacs/declare-prefix-for-mode 'lisp-mode (car x) (cdr x)))
-            '(("mh" . "help")
-              ("me" . "eval")
-              ("ms" . "repl")
-              ("mc" . "compile")
-              ("mg" . "nav")
-              ("mm" . "macro")
-              ("mt" . "toggle"))))))
+    ;; prefix names for which-key
+    (mapc (lambda (x)
+            (spacemacs/declare-prefix-for-mode 'lisp-mode (car x) (cdr x)))
+          '(("mh" . "help")
+            ("me" . "eval")
+            ("ms" . "repl")
+            ("mc" . "compile")
+            ("mg" . "nav")
+            ("mm" . "macro")
+            ("mt" . "toggle")))))

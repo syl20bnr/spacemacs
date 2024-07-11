@@ -1,6 +1,6 @@
 ;;; packages.el --- semantic Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -46,15 +46,14 @@
   (use-package stickyfunc-enhance
     :defer t
     :init
-    (progn
-      (spacemacs|add-toggle semantic-stickyfunc
-        :mode semantic-stickyfunc-mode
-        :documentation "Enable semantic-stickyfunc."
-        :evil-leader "TS")
-      (spacemacs|add-toggle semantic-stickyfunc-globally
-        :mode global-semantic-stickyfunc-mode
-        :documentation "Enable semantic-stickyfunc globally."
-        :evil-leader "T C-S"))))
+    (spacemacs|add-toggle semantic-stickyfunc
+      :mode semantic-stickyfunc-mode
+      :documentation "Enable semantic-stickyfunc."
+      :evil-leader "TS")
+    (spacemacs|add-toggle semantic-stickyfunc-globally
+      :mode global-semantic-stickyfunc-mode
+      :documentation "Enable semantic-stickyfunc globally."
+      :evil-leader "T C-S")))
 
 (defun spacemacs//disable-semantic-idle-summary-mode ()
   (semantic-idle-summary-mode 0))

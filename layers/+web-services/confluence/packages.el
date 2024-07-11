@@ -1,6 +1,6 @@
 ;;; packages.el --- Confluence Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -30,20 +30,19 @@
   (use-package confluence
     :defer t
     :config
-    (progn
-      ;; remove the hook on buffer save that automatically store the buffer
-      ;; in confluence, it creates a lot of useless revision in a page history.
-      (advice-add 'confluence-base-mode-init
-                  :after 'spacemacs//confluence-remove-save-hook)
-      (dolist (mode '(confluence-mode
-                      confluence-xml-mode
-                      confluence-search-mode))
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "s" 'spacemacs/confluence-save-to-confluence-minor-edit)
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "S" 'spacemacs/confluence-save-to-confluence-major-edit)
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "TAB" 'confluence-toggle-page-content-type)))))
+    ;; remove the hook on buffer save that automatically store the buffer
+    ;; in confluence, it creates a lot of useless revision in a page history.
+    (advice-add 'confluence-base-mode-init
+                :after 'spacemacs//confluence-remove-save-hook)
+    (dolist (mode '(confluence-mode
+                    confluence-xml-mode
+                    confluence-search-mode))
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "s" 'spacemacs/confluence-save-to-confluence-minor-edit)
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "S" 'spacemacs/confluence-save-to-confluence-major-edit)
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "TAB" 'confluence-toggle-page-content-type))))
 
 (defun confluence/pre-init-ox-confluence ()
   (spacemacs|use-package-add-hook org

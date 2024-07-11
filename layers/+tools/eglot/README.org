@@ -1,0 +1,41 @@
+#+TITLE: Eglot layer
+
+#+TAGS: layer|tool
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#in-development][In Development!]]
+
+* Description
+This layer adds support for basic language server protocol packages speaking
+[[https://microsoft.github.io/language-server-protocol/specification][language server protocol]] using [[https://github.com/joaotavora/eglot][eglot]].
+
+** Features:
+- Provide LSP support using eglot.
+
+* In Development!
+There is not much going on with this layer right now, it only has the most basic
+of setup. Hopefully each language layer will start adopting it and completing
+the integration.
+
+The first thing it needs it key bindings...
+
+Here is an example on how to integrate eglot into the language backend of a layer:
+
+#+BEGIN_SRC elisp
+    (defun spacemacs//ruby-setup-backend ()
+      "Conditionally configure Ruby backend"
+      (spacemacs//ruby-setup-version-manager)
+      (pcase ruby-backend
+        ('eglot (spacemacs//ruby-setup-eglot))
+        ('lsp (spacemacs//ruby-setup-lsp))
+        (nil (ignore))
+        (_ (spacemacs-buffer/error "Ruby Layer - unknown language backend: %s" ruby-backend))))
+
+  (defun spacemacs//ruby-setup-eglot ()
+    "Setup Ruby eglot."
+    (if (configuration-layer/layer-used-p 'eglot)
+      (eglot-ensure)
+      (message "`eglot' layer is not installed, please add `eglot' layer to your dotfile.")))
+#+END_SRC

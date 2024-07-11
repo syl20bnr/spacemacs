@@ -179,12 +179,12 @@ For GitLab:
 #+END_SRC
 
 See the official [[https://magit.vc/manual/forge/Getting-Started.html#Getting-Started][Magit Forge]] and [[https://magit.vc/manual/ghub/Getting-Started.html][GHub Getting Started]] for general guides or follow
-a community written [[https://practical.li/spacemacs/source-control/forge-configuration.html][Spacemacs specific guide to configuring Magit Forge]].
+a community written [[https://practical.li/spacemacs/source-control/forge-configuration/][Spacemacs specific guide to configuring Magit Forge]].
 
 *** Magit Forge configuration
 For each forge (e.g. GitHub, GitLab), add a machine configuration to the
 PGP encrypted =~/.authinfo.gpg= file.
-Detailed instructions to [[https://practical.li/spacemacs/source-control/forge-configuration.html#create-an-encrypted-authinfogpg-file][create an encrypted .authinfo.gpg file with Spacemacs]]
+Detailed instructions to [[https://practical.li/spacemacs/source-control/forge-configuration#create-an-encrypted-authinfogpg-file][create an encrypted .authinfo.gpg file with Spacemacs]]
 
 The machine configuration should use your forge username and personal access token
 GitHub token permissions: =repo=, =user= and =read:org=
@@ -470,7 +470,8 @@ In a =forge-topic= buffer:
 | ~SPC m b~   | browse topic (open in web browser)              |
 | ~SPC m c~   | create comment post to existing topic)          |
 | ~SPC m C~   | Checkout pull request (not for issues)          |
-| ~SPC m d~   | delete comment under cursor                     |
+| ~SPC m d~   | toggle draft pull request                       |
+| ~SPC m D~   | delete comment under cursor                     |
 | ~SPC m e~   | edit topic body                                 |
 | ~SPC m m~   | edit topic marks (mark is an unshared label)    |
 | ~SPC m M~   | create mark to use with topics                  |

@@ -1,6 +1,6 @@
 ;;; config.el --- Python Layer Configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -33,8 +33,7 @@ If `nil' then `anaconda' is the default backend unless `lsp' layer is used.")
 (put 'python-backend 'safe-local-variable #'symbolp)
 
 (defvar python-lsp-server 'pylsp
-  "Language server to use for lsp backend. Possible values are `pylsp', `pyright'
-and `mspyls'")
+  "Language server for lsp backend. Possible values are `pylsp', `pyright'")
 (put 'python-lsp-server 'safe-local-variable #'symbolp)
 
 (defvar python-lsp-git-root nil

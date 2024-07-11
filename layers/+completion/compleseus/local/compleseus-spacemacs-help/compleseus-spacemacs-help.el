@@ -21,7 +21,7 @@
 
 ;;; Commentary:
 ;; This package adds a convenient way to discover Spacemacs configuration
-;; layers thanks to ivy.
+;; layers.
 
 ;;; Code:
 
@@ -126,16 +126,21 @@
   (configuration-layer/get-layer-path (intern candidate)))
 
 (defun compleseus-spacemacs-help//layer-action-open-file (file candidate &optional edit)
-  "Open FILE of the passed CANDIDATE.  If EDIT is false, open in view mode."
-  (let ((path (configuration-layer/get-layer-path (intern candidate))))
-    (if (equal (file-name-extension file) "org")
-        (if edit
-            (find-file (concat path file))
-          (spacemacs/view-org-file (concat path file) "^" 'all))
-      (let ((filepath (concat path file)))
-        (if (file-exists-p filepath)
-            (find-file filepath)
-          (message "%s does not have %s" candidate file))))))
+  "Open FILE of the passed CANDIDATE.
+If the file does not exist and EDIT is true, create it; otherwise fall back
+to opening dired at the layer directory.
+If EDIT is false, open org files in view mode."
+  (let* ((path (configuration-layer/get-layer-path (intern candidate)))
+         (filepath (concat path file)))
+    (cond ((and (equal (file-name-extension file) "org")
+                (not edit)
+                (file-exists-p filepath))
+           (spacemacs/view-org-file filepath "^" 'all))
+          ((or edit (file-exists-p filepath))
+           (find-file filepath))
+          (t
+           (message "%s does not have %s" candidate file)
+           (compleseus-spacemacs-help//layer-action-open-dired candidate)))))
 
 (defun compleseus-spacemacs-help//layer-action-open-readme (candidate)
   "Open the `README.org' file of the passed CANDIDATE for reading."

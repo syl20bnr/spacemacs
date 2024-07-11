@@ -1,6 +1,6 @@
 ;;; keybindings.el --- OSX Layer keybindings File for Spacemacs
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -44,12 +44,6 @@
 
   ;; The allowed non-nil values for the config variables.
   (setq allowed-values '(super meta hyper control alt none left))
-
-  ;; Backwards compatibility
-  (cl-case osx-use-option-as-meta
-    (nil (setf osx-option-as 'none))
-    (deprecated nil)
-    (t (setf osx-option-as 'meta)))
 
   ;; Set internal variables according to the given config variables
   (cl-loop for (key-var . internal-var) in modifier-keys do

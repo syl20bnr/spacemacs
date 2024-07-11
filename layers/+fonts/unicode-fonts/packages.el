@@ -1,6 +1,6 @@
 ;;; packages.el --- unicode-fonts layer packages file for Spacemacs. -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2022 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
 ;; Author: Aaron Jensen <aaronjensen@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -34,12 +34,11 @@
 (defun unicode-fonts/init-unicode-fonts ()
   (use-package unicode-fonts
     :init
-    (progn
-      (when (and unicode-fonts-force-multi-color-on-mac
-                 (eq window-system 'ns))
-        (setq unicode-fonts-skip-font-groups
-	      '(decorative low-quality-glyphs)))
-      (unicode-fonts//setup-fonts (selected-frame)))))
+    (when (and unicode-fonts-force-multi-color-on-mac
+               (eq window-system 'ns))
+      (setq unicode-fonts-skip-font-groups
+            '(decorative low-quality-glyphs)))
+    (unicode-fonts//setup-fonts (selected-frame))))
 
 (defun unicode-fonts/init-ligature ()
   (use-package ligature
