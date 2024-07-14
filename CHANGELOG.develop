@@ -34,6 +34,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 * Release 0.300.x
 ** 0.300.0
 *** Hot new feature
+- Remove obsolete hack erc-sasl
 - Remove =spacemacs/counsel-gtags-define-keys-for-mode= warnings
 - Add configuration layer for gleam-lang (thanks to Qynn Schwaab)
 - Highlight ruby debugger lines appropriately
