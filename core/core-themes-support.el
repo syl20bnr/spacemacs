@@ -378,7 +378,11 @@ package name does not match theme name + `-theme' suffix.")
 Default theme is the car of `dotspacemacs-themes'.
 If FALLBACK-THEME is non-nil it must be a package name which will be loaded if
 THEME cannot be applied."
-  (spacemacs/load-theme (car dotspacemacs-themes) fallback-theme disable))
+  ;; This function is called before all packages are necessarily activated, so
+  ;; just activate the necessary one now, if available.
+  (let ((default-theme (car dotspacemacs-themes)))
+    (spacemacs//activate-theme-package default-theme)
+    (spacemacs/load-theme default-theme fallback-theme disable)))
 
 (defun spacemacs/load-theme (theme &optional fallback-theme disable)
   "Apply user theme.
@@ -389,17 +393,6 @@ THEME."
   (let ((theme-name (spacemacs//get-theme-name theme)))
     (condition-case err
         (progn
-          ;; Load theme
-          (unless (or (memq theme-name (custom-available-themes))
-                      (eq 'default theme-name))
-            (let ((pkg-dir (spacemacs//get-theme-package-directory theme))
-                  (pkg-name (spacemacs/get-theme-package-name theme-name)))
-              (when pkg-dir
-                ;; package activate should be enough, but not all themes
-                ;; have add themselves to `custom-theme-load-path' in autoload.
-                ;; (for example, moe-theme).
-                (add-to-list 'custom-theme-load-path pkg-dir)
-                (package-activate pkg-name))))
           (when disable
             (mapc 'disable-theme custom-enabled-themes))
           (unless (eq 'default theme-name)
@@ -503,5 +496,28 @@ has been changed to THEME."
         (add-to-list 'dotspacemacs--additional-theme-packages theme2)))))
 (add-hook 'configuration-layer-pre-load-hook
           'spacemacs//add-theme-packages-to-additional-packages)
+
+(defun spacemacs//activate-theme-package (theme)
+  "Activate theme package THEME."
+  (let ((theme-name (spacemacs//get-theme-name theme)))
+    (unless (memq theme-name (cons 'default (custom-available-themes)))
+      (let ((pkg-dir (spacemacs//get-theme-package-directory theme))
+            (pkg-name (spacemacs/get-theme-package-name theme-name)))
+        (when pkg-dir
+          ;; `package-activate' should be enough, but not all themes add
+          ;; themselves to `custom-theme-load-path' in autoload.  (for
+          ;; example, moe-theme).
+          ;;
+          ;; Also, if a theme is :location local, autoloads do not happen,
+          ;; so this is needed for those packages.
+          (add-to-list 'custom-theme-load-path pkg-dir)
+          (package-activate pkg-name))))))
+
+(defun spacemacs//activate-theme-packages ()
+  "Activate all theme packages from `dotspacemacs-themes'."
+  (dolist (theme dotspacemacs-themes)
+    (spacemacs//activate-theme-package theme)))
+
+(add-hook 'configuration-layer-post-load-hook #'spacemacs//activate-theme-packages)
 
 (provide 'core-themes-support)
