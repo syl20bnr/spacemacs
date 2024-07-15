@@ -25,7 +25,7 @@
   '((xdg :location built-in)
     desktop-environment
     (helm-exwm :toggle (configuration-layer/package-used-p 'helm))
-    (evil-exwm-state :toggle (configuration-layer/package-used-p 'evil)
+    (evil-exwm-state :toggle (memq dotspacemacs-editing-style '(vim hybrid))
                      :location (recipe :fetcher github
                                        :repo "domenzain/evil-exwm-state"))
     (xelb :step pre)
