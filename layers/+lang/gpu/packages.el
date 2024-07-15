@@ -26,7 +26,7 @@
                       :toggle (executable-find "glslangValidator"))
         cuda-mode
         glsl-mode
-        opencl-mode
+        opencl-c-mode
         ))
 
 
@@ -47,7 +47,8 @@
     :mode (("\\.fsh\\'" . glsl-mode)
            ("\\.vsh\\'" . glsl-mode))))
 
-(defun gpu/init-opencl-mode ()
-  (use-package opencl-mode
+(defun gpu/init-opencl-c-mode ()
+  (use-package opencl-c-mode
     :defer t
-    :mode (("\\.cl\\'" . opencl-mode))))
+    :mode (("\\.cl\\'" . opencl-c-mode))))
+
