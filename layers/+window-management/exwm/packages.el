@@ -28,12 +28,8 @@
     (evil-exwm-state :toggle (configuration-layer/package-used-p 'evil)
                      :location (recipe :fetcher github
                                        :repo "domenzain/evil-exwm-state"))
-    (xelb :location (recipe :fetcher github
-                            :repo "ch11ng/xelb")
-          :step pre)
-    (exwm :location (recipe :fetcher github
-                            :repo "ch11ng/exwm")
-          :step pre)))
+    (xelb :step pre)
+    (exwm :step pre)))
 
 (defun exwm/init-xdg ()
   (use-package xdg
