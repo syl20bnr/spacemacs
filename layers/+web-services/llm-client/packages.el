@@ -32,7 +32,7 @@
   (use-package gptel
     :defer t
     :ensure t
-    :config
+    :init
     (spacemacs/declare-prefix "$g" "Gptel")
     (spacemacs/set-leader-keys
       "$gg" 'gptel                          ; Start a new GPTel session
