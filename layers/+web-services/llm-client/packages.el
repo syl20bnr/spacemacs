@@ -67,6 +67,11 @@
       "$eai" 'ellama-instant          ; Prompt ellama for instant reply
       "$eal" 'ellama-ask-line         ; Send current line to ellama
       "$eas" 'ellama-ask-selection)   ; Send selected region to ellama
+    ;; Problem solving
+    (spacemacs/declare-prefix "$ep" "Problem Solving")
+    (spacemacs/set-leader-keys
+      "$epr" 'ellama-solve-reasoning-problem        ; Solve reasoning PROBLEM with abstraction of thought
+      "$epd" 'ellama-solve-domain-specific-problem) ; Solve domain-specific PROBLEM
     ;; Translate
     (spacemacs/declare-prefix "$et" "Translate")
     (spacemacs/set-leader-keys
@@ -93,9 +98,9 @@
       "$eSd" 'ellama-session-remove   ; Remove ellama session
       "$eSa" 'ellama-session-switch)  ; Switch ellama session
     ;; Provider
-    (spacemacs/declare-prefix "$ep" "Provider")
+    (spacemacs/declare-prefix "$eP" "Provider")
     (spacemacs/set-leader-keys
-      "$eps" 'ellama-provider-select))) ; Select ellama provider
+      "$ePs" 'ellama-provider-select))) ; Select ellama provider
 
 (defun llm-client/init-gptel ()
   "Initialize the `gptel` package and set up keybindings."

@@ -17,6 +17,7 @@
     - [[#summarization-tasks][Summarization tasks]]
     - [[#edit-tasks][Edit tasks]]
     - [[#question-answering-tasks][Question-Answering tasks]]
+    - [[#problem-solving-tasks][Problem solving tasks]]
     - [[#translation-tasks][Translation tasks]]
     - [[#thesaurus-tasks][Thesaurus tasks]]
     - [[#context-management][Context management]]
@@ -140,13 +141,13 @@ In addition, this layer adds the following key bindings to =org-mode=
 
 | Key binding | Command                    | Description                     |
 |-------------+----------------------------+---------------------------------|
-| SPC $ ei c  | =ellama-complete=            | Complete text in current buffer |
+| SPC $ ei c  | ellama-complete            | Complete text in current buffer |
 | ~SPC $ ei w~  | ellama-improve-wording     | Improve wording                 |
 | ~SPC $ ei g~  | ellama-improve-grammar     | Improve grammar                 |
 | ~SPC $ ei s~  | ellama-improve-conciseness | Shorten text (make concise)     |
-| SPC $ ei l  | =ellama-make-list=           | Create markdown list            |
-| SPC $ ei t  | =ellama-make-table=          | Create markdown table           |
-| SPC $ ei f  | =ellama-make-format=       | Render text as specified format |
+| SPC $ ei l  | ellama-make-list           | Create markdown list            |
+| SPC $ ei t  | ellama-make-table          | Create markdown table           |
+| SPC $ ei f  | ellama-make-format         | Render text as specified format |
 
 *** Question-Answering tasks
 
@@ -158,14 +159,21 @@ In addition, this layer adds the following key bindings to =org-mode=
 | ~SPC $ ea l~  | ellama-ask-line      | Send current line to ellama         |
 | ~SPC $ ea s~  | ellama-ask-selection | Send selected region to ellama      |
 
+*** Problem solving tasks
+
+| Key binding | Command                              | Description                                         |
+|-------------+--------------------------------------+-----------------------------------------------------|
+| ~SPC $ ep r~  | ellama-solve-reasoning-problem       | Solve reasoning PROBLEM with abstraction of thought |
+| ~SPC $ ep d~  | ellama-solve-domain-specific-problem | Solve domain-specific PROBLEM                       |
+
 *** Translation tasks
 
-| Key binding | Command                         | Description                                |
-|-------------+---------------------------------+--------------------------------------------|
-| ~SPC $ et t~  | ellama-translate                | Translate selected region or word at point |
-| ~SPC $ et b~  | ellama-translate-buffer         | Translate current buffer                   |
-| ~SPC $ et e~  | ellama-chat-translation-enable  | Enable chat translation                    |
-| ~SPC $ et d~  | ellama-chat-translation-disable | Disable chat translation                   |
+| Key binding  | Command                         | Description                                |
+|--------------+---------------------------------+--------------------------------------------|
+| ~SPC $ et t~   | ellama-translate                | Translate selected region or word at point |
+| ~SPC $ et b~   | ellama-translate-buffer         | Translate current buffer                   |
+| ~SPC $ et e~ | ellama-chat-translation-enable  | Enable chat translation                    |
+| ~SPC $ et d~   | ellama-chat-translation-disable | Disable chat translation                   |
 
 *** Thesaurus tasks
 
@@ -177,10 +185,10 @@ In addition, this layer adds the following key bindings to =org-mode=
 
 | Key binding | Command                        | Description              |
 |-------------+--------------------------------+--------------------------|
-| SPC $ ex b  | =ellama-context-add-buffer=      | Add buffer to context    |
-| SPC $ ex f  | =ellama-context-add-file=        | Add file to context      |
-| SPC $ ex s  | =ellama-context-add-selection=   | Add selection to context |
-| SPC $ ex i  | =ellama-context-add-info-node= | Add info node to context |
+| SPC $ ex b  | ellama-context-add-buffer      | Add buffer to context    |
+| SPC $ ex f  | ellama-context-add-file        | Add file to context      |
+| SPC $ ex s  | ellama-context-add-selection   | Add selection to context |
+| SPC $ ex i  | ellama-context-add-info-node | Add info node to context |
 
 *** Session management
 
