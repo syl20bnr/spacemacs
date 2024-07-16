@@ -239,3 +239,19 @@ column."
    (or column
        (unless selective-display
          (1+ (current-column))))))
+
+
+
+(defun spacemacs/toggle-evil-mouse-drag-for-artist-mode (orig-fun &rest args)
+   "Toggle evil binding `evil-mode-drag-region' for `artist-mode'.
+
+ When a buffer is placed into `artist-mode', <down-mouse-1> is supposed to
+ bound to run the command `artist-down-mouse-1', while it is already bound
+ to `evil-motion-state-map'. Thus it should be unbound so that mouse commands
+ `down-mouse-1' operate correctly."
+   (let ((was-active artist-mode))
+     (apply orig-fun args)
+     (unless (eq was-active artist-mode)
+       (if artist-mode
+           (define-key evil-motion-state-map [down-mouse-1] nil)
+         (define-key evil-motion-state-map [down-mouse-1] 'evil-mouse-drag-region)))))
