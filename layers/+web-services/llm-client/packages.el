@@ -49,25 +49,16 @@
       "$ess" 'ellama-summarize           ; Summarize selected region or buffer
       "$esw" 'ellama-summarize-webpage   ; Summarize webpage
       "$esc" 'ellama-summarize-killring) ; Summarize text from kill ring
-    ;; Session
-    (spacemacs/declare-prefix "$es" "Session")
+    ;; Edit
+    (spacemacs/declare-prefix "$ee" "Edit")
     (spacemacs/set-leader-keys
-      "$esl" 'ellama-load-session     ; Load ellama session
-      "$esr" 'ellama-session-rename   ; Rename ellama session
-      "$esd" 'ellama-session-remove   ; Remove ellama session
-      "$esa" 'ellama-session-switch)  ; Switch ellama session
-    ;; Improve
-    (spacemacs/declare-prefix "$ei" "Improve")
-    (spacemacs/set-leader-keys
-      "$eiw" 'ellama-improve-wording      ; Improve wording
-      "$eig" 'ellama-improve-grammar      ; Improve grammar
-      "$eic" 'ellama-improve-conciseness) ; Make text concise
-    ;; Make
-    (spacemacs/declare-prefix "$em" "Make")
-    (spacemacs/set-leader-keys
-      "$eml" 'ellama-make-list        ; Create markdown list
-      "$emt" 'ellama-make-table       ; Create markdown table
-      "$emf" 'ellama-make-format)     ; Render text as specified format
+      "$eec" 'ellama-complete            ; Complete text in current buffer
+      "$eef" 'ellama-make-format         ; Render text as specified format
+      "$eeg" 'ellama-improve-grammar     ; Improve grammar
+      "$eel" 'ellama-make-list           ; Create markdown list
+      "$ees" 'ellama-improve-conciseness ; Shorten text (make concise)
+      "$eet" 'ellama-make-table          ; Create markdown table
+      "$eew" 'ellama-improve-wording)    ; Improve wording
     ;; Ask
     (spacemacs/declare-prefix "$ea" "Ask")
     (spacemacs/set-leader-keys
@@ -76,12 +67,11 @@
       "$eai" 'ellama-instant          ; Prompt ellama for instant reply
       "$eal" 'ellama-ask-line         ; Send current line to ellama
       "$eas" 'ellama-ask-selection)   ; Send selected region to ellama
-    ;; Text
-    (spacemacs/declare-prefix "$et" "Text")
+    ;; Translate
+    (spacemacs/declare-prefix "$et" "Translate")
     (spacemacs/set-leader-keys
       "$ett" 'ellama-translate                 ; Translate selected region or word at point
       "$etb" 'ellama-translate-buffer          ; Translate current buffer
-      "$etc" 'ellama-complete                  ; Complete text in current buffer
       "$ete" 'ellama-chat-translation-enable   ; Enable chat translation
       "$etd" 'ellama-chat-translation-disable) ; Disable chat translation
     ;; Define

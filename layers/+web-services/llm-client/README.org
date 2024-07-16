@@ -15,11 +15,10 @@
   - [[#ellama][Ellama]]
     - [[#code-tasks][Code tasks]]
     - [[#summarization-tasks][Summarization tasks]]
-    - [[#paraphrasing-tasks][Paraphrasing tasks]]
+    - [[#edit-tasks][Edit tasks]]
     - [[#question-answering-tasks][Question-Answering tasks]]
     - [[#translation-tasks][Translation tasks]]
     - [[#thesaurus-tasks][Thesaurus tasks]]
-    - [[#markdown-tasks][Markdown tasks]]
     - [[#context-management][Context management]]
     - [[#session-management][Session management]]
     - [[#provider-management][Provider management]]
@@ -137,20 +136,25 @@ In addition, this layer adds the following key bindings to =org-mode=
 | ~SPC $ es w~  | ellama-summarize-webpage  | Summarize webpage                   |
 | ~SPC $ es c~  | ellama-summarize-killring | Summarize text from kill ring       |
 
-*** Paraphrasing tasks
+*** Edit tasks
 
-| Key binding | Command                    | Description       |
-|-------------+----------------------------+-------------------|
-| ~SPC $ ei w~  | ellama-improve-wording     | Improve wording   |
-| ~SPC $ ei g~  | ellama-improve-grammar     | Improve grammar   |
-| ~SPC $ ei c~  | ellama-improve-conciseness | Make text concise |
+| Key binding | Command                    | Description                     |
+|-------------+----------------------------+---------------------------------|
+| SPC $ ei c  | =ellama-complete=            | Complete text in current buffer |
+| ~SPC $ ei w~  | ellama-improve-wording     | Improve wording                 |
+| ~SPC $ ei g~  | ellama-improve-grammar     | Improve grammar                 |
+| ~SPC $ ei s~  | ellama-improve-conciseness | Shorten text (make concise)     |
+| SPC $ ei l  | =ellama-make-list=           | Create markdown list            |
+| SPC $ ei t  | =ellama-make-table=          | Create markdown table           |
+| SPC $ ei f  | =ellama-make-format=       | Render text as specified format |
 
 *** Question-Answering tasks
 
 | Key binding | Command              | Description                         |
 |-------------+----------------------+-------------------------------------|
 | ~SPC $ ea a~  | ellama-ask-about     | Ask about selected region or buffer |
-| ~SPC $ ea i~  | ellama-chat          | Chat with ellama                    |
+| ~SPC $ ea c~  | ellama-chat          | Chat with ellama                    |
+| ~SPC $ ea i~  | ellama-instant       | Prompt ellama for instant reply     |
 | ~SPC $ ea l~  | ellama-ask-line      | Send current line to ellama         |
 | ~SPC $ ea s~  | ellama-ask-selection | Send selected region to ellama      |
 
@@ -160,7 +164,6 @@ In addition, this layer adds the following key bindings to =org-mode=
 |-------------+---------------------------------+--------------------------------------------|
 | ~SPC $ et t~  | ellama-translate                | Translate selected region or word at point |
 | ~SPC $ et b~  | ellama-translate-buffer         | Translate current buffer                   |
-| ~SPC $ et c~  | ellama-complete                 | Complete text in current buffer            |
 | ~SPC $ et e~  | ellama-chat-translation-enable  | Enable chat translation                    |
 | ~SPC $ et d~  | ellama-chat-translation-disable | Disable chat translation                   |
 
@@ -170,21 +173,14 @@ In addition, this layer adds the following key bindings to =org-mode=
 |-------------+--------------------+---------------------|
 | ~SPC $ ed w~  | ellama-define-word | Define current word |
 
-*** Markdown tasks
-
-| Key binding | Command                | Description                          |
-|-------------+------------------------+-------------------------------|
-| ~SPC $ em l~ | ellama-make-list       | Create markdown list                 |
-| ~SPC $ em t~ | ellama-make-table      | Create markdown table                |
-| ~SPC $ em f~ | ellama-make-format     | Render text as specified format      |
-
 *** Context management
 
-| Key binding | Command                      | Description              |
-|-------------+------------------------------+--------------------------|
-| ~SPC $ ex f~  | ellama-context-add-file      | Add file to context      |
-| ~SPC $ ex s~  | ellama-context-add-selection | Add selection to context |
-| ~SPC $ ex i~  | ellama-context-add-info-node | Add info node to context |
+| Key binding | Command                        | Description              |
+|-------------+--------------------------------+--------------------------|
+| SPC $ ex b  | =ellama-context-add-buffer=      | Add buffer to context    |
+| SPC $ ex f  | =ellama-context-add-file=        | Add file to context      |
+| SPC $ ex s  | =ellama-context-add-selection=   | Add selection to context |
+| SPC $ ex i  | =ellama-context-add-info-node= | Add info node to context |
 
 *** Session management
 
