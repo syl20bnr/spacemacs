@@ -146,6 +146,9 @@
     (define-key evil-visual-state-map "J" 'drag-stuff-down)
     (define-key evil-visual-state-map "K" 'drag-stuff-up))
 
+  ;; Fix broken artist-mode under evil-mode
+  (advice-add 'artist-mode :around #'spacemacs/toggle-evil-mouse-drag-for-artist-mode)
+
   (when vim-style-enable-undo-region
     (define-key evil-visual-state-map (kbd "u") 'undo))
 
