@@ -22,18 +22,14 @@
 
 
 (defconst exwm-packages
-  '((xdg :location built-in)
-    desktop-environment
-    (helm-exwm :toggle (configuration-layer/package-used-p 'helm))
-    (evil-exwm-state :toggle (configuration-layer/package-used-p 'evil)
+  '(desktop-environment
+    (evil-exwm-state :toggle (memq dotspacemacs-editing-style '(vim hybrid))
                      :location (recipe :fetcher github
                                        :repo "domenzain/evil-exwm-state"))
-    (xelb :location (recipe :fetcher github
-                            :repo "ch11ng/xelb")
-          :step pre)
-    (exwm :location (recipe :fetcher github
-                            :repo "ch11ng/exwm")
-          :step pre)))
+    (exwm :step pre)
+    (helm-exwm :toggle (configuration-layer/package-used-p 'helm))
+    (xdg :location built-in)
+    (xelb :step pre)))
 
 (defun exwm/init-xdg ()
   (use-package xdg
