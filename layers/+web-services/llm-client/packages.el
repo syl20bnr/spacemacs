@@ -72,7 +72,8 @@
     (spacemacs/declare-prefix "$ea" "Ask")
     (spacemacs/set-leader-keys
       "$eaa" 'ellama-ask-about        ; Ask about selected region or buffer
-      "$eai" 'ellama-chat             ; Chat with ellama
+      "$eac" 'ellama-chat             ; Chat with ellama
+      "$eai" 'ellama-instant          ; Prompt ellama for instant reply
       "$eal" 'ellama-ask-line         ; Send current line to ellama
       "$eas" 'ellama-ask-selection)   ; Send selected region to ellama
     ;; Text
@@ -94,23 +95,17 @@
       "$exf" 'ellama-context-add-file       ; Add file to context
       "$exs" 'ellama-context-add-selection  ; Add selection to context
       "$exi" 'ellama-context-add-info-node) ; Add info node to context
+    ;; Session Management
+    (spacemacs/declare-prefix "$eS" "Session")
+    (spacemacs/set-leader-keys
+      "$eSl" 'ellama-load-session     ; Load ellama session
+      "$eSr" 'ellama-session-rename   ; Rename ellama session
+      "$eSd" 'ellama-session-remove   ; Remove ellama session
+      "$eSa" 'ellama-session-switch)  ; Switch ellama session
     ;; Provider
     (spacemacs/declare-prefix "$ep" "Provider")
     (spacemacs/set-leader-keys
-      "$eps" 'ellama-provider-select) ; Select ellama provider
-    ;; General
-    (spacemacs/set-leader-keys
-      "$ea" 'ellama-ask-about         ; Ask about selected region or buffer
-      "$ec" 'ellama-complete          ; Complete text in current buffer
-      "$ed" 'ellama-define-word       ; Define current word
-      "$es" 'ellama-summarize         ; Summarize selected region or buffer
-      "$et" 'ellama-translate         ; Translate selected region or word at point
-      "$ef" 'ellama-translate-buffer  ; Translate current buffer
-      "$ei" 'ellama-instant           ; Prompt ellama for instant reply
-      "$el" 'ellama-load-session      ; Load ellama session
-      "$er" 'ellama-session-remove    ; Remove ellama session
-      "$es" 'ellama-session-switch    ; Switch ellama session
-      "$en" 'ellama-session-rename))) ; Rename ellama session
+      "$eps" 'ellama-provider-select))) ; Select ellama provider
 
 (defun llm-client/init-gptel ()
   "Initialize the `gptel` package and set up keybindings."

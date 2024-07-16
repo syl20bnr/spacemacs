@@ -20,8 +20,8 @@
     - [[#translation-tasks][Translation tasks]]
     - [[#thesaurus-tasks][Thesaurus tasks]]
     - [[#markdown-tasks][Markdown tasks]]
-    - [[#session-management][Session management]]
     - [[#context-management][Context management]]
+    - [[#session-management][Session management]]
     - [[#provider-management][Provider management]]
 
 * Description
@@ -178,15 +178,6 @@ In addition, this layer adds the following key bindings to =org-mode=
 | ~SPC $ em t~ | ellama-make-table      | Create markdown table                |
 | ~SPC $ em f~ | ellama-make-format     | Render text as specified format      |
 
-*** Session management
-
-| Key binding | Command                  | Description                          |
-|-------------+--------------------------+-------------------------------|
-| ~SPC $ es l~ | ellama-load-session      | Load ellama session                  |
-| ~SPC $ es r~ | ellama-session-rename    | Rename ellama session                |
-| ~SPC $ es d~ | ellama-session-remove    | Remove ellama session                |
-| ~SPC $ es a~ | ellama-session-switch    | Switch ellama session                |
-
 *** Context management
 
 | Key binding | Command                      | Description              |
@@ -194,6 +185,15 @@ In addition, this layer adds the following key bindings to =org-mode=
 | ~SPC $ ex f~  | ellama-context-add-file      | Add file to context      |
 | ~SPC $ ex s~  | ellama-context-add-selection | Add selection to context |
 | ~SPC $ ex i~  | ellama-context-add-info-node | Add info node to context |
+
+*** Session management
+
+| Key binding | Command               | Description           |
+|-------------+-----------------------+-----------------------|
+| ~SPC $ eS l~  | ellama-load-session   | Load ellama session   |
+| ~SPC $ eS r~  | ellama-session-rename | Rename ellama session |
+| ~SPC $ eS d~  | ellama-session-remove | Remove ellama session |
+| ~SPC $ eS a~  | ellama-session-switch | Switch ellama session |
 
 *** Provider management
 
