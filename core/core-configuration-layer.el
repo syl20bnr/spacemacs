@@ -129,6 +129,11 @@ subdirectory of ROOT is used."
              (dir (car (directory-files elpa-dir 'full pkg-match))))
         (when dir (file-name-as-directory dir))))))
 
+(defun configuration-layer/get-latest-package-version (pkg)
+  "Return the latest version string of the PACKAGE-NAME in package archive."
+  (let* ((pkg-desc (assq pkg package-archive-contents)))
+    (and pkg-desc (package-version-join (package-desc-version (cadr pkg-desc))))))
+
 (defvar configuration-layer-pre-load-hook nil
   "Hook executed at the beginning of configuration loading.")
 
@@ -1741,7 +1746,9 @@ RNAME is the name symbol of another existing layer."
              not-inst-count)
      t)
     (spacemacs//redisplay)
-    (unless (package-installed-p pkg-name min-version)
+    (when (or (not (package-installed-p pkg-name min-version))
+              (version-list-< min-version (version-to-list
+                                           (configuration-layer/get-latest-package-version pkg-name))))
       (condition-case-unless-debug err
           (cond
            ((or (null pkg) (eq 'elpa location))
@@ -1907,8 +1914,13 @@ RNAME is the name symbol of another existing layer."
   (configuration-layer//filter-packages-with-deps
    pkg-names (lambda (x)
                (let* ((pkg (configuration-layer/get-package x))
-                      (min-version (when pkg (oref pkg :min-version))))
-                 (not (package-installed-p x min-version))))))
+                      (min-version (when pkg (oref pkg :min-version)))
+                      (max-version-str (configuration-layer/get-latest-package-version x))
+                      (max-version (when max-version-str (version-to-list max-version-str))))
+                 (or (not (package-installed-p x min-version))
+                     (and max-version
+                          (assoc x package--builtins)
+                          (not (package-installed-p x max-version))))))))
 
 (defun configuration-layer//package-has-recipe-p (pkg-name)
   "Return non nil if PKG-NAME is the name of a package declared with a recipe."
