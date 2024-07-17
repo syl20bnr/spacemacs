@@ -149,6 +149,13 @@
           ;; `helm-org-headings-max-depth'.
           org-imenu-depth 8)
 
+    ;; `org-read-date' pops up the Calendar buffer but it is not usually useful
+    ;; to switch to it.
+    (with-eval-after-load 'calendar
+      (cl-pushnew (regexp-quote calendar-buffer)
+                  spacemacs-useless-buffers-regexp
+                  :test #'equal))
+
     (when org-todo-dependencies-strategy
       (setq org-enforce-todo-dependencies t)
       (add-hook 'org-after-todo-statistics-hook
