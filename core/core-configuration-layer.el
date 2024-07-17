@@ -1741,7 +1741,7 @@ RNAME is the name symbol of another existing layer."
              not-inst-count)
      t)
     (spacemacs//redisplay)
-    (unless (package-installed-p pkg-name min-version)
+    (when (or (not (package-installed-p pkg-name min-version)) (eq pkg-name 'org))
       (condition-case-unless-debug err
           (cond
            ((or (null pkg) (eq 'elpa location))
@@ -1908,7 +1908,7 @@ RNAME is the name symbol of another existing layer."
    pkg-names (lambda (x)
                (let* ((pkg (configuration-layer/get-package x))
                       (min-version (when pkg (oref pkg :min-version))))
-                 (not (package-installed-p x min-version))))))
+                 (or (not (package-installed-p x min-version)) (eq x 'org))))))
 
 (defun configuration-layer//package-has-recipe-p (pkg-name)
   "Return non nil if PKG-NAME is the name of a package declared with a recipe."
