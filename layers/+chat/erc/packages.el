@@ -130,9 +130,8 @@
   (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-social-graph
-      :init
-      ;; does not exist ?
-      ;; (erc-social-graph-enable)
+      :config
+      (erc-social-graph-enable)
       (setq erc-social-graph-dynamic-graph t)
       (spacemacs/set-leader-keys-for-major-mode 'erc-mode
         "D" 'erc-social-graph-draw))))
