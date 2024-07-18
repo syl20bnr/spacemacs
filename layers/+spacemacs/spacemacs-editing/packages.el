@@ -563,7 +563,7 @@ See variable `undo-tree-history-directory-alist'." dir))
 
 (defun spacemacs-editing/init-uuidgen ()
   (use-package uuidgen
-    :commands (uuidgen-1 uuidgen-4)
+    :autoload (uuidgen-1 uuidgen-4)
     :init
     (spacemacs/declare-prefix "iU" "uuid")
     (spacemacs/set-leader-keys
