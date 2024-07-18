@@ -163,6 +163,7 @@
 (defun erc/init-erc-view-log ()
   (use-package erc-view-log
     :defer t
+    :commands (spacemacs/erc-find-channel-log)
     :init
     (setq erc-log-channels-directory
           (expand-file-name
