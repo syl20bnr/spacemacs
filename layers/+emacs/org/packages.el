@@ -35,15 +35,14 @@
     (ob :location built-in)
     (org :location elpa :min-version "9.6.1")
     (org-agenda :location built-in)
-    (org-wild-notifier
-                :toggle org-enable-notifications)
+    (org-wild-notifier :toggle org-enable-notifications)
     (org-contacts :toggle org-enable-org-contacts-support)
     org-contrib
     (org-vcard :toggle org-enable-org-contacts-support)
     (org-brain :toggle org-enable-org-brain-support)
     (org-expiry :location built-in)
-    ; temporarily point org-journal to dalanicolai fork until dalanicolai's
-    ; PR's https://github.com/bastibe/org-journal/pulls get merged
+    ;; temporarily point org-journal to dalanicolai fork until dalanicolai's
+    ;; PR's https://github.com/bastibe/org-journal/pulls get merged
     (org-journal
      :location (recipe :fetcher github :repo "dalanicolai/org-journal")
      :toggle org-enable-org-journal-support)
@@ -149,6 +148,13 @@
           ;; this is consistent with the value of
           ;; `helm-org-headings-max-depth'.
           org-imenu-depth 8)
+
+    ;; `org-read-date' pops up the Calendar buffer but it is not usually useful
+    ;; to switch to it.
+    (with-eval-after-load 'calendar
+      (cl-pushnew (regexp-quote calendar-buffer)
+                  spacemacs-useless-buffers-regexp
+                  :test #'equal))
 
     (when org-todo-dependencies-strategy
       (setq org-enforce-todo-dependencies t)
@@ -446,35 +452,35 @@ Will work on both org-mode and any mode that accepts plain html."
     ;; C-c ' is shadowed by `spacemacs/default-pop-shell', effectively making
     ;; the Emacs user unable to exit src block editing.
     (define-key org-src-mode-map
-      (kbd (concat dotspacemacs-major-mode-emacs-leader-key " '"))
-      'org-edit-src-exit)
+                (kbd (concat dotspacemacs-major-mode-emacs-leader-key " '"))
+                'org-edit-src-exit)
 
     ;; Evilify the calendar tool on C-c .
     (unless (eq 'emacs dotspacemacs-editing-style)
       (define-key org-read-date-minibuffer-local-map (kbd "M-h")
-        (lambda () (interactive)
-          (org-eval-in-calendar '(calendar-backward-day 1))))
+                  (lambda () (interactive)
+                    (org-eval-in-calendar '(calendar-backward-day 1))))
       (define-key org-read-date-minibuffer-local-map (kbd "M-l")
-        (lambda () (interactive)
-          (org-eval-in-calendar '(calendar-forward-day 1))))
+                  (lambda () (interactive)
+                    (org-eval-in-calendar '(calendar-forward-day 1))))
       (define-key org-read-date-minibuffer-local-map (kbd "M-k")
-        (lambda () (interactive)
-          (org-eval-in-calendar '(calendar-backward-week 1))))
+                  (lambda () (interactive)
+                    (org-eval-in-calendar '(calendar-backward-week 1))))
       (define-key org-read-date-minibuffer-local-map (kbd "M-j")
-        (lambda () (interactive)
-          (org-eval-in-calendar '(calendar-forward-week 1))))
+                  (lambda () (interactive)
+                    (org-eval-in-calendar '(calendar-forward-week 1))))
       (define-key org-read-date-minibuffer-local-map (kbd "M-H")
-        (lambda () (interactive)
-          (org-eval-in-calendar '(calendar-backward-month 1))))
+                  (lambda () (interactive)
+                    (org-eval-in-calendar '(calendar-backward-month 1))))
       (define-key org-read-date-minibuffer-local-map (kbd "M-L")
-        (lambda () (interactive)
-          (org-eval-in-calendar '(calendar-forward-month 1))))
+                  (lambda () (interactive)
+                    (org-eval-in-calendar '(calendar-forward-month 1))))
       (define-key org-read-date-minibuffer-local-map (kbd "M-K")
-        (lambda () (interactive)
-          (org-eval-in-calendar '(calendar-backward-year 1))))
+                  (lambda () (interactive)
+                    (org-eval-in-calendar '(calendar-backward-year 1))))
       (define-key org-read-date-minibuffer-local-map (kbd "M-J")
-        (lambda () (interactive)
-          (org-eval-in-calendar '(calendar-forward-year 1)))))
+                  (lambda () (interactive)
+                    (org-eval-in-calendar '(calendar-forward-year 1)))))
 
     (spacemacs|define-transient-state org-babel
       :title "Org Babel Transient state"
@@ -750,13 +756,13 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-org-modern ()
   (use-package org-modern
-      :defer t
-      :init
-      (add-hook 'org-mode-hook 'org-modern-mode)
-      (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
+    :defer t
+    :init
+    (add-hook 'org-mode-hook 'org-modern-mode)
+    (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
 
-      (spacemacs/set-leader-keys-for-major-mode 'org-mode
-        "Tm" 'org-modern-mode)))
+    (spacemacs/set-leader-keys-for-major-mode 'org-mode
+      "Tm" 'org-modern-mode)))
 
 (defun org/init-org-pomodoro ()
   (use-package org-pomodoro
@@ -1073,7 +1079,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/post-init-helm ()
   (if (not (boundp 'helm-imenu-extra-modes))
-    (setq helm-imenu-extra-modes '(org-mode)))
+      (setq helm-imenu-extra-modes '(org-mode)))
   (add-to-list 'helm-imenu-extra-modes 'org-mode))
 
 (defun org/init-org-roam-ui ()
