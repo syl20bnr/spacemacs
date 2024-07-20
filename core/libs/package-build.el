@@ -1104,7 +1104,10 @@ value specified in the file \"NAME.el\"."
             ;; by side-effect, e.g., to remove somewhat broken maintainer
             ;; information, that cannot easily be encoded as json (see
             ;; `package-build--archive-alist-for-json').
-            :url        (lm-homepage)
+            :url        (if (fboundp 'lm-website)
+                            (lm-website)
+                          (with-no-warnings
+                            (lm-homepage)))
             :keywords   (lm-keywords-list)
             ;; Newer `package.el' versions support both `:maintainers' and
             ;; `:maintainer', while older versions only support the latter.
