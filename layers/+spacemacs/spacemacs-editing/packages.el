@@ -446,12 +446,12 @@
     (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
     (sp-local-pair 'minibuffer-mode "'" nil :actions nil)
     (sp-pair "{" nil :post-handlers
-              '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
+             '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
     (sp-pair "[" nil :post-handlers
-              '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
+             '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
     (when dotspacemacs-smart-closing-parenthesis
       (define-key evil-insert-state-map ")"
-        'spacemacs/smart-closing-parenthesis))))
+                  'spacemacs/smart-closing-parenthesis))))
 
 (defun spacemacs-editing/init-spacemacs-whitespace-cleanup ()
   (use-package spacemacs-whitespace-cleanup
@@ -469,7 +469,7 @@
       :on (let ((spacemacs-whitespace-cleanup-globally t))
             (spacemacs-whitespace-cleanup-mode))
       :off (let ((spacemacs-whitespace-cleanup-globally t))
-              (spacemacs-whitespace-cleanup-mode -1))
+             (spacemacs-whitespace-cleanup-mode -1))
       :on-message (spacemacs-whitespace-cleanup/on-message t)
       :documentation "Global automatic whitespace clean up."
       :evil-leader "t C-S-w")
@@ -563,7 +563,7 @@ See variable `undo-tree-history-directory-alist'." dir))
 
 (defun spacemacs-editing/init-uuidgen ()
   (use-package uuidgen
-    :commands (uuidgen-1 uuidgen-4)
+    :autoload (uuidgen-1 uuidgen-4)
     :init
     (spacemacs/declare-prefix "iU" "uuid")
     (spacemacs/set-leader-keys
