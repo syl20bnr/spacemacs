@@ -108,6 +108,19 @@
     :defer t
     :ensure t
     :init
+    ;; evilify gptel-context-buffer-mode-map
+    (require 'gptel-context)
+    (evil-set-initial-state 'gptel-context-buffer-mode 'evilified)
+    (evilified-state-evilify-map gptel-context-buffer-mode-map
+      :mode gptel-context-buffer-mode
+      :bindings
+      "C-c C-c" #'gptel-context-confirm
+      "C-c C-k" #'gptel-context-quit
+      "RET"     #'gptel-context-visit
+      "n"       #'gptel-context-next
+      "p"       #'gptel-context-previous
+      "d"       #'gptel-context-flag-deletion)
+    ;; set up keybindings
     (spacemacs/declare-prefix "$g" "Gptel")
     (spacemacs/set-leader-keys
       "$gg" 'gptel                          ; Start a new GPTel session
