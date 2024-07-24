@@ -92,6 +92,13 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Edit
 ;; ---------------------------------------------------------------------------
 
+;; bump of the undo limits to avoid issues with premature
+;; Emacs GC which truncates the undo history very aggressively
+(setq-default
+ undo-limit 80000000
+ undo-strong-limit 120000000
+ undo-outer-limit 360000000)
+
 ;; Start with the *scratch* buffer in text mode (speeds up Emacs load time,
 ;; because it avoids autoloads of elisp modes)
 (setq initial-major-mode 'text-mode)
