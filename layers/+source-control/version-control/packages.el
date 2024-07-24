@@ -297,7 +297,7 @@
       ;; other
       ("C" smerge-combine-with-next)
       ("K" smerge-kill-current)
-      ("U" undo-tree-undo)
+      ("U" evil-undo)
       ("q" nil :exit t)
       ("?" spacemacs//smerge-ts-toggle-hint))))
 

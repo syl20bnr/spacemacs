@@ -82,8 +82,7 @@
   (require 'evil)
   (evil-mode 1)
 
-  (when (configuration-layer/package-used-p 'undo-tree)
-    (customize-set-variable 'evil-undo-system 'undo-tree))
+  (customize-set-variable 'evil-undo-system dotspacemacs-undo-system)
 
   ;; Use evil as a default jump handler
   (add-to-list 'spacemacs-default-jump-handlers 'evil-goto-definition)

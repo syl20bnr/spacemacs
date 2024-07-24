@@ -380,6 +380,16 @@ Point size is recommended, because it's device independent. (default 10.0)"
   '(choice (const evil) (const origami) (const vimish))
   'spacemacs-dotspacemacs-init)
 
+(spacemacs|defc dotspacemacs-undo-system 'undo-tree
+  "The backend used for undo/redo functionality. Possible values are
+`undo-tree', `undo-fu' and `undo-redo', see also `evil-undo-system'.
+Note that saved undo history does not get transferred when changing
+from undo-tree to undo-fu or undo-redo.
+The default is currently 'undo-tree, but it will likely be changed
+and at some point removed because undo-tree is not maintained anymore."
+  '(choice (const undo-redo) (const undo-fu) (const undo-tree))
+  'spacemacs-dotspacemacs-init)
+
 (spacemacs|defc dotspacemacs-default-layout-name "Default"
   "Name of the default layout."
   'string

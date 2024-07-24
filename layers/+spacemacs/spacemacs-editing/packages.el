@@ -29,6 +29,7 @@
     drag-stuff
     editorconfig
     eval-sexp-fu
+    evil-collection
     expand-region
     (hexl :location built-in)
     hungry-delete
@@ -44,7 +45,10 @@
     string-edit-at-point
     string-inflection
     multi-line
-    undo-tree
+    (undo-tree :toggle (eq 'undo-tree dotspacemacs-undo-system))
+    (undo-fu :toggle (eq 'undo-fu dotspacemacs-undo-system))
+    (undo-fu-session :toggle (not (eq 'undo-tree dotspacemacs-undo-system)))
+    (vundo :toggle (not (eq 'undo-tree dotspacemacs-undo-system)))
     (unkillable-scratch :toggle dotspacemacs-scratch-buffer-unkillable)
     uuidgen
     (vimish-fold :toggle (eq 'vimish dotspacemacs-folding-method))
@@ -532,11 +536,6 @@
           undo-tree-visualizer-diff t
           ;; See `vim-style-enable-undo-region'.
           undo-tree-enable-undo-in-region t
-          ;; 10X bump of the undo limits to avoid issues with premature
-          ;; Emacs GC which truncages the undo history very aggresively
-          undo-limit 800000
-          undo-strong-limit 12000000
-          undo-outer-limit 120000000
           undo-tree-history-directory-alist
           `(("." . ,(let ((dir (expand-file-name "undo-tree-history" spacemacs-cache-directory)))
                       (if (file-exists-p dir)
@@ -547,6 +546,7 @@ See variable `undo-tree-history-directory-alist'." dir))
                         (make-directory dir))
                       dir))))
     (global-undo-tree-mode)
+    (spacemacs/set-leader-keys "au" 'undo-tree-visualize)
     :config
     ;; restore diff window after quit.  TODO fix upstream
     (defun spacemacs/undo-tree-restore-default ()
@@ -560,6 +560,39 @@ See variable `undo-tree-history-directory-alist'." dir))
       (kbd "k") 'undo-tree-visualize-undo
       (kbd "h") 'undo-tree-visualize-switch-branch-left
       (kbd "l") 'undo-tree-visualize-switch-branch-right)))
+
+(defun spacemacs-editing/init-undo-fu ()
+  (use-package undo-fu
+    :defer t
+    :custom
+    (undo-fu-allow-undo-in-region t)))
+
+(defun spacemacs-editing/init-undo-fu-session ()
+  (use-package undo-fu-session
+    :defer t
+    :custom
+    (undo-fu-session-incompatible-files '("\\.gpg$" "/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
+    (undo-fu-session-directory (let ((dir (expand-file-name "undo-fu-session" spacemacs-cache-directory)))
+                                 (if (file-exists-p dir)
+                                     (unless (file-accessible-directory-p dir)
+                                       (warn "Cannot access directory `%s'.
+Perhaps you don't have required permissions, or it's not a directory.
+See variable `undo-fu-session-directory'." dir))
+                                   (make-directory dir))
+                                 dir))
+    (undo-fu-session-compression (if (executable-find "zstd") 'zst 'gz))
+    :init
+    (undo-fu-session-global-mode)))
+
+(defun spacemacs-editing/init-vundo ()
+  (use-package vundo
+    :defer t
+    :init
+    (spacemacs/set-leader-keys "au" 'vundo)))
+
+(defun spacemacs-editing/pre-init-evil-collection ()
+  (when (spacemacs//support-evilified-buffer-p)
+    (add-to-list 'spacemacs-evil-collection-allowed-list 'vundo)))
 
 (defun spacemacs-editing/init-uuidgen ()
   (use-package uuidgen
