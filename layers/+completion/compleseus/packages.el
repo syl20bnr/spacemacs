@@ -246,7 +246,13 @@
     (setq consult-project-root-function
           (lambda ()
             (when-let (project (project-current))
-              (car (project-root project))))))
+              (car (project-root project)))))
+
+    (dolist (command '(consult-org-agenda
+                       consult-org-heading
+                       consult-imenu
+                       spacemacs/consult-jump-in-buffer))
+      (evil-add-command-properties command :jump t)))
 
   ;; Configure consult-imenu for java-mode.
   (use-package consult-imenu
