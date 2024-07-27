@@ -246,7 +246,13 @@
     (setq consult-project-root-function
           (lambda ()
             (when-let (project (project-current))
-              (car (project-root project))))))
+              (car (project-root project)))))
+
+    (dolist (command '(consult-org-agenda
+                       consult-org-heading
+                       consult-imenu
+                       spacemacs/consult-jump-in-buffer))
+      (evil-add-command-properties command :jump t)))
 
   ;; Configure consult-imenu for java-mode.
   (use-package consult-imenu
@@ -420,31 +426,31 @@
       (define-key vertico-map (kbd "C-r") #'consult-history)))
 
   (use-package vertico-directory
-      :after vertico
-      :ensure nil
-      ;; More convenient directory navigation commands
-      :init (bind-key "C-h" 'vertico-directory-up vertico-map
-                      (spacemacs//support-hjkl-navigation-p))
-      ;; tidy shadowed file names
-      :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+    :after vertico
+    :ensure nil
+    ;; More convenient directory navigation commands
+    :init (bind-key "C-h" 'vertico-directory-up vertico-map
+                    (spacemacs//support-hjkl-navigation-p))
+    ;; tidy shadowed file names
+    :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 
   (use-package vertico-quick
-      :after vertico
-      :ensure nil
-      :init
-      (define-key vertico-map "\M-q" #'vertico-quick-insert)
-      (define-key vertico-map "\C-q" #'vertico-quick-exit))
+    :after vertico
+    :ensure nil
+    :init
+    (define-key vertico-map "\M-q" #'vertico-quick-insert)
+    (define-key vertico-map "\C-q" #'vertico-quick-exit))
 
   (use-package vertico-repeat
-      :after vertico
-      :ensure nil
-      :init
-      (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
-      (spacemacs/set-leader-keys
-        "rl" 'vertico-repeat-last
-        "rL" 'vertico-repeat-select
-        "sl" 'vertico-repeat-last
-        "sL" 'vertico-repeat-select)))
+    :after vertico
+    :ensure nil
+    :init
+    (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
+    (spacemacs/set-leader-keys
+      "rl" 'vertico-repeat-last
+      "rL" 'vertico-repeat-select
+      "sl" 'vertico-repeat-last
+      "sL" 'vertico-repeat-select)))
 
 (defun compleseus/post-init-grep ()
   (spacemacs/set-leader-keys-for-major-mode 'grep-mode
