@@ -1,6 +1,6 @@
 #+TITLE: Whisper Layer for Spacemacs
 
-#+TAGS: audio|layer|speech-to-text
+#+TAGS: layer|web service
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
@@ -29,7 +29,7 @@ The layer provides several key bindings to interact with Whisper efficiently. He
 
 | Key binding | Command                           | Description                                    |
 |-------------+-----------------------------------+------------------------------------------------|
-| ~SPC $ w r~   | whisper-run                       | Start recording and transcribe/translate audio |
-| ~SPC $ w f~   | whisper-file                      | Transcribe/translate a local file              |
-| ~SPC $ w l~   | spacemacs/whisper-select-language | Select transcription language                  |
-| ~SPC $ w m~   | spacemacs/whisper-select-model    | Select base model for transcription            |
+| ~SPC $ w r~ | whisper-run                       | Start recording and transcribe/translate audio |
+| ~SPC $ w f~ | whisper-file                      | Transcribe/translate a local file              |
+| ~SPC $ w l~ | spacemacs/whisper-select-language | Select transcription language                  |
+| ~SPC $ w m~ | spacemacs/whisper-select-model    | Select base model for transcription            |

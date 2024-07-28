@@ -1,6 +1,6 @@
 #+TITLE: OpenAI layer
 
-#+TAGS: general|layer|web service
+#+TAGS: layer|web service
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
