@@ -195,8 +195,7 @@
 (spacemacs/set-leader-keys
   "a*"  'calc-dispatch
   "ap"  'list-processes
-  "aP"  'proced
-  "au"  'undo-tree-visualize)
+  "aP"  'proced)
 ;; easy pg ----------------------------------------------------------------------
 (spacemacs|spacebind
  "Encrypt / decrypt files with Easy PG"
