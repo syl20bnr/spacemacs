@@ -251,36 +251,37 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
          (bindings (evilified-state--mplist-get props :bindings))
          (defkey (when bindings `(evil-define-key 'evilified ,map ,@bindings)))
          (body
-          (progn
-            (evilified-state--define-pre-bindings map pre-bindings)
-            `(
-              ;; we need to work on a local copy of the evilified keymap to
-              ;; prevent the original keymap from being mutated.
-              (setq evil-evilified-state-map (copy-keymap ,evilified-map))
-              (let* ((sorted-map (evilified-state--sort-keymap
-                                  evil-evilified-state-map))
-                    processed)
-                (mapc (lambda (map-entry)
-                        (unless (member (car map-entry) processed)
-                          (setq processed (evilified-state--evilify-event
-                                           ,map ',map evil-evilified-state-map
-                                           (car map-entry) (cdr map-entry)))))
-                      sorted-map)
-                (unless ,(null defkey)
-                  (,@defkey)))
-              (unless ,(null mode)
-                (evilified-state--configure-default-state ',mode))))))
+          `(,@(evilified-state--define-pre-bindings map pre-bindings)
+            ;; we need to work on a local copy of the evilified keymap to
+            ;; prevent the original keymap from being mutated.
+            (setq evil-evilified-state-map (copy-keymap ,evilified-map))
+            (let* ((sorted-map (evilified-state--sort-keymap
+                                evil-evilified-state-map))
+                   processed)
+              (mapc (lambda (map-entry)
+                      (unless (member (car map-entry) processed)
+                        (setq processed (evilified-state--evilify-event
+                                         ,map ',map evil-evilified-state-map
+                                         (car map-entry) (cdr map-entry)))))
+                    sorted-map)
+              (unless ,(null defkey)
+                (,@defkey)))
+            (unless ,(null mode)
+              (evilified-state--configure-default-state ',mode)))))
     (if (null eval-after-load)
         `(progn ,@body)
       `(with-eval-after-load ',eval-after-load (progn ,@body)))))
 (put 'evilified-state-evilify-map 'lisp-indent-function 'defun)
 
 (defun evilified-state--define-pre-bindings (map pre-bindings)
-  "Define PRE-BINDINGS in MAP."
-  (while pre-bindings
-    (let ((key (pop pre-bindings))
-          (func (pop pre-bindings)))
-      (eval `(define-key ,map ,key ,func)))))
+  "Return a list of forms to define PRE-BINDINGS in MAP."
+  (let ((pre-binding-forms))
+    (while pre-bindings
+      (let ((key (pop pre-bindings))
+            (func (pop pre-bindings)))
+        (push `(define-key ,map ,key ,func)
+              pre-binding-forms)))
+    (nreverse pre-binding-forms)))
 
 (defun evilified-state--configure-default-state (mode)
   "Configure default state for the passed mode."
