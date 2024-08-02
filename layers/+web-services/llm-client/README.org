@@ -10,7 +10,7 @@
   - [[#gptel-support][GPTel support]]
   - [[#ellama-support][Ellama support]]
 - [[#configuration][Configuration]]
-- [[#keybindings][Keybindings]]
+- [[#key-bindings][Key bindings]]
   - [[#gptel][GPTel]]
   - [[#ellama][Ellama]]
     - [[#code-tasks][Code tasks]]
@@ -64,12 +64,13 @@ Key features of GPTel include:
 
 To enable GPTel support in your Spacemacs configuration, add the following to
 your =dotspacemacs-configuration-layers= list:
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
    '((llm-client :variables llm-client-enable-gptel t)))
 #+END_SRC
-** Ellama support
 
+** Ellama support
 Ellama is a tool for interacting with large language models from Emacs. It
 provides a suite of convenience functions that streamline common workflows.
 Ellama can perform various tasks such as translation, code review,
@@ -86,19 +87,20 @@ Key features of Ellama include:
 
 To enable Ellama support in your Spacemacs configuration, add the following to
 your =dotspacemacs-configuration-layers= list:
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
    '((llm-client :variables llm-client-enable-ellama t)))
 #+END_SRC
+
 * Configuration
 Refer to the official [[https://github.com/karthink/gptel][GPTel]] and [[https://github.com/s-kostyaev/ellama][ellama]] documentation for advanced configurations
 and additional information.
 
-* Keybindings
+* Key bindings
 The layer provides several key bindings to interact with LLMs efficiently.
 
 ** GPTel
-
 
 | Key binding | Command                  | Description                    |
 |-------------+--------------------------+--------------------------------|
