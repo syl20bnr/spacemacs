@@ -276,6 +276,7 @@
   - [[#twitch][Twitch]]
   - [[#twitter][Twitter]]
   - [[#wakatime][Wakatime]]
+  - [[#whisper-layer-for-spacemacs][Whisper Layer for Spacemacs]]
 
 * Description
 
@@ -3400,7 +3401,7 @@ Features:
 ** Large Language Model Client
 [[file:+web-services/llm-client/README.org][+web-services/llm-client/README.org]]
 
-This layer enables usage of GPT Clients in Spacemacs using [[https://github.com/karthink/gptel][GPTel]].
+This layer enables usage of GPT Clients in Spacemacs using [[https://github.com/karthink/gptel][GPTel]] and [[https://github.com/s-kostyaev/ellama][Ellama]].
 
 Features:
 
@@ -3532,3 +3533,13 @@ P.S. wakati means time in Swahili
 
 Features:
 - Integration with Wakatime cloud based time tracking service
+
+** Whisper Layer for Spacemacs
+[[file:+web-services/whisper/README.org][+web-services/whisper/README.org]]
+
+This layer integrates the Whisper speech-to-text tool into Spacemacs, allowing for efficient transcription and audio processing within Emacs.
+
+Features:
+- Real-time transcription of audio files.
+- Support for multiple languages.
+- Selection of different base models for transcription.
