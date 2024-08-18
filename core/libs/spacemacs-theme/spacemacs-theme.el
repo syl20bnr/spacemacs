@@ -170,6 +170,7 @@ to 'auto, tags may not be properly aligned. "
      theme-name
 
 ;;;;; basics
+     `(completions-common-part ((,class (:foreground ,mat))))
      `(cursor ((,class (:background ,cursor))))
      `(custom-button ((,class :background ,bg2 :foreground ,base :box (:line-width 2 :style released-button))))
      `(default ((,class (:background ,bg1 :foreground ,base))))
@@ -192,6 +193,7 @@ to 'auto, tags may not be properly aligned. "
      `(font-lock-warning-face ((,class (:foreground ,war :background ,bg1))))
      `(fringe ((,class (:background ,bg1 :foreground ,base))))
      `(header-line ((,class :background ,bg2)))
+     `(help-key-binding ((,class :foreground ,blue :box (:line-width 1 :color ,blue-bg-s))))
      `(highlight ((,class (:foreground ,base :background ,highlight))))
      `(hl-line ((,class (:background ,bg2 :extend t))))
      `(isearch ((,class (:foreground ,bg1 :background ,mat))))
