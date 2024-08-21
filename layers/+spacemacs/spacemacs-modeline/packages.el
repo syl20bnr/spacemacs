@@ -29,7 +29,7 @@
         spaceline
         (spaceline-all-the-icons :toggle (eq (spacemacs/get-mode-line-theme-name) 'all-the-icons))
         symon
-        (vim-powerline :location (recipe :fetcher local))))
+        (powerline :location (recipe :fetcher local))))
 
 (defun spacemacs-modeline/post-init-anzu ()
   (when (eq 'all-the-icons (spacemacs/get-mode-line-theme-name))
@@ -115,32 +115,32 @@
     (add-hook 'spaceline-pre-hook 'spacemacs//prepare-diminish)
     ;; New spacemacs version segment
     (defpowerline spacemacs-powerline-new-version
-      (propertize
-       spacemacs-version-check-lighter
-       'mouse-face 'mode-line-highlight
-       'help-echo (format "New version %s | Click with mouse-1 to update"
-                          spacemacs-new-version)
-       'local-map (let ((map (make-sparse-keymap)))
-                    (define-key map
-                      [mode-line down-mouse-1]
-                      (lambda (event)
-                        (interactive "@e")
-                        (if (yes-or-no-p
-                             (format
-                              (concat "Do you want to update to the newest "
-                                      "version %s ?")
-                              spacemacs-new-version))
-                            (progn
-                              (spacemacs/switch-to-version
-                               spacemacs-new-version))
-                          (message "Update aborted."))))
-                    map)))
+                  (propertize
+                   spacemacs-version-check-lighter
+                   'mouse-face 'mode-line-highlight
+                   'help-echo (format "New version %s | Click with mouse-1 to update"
+                                      spacemacs-new-version)
+                   'local-map (let ((map (make-sparse-keymap)))
+                                (define-key map
+                                            [mode-line down-mouse-1]
+                                            (lambda (event)
+                                              (interactive "@e")
+                                              (if (yes-or-no-p
+                                                   (format
+                                                    (concat "Do you want to update to the newest "
+                                                            "version %s ?")
+                                                    spacemacs-new-version))
+                                                  (progn
+                                                    (spacemacs/switch-to-version
+                                                     spacemacs-new-version))
+                                                (message "Update aborted."))))
+                                map)))
     (spaceline-define-segment
-        new-version
-      (when spacemacs-new-version
-        (spacemacs-powerline-new-version
-         (spacemacs/get-new-version-lighter-face
-          spacemacs-version spacemacs-new-version))))
+     new-version
+     (when spacemacs-new-version
+       (spacemacs-powerline-new-version
+        (spacemacs/get-new-version-lighter-face
+         spacemacs-version spacemacs-new-version))))
     (let ((theme (intern (format "spaceline-%S-theme"
                                  (spacemacs/get-mode-line-theme-name)))))
       (apply theme spacemacs-spaceline-additional-segments))
@@ -190,7 +190,7 @@
       :documentation "Tiny graphical system monitor."
       :evil-leader "tms")))
 
-(defun spacemacs-modeline/init-vim-powerline ()
+(defun spacemacs-modeline/init-powerline ()
   (when (eq 'vim-powerline (spacemacs/get-mode-line-theme-name))
     (require 'powerline)
     (if (display-graphic-p)
@@ -210,7 +210,7 @@ PAD import on left (l) or right (r) or left-right (lr)."
           (if face
               (pl/add-text-property padded-str 'face face)
             padded-str))))
-    (require 'vim-powerline-theme)
-    (powerline-vimish-theme)
+    (require 'powerline-themes)
+    (powerline-default-theme)
     (add-hook 'emacs-startup-hook
               'spacemacs//set-vimish-powerline-for-startup-buffers)))
