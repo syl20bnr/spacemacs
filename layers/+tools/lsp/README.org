@@ -205,8 +205,6 @@ The lsp minor mode bindings are:
 | ~SPC m a s~   | Execute source action                                                            |
 |---------------+----------------------------------------------------------------------------------|
 | ~SPC m g t~   | goto type-definition (=lsp-mode=)                                                |
-| ~SPC m g k~   | goto viewport word (=avy=) (See Note 1)                                          |
-| ~SPC m g K~   | goto viewport symbol (=avy=) (See Note 1)                                        |
 | ~SPC m g e~   | browse flycheck errors (=lsp-treemacs=)                                          |
 | ~SPC m g M~   | browse file symbols (=lsp-ui-imenu=)                                             |
 | ~SPC m g h~   | goto call hierachy (=lsp-treemacs=)                                              |
