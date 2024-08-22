@@ -30,7 +30,15 @@
     (lsp-ivy :requires ivy)
     (lsp-treemacs :requires treemacs)
     (lsp-origami :requires lsp-mode)
+    (lsp-sonarlint :toggle lsp-sonarlint)
     popwin))
+
+(defun lsp/init-lsp-sonarlint ()
+  (use-package lsp-sonarlint
+    :init
+    (setq
+     lsp-sonarlint-auto-download t)
+    :defer t))
 
 (defun lsp/init-lsp-mode ()
   (use-package lsp-mode

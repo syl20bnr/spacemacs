@@ -52,6 +52,7 @@ expect to do some manual configuring in your dotfile.
 - Navigation using =imenu=
 - Consistent core key bindings in LSP modes
 - Code folding (=lsp-origami=)
+- Sonarlint integration (=lsp-sonarlint=)
 
 * Configuration
 Enabling this layer will set the used backend for all supported languages to
@@ -81,6 +82,7 @@ under the derived mode t prefix by =(spacemacs/lsp-bind-keys-for-mode mode)=
 | =lsp-ui-doc-include-signature=       | nil                                  | When nil, signature omitted from lsp-ui-doc overlay (this is usually redundant).                                |
 | =lsp-ui-sideline-enable=             | t                                    | When non-nil, the symbol information overlay is displayed.                                                      |
 | =lsp-ui-sideline-show-symbol=        | nil                                  | When non-nil, the symbol information overlay includes symbol name (redundant for c-modes).                      |
+| =lsp-sonarlint=                      | nil                                  | When non-nil, use ~lsp-sonarlint~ package.                                                                      |
 
 ** Code Lens
 Code lens is a feature that displays ="actionable contextual information interspersed"= in your source code.
@@ -356,3 +358,4 @@ If some features do not work as expected, here is a common check list.
 * References
 - [[https://github.com/emacs-lsp/lsp-mode][lsp-mode repo]]
 - [[https://github.com/emacs-lsp/lsp-ui][lsp-ui repo]]
+- [[https://github.com/emacs-lsp/lsp-sonarlint][lsp-sonarlint repo]]
