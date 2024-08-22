@@ -3003,6 +3003,7 @@ Features:
 - Navigation using =imenu=
 - Consistent core key bindings in LSP modes
 - Code folding (=lsp-origami=)
+- Sonarlint integration (=lsp-sonarlint=)
 
 ** Meson
 [[file:+tools/meson/README.org][+tools/meson/README.org]]
