@@ -63,7 +63,7 @@
     (spacemacs|when-dumping-strict
       (spacemacs/spaceline-config-startup))
     (spacemacs|unless-dumping
-      (add-hook 'emacs-startup-hook 'spacemacs/spaceline-config-startup-hook))
+      (add-hook 'spacemacs-post-user-config-hook 'spacemacs/spaceline-config-startup-hook))
     (add-hook 'spacemacs-post-theme-change-hook
               'spacemacs/customize-powerline-faces)
     (add-hook 'spacemacs-post-theme-change-hook 'powerline-reset)
