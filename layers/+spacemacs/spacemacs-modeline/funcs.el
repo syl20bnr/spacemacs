@@ -78,17 +78,13 @@ Return nil if no scale is defined."
   (let ((state (if (eq 'operator evil-state) evil-previous-state evil-state)))
     (intern (format "spacemacs-%S-face" state))))
 
-(defun spacemacs//restore-powerline (buffer)
-  "Restore the powerline in buffer"
-  (with-current-buffer buffer
-    (setq-local mode-line-format (default-value 'mode-line-format))))
-
 (defun spacemacs//restore-buffers-powerline ()
   "Restore the powerline in the buffers.
 Excluding which-key."
   (dolist (buffer (buffer-list))
     (unless (string-match-p "\\*which-key\\*" (buffer-name buffer))
-      (spacemacs//restore-powerline)))
+      (with-current-buffer buffer
+        (setq-local mode-line-format (default-value 'mode-line-format)))))
   (powerline-reset)
   (powerline-set-selected-window)
   (force-mode-line-update t))
