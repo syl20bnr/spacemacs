@@ -178,6 +178,8 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
     ;; `buffer-predicate' entry doesn't exist, create it
     (push '(buffer-predicate . spacemacs/useful-buffer-p) default-frame-alist)))
 
+(add-to-list 'window-persistent-parameters '(spacemacs-max-state . writable))
+
 ;; ---------------------------------------------------------------------------
 ;; Session
 ;; ---------------------------------------------------------------------------
