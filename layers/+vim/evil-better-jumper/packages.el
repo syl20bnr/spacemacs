@@ -28,6 +28,9 @@
 (defun evil-better-jumper/init-better-jumper ()
   (use-package better-jumper
     :init
+    ;; Fix https://github.com/gilbertw1/better-jumper/pull/26
+    ;; (can be removed once the above PR is merged)
+    (define-obsolete-variable-alias 'evil--jumps-jumping-backward 'evil--jumps-jump-command "2024-07")
     (global-set-key [remap evil-jump-forward]  #'better-jumper-jump-forward)
     (global-set-key [remap evil-jump-backward] #'better-jumper-jump-backward)
     (global-set-key [remap xref-pop-marker-stack] #'better-jumper-jump-backward)
