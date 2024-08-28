@@ -186,17 +186,63 @@ Refer Spacemacs #16397 for details.")
                                  newline
                                  newline-mark)))
 
-;; from https://gist.github.com/3402786
-(defun spacemacs/toggle-maximize-buffer ()
-  "Maximize buffer"
+(defun spacemacs//delete-other-non-side-windows ()
+  "Delete all windows except for the selected one and side windows.
+
+Unlike `delete-other-windows', this function ignores the
+window parameter no-delete-other-windows."
+  (walk-windows
+   (lambda (win)
+     (unless (or (eq win (selected-window))
+                 (window-parameter win 'window-side))
+       (delete-window win)))
+   'ignore-minibuffer))
+
+;; adapted from https://gist.github.com/3402786
+(defun spacemacs/toggle-maximize-window ()
+  "Temporarily maximize window, restore other windows on the next
+call.
+
+The variable `dotspacemacs-maximize-window-keep-side-windows'
+controls whether side windows (such as those created by treemacs, neotree or
+persistent which-key) are kept or minimized too."
   (interactive)
-  (save-excursion
-    (if (and (= 1 (length (window-list)))
-             (assoc ?_ register-alist))
-        (jump-to-register ?_)
-      (progn
-        (window-configuration-to-register ?_)
-        (delete-other-windows)))))
+  (let* ((max-target-window
+          (if dotspacemacs-maximize-window-keep-side-windows
+              (window-main-window)
+            (frame-root-window)))
+         (window-already-maximal
+          (eq max-target-window (selected-window))))
+    (cond ((and window-already-maximal
+                (window-parameter nil 'spacemacs-max-state))
+           ;; Restore the previously deleted windows, keeping the state of the
+           ;; selected window.
+           (let ((selected-win-state (window-state-get (selected-window))))
+             (window-state-put
+              (window-parameter nil 'spacemacs-max-state) (selected-window))
+             (window-state-put selected-win-state (selected-window))
+             (set-window-parameter nil 'spacemacs-max-state nil)))
+          ((and (not window-already-maximal)
+                (window-parameter nil 'window-side))
+           ;; Raise the same error as `delete-other-windows'
+           ;; (with `ignore-window-parameters' nil).
+           (error "Cannot make side window the only window"))
+          ((not window-already-maximal)
+           ;; Store the current state as a window parameter of the selected window
+           ;; and delete other windows.
+           (walk-windows (lambda (win) (set-window-parameter win 'spacemacs-max-state nil)))
+           (set-window-parameter nil 'spacemacs-max-state (window-state-get max-target-window t))
+           (if dotspacemacs-maximize-window-keep-side-windows
+               (spacemacs//delete-other-non-side-windows)
+             (let ((ignore-window-parameters t))
+               (delete-other-windows))))))
+  (when (configuration-layer/layer-used-p 'spacemacs-layouts)
+    ;; Make the existing advice for rename-buffer, `spacemacs//fixup-window-configs',
+    ;; apply to buffers in "minimized" windows in the current workspace.
+    (spacemacs/update-eyebrowse-for-perspective)))
+
+(define-obsolete-function-alias 'spacemacs/toggle-maximize-buffer
+  'spacemacs/toggle-maximize-window "2024-08")
 
 ;; https://tsdh.wordpress.com/2007/03/28/deleting-windows-vertically-or-horizontally/
 (defun spacemacs/maximize-horizontally ()

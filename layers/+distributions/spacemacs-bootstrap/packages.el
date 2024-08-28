@@ -110,8 +110,8 @@
   ;; Make set-selective-display more discoverable to Evil folks
   (define-key evil-normal-state-map "z$" 'spacemacs/toggle-selective-display)
   ;; toggle maximize buffer
-  (define-key evil-window-map (kbd "o") 'spacemacs/toggle-maximize-buffer)
-  (define-key evil-window-map (kbd "C-o") 'spacemacs/toggle-maximize-buffer)
+  (define-key evil-window-map (kbd "o") 'spacemacs/toggle-maximize-window)
+  (define-key evil-window-map (kbd "C-o") 'spacemacs/toggle-maximize-window)
   ;; make cursor keys work
   (define-key evil-window-map (kbd "<left>") 'evil-window-left)
   (define-key evil-window-map (kbd "<right>") 'evil-window-right)

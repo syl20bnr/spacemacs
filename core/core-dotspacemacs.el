@@ -479,6 +479,12 @@ window."
   'boolean
   'spacemacs-dotspacemacs-init)
 
+(spacemacs|defc dotspacemacs-maximize-window-keep-side-windows t
+  "Whether side windows (such as those created by treemacs or neotree)
+are kept or minimized by `spacemacs/toggle-maximize-window' (SPC w m)."
+  'boolean
+  'spacemacs-dotspacemacs-init)
+
 (spacemacs|defc dotspacemacs-loading-progress-bar t
   "If non nil a progress bar is displayed when spacemacs is loading. This
 may increase the boot time on some systems and emacs builds, set it to nil
