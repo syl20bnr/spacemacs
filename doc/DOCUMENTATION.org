@@ -2329,51 +2329,51 @@ number 0, =SPC 0= attempts to select window number 10.
 
 Windows manipulation commands (start with ~w~):
 
-| Key binding            | Description                                                                 |
-|------------------------+-----------------------------------------------------------------------------|
-| ~SPC w TAB~            | switch to alternate window in the current frame (switch back and forth)     |
-| ~SPC w =~              | balance split windows                                                       |
-| ~SPC w _~              | maximize window horizontally                                                |
-| ~SPC w \vert~          | maximize window vertically                                                  |
-| ~SPC w b~              | force the focus back to the minibuffer                                      |
-| ~SPC w c c~            | toggle visual centering of the current buffer                               |
-| ~SPC w c C~            | toggle visual distraction free mode                                         |
-| ~SPC w c .~            | center buffer and enable centering transient state                          |
-| ~SPC w d~              | delete a window                                                             |
-| ~SPC u SPC w d~        | delete a window and its current buffer (does not delete the file)           |
-| ~SPC w D~              | delete another window using [[https://github.com/abo-abo/ace-window][ace-window]]                                      |
-| ~SPC u SPC w D~        | delete another window and its current buffer using [[https://github.com/abo-abo/ace-window][ace-window]]               |
-| ~SPC w t~              | toggle window dedication (dedicated window cannot be reused by a mode)      |
-| ~SPC w f~              | toggle follow mode                                                          |
-| ~SPC w F~              | create new frame                                                            |
-| ~SPC w h~              | move to window on the left                                                  |
-| ~SPC w H~              | move window to the left                                                     |
-| ~SPC w j~              | move to window below                                                        |
-| ~SPC w J~              | move window to the bottom                                                   |
-| ~SPC w k~              | move to window above                                                        |
-| ~SPC w K~              | move window to the top                                                      |
-| ~SPC w l~              | move to window on the right                                                 |
-| ~SPC w L~              | move window to the right                                                    |
-| ~SPC w m~              | maximize/minimize a window (maximize is similar to delete-other-windows)    |
-| ~SPC w M~              | swap windows using [[https://github.com/abo-abo/ace-window][ace-window]]                                               |
-| ~SPC w o~              | cycle and focus between frames                                              |
-| ~SPC w p m~            | open messages buffer in a popup window                                      |
-| ~SPC w p p~            | close the current sticky popup window                                       |
-| ~SPC w r~              | rotate windows forward                                                      |
-| ~SPC w R~              | rotate windows backward                                                     |
-| ~SPC w s~ or ~SPC w -~ | horizontal split                                                            |
-| ~SPC w S~              | horizontal split and focus new window                                       |
-| ~SPC w u~              | undo window layout (used to effectively undo a closed window)               |
-| ~SPC w U~              | redo window layout                                                          |
-| ~SPC w v~ or ~SPC w /~ | vertical split                                                              |
-| ~SPC w V~              | vertical split and focus new window                                         |
-| ~SPC w w~              | cycle and focus between windows                                             |
-| ~SPC w W~              | select window using [[https://github.com/abo-abo/ace-window][ace-window]]                                              |
-| ~SPC w x~              | delete a window and its current buffer (does not delete the file)           |
-| ~SPC w [~              | shrink window horizontally (enter transient state)                          |
-| ~SPC w ]~              | enlarge window horizontally (enter transient state)                         |
-| ~SPC w {~              | shrink window vertically (enter transient state)                            |
-| ~SPC w }~              | enlarge window vertically (enter transient state)                           |
+| Key binding            | Description                                                              |
+|------------------------+--------------------------------------------------------------------------|
+| ~SPC w TAB~            | switch to alternate window in the current frame (switch back and forth)  |
+| ~SPC w =~              | balance split windows                                                    |
+| ~SPC w _~              | maximize window horizontally                                             |
+| ~SPC w \vert~          | maximize window vertically                                               |
+| ~SPC w b~              | force the focus back to the minibuffer                                   |
+| ~SPC w c c~            | toggle visual centering of the current buffer                            |
+| ~SPC w c C~            | toggle visual distraction free mode                                      |
+| ~SPC w c .~            | center buffer and enable centering transient state                       |
+| ~SPC w d~              | delete a window                                                          |
+| ~SPC u SPC w d~        | delete a window and its current buffer (does not delete the file)        |
+| ~SPC w D~              | delete another window using [[https://github.com/abo-abo/ace-window][ace-window]]                                   |
+| ~SPC u SPC w D~        | delete another window and its current buffer using [[https://github.com/abo-abo/ace-window][ace-window]]            |
+| ~SPC w t~              | toggle window dedication (dedicated window cannot be reused by a mode)   |
+| ~SPC w f~              | toggle follow mode                                                       |
+| ~SPC w F~              | create new frame                                                         |
+| ~SPC w h~              | move to window on the left                                               |
+| ~SPC w H~              | move window to the left                                                  |
+| ~SPC w j~              | move to window below                                                     |
+| ~SPC w J~              | move window to the bottom                                                |
+| ~SPC w k~              | move to window above                                                     |
+| ~SPC w K~              | move window to the top                                                   |
+| ~SPC w l~              | move to window on the right                                              |
+| ~SPC w L~              | move window to the right                                                 |
+| ~SPC w m~              | maximize/minimize a window (maximize is similar to delete-other-windows) |
+| ~SPC w M~              | swap windows using [[https://github.com/abo-abo/ace-window][ace-window]]                                            |
+| ~SPC w o~              | cycle and focus between frames                                           |
+| ~SPC w p m~            | open messages buffer in a popup window                                   |
+| ~SPC w p p~            | close the current sticky popup window                                    |
+| ~SPC w r~              | rotate windows forward                                                   |
+| ~SPC w R~              | rotate windows backward                                                  |
+| ~SPC w s~ or ~SPC w -~ | horizontal split                                                         |
+| ~SPC w S~              | horizontal split and focus new window                                    |
+| ~SPC w u~              | undo window layout (used to effectively undo a closed window)            |
+| ~SPC w U~              | redo window layout                                                       |
+| ~SPC w v~ or ~SPC w /~ | vertical split                                                           |
+| ~SPC w V~              | vertical split and focus new window                                      |
+| ~SPC w w~              | cycle and focus between windows                                          |
+| ~SPC w W~              | select window using [[https://github.com/abo-abo/ace-window][ace-window]]                                           |
+| ~SPC w x~              | delete a window and its current buffer (does not delete the file)        |
+| ~SPC w [~              | shrink window horizontally (enter transient state)                       |
+| ~SPC w ]~              | enlarge window horizontally (enter transient state)                      |
+| ~SPC w {~              | shrink window vertically (enter transient state)                         |
+| ~SPC w }~              | enlarge window vertically (enter transient state)                        |
 
 Note that by default, ~SPC w m~ will not delete side windows such as those
 created by treemacs or neotree. If you would like side windows to get minimized
