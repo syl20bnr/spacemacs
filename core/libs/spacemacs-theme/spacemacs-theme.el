@@ -170,7 +170,7 @@ to 'auto, tags may not be properly aligned. "
      theme-name
 
 ;;;;; basics
-     `(completions-common-part ((,class (:foreground ,mat))))
+     `(completions-common-part ((,class (:foreground ,keyword :weight bold))))
      `(cursor ((,class (:background ,cursor))))
      `(custom-button ((,class :background ,bg2 :foreground ,base :box (:line-width 2 :style released-button))))
      `(default ((,class (:background ,bg1 :foreground ,base))))
