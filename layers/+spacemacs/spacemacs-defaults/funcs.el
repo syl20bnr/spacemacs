@@ -230,6 +230,7 @@ persistent which-key) are kept or minimized too."
           ((not window-already-maximal)
            ;; Store the current state as a window parameter of the selected window
            ;; and delete other windows.
+           (walk-windows (lambda (win) (set-window-parameter win 'spacemacs-max-state nil)))
            (set-window-parameter nil 'spacemacs-max-state (window-state-get max-target-window t))
            (if dotspacemacs-maximize-window-keep-side-windows
                (spacemacs//delete-other-non-side-windows)
