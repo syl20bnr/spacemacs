@@ -50,9 +50,10 @@
     (setq spacemacs--symbol-highlight-transient-state-doc
           (concat
            spacemacs--symbol-highlight-transient-state-doc
-           "  Search: [_s_] consult-line  [_f_] files  [_/_] project"))
+           "  Search: [_s_] consult-line [_b_] buffers  [_f_] files  [_/_] project"))
     (spacemacs/transient-state-register-add-bindings 'symbol-highlight
       '(("s" spacemacs/consult-line-symbol :exit t)
+        ("b" spacemacs/consult-line-multi-symbol :exit t)
         ("f" spacemacs/compleseus-search-auto-symbol :exit t)
         ("/" spacemacs/compleseus-search-projectile-symbol :exit t)))))
 
