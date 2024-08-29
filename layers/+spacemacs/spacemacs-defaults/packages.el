@@ -376,6 +376,10 @@
       (add-hook 'find-file-hook (lambda () (unless recentf-mode
                                              (recentf-mode)
                                              (recentf-track-opened-file)))))
+    ;; Do not leave dangling timers when reloading the configuration.
+    (when (and (boundp 'recentf-auto-save-timer)
+               (timerp recentf-auto-save-timer))
+      (cancel-timer recentf-auto-save-timer))
     (setq recentf-save-file (concat spacemacs-cache-directory "recentf")
           recentf-max-saved-items 1000
           recentf-auto-cleanup 'never
