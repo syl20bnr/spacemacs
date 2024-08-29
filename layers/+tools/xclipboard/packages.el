@@ -22,13 +22,9 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 (defconst xclipboard-packages
-  '(
-    (spacemacs-xclipboard :location local)
-    (cliphist :requires ivy
-              :toggle xclipboard-enable-cliphist)
-    ))
+  '((spacemacs-xclipboard :location local)
+    (cliphist :toggle xclipboard-enable-cliphist)))
 
 (defun xclipboard/init-cliphist ()
   (use-package cliphist
