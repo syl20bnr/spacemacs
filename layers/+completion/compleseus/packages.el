@@ -84,6 +84,7 @@
                ;; https://github.com/bbatsov/projectile/issues/1664
                ;; https://github.com/minad/marginalia/issues/110
                (persp-switch-to-buffer . buffer)
+               (compleseus-spacemacs-help-layers . layer)
                (projectile-find-file . project-file)
                (projectile-find-dir . project-file)
                (projectile-recentf . project-file)
@@ -300,9 +301,24 @@
     (which-key-add-keymap-based-replacements minibuffer-local-map "C-c C-e" "Edit buffer")
     (which-key-add-keymap-based-replacements minibuffer-local-map "C-z" "Embark actions...")
     :config
+    ;; custom Embark actions
     (define-key embark-file-map "s" 'spacemacs/compleseus-search-from)
     (define-key embark-buffer-map "s" #'spacemacs/embark-consult-line-multi)
     (add-to-list 'embark-multitarget-actions #'spacemacs/embark-consult-line-multi)
+    (defvar spacemacs-embark-layer-map
+      (let ((map (make-sparse-keymap)))
+        (set-keymap-parent map embark-general-map)
+        (define-key map "a" '("Add layer" . compleseus-spacemacs-help//layer-action-add-layer))
+        (define-key map "d" '("Open Dired" . compleseus-spacemacs-help//layer-action-open-dired))
+        (define-key map "e" '("Edit README" . compleseus-spacemacs-help//layer-action-open-readme-edit))
+        (define-key map "c" '("Open config.el" . compleseus-spacemacs-help//layer-action-open-config))
+        (define-key map "p" '("Open packages.el" . compleseus-spacemacs-help//layer-action-open-packages))
+        (define-key map "f" '("Open funcs.el" . compleseus-spacemacs-help//layer-action-open-funcs))
+        (define-key map "l" '("Open layers.el" . compleseus-spacemacs-help//layer-action-open-layers))
+        (define-key map "r" '("Open README" . compleseus-spacemacs-help//layer-action-open-readme))
+        map)
+      "Keymap for Embark layer actions.")
+    (add-to-list 'embark-keymap-alist '(layer spacemacs-embark-layer-map))
     ;; which key integration setup
     ;; https://github.com/oantolin/embark/wiki/Additional-Configuration#use-which-key-like-a-key-menu-prompt
     (setq embark-indicators
