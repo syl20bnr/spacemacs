@@ -1826,30 +1826,36 @@ your used layer list with layer variables:
 
 *** Restrict a given function to the current layout
 You can make any function "layout aware" by adding it to the list
-=spacemacs-layouts-restricted-functions=. It is not possible to change this
-variable when Emacs is running. You have to define it using layer variables.
-If you change this variable then Emacs must be restarted for the change to
-take effect.
+=spacemacs-layouts-restricted-functions=. This needs to be done by
+redefining the complete list either as a layer variable or using
+=setopt= or =customize-set-variable=.
 
-Default value for this variable is:
+The default value for this variable is:
 
 #+BEGIN_EXAMPLE
-  '(spacemacs/window-split-double-columns
+  '(switch-to-next-buffer
+    switch-to-prev-buffer
+    spacemacs/window-split-double-columns
     spacemacs/window-split-triple-columns
     spacemacs/window-split-grid)
 #+END_EXAMPLE
 
 If you want to add the function =my-func= to this list you need to redefine
-the complete list using layer variables:
+the complete list, for example using layer variables:
 
 #+BEGIN_EXAMPLE
   (spacemacs-layouts :variables
                      spacemacs-layouts-restricted-functions
-                     '(spacemacs/window-split-double-columns
+                     '(switch-to-next-buffer
+                       switch-to-prev-buffer
+                       spacemacs/window-split-double-columns
                        spacemacs/window-split-triple-columns
                        spacemacs/window-split-grid
                        my-func))
 #+END_EXAMPLE
+
+The changes apply after reloading your configuration with ~SPC f e R~
+or after restarting Spacemacs.
 
 ** Workspaces
 Workspaces are sub-layouts, they allow to define multiple layouts into a given

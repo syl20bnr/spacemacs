@@ -236,9 +236,6 @@
                 :before 'spacemacs//layout-wait-for-modeline)
     (when layouts-enable-local-variables
       (advice-add 'persp-switch :before #'spacemacs//load-layout-local-vars))
-    (dolist (fn spacemacs-layouts-restricted-functions)
-      (advice-add fn
-                  :around 'spacemacs-layouts//advice-with-persp-buffer-list))
     (spacemacs/declare-prefix "b" "persp-buffers")
     (spacemacs/set-leader-keys
       "ba"   'persp-add-buffer
