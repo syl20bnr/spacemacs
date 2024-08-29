@@ -70,11 +70,36 @@ layout, the 4th for the 4th, and so on until the 10th (aka layout
 number 0). The first list is sepcial - it is a grab-bag for names
 in case none of the regular names can be used for a new layout.")
 
-(defvar spacemacs-layouts-restricted-functions
-  '(spacemacs/window-split-double-columns
-    spacemacs/window-split-triple-columns
-    spacemacs/window-split-grid)
-  "List of functions to be wrapped by `with-persp-buffer-list'")
+(when (configuration-layer/package-used-p 'persp-mode)
+  (defvar spacemacs--old-layouts-restricted-functions nil)
+  (defcustom spacemacs-layouts-restricted-functions
+    '(switch-to-prev-buffer
+      switch-to-next-buffer
+      spacemacs/window-split-double-columns
+      spacemacs/window-split-triple-columns
+      spacemacs/window-split-grid)
+    "List of functions to be wrapped by `spacemacs||with-persp-buffer-list',
+which restricts the value of `buffer-list' to the buffers in the current layout.
+
+To change the value of this variable, redefine the complete list
+using `setopt', `customize-set-variable', or by setting it as a
+layer variable in `dotspacemacs-configuration-layers'. This
+ensures that the custom set function is called which removes and
+adds advices to the respective functions."
+    :type '(repeat function)
+    :set (lambda (_ value)
+           (dolist (fn spacemacs--old-layouts-restricted-functions)
+             (advice-remove fn 'spacemacs-layouts//advice-with-persp-buffer-list))
+           (setq spacemacs--old-layouts-restricted-functions value
+                 spacemacs-layouts-restricted-functions value)
+           (dolist (fn spacemacs-layouts-restricted-functions)
+             (advice-add fn :around 'spacemacs-layouts//advice-with-persp-buffer-list))))
+
+  ;; This is needed to allow setting it as a layer variable in
+  ;; `dotspacemacs-configuration-layers', which only calls `set-default' and
+  ;; not the custom set function.
+  (customize-set-variable 'spacemacs-layouts-restricted-functions
+                          spacemacs-layouts-restricted-functions))
 
 (defvar spacemacs-layouts-restrict-spc-tab nil
   "If `t' then `SPC-TAB' will be limited to the current layout's buffers.")
