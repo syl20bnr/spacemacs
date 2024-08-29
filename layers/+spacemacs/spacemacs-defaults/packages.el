@@ -396,9 +396,7 @@
     (setq savehist-file (concat spacemacs-cache-directory "savehist")
           enable-recursive-minibuffers t ; Allow commands in minibuffers
           history-length 1000
-          savehist-additional-variables '(mark-ring
-                                          global-mark-ring
-                                          search-ring
+          savehist-additional-variables '(search-ring
                                           regexp-search-ring
                                           extended-command-history
                                           kill-ring)
