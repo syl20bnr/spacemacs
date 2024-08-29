@@ -98,7 +98,6 @@
         "xg"  "google-translate"
         "xj"  "justification"
         "xl"  "lines"
-        "xR"  "Randomize"
         "xt"  "transpose"
         "xw"  "words"
         "z"   "zoom"))
