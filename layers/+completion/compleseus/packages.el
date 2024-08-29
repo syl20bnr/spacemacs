@@ -132,8 +132,8 @@
            ("M-s g" . consult-grep)
            ("M-s G" . consult-git-grep)
            ("M-s r" . consult-ripgrep)
-           ("M-s l" . consult-line)
-           ("M-s m" . consult-line-multi)
+           ("M-s l" . spacemacs/consult-line)
+           ("M-s m" . spacemacs/consult-line-multi)
            ("M-s k" . consult-keep-lines)
            ("M-s u" . consult-focus-lines)
            ;; Isearch integration
