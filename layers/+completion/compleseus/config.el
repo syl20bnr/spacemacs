@@ -25,6 +25,18 @@
   "Options are `selectrum', and `vertico' to use as completion
   engine.")
 
+(defvar compleseus-buffer-search-restrict-project t
+  "If non-nil, `spacemacs/consult-line-multi' and `spacemacs/consult-line-multi-symbol'
+will be restricted to buffers of the current project.
+This is the default behaviour of `consult-line-multi', but it can be overriden
+by using a prefix argument.
+
+If nil, we invert the default behaviour, and thus restrict to buffers
+of the current project only when a prefix argument is used.
+
+To restrict the commands to buffers of the current layout, customize
+the variable `spacemacs-layouts-restricted-functions'.")
+
 (defvar consult--source-modified-persp-buffers
   `(:name "Modified Buffers"
           :narrow   (?* . "Modified Layout Buffers")

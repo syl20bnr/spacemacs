@@ -84,17 +84,31 @@ active and `force-input' is not nil, `thing-at-point' will be returned."
   (consult-line
    (spacemacs/initial-search-input t)))
 
-(defun spacemacs/consult-line-multi (&optional query)
-  (interactive "P")
-  (consult-line-multi
-   query
-   (spacemacs/initial-search-input)))
+(defun spacemacs/consult-line-multi (&optional toggle-restrict)
+  "Search project buffers using `consult-line-multi'.
+If the prefix argument TOGGLE-RESTRICT is non-nil, search all buffers.
 
-(defun spacemacs/consult-line-multi-symbol (&optional query)
+If the region is active, it is used as the initial input.
+
+The effect of the prefix argument can be inverted by setting
+`compleseus-buffer-search-restrict-project' to nil."
   (interactive "P")
-  (consult-line-multi
-   query
-   (spacemacs/initial-search-input t)))
+  (unless compleseus-buffer-search-restrict-project
+    (setq toggle-restrict (not toggle-restrict)))
+  (consult-line-multi toggle-restrict (spacemacs/initial-search-input)))
+
+(defun spacemacs/consult-line-multi-symbol (&optional toggle-restrict)
+  "Search project buffers using `consult-line-multi'.
+If the prefix argument TOGGLE-RESTRICT is non-nil, search all buffers.
+
+The active region or symbol at point is used as the initial input.
+
+The effect of the prefix argument can be inverted by setting
+`compleseus-buffer-search-restrict-project' to nil."
+  (interactive "P")
+  (unless compleseus-buffer-search-restrict-project
+    (setq toggle-restrict (not toggle-restrict)))
+  (consult-line-multi toggle-restrict (spacemacs/initial-search-input t)))
 
 (defun spacemacs/embark-consult-line-multi (buffer-names)
   "Embark action to search in any subset of buffers using `consult-line-multi'.
