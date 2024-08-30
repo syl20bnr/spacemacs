@@ -67,14 +67,14 @@
     :defer t
     :init
     (spacemacs|add-company-backends
-     :backends (company-web-html company-css)
-     :modes web-mode)
+      :backends (company-web-html company-css)
+      :modes web-mode)
     (spacemacs|add-company-backends
-     :backends company-web-jade
-     :modes pug-mode)
+      :backends company-web-jade
+      :modes pug-mode)
     (spacemacs|add-company-backends
-     :backends company-web-slim
-     :modes slim-mode)))
+      :backends company-web-slim
+      :modes slim-mode)))
 
 (defun html/init-css-mode ()
   (use-package css-mode
@@ -228,9 +228,8 @@
     ;; TODO element close would be nice but broken with evil.
     :mode
     (("\\.phtml\\'"      . web-mode)
-     ("\\.tpl\\.php\\'"  . web-mode)
+     ("\\.tpl\\'"        . web-mode)
      ("\\.twig\\'"       . web-mode)
-     ("\\.xml\\'"        . web-mode)
      ("\\.html\\'"       . web-mode)
      ("\\.htm\\'"        . web-mode)
      ("\\.[gj]sp\\'"     . web-mode)
@@ -242,7 +241,6 @@
      ("\\.hbs\\'"        . web-mode)
      ("\\.eco\\'"        . web-mode)
      ("\\.ejs\\'"        . web-mode)
-     ("\\.svelte\\'"     . web-mode)
      ("\\.ctp\\'"        . web-mode)
      ("\\.djhtml\\'"     . web-mode))))
 
