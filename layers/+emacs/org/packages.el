@@ -949,6 +949,11 @@ Headline^^            Visit entry^^               Filter^^                    Da
     ;; org-roam. See https://github.com/syl20bnr/spacemacs/issues/15724
     ;; :hook (after-init . org-roam-setup)
     :init
+
+    ;; Fix org roam issue https://github.com/org-roam/org-roam/pull/2334 until
+    ;; upstream is merged.
+    (advice-add 'org-roam-fontify-like-in-org-mode :around #'spacemacs/with-save-excursion)
+
     (spacemacs/declare-prefix
       "aor"  "org-roam"
       "aord" "org-roam-dailies"

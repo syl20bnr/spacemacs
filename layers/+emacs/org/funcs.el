@@ -133,3 +133,11 @@ For example: To unfold from a magit diff buffer, evaluate the following:
                (and (org-entry-is-done-p) (> n-not-done 0)))
            ;; then prompt to change the state
            (org-todo))))
+
+
+
+
+(defun spacemacs/with-save-excursion (orig-fun &rest args)
+  "Execute the given function with save excursion."
+  (save-excursion
+    (apply orig-fun args)))
