@@ -114,7 +114,7 @@
   ;; - `C-c' as a prefix command still works.
   ;; - Activating normal-mode makes evil override the custom-mode-map normal-state
   ;;   its mouse button bindings. So we bind them explicitly in normal-state
-  (evil-define-key 'normal 'custom-mode-map [down-mouse-1] 'widget-button-click)
+  (evil-define-key 'normal custom-mode-map [down-mouse-1] 'widget-button-click)
   ;; - `u' as `Custom-goto-parent' conflicts with Evil undo. However it is
   ;;   questionable whether this will work properly in a Custom buffer;
   ;;   choosing to restore this binding.
