@@ -151,7 +151,7 @@
 
   ;; evil-refresh-cursor is called as part of the window-configuration-change-hook
   ;; and seems to induce performance problems
-  (when (boundp 'pdf-view-mode)
+  (with-eval-after-load 'pdf-view
     (advice-add 'evil-refresh-cursor :around #'spacemacs/not-in-pdf-view-mode))
 
   (when vim-style-enable-undo-region
