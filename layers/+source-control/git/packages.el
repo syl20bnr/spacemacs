@@ -34,7 +34,6 @@
     ;; include the old git{attributes,config,ignore}-mode
     git-modes
     gitignore-templates
-    git-commit
     git-link
     git-messenger
     git-timemachine
@@ -80,10 +79,6 @@
     :init (spacemacs/set-leader-keys
             "g/" 'helm-git-grep
             "g*" 'helm-git-grep-at-point)))
-
-(defun git/init-git-commit ()
-  (use-package git-commit
-    :defer t))
 
 (defun git/init-code-review ()
   (use-package code-review
