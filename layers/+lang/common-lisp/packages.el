@@ -129,7 +129,8 @@
       "hT" 'slime-untrace-all
       "h<" 'slime-who-calls
       "h>" 'slime-calls-who
-      ;; TODO: Add key bindings for who binds/sets globals?
+      "hS" 'slime-who-sets
+      "hb" 'slime-who-binds
       "hr" 'slime-who-references
       "hm" 'slime-who-macroexpands
       "hs" 'slime-who-specializes
