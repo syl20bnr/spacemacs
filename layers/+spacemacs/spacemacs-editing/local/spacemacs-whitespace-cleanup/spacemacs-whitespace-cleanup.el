@@ -2,7 +2,7 @@
 
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: editing, whitespace, spacemacs
-;; Version: 0.1
+;; Version: 0.2
 
 ;; This file is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -26,9 +26,6 @@
 
 ;;; Code:
 
-(defvar spacemacs-whitespace-cleanup-globally nil
-  "If non nil then `spacemacs-whitespace-cleanup-mode' is applied globally.")
-
 ;;;###autoload
 (define-minor-mode spacemacs-whitespace-cleanup-mode
   "Minor mode to clean whitespace.
@@ -39,18 +36,47 @@ of the cleanup."
   :lighter " CleanW"
   :group 'spacemacs
   (if spacemacs-whitespace-cleanup-mode
-      (spacemacs-whitespace-cleanup//turn-on
-       spacemacs-whitespace-cleanup-globally)
-    (spacemacs-whitespace-cleanup//turn-off
-     spacemacs-whitespace-cleanup-globally)))
+      (if (eq dotspacemacs-whitespace-cleanup 'changed)
+          (ws-butler-mode)
+        (add-hook 'before-save-hook 'spacemacs-whitespace-cleanup/clean-up nil t))
+    ;; Always disable everything because `dotspacemacs-whitespace-cleanup' could
+    ;; have changed and the configuration reloaded.
+    (when (fboundp 'ws-butler-mode)
+        (ws-butler-mode -1))
+    (remove-hook 'before-save-hook 'spacemacs-whitespace-cleanup/clean-up t)))
 
 (define-global-minor-mode global-spacemacs-whitespace-cleanup-mode
   spacemacs-whitespace-cleanup-mode
-  (lambda ()
-    (let ((spacemacs-whitespace-cleanup-globally t))
-      (spacemacs-whitespace-cleanup-mode)))
+  spacemacs-whitespace-cleanup-mode
   :group 'spacemacs
-  :require 'spacemacs-whitespace-cleanup-mode)
+  :require 'spacemacs-whitespace-cleanup-mode
+  :predicate '(not markdown-mode))
+
+(defun spacemacs-whitespace-cleanup/clean-up (&optional called-interactively)
+  "When `dotspacemacs-whitespace-cleanup' is set
+to `all' or `trailing', this function is automatically called as
+part of the `before-save-hook'. It can also be called manually.
+Note that it has no effect if `dotspacemacs-whitespace-cleanup'
+is `changed'."
+  (interactive "p")
+  (pcase dotspacemacs-whitespace-cleanup
+    ('all
+     (whitespace-cleanup))
+    ('trailing
+     (delete-trailing-whitespace))
+    ('changed
+     (if called-interactively
+         (user-error "`spacemacs-whitespace-cleanup/clean-up' has no effect because
+`dotspacemacs-whitespace-cleanup' is `changed'. Hence whitespace
+cleanup is exclusively handled by `ws-butler-mode'. Consider
+changing this dotfile variable, or directly using
+`whitespace-cleanup' or `delete-trailing-whitespace'."))
+     (error "Error: `spacemacs-whitespace-cleanup/clean-up' was called even
+though the value of `dotspacemacs-whitespace-cleanup' is
+`changed'."))
+    (x (user-error
+        "%s is not a valid option for 'dotspacemacs-whitespace-cleanup'"
+        x))))
 
 (defun spacemacs-whitespace-cleanup/on-message (&optional global)
   "Return a string to display when the mode is activated."
@@ -63,28 +89,6 @@ of the cleanup."
             (x (user-error
                 "%s is not a valid option for 'dotspacemacs-whitespace-cleanup'"
                 x)))))
-
-(defun spacemacs-whitespace-cleanup//turn-on (&optional global)
-  "Turn on `spacemacs-whitespace-cleanup-mode'."
-  (pcase dotspacemacs-whitespace-cleanup
-    ('all
-     (add-hook 'before-save-hook 'whitespace-cleanup nil (not global)))
-    ('trailing
-     (add-hook 'before-save-hook 'delete-trailing-whitespace nil (not global)))
-    ('changed
-     (when (fboundp 'ws-butler-mode)
-       (if global (ws-butler-global-mode) (ws-butler-mode))))))
-
-(defun spacemacs-whitespace-cleanup//turn-off (&optional global)
-  "Turn off `spacemacs-whitespace-cleanup-mode'."
-  (pcase dotspacemacs-whitespace-cleanup
-    ('all
-     (remove-hook 'before-save-hook 'whitespace-cleanup (not global)))
-    ('trailing
-     (remove-hook 'before-save-hook 'delete-trailing-whitespace (not global)))
-    ('changed
-     (when (fboundp 'ws-butler-mode)
-       (if global (ws-butler-global-mode -1) (ws-butler-mode -1))))))
 
 (provide 'spacemacs-whitespace-cleanup)
 ;;; spacemacs-whitespace-cleanup.el ends here.

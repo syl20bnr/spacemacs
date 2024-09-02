@@ -648,7 +648,11 @@ Possible values are:
 `all' to aggressively delete empty lines and long sequences of whitespace,
 `trailing' to delete only the whitespace at end of lines,
 `changed' to delete only whitespace for changed lines or
-`nil' to disable cleanup."
+`nil' to disable cleanup.
+
+The variable `global-spacemacs-whitespace-cleanup-modes' controls
+which major modes have whitespace cleanup enabled or disabled
+by default."
   '(choice (const nil) (const all) (const trailing) (const changed))
   'spacemacs-dotspacemacs-init)
 
