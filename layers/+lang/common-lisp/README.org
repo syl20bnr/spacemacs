@@ -96,6 +96,8 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m h m~ | Show all usages of a macro                              |
 | ~SPC m h r~ | Show references to global variable                      |
 | ~SPC m h s~ | Show all methods specialized on a class                 |
+| ~SPC m h S~ | Show all setters of global variable                     |
+| ~SPC m h b~ | Show all binders of global variable                     |
 
 *** Evaluation
 
