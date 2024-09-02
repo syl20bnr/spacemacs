@@ -470,14 +470,12 @@
     (spacemacs|add-toggle global-whitespace-cleanup
       :mode global-spacemacs-whitespace-cleanup-mode
       :status spacemacs-whitespace-cleanup-mode
-      :on (let ((spacemacs-whitespace-cleanup-globally t))
-            (spacemacs-whitespace-cleanup-mode))
-      :off (let ((spacemacs-whitespace-cleanup-globally t))
-             (spacemacs-whitespace-cleanup-mode -1))
       :on-message (spacemacs-whitespace-cleanup/on-message t)
       :documentation "Global automatic whitespace clean up."
       :evil-leader "t C-S-w")
     (with-eval-after-load 'ws-butler
+      ;; handle reloading configuration
+      (spacemacs/toggle-global-whitespace-cleanup-off)
       (when dotspacemacs-whitespace-cleanup
         (spacemacs/toggle-global-whitespace-cleanup-on)))
     :config
