@@ -225,6 +225,11 @@
           shell-pop-window-size     shell-default-height
           shell-pop-term-shell      shell-default-term-shell
           shell-pop-full-span       shell-default-full-span)
+
+    ;; Make sure that eshell history is written before the window is closed
+    ;; see https://github.com/kyagi/shell-pop-el/issues/66
+    (advice-add 'shell-pop--kill-and-delete-window :around #'spacemacs/shell-pop-with-eshell-history-write)
+
     (make-shell-pop-command "eshell" eshell)
     (make-shell-pop-command "term" term shell-pop-term-shell)
     (make-shell-pop-command "ansi-term" ansi-term shell-pop-term-shell)

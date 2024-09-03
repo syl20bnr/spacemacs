@@ -213,7 +213,7 @@ is achieved by adding the relevant text properties."
   (spacemacs/set-leader-keys-for-major-mode 'eshell-mode
     "H" 'spacemacs/helm-eshell-history)
   (define-key eshell-mode-map
-    (kbd "M-l") 'spacemacs/helm-eshell-history))
+              (kbd "M-l") 'spacemacs/helm-eshell-history))
 
 (defun spacemacs/ivy-eshell-history ()
   (interactive)
@@ -283,8 +283,8 @@ tries to restore a dead buffer or window."
   (interactive)
   (cl-assert (string-equal mode-name "VTerm") nil "Not in VTerm mode")
   (helm :sources (helm-build-sync-source "Bash history"
-                                         :candidates (spacemacs//vterm-make-history-candidates)
-                                         :action #'vterm-send-string)
+                   :candidates (spacemacs//vterm-make-history-candidates)
+                   :action #'vterm-send-string)
         :buffer "*helm-bash-history*"
         :candidate-number-limit 10000))
 
@@ -307,3 +307,11 @@ tries to restore a dead buffer or window."
     (define-key mode-map (kbd "M-r") 'spacemacs/helm-vterm-search-history))
    ((configuration-layer/layer-used-p 'ivy)
     (define-key mode-map (kbd "M-r") 'spacemacs/counsel-vterm-search-history))))
+
+(defun spacemacs/shell-pop-with-eshell-history-write (orig-fun &rest args)
+  "Make sure that the eshell history is written before the window is closed."
+  (unless (one-window-p)
+    (when (string= shell-pop-internal-mode "eshell")
+      (eshell-write-history)
+      (eshell-write-last-dir-ring)
+      (apply orig-fun args))))
