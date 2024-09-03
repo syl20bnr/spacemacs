@@ -37,6 +37,6 @@ file.
 
 * Key bindings
 
-| Key binding | Description                              |
-|-------------+------------------------------------------|
-| ~SPC m r~   | srefactor: refactor thing at point.      |
+| Key binding | Description                         |
+|-------------+-------------------------------------|
+| ~SPC m r~   | srefactor: refactor thing at point. |

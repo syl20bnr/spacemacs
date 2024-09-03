@@ -571,8 +571,6 @@ language, instead of plain text structure. Semantic is the core of CEDET.
 
 Features:
 - Display function or variable definition at the bottom.
-- Display current function cursor is in at the top. See
-  [[https://github.com/tuhdo/semantic-stickyfunc-enhance][this page]] for demos in some programming languages.
 - Support common C/C++ refactoring with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]. See
   [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org][this page]] for demonstration of refactoring features.
 - Support Lisp source code formatting with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]. See
@@ -1926,8 +1924,6 @@ Features:
 - [[https://www.doxygen.nl][Doxygen]] code documentation comment generation (using [[https://github.com/mp81ss/gendoxy][gendoxy]]).
 - =semantic= layer integration:
   - Function or variable definition at the bottom
-  - Current function cursor is at the top. See [[https://github.com/tuhdo/semantic-stickyfunc-enhance][stickyfunc-demos]] for
-    demos in some programming languages.
   - Support common refactoring with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]. See [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org][srefactor-demos]] for
     demonstration of refactoring features.
 - =cscope= layer integration:
