@@ -109,13 +109,6 @@ in emacs 27."
   'integer
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-elpa-https t
-  "If non nil ELPA repositories are contacted via HTTPS whenever it's
-possible. Set it to nil if you have no way to use HTTPS in your
-environment, otherwise it is strongly recommended to let it set to t."
-  'boolean
-  'spacemacs-dotspacemacs-init)
-
 (spacemacs|defc dotspacemacs-elpa-timeout 5
   "Maximum allowed time in seconds to contact an ELPA repository."
   'integer

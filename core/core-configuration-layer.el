@@ -471,9 +471,9 @@ Otherwise return the recipe unchanged. PKG is of `cfgl-package' type."
       `(,pkg-name
         :fetcher file
         :path ,(configuration-layer/get-location-directory
-                         (oref pkg :name)
-                         (oref pkg :location)
-                         (car (oref pkg :owners)))))
+                (oref pkg :name)
+                (oref pkg :location)
+                (car (oref pkg :owners)))))
      (t (cons pkg-name (cdr (oref pkg :location)))))))
 
 (defun configuration-layer//package-archive-absolute-path-p (archive)
@@ -506,10 +506,7 @@ The returned list has a `package-archives' compliant format."
              (if (configuration-layer//package-archive-absolute-path-p x)
                  apath
                (concat
-                (if (and dotspacemacs-elpa-https
-                         (not spacemacs-insecure))
-                    "https://"
-                  "http://")
+                "https://"
                 apath)))))
    archives))
 
@@ -864,7 +861,7 @@ a new object."
                      (fboundp init-func))))
     (when min-version
       (oset obj :min-version
-                                 (version-to-list min-version)))
+            (version-to-list min-version)))
     (when step
       (oset obj :step step))
     (when toggle
@@ -872,8 +869,8 @@ a new object."
     (when (and ownerp requires)
       (oset obj :requires requires))
     (oset obj :excluded
-                               (and (configuration-layer/layer-used-p layer-name)
-                                    (or excluded (oref obj :excluded))))
+          (and (configuration-layer/layer-used-p layer-name)
+               (or excluded (oref obj :excluded))))
     (when location
       (if (and (listp location)
                (eq (car location) 'recipe)
@@ -1345,10 +1342,10 @@ PREDICATE is an additional expression that eval to a boolean."
   "Copy and replace special values of TEMPLATE to layer string NAME.
 If LAYER_DIR is nil, the private directory is used."
   (cl-flet ((cl-substitute (old new) (let ((case-fold-search nil))
-                                    (save-excursion
-                                      (goto-char (point-min))
-                                      (while (search-forward old nil t)
-                                        (replace-match new t))))))
+                                       (save-excursion
+                                         (goto-char (point-min))
+                                         (while (search-forward old nil t)
+                                           (replace-match new t))))))
     (let ((src (concat configuration-layer-template-directory
                        (format "%s.template" template)))
           (dest (if layer-dir
@@ -1404,9 +1401,9 @@ Returns nil if the directory is not a category."
 Returns nil if there is no layer named LAYER-NAME."
   (when-let ((lp (configuration-layer/get-layer-path layer-name)))
     (thread-last lp
-      directory-file-name
-      file-name-directory
-      configuration-layer//get-category-from-path)))
+                 directory-file-name
+                 file-name-directory
+                 configuration-layer//get-category-from-path)))
 
 (defun configuration-layer/discover-layers (&optional refresh-index)
   "Initialize `configuration-layer--indexed-layers' with layer directories.
@@ -2190,15 +2187,15 @@ to update."
           (if (string= answer "no")
               (progn (spacemacs-buffer/append "Packages update has been cancelled.\n" t)
                      (user-error "Packages update has been cancelled.\n"))
-        ;; backup the package directory and construct an alist
-        ;; variable to be cached for easy update and rollback
+            ;; backup the package directory and construct an alist
+            ;; variable to be cached for easy update and rollback
             (when (string= answer "some")
               (setq update-packages
                     ;; 'apply nconc on list of lists' is equivalent to 'cl-remove-if nil'
                     (apply #'nconc (mapcar (lambda (pkg)
                                              (when (yes-or-no-p (format "Update package '%s'? " pkg))
                                                (list pkg)))
-                                    update-packages))))
+                                           update-packages))))
             (setq upgrade-count (length update-packages)))))
       (spacemacs-buffer/append
        "--> performing backup of package(s) to update...\n" t)
