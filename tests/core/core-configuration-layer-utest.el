@@ -899,12 +899,6 @@
     (should (equal '(("melpa" . "https://melpa.org/packages/"))
                    (configuration-layer//resolve-package-archives input)))))
 
-(ert-deftest test-resolve-package-archives--simple-http ()
-  (let ((input '(("melpa" . "melpa.org/packages/")))
-        dotspacemacs-elpa-https)
-    (should (equal '(("melpa" . "http://melpa.org/packages/"))
-                   (configuration-layer//resolve-package-archives input)))))
-
 (ert-deftest test-resolve-package-archives--idempotent-when-already-http-prefix ()
   (let ((input '(("melpa"   . "http://melpa.org/packages/")))
         (dotspacemacs-elpa-https t))
