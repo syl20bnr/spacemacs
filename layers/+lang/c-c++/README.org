@@ -70,8 +70,6 @@ This layer adds configuration for C/C++ language.
 - [[https://www.doxygen.nl][Doxygen]] code documentation comment generation (using [[https://github.com/mp81ss/gendoxy][gendoxy]]).
 - =semantic= layer integration:
   - Function or variable definition at the bottom
-  - Current function cursor is at the top. See [[https://github.com/tuhdo/semantic-stickyfunc-enhance][stickyfunc-demos]] for
-    demos in some programming languages.
   - Support common refactoring with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]. See [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org][srefactor-demos]] for
     demonstration of refactoring features.
 - =cscope= layer integration:

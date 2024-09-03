@@ -29,7 +29,3 @@
   ;; srefactor supports j,k,/ and ? commands when Evil is
   ;; available
   (add-hook 'srefactor-ui-menu-mode-hook 'evil-emacs-state))
-
-(defun spacemacs/load-stickyfunc-enhance ()
-  "Hook to load the `stickyfunc-enhance' library."
-  (require 'stickyfunc-enhance))
