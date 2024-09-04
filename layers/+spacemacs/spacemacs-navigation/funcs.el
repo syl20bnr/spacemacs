@@ -78,7 +78,7 @@ This function has to handle both possible values of `evil-search-module':
   ;; would suffice here. However, the function in itself only
   ;; makes sense if there is a symbol at point, hence the `when-let*'.
   (when-let* ((symbol (thing-at-point 'symbol t))
-              (regexp (concat "\\<" symbol "\\>")))
+              (regexp (concat "\\_<" symbol "\\_>")))
     (setq isearch-string regexp
           isearch-regexp regexp
           evil-ex-search-pattern (evil-ex-make-search-pattern regexp))
