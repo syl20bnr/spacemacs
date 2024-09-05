@@ -39,6 +39,7 @@ the variable `spacemacs-layouts-restricted-functions'.")
 
 (defcustom compleseus-switch-to-buffer-sources
   `(consult--source-hidden-buffer
+    compleseus--source-buffers-hidden
     compleseus--source-persp-buffers
     compleseus--source-persp-modified-buffers
     consult--source-recent-file
@@ -51,6 +52,16 @@ See also `consult-buffer-sources'.
 See `consult--multi' for a description
 of the source data structure."
   :type '(repeat symbol))
+
+(defvar compleseus--source-buffers-hidden nil
+  "Like `consult--source-buffer' but hidden by default
+and with narrowing key \"B\".")
+(with-eval-after-load 'consult
+  (setq compleseus--source-buffers-hidden
+        `(:name "Buffers (all layouts)"
+          :hidden t
+          :narrow (?B . "Buffers")
+          ,@consult--source-buffer)))
 
 (defvar compleseus--source-persp-modified-buffers
   `(:name "Modified Buffers"
