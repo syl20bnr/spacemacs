@@ -39,8 +39,8 @@ the variable `spacemacs-layouts-restricted-functions'.")
 
 (defcustom compleseus-switch-to-buffer-sources
   `(consult--source-hidden-buffer
-    consult--source-persp-buffers
-    consult--source-modified-persp-buffers
+    compleseus--source-persp-buffers
+    compleseus--source-persp-modified-buffers
     consult--source-recent-file
     consult--source-bookmark
     consult--source-project-buffer-hidden
@@ -52,7 +52,7 @@ See `consult--multi' for a description
 of the source data structure."
   :type '(repeat symbol))
 
-(defvar consult--source-modified-persp-buffers
+(defvar compleseus--source-persp-modified-buffers
   `(:name "Modified Buffers"
           :narrow   (?* . "Modified Layout Buffers")
           :hidden   t
@@ -70,8 +70,10 @@ of the source data structure."
               ;; :directory 'project
               :as #'buffer-name)))
   "Per-perspective modified buffer source.")
+(define-obsolete-variable-alias 'consult--source-modified-persp-buffers
+  'compleseus--source-persp-modified-buffers "2024-09")
 
-(defvar consult--source-persp-buffers
+(defvar compleseus--source-persp-buffers
   `(
     :name     "Layout Buffers"
     :narrow   ?b
@@ -87,3 +89,5 @@ of the source data structure."
         :predicate #'compleseus//persp-contain-buffer-p
         :as #'buffer-name)))
   "Per-perspective buffer source.")
+(define-obsolete-variable-alias 'consult--source-persp-buffers
+  'compleseus--source-persp-buffers "2024-09")
