@@ -37,6 +37,21 @@ of the current project only when a prefix argument is used.
 To restrict the commands to buffers of the current layout, customize
 the variable `spacemacs-layouts-restricted-functions'.")
 
+(defcustom compleseus-switch-to-buffer-sources
+  `(consult--source-hidden-buffer
+    consult--source-persp-buffers
+    consult--source-modified-persp-buffers
+    consult--source-recent-file
+    consult--source-bookmark
+    consult--source-project-buffer-hidden
+    consult--source-project-recent-file-hidden)
+  "Sources used by `spacemacs/compleseus-switch-to-buffer'
+when persp-mode is used.
+See also `consult-buffer-sources'.
+See `consult--multi' for a description
+of the source data structure."
+  :type '(repeat symbol))
+
 (defvar consult--source-modified-persp-buffers
   `(:name "Modified Buffers"
           :narrow   (?* . "Modified Layout Buffers")

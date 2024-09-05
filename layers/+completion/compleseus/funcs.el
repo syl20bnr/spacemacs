@@ -49,14 +49,9 @@ non-nil."
 (defun spacemacs/compleseus-switch-to-buffer ()
   "`consult-buffer' with buffers provided by persp."
   (interactive)
-  (consult-buffer
-   `(consult--source-hidden-buffer
-     consult--source-persp-buffers
-     consult--source-modified-persp-buffers
-     consult--source-recent-file
-     consult--source-bookmark
-     consult--source-project-buffer-hidden
-     consult--source-project-recent-file-hidden)))
+  (consult-buffer (if (configuration-layer/package-used-p 'persp-mode)
+                      compleseus-switch-to-buffer-sources
+                    consult-buffer-sources)))
 
 (defun spacemacs/initial-search-input (&optional force-input)
   "Get initial input from region for consult search functions. If region is not
