@@ -934,11 +934,10 @@ FRAME defaults to the current frame."
                                   frame))
 
 (defun spacemacs//fixup-window-configs (orig-fn newname &optional unique)
-  "Update the buffer's name in the eyebrowse window-configs of any perspectives
-containing the buffer."
+  "Update the buffer's name in the eyebrowse window-configs of all perspectives."
   (let* ((old (buffer-name))
          (new (funcall orig-fn newname unique)))
-    (dolist (persp (persp--buffer-in-persps (current-buffer)))
+    (dolist (persp (persp-persps))
       (dolist (window-config
                (append (persp-parameter 'gui-eyebrowse-window-configs persp)
                        (persp-parameter 'term-eyebrowse-window-configs persp)))
