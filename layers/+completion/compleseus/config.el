@@ -79,7 +79,7 @@ and with narrowing key \"B\".")
                                 (buffer-file-name buff)
                                 (buffer-modified-p buff)))
               ;; :directory 'project
-              :as #'buffer-name)))
+              :as #'consult--buffer-pair)))
   "Per-perspective modified buffer source.")
 (define-obsolete-variable-alias 'consult--source-modified-persp-buffers
   'compleseus--source-persp-modified-buffers "2024-09")
@@ -98,7 +98,7 @@ and with narrowing key \"B\".")
        (consult--buffer-query
         :sort 'visibility
         :predicate #'compleseus//persp-contain-buffer-p
-        :as #'buffer-name)))
+        :as #'consult--buffer-pair)))
   "Per-perspective buffer source.")
 (define-obsolete-variable-alias 'consult--source-persp-buffers
   'compleseus--source-persp-buffers "2024-09")
