@@ -28,7 +28,8 @@
     persp-mode
     spaceline
     consult
-    counsel-projectile))
+    counsel-projectile
+    winner))
 
 
 
@@ -258,3 +259,13 @@
 (defun spacemacs-layouts/post-init-consult ()
   (spacemacs/set-leader-keys
     "pl" 'spacemacs/compleseus-pers-switch-project))
+
+(defun spacemacs-layouts/post-init-winner ()
+  (when layouts-enable-local-variables
+    (spacemacs/make-variable-layout-local
+     'winner-ring-alist nil
+     'winner-point-alist nil
+     'winner-undo-counter nil
+     'winner-undone-data nil
+     'winner-currents nil
+     'winner-pending-undo-ring nil)))
