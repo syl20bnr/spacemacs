@@ -68,7 +68,7 @@ There are some differences between packages that might have some people prefer
 one over the other:
 
 | Feature                             | diff-hl | git-gutter |
-|-------------------------------------+---------+------------+
+|-------------------------------------+---------+------------|
 | Show in fringe                      | X       | X          |
 | Extended VCS support (e.g. hg, svn) | X       | X          |
 | Stage hunks from buffer             |         | X          |
