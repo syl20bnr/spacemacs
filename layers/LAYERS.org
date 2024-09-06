@@ -2611,7 +2611,7 @@ This layers adds general configuration for [[http://www.gnu.org/software/emacs/m
 It should work with all VC backends such as Git, Mercurial, Bazaar, SVN, etc...
 
 Features:
-- highlights uncommitted changes in the fringe or margin with [[https://github.com/dgutov/diff-hl][diff-hl]], [[https://github.com/syohex/emacs-git-gutter][git-gutter]], or [[https://github.com/nonsequitur/git-gutter-plus][git-gutter+]]
+- highlights uncommitted changes in the fringe or margin with [[https://github.com/dgutov/diff-hl][diff-hl]] or [[https://github.com/syohex/emacs-git-gutter][git-gutter]]
 - adds vcs transient-state ~SPC g.~ to allow quick navigation and modification of buffer hunks.
 
 * Spacemacs
