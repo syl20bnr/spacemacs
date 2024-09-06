@@ -24,7 +24,7 @@ This layers adds general configuration for [[http://www.gnu.org/software/emacs/m
 It should work with all VC backends such as Git, Mercurial, Bazaar, SVN, etc...
 
 ** Features:
-- highlights uncommitted changes in the fringe or margin with [[https://github.com/dgutov/diff-hl][diff-hl]], [[https://github.com/syohex/emacs-git-gutter][git-gutter]], or [[https://github.com/nonsequitur/git-gutter-plus][git-gutter+]]
+- highlights uncommitted changes in the fringe or margin with [[https://github.com/dgutov/diff-hl][diff-hl]] or [[https://github.com/syohex/emacs-git-gutter][git-gutter]]
 - adds vcs transient-state ~SPC g.~ to allow quick navigation and modification of buffer hunks.
 
 * Install
@@ -39,7 +39,6 @@ margins by setting the =version-control-diff-tool= variable to one of the
 supported packages:
 - [[https://github.com/dgutov/diff-hl][diff-hl]] (default)
 - [[https://github.com/syohex/emacs-git-gutter][git-gutter]]
-- [[https://github.com/nonsequitur/git-gutter-plus][git-gutter+]]
 
 #+BEGIN_SRC emacs-lisp
   '(version-control :variables
@@ -62,18 +61,18 @@ To automatically enable diff margins in all buffers, set
 #+END_SRC
 
 ** Differences between margin packages
-This layer contains generalized mappings for three diff margin packages:
-=diff-hl=, =git-gutter=, and =git-gutter+=.
+This layer contains generalized mappings for two different margin packages:
+=diff-hl= and =git-gutter=.
 
 There are some differences between packages that might have some people prefer
 one over the other:
 
-| Feature                             | diff-hl | git-gutter | git-gutter+ |
-|-------------------------------------+---------+------------+-------------|
-| Show in fringe                      | X       | X          | X           |
-| Extended VCS support (e.g. hg, svn) | X       | X          |             |
-| Stage hunks from buffer             |         | X          | X           |
-| Dired support                       | X       |            |             |
+| Feature                             | diff-hl | git-gutter |
+|-------------------------------------+---------+------------+
+| Show in fringe                      | X       | X          |
+| Extended VCS support (e.g. hg, svn) | X       | X          |
+| Stage hunks from buffer             |         | X          |
+| Dired support                       | X       |            |
 
 * Key bindings
 VC commands:
