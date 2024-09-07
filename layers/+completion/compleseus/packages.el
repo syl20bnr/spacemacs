@@ -204,6 +204,8 @@
     ;; Configure other variables and modes in the :config section,
     ;; after lazily loading the package.
     :config
+    (add-to-list 'consult-buffer-sources 'compleseus--source-window-buffers)
+    (add-to-list 'consult-buffer-sources 'compleseus--source-workspace-buffers)
 
     ;; disable automatic preview by default,
     ;; selectively enable it for some prompts below.
