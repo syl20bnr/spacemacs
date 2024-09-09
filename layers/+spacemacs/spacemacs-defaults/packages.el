@@ -492,20 +492,21 @@
   (use-package winner
     :commands (winner-undo winner-redo)
     :init
-    (with-eval-after-load 'winner
-      (setq spacemacs/winner-boring-buffers '("*Completions*"
-                                              "*Compile-Log*"
-                                              "*inferior-lisp*"
-                                              "*Fuzzy Completions*"
-                                              "*Apropos*"
-                                              "*Help*"
-                                              "*cvs*"
-                                              "*Buffer List*"
-                                              "*Ibuffer*"
-                                              "*esh command on file*"))
-
-      (setq winner-boring-buffers
-            (append winner-boring-buffers spacemacs/winner-boring-buffers)))))
+    (setq spacemacs/winner-boring-buffers '("*Completions*"
+                                            "*Compile-Log*"
+                                            "*inferior-lisp*"
+                                            "*Fuzzy Completions*"
+                                            "*Apropos*"
+                                            "*Help*"
+                                            "*cvs*"
+                                            "*Buffer List*"
+                                            "*Ibuffer*"
+                                            "*esh command on file*"))
+    :config
+    (setq winner-boring-buffers
+          (append winner-boring-buffers spacemacs/winner-boring-buffers))
+    (with-eval-after-load 'which-key
+      (add-to-list 'winner-boring-buffers which-key-buffer-name))))
 
 (defun spacemacs-defaults/init-xref ()
   (evilified-state-evilify-map xref--xref-buffer-mode-map
