@@ -464,9 +464,9 @@
     :init
     (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
     (spacemacs/set-leader-keys
-      "rl" 'vertico-repeat-last
+      "rl" 'vertico-repeat-previous
       "rL" 'vertico-repeat-select
-      "sl" 'vertico-repeat-last
+      "sl" 'vertico-repeat-previous
       "sL" 'vertico-repeat-select)))
 
 (defun compleseus/post-init-grep ()
