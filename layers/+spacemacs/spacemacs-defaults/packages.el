@@ -492,6 +492,11 @@
   (use-package winner
     :commands (winner-undo winner-redo)
     :init
+    (spacemacs|define-transient-state winner
+      :title "Winner transient state"
+      :bindings
+      ("u" winner-undo "winner-undo")
+      ("U" winner-redo "winner-redo (redo all)"))
     (setq spacemacs/winner-boring-buffers '("*Completions*"
                                             "*Compile-Log*"
                                             "*inferior-lisp*"
