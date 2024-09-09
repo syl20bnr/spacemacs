@@ -146,6 +146,8 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Show column number in mode line
 (setq column-number-mode t)
 
+;; conflicts with "show-smartparens-mode". see the spacemacs-editing layer
+(show-paren-mode -1)
 ;; highlight current line
 (global-hl-line-mode t)
 ;; no blink
