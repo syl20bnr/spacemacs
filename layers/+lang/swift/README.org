@@ -8,57 +8,101 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#usage-information][Usage information]]
+- [[#configuration][Configuration]]
+  - [[#choosing-a-backend][Choosing a backend]]
+    - [[#lsp][LSP]]
+    - [[#no-lsp][No lsp]]
+  - [[#validation-steps][Validation steps]]
+  - [[#repl-integration][REPL integration]]
 - [[#key-bindings][Key bindings]]
-  - [[#swift-mode][swift-mode]]
-  - [[#swift-repl-mode][swift-repl-mode]]
+  - [[#repl][REPL]]
+  - [[#in-repl-mode][In REPL Mode]]
 
 * Description
 This layer adds support for Apple's Swift programming language, used as a
 general purpose scripting language.
 
 ** Features:
+    - Auto-completion (with the =lsp= layer and [[https://github.com/swiftlang/sourcekit-lsp][sourcekit-lsp]])
+- Syntax checking with =flycheck= (available with the
+  =syntax-checking= layer)
 - Syntax highlighting with [[https://github.com/swift-emacs/swift-mode][swift-mode]]
 - Indentation
 - Code navigation using =imenu= (built-in)
-- Automatic syntax checking with =flycheck= (available with the
-  =syntax-checking= layer)
 
 * Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =swift= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Configuration
+All layer configurations can be done by setting layer variables in your dotfile.
+No custom user config lines are necessary
+
+** Choosing a backend
+This layer heavily relies on sourcekit-lsp to support proper IDE support.
+If the lsp layer is not available no auto-completion can be provided.
+
+*** LSP
+For proper IDE support this backend should be used. It is
+based on an external server which will be started automatically
+by emacs, once a swift file is opened. The key bindings are
+the same for all lsp modes so if you are already familiar with
+one you should be able to work the same in all modes.
+
+To set explicitly do the following in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (swift :variables
+          swift-backend 'lsp
+          swift-lsp-executable-path "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp")
+#+END_SRC
+
+If this var is not set it will be set to =lsp= if the =lsp layer= is loaded.
+
+For the system to work you will also need
+the latest version of the lsp server from [[https://github.com/swiftlang/sourcekit-lsp][sourcekit-lsp]] or directly from your =Xcode= installation.
+The path to the server executable must be given in the layer
+variable =swift-lsp-executable-path=.
+
+NOTE: Key bindings for LSP are defined in the
+LSP layer. Also it is advisable to have a look
+at the autocomplete layer for an optimal
+intellisense config for LSP.
+
+*** No lsp
+In this case no specific config is necessary, but autocompletion will not be available.
+
+** Validation steps
 First check that you are able to run this from the command line:
-
-On macOS:
-
 #+BEGIN_SRC sh
   xcrun swift
 #+END_SRC
 
-Then to use this configuration layer, add it to your =~/.spacemacs=. You will
-need to add =swift= to the existing =dotspacemacs-configuration-layers= list in
-this file.
+Then validate that your lsp server is available under the given path if you are using lsp.
 
-* Usage information
-Unless configured by the user, the REPL will be invoked using the command =xcrun
-swift=.
-You can launch the REPL using the key binding ~SPC m s s~ (or ~C-c C-z~).
+** REPL integration
+Unless configured by the user, the REPL will be invoked using the command
+#+BEGIN_SRC sh
+  xcrun swift
+#+END_SRC
+
+You can launch the REPL directly from emacs with using the key binding ~SPC m s s~ (or ~C-c C-z~).
 The universal prefix ~SPC u~ (~C-u~) may be used to modify command invocation.
 
 * Key bindings
-** swift-mode
+** REPL
 
-| Key bindings | Description            |
-|--------------+------------------------|
-| ~SPC m s s~  | swift-mode-run-repl    |
-| ~SPC m s b~  | swift-mode-send-buffer |
-| ~SPC m s r~  | swift-mode-send-region |
+| Key bindings | Description                                                  |
+|--------------+--------------------------------------------------------------|
+| ~SPC m '~    | =swift-mode-run-repl= will run or switch to an existing REPL |
+| ~SPC m s s~  | =swift-mode-run-repl= will run or switch to an existing REPL |
+| ~SPC m s b~  | Send the current buffer to the repl                          |
+| ~SPC m s r~  | Send the current region to the repl                          |
 
-Notes:
-1. =swift-mode-run-repl= will run or switch to an existing REPL.
-2. To edit the command invocation, prefix with ~SPC u~ (or ~C-u~).
-3. Emacs key bindings in use are the those set by the package.
-
-** swift-repl-mode
+** In REPL Mode
 
 | Key bindings | Description                 |
 |--------------+-----------------------------|
 | ~SPC m s s~  | swift-repl-mode-switch-back |
+| ~C-c C-z~    | swift-repl-mode-switch-back |

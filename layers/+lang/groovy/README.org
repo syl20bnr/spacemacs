@@ -20,11 +20,11 @@
 This layer supports [[http://www.groovy-lang.org/][Groovy]] development in Spacemacs.
 
 ** Features:
-- Auto-completion
-- Syntax-checking
-- Auto-generate imports with [[https://github.com/mbezjak/emacs-groovy-imports][groovy-imports]]
-- Groovy REPL integration
-- Syntax highlighting
+    - Auto-completion
+    - Syntax-checking
+    - Auto-generate imports with [[https://github.com/mbezjak/emacs-groovy-imports][groovy-imports]]
+    - Groovy REPL integration
+    - Syntax highlighting
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -74,7 +74,7 @@ LSP layer. Also it is advisable to have a look
 at the autocomplete layer for an optimal
 intellisense config for LSP.
 
-NOTE: The build on [[https://github.com/prominic/groovy-language-server]] will generate two jar files. You will need the ~groovy-language-server-all.jar~ as the ~groovy-lsp-jar-path~. 
+NOTE: The build on [[https://github.com/prominic/groovy-language-server]] will generate two jar files. You will need the ~groovy-language-server-all.jar~ as the ~groovy-lsp-jar-path~.
 
 * Key bindings
 ** Imports

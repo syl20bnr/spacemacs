@@ -496,7 +496,7 @@ both Racer and RLS not being maintained anymore.
 - dotnet (thanks to Jordan Kaye)
 - eaf (thanks to Daniel Nicolai)
 - import-js (thanks to Thanh Vuong and Seong Yong-ju)
-- kubernetes with tramp support (thanks to Matt Bray and Maximilian Wolff)
+- kubernetes with tramp support (thanks to Matt Bray and Maxi Wolff)
 - languagetool (thanks to Robbert van der Helm)
 - lsp (thanks to Fangrui Song, 0bl.blwl, Cormac Cannon, Juuso Valkeejärvi,
   Guan Xipeng, Ivan Yonchovski, Justin Martin, dscole and Sylvain Benner)
@@ -515,7 +515,7 @@ both Racer and RLS not being maintained anymore.
 **** WEB services
 - confluence
 - reddit
-- eww (thanks to Colton Kopsa, Maximilian Wolff and Daniel Nicolai)
+- eww (thanks to Colton Kopsa, Maxi Wolff and Daniel Nicolai)
 - lobsters
 - hackernews
 - streamlink
@@ -566,7 +566,7 @@ both Racer and RLS not being maintained anymore.
   - New variable =dotspacemacs-startup-buffer-show-version=
     (thanks to Zach Pearson)
   - New variable =dotspacemacs-read-process-output-max= to optimise lsp
-    performance in emacs 27 (thanks to Maximilian Wolff)
+    performance in emacs 27 (thanks to Maxi Wolff)
   - New variable =dotspacemacs-show-trailing-whitespace= (thanks to duianto)
   - New var =dotspacemacs-startup-buffer-multi-digit-delay= (thanks to duianto)
   - New variable =dotspacemacs-scroll-bar-while-scrolling= (thanks to duianto)
@@ -1458,7 +1458,7 @@ Other:
   - Fixed value of =persp-add-buffer-on-after-change-major-mode= to add free
     buffers to current layout (thanks to Miciah Masters)
   - Keep previous position on =toggle-maximize-buffer= (thanks to Ag Ibragimov)
-  - Deactivate =evil-escape= in =holy-mode= (thanks to Maximilian Wolff)
+  - Deactivate =evil-escape= in =holy-mode= (thanks to Maxi Wolff)
   - Removed obsolete =purpose-conf= argument for good
     (thanks to Codruț Constantin Gușoi)
   - Stopped configuring =fci-rule-color=, which was overriding themes that
@@ -1491,7 +1491,7 @@ Other:
   - Required =ivy= to load =counsel-projectile= (thanks to Thanh Vuong)
   - Remove obsolete custom location for =counsel-css= (thanks to Richard Kim)
   - Make =search-engine= layer support custom keywords for =engine-mode=
-    (thanks to Maximilian Wolff)
+    (thanks to Maxi Wolff)
   - Fixed =search-engine= layer customization issue (thanks to Haisheng Wu)
   - Replaced deprecated =avy--generic-jump= with =avy-jump=
     (thanks to Dominik Schrempf)
@@ -1953,14 +1953,14 @@ Other:
 - Kill buffer shall return to *docker-containers* (thanks to Francesc Elies)
 - Key bindings:
   - Moved key bindings prefix from ~SPC D~ to ~SPC a D~ (thanks to Ag Ibragimov)
-  - Added ~SPC m c B~ to build image without cache (thanks to Maximilian Wolff)
+  - Added ~SPC m c B~ to build image without cache (thanks to Maxi Wolff)
   Henar)
   - Added ~SPC a D C~ for =docker-compose= (thanks to Daniel Caixinha)
   - Added ~SPC a D n~ for =docker-networks= (thanks to Ramz)
   - Added ~SPC a D v~ for =docker-volumes= (thanks to Ramz)
   - Added ~SPC a D m~ for =docker-machines= (thanks to Ramz)
 - Fixed: broken package declaration for dockerfile-mode
-  (thanks to Maximilian Wolff)
+  (thanks to Maxi Wolff)
 - Added LSP support
 - Dockerfile mode keybindings (thanks to Alfonso Montero):
   - Flatten ~cb~ and ~cB~ build commands into ~b~ and ~B~ to save keystrokes.
@@ -3138,12 +3138,12 @@ files (thanks to Daniel Nicolai)
   (thanks to Miciah Dashiel Butler Masters)
 - Use =org-mime= provided by melpa (thanks to Amos Bird)
 - Restore =evil-org-additional-bindings= in insert state
-  (thanks to Maximilian Wolff)
+  (thanks to Maxi Wolff)
 - Fixed initialization order to prevent version conflicts
   (thanks to Sylvain Benner)
 - Fixed adding =org-projectile= files to =org-agenda-files= (thanks to AmanYang)
 - Fixed error void: =evil-surround-pairs-alist= (thanks to Sylvain Benner)
-- Added warning against manually loading org (thanks to Maximilian Wolff)
+- Added warning against manually loading org (thanks to Maxi Wolff)
 - Added a toggle for bringing in org-trello (thanks to Magnus Therning)
 - Added the org-mode keybindings to the org-journal major mode
   (thanks to Marty Buchaus)
@@ -3585,7 +3585,7 @@ files (thanks to Daniel Nicolai)
 - Restore =auto-completion-idle-delay= value for =company-idle-delay=
   (thanks to Miciah Dashiel Butler Masters)
 - Added =auto-completion-minimum-prefix-length= layer variable
-  (thanks to Maximilian Wolff)
+  (thanks to Maxi Wolff)
 - Added =shell-default-width= layer variable (thanks to David Balatero)
 - Function =resize-shell-to-desired-width= check for shell buffer before
   changing size (thanks to thanhvg)
@@ -3624,7 +3624,7 @@ files (thanks to Daniel Nicolai)
   (thanks to Alexander-Miller)
 - Added bashate style checker (thanks to Victor Cuadrado Juan)
 - Added insert commands from sh-script package to major mode menu
-  (thanks to Maximilian Wolff)
+  (thanks to Maxi Wolff)
 - Added org-mode support (thanks to Josh Santos)
 - Added LSP support, which can be used by enabling the =lsp= layer and setting
   the =shell-scripts= layer's =shell-scripts-backend= variable to =lsp=
@@ -3976,7 +3976,7 @@ files (thanks to Daniel Nicolai)
   Wygant, Kenji Miyazaki ,Kevin Ji, Kristoffer Haugsbakk, lawrsp, Leo Joseph
   Buchignani III, liuchong, Lucius Hu, Luke Winship, Luke Worth, Marco Ieni,
   Marco Zucconelli, mark30247, Markus Bertheau, Martin Sosic, Max Beutelspacher,
-  Max Deineko, Max Nordlund, Maximilian Wolff, Miciah Dashiel Butler Masters,
+  Max Deineko, Max Nordlund, Maxi Wolff, Miciah Dashiel Butler Masters,
   mjkramer, Mikhail Yakutovich, Miloš Mošić, milserk, Muneeb Shaikh,
   nanashi0x74, Nasser Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam,
   Nicolas Forgerit, Oguz Serbetci, Olivier Verdier, Pancho Horrillo, Paul Milla,

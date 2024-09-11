@@ -1,4 +1,4 @@
-;;; packages.el --- swift Layer packages File for Spacemacs
+;;; packages.el --- Swift Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
@@ -21,23 +21,35 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(setq swift-packages
-    '(
-      flycheck
-      swift-mode
-      ))
+(defconst swift-packages
+  '(
+    company
+    flycheck
+    (lsp-sourcekit :requires lsp-mode :toggle (eq swift-backend 'lsp))
+    swift-mode))
 
-(defun swift/pre-init-flycheck ()
-  (spacemacs|use-package-add-hook flycheck
-    :post-config (add-to-list 'flycheck-checkers 'swift)))
+(defun swift/init-lsp-sourcekit ()
+  (use-package lsp-sourcekit
+    :defer t
+    :after lsp-mode
+    :config
+    (setq lsp-sourcekit-executable swift-lsp-executable-path)))
+
+(defun swift/post-init-company ()
+  (add-hook 'swift-mode-local-vars-hook 'spacemacs//swift-setup-company))
+
+(defun swift/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'swift-mode))
 
 (defun swift/init-swift-mode ()
   (use-package swift-mode
     :mode ("\\.swift\\'" . swift-mode)
+    :hook (swift-mode-local-vars . spacemacs//swift-setup-backend)
     :defer t
     :init
+    (spacemacs/declare-prefix-for-mode 'swift-mode "ms" "REPL")
     (defun spacemacs//swift-store-initial-buffer-name (func &rest args)
-      "Store current buffer bane in bufffer local variable,
+      "Store current buffer bane in buffer local variable,
 before activiting or switching to REPL."
       (let ((initial-buffer (current-buffer)))
         (apply func args)
@@ -58,14 +70,15 @@ before activiting or switching to REPL."
         (message "No previous buffer")))
     :config
     (spacemacs/set-leader-keys-for-major-mode 'swift-mode
-      "sS" 'swift-mode:run-repl      ; run or switch to an existing swift repl
+      "'"  'swift-mode:run-repl
       "ss" 'swift-mode:run-repl
       "sb" 'swift-mode:send-buffer
       "sr" 'swift-mode:send-region)
 
     (with-eval-after-load 'swift-repl-mode-map
       ;; Switch back to editor from REPL
+      (spacemacs/declare-prefix-for-mode 'swift-repl-mode "ms" "REPL")
       (spacemacs/set-leader-keys-for-major-mode 'swift-repl-mode
         "ss"  'spacemacs/swift-repl-mode-switch-back)
       (define-key swift-repl-mode-map
-        (kbd "C-c C-z") 'spacemacs/swift-repl-mode-switch-back))))
+                  (kbd "C-c C-z") 'spacemacs/swift-repl-mode-switch-back))))
