@@ -31,8 +31,7 @@
     (call-interactively
      (cl-case version-control-diff-tool
        (diff-hl     'diff-hl-next-hunk)
-       (git-gutter  'git-gutter:next-hunk)
-       (git-gutter+ 'git-gutter+-next-hunk)))))
+       (git-gutter  'git-gutter:next-hunk)))))
 
 (defun spacemacs/vcs-previous-hunk ()
   (interactive)
@@ -40,8 +39,7 @@
     (call-interactively
      (cl-case version-control-diff-tool
        (diff-hl     'diff-hl-previous-hunk)
-       (git-gutter  'git-gutter:previous-hunk)
-       (git-gutter+ 'git-gutter+-previous-hunk)))))
+       (git-gutter  'git-gutter:previous-hunk)))))
 
 (defun spacemacs/vcs-revert-hunk ()
   (interactive)
@@ -50,8 +48,7 @@
     (call-interactively
      (cl-case version-control-diff-tool
        (diff-hl     'diff-hl-revert-hunk)
-       (git-gutter  'git-gutter:revert-hunk)
-       (git-gutter+ 'git-gutter+-revert-hunks)))))
+       (git-gutter  'git-gutter:revert-hunk)))))
 
 (defun spacemacs/vcs-stage-hunk ()
   (interactive)
@@ -69,8 +66,7 @@
     (call-interactively
      (cl-case version-control-diff-tool
        (diff-hl     'diff-hl-diff-goto-hunk)
-       (git-gutter  'git-gutter:popup-hunk)
-       (git-gutter+ 'git-gutter+-show-hunk-inline-at-point)))))
+       (git-gutter  'git-gutter:popup-hunk)))))
 
 (defun spacemacs/vcs-enable-margin ()
   (interactive)
@@ -78,8 +74,7 @@
     (call-interactively
      (cl-case version-control-diff-tool
        (diff-hl     'diff-hl-mode)
-       (git-gutter  'git-gutter-mode)
-       (git-gutter+ 'git-gutter+-mode)))))
+       (git-gutter  'git-gutter-mode)))))
 
 (defun spacemacs/vcs-disable-margin ()
   (interactive)
@@ -87,8 +82,7 @@
     (call-interactively
      (cl-case version-control-diff-tool
        (diff-hl     'diff-hl-mode)
-       (git-gutter  'git-gutter-mode)
-       (git-gutter+ 'git-gutter+-mode)))))
+       (git-gutter  'git-gutter-mode)))))
 
 (defun spacemacs/vcs-enable-margin-globally ()
   (interactive)
@@ -96,8 +90,7 @@
     (call-interactively
      (cl-case version-control-diff-tool
        (diff-hl     'global-diff-hl-mode)
-       (git-gutter  'global-git-gutter-mode)
-       (git-gutter+ 'global-git-gutter+-mode)))))
+       (git-gutter  'global-git-gutter-mode)))))
 
 (defun spacemacs/vcs-disable-margin-globally ()
   (interactive)
@@ -105,8 +98,7 @@
     (call-interactively
      (cl-case version-control-diff-tool
        (diff-hl     'global-diff-hl-mode)
-       (git-gutter  'global-git-gutter-mode)
-       (git-gutter+ 'global-git-gutter+-mode)))))
+       (git-gutter  'global-git-gutter-mode)))))
 
 (defun spacemacs/vcs-show-help ()
   (interactive)
@@ -117,15 +109,13 @@
   (interactive)
   (cl-case version-control-diff-tool
     (diff-hl     diff-hl-mode)
-    (git-gutter  (bound-and-true-p git-gutter-mode))
-    (git-gutter+ (bound-and-true-p git-gutter+-mode))))
+    (git-gutter  (bound-and-true-p git-gutter-mode))))
 
 (defun spacemacs/vcs-margin-global-p ()
   (interactive)
   (cl-case version-control-diff-tool
     (diff-hl     global-diff-hl-mode)
-    (git-gutter  global-git-gutter-mode)
-    (git-gutter+ global-git-gutter+-mode)))
+    (git-gutter  global-git-gutter-mode)))
 
 (spacemacs|add-toggle version-control-margin
   :status (spacemacs/vcs-margin-p)
@@ -164,6 +154,3 @@ the number of conflicts detected by `smerge-mode'."
   (interactive)
   (setq spacemacs--smerge-ts-full-hint-toggle
         (not spacemacs--smerge-ts-full-hint-toggle)))
-
-(defun spacemacs//git-gutter+-refresh-in-all-buffers ()
-  (git-gutter+-in-all-buffers (when git-gutter+-mode (git-gutter+-refresh))))
