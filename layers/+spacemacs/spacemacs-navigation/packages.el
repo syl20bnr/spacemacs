@@ -38,7 +38,8 @@
         restart-emacs
         (smooth-scrolling :location built-in)
         symbol-overlay
-        winum))
+        winum
+        disable-mouse))
 
 (defun spacemacs-navigation/init-ace-link ()
   (use-package ace-link
@@ -451,3 +452,12 @@
     (define-key winum-keymap (kbd "M-8") 'winum-select-window-8)
     (define-key winum-keymap (kbd "M-9") 'winum-select-window-9)
     (winum-mode)))
+
+(defun spacemacs-navigation/init-disable-mouse ()
+  (use-package disable-mouse
+    :defer t
+    :init
+    (spacemacs|add-toggle disable-mouse-input-globally
+      :mode disable-mouse-global-mode :evil-leader "tM")
+    :config
+    (spacemacs|diminish disable-mouse-global-mode " Ⓜ" " M")))
