@@ -37,7 +37,33 @@ of the current project only when a prefix argument is used.
 To restrict the commands to buffers of the current layout, customize
 the variable `spacemacs-layouts-restricted-functions'.")
 
-(defvar consult--source-modified-persp-buffers
+(defcustom compleseus-switch-to-buffer-sources
+  `(consult--source-hidden-buffer
+    compleseus--source-buffers-hidden
+    compleseus--source-persp-buffers
+    compleseus--source-persp-modified-buffers
+    consult--source-recent-file
+    consult--source-bookmark
+    consult--source-project-buffer-hidden
+    consult--source-project-recent-file-hidden)
+  "Sources used by `spacemacs/compleseus-switch-to-buffer'
+when persp-mode is used.
+See also `consult-buffer-sources'.
+See `consult--multi' for a description
+of the source data structure."
+  :type '(repeat symbol))
+
+(defvar compleseus--source-buffers-hidden nil
+  "Like `consult--source-buffer' but hidden by default
+and with narrowing key \"B\".")
+(with-eval-after-load 'consult
+  (setq compleseus--source-buffers-hidden
+        `(:name "Buffers (all layouts)"
+          :hidden t
+          :narrow (?B . "Buffers")
+          ,@consult--source-buffer)))
+
+(defvar compleseus--source-persp-modified-buffers
   `(:name "Modified Buffers"
           :narrow   (?* . "Modified Layout Buffers")
           :hidden   t
@@ -53,10 +79,12 @@ the variable `spacemacs-layouts-restricted-functions'.")
                                 (buffer-file-name buff)
                                 (buffer-modified-p buff)))
               ;; :directory 'project
-              :as #'buffer-name)))
+              :as #'consult--buffer-pair)))
   "Per-perspective modified buffer source.")
+(define-obsolete-variable-alias 'consult--source-modified-persp-buffers
+  'compleseus--source-persp-modified-buffers "2024-09")
 
-(defvar consult--source-persp-buffers
+(defvar compleseus--source-persp-buffers
   `(
     :name     "Layout Buffers"
     :narrow   ?b
@@ -70,5 +98,7 @@ the variable `spacemacs-layouts-restricted-functions'.")
        (consult--buffer-query
         :sort 'visibility
         :predicate #'compleseus//persp-contain-buffer-p
-        :as #'buffer-name)))
+        :as #'consult--buffer-pair)))
   "Per-perspective buffer source.")
+(define-obsolete-variable-alias 'consult--source-persp-buffers
+  'compleseus--source-persp-buffers "2024-09")
