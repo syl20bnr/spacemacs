@@ -189,6 +189,24 @@ packages are distributed without using tarballs."
 (defvar package-build-checkout-function #'package-build--checkout)
 (defvar package-build-cleanup-function #'package-build--cleanup)
 
+(defcustom package-build-run-recipe-org-exports nil
+  "Whether to export the files listed in the `:org-exports' recipe slot.
+Note that Melpa leaves this disabled."
+  :group 'package-build
+  :type 'boolean)
+
+(defcustom package-build-run-recipe-shell-command nil
+  "Whether to run the shell command from the `:shell-command' recipe slot.
+Note that Melpa leaves this disabled."
+  :group 'package-build
+  :type 'boolean)
+
+(defcustom package-build-run-recipe-make-targets nil
+  "Whether to run the make targets from the `:make-targets' recipe slot.
+Note that Melpa leaves this disabled."
+  :group 'package-build
+  :type 'boolean)
+
 (defcustom package-build-timeout-executable "timeout"
   "Path to a GNU coreutils \"timeout\" command if available.
 This must be a version which supports the \"-k\" option.
@@ -264,6 +282,22 @@ disallowed."
 
 (defvar package-build-use-git-remote-hg nil
   "Whether to use `git-remote-hg' remote helper for mercurial repos.")
+
+(defvar package-build--use-sandbox (eq system-type 'gnu/linux)
+  "Whether to run untrusted code using the \"bubblewrap\" sandbox.
+\"bubblewrap\" is only available on Linux, where the sandbox is
+enabled by default, to avoid accidentially not using it.")
+
+(defvar package-build--sandbox-readonly-binds
+  '("/bin" "/lib" "/lib64" "/usr"    ;fhs
+    "/etc/alternatives" "/etc/emacs" ;+debian
+    "/gnu"))                         ;+guix
+
+(defvar package-build--sandbox-args
+  '("--unshare-all"
+    "--dev" "/dev"
+    "--proc" "/proc"
+    "--tmpfs" "/tmp"))
 
 (defvar package-build--inhibit-fetch nil
   "Whether to inhibit fetching.  Useful for testing purposes.")
@@ -802,6 +836,29 @@ for logging purposes."
           (message "%s" (buffer-string))
           (package-build--error package "%s" summary))))))
 
+(defun package-build--call-sandboxed (package command &rest args)
+  "Like `package-build--call-process' but maybe use a sandbox.
+Use a sandbox if `package-build--use-sandbox' is non-nil."
+  (cond
+   (package-build--use-sandbox
+    (let* ((rcp (if (cl-typep package 'package-recipe)
+                    package
+                  (package-recipe-lookup package)))
+           (dir (package-recipe--working-tree rcp)))
+      (unless (file-in-directory-p default-directory dir)
+        (package-build--error rcp "Attempt to use sandbox outside of %s" dir)))
+    (apply #'package-build--call-process package "bwrap"
+           `(,@package-build--sandbox-args
+             ,@(list "--bind" default-directory default-directory)
+             ,@(mapcan (lambda (dir)
+                         (setq dir (expand-file-name dir))
+                         (and (file-exists-p dir)
+                              (list "--ro-bind" dir dir)))
+                       (append package-build--sandbox-readonly-binds
+                               (list ".git" ".hg")))
+             ,command ,@args)))
+   ((apply #'package-build--call-process package command args))))
+
 (defun package-build--run-process (command &rest args)
   "Like `package-build--call-process', but lacks the PACKAGE argument."
   (apply #'package-build--call-process nil command args))
@@ -985,16 +1042,35 @@ that is put in the tarball."
 
 (defun package-build--generate-info-files (rcp files target-dir)
   "Create an info file for each texinfo file listed in FILES.
+
 Also create the info dir file.  Remove each original texinfo
 file.  The source and destination file paths are expanded in
-`default-directory' and TARGET-DIR respectively."
+`default-directory' and TARGET-DIR respectively.
+
+If an org file appears in FILES and in RCP's `info-manuals' slot
+as well, then export it to texinfo and then the result to info."
   (pcase-dolist (`(,src . ,tmp) files)
     (let ((extension (file-name-extension tmp)))
-      (when (member extension '("info" "texi" "texinfo"))
-        (let* ((src (expand-file-name src))
+      (when (member extension '("info" "texi" "texinfo" "org"))
+        (let* ((explicit (and package-build-run-recipe-org-exports
+                              (member src (oref rcp org-exports))))
+               (src (expand-file-name src))
                (tmp (expand-file-name tmp target-dir))
+               (org  src)
                (texi src)
                (info tmp))
+          (when (equal extension "org")
+            (if (not explicit)
+                (setq info nil)
+              (delete-file tmp)
+              (setq texi (concat (file-name-sans-extension org) ".texi"))
+              (package-build--message "Generating %s" texi)
+              (with-demoted-errors "Error: %S"
+                (package-build--call-sandboxed
+                 rcp "emacs" "-Q" "--batch" "-l" "ox-texinfo"
+                 org "--funcall" "org-texinfo-export-to-texinfo"))
+              (when (file-exists-p texi)
+                (setq extension "texi"))))
           (when (member extension '("texi" "texinfo"))
             (delete-file tmp)
             (setq info (concat (file-name-sans-extension tmp) ".info"))
@@ -1007,10 +1083,11 @@ file.  The source and destination file paths are expanded in
                 (let ((default-directory (file-name-directory texi)))
                   (package-build--call-process
                    rcp "makeinfo" "--no-split" texi "-o" info)))))
-          (with-demoted-errors "Error: %S"
-            (let ((default-directory target-dir))
-              (package-build--call-process
-               rcp "install-info" "--dir=dir" info))))))))
+          (when info
+            (with-demoted-errors "Error: %S"
+              (let ((default-directory target-dir))
+                (package-build--call-process
+                 rcp "install-info" "--dir=dir" info)))))))))
 
 ;;; Patch Libraries
 
@@ -1241,7 +1318,21 @@ order and can have the following form:
   matched by earlier elements that are also matched by the second
   and subsequent elements of this list to be removed from the
   returned alist.  Files matched by later elements are not
-  affected."
+  affected.
+
+- (:inputs GLOB...)
+
+  A list that begins with `:inputs' specifies files, which are not
+  to be included in the package, but when modified still trigger a
+  new package version.  I.e., this function ignores this element,
+  but `package-build--spec-globs' does not.
+
+- (:rename SRC DEST)
+
+  A list that begins with `:rename' causes the file SRC to be
+  renamed and/or moved to DEST.  SRC and DEST are relative file
+  names (as opposed to globs) and both may contain directory
+  parts.  SRC must exist.  Avoid using this, if at all possible."
   (let ((default-directory (or repo (package-build--working-tree rcp)))
         (spec (or spec (oref rcp files)))
         (name (oref rcp name)))
@@ -1265,10 +1356,13 @@ order and can have the following form:
 SPEC is a full files spec as stored in a recipe object."
   (let (include exclude)
     (dolist (entry spec)
-      (if (eq (car-safe entry) :exclude)
-          (dolist (entry (cdr entry))
-            (push entry exclude))
-        (push entry include)))
+      (pcase (car-safe entry)
+        (:inputs)
+        (:exclude
+         (dolist (entry (cdr entry))
+           (push entry exclude)))
+        (:rename (push entry include))
+        (_ (push entry include))))
     (cl-set-difference
      (package-build--expand-files-spec-2 (nreverse include))
      (package-build--expand-files-spec-2 (nreverse exclude))
@@ -1280,17 +1374,16 @@ If SUBDIR is nil, use `default-directory'.  SPEC is expected to
 be a partial files spec, consisting of either all include rules
 or all exclude rules (with the `:exclude' keyword removed)."
   (mapcan (lambda (entry)
-            (if (stringp entry)
-                (mapcar (lambda (f)
-                          (cons f
-                                (concat subdir
-                                        (replace-regexp-in-string
-                                         "\\.el\\.in\\'"  ".el"
-                                         (file-name-nondirectory f)))))
-                        (file-expand-wildcards entry))
-              (package-build--expand-files-spec-2
+            (cond
+             ((stringp entry)
+              (mapcar (lambda (f)
+                        (cons f (concat subdir (file-name-nondirectory f))))
+                      (file-expand-wildcards entry)))
+             ((eq (car-safe entry) :rename)
+              (list (cons (nth 1 entry) (nth 2 entry))))
+             ((package-build--expand-files-spec-2
                (cdr entry)
-               (concat subdir (car entry) "/"))))
+               (concat subdir (car entry) "/")))))
           spec))
 
 (defun package-build--copy-package-files (files target-dir)
@@ -1337,6 +1430,12 @@ FILES is a list of (SOURCE . DEST) relative filepath pairs."
                 ((and `(:exclude . ,globs)
                       (guard (cl-every #'stringp globs)))
                  (mapcan (lambda (g) (toargs g t)) globs))
+                ((and `(:inputs . ,globs)
+                      (guard (cl-every #'stringp globs)))
+                 (mapcan #'toargs globs))
+                ((and `(:rename ,src ,dest)
+                      (guard (and (stringp src) (stringp dest))))
+                 (toargs src))
                 ((and `(,dir . ,globs)
                       (guard (stringp dir))
                       (guard (cl-every #'stringp globs)))
@@ -1407,6 +1506,15 @@ in `package-build-archive-dir'."
     (unwind-protect
         (progn
           (funcall package-build-checkout-function rcp)
+          (when-let* ((package-build-run-recipe-shell-command)
+                      (command (oref rcp shell-command)))
+            (package-build--message "Running %s" command)
+            (package-build--call-sandboxed
+             rcp shell-file-name shell-command-switch command))
+          (when-let ((package-build-run-recipe-make-targets)
+                     (targets (oref rcp make-targets)))
+            (package-build--message "Running make %s" (string-join targets " "))
+            (apply #'package-build--call-sandboxed rcp "make" targets))
           (let ((files (package-build-expand-files-spec rcp t)))
             (cond
              ((= (length files) 0)

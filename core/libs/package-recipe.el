@@ -52,6 +52,9 @@
    (time                                     :initform nil)
    (version                                  :initform nil)
    (version-regexp  :initarg :version-regexp :initform nil)
+   (shell-command   :initarg :shell-command  :initform nil)
+   (make-targets    :initarg :make-targets   :initform nil)
+   (org-exports     :initarg :org-exports    :initform nil)
    (old-names       :initarg :old-names      :initform nil))
   :abstract t)
 
@@ -169,8 +172,9 @@ file is invalid, then raise an error."
                name ident)
     (cl-assert plist)
     (let* ((symbol-keys '(:fetcher))
-           (string-keys '(:url :repo :commit :branch :version-regexp))
-           (list-keys '(:files :old-names))
+           (string-keys '( :url :repo :commit :branch
+                           :version-regexp :shell-command))
+           (list-keys '(:files :make-targets :org-exports :old-names))
            (all-keys (append symbol-keys string-keys list-keys)))
       (dolist (thing plist)
         (when (keywordp thing)
@@ -197,13 +201,15 @@ file is invalid, then raise an error."
         (when (eq (car spec) :defaults)
           (setq spec (cdr spec)))
         ;; All other elements have to be strings or lists of strings.
-        ;; A list whose first element is `:exclude' is also valid.
+        ;; Lists whose first element is `:exclude', `:inputs' or
+        ;; `:rename' are also valid.
         (dolist (entry spec)
           (unless (cond ((stringp entry)
                          (not (equal entry "*")))
                         ((listp entry)
                          (and-let* ((globs (cdr entry)))
-                           (and (or (eq (car entry) :exclude)
+                           (and (or (memq (car entry)
+                                          '(:exclude :inputs :rename))
                                     (stringp (car entry)))
                                 (seq-every-p (lambda (glob)
                                                (and (stringp glob)
