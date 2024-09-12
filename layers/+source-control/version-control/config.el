@@ -31,7 +31,7 @@
 (spacemacs|defc version-control-diff-tool 'diff-hl
   "Options are `diff-hl' (the preferred choice) or `git-gutter' to show
 version-control markers."
-  '(choice (const diff-hl) (const git-gutter)))
+  '(choice (const diff-hl) (const git-gutter) nil))
 
 (spacemacs|defc version-control-diff-side 'right
   "Side on which to show version-control markers.
