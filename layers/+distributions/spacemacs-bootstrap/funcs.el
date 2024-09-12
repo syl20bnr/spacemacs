@@ -173,15 +173,21 @@ START-REGEXP and END-REGEXP are the boundaries of the text object."
   (defmacro evil-map (state key seq)
     "Map for a given STATE a KEY to a sequence SEQ of keys.
 
-Can handle recursive definition only if KEY is the first key of SEQ.
+Can handle recursive definition only if KEY is the first key of
+SEQ, and if KEY's binding in STATE is defined as a symbol in
+`evil-normal-state-map'.
 Example: (evil-map visual \"<\" \"<gv\")"
-    (let ((map (intern (format "evil-%S-state-map" state))))
+    (let ((map (intern (format "evil-%S-state-map" state)))
+          (key-cmd (lookup-key evil-normal-state-map key)))
       `(define-key ,map ,key
                    (lambda ()
                      (interactive)
                      ,(if (string-equal key (substring seq 0 1))
-                          `(progn
-                             (call-interactively ',(lookup-key evil-normal-state-map key))
+                          `(let ((orig-this-command this-command))
+                             (setq this-command ',key-cmd)
+                             (call-interactively ',key-cmd)
+                             (run-hooks 'post-command-hook)
+                             (setq this-command orig-this-command)
                              (execute-kbd-macro ,(substring seq 1)))
                         (execute-kbd-macro ,seq)))))))
 
