@@ -190,7 +190,7 @@ and with narrowing key \"B\".")
           :filter nil
           :as #'consult--buffer-pair
           :buffer-list buffers))))
-  "Window buffer source for `consult-buffer'.
+  "Window buffer candidate source for `consult-buffer'.
 It contains all buffers previously displayed in the selected
 window, including buffers from different layouts and hidden
 buffers.")
@@ -210,7 +210,8 @@ buffers.")
          (walk-windows
           (lambda (win)
             (setq prev-buffers
-                  (append (mapcar #'car (window-prev-buffers win))
+                  (append (list (window-buffer win))
+                          (mapcar #'car (window-prev-buffers win))
                           prev-buffers)))
           'no-minibuffer)
          (consult--buffer-query
@@ -219,7 +220,7 @@ buffers.")
           :as #'consult--buffer-pair
           :predicate (lambda (buf)
                        (member buf prev-buffers))))))
-  "Workspace buffer source for `consult-buffer'.
+  "Workspace buffer candidate source for `consult-buffer'.
 It contains all buffers previously displayed in a live window of
 the current window configuration, including buffers from
 different layouts and hidden buffers.")
