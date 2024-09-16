@@ -1472,7 +1472,9 @@ the right."
   "Save current buffer or active region as specified file.
 When called interactively, it first prompts for FILENAME, and then asks
 whether to VISIT it, and if so, whether to show it in current window or
-another window. When prefixed with a universal-argument \\[universal-argument], include
+another window. The variable `spacemacs-save-as-visit-action' can be
+customized to supply a default VISIT action suppressing the latter prompt.
+When prefixed with a universal-argument \\[universal-argument], include
 filename in prompt.
 
 FILENAME  a non-empty string as the name of the saved file.
@@ -1489,13 +1491,16 @@ overwrite it."
                                   "Other window"
                                   "Don't open"))
                       (actions  '(:current :other nil))
-                      (visit    (let ((completion-ignore-case t))
-                                  (nth (cl-position
-                                        (completing-read "Do you want to open the file? "
-                                                         choices nil t)
-                                        choices
-                                        :test #'equal)
-                                       actions))))
+                      (visit
+                       (if (eq spacemacs-save-as-visit-action 'ask)
+                           (let ((completion-ignore-case t))
+                             (nth (cl-position
+                                   (completing-read "Do you want to open the file? "
+                                                    choices nil t)
+                                   choices
+                                   :test #'equal)
+                                  actions))
+                         spacemacs-save-as-visit-action)))
                  (list filename visit)))
   (unless (called-interactively-p 'any)
     (cl-assert (and (stringp filename)

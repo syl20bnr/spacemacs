@@ -137,6 +137,16 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Prompt to open file literally if large file.
 (add-hook 'find-file-hook 'spacemacs/check-large-file)
 
+(spacemacs|defc spacemacs-save-as-visit-action 'ask
+  "The default VISIT argument for interactive usage of
+`spacemacs/save-as' (bound to \\[spacemacs/save-as]), which see.
+Possible values are:
+`ask' to ask every time (the default),
+`:current' to open the file in the current window,
+`:other' to open the file in another window,
+or `nil' to only save and not visit the file."
+  '(choice (const ask) (const :current) (const :other) (const nil)))
+
 ;; ---------------------------------------------------------------------------
 ;; UI
 ;; ---------------------------------------------------------------------------
