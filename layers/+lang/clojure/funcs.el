@@ -197,7 +197,7 @@ If called with a prefix argument, uses the other-window instead."
 (defun spacemacs/cider-debug-setup ()
   "Initialize debug mode."
   (when (memq dotspacemacs-editing-style '(hybrid vim))
-    (evil-make-overriding-map cider--debug-mode-map 'normal)
+    (evil-make-intercept-map cider--debug-mode-map)
     (evil-normalize-keymaps)))
 
 (defun spacemacs/clj-find-var (sym-name &optional arg)
