@@ -3,6 +3,7 @@
 ;; Copyright (C) 2018-2024 Jonas Bernoulli
 
 ;; Author: Jonas Bernoulli <emacs.package-build@jonas.bernoulli.dev>
+;; Maintainer: Jonas Bernoulli <emacs.package-build@jonas.bernoulli.dev>
 ;; Homepage: https://github.com/melpa/package-build
 ;; Keywords: maint tools
 

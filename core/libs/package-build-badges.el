@@ -7,6 +7,7 @@
 ;; Copyright (C) 2009 Phil Hagelberg
 
 ;; Author: Donald Ephraim Curtis <dcurtis@milkbox.net>
+;; Maintainer: Jonas Bernoulli <emacs.package-build@jonas.bernoulli.dev>
 ;; Homepage: https://github.com/melpa/package-build
 ;; Keywords: maint tools
 
