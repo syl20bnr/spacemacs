@@ -42,9 +42,11 @@ the variable `spacemacs-layouts-restricted-functions'.")
     compleseus--source-buffers-hidden
     compleseus--source-persp-buffers
     compleseus--source-persp-modified-buffers
+    compleseus--source-other-persp-modified-buffers
     consult--source-recent-file
     consult--source-bookmark
-    consult--source-project-buffer-hidden
+    compleseus--source-persp-project-buffers
+    compleseus--source-other-persp-project-buffers
     consult--source-project-recent-file-hidden
     compleseus--source-window-buffers
     compleseus--source-workspace-buffers)
@@ -66,29 +68,46 @@ and with narrowing key \"B\".")
           ,@consult--source-buffer)))
 
 (defvar compleseus--source-persp-modified-buffers
-  `(:name "Modified Buffers"
-          :narrow   (?* . "Modified Layout Buffers")
-          :hidden   t
-          :category buffer
-          :face     consult-buffer
-          :history  buffer-name-history
-          :state    ,#'consult--buffer-state
-          :items
-          ,(lambda ()
-             (consult--buffer-query ;; :sort 'visibility
-              :predicate (lambda (buff)
-                           (and (compleseus//persp-contain-buffer-p buff)
-                                (buffer-file-name buff)
-                                (buffer-modified-p buff)))
-              ;; :directory 'project
-              :as #'consult--buffer-pair)))
-  "Per-perspective modified buffer source.")
+  `(:name "Modified Buffer (current layout)"
+    :narrow   (?* . "Modified Buffer")
+    :hidden   t
+    :category buffer
+    :face     consult-buffer
+    :history  buffer-name-history
+    :state    ,#'consult--buffer-state
+    :items
+    ,(lambda ()
+       (consult--buffer-query ;; :sort 'visibility
+        :predicate (lambda (buff)
+                     (and (compleseus//persp-contain-buffer-p buff)
+                          (buffer-file-name buff)
+                          (buffer-modified-p buff)))
+        ;; :directory 'project
+        :as #'consult--buffer-pair)))
+  "Modified buffer (current layout) candidate source for `consult-buffer'.")
 (define-obsolete-variable-alias 'consult--source-modified-persp-buffers
   'compleseus--source-persp-modified-buffers "2024-09")
 
+(defvar compleseus--source-other-persp-modified-buffers
+  `(:name "Modified Buffer (other layouts)"
+    :narrow   (?* . "Modified Buffer")
+    :hidden   t
+    :category buffer
+    :face     consult-buffer
+    :history  buffer-name-history
+    :state    ,#'consult--buffer-state
+    :items
+    ,(lambda ()
+       (consult--buffer-query
+        :predicate (lambda (buff)
+                     (and (not (compleseus//persp-contain-buffer-p buff))
+                          (buffer-file-name buff)
+                          (buffer-modified-p buff)))
+        :as #'consult--buffer-pair)))
+  "Modified buffer (other layouts) candidate source for `consult-buffer'.")
+
 (defvar compleseus--source-persp-buffers
-  `(
-    :name     "Layout Buffers"
+  `(:name     "Layout Buffer"
     :narrow   ?b
     :category buffer
     :face     consult-buffer
@@ -101,9 +120,47 @@ and with narrowing key \"B\".")
         :sort 'visibility
         :predicate #'compleseus//persp-contain-buffer-p
         :as #'consult--buffer-pair)))
-  "Per-perspective buffer source.")
+  "Layout buffer candidate source for `consult-buffer'.")
 (define-obsolete-variable-alias 'consult--source-persp-buffers
   'compleseus--source-persp-buffers "2024-09")
+
+(defvar compleseus--source-persp-project-buffers
+  `(:name     "Project Buffer (current layout)"
+    :hidden t
+    :narrow   (?p . "Project")
+    :category buffer
+    :face     consult-buffer
+    :history  buffer-name-history
+    :state    ,#'consult--buffer-state
+    :enabled  ,(lambda () consult-project-function)
+    :items
+    ,(lambda ()
+       (when-let (root (consult--project-root))
+         (consult--buffer-query
+          :sort 'visibility
+          :directory root
+          :predicate #'compleseus//persp-contain-buffer-p
+          :as #'consult--buffer-pair))))
+  "Project buffer (current layout) candidate source for `consult-buffer'.")
+
+(defvar compleseus--source-other-persp-project-buffers
+  `(:name     "Project Buffer (other layouts)"
+    :hidden t
+    :narrow   (?p . "Project")
+    :category buffer
+    :face     consult-buffer
+    :history  buffer-name-history
+    :state    ,#'consult--buffer-state
+    :enabled  ,(lambda () consult-project-function)
+    :items
+    ,(lambda ()
+       (when-let (root (consult--project-root))
+         (consult--buffer-query
+          :sort 'visibility
+          :directory root
+          :predicate (lambda (buf) (not (compleseus//persp-contain-buffer-p buf)))
+          :as #'consult--buffer-pair))))
+  "Project buffer (other layouts) candidate source for `consult-buffer'.")
 
 (defvar compleseus--source-window-buffers
   `(:name     "Window Buffer"
@@ -133,7 +190,7 @@ and with narrowing key \"B\".")
           :filter nil
           :as #'consult--buffer-pair
           :buffer-list buffers))))
-  "Window buffer source for `consult-buffer'.
+  "Window buffer candidate source for `consult-buffer'.
 It contains all buffers previously displayed in the selected
 window, including buffers from different layouts and hidden
 buffers.")
@@ -153,7 +210,8 @@ buffers.")
          (walk-windows
           (lambda (win)
             (setq prev-buffers
-                  (append (mapcar #'car (window-prev-buffers win))
+                  (append (list (window-buffer win))
+                          (mapcar #'car (window-prev-buffers win))
                           prev-buffers)))
           'no-minibuffer)
          (consult--buffer-query
@@ -162,7 +220,7 @@ buffers.")
           :as #'consult--buffer-pair
           :predicate (lambda (buf)
                        (member buf prev-buffers))))))
-  "Workspace buffer source for `consult-buffer'.
+  "Workspace buffer candidate source for `consult-buffer'.
 It contains all buffers previously displayed in a live window of
 the current window configuration, including buffers from
 different layouts and hidden buffers.")
