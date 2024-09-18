@@ -28,6 +28,10 @@
 (defun pdf/init-pdf-tools ()
   (use-package pdf-tools
     :defer t
+    :custom
+    ;; `pdf-view-use-scaling' can lead to severe performance problems,
+    ;; especially after zooming
+    (pdf-view-use-scaling nil)
     :init
     (spacemacs//pdf-tools-setup-transient-state)
     (pdf-loader-install)
