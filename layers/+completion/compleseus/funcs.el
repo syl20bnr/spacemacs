@@ -169,6 +169,13 @@ This solves the problem: Binding a key to: `find-file' calls: `ido-find-file'"
    (completing-read "Layouts:" (persp-names))))
 
 ;; vertico
+(defun spacemacs/embark-select ()
+  "Select the current candidate in the vertico buffer
+to act on with `embark-act-all', and move to the next candidate."
+  (interactive)
+  (embark-select)
+  (vertico-next))
+
 (defun spacemacs/embark-preview ()
   "Previews candidate in vertico buffer, unless it's a consult command"
   (interactive)
