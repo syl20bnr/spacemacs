@@ -563,7 +563,8 @@ See variable `undo-tree-history-directory-alist'." dir))
   (use-package undo-fu
     :defer t
     :custom
-    (undo-fu-allow-undo-in-region t)))
+    (undo-fu-allow-undo-in-region t)
+    (undo-fu-ignore-keyboard-quit t)))
 
 (defun spacemacs-editing/init-undo-fu-session ()
   (use-package undo-fu-session
