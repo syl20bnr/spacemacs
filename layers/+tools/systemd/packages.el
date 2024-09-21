@@ -42,7 +42,7 @@
 
 (defun systemd/init-journalctl-mode ()
   (use-package journalctl-mode
-    :ensure t
+    :commands (journalctl)
     :init
     (spacemacs/set-leader-keys
       "atj" 'journalctl)))
