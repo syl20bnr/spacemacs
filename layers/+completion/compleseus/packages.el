@@ -152,6 +152,9 @@
 
     ;; The :init configuration is always executed (Not lazy)
     :init
+    ;; disable automatic preview by default
+    (setq consult-preview-key '("M-." "C-SPC" "C-M-j" "C-M-k"))
+
     (define-key read-expression-map (kbd "C-r") #'consult-history)
     (spacemacs/set-leader-keys
       dotspacemacs-emacs-command-key 'execute-extended-command
@@ -207,28 +210,11 @@
     (add-to-list 'consult-buffer-sources 'compleseus--source-window-buffers)
     (add-to-list 'consult-buffer-sources 'compleseus--source-workspace-buffers)
 
-    ;; disable automatic preview by default,
-    ;; selectively enable it for some prompts below.
-    (setq consult-preview-key '("M-." "C-SPC"))
-
     ;; customize preview activation and delay while selecting candiates
     (consult-customize
      consult-theme
      spacemacs/theme-loader
-     :preview-key '("M-." "C-SPC"
-                    :debounce 0.2 any)
-
-     ;; slightly delayed preview upon candidate selection
-     ;; one usually wants quick feedback
-     consult-buffer
-     consult-ripgrep
-     consult-git-grep
-     consult-grep
-     consult-bookmark
-     consult-yank-pop
-     :preview-key '("M-." "C-SPC"
-                    :debounce 0.3 "<up>" "<down>" "C-n" "C-p"
-                    :debounce 0.6 any))
+     :preview-key '(:debounce 0.2 any))
 
     ;; hide magit buffer
     (add-to-list 'consult-buffer-filter "magit.*:.*")
