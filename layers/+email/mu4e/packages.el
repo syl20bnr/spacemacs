@@ -22,9 +22,8 @@
 
 
 (defconst mu4e-packages
-  '(
-    (mu4e :location site)
-    mu4e-alert
+  '((mu4e :location site)
+    (mu4e-alert :toggle (or mu4e-enable-notifications mu4e-enable-mode-line))
     (helm-mu :requires helm)
     org
     persp-mode
