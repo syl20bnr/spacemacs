@@ -338,10 +338,10 @@ This functions is aimed to be used with `spacemacs-space-doc-modificators'."
               "^[ \t]*\\#\\+end_src.*\n\\(\n\\)[^\\*]")))
         (start (save-excursion (goto-char (or startish
                                               (point-min)))
-                               (point-at-bol -2)))
+                               (line-beginning-position -2)))
         (end   (save-excursion (goto-char (or endish
                                               (point-max)))
-                               (point-at-eol 2))))
+                               (line-end-position 2))))
     ;; Remove nils.
     (setq invisible-org-meta-tags-list
           (remove nil invisible-org-meta-tags-list))
