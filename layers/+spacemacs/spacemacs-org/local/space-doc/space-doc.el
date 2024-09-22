@@ -150,12 +150,12 @@ This functions is aimed to be used with `spacemacs-space-doc-modificators'."
                                  (face-background 'default)
                                  'unspecified))
                    (marker-face
-                    `(:inherit     org-table
-                      :foreground ,table-bg))
+                    (list :inherit    'org-table
+                          :foreground table-bg))
                    (btn-marker-face
-                    `(:inherit             org-kbd
-                      :distant-foreground ,kbd-bg
-                      :foreground         ,kbd-bg))
+                    (list :inherit            'org-kbd
+                          :distant-foreground kbd-bg
+                          :foreground         kbd-bg))
                    (kbd-marker
                     (dolist (el org-emphasis-alist)
                       (when (member 'org-kbd el)
@@ -289,8 +289,8 @@ Otherwise, reverts them to default.
 This functions is aimed to be used with `spacemacs-space-doc-modificators'."
   (if enable
       (setq spacemacs--space-doc-org-kbd-face-remap-cookie
-           (face-remap-add-relative 'org-kbd
-                                    `(:box nil)))
+            (face-remap-add-relative 'org-kbd
+                                     `(:box nil)))
     (when (bound-and-true-p spacemacs--space-doc-org-kbd-face-remap-cookie)
       (face-remap-remove-relative
        spacemacs--space-doc-org-kbd-face-remap-cookie))))
@@ -389,22 +389,22 @@ This functions is aimed to be used with `spacemacs-space-doc-modificators'."
                              'unspecified))
              (org-bb-bg (or (face-background 'org-block-begin-line)
                             (face-background 'org-meta-line)))
-             (hide-bb-text-face `(:inherit org-block-begin-line
-                                  :foreground         ,default-bg
-                                  :distant-foreground ,default-bg))
+             (hide-bb-text-face (list :inherit            'org-block-begin-line
+                                      :foreground         default-bg
+                                      :distant-foreground default-bg))
              (org-bn-bg (or (face-background 'org-block-end-line)
                             (face-background 'org-meta-line)))
-             (hide-bn-text-face `(:inherit org-block-end-line
-                                  :foreground         ,default-bg
-                                  :distant-foreground ,default-bg)))
+             (hide-bn-text-face (list :inherit            'org-block-end-line
+                                      :foreground         default-bg
+                                      :distant-foreground default-bg)))
         (unless org-bb-bg
           (setq spacemacs--space-doc-org-block-begin-line-face-remap-cookie
-               (face-remap-add-relative 'org-block-begin-line
-                                        hide-bb-text-face)))
+                (face-remap-add-relative 'org-block-begin-line
+                                         hide-bb-text-face)))
         (unless org-bn-bg
           (setq spacemacs--space-doc-org-block-end-line-face-remap-cookie
-               (face-remap-add-relative 'org-block-end-line
-                                        hide-bn-text-face))))
+                (face-remap-add-relative 'org-block-end-line
+                                         hide-bn-text-face))))
     (when (bound-and-true-p
            spacemacs--space-doc-org-block-begin-line-face-remap-cookie)
       (face-remap-remove-relative
