@@ -105,7 +105,7 @@ keeping their content visible.
                         spacemacs-space-doc-modificators)
             (funcall (cdr modificator) space-doc-mode))))
     ;; Force `org-mode' to replace font text properties with the default ones.
-    (unless space-doc-mode (org-font-lock-ensure))
+    (unless space-doc-mode (font-lock-ensure))
     (message (format "space-doc-mode error:%s isn't an org-mode buffer"
                      (buffer-name)))
     (setq space-doc-mode nil)))
