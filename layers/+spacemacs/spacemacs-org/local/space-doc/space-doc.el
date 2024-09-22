@@ -157,7 +157,7 @@ This functions is aimed to be used with `spacemacs-space-doc-modificators'."
                           :distant-foreground kbd-bg
                           :foreground         kbd-bg))
                    (kbd-marker
-                    (dolist (el org-emphasis-alist)
+                    (cl-dolist (el org-emphasis-alist)
                       (when (member 'org-kbd el)
                         (cl-return (car el))))))
               (make-spacemacs--space-doc-cache-struct
