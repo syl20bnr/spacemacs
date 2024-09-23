@@ -112,7 +112,20 @@
                 #'spacemacs/load-eyebrowse-after-loading-layout))
     ;; vim-style tab switching
     (define-key evil-motion-state-map "gt" 'eyebrowse-next-window-config)
-    (define-key evil-motion-state-map "gT" 'eyebrowse-prev-window-config)))
+    (define-key evil-motion-state-map "gT" 'eyebrowse-prev-window-config)
+    ;; ensure scratch buffer is live, otherwise loading workspaces can fail silently
+    (unless dotspacemacs-scratch-buffer-unkillable
+      (define-advice eyebrowse--fixup-window-config
+          (:after (window-config) spacemacs//maybe-create-scratch-buffer)
+        (unless (get-buffer "*scratch*")
+          (catch 'found
+            (eyebrowse--walk-window-config
+             window-config
+             (lambda (item)
+               (when (and (eq (car item) 'buffer)
+                          (equal (cadr item) "*scratch*"))
+                 (spacemacs//get-scratch-buffer-create)
+                 (throw 'found t))))))))))
 
 
 
