@@ -1730,22 +1730,27 @@ a split-side entry, its value must be usable as the SIDE argument for
       (switch-to-buffer (help-buffer))
     (message "No previous Help buffer found")))
 
+(defun spacemacs//get-scratch-buffer-create ()
+  (or (get-buffer "*scratch*")
+      (let ((scratch (get-buffer-create "*scratch*")))
+        (with-current-buffer scratch
+          (add-hook 'kill-buffer-hook
+                    #'spacemacs//confirm-kill-buffer
+                    nil t)
+          (when (and (not (eq major-mode dotspacemacs-scratch-mode))
+                     (fboundp dotspacemacs-scratch-mode))
+            (funcall dotspacemacs-scratch-mode)
+            (run-hooks 'spacemacs-scratch-mode-hook)))
+        scratch)))
+
 (defun spacemacs/switch-to-scratch-buffer (&optional arg)
   "Switch to the `*scratch*' buffer, creating it first if needed.
 if prefix argument ARG is given, switch to it in an other, possibly new window."
   (interactive "P")
-  (let ((exists (get-buffer "*scratch*")))
+  (let ((scratch (spacemacs//get-scratch-buffer-create)))
     (if arg
-        (switch-to-buffer-other-window (get-buffer-create "*scratch*"))
-      (switch-to-buffer (get-buffer-create "*scratch*")))
-    (when (not exists)
-      (add-hook 'kill-buffer-hook
-                #'spacemacs//confirm-kill-buffer
-                nil t)
-      (when (and (not (eq major-mode dotspacemacs-scratch-mode))
-                 (fboundp dotspacemacs-scratch-mode))
-        (funcall dotspacemacs-scratch-mode)
-        (run-hooks 'spacemacs-scratch-mode-hook)))))
+        (switch-to-buffer-other-window scratch)
+      (switch-to-buffer scratch))))
 
 (defvar spacemacs--killed-buffer-list nil
   "List of recently killed buffers.")
