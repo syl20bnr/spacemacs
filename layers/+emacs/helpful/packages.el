@@ -32,13 +32,14 @@
     :defer t
     :init
     (spacemacs/declare-prefix-for-mode 'helpful-mode "mg" "goto")
-    (with-eval-after-load 'help-fns
-      (defalias 'helpful/original-describe-function (symbol-function 'describe-function))
-      (defalias 'helpful/original-describe-variable (symbol-function 'describe-variable))
-      (defalias 'helpful/original-describe-key (symbol-function 'describe-key))
-      (defalias 'describe-function 'helpful-callable)
-      (defalias 'describe-variable 'helpful-variable)
-      (defalias 'describe-key 'helpful-key))
+    (unless (fboundp 'helpful/original-describe-function)
+      (with-eval-after-load 'help-fns
+        (defalias 'helpful/original-describe-function (symbol-function 'describe-function))
+        (defalias 'helpful/original-describe-variable (symbol-function 'describe-variable))
+        (defalias 'helpful/original-describe-key (symbol-function 'describe-key))
+        (defalias 'describe-function 'helpful-callable)
+        (defalias 'describe-variable 'helpful-variable)
+        (defalias 'describe-key 'helpful-key)))
     :config
     (evil-set-initial-state 'helpful-mode 'normal)
     (spacemacs/set-leader-keys-for-major-mode 'helpful-mode
