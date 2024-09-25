@@ -31,7 +31,7 @@
   "Binding used in the setup for `spacemacs-layouts' micro-state")
 
 (defvar mu4e-spacemacs-kill-layout-on-exit t
-  "When `t` exiting mu4e app will automatically kill its layout")
+  "When non-nil, exiting mu4e app will automatically kill its layout")
 
 (defvar mu4e-enable-async-operations nil
   "Prefer async operations when sending emails.")
@@ -61,7 +61,7 @@
   "If non-nil org-mu4e is configured.")
 
 (defvar mu4e-autorun-background-at-startup nil
-  "If non-nil, mu4e will automatically run in background at emacs startup.")
+  "If non-nil, mu4e will automatically run in background at Emacs startup.")
 
 (when mu4e-installation-path
   (add-to-list 'load-path mu4e-installation-path))
