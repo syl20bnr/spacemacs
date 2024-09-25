@@ -56,6 +56,7 @@
     :init
     (spacemacs/set-leader-keys "aem" 'mu4e)
     (setq mail-user-agent 'mu4e-user-agent
+          read-mail-command 'mu4e
           mu4e-completing-read-function 'completing-read
           mu4e-use-fancy-chars t
           mu4e-view-show-images t
