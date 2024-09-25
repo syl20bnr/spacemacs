@@ -55,13 +55,13 @@
     :commands (mu4e mu4e-compose-new)
     :init
     (spacemacs/set-leader-keys "aem" 'mu4e)
-    (global-set-key (kbd "C-x m") 'mu4e-compose-new)
-    (setq mu4e-completing-read-function 'completing-read
-          mu4e-use-fancy-chars 't
-          mu4e-view-show-images 't
-          message-kill-buffer-on-exit 't
+    (setq mail-user-agent 'mu4e-user-agent
+          mu4e-completing-read-function 'completing-read
+          mu4e-use-fancy-chars t
+          mu4e-view-show-images t
+          message-kill-buffer-on-exit t
           mu4e-org-support nil)
-    (let ((dir "~/Downloads"))
+    (let ((dir "~/Downloads/"))
       (when (file-directory-p dir)
         (setq mu4e-attachment-dir dir)))
 
