@@ -23,17 +23,12 @@
 
 (setq spacemacs-modeline-packages
       '(
-        anzu
         (doom-modeline :toggle (eq (spacemacs/get-mode-line-theme-name) 'doom))
         fancy-battery
         spaceline
         (spaceline-all-the-icons :toggle (eq (spacemacs/get-mode-line-theme-name) 'all-the-icons))
         symon
         (vim-powerline :location (recipe :fetcher local))))
-
-(defun spacemacs-modeline/post-init-anzu ()
-  (when (eq 'all-the-icons (spacemacs/get-mode-line-theme-name))
-    (spaceline-all-the-icons--setup-anzu)))
 
 (defun spacemacs-modeline/init-doom-modeline ()
   ;; doom modeline depends on `display-graphic-p' so we delay its initialization
@@ -115,26 +110,26 @@
     (add-hook 'spaceline-pre-hook 'spacemacs//prepare-diminish)
     ;; New spacemacs version segment
     (defpowerline spacemacs-powerline-new-version
-      (propertize
-       spacemacs-version-check-lighter
-       'mouse-face 'mode-line-highlight
-       'help-echo (format "New version %s | Click with mouse-1 to update"
-                          spacemacs-new-version)
-       'local-map (let ((map (make-sparse-keymap)))
-                    (define-key map
-                      [mode-line down-mouse-1]
-                      (lambda (event)
-                        (interactive "@e")
-                        (if (yes-or-no-p
-                             (format
-                              (concat "Do you want to update to the newest "
-                                      "version %s ?")
-                              spacemacs-new-version))
-                            (progn
-                              (spacemacs/switch-to-version
-                               spacemacs-new-version))
-                          (message "Update aborted."))))
-                    map)))
+                  (propertize
+                   spacemacs-version-check-lighter
+                   'mouse-face 'mode-line-highlight
+                   'help-echo (format "New version %s | Click with mouse-1 to update"
+                                      spacemacs-new-version)
+                   'local-map (let ((map (make-sparse-keymap)))
+                                (define-key map
+                                            [mode-line down-mouse-1]
+                                            (lambda (event)
+                                              (interactive "@e")
+                                              (if (yes-or-no-p
+                                                   (format
+                                                    (concat "Do you want to update to the newest "
+                                                            "version %s ?")
+                                                    spacemacs-new-version))
+                                                  (progn
+                                                    (spacemacs/switch-to-version
+                                                     spacemacs-new-version))
+                                                (message "Update aborted."))))
+                                map)))
     (spaceline-define-segment
         new-version
       (when spacemacs-new-version
@@ -163,7 +158,9 @@
         ;; let's disable it for now
         ;; https://github.com/domtronn/spaceline-all-the-icons.el/issues/51#issuecomment-316686790
         (setq spaceline-responsive nil)
-        (spaceline-all-the-icons--setup-git-ahead)))))
+        (spaceline-all-the-icons--setup-git-ahead)
+        (when (configuration-layer/package-used-p 'evil-anzu)
+          (spaceline-all-the-icons--setup-anzu))))))
 
 (defun spacemacs-modeline/init-spaceline-all-the-icons ()
   (use-package spaceline-all-the-icons
