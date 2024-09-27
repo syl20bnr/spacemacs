@@ -509,10 +509,10 @@
     (spacemacs/set-leader-keys "xe" 'string-edit-at-point)
     :config
     (spacemacs/set-leader-keys-for-minor-mode 'string-edit-at-point-mode
-      "," 'string-edit-conclude
-      "c" 'string-edit-conclude
-      "a" 'string-edit-abort
-      "k" 'string-edit-abort)))
+      "," 'string-edit-at-point-conclude
+      "c" 'string-edit-at-point-conclude
+      "a" 'string-edit-at-point-abort
+      "k" 'string-edit-at-point-abort)))
 
 (defun spacemacs-editing/init-multi-line ()
   (use-package multi-line
