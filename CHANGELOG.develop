@@ -3998,6 +3998,8 @@ files (thanks to Daniel Nicolai)
     - Added documentation for navigating to next source in helm-find-file
       (thanks to Lucas Leblow)
   - README.md:
+    - Updated macOS documentation with the requirement to have the latest version of Xcode Command
+      Line Tools installed to install Emacs Plus (thanks to James Yoo)
     - Fixed macOS documentation to install fonts (thanks to Sergio Morales)
     - Updated Windows section, suggest official Emacs (thanks to ghost-420)
     - Fixed dead link for creating a Spacemacs.desktop file with the Spacemacs icon (thanks to cpaulik)

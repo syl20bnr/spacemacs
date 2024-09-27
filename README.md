@@ -220,6 +220,14 @@ Last but not least there are a lot of high class tutorials available on YouTube:
       brew install emacs-plus --with-spacemacs-icon --with-native-comp
       ```
 
+      You will require the latest version of Xcode Command Line tools, which can be
+      downloaded from the [Apple Developer Portal](https://developer.apple.com/download/all/)
+      or by running the following command:
+
+      ```sh
+      softwareupdate --all --install --force
+      ```
+
    2. [Emacs Mac Port][] adds native GUI support to Emacs 28. And the full list
       of features is available [here][Emacs Mac Port features].
 
