@@ -300,6 +300,30 @@ Note: this function relies on embark internals and might break upon embark updat
     ((eq major-mode 'org-mode) 'consult-org-heading)
     (t 'consult-imenu))))
 
+(defun spacemacs/consult-narrow-cycle-backward ()
+  "Cycle backward through the narrowing keys."
+  (interactive)
+  (when consult--narrow-keys
+    (consult-narrow
+     (if consult--narrow
+         (let ((idx (seq-position consult--narrow-keys
+                                  (assq consult--narrow consult--narrow-keys))))
+           (unless (eq idx 0)
+             (car (nth (1- idx) consult--narrow-keys))))
+       (caar (last consult--narrow-keys))))))
+
+(defun spacemacs/consult-narrow-cycle-forward ()
+  "Cycle forward through the narrowing keys."
+  (interactive)
+  (when consult--narrow-keys
+    (consult-narrow
+     (if consult--narrow
+         (let ((idx (seq-position consult--narrow-keys
+                                  (assq consult--narrow consult--narrow-keys))))
+           (unless (eq idx (1- (length consult--narrow-keys)))
+             (car (nth (1+ idx) consult--narrow-keys))))
+       (caar consult--narrow-keys)))))
+
 (defun spacemacs/compleseus-grep-change-to-wgrep-mode ()
   (interactive)
   (require 'wgrep)
