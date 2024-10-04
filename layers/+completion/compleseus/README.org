@@ -54,15 +54,18 @@ like below to use =selectrum= as opposed to the default of =vertico=:
 
 ** Edit consult buffer
 
-| Key binding            | Description                                                                    |
-|------------------------+--------------------------------------------------------------------------------|
-| ~C-c C-e~              | Export consult buffer to a grep buffer and make it editable right away         |
-| ~M-o E~                | Export consult buffer to a new buffer (usually grep)                           |
-| ~SPC m w~              | Toggle the exported buffer to be editable or read-only when it's a grep buffer |
-| ~SPC m ,~ or ~SPC m c~ | Apply/Commit changes made in the exported buffer                               |
-| ~SPC m a~ or ~SPC m k~ | Abort/Kill changes made in the exported buffer                                 |
-| ~SPC m q~              | Abort/Kill changes made in the exported buffer and close the buffer            |
-| ~SPC m s~              | Apply and =save= changes made in the exported buffer and close the buffer      |
+| Key binding            | Description                                                                                                      |
+|------------------------+------------------------------------------------------------------------------------------------------------------|
+| ~C-c C-e~              | Export consult buffer to a grep buffer and make it editable right away                                           |
+| ~M-o E~                | Export consult buffer to a new buffer (usually grep)                                                             |
+| ~SPC m w~              | Toggle the exported buffer to be editable or read-only when it's a grep buffer                                   |
+| ~SPC m ,~ or ~SPC m c~ | Apply/Commit changes made in the exported buffer                                                                 |
+| ~SPC m a~ or ~SPC m k~ | Abort/Kill changes made in the exported buffer                                                                   |
+| ~SPC m q~              | Abort/Kill changes made in the exported buffer and close the buffer                                              |
+| ~SPC m s~              | Apply and =save= changes made in the exported buffer and close the buffer                                        |
+| ~SPC m r~              | Toggle the read-only area (allowing you to remove lines from the wgrep buffer, won't be removed from the file)   |
+| ~SPC m d~              | Mark the line to be deleted from the file                                                                        |
+| ~SPC m f~              | Enable next-error-follow-minor-mode which will show previews of what you have under the cursor for a grep buffer |
 
 Note: ~SPC m s~ actually saves the changes on disk when the changed lines belong
 to a buffer visiting a file. ~SPC m ,~ and ~SPC m c~ do not save the changes on
