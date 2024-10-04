@@ -429,7 +429,8 @@
       (define-key vertico-map (kbd "C-M-k") #'spacemacs/previous-candidate-preview)
       (define-key vertico-map (kbd "M-RET") #'vertico-exit-input)
       (define-key vertico-map (kbd "C-SPC") #'spacemacs/embark-preview)
-      (define-key vertico-map (kbd "C-r") #'consult-history)))
+      (define-key vertico-map (kbd "C-r") #'consult-history)
+      (define-key vertico-map (kbd "M-P") #'spacemacs/consult-toggle-preview)))
 
   (use-package vertico-directory
     :after vertico
