@@ -9,6 +9,7 @@
   - [[#configuration][Configuration]]
     - [[#completion-engine][Completion engine]]
 - [[#key-bindings][Key bindings]]
+  - [[#narrowing][Narrowing]]
   - [[#edit-consult-buffer][Edit consult buffer]]
 
 * Description
@@ -51,6 +52,19 @@ like below to use =selectrum= as opposed to the default of =vertico=:
 | ~M-o~       | embark-action             |
 | ~C-r~       | history                   |
 | ~M-.~       | preview selected item now |
+
+** Narrowing
+Many consult commands support 'narrowing', whith allows you to type a key and narrow the list of candidates available
+Once you have discovered the narrowing keys available, you can do them directly with ~key SPC~.
+e.g. in ~compleseus/switch-to-buffer~ type ~* SPC~ to see only modified buffers.
+Delete the narrowing key again to return to all selections.
+
+| Key binding | Description                                      |
+|-------------+--------------------------------------------------|
+| ~<~         | View narrowing commands available                |
+| ~C-left~    | Cycle left through narrowing commands available  |
+| ~C-right~   | Cycle right through narrowing commands available |
+
 
 ** Edit consult buffer
 
