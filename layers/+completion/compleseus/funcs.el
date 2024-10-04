@@ -337,3 +337,12 @@ Note: this function relies on embark internals and might break upon embark updat
   (spacemacs/wgrep-finish-edit)
   (wgrep-save-all-buffers)
   (quit-window))
+
+(defun spacemacs/consult-toggle-preview ()
+  "Toggle auto-preview mode for compleseus buffers"
+  (interactive)
+  (if (eq consult-preview-key 'any)
+      (setq consult-preview-key '("M-." "C-SPC"))
+    (setq consult-preview-key ("M-." "C-SPC" :debounce 0.3 any))
+    )
+  )

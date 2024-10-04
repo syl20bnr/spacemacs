@@ -10,6 +10,7 @@
     - [[#completion-engine][Completion engine]]
 - [[#key-bindings][Key bindings]]
   - [[#edit-consult-buffer][Edit consult buffer]]
+  - [[#vertico-key-bindings][Vertico key bindings]]
 
 * Description
 This layer implements completion provided by combining the following packages:
@@ -46,11 +47,12 @@ like below to use =selectrum= as opposed to the default of =vertico=:
 
 * Key bindings
 
-| Key binding | Description               |
-|-------------+---------------------------|
-| ~M-o~       | embark-action             |
-| ~C-r~       | history                   |
-| ~M-.~       | preview selected item now |
+| Key binding | Description                    |
+|-------------+--------------------------------|
+| ~M-o~       | embark-action                  |
+| ~C-r~       | history                        |
+| ~M-.~       | preview selected item now      |
+| ~C-z~       | select embark action from list |
 
 ** Edit consult buffer
 
@@ -67,3 +69,18 @@ like below to use =selectrum= as opposed to the default of =vertico=:
 Note: ~SPC m s~ actually saves the changes on disk when the changed lines belong
 to a buffer visiting a file. ~SPC m ,~ and ~SPC m c~ do not save the changes on
 disk.
+
+** Vertico key bindings
+
+| Key binding | Description                                                                   |
+|-------------+-------------------------------------------------------------------------------|
+| ~C-j~       | Go to next row down                                                           |
+| ~C-k~       | Go to next row up                                                             |
+| ~C-l~       | Fully selects the text under the point (completes)                            |
+| ~C-S-j~     | Move to next group of results                                                 |
+| ~C-S-k~     | Move to previous group of results                                             |
+| ~C-M-j~     | Move to next candidate and preview                                            |
+| ~C-M-k~     | Move to previous candidate and preview                                        |
+| ~C-SPC~     | Preview candidate                                                             |
+| ~M-P~       | Toggle previewing on for compleseus functions (requires rerunning the search) |
+
