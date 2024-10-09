@@ -374,6 +374,6 @@ Note: this function relies on embark internals and might break upon embark updat
   (interactive)
   (if (eq consult-preview-key 'any)
       (setq consult-preview-key '("M-." "C-SPC"))
-    (setq consult-preview-key ("M-." "C-SPC" :debounce 0.3 any))
+    (setq consult-preview-key '("M-." "C-SPC" :debounce 0.3 any))
     )
   )

@@ -228,8 +228,8 @@
     ;; Optionally make narrowing help available in the minibuffer.
     ;; You may want to use `embark-prefix-help-command' or which-key instead.
     ;; (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
-    (define-key consult-narrow-map [C-left] #'consult-narrow-cycle-backward)
-    (define-key consult-narrow-map [C-right] #'consult-narrow-cycle-forward)
+    (define-key consult-narrow-map [C-left] #'spacemacs/consult-narrow-cycle-backward)
+    (define-key consult-narrow-map [C-right] #'spacemacs/consult-narrow-cycle-forward)
 
     ;; Make M-n as smart as ivy and helm equivalents
     (setq minibuffer-default-add-function 'spacemacs/minibuffer-default-add-function)
