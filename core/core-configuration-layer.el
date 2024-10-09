@@ -441,10 +441,7 @@ cache folder.")
           (configuration-layer/elpa-directory
            configuration-layer--elpa-root-directory))
     (setq package-archives (configuration-layer//resolve-package-archives
-                            configuration-layer-elpa-archives))
-    ;; optimization, no need to activate all the packages so early
-    (setq package-enable-at-startup nil)
-    (package-initialize 'noactivate)))
+                            configuration-layer-elpa-archives))))
 
 (autoload 'quelpa "quelpa")
 (autoload 'quelpa-checkout "quelpa")
