@@ -37,7 +37,8 @@
     (helm-pydoc :requires helm)
     importmagic
     live-py-mode
-    (nose :location (recipe :fetcher github :repo "syl20bnr/nose.el"))
+    (nose :location (recipe :fetcher github :repo "syl20bnr/nose.el")
+          :toggle (memq 'nose (flatten-list (list python-test-runner))))
     org
     pip-requirements
     pipenv
@@ -47,7 +48,7 @@
     pydoc
     pyenv-mode
     (pylookup :location (recipe :fetcher local))
-    pytest
+    (pytest :toggle (memq 'pytest (flatten-list (list python-test-runner))))
     (python :location built-in)
     pyvenv
     semantic
