@@ -53,7 +53,7 @@ If nil then `yapf' is the default formatter unless `lsp' layer is used.")
   "If non-nil, automatically format code with formatter selected
   via `python-formatter' on save.")
 
-(defvar python-test-runner 'nose
+(defvar python-test-runner 'pytest
   "Test runner to use. Possible values are `nose' or `pytest'.")
 (put 'python-test-runner 'safe-local-variable #'symbolp)
 
