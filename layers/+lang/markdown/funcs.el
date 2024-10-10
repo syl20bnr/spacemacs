@@ -22,7 +22,7 @@
 
 
 (defun spacemacs/activate-mmm-mode ()
-  (unless (bound-and-true-p git-commit-mode)
+  (unless (bound-and-true-p)
     ;; Enable `mmm-mode'.
     (mmm-mode 1)))
 

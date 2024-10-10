@@ -520,15 +520,6 @@ add a symbol within =['’]=) to make it supported. Consult the help of
 You finally have to set =my_english= as your =ispell-local-dictionary= in order
 to use the dictionary supporting your newly added characters.
 
-** Use Spacemacs as the =$EDITOR= for git commits?
-Spacemacs can be used as the =$EDITOR= (or =$GIT_EDITOR=) for editing git
-commits messages. To enable this you have to add the following line to your
-=dotspacemacs/user-config=:
-
-#+BEGIN_SRC emacs-lisp
-  (global-git-commit-mode t)
-#+END_SRC
-
 ** Try Spacemacs without modifying my existing Emacs configuration?
 Emacs's ability to use any directory as the home for launching it allows us to
 try out Spacemacs (or any other Emacs configuration we desire) without having to

@@ -38,7 +38,6 @@
     ;; include the old git{attributes,config,ignore}-mode
     git-modes
     gitignore-templates
-    git-commit
     git-link
     git-messenger
     git-timemachine
@@ -75,19 +74,12 @@
     (unless (spacemacs/system-is-mswindows)
       (add-to-list 'spacemacs-evil-collection-allowed-list 'forge))))
 
-(defun git/post-init-fill-column-indicator ()
-  (add-hook 'git-commit-mode-hook 'fci-mode))
-
 (defun git/init-helm-git-grep ()
   (use-package helm-git-grep
     :defer t
     :init (spacemacs/set-leader-keys
             "g/" 'helm-git-grep
             "g*" 'helm-git-grep-at-point)))
-
-(defun git/init-git-commit ()
-  (use-package git-commit
-    :defer t))
 
 ;; (defun git/init-code-review ()
 ;;   (use-package code-review

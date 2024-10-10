@@ -19,7 +19,6 @@
     - [[#magit-gitflow][magit-gitflow]]
     - [[#magit-svn][magit-svn]]
     - [[#magit-todos][magit-todos]]
-  - [[#global-git-commit-mode][Global git commit mode]]
   - [[#forge][Forge]]
     - [[#magit-forge-configuration][Magit Forge configuration]]
     - [[#ms-windows-support][MS Windows support]]
@@ -143,18 +142,6 @@ To enable =magit-todos= plugin, add the following to your =dotspacemacs/user-con
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '((git :variables git-enable-magit-todos-plugin t)))
-#+END_SRC
-
-** Global git commit mode
-Spacemacs can be used as the =$EDITOR= (or =$GIT_EDITOR=) for editing git
-commits messages. This requires the entire library to be loaded immediately
-which will cost some time, disable it if you run into performance issues.
-To enable it you have to add the following lines to your
-=dotspacemacs/user-config=:
-
-#+BEGIN_SRC emacs-lisp
-  (require 'git-commit)
-  (global-git-commit-mode t)
 #+END_SRC
 
 ** Forge
