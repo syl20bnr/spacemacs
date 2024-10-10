@@ -352,6 +352,10 @@ In org-agenda-mode
 ***** Rust
 Removed support for Racer, default backend for LSP is now rust-analizer due to
 both Racer and RLS not being maintained anymore.
+- Key bindings:
+  - Edited ~SPC m t a~ from =rustic-cargo-test= to =rustic-cargo-test-run=
+    to avoid the unexpected behavior of always running a single test after using 
+    rustic-cargo-current-test (thanks to Roberto Previdi)
 ***** Ruby on Rails
 - Key bindings:
   - New ~SPC m r f S~ to find serializer (thanks to Boris Buliga)

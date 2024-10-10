@@ -72,7 +72,7 @@
       "cU" 'rustic-cargo-upgrade
       "cv" 'rustic-cargo-check
       "cx" 'rustic-cargo-run
-      "ta" 'rustic-cargo-test
+      "ta" 'rustic-cargo-test-run
       "tt" 'rustic-cargo-current-test)
 
     (with-eval-after-load 'flycheck
