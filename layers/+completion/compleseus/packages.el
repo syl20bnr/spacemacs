@@ -153,7 +153,7 @@
     ;; The :init configuration is always executed (Not lazy)
     :init
     ;; disable automatic preview by default
-    (setq consult-preview-key '("M-." "C-SPC" "C-M-j" "C-M-k"))
+    (setq consult-preview-key compleseus-consult-preview-keys)
 
     (define-key read-expression-map (kbd "C-r") #'consult-history)
     (spacemacs/set-leader-keys
