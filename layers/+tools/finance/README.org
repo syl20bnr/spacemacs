@@ -11,6 +11,7 @@
   - [[#layer][Layer]]
 - [[#configuration][Configuration]]
   - [[#ledger][Ledger]]
+  - [[#hledger][Hledger]]
 - [[#key-bindings][Key bindings]]
   - [[#ledger-1][Ledger]]
   - [[#ledger-reconcile][Ledger-Reconcile]]
@@ -19,7 +20,7 @@
 This layer integrates a full fledged accounting system into Spacemacs.
 
 ** Features:
-- Support for maintaining a double-entry accounting system run by text files via [[https://www.emacswiki.org/emacs/LedgerMode][ledger-mode]].
+- Support for maintaining a double-entry accounting system run by text files via [[https://www.emacswiki.org/emacs/LedgerMode][ledger-mode]] and [[https://github.com/syl20bnr/spacemacs][hledger-mode]].
 - Display of finance reports directly within Emacs.
 - Integration of Emacs calculator mode for editing post amounts.
 - Support for easy account reconciliation via =Ledger-Reconcile=.
@@ -31,7 +32,7 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =finance= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-For this layer to work properly you also need to install the native package [[https://github.com/ledger/ledger][ledger]].
+For this layer to work properly you also need to install the native package [[https://github.com/ledger/ledger][ledger]] or [[https://github.com/simonmichael/hledger][hledger]].
 
 * Configuration
 ** Ledger
@@ -42,6 +43,15 @@ your =dotspacemacs/user-config=. The default value, set in the layer, is =62=.
 #+BEGIN_SRC emacs-lisp
   (defun dotspacemacs/user-config ()
     (setq ledger-post-amount-alignment-column 68))
+#+END_SRC
+
+** Hledger
+You can set the place of the journal file in your dotfile via:
+
+#+BEGIN_SRC emacs-lisp
+  (defun dotspacemacs/user-config ()
+    (finance :variables
+                 hledger-journal-file "your/journal/file.journal"))
 #+END_SRC
 
 * Key bindings
