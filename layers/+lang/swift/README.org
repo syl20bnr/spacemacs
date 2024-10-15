@@ -23,9 +23,8 @@ This layer adds support for Apple's Swift programming language, used as a
 general purpose scripting language.
 
 ** Features:
-    - Auto-completion (with the =lsp= layer and [[https://github.com/swiftlang/sourcekit-lsp][sourcekit-lsp]])
-- Syntax checking with =flycheck= (available with the
-  =syntax-checking= layer)
+- Auto-completion (with the =lsp= layer and [[https://github.com/swiftlang/sourcekit-lsp][sourcekit-lsp]])
+- Syntax checking with =flycheck= (available with the =syntax-checking= layer)
 - Syntax highlighting with [[https://github.com/swift-emacs/swift-mode][swift-mode]]
 - Indentation
 - Code navigation using =imenu= (built-in)
