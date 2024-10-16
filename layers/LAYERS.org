@@ -2225,7 +2225,7 @@ Features:
 - Auto-completion
 - Code Navigation
 - Documentation Lookup using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] and [[https://github.com/tsgates/pylookup][pylookup]]
-- Test Runners using [[https://github.com/syl20bnr/nose.el][nose.el]] or [[https://github.com/ionrock/pytest-el][pytest]]
+- Test Runners using [[https://github.com/ionrock/pytest-el][pytest]] or [[https://github.com/syl20bnr/nose.el][nose.el]]
 - Virtual Environment using [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]] as well as [[https://github.com/pypa/pipenv][pipenv]] and [[https://github.com/galaunay/poetry.el][poetry]]
 - semantic mode is enabled
 - PEP8 compliant formatting via [[https://github.com/google/yapf][YAPF]] or [[https://github.com/ambv/black][black]]
@@ -2339,11 +2339,11 @@ This layer adds support for Apple's Swift programming language, used as a
 general purpose scripting language.
 
 Features:
+- Auto-completion (with the =lsp= layer and [[https://github.com/swiftlang/sourcekit-lsp][sourcekit-lsp]])
+- Syntax checking with =flycheck= (available with the =syntax-checking= layer)
 - Syntax highlighting with [[https://github.com/swift-emacs/swift-mode][swift-mode]]
 - Indentation
 - Code navigation using =imenu= (built-in)
-- Automatic syntax checking with =flycheck= (available with the
-  =syntax-checking= layer)
 
 **** Zig
 [[file:+lang/zig/README.org][+lang/zig/README.org]]
@@ -2914,7 +2914,7 @@ Features:
 This layer integrates a full fledged accounting system into Spacemacs.
 
 Features:
-- Support for maintaining a double-entry accounting system run by text files via [[https://www.emacswiki.org/emacs/LedgerMode][ledger-mode]].
+- Support for maintaining a double-entry accounting system run by text files via [[https://www.emacswiki.org/emacs/LedgerMode][ledger-mode]] and [[https://github.com/syl20bnr/spacemacs][hledger-mode]].
 - Display of finance reports directly within Emacs.
 - Integration of Emacs calculator mode for editing post amounts.
 - Support for easy account reconciliation via =Ledger-Reconcile=.

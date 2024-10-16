@@ -20,11 +20,11 @@
 This layer supports [[http://www.groovy-lang.org/][Groovy]] development in Spacemacs.
 
 ** Features:
-    - Auto-completion
-    - Syntax-checking
-    - Auto-generate imports with [[https://github.com/mbezjak/emacs-groovy-imports][groovy-imports]]
-    - Groovy REPL integration
-    - Syntax highlighting
+- Auto-completion
+- Syntax-checking
+- Auto-generate imports with [[https://github.com/mbezjak/emacs-groovy-imports][groovy-imports]]
+- Groovy REPL integration
+- Syntax highlighting
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
