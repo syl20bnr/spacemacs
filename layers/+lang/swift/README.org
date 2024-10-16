@@ -74,6 +74,7 @@ In this case no specific config is necessary, but autocompletion will not be ava
 
 ** Validation steps
 First check that you are able to run this from the command line:
+
 #+BEGIN_SRC sh
   xcrun swift
 #+END_SRC
@@ -82,6 +83,7 @@ Then validate that your lsp server is available under the given path if you are 
 
 ** REPL integration
 Unless configured by the user, the REPL will be invoked using the command
+
 #+BEGIN_SRC sh
   xcrun swift
 #+END_SRC
