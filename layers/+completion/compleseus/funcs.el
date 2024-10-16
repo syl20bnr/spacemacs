@@ -369,11 +369,17 @@ Note: this function relies on embark internals and might break upon embark updat
   (wgrep-save-all-buffers)
   (quit-window))
 
+(defvar compleseus--previous-preview-keys nil
+  "variable to store the former value of preview keys or nil if the preview
+ has not been toggled on")
+
 (defun spacemacs/consult-toggle-preview ()
   "Toggle auto-preview mode for compleseus buffers"
   (interactive)
-  (if (eq consult-preview-key 'any)
-      (setq consult-preview-key '("M-." "C-SPC"))
-    (setq consult-preview-key '("M-." "C-SPC" :debounce 0.3 any))
+  (if (eq compleseus--previous-preview-keys nil)
+      (setq compleseus--previous-preview-keys consult-preview-key
+            consult-preview-key '(:debounce 0.5 any))
+    (setq consult-preview-key compleseus--previous-preview-keys
+          compleseus--previous-preview-keys nil)
     )
   )

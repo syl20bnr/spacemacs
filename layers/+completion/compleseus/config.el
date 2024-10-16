@@ -224,3 +224,6 @@ buffers.")
 It contains all buffers previously displayed in a live window of
 the current window configuration, including buffers from
 different layouts and hidden buffers.")
+
+(defcustom compleseus-consult-preview-keys '("M-." "C-SPC" "C-M-j" "C-M-k")
+  "Default keys that trigger a preview in consult")

@@ -8,6 +8,7 @@
 - [[#install][Install]]
   - [[#configuration][Configuration]]
     - [[#completion-engine][Completion engine]]
+    - [[#preview-keys][Preview keys]]
 - [[#key-bindings][Key bindings]]
   - [[#narrowing][Narrowing]]
   - [[#edit-consult-buffer][Edit consult buffer]]
@@ -45,6 +46,18 @@ like below to use =selectrum= as opposed to the default of =vertico=:
   (compleseus :variables
               compleseus-engine 'selectrum)
 #+END_SRC
+*** Preview keys
+You can set the keys that will by default trigger a preview in consult commands.
+This can be set to a list of keys, with an optional debounce property. For instance
+to preview immediately on pressing ~M-.~ or ~C-SPC~, and having previewing after a delay of 0.5
+seconds if you press either up or down you could use the following configuration.
+#+BEGIN_SRC emacs-lisp
+  (compleseus :variables
+              compleseus-consult-preview-keys '("M-." "C-SPC" :debounce 0.5 "<up>" "<down>"))
+#+END_SRC
+
+See [[https://github.com/minad/consult?tab=readme-ov-file#live-previews][consult documentation]] for more information and examples.
+The default is set to ~'("M-." "C-SPC" "C-M-j" "C-M-k")~
 
 * Key bindings
 
