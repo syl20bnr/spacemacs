@@ -25,6 +25,9 @@
   "Options are `selectrum', and `vertico' to use as completion
   engine.")
 
+(defvar compleseus-use-nerd-icons nil
+  "Use nerd-icons with marginalia to provide icons in the mini-buffer")
+
 (defvar compleseus-buffer-search-restrict-project t
   "If non-nil, `spacemacs/consult-line-multi' and `spacemacs/consult-line-multi-symbol'
 will be restricted to buffers of the current project.
