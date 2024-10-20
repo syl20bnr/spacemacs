@@ -651,7 +651,7 @@ A [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#lay
 | ~SPC m *~                                    | org-ctrl-c-star                               |
 | ~SPC m RET~                                  | org-ctrl-c-ret                                |
 | ~SPC m -~                                    | org-ctrl-c-minus                              |
-| ~SPC m '​~                                   | org-edit-special                              |
+| ~SPC m '​~                                    | org-edit-special                              |
 | ~SPC m a~                                    | org-agenda                                    |
 | ~SPC m A~                                    | org-attach                                    |
 | ~SPC m c~                                    | org-capture                                   |
@@ -892,7 +892,7 @@ conventions.
 | Key binding                                  | Description                            |
 |----------------------------------------------+----------------------------------------|
 | ~SPC m <dotspacemacs-major-mode-leader-key>~ | confirm in =org-capture-mode=          |
-| ~SPC m '​~                                   | confirm in =org-src-mode=              |
+| ~SPC m '​~                                    | confirm in =org-src-mode=              |
 | ~SPC m c~                                    | confirm                                |
 | ~SPC m a~                                    | abort                                  |
 | ~SPC m k~                                    | abort                                  |
