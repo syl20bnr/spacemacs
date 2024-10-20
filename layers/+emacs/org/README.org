@@ -60,7 +60,7 @@
   - [[#pomodoro][Pomodoro]]
   - [[#presentation][Presentation]]
   - [[#helm-org-rifle][Helm-org-rifle]]
-  - [[#org-projectile][Org-projectile]]
+  - [[#org-project-capture][Org-project-capture]]
   - [[#org-journal][Org-journal]]
   - [[#org-brain][Org-brain]]
     - [[#application-bindings][Application bindings]]
@@ -83,7 +83,7 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 - A [[https://cirillocompany.de/pages/pomodoro-technique][pomodoro method]] integration via [[https://github.com/lolownia/org-pomodoro][org-pomodoro]]
 - Presentation mode via [[https://github.com/rlister/org-present][org-present]]
 - Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
-- Project-specific TODOs via [[https://github.com/IvanMalison/org-projectile][org-projectile]]
+- Project-specific TODOs via [[https://github.com/colonelpanic8/org-project-capture][org-project-capture]]
 - Easy insert of URLs from clipboard with org format via [[https://github.com/rexim/org-cliplink][org-cliplink]]
 - Rich insert of code (into a source block with highlighting, and a link) from other buffers via [[https://github.com/unhammer/org-rich-yank][org-rich-yank]]
 - Pixel-perfect visual alignment for Org and Markdown tables via [[https://github.com/casouri/valign][valign]]
@@ -430,14 +430,17 @@ You can disable the fancy bullets entirely by adding =org-superstar= to =dotspac
 #+END_SRC
 
 ** Project support
-Set the layer variable =org-projectile-file= to the filename where you want to
+Set the layer variable =org-project-capture-projects-file= to the filename where you want to
 store project-specific TODOs. If this is an absolute path, all todos will be
 stored in the same file (organized by project), whereas if it is just a single
 filename, todos will be stored in each project root.
 
+We currently only support =org-projectile= as backend as it supports more features than
+the build in =project.el= alternative.
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '((org :variables org-projectile-file "TODOs.org")))
+    '((org :variables org-project-capture-projects-file "TODOs.org")))
 #+END_SRC
 
 The TODO files are not added to the agenda automatically. You can do this with
@@ -445,11 +448,11 @@ the following snippet.
 
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load 'org-agenda
-    (require 'org-projectile)
+    (require 'org-project-capture)
     (mapcar '(lambda (file)
                    (when (file-exists-p file)
                      (push file org-agenda-files)))
-            (org-projectile-todo-files)))
+            (org-project-capture-projects-file)))
 #+END_SRC
 
 ** Org-brain support
@@ -648,7 +651,7 @@ A [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#lay
 | ~SPC m *~                                    | org-ctrl-c-star                               |
 | ~SPC m RET~                                  | org-ctrl-c-ret                                |
 | ~SPC m -~                                    | org-ctrl-c-minus                              |
-| ~SPC m '​~                                    | org-edit-special                              |
+| ~SPC m '​~                                   | org-edit-special                              |
 | ~SPC m a~                                    | org-agenda                                    |
 | ~SPC m A~                                    | org-attach                                    |
 | ~SPC m c~                                    | org-capture                                   |
@@ -889,7 +892,7 @@ conventions.
 | Key binding                                  | Description                            |
 |----------------------------------------------+----------------------------------------|
 | ~SPC m <dotspacemacs-major-mode-leader-key>~ | confirm in =org-capture-mode=          |
-| ~SPC m '​~                                    | confirm in =org-src-mode=              |
+| ~SPC m '​~                                   | confirm in =org-src-mode=              |
 | ~SPC m c~                                    | confirm                                |
 | ~SPC m a~                                    | abort                                  |
 | ~SPC m k~                                    | abort                                  |
@@ -1025,7 +1028,7 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 |-------------+--------------------------------------------|
 | ~SPC a o /~ | Search org files for keywords and headings |
 
-** Org-projectile
+** Org-project-capture
 
 | Key binding       | Description                                             |
 |-------------------+---------------------------------------------------------|
