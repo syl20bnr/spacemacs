@@ -230,13 +230,13 @@ Merge Actions:
 
 Diff:
 
-| Key binding | Description         |
-|-------------+---------------------|
-| ~SPC g r <~ | Diff base and mine  |
-| ~SPC g r =~ | Diff mine and other |
-| ~SPC g r >~ | Diff base and other |
-| ~SPC g r r~ | Refine              |
-| ~SPC g r e~ | Ediff               |
+| Key binding | Description          |
+|-------------+----------------------|
+| ~SPC g r <~ | Diff base and upper  |
+| ~SPC g r =~ | Diff upper and lower |
+| ~SPC g r >~ | Diff base and lower  |
+| ~SPC g r r~ | Refine               |
+| ~SPC g r e~ | Ediff                |
 
 Other:
 
