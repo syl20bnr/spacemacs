@@ -243,6 +243,7 @@ Other:
 | Key binding | Description                    |
 |-------------+--------------------------------|
 | ~SPC g r C~ | Combine current and next hunks |
+| ~SPC g r s~ | Swap upper and lower regions   |
 | ~SPC g r U~ | Undo                           |
 | ~SPC g r q~ | Quit transient state           |
 

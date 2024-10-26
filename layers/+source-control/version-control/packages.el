@@ -208,9 +208,9 @@
  Movement^^^^             Merge Action^^      Diff^^            Other
  -------------------^^^^  ----------------^^  --------------^^  -------------------------------^^
  [_n_]^^   next conflict  [_u_] keep upper    [_<_] base/upper  [_C_] combine curr/next conflicts
- [_N_/_p_] prev conflict  [_b_] keep base     [_=_] upper/lower [_U_] undo
- [_j_]^^   next line      [_l_] keep lower    [_>_] base/lower  [_q_] quit
- [_k_]^^   prev line      [_a_] keep all      [_r_] refine
+ [_N_/_p_] prev conflict  [_b_] keep base     [_=_] upper/lower [_s_] swap upper/lower
+ [_j_]^^   next line      [_l_] keep lower    [_>_] base/lower  [_U_] undo
+ [_k_]^^   prev line      [_a_] keep all      [_r_] refine      [_q_] quit
  ^^^^                     [_c_] keep current  [_e_] ediff       [_?_] toggle help
  ^^^^                     [_K_] kill current")
     (spacemacs|define-transient-state smerge
@@ -235,6 +235,8 @@
       ("l" smerge-keep-lower)
       ("u" smerge-keep-upper)
       ("c" smerge-keep-current)
+      ("K" smerge-kill-current)
+      ("s" smerge-swap)
       ;; diff
       ("<" smerge-diff-base-mine)
       ("=" smerge-diff-mine-other)
@@ -243,7 +245,6 @@
       ("e" smerge-ediff :exit t)
       ;; other
       ("C" smerge-combine-with-next)
-      ("K" smerge-kill-current)
       ("U" evil-undo)
       ("q" nil :exit t)
       ("?" spacemacs//smerge-ts-toggle-hint))))
