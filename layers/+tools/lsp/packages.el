@@ -56,6 +56,10 @@
     (if lsp-use-upstream-bindings
         (spacemacs/lsp-bind-upstream-keys)
       (spacemacs/lsp-bind-keys))
+    (setq lsp-completion-provider (if (or (equal :all lsp-manage-backends-manually)
+                                          (member major-mode lsp-manage-backends-manually))
+                                      :none
+                                    :capf))
     ;; This sets the lsp indentation for all modes derived from web-mode.
     (add-to-list 'lsp--formatting-indent-alist '(web-mode . web-mode-markup-indent-offset))
     (add-hook 'lsp-after-open-hook (lambda ()

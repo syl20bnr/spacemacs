@@ -40,3 +40,6 @@ If `both', binds lightweight navigation functions under `SPC m g' and lsp-ui fun
 (defvar lsp-use-upstream-bindings nil "When non-nil, map keys to `lsp-command-map'.")
 
 (defvar lsp-sonarlint nil "When non-nil, use `lsp-sonarlint' package.")
+
+(defvar lsp-manage-backends-manually nil "When non-nil lsp-mode does not insert `company-capf' as the ultimate first item of `company-backends'.
+`lsp-manage-backends-manually' can either be `:all' or a list of major-modes that should be managed manually.")
