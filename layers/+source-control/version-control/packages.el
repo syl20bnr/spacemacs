@@ -48,6 +48,7 @@
       "gve" 'vc-ediff
       "gvd" 'vc-dir
       "gv+" 'vc-update
+      "gvh" 'vc-region-history
       "gvi" 'vc-register
       "gvI" 'vc-ignore
       "gvu" 'vc-revert

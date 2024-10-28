@@ -88,6 +88,7 @@ VC commands:
 | ~SPC g v g~ | Visually annotate the current file                     |
 | ~SPC g v d~ | Open the VC Directory buffer                           |
 | ~SPC g v +~ | Update the working copy                                |
+| ~SPC g v h~ | List the change log for the current region in file     |
 | ~SPC g v i~ | Register (add) into a version control system           |
 | ~SPC g v u~ | Revert working copy to their repository contents       |
 | ~SPC g v l~ | List the change log                                    |
