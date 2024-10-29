@@ -40,22 +40,11 @@
     :defer t
     :commands (vc-ignore)
     :init
+    (spacemacs/set-leader-keys "gv" vc-prefix-map)
     (spacemacs/declare-prefix "gv" "version-control")
-    (spacemacs/set-leader-keys
-      "gvv" 'vc-next-action
-      "gvg" 'vc-annotate
-      "gvD" 'vc-root-diff
-      "gve" 'vc-ediff
-      "gvd" 'vc-dir
-      "gv+" 'vc-update
-      "gvh" 'vc-region-history
-      "gvi" 'vc-register
-      "gvI" 'vc-ignore
-      "gvu" 'vc-revert
-      "gvl" 'vc-print-log
-      "gvL" 'vc-print-root-log
-      "gvr" 'vc-resolve-conflicts)
     :config
+    (define-key vc-prefix-map "e" #'vc-ediff)
+    (define-key vc-prefix-map "R" #'vc-resolve-conflicts)
     (with-eval-after-load 'vc-dir
       (evilified-state-evilify-map vc-dir-mode-map
         :mode vc-dir-mode

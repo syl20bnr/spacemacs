@@ -75,7 +75,7 @@ one over the other:
 | Dired support                       | X       |            |
 
 * Key bindings
-VC commands:
+VC commands (not exhaustive):
 
 | Key binding | Description                                            |
 |-------------+--------------------------------------------------------|
@@ -94,8 +94,8 @@ VC commands:
 | ~SPC g v l~ | List the change log                                    |
 | ~SPC g v L~ | List the change log for the current VC controlled tree |
 | ~SPC g v v~ | Do the next logical VC operation (=vc-next-action=)    |
-| ~SPC g v I~ | Ignore file (=vc-ignore=)                              |
-| ~SPC g v r~ | Resolve conflicts in file                              |
+| ~SPC g v G~ | Ignore file (=vc-ignore=)                              |
+| ~SPC g v R~ | Resolve conflicts in file                              |
 
 ** VC Directory buffer commands
 You can hit ~SPC pv~ from the current project to open the VC Directory buffer,
