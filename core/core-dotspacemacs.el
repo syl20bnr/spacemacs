@@ -477,6 +477,11 @@ are kept or minimized by `spacemacs/toggle-maximize-window' (SPC w m)."
   'boolean
   'spacemacs-dotspacemacs-init)
 
+(spacemacs|defc dotspacemacs-enable-load-hints t
+  "If nil, no load-hints enabled. If t, enable the load-hints."
+  '(choice (const nil) (const t) (const aggressive))
+  'spacemacs-dotspacemacs-init)
+
 (spacemacs|defc dotspacemacs-loading-progress-bar t
   "If non nil a progress bar is displayed when spacemacs is loading. This
 may increase the boot time on some systems and emacs builds, set it to nil
