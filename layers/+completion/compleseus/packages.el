@@ -41,6 +41,8 @@
     (vertico
      :toggle (eq compleseus-engine 'vertico)
      :location elpa)
+    (vertico-posframe :togle (and (eq compleseus-engine 'vertico)
+                                  compleseus-use-vertico-posframe))
     (grep :location built-in)
     wgrep))
 
@@ -462,6 +464,18 @@
       "rL" 'vertico-repeat-select
       "sl" 'vertico-repeat-previous
       "sL" 'vertico-repeat-select)))
+
+(defun compleseus/init-vertico-posframe ()
+  (use-package vertico-posframe
+    :after vertico
+    :init
+    (vertico-posframe-mode 1)
+    :config
+    (setq vertico-posframe-poshandler #'posframe-poshandler-frame-center
+          vertico-posframe-parameters '((internal-border-width . 1)
+                                        (left-fringe . 4)
+                                        (right-fringe . 4)
+                                        (undecorated . nil)))))
 
 (defun compleseus/post-init-grep ()
   (spacemacs/set-leader-keys-for-major-mode 'grep-mode
