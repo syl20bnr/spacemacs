@@ -232,6 +232,9 @@
       :override-minor-modes t
       :override-mode-name spacemacs-leader-override-mode)
 
+    (define-key evil-lisp-state-map "u" 'evil-undo)
+    (define-key evil-lisp-state-map (kbd "C-r") 'evil-redo)
+
     (spacemacs/set-leader-keys "k" evil-lisp-state-map)
     (spacemacs/declare-prefix
       "k" "lisp"

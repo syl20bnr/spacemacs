@@ -9,11 +9,12 @@
 ;;     Steve Purcell <steve@sanityinc.com>
 ;;     Jonas Bernoulli <emacs.package-build@jonas.bernoulli.dev>
 ;;     Phil Hagelberg <technomancy@gmail.com>
+;; Maintainer: Jonas Bernoulli <emacs.package-build@jonas.bernoulli.dev>
 ;; Homepage: https://github.com/melpa/package-build
 ;; Keywords: maint tools
 
 ;; Package-Version: 4.0.0.50-git
-;; Package-Requires: ((emacs "26.1") (compat "27.1"))
+;; Package-Requires: ((emacs "26.1") (compat "30.0.0.0"))
 
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -43,6 +44,7 @@
 
 (require 'cl-lib)
 (require 'compat nil t)
+(require 'format-spec)
 (require 'pcase)
 (require 'subr-x)
 
@@ -124,11 +126,16 @@ If this is non-nil, then it overrides
   (list #'package-build-tag-version)
   "Functions used to determine the current release of a package.
 
-Each function is called in order, with the recipe object as
-argument, until one returns non-nil.  The returned value must
-have the form (COMMIT TIME VERSION), where COMMIT is the commit
-chosen by the function, TIME is its committer date, and VERSION
-is the version string chosen for COMMIT.
+Each function is called in order, with the recipe object as argument,
+until one returns non-nil.  The returned value must have the form
+\(COMMIT TIME VERSION REVDESC [TAG]), where COMMIT is the hash of the
+commit chosen by the function, TIME is its committer date, VERSION is
+the version string chosen for COMMIT, and REVDESC is a representation
+of COMMIT.  If a tag was involve in determining the version, then TAG
+is that tag and REVDESC contains that tag and an abbreviated commit
+hash.  If TAG exactly matches COMMIT, then REVDESC is just that TAG.
+Otherwise if no tag was involved then TAG is omitted and REVDESC is
+an abbreviation of COMMIT.
 
 If obsolete `package-build-get-version-function' is non-nil,
 then that overrides the value set here."
@@ -142,11 +149,16 @@ then that overrides the value set here."
   (list #'package-build-timestamp-version)
   "Function used to determine the current snapshot of a package.
 
-Each function is called in order, with the recipe object as
-argument, until one returns non-nil.  The returned value must
-have the form (COMMIT TIME VERSION), where COMMIT is the commit
-chosen by the function, TIME is its committer date, and VERSION
-is the version string chosen for COMMIT.
+Each function is called in order, with the recipe object as argument,
+until one returns non-nil.  The returned value must have the form
+\(COMMIT TIME VERSION REVDESC [TAG]), where COMMIT is the hash of the
+commit chosen by the function, TIME is its committer date, VERSION is
+the version string chosen for COMMIT, and REVDESC is a representation
+of COMMIT.  If a tag was involve in determining the version, then TAG
+is that tag and REVDESC contains that tag and an abbreviated commit
+hash.  If TAG exactly matches COMMIT, then REVDESC is just that TAG.
+Otherwise if no tag was involved then TAG is omitted and REVDESC is
+an abbreviation of COMMIT.
 
 Some of the functions that return snapshot versions, internally
 use `package-build-release-version-functions' to determine the
@@ -169,25 +181,46 @@ If nil (the default), then all packages are build."
   :type '(choice (const :tag "build all") function))
 
 (defcustom package-build-build-function
-  #'package-build--build-multi-file-package
+  #'package-build--build-package
   "Low-level function used to build a package.
-By default a tarball is used for all packages, including those
-consisting of a single file.  It this is nil, then single-file
-packages are distributed without using tarballs."
+
+The default, `package-build--build-package', builds all packages the
+same way.  Metadata is extracted from the library whose name matches
+the name of the package.  The `NAME-pkg.el' file is not used as an
+input.  The package is distributed as a tarball, containing at least
+that library and a generated `NAME-pkg.el' file.
+
+Melpa still uses `package-build--build-multi-file-package'.
+Like the above function it uses a tarball for all packages, but it
+extracts metadata from both the main library and the `NAME-pkg.el'
+file, with non-nil values from the latter taking precedence.
+
+In the distant past, either `package-build--multi-file-package' or
+`package-build--single-file-package' were used by Melpa, depending on
+the number of libraries.  Set this variable to nil to do that again."
   :group 'package-build
-  :type '(choice (const :tag "use tarball for all packages"
-                        package-build--build-multi-file-package)
-                 (const :tag "only use tarball for multi-file packages" nil)
+  :type '(choice (const package-build--build-package)
+                 (const package-build--build-multi-file-package)
+                 (const nil)
                  function))
 
-;; NOTE that these hooks are still experimental.  Let me know if these
-;; are potentially useful for you and whether any changes are required
-;; to make them more appropriate for your usecase.
-(defvar package-build-worktree-function #'package-recipe--working-tree)
-(defvar package-build-early-worktree-function #'package-recipe--working-tree)
-(defvar package-build-fetch-function #'package-build--fetch)
-(defvar package-build-checkout-function #'package-build--checkout)
-(defvar package-build-cleanup-function #'package-build--cleanup)
+(defcustom package-build-run-recipe-org-exports nil
+  "Whether to export the files listed in the `:org-exports' recipe slot.
+Note that Melpa leaves this disabled."
+  :group 'package-build
+  :type 'boolean)
+
+(defcustom package-build-run-recipe-shell-command nil
+  "Whether to run the shell command from the `:shell-command' recipe slot.
+Note that Melpa leaves this disabled."
+  :group 'package-build
+  :type 'boolean)
+
+(defcustom package-build-run-recipe-make-targets nil
+  "Whether to run the make targets from the `:make-targets' recipe slot.
+Note that Melpa leaves this disabled."
+  :group 'package-build
+  :type 'boolean)
 
 (defcustom package-build-timeout-executable "timeout"
   "Path to a GNU coreutils \"timeout\" command if available.
@@ -237,18 +270,21 @@ channel that is being build."
   :type '(list (string :tag "Archive name") color))
 
 (defcustom package-build-version-regexp
-  "\\`[rRvV]?\\(?1:[0-9]+\\(\\.[0-9]+\\)*\\)\\'"
+  "\\`\\(?:\\|[vVrR]\\|\\(?:release\\|%p\\)[-/]v?\\)?\
+\\(?1:[0-9]+\\(\\.[0-9]+\\)*\\)\\'"
   "Regexp used to match valid version-strings.
 
-The first capture is used to extract the actual version string.
-Strings matched by that group must be valid according to
-`version-to-list', but the used regexp can be more strict.  The
-default value supports only releases but no pre-releases.  It
-also intentionally ignores cedrtain unfortunate version strings
+The first capture group is used to extract the actual version
+string.  Strings matched by that group must be valid according
+to `version-to-list', but the used regexp can be more strict.
+The default value supports only releases but no pre-releases.
+It also intentionally ignores certain unfortunate version strings
 such as \"1A\" or \".5\", and only supports \".\" as separator.
 
 The part before the first capture group should match prefixes
-commonly used in version tags.
+commonly used in version tags.  To support tags that contain
+the name of the package (e.g., \"foobar-0.1.3\"), the name of
+the package is substituted for \"%p\".
 
 Note that this variable can be overridden in a package's recipe,
 using the `:version-regexp' slot."
@@ -265,14 +301,35 @@ disallowed."
 (defvar package-build-use-git-remote-hg nil
   "Whether to use `git-remote-hg' remote helper for mercurial repos.")
 
+(defvar package-build--use-sandbox (eq system-type 'gnu/linux)
+  "Whether to run untrusted code using the \"bubblewrap\" sandbox.
+\"bubblewrap\" is only available on Linux, where the sandbox is
+enabled by default, to avoid accidentially not using it.")
+
+(defvar package-build--sandbox-readonly-binds
+  '("/bin" "/lib" "/lib64" "/usr"    ;fhs
+    "/etc/alternatives" "/etc/emacs" ;+debian
+    "/gnu"))                         ;+guix
+
+(defvar package-build--sandbox-args
+  '("--unshare-all"
+    "--dev" "/dev"
+    "--proc" "/proc"
+    "--tmpfs" "/tmp"))
+
 (defvar package-build--inhibit-fetch nil
-  "Whether to inhibit fetching.  Useful for testing purposes.")
+  "Whether to inhibit fetching.
+If `strict', also inhibit the initial clone, and deleting and
+re-cloning an existing clone after the upstream has changed.")
 
 (defvar package-build--inhibit-checkout nil
-  "Whether to inhibit checkout.  Useful for testing purposes.")
+  "Whether to inhibit checkout.")
+
+(defvar package-build--inhibit-update nil
+  "Whether to inhibit updating metadata and packages.")
 
 (defvar package-build--inhibit-build nil
-  "Whether to inhibit building.  Useful for testing purposes.")
+  "Whether to inhibit building packages (while still update metadata).")
 
 ;;; Generic Utilities
 
@@ -311,10 +368,19 @@ being run for a particular package."
 ;;; Version Handling
 ;;;; Common
 
+(defun package-build--version-regexp (rcp)
+  "Return the version regexp for RCP."
+  (if-let* ((re (oref rcp version-regexp))
+            (re (format-spec re '((?v . "\\(?1:[0-9]+\\(\\.[0-9]+\\)*\\)")))))
+      (progn (unless (string-prefix-p "\\`" re) (setq re (concat "\\`" re)))
+             (unless (string-suffix-p "\\'" re) (setq re (concat re "\\'")))
+             re)
+    (format-spec package-build-version-regexp `((?p . ,(oref rcp name))))))
+
 (defun package-build--select-version (rcp)
   (pcase-let*
-      ((default-directory (package-build--working-tree rcp t))
-       (`(,commit ,time ,version)
+      ((default-directory (package-recipe--working-tree rcp))
+       (`(,commit ,time ,version ,revdesc)
         (cond
          ((with-no-warnings package-build-get-version-function)
           (display-warning 'package-build "\
@@ -334,7 +400,8 @@ or snapshots are build.")
                  "Cannot determine version for %s" (oref rcp name))
       (oset rcp commit commit)
       (oset rcp time time)
-      (oset rcp version version))))
+      (oset rcp version version)
+      (oset rcp revdesc revdesc))))
 
 (cl-defmethod package-build--select-commit ((rcp package-git-recipe) rev exact)
   (pcase-let*
@@ -365,12 +432,21 @@ or snapshots are build.")
          " ")))
     (list hash (string-to-number time))))
 
+(cl-defmethod package-build--revdesc ((_rcp package-git-recipe) rev &optional tag)
+  (if tag
+      (car (process-lines "git" "describe" "--always" "--long"
+                          "--abbrev=12" "--match" tag rev))
+    (car (process-lines "git" "rev-parse" "--short=12" rev))))
+
+(cl-defmethod package-build--revdesc ((_rcp package-hg-recipe) rev &optional _tag)
+  rev)
+
 ;;;; Tag
 
 (defun package-build-tag-version (rcp)
   "Determine version corresponding to largest version tag for RCP.
-Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING)."
-  (let ((regexp (or (oref rcp version-regexp) package-build-version-regexp))
+Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC TAG) or nil."
+  (let ((regexp (package-build--version-regexp rcp))
         (tag nil)
         (version '(0)))
     (dolist (n (package-build--list-tags rcp))
@@ -378,13 +454,19 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING)."
                  (version-to-list (and (string-match regexp n)
                                        (match-string 1 n))))))
         (when (and v (version-list-<= version v))
-          (if (cl-typep rcp 'package-git-recipe)
-              (setq tag (concat "refs/tags/" n))
-            (setq tag n))
+          (setq tag n)
           (setq version v))))
     (and tag
-         (pcase-let ((`(,hash ,time) (package-build--select-commit rcp tag t)))
-           (list hash time (package-version-join version))))))
+         (pcase-let ((`(,hash ,time)
+                      (package-build--select-commit
+                       rcp (if (cl-typep rcp 'package-git-recipe)
+                               (concat "refs/tags/" tag)
+                             tag)
+                       t)))
+           (list hash time
+                 (package-version-join version)
+                 (package-build--revdesc rcp hash tag)
+                 tag)))))
 
 (cl-defmethod package-build--list-tags ((_rcp package-git-recipe))
   (process-lines "git" "tag" "--list"))
@@ -398,14 +480,14 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING)."
 ;;;; Header
 
 (defun package-build-header-version (rcp)
-  "Return version specified in the header of the main library.
+  "Determine version specified in the header of the main library.
 
 Walk the history of the main library until a commit is found
 which changes the `Package-Version' or `Version' header in the
 main library to a version that qualifies as a release, ignoring
 any pre-releases.
 
-Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING)."
+Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil."
   (and-let* ((lib (package-build--main-library rcp)))
     (with-temp-buffer
       (let (commit date version)
@@ -429,7 +511,8 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING)."
         (and version
              (list commit
                    (string-to-number date)
-                   (package-version-join (version-to-list version))))))))
+                   (package-version-join (version-to-list version))
+                   (package-build--revdesc rcp commit)))))))
 
 (defun package-build--main-library (rcp)
   (package-build--match-library rcp))
@@ -465,10 +548,10 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING)."
 ;;;; NAME-pkg
 
 (defun package-build-pkg-version (rcp)
-  "Return version specified in the \"NAME-pkg.el\" file.
-Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING)."
+  "Determine version specified in the \"NAME-pkg.el\" file.
+Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil."
   (and-let* ((file (package-build--pkgfile rcp)))
-    (let ((regexp (or (oref rcp version-regexp) package-build-version-regexp))
+    (let ((regexp (package-build--version-regexp rcp))
           commit date version)
       (catch 'before-latest
         (pcase-dolist (`(,c ,d) (package-build--pkgfile-commits rcp file))
@@ -491,7 +574,8 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING)."
       (and version
            (list commit
                  (string-to-number date)
-                 (package-version-join version))))))
+                 (package-version-join version)
+                 (package-build--revdesc rcp commit))))))
 
 (defun package-build--pkgfile (rcp)
   (package-build--match-library rcp (concat (oref rcp name) "-pkg.el")))
@@ -522,7 +606,7 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING)."
 
 (defun package-build-timestamp-version (rcp)
   "Determine timestamp version corresponding to latest relevant commit for RCP.
-Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING), where
+Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC).
 VERSION-STRING has the format \"%Y%m%d.%H%M\"."
   (pcase-let ((`(,hash ,time) (package-build--timestamp-version rcp)))
     (list hash time
@@ -530,12 +614,12 @@ VERSION-STRING has the format \"%Y%m%d.%H%M\"."
           ;; that is lost when stored in archive-contents.
           (concat (format-time-string "%Y%m%d." time t)
                   (format "%d" (string-to-number
-                                (format-time-string "%H%M" time t)))))))
+                                (format-time-string "%H%M" time t))))
+          (package-build--revdesc rcp hash))))
 
 (cl-defmethod package-build--timestamp-version ((rcp package-git-recipe))
   (pcase-let*
-      ((commit (oref rcp commit))
-       (branch (oref rcp branch))
+      (((eieio commit branch) rcp)
        (branch (and branch (concat "origin/" branch)))
        (rev (or commit branch "origin/HEAD"))
        (`(,rev-hash ,rev-time) (package-build--select-commit rcp rev commit))
@@ -555,10 +639,11 @@ VERSION-STRING has the format \"%Y%m%d.%H%M\"."
       (list rev-hash rev-time))))
 
 (cl-defmethod package-build--timestamp-version ((rcp package-hg-recipe))
-  (let* ((commit (oref rcp commit))
-         (branch (or (oref rcp branch) "default"))
-         (rev (format "sort(ancestors(%s), -rev)"
-                      (or commit (format "max(branch(%s))" branch)))))
+  (pcase-let* (((eieio commit branch) rcp)
+               (rev (format "sort(ancestors(%s), -rev)"
+                            (or commit
+                                (format "max(branch(%s))"
+                                        (or branch "default"))))))
     (package-build--select-commit rcp rev nil)))
 
 (define-obsolete-function-alias 'package-build-get-snapshot-version
@@ -575,10 +660,10 @@ Use `package-build-release-version-functions' to determine
 RELEASE.  TIMESTAMP is the COMMITTER-DATE for the identified
 last relevant commit, using the format \"%Y%m%d.%H%M\".
 
-Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING)."
+Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil."
   (pcase-let*
       ((`(,scommit ,stime ,sversion) (package-build-timestamp-version rcp))
-       (`(,rcommit ,rtime ,rversion)
+       (`(,rcommit ,rtime ,rversion ,rrevdesc ,tag)
         (run-hook-with-args-until-success
          'package-build-release-version-functions rcp))
        (ahead (package-build--commit-count rcp scommit rcommit)))
@@ -588,14 +673,15 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING)."
             (package-version-join
              (nconc (if rversion (version-to-list rversion) (list 0 0))
                     (list 0)
-                    (version-to-list sversion)))))
+                    (version-to-list sversion)))
+            (package-build--revdesc rcp scommit tag)))
      (t
       ;; The latest commit, which touched a relevant file, is either the
       ;; latest release itself, or a commit before that.  Distribute the
       ;; same commit/release as on the stable channel; as it would not
       ;; make sense for the development channel to lag behind the latest
       ;; release.
-      (list rcommit rtime (package-version-join rversion))))))
+      (list rcommit rtime (package-version-join rversion) rrevdesc tag)))))
 
 ;;;; Release+Count
 
@@ -610,12 +696,12 @@ last relevant commit.  If RELEASE is the same as for the last
 snapshot but COUNT is not larger than for that snapshot because
 history was rewritten, then use \"RELEASE.0.OLDCOUNT.NEWCOUNT\".
 
-Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING).
+Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil.
 \n(fn RCP)"
   (pcase-let*
       ;; Get the commit but ignore the associated timestamp.
       ((`(,scommit ,stime ,_) (package-build-timestamp-version rcp))
-       (`(,rcommit ,rtime ,version)
+       (`(,rcommit ,rtime ,version ,rrevdesc ,tag)
         (run-hook-with-args-until-success
          'package-build-release-version-functions rcp))
        (version (and rcommit (version-to-list version)))
@@ -648,14 +734,15 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING).
                      (if single-count
                          ahead ; Pretend time-travel doesn't happen.
                        (package-build--ensure-count-increase
-                        rcp (copy-sequence version) ahead))))))
+                        rcp (copy-sequence version) ahead))))
+            (package-build--revdesc rcp scommit tag)))
      (t
       ;; The latest commit, which touched a relevant file, is either the
       ;; latest release itself, or a commit before that.  Distribute the
       ;; same commit/release as on the stable channel; as it would not
       ;; make sense for the development channel to lag behind the latest
       ;; release.
-      (list rcommit rtime (package-version-join version))))))
+      (list rcommit rtime (package-version-join version) rrevdesc tag)))))
 
 (defun package-build--ensure-count-increase (rcp version ahead)
   (if-let ((previous (cdr (assq (intern (oref rcp name))
@@ -756,7 +843,9 @@ attractive to users, which might encourage some maintainers to
 release more often, or if they have never done a release before,
 to finally get around to that initial release.  In other words,
 this might help overcome the release channel's chicken and egg
-problem."
+problem.
+
+Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC)."
   (let ((package-build-release-version-functions nil))
     (package-build-release+count-version rcp)))
 
@@ -802,28 +891,45 @@ for logging purposes."
           (message "%s" (buffer-string))
           (package-build--error package "%s" summary))))))
 
+(defun package-build--call-sandboxed (package command &rest args)
+  "Like `package-build--call-process' but maybe use a sandbox.
+Use a sandbox if `package-build--use-sandbox' is non-nil."
+  (cond
+   (package-build--use-sandbox
+    (let* ((rcp (if (cl-typep package 'package-recipe)
+                    package
+                  (package-recipe-lookup package)))
+           (dir (package-recipe--working-tree rcp)))
+      (unless (file-in-directory-p default-directory dir)
+        (package-build--error rcp "Attempt to use sandbox outside of %s" dir)))
+    (apply #'package-build--call-process package "bwrap"
+           `(,@package-build--sandbox-args
+             ,@(list "--bind" default-directory default-directory)
+             ,@(mapcan (lambda (dir)
+                         (setq dir (expand-file-name dir))
+                         (and (file-exists-p dir)
+                              (list "--ro-bind" dir dir)))
+                       (append package-build--sandbox-readonly-binds
+                               (list ".git" ".hg")))
+             ,command ,@args)))
+   ((apply #'package-build--call-process package command args))))
+
 (defun package-build--run-process (command &rest args)
   "Like `package-build--call-process', but lacks the PACKAGE argument."
   (apply #'package-build--call-process nil command args))
 (make-obsolete 'package-build--run-process 'package-build--call-process "5.0.0")
 
-;;; Worktree
-
-(defun package-build--working-tree (rcp &optional early)
-  (if early
-      (funcall package-build-early-worktree-function rcp)
-    (funcall package-build-worktree-function rcp)))
-
 ;;; Fetch
 
 (cl-defmethod package-build--fetch ((rcp package-git-recipe))
-  (let ((dir (package-build--working-tree rcp t))
-        (url (package-recipe--upstream-url rcp))
+  (let ((dir (package-recipe--working-tree rcp))
+        (url (oref rcp url))
         (protocol (package-recipe--upstream-protocol rcp)))
-    (unless (member protocol package-build-allowed-git-protocols)
+    (cond
+     ((eq package-build--inhibit-fetch 'strict))
+     ((not (member protocol package-build-allowed-git-protocols))
       (package-build--error rcp
         "Fetching using the %s protocol is not allowed" protocol))
-    (cond
      ((and (file-exists-p (expand-file-name ".git" dir))
            (let ((default-directory dir))
              (string= (car (process-lines "git" "config" "remote.origin.url"))
@@ -846,9 +952,10 @@ for logging purposes."
         (package-build--call-process rcp "git" "clone" url dir))))))
 
 (cl-defmethod package-build--fetch ((rcp package-hg-recipe))
-  (let ((dir (package-build--working-tree rcp t))
-        (url (package-recipe--upstream-url rcp)))
+  (let ((dir (package-recipe--working-tree rcp))
+        (url (oref rcp url)))
     (cond
+     ((eq package-build--inhibit-fetch 'strict))
      ((and (file-exists-p (expand-file-name ".hg" dir))
            (let ((default-directory dir))
              (string= (car (process-lines "hg" "paths" "default")) url)))
@@ -881,30 +988,67 @@ for logging purposes."
 
 ;;; Generate Files
 
-(defun package-build--write-pkg-file (desc dir)
-  (let ((name (package-desc-name desc)))
+(defvar package-build--extras
+  '((:url url)
+    (:commit commit)
+    (:revdesc revdesc)
+    (:keywords keywords)
+    (:authors authors)
+    (:maintainers maintainers)))
+
+(defun package-build--write-archive-entry (rcp)
+  (with-slots (name version dependencies summary) rcp
+    (with-temp-file (expand-file-name (format "%s-%s.entry" name version)
+                                      package-build-archive-dir)
+      (set-buffer-file-coding-system 'utf-8)
+      (pp (cons (intern name)
+                (vector (version-to-list version)
+                        (mapcar (pcase-lambda (`(,sym ,val))
+                                  (list sym (version-to-list val)))
+                                dependencies)
+                        summary
+                        (if (oref rcp tarballp) 'tar 'single)
+                        (nconc (mapcan (pcase-lambda (`(,key ,slot))
+                                         (and-let* ((val (eieio-oref rcp slot)))
+                                           (list (cons key val))))
+                                       package-build--extras)
+                               (and-let* ((v (oref rcp maintainers)))
+                                 (list (cons :maintainer (car v)))))))
+          (current-buffer)))))
+
+(defun package-build--write-pkg-file (rcp dir)
+  (pcase-let (((eieio name version summary dependencies) rcp))
     (with-temp-file (expand-file-name (format "%s-pkg.el" name) dir)
-      (pp `(define-package ,(symbol-name name)
-             ,(package-version-join (package-desc-version desc))
-             ,(package-desc-summary desc)
-             ',(mapcar (pcase-lambda (`(,pkg ,ver))
-                         (list pkg (package-version-join ver)))
-                       (package-desc-reqs desc))
-             ,@(cl-mapcan (pcase-lambda (`(,key . ,val))
-                            (when (or (symbolp val) (listp val))
-                              ;; We must quote lists and symbols,
-                              ;; because Emacs 24.3 and earlier evaluate
-                              ;; the package information, which would
-                              ;; break for unquoted symbols or lists.
-                              ;; While this library does not support
-                              ;; such old Emacsen, the packages that
-                              ;; we produce should remain compatible.
-                              (setq val (list 'quote val)))
-                            (list key val))
-                          (package-desc-extras desc)))
-          (current-buffer))
-      (princ ";; Local Variables:\n;; no-byte-compile: t\n;; End:\n"
-             (current-buffer)))))
+      (insert ";; -*- no-byte-compile: t; lexical-binding: nil -*-\n")
+      (insert (format "(define-package \"%s\" \"%s\"\n" name version))
+      (insert (format "  %s\n" (prin1-to-string (concat summary "."))))
+      (if dependencies
+          (let ((format (format "(%%-%ds \"%%s\")"
+                                (apply #'max 0
+                                       (mapcar
+                                        (lambda (d) (length (symbol-name (car d))))
+                                        dependencies)))))
+            (insert "  '("
+                    (mapconcat (pcase-lambda (`(,pkg ,ver))
+                                 (format format pkg ver))
+                               dependencies "\n    ")
+                    ")\n"))
+        (insert "  ()\n"))
+      (pcase-dolist (`(,key ,slot) package-build--extras)
+        (let ((val (eieio-oref rcp slot)))
+          (cond
+           ((not val))
+           ((memq key '(:authors :maintainers))
+            (let ((sep (concat
+                        "\n"
+                        (make-string (+ 5 (length (symbol-name key))) ?\s))))
+              (insert (format "  %s '(" key)
+                      (mapconcat #'prin1-to-string val sep)
+                      ")\n")))
+           ((insert (format "  %s %s\n" key
+                            (prin1-to-string (macroexp-quote val))))))))
+      (delete-char -1)
+      (insert ")\n"))))
 
 (defun package-build--tar-type ()
   "Return `bsd' or `gnu' depending on type of Tar executable.
@@ -922,12 +1066,10 @@ Tests and sets variable `package-build--tar-type' if not already set."
   "Create a tar file containing the package version specified by RCP.
 DIRECTORY is a temporary directory that contains the directory
 that is put in the tarball."
-  (let* ((name (oref rcp name))
-         (version (oref rcp version))
-         (time (oref rcp time))
-         (tar (expand-file-name (concat name "-" version ".tar")
-                                package-build-archive-dir))
-         (dir (concat name "-" version)))
+  (pcase-let* (((eieio name version time) rcp)
+               (tar (expand-file-name (concat name "-" version ".tar")
+                                      package-build-archive-dir))
+               (dir (concat name "-" version)))
     (when (and (eq system-type 'windows-nt)
                (eq (package-build--tar-type) 'gnu))
       (setq tar (replace-regexp-in-string "^\\([a-z]\\):" "/\\1" tar)))
@@ -936,7 +1078,7 @@ that is put in the tarball."
        package-build-tar-executable nil
        (get-buffer-create "*package-build-checkout*") nil
        "-cf" tar dir
-       ;; Arguments that are need to strip metadata that
+       ;; Arguments that are needed to strip metadata that
        ;; prevent a reproducible tarball as described at
        ;; https://reproducible-builds.org/docs/archives.
        "--sort=name"
@@ -985,206 +1127,179 @@ that is put in the tarball."
 
 (defun package-build--generate-info-files (rcp files target-dir)
   "Create an info file for each texinfo file listed in FILES.
+
 Also create the info dir file.  Remove each original texinfo
 file.  The source and destination file paths are expanded in
-`default-directory' and TARGET-DIR respectively."
-  (pcase-dolist (`(,src . ,tmp) files)
-    (let ((extension (file-name-extension tmp)))
-      (when (member extension '("info" "texi" "texinfo"))
-        (let* ((src (expand-file-name src))
-               (tmp (expand-file-name tmp target-dir))
-               (texi src)
-               (info tmp))
-          (when (member extension '("texi" "texinfo"))
-            (delete-file tmp)
-            (setq info (concat (file-name-sans-extension tmp) ".info"))
-            (unless (file-exists-p info)
-              (package-build--message "Generating %s" info)
-              ;; If the info file is located in a subdirectory
-              ;; and contains relative includes, then it is
-              ;; necessary to run makeinfo in the subdirectory.
-              (with-demoted-errors "Error: %S"
-                (let ((default-directory (file-name-directory texi)))
-                  (package-build--call-process
-                   rcp "makeinfo" "--no-split" texi "-o" info)))))
+`default-directory' and TARGET-DIR respectively.
+
+If an org file appears in FILES and in RCP's `org-exports' slot
+as well, then export it to texinfo and then the result to info.
+If the org file sets `export_file_name', then the corresponding
+entry in `org-exports' must have the form (ORG TEXI), where TEXI
+is the same as the value of `export_file_name'."
+  (pcase-dolist (`(,src . ,_) files)
+    (let* ((ext  (file-name-extension src))
+           (orgs (oref rcp org-exports))
+           (org  (and (equal ext "org")
+                      package-build-run-recipe-org-exports
+                      (or (member src orgs) (assoc src orgs))
+                      src))
+           (texi (and (member ext '("texi" "texinfo")) src))
+           (info (and (equal ext "info")
+                      (file-name-nondirectory src))))
+      (when org
+        (let ((default-directory (file-name-directory (expand-file-name org)))
+              (next (or (cadr (assoc src orgs))
+                        (file-name-with-extension org ".texi")))
+              (org (file-name-nondirectory org)))
+          (delete-file (expand-file-name org target-dir))
+          (package-build--message "Generating %s" (file-name-nondirectory next))
           (with-demoted-errors "Error: %S"
-            (let ((default-directory target-dir))
-              (package-build--call-process
-               rcp "install-info" "--dir=dir" info))))))))
+            (package-build--call-sandboxed
+             rcp "emacs" "-Q" "--batch" "-l" "ox-texinfo"
+             org "--funcall" "org-texinfo-export-to-texinfo")
+            (setq texi next))))
+      (when texi
+        (let* ((default-directory (file-name-directory (expand-file-name texi)))
+               (texi (file-name-nondirectory texi))
+               (next (file-name-with-extension texi ".info")))
+          (delete-file (expand-file-name texi target-dir))
+          (package-build--message "Generating %s" next)
+          (setq next (expand-file-name next target-dir))
+          (with-demoted-errors "Error: %S"
+            (package-build--call-process
+             rcp "makeinfo" "--no-split" texi "-o" next)
+            (setq info next))))
+      (when info
+        (let ((default-directory target-dir))
+          (with-demoted-errors "Error: %S"
+            (package-build--call-process
+             rcp "install-info" "--dir=dir" info)))))))
 
-;;; Patch Libraries
+(defun package-build--set-version-headers (rcp file-or-dir)
+  (pcase-let (((eieio name version revdesc) rcp)
+              (single (file-regular-p file-or-dir)))
+    (dolist (file (if single
+                      (list file-or-dir)
+                    (directory-files file-or-dir t "\\.el\\'")))
+      (with-temp-buffer
+        (insert-file-contents file)
+        (let ((end (lm-code-start))
+              (pos nil))
+          (dolist (header '("Package-Version" "Version" "Package-Revision"))
+            (goto-char (point-min))
+            (when (re-search-forward (format "^;;+ +%s:.+" header) end t)
+              (unless pos
+                (setq pos (copy-marker (match-beginning 0))))
+              (delete-region (match-beginning 0) (1+ (line-end-position)))))
+          (when (or single
+                    (equal (file-name-nondirectory file) (concat name ".el")))
+            (unless pos
+              (cl-dolist (header '("Package-Requires" "SPDX-License-Identifier"
+                                   "License" "URL" "Homepage" "Keywords"))
+                (goto-char (point-min))
+                (when (re-search-forward (format "^;;+ +%s:.+" header) end t)
+                  (setq pos (copy-marker (match-beginning 0)))
+                  (cl-return-from nil))))
+            (unless pos
+              (cl-dolist (header '("Commentary" "Code"))
+                (goto-char (point-min))
+                (when (re-search-forward (format "^;;; %s:$" header) end t)
+                  (goto-char (match-beginning 0))
+                  (insert "\n")
+                  (setq pos (copy-marker (match-beginning 0)))
+                  (cl-return-from nil))))
+            (when pos
+              (goto-char pos)
+              (insert (format ";; Package-Version: %s\n" version))
+              (insert (format ";; Package-Revision: %s\n" revdesc))))
+          (when (and single
+                     (not (search-forward (format ";;; %s.el ends here" name))))
+            (goto-char (point-max))
+            (insert (format "\n;;; %s.el ends here\n" name)))
+          (write-region nil nil file))))))
 
-(defun package-build--update-or-insert-header (name value)
-  "Ensure current buffer has NAME header with the given VALUE.
-Any existing header will be preserved and given the \"X-Original-\" prefix.
-If VALUE is nil, the new header will not be inserted, but any original will
-still be renamed."
-  (goto-char (point-min))
-  (cond
-   ((let ((case-fold-search t))
-      (re-search-forward (format "^;+* *%s *: *" (regexp-quote name)) nil t))
-    (move-beginning-of-line nil)
-    (search-forward "V" nil t)
-    (backward-char)
-    (insert "X-Original-")
-    (move-beginning-of-line nil))
-   (t
-    ;; Put the new header in a sensible place if we can.
-    (re-search-forward
-     "^;+* *\\(Version\\|Package-Requires\\|Keywords\\|URL\\) *:" nil t)
-    (forward-line)))
-  (insert (format ";; %s: %s\n" name value)))
+;;; Extract Metadata
 
-(defun package-build--ensure-ends-here-line (file)
-  "Add the \"FILE ends here\" trailing line if it is missing."
-  (save-excursion
-    (goto-char (point-min))
-    (let ((trailer (format ";;; %s ends here" (file-name-nondirectory file))))
-      (unless (re-search-forward (format "^%s" (regexp-quote trailer)) nil t)
-        (goto-char (point-max))
-        (insert ?\n trailer ?\n)))))
-
-;;; Package Structs
-
-(defun package-build--desc-from-library (rcp files &optional kind)
-  "Return the package description for RCP.
-
-This function is used for all packages that consist of a single
-file and those packages that consist of multiple files but lack
-a file named \"NAME-pkg.el\" or \"NAME-pkg.el\".
-
-The returned value is a `package-desc' struct (which see).
-The values of the `name' and `version' slots are taken from RCP
-itself.  The value of `kind' is taken from the KIND argument,
-which defaults to `single'; the other valid value being `tar'.
-
-Other information is taken from the file named \"NAME-pkg.el\",
-which should appear in FILES.  As a fallback, \"NAME-pkg.el.in\"
-is also tried.  If neither file exists, then return nil.  If a
-value is not specified in the used file, then fall back to the
-value specified in the file \"NAME.el\"."
+(defun package-build--extract-from-library (rcp files)
+  "Store information from the main-library from FILES in RCP."
   (let* ((name (oref rcp name))
-         (version (oref rcp version))
-         (commit (oref rcp commit))
          (file (concat name ".el"))
-         (file (or (car (rassoc file files)) file))
-         (maintainers nil))
-    (and (file-exists-p file)
-         (with-temp-buffer
-           (insert-file-contents file)
-           (setq maintainers
-                 (if (fboundp 'lm-maintainers)
-                     (lm-maintainers)
-                   (with-no-warnings
-                     (and-let* ((maintainer (lm-maintainer)))
-                       (list maintainer)))))
-           (package-desc-from-define
-            name version
-            (or (save-excursion
-                  (goto-char (point-min))
-                  (and (re-search-forward "\
+         (file (or (car (rassoc file files)) file)))
+    (when (file-exists-p file)
+      (with-temp-buffer
+        (insert-file-contents file)
+        (oset rcp summary
+              (package-build--normalize-summary
+               (save-excursion
+                 (goto-char (point-min))
+                 (and (re-search-forward "\
 ^;;; [^ ]*\\.el ---[ \t]*\\(.*?\\)[ \t]*\\(-\\*-.*-\\*-[ \t]*\\)?$" nil t)
-                       (match-string-no-properties 1)))
-                "No description available.")
-            (cond
-             ((fboundp 'lm-package-requires)
-              (lm-package-requires))
-             ((fboundp 'package--prepare-dependencies)
-              (and-let* ((require-lines
-                          (lm-header-multiline "package-requires")))
-                (package--prepare-dependencies
-                 (package-read-from-string
-                  (string-join require-lines " "))))))
-            ;; `:kind' and `:archive' are handled separately.
-            :kind       (or kind 'single)
-            ;; The other keyword arguments are appended to the alist
-            ;; stored in the `extras' slot.  Make sure `:commit', which
-            ;; always exists and never has to be removed, comes first in
-            ;; the end result, so we can post-process the returned data
-            ;; by side-effect, e.g., to remove somewhat broken maintainer
-            ;; information, that cannot easily be encoded as json (see
-            ;; `package-build--archive-alist-for-json').
-            :url        (if (fboundp 'lm-website)
-                            (lm-website)
-                          (with-no-warnings
-                            (lm-homepage)))
-            :keywords   (lm-keywords-list)
-            ;; Newer `package.el' versions support both `:maintainers' and
-            ;; `:maintainer', while older versions only support the latter.
-            :maintainer  (car maintainers)
-            :maintainers maintainers
-            :authors     (lm-authors)
-            :commit      commit)))))
+                      (match-string-no-properties 1)))))
+        (oset rcp dependencies
+              (cond
+               ((fboundp 'lm-package-requires)
+                (lm-package-requires))
+               ((fboundp 'package--prepare-dependencies)
+                (and-let* ((require-lines
+                            (lm-header-multiline "package-requires")))
+                  (package--prepare-dependencies
+                   (package-read-from-string
+                    (string-join require-lines " ")))))))
+        (oset rcp webpage
+              (if (fboundp 'lm-website)
+                  (lm-website)
+                (with-no-warnings
+                  (lm-homepage))))
+        (oset rcp keywords (lm-keywords-list))
+        (oset rcp maintainers
+              (if (fboundp 'lm-maintainers)
+                  (lm-maintainers)
+                (with-no-warnings
+                  (and-let* ((maintainer (lm-maintainer)))
+                    (list maintainer)))))
+        (oset rcp authors (lm-authors))))))
 
-(defun package-build--desc-from-package (rcp files)
-  "Return the package description for RCP.
-
-This function is used for packages that consist of multiple files.
-
-The returned value is a `package-desc' struct (which see).
-The values of the `name' and `version' slots are taken from RCP
-itself.  The value of `kind' is always `tar'.
-
-Other information is taken from the file named \"NAME.el\",
-which should appear in FILES.  As a fallback, \"NAME.el.in\"
-is also tried.  If neither file exists, then return nil."
+(defun package-build--extract-from-package (rcp files)
+  "Store information from the \"*-pkg.el\" file from FILES in RCP."
   (let* ((name (oref rcp name))
-         (version (oref rcp version))
-         (commit (oref rcp commit))
          (file (concat name "-pkg.el"))
-         (file (or (car (rassoc file files))
-                   file)))
-    (and (or (file-exists-p file)
-             (file-exists-p (setq file (concat file ".in"))))
-         (let ((form (with-temp-buffer
-                       (insert-file-contents file)
-                       (read (current-buffer)))))
-           (unless (eq (car form) 'define-package)
-             (package-build--error name "No define-package found in %s" file))
-           (pcase-let*
-               ((`(,_ ,_ ,_ ,summary ,deps . ,extra) form)
-                (deps (eval deps))
-                (alt-desc (package-build--desc-from-library rcp files))
-                (alt (and alt-desc (package-desc-extras alt-desc))))
-             (when (string-match "[\r\n]" summary)
-               (package-build--error name
-                 "Illegal multi-line package description in %s" file))
-             (package-desc-from-define
-              name version
-              (if (string-empty-p summary)
-                  (or (and alt-desc (package-desc-summary alt-desc))
-                      "No description available.")
-                summary)
-              (mapcar (pcase-lambda (`(,pkg ,ver))
-                        (unless (symbolp pkg)
-                          (package-build--error name
-                            "Invalid package name in dependency: %S" pkg))
-                        (list pkg ver))
-                      deps)
-              :kind       'tar
-              :url        (or (alist-get :url extra)
-                              (alist-get :homepage extra)
-                              (alist-get :url alt))
-              :keywords   (or (alist-get :keywords extra)
-                              (alist-get :keywords alt))
-              :maintainer (or (alist-get :maintainer extra)
-                              (alist-get :maintainer alt))
-              :authors    (or (alist-get :authors extra)
-                              (alist-get :authors alt))
-              :commit     commit))))))
+         (file (or (car (rassoc file files)) file)))
+    (when (or (file-exists-p file)
+              (file-exists-p (setq file (concat file ".in"))))
+      (let ((form (with-temp-buffer
+                    (insert-file-contents file)
+                    (read (current-buffer)))))
+        (unless (eq (car-safe form) 'define-package)
+          (package-build--error name "No define-package found in %s" file))
+        (pcase-let* ((`(,_ ,_ ,_ ,summary ,deps . ,plist) form))
+          (when summary
+            (oset rcp summary (package-build--normalize-summary summary)))
+          (oset rcp dependencies
+                (mapcar (pcase-lambda (`(,pkg ,ver))
+                          (unless (symbolp pkg)
+                            (package-build--error name
+                              "Invalid package name in dependency: %S" pkg))
+                          (list pkg ver))
+                        (eval deps)))
+          (when-let ((v (or (alist-get :url plist)
+                            (alist-get :homepage plist))))
+            (oset rcp webpage v))
+          (when-let ((v (alist-get :keywords plist)))
+            (oset rcp keywords v))
+          (when-let ((v (alist-get :maintainers plist)))
+            (oset rcp maintainers v))
+          (when-let ((v (alist-get :authors plist)))
+            (oset rcp authors v)))))))
 
-(defun package-build--write-archive-entry (desc)
-  (with-temp-file
-      (expand-file-name (concat (package-desc-full-name desc) ".entry")
-                        package-build-archive-dir)
-    (set-buffer-file-coding-system 'utf-8)
-    (pp (cons (package-desc-name    desc)
-              (vector (package-desc-version desc)
-                      (package-desc-reqs    desc)
-                      (package-desc-summary desc)
-                      (package-desc-kind    desc)
-                      (package-desc-extras  desc)))
-        (current-buffer))))
+(defun package-build--normalize-summary (summary)
+  (if (or (not summary) (string-empty-p summary))
+      "[No description available]"
+    (setq summary (car (split-string summary "[\n\r]+" t "[\s\t]+")))
+    (when (string-suffix-p "." summary)
+      (setq summary (substring summary 0 -1)))
+    (concat (capitalize (substring summary 0 1))
+            (substring summary 1))))
 
 ;;; Files Spec
 
@@ -1197,7 +1312,7 @@ is also tried.  If neither file exists, then return nil."
      ".dir-locals.el" "lisp/.dir-locals.el"
      "test.el" "tests.el" "*-test.el" "*-tests.el"
      "lisp/test.el" "lisp/tests.el" "lisp/*-test.el" "lisp/*-tests.el"))
-  "Default value for :files attribute in recipes.")
+  "Default value for `:files' attribute in recipes.")
 
 (defun package-build-expand-files-spec (rcp &optional assert repo spec)
   "Return an alist of files of package RCP to be included in tarball.
@@ -1241,8 +1356,22 @@ order and can have the following form:
   matched by earlier elements that are also matched by the second
   and subsequent elements of this list to be removed from the
   returned alist.  Files matched by later elements are not
-  affected."
-  (let ((default-directory (or repo (package-build--working-tree rcp)))
+  affected.
+
+- (:inputs GLOB...)
+
+  A list that begins with `:inputs' specifies files, which are not
+  to be included in the package, but when modified still trigger a
+  new package version.  I.e., this function ignores this element,
+  but `package-build--spec-globs' does not.
+
+- (:rename SRC DEST)
+
+  A list that begins with `:rename' causes the file SRC to be
+  renamed and/or moved to DEST.  SRC and DEST are relative file
+  names (as opposed to globs) and both may contain directory
+  parts.  SRC must exist.  Avoid using this, if at all possible."
+  (let ((default-directory (or repo (package-recipe--working-tree rcp)))
         (spec (or spec (oref rcp files)))
         (name (oref rcp name)))
     (when (eq (car spec) :defaults)
@@ -1265,10 +1394,13 @@ order and can have the following form:
 SPEC is a full files spec as stored in a recipe object."
   (let (include exclude)
     (dolist (entry spec)
-      (if (eq (car-safe entry) :exclude)
-          (dolist (entry (cdr entry))
-            (push entry exclude))
-        (push entry include)))
+      (pcase (car-safe entry)
+        (:inputs)
+        (:exclude
+         (dolist (entry (cdr entry))
+           (push entry exclude)))
+        (:rename (push entry include))
+        (_ (push entry include))))
     (cl-set-difference
      (package-build--expand-files-spec-2 (nreverse include))
      (package-build--expand-files-spec-2 (nreverse exclude))
@@ -1280,17 +1412,16 @@ If SUBDIR is nil, use `default-directory'.  SPEC is expected to
 be a partial files spec, consisting of either all include rules
 or all exclude rules (with the `:exclude' keyword removed)."
   (mapcan (lambda (entry)
-            (if (stringp entry)
-                (mapcar (lambda (f)
-                          (cons f
-                                (concat subdir
-                                        (replace-regexp-in-string
-                                         "\\.el\\.in\\'"  ".el"
-                                         (file-name-nondirectory f)))))
-                        (file-expand-wildcards entry))
-              (package-build--expand-files-spec-2
+            (cond
+             ((stringp entry)
+              (mapcar (lambda (f)
+                        (cons f (concat subdir (file-name-nondirectory f))))
+                      (file-expand-wildcards entry)))
+             ((eq (car-safe entry) :rename)
+              (list (cons (nth 1 entry) (nth 2 entry))))
+             ((package-build--expand-files-spec-2
                (cdr entry)
-               (concat subdir (car entry) "/"))))
+               (concat subdir (car entry) "/")))))
           spec))
 
 (defun package-build--copy-package-files (files target-dir)
@@ -1337,6 +1468,13 @@ FILES is a list of (SOURCE . DEST) relative filepath pairs."
                 ((and `(:exclude . ,globs)
                       (guard (cl-every #'stringp globs)))
                  (mapcan (lambda (g) (toargs g t)) globs))
+                ((and `(:inputs . ,globs)
+                      (guard (cl-every #'stringp globs)))
+                 (mapcan #'toargs globs))
+                ((and `(:rename ,src ,dest)
+                      (guard (and (stringp src) (stringp dest))))
+                 dest ; Silence byte-compiler of Emacs < 28.1.
+                 (toargs src))
                 ((and `(,dir . ,globs)
                       (guard (stringp dir))
                       (guard (cl-every #'stringp globs)))
@@ -1360,21 +1498,21 @@ are subsequently dumped."
     (make-directory package-build-archive-dir))
   (let* ((start-time (current-time))
          (rcp (package-recipe-lookup name))
-         (url (package-recipe--upstream-url rcp))
+         (url (oref rcp url))
          (repo (oref rcp repo))
          (fetcher (package-recipe--fetcher rcp))
          (version nil))
     (cond ((not noninteractive)
            (message " • %s package %s (from %s)..."
-                    (if package-build--inhibit-build "Fetching" "Building")
+                    (if package-build--inhibit-update "Fetching" "Building")
                     name
                     (if repo (format "%s:%s" fetcher repo) url)))
           (package-build-verbose
            (message "Package: %s" name)
            (message "Fetcher: %s" fetcher)
            (message "Source:  %s\n" url)))
-    (funcall package-build-fetch-function rcp)
-    (unless package-build--inhibit-build
+    (package-build--fetch rcp)
+    (unless package-build--inhibit-update
       (package-build--select-version rcp)
       (setq version (oref rcp version))
       (when version
@@ -1403,10 +1541,23 @@ are subsequently dumped."
   "Build the package version specified by RCP.
 Return the archive entry for the package and store the package
 in `package-build-archive-dir'."
-  (let ((default-directory (package-build--working-tree rcp)))
+  (let ((default-directory (package-recipe--working-tree rcp)))
     (unwind-protect
-        (progn
-          (funcall package-build-checkout-function rcp)
+        (pcase-let (((eieio name version commit revdesc) rcp)
+                    (process-environment (copy-sequence process-environment)))
+          (package-build--checkout rcp)
+          (setenv "PACKAGE_VERSION" version)
+          (setenv "PACKAGE_REVISION" commit)
+          (setenv "PACKAGE_REVDESC" revdesc)
+          (when-let* ((package-build-run-recipe-shell-command)
+                      (command (oref rcp shell-command)))
+            (package-build--message "Running %s" command)
+            (package-build--call-sandboxed
+             rcp shell-file-name shell-command-switch command))
+          (when-let ((package-build-run-recipe-make-targets)
+                     (targets (oref rcp make-targets)))
+            (package-build--message "Running make %s" (string-join targets " "))
+            (apply #'package-build--call-sandboxed rcp "make" targets))
           (let ((files (package-build-expand-files-spec rcp t)))
             (cond
              ((= (length files) 0)
@@ -1420,54 +1571,68 @@ in `package-build-archive-dir'."
               (package-build--build-multi-file-package rcp files)))
             (when package-build-badge-data
               (package-build--write-badge-image
-               (oref rcp name) (oref rcp version) package-build-archive-dir))))
-      (funcall package-build-cleanup-function rcp))))
+               name version package-build-archive-dir))))
+      (package-build--cleanup rcp))))
+
+(defun package-build--build-package (rcp files)
+  (pcase-let* (((eieio name version) rcp)
+               (tmpdir (file-name-as-directory (make-temp-file name t)))
+               (target (expand-file-name (concat name "-" version) tmpdir)))
+    (unless (rassoc (concat name ".el") files)
+      (package-build--error name
+        "Missing library \"%s.el\" matching package name `%s'" name name))
+    (package-build--extract-from-library rcp files)
+    (unless package-build--inhibit-build
+      (unwind-protect
+          (progn
+            (package-build--copy-package-files files target)
+            (package-build--set-version-headers rcp target)
+            (package-build--write-pkg-file rcp target)
+            (package-build--generate-info-files rcp files target)
+            (package-build--create-tar rcp tmpdir)
+            (package-build--write-pkg-readme rcp files))
+        (delete-directory tmpdir t nil)))
+    (package-build--write-archive-entry rcp)))
 
 (defun package-build--build-single-file-package (rcp files)
-  (let* ((name (oref rcp name))
-         (version (oref rcp version))
-         (commit (oref rcp commit))
-         (file (caar files))
-         (source (expand-file-name file))
-         (target (expand-file-name (concat name "-" version ".el")
-                                   package-build-archive-dir))
-         (desc (package-build--desc-from-library rcp files)))
-    (unless (member (downcase (file-name-nondirectory file))
-                    (list (downcase (concat name ".el"))
-                          (downcase (concat name ".el.in"))))
+  (oset rcp tarballp nil)
+  (pcase-let* (((eieio name version) rcp)
+               (file (caar files))
+               (source (expand-file-name file))
+               (target (expand-file-name (concat name "-" version ".el")
+                                         package-build-archive-dir)))
+    (unless (equal (file-name-sans-extension (file-name-nondirectory file))
+                   name)
       (package-build--error name
         "Single file %s does not match package name %s" file name))
-    (copy-file source target t)
-    (let ((enable-local-variables nil)
-          (make-backup-files nil)
-          (before-save-hook nil))
-      (with-current-buffer (find-file target)
-        (package-build--update-or-insert-header "Package-Commit" commit)
-        (package-build--update-or-insert-header "Package-Version" version)
-        (package-build--ensure-ends-here-line source)
-        (write-file target nil)
-        (kill-buffer)))
-    (package-build--write-pkg-readme rcp files)
-    (package-build--write-archive-entry desc)))
+    (package-build--extract-from-library rcp target)
+    (unless package-build--inhibit-build
+      (copy-file source target t)
+      (package-build--set-version-headers rcp target)
+      (package-build--write-pkg-readme rcp files))
+    (package-build--write-archive-entry rcp)))
 
 (defun package-build--build-multi-file-package (rcp files)
-  (let* ((name (oref rcp name))
-         (version (oref rcp version))
-         (tmp-dir (file-name-as-directory (make-temp-file name t))))
-    (unwind-protect
-        (let* ((target (expand-file-name (concat name "-" version) tmp-dir))
-               (desc (or (package-build--desc-from-package rcp files)
-                         (package-build--desc-from-library rcp files 'tar)
-                         (package-build--error name
-                           "%s[-pkg].el matching package name is missing"
-                           name))))
-          (package-build--copy-package-files files target)
-          (package-build--write-pkg-file desc target)
-          (package-build--generate-info-files rcp files target)
-          (package-build--create-tar rcp tmp-dir)
-          (package-build--write-pkg-readme rcp files)
-          (package-build--write-archive-entry desc))
-      (delete-directory tmp-dir t nil))))
+  (pcase-let* (((eieio name version) rcp)
+               (tmpdir (file-name-as-directory (make-temp-file name t)))
+               (target (expand-file-name (concat name "-" version) tmpdir)))
+    (unless (or (rassoc (concat name ".el") files)
+                (rassoc (concat name "-pkg.el") files))
+      (package-build--error name
+        "%s[-pkg].el matching package name is missing" name))
+    (package-build--extract-from-library rcp files)
+    (package-build--extract-from-package rcp files)
+    (unless package-build--inhibit-build
+      (unwind-protect
+          (progn
+            (package-build--copy-package-files files target)
+            (package-build--set-version-headers rcp target)
+            (package-build--write-pkg-file rcp target)
+            (package-build--generate-info-files rcp files target)
+            (package-build--create-tar rcp tmpdir)
+            (package-build--write-pkg-readme rcp files))
+        (delete-directory tmpdir t nil)))
+    (package-build--write-archive-entry rcp)))
 
 (defun package-build--cleanup (rcp)
   (cond ((cl-typep rcp 'package-git-recipe)
@@ -1581,7 +1746,7 @@ If optional PRETTY-PRINT is non-nil, then pretty-print
           (and-let* ((recipe (with-demoted-errors "Recipe error: %S"
                                (package-recipe-lookup name))))
             (push `(,symbol
-                    :url ,(package-recipe--upstream-url recipe)
+                    :url ,(oref recipe url)
                     ,@(and (cl-typep recipe 'package-hg-recipe)
                            (list :vc-backend 'Hg))
                     ,@(and-let* ((branch (oref recipe branch)))

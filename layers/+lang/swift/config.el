@@ -1,4 +1,4 @@
-;;; layers.el --- cmake Layer layers File for Spacemacs
+;;; config.el --- Swift layer configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
@@ -21,6 +21,14 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(when (and (boundp 'cmake-backend)
-           (eq cmake-backend 'lsp))
-  (configuration-layer/declare-layer-dependencies '(lsp)))
+;; Variables
+
+(spacemacs|defc swift-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'no-company)
+  "The backend to use for IDE features.
+Possible values are `lsp' and `no-company'.
+If not set then `no-company' is the default backend unless `lsp' layer is used"
+  '(choice (const lsp) (const no-company)) nil t)
+
+(spacemacs|defc swift-lsp-executable-path "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"
+  "The path to the sourcekit-lsp executable."
+  '(file :must-match t) nil t)

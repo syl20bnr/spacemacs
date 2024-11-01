@@ -49,14 +49,9 @@ non-nil."
 (defun spacemacs/compleseus-switch-to-buffer ()
   "`consult-buffer' with buffers provided by persp."
   (interactive)
-  (consult-buffer
-   `(consult--source-hidden-buffer
-     consult--source-persp-buffers
-     consult--source-modified-persp-buffers
-     consult--source-recent-file
-     consult--source-bookmark
-     consult--source-project-buffer-hidden
-     consult--source-project-recent-file-hidden)))
+  (consult-buffer (if (configuration-layer/package-used-p 'persp-mode)
+                      compleseus-switch-to-buffer-sources
+                    consult-buffer-sources)))
 
 (defun spacemacs/initial-search-input (&optional force-input)
   "Get initial input from region for consult search functions. If region is not
@@ -174,6 +169,13 @@ This solves the problem: Binding a key to: `find-file' calls: `ido-find-file'"
    (completing-read "Layouts:" (persp-names))))
 
 ;; vertico
+(defun spacemacs/embark-select ()
+  "Select the current candidate in the vertico buffer
+to act on with `embark-act-all', and move to the next candidate."
+  (interactive)
+  (embark-select)
+  (vertico-next))
+
 (defun spacemacs/embark-preview ()
   "Previews candidate in vertico buffer, unless it's a consult command"
   (interactive)
@@ -298,6 +300,30 @@ Note: this function relies on embark internals and might break upon embark updat
     ((eq major-mode 'org-mode) 'consult-org-heading)
     (t 'consult-imenu))))
 
+(defun spacemacs/consult-narrow-cycle-backward ()
+  "Cycle backward through the narrowing keys."
+  (interactive)
+  (when consult--narrow-keys
+    (consult-narrow
+     (if consult--narrow
+         (let ((idx (seq-position consult--narrow-keys
+                                  (assq consult--narrow consult--narrow-keys))))
+           (unless (eq idx 0)
+             (car (nth (1- idx) consult--narrow-keys))))
+       (caar (last consult--narrow-keys))))))
+
+(defun spacemacs/consult-narrow-cycle-forward ()
+  "Cycle forward through the narrowing keys."
+  (interactive)
+  (when consult--narrow-keys
+    (consult-narrow
+     (if consult--narrow
+         (let ((idx (seq-position consult--narrow-keys
+                                  (assq consult--narrow consult--narrow-keys))))
+           (unless (eq idx (1- (length consult--narrow-keys)))
+             (car (nth (1+ idx) consult--narrow-keys))))
+       (caar consult--narrow-keys)))))
+
 (defun spacemacs/compleseus-grep-change-to-wgrep-mode ()
   (interactive)
   (require 'wgrep)
@@ -342,3 +368,18 @@ Note: this function relies on embark internals and might break upon embark updat
   (spacemacs/wgrep-finish-edit)
   (wgrep-save-all-buffers)
   (quit-window))
+
+(defvar compleseus--previous-preview-keys nil
+  "variable to store the former value of preview keys or nil if the preview
+ has not been toggled on")
+
+(defun spacemacs/consult-toggle-preview ()
+  "Toggle auto-preview mode for compleseus buffers"
+  (interactive)
+  (if (eq compleseus--previous-preview-keys nil)
+      (setq compleseus--previous-preview-keys consult-preview-key
+            consult-preview-key '(:debounce 0.5 any))
+    (setq consult-preview-key compleseus--previous-preview-keys
+          compleseus--previous-preview-keys nil)
+    )
+  )

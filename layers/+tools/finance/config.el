@@ -1,4 +1,4 @@
-;;; layers.el --- cmake Layer layers File for Spacemacs
+;;; config.el --- Finance Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
@@ -21,6 +21,10 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(when (and (boundp 'cmake-backend)
-           (eq cmake-backend 'lsp))
-  (configuration-layer/declare-layer-dependencies '(lsp)))
+;; variables
+
+;; (defconst finance-modes '(ledger hledger)
+;;   "Implementations of the finance layer.")
+
+(defconst finance-hledger-journal-file "~/hledger.journal"
+  "Path to your hledger journal file.")

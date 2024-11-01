@@ -1,4 +1,4 @@
-;;; funcs.el --- Nim Layer functions File for Spacemacs
+;;; funcs.el --- Swift functions File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
@@ -21,26 +21,16 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//nim-setup-company ()
+(defun spacemacs//swift-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase nim-backend
-    ('lsp
-     (spacemacs|add-company-backends ;; Activate lsp company explicitly to activate
-       :backends company-capf        ;; standard backends as well
-       :modes nim-mode nimscript-mode))
-    ('company-nim
-     (spacemacs|add-company-backends
-       :backends company-nimsuggest
-       :modes nim-mode nimscript-mode))))
+  (pcase swift-backend
+    ;; Activate lsp company explicitly to activate
+    ;; standard backends as well
+    ('lsp (spacemacs|add-company-backends
+            :backends company-capf
+            :modes swift-mode))))
 
-(defun spacemacs//nim-setup-backend ()
-  "Conditionally setup nim backend."
-  (pcase nim-backend
-    ('lsp (lsp-deferred))
-    ('company-nim (nimsuggest-mode)
-                  (add-to-list 'spacemacs-jump-handlers-nim-mode 'nimsuggest-find-definition))))
-
-(defun spacemacs/nim-compile-run ()
-  "Compile current buffer file."
-  (interactive)
-  (shell-command (concat "nim compile --run " (buffer-file-name))))
+(defun spacemacs//swift-setup-backend ()
+  "Conditionally setup swift backend."
+  (when (eq swift-backend 'lsp)
+    (lsp-deferred)))

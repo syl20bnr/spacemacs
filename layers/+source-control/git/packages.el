@@ -203,6 +203,9 @@
       ("Y" magit-blame-copy-hash)
       ("B" magit-blame :exit t)
       ("Q" nil :exit t))
+    (with-eval-after-load 'persp-mode
+      (add-hook 'persp-filter-save-buffers-functions
+                'spacemacs//magit-buffer-p))
     :config
     ;; seems to be necessary at the time of release
     (require 'git-rebase)

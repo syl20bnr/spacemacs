@@ -40,7 +40,10 @@ output-pdf viewer in `TeX-view-program-selection'.")
 
 (defvar latex-view-pdf-in-split-window nil
   "If non-nil then open pdf in split window.
-Requires pdf-tools to be configured as output-pdf viewer.")
+Requires pdf-tools to be configured as output-pdf viewer.
+
+If the window splits vertically, but is intended to split
+horizontally, consider lowering the value of `split-width-threshold'.")
 
 (defvar latex-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'company-auctex)
   "The backend to use for IDE features.

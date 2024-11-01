@@ -8,8 +8,11 @@
 - [[#install][Install]]
   - [[#configuration][Configuration]]
     - [[#completion-engine][Completion engine]]
+    - [[#preview-keys][Preview keys]]
 - [[#key-bindings][Key bindings]]
+  - [[#narrowing][Narrowing]]
   - [[#edit-consult-buffer][Edit consult buffer]]
+  - [[#vertico-key-bindings][Vertico key bindings]]
 
 * Description
 This layer implements completion provided by combining the following packages:
@@ -44,26 +47,70 @@ like below to use =selectrum= as opposed to the default of =vertico=:
               compleseus-engine 'selectrum)
 #+END_SRC
 
+*** Preview keys
+You can set the keys that will by default trigger a preview in consult commands.
+This can be set to a list of keys, with an optional debounce property. For instance
+to preview immediately on pressing ~M-.~ or ~C-SPC~, and having previewing after a delay of 0.5
+seconds if you press either up or down you could use the following configuration.
+
+#+BEGIN_SRC emacs-lisp
+  (compleseus :variables
+              compleseus-consult-preview-keys '("M-." "C-SPC" :debounce 0.5 "<up>" "<down>"))
+#+END_SRC
+
+See [[https://github.com/minad/consult?tab=readme-ov-file#live-previews][consult documentation]] for more information and examples.
+The default is set to ~'("M-." "C-SPC" "C-M-j" "C-M-k")~
+
 * Key bindings
 
-| Key binding | Description               |
-|-------------+---------------------------|
-| ~M-o~       | embark-action             |
-| ~C-r~       | history                   |
-| ~M-.~       | preview selected item now |
+| Key binding | Description                    |
+|-------------+--------------------------------|
+| ~M-o~       | embark-action                  |
+| ~C-r~       | history                        |
+| ~M-.~       | preview selected item now      |
+| ~C-z~       | select embark action from list |
+
+** Narrowing
+Many consult commands support 'narrowing', whith allows you to type a key and narrow the list of candidates available
+Once you have discovered the narrowing keys available, you can do them directly with ~key SPC~.
+e.g. in ~compleseus/switch-to-buffer~ type ~* SPC~ to see only modified buffers.
+Delete the narrowing key again to return to all selections.
+
+| Key binding | Description                                      |
+|-------------+--------------------------------------------------|
+| ~<~         | View narrowing commands available                |
+| ~C-left~    | Cycle left through narrowing commands available  |
+| ~C-right~   | Cycle right through narrowing commands available |
 
 ** Edit consult buffer
 
-| Key binding            | Description                                                                    |
-|------------------------+--------------------------------------------------------------------------------|
-| ~C-c C-e~              | Export consult buffer to a grep buffer and make it editable right away         |
-| ~M-o E~                | Export consult buffer to a new buffer (usually grep)                           |
-| ~SPC m w~              | Toggle the exported buffer to be editable or read-only when it's a grep buffer |
-| ~SPC m ,~ or ~SPC m c~ | Apply/Commit changes made in the exported buffer                               |
-| ~SPC m a~ or ~SPC m k~ | Abort/Kill changes made in the exported buffer                                 |
-| ~SPC m q~              | Abort/Kill changes made in the exported buffer and close the buffer            |
-| ~SPC m s~              | Apply and =save= changes made in the exported buffer and close the buffer      |
+| Key binding            | Description                                                                                                      |
+|------------------------+------------------------------------------------------------------------------------------------------------------|
+| ~C-c C-e~              | Export consult buffer to a grep buffer and make it editable right away                                           |
+| ~M-o E~                | Export consult buffer to a new buffer (usually grep)                                                             |
+| ~SPC m w~              | Toggle the exported buffer to be editable or read-only when it's a grep buffer                                   |
+| ~SPC m ,~ or ~SPC m c~ | Apply/Commit changes made in the exported buffer                                                                 |
+| ~SPC m a~ or ~SPC m k~ | Abort/Kill changes made in the exported buffer                                                                   |
+| ~SPC m q~              | Abort/Kill changes made in the exported buffer and close the buffer                                              |
+| ~SPC m s~              | Apply and =save= changes made in the exported buffer and close the buffer                                        |
+| ~SPC m r~              | Toggle the read-only area (allowing you to remove lines from the wgrep buffer, won't be removed from the file)   |
+| ~SPC m d~              | Mark the line to be deleted from the file                                                                        |
+| ~SPC m f~              | Enable next-error-follow-minor-mode which will show previews of what you have under the cursor for a grep buffer |
 
 Note: ~SPC m s~ actually saves the changes on disk when the changed lines belong
 to a buffer visiting a file. ~SPC m ,~ and ~SPC m c~ do not save the changes on
 disk.
+
+** Vertico key bindings
+
+| Key binding | Description                                                                   |
+|-------------+-------------------------------------------------------------------------------|
+| ~C-j~       | Go to next row down                                                           |
+| ~C-k~       | Go to next row up                                                             |
+| ~C-l~       | Fully selects the text under the point (completes)                            |
+| ~C-S-j~     | Move to next group of results                                                 |
+| ~C-S-k~     | Move to previous group of results                                             |
+| ~C-M-j~     | Move to next candidate and preview                                            |
+| ~C-M-k~     | Move to previous candidate and preview                                        |
+| ~C-SPC~     | Preview candidate                                                             |
+| ~M-P~       | Toggle previewing on for compleseus functions (requires rerunning the search) |

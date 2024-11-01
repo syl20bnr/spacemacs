@@ -68,7 +68,7 @@ There are some differences between packages that might have some people prefer
 one over the other:
 
 | Feature                             | diff-hl | git-gutter |
-|-------------------------------------+---------+------------+
+|-------------------------------------+---------+------------|
 | Show in fringe                      | X       | X          |
 | Extended VCS support (e.g. hg, svn) | X       | X          |
 | Stage hunks from buffer             |         | X          |
@@ -88,6 +88,7 @@ VC commands:
 | ~SPC g v g~ | Visually annotate the current file                     |
 | ~SPC g v d~ | Open the VC Directory buffer                           |
 | ~SPC g v +~ | Update the working copy                                |
+| ~SPC g v h~ | List the change log for the current region in file     |
 | ~SPC g v i~ | Register (add) into a version control system           |
 | ~SPC g v u~ | Revert working copy to their repository contents       |
 | ~SPC g v l~ | List the change log                                    |
@@ -230,19 +231,20 @@ Merge Actions:
 
 Diff:
 
-| Key binding | Description         |
-|-------------+---------------------|
-| ~SPC g r <~ | Diff base and mine  |
-| ~SPC g r =~ | Diff mine and other |
-| ~SPC g r >~ | Diff base and other |
-| ~SPC g r r~ | Refine              |
-| ~SPC g r e~ | Ediff               |
+| Key binding | Description          |
+|-------------+----------------------|
+| ~SPC g r <~ | Diff base and upper  |
+| ~SPC g r =~ | Diff upper and lower |
+| ~SPC g r >~ | Diff base and lower  |
+| ~SPC g r r~ | Refine               |
+| ~SPC g r e~ | Ediff                |
 
 Other:
 
 | Key binding | Description                    |
 |-------------+--------------------------------|
 | ~SPC g r C~ | Combine current and next hunks |
+| ~SPC g r s~ | Swap upper and lower regions   |
 | ~SPC g r U~ | Undo                           |
 | ~SPC g r q~ | Quit transient state           |
 

@@ -1472,7 +1472,9 @@ the right."
   "Save current buffer or active region as specified file.
 When called interactively, it first prompts for FILENAME, and then asks
 whether to VISIT it, and if so, whether to show it in current window or
-another window. When prefixed with a universal-argument \\[universal-argument], include
+another window. The variable `spacemacs-save-as-visit-action' can be
+customized to supply a default VISIT action suppressing the latter prompt.
+When prefixed with a universal-argument \\[universal-argument], include
 filename in prompt.
 
 FILENAME  a non-empty string as the name of the saved file.
@@ -1489,13 +1491,16 @@ overwrite it."
                                   "Other window"
                                   "Don't open"))
                       (actions  '(:current :other nil))
-                      (visit    (let ((completion-ignore-case t))
-                                  (nth (cl-position
-                                        (completing-read "Do you want to open the file? "
-                                                         choices nil t)
-                                        choices
-                                        :test #'equal)
-                                       actions))))
+                      (visit
+                       (if (eq spacemacs-save-as-visit-action 'ask)
+                           (let ((completion-ignore-case t))
+                             (nth (cl-position
+                                   (completing-read "Do you want to open the file? "
+                                                    choices nil t)
+                                   choices
+                                   :test #'equal)
+                                  actions))
+                         spacemacs-save-as-visit-action)))
                  (list filename visit)))
   (unless (called-interactively-p 'any)
     (cl-assert (and (stringp filename)
@@ -1725,22 +1730,27 @@ a split-side entry, its value must be usable as the SIDE argument for
       (switch-to-buffer (help-buffer))
     (message "No previous Help buffer found")))
 
+(defun spacemacs//get-scratch-buffer-create ()
+  (or (get-buffer "*scratch*")
+      (let ((scratch (get-buffer-create "*scratch*")))
+        (with-current-buffer scratch
+          (add-hook 'kill-buffer-hook
+                    #'spacemacs//confirm-kill-buffer
+                    nil t)
+          (when (and (not (eq major-mode dotspacemacs-scratch-mode))
+                     (fboundp dotspacemacs-scratch-mode))
+            (funcall dotspacemacs-scratch-mode)
+            (run-hooks 'spacemacs-scratch-mode-hook)))
+        scratch)))
+
 (defun spacemacs/switch-to-scratch-buffer (&optional arg)
   "Switch to the `*scratch*' buffer, creating it first if needed.
 if prefix argument ARG is given, switch to it in an other, possibly new window."
   (interactive "P")
-  (let ((exists (get-buffer "*scratch*")))
+  (let ((scratch (spacemacs//get-scratch-buffer-create)))
     (if arg
-        (switch-to-buffer-other-window (get-buffer-create "*scratch*"))
-      (switch-to-buffer (get-buffer-create "*scratch*")))
-    (when (not exists)
-      (add-hook 'kill-buffer-hook
-                #'spacemacs//confirm-kill-buffer
-                nil t)
-      (when (and (not (eq major-mode dotspacemacs-scratch-mode))
-                 (fboundp dotspacemacs-scratch-mode))
-        (funcall dotspacemacs-scratch-mode)
-        (run-hooks 'spacemacs-scratch-mode-hook)))))
+        (switch-to-buffer-other-window scratch)
+      (switch-to-buffer scratch))))
 
 (defvar spacemacs--killed-buffer-list nil
   "List of recently killed buffers.")

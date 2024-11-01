@@ -1,4 +1,4 @@
-;;; layers.el --- cmake Layer layers File for Spacemacs
+;;; layers.el --- Swift Layer layers File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
 ;;
@@ -20,7 +20,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-(when (and (boundp 'cmake-backend)
-           (eq cmake-backend 'lsp))
+(when (and (boundp 'swift-backend)
+           (eq swift-backend 'lsp))
   (configuration-layer/declare-layer-dependencies '(lsp)))

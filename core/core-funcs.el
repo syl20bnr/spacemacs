@@ -347,7 +347,7 @@ only switches between the current layout's buffers."
                       (and (not (eq buffer my-buffer))
                            (funcall usefulp buffer)
                            (funcall predicate buffer))))
-                  (window-prev-buffers)
+                  (window-prev-buffers window)
                   default))
     (if (not buf)
         (message "Last buffer not found.")

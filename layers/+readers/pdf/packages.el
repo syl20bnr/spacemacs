@@ -28,6 +28,10 @@
 (defun pdf/init-pdf-tools ()
   (use-package pdf-tools
     :defer t
+    :custom
+    ;; `pdf-view-use-scaling' can lead to severe performance problems,
+    ;; especially after zooming
+    (pdf-view-use-scaling nil)
     :init
     (spacemacs//pdf-tools-setup-transient-state)
     (pdf-loader-install)
@@ -145,7 +149,18 @@
       "?"              'evil-search-backward)
     (spacemacs/declare-prefix-for-mode 'pdf-occur-buffer-mode "mt" "toggles")
     (spacemacs/set-leader-keys-for-major-mode 'pdf-occur-buffer-mode
-      "tf" 'next-error-follow-minor-mode)))
+      "tf" 'next-error-follow-minor-mode)
+
+    (define-advice pdf-view-maybe-redisplay-resized-windows
+        (:around (orig-fun) spacemacs//unless-lv-window)
+      "Redisplaying pdf pages can be slow. Similar to how it is already
+disabled for minibuffer prompts, do not redisplay when entering a
+transient state and while it is active. Note that after exiting a
+transient state redisplay will be done if necessary.
+This makes a difference when `pdf-view-display-size' is `fit-height',
+or when resizing windows using the window transient state."
+      (unless (and (boundp 'lv-wnd) (window-live-p lv-wnd))
+        (funcall orig-fun)))))
 
 (defun pdf/init-pdf-view-restore ()
   (use-package pdf-view-restore

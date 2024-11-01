@@ -24,7 +24,7 @@
 (setq ibuffer-packages
       '(
         ibuffer
-        ibuffer-projectile
+        (ibuffer-projectile :requires projectile)
         ))
 
 (defun ibuffer/init-ibuffer ()
@@ -52,13 +52,13 @@
       "["  'ibuffer-backward-filter-group)))
 
 (defun ibuffer/init-ibuffer-projectile ()
-    (use-package ibuffer-projectile
-      :defer t
-      :init
-      (defun spacemacs//ibuffer-group-by-projects ()
-        "Group buffers by projects."
-        (when (eq 'projects ibuffer-group-buffers-by)
-          (ibuffer-projectile-set-filter-groups)
-          (unless (eq ibuffer-sorting-mode 'alphabetic)
-            (ibuffer-do-sort-by-alphabetic))))
-      (add-hook 'ibuffer-hook 'spacemacs//ibuffer-group-by-projects)))
+  (use-package ibuffer-projectile
+    :defer t
+    :init
+    (defun spacemacs//ibuffer-group-by-projects ()
+      "Group buffers by projects."
+      (when (eq 'projects ibuffer-group-buffers-by)
+        (ibuffer-projectile-set-filter-groups)
+        (unless (eq ibuffer-sorting-mode 'alphabetic)
+          (ibuffer-do-sort-by-alphabetic))))
+    (add-hook 'ibuffer-hook 'spacemacs//ibuffer-group-by-projects)))

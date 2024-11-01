@@ -73,6 +73,11 @@
   (let (git-link-open-in-browser)
     (call-interactively 'git-link-commit)))
 
+(defun spacemacs//magit-buffer-p (buf)
+  "Return non-nil if and only if BUF's major-mode is derived from
+`magit-mode'."
+  (provided-mode-derived-p (buffer-local-value 'major-mode buf) 'magit-mode))
+
 
 ;; git blame transient state
 

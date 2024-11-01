@@ -31,10 +31,19 @@
 (defvar spacemacs-ignored-environment-variables
   '(
     "DBUS_SESSION_BUS_ADDRESS"
+    "DESKTOP_STARTUP_ID"
+    "DISPLAY"
     "GPG_AGENT_INFO"
+    "ICEAUTHORITY"
+    "INVOCATION_ID"
+    "JOURNAL_STREAM"
+    "MANAGERPID"
+    "SESSION_MANAGER"
     "SSH_AGENT_PID"
     "SSH_AUTH_SOCK"
-    "DISPLAY"
+    "SYSTEMD_EXEC_PID"
+    "XAUTHORITY"
+    "XDG_SESSION_TYPE"
     )
   "Ignored environments variables.
 Environment variables with names matching these regexps are not

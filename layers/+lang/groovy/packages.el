@@ -24,6 +24,7 @@
 (defconst groovy-packages
   '(
     company
+    flycheck
     groovy-imports
     groovy-mode
     org))

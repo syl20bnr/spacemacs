@@ -24,16 +24,19 @@
 (defvar spacemacs--smerge-ts-full-hint-toggle nil
   "Display smerge transient-state documentation.")
 
-(defvar version-control-global-margin t
-  "If non-nil, will show diff margins globally.")
+(spacemacs|defc version-control-global-margin t
+  "If non-nil, will show diff margins globally."
+  'boolean)
 
-(defvar version-control-diff-tool 'diff-hl
-  "Options are `diff-hl' (the prefered choice) or `git-gutter' to show
-version-control markers.")
+(spacemacs|defc version-control-diff-tool 'diff-hl
+  "Options are `diff-hl' (the preferred choice) or `git-gutter' to show
+version-control markers."
+  '(choice (const diff-hl) (const git-gutter) nil))
 
-(defvar version-control-diff-side 'right
+(spacemacs|defc version-control-diff-side 'right
   "Side on which to show version-control markers.
-Options are `left' and `right'.")
+Options are `left' and `right'."
+  '(choice (const left) (const right)))
 
 ;; change face
 (defface diff-hl-change

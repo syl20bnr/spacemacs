@@ -26,12 +26,16 @@
     flycheck
     (flycheck-ledger :requires flycheck)
     ledger-mode
+    hledger-mode
     (evil-ledger :toggle (memq dotspacemacs-editing-style '(vim hybrid)))))
 
 (defun finance/post-init-company ()
   (spacemacs|add-company-backends
-   :backends company-capf
-   :modes ledger-mode))
+    :backends company-capf
+    :modes ledger-mode)
+  (spacemacs|add-company-backends
+    :backends hledger-company
+    :modes hledger-mode))
 
 (defun finance/post-init-flycheck ()
   (spacemacs/enable-flycheck 'ledger-mode))
@@ -75,12 +79,6 @@
     (add-hook 'ledger-mode-hook 'evil-normalize-keymaps)
     (add-hook 'ledger-mode-hook
               (lambda () (setq-local pcomplete-termination-string "")))
-    ;; global-flycheck-mode is enabled lazily by prog-mode-hook, but
-    ;; ledger-mode derives from text-mode
-    (spacemacs|add-transient-hook ledger-mode-hook
-      (lambda () (when syntax-checking-enable-by-default
-                   (global-flycheck-mode 1)))
-      finance-lazy-load-flycheck)
     (evilified-state-evilify-map ledger-reconcile-mode-map
       :eval-after-load ledger-reconcile
       :mode ledger-reconcile-mode)
@@ -89,3 +87,13 @@
       :mode ledger-report-mode)
     (evil-add-command-properties 'ledger-add-transaction :jump t)
     (evil-add-command-properties 'ledger-copy-transaction-at-point :jump t)))
+
+(defun finance/init-hledger-mode ()
+  (use-package hledger-mode
+    :mode ("\\.journal\\'" . hledger-mode)
+    :defer t
+    :init
+    (setq hledger-jfile (expand-file-name finance-hledger-journal-file))
+
+    (define-key hledger-mode-map (kbd "<kp-add>") 'hledger-increment-entry-date)
+    (define-key hledger-mode-map (kbd "<kp-subtract>") 'hledger-decrement-entry-date)))

@@ -334,6 +334,14 @@ to 'auto, tags may not be properly aligned. "
      `(dired-symlink ((,class (:foreground ,cyan :background ,bg1 :inherit bold))))
      `(dired-warning ((,class (:foreground ,war))))
 
+;;;;; dired-subtree
+     `(dired-subtree-depth-1-face ((,class (:background ,bg1))))
+     `(dired-subtree-depth-2-face ((,class (:background ,bg1))))
+     `(dired-subtree-depth-3-face ((,class (:background ,bg1))))
+     `(dired-subtree-depth-4-face ((,class (:background ,bg1))))
+     `(dired-subtree-depth-5-face ((,class (:background ,bg1))))
+     `(dired-subtree-depth-6-face ((,class (:background ,bg1))))
+
 ;;;;; doom-modeline
      `(doom-modeline-bar ((,class (:background ,keyword))))
 

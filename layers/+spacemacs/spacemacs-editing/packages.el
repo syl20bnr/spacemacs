@@ -509,10 +509,10 @@
     (spacemacs/set-leader-keys "xe" 'string-edit-at-point)
     :config
     (spacemacs/set-leader-keys-for-minor-mode 'string-edit-at-point-mode
-      "," 'string-edit-conclude
-      "c" 'string-edit-conclude
-      "a" 'string-edit-abort
-      "k" 'string-edit-abort)))
+      "," 'string-edit-at-point-conclude
+      "c" 'string-edit-at-point-conclude
+      "a" 'string-edit-at-point-abort
+      "k" 'string-edit-at-point-abort)))
 
 (defun spacemacs-editing/init-multi-line ()
   (use-package multi-line
@@ -563,7 +563,8 @@ See variable `undo-tree-history-directory-alist'." dir))
   (use-package undo-fu
     :defer t
     :custom
-    (undo-fu-allow-undo-in-region t)))
+    (undo-fu-allow-undo-in-region t)
+    (undo-fu-ignore-keyboard-quit t)))
 
 (defun spacemacs-editing/init-undo-fu-session ()
   (use-package undo-fu-session

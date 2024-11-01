@@ -54,6 +54,7 @@
     org-present
     org-cliplink
     org-rich-yank
+    (org-project-capture :requires projectile)
     (org-projectile :requires projectile)
     (ox-epub :toggle org-enable-epub-support)
     (ox-twbs :toggle org-enable-bootstrap-support)
@@ -822,23 +823,29 @@ Headline^^            Visit entry^^               Filter^^                    Da
       ;; ir = "insert rich"
       "ir" 'org-rich-yank)))
 
-(defun org/init-org-projectile ()
-  (use-package org-projectile
-    :commands (org-projectile-location-for-project)
+(defun org/init-org-project-capture ()
+  (use-package org-project-capture
+    :commands (org-project-capture-location-for-project)
     :init
     (spacemacs/set-leader-keys
-      "aop" 'org-projectile/capture
-      "po" 'org-projectile/goto-todos)
-    (with-eval-after-load 'org-capture
-      (require 'org-projectile))
+      "aop" 'spacemacs/org-project-capture-capture
+      "po" 'spacemacs/org-project-capture-goto-todos)
     :config
-    (if (file-name-absolute-p org-projectile-file)
+    (if (file-name-absolute-p org-project-capture-projects-file)
         (progn
-          (setq org-projectile-projects-file org-projectile-file)
-          (push (org-projectile-project-todo-entry :empty-lines 1)
-                org-capture-templates))
-      (org-projectile-per-project)
-      (setq org-projectile-per-project-filepath org-projectile-file))))
+          (setq org-project-capture-projects-file org-project-capture-projects-file)
+          (push (org-project-capture-project-todo-entry :empty-lines 1)
+                org-capture-templates)
+          (org-project-capture-single-file))
+      (progn
+        (setq org-project-capture-per-project-filepath org-project-capture-projects-file)
+        (org-project-capture-per-project)))))
+
+(defun org/init-org-projectile ()
+  (use-package org-projectile
+    :config
+    (setq org-project-capture-default-backend
+          (make-instance 'org-project-capture-projectile-backend))))
 
 (defun org/pre-init-ox-epub ()
   (spacemacs|use-package-add-hook org :post-config (require 'ox-epub)))

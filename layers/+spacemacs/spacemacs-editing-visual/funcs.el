@@ -25,3 +25,10 @@
   (interactive)
   (spacemacs/toggle-centered-buffer-on)
   (spacemacs/centered-buffer-transient-state/body))
+
+(defun spacemacs//maybe-enable-term-cursor ()
+  "Enable `global-term-cursor-mode' when a first terminal frame is created."
+  (unless (or (display-graphic-p)
+              (bound-and-true-p global-term-cursor-mode))
+    (global-term-cursor-mode)
+    (remove-hook 'server-after-make-frame-hook 'spacemacs//maybe-enable-term-cursor)))

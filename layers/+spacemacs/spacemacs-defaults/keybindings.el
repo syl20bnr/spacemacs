@@ -678,8 +678,7 @@ respond to this toggle."
   "ws"  'split-window-below
   "wS"  'split-window-below-and-focus
   "w-"  'split-window-below
-  "wU"  'winner-redo
-  "wu"  'winner-undo
+  "wu"  'spacemacs/winner-transient-state/winner-undo
   "wv"  'split-window-right
   "wV"  'split-window-right-and-focus
   "ww"  'other-window

@@ -1519,7 +1519,8 @@ If `SKIP-LAYER-DEPS' is non nil then skip loading of layer dependenciesl"
   (dolist (x layer-names)
     (unless (member x configuration-layer--layers-dependencies)
       (add-to-list 'configuration-layer--layers-dependencies x)
-      (configuration-layer//load-layer-files x '("layers")))))
+      (unless configuration-layer--declared-layers-usedp
+        (configuration-layer//load-layer-files x '("layers"))))))
 
 (defun configuration-layer//declare-used-layers (layers-specs)
   "Declare used layers from LAYERS-SPECS list."
@@ -1541,8 +1542,10 @@ If `SKIP-LAYER-DEPS' is non nil then skip loading of layer dependenciesl"
             (reverse configuration-layer--used-layers)))
     ;; declare additional layer required by used layers
     ;; this layers will be at the beginning of `configuration-layer--used-layers'
-    (dolist (layer-name configuration-layer--layers-dependencies)
-      (configuration-layer/declare-layer layer-name))
+    (let ((ulayers (mapcar (lambda (x) (if (listp x) (car x) x)) layers-specs)))
+      (dolist (layer-name configuration-layer--layers-dependencies)
+        (unless (member layer-name ulayers)
+          (configuration-layer/declare-layer layer-name))))
     ;; distribution and bootstrap layers are always first
     (let ((distribution (if configuration-layer-force-distribution
                             configuration-layer-force-distribution
