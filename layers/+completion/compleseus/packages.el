@@ -469,13 +469,15 @@
   (use-package vertico-posframe
     :after vertico
     :init
-    (vertico-posframe-mode 1)
-    :config
-    (setq vertico-posframe-poshandler #'posframe-poshandler-frame-center
-          vertico-posframe-parameters '((internal-border-width . 1)
-                                        (left-fringe . 4)
-                                        (right-fringe . 4)
-                                        (undecorated . nil)))))
+    (setq vertico-posframe-poshandler 'posframe-poshandler-frame-center)
+    (setq vertico-posframe-width (round (* 0.618 (frame-width))))
+    (setq vertico-posframe-height (round (* 0.618 (frame-height))))
+    (setq vertico-posframe-parameters
+          '((internal-border-width . 2)
+            (left-fringe . 4)
+            (right-fringe . 4)
+            (undecorated . nil)))
+    (vertico-posframe-mode 1)))
 
 (defun compleseus/post-init-grep ()
   (spacemacs/set-leader-keys-for-major-mode 'grep-mode
