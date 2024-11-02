@@ -43,6 +43,9 @@
                        dotspacemacs-helm-position bottom)
   "Position in which to show the `helm' mini-buffer.")
 
+(defvar helm-use-posframe nil
+  "Use helm-posframe to display completions in a separate frame")
+
 (defvar spacemacs-helm-rg-max-column-number 512
   "Controls the maximum number of columns to display with ripgrep (otherwise
   omits a line)")
