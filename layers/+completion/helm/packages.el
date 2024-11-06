@@ -36,7 +36,7 @@
     helm-make
     helm-mode-manager
     helm-org
-    (helm-posframe :toogle helm-use-posframe)
+    (helm-posframe :toggle helm-use-posframe)
     helm-projectile
     helm-swoop
     helm-themes
