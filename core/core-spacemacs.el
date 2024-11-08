@@ -159,7 +159,8 @@ the final step of executing code in `emacs-startup-hook'.")
                                      (file-name-directory load-file-name)))
                                (car load-path))
                           (seq-uniq bases 'string-equal))))
-        (save-buffer)))))
+        (save-buffer)
+        (kill-buffer)))))
 
 (defun spacemacs/init ()
   "Perform startup initialization."
