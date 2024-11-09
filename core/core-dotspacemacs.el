@@ -482,6 +482,11 @@ are kept or minimized by `spacemacs/toggle-maximize-window' (SPC w m)."
   '(choice (const nil) (const t) (const aggressive))
   'spacemacs-dotspacemacs-init)
 
+(spacemacs|defc dotspacemacs-enable-package-quickstart nil
+  "If t, try the `package-quickstart' for package startup."
+  'boolean
+  'spacemacs-dotspacemacs-init)
+
 (spacemacs|defc dotspacemacs-loading-progress-bar t
   "If non nil a progress bar is displayed when spacemacs is loading. This
 may increase the boot time on some systems and emacs builds, set it to nil

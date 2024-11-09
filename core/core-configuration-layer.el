@@ -441,10 +441,7 @@ cache folder.")
           (configuration-layer/elpa-directory
            configuration-layer--elpa-root-directory))
     (setq package-archives (configuration-layer//resolve-package-archives
-                            configuration-layer-elpa-archives))
-    ;; optimization, no need to activate all the packages so early
-    (setq package-enable-at-startup nil)
-    (package-initialize 'noactivate)))
+                            configuration-layer-elpa-archives))))
 
 (autoload 'quelpa "quelpa")
 (autoload 'quelpa-checkout "quelpa")
@@ -643,6 +640,11 @@ To prevent package from being installed or uninstalled set the variable
   (configuration-layer//configure-layers configuration-layer--used-layers)
   ;; load layers lazy settings
   (configuration-layer/load-auto-layer-file)
+  ;; try the package-quickstart-file before detecting package installation
+  (when (and (or package-quickstart dotspacemacs-enable-package-quickstart)
+             package-quickstart-file)
+    (setq package-quickstart t)
+    (load (file-name-sans-extension package-quickstart-file) t nil nil t))
   ;; install and/or uninstall packages
   (when spacemacs-sync-packages
     (let ((packages
