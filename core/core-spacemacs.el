@@ -235,7 +235,7 @@ the final step of executing code in `emacs-startup-hook'.")
     (defvar load-hints '()))   ; *-autoloads.el after the feature was toggled.
 
   ;; theme
-  (spacemacs/load-default-theme spacemacs--fallback-theme 'disable)
+  (spacemacs/load-default-theme)
   ;; font
   (spacemacs|do-after-display-system-init
    ;; If you are thinking to remove this call to `message', think twice. You'll
