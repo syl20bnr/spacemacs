@@ -477,7 +477,7 @@ are kept or minimized by `spacemacs/toggle-maximize-window' (SPC w m)."
   'boolean
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-enable-load-hints t
+(spacemacs|defc dotspacemacs-enable-load-hints nil
   "If nil, no load-hints enabled. If t, enable the load-hints."
   '(choice (const nil) (const t) (const aggressive))
   'spacemacs-dotspacemacs-init)
