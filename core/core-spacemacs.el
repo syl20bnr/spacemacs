@@ -118,12 +118,18 @@ the final step of executing code in `emacs-startup-hook'.")
              (cons path (seq-uniq (remove nil bases) 'string-equal))))
          load-path))
 
-  (define-advice require (:around (func feature &optional filename noerror) LOAD-HINTS)
-    (if-let* (((and feature (not filename) load-hints))
-              (path (spacemacs//lookup-load-hints (symbol-name feature))))
-        (let ((load-path (cons path load-path)))
-          (funcall func feature filename noerror))
-      (funcall func feature filename noerror)))
+  (defun require@LOAD-HINTS (args)
+    "The advice for `require' function"
+    (let ((feature (nth 0 args))
+          (filename (nth 1 args))
+          (noerror (nth 2 args)))
+      (when-let* (((and filename load-hints))
+                  (name (symbol-name feature))
+                  (path (spacemacs//lookup-load-hints name)))
+        (setq filename (expand-file-name name path)))
+      (list feature filename noerror)))
+
+  (advice-add #'require :filter-args #'require@LOAD-HINTS)
 
   (define-advice package-generate-autoloads (:after (name pkg-dir) LOAD-HINTS)
     ;; if package-enabled-load-hints is non-nil then collecting loadable
