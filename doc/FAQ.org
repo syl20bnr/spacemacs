@@ -52,6 +52,8 @@
   - [[#why-is-there-no-spacemacs-logo-in-the-startup-buffer][Why is there no Spacemacs logo in the startup buffer?]]
   - [[#why-are-all-packages-unavailable][Why are all packages unavailable?]]
   - [[#the-powerline-isnt-shown-correctly-when-spacemacs-is-used-within-putty][The powerline isn't shown correctly when Spacemacs is used within =PuTTY=]]
+  - [[#speedup-the-spacemacs-with-load-hints-feature][Speedup the Spacemacs with load-hints feature]]
+  - [[#speedup-the-spacemacs-with-package-quickstart][Speedup the Spacemacs with package-quickstart]]
 
 * Common
 ** Which version of Spacemacs am I running?
@@ -609,3 +611,47 @@ directory as Emacs. See [[https://www.gnu.org/software/emacs/manual/html_mono/em
 
 ** The powerline isn't shown correctly when Spacemacs is used within =PuTTY=
 You can follow [[http://mschulte.nl/posts/using-powerline-in-PuTTY.html][this explanation]] explaining how to correct this.
+
+** Speedup the Spacemacs with load-hints feature
+The Spacemacs user maybe feel it's slow during startup or slow to opening a
+=*.org= file on Windows system. The root cause is the package manager
+(package.el) will add the package directorie paths into Emacs' ~load-path~
+seperately, while a Spacemacs-base distribution maybe installes more than 100
+packages, and the ~load-path~ will has more than 100 entries with packages
+paths on the head, emacs builtin paths on the tail. Then a simple
+src_elisp{(require 'org)} will trigger the emacs walks through the ~load-path~
+from the head to the tail to seach =org.dll=, =org.dll.gz=, =org.elc=,
+=org.elc.gz=, =org.el=, =org.el.gz=, that will be more 600 (100*6) attemptions
+to open the desired files, but Windows system slow on the open-file API
+(Linux/BSD are mutch faster).
+
+The posible solutions are:
+1) reducing the ~load-path~ entries by collecting the packages files into one
+   directory and adding this directory to the ~load-path~, but it needs to
+   rework the =package.el= to cover adding/updating/removing package in one
+   folder.
+2) constructing a variable ~load-hints~ to record the files in each package
+   directory ~'((<pkg1-path> [files]) (<pkg2-path> [files]))~ for Searching the
+   file in the list insteads of calling system file API to detect the file
+   existing or not.
+
+Spacemacs implemented the ~load-hints~ feature, controled by the
+~dotspacemacs-enable-load-hints~, users can set its value to ~t~ to enable
+~load-hints~ feature, then executing the function
+~spacemacs//package-regenerate-autoloads~ and restart the Spacemacs to try this
+feature to observer it speedups the Spacemacs or not on the Windows OS.
+
+** Speedup the Spacemacs with package-quickstart
+The ~package-quickstart~ will collect all the ~*-autoloads.el~ into one file
+~package-quickstart-file~ to speed up the packages loading procedure. After
+Spacemacs startup, manually executing the function ~package-quickstart-refreshe~
+to generate the package quickstart file, then setting the
+~dotspacemacs-enable-package-quickstart~ to ~t~, on the next startup, the
+Spacemacs will set up packages with loading the ~package-quickstart-file~, won't
+call the ~package-initialize~ (which will scan packages directories and active
+package one by one).
+
+*NOTE*: Please enable the ~load-hints~ feature first, otherwise the
+~package-quickstart-file~ addes all the package directories into the ~load-path~
+may lead Spacemacs startup slower than no ~package-quickstartup~ feature
+enabled.
