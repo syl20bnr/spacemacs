@@ -141,7 +141,7 @@ When universal prefix argument is passed then display the process buffer."
     (message "Cancel running dumping process to start a new one.")
     (spinner-stop)
     (delete-process spacemacs-dump-process))
-  (when-let ((buf (get-buffer spacemacs-dump-buffer-name)))
+  (when-let* ((buf (get-buffer spacemacs-dump-buffer-name)))
     (with-current-buffer buf
       (erase-buffer)))
   (make-directory spacemacs-dump-directory t)

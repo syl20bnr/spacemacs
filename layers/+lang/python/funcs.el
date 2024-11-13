@@ -181,7 +181,7 @@ ROOT-DIR should be the path for the environemnt, `nil' for clean up"
     (if-let* ((root-dir)
               (default-directory root-dir))
         (dolist (x '("pylint" "flake8"))
-          (when-let ((exe (spacemacs/pyenv-executable-find x)))
+          (when-let* ((exe (spacemacs/pyenv-executable-find x)))
             (flycheck-set-checker-executable (concat "python-" x) exe)))
       ;; else root-dir is nil
       (dolist (x '("pylint" "flake8"))
@@ -530,7 +530,7 @@ If region is not active then send line."
 (defun spacemacs/python-start-or-switch-repl ()
   "Start and/or switch to the REPL."
   (interactive)
-  (if-let ((shell-process (or (python-shell-get-process)
+  (if-let* ((shell-process (or (python-shell-get-process)
                               (call-interactively #'run-python))))
       (progn
         (pop-to-buffer (process-buffer shell-process))

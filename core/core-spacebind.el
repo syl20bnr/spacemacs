@@ -451,7 +451,7 @@ NOTE: You can override key labels and displayed key sequences with :label <TEXT>
                                   (plist-get key))))
        (seq-reduce
         (lambda (acc pair)
-          (if-let ((stack (get-stack (car pair)))
+          (if-let* ((stack (get-stack (car pair)))
                    (stack-var (cadr pair)))
               ;; We do it this way because `nconc' should have
               ;; the shortest list as the first argument.

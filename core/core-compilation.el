@@ -62,7 +62,7 @@ When the UPDATE is t, it will force update the state."
           (unless paths
             (setq paths (list nil nil nil nil))
             (push (cons name paths) afiles))
-          (if-let ((idx (cl-loop for i from 0
+          (if-let* ((idx (cl-loop for i from 0
                                  for s in slist
                                  until (string-suffix-p s file)
                                  finally return i)))

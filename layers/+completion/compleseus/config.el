@@ -141,7 +141,7 @@ and with narrowing key \"B\".")
     :enabled  ,(lambda () consult-project-function)
     :items
     ,(lambda ()
-       (when-let (root (consult--project-root))
+       (when-let* ((root (consult--project-root)))
          (consult--buffer-query
           :sort 'visibility
           :directory root
@@ -160,7 +160,7 @@ and with narrowing key \"B\".")
     :enabled  ,(lambda () consult-project-function)
     :items
     ,(lambda ()
-       (when-let (root (consult--project-root))
+       (when-let* ((root (consult--project-root)))
          (consult--buffer-query
           :sort 'visibility
           :directory root

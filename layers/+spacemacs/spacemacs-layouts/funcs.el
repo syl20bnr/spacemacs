@@ -390,7 +390,7 @@ If perspective NAME does not already exist, create it and add any
 buffers that belong to the current buffer's project."
   (if (persp-with-name-exists-p name)
       (message "There is already a perspective named %s" name)
-    (if-let ((project (projectile-project-p)))
+    (if-let* ((project (projectile-project-p)))
         (spacemacs||switch-layout name
           :init
           (persp-add-buffer (projectile-project-buffers project)

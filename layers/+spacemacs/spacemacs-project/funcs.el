@@ -31,9 +31,9 @@ ones created by `magit' and `dired'.
 Returns:
   - A string containing the directory path in case of success.
   - `nil' in case the current buffer does not have a directory."
-  (when-let (directory-name (if-let (file-name (buffer-file-name))
-                                (file-name-directory file-name)
-                              list-buffers-directory))
+  (when-let* ((directory-name (if-let* ((file-name (buffer-file-name)))
+                                  (file-name-directory file-name)
+                                list-buffers-directory)))
     (file-relative-name
       (file-truename directory-name)
       (projectile-project-root))))
@@ -44,7 +44,7 @@ Returns:
 Returns:
   - A string containing the file path in case of success.
   - `nil' in case the current buffer does not visit a file."
-  (when-let (file-name (buffer-file-name))
+  (when-let* ((file-name (buffer-file-name)))
     (file-relative-name (file-truename file-name) (projectile-project-root))))
 
 (defun spacemacs--projectile-file-path-with-line ()
@@ -53,7 +53,7 @@ Returns:
 Returns:
   - A string containing the file path in case of success.
   - `nil' in case the current buffer does not visit a file."
-  (when-let (file-path (spacemacs--projectile-file-path))
+  (when-let* ((file-path (spacemacs--projectile-file-path)))
     (concat file-path ":" (number-to-string (line-number-at-pos)))))
 
 (defun spacemacs--projectile-file-path-with-line-column ()
@@ -64,7 +64,7 @@ This function respects the `column-number-indicator-zero-based' value.
 Returns:
   - A string containing the file path in case of success.
   - `nil' in case the current buffer does not visit a file."
-  (when-let (file-path (spacemacs--projectile-file-path-with-line))
+  (when-let* ((file-path (spacemacs--projectile-file-path-with-line)))
     (format "%s:%s" file-path
             (+ (current-column) (if column-number-indicator-zero-based 0 1)))))
 
@@ -76,7 +76,7 @@ If the buffer is not visiting a file, use the `list-buffers-directory'
 variable as a fallback to display the directory, useful in buffers like the
 ones created by `magit' and `dired'."
   (interactive)
-  (if-let (directory-path (spacemacs--projectile-directory-path))
+  (if-let* ((directory-path (spacemacs--projectile-directory-path)))
       (progn
         (kill-new directory-path)
         (message "%s" directory-path))
@@ -85,7 +85,7 @@ ones created by `magit' and `dired'."
 (defun spacemacs/projectile-copy-file-path ()
   "Copy and show the file path relative to project root."
   (interactive)
-  (if-let (file-path (spacemacs--projectile-file-path))
+  (if-let* ((file-path (spacemacs--projectile-file-path)))
       (progn
         (kill-new file-path)
         (message "%s" file-path))
@@ -94,7 +94,7 @@ ones created by `magit' and `dired'."
 (defun spacemacs/projectile-copy-file-path-with-line ()
   "Copy and show the file path relative to project root, including line number."
   (interactive)
-  (if-let (file-path (spacemacs--projectile-file-path-with-line))
+  (if-let* ((file-path (spacemacs--projectile-file-path-with-line)))
       (progn
         (kill-new file-path)
         (message "%s" file-path))
@@ -106,7 +106,7 @@ ones created by `magit' and `dired'."
 This function respects the value of the `column-number-indicator-zero-based'
 variable."
   (interactive)
-  (if-let (file-path (spacemacs--projectile-file-path-with-line-column))
+  (if-let* ((file-path (spacemacs--projectile-file-path-with-line-column)))
       (progn
         (kill-new file-path)
         (message "%s" file-path))

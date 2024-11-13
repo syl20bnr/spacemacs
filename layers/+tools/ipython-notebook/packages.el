@@ -167,7 +167,7 @@ For example, return 2 if COMMANDS are '(ein:notebook-foo ein:notebook-foo-bar)."
                      `(let* ((key-width 10)
                              (col-width 20)
                              (format-str (format "%%-%ds%%-%ds" key-width col-width)))
-                        (if-let ((command (pop ,commands)))
+                        (if-let* ((command (pop ,commands)))
                             (let ((massaged (massage command ,from ,to)))
                               (setq ,result
                                     (concat ,result

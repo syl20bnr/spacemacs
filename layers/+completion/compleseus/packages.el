@@ -241,7 +241,7 @@
     ;; Optionally configure a function which returns the project root directory.
     (setq consult-project-root-function
           (lambda ()
-            (when-let (project (project-current))
+            (when-let* ((project (project-current)))
               (car (project-root project)))))
 
     (dolist (command '(consult-org-agenda

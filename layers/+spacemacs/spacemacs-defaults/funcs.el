@@ -804,9 +804,9 @@ by `magit' and `dired'.
 Returns:
   - A string containing the directory path in case of success.
   - `nil' in case the current buffer does not have a directory."
-  (when-let (directory-name (if-let (file-name (buffer-file-name))
-                                (file-name-directory file-name)
-                              list-buffers-directory))
+  (when-let* ((directory-name (if-let* ((file-name (buffer-file-name)))
+                                  (file-name-directory file-name)
+                                list-buffers-directory)))
     (file-truename directory-name)))
 
 (defun spacemacs--file-path ()
@@ -815,7 +815,7 @@ Returns:
 Returns:
   - A string containing the file path in case of success.
   - `nil' in case the current buffer does not have a directory."
-  (when-let (file-path (buffer-file-name))
+  (when-let* ((file-path (buffer-file-name)))
     (file-truename file-path)))
 
 (defun spacemacs--file-path-with-line ()
@@ -824,7 +824,7 @@ Returns:
 Returns:
   - A string containing the file path in case of success.
   - `nil' in case the current buffer does not have a directory."
-  (when-let (file-path (spacemacs--file-path))
+  (when-let* ((file-path (spacemacs--file-path)))
     (concat file-path ":" (number-to-string (line-number-at-pos)))))
 
 (defun spacemacs--file-path-with-line-column ()
@@ -836,7 +836,7 @@ This function respects the `column-number-indicator-zero-based' variable.
 Returns:
   - A string containing the file path in case of success.
   - `nil' in case the current buffer does not have a directory."
-  (when-let (file-path (spacemacs--file-path-with-line))
+  (when-let* ((file-path (spacemacs--file-path-with-line)))
     (format "%s:%s" file-path
             (+ (current-column) (if column-number-indicator-zero-based 0 1)))))
 
@@ -847,7 +847,7 @@ If the buffer is not visiting a file, use the `list-buffers-directory'
 variable as a fallback to display the directory, useful in buffers like the
 ones created by `magit' and `dired'."
   (interactive)
-  (if-let (directory-path (spacemacs--directory-path))
+  (if-let* ((directory-path (spacemacs--directory-path)))
       (progn
         (kill-new directory-path)
         (message "%s" directory-path))
@@ -856,7 +856,7 @@ ones created by `magit' and `dired'."
 (defun spacemacs/copy-file-path ()
   "Copy and show the file path of the current buffer."
   (interactive)
-  (if-let (file-path (spacemacs--file-path))
+  (if-let* ((file-path (spacemacs--file-path)))
       (progn
         (kill-new file-path)
         (message "%s" file-path))
@@ -882,7 +882,7 @@ ones created by `magit' and `dired'."
   "Copy and show the file name without its final extension of the current
 buffer."
   (interactive)
-  (if-let (file-name (file-name-base (spacemacs--file-path)))
+  (if-let* ((file-name (file-name-base (spacemacs--file-path))))
       (progn
         (kill-new file-name)
         (message "%s" file-name))
@@ -891,7 +891,7 @@ buffer."
 (defun spacemacs/copy-file-path-with-line ()
   "Copy and show the file path of the current buffer, including line number."
   (interactive)
-  (if-let (file-path (spacemacs--file-path-with-line))
+  (if-let* ((file-path (spacemacs--file-path-with-line)))
       (progn
         (kill-new file-path)
         (message "%s" file-path))
@@ -904,7 +904,7 @@ including line and column number.
 This function respects the value of the `column-number-indicator-zero-based'
 variable."
   (interactive)
-  (if-let (file-path (spacemacs--file-path-with-line-column))
+  (if-let* ((file-path (spacemacs--file-path-with-line-column)))
       (progn
         (kill-new file-path)
         (message "%s" file-path))
@@ -1783,7 +1783,7 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
 (defun spacemacs/show-hide-compilation-window ()
   "Show/Hide the window containing the compilation buffer."
   (interactive)
-  (when-let ((buffer next-error-last-buffer))
+  (when-let* ((buffer next-error-last-buffer))
     (if (get-buffer-window buffer 'visible)
         (delete-windows-on buffer)
       (spacemacs/switch-to-compilation-buffer))))
@@ -1835,7 +1835,7 @@ line numbers, with respect to `dotspacemacs-line-numbers'."
 
 This is controlled by the `:size-limit-kb' property of
 `dotspacemacs-line-numbers'."
-  (if-let ((size-limit-kb
+  (if-let* ((size-limit-kb
             (and (listp dotspacemacs-line-numbers)
                  (spacemacs/mplist-get-value dotspacemacs-line-numbers
                                              :size-limit-kb))))

@@ -1290,7 +1290,7 @@ LIST-SIZE is specified in `dotspacemacs-startup-lists' for recent entries."
   (unless recentf-mode (recentf-mode))
   (let (;; we need to remove `org-agenda-files' entries from recent files
         (agenda-files
-         (when-let ((default-directory
+         (when-let* ((default-directory
                      (or (bound-and-true-p org-directory) "~/org"))
                     (files
                      (when (bound-and-true-p org-agenda-files)
@@ -1491,7 +1491,7 @@ version of `widget-button-press' since `widget-button-click' doesn't work."
   (when (widget-event-point event)
     (let ((pos (widget-event-point event)))
       (goto-char pos)
-      (when-let ((button (get-char-property pos 'button)))
+      (when-let* ((button (get-char-property pos 'button)))
         (widget-apply-action button)))))
 
 (defun spacemacs-buffer/jump-to-number-startup-list-line ()
@@ -1657,7 +1657,7 @@ This function is intended to be used in `spacemacs-buffer-mode' only."
       ;; point on a button, press it
       (widget-button-press (point))
     ;; point on an entry, press it
-    (if-let ((button (save-excursion
+    (if-let* ((button (save-excursion
                        (beginning-of-line-text)
                        (re-search-forward "[0-9]* +. " (point-at-eol) 'noerror))))
         (widget-button-press button)

@@ -227,7 +227,7 @@ On error return nil."
 OP is taking two version list and comparing."
   (let ((ver (if version (version-to-list version) quelpa--min-ver))
         (pkg-ver
-         (or (when-let ((pkg-desc (cdr (assq name package-alist)))
+         (or (when-let* ((pkg-desc (cdr (assq name package-alist)))
                         (pkg-ver (package-desc-version (car pkg-desc))))
                pkg-ver)
              (alist-get name package--builtin-versions)
@@ -294,7 +294,7 @@ already and should not be upgraded etc)."
            ((or (not (equal ver-type 'elpa)) quelpa-stable-p) melpa-ver)
            (melpa-ver
             (let ((base-ver
-                   (if-let ((info (quelpa-build--pkg-info (symbol-name name)
+                   (if-let* ((info (quelpa-build--pkg-info (symbol-name name)
                                                           files build-dir)))
                        (aref info 3)
                      '(0 0 0))))
@@ -326,7 +326,7 @@ already and should not be upgraded etc)."
                   (or (funcall package-strip-rcs-id-orig (lm-header "package-version"))
                       (funcall package-strip-rcs-id-orig (lm-header "version"))
                       "0"))))
-      (concat (if-let ((desc (quelpa-get-package-desc file-path)))
+      (concat (if-let* ((desc (quelpa-get-package-desc file-path)))
                   (mapconcat #'number-to-string (package-desc-version desc) ".")
                 "0")
               (pcase version
@@ -932,7 +932,7 @@ Return a cons cell whose `car' is the root and whose `cdr' is the repository."
          (repo (plist-get config :url))
          (remote (or (plist-get config :remote) "origin"))
          (commit (or (plist-get config :commit)
-                     (when-let ((branch (plist-get config :branch)))
+                     (when-let* ((branch (plist-get config :branch)))
                        (concat remote "/" branch))))
          (depth (or (plist-get config :depth) quelpa-git-clone-depth))
          (partial (and (or (plist-get config :partial) quelpa-git-clone-partial)
@@ -964,7 +964,7 @@ Return a cons cell whose `car' is the root and whose `cdr' is the repository."
                 (when (and depth (not (plist-get config :commit)))
                   `("--depth" ,(int-to-string depth)
                     "--no-single-branch"))
-                (when-let ((branch (plist-get config :branch)))
+                (when-let* ((branch (plist-get config :branch)))
                   `("--branch" ,branch))))))
       (if quelpa-build-stable
           (let* ((min-bound (goto-char (point-max)))
@@ -1324,7 +1324,7 @@ If KEEP-VERSION is set, don't override with version 0."
                  (extras (let (alist)
                            (while rest-plist
                              (unless (memq (car rest-plist) '(:kind :archive))
-                               (when-let ((value (cadr rest-plist)))
+                               (when-let* ((value (cadr rest-plist)))
                                  (push (cons (car rest-plist)
                                              (if (eq (car-safe value) 'quote)
                                                  (cadr value)
@@ -1900,7 +1900,7 @@ Return new package version."
   "Delete obsoleted packages with name NAME.
 With NEW-VERSION, will delete obsoleted packages that are not in same
 version."
-  (when-let ((all-pkgs (alist-get name package-alist))
+  (when-let* ((all-pkgs (alist-get name package-alist))
              (new-pkg-version (or new-version
                                    (package-desc-version (car all-pkgs)))))
     (with-demoted-errors "Error deleting package: %S"
@@ -1911,7 +1911,7 @@ version."
                   (package-delete pkg-desc 'force))))
             all-pkgs))
     ;; Only packages with same version remained. Just pick the first one.
-    (when-let (all-pkgs (alist-get name package-alist))
+    (when-let* (all-pkgs (alist-get name package-alist))
       (setf (cdr all-pkgs) nil))))
 
 ;; --- public interface ------------------------------------------------------
@@ -2003,7 +2003,7 @@ given package and remove any old versions of it even if the
            (cache-item (quelpa-arg-rcp arg)))
       (quelpa-parse-plist plist)
       (quelpa-parse-stable cache-item)
-      (when-let ((ver (apply #'quelpa-package-install arg plist)))
+      (when-let* ((ver (apply #'quelpa-package-install arg plist)))
         (when quelpa-autoremove-p
           (quelpa--delete-obsoleted-package (car cache-item) ver))
         (quelpa-update-cache cache-item))))
