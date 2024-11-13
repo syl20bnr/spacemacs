@@ -843,6 +843,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-org-projectile ()
   (use-package org-projectile
+    :after org-project-capture ; backend for projectile after org-project-capture
     :config
     (setq org-project-capture-default-backend
           (make-instance 'org-project-capture-projectile-backend))))
