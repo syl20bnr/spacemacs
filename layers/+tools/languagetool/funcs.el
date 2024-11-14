@@ -48,7 +48,7 @@
               (langtool-check-done)
             (progn
               (langtool-check-buffer (spacemacs//languagetool-get-language))
-              (when (package-installed-p 'flyspell)
+              (when (featurep 'flyspell)
                 (flyspell-delete-all-overlays))))))
     (error "LanguageTool has not been set up yet")))
 
@@ -67,50 +67,49 @@
   "Tries to parse the current spell checking language for a
   usable locale string. This won't do anything if the
   'spell-checking' layer is not active."
-  (let ((language (and (package-installed-p 'flyspell)
-                       (or ispell-local-dictionary ispell-dictionary))))
-    (when language
-      ;; We'll assume the language is either a locale or a named language (i.e.
-      ;; "en_GB" or "english")
-      (let* ((locale
-              (or
-               (cadr (assoc language ispell-dicts-name2locale-equivs-alist))
-               language))
-             ;; the translation of the dictionary name from ispell to
-             ;; languagetool is most of the time a simple replacement of
-             ;; underscore by dash except in some special-case
-             (special-case '(("es_ES" "es")
-                             ("es_AR" "es")
-                             ("es_BO" "es")
-                             ("es_CL" "es")
-                             ("es_CO" "es")
-                             ("es_CR" "es")
-                             ("es_CU" "es")
-                             ("es_DO" "es")
-                             ("es_EC" "es")
-                             ("es_GT" "es")
-                             ("es_HN" "es")
-                             ("es_NX" "es")
-                             ("es_NI" "es")
-                             ("es_PA" "es")
-                             ("es_PE" "es")
-                             ("es_PR" "es")
-                             ("es_PY" "es")
-                             ("es_SV" "es")
-                             ("es_UY" "es")
-                             ("es_VE" "es")
-                             ("fr_FR" "fr")
-                             ("fr_CA" "fr")
-                             ("fr_BE" "fr")
-                             ("fr_LU" "fr")
-                             ("fr_CH" "fr")
-                             ("it_IT" "it")
-                             ("it_CH" "it")
-                             ("nl_NL" "nl")
-                             ("nl_AW" "nl")
-                             ("sv_SE" "sv")))
-             (langtool-code
-              (or
-               (cadr (assoc locale special-case))
-               (replace-regexp-in-string "_" "-" locale))))
-        langtool-code))))
+  ;; We'll assume the language is either a locale or a named language (i.e.
+  ;; "en_GB" or "english")
+  (when-let* ((language (and (featurep 'flyspell)
+                             (or ispell-local-dictionary ispell-dictionary)))
+              (locale
+               (or
+                (cadr (assoc language ispell-dicts-name2locale-equivs-alist))
+                language))
+              ;; the translation of the dictionary name from ispell to
+              ;; languagetool is most of the time a simple replacement of
+              ;; underscore by dash except in some special-case
+              (special-case '(("es_ES" "es")
+                              ("es_AR" "es")
+                              ("es_BO" "es")
+                              ("es_CL" "es")
+                              ("es_CO" "es")
+                              ("es_CR" "es")
+                              ("es_CU" "es")
+                              ("es_DO" "es")
+                              ("es_EC" "es")
+                              ("es_GT" "es")
+                              ("es_HN" "es")
+                              ("es_NX" "es")
+                              ("es_NI" "es")
+                              ("es_PA" "es")
+                              ("es_PE" "es")
+                              ("es_PR" "es")
+                              ("es_PY" "es")
+                              ("es_SV" "es")
+                              ("es_UY" "es")
+                              ("es_VE" "es")
+                              ("fr_FR" "fr")
+                              ("fr_CA" "fr")
+                              ("fr_BE" "fr")
+                              ("fr_LU" "fr")
+                              ("fr_CH" "fr")
+                              ("it_IT" "it")
+                              ("it_CH" "it")
+                              ("nl_NL" "nl")
+                              ("nl_AW" "nl")
+                              ("sv_SE" "sv")))
+              (langtool-code
+               (or
+                (cadr (assoc locale special-case))
+                (replace-regexp-in-string "_" "-" locale))))
+    langtool-code))
