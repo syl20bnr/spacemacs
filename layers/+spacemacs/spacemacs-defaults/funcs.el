@@ -1938,7 +1938,7 @@ This is controlled by the `:size-limit-kb' property of
 
 ;; narrow region
 
-(defun spacemacs/clone-indirect-buffer-de-activate-mark ()
+(define-advice clone-indirect-buffer (:around (f &rest args) spacemacs-deactivate-mark)
   "This is a workaround for the evil visual state error message like:
 Error in post-command-hook (evil-visual-post-command):
 (error \"Marker points into wrong buffer\" #<marker at 27875 in .spacemacs<2>>)
@@ -1946,7 +1946,7 @@ Error in post-command-hook (evil-visual-post-command):
 See https://github.com/emacs-evil/evil/issues/280"
   (let ((region-was-active (region-active-p)))
     (when region-was-active (deactivate-mark))
-    (call-interactively 'clone-indirect-buffer)
+    (apply f args)
     (when region-was-active (activate-mark))))
 
 (defun spacemacs/narrow-to-indirect-buffer (narrower target-name)
@@ -1962,7 +1962,7 @@ narrowed to."
       (message "Cannot narrow to indirect buffer from visual block mode.")
     (when evil-ex-active-highlights-alist
       (spacemacs/evil-search-clear-highlight))
-    (spacemacs/clone-indirect-buffer-de-activate-mark)
+    (call-interactively 'clone-indirect-buffer)
     (call-interactively narrower)
     (message (format "%s narrowed to an indirect buffer" target-name))))
 
