@@ -156,3 +156,21 @@ Intended for use in mode hooks."
   (when emacs-lisp-format-on-save
     (indent-region (point-min) (point-max))
     (whitespace-cleanup)))
+
+
+
+;; ERT commands
+
+(defun spacemacs//find-ert-test-buffer (ert-test)
+  "Return the buffer where ERT-TEST is defined."
+  (save-excursion
+    (car (find-definition-noselect (ert-test-name ert-test) 'ert-deftest))))
+
+(defun spacemacs/ert-run-tests-buffer ()
+  "Run all the tests in the current buffer."
+  (interactive)
+  (save-buffer)
+  (load-file (buffer-file-name))
+  (let ((cbuf (current-buffer)))
+    (ert '(satisfies (lambda (test)
+                       (eq cbuf (spacemacs//find-ert-test-buffer test)))))))

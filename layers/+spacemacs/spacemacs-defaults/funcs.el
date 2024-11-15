@@ -1331,20 +1331,6 @@ useful to use full screen on macOS without animations."
   (if (y-or-n-p (format "Erase content of buffer %s ? " (current-buffer)))
       (erase-buffer)))
 
-(defun spacemacs//find-ert-test-buffer (ert-test)
-  "Return the buffer where ERT-TEST is defined."
-  (save-excursion
-    (car (find-definition-noselect (ert-test-name ert-test) 'ert-deftest))))
-
-(defun spacemacs/ert-run-tests-buffer ()
-  "Run all the tests in the current buffer."
-  (interactive)
-  (save-buffer)
-  (load-file (buffer-file-name))
-  (let ((cbuf (current-buffer)))
-    (ert '(satisfies (lambda (test)
-                       (eq cbuf (spacemacs//find-ert-test-buffer test)))))))
-
 (defun spacemacs//open-in-external-app (file-path)
   "Open `file-path' in external application."
   (cond
