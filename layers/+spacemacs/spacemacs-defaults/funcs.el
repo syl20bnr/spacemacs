@@ -1808,19 +1808,6 @@ Decision is based on `dotspacemacs-line-numbers'."
          (and (memq dotspacemacs-line-numbers '(t relative visual))
               (derived-mode-p 'prog-mode 'text-mode)))))
 
-(defun spacemacs/relative-line-numbers-p ()
-  "Return non-nil if line numbers should be relative.
-Decision is based on `dotspacemacs-line-numbers'."
-  (eq (spacemacs/line-numbers-type) 'relative))
-
-(defun spacemacs/visual-line-numbers-p ()
-  "Return non-nil if line numbers should be visual.
-This is similar to relative line numbers, but wrapped lines are
-treated as multiple lines.
-
-Decision is based on `dotspacemacs-line-numbers'."
-  (eq (spacemacs/line-numbers-type) 'visual))
-
 (defun spacemacs/line-numbers-type ()
   "Returns a valid value for `display-line-numbers', activating
 line numbers, with respect to `dotspacemacs-line-numbers'."
