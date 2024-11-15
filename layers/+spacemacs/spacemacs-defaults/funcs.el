@@ -1949,31 +1949,37 @@ See https://github.com/emacs-evil/evil/issues/280"
     (apply f args)
     (when region-was-active (activate-mark))))
 
-(defun spacemacs/narrow-to-indirect-buffer (narrower target-name)
-  "Use the function `narrower' to narrow within an indirect buffer, except where
-the starting buffer is in a state (such as visual block mode) that would cause
-this to work incorrectly. `target-name' is the string name of the entity being
-narrowed to."
+(defun spacemacs/narrow-to-indirect-buffer (narrower target-kind target-name)
+  "Use the function NARROWER to narrow within an indirect buffer.
+
+TARGET-KIND is the name of the kind of entity being narrowed to,
+and TARGET-NAME is function that returns an optional name of the
+entity, which will be included in the new buffer's name.
+
+Error if the starting buffer is in a state (such as visual block
+mode) that would cause this to work incorrectly."
   ;; There may be a way to get visual block mode working similar to the
   ;; workaround we did for visual line mode; this usecase however seems like an
   ;; edgecase at best, so let's patch it if we find out it's needed; otherwise
   ;; let's not hold up the base functionality anymore.
-  (if (and (eq evil-state 'visual) (eq evil-visual-selection 'block))
-      (message "Cannot narrow to indirect buffer from visual block mode.")
+  (if (and (evil-visual-state-p) (eq evil-visual-selection 'block))
+      (user-error "Cannot narrow to indirect buffer from visual block mode")
     (when evil-ex-active-highlights-alist
       (spacemacs/evil-search-clear-highlight))
-    (call-interactively 'clone-indirect-buffer)
+    (let* ((target-name (and target-name (ignore-errors (funcall target-name))))
+           (buffer-name (and target-name (concat (buffer-name) "::" target-name))))
+      (clone-indirect-buffer buffer-name 'display))
     (call-interactively narrower)
-    (message (format "%s narrowed to an indirect buffer" target-name))))
+    (message (format "%s narrowed to an indirect buffer" target-kind))))
 
 (defun spacemacs/narrow-to-defun-indirect-buffer ()
   (interactive)
-  (spacemacs/narrow-to-indirect-buffer 'narrow-to-defun "Function"))
+  (spacemacs/narrow-to-indirect-buffer 'narrow-to-defun "Function" #'which-function))
 
 (defun spacemacs/narrow-to-page-indirect-buffer ()
   (interactive)
-  (spacemacs/narrow-to-indirect-buffer 'narrow-to-page "Page"))
+  (spacemacs/narrow-to-indirect-buffer 'narrow-to-page "Page" nil))
 
 (defun spacemacs/narrow-to-region-indirect-buffer ()
   (interactive)
-  (spacemacs/narrow-to-indirect-buffer 'narrow-to-region "Region"))
+  (spacemacs/narrow-to-indirect-buffer 'narrow-to-region "Region" nil))
