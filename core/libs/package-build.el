@@ -745,7 +745,7 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil.
       (list rcommit rtime (package-version-join version) rrevdesc tag)))))
 
 (defun package-build--ensure-count-increase (rcp version ahead)
-  (if-let* ((previous (cdr (assq (intern (oref rcp name))
+  (if-let ((previous (cdr (assq (intern (oref rcp name))
                                 (package-build-archive-alist)))))
       ;; Because upstream may have rewritten history, we cannot be certain
       ;; that appending the new count of commits would result in a version
@@ -1282,14 +1282,14 @@ is the same as the value of `export_file_name'."
                               "Invalid package name in dependency: %S" pkg))
                           (list pkg ver))
                         (eval deps)))
-          (when-let* ((v (or (alist-get :url plist)
+          (when-let ((v (or (alist-get :url plist)
                             (alist-get :homepage plist))))
             (oset rcp webpage v))
-          (when-let* ((v (alist-get :keywords plist)))
+          (when-let ((v (alist-get :keywords plist)))
             (oset rcp keywords v))
-          (when-let* ((v (alist-get :maintainers plist)))
+          (when-let ((v (alist-get :maintainers plist)))
             (oset rcp maintainers v))
-          (when-let* ((v (alist-get :authors plist)))
+          (when-let ((v (alist-get :authors plist)))
             (oset rcp authors v)))))))
 
 (defun package-build--normalize-summary (summary)
@@ -1554,7 +1554,7 @@ in `package-build-archive-dir'."
             (package-build--message "Running %s" command)
             (package-build--call-sandboxed
              rcp shell-file-name shell-command-switch command))
-          (when-let* ((package-build-run-recipe-make-targets)
+          (when-let ((package-build-run-recipe-make-targets)
                      (targets (oref rcp make-targets)))
             (package-build--message "Running make %s" (string-join targets " "))
             (apply #'package-build--call-sandboxed rcp "make" targets))
