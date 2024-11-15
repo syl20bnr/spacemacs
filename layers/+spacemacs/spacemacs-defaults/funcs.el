@@ -1941,7 +1941,9 @@ This is controlled by the `:size-limit-kb' property of
 (defun spacemacs/clone-indirect-buffer-de-activate-mark ()
   "This is a workaround for the evil visual state error message like:
 Error in post-command-hook (evil-visual-post-command):
-(error \"Marker points into wrong buffer\" #<marker at 27875 in .spacemacs<2>>)"
+(error \"Marker points into wrong buffer\" #<marker at 27875 in .spacemacs<2>>)
+
+See https://github.com/emacs-evil/evil/issues/280"
   (let ((region-was-active (region-active-p)))
     (when region-was-active (deactivate-mark))
     (call-interactively 'clone-indirect-buffer)
