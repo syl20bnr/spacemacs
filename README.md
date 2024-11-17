@@ -514,7 +514,7 @@ Packages]` button, or use the convenient keybinding <kbd>SPC f e U</kbd>**
 
 If you are still on the old `master` branch (i.e., if
 `git branch --show-current` shows `master` instead of `develop`),
-you need to [upgrade to `develop`](https://practical.li/spacemacs/install-spacemacs/switch-to-develop/)
+you need to [upgrade to `develop`](https://practical.li/spacemacs/reference/switch-to-develop/)
 first.
 
 # Quotes
