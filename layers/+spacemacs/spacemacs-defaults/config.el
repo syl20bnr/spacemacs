@@ -254,8 +254,5 @@ or `nil' to only save and not visit the file."
 ;; used for restoring recently killed buffers.
 (add-hook 'kill-buffer-hook #'spacemacs//add-buffer-to-killed-list)
 
-;; Don't load outdated compiled files.
-(setq load-prefer-newer t)
-
 ;; Suppress the *Warnings* buffer when native compilation shows warnings.
 (setq native-comp-async-report-warnings-errors 'silent)
