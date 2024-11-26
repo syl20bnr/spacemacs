@@ -341,16 +341,20 @@ package name does not match theme name + `-theme' suffix.")
 (defvar spacemacs-post-theme-change-hook nil
   "Hook run after theme has changed.")
 
-(defun spacemacs/get-theme-package-name (theme-name)
+(defun spacemacs/get-theme-package-name (theme)
   "Returns the package theme for the given THEME name."
-  (cond
-   ;; built-in
-   ((memq theme-name emacs-built-in-themes) nil)
-   ;; from explicit alist
-   ((assq theme-name spacemacs-theme-name-to-package)
-    (cdr (assq theme-name spacemacs-theme-name-to-package)))
-   ;; fallback to <name>-theme
-   (t (intern (format "%S-theme" theme-name)))))
+  (if-let* (((listp theme))
+            (pkg-name (plist-get (cdr theme) :package)))
+      pkg-name
+    (let ((theme-name (or (car-safe theme) theme)))
+      (cond
+       ;; built-in
+       ((memq theme-name emacs-built-in-themes) nil)
+       ;; from explicit alist
+       ((assq theme-name spacemacs-theme-name-to-package)
+        (cdr (assq theme-name spacemacs-theme-name-to-package)))
+       ;; fallback to <name>-theme
+       (t (intern (format "%S-theme" theme-name)))))))
 
 (defun spacemacs//get-theme-name (theme)
   "Return the name of THEME."
@@ -360,8 +364,7 @@ package name does not match theme name + `-theme' suffix.")
 
 (defun spacemacs//get-theme-package-directory (theme)
   "Return the THEME location on disk."
-  (let* ((theme-name (spacemacs//get-theme-name theme))
-         (pkg-name (spacemacs/get-theme-package-name theme-name))
+  (let* ((pkg-name (spacemacs/get-theme-package-name theme))
          (dir (when (listp theme)
                 (configuration-layer/get-location-directory
                  pkg-name
@@ -479,8 +482,7 @@ has been changed to THEME."
   "Add all theme packages from `dotspacemacs-themes' to packages to install."
   (setq dotspacemacs--additional-theme-packages nil)
   (dolist (theme dotspacemacs-themes)
-    (let* ((theme-name (spacemacs//get-theme-name theme))
-           (pkg-name (spacemacs/get-theme-package-name theme-name))
+    (let* ((pkg-name (spacemacs/get-theme-package-name theme))
            (theme2 (copy-tree theme)))
       (when pkg-name
         (if (listp theme2)

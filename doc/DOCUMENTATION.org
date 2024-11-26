@@ -73,6 +73,7 @@
     - [[#default-theme][Default theme]]
     - [[#choosing-themes][Choosing themes]]
       - [[#themes-transient-state][Themes Transient State]]
+    - [[#external-theme][External theme]]
     - [[#browsing-themes][Browsing themes]]
     - [[#notes][Notes]]
   - [[#font][Font]]
@@ -1204,6 +1205,16 @@ You can cycle between the themes declared in =dotspacemacs-themes= with
 | ~n~ or ~<right>~ | change to the next theme                      |
 | ~p~ or ~<left>~  | change to the previous theme                  |
 | ~t~ or ~<up>~    | open helm-themes to select an installed theme |
+
+*** External theme
+For an external theme from a package, please add the theme and its package into
+the =dotspacemacs-themes=, then the Spacemacs will install the package and apply
+the theme. Here is an example:
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-themes
+                '((humanoid-light :package humanoid-themes)
+                  spacemacs-dark))
+#+end_src
 
 *** Browsing themes
 You can see samples of all themes included in the =themes-megapack= layer
