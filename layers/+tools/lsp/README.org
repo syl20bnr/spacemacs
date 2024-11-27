@@ -12,6 +12,7 @@
   - [[#code-actions-on-modeline][Code actions on modeline]]
   - [[#navigation-mode][Navigation mode]]
   - [[#breadcrumb-on-headerline][Breadcrumb on headerline]]
+  - [[#management-of-company-backends][Management of company-backends]]
 - [[#key-bindings][Key bindings]]
   - [[#key-binding-prefixes][Key binding prefixes]]
   - [[#core-key-bindings][Core key bindings]]
@@ -167,6 +168,32 @@ To display the current project, current file, and document symbols,
 
 You may need to run ~all-the-icons-install-fonts~ if you have ~all-the-icons~ package installed,
 otherwise separators used by ~lsp-headerline-breadcrumb-mode~ will be garbled due to fonts missing.
+
+** Management of company-backends
+~lsp-mode~ aggressively inserts ~company-capf~ (which contains its ~completion-at-point-function~)
+as the ultimate first ~company-backend~ whenever it is activated.
+This is fine in the majority of cases, but can be a hinderance when an LSP server doesn't provide functionality
+that could be provided by another ~company-backend~ like ~company-files~, for example.
+
+To manage ~company-backends~ yourself you can set the layer variable ~lsp-manage-backends-manually~ like this:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((lsp :variables lsp-manage-backends-manually '(go-mode))))
+#+END_SRC
+
+The default value of ~lsp-manage-backends-manually~ is ~nil~, which means that ~lsp-mode~ handles the backend
+management, but it can also be either ~:all~ or a list of modes for which you want to manage the backends yourself.
+
+To make ~company~ provide completion candidates from ~company-capf~ combined with ~company-files~ in our ~go-mode~
+example, you can set it like this in your ~dotspacemacs/user-config~:
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'go-mode-hook
+          (lambda ()
+           (setq-local company-backends '(:separate company-capf company-files company-yasnippet))))
+#+END_SRC
+
 
 * Key bindings
 A number of lsp features useful for all/most modes have been bound to the lsp minor mode, meaning they'll be
