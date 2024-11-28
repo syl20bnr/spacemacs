@@ -1818,7 +1818,7 @@ a package."
   (with-temp-file file
     (insert
      (json-encode
-      (cl-mapcan
+      (mapcan
        (lambda (name)
          (with-demoted-errors "Recipe error: %S"
            (and (package-recipe-lookup name)
@@ -1836,10 +1836,10 @@ a package."
   "Convert INFO so that it can be serialize to JSON in the desired shape."
   (pcase-let ((`(,ver ,deps ,desc ,type . (,props)) (append info nil)))
     (list :ver ver
-          :deps (cl-mapcan (lambda (dep)
-                             (list (intern (format ":%s" (car dep)))
-                                   (cadr dep)))
-                           deps)
+          :deps (mapcan (lambda (dep)
+                          (list (intern (format ":%s" (car dep)))
+                                (cadr dep)))
+                        deps)
           :desc desc
           :type type
           :props props)))
@@ -1853,31 +1853,31 @@ a package."
                     (format "%s <%s>" name mail)
                   (or name
                       (format "<%s>" mail))))))
-    (cl-mapcan (lambda (entry)
-                 (list (intern (format ":%s" (car entry)))
-                       (let* ((info (cdr entry))
-                              (extra (aref info 4))
-                              (maintainer (assq :maintainer extra))
-                              (maintainers (assq :maintainers extra))
-                              (authors (assq :authors extra)))
-                         (when maintainer
-                           (setcdr maintainer
-                                   (format-person (cdr maintainer))))
-                         (when maintainers
-                           (if (cl-every #'listp (cdr maintainers))
-                               (setcdr maintainers
-                                       (mapcar #'format-person
-                                               (cdr maintainers)))
-                             (setq maintainers ; silence >= 30 compiler
-                                   (assq-delete-all :maintainers extra))))
-                         (when authors
-                           (if (cl-every #'listp (cdr authors))
-                               (setcdr authors
-                                       (mapcar #'format-person (cdr authors)))
-                             (setq authors ; silence >= 30 compiler
-                                   (assq-delete-all :authors extra))))
-                         (package-build--pkg-info-for-json info))))
-               (package-build-archive-alist))))
+    (mapcan (lambda (entry)
+              (list (intern (format ":%s" (car entry)))
+                    (let* ((info (cdr entry))
+                           (extra (aref info 4))
+                           (maintainer (assq :maintainer extra))
+                           (maintainers (assq :maintainers extra))
+                           (authors (assq :authors extra)))
+                      (when maintainer
+                        (setcdr maintainer
+                                (format-person (cdr maintainer))))
+                      (when maintainers
+                        (if (cl-every #'listp (cdr maintainers))
+                            (setcdr maintainers
+                                    (mapcar #'format-person
+                                            (cdr maintainers)))
+                          (setq maintainers ; silence >= 30 compiler
+                                (assq-delete-all :maintainers extra))))
+                      (when authors
+                        (if (cl-every #'listp (cdr authors))
+                            (setcdr authors
+                                    (mapcar #'format-person (cdr authors)))
+                          (setq authors ; silence >= 30 compiler
+                                (assq-delete-all :authors extra))))
+                      (package-build--pkg-info-for-json info))))
+            (package-build-archive-alist))))
 
 (defun package-build-archive-alist-as-json (file)
   "Dump the build packages list to FILE as json."
