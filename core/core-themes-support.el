@@ -395,13 +395,23 @@ the action."
   ;; if failed to load the theme we can try again after the packages activated.
   (if-let* ((default-theme (car dotspacemacs-themes))
             (theme-name (spacemacs//get-theme-name default-theme)))
-      (condition-case err
-          (spacemacs//load-theme-internal theme-name)
-        ('error (setq spacemacs--delayed-user-theme theme-name)
-                (setq spacemacs--fallback-theme
-                      (or (spacemacs//guess-fallback-theme default-theme)
-                          'spacemacs-dark))
-                (spacemacs//load-theme-internal spacemacs--fallback-theme)))
+      (progn
+        ;; non-registered theme, assume the theme is from a package
+        (when-let* (((not (memq theme-name (cons 'default (custom-available-themes)))))
+                    (pkg-name (spacemacs/get-theme-package-name default-theme)))
+          (when dotspacemacs-enable-package-quickstart
+            (message "Your default theme %s requires full package initilization"
+                     theme-name))
+          (package-initialize t)
+          (package-activate pkg-name)
+          (spacemacs//activate-theme-packages (list default-theme)))
+        (condition-case err
+            (spacemacs//load-theme-internal theme-name)
+          ('error (setq spacemacs--delayed-user-theme theme-name)
+                  (setq spacemacs--fallback-theme
+                        (or (spacemacs//guess-fallback-theme default-theme)
+                            'spacemacs-dark))
+                  (spacemacs//load-theme-internal spacemacs--fallback-theme))))
     (spacemacs-buffer/warning
      (concat "Please check the `dotspacemacs-themes' in your dotfile\n"
              "to make sure it has valid themes. Invalid value: \"%s\"")
@@ -506,16 +516,16 @@ has been changed to THEME."
 (add-hook 'configuration-layer-pre-load-hook
           'spacemacs//add-theme-packages-to-additional-packages)
 
-(defun spacemacs//activate-theme-packages ()
+(defun spacemacs//activate-theme-packages (&optional themes-list)
   "Activate all theme packages from `dotspacemacs-themes'."
   ;; Not all themes add themselves to `custom-theme-load-path' in autoloads.
   ;; (for example, moe-theme).
   ;;
   ;; Also, if a theme is :location local, autoloads do not happen,
   ;; so this is needed for those packages.
-  (dolist (theme dotspacemacs-themes)
-    (when-let* ((theme-name (spacemacs//get-theme-name theme))
-                ((memq theme-name (cons 'default (custom-available-themes))))
+  (dolist (theme (or themes-list dotspacemacs-themes))
+    (when-let* ((name (spacemacs//get-theme-name theme))
+                ((not (memq name (cons 'default (custom-available-themes)))))
                 (pkg-dir (spacemacs//get-theme-package-directory theme)))
       (add-to-list 'custom-theme-load-path pkg-dir))))
 
