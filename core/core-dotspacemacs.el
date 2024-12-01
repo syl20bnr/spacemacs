@@ -261,7 +261,10 @@ whenever you start Emacs."
                                       spacemacs-light)
   "List of themes, the first of the list is loaded when spacemacs starts.
 Press `SPC T n' to cycle to the next theme in the list (works great
-with 2 themes variants, one dark and one light"
+with 2 themes variants, one dark and one light). A theme from external
+package can be defined with `:package', or a theme can be defined with
+`:location' to download the theme package, refer the themes section in
+DOCUMENTATION.org for the full theme specifications."
   '(repeat (choice symbol (cons symbol sexp)))
   'spacemacs-dotspacemacs-init)
 

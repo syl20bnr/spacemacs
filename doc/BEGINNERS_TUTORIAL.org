@@ -179,7 +179,7 @@ favorite package manager. The layer readme will tell if this is the case.
 ** Changing the colour theme
 You can toggle the theme by ~SPC T n~. This cycles between currently
 activated themes. You can find more by adding the themes-megapack layer and
-activate them by writing their names in the dotspacemacs-themes list.
+activate them by writing their names in the =dotspacemacs-themes= list.
 
 ** Starting maximized
 Editing the =dotspacemacs-maximized-at-startup= variable from =nil= to =t= will

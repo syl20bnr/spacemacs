@@ -39,6 +39,8 @@
   "Face for displaying key bindings in Spacemacs documents."
   :group 'org-faces)
 
+;; Do NOT inflate this map, encourage users to use '(<theme> :package <pkg-name>)
+;; in `dotspacemacs-themes'.
 (defconst spacemacs-theme-name-to-package
   '(
     (alect-black                      . alect-themes)
