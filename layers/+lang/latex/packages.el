@@ -257,6 +257,7 @@
 (defun latex/init-magic-latex-buffer ()
   (use-package magic-latex-buffer
     :defer t
+    :spacediminish (magic-latex-buffer " ✦" " mL")
     :init
     (add-hook 'TeX-update-style-hook 'magic-latex-buffer)
     (setq magic-latex-enable-block-highlight t
