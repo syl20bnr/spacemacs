@@ -388,9 +388,10 @@ package name does not match theme name + `-theme' suffix.")
 
 (defun spacemacs/load-default-theme ()
   "Load default theme.
-Default theme is the car of `dotspacemacs-themes'. If failed to load the
-default theme, setting the `spacemacs--delayed-user-theme' to postpond
-the action."
+Default theme is the first element of `dotspacemacs-themes'.  If
+loading the default theme fails, set
+`spacemacs--delayed-user-theme' to postpone the action and try
+again layer configuration."
   ;; This function is called before all packages are necessarily activated, so
   ;; if failed to load the theme we can try again after the packages activated.
   (if-let* ((default-theme (car dotspacemacs-themes))
@@ -400,9 +401,10 @@ the action."
         (when-let* (((not (memq theme-name (cons 'default (custom-available-themes)))))
                     (pkg-name (spacemacs/get-theme-package-name default-theme)))
           (when dotspacemacs-enable-package-quickstart
-            (message "Your default theme %s requires full package initilization"
-                     theme-name))
-          (package-initialize t)
+            (spacemacs-buffer/warning
+             (format-message "Your default theme %s requires full package initialization, negating the benefit of `dotspacemacs-enable-package-quickstart'."
+                             theme-name)))
+          (package-initialize 'no-activate)
           (package-activate pkg-name)
           (spacemacs//activate-theme-packages (list default-theme)))
         (condition-case err
