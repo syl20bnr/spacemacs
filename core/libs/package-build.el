@@ -304,7 +304,7 @@ disallowed."
 (defvar package-build--use-sandbox (eq system-type 'gnu/linux)
   "Whether to run untrusted code using the \"bubblewrap\" sandbox.
 \"bubblewrap\" is only available on Linux, where the sandbox is
-enabled by default, to avoid accidentially not using it.")
+enabled by default, to avoid accidentally not using it.")
 
 (defvar package-build--sandbox-readonly-binds
   '("/bin" "/lib" "/lib64" "/usr"    ;fhs
