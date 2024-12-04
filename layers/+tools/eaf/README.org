@@ -85,7 +85,7 @@ Eaf provides some key bindings only conditionally, so if some key binding does n
 work, then be sure that the relevant eaf application has been correctly
 installed.
 
-Use ~SPC t k m~ to [[https://develop.spacemacs.org/doc/DOCUMENTATION.html#which-key-persistent][show the EAF key bindings persistently in which-key]], or use
+Use ~SPC t k m~ to [[https://spacemacs.org/doc/DOCUMENTATION.html#which-key-persistent][show the EAF key bindings persistently in which-key]], or use
 ~SPC h d K~ to show the `eaf-mode-map` in a separate buffer.
 
 ** Global
@@ -96,7 +96,7 @@ Use ~SPC t k m~ to [[https://develop.spacemacs.org/doc/DOCUMENTATION.html#which-
 | ~SPC a a f~ | EAF open file ([[https://github.com/emacs-eaf/emacs-application-framework#launch-eaf-applications][see EAF doc for supported file types]])                          |
 | ~SPC a a s~ | EAF open system monitor                                                       |
 | ~SPC a a M~ | EAF open musik player                                                         |
-| ~SPC t k m~ | Show available key commands in which-key (read [[https://develop.spacemacs.org/doc/DOCUMENTATION.html#which-key][here]] for more details)         |
+| ~SPC t k m~ | Show available key commands in which-key (read [[https://spacemacs.org/doc/DOCUMENTATION.html#which-key][here]] for more details)         |
 | ~SPC m d~   | toggle dark-mode (or in browser press ~M-d~ and in pdf-viewer just press ~d~) |
 
 *** Browser

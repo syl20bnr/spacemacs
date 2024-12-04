@@ -29,13 +29,13 @@ For example to get python support, simply add =python= to the list of
 =~/.spacemacs= file by pressing =SPC f e d= and then after adding the layer,
 reload it with =SPC f e R=. Now open a =.py= file (=SPC f f=) to find the python
 environment has been fully configured. Some extra configuration might make the
-environment even more powerful, which is very well described in the [[https://develop.spacemacs.org/layers/+lang/python/README.html][layer's
+environment even more powerful, which is very well described in the [[https://spacemacs.org/layers/+lang/python/README.html][layer's
 documentation]] that can be accessed by pressing =SPC h l= and selecting the
 =python= layer entry. For configuration of specific packages within a layer,
 =SPC h SPC= provides quick navigation functionality for jumping directly to the
 relevant location within the configuration files.
 
-A list of pre-configured layers is available [[https://develop.spacemacs.org/layers/LAYERS.html][here]]. If you still would like to
+A list of pre-configured layers is available [[https://spacemacs.org/layers/LAYERS.html][here]]. If you still would like to
 configure anything not covered by any layer, then it is easy to build a personal
 layer.
 

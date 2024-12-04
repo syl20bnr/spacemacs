@@ -174,7 +174,7 @@ the current buffer already has headlines with -<N> postfixes.
 (defun spacemacs//org-heading-annotate-custom-id ()
   "Annotate headings with the indexes that GitHub uses for linking.
 `org-html-publish-to-html' will use them instead of the default #orgheadline{N}.
-This way the GitHub links and the https://develop.spacemacs.org/ links will be
+This way the GitHub links and the https://spacemacs.org/ links will be
 compatible."
   (let ((heading-regexp "^[\\*]+\s\\(.*\\).*$"))
     (goto-char (point-min))

@@ -818,7 +818,7 @@ are also available.
 
 ** Babel / Source Blocks
 Besides the key bindings mentioned here it is recommended to use the
-[[https://develop.spacemacs.org/layers/+completion/auto-completion/README.html][auto-completion layer]] and its [[https://develop.spacemacs.org/layers/+completion/auto-completion/README.html#yasnippet][yasnippet key bindings]] in particular.
+[[https://spacemacs.org/layers/+completion/auto-completion/README.html][auto-completion layer]] and its [[https://spacemacs.org/layers/+completion/auto-completion/README.html#yasnippet][yasnippet key bindings]] in particular.
 
 | Key binding | Description                              |
 |-------------+------------------------------------------|
