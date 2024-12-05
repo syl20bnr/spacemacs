@@ -27,6 +27,8 @@
 ;;; Code:
 
 ;;;; PATH variables/constants
+(when (version<= emacs-version "28")
+  (eval-when-compile (require 'subr-x))) ; for the 'if-let*'
 
 ;; ~/.emacs.d
 (defvar spacemacs-start-directory
@@ -96,7 +98,14 @@
 ;; because Spacemacs may be installed to a shared location and this directory
 ;; and its children should be per-user.
 (defconst spacemacs-cache-directory
-  (concat user-emacs-directory ".cache/")
+  (if-let* ((spc-cache (getenv "SPACEMACSCACHE")))
+      spc-cache
+    (if-let* ((dot-cache (concat user-emacs-directory ".cache/"))
+              (xdg-cache (getenv "XDG_CACHE_HOME"))
+              (spc-cache (expand-file-name "spacemacs/" xdg-cache))
+              ((file-exists-p spc-cache)))
+        spc-cache
+      dot-cache))
   "Spacemacs storage area for persistent files.")
 
 ;; ~/.emacs.d/.cache/auto-save
