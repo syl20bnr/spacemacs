@@ -37,6 +37,7 @@
 - [[#dotfile-configuration][Dotfile Configuration]]
   - [[#dotfile-installation][Dotfile Installation]]
   - [[#alternative-dotdirectory][Alternative dotdirectory]]
+  - [[#alternative-cache-directory][Alternative cache directory]]
   - [[#synchronization-of-dotfile-changes][Synchronization of dotfile changes]]
   - [[#testing-the-dotfile][Testing the dotfile]]
   - [[#dotfile-contents][Dotfile Contents]]
@@ -553,6 +554,16 @@ change the location of this directory.
 *Note*: =~/.spacemacs= will always take priority over =~/.spacemacs.d/init.el=,
 so =~/.spacemacs= must not exist for =~/.spacemacs.d/init.el= to be used by
 Spacemacs.
+
+** Alternative cache directory
+Spacemacs use the cache dir =.cache= under =user-emacs-directory=, normally it
+is =~/.emacs.d/.cache/=.
+
+If the envrionment variable =XDG_CACHE_HOME= exists, Spacemacs will use the
+=spacemacs/= under the CACHE directory, for example =~/.cache/spacemacs/=.
+
+To change the default cache directory, using the environment variable
+=SPACEMACSCACHE=.
 
 ** Synchronization of dotfile changes
 To apply the modifications made in =~/.spacemacs= press ~SPC f e R~. It will
