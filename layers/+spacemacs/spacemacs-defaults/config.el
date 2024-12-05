@@ -228,7 +228,7 @@ or `nil' to only save and not visit the file."
       eval-expression-print-level nil)
 
 ;; cache files
-(setq tramp-persistency-file-name (concat spacemacs-cache-directory "tramp"))
+(setq tramp-persistency-file-name (concat spacemacs-state-directory "tramp"))
 
 ;; seems pointless to warn. There's always undo.
 (put 'narrow-to-region 'disabled nil)

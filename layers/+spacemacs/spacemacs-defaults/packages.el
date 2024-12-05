@@ -80,7 +80,7 @@
   (use-package bookmark
     :defer t
     :init
-    (setq bookmark-default-file (concat spacemacs-cache-directory "bookmarks")
+    (setq bookmark-default-file (concat spacemacs-state-directory "bookmarks")
           ;; autosave each change
           bookmark-save-flag 1)
     (spacemacs/set-leader-keys "fb" 'bookmark-jump)))
@@ -390,7 +390,7 @@
     (when (and (boundp 'recentf-auto-save-timer)
                (timerp recentf-auto-save-timer))
       (cancel-timer recentf-auto-save-timer))
-    (setq recentf-save-file (concat spacemacs-cache-directory "recentf")
+    (setq recentf-save-file (concat spacemacs-state-directory "recentf")
           recentf-max-saved-items 1000
           recentf-auto-cleanup 'never
           recentf-auto-save-timer (run-with-idle-timer 600 t
@@ -407,7 +407,7 @@
   (use-package savehist
     :init
     ;; Minibuffer history
-    (setq savehist-file (concat spacemacs-cache-directory "savehist")
+    (setq savehist-file (concat spacemacs-state-directory "savehist")
           enable-recursive-minibuffers t ; Allow commands in minibuffers
           history-length 1000
           savehist-additional-variables '(search-ring
@@ -421,7 +421,7 @@
   (use-package saveplace
     :init
     ;; Save point position between sessions
-    (setq save-place-file (concat spacemacs-cache-directory "places"))
+    (setq save-place-file (concat spacemacs-state-directory "places"))
     (save-place-mode)))
 
 (defun spacemacs-defaults/init-subword ()

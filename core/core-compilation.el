@@ -28,7 +28,7 @@
 (defvar spacemacs--last-emacs-version ""
   "This variable is set during Emacs initialization to its version.")
 (defconst spacemacs--last-emacs-version-file
-  (expand-file-name (concat spacemacs-cache-directory "last-emacs-version"))
+  (expand-file-name (concat spacemacs-state-directory "last-emacs-version"))
   "File that sets `spacemacs--last-emacs-version' variable.")
 
 (defun spacemacs//remove-byte-compiled-files-in-dir (dir)

@@ -37,6 +37,7 @@
 - [[#dotfile-configuration][Dotfile Configuration]]
   - [[#dotfile-installation][Dotfile Installation]]
   - [[#alternative-dotdirectory][Alternative dotdirectory]]
+  - [[#alternative-state-directory][Alternative STATE directory]]
   - [[#synchronization-of-dotfile-changes][Synchronization of dotfile changes]]
   - [[#testing-the-dotfile][Testing the dotfile]]
   - [[#dotfile-contents][Dotfile Contents]]
@@ -553,6 +554,19 @@ change the location of this directory.
 *Note*: =~/.spacemacs= will always take priority over =~/.spacemacs.d/init.el=,
 so =~/.spacemacs= must not exist for =~/.spacemacs.d/init.el= to be used by
 Spacemacs.
+
+** Alternative STATE directory
+Spacemacs use the =spacemacs-state-directory= to store user-specific state files.
+It's decided by follow priority:
+- If the environment variable =SPACEMACSSTATE= exists, it always be truthed,
+  and user need ensure the directory is accessible by Spacemacs; otherwise
+
+- If the envrionment variable =XDG_STATE_HOME= exists, Spacemacs will try the
+=spacemacs/= under the STATE directory if the directory exists, for example
+=~/.local/state/spacemacs/=.
+
+- Spacemacs will use =spacemacs-cache-directory= for compatible with previous
+  installations.
 
 ** Synchronization of dotfile changes
 To apply the modifications made in =~/.spacemacs= press ~SPC f e R~. It will

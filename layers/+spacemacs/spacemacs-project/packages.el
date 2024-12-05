@@ -61,7 +61,7 @@
     (setq projectile-sort-order 'recentf
           projectile-cache-file (concat spacemacs-cache-directory
                                         "projectile.cache")
-          projectile-known-projects-file (concat spacemacs-cache-directory
+          projectile-known-projects-file (concat spacemacs-statedirectory
                                                  "projectile-bookmarks.eld"))
     (spacemacs/set-leader-keys
       ;; File path

@@ -42,7 +42,7 @@
 (defvar spacemacs-version--check-timer nil
   "The current timer for new version check.")
 (defvar spacemacs-version--last-startup-check-file
-  (expand-file-name (concat spacemacs-cache-directory "last-version-check"))
+  (expand-file-name (concat spacemacs-state-directory "last-version-check"))
   "File where the last startup version check time is stored.")
 (defvar spacemacs-version--last-startup-check-time nil
   "Time of last version check.")
@@ -52,7 +52,7 @@
   "Last detected git revision of `spacemacs-start-directory' or nil.
 NOTE: This variable will be set asynchronously after Spacemacs startup.")
 (defvar spacemacs-revision--file
-  (expand-file-name (concat spacemacs-cache-directory "spacemacs-revision"))
+  (expand-file-name (concat spacemacs-state-directory "spacemacs-revision"))
   "File where the last revision of `spacemacs-start-directory' is saved.")
 (defvar spacemacs-revision--changed-hook nil
   "Hooks to be ran when Spacemacs detects revision change.")

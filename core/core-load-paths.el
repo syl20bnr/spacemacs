@@ -27,6 +27,8 @@
 ;;; Code:
 
 ;;;; PATH variables/constants
+(when (version<= emacs-version "28")
+  (eval-when-compile (require 'subr-x))) ; for the 'if-let*'
 
 ;; ~/.emacs.d
 (defvar spacemacs-start-directory
@@ -104,6 +106,16 @@
   (concat spacemacs-cache-directory "auto-save/")
   "Spacemacs auto-save directory.")
 
+(defconst spacemacs-state-directory
+  (file-name-as-directory
+   (if-let* ((spc-state (getenv "SPACEMACSSTATE")))
+       spc-state
+     (if-let* ((xdg-state (getenv "XDG_STATE_HOME"))
+               (spc-state (expand-file-name "spacemacs/" xdg-state))
+               ((file-exists-p spc-state)))
+         spc-state
+       spacemacs-cache-directory)))
+  "Spacemacs storage area for user-specific state files.")
 
 ;;;; Setup cache directories
 

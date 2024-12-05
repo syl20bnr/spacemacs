@@ -653,7 +653,7 @@ See variable `undo-fu-session-directory'." dir))
   (use-package persistent-scratch
     :defer t
     :init
-    (setq persistent-scratch-save-file (concat spacemacs-cache-directory ".persistent-scratch")
+    (setq persistent-scratch-save-file (concat spacemacs-state-directory ".persistent-scratch")
           persistent-scratch-autosave-interval 60
           persistent-scratch-what-to-save '(point narrowing))
     (add-hook 'spacemacs-scratch-mode-hook 'persistent-scratch-mode)
