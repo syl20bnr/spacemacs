@@ -1246,9 +1246,12 @@ USEDP if non-nil indicates that made packages are used packages."
                        dotspacemacs--additional-theme-packages))
     (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
            (obj (configuration-layer/get-package pkg-name)))
-      (if obj
-          (setq obj (configuration-layer/make-package pkg 'dotfile obj))
-        (setq obj (configuration-layer/make-package pkg 'dotfile)))
+      (if (null obj)
+          (setq obj (configuration-layer/make-package pkg 'dotfile))
+        ;; set :toggle to t for user defined package should be enabled default
+        (unless (and (listp pkg) (memq :toggle pkg))
+          (oset obj :toggle t))
+        (setq obj (configuration-layer/make-package pkg 'dotfile obj)))
       (configuration-layer//add-package obj usedp)))
   (dolist (xpkg dotspacemacs-excluded-packages)
     (let ((obj (configuration-layer/get-package xpkg)))
