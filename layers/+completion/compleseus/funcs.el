@@ -63,7 +63,7 @@ active and `force-input' is not nil, `thing-at-point' will be returned."
   )
 
 (defun spacemacs/compleseus-search (force-initial-input initial-directory)
-  (let* ((initial-input (rxt-quote-pcre
+  (let* ((initial-input (regexp-quote
                          (spacemacs/initial-search-input force-initial-input)))
          (default-directory
           (or initial-directory (read-directory-name "Start from directory: "))))
