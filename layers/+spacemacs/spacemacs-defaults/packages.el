@@ -420,12 +420,9 @@
 (defun spacemacs-defaults/init-saveplace ()
   (use-package saveplace
     :init
-    (if (fboundp 'save-place-mode)
-        ;; Emacs 25 has a proper mode for `save-place'
-        (save-place-mode)
-      (setq save-place t))
     ;; Save point position between sessions
-    (setq save-place-file (concat spacemacs-cache-directory "places"))))
+    (setq save-place-file (concat spacemacs-cache-directory "places"))
+    (save-place-mode)))
 
 (defun spacemacs-defaults/init-subword ()
   (use-package subword
