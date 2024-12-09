@@ -23,6 +23,9 @@
 (require 'core-load-paths)
 (require 'core-customization)
 
+(when (version<= emacs-version "28")
+  (autoload 'if-let* "subr-x"))
+
 (defconst dotspacemacs-template-directory
   (concat spacemacs-core-directory "templates/")
   "Templates directory.")
@@ -36,23 +39,26 @@ Useful for users in order to given them a hint of potential bottleneck in
 their configuration.")
 
 (defconst dotspacemacs-directory
-  (let* ((spacemacs-dir-env (getenv "SPACEMACSDIR"))
-         (spacemacs-dir (if spacemacs-dir-env
-                            (file-name-as-directory spacemacs-dir-env)
-                          "~/.spacemacs.d/")))
+  (let ((spacemacs-dir
+         (file-name-as-directory
+          (or (getenv "SPACEMACSDIR")
+              (if-let* ((xdg-conf (getenv "XDG_CONFIG_HOME")))
+                  (concat (file-name-as-directory xdg-conf) "spacemacs/")
+                "~/.spacemacs.d/")))))
     (when (file-directory-p spacemacs-dir)
       spacemacs-dir))
   "Directory containing Spacemacs customizations (defaults to nil).
 - If environment variable SPACEMACSDIR is set and that directory exists,
   use that value.
+- If environment variable XDG_CONFIG_HOME is set and its subdirectory
+  \"spacemacs\" exists, use that value.
 - Otherwise use ~/.spacemacs.d if it exists.")
 
 (defconst dotspacemacs-filepath
-  (let* ((spacemacs-dir-env (getenv "SPACEMACSDIR"))
-         (spacemacs-init (if spacemacs-dir-env
-                             (concat (file-name-as-directory spacemacs-dir-env)
-                                     "init.el")
-                           "~/.spacemacs")))
+  (let* ((spacemacs-init
+          (if dotspacemacs-directory
+              (concat dotspacemacs-directory "init.el")
+            "~/.spacemacs")))
     (if (file-regular-p spacemacs-init)
         spacemacs-init
       (let ((fallback-init "~/.spacemacs.d/init.el"))
@@ -60,10 +66,11 @@ their configuration.")
             fallback-init
           spacemacs-init))))
   "Filepath to Spacemacs configuration file (defaults to ~/.spacemacs).
-- If environment variable SPACEMACSDIR is set and $SPACEMACSDIR/init.el
-  exists, use that value.
+- If the `dotspacemacs-directory' exists and it contains \"init.el\" file,
+  use that value.
 - Otherwise use ~/.spacemacs if it exists.
-- Otherwise use ~/.spacemacs.d/init.el if it exists.")
+- Otherwise use ~/.spacemacs.d/init.el if it exists.
+- Otherwise use ~/.spacemacs whether it exists or not.")
 
 (spacemacs|defc dotspacemacs-distribution 'spacemacs
   "Base distribution to use. This is a layer contained in the directory
