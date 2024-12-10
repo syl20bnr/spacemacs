@@ -260,12 +260,12 @@ layer =spacemacs-bootstrap= which installs only essential packages like
 
 Also it is easier to select or exclude a sub-list of packages in a layer with
 the new keyword =:packages=. For instance here is an example to select only the
-packages =fill-column-indicator= and =golden-ratio= in the layer
+packages =display-fill-column-indicator= and =golden-ratio= in the layer
 =spacemacs-ui-visual=:
 
 #+BEGIN_SRC emacs-lisp
   (setq dotspacemacs-configuration-layers
-    (spacemacs-ui-visual :packages fill-column-indicator golden-ratio))
+    (spacemacs-ui-visual :packages display-fill-column-indicator golden-ratio))
 #+END_SRC
 
 Another example to select all the packages except =fancy-battery=:

@@ -13,7 +13,7 @@ This layer adds various modes to enhance Spacemacs visual appearance.
 - Automatic colorization of compilation buffers via =ansi-colors=.
 - Support for resuming the last layout when starting Spacemacs via =desktop=.
 - Support for showing a thin vertical line to indicate the fill column
-  via =fill-column-indicator=.
+  via =display-fill-column-indicator=.
 - Automatic highlighting of =TODO-tags= in programming and text modes
   via =hl-todo=.
 - Support for temporary windows which close automatically via =popwin=.

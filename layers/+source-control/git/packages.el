@@ -27,7 +27,6 @@
     emojify
     evil-collection
     evil-surround
-    fill-column-indicator
     ;; forge requires a C compiler on Windows so we disable
     ;; it by default on Windows.
     (forge :toggle (not (spacemacs/system-is-mswindows)))
@@ -69,9 +68,6 @@
     ;; See `git-packages' form in this file.
     (unless (spacemacs/system-is-mswindows)
       (add-to-list 'spacemacs-evil-collection-allowed-list 'forge))))
-
-(defun git/post-init-fill-column-indicator ()
-  (add-hook 'git-commit-mode-hook 'fci-mode))
 
 (defun git/init-helm-git-grep ()
   (use-package helm-git-grep
@@ -203,6 +199,8 @@
       ("Y" magit-blame-copy-hash)
       ("B" magit-blame :exit t)
       ("Q" nil :exit t))
+    (with-eval-after-load 'git-commit
+      (add-hook 'git-commit-mode-hook 'display-fill-column-indicator-mode))
     (with-eval-after-load 'persp-mode
       (add-hook 'persp-filter-save-buffers-functions
                 'spacemacs//magit-buffer-p))

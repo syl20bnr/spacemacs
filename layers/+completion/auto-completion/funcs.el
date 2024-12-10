@@ -321,18 +321,6 @@ MODE parameter must match the :modes values used in the call to
       (define-key map (kbd "C-p") 'company-select-previous)))))
 
 
-
-(defvar-local company-fci-mode-on-p nil)
-
-(defun company-turn-off-fci (&rest ignore)
-  (when (boundp 'fci-mode)
-    (setq company-fci-mode-on-p fci-mode)
-    (when fci-mode (fci-mode -1))))
-
-(defun company-maybe-turn-on-fci (&rest ignore)
-  (when company-fci-mode-on-p (fci-mode 1)))
-
-
 ;; helm-yas
 
 (defun spacemacs/helm-yas ()

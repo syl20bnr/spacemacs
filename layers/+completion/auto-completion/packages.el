@@ -105,9 +105,6 @@
           company-dabbrev-other-buffers t
           company-dabbrev-downcase nil)
 
-    (add-hook 'company-completion-started-hook 'company-turn-off-fci)
-    (add-hook 'company-completion-finished-hook 'company-maybe-turn-on-fci)
-    (add-hook 'company-completion-cancelled-hook 'company-maybe-turn-on-fci)
     :config
     (spacemacs|diminish company-mode " ⓐ" " a")
 

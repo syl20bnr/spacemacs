@@ -1615,7 +1615,7 @@ squared symbols like =🅿=.
 | =none=        | =ⓔ=     | e     | [[https://github.com/Somelauw/evil-org-mode][evil-org]] mode                                                        |
 | ~SPC t E e~   | =Ⓔe=    | Ee    | emacs editing style (holy mode)                                      |
 | ~SPC t E h~   | =Ⓔh=    | Eh    | hybrid editing style (hybrid mode)                                   |
-| ~SPC t f~     | =ⓕ=     | f     | fill-column-indicator mode                                           |
+| ~SPC t f~     | =ⓕ=     | f     | display-fill-column-indicator mode                                   |
 | ~SPC t F~     | =Ⓕ=     | F     | auto-fill mode                                                       |
 | ~SPC t G~     | =Ⓖ=     | G     | [[https://spacemacs.org/layers/+tags/gtags/README.html][ggtags]] mode                                                          |
 | ~SPC t g~     | =ⓖ=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                                                    |

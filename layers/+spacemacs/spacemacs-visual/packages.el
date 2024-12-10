@@ -26,10 +26,7 @@
         all-the-icons
         (ansi-colors :location built-in)
         desktop
-        ;; `display-fill-column-indicator' is available in Emacs 27+
-        (display-fill-column-indicator :location built-in
-                                       :toggle (boundp 'display-fill-column-indicator))
-        (fill-column-indicator :toggle (not (boundp 'display-fill-column-indicator)))
+        (display-fill-column-indicator :location built-in)
         hl-todo
         popup
         popwin
@@ -53,11 +50,11 @@
     (add-to-list 'desktop-path spacemacs-cache-directory)))
 
 (defun spacemacs-visual/init-display-fill-column-indicator ()
-  (spacemacs|add-toggle fill-column-indicator
+  (spacemacs|add-toggle display-fill-column-indicator
     :mode display-fill-column-indicator-mode
     :documentation "Display the fill column indicator."
     :evil-leader "tf")
-  (spacemacs|add-toggle fill-column-indicator-globally
+  (spacemacs|add-toggle display-fill-column-indicator-globally
     :mode global-display-fill-column-indicator-mode
     :documentation "Display the fill column indicator globally."
     :evil-leader "t C-f")
@@ -66,22 +63,6 @@
     ;; lighter
     (add-to-list 'minor-mode-alist '(display-fill-column-indicator-mode ""))
     (spacemacs|diminish display-fill-column-indicator-mode " ⓕ" " f")))
-
-(defun spacemacs-visual/init-fill-column-indicator ()
-  (use-package fill-column-indicator
-    :defer t
-    :spacediminish ((fci-mode " ⓕ" " f"))
-    :init
-    (setq fci-rule-width 1)
-    ;; manually register the minor mode since it does not define any
-    ;; lighter
-    (add-to-list 'minor-mode-alist '(fci-mode ""))
-    (spacemacs|add-toggle fill-column-indicator
-      :status fci-mode
-      :on (turn-on-fci-mode)
-      :off (turn-off-fci-mode)
-      :documentation "Display the fill column indicator."
-      :evil-leader "tf")))
 
 (defun spacemacs-visual/init-hl-todo ()
   (use-package hl-todo
