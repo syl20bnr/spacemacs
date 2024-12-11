@@ -61,19 +61,7 @@
     (add-hook 'spacemacs-editing-style-hook 'spacemacs//helm-hjkl-navigation)
     (add-hook 'helm-find-files-after-init-hook
               'spacemacs//helm-find-files-enable-helm--in-fuzzy)
-    ;; setup advices
-    (define-advice spacemacs/post-theme-init
-        (:after (&rest _) spacemacs/helm-header-line-adv)
-      "Update defaults for `helm' header line whenever a new theme is loaded"
-      ;; TODO factorize face definition with those defined in config.el
-      (setq helm-source-header-default-foreground
-            (face-attribute 'helm-source-header :foreground)
-            helm-source-header-default-background
-            (face-attribute 'helm-source-header :background)
-            helm-source-header-default-box
-            (face-attribute 'helm-source-header :box)
-            helm-source-header-default-height
-            (face-attribute 'helm-source-header :height)))
+    (add-hook 'spacemacs-post-theme-change-hook #'spacemacs//helm-update-header-line-faces)
     ;; ensure that the correct bindings are set at startup
     (spacemacs//helm-hjkl-navigation dotspacemacs-editing-style)
     ;; Transient state

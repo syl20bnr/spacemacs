@@ -93,9 +93,7 @@
                                                   font-lock-keyword-face
                                                   font-lock-function-name-face
                                                   font-lock-variable-name-face))
-    (define-advice spacemacs/post-theme-init (:after (&rest _) colors/post-theme-init)
-      "Adjust lightness and brightness of rainbow-identifiers on post theme init."
-      (colors//tweak-theme-colors))
+    (add-hook 'spacemacs-post-theme-change-hook #'colors//tweak-theme-colors)
     ;; key bindings
     (spacemacs/declare-prefix "Ci" "colors-identifiers")
     (spacemacs|add-toggle rainbow-identifier
