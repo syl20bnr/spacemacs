@@ -271,20 +271,9 @@ location of \".venv\" file, then relative to pyvenv-workon-home()."
                       (setq-local pyvenv-activate virtualenv-abs-path))
                      (t (pyvenv-workon virtualenv-path-in-file)
                         (setq-local pyvenv-workon virtualenv-path-in-file))))))))
+
 
 ;; Tests
-
-(defun spacemacs//python-imenu-create-index-use-semantic-maybe ()
-  "Use semantic if the layer is enabled."
-  (setq imenu-create-index-function 'spacemacs/python-imenu-create-index))
-
-;; fix for issue #2569 (https://github.com/syl20bnr/spacemacs/issues/2569) and
-;; Emacs 24.5 and older. use `semantic-create-imenu-index' only when
-;; `semantic-mode' is enabled, otherwise use `python-imenu-create-index'
-(defun spacemacs/python-imenu-create-index ()
-  (if (bound-and-true-p semantic-mode)
-      (semantic-create-imenu-index)
-    (python-imenu-create-index)))
 
 (defun spacemacs//python-get-main-testrunner ()
   "Get the main test runner."

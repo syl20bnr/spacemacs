@@ -454,9 +454,7 @@
   (when (configuration-layer/package-used-p 'anaconda-mode)
     (add-hook 'python-mode-hook
               'spacemacs//disable-semantic-idle-summary-mode t))
-  (spacemacs/add-to-hook 'python-mode-hook
-                         '(semantic-mode
-                           spacemacs//python-imenu-create-index-use-semantic-maybe)))
+  (add-hook 'python-mode-hook 'semantic-mode))
 
 (defun python/pre-init-smartparens ()
   (spacemacs|use-package-add-hook smartparens
