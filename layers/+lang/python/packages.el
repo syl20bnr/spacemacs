@@ -450,7 +450,8 @@
         (set-default-toplevel-value x (symbol-value x))))))
 
 (defun python/post-init-semantic ()
-  (when (configuration-layer/package-used-p 'anaconda-mode)
+  (when (and (configuration-layer/package-used-p 'anaconda-mode)
+             (configuration-layer/layer-used-p 'semantic))
     (add-hook 'python-mode-hook
               'spacemacs//disable-semantic-idle-summary-mode t))
   (spacemacs/add-to-hook 'python-mode-hook
