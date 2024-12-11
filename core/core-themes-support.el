@@ -483,7 +483,7 @@ When BACKWARD is non-nil, or with universal-argument, cycle backwards."
   (interactive)
   (spacemacs/cycle-spacemacs-theme t))
 
-(define-advice load-theme (:after (theme &rest _) spacemacs/load-theme-adv)
+(define-advice enable-theme (:after (theme &rest _) spacemacs//run-post-theme-hooks)
   "Perform post load processing."
   (setq spacemacs--cur-theme theme)
   (spacemacs/post-theme-init theme))
