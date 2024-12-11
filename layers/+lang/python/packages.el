@@ -74,7 +74,6 @@
     (spacemacs/set-leader-keys-for-major-mode 'python-mode
       "hh" 'anaconda-mode-show-doc
       "ga" 'anaconda-mode-find-assignments
-      "gb" 'xref-pop-marker-stack
       "gu" 'anaconda-mode-find-references)
     ;; new anaconda-mode (2018-06-03) removed `anaconda-view-mode-map' in
     ;; favor of xref. Eventually we need to remove this part.
@@ -396,6 +395,7 @@
       "cc" 'spacemacs/python-execute-file
       "cC" 'spacemacs/python-execute-file-focus
       "db" 'spacemacs/python-toggle-breakpoint
+      "gb" 'xref-pop-marker-stack
       "ri" 'spacemacs/python-remove-unused-imports
       "sB" 'spacemacs/python-shell-send-buffer-switch
       "sb" 'spacemacs/python-shell-send-buffer
