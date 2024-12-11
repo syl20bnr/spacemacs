@@ -95,7 +95,7 @@
                                                   font-lock-variable-name-face))
     (define-advice spacemacs/post-theme-init (:after (&rest _) colors/post-theme-init)
       "Adjust lightness and brightness of rainbow-identifiers on post theme init."
-      (colors//tweak-theme-colors spacemacs--cur-theme))
+      (colors//tweak-theme-colors))
     ;; key bindings
     (spacemacs/declare-prefix "Ci" "colors-identifiers")
     (spacemacs|add-toggle rainbow-identifier
@@ -122,7 +122,7 @@
     (spacemacs/set-leader-keys "Cis" 'colors/start-change-color-saturation)
     (spacemacs/set-leader-keys "Cil" 'colors/start-change-color-lightness)
     ;; tweak colors of current theme
-    (colors//tweak-theme-colors spacemacs--cur-theme)
+    (colors//tweak-theme-colors)
     (when (eq 'all colors-colorize-identifiers)
       (global-rainbow-identifiers-mode))))
 
