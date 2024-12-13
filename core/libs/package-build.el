@@ -142,8 +142,7 @@ then that overrides the value set here."
   :group 'package-build
   :type 'hook
   :options (list #'package-build-tag-version
-                 #'package-build-header-version
-                 #'package-build-pkg-version))
+                 #'package-build-header-version))
 
 (defcustom package-build-snapshot-version-functions
   (list #'package-build-timestamp-version)
@@ -184,25 +183,12 @@ If nil (the default), then all packages are build."
   #'package-build--build-package
   "Low-level function used to build a package.
 
-The default, `package-build--build-package', builds all packages the
-same way.  Metadata is extracted from the library whose name matches
-the name of the package.  The `NAME-pkg.el' file is not used as an
-input.  The package is distributed as a tarball, containing at least
-that library and a generated `NAME-pkg.el' file.
-
-Melpa still uses `package-build--build-multi-file-package'.
-Like the above function it uses a tarball for all packages, but it
-extracts metadata from both the main library and the `NAME-pkg.el'
-file, with non-nil values from the latter taking precedence.
-
-In the distant past, either `package-build--multi-file-package' or
-`package-build--single-file-package' were used by Melpa, depending on
-the number of libraries.  Set this variable to nil to do that again."
+The default, `package-build--build-package', extracts metadata from
+the library whose name matches the name of the package, and creates
+a tarball, containing at least that library and \"NAME-pkg.el\", which
+is generated."
   :group 'package-build
-  :type '(choice (const package-build--build-package)
-                 (const package-build--build-multi-file-package)
-                 (const nil)
-                 function))
+  :type '(choice (const package-build--build-package) function))
 
 (defcustom package-build-run-recipe-org-exports nil
   "Whether to export the files listed in the `:org-exports' recipe slot.
@@ -550,6 +536,8 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil."
 (defun package-build-pkg-version (rcp)
   "Determine version specified in the \"NAME-pkg.el\" file.
 Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil."
+  (declare (obsolete "extract version from tag and/or main library instead."
+                     "Package-Build 5.0.0"))
   (and-let* ((file (package-build--pkgfile rcp)))
     (let ((regexp (package-build--version-regexp rcp))
           commit date version)
@@ -1262,6 +1250,8 @@ is the same as the value of `export_file_name'."
 
 (defun package-build--extract-from-package (rcp files)
   "Store information from the \"*-pkg.el\" file from FILES in RCP."
+  (declare (obsolete "exclusively extract metadata from main library instead."
+                     "Package-Build 5.0.0"))
   (let* ((name (oref rcp name))
          (file (concat name "-pkg.el"))
          (file (or (car (rassoc file files)) file)))
@@ -1558,20 +1548,15 @@ in `package-build-archive-dir'."
                      (targets (oref rcp make-targets)))
             (package-build--message "Running make %s" (string-join targets " "))
             (apply #'package-build--call-sandboxed rcp "make" targets))
-          (let ((files (package-build-expand-files-spec rcp t)))
-            (cond
-             ((= (length files) 0)
-              (package-build--error rcp
-                "Unable to find files matching recipe patterns"))
-             (package-build-build-function
-              (funcall package-build-build-function rcp files))
-             ((= (length files) 1)
-              (package-build--build-single-file-package rcp files))
-             (t
-              (package-build--build-multi-file-package rcp files)))
-            (when package-build-badge-data
-              (package-build--write-badge-image
-               name version package-build-archive-dir))))
+          (if-let ((files (package-build-expand-files-spec rcp t)))
+              (funcall (or package-build-build-function
+                           'package-build--legacy-build)
+                       rcp files)
+            (package-build--error rcp
+              "Unable to find files matching recipe patterns"))
+          (when package-build-badge-data
+            (package-build--write-badge-image
+             name version package-build-archive-dir)))
       (package-build--cleanup rcp))))
 
 (defun package-build--build-package (rcp files)
@@ -1594,7 +1579,16 @@ in `package-build-archive-dir'."
         (delete-directory tmpdir t nil)))
     (package-build--write-archive-entry rcp)))
 
+(defun package-build--legacy-build (rcp files)
+  (declare (obsolete package-build--build-package "Package-Build 5.0.0"))
+  (with-suppressed-warnings ((obsolete package-build--build-single-file-package
+                                       package-build--build-multi-file-package))
+    (if (= (length files) 1)
+        (package-build--build-single-file-package rcp files)
+      (package-build--build-multi-file-package rcp files))))
+
 (defun package-build--build-single-file-package (rcp files)
+  (declare (obsolete package-build--build-package "Package-Build 5.0.0"))
   (oset rcp tarballp nil)
   (pcase-let* (((eieio name version) rcp)
                (file (caar files))
@@ -1613,6 +1607,7 @@ in `package-build-archive-dir'."
     (package-build--write-archive-entry rcp)))
 
 (defun package-build--build-multi-file-package (rcp files)
+  (declare (obsolete package-build--build-package "Package-Build 5.0.0"))
   (pcase-let* (((eieio name version) rcp)
                (tmpdir (file-name-as-directory (make-temp-file name t)))
                (target (expand-file-name (concat name "-" version) tmpdir)))
@@ -1621,7 +1616,8 @@ in `package-build-archive-dir'."
       (package-build--error name
         "%s[-pkg].el matching package name is missing" name))
     (package-build--extract-from-library rcp files)
-    (package-build--extract-from-package rcp files)
+    (with-suppressed-warnings ((obsolete package-build--extract-from-package))
+      (package-build--extract-from-package rcp files))
     (unless package-build--inhibit-build
       (unwind-protect
           (progn
