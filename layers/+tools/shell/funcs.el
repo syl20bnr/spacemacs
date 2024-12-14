@@ -173,7 +173,7 @@ is achieved by adding the relevant text properties."
             'spacemacs//eshell-auto-end nil t)
   (add-hook 'evil-hybrid-state-entry-hook
             'spacemacs//eshell-auto-end nil t)
-  (when (configuration-layer/package-used-p 'semantic)
+  (when (bound-and-true-p semantic-mode)
     (semantic-mode -1))
   ;; This is an eshell alias
   (defun eshell/clear ()
