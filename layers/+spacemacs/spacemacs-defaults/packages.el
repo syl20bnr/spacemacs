@@ -80,7 +80,6 @@
   (use-package bookmark
     :defer t
     :init
-    (add-to-list 'spacemacs-evil-collection-allowed-list 'bookmark)
     (setq bookmark-default-file (concat spacemacs-cache-directory "bookmarks")
           ;; autosave each change
           bookmark-save-flag 1)
