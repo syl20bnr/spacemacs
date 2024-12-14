@@ -159,7 +159,11 @@
 
 (defun emacs-lisp/init-elisp-def ()
   (use-package elisp-def
-    :defer t))
+    :defer t
+    :init
+    (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
+      (let ((jumpl (intern (format "spacemacs-jump-handlers-%S" mode))))
+        (add-to-list jumpl 'elisp-def)))))
 
 (defun emacs-lisp/init-elisp-demos ()
   (use-package elisp-demos
@@ -191,7 +195,6 @@
         (spacemacs/set-leader-keys-for-major-mode mode
           "hh" 'elisp-slime-nav-describe-elisp-thing-at-point))
       (let ((jumpl (intern (format "spacemacs-jump-handlers-%S" mode))))
-        (add-to-list jumpl 'elisp-def)
         (add-to-list jumpl 'elisp-slime-nav-find-elisp-thing-at-point)))
     :config (spacemacs|hide-lighter elisp-slime-nav-mode)))
 
