@@ -543,7 +543,7 @@ If region is not active then send line."
   "Start and/or switch to the REPL."
   (interactive)
   (if-let* ((shell-process (or (python-shell-get-process)
-                              (call-interactively #'run-python))))
+                               (call-interactively #'run-python))))
       (progn
         (pop-to-buffer (process-buffer shell-process))
         (evil-insert-state))

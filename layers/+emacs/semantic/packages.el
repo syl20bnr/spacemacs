@@ -27,31 +27,11 @@
         srefactor
         ))
 
-;; To fix issue #2569 (https://github.com/syl20bnr/spacemacs/issues/2569),
-;; we store the `imenu-create-index-function' for every semantic buffer, and
-;; restore it when semantic been turned off.
-(defvar-local spacemacs--imenu-create-index-fcn-orig nil
-  "Save the original `imenu-create-index-function'")
-
-(define-advice semantic-new-buffer-fcn
-    (:before (&rest _) store-imenu-create-index-function)
-  (setq spacemacs--imenu-create-index-fcn-orig imenu-create-index-function))
-
-(defun spacemacs//restore-imenu-after-semantic ()
-  (unless semantic-mode ; semantic turned off
-    (dolist (b (buffer-list))
-	    (with-current-buffer b
-	      (when (bound-and-true-p spacemacs--imenu-create-index-fcn-orig)
-          (setq imenu-create-index-function
-                spacemacs--imenu-create-index-fcn-orig))))))
-
 (defun semantic/init-semantic ()
   (use-package semantic
     :defer t
-    :config
-    (add-to-list 'semantic-default-submodes
-                 'global-semantic-idle-summary-mode)
-    (add-hook 'semantic-mode-hook 'spacemacs//restore-imenu-after-semantic)))
+    :config (add-to-list 'semantic-default-submodes
+                         'global-semantic-idle-summary-mode)))
 
 (defun semantic/init-srefactor ()
   (use-package srefactor :defer t))
