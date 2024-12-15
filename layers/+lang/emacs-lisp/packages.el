@@ -183,11 +183,7 @@
     (spacemacs|require-when-dumping 'elisp-slime-nav)
     (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
     (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
-      (spacemacs/declare-prefix-for-mode mode "mg" "find-symbol")
-      (spacemacs/set-leader-keys-for-major-mode mode
-        "gb" 'xref-go-back)
       (spacemacs/declare-prefix-for-mode mode "mh" "help")
-
       ;; Load better help mode if helpful is installed
       (if (configuration-layer/layer-used-p 'helpful)
           (spacemacs/set-leader-keys-for-major-mode mode
@@ -199,7 +195,6 @@
     :config (spacemacs|hide-lighter elisp-slime-nav-mode)))
 
 (defun emacs-lisp/init-emacs-lisp ()
-
   ;; Format buffers automatically if required
   (spacemacs//make-elisp-buffers-format-on-save-maybe)
 
@@ -209,6 +204,7 @@
     (spacemacs/declare-prefix-for-mode mode "me" "eval")
     (spacemacs/declare-prefix-for-mode mode "mt" "tests")
     (spacemacs/declare-prefix-for-mode mode "m=" "format")
+    (spacemacs/declare-prefix-for-mode mode "mg" "find-symbol")
     (spacemacs/set-leader-keys-for-major-mode mode
       "cc" 'emacs-lisp-byte-compile
       "e$" 'lisp-state-eval-sexp-end-of-line
@@ -218,6 +214,7 @@
       "er" 'eval-region
       "ef" 'eval-defun
       "el" 'lisp-state-eval-sexp-end-of-line
+      "gb" 'xref-go-back
       "gG" 'spacemacs/nav-find-elisp-thing-at-point-other-window
       ","  'lisp-state-toggle-lisp-state
       "==" 'spacemacs/indent-region-or-buffer
