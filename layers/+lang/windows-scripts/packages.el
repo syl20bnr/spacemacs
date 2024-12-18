@@ -25,7 +25,7 @@
   '(
     (bat-mode :location built-in)
     bmx-mode
-    (counsel-gtags :if (configuration-layer/package-used-p 'counsel))
+    counsel-gtags
     ggtags
     powershell))
 
