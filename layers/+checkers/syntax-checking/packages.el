@@ -28,7 +28,7 @@
 (defconst syntax-checking-packages
   '(
     flycheck
-    flycheck-pos-tip
+    (flycheck-pos-tip :toggle syntax-checking-enable-tooltips)
     popwin))
 
 (defun syntax-checking/init-flycheck ()
@@ -79,7 +79,6 @@
 
 (defun syntax-checking/init-flycheck-pos-tip ()
   (use-package flycheck-pos-tip
-    :if syntax-checking-enable-tooltips
     :after (flycheck)
     :init
     (flycheck-pos-tip-mode)

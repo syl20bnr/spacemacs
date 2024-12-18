@@ -26,7 +26,7 @@
         company
         org
         sql
-        (sql-indent :location elpa)
+        (sql-indent :location elpa :toggle sql-auto-indent)
         (sqlfmt :location local)
         (sqlup-mode :toggle sql-capitalize-keywords)
         ))
@@ -188,7 +188,6 @@
 
 (defun sql/init-sql-indent ()
   (use-package sql-indent
-    :if sql-auto-indent
     :defer t
     :init (add-hook 'sql-mode-hook 'sqlind-minor-mode)
     :config (spacemacs|hide-lighter sqlind-minor-mode)))

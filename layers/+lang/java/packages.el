@@ -32,7 +32,7 @@
     maven-test-mode
     (meghanada :toggle (eq java-backend 'meghanada))
     mvn
-    (lsp-java :requires lsp-mode)
+    (lsp-java :requires lsp-mode :toggle (eq java-backend 'lsp))
     org
     smartparens))
 
@@ -141,7 +141,6 @@
 (defun java/init-lsp-java ()
   (use-package lsp-java
     :defer t
-    :if (eq java-backend 'lsp)
     :config
     ;; key bindings
     (dolist (prefix '(("mc" . "compile/create")

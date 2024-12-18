@@ -23,7 +23,7 @@
 
 (defconst elixir-packages
   '(
-    alchemist
+    (alchemist :toggle (eq elixir-backend 'alchemist))
     company
     counsel-gtags
     dap-mode
@@ -38,7 +38,6 @@
 
 (defun elixir/init-alchemist ()
   (use-package alchemist
-    :if (eq elixir-backend 'alchemist)
     :defer t
     :init
     (spacemacs/register-repl 'alchemist 'alchemist-iex-run "alchemist")

@@ -24,7 +24,7 @@
 (defconst python-packages
   '(
     blacken
-    code-cells
+    (code-cells :toggle (not (configuration-layer/layer-used-p 'ipython-notebook)))
     company
     counsel-gtags
     cython-mode
@@ -58,14 +58,13 @@
     window-purpose
     yapfify
     ;; packages for anaconda backend
-    anaconda-mode
-    (company-anaconda :requires company)
+    (anaconda-mode :toggle (eq python-backend 'anaconda))
+    (company-anaconda :requires (anaconda-mode company))
     ;; packages for Microsoft's pyright language server
-    (lsp-pyright :requires lsp-mode)))
+    (lsp-pyright :requires lsp-mode :toggle (eq python-lsp-server 'pyright))))
 
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
-    :if (eq python-backend 'anaconda)
     :defer t
     :init
     (setq anaconda-mode-installation-directory
@@ -93,7 +92,6 @@
 
 (defun python/init-code-cells ()
   (use-package code-cells
-    :if (not (configuration-layer/layer-used-p 'ipython-notebook))
     :defer t
     :commands (code-cells-mode)
     :init (add-hook 'python-mode-hook 'code-cells-mode)
@@ -119,7 +117,6 @@
 
 (defun python/init-company-anaconda ()
   (use-package company-anaconda
-    :if (eq python-backend 'anaconda)
     :defer t))
 ;; see `spacemacs//python-setup-anaconda-company'
 
@@ -486,7 +483,6 @@
 
 (defun python/init-lsp-pyright ()
   (use-package lsp-pyright
-    :if (eq python-lsp-server 'pyright)
     :ensure nil
     :defer t))
 

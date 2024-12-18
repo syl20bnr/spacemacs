@@ -24,11 +24,11 @@
 (setq osx-packages
       '(
         helm
-        launchctl
+        (launchctl :toggle (spacemacs/system-is-mac))
         (osx-dictionary :toggle osx-use-dictionary-app)
-        osx-trash
-        osx-clipboard
-        reveal-in-osx-finder
+        (osx-trash :toggle (spacemacs/system-is-mac))
+        (osx-clipboard :toggle (spacemacs/system-is-mac))
+        (reveal-in-osx-finder :toggle (spacemacs/system-is-mac))
         term
         ))
 
@@ -57,7 +57,6 @@
 
 (defun osx/init-launchctl ()
   (use-package launchctl
-    :if (spacemacs/system-is-mac)
     :defer t
     :init
     (add-to-list 'auto-mode-alist '("\\.plist\\'" . nxml-mode))
@@ -105,13 +104,11 @@
 
 (defun osx/init-osx-trash ()
   (use-package osx-trash
-    :if (and (spacemacs/system-is-mac)
-             (not (boundp 'mac-system-move-file-to-trash-use-finder)))
+    :if (not (boundp 'mac-system-move-file-to-trash-use-finder))
     :init (osx-trash-setup)))
 
 (defun osx/init-osx-clipboard ()
   (use-package osx-clipboard
-    :if (spacemacs/system-is-mac)
     :commands
     (osx-clipboard-paste-function osx-clipboard-cut-function)
     :init
@@ -126,7 +123,6 @@
 
 (defun osx/init-reveal-in-osx-finder ()
   (use-package reveal-in-osx-finder
-    :if (spacemacs/system-is-mac)
     :commands reveal-in-osx-finder))
 
 (defun osx/post-init-term ()

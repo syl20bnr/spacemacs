@@ -41,7 +41,7 @@
         haskell-snippets
         counsel-gtags
         (helm-hoogle :requires helm)
-        hindent
+        (hindent :toggle haskell-enable-hindent)
         hlint-refactor))
 
 (defun haskell/init-lsp-haskell ()
@@ -315,7 +315,6 @@
 (defun haskell/init-hindent ()
   (use-package hindent
     :defer t
-    :if haskell-enable-hindent
     :init
     (add-hook 'haskell-mode-hook #'hindent-mode)
     :config

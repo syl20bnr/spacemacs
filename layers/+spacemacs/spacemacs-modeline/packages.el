@@ -25,7 +25,8 @@
       '(
         (doom-modeline :toggle (eq (spacemacs/get-mode-line-theme-name) 'doom))
         fancy-battery
-        spaceline
+        (spaceline :toggle (memq (spacemacs/get-mode-line-theme-name)
+                                 '(spacemacs all-the-icons custom)))
         (spaceline-all-the-icons :toggle (eq (spacemacs/get-mode-line-theme-name) 'all-the-icons))
         symon
         (vim-powerline :location (recipe :fetcher local))))
@@ -51,8 +52,6 @@
 
 (defun spacemacs-modeline/init-spaceline ()
   (use-package spaceline-config
-    :if (memq (spacemacs/get-mode-line-theme-name)
-              '(spacemacs all-the-icons custom))
     :init
     (spacemacs|require-when-dumping 'spaceline)
     (spacemacs|when-dumping-strict

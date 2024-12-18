@@ -25,7 +25,7 @@
   '(
     ;; not working well for now
     ;; rainbow-blocks
-    nyan-mode
+    (nyan-mode :toggle colors-enable-nyan-cat-progress-bar)
     color-identifiers-mode
     rainbow-identifiers
     rainbow-mode))
@@ -37,7 +37,6 @@
 
 (defun colors/init-nyan-mode ()
   (use-package nyan-mode
-    :if colors-enable-nyan-cat-progress-bar
     :config
     (setq nyan-wavy-trail t)
     (setq nyan-animate-nyancat t)
