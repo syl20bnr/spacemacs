@@ -27,7 +27,7 @@
                      :location (recipe :fetcher github
                                        :repo "domenzain/evil-exwm-state"))
     (exwm :step pre)
-    (helm-exwm :toggle (configuration-layer/package-used-p 'helm))
+    (helm-exwm :requires helm)
     (xdg :location built-in)
     (xelb :step pre)))
 

@@ -23,8 +23,8 @@
 
 (defconst spotify-packages
   '(spotify
-    (helm-spotify-plus :toggle (configuration-layer/package-usedp 'helm))
-    (counsel-spotify :toggle (configuration-layer/package-usedp 'ivy))))
+    (helm-spotify-plus :requires helm)
+    (counsel-spotify :requires counsel)))
 
 (defun spotify/init-spotify ()
   (use-package spotify
