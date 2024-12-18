@@ -91,8 +91,7 @@
 
 (defun treemacs/init-treemacs-evil ()
   (use-package treemacs-evil
-    :after treemacs
-    :if (memq dotspacemacs-editing-style '(vim hybrid))))
+    :after treemacs))
 
 (defun treemacs/init-treemacs-projectile ()
   (use-package treemacs-projectile
@@ -112,7 +111,6 @@
 
 (defun treemacs/init-treemacs-all-the-icons ()
   (use-package treemacs-all-the-icons
-    :if treemacs-use-all-the-icons-theme
     :hook ((treemacs-mode dired-mode) . (lambda () (treemacs-load-theme 'all-the-icons)))))
 
 (defun treemacs/pre-init-winum ()

@@ -29,7 +29,6 @@
 
 (defun cmake/init-cmake-ide ()
   (use-package cmake-ide
-    :if cmake-enable-cmake-ide-support
     :commands (cmake-ide-delete-file cide--mode-hook)
     :init
     (dolist (hook '(c-mode-hook c++-mode-hook))

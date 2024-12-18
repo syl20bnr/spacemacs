@@ -29,7 +29,6 @@
 
 (defun deft/init-zetteldeft ()
   (use-package zetteldeft
-    :if (eq deft-zetteldeft t)
     :init
     (spacemacs/declare-prefix-for-mode 'deft-mode "mz" "zetteldeft")
     (spacemacs/declare-prefix-for-mode 'org-mode "mz" "zetteldeft")

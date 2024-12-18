@@ -88,7 +88,6 @@
 
 (defun osx/init-osx-dictionary ()
   (use-package osx-dictionary
-    :if osx-use-dictionary-app
     :init (spacemacs/set-leader-keys "xwd" 'osx-dictionary-search-pointer)
     :commands (osx-dictionary-search-pointer
                osx-dictionary-search-input

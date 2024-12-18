@@ -44,13 +44,11 @@
 
 (defun tree-sitter/init-tree-sitter-indent ()
   (use-package tree-sitter-indent
-    :if tree-sitter-indent-enable
     :init
     (add-hook 'rust-mode-hook #'tree-sitter-indent-mode)))
 
 (defun tree-sitter/init-ts-fold ()
   (use-package ts-fold
-    :if tree-sitter-fold-enable
     :init
     (when tree-sitter-fold-enable
       (if tree-sitter-fold-indicators-enable
