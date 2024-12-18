@@ -44,7 +44,6 @@
                                            (list clojure-enable-linters))))
     ggtags
     (kaocha-runner :toggle clojure-enable-kaocha-runner)
-    counsel-gtags
     org
     popwin
     (sayid :toggle clojure-enable-sayid)
@@ -475,8 +474,6 @@
 
 (defun clojure/post-init-ggtags ()
   (add-hook 'clojure-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
-
-(defun clojure/post-init-counsel-gtags nil)
 
 (defun clojure/init-clojure-snippets ()
   (use-package clojure-snippets

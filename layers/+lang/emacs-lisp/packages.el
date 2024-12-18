@@ -39,7 +39,6 @@
     flycheck-elsa
     flycheck-package
     ggtags
-    counsel-gtags
     (ielm :location built-in)
     (inspector :location (recipe
                           :fetcher github
@@ -318,8 +317,6 @@
 (defun emacs-lisp/init-flycheck-elsa ()
   (use-package flycheck-elsa
     :hook (emacs-lisp-mode . flycheck-elsa-setup)))
-
-(defun emacs-lisp/post-init-counsel-gtags nil)
 
 (defun emacs-lisp/post-init-ggtags ()
   (add-hook 'emacs-lisp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

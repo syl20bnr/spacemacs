@@ -24,7 +24,6 @@
 (defconst fsharp-packages
   '(
     company
-    counsel-gtags
     (eglot-fsharp :toggle (eq fsharp-backend 'eglot))
     flycheck
     fsharp-mode
@@ -73,5 +72,3 @@
 
 (defun fsharp/post-init-ggtags ()
   (add-hook 'fsharp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
-
-(defun fsharp/post-init-counsel-gtags nil)

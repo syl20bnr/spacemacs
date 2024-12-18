@@ -25,7 +25,6 @@
   '(
     (bat-mode :location built-in)
     bmx-mode
-    counsel-gtags
     ggtags
     powershell))
 
@@ -81,8 +80,6 @@
 
 (defun windows-scripts/post-init-ggtags ()
   (add-hook 'bat-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
-
-(defun windows-scripts/post-init-counsel-gtags nil)
 
 (defun windows-scripts/init-powershell ()
   (use-package powershell

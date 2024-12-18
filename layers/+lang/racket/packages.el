@@ -26,7 +26,6 @@
         company
         company-quickhelp
         ggtags
-        counsel-gtags
         evil-cleverparens
         racket-mode
         ))
@@ -48,8 +47,6 @@
 
 (defun racket/post-init-ggtags ()
   (add-hook 'racket-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
-
-(defun racket/post-init-counsel-gtags nil)
 
 (defun racket/pre-init-evil-cleverparens ()
   (spacemacs|use-package-add-hook evil-cleverparens
@@ -159,4 +156,3 @@
       "tb" 'racket-test
       "tB" 'spacemacs/racket-test-with-coverage)
     (define-key racket-mode-map (kbd "H-r") 'racket-run)))
-

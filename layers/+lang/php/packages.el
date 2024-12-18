@@ -29,7 +29,6 @@
     evil-matchit
     flycheck
     ggtags
-    counsel-gtags
     (php-auto-yasnippets :location (recipe :fetcher github :repo "emacs-php/php-auto-yasnippets"))
     (php-extras :location (recipe :fetcher github :repo "arnested/php-extras") :toggle (not (eq php-backend 'lsp)))
     php-mode
@@ -56,8 +55,6 @@
 
 (defun php/post-init-ggtags ()
   (add-hook 'php-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
-
-(defun php/post-init-counsel-gtags nil)
 
 (defun php/post-init-evil-matchit ()
   (add-hook 'php-mode-hook 'turn-on-evil-matchit-mode))

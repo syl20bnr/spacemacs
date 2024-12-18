@@ -27,7 +27,6 @@
     (company-lua :requires company)
     flycheck
     ggtags
-    counsel-gtags
     lua-mode))
 
 (defun lua/post-init-flycheck ()
@@ -71,5 +70,3 @@
 
 (defun lua/post-init-ggtags ()
   (add-hook 'lua-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
-
-(defun lua/post-init-counsel-gtags nil)

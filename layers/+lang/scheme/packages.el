@@ -26,7 +26,6 @@
     evil-cleverparens
     geiser
     ggtags
-    counsel-gtags
     org
     (geiser-chez    :toggle (memq 'chez    scheme-implementations))
     (geiser-chibi   :toggle (memq 'chibi   scheme-implementations))
@@ -143,8 +142,6 @@
 
 (defun scheme/post-init-ggtags ()
   (add-hook 'scheme-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
-
-(defun scheme/post-init-counsel-gtags nil)
 
 (defun scheme/pre-init-org ()
   (spacemacs|use-package-add-hook org

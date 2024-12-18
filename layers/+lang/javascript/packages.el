@@ -25,7 +25,6 @@
   '(
     add-node-modules-path
     company
-    counsel-gtags
     dap-mode
     evil-matchit
     flycheck
@@ -51,8 +50,6 @@
 
 (defun javascript/post-init-company ()
   (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-company))
-
-(defun javascript/post-init-counsel-gtags nil)
 
 (defun javascript/pre-init-dap-mode ()
   (when (eq javascript-backend 'lsp)

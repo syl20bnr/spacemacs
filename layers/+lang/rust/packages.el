@@ -23,15 +23,12 @@
 
 (defconst rust-packages
   '(
-    counsel-gtags
     dap-mode
     ggtags
     ron-mode
     rustic
     smartparens))
 
-
-(defun rust/post-init-counsel-gtags nil)
 
 (defun rust/pre-init-dap-mode ()
   (when (eq rust-backend 'lsp)

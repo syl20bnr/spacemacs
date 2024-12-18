@@ -39,7 +39,6 @@
         ggtags
         haskell-mode
         haskell-snippets
-        counsel-gtags
         (helm-hoogle :requires helm)
         hindent
         hlint-refactor))
@@ -308,8 +307,6 @@
       (yas-load-directory snip-dir)))
 
   (with-eval-after-load 'yasnippet (haskell-snippets-initialize)))
-
-(defun haskell/post-init-counsel-gtags nil)
 
 ;; doesn't support haskell-literate-mode :(
 (defun haskell/init-hindent ()

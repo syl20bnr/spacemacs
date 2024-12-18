@@ -27,7 +27,6 @@
     bundler
     chruby
     company
-    counsel-gtags
     dap-mode
     (enh-ruby-mode :toggle ruby-enable-enh-ruby-mode)
     evil-matchit
@@ -79,8 +78,6 @@
 
 (defun ruby/post-init-company ()
   (add-hook 'ruby-mode-local-vars-hook #'spacemacs//ruby-setup-company))
-
-(defun ruby/post-init-counsel-gtags nil)
 
 (defun ruby/pre-init-dap-mode ()
   (when (eq ruby-backend 'lsp)

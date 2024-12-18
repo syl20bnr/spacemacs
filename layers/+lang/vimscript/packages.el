@@ -27,7 +27,6 @@
     flycheck
     vimrc-mode
     ggtags
-    counsel-gtags
     dactyl-mode))
 
 (defun vimscript/post-init-company ()
@@ -62,5 +61,3 @@
 
 (defun vimscript/post-init-ggtags ()
   (add-hook 'vimrc-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
-
-(defun vimscript/post-init-counsel-gtags nil)

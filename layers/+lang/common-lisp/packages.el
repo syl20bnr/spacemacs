@@ -29,7 +29,6 @@
     evil-cleverparens
     evil-collection
     ggtags
-    counsel-gtags
     helm
     org
     rainbow-identifiers
@@ -70,8 +69,6 @@
 
 (defun common-lisp/post-init-ggtags ()
   (add-hook 'common-lisp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
-
-(defun common-lisp/post-init-counsel-gtags nil)
 
 (defun common-lisp/pre-init-org ()
   (spacemacs|use-package-add-hook org

@@ -28,7 +28,6 @@
         company
         electric-indent-mode
         ggtags
-        counsel-gtags
         nasm-mode
         x86-lookup
         ))
@@ -74,5 +73,3 @@
 
 (defun asm/post-init-ggtags ()
   (add-hook 'asm-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
-
-(defun asm/post-init-counsel-gtags nil)

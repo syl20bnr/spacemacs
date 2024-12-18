@@ -31,7 +31,6 @@
     (company-math :requires company math-symbol-lists)
     (company-auctex :requires company)
     (company-reftex :requires company)
-    counsel-gtags
     evil-matchit
     evil-tex
     flycheck
@@ -232,8 +231,6 @@
       (concat prefix "t")    'reftex-toc
       (concat prefix "T")    'reftex-toc-recenter
       (concat prefix "v")    'reftex-view-crossref)))
-
-(defun latex/post-init-counsel-gtags nil)
 
 (defun latex/post-init-ggtags ()
   (add-hook 'latex-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

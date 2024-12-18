@@ -27,7 +27,6 @@
     dap-mode
     flycheck
     ggtags
-    counsel-gtags
     (java-mode :location built-in)
     maven-test-mode
     (meghanada :toggle (eq java-backend 'meghanada))
@@ -53,8 +52,6 @@
 (defun java/post-init-smartparens ()
   (with-eval-after-load 'smartparens
     (sp-local-pair 'java-mode "/** " " */" :trigger "/**")))
-
-(defun java/post-init-counsel-gtags nil)
 
 (defun java/pre-init-org ()
   (spacemacs|use-package-add-hook org

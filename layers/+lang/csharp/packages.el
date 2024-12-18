@@ -27,7 +27,6 @@
         (csharp-mode :toggle (version< emacs-version "29.0.60"))
         evil-matchit
         ggtags
-        counsel-gtags
         omnisharp
         flycheck
         ))
@@ -60,5 +59,3 @@
 
 (defun csharp/post-init-ggtags ()
   (add-hook 'csharp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
-
-(defun csharp/post-init-counsel-gtags nil)

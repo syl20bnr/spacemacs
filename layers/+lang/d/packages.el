@@ -30,8 +30,7 @@
         d-mode
         flycheck
         (flycheck-dmd-dub :requires flycheck)
-        ggtags
-        counsel-gtags))
+        ggtags))
 
 
 (defun d/post-init-company ()
@@ -63,5 +62,3 @@
 
 (defun d/post-init-ggtags ()
   (add-hook 'd-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
-
-(defun d/post-init-counsel-gtags nil)

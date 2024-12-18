@@ -26,7 +26,6 @@
     blacken
     code-cells
     company
-    counsel-gtags
     cython-mode
     dap-mode
     eldoc
@@ -159,8 +158,6 @@
   (spacemacs|use-package-add-hook xcscope
     :post-init
     (spacemacs/setup-helm-cscope 'python-mode)))
-
-(defun python/post-init-counsel-gtags nil)
 
 (defun python/post-init-ggtags ()
   (add-hook 'python-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

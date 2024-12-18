@@ -45,7 +45,6 @@
     dap-mode
     ;; rtags
     (company-rtags :requires (company rtags))
-    counsel-gtags
     (flycheck-rtags :requires (flycheck rtags))
     ggtags
     (helm-rtags :requires (helm rtags))
@@ -125,8 +124,6 @@
   (use-package company-ycmd
     :defer t
     :commands company-ycmd))
-
-(defun c-c++/post-init-counsel-gtags nil)
 
 (defun c-c++/init-cpp-auto-include ()
   (use-package cpp-auto-include
