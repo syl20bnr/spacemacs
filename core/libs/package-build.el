@@ -649,8 +649,6 @@ VERSION-STRING has the format \"%Y%m%d.%H%M\"."
 (defun package-build-release+timestamp-version (rcp)
   "Determine version string in the \"RELEASE.0.TIMESTAMP\" format for RCP.
 
-*Experimental* This function is still subject to change.
-
 Use `package-build-release-version-functions' to determine
 RELEASE.  TIMESTAMP is the COMMITTER-DATE for the identified
 last relevant commit, using the format \"%Y%m%d.%H%M\".
@@ -682,8 +680,6 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil."
 
 (defun package-build-release+count-version (rcp &optional single-count)
   "Determine version string in the \"RELEASE.0.COUNT\" format for RCP.
-
-*Experimental* This function is still subject to change.
 
 Use `package-build-release-version-functions' to determine
 RELEASE.  COUNT is the number of commits since RELEASE until the
@@ -821,8 +817,6 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil.
 
 (defun package-build-fallback-count-version (rcp)
   "Determine version string in the \"0.0.0.COUNT\" format for RCP.
-
-*Experimental* This function is still subject to change.
 
 This function implements a fallback that can be used on the
 release channel, for packages that don't do releases.  It should
