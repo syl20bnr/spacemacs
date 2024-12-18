@@ -36,8 +36,8 @@
     evil-cleverparens
     eval-sexp-fu
     flycheck
-    flycheck-elsa
-    flycheck-package
+    (flycheck-elsa :requires flycheck)
+    (flycheck-package :requires flycheck)
     ggtags
     counsel-gtags
     (ielm :location built-in)

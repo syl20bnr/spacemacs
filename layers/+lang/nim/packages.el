@@ -26,7 +26,8 @@
     company
     flycheck
     (flycheck-nim :location (recipe :fetcher github
-                                    :repo "smile13241324/flycheck-nim"))
+                                    :repo "smile13241324/flycheck-nim")
+                  :requires flycheck)
     nim-mode))
 
 (defun nim/post-init-company ()
@@ -37,8 +38,7 @@
   (spacemacs/enable-flycheck 'nimscript-mode))
 
 (defun nim/init-flycheck-nim ()
-  (use-package flycheck-nim
-    :if (configuration-layer/package-used-p 'flycheck)))
+  (use-package flycheck-nim))
 
 (defun nim/init-nim-mode ()
   (use-package nim-mode
