@@ -272,10 +272,6 @@
 (defun shell/init-term ()
   (spacemacs/register-repl 'term 'term)
   (spacemacs/register-repl 'term 'ansi-term)
-  (defun term-send-tab ()
-    "Send tab in term mode."
-    (interactive)
-    (term-send-raw-string "\t"))
 
   (when (eq dotspacemacs-editing-style 'vim)
     (evil-define-key 'insert term-raw-map
