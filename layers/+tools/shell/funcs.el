@@ -31,6 +31,12 @@ and move your focus to it; to switch the current buffer view, use
   (let ((default-directory (projectile-acquire-root)))
     (call-interactively 'spacemacs/default-pop-shell)))
 
+(defun spacemacs//projectile-run-shell-in-root ()
+  "Invoke `shell-default-shell' in the project's root directory."
+  (interactive)
+  (projectile-with-default-dir (projectile-project-root)
+    (call-interactively shell-default-shell)))
+
 (defun spacemacs/projectile-shell ()
   "Create a shell buffer at the project root and switch to it.
 Customize `shell-default-shell' to control what type of shell
@@ -40,7 +46,8 @@ view; to pop-up a full width buffer, use
   (interactive)
   (call-interactively
    (or (pcase shell-default-shell
-         ('multi-term #'projectile-multi-term-in-root)
+         ((or 'multi-term 'multi-vterm)
+          #'spacemacs//projectile-run-shell-in-root)
          ('eat #'eat-project))
        (intern-soft (format "projectile-run-%s" shell-default-shell))
        #'projectile-run-shell)))
@@ -118,11 +125,6 @@ SHELL is the SHELL function to use (i.e. when FUNC represents a terminal)."
               (lambda nil (,func ,shell))))
        (shell-pop index)
        (spacemacs/resize-shell-to-desired-width))))
-
-(defun projectile-multi-term-in-root ()
-  "Invoke `multi-term' in the project's root."
-  (interactive)
-  (projectile-with-default-dir (projectile-project-root) (multi-term)))
 
 (defun spacemacs//toggle-shell-auto-completion-based-on-path ()
   "Deactivates automatic completion on remote paths.
