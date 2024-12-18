@@ -31,12 +31,6 @@ and move your focus to it; to switch the current buffer view, use
   (let ((default-directory (projectile-acquire-root)))
     (call-interactively 'spacemacs/default-pop-shell)))
 
-(defun spacemacs//projectile-run-shell-in-root ()
-  "Invoke `shell-default-shell' in the project's root directory."
-  (interactive)
-  (projectile-with-default-dir (projectile-project-root)
-    (call-interactively shell-default-shell)))
-
 (defun spacemacs/projectile-shell ()
   "Create a shell buffer at the project root and switch to it.
 Customize `shell-default-shell' to control what type of shell
@@ -44,13 +38,13 @@ buffer you create. This function switches the current buffer
 view; to pop-up a full width buffer, use
 `spacemacs/projectile-shell-pop'."
   (interactive)
-  (call-interactively
-   (or (pcase shell-default-shell
-         ((or 'multi-term 'multi-vterm)
-          #'spacemacs//projectile-run-shell-in-root)
-         ('eat #'eat-project))
-       (intern-soft (format "projectile-run-%s" shell-default-shell))
-       #'projectile-run-shell)))
+  (pcase shell-default-shell
+    ((or 'multi-term 'multi-vterm)
+     (projectile-with-default-dir (projectile-project-root)
+       (call-interactively shell-default-shell)))
+    ('eat (call-interactively #'eat-project))
+    (_ (call-interactively (or (intern-soft (format "projectile-run-%s" shell-default-shell))
+                               #'projectile-run-shell)))))
 
 (defun spacemacs/disable-hl-line-mode ()
   "Locally disable global-hl-line-mode"
