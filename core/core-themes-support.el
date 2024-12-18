@@ -383,10 +383,11 @@ package name does not match theme name + `-theme' suffix.")
   (when theme
     (or (and (listp theme)
              (plist-get (cdr theme) :fallback))
-        (cond ((string-match-p "light" (symbol-name theme))
-               'spacemacs-light)
-              ((string-match-p "dark" (symbol-name theme))
-               'spacemacs-dark)))))
+        (let ((name (spacemacs//get-theme-name theme)))
+          (cond ((string-match-p "light" (symbol-name name))
+                 'spacemacs-light)
+                ((string-match-p "dark" (symbol-name name))
+                 'spacemacs-dark))))))
 
 (defun spacemacs/load-default-theme ()
   "Load default theme.
