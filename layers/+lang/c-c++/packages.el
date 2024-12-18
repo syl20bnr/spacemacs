@@ -41,7 +41,7 @@
     srefactor
     xcscope
     ;; lsp
-    (ccls :requires lsp-mode)
+    (ccls :requires lsp-mode :toggle (eq c-c++-backend 'lsp-ccls))
     dap-mode
     ;; rtags
     (company-rtags :requires (company rtags))
@@ -49,15 +49,15 @@
     ggtags
     (helm-rtags :requires (helm rtags))
     (ivy-rtags :requires (ivy rtags))
-    rtags
+    (rtags :toggle (eq c-c++-backend 'rtags))
     ;; ycmd
-    (company-ycmd :requires company)
-    (flycheck-ycmd :requires flycheck)
+    (company-ycmd :requires (company ycmd))
+    (flycheck-ycmd :requires (flycheck ycmd))
     (gendoxy :location (recipe
                         :fetcher github
                         :repo "cormacc/gendoxy"
                         :branch "provides"))
-    ycmd))
+    (ycmd :toggle (eq c-c++-backend 'ycmd))))
 
 (defun c-c++/init-gendoxy ()
   "Initialise gendoxy (doxygen package)"
