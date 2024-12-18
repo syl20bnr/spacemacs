@@ -51,5 +51,5 @@
   (unless (bound-and-true-p calendar-latitude)
     (user-error "calendar-latitude is not set"))
   (when (> (length dotspacemacs-themes) 1)
-    (change-theme (nth 0 dotspacemacs-themes)
-                  (nth 1 dotspacemacs-themes))))
+    (change-theme (spacemacs//get-theme-name (nth 0 dotspacemacs-themes))
+                  (spacemacs//get-theme-name (nth 1 dotspacemacs-themes)))))
