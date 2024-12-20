@@ -28,6 +28,28 @@
 values."
   `(if (boundp ',variable) ,variable ',default))
 
+(defmacro spacemacs|deferred-run-in-buffer (name &rest body)
+  "Entry point that defers server startup until buffer is visible.
+It will wait until the buffer is visible before executing the instructions."
+  (let ((func (intern (format "spacemacs//init-if-buffer-visible-%s" name))))
+    `(defun ,func ()
+       "Run the commands for the current buffer if the buffer is visible.
+Returns non nil if it was run for the buffer."
+       (when (or (buffer-modified-p) (get-buffer-window nil t))
+         (remove-hook 'window-configuration-change-hook
+                      ,func t)
+         ,@body
+         t))
+    `(run-with-idle-timer
+      0 nil
+      (lambda (buffer)
+        (when (buffer-live-p buffer)
+          (with-current-buffer buffer
+            (unless (funcall ,func)
+              (add-hook 'window-configuration-change-hook
+                        ,func nil t)))))
+      (current-buffer))))
+
 (defun spacemacs/system-is-mac ()
   (eq system-type 'darwin))
 

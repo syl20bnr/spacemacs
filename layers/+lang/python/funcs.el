@@ -98,7 +98,8 @@
 
 (defun spacemacs//python-setup-lsp-dap ()
   "Setup DAP integration."
-  (require 'dap-python))
+  (spacemacs|deferred-run-in-buffer dap-python
+   (require 'dap-python)))
 
 
 ;; others
