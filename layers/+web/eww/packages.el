@@ -29,7 +29,6 @@
     zoom-frm))
 
 (defun eww/post-init-evil ()
-  (setq spacemacs--eww-ts-use-evil t)
   (spacemacs/transient-state-register-add-bindings 'eww
     '(("j" evil-next-line)
       ("k" evil-previous-line)
@@ -117,12 +116,10 @@
     :defer t))
 
 (defun eww/post-init-writeroom-mode ()
-  (setq spacemacs--eww-ts-use-writeroom t)
   (spacemacs/transient-state-register-add-bindings 'eww
     '(("w" writeroom-mode))))
 
 (defun eww/post-init-zoom-frm ()
-  (setq spacemacs--eww-ts-use-zoom-frm t)
   (spacemacs/transient-state-register-add-bindings 'eww
     '(("+" zoom-frm-in)
       ("-" zoom-frm-out)

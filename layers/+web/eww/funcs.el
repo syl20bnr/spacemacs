@@ -34,19 +34,6 @@
 
 
 ;;;; Transient State
-(defvar spacemacs--eww-ts-use-evil nil
-  "Transient State enable Evil key bindings")
-
-(defvar spacemacs--eww-ts-use-writeroom nil
-  "Transient State enable writeroot")
-
-(defvar spacemacs--eww-ts-use-zoom-frm nil
-  "Transient State enable zoom-fmr key bindings")
-
-(defun spacemacs//eww-key-placeholder ()
-  "Just a placeholder for a keybinding."
-  (interactive)
-  (message "The feature is not available/enabled."))
 
 (defun spacemacs//eww-ts-toggle-hint ()
   "Toggle full hint docstring for EWW transient state."
@@ -58,25 +45,9 @@
   "Return a condensed/full hint for the eww transient state"
   (concat
    " "
-   (if (not spacemacs--eww-ts-full-hint-toggle)
-       (concat "[" (propertize "?" 'face 'hydra-face-red) "] help")
-     (let ((result spacemacs--eww-ts-full-hint))
-       (cl-loop for (flag . reg) in
-                '((spacemacs--eww-ts-use-evil . "\\[[^\\[]+ scroll [^\\[]*")
-                  (spacemacs--eww-ts-use-writeroom . "\\[[^\\[]+writeroom[^\\[]*")
-                  (spacemacs--eww-ts-use-zoom-frm . "\\[[^\\[]+zoom-in[^\\[]*")
-                  (spacemacs--eww-ts-use-zoom-frm . "\\[[^\\[]+zoom-out[^\\[]*")
-                  (spacemacs--eww-ts-use-zoom-frm . "\\[[^\\[]+unzoom[^\\[]*"))
-                do
-                (when-let* (((not (symbol-value flag)))
-                            ((string-match reg result))
-                            (start (match-beginning 0))
-                            (end (match-end 0)))
-                  (setq result
-                        (concat (substring result 0 start)
-                                (make-string (- end start) ?\s)
-                                (substring result end)))))
-       result))))
+   (if spacemacs--eww-ts-full-hint-toggle
+       spacemacs--eww-ts-full-hint
+     (concat "[" (propertize "?" 'face 'hydra-face-red) "] help"))))
 
 (defun spacemacs//eww-setup-transient-state ()
   "Setup EWW transient state with toggleable help hint.
@@ -95,7 +66,8 @@ full hint text will not show up!"
   [_<_/_>_] history back/forw^^^^  [_c_] toggle colors            [_=_] unzoom        [_B_] list bookmarks [_d_] download
   [_[_/_]_] page previous/next^^^^ [_t_] toggle latex             ^^                  [_V_] view source    [_B_] add bookmark
   [_u_] page up^^^^^^              [_C_] cycle theme              ^^                  ^^                   [_q_] quit
-  [_t_] top url^^^^^^")
+  [_t_] top url^^^^^^"
+    '("w" "+" "-" "="))
   (spacemacs|define-transient-state eww
     :title "Eww Transient State"
     :hint-is-doc t
@@ -106,10 +78,10 @@ full hint text will not show up!"
     :bindings
     ("?" spacemacs//eww-ts-toggle-hint)
     ;; Navigation
-    ("j" spacemacs//eww-key-placeholder)
-    ("k" spacemacs//eww-key-placeholder)
-    ("h" spacemacs//eww-key-placeholder)
-    ("l" spacemacs//eww-key-placeholder)
+    ;; ("j" evil-next-line)
+    ;; ("k" evil-previous-line)
+    ;; ("h" evil-backward-char)
+    ;; ("l" evil-forward-char)
     ("<" eww-back-url)
     (">" eww-forward-url)
     ("[" eww-previous-url)
@@ -119,16 +91,16 @@ full hint text will not show up!"
     ("u" eww-up-url)
     ("t" eww-top-url)
     ;; Layout/Appearance
-    ("w" spacemacs//eww-key-placeholder)
+    ;; ("w" writeroom-mode)
     ("v" visual-line-mode)
     ("c" eww-toggle-colors)
     ("t" spacemacs/eww-toggle-render-latex)
     ("C" spacemacs/cycle-spacemacs-theme)
     ;; Zoom
-    ("+" spacemacs//eww-key-placeholder)
-    ("-" spacemacs//eww-key-placeholder)
-    ("=" spacemacs//eww-key-placeholder)
-    ;; Lit/view
+    ;; ("+" zoom-frm-in)
+    ;; ("-" zoom-frm-out)
+    ;; ("=" zoom-frm-unzoom)
+    ;; ;; Lit/view
     ("W" eww-list-buffers)
     ("S" eww-list-histories)
     ("B" eww-list-bookmarks)

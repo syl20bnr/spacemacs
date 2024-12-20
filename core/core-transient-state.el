@@ -61,10 +61,26 @@ may hold the keys to be removed. The variable may be unbound."
               (listp (symbol-value to-add)))
      (symbol-value to-add))))
 
+(defun spacemacs//transient-state-remove-missing-optional-heads (docstring heads optional-heads)
+  (with-temp-buffer
+    (insert docstring)
+    (goto-char (point-min))
+    (let ((case-fold-search nil))
+      (dolist (h optional-heads)
+        (unless (assoc h heads)
+          (when (re-search-forward (rx "[_" (literal h) "_]" (* (not (in "[\n")))) nil t)
+            ;; _x_ as rendered only takes up a single column.  To preserve
+            ;; alignment, replace with two fewer characters than the matched
+            ;; string.
+            (replace-match (make-string (- (length (match-string 0)) 2) ?\s) t t)))))
+    (buffer-string)))
+
 (defun spacemacs//transient-state-make-doc
-    (transient-state docstring &optional body)
+    (transient-state docstring &optional body optional-heads)
   "Use `hydra' internal function to format and apply DOCSTRING."
-  (let ((heads (spacemacs//transient-state-heads-name transient-state)))
+  (let* ((heads (spacemacs//transient-state-heads-name transient-state))
+         (docstring (spacemacs//transient-state-remove-missing-optional-heads
+                     docstring (symbol-value heads) optional-heads)))
     (setq body (if body body '(nil nil :hint nil :foreign-keys nil)))
     (eval
      (hydra--format nil body docstring (symbol-value heads)))))
@@ -97,8 +113,12 @@ effect if called after that point."
         (set var-name '()))
     (set var-name (append (symbol-value var-name) keys))))
 
-(defmacro spacemacs|transient-state-format-hint (name var hint)
-  "Format HINT and store the result in VAR for transient state NAME."
+(defmacro spacemacs|transient-state-format-hint (name var hint &optional optional-heads)
+  "Format HINT and store the result in VAR for transient state NAME.
+
+OPTIONAL-HEADS is a list of keys which may optionally be added to
+the transient state for some package.  If they are not added,
+mentions of them are removed from HINT."
   (declare (indent 1))
   `(add-hook 'spacemacs-post-user-config-hook
              (lambda ()
@@ -118,7 +138,8 @@ effect if called after that point."
                                :columns ,prop-columns
                                :foreign-keys ,prop-foreign-keys
                                :body-pre ,prop-entry-sexp
-                               :before-exit ,prop-exit-sexp)))))
+                               :before-exit ,prop-exit-sexp)
+                             ,optional-heads))))
              'append))
 
 (defface spacemacs-transient-state-title-face
