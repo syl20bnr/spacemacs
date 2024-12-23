@@ -175,8 +175,8 @@ MODE parameter must match the :modes values used in the call to
         (define-key map [return] 'company-complete-selection)
         (define-key map (kbd "RET") 'company-complete-selection))
        (t
-        (define-key map [return] 'nil)
-        (define-key map (kbd "RET") 'nil)))))
+        (define-key map [return] nil)
+        (define-key map (kbd "RET") nil)))))
    (t (message "Not yet implemented for package %S" package))))
 
 (defun spacemacs//auto-completion-set-TAB-key-behavior (package)

@@ -236,7 +236,7 @@ This has no effect in terminal or if \"all-the-icons\" is not installed."
   'symbol
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-initial-scratch-message 'nil
+(spacemacs|defc dotspacemacs-initial-scratch-message nil
   "Initial message in the scratch buffer."
   '(choice (const nil) string)
   'spacemacs-dotspacemacs-init)

@@ -21,7 +21,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defvar ein-backend 'nil
+(defvar ein-backend nil
   "The backend to use for IDE features.
 Possible values are `jupyter' and `nil'.
 If `jupyter' then the API provided by jupyter will be used.

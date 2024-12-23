@@ -69,7 +69,7 @@
      gnus-sum-thread-tree-vertical "│"
      gnus-article-browse-delete-temp t
      gnus-treat-strip-trailing-blank-lines 'last
-     gnus-keep-backlog 'nil
+     gnus-keep-backlog nil
      gnus-summary-display-arrow nil ; Don't show that annoying arrow:
      gnus-mime-display-multipart-related-as-mixed t ; Show more MIME-stuff:
      gnus-auto-select-first nil ; Don't get the first article automatically:
