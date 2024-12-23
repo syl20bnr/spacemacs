@@ -23,4 +23,4 @@
 
 (when (and (boundp 'go-backend)
            (eq go-backend 'lsp))
-  (configuration-layer/declare-layer-dependencies '(dap)))
+  (configuration-layer/declare-layer-dependencies '(lsp)))
