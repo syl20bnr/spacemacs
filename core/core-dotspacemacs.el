@@ -342,12 +342,14 @@ pressing `<leader> m`. Set it to `nil` to disable it."
   'string
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-command-key "SPC"
+(spacemacs|defc dotspacemacs-emacs-command-key "SPC"
   "The key used for Emacs commands (M-x) (after pressing on the leader key)."
   'string
   'spacemacs-dotspacemacs-init)
-(defvaralias 'dotspacemacs-emacs-command-key 'dotspacemacs-command-key
-  "New official name for `dotspacemacs-command-key'")
+
+(define-obsolete-variable-alias 'dotspacemacs-command-key
+  'dotspacemacs-emacs-command-key "20160109 58e524"
+  "Please use the official name `dotspacemacs-emacs-command-key'")
 
 (spacemacs|defc dotspacemacs-distinguish-gui-tab nil
   "If non nil, distinguish C-i and tab in the GUI version of Emacs."
