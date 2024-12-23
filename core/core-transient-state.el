@@ -64,9 +64,9 @@ may hold the keys to be removed. The variable may be unbound."
 (defun spacemacs//transient-state-remove-missing-optional-heads (docstring heads optional-heads)
   (with-temp-buffer
     (insert docstring)
-    (goto-char (point-min))
     (let ((case-fold-search nil))
       (dolist (h optional-heads)
+        (goto-char (point-min))
         (unless (assoc h heads)
           (when (re-search-forward (rx "[_" (literal h) "_]" (* (not (in "[\n")))) nil t)
             ;; _x_ as rendered only takes up a single column.  To preserve
