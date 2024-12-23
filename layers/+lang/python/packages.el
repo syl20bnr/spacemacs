@@ -123,8 +123,7 @@
   (use-package blacken
     :defer t
     :init
-    (when (and python-format-on-save
-               (eq 'black python-formatter))
+    (when python-format-on-save
       (add-hook 'python-mode-hook 'blacken-mode))
     :config (spacemacs|hide-lighter blacken-mode)))
 
@@ -473,8 +472,7 @@
   (use-package yapfify
     :defer t
     :init
-    (when (and python-format-on-save
-               (eq 'yapf python-formatter))
+    (when python-format-on-save
       (add-hook 'python-mode-hook 'yapf-mode))
     :config (spacemacs|hide-lighter yapf-mode)))
 
