@@ -23,7 +23,7 @@
 
 (defconst python-packages
   '(
-    blacken
+    (blacken :toggle (and python-format-on-save (eq 'black python-formatter)))
     (code-cells :toggle (not (configuration-layer/layer-used-p 'ipython-notebook)))
     company
     cython-mode
@@ -55,7 +55,7 @@
     smartparens
     xcscope
     window-purpose
-    yapfify
+    (yapfify :toggle (and python-format-on-save (eq 'yapf python-formatter)))
     ;; packages for anaconda backend
     (anaconda-mode :toggle (eq python-backend 'anaconda))
     (company-anaconda :requires (anaconda-mode company))
