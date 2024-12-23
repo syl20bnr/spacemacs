@@ -157,13 +157,9 @@ ROOT-DIR should be the directory path for the environment, `nil' for clean up."
             (equal python-shell-interpreter spacemacs--python-shell-interpreter-origin))
     (if-let* ((default-directory root-dir))
         (if-let* ((ipython (cl-find-if 'spacemacs/pyenv-executable-find
-                                       '("ipython3" "ipython")))
-                  (version (replace-regexp-in-string
-                            "\\(\\.dev\\)?[\r\n|\n]$" ""
-                            (shell-command-to-string (format "\"%s\" --version" ipython)))))
+                                       '("ipython3" "ipython"))))
             (setq-local python-shell-interpreter ipython
-                        python-shell-interpreter-args
-                        (concat "-i" (unless (version< version "5") " --simple-prompt")))
+                        python-shell-interpreter-args "-i --simple-prompt")
           ;; else try python3 or python
           (setq-local python-shell-interpreter
                       (or (cl-find-if 'spacemacs/pyenv-executable-find
