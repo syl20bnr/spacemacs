@@ -127,45 +127,42 @@
   (highlight-lines-matching-regexp "\\(pdb\\|ipdb\\|pudb\\|wdb\\).set_trace()")
   (highlight-lines-matching-regexp "trepan.api.debug()"))
 
-(defun spacemacs/pyenv-executable-find (command)
-  "Find executable taking pyenv shims into account.
-If the executable is a system executable and not in the same path
-as the pyenv version then also return nil. This works around https://github.com/pyenv/pyenv-which-ext
-"
-  (if (and (not (and (boundp 'pyvenv-virtual-env) pyvenv-virtual-env)) (executable-find "pyenv"))
-      (progn
-        (let ((pyenv-string (shell-command-to-string (concat "pyenv which " command)))
-              (pyenv-version-names (split-string (string-trim (shell-command-to-string "pyenv version-name")) ":"))
-              (executable nil)
-              (i 0))
-          (if (not (string-match "not found" pyenv-string))
-              (while (and (not executable)
-                          (< i (length pyenv-version-names)))
-                (if (string-match (elt pyenv-version-names i) (string-trim pyenv-string))
-                    (setq executable (string-trim pyenv-string)))
-                (if (string-match (elt pyenv-version-names i) "system")
-                    (setq executable (string-trim (executable-find command))))
-                (setq i (1+ i))))
-          executable))
-    (executable-find command)))
+(defun spacemacs/pyenv-executable-find (commands)
+  "Find executable taking pyenv shims into account, return the first
+occured executable path in the COMMANDS. If the pyenv was configured
+with \"system\" then the system exectutable will be included, otherwise
+the system executable will be ignored. A non-list COMMANDS is supported
+for compatibility reason."
+  (unless (listp commands)              ; to compatible
+    (setq commands (list commands)))
+  (if (or (bound-and-true-p pyvenv-virtual-env) ; in virtualenv
+          (not (executable-find "pyenv")))      ; or no pyenv
+      (cl-some 'executable-find commands)
+
+    (let ((pyenv-vers (split-string (string-trim (shell-command-to-string "pyenv version-name")) ":")))
+      (cl-some
+       (lambda (cmd)
+         (when-let* ((pyenv-cmd (string-trim (shell-command-to-string (concat "pyenv which " cmd))))
+                     ((not (string-match "not found" pyenv-cmd))))
+           (cl-some
+            (lambda (ver)
+              (cond ((string-match ver pyenv-cmd) pyenv-cmd)
+                    ((string-match ver "system") (executable-find cmd))))
+            pyenv-vers)))
+       commands))))
 
 (defun spacemacs//python-setup-shell (&optional root-dir)
   "Setup the python shell if no customer prefered value or the value be cleaned.
 ROOT-DIR should be the directory path for the environment, `nil' for clean up."
-  (when (or (null (boundp 'python-shell-interpreter))
-            (null python-shell-interpreter)
+  (when (or (not (bound-and-true-p python-shell-interpreter))
             (equal python-shell-interpreter spacemacs--python-shell-interpreter-origin))
-    (if-let* ((default-directory root-dir))
-        (if-let* ((ipython (cl-find-if 'spacemacs/pyenv-executable-find
-                                       '("ipython3" "ipython"))))
-            (setq-local python-shell-interpreter ipython
-                        python-shell-interpreter-args "-i --simple-prompt")
-          ;; else try python3 or python
-          (setq-local python-shell-interpreter
-                      (or (cl-find-if 'spacemacs/pyenv-executable-find
-                                      '("python3" "python2" "python"))
-                          "python3")
-                      python-shell-interpreter-args "-i"))
+    (if-let* ((default-directory root-dir)
+              (pyshell (or (spacemacs/pyenv-executable-find
+                            '("ipython3" "ipython" "python3" "python2" "python"))
+                           "python3")))
+        (setq-local python-shell-interpreter pyshell
+                    python-shell-interpreter-args (if (string-match-p "ipython" pyshell)
+                                                      "-i --simple-prompt" "-i"))
       ;; args is nil, clean up the variables
       (setq-local python-shell-interpreter nil
                   python-shell-interpreter-args nil))))
@@ -174,13 +171,11 @@ ROOT-DIR should be the directory path for the environment, `nil' for clean up."
   "Setup the checkers.
 ROOT-DIR should be the path for the environemnt, `nil' for clean up"
   (when (fboundp 'flycheck-set-checker-executable)
-    (if-let* ((root-dir)
-              (default-directory root-dir))
-        (dolist (x '("pylint" "flake8"))
-          (when-let* ((exe (spacemacs/pyenv-executable-find x)))
-            (flycheck-set-checker-executable (concat "python-" x) exe)))
-      ;; else root-dir is nil
-      (dolist (x '("pylint" "flake8"))
+    (dolist (x '("pylint" "flake8"))
+      (if-let* ((default-directory root-dir))
+          (when-let* ((exe (spacemacs/pyenv-executable-find (list x))))
+            (flycheck-set-checker-executable (concat "python-" x) exe))
+        ;; else root-dir is nil
         (set (flycheck-checker-executable-variable (concat "python-" x)) nil)))))
 
 (defun spacemacs/python-setup-everything (&optional root-dir)
@@ -190,22 +185,18 @@ ROOT-DIR should be the path for the environemnt, `nil' for clean up"
 (defun spacemacs/python-toggle-breakpoint ()
   "Add a break point, highlight it."
   (interactive)
-  (let ((trace (cond ((spacemacs/pyenv-executable-find "trepan3k") "import trepan.api; trepan.api.debug()")
-                     ((spacemacs/pyenv-executable-find "wdb") "import wdb; wdb.set_trace()")
-                     ((spacemacs/pyenv-executable-find "ipdb") "import ipdb; ipdb.set_trace()")
-                     ((spacemacs/pyenv-executable-find "pudb") "import pudb; pudb.set_trace()")
-                     ((spacemacs/pyenv-executable-find "ipdb3") "import ipdb; ipdb.set_trace()")
-                     ((spacemacs/pyenv-executable-find "pudb3") "import pudb; pudb.set_trace()")
-                     ((spacemacs/pyenv-executable-find "python3.7") "breakpoint()")
-                     ((spacemacs/pyenv-executable-find "python3.8") "breakpoint()")
-                     ((spacemacs/pyenv-executable-find "python3.9") "breakpoint()")
-                     ((spacemacs/pyenv-executable-find "python3.10") "breakpoint()")
-                     ((spacemacs/pyenv-executable-find "python3.11") "breakpoint()")
-                     (t "import pdb; pdb.set_trace()")))
-        (prev-line (save-excursion
-                     (and (zerop (forward-line -1))
-                          (thing-at-point 'line))))
-        (line (thing-at-point 'line)))
+  (let* ((exe (spacemacs/pyenv-executable-find '("trepan3k" "wdb" "ipdb3" "pudb3" "ipdb" "pudb" "python3")))
+         (trace (pcase (and exe (file-name-nondirectory exe))
+                  ("trepan3k"          "import trepan.api; trepan.api.debug()")
+                  ("wdb"               "import wdb; wdb.set_trace()")
+                  ((or "ipdb" "ipdb3") "import ipdb; ipdb.set_trace()")
+                  ((or "pudb" "pudb3") "import pudb; pudb.set_trace()")
+                  ("python3"           "breakpoint()") ; not consider the python3.6 or lower
+                  (_ "import pdb; pdb.set_trace()")))
+         (prev-line (save-excursion
+                      (and (zerop (forward-line -1))
+                           (thing-at-point 'line))))
+         (line (thing-at-point 'line)))
     (cond ((and line (string-search trace line))
            (kill-whole-line)
            (back-to-indentation))
@@ -572,7 +563,7 @@ If region is not active then send line."
   ;; universal argument put compile buffer in comint mode
   (let ((universal-argument t)
         (compile-command (format "%s %s"
-                                 (spacemacs/pyenv-executable-find python-shell-interpreter)
+                                 (spacemacs/pyenv-executable-find (list python-shell-interpreter))
                                  (shell-quote-argument (file-name-nondirectory buffer-file-name)))))
     (if arg
         (call-interactively 'compile)
