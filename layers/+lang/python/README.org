@@ -315,7 +315,24 @@ config section:
 or as a directory-local variable (for per-project settings).
 
 ** Importmagic
-Install importmagic and epc for importmagic functionality.
+Install importmagic and epc for importmagic functionality, it will start a epc
+instance on background to serve the requests.
+
+The importmagic is a heavy feature, will take time to prepare the background
+server, especially slow with =ipython= or =ipython3=, set the
+=importmagic-python-interpreter= to =python= or =python3= (if it is the
+interpreter of ipython) will have performance benefit. Fox example:
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+    '((python :variables importmagic-python-interpreter "python3")))
+#+END_SRC
+
+To disable the importmagic, set the =python-enable-importmagic= in the python
+layer config section:
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+    '((python :variables python-enable-importmagic nil)))
+#+END_SRC
 
 #+BEGIN_SRC sh
   pip install importmagic epc

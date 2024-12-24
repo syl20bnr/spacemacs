@@ -34,7 +34,7 @@
     ggtags
     helm-cscope
     (helm-pydoc :requires helm)
-    importmagic
+    (importmagic :toggle python-enable-importmagic)
     live-py-mode
     (nose :location (recipe :fetcher github :repo "syl20bnr/nose.el")
           :toggle (memq 'nose (flatten-list (list python-test-runner))))

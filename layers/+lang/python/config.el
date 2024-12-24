@@ -88,6 +88,9 @@ Possible values are `on-visit', `on-project-switch' or `nil'.")
 (defvar python-sort-imports-on-save nil
   "If non-nil, automatically sort imports on save.")
 
+(defvar python-enable-importmagic t
+  "If non-nil, enable the importmagic feature.")
+
 (defvar spacemacs--python-pyenv-modes nil
   "List of major modes where to add pyenv support.")
 
