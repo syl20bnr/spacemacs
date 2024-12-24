@@ -57,8 +57,7 @@
     (let ((current-prefix-arg t))
       (call-interactively
        (cl-case version-control-diff-tool
-         (git-gutter  'git-gutter:stage-hunk)
-         (git-gutter+ 'git-gutter+-stage-hunks))))))
+         (git-gutter  'git-gutter:stage-hunk))))))
 
 (defun spacemacs/vcs-show-hunk ()
   (interactive)
