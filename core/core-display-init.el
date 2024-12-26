@@ -36,15 +36,17 @@
         ;; fallback to normal loading behavior only if in a GUI
         (t (display-graphic-p))))
 
-(define-advice server-create-window-system-frame
-    (:after (&rest _) spacemacs-init-display)
-  "After Emacs server creates a frame, run functions queued in
+(defun spacemacs/init-window-frame (frame)
+  "After Emacs creates a window frame, run functions queued in
 `SPACEMACS--AFTER-DISPLAY-SYSTEM-INIT-LIST' to do any setup that needs to have
 the display system initialized."
   (when (spacemacs--display-system-initialized-p)
-    (mapc #'funcall (reverse spacemacs--after-display-system-init-list))
-    (advice-remove 'server-create-window-system-frame
-                   #'server-create-window-system-frame@spacemacs-init-display)))
+    (with-demoted-errors "Spacemacs init display error: %S"
+      (with-selected-frame frame
+        (mapc #'funcall (reverse spacemacs--after-display-system-init-list))))
+    (remove-hook 'after-make-frame-functions #'spacemacs/init-window-frame)))
+
+(add-hook 'after-make-frame-functions #'spacemacs/init-window-frame)
 
 (defmacro spacemacs|do-after-display-system-init (&rest body)
   "If the display-system is initialized, run `BODY', otherwise,
