@@ -205,11 +205,10 @@ ROOT-DIR should be the path for the environemnt, `nil' for clean up"
         (line (thing-at-point 'line)))
     (if (and line (string-match trace line))
         (kill-whole-line)
-      (progn
-        (back-to-indentation)
-        (insert trace)
-        (insert "\n")
-        (python-indent-line)))))
+      (back-to-indentation)
+      (insert trace ?\n)
+      (python-indent-line)
+      (forward-line -1))))
 
 ;; from https://www.snip2code.com/Snippet/127022/Emacs-auto-remove-unused-import-statemen
 (defun spacemacs/python-remove-unused-imports ()
