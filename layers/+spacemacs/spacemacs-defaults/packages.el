@@ -200,7 +200,7 @@
 (defun spacemacs-defaults/init-ediff ()
   (use-package ediff
     :defer t
-    :init
+    :config
     ;; first we set some sane defaults
     (setq-default
      ediff-window-setup-function 'ediff-setup-windows-plain
