@@ -202,13 +202,21 @@ ROOT-DIR should be the path for the environemnt, `nil' for clean up"
                      ((spacemacs/pyenv-executable-find "python3.10") "breakpoint()")
                      ((spacemacs/pyenv-executable-find "python3.11") "breakpoint()")
                      (t "import pdb; pdb.set_trace()")))
+        (prev-line (save-excursion
+                     (and (zerop (forward-line -1))
+                          (thing-at-point 'line))))
         (line (thing-at-point 'line)))
-    (if (and line (string-match trace line))
-        (kill-whole-line)
-      (back-to-indentation)
-      (insert trace ?\n)
-      (python-indent-line)
-      (forward-line -1))))
+    (cond ((and line (string-match trace line))
+           (kill-whole-line)
+           (back-to-indentation))
+          ((and prev-line (string-match trace prev-line))
+           (forward-line -1)
+           (kill-whole-line)
+           (back-to-indentation))
+          (t
+           (back-to-indentation)
+           (insert trace ?\n)
+           (python-indent-line)))))
 
 ;; from https://www.snip2code.com/Snippet/127022/Emacs-auto-remove-unused-import-statemen
 (defun spacemacs/python-remove-unused-imports ()
