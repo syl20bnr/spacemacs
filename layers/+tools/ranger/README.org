@@ -122,7 +122,7 @@ ignore certain files when moving over them you can customize the following to
 your liking:
 
 #+BEGIN_SRC elisp
-  (setq ranger-ignored-extensions '("mkv" "iso" "mp4"))
+  (setq ranger-excluded-extensions '("mkv" "iso" "mp4" "bin" "exe" "msi"))
 #+END_SRC
 
 To set the max files size (in MB), set the following parameter:
