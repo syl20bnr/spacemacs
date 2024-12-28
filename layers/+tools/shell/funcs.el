@@ -40,7 +40,7 @@ view; to pop-up a full width buffer, use
   (interactive)
   (pcase shell-default-shell
     ((or 'multi-term 'multi-vterm)
-     (projectile-with-default-dir (projectile-project-root)
+     (projectile-with-default-dir (projectile-acquire-root)
        (call-interactively shell-default-shell)))
     ('eat (call-interactively #'eat-project))
     (_ (call-interactively (or (intern-soft (format "projectile-run-%s" shell-default-shell))
