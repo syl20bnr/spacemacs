@@ -211,7 +211,9 @@
     ;; show org ediffs unfolded
     (add-hook 'ediff-prepare-buffer-hook 'spacemacs//ediff-buffer-outline-show-all)
     ;; restore window layout when done
-    (add-hook 'ediff-quit-hook #'winner-undo)))
+    (add-hook 'ediff-quit-hook #'winner-undo)
+    (when (fboundp 'spacemacs//ediff-delete-temp-files)
+      (add-hook 'kill-emacs-hook #'spacemacs//ediff-delete-temp-files))))
 
 (defun spacemacs-defaults/init-eldoc ()
   (use-package eldoc

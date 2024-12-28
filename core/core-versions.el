@@ -27,4 +27,15 @@
 (defconst spacemacs-version          "0.999.0" "Spacemacs version.")
 (defconst spacemacs-emacs-min-version   "28.2" "Minimal version of Emacs.")
 
+(defmacro spacemacs|eval-until-emacs-min-version (version msg &rest body)
+  "Evaluate the BODY if `spacemacs-emacs-min-version' < VERSION, otherwise
+warn the MSG."
+  (declare (indent 1))
+  `(if (version< spacemacs-emacs-min-version ,version)
+       (progn ,@body)
+     (apply 'warn
+            (if ,msg '("%s" ,msg)
+              '("Minimum emacs version %s is newer than supported version %s"
+                ,version spacemacs-emacs-min-version)))))
+
 (provide 'core-versions)
