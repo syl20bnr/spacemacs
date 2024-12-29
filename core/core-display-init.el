@@ -25,7 +25,7 @@
   "List of functions to be run after the display system is initialized.")
 
 (defun spacemacs--display-system-initialized-p ()
-  "Dectect the display system initialized or not."
+  "Return non-nil if the display system has been initialized."
   (cond ((boundp 'ns-initialized) ns-initialized)
         ;; w32-initialized gets set too early, so
         ;; if we're on Windows, check the list of fonts
@@ -36,22 +36,27 @@
         ;; fallback to normal loading behavior only if in a GUI
         (t (display-graphic-p))))
 
-(defun spacemacs/init-window-frame (frame)
-  "After Emacs creates a window frame, run functions queued in
-`SPACEMACS--AFTER-DISPLAY-SYSTEM-INIT-LIST' to do any setup that needs to have
-the display system initialized."
+(defun spacemacs//init-window-frame (frame)
+  "After Emacs creates a window frame FRAME, run enqueued functions.
+
+Functions are called with FRAME selected.
+
+Queued functions are added to
+`spacemacs--after-display-system-init-list' and are run once,
+only after the display system has been initialized."
   (when (spacemacs--display-system-initialized-p)
     (dolist (f (reverse spacemacs--after-display-system-init-list))
-      (with-demoted-errors "Spacemacs init display error: %S"
+      (with-demoted-errors "spacemacs|do-after-display-system-init: %S"
         (with-selected-frame frame
           (funcall f))))
-    (remove-hook 'after-make-frame-functions #'spacemacs/init-window-frame)))
+    (remove-hook 'after-make-frame-functions #'spacemacs//init-window-frame)))
 
-(add-hook 'after-make-frame-functions #'spacemacs/init-window-frame)
+(add-hook 'after-make-frame-functions #'spacemacs//init-window-frame)
 
 (defmacro spacemacs|do-after-display-system-init (&rest body)
-  "If the display-system is initialized, run `BODY', otherwise,
-add it to a queue of actions to perform after the first graphical frame is
+  "If the display system is initialized, run BODY.
+
+Otherwise, enqueue it until after the first graphical frame is
 created."
   `(if (not (spacemacs--display-system-initialized-p))
        (push (lambda () ,@body) spacemacs--after-display-system-init-list)
