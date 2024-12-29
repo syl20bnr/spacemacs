@@ -41,9 +41,10 @@
 `SPACEMACS--AFTER-DISPLAY-SYSTEM-INIT-LIST' to do any setup that needs to have
 the display system initialized."
   (when (spacemacs--display-system-initialized-p)
-    (with-demoted-errors "Spacemacs init display error: %S"
-      (with-selected-frame frame
-        (mapc #'funcall (reverse spacemacs--after-display-system-init-list))))
+    (dolist (f (reverse spacemacs--after-display-system-init-list))
+      (with-demoted-errors "Spacemacs init display error: %S"
+        (with-selected-frame frame
+          (funcall f))))
     (remove-hook 'after-make-frame-functions #'spacemacs/init-window-frame)))
 
 (add-hook 'after-make-frame-functions #'spacemacs/init-window-frame)
