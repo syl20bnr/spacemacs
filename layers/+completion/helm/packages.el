@@ -335,6 +335,7 @@
             (delete '("/git-rebase-todo$" . helm-ls-git-rebase-todo-mode)
                     auto-mode-alist)))
     :config
+    (add-hook 'helm-ls-git-commit-mode-hook 'display-fill-column-indicator-mode)
     (when (configuration-layer/package-usedp 'magit)
       ;; Undo the forced action of adding helm-ls-git-rebase-todo-mode to
       ;; auto-mode-alist by helm-ls-git.
