@@ -200,13 +200,14 @@
 (defun spacemacs-defaults/init-ediff ()
   (use-package ediff
     :defer t
-    :config
+    :init
     ;; first we set some sane defaults
     (setq-default
      ediff-window-setup-function 'ediff-setup-windows-plain
      ;; emacs is evil and decrees that vertical shall henceforth be horizontal
      ediff-split-window-function 'split-window-horizontally
      ediff-merge-split-window-function 'split-window-horizontally)
+    :config
     ;; show org ediffs unfolded
     (require 'outline)
     (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)
