@@ -978,7 +978,7 @@ Use a sandbox if `package-build--use-sandbox' is non-nil."
 ;;; Generate Files
 
 (defvar package-build--extras
-  '((:url url)
+  '((:url webpage)
     (:commit commit)
     (:revdesc revdesc)
     (:keywords keywords)
@@ -1236,10 +1236,12 @@ is the same as the value of `export_file_name'."
                    (package-read-from-string
                     (string-join require-lines " ")))))))
         (oset rcp webpage
-              (if (fboundp 'lm-website)
-                  (lm-website)
-                (with-no-warnings
-                  (lm-homepage))))
+              (or (if (fboundp 'lm-website)
+                      (lm-website)
+                    (with-no-warnings
+                      (lm-homepage)))
+                  (and-let* ((format (oref rcp repopage-format)))
+                    (format format (oref rcp repo)))))
         (oset rcp keywords (lm-keywords-list))
         (oset rcp maintainers
               (if (fboundp 'lm-maintainers)
