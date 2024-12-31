@@ -209,8 +209,7 @@
      ediff-merge-split-window-function 'split-window-horizontally)
     :config
     ;; show org ediffs unfolded
-    (require 'outline)
-    (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)
+    (add-hook 'ediff-prepare-buffer-hook 'spacemacs/ediff-buffer-outline-show-all)
     ;; restore window layout when done
     (add-hook 'ediff-quit-hook #'winner-undo)))
 
