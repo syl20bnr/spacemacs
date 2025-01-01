@@ -861,15 +861,15 @@ ones created by `magit' and `dired'."
     (user-error "Current buffer is not visiting a file or directory")))
 
 (defun spacemacs/copy-file-path ()
-  "Copy and show the file path of the current buffer. If the buffer is a
-dired buffer, the result will be the file path under cursor, otherwise
-the result is directory path."
+  "Copy and show the file path of the current buffer.
+
+In Dired, the result will be the file path under cursor if any,
+otherwise the listed directory's path."
   (interactive)
   (if-let* ((file-path (or (spacemacs--file-path)
                            (and (derived-mode-p 'dired-mode)
-                                (condition-case nil
-                                    (dired-get-file-for-visit)
-                                  (error default-directory))))))
+                                (dired-get-filename nil t))
+                           (spacemacs--directory-path))))
       (progn
         (kill-new file-path)
         (message "%s" file-path))
