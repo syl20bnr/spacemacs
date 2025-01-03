@@ -940,7 +940,7 @@ variable."
   (ediff-files (dotspacemacs/location)
                (concat dotspacemacs-template-directory ".spacemacs.template")))
 
-(defun spacemacs/ediff-buffer-outline-show-all ()
+(defun spacemacs//ediff-buffer-outline-show-all ()
   "Try `outline-show-all' for ediff buffers."
   (when (fboundp 'outline-show-all)
     (outline-show-all)))
