@@ -1,6 +1,6 @@
 ;;; package-recipe.el --- Package recipes as EIEIO objects  -*- lexical-binding:t; coding:utf-8 -*-
 
-;; Copyright (C) 2018-2024 Jonas Bernoulli
+;; Copyright (C) 2018-2025 Jonas Bernoulli
 
 ;; Author: Jonas Bernoulli <emacs.package-build@jonas.bernoulli.dev>
 ;; Maintainer: Jonas Bernoulli <emacs.package-build@jonas.bernoulli.dev>
