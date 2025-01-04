@@ -32,7 +32,7 @@
  [_t_]^^^^      toggle diff signs    [_l_/_d_/_D_]  log/ediff/diff popup"
   :on-enter (spacemacs/vcs-enable-margin)
   :bindings
-  ("C" magit-commit :exit t)
+  ("C" magit-commit-create :exit t)
   ("d" magit-ediff :exit t)
   ("D" magit-diff-unstaged :exit t)
   ("F" magit-pull :exit t)
