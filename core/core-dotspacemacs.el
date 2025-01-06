@@ -66,7 +66,7 @@ their configuration.")
       (let ((fallback-init "~/.spacemacs.d/init.el"))
         (if (file-regular-p fallback-init)
             fallback-init
-          spacemacs-init))))
+          "~/.spacemacs"))))
   "Filepath to Spacemacs configuration file (defaults to ~/.spacemacs).
 - If the `dotspacemacs-directory' exists and it contains \"init.el\" file,
   use that value.
