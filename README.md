@@ -361,15 +361,15 @@ If you need to follow that path we recommend to at least use a package manager l
     or in PowerShell:
 
     ```powershell
-    if( TestPath -Path $HOME/.emacs.d )
+    if( Test-Path -Path $HOME/.emacs.d )
     {
         Rename-Item $HOME/.emacs.d $HOME/.emacs.d.bak
     }
-    if( TestPath -Path $HOME/.emacs.el )
+    if( Test-Path -Path $HOME/.emacs.el )
     {
         Rename-Item $HOME/.emacs.el $HOME/.emacs.el.bak
     }
-    if( TestPath -Path $HOME/.emacs )
+    if( Test-Path -Path $HOME/.emacs )
     {
         Rename-Item $HOME/.emacs $HOME/.emacs.bak
     }
