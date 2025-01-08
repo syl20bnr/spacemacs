@@ -24,18 +24,13 @@
 (defvar spacemacs--after-display-system-init-list '()
   "List of functions to be run after the display system is initialized.")
 
-(defun spacemacs--display-system-initialized-p ()
+(defun spacemacs--display-system-initialized-p (&optional frame)
   "Return non-nil if the display system has been initialized."
   (cond ((boundp 'ns-initialized) ns-initialized)
-        ;; w32-initialized gets set too early, so
-        ;; if we're on Windows, check the list of fonts
-        ;; instead (this is nil until the graphics system
-        ;; is initialized)
-        ((boundp 'w32-initialized) (font-family-list))
         ((boundp 'x-initialized) x-initialized)
         ((boundp 'pgtk-initialized) pgtk-initialized)
         ;; fallback to normal loading behavior only if in a GUI
-        (t (display-graphic-p))))
+        (t (display-graphic-p frame))))
 
 (defun spacemacs//init-window-frame (frame)
   "After Emacs creates a window frame FRAME, run enqueued functions.
@@ -45,7 +40,7 @@ Functions are called with FRAME selected.
 Queued functions are added to
 `spacemacs--after-display-system-init-list' and are run once,
 only after the display system has been initialized."
-  (when (spacemacs--display-system-initialized-p)
+  (when (spacemacs--display-system-initialized-p frame)
     (dolist (f (reverse spacemacs--after-display-system-init-list))
       (with-demoted-errors "spacemacs|do-after-display-system-init: %S"
         (with-selected-frame frame
