@@ -1,19 +1,28 @@
 ;; -*- no-byte-compile: t -*-
+;; Initialize Spacemacs dump mode
 (setq spacemacs-dump-mode 'dumping)
-;; load init.el
+
+;; Load init.el
 (setq spacemacs-start-directory (file-name-directory load-file-name))
-(load (concat spacemacs-start-directory "init"))
-;; prepare the dump
+(load (expand-file-name "init" spacemacs-start-directory))
+
+;; Prepare the dump
 (spacemacs/dump-save-load-path)
-;; disable undo-tree to prevent from segfaulting when loading the dump
+
+;; Disable undo-tree to prevent segfaulting during dump loading
 (when (fboundp 'global-undo-tree-mode)
   (global-undo-tree-mode -1))
-;; Enable some modes that seem to not survive to the dumping process
+
+;; Enable essential modes post-dump
 (spacemacs|unless-dumping-and-eval-after-loaded-dump activate-modes
-  (global-font-lock-mode)
+  (global-font-lock-mode 1)  ;; Ensure syntax highlighting survives dump
   (when (fboundp 'global-undo-tree-mode)
-    (global-undo-tree-mode t))
-  (winner-mode 1))
+    (global-undo-tree-mode 1))  ;; Re-enable undo-tree
+  (winner-mode 1))  ;; Enable winner-mode for window configuration management
+
+;; Log dump status
 (configuration-layer/message "Dumping Emacs...")
+
+;; Finalize dump mode and run garbage collection
 (setq spacemacs-dump-mode 'dumped)
 (garbage-collect)
