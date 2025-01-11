@@ -24,13 +24,7 @@
 (defvar spacemacs--after-display-system-init-list '()
   "List of functions to be run after the display system is initialized.")
 
-(defun spacemacs--display-system-initialized-p (&optional frame)
-  "Return non-nil if the display system has been initialized."
-  (cond ((boundp 'ns-initialized) ns-initialized)
-        ((boundp 'x-initialized) x-initialized)
-        ((boundp 'pgtk-initialized) pgtk-initialized)
-        ;; fallback to normal loading behavior only if in a GUI
-        (t (display-graphic-p frame))))
+(defvar spacemacs--display-system-initialized-p nil)
 
 (defun spacemacs//init-window-frame (frame)
   "After Emacs creates a window frame FRAME, run enqueued functions.
@@ -40,7 +34,8 @@ Functions are called with FRAME selected.
 Queued functions are added to
 `spacemacs--after-display-system-init-list' and are run once,
 only after the display system has been initialized."
-  (when (spacemacs--display-system-initialized-p frame)
+  (when (display-graphic-p frame)
+    (setq spacemacs--display-system-initialized-p t)
     (dolist (f (reverse spacemacs--after-display-system-init-list))
       (with-demoted-errors "spacemacs|do-after-display-system-init: %S"
         (with-selected-frame frame
@@ -53,9 +48,12 @@ only after the display system has been initialized."
   "Call FUNC with no arguments once the display system is initialized.
 
 See `spacemacs|do-after-display-system-init'."
-  (if (not (spacemacs--display-system-initialized-p))
-      (push func spacemacs--after-display-system-init-list)
-    (funcall func)))
+  (if spacemacs--display-system-initialized-p
+      (funcall func)
+    (push func spacemacs--after-display-system-init-list)
+    ;; `spacemacs--display-system-initialized-p' may be nil even if the initial
+    ;; frame is graphical.
+    (spacemacs//init-window-frame (selected-frame))))
 
 (defmacro spacemacs|do-after-display-system-init (&rest body)
   "If the display system is initialized, run BODY.
