@@ -49,13 +49,21 @@ only after the display system has been initialized."
 
 (add-hook 'after-make-frame-functions #'spacemacs//init-window-frame)
 
+(defun spacemacs--call-after-display-system-init (func)
+  "Call FUNC with no arguments once the display system is initialized.
+
+See `spacemacs|do-after-display-system-init'."
+  (if (not (spacemacs--display-system-initialized-p))
+      (push func spacemacs--after-display-system-init-list)
+    (funcall func)))
+
 (defmacro spacemacs|do-after-display-system-init (&rest body)
   "If the display system is initialized, run BODY.
 
 Otherwise, enqueue it until after the first graphical frame is
-created."
-  `(if (not (spacemacs--display-system-initialized-p))
-       (push (lambda () ,@body) spacemacs--after-display-system-init-list)
-     ,@body))
+created.
+
+BODY is evaluated with a graphical frame selected."
+  `(spacemacs--call-after-display-system-init (lambda () ,@body)))
 
 (provide 'core-display-init)
