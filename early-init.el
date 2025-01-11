@@ -20,33 +20,28 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-;; Before Emacs 27, the init file was responsible for initializing the package
-;; manager by calling `package-initialize'. Emacs 27 changed the default
-;; behavior: It now calls `package-initialize' before loading the init file.
-;; This behavior would prevent Spacemacs's own package initialization from
-;; running. However, Emacs 27 also loads the "early init" file (this file)
-;; before it initializes the package manager, and Spacemacs can use this early
-;; init file to prevent Emacs from initializing the package manager. (See
-;; <http://git.savannah.gnu.org/cgit/emacs.git/commit/?id=24acb31c04b4048b85311d794e600ecd7ce60d3b>.)
+;;; Commentary:
 ;;
-;; Earlier Emacs versions do not load the early init file and do not initialize
-;; the package manager before loading the init file, so this file is neither
-;; needed nor loaded on those versions.
+;; Early init file for Spacemacs to prevent Emacs from automatically
+;; initializing the package manager before loading the init file.
+;; This ensures that Spacemacs retains control over package initialization.
+
+;;; Code:
+
+;; Disable automatic package initialization at startup
 (setq package-enable-at-startup nil)
 
-(load (concat (file-name-directory load-file-name)
-              "core/core-early-funcs")
+;; Load early core functions for Spacemacs
+(load (expand-file-name "core/core-early-funcs" (file-name-directory load-file-name))
       nil (not init-file-debug))
 
-;; Unfortunately the hooks below prevent users from customizing gui elements
-;; within dotspacemacs/user-config function. Thus the hooks are commented out.
-;; These should not be needed in any case since gui elements are turned off
-;; within spacemacs/init function.  Original comment follows next.
-;;
-;; Remove GUI elements soon after GUI being initialized to avoid some possible
-;; grapical glitches. This has to be done use these hooks, see
-;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Early-Init-File.html
-;;
+;; Note: The hooks below for disabling GUI elements are commented out
+;; as they can interfere with user configurations in `dotspacemacs/user-config`.
+;; Spacemacs disables GUI elements in `spacemacs/init`, so these hooks
+;; are not typically necessary. Original comments retained for context.
+
+;; ;; Disable GUI elements to prevent graphical glitches
 ;; (add-hook 'window-setup-hook 'spacemacs/toggle-gui-elements-off)
 ;; (add-hook 'tty-setup-hook 'spacemacs/toggle-gui-elements-off)
+
+;;; early-init.el ends here
