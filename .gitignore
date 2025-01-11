@@ -31,6 +31,7 @@
 /recentf~
 /session.*
 /srecode-map.el
+/tree-sitter
 \#*
 ac-comphist.dat
 auto-save-list/
