@@ -244,17 +244,6 @@ the final step of executing code in `emacs-startup-hook'.")
   (spacemacs/load-default-theme)
   ;; font
   (spacemacs|do-after-display-system-init
-    ;; If you are thinking to remove this call to `message', think twice. You'll
-    ;; break the life of several Spacemacser using Emacs in daemon mode. Without
-    ;; this, their chosen font will not be set on the *first* instance of
-    ;; emacsclient, at least if different than their system font. You don't
-    ;; believe me? Go ahead, try it. After you'll have notice that this was true,
-    ;; increase the counter bellow so next people will give it more confidence.
-    ;; Counter = 1
-    (let ((init-file-debug)) ;; without this font size is ignored in daemon
-      (when (daemonp)
-        (setq init-file-debug t))
-      (spacemacs-buffer/message "Setting the font..."))
     (unless (spacemacs/set-default-font dotspacemacs-default-font)
       (spacemacs-buffer/warning
        "Cannot find any of the specified fonts (%s)! Font settings may not be correct."
