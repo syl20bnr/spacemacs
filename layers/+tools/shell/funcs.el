@@ -120,6 +120,17 @@ SHELL is the SHELL function to use (i.e. when FUNC represents a terminal)."
        (shell-pop index)
        (spacemacs/resize-shell-to-desired-width))))
 
+(defun spacemacs//eat-for-shell-pop (&rest args)
+  "Like `eat', but make the new shell buffer current.
+
+Used to satisfy `shell-pop's assumptions."
+  ;; `eat' unexpectedly selects the window displaying the returned buffer, but
+  ;; doesn't actually leave the buffer current when it returns.  The fix is
+  ;; suggested upstream at https://codeberg.org/akib/emacs-eat/pulls/193, but
+  ;; meanwhile we work around it in Spacemacs.  We can replace this function at
+  ;; its callsite with just `eat' if/when the above is merged.
+  (set-buffer (apply #'eat args)))
+
 (defun spacemacs//toggle-shell-auto-completion-based-on-path ()
   "Deactivates automatic completion on remote paths.
 Retrieving completions for Eshell blocks Emacs. Over remote

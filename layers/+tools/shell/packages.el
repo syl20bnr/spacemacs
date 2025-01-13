@@ -345,7 +345,7 @@
     :defer t
     :commands (eat eat-other-window eat-project eat-project-other-window)
     :init
-    (make-shell-pop-command "eat" eat)
+    (make-shell-pop-command "eat" spacemacs//eat-for-shell-pop)
     (spacemacs/set-leader-keys "atsa" 'spacemacs/shell-pop-eat)
     (spacemacs/register-repl 'eat 'eat)
     :config
