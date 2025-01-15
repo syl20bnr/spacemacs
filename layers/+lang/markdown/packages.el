@@ -25,6 +25,7 @@
   '(
     company
     company-emoji
+    edit-indirect
     emoji-cheat-sheet-plus
     gh-md
     markdown-mode
@@ -62,6 +63,16 @@
 (defun markdown/post-init-smartparens ()
   (add-hook 'markdown-mode-hook #'spacemacs//activate-smartparens))
 
+(defun markdown/init-edit-indirect ()
+  (use-package edit-indirect
+    :commands (edit-indirect-abort edit-indirect-commit)
+    :config
+    (spacemacs/set-leader-keys-for-minor-mode 'edit-indirect--overlay
+      dotspacemacs-major-mode-leader-key 'edit-indirect-commit
+      "c" 'edit-indirect-commit
+      "a" 'edit-indirect-abort
+      "k" 'org-edit-src-abort)))
+
 (defun markdown/init-markdown-mode ()
   (use-package markdown-mode
     :mode
@@ -88,6 +99,7 @@
     (dolist (mode markdown--key-bindings-modes)
       (spacemacs/set-leader-keys-for-major-mode mode
         ;; rebind this so terminal users can use it
+        "'" 'markdown-edit-code-block
         "M-RET" 'markdown-insert-list-item
         ;; Movement
         "{"   'markdown-backward-paragraph
