@@ -2980,7 +2980,7 @@ files (thanks to Daniel Nicolai)
   flag (thanks to Keith Pinson).
 - When =org-appear= is set to be triggered manually and Spacemacs' editing mode is
   Vim or hybrid, register relevant =org-appear= commands in Evil hooks for Org
-  buffers (thanks to Keith Pinson).
+  buffers (thanks to Keith Pinson and Radosław Rowicki).
 - Provide some sane default strategies for enforcing =TODO= dependencies via
   =org-todo-dependencies-strategy= (thanks to Keith Pinson).
 - Load org-mode email integration (mu4e/notmuch) when org is loaded
