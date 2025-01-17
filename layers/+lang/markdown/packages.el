@@ -71,7 +71,7 @@
       dotspacemacs-major-mode-leader-key 'edit-indirect-commit
       "c" 'edit-indirect-commit
       "a" 'edit-indirect-abort
-      "k" 'org-edit-src-abort)))
+      "k" 'edit-indirect-abort)))
 
 (defun markdown/init-markdown-mode ()
   (use-package markdown-mode
