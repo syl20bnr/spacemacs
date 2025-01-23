@@ -468,14 +468,23 @@
   (use-package vertico-posframe
     :after vertico
     :init
-    (setq vertico-posframe-poshandler 'posframe-poshandler-frame-center)
-    (setq vertico-posframe-width (round (* 0.618 (frame-width))))
-    (setq vertico-posframe-height (round (* 0.618 (frame-height))))
-    (setq vertico-posframe-parameters
-          '((internal-border-width . 2)
-            (left-fringe . 4)
-            (right-fringe . 4)
-            (undecorated . nil)))
+    (setq vertico-posframe-poshandler 'posframe-poshandler-frame-center
+          vertico-posframe-width  (round (* 0.618 (frame-width)))
+          vertico-posframe-height (round (* 0.618 (frame-height)))
+          vertico-posframe-parameters '((internal-border-width . 2)
+                                        (left-fringe . 4)
+                                        (right-fringe . 4)
+                                        (undecorated . nil)))
+
+    (defun spacemacs/vertico-posframe-use-current-frame-font (orig-fn &rest args)
+      "Ensure vertico-posframe uses the current frame's font."
+      (let ((current-font (frame-parameter nil 'font)))
+        (setq-local vertico-posframe-font current-font)
+        (apply orig-fn args)))
+
+    ;; Advise `vertico-posframe--show` to update the font dynamically
+    (advice-add 'vertico-posframe--show :around #'spacemacs/vertico-posframe-use-current-frame-font)
+
     (vertico-posframe-mode 1)))
 
 (defun compleseus/init-compleseus-spacemacs-help ()
