@@ -991,15 +991,22 @@ a new object."
        ((not (null owner))
         (let* ((layer (configuration-layer/get-layer owner))
                (path (concat (oref layer dir) "packages.el")))
-          (princ "by the layer `")
-          (princ owner)
-          (princ "'.\n")
+          (princ (format "by the layer `%s'" owner))
           (with-current-buffer standard-output
             (save-excursion
               (re-search-backward "`\\([^`']+\\)'" nil t)
               (help-xref-button
                1 'help-function-def
-               (intern (format "%S/init-%S" owner pkg-symbol)) path)))))
+               (intern (format "%S/init-%S" owner pkg-symbol)) path)))
+          (when (member 'dotfile owners)
+            (princ ", also defined in `dotspacemacs-additional-packages'")
+            (with-current-buffer standard-output
+              (save-excursion
+                (re-search-backward "`\\([^`']+\\)'" nil t)
+                (help-xref-button 1 'help-variable
+                                  'dotspacemacs-additional-packages
+                                  dotspacemacs-filepath))))
+          (princ ".\n")))
        (t
         (princ "in an unknown place in the lisp parenthesis universe.\n")))
       ;; exclusion/protection
@@ -1248,10 +1255,11 @@ USEDP if non-nil indicates that made packages are used packages."
            (obj (configuration-layer/get-package pkg-name)))
       (if (null obj)
           (setq obj (configuration-layer/make-package pkg 'dotfile))
+        (setq obj (configuration-layer/make-package pkg 'dotfile obj))
         ;; set :toggle to t for user defined package should be enabled default
-        (unless (and (listp pkg) (memq :toggle pkg))
-          (oset obj :toggle t))
-        (setq obj (configuration-layer/make-package pkg 'dotfile obj)))
+        (unless (listp pkg)
+          (oset obj :toggle t)
+          (object-add-to-list obj :owners 'dotfile t)))
       (configuration-layer//add-package obj usedp)))
   (dolist (xpkg dotspacemacs-excluded-packages)
     (let ((obj (configuration-layer/get-package xpkg)))
