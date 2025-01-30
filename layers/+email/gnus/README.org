@@ -33,7 +33,7 @@ Gnus is a news reading application. The Gnus terminology can be confusing for
 new users so the basics are listed here:
 - Group :: A Newsgroup but can also be a RSS Feed or a mail directory
 - Topic :: Newsgroups can be assigned to topics which will be used to structure
-  the Group Buffer if Topic Mode is enabled(default).
+           the Group Buffer if Topic Mode is enabled(default).
 
 * Adding news sources
 Adding news sources can be done in your =.spacemacs= file by adding the

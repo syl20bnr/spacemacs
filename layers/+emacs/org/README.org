@@ -442,9 +442,9 @@ the build in =project.el= alternative.
   (setq-default dotspacemacs-configuration-layers
     '((org :variables org-project-capture-projects-file "TODOs.org")))
 #+END_SRC
+
 You can also pass a function as `org-project-capture-projects-file`. This allows you to
 set file name based on project
-
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers

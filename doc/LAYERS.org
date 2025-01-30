@@ -41,13 +41,13 @@ layers with descriptions see [[https://spacemacs.org/layers/LAYERS.html][Spacema
 * Nomenclature
 Layers and packages. What gives?
 - Package :: A set of Emacs Lisp files that, taken together, provide some
-  feature. Packages may be available on a package repository, such as ELPA or
-  MELPA or on a third-party service provider (such as github) or even
-  locally on the disk.
+             feature. Packages may be available on a package repository, such as ELPA or
+             MELPA or on a third-party service provider (such as github) or even
+             locally on the disk.
 - Layer :: A collected unit of configuration that can be enabled (or disabled)
-  in Spacemacs. A layer typically brings together one or more packages, as
-  well as the glue configuration code required to make them play well with
-  each other and Spacemacs in general.
+           in Spacemacs. A layer typically brings together one or more packages, as
+           well as the glue configuration code required to make them play well with
+           each other and Spacemacs in general.
 
 Before writing a layer, it is helpful to consider what you are trying to
 achieve. Is there a package that provides the functionality you are after, and

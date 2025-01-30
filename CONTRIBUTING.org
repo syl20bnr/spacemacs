@@ -368,7 +368,7 @@ To add tests for a layer, do the following:
    functional tests. Look at existing tests for clues.
 4. Write a =Makefile= in that folder. It should define three variables.
    - =LOAD_FILES= :: a list of additional files to load before testing (relative
-     to the root Spacemacs folder). This should typically be =init.el=.
+                     to the root Spacemacs folder). This should typically be =init.el=.
    - =UNIT_TEST_FILES= :: a list of unit test files in the current folder.
    - =FUNC_TEST_FILES= :: a list of functional test files in the current folder.
 

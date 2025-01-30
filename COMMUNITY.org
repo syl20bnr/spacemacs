@@ -55,7 +55,6 @@ part in Spacemacs is the evil mode :-)
 
 ** Guidelines
 These guidelines apply to all collaborators of the project, namely:
-
 - [[https://github.com/syl20bnr][@syl20bnr]]
 - [[https://github.com/JAremko][@JAremko]]
 - [[https://github.com/smile13241324][@smile13241324]]
@@ -63,7 +62,6 @@ These guidelines apply to all collaborators of the project, namely:
 - [[https://github.com/fnussbaum][@fnussbaum]]
 
 And they applied to all former collaborators during their period of activity:
-
 - [[https://github.com/lebensterben][@lebensterben]]
 - [[https://github.com/bmag][@bmag]]
 - [[https://github.com/duianto][@duianto]]
@@ -138,4 +136,3 @@ moderation actions have been taken:
 |------------+-----------+--------+-------+-----------------------------------------------------------------|
 | 2016/01/27 | syl20bnr  | lock   | #3484 | comments judged to be offending towards the Spacemacs community |
 | 2016/01/27 | syl20bnr  | unlock | #3484 | let's make it happen, i.e. this document                        |
-

@@ -322,6 +322,7 @@ The importmagic is a heavy feature, will take time to prepare the background
 server, especially slow with =ipython= or =ipython3=, set the
 =importmagic-python-interpreter= to =python= or =python3= (if it is the
 interpreter of ipython) will have performance benefit. Fox example:
+
 #+BEGIN_SRC elisp
   (setq-default dotspacemacs-configuration-layers
     '((python :variables importmagic-python-interpreter "python3")))
@@ -329,6 +330,7 @@ interpreter of ipython) will have performance benefit. Fox example:
 
 To disable the importmagic, set the =python-enable-importmagic= in the python
 layer config section:
+
 #+BEGIN_SRC elisp
   (setq-default dotspacemacs-configuration-layers
     '((python :variables python-enable-importmagic nil)))

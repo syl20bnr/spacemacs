@@ -189,11 +189,10 @@ To make ~company~ provide completion candidates from ~company-capf~ combined wit
 example, you can set it like this in your ~dotspacemacs/user-config~:
 
 #+BEGIN_SRC emacs-lisp
-(add-hook 'go-mode-hook
-          (lambda ()
-           (setq-local company-backends '(:separate company-capf company-files company-yasnippet))))
+  (add-hook 'go-mode-hook
+            (lambda ()
+             (setq-local company-backends '(:separate company-capf company-files company-yasnippet))))
 #+END_SRC
-
 
 * Key bindings
 A number of lsp features useful for all/most modes have been bound to the lsp minor mode, meaning they'll be
@@ -244,7 +243,7 @@ The lsp minor mode bindings are:
 | ~SPC m g r~   | find references (=xref= / =lsp=)                                                 |
 | ~SPC m g s~   | find symbol in project (=helm-lsp=)                                              |
 | ~SPC m g S~   | find symbol in all projects (=helm-lsp=)                                         |
-| ~SPC m g p~   | goto previous (~xref-go-back~)                                          |
+| ~SPC m g p~   | goto previous (~xref-go-back~)                                                   |
 |---------------+----------------------------------------------------------------------------------|
 | Note          | /Omitted when ~lsp-navigation~ is ~'peek~ or ~'simple~ /                         |
 |               | /Bound under ~SPC m g~ rather than ~SPC m G~ when ~lsp-navigation~ == ~'peek~/   |
