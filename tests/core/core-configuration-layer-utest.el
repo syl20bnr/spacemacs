@@ -2160,7 +2160,7 @@
     (configuration-layer/make-packages-from-layers '(layer-dotfile-2) 'used)
     (configuration-layer/make-packages-from-dotfile 'used)
     (should
-     (equal (cfgl-package "pkg1" :name 'pkg1 :owners '(layer-dotfile-2))
+     (equal (cfgl-package "pkg1" :name 'pkg1 :owners '(layer-dotfile-2 dotfile))
             (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1)))))
 
 (ert-deftest test-make-packages-from-dotfile--dotfile-excludes-pkg2-in-layer-11 ()
