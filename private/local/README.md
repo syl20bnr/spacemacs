@@ -6,7 +6,7 @@ This is the place to store the local packages that you define in the
 `dotspacemacs-additional-packages` variable of your dotfile.
 
 Additional packages can be added using the same recipe as for [adding packages
-to layers](https://develop.spacemacs.org/doc/LAYERS.html#packagesel) i.e.:
+to layers](https://spacemacs.org/doc/LAYERS.html#packagesel) i.e.:
 
 - For a local package:
   - Load the file explicitly, using the full path to the file, by placing a
