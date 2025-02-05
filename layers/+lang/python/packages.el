@@ -387,7 +387,7 @@
       "'"  'spacemacs/python-start-or-switch-repl
       "cc" 'spacemacs/python-execute-file
       "cC" 'spacemacs/python-execute-file-focus
-      "db" 'spacemacs/python-toggle-breakpoint
+      "dt" 'spacemacs/python-toggle-breakpoint
       "gb" 'xref-go-back
       "ri" 'spacemacs/python-remove-unused-imports
       "sB" 'spacemacs/python-shell-send-buffer-switch
