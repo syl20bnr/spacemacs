@@ -2255,81 +2255,98 @@ to update."
       (spacemacs-buffer/append "--> All packages are up to date.\n")
       (spacemacs//redisplay))))
 
-(defun configuration-layer//ido-candidate-rollback-slot ()
-  "Return a list of candidates to select a rollback slot."
-  (let ((rolldir configuration-layer-rollback-directory))
-    (when (file-exists-p rolldir)
-      (reverse
-       (delq nil (mapcar
-                  (lambda (x)
-                    (when (and (file-directory-p (concat rolldir x))
-                               (not (or (string= "." x) (string= ".." x))))
-                      (let ((p (length (directory-files (file-name-as-directory
-                                                         (concat rolldir x))))))
-                        ;; -3 for . .. and rollback-info
-                        (format "%s (%s packages)" x (- p 3)))))
-                  (directory-files rolldir)))))))
+(defun configuration-layer//rollback-slots ()
+  "Return a completion table for rollback slots."
+  (let ((dirs 'unset))
+    (lambda (string predicate action)
+      (cond
+       ((eq action 'metadata)
+        (list 'metadata
+              (cons 'annotation-function
+                    (lambda (slot-dir)
+                      (let ((packages (cdr (assoc slot-dir dirs))))
+                        (format " (%d packages)" packages))))
+              (cons 'display-sort-function
+                    (lambda (slot-dirs)
+                      (sort slot-dirs #'string>)))))
+       ((and (consp action) (eq (car action) 'boundaries))
+        `(boundaries 0 . ,(length string)))
+       ((memq action '(nil t lambda))
+        (when (eq dirs 'unset)
+          (let ((rolldir configuration-layer-rollback-directory))
+            (when (file-exists-p rolldir)
+              (setq dirs
+                    (delq nil
+                          (mapcar
+                           (lambda (slot-dir)
+                             (when (and (file-directory-p (concat rolldir slot-dir))
+                                        (not (or (string= "." slot-dir) (string= ".." slot-dir))))
+                               (let ((p (length (cl-set-difference
+                                                 (directory-files (file-name-as-directory
+                                                                   (concat rolldir slot-dir)))
+                                                 '("." ".." "rollback-info")
+                                                 :test #'string=))))
+                                 (cons slot-dir p))))
+                           (directory-files rolldir)))))))
+        (complete-with-action action dirs string predicate))))))
 
-(defun configuration-layer/rollback (slot)
-  "Rollback all the packages in the given SLOT.
-If called interactively and SLOT is nil then an ido buffers appears
-to select one."
+(defun configuration-layer/rollback (slot-dir)
+  "Rollback all the packages in the given SLOT-DIR.
+
+Interactively, select a rollback slot with `completing-read'.
+Rollback slots are stored in
+`configuration-layer-rollback-directory'."
   (interactive
    (list
-    (if (boundp 'slot) slot
-      (let ((candidates (configuration-layer//ido-candidate-rollback-slot)))
-        (when candidates
-          (ido-completing-read "Rollback slots (most recent are first): "
-                               candidates))))))
+    (let ((candidates (configuration-layer//rollback-slots)))
+      (if (all-completions "" candidates)
+          (completing-read "Rollback slots (most recent are first): " candidates nil t)
+        (error "No rollback slot available")))))
   (spacemacs-buffer/insert-page-break)
-  (if (not slot)
-      (configuration-layer/message "No rollback slot available.")
-    (string-match "^\\(.+?\\)\s.*$" slot)
-    (let* ((slot-dir (match-string 1 slot))
-           (rollback-dir (file-name-as-directory
-                          (concat configuration-layer-rollback-directory
-                                  (file-name-as-directory slot-dir))))
-           (info-file (expand-file-name
-                       (concat rollback-dir
-                               configuration-layer-rollback-info))))
+  (let* ((rollback-dir (file-name-as-directory
+                        (concat configuration-layer-rollback-directory
+                                (file-name-as-directory slot-dir))))
+         (info-file (expand-file-name
+                     (concat rollback-dir
+                             configuration-layer-rollback-info))))
+    (spacemacs-buffer/append
+     (format "\nRollbacking ELPA packages from slot %s...\n" slot-dir))
+    (configuration-layer/load-file info-file)
+    (let ((rollback-count (length update-packages-alist))
+          (rollbacked-count 0))
       (spacemacs-buffer/append
-       (format "\nRollbacking ELPA packages from slot %s...\n" slot-dir))
-      (configuration-layer/load-file info-file)
-      (let ((rollback-count (length update-packages-alist))
-            (rollbacked-count 0))
-        (spacemacs-buffer/append
-         (format "Found %s package(s) to rollback...\n" rollback-count))
-        (spacemacs//redisplay)
-        (dolist (apkg update-packages-alist)
-          (let* ((pkg (car apkg))
-                 (pkg-dir-name (cdr apkg))
-                 (installed-ver
-                  (configuration-layer//get-package-version-string pkg))
-                 (elpa-dir (file-name-as-directory package-user-dir))
-                 (src-dir (expand-file-name
-                           (concat rollback-dir (file-name-as-directory
-                                                 pkg-dir-name))))
-                 (dest-dir (expand-file-name
-                            (concat elpa-dir (file-name-as-directory
-                                              pkg-dir-name)))))
-            (unless (memq pkg dotspacemacs-frozen-packages)
-              (setq rollbacked-count (1+ rollbacked-count))
-              (if (string-equal (format "%S-%s" pkg installed-ver) pkg-dir-name)
-                  (spacemacs-buffer/replace-last-line
-                   (format "--> package %s already rolled back! [%s/%s]"
-                           pkg rollbacked-count rollback-count) t)
-                ;; rollback the package
+       (format "Found %s package(s) to rollback...\n" rollback-count))
+      (spacemacs//redisplay)
+      (dolist (apkg update-packages-alist)
+        (let* ((pkg (car apkg))
+               (pkg-dir-name (cdr apkg))
+               (installed-ver
+                (configuration-layer//get-package-version-string pkg))
+               (elpa-dir (file-name-as-directory package-user-dir))
+               (src-dir (expand-file-name
+                         (concat rollback-dir (file-name-as-directory
+                                               pkg-dir-name))))
+               (dest-dir (expand-file-name
+                          (concat elpa-dir (file-name-as-directory
+                                            pkg-dir-name)))))
+          (unless (memq pkg dotspacemacs-frozen-packages)
+            (setq rollbacked-count (1+ rollbacked-count))
+            (if (string-equal (format "%S-%s" pkg installed-ver) pkg-dir-name)
                 (spacemacs-buffer/replace-last-line
-                 (format "--> rolling back package %s... [%s/%s]"
+                 (format "--> package %s already rolled back! [%s/%s]"
                          pkg rollbacked-count rollback-count) t)
-                (configuration-layer//package-delete pkg)
-                (copy-directory src-dir dest-dir
-                                'keeptime 'create 'copy-content)))
-            (spacemacs//redisplay)))
-        (spacemacs-buffer/append
-         (format "\n--> %s packages rolled back.\n" rollbacked-count))
-        (spacemacs-buffer/append
-         "\nEmacs has to be restarted for the changes to take effect.\n")))))
+              ;; rollback the package
+              (spacemacs-buffer/replace-last-line
+               (format "--> rolling back package %s... [%s/%s]"
+                       pkg rollbacked-count rollback-count) t)
+              (configuration-layer//package-delete pkg)
+              (copy-directory src-dir dest-dir
+                              'keeptime 'create 'copy-content)))
+          (spacemacs//redisplay)))
+      (spacemacs-buffer/append
+       (format "\n--> %s packages rolled back.\n" rollbacked-count))
+      (spacemacs-buffer/append
+       "\nEmacs has to be restarted for the changes to take effect.\n"))))
 
 (defun configuration-layer//activate-package (pkg)
   "Activate PKG."
