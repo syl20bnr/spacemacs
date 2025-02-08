@@ -114,7 +114,7 @@
     (define-advice dired-noselect (:before (&rest _) quick-sort-setup)
       (let ((dired-quick-sort-suppress-setup-warning 'message))
         (dired-quick-sort-setup))
-      (advice-remove 'dired-noselect 'quick-sort-setup@dired-noselect))
+      (advice-remove 'dired-noselect 'dired-noselect@quick-sort-setup))
     :config
     (evil-define-key 'normal dired-mode-map "s" 'hydra-dired-quick-sort/body)))
 
