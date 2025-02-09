@@ -196,22 +196,23 @@ ROOT-DIR should be the path for the environemnt, `nil' for clean up"
                   ((or "ipdb" "ipdb3") "import ipdb; ipdb.set_trace()")
                   ((or "pudb" "pudb3") "import pudb; pudb.set_trace()")
                   ("python3"           "breakpoint()") ; not consider the python3.6 or lower
-                  (_ "import pdb; pdb.set_trace()")))
-         (prev-line (save-excursion
-                      (and (zerop (forward-line -1))
-                           (thing-at-point 'line))))
-         (line (thing-at-point 'line)))
-    (cond ((and line (string-search trace line))
-           (kill-whole-line)
-           (back-to-indentation))
-          ((and prev-line (string-search trace prev-line))
-           (forward-line -1)
-           (kill-whole-line)
-           (back-to-indentation))
-          (t
-           (back-to-indentation)
-           (insert trace ?\n)
-           (python-indent-line)))))
+                  (_ "import pdb; pdb.set_trace()"))))
+    (unless (cl-some
+             (lambda (bounds)
+               (when-let* ((beg (car-safe bounds))
+                           (end (cdr-safe bounds))
+                           ((string-search trace (buffer-substring beg end))))
+                 (kill-region beg end)
+                 (back-to-indentation)
+                 ;; return t to discontinue
+                 t))
+             (list (bounds-of-thing-at-point 'line)               ; current line
+                   (save-excursion (and (zerop (forward-line -1)) ; previous line
+                                        (bounds-of-thing-at-point 'line)))))
+      ;; insert the instruction
+      (back-to-indentation)
+      (insert trace ?\n)
+      (python-indent-line))))
 
 ;; from https://www.snip2code.com/Snippet/127022/Emacs-auto-remove-unused-import-statemen
 (defun spacemacs/python-remove-unused-imports ()
