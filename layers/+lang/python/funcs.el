@@ -128,12 +128,16 @@
   (highlight-lines-matching-regexp "trepan.api.debug()"))
 
 (defun spacemacs/pyenv-executable-find (commands)
-  "Find executable taking pyenv shims into account, return the first
-occured executable path in the COMMANDS. If the pyenv was configured
-with \"system\" then the system exectutable will be included, otherwise
-the system executable will be ignored. A non-list COMMANDS is supported
-for compatibility reason."
-  (unless (listp commands)              ; to compatible
+  "Find executable taking pyenv shims into account.
+
+Return the first executable in COMMANDS whose path was found.  If
+the pyenv was configured with \"system\" then the system
+executable will be included, otherwise the system executable
+will be ignored.
+
+COMMANDS may also be a single string, for backwards
+compatibility."
+  (unless (listp commands)
     (setq commands (list commands)))
   (if (or (bound-and-true-p pyvenv-virtual-env) ; in virtualenv
           (not (executable-find "pyenv")))      ; or no pyenv
@@ -159,10 +163,10 @@ ROOT-DIR should be the directory path for the environment, `nil' for clean up."
     (if-let* ((default-directory root-dir)
               (pyshell (or (spacemacs/pyenv-executable-find
                             '("ipython3" "ipython" "python3" "python2" "python"))
-                           "python3")))
+                           "python3"))
+              (ipythonp (string-search "ipython" (file-name-nondirectory pyshell))))
         (setq-local python-shell-interpreter pyshell
-                    python-shell-interpreter-args (if (string-match-p "ipython" pyshell)
-                                                      "-i --simple-prompt" "-i"))
+                    python-shell-interpreter-args (if ipythonp "-i --simple-prompt" "-i"))
       ;; args is nil, clean up the variables
       (setq-local python-shell-interpreter nil
                   python-shell-interpreter-args nil))))
@@ -421,9 +425,9 @@ Bind formatter to '==' for LSP and '='for all other backends."
         (lsp-format-buffer))
     (lsp-capability-not-supported
      (display-warning
-       '(spacemacs python)
-       "Configuration error: `python-formatter' is `lsp', no active workspace supports textDocument/formatting"
-       :error))))
+      '(spacemacs python)
+      "Configuration error: `python-formatter' is `lsp', no active workspace supports textDocument/formatting"
+      :error))))
 
 
 
