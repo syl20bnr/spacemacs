@@ -33,36 +33,30 @@
 
 (defun translate/init-go-translate ()
   (use-package go-translate
-    :commands (gts-translate)
+    :commands (gt-start)
     :config
-    (defclass translate//reference-paragraph-texter (gts-texter) ())
-    (cl-defmethod gts-text ((_ translate//reference-paragraph-texter))
-      (translate-get-reference-paragraph-text-at-point))
-    (defclass translate//reference-paragraph-picker (gts-picker)
-      ((texter :initarg :texter :initform (translate//reference-paragraph-texter))))
-    (cl-defmethod gts-pick ((o translate//reference-paragraph-picker))
-      (let ((text (gts-text (oref o texter))))
+    (defun translate//reference-paragraph-texter ()
+      (let ((text (translate-get-reference-paragraph-text-at-point)))
         (when (= 0 (length (if text (string-trim text) "")))
           (user-error "Make sure there is any word at point, or selection exists"))
-        (let ((path (gts-path o text)))
-          (cl-values text path))))
+        text))
     (defun translate//check-and-get-render (render)
       (if (equal render 'posframe)
           (if (featurep 'posframe)
-              (gts-posframe-pop-render)
-            (display-warning 'translate "Missing package `posframe', back to use default `gts-buffer-render'.")
-            (gts-buffer-render))
-        (gts-buffer-render)))
+              (gt-posframe-pop-render)
+            (display-warning 'translate "Missing package `posframe', back to use default `gt-buffer-render'.")
+            (gt-buffer-render))
+        (gt-buffer-render)))
     (defconst translate//paragraph-translator
-      (gts-translator
-       :picker (translate//reference-paragraph-picker)
-       :engines (list (gts-google-engine) (gts-google-rpc-engine) (gts-bing-engine))
+      (gt-translator
+       :taker (gt-taker :text (lambda () (translate//reference-paragraph-texter)))
+       :engines (list (gt-google-engine) (gt-bing-engine))
        :render (translate//check-and-get-render translate/paragraph-render))
       "Paragraph translator for `go-translate'.")
     (defconst translate//word-translator
-      (gts-translator
-       :picker (gts-noprompt-picker)
-       :engines (list (gts-google-engine) (gts-google-rpc-engine) (gts-bing-engine))
+      (gt-translator
+       :taker (gt-taker :text 'word)
+       :engines (list (gt-google-engine) (gt-bing-engine))
        :render (translate//check-and-get-render translate/word-render))
       "Word translator for `go-translate'.")))
 

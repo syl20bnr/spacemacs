@@ -10,7 +10,7 @@
 - [[#install][Install]]
 - [[#usage][Usage]]
 - [[#configuration][Configuration]]
-  - [[#language-pair][Language Pair]]
+  - [[#languages][Languages]]
   - [[#highlighting][Highlighting]]
   - [[#read-only][Read-only]]
   - [[#face][Face]]
@@ -41,11 +41,11 @@ All layer configurations can be done by setting layer variables in your dotfile.
 No custom user config lines are necessary. For more details please see the homepage
 of package [[https://github.com/rayw000/translate-mode][translate-mode]] and [[https://github.com/lorniu/go-translate/][go-translate]].
 
-** Language Pair
-You need to set language pairs to make online translation work.
+** Languages
+You need to set languages to make online translation work.
 
 #+BEGIN_SRC emacs-lisp
-  (translate :variables gts-translate-list '(("en" "zh") ("en" "fr")))
+  (translate :variables gt-langs '(en zh fr))
 #+END_SRC
 
 ** Highlighting
@@ -64,7 +64,7 @@ You can set =translate-reference-buffer-read-only= to =t= to make the reference 
 
 ** Face
 The face of highlight paragraph can be customized by =translate-paragraph-highlight-face=.
-Put this following line into =custom-set-faces= in your =~/.spacemacs~ file to set the background
+Put this following line into =custom-set-faces= in your =~/.spacemacs= file to set the background
 color to red, for example.
 
 #+BEGIN_SRC emacs-lisp

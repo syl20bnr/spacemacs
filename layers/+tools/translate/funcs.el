@@ -26,12 +26,12 @@
   (defun translate/translate-current-reference-paragraph ()
     "Show all available translations of the reference paragraph at point in a pop-up frame."
     (interactive)
-    (gts-translate translate//paragraph-translator))
+    (gt-start translate//paragraph-translator))
 
   (defun translate/translate-word-at-point ()
     "Pop-up translations of the word at point."
     (interactive)
-    (gts-translate translate//word-translator))
+    (gt-start translate//word-translator))
 
   (defun translate//set-translate-mode-paragraph-functions ()
     (cond ((eq major-mode 'markdown-mode)
