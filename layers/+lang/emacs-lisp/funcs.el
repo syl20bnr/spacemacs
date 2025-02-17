@@ -174,3 +174,19 @@ Intended for use in mode hooks."
   (let ((cbuf (current-buffer)))
     (ert '(satisfies (lambda (test)
                        (eq cbuf (spacemacs//find-ert-test-buffer test)))))))
+
+
+;; setup flycheck, but not for `lisp-interaction-mode'
+;;
+;; `lisp-interaction-mode' is commonly used as the major-mode for the *scratch*
+;; buffer created upon startup, but the flycheck-package and flycheck-elsa
+;; linters are meaningless in such a buffer.  In fact, they are meaningless for
+;; non-file-backed buffers, so just check that.
+
+(defun emacs-lisp//flycheck-package-setup ()
+  (when buffer-file-name
+    (flycheck-package-setup)))
+
+(defun emacs-lisp//flycheck-elsa-setup ()
+  (when buffer-file-name
+    (flycheck-elsa-setup)))
