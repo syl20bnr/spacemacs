@@ -30,6 +30,7 @@
   - [[#protect-your-eshell-prompt][Protect your Eshell prompt]]
   - [[#fish-shell-and-ansi-term][Fish shell and ansi-term]]
   - [[#close-window-with-terminal][Close window with terminal]]
+  - [[#vterm-package-support][vterm package support]]
 - [[#eshell][Eshell]]
 - [[#key-bindings][Key bindings]]
   - [[#multi-term][Multi-term]]
@@ -270,6 +271,18 @@ layer variable to non-nil:
 #+END_SRC
 
 This is only applied to =term= and =ansi-term= modes.
+
+** vterm package support
+
+By default, the vterm and multi-vterm packages will be installed and
+configured on platforms that support it.  However, this requires
+performing additional compilation steps at load or install time, and
+may require other external dependencies that may not exist on your
+machine.
+
+If you do not wish to use these packages, you can set
+=shell-enable-vterm-support= to nil to avoid installing them in the
+first place.
 
 * Eshell
 Some advanced configuration is setup for =eshell= in this layer:

@@ -68,5 +68,11 @@ for Linux/macOS), `eshell' (default for windows), `shell',
   "If non-nil, the window is closed when the terminal is stopped.
   This is only applied to `term' and `ansi-term' modes.")
 
+(defvar shell-enable-vterm-support t
+  "If non-nil, enable the `vterm' and `multi-vterm' packages.'
+
+These packages require dynamic module support in your Emacs, as
+well as cmake and libtool.  See the layer README for details.")
+
 (defvar spacemacs-vterm-history-file-location nil
   "Bash history full file name.")
