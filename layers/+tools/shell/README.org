@@ -273,9 +273,8 @@ layer variable to non-nil:
 This is only applied to =term= and =ansi-term= modes.
 
 ** vterm package support
-
 By default, the vterm and multi-vterm packages will be installed and
-configured on platforms that support it.  However, this requires
+configured on platforms that support it. However, this requires
 performing additional compilation steps at load or install time, and
 may require other external dependencies that may not exist on your
 machine.
