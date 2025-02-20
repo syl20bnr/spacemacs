@@ -27,7 +27,6 @@
   - [[#toggles][Toggles]]
   - [[#rake][Rake]]
   - [[#refactor][Refactor]]
-  - [[#seeing-is-believing][Seeing is believing]]
 - [[#configuration][Configuration]]
   - [[#layer-options][Layer options]]
   - [[#disabling-the-automatic-insertion-of-encoding-comment][Disabling the automatic insertion of encoding comment]]
@@ -105,7 +104,6 @@ based on your version manager):
 - =ruby_parser= is required for *goto-step_definition* in =feature-mode=
 - =rubocop= is required for rubocop integration
 - =prettier= is required for formatter
-- =seeing_is_believing= helps you evaluate code inline
 - =solargraph= is required for using the language server protocol in =ruby-mode=
 
 You can install the gems in the context of your current project by
@@ -279,13 +277,6 @@ When =ruby-test-runner= equals =minitest=.
 | ~SPC m r e v~ | Extract local variable |
 | ~SPC m r e c~ | Extract constant       |
 | ~SPC m r e l~ | Extract to let (rspec) |
-
-** Seeing is believing
-
-| Key binding   | Description                      |
-|---------------+----------------------------------|
-| ~<SPC> m @ @~ | Run seeing is believing          |
-| ~<SPC> m @ c~ | Clear seeing is believing output |
 
 * Configuration
 ** Layer options
