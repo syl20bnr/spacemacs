@@ -48,7 +48,6 @@
     ruby-test-mode
     ruby-tools
     (rvm :toggle (eq ruby-version-manager 'rvm))
-    seeing-is-believing
     smartparens))
 
 (defun ruby/init-bundler ()
@@ -363,21 +362,6 @@
     (setq rspec-use-rvm t)
     (spacemacs/add-to-hooks 'rvm-activate-corresponding-ruby
                             '(ruby-mode-hook enh-ruby-mode-hook))))
-
-(defun ruby/init-seeing-is-believing ()
-  (use-package seeing-is-believing
-    :defer t
-    :commands (seeing-is-believing seeing-is-believing-run seeing-is-believing-clear)
-    :if (executable-find "seeing_is_believing")
-    :init
-    (spacemacs|diminish seeing-is-believing " 👁" " @")
-    (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
-      (add-hook hook 'seeing-is-believing))
-    (dolist (mode '(ruby-mode enh-ruby-mode))
-      (spacemacs/declare-prefix-for-mode mode "m@" "seeing-is-believing")
-      (spacemacs/set-leader-keys-for-major-mode mode
-        "@@" 'seeing-is-believing-run
-        "@c" 'seeing-is-believing-clear))))
 
 (defun ruby/pre-init-smartparens ()
   (spacemacs|use-package-add-hook smartparens
