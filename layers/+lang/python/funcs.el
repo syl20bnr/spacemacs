@@ -160,13 +160,13 @@ compatibility."
 ROOT-DIR should be the directory path for the environment, `nil' for clean up."
   (when (or (not (bound-and-true-p python-shell-interpreter))
             (equal python-shell-interpreter spacemacs--python-shell-interpreter-origin))
-    (if-let* ((default-directory root-dir)
-              (pyshell (or (spacemacs/pyenv-executable-find
-                            '("ipython3" "ipython" "python3" "python2" "python"))
-                           "python3"))
-              (ipythonp (string-search "ipython" (file-name-nondirectory pyshell))))
-        (setq-local python-shell-interpreter pyshell
-                    python-shell-interpreter-args (if ipythonp "-i --simple-prompt" "-i"))
+    (if-let* ((default-directory root-dir))
+        (let* ((pyshell (or (spacemacs/pyenv-executable-find
+                             '("ipython3" "ipython" "python3" "python2" "python"))
+                            "python3"))
+               (ipythonp (string-search "ipython" (file-name-nondirectory pyshell))))
+          (setq-local python-shell-interpreter pyshell
+                      python-shell-interpreter-args (if ipythonp "-i --simple-prompt" "-i")))
       ;; args is nil, clean up the variables
       (setq-local python-shell-interpreter nil
                   python-shell-interpreter-args nil))))
