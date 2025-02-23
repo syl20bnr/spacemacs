@@ -66,7 +66,23 @@
     :keys (dotspacemacs-emacs-leader-key)
     :evil-keys (dotspacemacs-leader-key)
     :override-minor-modes t
-    :override-mode-name spacemacs-leader-override-mode))
+    :override-mode-name spacemacs-leader-override-mode)
+  ;; Fix https://github.com/justbur/emacs-bind-map/pull/11,
+  ;; can be removed once the above PR is merged.
+  (when (version<= "30" emacs-version)
+    (define-advice bind-map--lookup-major-modes (:override (mode) fix-major-mode-remap)
+      (let ((r-mode
+             (when bind-map-use-remapped-modes
+               (cond ((fboundp 'major-mode-remap)
+                      ;; bound in Emacs 30
+                      (major-mode-remap mode))
+                     ((boundp 'major-mode-remap-alist)
+                      ;; bound in Emacs 29
+                      (alist-get mode major-mode-remap-alist)))))
+            (a-modes (and bind-map-use-aliased-modes
+                          (fboundp 'function-alias-p)
+                          (function-alias-p mode))))
+        (delete-dups (delq nil (append (list mode r-mode) a-modes)))))))
 
 (defun spacemacs-bootstrap/init-evil ()
   ;; ensure that the search module is set at startup
