@@ -1607,35 +1607,35 @@ squared symbols like =🅿=.
 | Key binding   | Unicode | ASCII | Mode                                                                 |
 |---------------+---------+-------+----------------------------------------------------------------------|
 | ~SPC t -~     | =⊝=     | -     | [[https://github.com/emacsmirror/centered-cursor-mode][centered-cursor]] mode                                                 |
-| ~SPC t 8~     | =⑧=    | 8     | toggle highlight of characters for long lines                        |
-| ~SPC t C-8~   | =⑧=    | 8     | global toggle highlight of characters for long lines                 |
+| ~SPC t 8~     | =⑧=     | 8     | toggle highlight of characters for long lines                        |
+| ~SPC t C-8~   | =⑧=     | 8     | global toggle highlight of characters for long lines                 |
 | ~SPC t C--~   | =⊝=     | -     | global centered cursor                                               |
-| ~SPC t a~     | =ⓐ=    | a     | auto-completion                                                      |
-| ~SPC t c~     | =ⓒ=    | c     | camel case motion with subword mode                                  |
-| =none=        | =ⓔ=    | e     | [[https://github.com/Somelauw/evil-org-mode][evil-org]] mode                                                        |
-| ~SPC t E e~   | =Ⓔe=   | Ee    | emacs editing style (holy mode)                                      |
-| ~SPC t E h~   | =Ⓔh=   | Eh    | hybrid editing style (hybrid mode)                                   |
-| ~SPC t f~     | =ⓕ=    | f     | display-fill-column-indicator mode                                   |
-| ~SPC t F~     | =Ⓕ=    | F     | auto-fill mode                                                       |
-| ~SPC t G~     | =Ⓖ=    | G     | [[https://spacemacs.org/layers/+tags/gtags/README.html][ggtags]] mode                                                          |
-| ~SPC t g~     | =ⓖ=    | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                                                    |
-| ~SPC t h i~   | =ⓗi=   | hi    | toggle highlight indentation levels                                  |
-| ~SPC t h c~   | =ⓗc=   | hc    | toggle highlight indentation current column                          |
-| ~SPC t i~     | =ⓘ=    | i     | indentation guide                                                    |
-| ~SPC t C-i~   | =ⓘ=    | i     | global indentation guide                                             |
-| ~SPC t I~     | =Ⓘ=    | I     | aggressive indent mode                                               |
-| ~SPC t K~     | =Ⓚ=    | K     | which-key mode                                                       |
-| ~SPC t L~     | =Ⓛ=    | L     | visual line navigation                                               |
-| ~SPC t C-S-l~ | =Ⓛ=    | L     | visual line navigation globally                                      |
-| ~SPC t p~     | =ⓟ=    | p     | [[https://github.com/Fuco1/smartparens][smartparens]] mode                                                     |
-| ~SPC t C-p~   | =ⓟ=    | p     | global smartparens                                                   |
-| ~SPC t s~     | =ⓢ=    | s     | syntax checking (flycheck)                                           |
-| ~SPC t S~     | =Ⓢ=    | S     | enabled in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell checking layer]] (flyspell)                           |
-| ~SPC t w~     | =ⓦ=    | w     | whitespace mode                                                      |
-| ~SPC t C-w~   | =ⓦ=    | w     | global whitespace                                                    |
-| ~SPC t W~     | =Ⓦ=    | W     | automatic whitespace cleanup (see =dotspacemacs-whitespace-cleanup=) |
-| ~SPC t C-W~   | =Ⓦ=    | W     | automatic whitespace cleanup globally                                |
-| ~SPC t y~     | =ⓨ=    | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                                       |
+| ~SPC t a~     | =ⓐ=     | a     | auto-completion                                                      |
+| ~SPC t c~     | =ⓒ=     | c     | camel case motion with subword mode                                  |
+| =none=        | =ⓔ=     | e     | [[https://github.com/Somelauw/evil-org-mode][evil-org]] mode                                                        |
+| ~SPC t E e~   | =Ⓔe=    | Ee    | emacs editing style (holy mode)                                      |
+| ~SPC t E h~   | =Ⓔh=    | Eh    | hybrid editing style (hybrid mode)                                   |
+| ~SPC t f~     | =ⓕ=     | f     | display-fill-column-indicator mode                                   |
+| ~SPC t F~     | =Ⓕ=     | F     | auto-fill mode                                                       |
+| ~SPC t G~     | =Ⓖ=     | G     | [[https://spacemacs.org/layers/+tags/gtags/README.html][ggtags]] mode                                                          |
+| ~SPC t g~     | =ⓖ=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                                                    |
+| ~SPC t h i~   | =ⓗi=    | hi    | toggle highlight indentation levels                                  |
+| ~SPC t h c~   | =ⓗc=    | hc    | toggle highlight indentation current column                          |
+| ~SPC t i~     | =ⓘ=     | i     | indentation guide                                                    |
+| ~SPC t C-i~   | =ⓘ=     | i     | global indentation guide                                             |
+| ~SPC t I~     | =Ⓘ=     | I     | aggressive indent mode                                               |
+| ~SPC t K~     | =Ⓚ=     | K     | which-key mode                                                       |
+| ~SPC t L~     | =Ⓛ=     | L     | visual line navigation                                               |
+| ~SPC t C-S-l~ | =Ⓛ=     | L     | visual line navigation globally                                      |
+| ~SPC t p~     | =ⓟ=     | p     | [[https://github.com/Fuco1/smartparens][smartparens]] mode                                                     |
+| ~SPC t C-p~   | =ⓟ=     | p     | global smartparens                                                   |
+| ~SPC t s~     | =ⓢ=     | s     | syntax checking (flycheck)                                           |
+| ~SPC t S~     | =Ⓢ=     | S     | enabled in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell checking layer]] (flyspell)                           |
+| ~SPC t w~     | =ⓦ=     | w     | whitespace mode                                                      |
+| ~SPC t C-w~   | =ⓦ=     | w     | global whitespace                                                    |
+| ~SPC t W~     | =Ⓦ=     | W     | automatic whitespace cleanup (see =dotspacemacs-whitespace-cleanup=) |
+| ~SPC t C-W~   | =Ⓦ=     | W     | automatic whitespace cleanup globally                                |
+| ~SPC t y~     | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                                       |
 
 ** Frame
 *** Title
@@ -3050,7 +3050,7 @@ Text related commands (start with ~x~):
 | ~SPC x a ]~   | align region at ]                                             |
 | ~SPC x a {~   | align region at {                                             |
 | ~SPC x a }~   | align region at }                                             |
-| ~SPC x a ​,​~  | align region at ,                                             |
+| ~SPC x a ​,​~   | align region at ,                                             |
 | ~SPC x a .~   | align region at . (for numeric tables)                        |
 | ~SPC x a :~   | align region at :                                             |
 | ~SPC x a ;~   | align region at ;                                             |
@@ -3413,22 +3413,22 @@ The key bindings start with ~SPC x r~ and have the following mnemonic structure:
 - ~SPC x r <source> <target>~ convert from source to target
 - ~SPC x r~ do what I mean
 
-| Key binding    | Description                                                                            |
-|----------------+----------------------------------------------------------------------------------------|
-| ~SPC x r /~    | Explain the regexp around point with =rx=                                              |
+| Key binding   | Description                                                                            |
+|---------------+----------------------------------------------------------------------------------------|
+| ~SPC x r /~   | Explain the regexp around point with =rx=                                              |
 | ~SPC x r '​~   | Generate strings given by a regexp given this list is finite                           |
-| ~SPC x r t~    | Replace regexp around point by the =rx= form or vice versa                             |
-| ~SPC x r x~    | Convert regexp around point in =rx= form and display the result in the minibuffer      |
-| ~SPC x r c~    | Convert regexp around point to the other form and display the result in the minibuffer |
-| ~SPC x r e /~  | Explain Emacs Lisp regexp                                                              |
+| ~SPC x r t~   | Replace regexp around point by the =rx= form or vice versa                             |
+| ~SPC x r x~   | Convert regexp around point in =rx= form and display the result in the minibuffer      |
+| ~SPC x r c~   | Convert regexp around point to the other form and display the result in the minibuffer |
+| ~SPC x r e /~ | Explain Emacs Lisp regexp                                                              |
 | ~SPC x r e '​~ | Generate strings from Emacs Lisp regexp                                                |
-| ~SPC x r e p~  | Convert Emacs Lisp regexp to PCRE                                                      |
-| ~SPC x r e t~  | Replace Emacs Lisp regexp by =rx= form or vice versa                                   |
-| ~SPC x r e x~  | Convert Emacs Lisp regexp to =rx= form                                                 |
-| ~SPC x r p /~  | Explain PCRE regexp                                                                    |
+| ~SPC x r e p~ | Convert Emacs Lisp regexp to PCRE                                                      |
+| ~SPC x r e t~ | Replace Emacs Lisp regexp by =rx= form or vice versa                                   |
+| ~SPC x r e x~ | Convert Emacs Lisp regexp to =rx= form                                                 |
+| ~SPC x r p /~ | Explain PCRE regexp                                                                    |
 | ~SPC x r p '​~ | Generate strings from PCRE regexp                                                      |
-| ~SPC x r p e~  | Convert PCRE regexp to Emacs Lisp                                                      |
-| ~SPC x r p x~  | Convert PCRE to =rx= form                                                              |
+| ~SPC x r p e~ | Convert PCRE regexp to Emacs Lisp                                                      |
+| ~SPC x r p x~ | Convert PCRE to =rx= form                                                              |
 
 *** Deleting files
 Deletion is configured to send deleted files to system trash.
@@ -3709,7 +3709,7 @@ To search in a project see [[#searching-in-a-project][project searching]].
 
 | Key binding | Description                                                                              |
 |-------------+------------------------------------------------------------------------------------------|
-| ~SPC p '​~  | open a shell in project's root (with the =shell= layer)                                  |
+| ~SPC p '​~   | open a shell in project's root (with the =shell= layer)                                  |
 | ~SPC p !~   | run shell command in project's root                                                      |
 | ~SPC p &~   | run async shell command in project's root                                                |
 | ~SPC p %~   | replace a regexp                                                                         |
