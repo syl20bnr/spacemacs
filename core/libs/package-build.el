@@ -107,7 +107,7 @@ This option is used to determine whether failure to come up with
 a version string should be considered an error or not.
 
 Currently this defaults to (not package-build-stable), but the
-default is likely to be changed to just `t' in the future.  See
+default is likely to be changed to just t in the future.  See
 also the commit that added this option."
   :group 'package-build
   :type 'boolean
@@ -390,33 +390,35 @@ or snapshots are build.")
       (oset rcp revdesc revdesc))))
 
 (cl-defmethod package-build--select-commit ((rcp package-git-recipe) rev exact)
-  (pcase-let*
-      ((`(,hash ,time)
-        (split-string
-         (car (apply #'process-lines
-                     "git" "log" "-n1" "--first-parent" "--no-show-signature"
-                     "--pretty=format:%H %cd" "--date=unix" rev
-                     (and (not exact)
-                          (cons "--" (package-build--spec-globs rcp)))))
-         " ")))
-    (list hash (string-to-number time))))
+  (if-let ((commit
+            (car (apply #'process-lines
+                        "git" "log" "-n1" "--first-parent" "--no-show-signature"
+                        "--pretty=format:%H %cd" "--date=unix" rev
+                        (and (not exact)
+                             (cons "--" (package-build--spec-globs rcp)))))))
+      (pcase-let ((`(,hash ,time) (split-string commit " ")))
+        (list hash (string-to-number time)))
+    (package-build--error (oref rcp name)
+      "No matching file(s) found in any reachable commit using %S files spec"
+      (or (oref rcp files) 'default))))
 
 (cl-defmethod package-build--select-commit ((rcp package-hg-recipe) rev exact)
-  (pcase-let*
-      ((`(,hash ,time ,_timezone)
-        (split-string
-         (car (apply #'process-lines
-                     ;; The "date" keyword uses UTC. The "hgdate" filter
-                     ;; returns two integers separated by a space; the
-                     ;; unix timestamp and the timezone offset.  We use
-                     ;; "hgdate" because that makes it easier to discard
-                     ;; the time zone offset, which doesn't interest us.
-                     "hg" "log" "--limit" "1"
-                     "--template" "{node} {date|hgdate}\n" "--rev" rev
-                     (and (not exact)
-                          (cons "--" (package-build--spec-globs rcp)))))
-         " ")))
-    (list hash (string-to-number time))))
+  (if-let ((commit
+            (car (apply #'process-lines
+                        ;; The "date" keyword uses UTC. The "hgdate" filter
+                        ;; returns two integers separated by a space; the
+                        ;; unix timestamp and the timezone offset.  We use
+                        ;; "hgdate" because that makes it easier to discard
+                        ;; the time zone offset, which doesn't interest us.
+                        "hg" "log" "--limit" "1"
+                        "--template" "{node} {date|hgdate}\n" "--rev" rev
+                        (and (not exact)
+                             (cons "--" (package-build--spec-globs rcp)))))))
+      (pcase-let ((`(,hash ,time ,_timezone) (split-string commit " ")))
+        (list hash (string-to-number time)))
+    (package-build--error (oref rcp name)
+      "No matching file(s) found in any reachable commit using %S files spec"
+      (or (oref rcp files) 'default))))
 
 (cl-defmethod package-build--revdesc ((_rcp package-git-recipe) rev &optional tag)
   (if tag
