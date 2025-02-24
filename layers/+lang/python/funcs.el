@@ -141,7 +141,10 @@ compatibility."
     (setq commands (list commands)))
   (if (or (bound-and-true-p pyvenv-virtual-env) ; in virtualenv
           (not (executable-find "pyenv")))      ; or no pyenv
-      (cl-some 'executable-find commands)
+      (cl-some (lambda (dir)
+                 (let ((exec-path (list dir)))
+                   (cl-some 'executable-find commands)))
+               exec-path)
 
     (let ((pyenv-vers (split-string (string-trim (shell-command-to-string "pyenv version-name")) ":")))
       (cl-some
