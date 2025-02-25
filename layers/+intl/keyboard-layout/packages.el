@@ -448,10 +448,7 @@
                        magit-module-commit-section-map
                        magit-stash-section-map
                        magit-stashes-section-map
-                       magit-tag-section-map
-                       magit-unpulled-section-map
-                       magit-unpushed-section-map
-                       magit-untracked-section-map))
+                       magit-tag-section-map))
       (kl/correct-keys map
         "j"
         "k"
