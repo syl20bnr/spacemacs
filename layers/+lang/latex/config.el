@@ -88,4 +88,4 @@ Allowed values are defined in `TeX-engine-alist'. The default allowed values are
   "List of environment names in which `auto-fill-mode' will be inhibited.")
 
 (defvar latex-refresh-preview nil
-  "Whether non-nil, refresh the preview buffer when file changes.")
+  "When non-nil, refresh the preview buffer after recompilation.")

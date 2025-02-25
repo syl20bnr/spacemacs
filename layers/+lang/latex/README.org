@@ -66,7 +66,7 @@ Sensible defaults have been provided, however they may all be overridden in your
 | ~latex-enable-folding~           | ~nil~                                                              | When non-nil, enable ~TeX-fold-mode~                                           |
 | ~latex-enable-magic~             | ~nil~                                                              | When non-nil, enable magic symbols                                             |
 | ~latex-nofill-env~               | See [[#auto-fill][details below]]                                                  | A list of LaTeX environment name where ~auto-fill-mode~ is disabled            |
-| ~latex-refresh-preview~          | ~nil~                                                              | When non-nil, enable refresh preview buffer when file changes                  |
+| ~latex-refresh-preview~          | ~nil~                                                              | When non-nil, enable refreshing the preview buffer after recompiling           |
 | ~latex-view-with-pdf-tools~      | ~t~ if pdf layer is installed, else ~nil~                          | When non-nil, use =pdf-tools= for viewing output pdf files                     |
 | ~latex-view-pdf-in-split-window~ | ~nil~ setting is neglected if ~latex-view-with-pdf-tools~ is ~nil~ | When non-nil, open =pdf-tools= in split window (when using =TeX-view= command) |
 
@@ -141,7 +141,7 @@ the output pdf's, set the layer variable =latex-view-with-pdf-tools= to =nil=.
 ** Previewing
 =LaTex= layer support full-document previews and inline preview (via ~SPC m p~).
 
-To update the preview buffer whenever the compiled PDF file changes, set
+To update the preview buffer automatically after recompiling, set
 =latex-refresh-preview= to =t= in your =~/.spacemacs=:
 
 #+BEGIN_SRC emacs-lisp

@@ -69,7 +69,8 @@
     (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
     (add-hook 'LaTeX-mode-hook #'spacemacs//latex-setup-backend)
     (when latex-refresh-preview
-      (add-hook 'doc-view-mode-hook 'auto-revert-mode))
+      (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer))
     :config
     ;; otherwise `, p` preview commands doesn't work
     (require 'preview)
