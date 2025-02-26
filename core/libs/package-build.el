@@ -1331,8 +1331,8 @@ order and can have the following form:
 - :defaults
 
   If the first element is `:defaults', then that means to prepend
-  the default files spec to the SPEC specified by the remaining
-  elements.
+  the default files spec (`package-build-default-files-spec') to
+  the SPEC specified by the remaining elements.
 
 - GLOB
 
@@ -1347,11 +1347,14 @@ order and can have the following form:
 
 - (:exclude GLOB...)
 
-  A list that begins with `:exclude' causes files that were
-  matched by earlier elements that are also matched by the second
-  and subsequent elements of this list to be removed from the
-  returned alist.  Files matched by later elements are not
-  affected.
+  A list that begins with `:exclude' causes files that are also
+  matched by the second and subsequent elements of this list to
+  be removed from the returned alist.
+
+  Note that `:defaults' includes a `:exclude' and that it is not
+  possible to override its entries to include files that are
+  excluded by default.  If a file needs to be included that would
+  be excluded by default, then `:defaults' cannot be used.
 
 - (:inputs GLOB...)
 
