@@ -1070,12 +1070,11 @@ GROUPED-LIST: a list of string pathnames made interactive in this function."
                                      (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust -0.05)
                                    (all-the-icons-icon-for-file (file-name-nondirectory el) :height 0.8 :v-adjust -0.05)))
                                " "))
-                             (button-text-filename (abbreviate-file-name el)))
+                             (button-text-filename (string-trim-left (expand-file-name el)
+                                                                     (regexp-quote (car group)))))
                         (insert button-prefix)
                         (widget-create 'push-button
-                                       :action `(lambda (&rest ignore)
-                                                  (find-file-existing
-                                                   (concat ,(car group) ,el)))
+                                       :action `(lambda (&rest ignore) (find-file-existing ,el))
                                        :mouse-face 'highlight
                                        :follow-link "\C-m"
                                        :button-prefix ""
@@ -1240,7 +1239,7 @@ LIST: list of `org-agenda' entries in the todo list."
 
 (defun spacemacs-buffer//associate-to-project (recent-file by-project)
   (dolist (x by-project)
-    (when (string-prefix-p (car x) recent-file)
+    (when (string-prefix-p (car x) (expand-file-name recent-file))
       (setcdr x (cons (string-remove-prefix (car x) recent-file) (cdr x))))))
 
 (defun spacemacs-buffer//recent-files-by-project ()
