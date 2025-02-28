@@ -72,53 +72,53 @@
  [_j_/_k_] next/prev candidate   [_v_]^^    persistent action    [_e_]^^   edit occurrences
  [_h_/_l_] prev/next source      [_1_.._0_] action 1..10         [_t_/_T_] toggle visible/all mark
  [_g_/_G_] first/last candidate  [_a_]^^    action selection pg  [_q_]^^   quit"
-        :foreign-keys run
-        :on-enter (spacemacs//helm-navigation-ts-on-enter)
-        :on-exit  (spacemacs//helm-navigation-ts-on-exit)
-        :bindings
-        ("1" spacemacs/helm-action-1 :exit t)
-        ("2" spacemacs/helm-action-2 :exit t)
-        ("3" spacemacs/helm-action-3 :exit t)
-        ("4" spacemacs/helm-action-4 :exit t)
-        ("5" spacemacs/helm-action-5 :exit t)
-        ("6" spacemacs/helm-action-6 :exit t)
-        ("7" spacemacs/helm-action-7 :exit t)
-        ("8" spacemacs/helm-action-8 :exit t)
-        ("9" spacemacs/helm-action-9 :exit t)
-        ("0" spacemacs/helm-action-10 :exit t)
-        ("<tab>" helm-select-action :exit t)
-        ("TAB" helm-select-action :exit t)
-        ("<RET>" helm-maybe-exit-minibuffer :exit t)
-        ;; ("?" nil :doc (spacemacs//helm-navigation-ts-full-doc))
-        ("a" spacemacs/helm-transient-state-select-action)
-        ("e" spacemacs/helm-ts-edit)
-        ("g" helm-beginning-of-buffer)
-        ("G" helm-end-of-buffer)
-        ("h" helm-previous-source)
-        ("j" helm-next-line)
-        ("k" helm-previous-line)
-        ("l" helm-next-source)
-        ("q" nil :exit t)
-        ("M-SPC" nil :exit t)
-        ("t" helm-toggle-visible-mark)
-        ("T" helm-toggle-all-marks)
-        ("v" helm-execute-persistent-action))
+      :foreign-keys run
+      :on-enter (spacemacs//helm-navigation-ts-on-enter)
+      :on-exit  (spacemacs//helm-navigation-ts-on-exit)
+      :bindings
+      ("1" spacemacs/helm-action-1 :exit t)
+      ("2" spacemacs/helm-action-2 :exit t)
+      ("3" spacemacs/helm-action-3 :exit t)
+      ("4" spacemacs/helm-action-4 :exit t)
+      ("5" spacemacs/helm-action-5 :exit t)
+      ("6" spacemacs/helm-action-6 :exit t)
+      ("7" spacemacs/helm-action-7 :exit t)
+      ("8" spacemacs/helm-action-8 :exit t)
+      ("9" spacemacs/helm-action-9 :exit t)
+      ("0" spacemacs/helm-action-10 :exit t)
+      ("<tab>" helm-select-action :exit t)
+      ("TAB" helm-select-action :exit t)
+      ("<RET>" helm-maybe-exit-minibuffer :exit t)
+      ;; ("?" nil :doc (spacemacs//helm-navigation-ts-full-doc))
+      ("a" spacemacs/helm-transient-state-select-action)
+      ("e" spacemacs/helm-ts-edit)
+      ("g" helm-beginning-of-buffer)
+      ("G" helm-end-of-buffer)
+      ("h" helm-previous-source)
+      ("j" helm-next-line)
+      ("k" helm-previous-line)
+      ("l" helm-next-source)
+      ("q" nil :exit t)
+      ("M-SPC" nil :exit t)
+      ("t" helm-toggle-visible-mark)
+      ("T" helm-toggle-all-marks)
+      ("v" helm-execute-persistent-action))
     (define-key helm-map (kbd "M-SPC")
-      'spacemacs/helm-navigation-transient-state/body)
+                'spacemacs/helm-navigation-transient-state/body)
     (define-key helm-map (kbd "s-M-SPC")
-      'spacemacs/helm-navigation-transient-state/body)
-      ;; Swap default TAB and C-z commands.
-      ;; For GUI.
+                'spacemacs/helm-navigation-transient-state/body)
+    ;; Swap default TAB and C-z commands.
+    ;; For GUI.
     (with-eval-after-load 'helm-files
       (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
       (define-key helm-find-files-map
-        (kbd "S-<tab>") 'helm-find-files-up-one-level)
+                  (kbd "S-<tab>") 'helm-find-files-up-one-level)
       (define-key helm-find-files-map
-        (kbd "<backtab>") 'helm-find-files-up-one-level)
+                  (kbd "<backtab>") 'helm-find-files-up-one-level)
       ;; For terminal.
       (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
       (define-key helm-find-files-map
-        (kbd "S-TAB") 'helm-find-files-up-one-level)
+                  (kbd "S-TAB") 'helm-find-files-up-one-level)
       (define-key helm-map (kbd "C-z") 'helm-select-action))))
 
 (defun spacemacs-completion/init-default-ivy-config ()
@@ -132,12 +132,12 @@
     ;; key bindings
     ;; ensure that the correct bindings are set at startup
     (spacemacs//ivy-hjkl-navigation dotspacemacs-editing-style)))
-    ;; load ivy-hydra
-    ;; (require 'ivy-hydra)
-    ;; Using the original ivy-hydra might lead to some buggy behavior. Therefore
-    ;; previously a customized transient state was found here. This customized
-    ;; transient state was removed after commit
-    ;; d46eacd83842815b24afcb2e1fee5c80c38187c5
+;; load ivy-hydra
+;; (require 'ivy-hydra)
+;; Using the original ivy-hydra might lead to some buggy behavior. Therefore
+;; previously a customized transient state was found here. This customized
+;; transient state was removed after commit
+;; d46eacd83842815b24afcb2e1fee5c80c38187c5
 
 
 (defun spacemacs-completion/init-flx-ido ()
