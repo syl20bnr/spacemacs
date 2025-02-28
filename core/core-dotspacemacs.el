@@ -971,6 +971,8 @@ before copying the file if the destination already exists."
                  dotspacemacs-filepath t)
       (message "%s has been installed." dotspacemacs-filepath))))
 
+(defvar ido-max-window-height)
+
 (defun dotspacemacs//ido-completing-read (prompt candidates)
   "Call `ido-completing-read' with a CANDIDATES alist where the key is
 a display strng and the value is the actual value to return."

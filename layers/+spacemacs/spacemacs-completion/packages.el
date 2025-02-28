@@ -25,9 +25,13 @@
       '(
         (default-helm-config :location built-in)
         (default-ivy-config :location built-in)
-        flx-ido
-        (ido :location built-in)
-        (ido-vertical-mode :location built-in)))
+        (flx-ido :requires ido-vertical-mode)
+        (ido :location built-in
+             :toggle
+             (not (or (configuration-layer/package-used-p 'helm)
+                      (configuration-layer/package-used-p 'ivy)
+                      (configuration-layer/package-used-p 'vertico))))
+        (ido-vertical-mode :location built-in :requires ido)))
 
 
 (defun spacemacs-completion/init-default-helm-config ()
