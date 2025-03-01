@@ -33,7 +33,7 @@
     ;; layer. So it is easier for users to steal the ownership of the
     ;; `org' package.
     (default-org-config :location built-in)
-    org-superstar
+    (org-superstar :toggle (not (configuration-layer/package-used-p 'org-modern)))
     (space-doc :location (recipe :fetcher local))
     toc-org
     ))
