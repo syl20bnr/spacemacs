@@ -2877,6 +2877,7 @@ This layer adds support for basic language server protocol packages speaking
 
 Features:
 - Provide LSP support using eglot.
+- Provide Flycheck integration using [[https://github.com/flycheck/flycheck-eglot][flycheck-eglot]]
 
 ** Eww
 [[file:+web/eww/README.org][+web/eww/README.org]]
