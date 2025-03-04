@@ -37,7 +37,9 @@
                 :call-hooks t))
     ('lsp (spacemacs|add-company-backends
             :backends company-capf
-            :modes go-mode))))
+            :modes go-mode
+            :append-hooks nil
+            :call-hooks t))))
 
 (defun spacemacs//go-setup-eldoc ()
   "Conditionally setup go eldoc based on backend"
