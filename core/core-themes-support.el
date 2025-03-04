@@ -293,8 +293,6 @@
     (kaolin-temple                    . kaolin-themes)
     (kaolin-valley-dark               . kaolin-themes)
     (kaolin-valley-light              . kaolin-themes)
-    (majapahit-dark                   . majapahit-themes)
-    (majapahit-light                  . majapahit-themes)
     (material-light                   . material-theme)
     (mccarthy                         . sublime-themes)
     (minimal-light                    . minimal-theme)
