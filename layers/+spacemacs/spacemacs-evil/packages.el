@@ -25,7 +25,7 @@
       '(
         evil-anzu
         evil-args
-        evil-collection
+        (evil-collection :toggle (not (eq dotspacemacs-editing-style 'emacs)))
         evil-cleverparens
         (evil-escape :location (recipe :fetcher github
                                        :repo "smile13241324/evil-escape"))
