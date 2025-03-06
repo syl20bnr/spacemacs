@@ -136,6 +136,7 @@ In addition, this layer adds the following key bindings to =org-mode=
 | ~SPC $ ec i~ | ellama-code-improve  | Improve code                      |
 | ~SPC $ ec r~ | ellama-code-review   | Review code                       |
 |              |                      |                                   |
+
 *** Code tasks
 
 | Key binding  | Command              | Description                       |
