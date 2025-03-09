@@ -28,6 +28,7 @@
         desktop
         (display-fill-column-indicator :location built-in)
         hl-todo
+        nerd-icons
         popup
         popwin
         posframe
@@ -71,6 +72,10 @@
     ;; global hook activates hl-todo-mode for prog-mode, text-mode
     ;; mode can be explicitly defined using hl-todo-activate-in-modes variable
     (global-hl-todo-mode 1)))
+
+(defun spacemacs-visual/init-nerd-icons ()
+  (use-package nerd-icons
+    :defer t))
 
 (defun spacemacs-visual/init-popup ())
 
