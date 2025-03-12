@@ -139,6 +139,7 @@
   (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
     (concat prefix-char "i") #'lsp-find-implementation
     (concat prefix-char "d") #'xref-find-definitions
+    (concat prefix-char "D") #'xref-find-definitions-other-window
     (concat prefix-char "r") #'xref-find-references
     (concat prefix-char "e") #'lsp-treemacs-errors-list
     (concat prefix-char "b") #'xref-go-back)
