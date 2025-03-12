@@ -178,9 +178,7 @@
           "c" 'org-capture-finalize
           "k" 'org-capture-kill
           "r" 'org-capture-refile)
-        ;; Evil bindins seem not to be applied until at least one
-        ;; Evil state is executed
-        (evil-normal-state))
+        (evil-normalize-keymaps))
       ;; Must be done everytime we run org-capture otherwise it will
       ;; be ignored until insert mode is entered.
       (add-hook 'org-capture-mode-hook 'spacemacs//org-capture-start))

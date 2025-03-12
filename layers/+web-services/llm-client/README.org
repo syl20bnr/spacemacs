@@ -13,6 +13,7 @@
 - [[#key-bindings][Key bindings]]
   - [[#gptel][GPTel]]
   - [[#ellama][Ellama]]
+    - [[#general-tasks][General tasks]]
     - [[#code-tasks][Code tasks]]
     - [[#summarization-tasks][Summarization tasks]]
     - [[#edit-tasks][Edit tasks]]
@@ -121,6 +122,21 @@ In addition, this layer adds the following key bindings to =org-mode=
 | ~SPC m $ g p~ | gptel-org-set-properties | Set properties in Org-mode |
 
 ** Ellama
+*** General tasks
+
+| Key binding | Command                    | Description                 |
+|-------------+----------------------------+-----------------------------|
+| ~SPC $ e .~ | ellama-transient-main-menu | Show ellama transient state |
+
+| Key binding  | Command              | Description                       |
+|--------------+----------------------+-----------------------------------|
+| ~SPC $ ec c~ | ellama-code-complete | Complete code in current buffer   |
+| ~SPC $ ec a~ | ellama-code-add      | Add code according to description |
+| ~SPC $ ec e~ | ellama-code-edit     | Edit code according to change     |
+| ~SPC $ ec i~ | ellama-code-improve  | Improve code                      |
+| ~SPC $ ec r~ | ellama-code-review   | Review code                       |
+|              |                      |                                   |
+
 *** Code tasks
 
 | Key binding  | Command              | Description                       |

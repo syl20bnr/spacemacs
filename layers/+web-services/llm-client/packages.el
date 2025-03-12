@@ -35,6 +35,8 @@
     :ensure t
     :init
     (spacemacs/declare-prefix "$e" "Ellama")
+    (spacemacs/set-leader-keys
+      "$e." 'ellama-transient-main-menu) ; Show the transient menu
     ;; Code
     (spacemacs/declare-prefix "$ec" "Code")
     (spacemacs/set-leader-keys
