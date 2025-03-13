@@ -273,15 +273,11 @@ Returns height in units of line height with a minimum of 1."
           ;; the nerd-icons package is not available here yet, but we don't
           ;; require icons for just counting the lines in the
           ;; `dotspacemacs-startup-lists'
-          (let ((icons dotspacemacs-startup-buffer-show-icons)
-                lines)
-            (setq dotspacemacs-startup-buffer-show-icons nil)
-            (setq lines (with-temp-buffer
-                          (spacemacs-buffer//do-insert-startupify-lists)
-                          (recentf-mode -1)
-                          (line-number-at-pos)))
-            (setq dotspacemacs-startup-buffer-show-icons icons)
-            lines))
+          (let ((dotspacemacs-startup-buffer-show-icons nil))
+            (with-temp-buffer
+              (spacemacs-buffer//do-insert-startupify-lists)
+              (recentf-mode -1)
+              (line-number-at-pos))))
          ;; We determine the maximum available banner height by subtracting the
          ;; number of lines in the home buffer contents (excl. logo and
          ;; startup-list), i.e. `26', and the number of lines in the startup
@@ -345,8 +341,7 @@ Right justified, based on the Spacemacs buffers window width."
                     (create-image badge-path)))
            (badge-size (when badge (car (image-size badge))))
            (build-by (concat "Made with "
-                             (if (and dotspacemacs-startup-buffer-show-icons
-                                      (display-graphic-p)
+                             (if (and (dotspacemacs|symbol-value dotspacemacs-startup-buffer-show-icons)
                                       (or (fboundp 'nerd-icons-faicon)
                                           (require 'nerd-icons nil 'noerror)))
                                  (nerd-icons-faicon "nf-fa-heart" :height 0.8 :v-adjust -0.05)
@@ -1407,7 +1402,7 @@ startup list.")
   (setq spacemacs-buffer--startup-list-nr 1)
   (let ((dotspacemacs-startup-buffer-show-icons dotspacemacs-startup-buffer-show-icons)
         (is-org-loaded (bound-and-true-p spacemacs-initialized)))
-    (if (display-graphic-p)
+    (if (dotspacemacs|symbol-value dotspacemacs-startup-buffer-show-icons)
         (when (and spacemacs-initialized
                    (not (configuration-layer/package-used-p 'nerd-icons)))
           (message "Package `nerd-icons' isn't installed")

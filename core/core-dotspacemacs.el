@@ -235,9 +235,18 @@ Spacemacs buffer."
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-startup-buffer-show-icons nil
-  "If non-nil, show file icons for entries and headings on spacemacs buffer.
-This has no effect in terminal or if \"nerd-icons\" is not installed."
-  'boolean
+  "If non-nil, show file icons for entries and headings on spacemacs
+buffer, it requires \"nerd-icons\" package been installed.
+
+For graphic frame, it also requires a nerd font been installed (Execute
+the `nerd-icons-install-fonts' to install the font file).
+
+For terminal frame, it requires a nerd font avaliable on Terminal
+(Please make sure your terminal working with nerd font first then try
+this feature).
+
+Set the value to quoted `display-graphic-p' for graphic frame only."
+  '(choice boolean (const all))
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-scratch-mode 'text-mode
