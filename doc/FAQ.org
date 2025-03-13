@@ -274,17 +274,17 @@ to the list and it will be installed when you reload your configuration with
 Set the values of =configuration-layer-elpa-archives= and
 =package-archive-priorities= inside =dotspacemacs/user-init=.
 
-#+begin_src emacs-lisp
-(defun dotspacemacs/user-init ()
-  (setq configuration-layer-elpa-archives
-        '(("melpa" . "https://melpa.org/packages/")
-          ("gnu" . "https://elpa.gnu.org/packages/")
-          ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
-  (setq package-archive-priorities
-        '(("melpa" . 4)
-          ("nongnu" . 2)
-          ("gnu" . 1))))
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (defun dotspacemacs/user-init ()
+    (setq configuration-layer-elpa-archives
+          '(("melpa" . "https://melpa.org/packages/")
+            ("gnu" . "https://elpa.gnu.org/packages/")
+            ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+    (setq package-archive-priorities
+          '(("melpa" . 4)
+            ("nongnu" . 2)
+            ("gnu" . 1))))
+#+END_SRC
 
 ** How to override a layer package?
 To replace a package that is installed and configured by a layer, without
