@@ -120,9 +120,8 @@ self-documenting.
 | ~SPC $ e~   | ellama-transient-main-menu | Show ellama transient state |
 
 *** Transient menu
-
 Only a small subset of the prefixes in the transient menu are
-documented here.  Press ~SPC $ e~ to see the full menu.
+documented here. Press ~SPC $ e~ to see the full menu.
 
 | Key binding | Description                   |
 |-------------+-------------------------------|
