@@ -210,8 +210,14 @@
     :config
     ;; show org ediffs unfolded
     (add-hook 'ediff-prepare-buffer-hook 'spacemacs//ediff-buffer-outline-show-all)
-    ;; restore window layout when done
-    (add-hook 'ediff-quit-hook #'winner-undo)
+    ;; save window layout before starting...
+    (add-hook 'ediff-before-setup-hook #'spacemacs//ediff-save-window-configuration)
+    ;; ... and restore window layout when done
+    ;;
+    ;; Append to `ediff-quit-hook' so that this runs after `ediff-cleanup-mess'.
+    ;; This avoids interfering with ediff's own cleanup, since it depends on the
+    ;; ediff control buffer still being current.
+    (add-hook 'ediff-quit-hook #'spacemacs//ediff-restore-window-configuration 50)
     (when (fboundp 'spacemacs//ediff-delete-temp-files)
       (add-hook 'kill-emacs-hook #'spacemacs//ediff-delete-temp-files))))
 

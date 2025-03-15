@@ -974,6 +974,16 @@ variable."
           (with-current-buffer b
             (ediff-delete-temp-files)))))))
 
+(defvar spacemacs//ediff-saved-window-configuration nil)
+
+(defun spacemacs//ediff-save-window-configuration ()
+  (setq spacemacs//ediff-saved-window-configuration
+        (current-window-configuration)))
+
+(defun spacemacs//ediff-restore-window-configuration ()
+  (when spacemacs//ediff-saved-window-configuration
+    (set-window-configuration spacemacs//ediff-saved-window-configuration)))
+
 (defun spacemacs/new-empty-buffer (&optional split)
   "Create a new buffer called: \"untitled\".
 
