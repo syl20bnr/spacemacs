@@ -881,6 +881,8 @@ otherwise the listed directory's path."
   (if-let* ((file-path (or (spacemacs--file-path)
                            (and (derived-mode-p 'dired-mode)
                                 (dired-get-filename nil t))
+                           (and (derived-mode-p 'eww-mode)
+                                (plist-get eww-data :url))
                            (spacemacs--directory-path))))
       (progn
         (kill-new file-path)
