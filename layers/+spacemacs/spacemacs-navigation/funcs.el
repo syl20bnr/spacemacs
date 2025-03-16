@@ -40,7 +40,9 @@ If the universal prefix argument is used then kill the buffer too."
    (lambda (window)
      (when (equal '(4) arg)
        (with-selected-window window
-         (spacemacs/kill-this-buffer arg)))
+         (if (equal '(4) arg)
+             (kill-buffer-and-window)
+           (kill-current-buffer))))
      (aw-delete-window window))))
 
 (defun spacemacs/ace-kill-this-buffer (&optional arg)
@@ -53,7 +55,9 @@ If the universal prefix argument is used then kill also the window."
      " Ace - Kill buffer in Window"
      (lambda (window)
        (with-selected-window window
-         (spacemacs/kill-this-buffer arg))))))
+         (if (equal '(4) arg)
+             (kill-buffer-and-window)
+           (kill-current-buffer)))))))
 
 
 ;; auto-highlight symbol
