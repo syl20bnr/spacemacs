@@ -143,7 +143,7 @@ compatibility."
           (not (executable-find "pyenv")))      ; or no pyenv
       (cl-some (lambda (dir)
                  (let ((exec-path (list dir)))
-                   (cl-some 'executable-find commands)))
+                   (cl-find-if 'executable-find commands)))
                exec-path)
 
     (let ((pyenv-vers (split-string (string-trim (shell-command-to-string "pyenv version-name")) ":")))
@@ -154,7 +154,7 @@ compatibility."
            (cl-some
             (lambda (ver)
               (cond ((string-match ver pyenv-cmd) pyenv-cmd)
-                    ((string-match ver "system") (executable-find cmd))))
+                    ((string-match ver "system") (and (executable-find cmd) cmd))))
             pyenv-vers)))
        commands))))
 
