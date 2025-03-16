@@ -648,7 +648,7 @@ respond to this toggle."
   "w3"  'spacemacs/window-split-triple-columns
   "w4"  'spacemacs/window-split-grid
   "wb"  'spacemacs/switch-to-minibuffer-window
-  "wd"  'spacemacs/delete-window
+  "wd"  'delete-window
   "wt"  'spacemacs/toggle-current-window-dedication
   "wf"  'follow-mode
   "wF"  'make-frame
