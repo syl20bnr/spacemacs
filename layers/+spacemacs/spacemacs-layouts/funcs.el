@@ -44,8 +44,7 @@
 (defun spacemacs//layout-wait-for-modeline (&rest _)
   "Assure the mode-line is loaded before restoring the layouts."
   (advice-remove 'persp-load-state-from-file 'spacemacs//layout-wait-for-modeline)
-  (when (and (configuration-layer/layer-used-p 'spacemacs-modeline)
-             (spacemacs//enable-spaceline-p))
+  (when (spacemacs//enable-spaceline-p)
     (require 'spaceline-config)))
 
 (defun spacemacs//current-layout-name ()
@@ -562,11 +561,11 @@ Run PROJECT-ACTION on project."
      :mode-line helm-read-file-name-mode-line-string
      :keymap (let ((map (make-sparse-keymap)))
                (define-key map
-                 (kbd "C-d") (lambda () (interactive)
-                                 (helm-exit-and-execute-action
-                                  (lambda (project)
-                                    (spacemacs||switch-project-persp project
-                                      (dired project))))))
+                           (kbd "C-d") (lambda () (interactive)
+                                         (helm-exit-and-execute-action
+                                          (lambda (project)
+                                            (spacemacs||switch-project-persp project
+                                              (dired project))))))
                map)
      :action `(("Switch to Project Perspective" .
                 spacemacs//helm-persp-switch-project-action)
