@@ -38,12 +38,7 @@ If the universal prefix argument is used then kill the buffer too."
   (aw-select
    " Ace - Delete Window"
    (lambda (window)
-     (when (equal '(4) arg)
-       (with-selected-window window
-         (if (equal '(4) arg)
-             (kill-buffer-and-window)
-           (kill-current-buffer))))
-     (aw-delete-window window))))
+     (aw-delete-window window arg))))
 
 (defun spacemacs/ace-kill-this-buffer (&optional arg)
   "Ace kill visible buffer in a window.
