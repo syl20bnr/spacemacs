@@ -359,7 +359,7 @@
 
 (defun spacemacs-navigation/init-restart-emacs ()
   (use-package restart-emacs
-    :defer (spacemacs/defer)
+    :defer t
     :init
     (with-eval-after-load 'files
       ;; unbind `restart-emacs' and declare it from package for ticket #15505

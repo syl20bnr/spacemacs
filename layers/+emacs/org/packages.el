@@ -124,7 +124,7 @@
 
 (defun org/init-org ()
   (use-package org
-    :defer (spacemacs/defer)
+    :defer t
     :commands (orgtbl-mode)
     :init
     (setq org-clock-persist-file (concat spacemacs-cache-directory

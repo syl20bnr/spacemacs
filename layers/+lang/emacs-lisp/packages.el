@@ -143,7 +143,7 @@
 
 (defun emacs-lisp/init-auto-compile ()
   (use-package auto-compile
-    :defer (spacemacs/defer)
+    :defer t
     :init
     (setq auto-compile-display-buffer nil
           ;; lets spaceline manage the mode-line
@@ -176,7 +176,7 @@
 (defun emacs-lisp/init-elisp-slime-nav ()
   ;; Elisp go-to-definition with M-. and back again with M-,
   (use-package elisp-slime-nav
-    :defer (spacemacs/defer)
+    :defer t
     :init
     (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
     (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
@@ -238,7 +238,7 @@
 
 (defun emacs-lisp/init-nameless ()
   (use-package nameless
-    :defer (spacemacs/defer)
+    :defer t
     :init
     (setq
      ;; always show the separator since it can have a semantic purpose

@@ -201,6 +201,7 @@ the final step of executing code in `emacs-startup-hook'.")
     (unless (frame-parameter nil 'fullscreen)
       (toggle-frame-maximized))
     (add-to-list 'default-frame-alist '(fullscreen . maximized)))
+  (dotspacemacs|call-func dotspacemacs/user-init "Calling dotfile user init...")
   ;; Given the loading process of Spacemacs we have no choice but to set the
   ;; custom settings twice:
   ;; - once at the very beginning of startup (here)

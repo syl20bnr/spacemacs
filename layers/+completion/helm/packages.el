@@ -51,7 +51,7 @@
 ;; Initialization of packages
 (defun helm/init-ace-jump-helm-line ()
   (use-package ace-jump-helm-line
-    :defer (spacemacs/defer)
+    :defer t
     :init
     (with-eval-after-load 'helm
       (define-key helm-map (kbd "C-q") 'ace-jump-helm-line))))
@@ -75,7 +75,7 @@
 
 (defun helm/init-helm ()
   (use-package helm
-    :defer (spacemacs/defer)
+    :defer t
     :init
     (spacemacs|diminish helm-ff-cache-mode)
     (spacemacs|add-transient-hook completing-read
@@ -221,12 +221,12 @@
 
 (defun helm/init-helm-comint ()
   (use-package helm-comint
-    :defer (spacemacs/defer)
+    :defer t
     :after helm))
 
 (defun helm/init-helm-ag ()
   (use-package helm-ag
-    :defer (spacemacs/defer)
+    :defer t
     :init
     (setq helm-ag-use-grep-ignore-list t)
     ;; This overrides the default C-s action in helm-projectile-switch-project
@@ -315,7 +315,7 @@
 
 (defun helm/init-helm-descbinds ()
   (use-package helm-descbinds
-    :defer (spacemacs/defer)
+    :defer t
     :init
     (setq helm-descbinds-window-style 'split
           helm-descbinds-disable-which-key nil)
@@ -366,7 +366,7 @@
 (defun helm/init-helm-org ()
   (use-package helm-org
     :commands (helm-org-in-buffer-headings)
-    :defer (spacemacs/defer)))
+    :defer t))
 
 (defun helm/init-helm-posframe ()
   (use-package helm-posframe
@@ -443,7 +443,7 @@
 
 (defun helm/init-helm-swoop ()
   (use-package helm-swoop
-    :defer (spacemacs/defer)
+    :defer t
     :init
     (setq helm-swoop-split-with-multiple-windows t
           helm-swoop-split-direction 'split-window-vertically

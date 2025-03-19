@@ -144,7 +144,7 @@
 
 (defun git/init-magit ()
   (use-package magit
-    :defer (spacemacs/defer)
+    :defer t
     :custom (magit-bury-buffer-function #'magit-restore-window-configuration)
     :init
     (when git-magit-buffers-useless

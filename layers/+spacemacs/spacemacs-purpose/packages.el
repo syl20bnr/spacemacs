@@ -106,7 +106,7 @@
 
 (defun spacemacs-purpose/init-window-purpose ()
   (use-package window-purpose
-    :defer (spacemacs/defer)
+    :defer t
     :init
     (add-hook 'emacs-startup-hook
               (lambda ()
