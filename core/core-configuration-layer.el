@@ -570,63 +570,24 @@ refreshed during the current session."
 (defun configuration-layer/load ()
   "Load layers declared in dotfile if necessary."
   (run-hooks 'configuration-layer-pre-load-hook)
-  (let (changed-since-last-dump-p)
-    ;; check if layer list has changed since last dump
-    (when (file-exists-p
-           configuration-layer--last-dotspacemacs-configuration-layers-file)
-      (configuration-layer/load-file
-       configuration-layer--last-dotspacemacs-configuration-layers-file))
-    (let ((layers dotspacemacs-configuration-layers))
-      (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
-      ;; `dotspacemacs--configuration-layers-saved' is used to detect if the layer
-      ;; list has been changed outside of function `dotspacemacs/layers'
-      (setq dotspacemacs--configuration-layers-saved
-            dotspacemacs-configuration-layers)
-      (setq changed-since-last-dump-p
-            (not (equal layers dotspacemacs-configuration-layers)))
-      ;; save layers list to file
-      (spacemacs/dump-vars-to-file
-       '(dotspacemacs-configuration-layers)
-       configuration-layer--last-dotspacemacs-configuration-layers-file))
-    (cond
-     (changed-since-last-dump-p
-      ;; dump
-      (configuration-layer//load)
-      (when (spacemacs/emacs-with-pdumper-set-p)
-        (configuration-layer/message "Layer list has changed since last dump.")
-        (configuration-layer//dump-emacs)))
-     (spacemacs-force-dump
-      ;; force dump
-      (configuration-layer//load)
-      (when (spacemacs/emacs-with-pdumper-set-p)
-        (configuration-layer/message
-         (concat "--force-dump passed on the command line or configuration has "
-                 "been reloaded, forcing a redump."))
-        (configuration-layer//dump-emacs)))
-     ((spacemacs-is-dumping-p)
-      ;; dumping
-      (configuration-layer//load))
-     ((and (spacemacs/emacs-with-pdumper-set-p)
-           (spacemacs-run-from-dump-p))
-      ;; dumped
-      (configuration-layer/message
-       "Running from a dumped file. Skipping the loading process!"))
-     (t
-      ;; standard loading
-      (configuration-layer//load)
-      (when (spacemacs/emacs-with-pdumper-set-p)
-        (configuration-layer/message
-         (concat "Layer list has not changed since last time. "
-                 "Skipping dumping process!"))))))
+  ;; check if layer list has changed since last dump
+  (when (file-exists-p
+         configuration-layer--last-dotspacemacs-configuration-layers-file)
+    (configuration-layer/load-file
+     configuration-layer--last-dotspacemacs-configuration-layers-file))
+  (let ((layers dotspacemacs-configuration-layers))
+    (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
+    ;; `dotspacemacs--configuration-layers-saved' is used to detect if the layer
+    ;; list has been changed outside of function `dotspacemacs/layers'
+    (setq dotspacemacs--configuration-layers-saved
+          dotspacemacs-configuration-layers)
+    ;; save layers list to file
+    (spacemacs/dump-vars-to-file
+     '(dotspacemacs-configuration-layers)
+     configuration-layer--last-dotspacemacs-configuration-layers-file))
+  ;; standard loading
+  (configuration-layer//load)
   (run-hooks 'configuration-layer-post-load-hook))
-
-(defun configuration-layer//dump-emacs ()
-  "Dump emacs."
-  (configuration-layer/message
-   (concat "Dumping Emacs asynchronously, "
-           "you should not quit this Emacs "
-           "session until the dump is finished."))
-  (spacemacs/dump-emacs))
 
 (defun configuration-layer//load ()
   "Actually load the layers.
@@ -685,16 +646,7 @@ To prevent package from being installed or uninstalled set the variable
   ;; packages configuration above
   (configuration-layer//set-layers-variables configuration-layer--used-layers)
   (configuration-layer//load-layers-files configuration-layer--used-layers
-                                          '("keybindings"))
-  (when (spacemacs-is-dumping-p)
-    ;; dump stuff in layers
-    (dolist (layer-name configuration-layer--used-layers)
-      (let ((layer-dump-func (intern (format "%S/pre-dump" layer-name))))
-        (when (fboundp layer-dump-func)
-          (configuration-layer/message "Pre-dumping layer %S..." layer-name)
-          (funcall layer-dump-func))))
-    (dotspacemacs|call-func dotspacemacs/user-load
-                            "Calling dotfile user-load...")))
+                                          '("keybindings")))
 
 (defun configuration-layer/load-auto-layer-file ()
   "Load `auto-layer.el' file"

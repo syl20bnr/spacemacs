@@ -322,7 +322,6 @@
      'spacemacs/force-yasnippet-off '(term-mode-hook
                                       shell-mode-hook
                                       eshell-mode-hook))
-    (spacemacs|require-when-dumping 'yasnippet)
     (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
                                                         markdown-mode-hook
                                                         org-mode-hook))

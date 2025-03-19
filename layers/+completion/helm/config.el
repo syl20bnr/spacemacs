@@ -21,11 +21,6 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-;; Dumper
-
-(defun helm/pre-dump ()
-  (spacemacs/dump-modes '(helm-mode)))
-
 ;; Make sure we do not try to split the action window
 ;; from the main view, see #16184 for details.
 ;; This can still be overwritten in the dotfile.

@@ -21,11 +21,6 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-;; Dumper
-
-(defun org/pre-dump ()
-  (spacemacs/dump-modes '(org-mode)))
-
 ;; Variables
 
 (defvar org-want-todo-bindings nil

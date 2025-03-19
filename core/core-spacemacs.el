@@ -54,7 +54,6 @@
 (require 'core-use-package-ext)
 (require 'core-spacebind)
 (require 'core-compilation)
-(require 'core-dumper)
 
 (defvar spacemacs-post-user-config-hook nil
   "Hook run after dotspacemacs/user-config")
@@ -202,8 +201,6 @@ the final step of executing code in `emacs-startup-hook'.")
     (unless (frame-parameter nil 'fullscreen)
       (toggle-frame-maximized))
     (add-to-list 'default-frame-alist '(fullscreen . maximized)))
-  (spacemacs|unless-dumping
-    (dotspacemacs|call-func dotspacemacs/user-init "Calling dotfile user init..."))
   ;; Given the loading process of Spacemacs we have no choice but to set the
   ;; custom settings twice:
   ;; - once at the very beginning of startup (here)
@@ -327,8 +324,7 @@ defer call using `spacemacs-post-user-config-hook'."
      spacemacs-compiled-files)))
 
 (defun spacemacs/setup-startup-hook ()
-  "Add post init processing.
-Note: the hooked function is not executed when in dumped mode."
+  "Add post init processing."
   (add-hook
    'emacs-startup-hook
    (defun spacemacs/startup-hook ()

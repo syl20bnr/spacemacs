@@ -33,8 +33,6 @@
       nil (not init-file-debug))
 (load (concat spacemacs-core-directory "core-versions")
       nil (not init-file-debug))
-(load (concat spacemacs-core-directory "core-dumper")
-      nil (not init-file-debug))
 
 ;; Remove compiled core files if they become stale or Emacs version has changed.
 (load (concat spacemacs-core-directory "core-compilation")
@@ -59,15 +57,13 @@
   (let ((load-prefer-newer t)
         (please-do-not-disable-file-name-handler-alist nil))
     (require 'core-spacemacs)
-    (spacemacs/dump-restore-load-path)
     (configuration-layer/load-lock-file)
     (spacemacs/init)
     (configuration-layer/stable-elpa-init)
     (configuration-layer/load)
     (spacemacs-buffer/display-startup-note)
     (spacemacs/setup-startup-hook)
-    (spacemacs/dump-eval-delayed-functions)
-    (when (and dotspacemacs-enable-server (not (spacemacs-is-dumping-p)))
+    (when dotspacemacs-enable-server
       (require 'server)
       (when dotspacemacs-server-socket-dir
         (setq server-socket-dir dotspacemacs-server-socket-dir))

@@ -37,10 +37,9 @@
   ;; doom modeline depends on `display-graphic-p' so we delay its initialization
   ;; as when dumping we don't know yet wether we are using a graphical emacs or
   ;; not.
-  (spacemacs|unless-dumping-and-eval-after-loaded-dump doom-modeline
-    (use-package doom-modeline
-      :defer t
-      :init (doom-modeline-mode))))
+  (use-package doom-modeline
+    :defer t
+    :init (doom-modeline-mode)))
 
 (defun spacemacs-modeline/init-fancy-battery ()
   (use-package fancy-battery
@@ -55,11 +54,8 @@
 (defun spacemacs-modeline/init-spaceline ()
   (use-package spaceline-config
     :init
-    (spacemacs|require-when-dumping 'spaceline)
-    (spacemacs|when-dumping-strict
-      (spacemacs/spaceline-config-startup))
-    (spacemacs|unless-dumping
-      (add-hook 'spacemacs-post-user-config-hook 'spacemacs/spaceline-config-startup-hook))
+    (add-hook 'spacemacs-post-user-config-hook
+              'spacemacs/spaceline-config-startup-hook)
     (add-hook 'spacemacs-post-theme-change-hook
               'spacemacs/customize-powerline-faces)
     (add-hook 'spacemacs-post-theme-change-hook 'powerline-reset)
@@ -91,7 +87,6 @@
                  :evil-leader ,(cadr spec)))))
     (setq powerline-default-separator
           (cond
-           ((spacemacs-is-dumping-p) 'utf-8)
            ((memq (spacemacs/get-mode-line-theme-name)
                   '(spacemacs custom))
             (spacemacs/mode-line-separator))

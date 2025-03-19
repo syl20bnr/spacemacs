@@ -21,11 +21,6 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-;; Dumper
-
-(defun emacs-lisp/pre-dump ()
-  (spacemacs/dump-modes '(emacs-lisp-mode)))
-
 ;; Variables
 
 (spacemacs|define-jump-handlers emacs-lisp-mode)

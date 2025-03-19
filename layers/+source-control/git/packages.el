@@ -150,7 +150,6 @@
     (when git-magit-buffers-useless
       (cl-pushnew "magit: .*" spacemacs-useless-buffers-regexp :test 'equal)
       (cl-pushnew "magit-.*: .*"  spacemacs-useless-buffers-regexp :test 'equal))
-    (spacemacs|require-when-dumping 'magit)
     (setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
     ;; On Windows, we must use Git GUI to enter username and password
     ;; See: https://github.com/magit/magit/wiki/FAQ#windows-cannot-push-via-https

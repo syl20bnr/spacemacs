@@ -24,6 +24,6 @@
 (when (boundp 'c-c++-backend)
   (configuration-layer/declare-layer-dependencies
    (pcase c-c++-backend
-     ('lsp-clangd '(lsp dap))
-     ('lsp-ccls '(lsp dap))
+     ('lsp-clangd '(lsp))
+     ('lsp-ccls '(lsp))
      ('rtags '(gtags)))))

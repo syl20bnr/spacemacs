@@ -145,7 +145,6 @@
   (use-package auto-compile
     :defer (spacemacs/defer)
     :init
-    (spacemacs|require-when-dumping 'auto-compile)
     (setq auto-compile-display-buffer nil
           ;; lets spaceline manage the mode-line
           auto-compile-use-mode-line nil
@@ -179,7 +178,6 @@
   (use-package elisp-slime-nav
     :defer (spacemacs/defer)
     :init
-    (spacemacs|require-when-dumping 'elisp-slime-nav)
     (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
     (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
       (spacemacs/declare-prefix-for-mode mode "mh" "help")
@@ -242,7 +240,6 @@
   (use-package nameless
     :defer (spacemacs/defer)
     :init
-    (spacemacs|require-when-dumping 'nameless)
     (setq
      ;; always show the separator since it can have a semantic purpose
      ;; like in Spacemacs where - is variable and / is a function.
@@ -268,10 +265,9 @@
       :evil-leader-for-mode (emacs-lisp-mode . "Tn"))
     ;; activate nameless only when in a GUI
     ;; in a terminal nameless triggers all sorts of graphical glitches.
-    (spacemacs|unless-dumping-and-eval-after-loaded-dump nameless
-      (spacemacs|do-after-display-system-init
-        (when emacs-lisp-hide-namespace-prefix
-          (spacemacs/toggle-nameless-on-register-hook-emacs-lisp-mode))))))
+    (spacemacs|do-after-display-system-init
+      (when emacs-lisp-hide-namespace-prefix
+        (spacemacs/toggle-nameless-on-register-hook-emacs-lisp-mode)))))
 
 (defun emacs-lisp/init-overseer ()
   (use-package overseer
