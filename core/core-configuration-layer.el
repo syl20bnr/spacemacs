@@ -1999,7 +1999,7 @@ RNAME is the name symbol of another existing layer."
             (when dir
               (add-to-list 'load-path dir)))
           ;; configuration
-          (unless (memq (oref pkg :location) '(local site built-in))
+          (unless (memq (oref pkg :location) '(local built-in))
             (configuration-layer//activate-package pkg-name))
           (cond
            ((eq 'dotfile (car (oref pkg :owners)))

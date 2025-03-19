@@ -50,7 +50,6 @@
 
 (defun mu4e/init-mu4e ()
   (use-package mu4e
-    :commands (mu4e mu4e-compose-new)
     :init
     (spacemacs/set-leader-keys "aem" 'mu4e)
     (setq mail-user-agent 'mu4e-user-agent
