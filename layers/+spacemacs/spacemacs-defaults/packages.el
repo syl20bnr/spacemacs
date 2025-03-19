@@ -388,10 +388,9 @@
     :defer t
     :commands (recentf-save-list)
     :init
-    (when t
-      (add-hook 'find-file-hook (lambda () (unless recentf-mode
-                                             (recentf-mode)
-                                             (recentf-track-opened-file)))))
+    (add-hook 'find-file-hook (lambda () (unless recentf-mode
+                                           (recentf-mode)
+                                           (recentf-track-opened-file))))
     ;; Do not leave dangling timers when reloading the configuration.
     (when (and (boundp 'recentf-auto-save-timer)
                (timerp recentf-auto-save-timer))
