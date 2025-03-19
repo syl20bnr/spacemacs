@@ -37,9 +37,6 @@
 (defvar configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout
   "Timeout in seconds to reach a package archive page.")
 
-(defvar configuration-layer--last-dotspacemacs-configuration-layers-file
-  (concat spacemacs-cache-directory "last-configuration-layers"))
-
 (defconst configuration-layer-template-directory
   (expand-file-name (concat spacemacs-core-directory "templates/"))
   "Configuration layer templates directory.")
@@ -570,22 +567,11 @@ refreshed during the current session."
 (defun configuration-layer/load ()
   "Load layers declared in dotfile if necessary."
   (run-hooks 'configuration-layer-pre-load-hook)
-  ;; check if layer list has changed since last dump
-  (when (file-exists-p
-         configuration-layer--last-dotspacemacs-configuration-layers-file)
-    (configuration-layer/load-file
-     configuration-layer--last-dotspacemacs-configuration-layers-file))
-  (let ((layers dotspacemacs-configuration-layers))
-    (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
-    ;; `dotspacemacs--configuration-layers-saved' is used to detect if the layer
-    ;; list has been changed outside of function `dotspacemacs/layers'
-    (setq dotspacemacs--configuration-layers-saved
-          dotspacemacs-configuration-layers)
-    ;; save layers list to file
-    (spacemacs/dump-vars-to-file
-     '(dotspacemacs-configuration-layers)
-     configuration-layer--last-dotspacemacs-configuration-layers-file))
-  ;; standard loading
+  (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
+  ;; `dotspacemacs--configuration-layers-saved' is used to detect if the layer
+  ;; list has been changed outside of function `dotspacemacs/layers'
+  (setq dotspacemacs--configuration-layers-saved
+        dotspacemacs-configuration-layers)
   (configuration-layer//load)
   (run-hooks 'configuration-layer-post-load-hook))
 
