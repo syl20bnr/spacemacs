@@ -34,9 +34,6 @@
                        :toggle (eq (spacemacs/get-mode-line-theme-name) 'vim-powerline))))
 
 (defun spacemacs-modeline/init-doom-modeline ()
-  ;; doom modeline depends on `display-graphic-p' so we delay its initialization
-  ;; as when dumping we don't know yet wether we are using a graphical emacs or
-  ;; not.
   (use-package doom-modeline
     :defer t
     :init (doom-modeline-mode)))

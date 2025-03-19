@@ -74,10 +74,6 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 - Simplify declaration of company backends, see the section
   =Add auto-completion in a layer= of the =README.org= file of the
   =auto-completion= layer.
-- Added experimental support for the emacs portable dumper; see
-  =EXPERIMENTAL.org=. This allows for instant Spacemacs startup time with
-  pre-loaded heavy packages like =Org= and =Helm=
-  (thanks to Sylvain Benner, Compro Prasad and Keith Simmons)
 - Added support for native fill column indicator in Emacs 27+ (thanks to
   Andriy Kmit)
 - Add support for background transparency aka true transparency. Key bindings are under ~SPC T B~ (thanks to JoshTRN)
@@ -354,7 +350,7 @@ Removed support for Racer, default backend for LSP is now rust-analizer due to
 both Racer and RLS not being maintained anymore.
 - Key bindings:
   - Edited ~SPC m t a~ from =rustic-cargo-test= to =rustic-cargo-test-run=
-    to avoid the unexpected behavior of always running a single test after using 
+    to avoid the unexpected behavior of always running a single test after using
     rustic-cargo-current-test (thanks to Roberto Previdi)
 ***** Ruby on Rails
 - Key bindings:
@@ -538,10 +534,6 @@ both Racer and RLS not being maintained anymore.
 - Added type bases validation for .spacemacs variables.
 - New Variables:
   - New dotvariable =dotspacemacs-auto-generate-layout-names= (thanks to bmag)
-  - New dotvariables =dotspacemacs-emacs-pdumper-executable-file=,
-    =dotspacemacs-emacs-dumper-dump-file= and
-    =dotspacemacs-enable-emacs-pdumper= to configure dump
-    (thanks to Sylvain Benner)
   - New variable =dotspacemacs-enable-server= (thanks to Tad Fisher)
   - New variable =dotspacemacs-frame-title-format= which is the default format
     string for a frame title bar, see docstring of function
@@ -635,7 +627,6 @@ Other:
   - Bind ~SPC c n~ to ~:cn~ / ~next-error~ and ~SPC c N~ to ~:cN~ / ~previous-error~
     (thanks to Keith Pinson)
   - Display time spent in =user-config= in home buffer (thanks to Sylvain Benner)
-  - Added dotfile function =dotspacemacs/user-load= (thanks to Sylvain Benner)
   - Added dotfile function =dotspacemacs/user-env= (thanks to Sylvain Benner)
   - Added layer shadowing system, see [[https://github.com/syl20bnr/spacemacs/commit/dc58801c7ddd770a1f94a17890b4efbd1f20f6e8][commit dc58801]] (thanks to Sylvain Benner)
   - Added support for stable ELPA repository hosted on GitHub
@@ -668,8 +659,6 @@ Other:
   - Wrap init with =file-name-handler-alist nil= to speed up init
     (thanks to Aaron Jensen)
   - Changed startup to hide loading message unless =--debug-init= is specified
-    (thanks to Sylvain Benner)
-  - New command line parameter =--force-dump= to force dump emacs
     (thanks to Sylvain Benner)
   - Added prompt about unsaved changes when closing an issue report
     (thanks to timor)
@@ -704,8 +693,6 @@ Other:
     (thanks to Nikita Leshenko)
   - Open Spacemacs home buffer in other/new window with prefix argument
     (thanks to duianto)
-  - Add =emacs-version= to the default value for
-    =dotspacemacs-emacs-dumper-dump-file= (thanks to Evan Klitzke)
   - Add =spacemacs-scratch-mode-hook= to run functions
     after =spacemacs-scratch-mode= is applied to =*scratch*= buffer (thanks to rayw000)
   - Add toggles for persistent which-key keymaps, (full)-major/minor mode
