@@ -920,9 +920,9 @@
         (configuration-layer--package-archives-refreshed nil)
         (dotspacemacs-elpa-timeout -1))
     (mocker-let
-     ((message (format-string &rest args)
-               ((:record-cls 'mocker-stub-record :output nil))))
-     (configuration-layer/retrieve-package-archives))))
+        ((message (format-string &rest args)
+                  ((:record-cls 'mocker-stub-record :output nil))))
+      (configuration-layer/retrieve-package-archives))))
 
 (ert-deftest test-retrieve-package-archives--catch-connection-errors ()
   (let ((package-archives '(("gnu" . "https://elpa.gnu.org/packages/")))
@@ -1002,17 +1002,17 @@
 
 (ert-deftest test-make-layer--cannot-make-layer-without-a-directory ()
   (mocker-let
-   ((configuration-layer//warning
-     (msg &rest args)
-     ((:record-cls 'mocker-stub-record :output nil :occur 1))))
-   (should (null (configuration-layer/make-layer 'layer)))))
+      ((configuration-layer//warning
+        (msg &rest args)
+        ((:record-cls 'mocker-stub-record :output nil :occur 1))))
+    (should (null (configuration-layer/make-layer 'layer)))))
 
 (ert-deftest test-make-layer--cannot-make-layer-with-a-non-existing-directory ()
   (mocker-let
-   ((configuration-layer//warning
-     (msg &rest args)
-     ((:record-cls 'mocker-stub-record :output nil :occur 1))))
-   (should (null (configuration-layer/make-layer 'layer nil nil "/a/dir/")))))
+      ((configuration-layer//warning
+        (msg &rest args)
+        ((:record-cls 'mocker-stub-record :output nil :occur 1))))
+    (should (null (configuration-layer/make-layer 'layer nil nil "/a/dir/")))))
 
 (ert-deftest test-make-layer--make-layer-without-a-dir-requires-an-initial-obj ()
   (let ((layer (cfgl-layer "layer"
@@ -1032,18 +1032,18 @@
         (layer-packages '(pkg1 pkg2 pkg3))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (mocker-let
-     ((locate-file
-       (filename path &optional suffixes predicate)
-       ((:record-cls 'mocker-stub-record :output "packages.el" :occur 1)))
-      (load (f &optional noerr nomsg) ((:output nil :occur 1))))
-     (should (equal (cfgl-layer "layer"
-                                :name 'layer
-                                :disabled-for nil
-                                :variables nil
-                                :packages '(pkg1 pkg2 pkg3)
-                                :selected-packages 'all
-                                :dir spacemacs-start-directory)
-                    (configuration-layer/make-layer 'layer layer 'used))))))
+        ((locate-file
+          (filename path &optional suffixes predicate)
+          ((:record-cls 'mocker-stub-record :output "packages.el" :occur 1)))
+         (load (f &optional noerr nomsg) ((:output nil :occur 1))))
+      (should (equal (cfgl-layer "layer"
+                                 :name 'layer
+                                 :disabled-for nil
+                                 :variables nil
+                                 :packages '(pkg1 pkg2 pkg3)
+                                 :selected-packages 'all
+                                 :dir spacemacs-start-directory)
+                     (configuration-layer/make-layer 'layer layer 'used))))))
 
 (ert-deftest test-make-layer--make-layer-force-load-packages-file-with-var ()
   (let ((layer (cfgl-layer "layer"
@@ -1053,17 +1053,17 @@
         (configuration-layer--load-packages-files t)
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (mocker-let
-     ((locate-file (filename path &optional suffixes predicate)
-                   ((:record-cls 'mocker-stub-record :output t)))
-      (load (f &optional noerr nomsg) ((:output nil :occur 1))))
-     (should (equal (cfgl-layer "layer"
-                                :name 'layer
-                                :disabled-for nil
-                                :variables nil
-                                :packages '(pkg1 pkg2 pkg3)
-                                :selected-packages 'all
-                                :dir spacemacs-start-directory)
-                    (configuration-layer/make-layer 'layer layer))))))
+        ((locate-file (filename path &optional suffixes predicate)
+                      ((:record-cls 'mocker-stub-record :output t)))
+         (load (f &optional noerr nomsg) ((:output nil :occur 1))))
+      (should (equal (cfgl-layer "layer"
+                                 :name 'layer
+                                 :disabled-for nil
+                                 :variables nil
+                                 :packages '(pkg1 pkg2 pkg3)
+                                 :selected-packages 'all
+                                 :dir spacemacs-start-directory)
+                     (configuration-layer/make-layer 'layer layer))))))
 
 (ert-deftest test-make-layer--make-layer-does-not-load-packages-file-by-default ()
   (let ((layer (cfgl-layer "layer"
@@ -1072,8 +1072,8 @@
         (layer-packages '(pkg1))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (mocker-let
-     ((file-exists-p (f) ((:output t :occur 1))))
-     (configuration-layer/make-layer 'layer layer))))
+        ((file-exists-p (f) ((:output t :occur 1))))
+      (configuration-layer/make-layer 'layer layer))))
 
 ;; set/override properties
 
@@ -1087,18 +1087,18 @@
         (layer-packages '(pkg1 pkg2 pkg3))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (mocker-let
-     ((locate-file (filename path &optional suffixes predicate)
-                   ((:record-cls 'mocker-stub-record :output t :occur 1)))
-      (load (f &optional noerr nomsg) ((:output nil :occur 1))))
-     (should (equal (cfgl-layer "layer"
-                                :name 'layer
-                                :disabled-for '(pkg8 pkg9)
-                                :can-shadow '(layer2 layer3)
-                                :variables '(foo bar toto 1)
-                                :packages '(pkg1 pkg2 pkg3)
-                                :selected-packages 'all
-                                :dir spacemacs-start-directory)
-                    (configuration-layer/make-layer layer-specs layer 'used))))))
+        ((locate-file (filename path &optional suffixes predicate)
+                      ((:record-cls 'mocker-stub-record :output t :occur 1)))
+         (load (f &optional noerr nomsg) ((:output nil :occur 1))))
+      (should (equal (cfgl-layer "layer"
+                                 :name 'layer
+                                 :disabled-for '(pkg8 pkg9)
+                                 :can-shadow '(layer2 layer3)
+                                 :variables '(foo bar toto 1)
+                                 :packages '(pkg1 pkg2 pkg3)
+                                 :selected-packages 'all
+                                 :dir spacemacs-start-directory)
+                     (configuration-layer/make-layer layer-specs layer 'used))))))
 
 (ert-deftest test-make-layer--make-not-used-layer-cannot-set-additional-properties ()
   (let ((layer (cfgl-layer "layer"
@@ -1131,19 +1131,19 @@
         (layer-packages '(pkg1 pkg2 pkg3))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (mocker-let
-     ((locate-file
-       (filename path &optional suffixes predicate)
-       ((:record-cls 'mocker-stub-record :output t :occur 1)))
-      (load (f &optional noerr nomsg) ((:output nil :occur 1))))
-     (should (equal (cfgl-layer "layer"
-                                :name 'layer
-                                :disabled-for '(pkg8 pkg9)
-                                :can-shadow '(layer2)
-                                :variables '(foo bar toto 1)
-                                :packages '(pkg1 pkg2 pkg3)
-                                :selected-packages 'all
-                                :dir spacemacs-start-directory)
-                    (configuration-layer/make-layer layer-specs layer 'used))))))
+        ((locate-file
+          (filename path &optional suffixes predicate)
+          ((:record-cls 'mocker-stub-record :output t :occur 1)))
+         (load (f &optional noerr nomsg) ((:output nil :occur 1))))
+      (should (equal (cfgl-layer "layer"
+                                 :name 'layer
+                                 :disabled-for '(pkg8 pkg9)
+                                 :can-shadow '(layer2)
+                                 :variables '(foo bar toto 1)
+                                 :packages '(pkg1 pkg2 pkg3)
+                                 :selected-packages 'all
+                                 :dir spacemacs-start-directory)
+                     (configuration-layer/make-layer layer-specs layer 'used))))))
 
 (ert-deftest test-make-layer--make-not-used-layer-cannot-override-additional-properties ()
   (let ((layer (cfgl-layer "layer"
@@ -1233,33 +1233,33 @@
     (helper--add-layers
      `(,(cfgl-layer "layer-shadow-2" :name 'layer-shadow-2)))
     (mocker-let
-     ((configuration-layer//warning
-       (msg &rest args)
-       ((:record-cls 'mocker-stub-record :output nil :occur 1))))
-     (configuration-layer/declare-shadow-relation
-      'layer-shadow-1
-      'layer-shadow-2)
-     (should (eq 'unspecified
-                 (oref (configuration-layer/get-layer 'layer-shadow-2)
-                       :can-shadow))))))
+        ((configuration-layer//warning
+          (msg &rest args)
+          ((:record-cls 'mocker-stub-record :output nil :occur 1))))
+      (configuration-layer/declare-shadow-relation
+       'layer-shadow-1
+       'layer-shadow-2)
+      (should (eq 'unspecified
+                  (oref (configuration-layer/get-layer 'layer-shadow-2)
+                        :can-shadow))))))
 
 (ert-deftest test-declare-shadow-relation--known-layer-shadows-unknown-layer ()
   (let ((configuration-layer--indexed-layers (make-hash-table :size 1024)))
     (helper--add-layers
      `(,(cfgl-layer "layer-shadow-1" :name 'layer-shadow-1)))
     (mocker-let
-     ((configuration-layer//warning
-       (msg &rest args)
-       ((:record-cls 'mocker-stub-record :output nil :occur 1))))
-     (configuration-layer/declare-shadow-relation 'layer-shadow-1 'layer-shadow-2))))
+        ((configuration-layer//warning
+          (msg &rest args)
+          ((:record-cls 'mocker-stub-record :output nil :occur 1))))
+      (configuration-layer/declare-shadow-relation 'layer-shadow-1 'layer-shadow-2))))
 
 (ert-deftest test-declare-shadow-relation--unknown-layer-shadows-unknown-layer ()
   (let ((configuration-layer--indexed-layers (make-hash-table :size 1024)))
     (mocker-let
-     ((configuration-layer//warning
-       (msg &rest args)
-       ((:record-cls 'mocker-stub-record :output nil :occur 2))))
-     (configuration-layer/declare-shadow-relation 'layer-shadow-1 'layer-shadow-2))))
+        ((configuration-layer//warning
+          (msg &rest args)
+          ((:record-cls 'mocker-stub-record :output nil :occur 2))))
+      (configuration-layer/declare-shadow-relation 'layer-shadow-1 'layer-shadow-2))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//set-layers-variables
@@ -1309,14 +1309,14 @@
                     :dir "/a/path/"
                     :variables '(var1 'bar var2))))
     (mocker-let
-     ((configuration-layer//warning
-       (msg &rest args)
-       ((:record-cls 'mocker-stub-record :output nil :occur 1))))
-     (setq var1 'foo)
-     (setq var2 'foo)
-     (configuration-layer//set-layers-variables '(layer))
-     (should (eq var1 'bar))
-     (should (eq var2 'foo)))))
+        ((configuration-layer//warning
+          (msg &rest args)
+          ((:record-cls 'mocker-stub-record :output nil :occur 1))))
+      (setq var1 'foo)
+      (setq var2 'foo)
+      (configuration-layer//set-layers-variables '(layer))
+      (should (eq var1 'bar))
+      (should (eq var2 'foo)))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer/make-package
@@ -1716,15 +1716,15 @@
     (defun layer2/init-pkg1 nil)
     (defun layer2/init-pkg3 nil)
     (mocker-let
-     ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
-     (configuration-layer/make-packages-from-layers '(layer2))
-     (should
-      (and (equal (cfgl-package "pkg3" :name 'pkg3 :owners '(layer2))
-                  (spacemacs-ht-get configuration-layer--indexed-packages 'pkg3))
-           (equal (cfgl-package "pkg2" :name 'pkg2)
-                  (spacemacs-ht-get configuration-layer--indexed-packages 'pkg2))
-           (equal (cfgl-package "pkg1" :name 'pkg1 :owners '(layer2))
-                  (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1)))))))
+        ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
+      (configuration-layer/make-packages-from-layers '(layer2))
+      (should
+       (and (equal (cfgl-package "pkg3" :name 'pkg3 :owners '(layer2))
+                   (spacemacs-ht-get configuration-layer--indexed-packages 'pkg3))
+            (equal (cfgl-package "pkg2" :name 'pkg2)
+                   (spacemacs-ht-get configuration-layer--indexed-packages 'pkg2))
+            (equal (cfgl-package "pkg1" :name 'pkg1 :owners '(layer2))
+                   (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1)))))))
 
 (ert-deftest test-make-packages-from-layers--pre-init-function ()
   (let* ((layer3 (cfgl-layer "layer3"
@@ -1815,12 +1815,12 @@
     (defun layer7/init-pkg1 nil)
     (defun layer8/init-pkg1 nil)
     (mocker-let
-     ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
-     (configuration-layer/make-packages-from-layers '(layer7 layer8))
-     (should (equal (cfgl-package "pkg1"
-                                  :name 'pkg1
-                                  :owners '(layer8 layer7))
-                    (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
+        ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
+      (configuration-layer/make-packages-from-layers '(layer7 layer8))
+      (should (equal (cfgl-package "pkg1"
+                                   :name 'pkg1
+                                   :owners '(layer8 layer7))
+                     (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-layers--layer-10-excludes-pkg2-in-layer-9 ()
   (let* ((layer9 (cfgl-layer "layer9"
@@ -1866,13 +1866,13 @@
     (defun layer13/init-pkg1 nil)
     (defun layer14/init-pkg1 nil)
     (mocker-let
-     ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
-     (configuration-layer/make-packages-from-layers '(layer13 layer14))
-     (should (equal (cfgl-package "pkg1"
-                                  :name 'pkg1
-                                  :owners '(layer14 layer13)
-                                  :location 'local)
-                    (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
+        ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
+      (configuration-layer/make-packages-from-layers '(layer13 layer14))
+      (should (equal (cfgl-package "pkg1"
+                                   :name 'pkg1
+                                   :owners '(layer14 layer13)
+                                   :location 'local)
+                     (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-layers--last-owner-can-overwrite-step-nil-to-pre ()
   (let* ((layer15 (cfgl-layer "layer15"
@@ -1892,13 +1892,13 @@
     (defun layer15/init-pkg1 nil)
     (defun layer16/init-pkg1 nil)
     (mocker-let
-     ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
-     (configuration-layer/make-packages-from-layers '(layer15 layer16))
-     (should (equal (cfgl-package "pkg1"
-                                  :name 'pkg1
-                                  :owners '(layer16 layer15)
-                                  :step 'pre)
-                    (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
+        ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
+      (configuration-layer/make-packages-from-layers '(layer15 layer16))
+      (should (equal (cfgl-package "pkg1"
+                                   :name 'pkg1
+                                   :owners '(layer16 layer15)
+                                   :step 'pre)
+                     (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-layers--last-owner-cannot-overwrite-step-pre-to-nil ()
   (let* ((layer15 (cfgl-layer "layer15"
@@ -1918,13 +1918,13 @@
     (defun layer15/init-pkg1 nil)
     (defun layer16/init-pkg1 nil)
     (mocker-let
-     ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
-     (configuration-layer/make-packages-from-layers '(layer15 layer16))
-     (should (equal (cfgl-package "pkg1"
-                                  :name 'pkg1
-                                  :owners '(layer16 layer15)
-                                  :step 'pre)
-                    (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
+        ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
+      (configuration-layer/make-packages-from-layers '(layer15 layer16))
+      (should (equal (cfgl-package "pkg1"
+                                   :name 'pkg1
+                                   :owners '(layer16 layer15)
+                                   :step 'pre)
+                     (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-layers--last-owner-can-overwrite-exclude ()
   (let* ((layer17 (cfgl-layer "layer17"
@@ -1945,13 +1945,13 @@
     (defun layer17/init-pkg1 nil)
     (defun layer18/init-pkg1 nil)
     (mocker-let
-     ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
-     (configuration-layer/make-packages-from-layers '(layer17 layer18))
-     (should (equal (cfgl-package "pkg1"
-                                  :name 'pkg1
-                                  :owners '(layer18 layer17)
-                                  :excluded t)
-                    (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
+        ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
+      (configuration-layer/make-packages-from-layers '(layer17 layer18))
+      (should (equal (cfgl-package "pkg1"
+                                   :name 'pkg1
+                                   :owners '(layer18 layer17)
+                                   :excluded t)
+                     (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-layers--owner-layer-can-define-toggle ()
   (let* ((layer19 (cfgl-layer "layer19"
@@ -1990,14 +1990,14 @@
     (defun layer20/init-pkg1 nil)
     (defun layer21/post-init-pkg1 nil)
     (mocker-let
-     ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
-     (configuration-layer/make-packages-from-layers '(layer20 layer21))
-     (should (equal (cfgl-package "pkg1"
-                                  :name 'pkg1
-                                  :owners '(layer20)
-                                  :post-layers '(layer21)
-                                  :toggle '(foo-toggle))
-                    (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
+        ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
+      (configuration-layer/make-packages-from-layers '(layer20 layer21))
+      (should (equal (cfgl-package "pkg1"
+                                   :name 'pkg1
+                                   :owners '(layer20)
+                                   :post-layers '(layer21)
+                                   :toggle '(foo-toggle))
+                     (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-layers--layer-can-override-toggle ()
   (let* ((layer22 (cfgl-layer "layer22"
@@ -2017,13 +2017,13 @@
     (defun layer22/init-pkg1 nil)
     (defun layer23/init-pkg1 nil)
     (mocker-let
-     ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
-     (configuration-layer/make-packages-from-layers '(layer22 layer23))
-     (should (equal (cfgl-package "pkg1"
-                                  :name 'pkg1
-                                  :owners '(layer23 layer22)
-                                  :toggle '(bar-toggle))
-                    (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
+        ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
+      (configuration-layer/make-packages-from-layers '(layer22 layer23))
+      (should (equal (cfgl-package "pkg1"
+                                   :name 'pkg1
+                                   :owners '(layer23 layer22)
+                                   :toggle '(bar-toggle))
+                     (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 (ert-deftest test-make-packages-from-layers--not-selected-packages-are-not-excluded ()
   (let* ((layer24 (cfgl-layer "layer24"
@@ -2111,12 +2111,12 @@
     (helper--add-layers (list layer28) t)
     (helper--add-layers (list layer29))
     (mocker-let
-     ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
-     (configuration-layer/make-packages-from-layers '(layer28) t)
-     (let ((configuration-layer--package-properties-read-onlyp t))
-       (configuration-layer/make-packages-from-layers '(layer28 layer29)))
-     (should
-      (equal expected (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
+        ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
+      (configuration-layer/make-packages-from-layers '(layer28) t)
+      (let ((configuration-layer--package-properties-read-onlyp t))
+        (configuration-layer/make-packages-from-layers '(layer28 layer29)))
+      (should
+       (equal expected (spacemacs-ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer/make-packages-from-dotfile
@@ -2230,24 +2230,24 @@
     (defun layerall5/init-pkg5 nil)
     (defun layerall5/init-pkg9 nil)
     (mocker-let
-     ;; skip layer declaration since we manually set
-     ;; the variable `configuration-layer--indexed-layers'
-     ;; Moreover `configuration-layer/declare-layers' requires a valid
-     ;; path on disk etc...
-     ((configuration-layer/declare-layers (layers-specs &optional skip-layer-deps)
-                                          ((:output nil))))
-     (configuration-layer/make-all-packages 'no-discovery 'no-layer-deps)
-     (should (null configuration-layer--used-packages))
-     (should (equal '(pkg1
-                      pkg6
-                      pkg2
-                      pkg3
-                      pkg8
-                      pkg7
-                      pkg4
-                      pkg9
-                      pkg5)
-                    (spacemacs-ht-keys configuration-layer--indexed-packages))))))
+        ;; skip layer declaration since we manually set
+        ;; the variable `configuration-layer--indexed-layers'
+        ;; Moreover `configuration-layer/declare-layers' requires a valid
+        ;; path on disk etc...
+        ((configuration-layer/declare-layers (layers-specs &optional skip-layer-deps)
+                                             ((:output nil))))
+      (configuration-layer/make-all-packages 'no-discovery 'no-layer-deps)
+      (should (null configuration-layer--used-packages))
+      (should (equal '(pkg1
+                       pkg6
+                       pkg2
+                       pkg3
+                       pkg8
+                       pkg7
+                       pkg4
+                       pkg9
+                       pkg5)
+                     (spacemacs-ht-keys configuration-layer--indexed-packages))))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//pre-configure-package
@@ -2263,9 +2263,9 @@
     (defun layer1/init-pkg nil)
     (defun layer2/pre-init-pkg nil)
     (mocker-let
-     ((spacemacs-buffer/message (m) ((:output nil)))
-      (layer2/pre-init-pkg nil ((:output nil :occur 1))))
-     (configuration-layer//pre-configure-package pkg))))
+        ((spacemacs-buffer/message (m) ((:output nil)))
+         (layer2/pre-init-pkg nil ((:output nil :occur 1))))
+      (configuration-layer//pre-configure-package pkg))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//post-configure-package
@@ -2281,9 +2281,9 @@
     (defun layer1/init-pkg nil)
     (defun layer2/post-init-pkg nil)
     (mocker-let
-     ((spacemacs-buffer/message (m) ((:output nil)))
-      (layer2/post-init-pkg nil ((:output nil :occur 1))))
-     (configuration-layer//post-configure-package pkg))))
+        ((spacemacs-buffer/message (m) ((:output nil)))
+         (layer2/post-init-pkg nil ((:output nil :occur 1))))
+      (configuration-layer//post-configure-package pkg))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//configure-package
@@ -2297,10 +2297,10 @@
     (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)) t)
     (defun layer1/init-pkg nil)
     (mocker-let
-     ((spacemacs/update-progress-bar nil ((:output nil)))
-      (spacemacs-buffer/message (m) ((:output nil)))
-      (layer1/init-pkg nil ((:output nil :occur 1))))
-     (configuration-layer//configure-package pkg))))
+        ((spacemacs/update-progress-bar nil ((:output nil)))
+         (spacemacs-buffer/message (m) ((:output nil)))
+         (layer1/init-pkg nil ((:output nil :occur 1))))
+      (configuration-layer//configure-package pkg))))
 
 (ert-deftest test-configure-package--disabled-for-does-not-call-pre-post-init ()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1)
@@ -2318,10 +2318,10 @@
     (defun layer2/pre-init-pkg () (push 'pre-init witness))
     (defun layer3/post-init-pkg () (push 'post-init witness))
     (mocker-let
-     ((spacemacs/update-progress-bar nil ((:output nil)))
-      (spacemacs-buffer/message (m) ((:output nil))))
-     (configuration-layer//configure-package pkg)
-     (should (equal '(init) witness)))))
+        ((spacemacs/update-progress-bar nil ((:output nil)))
+         (spacemacs-buffer/message (m) ((:output nil))))
+      (configuration-layer//configure-package pkg)
+      (should (equal '(init) witness)))))
 
 (ert-deftest test-configure-package--enabled-for-unspecified-does-call-pre-post-init ()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1)
@@ -2339,12 +2339,12 @@
     (defun layer2/pre-init-pkg () (push 'pre-init witness))
     (defun layer3/post-init-pkg () (push 'post-init witness))
     (mocker-let
-     ((spacemacs/update-progress-bar nil ((:output nil)))
-      (spacemacs-buffer/message (m) ((:output nil))))
-     (configuration-layer//pre-configure-package pkg)
-     (configuration-layer//configure-package pkg)
-     (configuration-layer//post-configure-package pkg)
-     (should (equal '(post-init init pre-init) witness)))))
+        ((spacemacs/update-progress-bar nil ((:output nil)))
+         (spacemacs-buffer/message (m) ((:output nil))))
+      (configuration-layer//pre-configure-package pkg)
+      (configuration-layer//configure-package pkg)
+      (configuration-layer//post-configure-package pkg)
+      (should (equal '(post-init init pre-init) witness)))))
 
 (ert-deftest test-configure-package--enabled-for-nil-does-not-call-pre-post-init ()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1)
@@ -2362,10 +2362,10 @@
     (defun layer2/pre-init-pkg () (push 'pre-init witness))
     (defun layer3/post-init-pkg () (push 'post-init witness))
     (mocker-let
-     ((spacemacs/update-progress-bar nil ((:output nil)))
-      (spacemacs-buffer/message (m) ((:output nil))))
-     (configuration-layer//configure-package pkg)
-     (should (equal '(init) witness)))))
+        ((spacemacs/update-progress-bar nil ((:output nil)))
+         (spacemacs-buffer/message (m) ((:output nil))))
+      (configuration-layer//configure-package pkg)
+      (should (equal '(init) witness)))))
 
 (ert-deftest test-configure-package--enabled-for-partial ()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1)
@@ -2383,11 +2383,11 @@
     (defun layer2/pre-init-pkg () (push 'pre-init witness))
     (defun layer3/post-init-pkg () (push 'post-init witness))
     (mocker-let
-     ((spacemacs/update-progress-bar nil ((:output nil)))
-      (spacemacs-buffer/message (m) ((:output nil))))
-     (configuration-layer//pre-configure-package pkg)
-     (configuration-layer//configure-package pkg)
-     (should (equal '(init pre-init) witness)))))
+        ((spacemacs/update-progress-bar nil ((:output nil)))
+         (spacemacs-buffer/message (m) ((:output nil))))
+      (configuration-layer//pre-configure-package pkg)
+      (configuration-layer//configure-package pkg)
+      (should (equal '(init pre-init) witness)))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//configure-packages-2
@@ -2432,8 +2432,8 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((configuration-layer//configure-package (p) ((:occur 1))))
-     (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+        ((configuration-layer//configure-package (p) ((:occur 1))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest test-configure-packages-2--site-package-is-configured()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :location 'site))
@@ -2442,8 +2442,8 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((configuration-layer//configure-package (p) ((:occur 1))))
-     (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+        ((configuration-layer//configure-package (p) ((:occur 1))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest test-configure-packages-2--toggle-t-is-configured ()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :toggle t))
@@ -2452,8 +2452,8 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((configuration-layer//configure-package (p) ((:occur 1))))
-     (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+        ((configuration-layer//configure-package (p) ((:occur 1))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest test-configure-packages-2--toggle-nil-is-not-configured ()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :toggle nil))
@@ -2462,9 +2462,9 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((configuration-layer//configure-package (p) nil)
-      (spacemacs-buffer/message (m) ((:output nil))))
-     (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+        ((configuration-layer//configure-package (p) nil)
+         (spacemacs-buffer/message (m) ((:output nil))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest test-configure-packages-2--protected-package-is-configured()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :protected t))
@@ -2473,8 +2473,8 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((configuration-layer//configure-package (p) ((:occur 1))))
-     (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+        ((configuration-layer//configure-package (p) ((:occur 1))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest test-configure-packages-2--protected-excluded-package-is-configured()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :excluded t :protected t))
@@ -2483,8 +2483,8 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((configuration-layer//configure-package (p) ((:occur 1))))
-     (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+        ((configuration-layer//configure-package (p) ((:occur 1))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest test-configure-packages-2--excluded-package-is-not-configured()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :excluded t))
@@ -2493,9 +2493,9 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((configuration-layer//configure-package (p) nil)
-      (spacemacs-buffer/message (m) ((:output nil))))
-     (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+        ((configuration-layer//configure-package (p) nil)
+         (spacemacs-buffer/message (m) ((:output nil))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest test-configure-packages-2--package-w/o-owner-is-not-configured()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners nil))
@@ -2504,9 +2504,9 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((configuration-layer//configure-package (p) nil)
-      (spacemacs-buffer/message (m) ((:output nil))))
-     (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+        ((configuration-layer//configure-package (p) nil)
+         (spacemacs-buffer/message (m) ((:output nil))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest
     test-configure-packages-2--package-owned-by-dotfile-is-not-configured()
@@ -2516,9 +2516,9 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((configuration-layer//configure-package (p) nil)
-      (spacemacs-buffer/message (m) ((:output nil))))
-     (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+        ((configuration-layer//configure-package (p) nil)
+         (spacemacs-buffer/message (m) ((:output nil))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest test-configure-packages-2--lazy-install-package-is-not-configured()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer) :lazy-install t))
@@ -2527,9 +2527,9 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((configuration-layer//configure-package (p) nil)
-      (spacemacs-buffer/message (m) ((:output nil))))
-     (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+        ((configuration-layer//configure-package (p) nil)
+         (spacemacs-buffer/message (m) ((:output nil))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest
     test-configure-packages-2--local-package-w/-layer-owner-update-load-path()
@@ -2543,10 +2543,10 @@
     (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1 :dir "/path/")) t)
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((configuration-layer//configure-package (p) ((:occur 1))))
-     (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
-     (push "/path/local/pkg/" expected-load-path)
-     (should (equal expected-load-path load-path)))))
+        ((configuration-layer//configure-package (p) ((:occur 1))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
+      (push "/path/local/pkg/" expected-load-path)
+      (should (equal expected-load-path load-path)))))
 
 (ert-deftest
     test-configure-packages-2--local-package-w/-dotfile-owner-update-load-path()
@@ -2571,9 +2571,9 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((spacemacs-buffer/message (m) ((:output nil))))
-     (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
-     (should (equal load-path old-load-path)))))
+        ((spacemacs-buffer/message (m) ((:output nil))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
+      (should (equal load-path old-load-path)))))
 
 (ert-deftest
     test-configure-packages-2--local-package-w/-string-location-update-load-path()
@@ -2601,10 +2601,10 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((configuration-layer//warning
-       (msg &rest args)
-       ((:record-cls 'mocker-stub-record :output nil :occur 1))))
-     (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+        ((configuration-layer//warning
+          (msg &rest args)
+          ((:record-cls 'mocker-stub-record :output nil :occur 1))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//sort-packages
@@ -2850,84 +2850,84 @@
 (ert-deftest test-directory-type--input-is-a-file ()
   (let ((input "/a/path/to/a/layer/file"))
     (mocker-let
-     ((file-directory-p (f)
-                        ((:record-cls 'mocker-stub-record
-                                      :output nil
-                                      :occur 1))))
-     (should (null (configuration-layer//directory-type input))))))
+        ((file-directory-p (f)
+                           ((:record-cls 'mocker-stub-record
+                                         :output nil
+                                         :occur 1))))
+      (should (null (configuration-layer//directory-type input))))))
 
 (ert-deftest test-directory-type--category ()
   (let ((input (concat configuration-layer-directory "+vim/")))
     (mocker-let
-     ((file-directory-p (f)
-                        ((:record-cls 'mocker-stub-record :output t :occur 1))))
-     (should (eq 'category (configuration-layer//directory-type input))))))
+        ((file-directory-p (f)
+                           ((:record-cls 'mocker-stub-record :output t :occur 1))))
+      (should (eq 'category (configuration-layer//directory-type input))))))
 
 (ert-deftest test-directory-type--input-is-an-empty-directory ()
   (let ((input "/a/path/to/a/layer/"))
     (mocker-let
-     ((file-directory-p (f)
-                        ((:record-cls 'mocker-stub-record :output t :occur 1)))
-      (locate-file (filename path &optional suffixes predicate)
-                   ((:record-cls 'mocker-stub-record :output nil :max-occur 5))))
-     (should (null (configuration-layer//directory-type input))))))
+        ((file-directory-p (f)
+                           ((:record-cls 'mocker-stub-record :output t :occur 1)))
+         (locate-file (filename path &optional suffixes predicate)
+                      ((:record-cls 'mocker-stub-record :output nil :max-occur 5))))
+      (should (null (configuration-layer//directory-type input))))))
 
 (ert-deftest test-directory-type--input-is-directory-and-not-a-layer ()
   (let ((input "/a/path/to/a/layer/"))
     (mocker-let
-     ((file-directory-p (f)
-                        ((:record-cls 'mocker-stub-record :output t :occur 1)))
-      (locate-file (filename path &optional suffixes predicate)
-                   ((:record-cls 'mocker-stub-record :output nil :max-occur 5))))
-     (should (null (configuration-layer//directory-type input))))))
+        ((file-directory-p (f)
+                           ((:record-cls 'mocker-stub-record :output t :occur 1)))
+         (locate-file (filename path &optional suffixes predicate)
+                      ((:record-cls 'mocker-stub-record :output nil :max-occur 5))))
+      (should (null (configuration-layer//directory-type input))))))
 
 (ert-deftest test-directory-type--layer-with-packages.el ()
   (let ((input "/a/path/to/a/layer/"))
     (mocker-let
-     ((file-directory-p (f)
-                        ((:record-cls 'mocker-stub-record :output t :occur 1)))
-      (locate-file
-       (filename path &optional suffixes predicate)
-       ((:record-cls 'mocker-stub-record
-                     :output (expand-file-name "packages.el" input)
-                     :occur 1))))
-     (should (eq 'layer (configuration-layer//directory-type input))))))
+        ((file-directory-p (f)
+                           ((:record-cls 'mocker-stub-record :output t :occur 1)))
+         (locate-file
+          (filename path &optional suffixes predicate)
+          ((:record-cls 'mocker-stub-record
+                        :output (expand-file-name "packages.el" input)
+                        :occur 1))))
+      (should (eq 'layer (configuration-layer//directory-type input))))))
 
 (ert-deftest test-directory-type--layer-with-config.el ()
   (let ((input "/a/path/to/a/layer/"))
     (mocker-let
-     ((file-directory-p (f)
-                        ((:record-cls 'mocker-stub-record :output t :occur 1)))
-      (locate-file
-       (filename path &optional suffixes predicate)
-       ((:record-cls 'mocker-stub-record
-                     :output (expand-file-name "config.el" input)
-                     :occur 1))))
-     (should (eq 'layer (configuration-layer//directory-type input))))))
+        ((file-directory-p (f)
+                           ((:record-cls 'mocker-stub-record :output t :occur 1)))
+         (locate-file
+          (filename path &optional suffixes predicate)
+          ((:record-cls 'mocker-stub-record
+                        :output (expand-file-name "config.el" input)
+                        :occur 1))))
+      (should (eq 'layer (configuration-layer//directory-type input))))))
 
 (ert-deftest test-directory-type--layer-with-keybindings.el ()
   (let ((input "/a/path/to/a/layer/"))
     (mocker-let
-     ((file-directory-p (f)
-                        ((:record-cls 'mocker-stub-record :output t :occur 1)))
-      (locate-file
-       (filename path &optional suffixes predicate)
-       ((:record-cls 'mocker-stub-record
-                     :output (expand-file-name "keybindings.el" input)
-                     :occur 1))))
-     (should (eq 'layer (configuration-layer//directory-type input))))))
+        ((file-directory-p (f)
+                           ((:record-cls 'mocker-stub-record :output t :occur 1)))
+         (locate-file
+          (filename path &optional suffixes predicate)
+          ((:record-cls 'mocker-stub-record
+                        :output (expand-file-name "keybindings.el" input)
+                        :occur 1))))
+      (should (eq 'layer (configuration-layer//directory-type input))))))
 
 (ert-deftest test-directory-type--layer-with-funcs.el ()
   (let ((input "/a/path/to/a/layer/"))
     (mocker-let
-     ((file-directory-p (f)
-                        ((:record-cls 'mocker-stub-record :output t :occur 1)))
-      (locate-file
-       (filename path &optional suffixes predicate)
-       ((:record-cls 'mocker-stub-record
-                     :output (expand-file-name "funcs.el" input)
-                     :occur 1))))
-     (should (eq 'layer (configuration-layer//directory-type input))))))
+        ((file-directory-p (f)
+                           ((:record-cls 'mocker-stub-record :output t :occur 1)))
+         (locate-file
+          (filename path &optional suffixes predicate)
+          ((:record-cls 'mocker-stub-record
+                        :output (expand-file-name "funcs.el" input)
+                        :occur 1))))
+      (should (eq 'layer (configuration-layer//directory-type input))))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//get-category-from-path
@@ -2936,27 +2936,27 @@
 (ert-deftest test-get-category-from-path--input-is-a-file ()
   (let ((input "/a/path/to/a/file"))
     (mocker-let
-     ((file-directory-p (f)
-                        ((:record-cls 'mocker-stub-record
-                                      :output nil
-                                      :occur 1))))
-     (should (null (configuration-layer//get-category-from-path input))))))
+        ((file-directory-p (f)
+                           ((:record-cls 'mocker-stub-record
+                                         :output nil
+                                         :occur 1))))
+      (should (null (configuration-layer//get-category-from-path input))))))
 
 (ert-deftest test-get-category-from-path--input-is-a-regular-directory ()
   (let ((input "/a/path/to/a/layer/"))
     (mocker-let
-     ((file-directory-p (f)
-                        ((:record-cls 'mocker-stub-record
-                                      :output t
-                                      :occur 1))))
-     (should (null (configuration-layer//get-category-from-path input))))))
+        ((file-directory-p (f)
+                           ((:record-cls 'mocker-stub-record
+                                         :output t
+                                         :occur 1))))
+      (should (null (configuration-layer//get-category-from-path input))))))
 
 (ert-deftest test-get-category-from-path--return-category ()
   (let ((input "/a/path/to/a/+cat/"))
     (mocker-let
-     ((file-directory-p (f)
-                        ((:record-cls 'mocker-stub-record :output t :occur 1))))
-     (should (eq 'cat (configuration-layer//get-category-from-path input))))))
+        ((file-directory-p (f)
+                           ((:record-cls 'mocker-stub-record :output t :occur 1))))
+      (should (eq 'cat (configuration-layer//get-category-from-path input))))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//gather-auto-mode-extensions
@@ -3086,37 +3086,37 @@
 
 (ert-deftest test-stable-elpa-verify-archive--archive-not-found-is-fatal-error ()
   (mocker-let
-   ((configuration-layer//stable-elpa-tarball-local-file
-     nil ((:record-cls 'mocker-stub-record
-                       :output
-                       (concat spacemacs-test-directory
-                               "core/data/not-found.tar.gz")
-                       :occur 1)))
-    (configuration-layer//stable-elpa-tarball-local-sign-file
-     nil ((:record-cls 'mocker-stub-record
-                       :output
-                       (concat spacemacs-test-directory
-                               "core/data/stable-elpa.sig")
-                       :occur 1)))
-    (configuration-layer//error
-     (msg &rest args) ((:record-cls 'mocker-stub-record :occur 1))))
-   (should (null (configuration-layer//stable-elpa-verify-archive)))))
+      ((configuration-layer//stable-elpa-tarball-local-file
+        nil ((:record-cls 'mocker-stub-record
+                          :output
+                          (concat spacemacs-test-directory
+                                  "core/data/not-found.tar.gz")
+                          :occur 1)))
+       (configuration-layer//stable-elpa-tarball-local-sign-file
+        nil ((:record-cls 'mocker-stub-record
+                          :output
+                          (concat spacemacs-test-directory
+                                  "core/data/stable-elpa.sig")
+                          :occur 1)))
+       (configuration-layer//error
+        (msg &rest args) ((:record-cls 'mocker-stub-record :occur 1))))
+    (should (null (configuration-layer//stable-elpa-verify-archive)))))
 
 
 (ert-deftest test-stable-elpa-verify-archive--signature-not-found-is-fatal-error ()
   (mocker-let
-   ((configuration-layer//stable-elpa-tarball-local-file
-     nil ((:record-cls 'mocker-stub-record
-                       :output
-                       (concat spacemacs-test-directory
-                               "core/data/signed-stable-elpa.tar.gz")
-                       :occur 1)))
-    (configuration-layer//stable-elpa-tarball-local-sign-file
-     nil ((:record-cls 'mocker-stub-record
-                       :output
-                       (concat spacemacs-test-directory
-                               "core/data/not-found.sig")
-                       :occur 1)))
-    (configuration-layer//error
-     (msg &rest args) ((:record-cls 'mocker-stub-record :occur 1))))
-   (should (null (configuration-layer//stable-elpa-verify-archive)))))
+      ((configuration-layer//stable-elpa-tarball-local-file
+        nil ((:record-cls 'mocker-stub-record
+                          :output
+                          (concat spacemacs-test-directory
+                                  "core/data/signed-stable-elpa.tar.gz")
+                          :occur 1)))
+       (configuration-layer//stable-elpa-tarball-local-sign-file
+        nil ((:record-cls 'mocker-stub-record
+                          :output
+                          (concat spacemacs-test-directory
+                                  "core/data/not-found.sig")
+                          :occur 1)))
+       (configuration-layer//error
+        (msg &rest args) ((:record-cls 'mocker-stub-record :occur 1))))
+    (should (null (configuration-layer//stable-elpa-verify-archive)))))
