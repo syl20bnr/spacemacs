@@ -110,5 +110,5 @@ adds advices to the respective functions."
 (defvar spacemacs--layout-local-variables nil
   "List of variables that will be local to the current layout.")
 
-(defvar spacemacs--layout-local-map (spacemacs-ht-create)
+(defvar spacemacs--layout-local-map (make-hash-table :test 'equal)
   "Map of layouts to their local variable values.")
