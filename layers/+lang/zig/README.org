@@ -59,6 +59,24 @@ indentation and custom commands for compilation and testing.
 
 For more information check the [[https://github.com/ziglang/zig-mode][=zig-mode= repository]].
 
+* Configuration
+
+** LSP (zls)
+
+To enable LSP support for Zig using ZLS (Zig Language Server), you need to configure the zig layer with the appropriate paths for the ZLS executable, Zig executable, and Zig standard library. Below is an example configuration:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+    '((zig :variables
+          lsp-zig-zls-executable "/usr/local/bin/zls"
+          lsp-zig-zig-exe-path "/usr/local/bin/zig"
+          lsp-zig-zig-lib-path "/usr/local/lib/zig")))
+#+END_SRC
+
+Note that the paths provided are examples and should be replaced with the correct paths for your system.
+
+For more information, please check the [[https://emacs-lsp.github.io/lsp-mode/page/lsp-zig/][emacs-lsp document for lsp-zig]] and [[https://zigtools.org/zls/editors/emacs/][zls editors document for emacs]].
+
 * Key bindings
 ** LSP
 You can find an overview of all the key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/lsp#key-bindings][lsp layer description]].
