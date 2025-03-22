@@ -1324,18 +1324,13 @@ USEDP if non-nil indicates that made packages are used packages."
       (configuration-layer//lazy-install-packages layer-name mode)))
   (when (fboundp mode) (funcall mode)))
 
-(defun configuration-layer/filter-objects (objects ffunc)
-  "Return a filtered OBJECTS list where each element satisfies FFUNC."
-  (cl-remove-if-not ffunc objects))
-
 (defun configuration-layer//filter-distant-packages
     (packages usedp &optional predicate)
   "Return the distant packages (ie to be intalled).
 If USEDP is non nil then returns only the used packages; if it is nil then
 return both used and unused packages.
 PREDICATE is an additional expression that eval to a boolean."
-  (configuration-layer/filter-objects
-   packages
+  (cl-remove-if-not
    (lambda (x)
      (let ((pkg (configuration-layer/get-package x)))
        (if pkg
@@ -1345,7 +1340,8 @@ PREDICATE is an additional expression that eval to a boolean."
                 (or (null predicate)
                     (funcall predicate pkg)))
          (spacemacs-buffer/warning "Cannot find package for %s" x)
-         nil)))))
+         nil)))
+   packages))
 
 (defun configuration-layer//get-private-layer-dir (name)
   "Return an absolute path to the private configuration layer string NAME."
@@ -1444,15 +1440,15 @@ discovery."
                        dotspacemacs-configuration-layer-path))
         (discovered '()))
     ;; filter out directories that don't exist
-    (setq search-paths (configuration-layer/filter-objects
-                        search-paths
+    (setq search-paths (cl-remove-if-not
                         (lambda (x)
                           (let ((exists (file-exists-p x)))
                             (unless exists
                               (configuration-layer//warning
                                "Layer directory \"%s\" not found. Ignoring it."
                                x))
-                            exists))))
+                            exists))
+                        search-paths))
     ;; depth-first search of subdirectories
     (while search-paths
       (let ((current-path (car search-paths)))
@@ -1695,11 +1691,9 @@ RNAME is the name symbol of another existing layer."
     (configuration-layer/make-packages-from-layers layers t)
     (configuration-layer/make-packages-from-dotfile t)
     (setq configuration-layer--used-packages
-          (configuration-layer/filter-objects
-           configuration-layer--used-packages
-           'configuration-layer/package-used-p))
-    (setq configuration-layer--used-packages
-          (sort configuration-layer--used-packages #'string<))))
+          (sort (cl-delete-if-not #'configuration-layer/package-used-p
+                                  configuration-layer--used-packages)
+                #'string<))))
 
 (defun configuration-layer//load-layers-files (layer-names files)
   "Load the files of list FILES for all passed LAYER-NAMES."
@@ -1716,29 +1710,21 @@ RNAME is the name symbol of another existing layer."
 
 (defun configuration-layer/configured-packages-stats (packages)
   "Return a statistics alist regarding the number of configured PACKAGES."
-  `((total ,(length packages))
-    (elpa ,(length (configuration-layer/filter-objects
-                    packages
-                    (lambda (x)
-                      (let ((pkg (configuration-layer/get-package x)))
-                        (eq 'elpa (oref pkg :location)))))))
-    (recipe ,(length (configuration-layer/filter-objects
-                      packages
-                      (lambda (x)
-                        (let* ((pkg (configuration-layer/get-package x))
-                               (location (oref pkg :location)))
-                          (and (listp location)
-                               (eq 'recipe (car location))))))))
-    (local ,(length (configuration-layer/filter-objects
-                     packages
-                     (lambda (x)
-                       (let ((pkg (configuration-layer/get-package x)))
-                         (memq (oref pkg :location) '(local site)))))))
-    (built-in ,(length (configuration-layer/filter-objects
-                        packages
-                        (lambda (x)
-                          (let ((pkg (configuration-layer/get-package x)))
-                            (eq 'built-in (oref pkg :location)))))))))
+  (let ((total (length packages))
+        (elpa 0) (recipe 0) (local 0) (built-in 0))
+    (dolist (p packages)
+      (let* ((pkg (configuration-layer/get-package p))
+             (location (oref pkg :location)))
+        (cl-incf
+         (cond ((eq 'elpa location) elpa)
+               ((and (listp location) (eq 'recipe (car location))) recipe)
+               ((memq location '(local site)) local)
+               ((eq 'built-in location) built-in)))))
+    `((total ,total)
+      (elpa ,elpa)
+      (recipe ,recipe)
+      (local ,local)
+      (built-in ,built-in))))
 
 (defun configuration-layer//install-package (pkg pkg-name installed-count not-inst-count)
   "Unconditionally install the package PKG."
@@ -1961,24 +1947,26 @@ RNAME is the name symbol of another existing layer."
 (defun configuration-layer//configure-packages (packages)
   "Configure all passed PACKAGES honoring the steps order."
   (spacemacs/init-progress-bar (length packages))
-  (spacemacs-buffer/message "+ Configuring bootstrap packages...")
-  (configuration-layer//configure-packages-2
-   (configuration-layer/filter-objects
-    packages (lambda (x)
-               (let ((pkg (configuration-layer/get-package x)))
-                 (eq 'bootstrap (oref pkg :step))))))
-  (spacemacs-buffer/message "+ Configuring pre packages...")
-  (configuration-layer//configure-packages-2
-   (configuration-layer/filter-objects
-    packages (lambda (x)
-               (let ((pkg (configuration-layer/get-package x)))
-                 (eq 'pre (oref pkg :step))))))
-  (spacemacs-buffer/message "+ Configuring packages...")
-  (configuration-layer//configure-packages-2
-   (configuration-layer/filter-objects
-    packages (lambda (x)
-               (let ((pkg (configuration-layer/get-package x)))
-                 (null (oref pkg :step)))))))
+  (let (bootstrap-packages pre-packages other-packages)
+    (dolist (pkg-name packages)
+      (let* ((pkg (configuration-layer/get-package pkg-name))
+             (step (oref pkg :step)))
+        (push pkg-name
+              (cond
+               ((eq step 'bootstrap) bootstrap-packages)
+               ((eq step 'pre) pre-packages)
+               (t other-packages)))))
+
+    (setq bootstrap-packages (nreverse bootstrap-packages))
+    (setq pre-packages (nreverse pre-packages))
+    (setq other-packages (nreverse other-packages))
+
+    (spacemacs-buffer/message "+ Configuring bootstrap packages...")
+    (configuration-layer//configure-packages-2 bootstrap-packages)
+    (spacemacs-buffer/message "+ Configuring pre packages...")
+    (configuration-layer//configure-packages-2 pre-packages)
+    (spacemacs-buffer/message "+ Configuring packages...")
+    (configuration-layer//configure-packages-2 other-packages)))
 
 (defun configuration-layer//configure-packages-2 (packages)
   "Configure all passed PACKAGES."
@@ -2557,9 +2545,9 @@ Return nil if MODE does not appear in `auto-mode-alist'."
         (let* ((deps (mapcar 'car
                              (configuration-layer//get-package-deps-from-archive
                               pkg-sym)))
-               (elpa-deps (configuration-layer/filter-objects
-                           deps (lambda (x)
-                                  (assq x package-archive-contents)))))
+               (elpa-deps (cl-delete-if-not
+                           (lambda (x) (assq x package-archive-contents))
+                           deps)))
           (dolist (pkg (cons pkg-sym elpa-deps))
             ;; avoid duplicates
             (cl-pushnew pkg result)))))
