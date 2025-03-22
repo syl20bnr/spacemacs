@@ -1216,10 +1216,6 @@ USEDP non-nil means that PKG is a used package."
 Return nil if package object is not found."
   (gethash pkg-name configuration-layer--indexed-packages))
 
-(defun configuration-layer//sort-packages (packages)
-  "Return a sorted list of PACKAGES objects."
-  (sort packages #'string<))
-
 (defun configuration-layer/make-all-packages (&optional skip-layer-discovery skip-layer-deps)
   "Create objects for _all_ packages supported by Spacemacs.
 If SKIP-LAYER-DISCOVERY is non-nil then do not check for new layers.
@@ -1703,8 +1699,7 @@ RNAME is the name symbol of another existing layer."
            configuration-layer--used-packages
            'configuration-layer/package-used-p))
     (setq configuration-layer--used-packages
-          (configuration-layer//sort-packages
-           configuration-layer--used-packages))))
+          (sort configuration-layer--used-packages #'string<))))
 
 (defun configuration-layer//load-layers-files (layer-names files)
   "Load the files of list FILES for all passed LAYER-NAMES."
@@ -1807,7 +1802,7 @@ RNAME is the name symbol of another existing layer."
                          pkg-name)))
                    (oref layer :packages)))))
       (let ((last-buffer (current-buffer))
-            (sorted-pkg (configuration-layer//sort-packages inst-pkgs)))
+            (sorted-pkg (sort inst-pkgs #'string<)))
         (spacemacs-buffer/goto-buffer)
         (goto-char (point-max))
         (configuration-layer//install-packages sorted-pkg)

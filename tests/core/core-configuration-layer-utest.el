@@ -2607,15 +2607,6 @@
       (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 ;; ---------------------------------------------------------------------------
-;; configuration-layer//sort-packages
-;; ---------------------------------------------------------------------------
-
-(ert-deftest test-sort-packages--example ()
-  (let ((pkgs '(pkg4 pkg3 pkg6 pkg2 pkg1)))
-    (should (equal '(pkg1 pkg2 pkg3 pkg4 pkg6)
-                   (configuration-layer//sort-packages pkgs)))))
-
-;; ---------------------------------------------------------------------------
 ;; configuration-layer//get-package-recipe
 ;; ---------------------------------------------------------------------------
 
