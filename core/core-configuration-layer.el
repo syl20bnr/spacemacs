@@ -1927,13 +1927,6 @@ RNAME is the name symbol of another existing layer."
                       (min-version (when pkg (oref pkg :min-version))))
                  (not (package-installed-p x min-version))))))
 
-(defun configuration-layer//package-has-recipe-p (pkg-name)
-  "Return non nil if PKG-NAME is the name of a package declared with a recipe."
-  (when (configuration-layer/get-package pkg-name)
-    (let* ((pkg (configuration-layer/get-package pkg-name))
-           (location (oref pkg :location)))
-      (and (listp location) (eq 'recipe (car location))))))
-
 (defun configuration-layer//get-package-recipe (pkg-name)
   "Return the recipe for PGK-NAME if it has one."
   (let ((pkg (configuration-layer/get-package pkg-name)))

@@ -2616,34 +2616,6 @@
                    (configuration-layer//sort-packages pkgs)))))
 
 ;; ---------------------------------------------------------------------------
-;; configuration-layer//package-has-recipe-p
-;; ---------------------------------------------------------------------------
-
-(ert-deftest test-package-has-a-recipe-p--true ()
-  (let (configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
-        configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
-    (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)) t)
-    (helper--add-packages
-     `(,(configuration-layer/make-package '(pkg1 :location (recipe blah))
-                                          'layer1)
-       ,(configuration-layer/make-package '(pkg2 :location elpa) 'layer1)) t)
-    (should (configuration-layer//package-has-recipe-p 'pkg1))))
-
-(ert-deftest test-package-has-a-recipe-p--false ()
-  (let (configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
-        configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
-    (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)) t)
-    (helper--add-packages
-     `(,(configuration-layer/make-package '(pkg1 :location (recipe blah))
-                                          'layer1)
-       ,(configuration-layer/make-package '(pkg2 :location elpa) 'layer1)) t)
-    (should (not (configuration-layer//package-has-recipe-p 'pkg2)))))
-
-;; ---------------------------------------------------------------------------
 ;; configuration-layer//get-package-recipe
 ;; ---------------------------------------------------------------------------
 
