@@ -1916,9 +1916,8 @@ RNAME is the name symbol of another existing layer."
 (defun configuration-layer//filter-packages-with-deps
     (pkg-names filter &optional use-archive)
   "Return a filtered PKG-NAMES list where each elements satisfies FILTER."
-  (let ((checked-packages))
-    (configuration-layer//filter-packages-with-deps-recur
-     checked-packages pkg-names filter use-archive)))
+  (configuration-layer//filter-packages-with-deps-recur
+   nil pkg-names filter use-archive))
 
 (defun configuration-layer//get-to-install-packages (pkg-names)
   "Return a filtered list of PKG-NAMES to install."
