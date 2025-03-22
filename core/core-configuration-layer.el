@@ -404,6 +404,7 @@ file. It can be overridden by users inside `dotspacemacs/user-init'.")
 (defvar configuration-layer--lazy-mode-alist nil
   "Association list where the key is a mode and the value a regexp.")
 
+;; TODO: no code sets this variable, can we get rid of it?
 (defvar configuration-layer--inhibit-errors nil
   "If non-nil then error messages emitted by the layer system are ignored.")
 
@@ -425,6 +426,7 @@ installation of initialization.")
   "List of strings corresponding to category names. A category is a
 directory with a name starting with `+'.")
 
+;; FIXME: bad namespace
 (defvar update-packages-alist '()
   "List used to collect information about rollback packages in the
 cache folder.
@@ -502,6 +504,7 @@ Otherwise return the recipe unchanged.  PKG is of `cfgl-package' type."
         (eq (string-match-p "^[a-zA-Z]:" path) 0)
         (string-prefix-p "\." path))))
 
+;; FIXME: this seems dumb, we should just require ARCHIVES to include schemes.
 (defun configuration-layer//resolve-package-archives (archives)
   "Resolve HTTP handlers for each archive in ARCHIVES and return a list
 of all reachable ones.
@@ -1124,10 +1127,12 @@ USEDP non-nil means that PKG is a used layer."
     (when usedp
       (add-to-list 'configuration-layer--used-layers layer-name))))
 
+;; FIXME: unused
 (defun configuration-layer/remove-layers (layer-names)
   "Remove layers with LAYER-NAMES from used layers."
   (mapc 'configuration-layer/remove-layer layer-names))
 
+;; FIXME: only one use-case, maybe we can refactor it away
 (defun configuration-layer/remove-layer (layer-name)
   "Remove an used layer with name LAYER-NAME."
   (setq configuration-layer--used-layers
@@ -1488,6 +1493,9 @@ If `SKIP-LAYER-DEPS' is non nil then skip loading of layer dependenciesl"
             (configuration-layer//load-layer-files layer-name '("layers"))))
       (configuration-layer//warning "Unknown declared layer %s." layer-name))))
 
+;; FIXME: some layers use this and some layers use
+;; configuration-layer/declare-layers.  what's the difference, can we unify
+;; them?
 (defun configuration-layer/declare-layer-dependencies (layer-names)
   "Function to be used in `layers.el' files to declare dependencies."
   (dolist (x layer-names)
@@ -1736,7 +1744,8 @@ RNAME is the name symbol of another existing layer."
                                    "layer %s, do you want to install it?")
                            mode layer-name))))
     (when (dotspacemacs/add-layer layer-name)
-      (let (spacemacs-sync-packages)
+      (let (spacemacs-sync-packages)    ;FIXME: unused lexical variable.  is
+                                        ;this working?
         (configuration-layer/load)))
     (let* ((layer (configuration-layer/get-layer layer-name))
            (inst-pkgs
@@ -1947,6 +1956,8 @@ RNAME is the name symbol of another existing layer."
                ((eq step 'pre) pre-packages)
                (t other-packages)))))
 
+    ;; FIXME: this order should probably not matter but some how it errors if I
+    ;; don't have these reverses.
     (setq bootstrap-packages (nreverse bootstrap-packages))
     (setq pre-packages (nreverse pre-packages))
     (setq other-packages (nreverse other-packages))
@@ -2403,6 +2414,7 @@ Rollback slots are stored in
 
 The keys are package names and the values are lists of package names that
 depends on it."
+  ;; TODO: test this refactor
   (let ((result (make-hash-table)))
     (dolist (pkg package-alist)
       (let* ((pkg-sym (car pkg))
@@ -2562,14 +2574,13 @@ Return nil if MODE does not appear in `auto-mode-alist'."
 
 (defun configuration-layer//insert-lazy-install-form (layer-name mode ext)
   "Insert a configuration form for lazy installation of MODE."
-  (let ((str (concat "(configuration-layer/lazy-install '"
-                     (symbol-name layer-name)
-                     " :extensions '("
-                     (let ((print-quoted t)) (prin1-to-string ext))
-                     " "
-                     (symbol-name mode)
-                     "))\n")))
-    (insert str)))
+  (insert "(configuration-layer/lazy-install '"
+          (symbol-name layer-name)
+          " :extensions '("
+          (let ((print-quoted t)) (prin1-to-string ext))
+          " "
+          (symbol-name mode)
+          "))\n"))
 
 (defun configuration-layer/insert-lazy-install-configuration ()
   "Prompt for a layer and insert the forms to configure lazy installation."
@@ -2626,6 +2637,7 @@ Return nil if MODE does not appear in `auto-mode-alist'."
                            (lambda (x) (assq x package-archive-contents))
                            deps)))
           (dolist (pkg (cons pkg-sym elpa-deps))
+            ;; FIXME: but pkg-sym should surely be unique?
             ;; avoid duplicates
             (cl-pushnew pkg result)))))
     result))
@@ -2863,6 +2875,7 @@ continue with the stable ELPA repository installation."
      (t t))))
 
 (defun configuration-layer//stable-elpa-untar-archive ()
+  ;; FIXME: docstring is wrong about return value of `call-process'
   "Untar the downloaded archive of stable ELPA, returns non-nil if succeeded."
   (require 'tar-mode)
   (let ((archive (configuration-layer//stable-elpa-tarball-local-file))
@@ -2938,6 +2951,7 @@ files."
 ;;  "spacelpa"
 ;;  spacemacs-cache-directory)
 
+;; FIXME: initialize to 0 and just use cl-incf
 (defun configuration-layer//increment-error-count ()
   "Increment the error counter."
   (if configuration-layer-error-count
@@ -2945,6 +2959,7 @@ files."
             (1+ configuration-layer-error-count))
     (setq configuration-layer-error-count 1)))
 
+;; FIXME: format-message
 (defun configuration-layer/message (msg &rest args)
   "Display MSG in *Messages* prepended with '(Spacemacs)'.
 ARGS: format string arguments."

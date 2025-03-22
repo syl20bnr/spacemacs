@@ -839,6 +839,7 @@ ARGS: format string arguments."
 (defvar spacemacs-buffer--warnings nil
   "List of warnings during startup.")
 
+;; FIXME: should use `format-message'
 (defun spacemacs-buffer/warning (msg &rest args)
   "Display MSG as a warning message but in buffer `*Messages*'.
 ARGS: format string arguments."

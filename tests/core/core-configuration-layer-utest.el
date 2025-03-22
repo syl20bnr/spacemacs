@@ -2484,6 +2484,7 @@
 ;; configuration-layer//get-package-recipe
 ;; ---------------------------------------------------------------------------
 
+;; FIXME: surely :size argument to make-hash-table is mostly pointless?
 (ert-deftest test-get-package-recipe--return-recipe-if-package-has-one ()
   (let (configuration-layer--used-layers
         (configuration-layer--indexed-layers (make-hash-table))
