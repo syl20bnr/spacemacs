@@ -125,11 +125,17 @@
     (spacemacs||set-helm-key "sj"   spacemacs/helm-jump-in-buffer)
     ;; search with grep
     (spacemacs||set-helm-key "sgb"  spacemacs/helm-buffers-do-grep)
-    (spacemacs||set-helm-key "sgB"  spacemacs/helm-buffers-do-grep-region-or-symbol)
+    (spacemacs||set-helm-key
+     "sgB" ("grep-search buffers w/ input" .
+            spacemacs/helm-buffers-do-grep-region-or-symbol))
     (spacemacs||set-helm-key "sgf"  spacemacs/helm-files-do-grep)
-    (spacemacs||set-helm-key "sgF"  spacemacs/helm-files-do-grep-region-or-symbol)
+    (spacemacs||set-helm-key
+     "sgF" ("grep-search files w/ input" .
+            spacemacs/helm-files-do-grep-region-or-symbol))
     (spacemacs||set-helm-key "sgg"  spacemacs/helm-file-do-grep)
-    (spacemacs||set-helm-key "sgG"  spacemacs/helm-file-do-grep-region-or-symbol)
+    (spacemacs||set-helm-key
+     "sgG" ("grep-search file w/ input" .
+            spacemacs/helm-file-do-grep-region-or-symbol))
     ;; various key bindings
     (spacemacs||set-helm-key "fel" helm-locate-library)
     (spacemacs||set-helm-key "hdx" spacemacs/describe-ex-command)
@@ -250,15 +256,20 @@
       "s`"  'helm-ag-pop-stack
       ;; opened buffers scope
       "sb"  'spacemacs/helm-buffers-smart-do-search
-      "sB"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
+      "sB"  '("smart-search buffers w/ input" .
+              spacemacs/helm-buffers-smart-do-search-region-or-symbol)
       "sab" 'helm-do-ag-buffers
-      "saB" 'spacemacs/helm-buffers-do-ag-region-or-symbol
+      "saB" '("ag-search buffers w/ input" .
+              spacemacs/helm-buffers-do-ag-region-or-symbol)
       "skb" 'spacemacs/helm-buffers-do-ack
-      "skB" 'spacemacs/helm-buffers-do-ack-region-or-symbol
+      "skB" '("ack-search buffers w/ input" .
+              spacemacs/helm-buffers-do-ack-region-or-symbol)
       "srb" 'spacemacs/helm-buffers-do-rg
-      "srB" 'spacemacs/helm-buffers-do-rg-region-or-symbol
+      "srB" '("rg-search buffers w/ input" .
+              spacemacs/helm-buffers-do-rg-region-or-symbol)
       "stb" 'spacemacs/helm-buffers-do-pt
-      "stB" 'spacemacs/helm-buffers-do-pt-region-or-symbol
+      "stB" '("pt-search buffers w/ input" .
+              spacemacs/helm-buffers-do-pt-region-or-symbol)
       ;; current file scope
       "ss"  'spacemacs/helm-file-smart-do-search
       "sS"  'spacemacs/helm-file-smart-do-search-region-or-symbol
@@ -266,18 +277,24 @@
       "saA" 'spacemacs/helm-file-do-ag-region-or-symbol
       ;; files scope
       "sf"  'spacemacs/helm-files-smart-do-search
-      "sF"  'spacemacs/helm-files-smart-do-search-region-or-symbol
+      "sF"  '("smart-search files w/ input" .
+              spacemacs/helm-files-smart-do-search-region-or-symbol)
       "saf" 'helm-do-ag
-      "saF" 'spacemacs/helm-files-do-ag-region-or-symbol
+      "saF" '("ag-search files w/ input" .
+              spacemacs/helm-files-do-ag-region-or-symbol)
       "skf" 'spacemacs/helm-files-do-ack
-      "skF" 'spacemacs/helm-files-do-ack-region-or-symbol
+      "skF" '("ack-search files w/ input" .
+              spacemacs/helm-files-do-ack-region-or-symbol)
       "srf" 'spacemacs/helm-files-do-rg
-      "srF" 'spacemacs/helm-files-do-rg-region-or-symbol
+      "srF" '("rg-search files w/ input" .
+              spacemacs/helm-files-do-rg-region-or-symbol)
       "stf" 'spacemacs/helm-files-do-pt
-      "stF" 'spacemacs/helm-files-do-pt-region-or-symbol
+      "stF" '("pt-search files w/ input" .
+              spacemacs/helm-files-do-pt-region-or-symbol)
       ;; current dir scope
       "sd"  'spacemacs/helm-dir-smart-do-search
-      "sD"  'spacemacs/helm-dir-smart-do-search-region-or-symbol
+      "sD"  '("smart-search dir w/ input" .
+              spacemacs/helm-dir-smart-do-search-region-or-symbol)
       "sad" 'spacemacs/helm-dir-do-ag
       "saD" 'spacemacs/helm-dir-do-ag-region-or-symbol
       "skd" 'spacemacs/helm-dir-do-ack
@@ -290,15 +307,20 @@
       "/"   'spacemacs/helm-project-smart-do-search
       "*"   'spacemacs/helm-project-smart-do-search-region-or-symbol
       "sp"  'spacemacs/helm-project-smart-do-search
-      "sP"  'spacemacs/helm-project-smart-do-search-region-or-symbol
+      "sP"  '("smart-search project w/ input" .
+              spacemacs/helm-project-smart-do-search-region-or-symbol)
       "sap" 'spacemacs/helm-project-do-ag
-      "saP" 'spacemacs/helm-project-do-ag-region-or-symbol
+      "saP" '("ag-search project w/ input" .
+              spacemacs/helm-project-do-ag-region-or-symbol)
       "skp" 'spacemacs/helm-project-do-ack
-      "skP" 'spacemacs/helm-project-do-ack-region-or-symbol
+      "skP" '("ack-search project w/ input" .
+              spacemacs/helm-project-do-ack-region-or-symbol)
       "srp" 'spacemacs/helm-project-do-rg
-      "srP" 'spacemacs/helm-project-do-rg-region-or-symbol
+      "srP" '("rg-search project w/ input" .
+              spacemacs/helm-project-do-rg-region-or-symbol)
       "stp" 'spacemacs/helm-project-do-pt
-      "stP" 'spacemacs/helm-project-do-pt-region-or-symbol)
+      "stP" '("pt-search project w/ input" .
+              spacemacs/helm-project-do-pt-region-or-symbol))
     :config
     (advice-add 'helm-ag--save-results :after 'spacemacs//gne-init-helm-ag)
     (evil-define-key 'normal helm-ag-map

@@ -2363,6 +2363,10 @@ Other:
 - New packages:
   - =helm-ls-git= (thanks to duianto)
 - Improvements:
+  - Support (description . function) cons cells in helm key definitions to
+    prevent menu item truncation and improve readability
+  - Update all affected helm search keybindings to use explicit descriptive text
+    instead of abbreviated function names
   - Load helm before =read-file-name= and =completing-read=
     (thanks duianto and thanks Miciah for a more elegant solution)
   - Load helm before =completion-at-point= (thanks to duianto)
