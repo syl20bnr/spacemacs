@@ -37,7 +37,7 @@
     (setq-default bm-buffer-persistence t)
     ;; where to store persistent files
     (setq bm-repository-file (format "%sbm-repository"
-                                     spacemacs-cache-directory))
+                                     spacemacs-state-directory))
     (spacemacs|define-transient-state bm
       :title "BM Transient State"
       :doc "

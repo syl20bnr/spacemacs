@@ -46,9 +46,9 @@
   (use-package desktop
     :defer t
     :init
-    (setq desktop-dirname spacemacs-cache-directory)
+    (setq desktop-dirname spacemacs-state-directory)
     :config
-    (add-to-list 'desktop-path spacemacs-cache-directory)))
+    (add-to-list 'desktop-path spacemacs-state-directory)))
 
 (defun spacemacs-visual/init-display-fill-column-indicator ()
   (spacemacs|add-toggle display-fill-column-indicator
