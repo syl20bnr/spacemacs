@@ -1528,6 +1528,7 @@ Other:
   - Added additional YAML paths and refactored =spacemacs--ansible-filename-re=
     (thanks to Brett Campbell)
 - Fixes:
+  - Fixed =File mode specification error: (void-function ansible)=
   - Fixed ansible-doc-mode error on ~SPC h d k~
     (thanks to Codruț Constantin Gușoi)
   - Fixed =error void function ansible: auto-decrypt-encrypt=
