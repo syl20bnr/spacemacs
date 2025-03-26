@@ -29,7 +29,7 @@
 (defun spacemacs/ansible-maybe-enable ()
   "Enable `ansible-mode' if required."
   (when (spacemacs//ansible-should-enable?)
-    (ansible 1)))
+    (ansible-mode 1)))
 
 (defun spacemacs/ansible-auto-decrypt-encrypt-vault ()
   "Auto decrypt/encrypt Vault files."
