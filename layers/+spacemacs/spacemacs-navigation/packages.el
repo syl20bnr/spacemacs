@@ -103,6 +103,11 @@
       ("z" recenter-top-bottom)
       ("q" nil :exit t))
 
+    (mapc #'evil-declare-motion
+          '(spacemacs/goto-last-searched-ahs-symbol
+            spacemacs/quick-ahs-forward
+            spacemacs/quick-ahs-backward))
+
     ;; since we are creating our own maps,
     ;; prevent the default keymap from getting created
     (setq auto-highlight-symbol-mode-map (make-sparse-keymap))
@@ -121,6 +126,8 @@
     (spacemacs/set-leader-keys
       "sh" 'spacemacs/symbol-highlight
       "sH" 'spacemacs/goto-last-searched-ahs-symbol)
+
+    (evil-declare-ignore-repeat 'spacemacs/symbol-highlight)
 
     ;; Advice ahs jump functions to remember the last highlighted symbol
     (dolist (sym '(ahs-forward
