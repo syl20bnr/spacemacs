@@ -1785,7 +1785,7 @@ RNAME is the name symbol of another existing layer."
        (format (concat "\nPackage %s is unavailable. "
                        "Is the package name misspelled?\n")
                pkg-name))
-    (let ((pkg-desc (assq pkg-name package-archive-contents)))
+    (let ((pkg-desc (cadr (assq pkg-name package-archive-contents))))
       (dolist
           (dep (configuration-layer//get-package-deps-from-archive
                 pkg-name))
@@ -1793,7 +1793,7 @@ RNAME is the name symbol of another existing layer."
             (configuration-layer//activate-package (car dep))
           (configuration-layer//install-from-elpa (car dep))))
       (if pkg-desc
-          (package-install (cadr pkg-desc))
+          (package-install pkg-desc)
         (package-install pkg-name)))))
 
 (defun configuration-layer//install-from-recipe (pkg)
@@ -2310,13 +2310,13 @@ depends on it."
 
 (defun configuration-layer//get-package-directory (pkg-name)
   "Return the directory path for package with name PKG-NAME."
-  (let ((pkg-desc (assq pkg-name package-alist)))
-    (package-desc-dir (cadr pkg-desc))))
+  (let ((pkg-desc (cadr (assq pkg-name package-alist))))
+    (package-desc-dir pkg-desc)))
 
 (defun configuration-layer//get-package-deps-from-alist (pkg-name)
   "Return the dependencies alist for package with name PKG-NAME."
-  (let ((pkg-desc (assq pkg-name package-alist)))
-    (when pkg-desc (package-desc-reqs (cadr pkg-desc)))))
+  (let ((pkg-desc (cadr (assq pkg-name package-alist))))
+    (when pkg-desc (package-desc-reqs pkg-desc))))
 
 (defun configuration-layer//get-package-deps-from-archive (pkg-name)
   "Return the dependencies alist for a PKG-NAME from the archive data."
@@ -2332,15 +2332,15 @@ depends on it."
 
 (defun configuration-layer//get-package-version-string (pkg-name)
   "Return the version string for package with name PKG-NAME."
-  (let ((pkg-desc (assq pkg-name package-alist)))
+  (let ((pkg-desc (cadr (assq pkg-name package-alist))))
     (when pkg-desc
-      (package-version-join (package-desc-version (cadr pkg-desc))))))
+      (package-version-join (package-desc-version pkg-desc)))))
 
 (defun configuration-layer//get-latest-package-version-string (pkg-name)
   "Return the version string for package with name PKG-NAME."
-  (let ((pkg-arch (assq pkg-name package-archive-contents)))
+  (let ((pkg-arch (cadr (assq pkg-name package-archive-contents))))
     (when pkg-arch
-      (package-version-join (package-desc-version (cadr pkg-arch))))))
+      (package-version-join (package-desc-version pkg-arch)))))
 
 (defun configuration-layer//system-package-p (pkg-desc)
   "Return non-nil if PKG-DESC is a system package."
