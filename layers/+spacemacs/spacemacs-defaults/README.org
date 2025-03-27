@@ -29,7 +29,6 @@ defaults.
   - imenu
   - package-menu
   - page-break-lines
-  - proced
   - process-menu
   - quickrun
   - recentf

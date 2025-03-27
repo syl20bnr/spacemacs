@@ -31,6 +31,15 @@
 (defvar evil-lisp-safe-structural-editing-modes '()
   "A list of major mode symbols where safe structural editing is supported.")
 
+;; Please keep this list alphabetized.
 (defvar spacemacs-evil-collection-allowed-list
-  '(dired ediff eww info quickrun replace simple bookmark)
-  "List of modes Spacemacs will allow to be evilified by ‘evil-collection-init’.")
+  '(bookmark
+    dired
+    ediff
+    eww
+    info
+    proced
+    quickrun
+    replace
+    simple)
+  "List of modes Spacemacs will allow to be evilified by `evil-collection-init'.")

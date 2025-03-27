@@ -43,7 +43,6 @@
     (imenu :location built-in)
     (package-menu :location built-in)
     (page-break-lines :location local)
-    (proced :location built-in)
     (process-menu :location built-in)
     quickrun
     (recentf :location built-in)
@@ -358,15 +357,6 @@
   (require 'page-break-lines)
   (global-page-break-lines-mode t)
   (spacemacs|hide-lighter page-break-lines-mode))
-
-(defun spacemacs-defaults/init-proced ()
-  (use-package proced
-    :defer t
-    :config
-    (evilified-state-evilify-map proced-mode-map
-      :mode proced-mode
-      :bindings
-      "gr" 'revert-buffer)))
 
 (defun spacemacs-defaults/init-process-menu ()
   (evilified-state-evilify-map process-menu-mode-map
