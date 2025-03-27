@@ -2315,8 +2315,8 @@ depends on it."
 
 (defun configuration-layer//get-package-deps-from-alist (pkg-name)
   "Return the dependencies alist for package with name PKG-NAME."
-  (let ((pkg-desc (cadr (assq pkg-name package-alist))))
-    (when pkg-desc (package-desc-reqs pkg-desc))))
+  (and-let* ((pkg-desc (cadr (assq pkg-name package-alist))))
+    (package-desc-reqs pkg-desc)))
 
 (defun configuration-layer//get-package-deps-from-archive (pkg-name)
   "Return the dependencies alist for a PKG-NAME from the archive data."
@@ -2332,15 +2332,13 @@ depends on it."
 
 (defun configuration-layer//get-package-version-string (pkg-name)
   "Return the version string for package with name PKG-NAME."
-  (let ((pkg-desc (cadr (assq pkg-name package-alist))))
-    (when pkg-desc
-      (package-version-join (package-desc-version pkg-desc)))))
+  (and-let* ((pkg-desc (cadr (assq pkg-name package-alist))))
+    (package-version-join (package-desc-version pkg-desc))))
 
 (defun configuration-layer//get-latest-package-version-string (pkg-name)
   "Return the version string for package with name PKG-NAME."
-  (let ((pkg-arch (cadr (assq pkg-name package-archive-contents))))
-    (when pkg-arch
-      (package-version-join (package-desc-version pkg-arch)))))
+  (and-let* ((pkg-arch (cadr (assq pkg-name package-archive-contents))))
+    (package-version-join (package-desc-version pkg-arch))))
 
 (defun configuration-layer//system-package-p (pkg-desc)
   "Return non-nil if PKG-DESC is a system package."
