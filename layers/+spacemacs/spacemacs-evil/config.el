@@ -39,6 +39,7 @@
     eww
     info
     proced
+    process-menu
     quickrun
     replace
     simple)
