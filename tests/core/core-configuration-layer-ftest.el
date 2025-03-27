@@ -32,7 +32,7 @@
         (dotspacemacs-configuration-layers '(emacs-lisp
                                              (git :variables foo 'bar)))
         configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (configuration-layer/discover-layers 'refresh-index)
     (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
     (should (eq 'spacemacs-bootstrap
@@ -43,7 +43,7 @@
         (dotspacemacs-configuration-layers '(emacs-lisp
                                              (git :variables foo 'bar)))
         configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (configuration-layer/discover-layers 'refresh-index)
     (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
     (should (eq 'spacemacs-defaults (cadr configuration-layer--used-layers)))))
@@ -53,7 +53,7 @@
         (dotspacemacs-configuration-layers '(emacs-lisp
                                              (git :variables foo 'bar)))
         configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (configuration-layer/discover-layers 'refresh-index)
     (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
     (should (eq 'spacemacs-base (caddr configuration-layer--used-layers)))))

@@ -377,13 +377,13 @@ file. It can be overridden by users inside `dotspacemacs/user-init'.")
 (defvar configuration-layer--layers-dependencies '()
   "List of layers declared in `layers.el' files.")
 
-(defvar configuration-layer--indexed-layers (make-hash-table :size 1024)
+(defvar configuration-layer--indexed-layers (make-hash-table)
   "Hash map to index `cfgl-layer' objects by their names.")
 
 (defvar configuration-layer--used-packages '()
   "An alphabetically sorted list of used package names.")
 
-(defvar configuration-layer--indexed-packages (make-hash-table :size 2048)
+(defvar configuration-layer--indexed-packages (make-hash-table)
   "Hash map to index `cfgl-package' objects by their names.")
 
 (defvar configuration-layer--check-new-version-error-packages nil
@@ -1361,7 +1361,7 @@ discovery."
   ;; must have the final word on configuration choices. Let
   ;; `dotspacemacs-directory' override the private directory if it exists.
   (when refresh-index
-    (setq configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (setq configuration-layer--indexed-layers (make-hash-table)))
   (spacemacs-buffer/set-mode-line "Indexing layers..." t)
   (let ((search-paths (append
                        ;; layers shipped with spacemacs
@@ -2264,7 +2264,7 @@ Rollback slots are stored in
   "Returns upstream dependencies hash map for all packages in `package-alist'.
 The keys are package names and the values are lists of package names that
 depends on it."
-  (let ((result (make-hash-table :size 1024)))
+  (let ((result (make-hash-table)))
     (dolist (pkg package-alist)
       (let* ((pkg-sym (car pkg))
              (deps (configuration-layer//get-package-deps-from-alist pkg-sym)))

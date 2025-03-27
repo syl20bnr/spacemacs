@@ -55,7 +55,7 @@
                                         (pkg3 :toggle (eq 1 2))
                                         (pkg4 :toggle (eq 1 1)))))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+        (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-packages
      (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer2))
            (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1))
@@ -73,7 +73,7 @@
                                         (pkg4 :toggle (eq 1 1))
                                         pkg5)))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+        (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-packages
      (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))
            (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1))
@@ -189,7 +189,7 @@
   (let ((layer1 (cfgl-layer "layer1" :name 'layer1))
         (layer2 (cfgl-layer "layer2" :name 'layer2))
         (configuration-layer--used-layers nil)
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers `(,layer1 ,layer2) 'used)
     (configuration-layer/declare-shadow-relation 'layer1 'layer2)
     (should (and (equal '(layer2) (cfgl-layer-get-shadowing-layers layer1))
@@ -199,7 +199,7 @@
   (let ((layer1 (cfgl-layer "layer1" :name 'layer1))
         (layer2 (cfgl-layer "layer2" :name 'layer2))
         (configuration-layer--used-layers nil)
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers `(,layer1 ,layer2) 'used)
     (configuration-layer/declare-shadow-relation 'layer1 'layer2)
     (should (and (equal '(layer2) (cfgl-layer-get-shadowing-layers layer1))
@@ -209,7 +209,7 @@
   (let ((layer1 (cfgl-layer "layer1" :name 'layer1))
         (layer2 (cfgl-layer "layer2" :name 'layer2 :can-shadow nil))
         (configuration-layer--used-layers nil)
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers `(,layer1 ,layer2) 'used)
     (configuration-layer/declare-shadow-relation 'layer2 'layer1)
     (should (null (cfgl-layer-get-shadowing-layers layer1)))))
@@ -221,7 +221,7 @@
   (let ((layer1 (cfgl-layer "layer1" :name 'layer1 :can-shadow nil))
         (layer2 (cfgl-layer "layer2" :name 'layer2))
         (configuration-layer--used-layers nil)
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers `(,layer1 ,layer2) 'used)
     (configuration-layer/declare-shadow-relation 'layer2 'layer1)
     (should (null (cfgl-layer-get-shadowing-layers layer1)))))
@@ -232,14 +232,14 @@
 
 (ert-deftest test-layer-used-p--returns-true-when-layer-is-used ()
   (let (configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers `(,(cfgl-layer "usedlayer" :name 'usedlayer)) 'used)
     (helper--add-layers `(,(cfgl-layer "notusedlayer" :name 'notusedlayer)))
     (should (configuration-layer/layer-used-p 'usedlayer))))
 
 (ert-deftest test-layer-used-p--returns-false-when-layer-is-not-used ()
   (let (configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers `(,(cfgl-layer "usedlayer" :name 'usedlayer)) 'used)
     (helper--add-layers `(,(cfgl-layer "notusedlayer" :name 'notusedlayer)))
     (should (null (configuration-layer/layer-used-p 'notusedlayer)))))
@@ -248,7 +248,7 @@
   (let ((usedlayer1 (cfgl-layer "usedlayer1" :name 'usedlayer1))
         (usedlayer2 (cfgl-layer "usedlayer2" :name 'usedlayer2))
         configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers `(,usedlayer1 ,usedlayer2) 'used)
     (configuration-layer/declare-shadow-relation 'usedlayer2 'usedlayer1)
     (should (not (configuration-layer/layer-used-p 'usedlayer1)))))
@@ -296,7 +296,7 @@
                              :requires '(pkg-b)))
         (pkg-b (cfgl-package "pkg-b"
                              :name 'pkg-b))
-        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+        (configuration-layer--indexed-packages (make-hash-table)))
     (configuration-layer//add-package pkg-b)
     (should (cfgl-package-enabled-p pkg-a))))
 
@@ -304,7 +304,7 @@
   (let ((pkg-a (cfgl-package "pkg-a"
                              :name 'pkg-a
                              :requires '(pkg-b)))
-        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+        (configuration-layer--indexed-packages (make-hash-table)))
     (should (null (cfgl-package-enabled-p pkg-a)))))
 
 (ert-deftest test-cfgl-package-enabled-p--depends-toggled-off ()
@@ -314,7 +314,7 @@
         (pkg-b (cfgl-package "pkg-b"
                              :name 'pkg-b
                              :toggle nil))
-        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+        (configuration-layer--indexed-packages (make-hash-table)))
     (configuration-layer//add-package pkg-b)
     (should (null (cfgl-package-enabled-p pkg-a)))))
 
@@ -325,7 +325,7 @@
         (pkg-b (cfgl-package "pkg-b"
                              :name 'pkg-b
                              :excluded t))
-        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+        (configuration-layer--indexed-packages (make-hash-table)))
     (configuration-layer//add-package pkg-b)
     (should (null (cfgl-package-enabled-p pkg-a)))))
 
@@ -338,7 +338,7 @@
                              :requires '(pkg-c)))
         (pkg-c (cfgl-package "pkg-c"
                              :name 'pkg-c))
-        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+        (configuration-layer--indexed-packages (make-hash-table)))
     (configuration-layer//add-package pkg-b)
     (configuration-layer//add-package pkg-c)
     (should (cfgl-package-enabled-p pkg-a))))
@@ -353,7 +353,7 @@
         (pkg-c (cfgl-package "pkg-c"
                              :name 'pkg-c
                              :excluded t))
-        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+        (configuration-layer--indexed-packages (make-hash-table)))
     (configuration-layer//add-package pkg-b)
     (configuration-layer//add-package pkg-c)
     (should (null (cfgl-package-enabled-p pkg-a)))))
@@ -363,7 +363,7 @@
 (ert-deftest test-cfgl-package-get-safe-owner--return-car ()
   (let ((pkg (cfgl-package "testpkg" :name 'testpkg :owners '(layer1 layer2)))
         configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)
                           ,(cfgl-layer "layer2" :name 'layer2)) t)
     (should (eq 'layer1 (cfgl-package-get-safe-owner pkg)))))
@@ -371,7 +371,7 @@
 (ert-deftest test-cfgl-package-get-safe-owner--return-cadr ()
   (let ((pkg (cfgl-package "testpkg" :name 'testpkg :owners '(layer1 layer2)))
         configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-layers (make-hash-table)))
     ;; layer1 is not used so it cannot be the owner
     (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)))
     (helper--add-layers `(,(cfgl-layer "layer2" :name 'layer2)) t)
@@ -460,8 +460,8 @@
         (pkg1 (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1) :requires '(pkg2)))
         (pkg2 (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2)))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-packages (make-hash-table))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers (list layer1 layer2) t)
     (helper--add-packages (list pkg1 pkg2) t)
     (should (cfgl-package-reqs-satisfied-p pkg1))))
@@ -473,8 +473,8 @@
         (pkg2 (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2)))
         configuration-layer--used-layers
         configuration-layer--used-packages
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
-        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+        (configuration-layer--indexed-layers (make-hash-table))
+        (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-layers (list layer1) t)
     (helper--add-layers (list layer2))
     (helper--add-packages (list pkg1) t)
@@ -487,8 +487,8 @@
         (pkg1 (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1) :requires '(pkg2)))
         (pkg2 (cfgl-package "pkg2" :name 'pkg2 :toggle nil :owners '(layer3)))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-packages (make-hash-table))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers (list layer1 layer2) t)
     (helper--add-packages (list pkg1 pkg2) t)
     (should (not (cfgl-package-reqs-satisfied-p pkg1)))))
@@ -497,8 +497,8 @@
   (let ((layer1 (cfgl-layer "layer1" :name 'layer1))
         (pkg1 (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1) :requires '(pkg2)))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-packages (make-hash-table))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers (list layer1) t)
     (helper--add-packages (list pkg1) t)
     (should (not (cfgl-package-reqs-satisfied-p pkg1)))))
@@ -511,8 +511,8 @@
         (pkg2 (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2)))
         (pkg3 (cfgl-package "pkg3" :name 'pkg3 :owners '(layer3)))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-packages (make-hash-table))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers (list layer1 layer2 layer3) t)
     (helper--add-packages (list pkg1 pkg2 pkg3) t)
     (should (cfgl-package-reqs-satisfied-p pkg1))))
@@ -526,8 +526,8 @@
         (pkg3 (cfgl-package "pkg3" :name 'pkg3 :owners '(layer3)))
         configuration-layer--used-layers
         configuration-layer--used-packages
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
-        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+        (configuration-layer--indexed-layers (make-hash-table))
+        (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-layers (list layer1 layer3) t)
     (helper--add-layers (list layer2))
     (helper--add-packages (list pkg1 pkg3) t)
@@ -542,8 +542,8 @@
         (pkg2 (cfgl-package "pkg2" :name 'pkg2 :toggle nil :owners '(layer3)))
         (pkg3 (cfgl-package "pkg3" :name 'pkg3 :owners '(layer3)))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-packages (make-hash-table))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers (list layer1 layer2 layer3) t)
     (helper--add-packages (list pkg1 pkg2 pkg3) t)
     (should (not (cfgl-package-reqs-satisfied-p pkg1)))))
@@ -554,8 +554,8 @@
         (pkg1 (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1) :requires '(pkg2 pkg3)))
         (pkg3 (cfgl-package "pkg3" :name 'pkg3 :owners '(layer3)))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-packages (make-hash-table))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers (list layer1 layer3) t)
     (helper--add-packages (list pkg1 pkg3) t)
     (should (not (cfgl-package-reqs-satisfied-p pkg1)))))
@@ -571,8 +571,8 @@
                            :name 'pkg
                            :owners '(owner)
                            :pre-layers '(layer)))
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-packages (make-hash-table))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (configuration-layer//add-layer owner)
     (configuration-layer//add-layer layer)
     (configuration-layer//add-package pkg)
@@ -585,8 +585,8 @@
                            :name 'pkg
                            :owners '(owner)
                            :post-layers '(layer)))
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-packages (make-hash-table))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (configuration-layer//add-layer owner)
     (configuration-layer//add-layer layer)
     (should (configuration-layer//package-enabled-p pkg 'layer))))
@@ -598,8 +598,8 @@
                            :name 'pkg
                            :owners '(owner)
                            :post-layers '(layer)))
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-packages (make-hash-table))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (configuration-layer//add-layer owner)
     (configuration-layer//add-layer layer)
     (should (null (configuration-layer//package-enabled-p pkg 'layer)))))
@@ -611,8 +611,8 @@
                            :name 'pkg
                            :owners '(owner)
                            :post-layers '(layer)))
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-packages (make-hash-table))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (configuration-layer//add-layer owner)
     (configuration-layer//add-layer layer)
     (should (configuration-layer//package-enabled-p pkg 'layer))))
@@ -624,8 +624,8 @@
                            :name 'pkg
                            :owners '(owner)
                            :post-layers '(layer)))
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-packages (make-hash-table))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (configuration-layer//add-layer owner)
     (configuration-layer//add-layer layer)
     (should (null (configuration-layer//package-enabled-p pkg 'layer)))))
@@ -642,8 +642,8 @@
         (pkg-b (cfgl-package "pkg-b"
                              :name 'pkg-b
                              :owners '(owner-b)))
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-packages (make-hash-table))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (configuration-layer//add-layer owner-a)
     (configuration-layer//add-layer owner-b)
     (configuration-layer//add-layer layer)
@@ -659,8 +659,8 @@
                              :requires '(pkg-b)
                              :post-layers '(layer)))
         (pkg-b (cfgl-package "pkg-b" :name 'pkg-b))
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-packages (make-hash-table))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (configuration-layer//add-layer owner)
     (configuration-layer//add-package pkg-b)
     (should (null (configuration-layer//package-enabled-p pkg-a layer)))))
@@ -674,8 +674,8 @@
          (layer1-packages '(pkg1 pkg2 pkg3))
          configuration-layer--used-layers
          configuration-layer--used-packages
-         (configuration-layer--indexed-layers (make-hash-table :size 2048))
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-layers (make-hash-table))
+         (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-layers (list layer1) t)
     (helper--add-packages
      (list (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1))
@@ -701,8 +701,8 @@
          (layer1-packages '(pkg1 pkg2 pkg3))
          configuration-layer--used-layers
          configuration-layer--used-packages
-         (configuration-layer--indexed-layers (make-hash-table :size 2048))
-         (configuration-layer--indexed-packages (make-hash-table :size 2048))
+         (configuration-layer--indexed-layers (make-hash-table))
+         (configuration-layer--indexed-packages (make-hash-table))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers (list layer1) t)
     (helper--add-packages
@@ -719,8 +719,8 @@
          (layer2-packages '(pkg2))
          configuration-layer--used-layers
          configuration-layer--used-packages
-         (configuration-layer--indexed-layers (make-hash-table :size 2048))
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-layers (make-hash-table))
+         (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-layers (list layer1 layer2) 'used)
     (helper--add-packages
      (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))
@@ -737,8 +737,8 @@
          (layer3-packages '(pkg3))
          configuration-layer--used-layers
          configuration-layer--used-packages
-         (configuration-layer--indexed-layers (make-hash-table :size 2048))
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-layers (make-hash-table))
+         (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-layers (list layer1 layer2 layer3) 'used)
     (helper--add-packages
      (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))
@@ -755,8 +755,8 @@
          (layer2-packages '(pkg2))
          configuration-layer--used-layers
          configuration-layer--used-packages
-         (configuration-layer--indexed-layers (make-hash-table :size 2048))
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-layers (make-hash-table))
+         (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-layers (list layer1))
     (helper--add-layers (list layer2) 'used)
     (helper--add-packages
@@ -775,8 +775,8 @@
          (layer3-packages '(pkg3))
          configuration-layer--used-layers
          configuration-layer--used-packages
-         (configuration-layer--indexed-layers (make-hash-table :size 2048))
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-layers (make-hash-table))
+         (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-layers (list layer1))
     (helper--add-layers (list layer2 layer3) 'used)
     (helper--add-packages
@@ -805,8 +805,8 @@
                              :owners '(owner)))
         (owner (cfgl-layer "owner" :name 'owner))
         configuration-layer--used-layers
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-packages (make-hash-table))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (configuration-layer//add-package pkg-b)
     (configuration-layer//add-layer owner 'used)
     (should (configuration-layer//package-reqs-used-p pkg-a))))
@@ -819,8 +819,8 @@
         (pkg-b (cfgl-package "pkg-b"
                              :name 'pkg-b))
         (owner (cfgl-layer "owner" :name 'owner))
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
-        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+        (configuration-layer--indexed-packages (make-hash-table))
+        (configuration-layer--indexed-layers (make-hash-table)))
     (configuration-layer//add-package pkg-b)
     (configuration-layer//add-layer owner nil)
     (should (null (configuration-layer//package-reqs-used-p pkg-a)))))
@@ -1173,7 +1173,7 @@
 ;; ---------------------------------------------------------------------------
 
 (ert-deftest test-declare-shadow-relation--is-commutative ()
-  (let ((configuration-layer--indexed-layers (make-hash-table :size 1024)))
+  (let ((configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers
      `(,(cfgl-layer "layer-shadow-1" :name 'layer-shadow-1)
        ,(cfgl-layer "layer-shadow-2" :name 'layer-shadow-2)))
@@ -1189,7 +1189,7 @@
                                             :can-shadow))))))
 
 (ert-deftest test-declare-shadow-relation--is-idempotent ()
-  (let ((configuration-layer--indexed-layers (make-hash-table :size 1024)))
+  (let ((configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers
      `(,(cfgl-layer "layer-shadow-1" :name 'layer-shadow-1)
        ,(cfgl-layer "layer-shadow-2" :name 'layer-shadow-2)))
@@ -1209,7 +1209,7 @@
                               :can-shadow))))))
 
 (ert-deftest test-declare-shadow-relation--layer-1-shadows-multiple-layers ()
-  (let ((configuration-layer--indexed-layers (make-hash-table :size 1024)))
+  (let ((configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers
      `(,(cfgl-layer "layer-shadow-1" :name 'layer-shadow-1)
        ,(cfgl-layer "layer-shadow-2" :name 'layer-shadow-2)
@@ -1229,7 +1229,7 @@
                          :can-shadow)))))
 
 (ert-deftest test-declare-shadow-relation--unknown-layer-shadows-known-layer ()
-  (let ((configuration-layer--indexed-layers (make-hash-table :size 1024)))
+  (let ((configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers
      `(,(cfgl-layer "layer-shadow-2" :name 'layer-shadow-2)))
     (mocker-let
@@ -1244,7 +1244,7 @@
                         :can-shadow))))))
 
 (ert-deftest test-declare-shadow-relation--known-layer-shadows-unknown-layer ()
-  (let ((configuration-layer--indexed-layers (make-hash-table :size 1024)))
+  (let ((configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers
      `(,(cfgl-layer "layer-shadow-1" :name 'layer-shadow-1)))
     (mocker-let
@@ -1254,7 +1254,7 @@
       (configuration-layer/declare-shadow-relation 'layer-shadow-1 'layer-shadow-2))))
 
 (ert-deftest test-declare-shadow-relation--unknown-layer-shadows-unknown-layer ()
-  (let ((configuration-layer--indexed-layers (make-hash-table :size 1024)))
+  (let ((configuration-layer--indexed-layers (make-hash-table)))
     (mocker-let
         ((configuration-layer//warning
           (msg &rest args)
@@ -1266,7 +1266,7 @@
 ;; ---------------------------------------------------------------------------
 
 (ert-deftest test-set-layers-variables--none ()
-  (let ((configuration-layer--indexed-layers (make-hash-table :size 1024))
+  (let ((configuration-layer--indexed-layers (make-hash-table))
         (var 'foo))
     (helper--add-layers
      `(,(cfgl-layer "layer"
@@ -1276,7 +1276,7 @@
     (should (eq var 'foo))))
 
 (ert-deftest test-set-layers-variables--one-value ()
-  (let ((configuration-layer--indexed-layers (make-hash-table :size 1024)))
+  (let ((configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers
      `(,(cfgl-layer "layer"
                     :name 'layer
@@ -1287,7 +1287,7 @@
     (should (eq var1 'bar))))
 
 (ert-deftest test-set-layers-variables--multiple-values ()
-  (let ((configuration-layer--indexed-layers (make-hash-table :size 1024)))
+  (let ((configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers
      `(,(cfgl-layer "layer"
                     :name 'layer
@@ -1302,7 +1302,7 @@
     (should (eq var3 'bar3))))
 
 (ert-deftest test-set-layers-variables--odd-number-of-values ()
-  (let ((configuration-layer--indexed-layers (make-hash-table :size 1024)))
+  (let ((configuration-layer--indexed-layers (make-hash-table)))
     (helper--add-layers
      `(,(cfgl-layer "layer"
                     :name 'layer
@@ -1324,7 +1324,7 @@
 
 (ert-deftest test-make-package--make-package-from-symbol ()
   (let* (configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          (input 'testpkg)
          (expected (cfgl-package "testpkg"
                                  :name 'testpkg
@@ -1344,7 +1344,7 @@
 
 (ert-deftest test-make-package--make-package-from-list ()
   (let* (configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          (input '(testpkg :location local :step pre))
          (expected (cfgl-package "testpkg"
                                  :name 'testpkg
@@ -1368,7 +1368,7 @@
   (defun layer-make-pkg-5/post-init-testpkg nil)
   (let* (configuration-layer--used-layers
          configuration-layer--protected-packages
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          (input '(testpkg :protected t))
          (expected-pkg (cfgl-package "testpkg"
                                      :name 'testpkg
@@ -1395,7 +1395,7 @@
 
 (ert-deftest test-make-package--can-override-toggle ()
   (let (configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (configuration-layer--indexed-layers (make-hash-table))
         (obj (cfgl-package "testpkg" :name 'testpkg :toggle 'foo))
         (pkg '(testpkg :toggle bar))
         (expected (cfgl-package "testpkg"
@@ -1413,7 +1413,7 @@
 
 (ert-deftest test-make-package--can-override-location ()
   (let* (configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          (obj (cfgl-package "testpkg"
                             :name 'testpkg
                             :location 'elpa))
@@ -1431,7 +1431,7 @@
 
 (ert-deftest test-make-package--can-override-step ()
   (let* (configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          (obj (cfgl-package "testpkg"
                             :name 'testpkg
                             :step nil))
@@ -1450,7 +1450,7 @@
 
 (ert-deftest test-make-package--cannot-override-protected ()
   (let* (configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          (obj (cfgl-package "testpkg"
                             :name 'testpkg
                             :protected t))
@@ -1470,7 +1470,7 @@
 
 (ert-deftest test-make-package--cannot-unexclude-excluded-package ()
   (let* (configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          (obj (cfgl-package "testpkg"
                             :name 'testpkg
                             :excluded t))
@@ -1486,7 +1486,7 @@
 
 (ert-deftest test-make-package--bootstrap-package-are-protected ()
   (let* (configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          (pkg '(testpkg :step bootstrap))
          (expected (cfgl-package "testpkg"
                                  :name 'testpkg
@@ -1503,7 +1503,7 @@
 
 (ert-deftest test-make-package--make-package-requires-with-single-symbol ()
   (let* (configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          (input '(testpkg :location local :step pre :requires requiredpkg))
          (expected (cfgl-package "testpkg"
                                  :name 'testpkg
@@ -1524,7 +1524,7 @@
 
 (ert-deftest test-make-package--error-when-make-package-requires-with-multiple-symbols-no-list ()
   (let* (configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          (input '(testpkg :location local :step pre :requires pkg1 pkg2 pkg3))
          (expected (cfgl-package "testpkg"
                                  :name 'testpkg
@@ -1546,7 +1546,7 @@
 
 (ert-deftest test-make-package--make-package-requires-list-when-multiple-symbols ()
   (let* (configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          (input '(testpkg :location local :step pre :requires (pkg1 pkg2 pkg3)))
          (expected (cfgl-package "testpkg"
                                  :name 'testpkg
@@ -1594,7 +1594,7 @@
   (let* ((packages (mapcar 'car (object-assoc-list
                                  :name test-filter-distant-packages--test-data)))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-packages test-filter-distant-packages--test-data t)
     (should
      (equal '(pkg9 pkg8 pkg6 pkg5)
@@ -1604,7 +1604,7 @@
   (let ((packages (mapcar 'car (object-assoc-list
                                 :name test-filter-distant-packages--test-data)))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+        (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-packages test-filter-distant-packages--test-data t)
     (should
      (equal '(pkg18 pkg17 pkg16 pkg15 pkg14 pkg9 pkg8 pkg7 pkg6 pkg5)
@@ -1620,9 +1620,9 @@
                              :dir "/path/"
                              :packages '(pkg1 pkg2 pkg3)))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-layers (list layer1) t)
     (defun layer1/init-pkg1 nil)
     (defun layer1/init-pkg2 nil)
@@ -1644,9 +1644,9 @@
                                          (pkg2 :location (recipe blahblah))
                                          (pkg3 :location local :step pre))))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-layers (list layer1) t)
     (defun layer1/init-pkg1 nil)
     (defun layer1/init-pkg2 nil)
@@ -1676,9 +1676,9 @@
                                          (pkg3 :location local :step pre)
                                          pkg4)))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-layers (list layer1) t)
     (defun layer1/init-pkg1 nil)
     (defun layer1/init-pkg2 nil)
@@ -1708,9 +1708,9 @@
                              :dir "/path/"
                              :packages '(pkg1 pkg2 pkg3)))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048))
+         (configuration-layer--indexed-packages (make-hash-table))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers (list layer2) t)
     (defun layer2/init-pkg1 nil)
@@ -1736,9 +1736,9 @@
                              :dir "/path/"
                              :packages '(pkg1)))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-layers (list layer3 layer4) t)
     (defun layer3/init-pkg1 nil)
     (defun layer4/pre-init-pkg1 nil)
@@ -1759,9 +1759,9 @@
                              :dir "/path/"
                              :packages '(pkg1)))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-layers (list layer3 layer5) t)
     (defun layer3/init-pkg1 nil)
     (defun layer5/post-init-pkg1 nil)
@@ -1782,9 +1782,9 @@
                              :dir "/path/"
                              :packages '(pkg1)))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-layers (list layer3 layer6) t)
     (defun layer3/init-pkg1 nil)
     (defun layer6/pre-init-pkg1 nil)
@@ -1807,9 +1807,9 @@
                              :dir "/path/"
                              :packages '(pkg1)))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048))
+         (configuration-layer--indexed-packages (make-hash-table))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers (list layer7 layer8) t)
     (defun layer7/init-pkg1 nil)
@@ -1832,9 +1832,9 @@
                               :dir "/path/"
                               :packages '(pkg3 (pkg2 :excluded t))))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-layers (list layer9 layer10) t)
     (defun layer9/init-pkg1 nil)
     (defun layer9/init-pkg2 nil)
@@ -1858,9 +1858,9 @@
                               :dir "/path/"
                               :packages '((pkg1 :location local))))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048))
+         (configuration-layer--indexed-packages (make-hash-table))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers (list layer13 layer14) t)
     (defun layer13/init-pkg1 nil)
@@ -1884,9 +1884,9 @@
                               :dir "/path/"
                               :packages '((pkg1 :step pre))))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048))
+         (configuration-layer--indexed-packages (make-hash-table))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers (list layer15 layer16) t)
     (defun layer15/init-pkg1 nil)
@@ -1910,9 +1910,9 @@
                               :dir "/path/"
                               :packages '((pkg1 :step nil))))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048))
+         (configuration-layer--indexed-packages (make-hash-table))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers (list layer15 layer16) t)
     (defun layer15/init-pkg1 nil)
@@ -1937,9 +1937,9 @@
                               :packages '((pkg1 :excluded t))))
 
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048))
+         (configuration-layer--indexed-packages (make-hash-table))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers (list layer17 layer18) t)
     (defun layer17/init-pkg1 nil)
@@ -1959,9 +1959,9 @@
                               :dir "/path/"
                               :packages '((pkg1 :toggle (foo-toggle)))))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-layers (list layer19) t)
     (defun layer19/init-pkg1 nil)
     (let (configuration-layer--used-packages))
@@ -1982,9 +1982,9 @@
                               :dir "/path/"
                               :packages '((pkg1 :toggle (foo-toggle)))))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048))
+         (configuration-layer--indexed-packages (make-hash-table))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers (list layer20 layer21) t)
     (defun layer20/init-pkg1 nil)
@@ -2009,9 +2009,9 @@
                               :dir "/path/"
                               :packages '((pkg1 :toggle (bar-toggle)))))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048))
+         (configuration-layer--indexed-packages (make-hash-table))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers (list layer22 layer23) t)
     (defun layer22/init-pkg1 nil)
@@ -2037,9 +2037,9 @@
                               :packages '(pkg1 (pkg2 :location local))
                               :selected-packages '(pkg1)))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-layers (list layer24 layer25))
     (defun layer24/post-init-pkg1 nil)
     (defun layer24/init-pkg2 nil)
@@ -2070,9 +2070,9 @@
                               :dir "/path/"
                               :packages '(pkg1 pkg2)))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-layers (list layer26 layer27))
     (defun layer26/init-pkg1 nil)
     (defun layer26/init-pkg2 nil)
@@ -2095,7 +2095,7 @@
 (ert-deftest test-make-packages-from-layers--package-properties-read-only ()
   ;; we expect that :excluded is still nil
   (let* (configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          (layer28 (cfgl-layer "layer28"
                               :name 'layer28
                               :packages '((pkg1 :excluded nil))))
@@ -2129,9 +2129,9 @@
                                       :packages '(pkg1 pkg2)))
          (dotspacemacs-additional-packages '(pkg3))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-packages (make-hash-table)))
     (defun layer-dotfile-1/init-pkg1 nil)
     (defun layer-dotfile-1/init-pkg2 nil)
     (helper--add-layers (list layer-dotfile-1) t)
@@ -2152,9 +2152,9 @@
                                       :packages '(pkg1)))
          (dotspacemacs-additional-packages '(pkg1))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-packages (make-hash-table)))
     (defun layer-dotfile-2/init-pkg1 nil)
     (helper--add-layers (list layer-dotfile-2) t)
     (configuration-layer/make-packages-from-layers '(layer-dotfile-2) 'used)
@@ -2170,9 +2170,9 @@
                                       :packages '(pkg1 pkg2 pkg3)))
          (dotspacemacs-excluded-packages '(pkg2))
          configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048))
+         (configuration-layer--indexed-packages (make-hash-table))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (defun layer-dotfile-3/init-pkg1 nil)
     (defun layer-dotfile-3/init-pkg2 nil)
@@ -2195,9 +2195,9 @@
 
 (ert-deftest test-make-all-packages ()
   (let* (configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (configuration-layer--indexed-layers (make-hash-table))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048))
+         (configuration-layer--indexed-packages (make-hash-table))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers
      `(,(cfgl-layer "layerall1"
@@ -2256,7 +2256,7 @@
 (ert-deftest test-pre-configure-package--pre-init-is-evaluated ()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :pre-layers '(layer2)))
         configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (configuration-layer--indexed-layers (make-hash-table))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)
                           ,(cfgl-layer "layer2" :name 'layer2)) t)
@@ -2274,7 +2274,7 @@
 (ert-deftest test-post-configure-package--post-init-is-evaluated ()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :post-layers '(layer2)))
         configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (configuration-layer--indexed-layers (make-hash-table))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)
                           ,(cfgl-layer "layer2" :name 'layer2)) t)
@@ -2292,7 +2292,7 @@
 (ert-deftest test-configure-package--init-is-evaluated ()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1)))
         configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (configuration-layer--indexed-layers (make-hash-table))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)) t)
     (defun layer1/init-pkg nil)
@@ -2307,7 +2307,7 @@
                            :pre-layers '(layer2)
                            :post-layers '(layer3)))
         configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (configuration-layer--indexed-layers (make-hash-table))
         (witness nil)
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers
@@ -2328,7 +2328,7 @@
                            :pre-layers '(layer2)
                            :post-layers '(layer3)))
         configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (configuration-layer--indexed-layers (make-hash-table))
         (witness nil)
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers
@@ -2351,7 +2351,7 @@
                            :pre-layers '(layer2)
                            :post-layers '(layer3)))
         configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (configuration-layer--indexed-layers (make-hash-table))
         (witness nil)
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers
@@ -2372,7 +2372,7 @@
                            :pre-layers '(layer2)
                            :post-layers '(layer3)))
         configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (configuration-layer--indexed-layers (make-hash-table))
         (witness nil)
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers
@@ -2396,9 +2396,9 @@
 (ert-deftest test-configure-packages-2--pre-init-is-evaluated-before-init ()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :pre-layers '(layer2)))
         configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (configuration-layer--indexed-layers (make-hash-table))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-packages (make-hash-table))
         (witness nil)
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)
@@ -2412,9 +2412,9 @@
 (ert-deftest test-configure-packages-2--post-init-is-evaluated-after-init ()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :post-layers '(layer2)))
         configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (configuration-layer--indexed-layers (make-hash-table))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-packages (make-hash-table))
         (witness nil)
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)
@@ -2428,7 +2428,7 @@
 (ert-deftest test-configure-packages-2--package-w/-layer-owner-is-configured()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1)))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-packages (make-hash-table))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
@@ -2438,7 +2438,7 @@
 (ert-deftest test-configure-packages-2--site-package-is-configured()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :location 'site))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-packages (make-hash-table))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
@@ -2448,7 +2448,7 @@
 (ert-deftest test-configure-packages-2--toggle-t-is-configured ()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :toggle t))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-packages (make-hash-table))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
@@ -2458,7 +2458,7 @@
 (ert-deftest test-configure-packages-2--toggle-nil-is-not-configured ()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :toggle nil))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-packages (make-hash-table))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
@@ -2469,7 +2469,7 @@
 (ert-deftest test-configure-packages-2--protected-package-is-configured()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :protected t))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-packages (make-hash-table))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
@@ -2479,7 +2479,7 @@
 (ert-deftest test-configure-packages-2--protected-excluded-package-is-configured()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :excluded t :protected t))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-packages (make-hash-table))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
@@ -2489,7 +2489,7 @@
 (ert-deftest test-configure-packages-2--excluded-package-is-not-configured()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :excluded t))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-packages (make-hash-table))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
@@ -2500,7 +2500,7 @@
 (ert-deftest test-configure-packages-2--package-w/o-owner-is-not-configured()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners nil))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-packages (make-hash-table))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
@@ -2512,7 +2512,7 @@
     test-configure-packages-2--package-owned-by-dotfile-is-not-configured()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(dotfile)))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-packages (make-hash-table))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
@@ -2523,7 +2523,7 @@
 (ert-deftest test-configure-packages-2--lazy-install-package-is-not-configured()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer) :lazy-install t))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-packages (make-hash-table))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
@@ -2535,9 +2535,9 @@
     test-configure-packages-2--local-package-w/-layer-owner-update-load-path()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :location 'local))
         configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (configuration-layer--indexed-layers (make-hash-table))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-packages (make-hash-table))
         (expected-load-path load-path)
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1 :dir "/path/")) t)
@@ -2552,7 +2552,7 @@
     test-configure-packages-2--local-package-w/-dotfile-owner-update-load-path()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(dotfile) :location 'local))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-packages (make-hash-table))
         (expected-load-path load-path)
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
@@ -2566,7 +2566,7 @@
     test-configure-packages-2--local-package-w/o-owner-doesnt-update-load-path()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners nil :location 'local))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-packages (make-hash-table))
         (old-load-path load-path)
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
@@ -2582,7 +2582,7 @@
                            :owners '(dotfile)
                            :location spacemacs-docs-directory))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-packages (make-hash-table))
         (expected-load-path load-path)
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
@@ -2597,7 +2597,7 @@
                            :owners '(dotfile)
                            :location "/this/directory/does/not/exist/"))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-packages (make-hash-table))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
@@ -2612,9 +2612,9 @@
 
 (ert-deftest test-get-package-recipe--return-recipe-if-package-has-one ()
   (let (configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (configuration-layer--indexed-layers (make-hash-table))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+        (configuration-layer--indexed-packages (make-hash-table)))
     (defun layer-no-recipe-1/init-pkg1 nil)
     (defun layer-no-recipe-1/init-pkg2 nil)
     (helper--add-layers
@@ -2629,9 +2629,9 @@
 
 (ert-deftest test-get-package-recipe--return-nil-if-package-has-no-recipe ()
   (let (configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (configuration-layer--indexed-layers (make-hash-table))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+        (configuration-layer--indexed-packages (make-hash-table)))
     (defun layer-no-recipe-2/init-pkg1 nil)
     (defun layer-no-recipe-2/init-pkg2 nil)
     (helper--add-layers
@@ -2801,9 +2801,9 @@
 
 (ert-deftest test-lazy-install-extensions-for-layer--owned-packages ()
   (let (configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (configuration-layer--indexed-layers (make-hash-table))
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-packages (make-hash-table))
         (auto-mode-alist '(("\\.pkg1\\'" . pkg1)
                            ("\\.pkg2\\'" . pkg2))))
     (helper--add-layers
@@ -2842,7 +2842,7 @@
 
 (ert-deftest test-configured-packages-stats--correct-counts ()
   (let (configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+        (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-packages
      (list (cfgl-package "pkg1" :name 'pkg1 :location 'built-in)
            (cfgl-package "pkg2" :name 'pkg2 :location 'built-in)
@@ -2863,7 +2863,7 @@
 (ert-deftest test-configured-packages-stats--sum-is-correct ()
   (let (stats
         configuration-layer--used-packages
-        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+        (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-packages
      (list (cfgl-package "pkg1" :name 'pkg1 :location 'built-in)
            (cfgl-package "pkg2" :name 'pkg2 :location 'built-in)
