@@ -838,18 +838,16 @@ Features:
   - cus-edit
   - dired
   - dired-x
-  - display-line-numbers (only in Emacs 26.x and newer)
+  - display-line-numbers
   - electric-indent-mode
-  - easypg
   - ediff
   - eldoc
   - hi-lock
+  - image-dired
   - image-mode
   - imenu
-  - occur-mode
   - package-menu
   - page-break-lines
-  - proced
   - process-menu
   - quickrun
   - recentf
@@ -862,6 +860,7 @@ Features:
   - visual-line-mode
   - whitespace
   - winner
+  - xref
   - zone
 
 ** Spacemacs-editing
