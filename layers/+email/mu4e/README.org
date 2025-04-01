@@ -13,7 +13,6 @@
   - [[#compose-mode][Compose mode]]
 - [[#configuration][Configuration]]
   - [[#multiple-accounts][Multiple Accounts]]
-  - [[#async-mode][Async mode]]
   - [[#attachment-directory][Attachment directory]]
   - [[#example-configuration][Example configuration]]
   - [[#notifications][Notifications]]
@@ -155,18 +154,6 @@ The following example is taken from the manual:
 Note: We used to have a hack to support multiple accounts with older version of
 =mu= but we removed it to encourage people to update their version and use the
 new contexts feature.
-
-** Async mode
-=mu4e= can send mails in async mode, which speeds up sending as you do not have
-to wait for the email to be sent. This is off by default but you can enable
-it by setting the ~mu4e-enable-async-operations~ variable when including the
-layer.
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-                '((mu4e :variables
-                        mu4e-enable-async-operations t)))
-#+END_SRC
 
 ** Attachment directory
 By default =mu4e= will save attachment files to =$HOME=, but this layer changes
