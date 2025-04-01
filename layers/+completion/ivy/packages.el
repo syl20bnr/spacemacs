@@ -161,11 +161,6 @@
     (dolist (command '(counsel-org-goto counsel-imenu spacemacs/counsel-jump-in-buffer))
       (evil-add-command-properties command :jump t))
 
-    (when (or (eq 'vim dotspacemacs-editing-style)
-              (and (eq 'hybrid dotspacemacs-editing-style)
-                   hybrid-style-enable-hjkl-bindings))
-      (define-key counsel-find-file-map (kbd "C-h") 'counsel-up-directory))
-
     (define-key read-expression-map (kbd "C-r") 'counsel-minibuffer-history)
     (spacemacs//counsel-search-add-extra-bindings counsel-ag-map)
     ;; remaps built-in commands that have a counsel replacement
