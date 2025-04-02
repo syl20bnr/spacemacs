@@ -1781,6 +1781,11 @@ RNAME is the name symbol of another existing layer."
       ;; installation
       (when upkg-names
         (spacemacs-buffer/set-mode-line "Installing packages..." t)
+        ;; Prevent built-in org from being loaded when updating consult, for example.
+        (dolist (pkg-name configuration-layer--used-packages)
+          (when (and (package-built-in-p pkg-name)
+                     (not (memq pkg-name upkg-names)))
+            (package-activate pkg-name)))
         (let ((delayed-warnings-backup delayed-warnings-list))
           (spacemacs-buffer/append
            (format "Found %s new package(s) to install...\n"
@@ -1788,18 +1793,41 @@ RNAME is the name symbol of another existing layer."
           (configuration-layer/retrieve-package-archives)
           (setq installed-count 0)
           (spacemacs//redisplay)
-          ;; bootstrap and pre step packages first
-          (dolist (pkg-name upkg-names)
-            (let ((pkg (configuration-layer/get-package pkg-name)))
-              (when (and pkg (memq (oref pkg step) '(bootstrap pre)))
-                (setq installed-count (1+ installed-count))
+
+          ;; We sort the packages to be installed as follows:
+          ;; 1. built-in packages
+          ;; 2. bootstrap and pre packages
+          ;; 3. all other packages
+          ;; In particular, we install new versions of built-in packages first,
+          ;; to avoid having the built-in package loaded instead of the new one
+          ;; (for example when another package only depends on an older version;
+          ;; or does not explicitly depend on it, but requires some of its
+          ;; features somewhere).
+          ;; FIXME Dependencies between built-in packages that should get updated
+          ;; could still lead to errors due to built-in versions being loaded. For
+          ;; example, if hypothetically, org (optionally) requires transient in
+          ;; the future, we should take care to update transient before org.
+          (let* (built-in bootstrap-pre remaining
+                 sorted-upkg-names)
+            (dolist (pkg-name upkg-names)
+              (let ((pkg (configuration-layer/get-package pkg-name)))
+                (push pkg-name
+                      (cond ((package-built-in-p pkg-name)
+                             built-in)
+                            ((and pkg (or (eq (oref pkg step) 'bootstrap)
+                                          (eq (oref pkg step) 'pre)))
+                             bootstrap-pre)
+                            (t
+                             remaining)))))
+            (setq sorted-upkg-names
+                  (append (nreverse built-in)
+                          (nreverse bootstrap-pre)
+                          (nreverse remaining)))
+            (dolist (pkg-name sorted-upkg-names)
+              (cl-incf installed-count)
+              (let ((pkg (configuration-layer/get-package pkg-name)))
                 (configuration-layer//install-package pkg pkg-name installed-count not-inst-count))))
-          ;; then all other packages
-          (dolist (pkg-name upkg-names)
-            (let ((pkg (configuration-layer/get-package pkg-name)))
-              (unless (and pkg (memq (oref pkg step) '(bootstrap pre)))
-                (setq installed-count (1+ installed-count))
-                (configuration-layer//install-package pkg pkg-name installed-count not-inst-count))))
+
           (spacemacs-buffer/append "\n")
           (unless init-file-debug
             ;; get rid of all delayed warnings when byte-compiling packages
