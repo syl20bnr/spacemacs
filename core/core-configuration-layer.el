@@ -825,7 +825,7 @@ a new object."
     (oset obj excluded
           (and (configuration-layer/layer-used-p layer-name)
                (or excluded (oref obj excluded))))
-    (when location
+    (if location
       (if (and (listp location)
                (eq (car location) 'recipe)
                (eq (plist-get (cdr location) :fetcher) 'local))
@@ -838,7 +838,9 @@ a new object."
                     (oset
                      obj location `(recipe :fetcher file :path ,path))))
            ((eq 'dotfile layer-name) nil))
-        (oset obj location location)))
+        (oset obj location location))
+      (when (and ownerp (package-built-in-p pkg-name))
+        (oset obj location 'built-in)))
     ;; cannot override protected packages
     (unless copyp
       ;; a bootstrap package is protected
