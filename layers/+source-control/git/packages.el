@@ -46,8 +46,7 @@
     org
     (orgit :requires org)
     (orgit-forge :requires (org forge))
-    smeargle
-    transient))
+    smeargle))
 
 
 (defun git/pre-init-golden-ratio ()
@@ -322,19 +321,6 @@
       "gHc" 'smeargle-clear
       "gHh" 'smeargle-commits
       "gHt" 'smeargle)))
-
-(defun git/pre-init-transient ()
-  (setq-default transient-history-file (expand-file-name "transient/history.el"
-                                                         spacemacs-cache-directory))
-  (setq-default transient-levels-file (expand-file-name "transient/levels.el"
-                                                        spacemacs-cache-directory))
-  ;; Values are the users saved preferences so they should persist.
-  (setq-default transient-values-file (expand-file-name "transient/values.el"
-                                                        dotspacemacs-directory)))
-
-(defun git/init-transient ()
-  (use-package transient
-    :defer t))
 
 (defun git/init-forge ()
   (use-package forge
