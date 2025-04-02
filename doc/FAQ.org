@@ -55,6 +55,7 @@
   - [[#why-are-all-packages-unavailable][Why are all packages unavailable?]]
   - [[#the-powerline-isnt-shown-correctly-when-spacemacs-is-used-within-putty][The powerline isn't shown correctly when Spacemacs is used within =PuTTY=]]
   - [[#speedup-the-spacemacs-with-load-hints-feature][Speedup the Spacemacs with load-hints feature]]
+  - [[#speedup-the-spacemacs-by-optimizing-module-loading][Speedup the Spacemacs by optimizing module loading]]
 
 * Common
 ** Which version of Spacemacs am I running?
@@ -672,3 +673,28 @@ Spacemacs implemented the ~load-hints~ feature, controled by the
 ~load-hints~ feature, then executing the function
 ~spacemacs//package-regenerate-autoloads~ and restart the Spacemacs to try this
 feature to observer it speedups the Spacemacs or not on the Windows OS.
+
+** Speedup the Spacemacs by optimizing module loading
+The official Emacs-30.1 release for Windows was built with native module
+support. However Spacemacs rarely relies on native module, so we can let Emacs
+do NOT searching the =*.dll= or =*.dll.gz= for speed with putting follow lines
+to the ~early-init.el~.
+#+begin_src elisp
+  (progn
+    (setq load-suffixes '(".elc" ".el"))
+    (message "Dismiss the \".dll\" or \".so\" from `load-suffixes' for speed.\n
+  Which will affect Emacs loading a native module *.dll or *.so."))
+#+end_src
+
+The official Emacs-30.1 for windows also did NOT ship with the compressed
+=*.el.gz= or =*.elc.gz=, so adding follow lines to the ~early-init.el~ can avoid
+searching =*.gz= files:
+#+begin_src elisp
+  (progn
+    (setq load-file-rep-suffixes '(""))
+    (message "Do NOT search \"*.gz\", it maybe lead an error like \"Symbol's value as
+  variable is void: \213\"."))
+#+end_src
+
+These tricks can speedup the Spacemacs on Windows, try them one by one then you
+will find the best option combinations.
