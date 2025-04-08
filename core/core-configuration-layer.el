@@ -625,7 +625,9 @@ To prevent package from being installed or uninstalled set the variable
       (when (and (or (eq 'used dotspacemacs-install-packages)
                      (eq 'used-only dotspacemacs-install-packages))
                  (not configuration-layer-force-distribution)
-                 (not configuration-layer-exclude-all-layers))
+                 (not configuration-layer-exclude-all-layers)
+                 spacemacs-load-dotspacemacs
+                 (not (eq 'template spacemacs-load-dotspacemacs)))
         (configuration-layer/delete-orphan-packages packages))))
   ;; configure used packages
   (configuration-layer//configure-packages configuration-layer--used-packages)
