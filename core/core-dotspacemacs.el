@@ -894,8 +894,8 @@ Returns non nil if the layer has been effectively inserted."
 Called with `C-u' skips `dotspacemacs/user-config'.
 Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preliminary tests."
   (interactive "P")
-  (when (file-exists-p dotspacemacs-filepath)
-    (with-current-buffer (find-file-noselect dotspacemacs-filepath)
+  (when (file-exists-p (dotspacemacs/location))
+    (with-current-buffer (find-file-noselect (dotspacemacs/location))
       (let ((dotspacemacs-loading-progress-bar nil))
         (setq spacemacs-loading-string "")
         (save-buffer)
@@ -943,8 +943,13 @@ If SYMBOL value is `display-graphic-p' then return the result of
   `(if (eq 'display-graphic-p ,symbol) (display-graphic-p) ,symbol))
 
 (defun dotspacemacs/location ()
-  "Return the absolute path to the spacemacs dotfile."
-  dotspacemacs-filepath)
+  "Return the absolute path to the spacemacs dotfile.
+
+Error if the Spacemacs dotfile was not loaded due to command line arguments."
+  (if (and spacemacs-load-dotspacemacs
+           (not (eq 'template spacemacs-load-dotspacemacs)))
+      dotspacemacs-filepath
+    (error "Spacemacs started with --no-dotspacemacs or --default-dotspacemacs; cannot modify dotfile")))
 
 (defun dotspacemacs/copy-template ()
   "Copy `dotspacemacs-template.el' to `dotspacemacs-filepath'.
@@ -1133,7 +1138,7 @@ error recovery."
   (insert
    (format (concat "\n* Testing settings in dotspacemacs/layers "
                    "[[file:%s::dotspacemacs/layers][Show in File]]\n")
-           dotspacemacs-filepath))
+           (dotspacemacs/location)))
   ;; protect global values of these variables
   (let (dotspacemacs-additional-packages
         dotspacemacs-configuration-layer-path
@@ -1142,7 +1147,7 @@ error recovery."
         dotspacemacs-install-packages
         (passed-tests 0)
         (total-tests 0))
-    (load dotspacemacs-filepath)
+    (load (dotspacemacs/location))
     (dotspacemacs/layers)
     (spacemacs//test-list 'stringp
                           'dotspacemacs-configuration-layer-path
@@ -1160,12 +1165,12 @@ error recovery."
              (concat "** RESULTS: "
                      "[[file:%s::dotspacemacs/layers][dotspacemacs/layers]] "
                      "passed %s out of %s tests\n")
-             dotspacemacs-filepath passed-tests total-tests))
+             (dotspacemacs/location) passed-tests total-tests))
     (equal passed-tests total-tests)))
 
 (defmacro dotspacemacs||let-init-test (&rest body)
   "Macro to protect dotspacemacs variables"
-  `(let ((fpath dotspacemacs-filepath)
+  `(let ((fpath (dotspacemacs/location))
          ,@(mapcar (lambda (symbol)
                      `(,symbol ,(let ((v (symbol-value symbol)))
                                   (if (or (symbolp v) (listp v))
@@ -1181,7 +1186,7 @@ error recovery."
   (insert
    (format (concat "\n* Testing settings in dotspacemacs/init "
                    "[[file:%s::dotspacemacs/init][Show in File]]\n")
-           dotspacemacs-filepath))
+           (dotspacemacs/location)))
   (dotspacemacs||let-init-test
    (dotspacemacs/init)
    (spacemacs//test-var
@@ -1254,7 +1259,7 @@ error recovery."
             (concat "** RESULTS: "
                     "[[file:%s::dotspacemacs/init][dotspacemacs/init]] "
                     "passed %s out of %s tests\n")
-            dotspacemacs-filepath passed-tests total-tests))
+            (dotspacemacs/location) passed-tests total-tests))
    (equal passed-tests total-tests)))
 
 (defun dotspacemacs/test-dotfile (&optional hide-buffer)
@@ -1280,10 +1285,10 @@ Return non-nil if all the tests passed."
         (let (buffer-read-only)
           (erase-buffer)
           (insert (format "* Running tests on [[file:%s][%s]] (v%s)\n"
-                          dotspacemacs-filepath dotspacemacs-filepath "0.0"))
+                          (dotspacemacs/location) (dotspacemacs/location) "0.0"))
           ;; dotspacemacs-version not implemented yet
           ;; (insert (format "* Running tests on %s (v%s)\n"
-          ;;                 dotspacemacs-filepath dotspacemacs-version))
+          ;;                 (dotspacemacs/location) dotspacemacs-version))
           (prog1
               ;; execute all tests no matter what
               (cl-reduce (lambda (x y)

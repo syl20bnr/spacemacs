@@ -217,7 +217,7 @@ passed-tests and total-tests."
         (var-val (symbol-value var)))
     (when (boundp 'total-tests) (setq total-tests (1+ total-tests)))
     (insert (format "** TEST: [[file:%s::%s][%s]] %s\n"
-                    dotspacemacs-filepath var-name var-name test-desc))
+                    (dotspacemacs/location) var-name var-name test-desc))
     (if (funcall pred var-val)
         (progn
           (when (boundp 'passed-tests) (setq passed-tests (1+ passed-tests)))
@@ -232,10 +232,10 @@ result, incrementing passed-tests and total-tests."
         (varlist-val (symbol-value varlist)))
     (if element-desc
         (insert (format "** TEST: Each %s in [[file:%s::%s][%s]] %s\n"
-                        element-desc dotspacemacs-filepath varlist-name
+                        element-desc (dotspacemacs/location) varlist-name
                         varlist-name test-desc))
       (insert (format "** TEST: Each element of [[file:%s::%s][%s]] %s\n"
-                      dotspacemacs-filepath varlist-name varlist-name
+                      (dotspacemacs/location) varlist-name varlist-name
                       test-desc)))
     (dolist (var varlist-val)
       (when (boundp 'total-tests) (setq total-tests (1+ total-tests)))
