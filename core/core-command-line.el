@@ -29,6 +29,14 @@
   "If non-nil packages are synchronized when the configuration layer system is
 loaded.")
 
+(defvar spacemacs-load-dotspacemacs t
+  "If nil, suppress loading the user's Spacemacs configuration.
+
+If set to `template', load `dotspacemacs-template.el' rather than the
+user's Spacemacs configuration.
+
+Otherwise, load the user's Spacemacs config as normal.")
+
 (defun spacemacs//parse-command-line (args)
   "Handle Spacemacs specific command line arguments.
 The reason why we don't use the Emacs hooks for processing user defined
@@ -66,6 +74,10 @@ arguments is that we want to process these arguments as soon as possible."
            (setq spacemacs-force-resume-layouts t))
           ("--no-package-sync"
            (setq spacemacs-sync-packages nil))
+          ("--no-dotspacemacs"
+           (setq spacemacs-load-dotspacemacs nil))
+          ("--default-dotspacemacs"
+           (setq spacemacs-load-dotspacemacs 'template))
           (_ (push arg new-args))))
       (setq i (1+ i)))
     (nreverse new-args)))

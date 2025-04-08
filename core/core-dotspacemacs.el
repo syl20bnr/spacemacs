@@ -20,6 +20,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+(require 'core-command-line)
 (require 'core-load-paths)
 (require 'core-customization)
 
@@ -1018,11 +1019,15 @@ If ARG is non nil then ask questions to the user before installing the dotfile."
 
 (defun dotspacemacs/load-file ()
   "Load ~/.spacemacs if it exists."
-  (let ((dotspacemacs (dotspacemacs/location)))
-    (if (file-exists-p dotspacemacs)
-        (unless (with-demoted-errors "Error loading .spacemacs: %S"
-                  (load dotspacemacs))
-          (dotspacemacs/safe-load))))
+  (cl-case spacemacs-load-dotspacemacs
+    ((nil))
+    ((template) (load dotspacemacs-template-file))
+    (t
+     (let ((dotspacemacs (dotspacemacs/location)))
+       (if (file-exists-p dotspacemacs)
+           (unless (with-demoted-errors "Error loading .spacemacs: %S"
+                     (load dotspacemacs))
+             (dotspacemacs/safe-load))))))
   (advice-add 'dotspacemacs/layers :after
               'spacemacs-customization//validate-dotspacemacs-layers-vars)
   (advice-add 'dotspacemacs/init :after
