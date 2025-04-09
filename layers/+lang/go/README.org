@@ -141,7 +141,7 @@ This section lists dependencies which are independent of the
 language backend, most are installed directly via =go get=:
 
 #+BEGIN_SRC sh
-  GO111MODULE=on CGO_ENABLED=0 go install -v -trimpath -ldflags '-s -w' github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+  GO111MODULE=on CGO_ENABLED=0 go install -v -trimpath -ldflags '-s -w' github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest
   go install golang.org/x/tools/cmd/godoc@latest
   go install golang.org/x/tools/cmd/goimports@latest
   go install golang.org/x/tools/cmd/gorename@latest
@@ -210,6 +210,8 @@ If you wish to use =golangci-lint=, set the following layer variable to non-nil:
 #+END_SRC
 
 Check [[https://github.com/golangci/golangci-lint][golangci-lint]] and [[https://github.com/weijiangan/flycheck-golangci-lint][flycheck-golangci-lint]] for more details.
+
+When using golangci-lint, ensure you have the latest version, currently [[https://github.com/golangci/golangci-lint/releases][v2.x]].
 
 Please remember that without properly configured =flycheck-golangci-lint= variables =golangci-lint=
 may not run as expected. The recommended way is to use a =.golangi.yml= in your project.
