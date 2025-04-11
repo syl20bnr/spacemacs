@@ -1574,10 +1574,10 @@ RNAME is the name symbol of another existing layer."
                   (set-default var val))
               ('error
                (configuration-layer//error
-                (concat "\nAn error occurred while setting layer "
+                (concat "An error occurred while setting layer "
                         "variable %s "
                         "(error: %s). Be sure to quote the value "
-                        "if needed.\n") var err)))
+                        "if needed.") var err)))
           (configuration-layer//warning "Missing value for variable %s !"
                                         var))))))
 
@@ -1691,7 +1691,7 @@ RNAME is the name symbol of another existing layer."
                                             pkg-name)))
         ('error
          (configuration-layer//error
-          (concat "\nAn error occurred while installing %s " "(error: %s)\n")
+          (concat "An error occurred while installing %s " "(error: %s)")
           pkg-name
           err)
          (spacemacs//redisplay))))))
@@ -2006,8 +2006,8 @@ LAYER must not be the owner of PKG."
                (funcall (intern (format "%S/pre-init-%S" layer pkg-name)))
              ('error
               (configuration-layer//error
-               (concat "\nAn error occurred while pre-configuring %S "
-                       "in layer %S (error: %s)\n")
+               (concat "An error occurred while pre-configuring %S "
+                       "in layer %S (error: %s)")
                pkg-name layer err))))))
      (oref pkg :pre-layers))))
 
@@ -2022,8 +2022,8 @@ LAYER must not be the owner of PKG."
         (funcall (intern (format "%S/init-%S" owner pkg-name)))
       ('error
        (configuration-layer//error
-        (concat "\nAn error occurred while configuring %S "
-                "in layer %S (error: %s)\n")
+        (concat "An error occurred while configuring %S "
+                "in layer %S (error: %s)")
         pkg-name owner err)))))
 
 (defun configuration-layer//post-configure-package (pkg)
@@ -2041,8 +2041,8 @@ LAYER must not be the owner of PKG."
                (funcall (intern (format "%S/post-init-%S" layer pkg-name)))
              ('error
               (configuration-layer//error
-               (concat "\nAn error occurred while post-configuring %S "
-                       "in layer %S (error: %s)\n")
+               (concat "An error occurred while post-configuring %S "
+                       "in layer %S (error: %s)")
                pkg-name layer err))))))
      (oref pkg :post-layers))))
 
