@@ -2018,7 +2018,13 @@ LAYER must not be the owner of PKG."
          (owner (car (oref pkg :owners))))
     ;; init
     (spacemacs-buffer/message (format "%S -> init (%S)..." pkg-name owner))
-    (funcall (intern (format "%S/init-%S" owner pkg-name)))))
+    (condition-case-unless-debug err
+        (funcall (intern (format "%S/init-%S" owner pkg-name)))
+      ('error
+       (configuration-layer//error
+        (concat "\nAn error occurred while configuring %S "
+                "in layer %S (error: %s)\n")
+        pkg-name owner err)))))
 
 (defun configuration-layer//post-configure-package (pkg)
   "Post-configure PKG object, i.e. call its post-init functions."
@@ -2800,7 +2806,12 @@ ARGS: format string arguments."
 
 (defun configuration-layer/load-file (file &optional noerror)
   "Load file silently except if in debug mode."
-  (load file noerror (not init-file-debug)))
+  (condition-case-unless-debug err
+      (load file noerror (not init-file-debug))
+    ('error
+     (configuration-layer//error
+      "An error occurred while loading %S (error: %s)"
+      file err))))
 
 (provide 'core-configuration-layer)
 
