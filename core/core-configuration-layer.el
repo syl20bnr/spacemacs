@@ -423,7 +423,7 @@ cache folder.")
 
 (defun configuration-layer/load-lock-file ()
   "Load the .lock file"
-  (configuration-layer/load-file configuration-layer-lock-file))
+  (load configuration-layer-lock-file nil (not init-file-debug)))
 
 (defun configuration-layer/initialize ()
   "Initialize `package.el'."
