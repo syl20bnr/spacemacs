@@ -2448,15 +2448,15 @@ Return nil if MODE does not appear in `auto-mode-alist'."
     (with-current-buffer (get-buffer-create spacemacs-buffer-name)
       (let ((buffer-read-only nil))
         (spacemacs-buffer/append
-         (format "\n%s packages loaded in %.3fs (e:%s r:%s l:%s b:%s)"
+         (format "\n%s packages loaded in %.3f seconds. Location counts: %s"
                  (cadr (assq 'total stats))
                  configuration-layer--spacemacs-startup-time
-                 (cadr (assq 'elpa stats))
-                 (cadr (assq 'recipe stats))
-                 (cadr (assq 'local stats))
-                 (cadr (assq 'built-in stats))))
+                 (string-join
+                  (mapcar (lambda (key) (format "%s %s" key (cadr (assq key stats))))
+                          (delq 'total (mapcar #'car stats)))
+                  ", ")))
         (spacemacs-buffer//center-line)
-        (spacemacs-buffer/append (format "\n(%.3fs spent in your user-config)"
+        (spacemacs-buffer/append (format "\n(%.3f seconds spent in your user-config)"
                                          dotspacemacs--user-config-elapsed-time))
         (spacemacs-buffer//center-line)
         (insert "\n")))))
