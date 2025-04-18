@@ -851,7 +851,7 @@ the symbol of an editing style and the cdr is a list of keyword arguments like
           (if (consp variables)
               (condition-case-unless-debug err
                   (set-default var (eval (pop variables)))
-                ('error
+                (error
                  (spacemacs-buffer/append
                   (format (concat "\nAn error occurred while reading the "
                                   "editing style variable %s "

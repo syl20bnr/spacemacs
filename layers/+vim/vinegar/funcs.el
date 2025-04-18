@@ -153,7 +153,7 @@
           (progn
             (setq file (dired-get-file-for-visit))
             (dired-find-file-other-window))
-        ('error
+        (error
          (vinegar/up-directory))))))
 
 

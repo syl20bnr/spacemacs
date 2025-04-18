@@ -1572,7 +1572,7 @@ RNAME is the name symbol of another existing layer."
                     (spacemacs-customization//validate
                      val (custom-variable-type var)))
                   (set-default var val))
-              ('error
+              (error
                (configuration-layer//error
                 (concat "An error occurred while setting layer "
                         "variable %s "
@@ -1689,7 +1689,7 @@ RNAME is the name symbol of another existing layer."
             (oset pkg :lazy-install nil))
            (t (configuration-layer//warning "Cannot install package %S."
                                             pkg-name)))
-        ('error
+        (error
          (configuration-layer//error
           (concat "An error occurred while installing %s " "(error: %s)")
           pkg-name
@@ -2004,7 +2004,7 @@ LAYER must not be the owner of PKG."
             (format "%S -> pre-init (%S)..." pkg-name layer))
            (condition-case-unless-debug err
                (funcall (intern (format "%S/pre-init-%S" layer pkg-name)))
-             ('error
+             (error
               (configuration-layer//error
                (concat "An error occurred while pre-configuring %S "
                        "in layer %S (error: %s)")
@@ -2020,7 +2020,7 @@ LAYER must not be the owner of PKG."
     (spacemacs-buffer/message (format "%S -> init (%S)..." pkg-name owner))
     (condition-case-unless-debug err
         (funcall (intern (format "%S/init-%S" owner pkg-name)))
-      ('error
+      (error
        (configuration-layer//error
         (concat "An error occurred while configuring %S "
                 "in layer %S (error: %s)")
@@ -2039,7 +2039,7 @@ LAYER must not be the owner of PKG."
             (format "%S -> post-init (%S)..." pkg-name layer))
            (condition-case-unless-debug err
                (funcall (intern (format "%S/post-init-%S" layer pkg-name)))
-             ('error
+             (error
               (configuration-layer//error
                (concat "An error occurred while post-configuring %S "
                        "in layer %S (error: %s)")
@@ -2808,7 +2808,7 @@ ARGS: format string arguments."
   "Load file silently except if in debug mode."
   (condition-case-unless-debug err
       (load file noerror (not init-file-debug))
-    ('error
+    (error
      (configuration-layer//error
       "An error occurred while loading %S (error: %s)"
       file err))))
