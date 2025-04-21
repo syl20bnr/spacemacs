@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp -*-
+;; -*- mode: emacs-lisp; lexical-binding: t; -*-
 
 (setq configuration-layer-stable-elpa-name "spacelpa")
 (setq configuration-layer-stable-elpa-version "0.400")

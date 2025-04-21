@@ -1,4 +1,4 @@
-;;; auto-layer.el --- auto-mode-alist entries for layer installation
+;;; auto-layer.el --- auto-mode-alist entries for layer installation  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;
