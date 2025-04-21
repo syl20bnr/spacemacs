@@ -98,7 +98,7 @@
             (gist-region (point-min) (point-max) nil
                          `(lambda (gist)
                             (with-current-buffer ,buf
-                              (insert (oref gist :html-url)))))))
+                              (insert (oref gist html-url)))))))
       (yank arg))))
 
 (provide 'erc-yank)

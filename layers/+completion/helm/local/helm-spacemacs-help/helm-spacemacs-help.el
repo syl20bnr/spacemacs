@@ -226,18 +226,18 @@
                             "owner" "init")))
         (when owner
           (push (format "%s (%s: %S layer)"
-                        (propertize (symbol-name (oref pkg :name))
+                        (propertize (symbol-name (oref pkg name))
                                     'face 'font-lock-type-face)
                         init-type
                         owner)
                 result))
-        (dolist (initfuncs `((,(oref pkg :owners) "init")
-                             (,(oref pkg :pre-layers) "pre-init")
-                             (,(oref pkg :post-layers) "post-init")))
+        (dolist (initfuncs `((,(oref pkg owners) "init")
+                             (,(oref pkg pre-layers) "pre-init")
+                             (,(oref pkg post-layers) "post-init")))
           (dolist (layer (car initfuncs))
             (unless (and owner (eq owner layer))
               (push (format "%s (%s: %S layer)"
-                            (propertize (symbol-name (oref pkg :name))
+                            (propertize (symbol-name (oref pkg name))
                                         'face 'font-lock-type-face)
                             (cadr initfuncs)
                             layer)
