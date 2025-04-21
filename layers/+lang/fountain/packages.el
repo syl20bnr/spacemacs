@@ -1,4 +1,4 @@
-;;; packages.el --- Fountain layer packages file for Spacemacs.
+;;; packages.el --- Fountain layer packages file for Spacemacs.  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2022-2025 Sylvain Benner & Contributors
 ;;

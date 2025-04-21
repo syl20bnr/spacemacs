@@ -1,4 +1,4 @@
-;;; config.el --- twitch Layer Configuration File For Spacemacs
+;;; config.el --- twitch Layer Configuration File For Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2021-2025 Sylvain Benner & Contributors
 ;;

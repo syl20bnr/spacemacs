@@ -1,4 +1,4 @@
-;;; packages.el --- Dotnet Layer packages File for Spacemacs
+;;; packages.el --- Dotnet Layer packages File for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Author: Jordan Kaye <jordan.kaye2@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

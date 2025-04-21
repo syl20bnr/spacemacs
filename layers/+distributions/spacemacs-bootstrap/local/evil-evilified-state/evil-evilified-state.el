@@ -1,4 +1,4 @@
-;;; evil-evilified-state.el --- A minimalistic evil state
+;;; evil-evilified-state.el --- A minimalistic evil state  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

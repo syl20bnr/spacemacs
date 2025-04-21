@@ -1,4 +1,4 @@
-;;; layers.el --- reasonml layer layers file for Spacemacs
+;;; layers.el --- reasonml layer layers file for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

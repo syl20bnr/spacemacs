@@ -1,4 +1,4 @@
-;;; config.el --- semantic Layer configuration
+;;; config.el --- semantic Layer configuration  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

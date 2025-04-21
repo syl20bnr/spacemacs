@@ -1,4 +1,4 @@
-;;; funcs.el --- evil-better-jumper Layer Functions File for spacemacs
+;;; funcs.el --- evil-better-jumper Layer Functions File for spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

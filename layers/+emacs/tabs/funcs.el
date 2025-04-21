@@ -1,4 +1,4 @@
-;;; funcs.el --- tabs layer packages file for Spacemacs.
+;;; funcs.el --- tabs layer packages file for Spacemacs.  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2018, 2020 Sylvain Benner & Contributors
 ;;

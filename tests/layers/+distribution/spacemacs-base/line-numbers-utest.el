@@ -1,3 +1,4 @@
+;; -*- lexical-binding: nil; -*-
 (define-derived-mode linum-test-parent1 fundamental-mode "parent1")
 (define-derived-mode linum-test-parent2 fundamental-mode "parent2")
 (define-derived-mode linum-test-mode1 linum-test-parent1 "mode1")

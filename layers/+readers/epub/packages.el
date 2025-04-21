@@ -1,4 +1,4 @@
-;;; packages.el --- epub layer packages file for Spacemacs.
+;;; packages.el --- epub layer packages file for Spacemacs.  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

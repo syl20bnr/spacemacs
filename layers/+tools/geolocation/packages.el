@@ -1,4 +1,4 @@
-;;; packages.el --- geolocation configuration File for Spacemacs
+;;; packages.el --- geolocation configuration File for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

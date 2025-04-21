@@ -1,4 +1,4 @@
-;;; funcs.el --- ESS Layer functions File
+;;; funcs.el --- ESS Layer functions File  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

@@ -1,4 +1,4 @@
-;;; irfc.el --- Interface for IETF RFC document.
+;;; irfc.el --- Interface for IETF RFC document.  -*- lexical-binding: nil; -*-
 
 ;; Filename: irfc.el
 ;; Description: Interface for IETF RFC document.

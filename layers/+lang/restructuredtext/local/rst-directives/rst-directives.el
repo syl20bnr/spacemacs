@@ -1,4 +1,4 @@
-;;; rst-directives.el --- Build Sphinx projects.
+;;; rst-directives.el --- Build Sphinx projects.  -*- lexical-binding: nil; -*-
 
 ;; Copyright (C) 2012-2024 Wei-Wei Guo.
 

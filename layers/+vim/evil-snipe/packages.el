@@ -1,3 +1,4 @@
+;; -*- lexical-binding: nil; -*-
 (setq evil-snipe-packages
       '(
         evil-snipe

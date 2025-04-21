@@ -1,4 +1,4 @@
-;;; layers.el ---  Shell Scripts Layer declarations File for Spacemacs
+;;; layers.el ---  Shell Scripts Layer declarations File for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

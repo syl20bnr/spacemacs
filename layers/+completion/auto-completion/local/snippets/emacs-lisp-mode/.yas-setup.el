@@ -1,3 +1,4 @@
+;; -*- lexical-binding: nil; -*-
 (defun spacemacs/get-parent-dir ()
   (car (cdr ; Last item
         (reverse

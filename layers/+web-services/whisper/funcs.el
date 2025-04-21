@@ -1,3 +1,4 @@
+;; -*- lexical-binding: nil; -*-
 (defun spacemacs/whisper-select-language ()
   "Prompt the user to select a language for whisper, showing the current selection."
   (interactive)

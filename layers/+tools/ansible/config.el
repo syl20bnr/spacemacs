@@ -1,4 +1,4 @@
-;;; config.el --- Ansible Layer functions File for Spacemacs
+;;; config.el --- Ansible Layer functions File for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

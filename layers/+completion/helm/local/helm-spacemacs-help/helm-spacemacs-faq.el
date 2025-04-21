@@ -1,4 +1,4 @@
-;;; helm-spacemacs-help.el --- Spacemacs layer exploration with `helm'.
+;;; helm-spacemacs-help.el --- Spacemacs layer exploration with `helm'.  -*- lexical-binding: nil; -*-
 
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: helm, spacemacs

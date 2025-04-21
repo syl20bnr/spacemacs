@@ -1,4 +1,4 @@
-;;; layers.el --- Puppet layer layers File for Spacemacs
+;;; layers.el --- Puppet layer layers File for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

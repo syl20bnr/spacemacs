@@ -1,4 +1,4 @@
-;;; layers.el --- zig Layer declarations File for Spacemacs
+;;; layers.el --- zig Layer declarations File for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

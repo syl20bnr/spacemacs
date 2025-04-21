@@ -1,4 +1,4 @@
-;;; config.el --- Spacemacs Mode-line Visual Layer configuration File
+;;; config.el --- Spacemacs Mode-line Visual Layer configuration File  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2020-2025 Sylvain Benner & Contributors
 ;;

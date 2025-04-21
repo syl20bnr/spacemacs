@@ -1,4 +1,4 @@
-;;; config.el --- Spacemacs Defaults Layer configuration File
+;;; config.el --- Spacemacs Defaults Layer configuration File  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

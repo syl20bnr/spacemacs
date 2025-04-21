@@ -1,4 +1,4 @@
-;;; funcs.el --- fasd Layer packages File for Spacemacs
+;;; funcs.el --- fasd Layer packages File for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;

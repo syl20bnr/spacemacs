@@ -1,3 +1,4 @@
+;; -*- lexical-binding: nil; -*-
 (require 'rcirc)
 
 (defun helm-rcirc-auto-join-channels-alist ()

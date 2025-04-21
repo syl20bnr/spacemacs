@@ -1,4 +1,4 @@
-;;; packages.el --- Quickurl dispatch layer.
+;;; packages.el --- Quickurl dispatch layer.  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

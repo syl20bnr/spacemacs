@@ -1,4 +1,4 @@
-;;; funcs.el --- Dash Layer functions File for Spacemacs
+;;; funcs.el --- Dash Layer functions File for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

@@ -1,4 +1,4 @@
-;;; packages.el --- PDF Layer packages File for Spacemacs
+;;; packages.el --- PDF Layer packages File for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2021 Sylvain Benner
 ;; Copyright (c) 2020-2025 Sylvain Benner & Contributors

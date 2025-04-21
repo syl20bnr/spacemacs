@@ -1,4 +1,4 @@
-;;; keybindings.el --- Spacemacs Defaults Layer key-bindings File
+;;; keybindings.el --- Spacemacs Defaults Layer key-bindings File  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

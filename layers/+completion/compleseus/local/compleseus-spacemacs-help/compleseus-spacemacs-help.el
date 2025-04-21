@@ -1,4 +1,4 @@
-;;; compleseus-spacemacs-help.el --- Spacemacs layer exploration with `completing-read'.
+;;; compleseus-spacemacs-help.el --- Spacemacs layer exploration with `completing-read'.  -*- lexical-binding: nil; -*-
 
 ;; Author: Thanh Vuong <thanhvg@gmail.com>
 ;; Keywords: consult, compleseus, spacemacs

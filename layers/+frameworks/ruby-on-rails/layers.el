@@ -1,4 +1,4 @@
-;;; layers.el --- Ruby on Rails Layer layers File for Spacemacs
+;;; layers.el --- Ruby on Rails Layer layers File for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

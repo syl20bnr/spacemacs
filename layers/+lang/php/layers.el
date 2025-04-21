@@ -1,4 +1,4 @@
-;;; layers.el --- PHP Layer declarations File for Spacemacs
+;;; layers.el --- PHP Layer declarations File for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

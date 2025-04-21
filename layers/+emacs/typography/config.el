@@ -1,4 +1,4 @@
-;;; config.el --- typography Layer configuration
+;;; config.el --- typography Layer configuration  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

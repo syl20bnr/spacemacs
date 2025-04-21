@@ -1,4 +1,4 @@
-;;; evil-unimpaired.el --- Pairs of handy bracket mappings.
+;;; evil-unimpaired.el --- Pairs of handy bracket mappings.  -*- lexical-binding: nil; -*-
 
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: evil, vim-unimpaired, spacemacs

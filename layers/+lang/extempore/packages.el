@@ -1,4 +1,4 @@
-;;; packages.el --- Extempore Layer packages File for Spacemacs
+;;; packages.el --- Extempore Layer packages File for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2020-2025 Sylvain Benner & Contributors
 ;;

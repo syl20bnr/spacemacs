@@ -1,4 +1,4 @@
-;;; packages.el --- Language Server Protocol Layer packages file for Spacemacs
+;;; packages.el --- Language Server Protocol Layer packages file for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

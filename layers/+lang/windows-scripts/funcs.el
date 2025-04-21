@@ -1,4 +1,4 @@
-;;; funcs.el --- Windows-scripts Layer Functions File for Spacemacs
+;;; funcs.el --- Windows-scripts Layer Functions File for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

@@ -1,4 +1,4 @@
-;;; zoom-frm.el --- Commands to zoom frame font size.
+;;; zoom-frm.el --- Commands to zoom frame font size.  -*- lexical-binding: nil; -*-
 ;;
 ;; Filename: zoom-frm.el
 ;; Description: Commands to zoom frame font size.

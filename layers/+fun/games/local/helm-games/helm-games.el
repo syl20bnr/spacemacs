@@ -1,4 +1,4 @@
-;;; helm-games.el --- Games selection with `helm'.
+;;; helm-games.el --- Games selection with `helm'.  -*- lexical-binding: nil; -*-
 
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: helm, spacemacs, games

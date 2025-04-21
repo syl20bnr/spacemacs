@@ -1,4 +1,4 @@
-;;; config.el --- gnus Layer configuration File for Spacemacs
+;;; config.el --- gnus Layer configuration File for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2019-2025 Sylvain Benner & Contributors
 ;;

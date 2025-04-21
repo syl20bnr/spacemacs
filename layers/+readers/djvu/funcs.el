@@ -1,4 +1,4 @@
-;;; funcs.el --- DjVu Layer functions File for Spacemacs
+;;; funcs.el --- DjVu Layer functions File for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2021-2025 Sylvain Benner & Contributors
 ;;

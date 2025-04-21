@@ -1,4 +1,4 @@
-;;; packages.el --- sailfish-developer layer packages file for Spacemacs.
+;;; packages.el --- sailfish-developer layer packages file for Spacemacs.  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2020-2025 Sylvain Benner & Contributors
 ;;

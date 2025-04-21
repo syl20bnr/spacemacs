@@ -1,4 +1,4 @@
-;;; packages.el --- Hackernews Layer Packages File For Spacemacs.
+;;; packages.el --- Hackernews Layer Packages File For Spacemacs.  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2021-2025 Sylvain Benner & Contributors
 ;;

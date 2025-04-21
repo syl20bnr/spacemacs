@@ -1,4 +1,4 @@
-;;; tmux.el --- Seamlessly navigate between Emacs and tmux
+;;; tmux.el --- Seamlessly navigate between Emacs and tmux  -*- lexical-binding: nil; -*-
 
 ;; Author:   Keith Smiley <keithbsmiley@gmail.com>
 ;; Created:  April 25 2014

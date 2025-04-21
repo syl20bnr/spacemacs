@@ -1,4 +1,4 @@
-;;; funcs.el --- slack layer functions file for Spacemacs
+;;; funcs.el --- slack layer functions file for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

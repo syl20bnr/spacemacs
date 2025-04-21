@@ -1,4 +1,4 @@
-;; The colors in this file are from the original vim-powerline
+;; The colors in this file are from the original vim-powerline  -*- lexical-binding: nil; -*-
 ;; repository at https://github.com/Lokaltog/vim-powerline/blob/develop/autoload/Powerline/Colorschemes/default.vim
 
 (defun powerline--expand-alist (alist)

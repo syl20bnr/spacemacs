@@ -1,4 +1,4 @@
-;;; erc-yank --- Automagically create a Gist if pasting more than 5 lines
+;;; erc-yank --- Automagically create a Gist if pasting more than 5 lines  -*- lexical-binding: nil; -*-
 
 ;; Copyright (C) 2012-2024 John Wiegley
 

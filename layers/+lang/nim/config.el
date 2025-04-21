@@ -1,4 +1,4 @@
-;;; config.el --- Nim Configuration Layer for Spacemacs
+;;; config.el --- Nim Configuration Layer for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

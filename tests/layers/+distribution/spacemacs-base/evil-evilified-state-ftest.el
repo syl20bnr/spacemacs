@@ -1,4 +1,4 @@
-;;; core-evilified-state-ftest.el --- Spacemacs Functional Test File
+;;; core-evilified-state-ftest.el --- Spacemacs Functional Test File  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

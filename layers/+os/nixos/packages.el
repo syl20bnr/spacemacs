@@ -1,4 +1,4 @@
-;;; packages.el --- NixOS Layer packages File for Spacemacs
+;;; packages.el --- NixOS Layer packages File for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2015-2025 Sylvain Benner & Contributors
 ;;

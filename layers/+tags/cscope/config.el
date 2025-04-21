@@ -1,4 +1,4 @@
-;;; config.el --- cscope configuration File
+;;; config.el --- cscope configuration File  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2020-2025 Sylvain Benner & Contributors
 ;;

@@ -1,4 +1,4 @@
-;;; packages.el --- Tern Layer packages File for Spacemacs
+;;; packages.el --- Tern Layer packages File for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

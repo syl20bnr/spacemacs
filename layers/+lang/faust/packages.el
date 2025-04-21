@@ -1,4 +1,4 @@
-;;; packages.el --- faust layer packages file for Spacemacs.
+;;; packages.el --- faust layer packages file for Spacemacs.  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;
