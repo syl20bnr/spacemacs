@@ -99,6 +99,7 @@ and its values are removed."
   "simplistic dumping of variables in VARLIST to a file FILENAME"
   (with-temp-file filename
     (spacemacs/dump-vars varlist (current-buffer))
+    (elisp-enable-lexical-binding)
     (make-directory (file-name-directory filename) t)))
 
 ;; From https://stackoverflow.com/a/2322164
