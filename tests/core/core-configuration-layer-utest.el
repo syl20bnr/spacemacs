@@ -1119,10 +1119,10 @@
     (should (and
              (equal '(layer-shadow-1) (oref (configuration-layer/get-layer
                                              'layer-shadow-2)
-                                            :can-shadow))
+                                            can-shadow))
              (equal '(layer-shadow-2) (oref (configuration-layer/get-layer
                                              'layer-shadow-1)
-                                            :can-shadow))))))
+                                            can-shadow))))))
 
 (ert-deftest test-declare-shadow-relation--is-idempotent ()
   (let ((configuration-layer--indexed-layers (make-hash-table)))
@@ -1139,10 +1139,10 @@
        'layer-shadow-1))
     (should (and (equal '(layer-shadow-1)
                         (oref (configuration-layer/get-layer 'layer-shadow-2)
-                              :can-shadow))
+                              can-shadow))
                  (equal '(layer-shadow-2)
                         (oref (configuration-layer/get-layer 'layer-shadow-1)
-                              :can-shadow))))))
+                              can-shadow))))))
 
 (ert-deftest test-declare-shadow-relation--layer-1-shadows-multiple-layers ()
   (let ((configuration-layer--indexed-layers (make-hash-table)))
@@ -1156,13 +1156,13 @@
      'layer-shadow-3)
     (should (equal '(layer-shadow-1)
                    (oref (configuration-layer/get-layer 'layer-shadow-2)
-                         :can-shadow)))
+                         can-shadow)))
     (should (equal '(layer-shadow-1)
                    (oref (configuration-layer/get-layer 'layer-shadow-3)
-                         :can-shadow)))
+                         can-shadow)))
     (should (equal '(layer-shadow-3 layer-shadow-2)
                    (oref (configuration-layer/get-layer 'layer-shadow-1)
-                         :can-shadow)))))
+                         can-shadow)))))
 
 (ert-deftest test-declare-shadow-relation--unknown-layer-shadows-known-layer ()
   (let ((configuration-layer--indexed-layers (make-hash-table)))
@@ -1177,7 +1177,7 @@
        'layer-shadow-2)
       (should (eq 'unspecified
                   (oref (configuration-layer/get-layer 'layer-shadow-2)
-                        :can-shadow))))))
+                        can-shadow))))))
 
 (ert-deftest test-declare-shadow-relation--known-layer-shadows-unknown-layer ()
   (let ((configuration-layer--indexed-layers (make-hash-table)))
@@ -2260,7 +2260,7 @@
     (helper--add-packages (list pkg) t)
     (defun layer1/init-pkg () (push 'init witness))
     (defun layer2/pre-init-pkg () (push 'pre-init witness))
-    (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
+    (configuration-layer//configure-packages-2 `(,(oref pkg name)))
     (should (equal '(init pre-init) witness))))
 
 (ert-deftest test-configure-packages-2--post-init-is-evaluated-after-init ()
@@ -2276,7 +2276,7 @@
     (helper--add-packages (list pkg) t)
     (defun layer1/init-pkg () (push 'init witness))
     (defun layer2/post-init-pkg () (push 'post-init witness))
-    (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
+    (configuration-layer//configure-packages-2 `(,(oref pkg name)))
     (should (equal '(post-init init) witness))))
 
 (ert-deftest test-configure-packages-2--package-w/-layer-owner-is-configured()
@@ -2287,7 +2287,7 @@
     (helper--add-packages (list pkg) t)
     (mocker-let
         ((configuration-layer//configure-package (p) ((:occur 1))))
-      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg name))))))
 
 (ert-deftest test-configure-packages-2--site-package-is-configured()
   (let ((pkg (cfgl-package :name 'pkg :owners '(layer1) :location 'site))
@@ -2297,7 +2297,7 @@
     (helper--add-packages (list pkg) t)
     (mocker-let
         ((configuration-layer//configure-package (p) ((:occur 1))))
-      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg name))))))
 
 (ert-deftest test-configure-packages-2--toggle-t-is-configured ()
   (let ((pkg (cfgl-package :name 'pkg :owners '(layer1) :toggle t))
@@ -2307,7 +2307,7 @@
     (helper--add-packages (list pkg) t)
     (mocker-let
         ((configuration-layer//configure-package (p) ((:occur 1))))
-      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg name))))))
 
 (ert-deftest test-configure-packages-2--toggle-nil-is-not-configured ()
   (let ((pkg (cfgl-package :name 'pkg :owners '(layer1) :toggle nil))
@@ -2318,7 +2318,7 @@
     (mocker-let
         ((configuration-layer//configure-package (p) nil)
          (spacemacs-buffer/message (m) ((:output nil))))
-      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg name))))))
 
 (ert-deftest test-configure-packages-2--protected-package-is-configured()
   (let ((pkg (cfgl-package :name 'pkg :owners '(layer1) :protected t))
@@ -2328,7 +2328,7 @@
     (helper--add-packages (list pkg) t)
     (mocker-let
         ((configuration-layer//configure-package (p) ((:occur 1))))
-      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg name))))))
 
 (ert-deftest test-configure-packages-2--protected-excluded-package-is-configured()
   (let ((pkg (cfgl-package :name 'pkg :owners '(layer1) :excluded t :protected t))
@@ -2338,7 +2338,7 @@
     (helper--add-packages (list pkg) t)
     (mocker-let
         ((configuration-layer//configure-package (p) ((:occur 1))))
-      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg name))))))
 
 (ert-deftest test-configure-packages-2--excluded-package-is-not-configured()
   (let ((pkg (cfgl-package :name 'pkg :owners '(layer1) :excluded t))
@@ -2349,7 +2349,7 @@
     (mocker-let
         ((configuration-layer//configure-package (p) nil)
          (spacemacs-buffer/message (m) ((:output nil))))
-      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg name))))))
 
 (ert-deftest test-configure-packages-2--package-w/o-owner-is-not-configured()
   (let ((pkg (cfgl-package :name 'pkg :owners nil))
@@ -2360,7 +2360,7 @@
     (mocker-let
         ((configuration-layer//configure-package (p) nil)
          (spacemacs-buffer/message (m) ((:output nil))))
-      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg name))))))
 
 (ert-deftest
     test-configure-packages-2--package-owned-by-dotfile-is-not-configured()
@@ -2372,7 +2372,7 @@
     (mocker-let
         ((configuration-layer//configure-package (p) nil)
          (spacemacs-buffer/message (m) ((:output nil))))
-      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg name))))))
 
 (ert-deftest test-configure-packages-2--lazy-install-package-is-not-configured()
   (let ((pkg (cfgl-package :name 'pkg :owners '(layer) :lazy-install t))
@@ -2383,7 +2383,7 @@
     (mocker-let
         ((configuration-layer//configure-package (p) nil)
          (spacemacs-buffer/message (m) ((:output nil))))
-      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg name))))))
 
 (ert-deftest
     test-configure-packages-2--local-package-w/-layer-owner-update-load-path()
@@ -2398,7 +2398,7 @@
     (helper--add-packages (list pkg) t)
     (mocker-let
         ((configuration-layer//configure-package (p) ((:occur 1))))
-      (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
+      (configuration-layer//configure-packages-2 `(,(oref pkg name)))
       (push "/path/local/pkg/" expected-load-path)
       (should (equal expected-load-path load-path)))))
 
@@ -2410,7 +2410,7 @@
         (expected-load-path load-path)
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
-    (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
+    (configuration-layer//configure-packages-2 `(,(oref pkg name)))
     (push (file-name-as-directory
            (concat spacemacs-private-directory "local/pkg"))
           expected-load-path)
@@ -2426,7 +2426,7 @@
     (helper--add-packages (list pkg) t)
     (mocker-let
         ((spacemacs-buffer/message (m) ((:output nil))))
-      (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
+      (configuration-layer//configure-packages-2 `(,(oref pkg name)))
       (should (equal load-path old-load-path)))))
 
 (ert-deftest
@@ -2439,7 +2439,7 @@
         (expected-load-path load-path)
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
-    (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
+    (configuration-layer//configure-packages-2 `(,(oref pkg name)))
     (push spacemacs-docs-directory expected-load-path)
     (should (equal expected-load-path load-path))))
 
@@ -2456,7 +2456,7 @@
         ((configuration-layer//warning
           (msg &rest args)
           ((:record-cls 'mocker-stub-record :output nil :occur 1))))
-      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
+      (configuration-layer//configure-packages-2 `(,(oref pkg name))))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//get-package-recipe
