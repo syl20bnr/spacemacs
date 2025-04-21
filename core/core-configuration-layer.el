@@ -173,15 +173,15 @@ subdirectory of ROOT is used."
                  :type boolean
                  :documentation
                  "If non-nil then the layer needs to be installed")
-   (disabled :initarg :disabled-for
-             :initform nil
-             :type list
-             :documentation "A list of layers where this layer is disabled.")
-   (enabled :initarg :enabled-for
-            :initform 'unspecified
-            :type (satisfies (lambda (x) (or (listp x) (eq 'unspecified x))))
-            :documentation
-            "A list of layers where this layer is enabled. (Takes precedence over `:disabled-for'.)")
+   (disabled-for :initarg :disabled-for
+                 :initform nil
+                 :type list
+                 :documentation "A list of layers where this layer is disabled.")
+   (enabled-for :initarg :enabled-for
+                :initform 'unspecified
+                :type (satisfies (lambda (x) (or (listp x) (eq 'unspecified x))))
+                :documentation
+                "A list of layers where this layer is enabled. (Takes precedence over `:disabled-for'.)")
    ;; Note:
    ;; 'can-shadow' is a commutative relation:
    ;;     if Y 'can-shadow' X then X 'can-shadow' Y
