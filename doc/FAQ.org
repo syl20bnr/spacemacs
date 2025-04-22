@@ -43,6 +43,7 @@
   - [[#make-spell-checking-support-curly-quotes-or-any-other-character][Make spell-checking support curly quotes (or any other character)?]]
   - [[#use-spacemacs-as-the-editor-for-git-commits][Use Spacemacs as the =$EDITOR= for git commits?]]
   - [[#try-spacemacs-without-modifying-my-existing-emacs-configuration][Try Spacemacs without modifying my existing Emacs configuration?]]
+  - [[#try-the-default-spacemacs-config-without-modifying-my-existing-spacemacs][Try the default Spacemacs config without modifying my existing .spacemacs?]]
   - [[#make-copypaste-working-with-the-mouse-in-x11-terminals][Make copy/paste working with the mouse in X11 terminals?]]
   - [[#use-helm-ag-to-search-only-in-files-of-a-certain-type][Use =helm-ag= to search only in files of a certain type?]]
   - [[#modify-spacemacs-documentation-look-space-doc-mode][Modify spacemacs documentation look (space-doc-mode)]]
@@ -542,6 +543,20 @@ the new configuration. This can be achieved easily using the following steps:
 
 If you're on Fish shell, you will need to modify the last command to:
 =env HOME=$HOME/spacemacs emacs=
+
+** Try the default Spacemacs config without modifying my existing .spacemacs?
+You can pass either the =--default-dotspacemacs= (recommended) or
+=--no-dotspacemacs= options on the command line:
+
+#+begin_src sh
+  emacs --default-dotspacemacs
+#+end_src
+
+=--default-dotspacemacs= inhibits loading your real =~/.spacemacs=,
+loading =dotspacemacs-template.el= instead.
+
+=--no-dotspacemacs= does the same, but does not load
+=dotspacemacs-template.el= either..
 
 ** Make copy/paste working with the mouse in X11 terminals?
 It is possible to disable the mouse support in X11 terminals in order to
