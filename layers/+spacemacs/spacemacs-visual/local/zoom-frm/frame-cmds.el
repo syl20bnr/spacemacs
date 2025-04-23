@@ -1,4 +1,4 @@
-;;; frame-cmds.el --- Frame and window commands (interactive functions).  -*- lexical-binding: nil; -*-
+;;; frame-cmds.el --- Frame and window commands (interactive functions).
 ;;
 ;; Filename: frame-cmds.el
 ;; Description: Frame and window commands (interactive functions).
