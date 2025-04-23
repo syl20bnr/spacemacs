@@ -548,9 +548,9 @@ If you're on Fish shell, you will need to modify the last command to:
 You can pass either the =--default-dotspacemacs= (recommended) or
 =--no-dotspacemacs= options on the command line:
 
-#+begin_src sh
+#+BEGIN_SRC sh
   emacs --default-dotspacemacs
-#+end_src
+#+END_SRC
 
 =--default-dotspacemacs= inhibits loading your real =~/.spacemacs=,
 loading =dotspacemacs-template.el= instead.
