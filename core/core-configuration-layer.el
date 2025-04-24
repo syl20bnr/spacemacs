@@ -847,7 +847,7 @@ a new object."
                          "replacing it with layer %S.")
                  pkg-name (car (oref obj owners)) layer-name)))
       ;; last owner wins over the previous one
-      (object-add-to-list obj :owners layer-name))
+      (object-add-to-list obj 'owners layer-name))
     ;; check consistency between package and defined init functions
     (unless (or ownerp
                 (eq 'dotfile layer-name)
@@ -876,9 +876,9 @@ a new object."
                        "layer %S does not own it.")
                pkg-name layer-name)))
     (when (fboundp pre-init-func)
-      (object-add-to-list obj :pre-layers layer-name))
+      (object-add-to-list obj 'pre-layers layer-name))
     (when (fboundp post-init-func)
-      (object-add-to-list obj :post-layers layer-name))
+      (object-add-to-list obj 'post-layers layer-name))
     obj))
 
 (define-button-type 'help-dotfile-variable
@@ -1199,7 +1199,7 @@ USEDP if non-nil indicates that made packages are used packages."
         ;; set :toggle to t for user defined package should be enabled default
         (unless (listp pkg)
           (oset obj toggle t)
-          (object-add-to-list obj :owners 'dotfile t)))
+          (object-add-to-list obj 'owners 'dotfile t)))
       (configuration-layer//add-package obj usedp)))
   (dolist (xpkg dotspacemacs-excluded-packages)
     (let ((obj (configuration-layer/get-package xpkg)))
