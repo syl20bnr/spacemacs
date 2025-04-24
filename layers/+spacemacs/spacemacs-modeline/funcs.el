@@ -100,7 +100,7 @@ Excluding which-key."
                  #'spacemacs//restore-buffers-powerline)))
 
 (defun spacemacs//prepare-diminish ()
-  (when spaceline-minor-modes-p
+  (when (bound-and-true-p spaceline-minor-modes-p)
     (let ((unicodep (dotspacemacs|symbol-value
                      dotspacemacs-mode-line-unicode-symbols)))
       (setq spaceline-minor-modes-separator
