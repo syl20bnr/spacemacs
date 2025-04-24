@@ -148,8 +148,8 @@ so we can restore it when turning `ido-vertical-mode' off")
   (list
    (concat "\n" indicator padding)                                           ; left bracket around prospect list
    ""                                                                        ; right bracket around prospect list
-   (concat (format (format "\n%%-%ds" (length indicator)) "") padding)       ; separator between prospects, depends on `ido-separator`
-   (concat (format (format "\n%%-%ds" (length indicator)) "") padding "...") ; inserted at the end of a truncated list of prospects
+   (concat (format (format "\n%%-%ds" (string-width indicator)) "") padding) ; separator between prospects, depends on `ido-separator`
+   (concat (format (format "\n%%-%ds" (string-width indicator)) "") padding "...") ; inserted at the end of a truncated list of prospects
    "["                                                                       ; left bracket around common match string
    "]"                                                                       ; right bracket around common match string
    " [No match]"
