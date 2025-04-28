@@ -138,15 +138,20 @@
     :defer t
     :init
     (spacemacs/set-leader-keys "gv=" 'diff-hl-diff-goto-hunk)
-    (if version-control-global-margin
-        (progn
-          (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-          (run-with-idle-timer 1 nil 'global-diff-hl-mode))
-      (run-with-idle-timer 1 nil 'diff-hl-margin-mode))
-    :config
-    (spacemacs|do-after-display-system-init
-      (setq diff-hl-side (if (eq version-control-diff-side 'left)
-                             'left 'right)))))
+    (setq diff-hl-side (if (eq version-control-diff-side 'left)
+                           'left 'right))
+    (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+    (define-advice turn-on-diff-hl-mode (:after (&rest _) AUTOMARGIN)
+      (and (memq version-control-margin '(t auto))
+           (not diff-hl-margin-mode)    ; not global mode
+           (not (display-graphic-p (window-frame (get-buffer-window))))
+           (diff-hl-margin-local-mode)
+           (diff-hl-update)))
+    (when (eq version-control-margin 'global)
+        (run-with-idle-timer 1 nil 'spacemacs/vcs-enable-margin-globally))
+    ;; The diff-hl-margin mode requests the diff-hl-mode to be enabled, so
+    ;; enable the diff-hl-mode anyway.
+    (run-with-idle-timer 1 nil 'global-diff-hl-mode)))
 
 (defun version-control/post-init-evil-unimpaired ()
   (define-key evil-normal-state-map (kbd "[ h") 'spacemacs/vcs-previous-hunk)
@@ -157,7 +162,7 @@
     :defer t
     :init
     ;; If you enable global minor mode
-    (when version-control-global-margin
+    (when version-control-margin
       (run-with-idle-timer 1 nil 'global-git-gutter-mode))
     (setq git-gutter:update-interval 2
           git-gutter:modified-sign " "
