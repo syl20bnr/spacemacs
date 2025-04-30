@@ -343,7 +343,6 @@ defer call using `spacemacs-post-user-config-hook'."
      (when spacemacs--delayed-user-theme
        (spacemacs/load-theme spacemacs--delayed-user-theme
                              spacemacs--fallback-theme t))
-     (spacemacs-buffer//startup-hook)
      (configuration-layer/display-summary)
      (spacemacs/check-for-new-version nil spacemacs-version-check-interval)
      (spacemacs-buffer/goto-link-line)
@@ -352,7 +351,7 @@ defer call using `spacemacs-post-user-config-hook'."
      ;; Redraw the spacemacs buffer with full org support
      ;; Before it must be drawn without org related features to
      ;; avoid loading build in org in emacs >= 29
-     (spacemacs-buffer/goto-buffer t t)
+     (spacemacs-buffer//startup-hook)
      ;; change gc settings at the last for it will take effect immediately
      (setq gc-cons-threshold (car dotspacemacs-gc-cons)
            gc-cons-percentage (cadr dotspacemacs-gc-cons))))
