@@ -25,11 +25,13 @@ add =github-copilot= to the existing =dotspacemacs-configuration-layers= list in
 file.
 
 In addition the github/copilot-language-server must be installed either manually with:
+
 #+BEGIN_SRC sh
   $ npm install -g @github/copilot-language-server
 #+END_SRC
 
 or via elisp by pressing:
+
 #+BEGIN_SRC elisp
   SPC SPC copilot-install-server
 #+END_SRC
@@ -48,7 +50,6 @@ be necessary to add the new binding manually. Details for this can be found [[ht
 For the chat interface a separate login procedure will be necessary once a chat is started.
 
 * Key bindings
-
 ** General
 
 | Key binding         | Description                                                             |

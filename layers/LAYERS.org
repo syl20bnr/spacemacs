@@ -3383,10 +3383,12 @@ Features:
 ** GitHub Copilot
 [[file:+web-services/github-copilot/README.org][+web-services/github-copilot/README.org]]
 
-This layer enables usage of [[https://github.com/features/copilot][GitHub Copilot]] in Spacemacs using [[https://github.com/copilot-emacs/copilot.el][copilot.el]].
+This layer enables usage of [[https://github.com/features/copilot][GitHub Copilot]] in Spacemacs.
 
 Features:
-- Provide access to ai powered code completions powered by [[https://github.com/features/copilot][GitHub Copilot]]
+- Ai powered code completions using [[https://github.com/copilot-emacs/copilot.el][copilot.el]]
+- Ai chat interactions using [[https://github.com/chep/copilot-chat.el][copilot-chat.el]]
+- Automatic generation of git commit messages using [[https://github.com/chep/copilot-chat.el][copilot-chat.el]]
 
 ** Hacker News
 [[file:+web-services/hackernews/README.org][+web-services/hackernews/README.org]]
