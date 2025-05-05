@@ -399,7 +399,8 @@ again layer configuration."
             (spacemacs-buffer/warning
              (format-message "Your default theme %s requires full package initialization, negating the benefit of `dotspacemacs-enable-package-quickstart'."
                              theme-name)))
-          (package-initialize 'no-activate)
+          (unless package--initialized
+            (package-initialize 'no-activate))
           (package-activate pkg-name)
           (spacemacs//activate-theme-packages (list default-theme)))
         (condition-case _
