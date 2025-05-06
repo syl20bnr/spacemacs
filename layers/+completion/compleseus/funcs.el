@@ -285,24 +285,6 @@ Note: this function relies on embark internals and might break upon embark updat
     ((eq major-mode 'org-mode) 'consult-org-heading)
     (t 'consult-imenu))))
 
-(defun spacemacs/consult-narrow-cycle-backward ()
-  "Cycle backward through the narrowing keys."
-  (interactive)
-  (if (eq compleseus-engine 'vertico)
-      (vertico-previous-group)
-    (message "cycling between groups is only supported for vertico")
-    )
-  )
-
-(defun spacemacs/consult-narrow-cycle-forward ()
-  "Cycle forward through the narrowing keys."
-  (interactive)
-  (if (eq compleseus-engine 'vertico)
-      (vertico-next-group)
-    (message "cycling between groups is only supported for vertico")
-    )
-  )
-
 (defun spacemacs/consult-edit ()
   "Export the consult buffer and make the buffer editable righ away."
   (interactive)

@@ -79,8 +79,6 @@ Delete the narrowing key again to return to all selections.
 | Key binding | Description                                      |
 |-------------+--------------------------------------------------|
 | ~<~         | View narrowing commands available                |
-| ~C-left~    | Cycle left through narrowing commands available  |
-| ~C-right~   | Cycle right through narrowing commands available |
 
 ** Edit consult buffer
 
