@@ -288,26 +288,20 @@ Note: this function relies on embark internals and might break upon embark updat
 (defun spacemacs/consult-narrow-cycle-backward ()
   "Cycle backward through the narrowing keys."
   (interactive)
-  (when consult--narrow-keys
-    (consult-narrow
-     (if consult--narrow
-         (let ((idx (seq-position consult--narrow-keys
-                                  (assq consult--narrow consult--narrow-keys))))
-           (unless (eq idx 0)
-             (car (nth (1- idx) consult--narrow-keys))))
-       (caar (last consult--narrow-keys))))))
+  (if (eq compleseus-engine 'vertico)
+      (vertico-previous-group)
+    (message "cycling between groups is only supported for vertico")
+    )
+  )
 
 (defun spacemacs/consult-narrow-cycle-forward ()
   "Cycle forward through the narrowing keys."
   (interactive)
-  (when consult--narrow-keys
-    (consult-narrow
-     (if consult--narrow
-         (let ((idx (seq-position consult--narrow-keys
-                                  (assq consult--narrow consult--narrow-keys))))
-           (unless (eq idx (1- (length consult--narrow-keys)))
-             (car (nth (1+ idx) consult--narrow-keys))))
-       (caar consult--narrow-keys)))))
+  (if (eq compleseus-engine 'vertico)
+      (vertico-next-group)
+    (message "cycling between groups is only supported for vertico")
+    )
+  )
 
 (defun spacemacs/consult-edit ()
   "Export the consult buffer and make the buffer editable righ away."
