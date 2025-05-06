@@ -288,26 +288,26 @@ Note: this function relies on embark internals and might break upon embark updat
 (defun spacemacs/consult-narrow-cycle-backward ()
   "Cycle backward through the narrowing keys."
   (interactive)
-  (when consult--narrow-keys
+  (when-let* ((narrow-keys (plist-get consult--narrow-config :keys)))
     (consult-narrow
      (if consult--narrow
-         (let ((idx (seq-position consult--narrow-keys
-                                  (assq consult--narrow consult--narrow-keys))))
+         (let ((idx (seq-position narrow-keys
+                                  (assq consult--narrow narrow-keys))))
            (unless (eq idx 0)
-             (car (nth (1- idx) consult--narrow-keys))))
-       (caar (last consult--narrow-keys))))))
+             (car (nth (1- idx) narrow-keys))))
+       (caar (last narrow-keys))))))
 
 (defun spacemacs/consult-narrow-cycle-forward ()
   "Cycle forward through the narrowing keys."
   (interactive)
-  (when consult--narrow-keys
+  (when-let* ((narrow-keys (plist-get consult--narrow-config :keys)))
     (consult-narrow
      (if consult--narrow
-         (let ((idx (seq-position consult--narrow-keys
-                                  (assq consult--narrow consult--narrow-keys))))
-           (unless (eq idx (1- (length consult--narrow-keys)))
-             (car (nth (1+ idx) consult--narrow-keys))))
-       (caar consult--narrow-keys)))))
+         (let ((idx (seq-position narrow-keys
+                                  (assq consult--narrow narrow-keys))))
+           (unless (eq idx (1- (length narrow-keys)))
+             (car (nth (1+ idx) narrow-keys))))
+       (caar narrow-keys)))))
 
 (defun spacemacs/consult-edit ()
   "Export the consult buffer and make the buffer editable righ away."
