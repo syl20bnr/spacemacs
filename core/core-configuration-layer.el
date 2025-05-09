@@ -2487,7 +2487,8 @@ Return nil if MODE does not appear in `auto-mode-alist'."
     (with-current-buffer (get-buffer-create spacemacs-buffer-name)
       (let ((buffer-read-only nil))
         (spacemacs-buffer/append
-         (format "\n%s packages loaded in %.3f seconds. Location counts: %s"
+         ;; The messsage should less than 76 characters for tty frame
+         (format "\n%s packages loaded in %.3fs (%s)"
                  (cadr (assq 'total stats))
                  configuration-layer--spacemacs-startup-time
                  (string-join
