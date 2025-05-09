@@ -18,5 +18,6 @@
     :config
     (minuet-set-optional-options minuet-openai-fim-compatible-options :max_tokens 64)
     (plist-put (intern (format "minuet-%s-options" minuet-provider)) :api-key #'(defun minuet--api-key () minuet-provider-api-key))
-    (message "DEBUG: minuet-openai-fim-compatible-options is %S" minuet-openai-fim-compatible-options))
+    ;; (message "DEBUG: minuet-openai-fim-compatible-options is %S" minuet-openai-fim-compatible-options)
+    )
   )
