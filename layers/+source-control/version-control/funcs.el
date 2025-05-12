@@ -70,25 +70,27 @@
 (defun spacemacs/vcs-enable-margin ()
   (interactive)
   (let ((current-prefix-arg t))
-    (call-interactively
-     (cl-case version-control-diff-tool
-       (diff-hl     'diff-hl-mode)
-       (git-gutter  'git-gutter-mode)))))
+    (cl-case version-control-diff-tool
+      (diff-hl
+       (diff-hl-margin-local-mode)
+       (diff-hl-update))
+      (git-gutter  (call-interactively 'git-gutter-mode)))))
 
 (defun spacemacs/vcs-disable-margin ()
   (interactive)
   (let ((current-prefix-arg nil))
-    (call-interactively
-     (cl-case version-control-diff-tool
-       (diff-hl     'diff-hl-mode)
-       (git-gutter  'git-gutter-mode)))))
+    (cl-case version-control-diff-tool
+      (diff-hl
+       (diff-hl-margin-local-mode -1)
+       (diff-hl-update))
+      (git-gutter  (call-interactively 'git-gutter-mode)))))
 
 (defun spacemacs/vcs-enable-margin-globally ()
   (interactive)
   (let ((current-prefix-arg t))
     (call-interactively
      (cl-case version-control-diff-tool
-       (diff-hl     'global-diff-hl-mode)
+       (diff-hl     'diff-hl-margin-mode)
        (git-gutter  'global-git-gutter-mode)))))
 
 (defun spacemacs/vcs-disable-margin-globally ()
@@ -96,7 +98,7 @@
   (let ((current-prefix-arg nil))
     (call-interactively
      (cl-case version-control-diff-tool
-       (diff-hl     'global-diff-hl-mode)
+       (diff-hl     'diff-hl-margin-mode)
        (git-gutter  'global-git-gutter-mode)))))
 
 (defun spacemacs/vcs-show-help ()
@@ -107,13 +109,13 @@
 (defun spacemacs/vcs-margin-p ()
   (interactive)
   (cl-case version-control-diff-tool
-    (diff-hl     diff-hl-mode)
+    (diff-hl     diff-hl-margin-local-mode)
     (git-gutter  (bound-and-true-p git-gutter-mode))))
 
 (defun spacemacs/vcs-margin-global-p ()
   (interactive)
   (cl-case version-control-diff-tool
-    (diff-hl     global-diff-hl-mode)
+    (diff-hl     diff-hl-margin-mode)
     (git-gutter  global-git-gutter-mode)))
 
 (spacemacs|add-toggle version-control-margin
