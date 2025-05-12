@@ -1976,7 +1976,9 @@ RNAME is the name symbol of another existing layer."
                  (let* ((owner (configuration-layer/get-layer owner)))
                    (when owner (oref owner dir))))))
       (if dir
-          (file-name-as-directory (format "%slocal/%S/" dir pkg-name))
+          (and-let* ((path (format "%slocal/%S/" dir pkg-name))
+                     ((file-exists-p path)))
+            path)
         (configuration-layer//warning
          "Cannot find path location path for package %S." pkg-name)
         nil)))))
