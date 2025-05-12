@@ -373,6 +373,11 @@ Point size is recommended, because it's device independent. (default 10.0)"
            (repeat (cons string sexp)))
   'spacemacs-dotspacemacs-init)
 
+(spacemacs|defc dotspacemacs-default-icons-font 'all-the-icons
+  "Default icons font, it can be `all-the-icons' or `nerd-fonts'."
+  '(choice (const all-the-icons) (const nerd-icons))
+  'spacemacs-dotspacemacs-init)
+
 (spacemacs|defc dotspacemacs-folding-method 'evil
   "Code folding method. Possible values are `evil', `origami' and `vimish'."
   '(choice (const evil) (const origami) (const vimish))

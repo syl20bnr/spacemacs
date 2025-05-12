@@ -28,7 +28,7 @@
         desktop
         (display-fill-column-indicator :location built-in)
         hl-todo
-        nerd-icons
+        (nerd-icons :toggle (eq dotspacemacs-default-icons-font 'nerd-icons))
         popup
         popwin
         posframe
