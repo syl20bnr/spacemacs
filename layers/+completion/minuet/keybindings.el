@@ -1,11 +1,10 @@
-(spacemacs/declare-prefix "ai" "AI Completion - minuet")
+(spacemacs/declare-prefix
+  "ai" "AI Completion - minuet"
+  "aic" "Configurations")
+
 (spacemacs/set-leader-keys
-  "aii" 'minuet-complete-with-minibuffer
-  "aiI" 'minuet-show-suggestion
+  "aii" 'minuet-show-suggestion
+  "aiI" 'minuet-complete-with-minibuffer
   "aicp" 'minuet-configure-provider
-  "ail" 'minuet-accept-suggestion-line
-  "aiL" 'minuet-accept-suggestion
-  "aij" 'minuet-next-suggestion
-  "aik" 'minuet-previous-suggestion
-  "aih" 'minuet-dismiss-suggestion
+  "aiM" 'minuet-auto-suggestion-mode
   )
