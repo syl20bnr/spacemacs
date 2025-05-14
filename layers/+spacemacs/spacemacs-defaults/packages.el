@@ -42,7 +42,7 @@
     (image-mode :location built-in)
     (imenu :location built-in)
     (package-menu :location built-in)
-    (page-break-lines :location local)
+    page-break-lines
     quickrun
     (recentf :location built-in)
     (savehist :location built-in)
@@ -353,9 +353,9 @@
     :mode package-menu-mode))
 
 (defun spacemacs-defaults/init-page-break-lines ()
-  (require 'page-break-lines)
-  (global-page-break-lines-mode t)
-  (spacemacs|hide-lighter page-break-lines-mode))
+  (use-package page-break-lines
+    :init (global-page-break-lines-mode t)
+    :config (spacemacs|hide-lighter page-break-lines-mode)))
 
 (defun spacemacs-defaults/init-quickrun ()
   (use-package quickrun

@@ -32,7 +32,6 @@
 (require 'core-load-paths)
 (require 'core-emacs-backports)
 (require 'core-env)
-(require 'page-break-lines)
 (require 'core-hooks)
 (require 'core-debug)
 (require 'core-command-line)

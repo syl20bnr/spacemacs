@@ -151,7 +151,8 @@ It's cleared when the idle timer runs.")
   :syntax-table nil
   :abbrev-table nil
   (buffer-disable-undo)
-  (page-break-lines-mode +1)
+  (with-eval-after-load 'page-break-lines
+    (page-break-lines-mode))
   (with-eval-after-load 'evil
     (progn
       (evil-set-initial-state 'spacemacs-buffer-mode 'motion)
@@ -1608,7 +1609,8 @@ If a prefix argument is given, switch to it in an other, possibly new window."
                                              80)
             spacemacs-buffer--last-width spacemacs-buffer--window-width)
       (with-current-buffer (get-buffer-create spacemacs-buffer-name)
-        (page-break-lines-mode)
+        (with-eval-after-load 'page-break-lines
+          (page-break-lines-mode))
         (save-excursion
           (when (> (buffer-size) 0)
             (setq save-line (line-number-at-pos))
