@@ -151,8 +151,6 @@ It's cleared when the idle timer runs.")
   :syntax-table nil
   :abbrev-table nil
   (buffer-disable-undo)
-  (with-eval-after-load 'page-break-lines
-    (page-break-lines-mode))
   (with-eval-after-load 'evil
     (progn
       (evil-set-initial-state 'spacemacs-buffer-mode 'motion)
@@ -342,10 +340,10 @@ Right justified, based on the Spacemacs buffers window width."
     (setq spacemacs-buffer--icons-font
           (or (pcase dotspacemacs-startup-buffer-show-icons
                 ('t (when (or (eq dotspacemacs-default-icons-font 'nerd-icons)
-                             (display-graphic-p))
-                     dotspacemacs-default-icons-font))
+                              (display-graphic-p))
+                      dotspacemacs-default-icons-font))
                 ('display-graphic-p (when (display-graphic-p)
-                                     dotspacemacs-default-icons-font)))
+                                      dotspacemacs-default-icons-font)))
               'none)))
   (unless (or skip-require
               (memq spacemacs-buffer--icons-font '(nil none))
@@ -1609,8 +1607,6 @@ If a prefix argument is given, switch to it in an other, possibly new window."
                                              80)
             spacemacs-buffer--last-width spacemacs-buffer--window-width)
       (with-current-buffer (get-buffer-create spacemacs-buffer-name)
-        (with-eval-after-load 'page-break-lines
-          (page-break-lines-mode))
         (save-excursion
           (when (> (buffer-size) 0)
             (setq save-line (line-number-at-pos))

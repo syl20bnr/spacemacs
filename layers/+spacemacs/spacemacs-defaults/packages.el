@@ -355,7 +355,9 @@
 (defun spacemacs-defaults/init-page-break-lines ()
   (use-package page-break-lines
     :init (global-page-break-lines-mode t)
-    :config (spacemacs|hide-lighter page-break-lines-mode)))
+    :config
+    (spacemacs|hide-lighter page-break-lines-mode)
+    (add-to-list 'page-break-lines-modes 'spacemacs-buffer-mode)))
 
 (defun spacemacs-defaults/init-quickrun ()
   (use-package quickrun
