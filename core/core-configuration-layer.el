@@ -348,11 +348,6 @@ is ignored."
   (and (not (memq (oref pkg location) '(built-in local)))
        (not (stringp (oref pkg location)))))
 
-(cl-defmethod cfgl-package-updateable-p ((pkg cfgl-package))
-  "Return non-nil if PKG can be updated automatically."
-  (and (not (memq (oref pkg location) '(built-in site local)))
-       (not (stringp (oref pkg location)))))
-
 (cl-defmethod cfgl-package-get-safe-owner ((pkg cfgl-package))
   "Safe method to return the name of the layer which owns PKG."
   ;; The owner of a package is the first *used* layer in `:owners' slot.
@@ -1866,7 +1861,7 @@ RNAME is the name symbol of another existing layer."
         (cur-version (configuration-layer//get-package-version-string pkg-name))
         (quelpa-upgrade-p t)
         new-version)
-    (when (and pkg cur-version (cfgl-package-updateable-p pkg))
+    (when cur-version
       (setq new-version
             (if recipe
                 (or (quelpa-checkout (configuration-layer//make-quelpa-recipe pkg)
@@ -1874,6 +1869,7 @@ RNAME is the name symbol of another existing layer."
                     cur-version)
               (configuration-layer//get-latest-package-version-string
                pkg-name)))
+      ;; (message "%s: %s > %s ?" pkg-name cur-version new-version)
       (if new-version
           (version< cur-version new-version)
         (cl-pushnew pkg-name
