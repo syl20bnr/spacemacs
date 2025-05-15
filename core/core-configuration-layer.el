@@ -344,7 +344,11 @@ is ignored."
        (cfgl-package-enabled-p pkg inhibit-messages)))
 
 (cl-defmethod cfgl-package-distant-p ((pkg cfgl-package))
-  "Return non-nil if PKG is a distant package (i.e. not built-in Emacs)."
+  "Return non-nil if PKG is a distant package (i.e. not built-in Emacs).
+
+Site packages are not built-in to Emacs itself but instead must be
+provided with the Emacs distribution (site-lisp).  We do not consider
+them distant,to avoid attempting and failing to install them from ELPA."
   (and (not (memq (oref pkg location) '(built-in site local)))
        (not (stringp (oref pkg location)))))
 
