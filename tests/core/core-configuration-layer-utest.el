@@ -379,12 +379,12 @@
     (helper--add-layers `(,(cfgl-layer :name 'layer1)) t)
     (should (not (cfgl-package-distant-p pkg)))))
 
-(ert-deftest test-cfgl-package-distant-p--site-is-distant ()
+(ert-deftest test-cfgl-package-distant-p--site-is-not-distant ()
   (let ((pkg (cfgl-package :name 'testpkg
                            :owners '(layer1)
                            :location 'site)))
     (helper--add-layers `(,(cfgl-layer :name 'layer1)) t)
-    (should (cfgl-package-distant-p pkg))))
+    (should (not (cfgl-package-distant-p pkg)))))
 
 (ert-deftest test-cfgl-package-distant-p--local-is-not-distant ()
   (let ((pkg (cfgl-package :name 'testpkg
@@ -1512,7 +1512,7 @@
          (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-packages test-filter-distant-packages--test-data t)
     (should
-     (equal '(pkg9 pkg8 pkg6 pkg5 pkg2)
+     (equal '(pkg9 pkg8 pkg6 pkg5)
             (configuration-layer//filter-distant-packages packages t)))))
 
 (ert-deftest test-filter-distant-packages--return-only-unused-packages ()
@@ -1522,7 +1522,7 @@
         (configuration-layer--indexed-packages (make-hash-table)))
     (helper--add-packages test-filter-distant-packages--test-data t)
     (should
-     (equal '(pkg18 pkg17 pkg16 pkg15 pkg14 pkg11 pkg9 pkg8 pkg7 pkg6 pkg5 pkg2)
+     (equal '(pkg18 pkg17 pkg16 pkg15 pkg14 pkg9 pkg8 pkg7 pkg6 pkg5)
             (configuration-layer//filter-distant-packages packages nil)))))
 
 ;; ---------------------------------------------------------------------------
