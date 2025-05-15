@@ -55,7 +55,10 @@
   ;; mu4e, load `mu4e-autoloads' explicitly.
   ;;
   ;; See https://github.com/syl20bnr/spacemacs/issues/16931
-  (require 'mu4e-autoloads)
+  (condition-case _
+      (require 'mu4e-autoloads)
+    (error
+     (spacemacs-buffer/error "Could not activate `mu4e'.  It is a site package and must be installed with your Emacs distribution")))
   (use-package mu4e
     :defer t
     :init
