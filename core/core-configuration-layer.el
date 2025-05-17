@@ -22,7 +22,6 @@
 
 
 (require 'cl-lib)
-(require 'epg)
 (require 'eieio)
 (require 'subr-x)
 (require 'package)
@@ -2693,6 +2692,8 @@ MSG is an additional message append to the generic error."
                    "Do you still want to install the stable ELPA repository ?")
            configuration-layer-stable-elpa-name
            reason)))
+
+(autoload 'epg-context-home-directory "epg") ; autoload it for it's in setf
 
 (defun configuration-layer//stable-elpa-verify-archive ()
   "Verify the downloaded stable ELPA repository archive.
