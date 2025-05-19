@@ -25,10 +25,9 @@
 
 (defun dtrt-indent/init-dtrt-indent ()
   (use-package dtrt-indent
-    :hook (prog-mode .
-              (lambda ()
-                (dtrt-indent-mode)
-                (dtrt-indent-adapt)))
+    :hook (prog-mode . #'(lambda ()
+                           (dtrt-indent-mode)
+                           (dtrt-indent-adapt)))
     :config
     (spacemacs|hide-lighter dtrt-indent-mode)))
 
