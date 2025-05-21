@@ -232,8 +232,8 @@ applied.  This setting requires
   "Path to a (preferably GNU) tar command.
 Certain package names (e.g., \"@\") may not work properly with a BSD tar.
 
-On MacOS it is possible to install coreutils using Homebrew or
-similar, which will provide the GNU timeout program as
+On MacOS it is possible to install gnu-tar using Homebrew or
+similar, which will provide the GNU tar program as
 \"gtar\"."
   :group 'package-build
   :type '(file :must-match t))
