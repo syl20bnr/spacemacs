@@ -47,6 +47,7 @@
   - [[#keyboard-layout][Keyboard-layout]]
 - [[#miscellaneous][Miscellaneous]]
   - [[#copy-as-format][Copy-as-format]]
+  - [[#denote][Denote]]
   - [[#dtrt-indent][Dtrt-indent]]
   - [[#ietf][Ietf]]
   - [[#multiple-cursors][Multiple-cursors]]
@@ -757,6 +758,16 @@ This layer adds support for [[https://github.com/sshaw/copy-as-format][copy-as-f
 
 Features:
 - Function to copy buffer locations as GitHub/Slack/JIRA/HipChat/... formatted code
+
+** Denote
+[[file:+misc/denote/README.org][+misc/denote/README.org]]
+
+Adds the [[https://protesilaos.com/emacs/denote][denote package]] and related tools for note taking.
+
+Features:
+- Simple notes for Emacs with an efficient file-naming scheme
+- List and filter notes in a tabulated view using =denote-menu=
+- Consult notes via =consult-denote= if the =compleseus= layer is active
 
 ** Dtrt-indent
 [[file:+misc/dtrt-indent/README.org][+misc/dtrt-indent/README.org]]

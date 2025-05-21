@@ -1,7 +1,8 @@
 #+TITLE: Denote layer
+
 #+TAGS: layer|misc
 
-* Table of Contents                                       :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -11,9 +12,9 @@
 Adds the [[https://protesilaos.com/emacs/denote][denote package]] and related tools for note taking.
 
 ** Features:
-  - Simple notes for Emacs with an efficient file-naming scheme
-  - List and filter notes in a tabulated view using =denote-menu=
-  - Consult notes via =consult-denote= if the =compleseus= layer is active
+- Simple notes for Emacs with an efficient file-naming scheme
+- List and filter notes in a tabulated view using =denote-menu=
+- Consult notes via =consult-denote= if the =compleseus= layer is active
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -22,7 +23,7 @@ file.
 
 * Key bindings
 
-| Key Binding | Description                                                            |
+| Key binding | Description                                                            |
 |-------------+------------------------------------------------------------------------|
 | ~SPC a D n~ | Create a new note with the appropriate metadata and file name.         |
 | ~SPC a D d~ | Produce Dired buffer with sorted files from variable denote-directory. |
@@ -31,16 +32,16 @@ file.
 | ~SPC a D R~ | Rename FILE using its front matter as input.                           |
 | ~SPC a D m~ | Display list of Denote files in variable ~denote-directory~.           |
 
-When the =compleseus= layer is active, the following additional keybindings are available:
+When the =compleseus= layer is active, the following additional key bindings are available:
 
-| Key Binding | Description         |
+| Key binding | Description         |
 |-------------+---------------------|
 | ~SPC a D f~ | consult-denote-find |
 | ~SPC a D g~ | consult-denote-grep |
 
-On =denote-menu= buffers, the following mode specific keybindings are available:
+On =denote-menu= buffers, the following mode specific key bindings are available:
 
-| Key Binding | Description                                                            |
+| Key binding | Description                                                            |
 |-------------+------------------------------------------------------------------------|
 | ~SPC m /~   | Filter tabulated list entries matching REGEXP.                         |
 | ~SPC m k~   | Prompt for KEYWORDS and filters the list accordingly.                  |
