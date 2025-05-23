@@ -217,32 +217,6 @@ Equivalent to: autoflake --remove-all-unused-imports --in-place <FILE>"
           (t (message "pyenv: version `%s' is not installed (set by %s)"
                       version file-path)))))
 
-(defun spacemacs//pyvenv-mode-set-local-virtualenv ()
-  "Set pyvenv virtualenv from \".venv\" by looking in parent directories.
-Handle \".venv\" being a virtualenv directory or a file specifying either
-absolute or relative virtualenv path. Relative path is checked relative to
-location of \".venv\" file, then relative to pyvenv-workon-home()."
-  (interactive)
-  (when-let* ((root-path (locate-dominating-file default-directory ".venv"))
-              (file-path (expand-file-name ".venv" root-path)))
-    (cond ((file-directory-p file-path)
-           (pyvenv-activate file-path)
-           (setq-local pyvenv-activate file-path))
-          (t (let* ((virtualenv-path-in-file
-                     (with-temp-buffer
-                       (insert-file-contents-literally file-path)
-                       (buffer-substring-no-properties (line-beginning-position)
-                                                       (line-end-position))))
-                    (virtualenv-abs-path
-                     (if (file-name-absolute-p virtualenv-path-in-file)
-                         virtualenv-path-in-file
-                       (format "%s/%s" root-path virtualenv-path-in-file))))
-               (cond ((file-directory-p virtualenv-abs-path)
-                      (pyvenv-activate virtualenv-abs-path)
-                      (setq-local pyvenv-activate virtualenv-abs-path))
-                     (t (pyvenv-workon virtualenv-path-in-file)
-                        (setq-local pyvenv-workon virtualenv-path-in-file))))))))
-
 
 ;; Tests
 
@@ -562,6 +536,4 @@ If region is not active then send line."
   "Bind the keys for testing in Python."
   (spacemacs/declare-prefix-for-mode 'inferior-python-mode "mv" "virtualenv")
   (spacemacs/set-leader-keys-for-major-mode 'inferior-python-mode
-    "c" 'comint-clear-buffer
-    "r" 'pyvenv-restart-python
-    "vw" 'pyvenv-workon))
+    "c" 'comint-clear-buffer))
