@@ -1277,9 +1277,10 @@ LIST: list of `org-agenda' entries in the todo list."
     (when (string-prefix-p (car x) (expand-file-name recent-file))
       (setcdr x (cons (string-remove-prefix (car x) recent-file) (cdr x))))))
 
+(autoload #'projectile-known-projects "projectile")
 (defun spacemacs-buffer//recent-files-by-project ()
   (let ((by-project (mapcar (lambda (p) (cons (expand-file-name p) nil))
-                            (projectile-relevant-known-projects))))
+                            (projectile-known-projects))))
     (dolist (recent-file recentf-list by-project)
       (spacemacs-buffer//associate-to-project recent-file by-project))))
 
@@ -1366,7 +1367,6 @@ startup list.")
 
 (defun spacemacs-buffer//insert-recent-files-by-project (list-size)
   (unless recentf-mode (recentf-mode))
-  (unless projectile-mode (projectile-mode))
   (when (spacemacs-buffer//insert-files-by-dir-list
          (spacemacs-buffer||propertize-heading
           (spacemacs-buffer//font-icons-icon "" 'rocket)
@@ -1416,12 +1416,11 @@ startup list.")
     (insert spacemacs-buffer-list-separator)))
 
 (defun spacemacs-buffer//insert-projects (list-size)
-  (unless projectile-mode (projectile-mode))
   (when (spacemacs-buffer//insert-file-list
          (spacemacs-buffer||propertize-heading
           (spacemacs-buffer//font-icons-icon "" 'rocket)
           "Projects:" "p")
-         (spacemacs//subseq (projectile-relevant-known-projects)
+         (spacemacs//subseq (projectile-known-projects)
                             0 list-size))
     (spacemacs-buffer||add-shortcut "p" "Projects:")
     (insert spacemacs-buffer-list-separator)))
