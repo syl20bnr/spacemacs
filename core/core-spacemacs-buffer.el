@@ -1277,7 +1277,7 @@ LIST: list of `org-agenda' entries in the todo list."
     (when (string-prefix-p (car x) (expand-file-name recent-file))
       (setcdr x (cons (string-remove-prefix (car x) recent-file) (cdr x))))))
 
-(autoload #'projectile-known-projects "projectile")
+(autoload 'projectile-known-projects "projectile")
 (defun spacemacs-buffer//recent-files-by-project ()
   (let ((by-project (mapcar (lambda (p) (cons (expand-file-name p) nil))
                             (projectile-known-projects))))
