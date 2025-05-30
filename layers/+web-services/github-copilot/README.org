@@ -51,7 +51,7 @@ For the chat interface a separate login procedure will be necessary once a chat 
 
 To enable automatic generation of git commit messages using
 copilot-chat, set the layer variable
-=github-copilot-enable-commit-messages= to t.  Alternatively, you can
+=github-copilot-enable-commit-messages= to t. Alternatively, you can
 invoke =SPC SPC copilot-chat-insert-commit-message= manually.
 
 * Key bindings
