@@ -1,4 +1,4 @@
-;;; spacemacs-theme.el --- Color theme with a dark and light versions.
+;;; spacemacs-theme.el --- Color theme with a dark and light versions.  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2015-2018 Nasser Alshammari
 
@@ -58,7 +58,7 @@
 
 Note that if you change this to a non-nil value, you may want to
 also adjust the value of `org-agenda-tags-column'. If that is set
-to 'auto, tags may not be properly aligned. "
+to `auto', tags may not be properly aligned. "
   :type 'boolean
   :group 'spacemacs-theme)
 
@@ -163,14 +163,15 @@ to 'auto, tags may not be properly aligned. "
         (yellow        (if (eq variant 'dark) (if (true-color-p) "#b1951d" "#875f00") (if (true-color-p) "#b1951d" "#875f00")))
         (yellow-bg     (if (eq variant 'dark) (if (true-color-p) "#32322c" "#262626") (if (true-color-p) "#f6f1e1" "#ffffff"))))
 
-    (cl-loop for (cvar . val) in spacemacs-theme-custom-colors
-             do (set cvar val))
+    (dolist (pair spacemacs-theme-custom-colors)
+      (set (car pair) (cdr pair)))
 
     (custom-theme-set-faces
      theme-name
 
 ;;;;; basics
      `(completions-common-part ((,class (:foreground ,keyword :weight bold))))
+     `(completions-annotations ((,class (:foreground ,base-dim :italic nil))))
      `(cursor ((,class (:background ,cursor))))
      `(custom-button ((,class :background ,bg2 :foreground ,base :box (:line-width 2 :style released-button))))
      `(default ((,class (:background ,bg1 :foreground ,base))))
@@ -270,10 +271,8 @@ to 'auto, tags may not be properly aligned. "
      `(centaur-tabs-default ((,class (:background ,bg1 :foreground ,bg1))))
      `(centaur-tabs-selected ((,class (:background ,bg1 :foreground ,base :weight bold))))
      `(centaur-tabs-unselected ((,class (:background ,bg2 :foreground ,base-dim :weight light))))
-     `(centaur-tabs-selected-modified ((,class (:background ,bg1
-                  :foreground ,blue :weight bold))))
-     `(centaur-tabs-unselected-modified ((,class (:background ,bg2 :weight light
-                    :foreground ,blue))))
+     `(centaur-tabs-selected-modified ((,class (:background ,bg1 :foreground ,blue :weight bold))))
+     `(centaur-tabs-unselected-modified ((,class (:background ,bg2 :weight light :foreground ,blue))))
      `(centaur-tabs-active-bar-face ((,class (:background ,keyword))))
      `(centaur-tabs-modified-marker-selected ((,class (:inherit 'centaur-tabs-selected :foreground,keyword))))
      `(centaur-tabs-modified-marker-unselected ((,class (:inherit 'centaur-tabs-unselected :foreground,keyword))))
@@ -304,6 +303,11 @@ to 'auto, tags may not be properly aligned. "
      `(company-tooltip-mouse ((,class (:inherit highlight))))
      `(company-tooltip-search ((,class (:inherit match))))
      `(company-tooltip-selection ((,class (:background ,ttip-sl :foreground ,base))))
+
+;;;;; corfu
+     `(corfu-annotations ((,class (:foreground ,var :italic nil))))
+     `(corfu-default ((,class (:background ,ttip-bg :foreground ,ttip))))
+     `(corfu-current ((,class (:background ,ttip-sl :foreground ,base))))
 
 ;;;;; diff
      `(diff-added             ((,class :background unspecified :foreground ,green :extend t)))
@@ -427,30 +431,30 @@ to 'auto, tags may not be properly aligned. "
      `(evil-ex-substitute-replacement ((,class (:background ,green-bg :foreground ,green))))
 
 ;;;;; evil-goggles
-      `(evil-goggles--pulse-face ((,class (:background ,yellow-bg :foreground ,yellow))))
-      `(evil-goggles-change-face ((,class (:background ,blue-bg-s :foreground ,blue))))
-      `(evil-goggles-commentary-face ((,class (:background ,aqua-bg :foreground ,aqua))))
-      `(evil-goggles-delete-face ((,class (:background ,red-bg-s :foreground ,red))))
-      `(evil-goggles-fill-and-move-face ((,class (:background ,green-bg-s :foreground ,green))))
-      `(evil-goggles-indent-face ((,class (:background ,green-bg-s :foreground ,green))))
-      `(evil-goggles-join-face ((,class (:background ,green-bg-s :foreground ,green))))
-      `(evil-goggles-nerd-commenter-face ((,class (:background ,aqua-bg :foreground ,aqua))))
-      `(evil-goggles-paste-face ((,class (:background ,green-bg-s :foreground ,green))))
-      `(evil-goggles-record-macro-face ((,class (:background ,blue-bg-s :foreground ,blue))))
-      `(evil-goggles-replace-with-register-face ((,class (:background ,yellow-bg :foreground ,yellow))))
-      `(evil-goggles-set-marker-face ((,class (:background ,blue-bg-s :foreground ,blue))))
-      `(evil-goggles-shift-face ((,class (:background ,blue-bg-s :foreground ,blue))))
-      `(evil-goggles-surround-face ((,class (:background ,blue-bg-s :foreground ,blue))))
-      `(evil-goggles-yank-face ((,class (:background ,blue-bg-s :foreground ,blue))))
-      `(evil-goggles-undo-redo-add-face ((,class (:background ,green-bg-s :foreground ,green))))
-      `(evil-goggles-undo-redo-change-face ((,class (:background ,blue-bg-s :foreground ,blue))))
-      `(evil-goggles-undo-redo-remove-face ((,class (:background ,red-bg-s :foreground ,red))))
+     `(evil-goggles--pulse-face ((,class (:background ,yellow-bg :foreground ,yellow))))
+     `(evil-goggles-change-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+     `(evil-goggles-commentary-face ((,class (:background ,aqua-bg :foreground ,aqua))))
+     `(evil-goggles-delete-face ((,class (:background ,red-bg-s :foreground ,red))))
+     `(evil-goggles-fill-and-move-face ((,class (:background ,green-bg-s :foreground ,green))))
+     `(evil-goggles-indent-face ((,class (:background ,green-bg-s :foreground ,green))))
+     `(evil-goggles-join-face ((,class (:background ,green-bg-s :foreground ,green))))
+     `(evil-goggles-nerd-commenter-face ((,class (:background ,aqua-bg :foreground ,aqua))))
+     `(evil-goggles-paste-face ((,class (:background ,green-bg-s :foreground ,green))))
+     `(evil-goggles-record-macro-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+     `(evil-goggles-replace-with-register-face ((,class (:background ,yellow-bg :foreground ,yellow))))
+     `(evil-goggles-set-marker-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+     `(evil-goggles-shift-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+     `(evil-goggles-surround-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+     `(evil-goggles-yank-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+     `(evil-goggles-undo-redo-add-face ((,class (:background ,green-bg-s :foreground ,green))))
+     `(evil-goggles-undo-redo-change-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+     `(evil-goggles-undo-redo-remove-face ((,class (:background ,red-bg-s :foreground ,red))))
 
 ;;;;; evil-mc
-      `(evil-mc-cursor-bar-face ((,class (:foreground ,aqua))))
-      `(evil-mc-cursor-default-face ((,class (:background ,aqua :foreground ,bg4))))
-      `(evil-mc-cursor-hbar-face ((,class (:foreground ,aqua))))
-      `(evil-mc-region-face ((,class (:inherit highlight))))
+     `(evil-mc-cursor-bar-face ((,class (:foreground ,aqua))))
+     `(evil-mc-cursor-default-face ((,class (:background ,aqua :foreground ,bg4))))
+     `(evil-mc-cursor-hbar-face ((,class (:foreground ,aqua))))
+     `(evil-mc-region-face ((,class (:inherit highlight))))
 
 ;;;;; flycheck
      `(flycheck-error
@@ -973,6 +977,15 @@ to 'auto, tags may not be properly aligned. "
 ;;;;; tide
      `(tide-hl-identifier-face ((,class (:foreground ,yellow :background ,yellow-bg))))
 
+;;;;; transient
+     `(transient-key ((,class (:foreground ,keyword))))
+     `(transient-key-exit ((,class (:foreground ,type))))
+     `(transient-key-noop ((,class (:foreground ,base-dim))))
+     `(transient-key-recurse ((,class (:foreground ,blue))))
+     `(transient-key-return ((,class (:foreground ,mat))))
+     `(transient-key-stack ((,class (:foreground ,func))))
+     `(transient-key-stay ((,class (:foreground ,green))))
+
 ;;;;; treemacs
      `(treemacs-git-added-face ((,class (:foreground ,green :background ,green-bg))))
      `(treemacs-git-conflict-face ((,class (:foreground ,red :background ,red-bg))))
@@ -1084,7 +1097,7 @@ to 'auto, tags may not be properly aligned. "
      `(org-fontify-todo-headline nil)
 
 ;;;;; pdf-tools
-    `(pdf-view-midnight-colors '(,base . ,bg1)))
+     `(pdf-view-midnight-colors '(,base . ,bg1)))
     ))
 
 
@@ -1094,9 +1107,5 @@ to 'auto, tags may not be properly aligned. "
                (file-name-as-directory (file-name-directory load-file-name))))
 
 (provide 'spacemacs-theme)
-
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 
 ;;; spacemacs-theme.el ends here
