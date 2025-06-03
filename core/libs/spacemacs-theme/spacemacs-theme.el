@@ -671,10 +671,14 @@ to `auto', tags may not be properly aligned. "
 ;;;;; linum-relative
      `(linum-relative-current-face ((,class (:foreground ,comp))))
 
-;;;;; lsp
+;;;;; lsp-mode
+     `(lsp-face-highlight-read ((,class (:background ,yellow-bg))))
+     `(lsp-face-highlight-write ((,class (:background ,green-bg-s))))
+     `(lsp-face-highlight-textual ((,class (:background ,green-bg))))
+
+;;;;; lsp-ui
      `(lsp-ui-doc-background ((,class (:background ,bg2))))
      `(lsp-ui-doc-header ((,class (:foreground ,head1 :background ,head1-bg))))
-
      `(lsp-ui-sideline-code-action ((,class (:foreground ,comp))))
 
 ;;;;; magit

@@ -148,7 +148,7 @@ file is invalid, then raise an error."
             (setq fetcher 'git-remote-hg)
             (setq args (plist-put args :url (concat "hg::" (oref rcp url)))))
           (setq rcp (apply (intern (format "package-%s-recipe" fetcher))
-                           name :name name args))
+                           :name name args))
           (unless (oref rcp url)
             (oset rcp url (format (oref rcp url-format) (oref rcp repo))))
           rcp)
