@@ -67,13 +67,14 @@
     (spacemacs/declare-prefix "acs" "slack")
     (spacemacs/set-leader-keys
       "acsT" 'slack-all-threads
+      "acsa" 'slack-activity-feed-show
       "acsd" 'slack-im-select
       "acsg" 'slack-group-select
       "acsj" 'slack-channel-select
       "acsq" 'slack-ws-close
       "acsr" 'slack-select-rooms
       "acss" 'slack-start
-      "acsu" 'slack-all-unreads)
+      "acsu" 'slack-select-unread-rooms)
     (setq slack-enable-emoji t)
     :config
     (dolist (mode '(slack-mode slack-message-buffer-mode slack-thread-message-buffer-mode))
@@ -83,6 +84,7 @@
         ")" 'slack-message-add-reaction
         "@" 'slack-message-embed-mention
         "T" 'slack-all-threads
+        "a" 'slack-activity-feed-show
         "d" 'slack-im-select
         "e" 'slack-message-edit
         "g" 'slack-group-select
@@ -94,7 +96,7 @@
         "q" 'slack-ws-close
         "r" 'slack-select-rooms
         "t" 'slack-thread-show-or-create
-        "u" 'slack-all-unreads)
+        "u" 'slack-select-unread-rooms)
       (let ((keymap (symbol-value (intern (concat (symbol-name mode) "-map")))))
         (evil-define-key 'insert keymap
           (kbd "#") 'slack-message-embed-channel
