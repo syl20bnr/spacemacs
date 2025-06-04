@@ -354,9 +354,9 @@ This will allow you to use [[https://github.com/pwalsh/pipenv.el][pipenv]] bindi
 You can add to the other two lists analogously.
 
 * Management of Python versions and virtual environments
-In general virtual environments are automatically used when active
-using [[https://github.com/wyuenho/emacs-pet][pet-mode]], this requires the
-following additional packages to be available in your path:
+In general virtual environments are automatically used when active using
+[[https://github.com/wyuenho/emacs-pet][pet-mode]], following additional packages are high recommended to enable full
+~pet-mode~ features:
 
 | Package   | Description                                   |
 |-----------+-----------------------------------------------|

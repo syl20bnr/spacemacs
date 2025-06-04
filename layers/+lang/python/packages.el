@@ -66,10 +66,7 @@
 
 (defun python/init-pet ()
   (use-package pet
-    :hook (python-base-mode . pet-mode)
-    :if (and (executable-find "dasel")
-             (executable-find "sqlite3"))
-    :defer t))
+    :hook (python-base-mode . pet-mode)))
 
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
