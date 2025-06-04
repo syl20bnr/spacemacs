@@ -249,10 +249,7 @@
           ;; unique.
           try-complete-lisp-symbol-partially
           ;; Try to complete word as an Emacs Lisp symbol.
-          try-complete-lisp-symbol))
-  (when (configuration-layer/package-used-p 'yasnippet)
-    ;; Try to expand yasnippet snippets based on prefix
-    (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand)))
+          try-complete-lisp-symbol)))
 
 (defun auto-completion/init-ivy-yasnippet ()
   (use-package ivy-yasnippet
@@ -326,6 +323,9 @@
                                                         markdown-mode-hook
                                                         org-mode-hook))
 
-    :config (spacemacs|diminish yas-minor-mode " ⓨ" " y")))
+    :config
+    (spacemacs|diminish yas-minor-mode " ⓨ" " y")
+    ;; Try to expand yasnippet snippets based on prefix
+    (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand)))
 
 (defun auto-completion/init-yasnippet-snippets ())
