@@ -249,10 +249,7 @@
           ;; unique.
           try-complete-lisp-symbol-partially
           ;; Try to complete word as an Emacs Lisp symbol.
-          try-complete-lisp-symbol))
-  (when (configuration-layer/package-used-p 'yasnippet)
-    ;; Try to expand yasnippet snippets based on prefix
-    (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand)))
+          try-complete-lisp-symbol)))
 
 (defun auto-completion/init-ivy-yasnippet ()
   (use-package ivy-yasnippet
@@ -270,7 +267,7 @@
 
 (defun auto-completion/init-yasnippet ()
   (use-package yasnippet
-    :commands (yas-global-mode yas-minor-mode yas-activate-extra-mode)
+    :commands (yas-global-mode yas-minor-mode yas-activate-extra-mode yas-hippie-try-expand)
     :init
     ;; We don't want undefined variable errors
     (defvar yas-global-mode nil)
@@ -284,6 +281,9 @@
     ;; disable yas minor mode map
     ;; use hippie-expand instead
     (setq yas-minor-mode-map (make-sparse-keymap))
+    (with-eval-after-load 'hippie-exp
+      ;; Try to expand yasnippet snippets based on prefix
+      (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand))
     ;; this makes it easy to get out of a nested expansion
     (define-key yas-minor-mode-map (kbd "M-s-/") 'yas-next-field)
     ;; configure snippet directories
