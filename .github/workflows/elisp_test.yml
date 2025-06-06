@@ -14,6 +14,7 @@ env:
   CORE_TR: core
   BASE_TR: layers/+distribution/spacemacs-base
   LAYER_TR: layers/+distribution/spacemacs
+  LAYER_PY: layers/+lang/python
 
 defaults:
   run:
@@ -113,3 +114,7 @@ jobs:
       run: ${{ env.TEST_SCRIPT }} ${{ env.LAYER_TR }} unit_tests
     - name: Layers functional testing
       run: ${{ env.TEST_SCRIPT }} ${{ env.LAYER_TR }} func_tests
+    - name: Layers lang/python unit testing
+      run: ${{ env.TEST_SCRIPT }} ${{ env.LAYER_PY }} unit_tests
+    - name: Layers lang/python functional testing
+      run: ${{ env.TEST_SCRIPT }} ${{ env.LAYER_PY }} func_tests
