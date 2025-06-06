@@ -844,14 +844,14 @@ to `auto', tags may not be properly aligned. "
      `(org-warning ((,class (:foreground ,err :inherit org-priority))))
 
 ;;;;; outline
-     `(outline-1 ((,class (:inherit org-level-1))))
-     `(outline-2 ((,class (:inherit org-level-2))))
-     `(outline-3 ((,class (:inherit org-level-3))))
-     `(outline-4 ((,class (:inherit org-level-4))))
-     `(outline-5 ((,class (:inherit org-level-5))))
-     `(outline-6 ((,class (:inherit org-level-6))))
-     `(outline-7 ((,class (:inherit org-level-7))))
-     `(outline-8 ((,class (:inherit org-level-8))))
+     `(outline-1 ((,class (:foreground ,head1))))
+     `(outline-2 ((,class (:foreground ,head2))))
+     `(outline-3 ((,class (:foreground ,head3))))
+     `(outline-4 ((,class (:foreground ,head4))))
+     `(outline-5 ((,class (:foreground ,head1))))
+     `(outline-6 ((,class (:foreground ,head2))))
+     `(outline-7 ((,class (:foreground ,head3))))
+     `(outline-8 ((,class (:foreground ,head4))))
 
 ;;;;; parinfer
      `(parinfer-pretty-parens:dim-paren-face ((,class (:foreground ,base-dim))))
