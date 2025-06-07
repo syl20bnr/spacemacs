@@ -22,34 +22,32 @@
 
 
 (defconst gleam-packages
-  '((tree-sitter-indent)
-    (gleam-mode :location (recipe
-                           :fetcher github
-                           :repo "gleam-lang/gleam-mode"
-                           :files ("*.el" "tree-sitter-gleam")))))
+  '((treesit)
+    (gleam-ts-mode)))
 
-(defun gleam/post-init-tree-sitter-indent ()
-  "Initialize tree-sitter-indent"
-  (use-package tree-sitter-indent
+(defun gleam/post-init-treesit ()
+  "Initialize treesit"
+  (use-package treesit
     :defer t))
 
-(defun gleam/init-gleam-mode ()
-  "Initialize gleam-mode"
-  (use-package gleam-mode
-    :mode ("\\.gleam\\'" . gleam-mode)
-    :hook ((gleam-mode . spacemacs//gleam-setup-format-on-save)
-           (gleam-mode . spacemacs//gleam-setup-lsp))
+(defun gleam/init-gleam-ts-mode ()
+  "Initialize gleam-ts-mode"
+  (use-package gleam-ts-mode
+    :mode ("\\.gleam\\'" . gleam-ts-mode)
+    :hook ((gleam-ts-mode . spacemacs//gleam-setup-format-on-save)
+           (gleam-ts-mode . spacemacs//gleam-setup-lsp))
     :config
-    (spacemacs/declare-prefix-for-mode 'gleam-mode "m=" "format")
-    (spacemacs/declare-prefix-for-mode 'gleam-mode "mc" "compile")
-    (spacemacs/declare-prefix-for-mode 'gleam-mode "mg" "goto")
-    (spacemacs/declare-prefix-for-mode 'gleam-mode "mt" "tests")
-    (spacemacs/declare-prefix-for-mode 'gleam-mode "mT" "toggle")
-    (spacemacs/set-leader-keys-for-major-mode 'gleam-mode
-        "==" 'gleam-format
-        "cb" 'spacemacs//gleam-build
-        "cc" 'spacemacs//gleam-run
-        "cm" 'spacemacs//gleam-run-module
-        "ca" 'spacemacs//gleam-run-project
-        "ta" 'spacemacs//gleam-test-project
-        "T=" 'spacemacs//gleam-toggle-format-on-save)))
+    (spacemacs//gleam-setup-treesit)
+    (spacemacs/declare-prefix-for-mode 'gleam-ts-mode "m=" "format")
+    (spacemacs/declare-prefix-for-mode 'gleam-ts-mode "mc" "compile")
+    (spacemacs/declare-prefix-for-mode 'gleam-ts-mode "mg" "goto")
+    (spacemacs/declare-prefix-for-mode 'gleam-ts-mode "mt" "tests")
+    (spacemacs/declare-prefix-for-mode 'gleam-ts-mode "mT" "toggle")
+    (spacemacs/set-leader-keys-for-major-mode 'gleam-ts-mode
+      "==" 'gleam-ts-format
+      "cb" 'spacemacs//gleam-build
+      "cc" 'spacemacs//gleam-run
+      "cm" 'spacemacs//gleam-run-module
+      "ca" 'spacemacs//gleam-run-project
+      "ta" 'spacemacs//gleam-test-project
+      "T=" 'spacemacs//gleam-toggle-format-on-save)))

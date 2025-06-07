@@ -21,7 +21,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(spacemacs|define-jump-handlers gleam-mode)
+(spacemacs|define-jump-handlers gleam-ts-mode)
 
 (defvar gleam-format-on-save nil
   "If non-nil, automatically run gleam-format before save. Default is nil.")
