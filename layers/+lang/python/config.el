@@ -89,6 +89,9 @@ Possible values are `on-visit', `on-project-switch' or `nil'.")
   "If non-nil, automatically sort imports on save.")
 (put 'python-sort-imports-on-save 'safe-local-variable 'booleanp)
 
+(defvar python-virtualenv-management 'pyvenv
+  "The management backend for virtualenv, Possible value is `pet' or `pyvenv'")
+
 (defvar python-enable-importmagic nil
   "If non-nil, enable the importmagic feature.")
 
@@ -104,6 +107,8 @@ Possible values are `on-visit', `on-project-switch' or `nil'.")
 (defvar spacemacs--python-poetry-modes nil
   "List of major modes where to add poetry support.")
 
+(defvar spacemacs--python-shell-interpreter-origin nil
+  "Origin python-shell-interpreter value.")
 ;; inferior-python-mode needs these variables to be defined.  The python
 ;; package declares them but does not initialize them.
 (defvar python-shell--interpreter nil)

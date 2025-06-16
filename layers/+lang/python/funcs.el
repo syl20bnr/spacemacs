@@ -158,6 +158,37 @@ compatibility."
             pyenv-vers)))
        commands))))
 
+(defun spacemacs//python-setup-shell (&optional root-dir)
+  "Setup the python shell if no customer prefered value or the value be cleaned.
+ROOT-DIR should be the directory path for the environment, `nil' for clean up."
+  (when (or (not (bound-and-true-p python-shell-interpreter))
+            (equal python-shell-interpreter spacemacs--python-shell-interpreter-origin))
+    (if-let* ((default-directory root-dir))
+        (let* ((pyshell (or (spacemacs/pyenv-executable-find
+                             '("ipython3" "ipython" "python3" "python2" "python"))
+                            "python3"))
+               (ipythonp (string-search "ipython" (file-name-nondirectory pyshell))))
+          (setq-local python-shell-interpreter pyshell
+                      python-shell-interpreter-args (if ipythonp "-i --simple-prompt" "-i")))
+      ;; args is nil, clean up the variables
+      (setq-local python-shell-interpreter nil
+                  python-shell-interpreter-args nil))))
+
+(defun spacemacs//python-setup-checkers (&optional root-dir)
+  "Setup the checkers.
+ROOT-DIR should be the path for the environemnt, `nil' for clean up"
+  (when (fboundp 'flycheck-set-checker-executable)
+    (dolist (x '("pylint" "flake8"))
+      (if-let* ((default-directory root-dir))
+          (when-let* ((exe (spacemacs/pyenv-executable-find (list x))))
+            (flycheck-set-checker-executable (concat "python-" x) exe))
+        ;; else root-dir is nil
+        (set (flycheck-checker-executable-variable (concat "python-" x)) nil)))))
+
+(defun spacemacs/python-setup-everything (&optional root-dir)
+  (funcall 'spacemacs//python-setup-shell root-dir)
+  (funcall 'spacemacs//python-setup-checkers root-dir))
+
 (defun spacemacs/python-toggle-breakpoint ()
   "Add a break point, highlight it."
   (interactive)

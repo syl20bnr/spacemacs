@@ -29,7 +29,8 @@
     cython-mode
     dap-mode
     ;; We are using a fork until pet is prefering ipython as default shell (https://github.com/wyuenho/emacs-pet/pull/56)
-    (pet :location (recipe :fetcher github :repo "smile13241324/emacs-pet"))
+    (pet :location (recipe :fetcher github :repo "smile13241324/emacs-pet")
+         :toggle (eq python-virtualenv-management 'pet))
     eldoc
     evil-matchit
     flycheck
@@ -51,6 +52,9 @@
     (pylookup :location (recipe :fetcher local))
     (pytest :toggle (memq 'pytest (flatten-list (list python-test-runner))))
     (python :location built-in)
+    ;; Use the performance enhanced fork (https://github.com/jorgenschaefer/pyvenv/pull/128)
+    (pyvenv :location (recipe :fetcher github :repo "sunlin7/pyvenv")
+            :toggle (eq python-virtualenv-management 'pyvenv))
     (ruff-format :toggle (eq 'ruff python-formatter))
     semantic
     sphinx-doc
@@ -306,6 +310,30 @@
       "hp" 'pydoc-at-point-no-jedi
       "hP" 'pydoc)))
 
+(defun python/pre-init-pyvenv ()
+  (add-to-list 'spacemacs--python-pyvenv-modes 'python-mode))
+(defun python/init-pyvenv ()
+  (use-package pyvenv
+    :defer t
+    :init
+    (add-hook 'python-mode-hook #'pyvenv-tracking-mode)
+    (pcase python-auto-set-local-pyvenv-virtualenv
+      ('on-visit
+       (dolist (m spacemacs--python-pyvenv-modes)
+         (add-hook (intern (format "%s-hook" m))
+                   'spacemacs//pyvenv-mode-set-local-virtualenv)))
+      ('on-project-switch
+       (add-hook 'projectile-after-switch-project-hook
+                 'spacemacs//pyvenv-mode-set-local-virtualenv)))
+    (dolist (m spacemacs--python-pyvenv-modes)
+      (spacemacs/set-leader-keys-for-major-mode m
+        "va" 'pyvenv-activate
+        "vd" 'pyvenv-deactivate
+        "vw" 'pyvenv-workon))
+    ;; setup shell correctly on environment switch
+    (dolist (func '(pyvenv-activate pyvenv-deactivate))
+      (advice-add func :after 'spacemacs/python-setup-everything))))
+
 (defun python/init-pylookup ()
   (use-package pylookup
     :commands (pylookup-lookup pylookup-update pylookup-update-all)
@@ -409,7 +437,16 @@
 
     ;; add this optional key binding for Emacs user, since it is unbound
     (define-key inferior-python-mode-map
-                (kbd "C-c M-l") 'spacemacs/comint-clear-buffer)))
+                (kbd "C-c M-l") 'spacemacs/comint-clear-buffer)
+
+    (setq spacemacs--python-shell-interpreter-origin
+          (eval (car (get 'python-shell-interpreter 'standard-value))))
+    ;; setup the global variables for python shell if no custom value
+    (when (equal python-shell-interpreter spacemacs--python-shell-interpreter-origin)
+      (spacemacs//python-setup-shell default-directory)
+      (setq spacemacs--python-shell-interpreter-origin python-shell-interpreter)
+      (dolist (x '(python-shell-interpreter python-shell-interpreter-args))
+        (set-default-toplevel-value x (symbol-value x))))))
 
 (defun python/post-init-semantic ()
   (when (configuration-layer/package-used-p 'anaconda-mode)
