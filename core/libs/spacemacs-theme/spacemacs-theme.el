@@ -636,6 +636,16 @@ to `auto', tags may not be properly aligned. "
      `(ido-subdir ((,class (:foreground ,keyword))))
      `(ido-vertical-match-face ((,class (:foreground ,comp :underline nil))))
 
+;;;;; imenu
+     `(imenu-list-entry-face-0 ((,class (:foreground ,head1))))
+     `(imenu-list-entry-face-1 ((,class (:foreground ,head2))))
+     `(imenu-list-entry-face-2 ((,class (:foreground ,head3))))
+     `(imenu-list-entry-face-3 ((,class (:foreground ,head4))))
+     `(imenu-list-entry-subalist-face-0 ((,class (:foreground ,head1 :inherit bold))))
+     `(imenu-list-entry-subalist-face-1 ((,class (:foreground ,head2 :inherit bold))))
+     `(imenu-list-entry-subalist-face-2 ((,class (:foreground ,head3 :inherit bold))))
+     `(imenu-list-entry-subalist-face-3 ((,class (:foreground ,head4 :inherit bold))))
+
 ;;;;; info
      `(info-header-xref ((,class (:foreground ,func :underline t))))
      `(info-menu ((,class (:foreground ,suc))))
