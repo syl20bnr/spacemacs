@@ -360,10 +360,12 @@ You can add to the other two lists analogously.
 ** Manage virtual environments with pet-mode
 To enable the [[https://github.com/wyuenho/emacs-pet][pet-mode]], set the variable ~python-virtualenv-management~ to
 ~pet~, for example:
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (python :variables python-virtualenv-management 'pet)))
 #+END_SRC
+
 In general virtual environments are automatically used when active using
 ~pet-mode~, following additional packages are high recommended to enable full
 ~pet-mode~ features:
