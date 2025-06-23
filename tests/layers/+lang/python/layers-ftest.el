@@ -35,4 +35,4 @@
         (copy-file tmpfile pyshell)
         (set-file-modes pyshell #o755))
       (with-current-buffer (find-file-noselect (expand-file-name "t.py" dir))
-        (should (string-match-p ".venv/" python-shell-interpreter))))))
+        (should (string-match-p "ipython" python-shell-interpreter))))))
