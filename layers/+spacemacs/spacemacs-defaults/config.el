@@ -47,6 +47,16 @@ Such useless buffers are skipped by `previous-buffer',
   "Regexp used to define buffers that are useful despite matching
 `spacemacs-useless-buffers-regexp'.")
 
+(spacemacs|defc spacemacs-recentf-exclude-not-modified '()
+  "List of regexps and predicates for filenames excluded from the recent
+list which does NOT modified, similar to `recentf-exclude'.
+
+For example the `org-agenda-list' will open *.org files for collecting
+entries, then the *.org files will be listed on the recentf. To avoid
+that, add the files into this variable will exclude them when they does
+NOT modified."
+  '(repeat (choice regexp function)))
+
 (spacemacs|defc spacemacs-useful-buffers-restrict-spc-tab t
   "When non-nil, \\[spacemacs/alternate-buffer] does not switch to
 useless buffers as defined by `spacemacs-useless-buffers-regexp'

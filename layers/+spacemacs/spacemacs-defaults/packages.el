@@ -390,7 +390,15 @@
     (add-to-list 'recentf-exclude (recentf-expand-file-name package-user-dir))
     (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
     (when custom-file
-      (add-to-list 'recentf-exclude (recentf-expand-file-name custom-file)))))
+      (add-to-list 'recentf-exclude (recentf-expand-file-name custom-file)))
+    (define-advice recentf-include-p (:around (ofun &rest args) not-modified)
+      "Check the `spacemacs-recentf-exclude-not-modified' to exclude the
+un-modified buffer for recentf."
+      (if (let ((recentf-exclude spacemacs-recentf-exclude-not-modified))
+            (apply ofun args))
+          (apply ofun args)
+        (when (buffer-modified-p)
+          (apply ofun args))))))
 
 (defun spacemacs-defaults/init-savehist ()
   (use-package savehist
