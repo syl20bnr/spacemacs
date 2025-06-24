@@ -22,17 +22,43 @@
 
 (require 'ert-x)
 
+(defmacro pytest-in-temp-directory (pyname dir pypath &rest body)
+  "Bind DIR to the name of a new temporary directory and bind PYPATH to
+the path of python interpreter, then evaluate BODY.
+The PYNAME is the basename of python interpreter place holder.
+Delete the temporary directory after BODY exits normally or
+non-locally. It extents the `ert-with-temp-directory' with the PYPATH.
+This function will change the `default-directory' to the target directory."
+  (declare (indent 1) (debug (symbolp body)))
+  `(ert-with-temp-directory ,dir
+     (let* ((_bin (if (eq system-type 'windows-nt) "Scripts" "bin"))
+            (_vbin (file-name-concat ,dir ".venv" _bin))
+            (,pypath (expand-file-name (concat ,pyname (car exec-suffixes))
+                                        _vbin)))
+       (mkdir _vbin 'recursive)
+       (let ((default-directory _vbin)
+             (tmpfile (make-temp-file "testing-")))
+         (copy-file tmpfile (file-name-nondirectory ,pypath))
+         (set-file-modes ,pypath #o755))
+       ,@body)))
+
 (ert-deftest python-shell-interpreter-venv-first ()
   "Test the python-shell-interpreter should check .venv first."
-  (ert-with-temp-directory dir
-    (let ((vbin (expand-file-name
-                 (if (eq system-type 'windows-nt) ".venv/Scripts" ".venv/bin")
-                 dir)))
-      (mkdir vbin 'recursive)
-      (let* ((default-directory vbin)
-             (tmpfile (make-temp-file "testing-"))
-             (pyshell (concat "ipython" (car exec-suffixes))))
-        (copy-file tmpfile pyshell)
-        (set-file-modes pyshell #o755))
-      (with-current-buffer (find-file-noselect (expand-file-name "t.py" dir))
-        (should (string-match-p "ipython" python-shell-interpreter))))))
+  (pytest-in-temp-directory "ipython" dir pypath
+    (with-current-buffer (find-file-noselect (expand-file-name "t.py" dir))
+      (should (string-match-p "ipython" python-shell-interpreter)))))
+
+(ert-deftest python-shell-interpreter-custom-value ()
+  "Test the python-shell-interpreter should follow custom value"
+  (pytest-in-temp-directory "python" dir pypath
+    ;; for user manual value
+    (let ((python-shell-interpreter "xpython"))
+      (with-current-buffer (find-file-noselect (expand-file-name "t0.py" dir))
+        (should (string-match-p "xpython" python-shell-interpreter))))
+    ;; from the .dir-locals
+    (let ((enable-local-variables :all))
+      (with-temp-file (expand-file-name ".dir-locals.el" dir)
+        (insert "((python-mode . ((python-shell-interpreter . \"xpython\"))))"))
+      (with-current-buffer (find-file-noselect (expand-file-name "t1.py" dir))
+        (should (string-match-p "xpython" python-shell-interpreter))))))
+
