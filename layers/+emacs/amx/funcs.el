@@ -1,4 +1,4 @@
-;;; funcs.el --- Smex Layer functions File for Spacemacs  -*- lexical-binding: nil; -*-
+;;; funcs.el --- Amx Layer functions File for Spacemacs  -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;
@@ -21,14 +21,14 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs/smex ()
-  "Execute smex with a better prompt."
+(defun spacemacs/amx ()
+  "Execute amx with a better prompt."
   (interactive)
-  (let ((smex-prompt-string "Emacs commands: "))
-    (smex)))
+  (let ((amx-prompt-string "Emacs commands: "))
+    (amx)))
 
-(defun spacemacs/smex-major-mode-commands ()
-  "Reexecute smex with major mode commands only."
+(defun spacemacs/amx-major-mode-commands ()
+  "Reexecute amx with major mode commands only."
   (interactive)
-  (let ((smex-prompt-string (format "%s commands: " major-mode)))
-    (smex-major-mode-commands)))
+  (let ((amx-prompt-string (format "%s commands: " major-mode)))
+    (amx-major-mode-commands)))

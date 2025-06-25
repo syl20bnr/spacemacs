@@ -92,7 +92,7 @@
     (unless (configuration-layer/package-used-p 'ibuffer)
       (evil-ex-define-cmd "buffers" 'helm-buffers-list))
     ;; use helm by default for M-x, C-x C-f, and C-x b
-    (unless (configuration-layer/layer-usedp 'smex)
+    (unless (configuration-layer/layer-usedp 'amx)
       (global-set-key (kbd "M-x") 'spacemacs/helm-M-x-fuzzy-matching))
     (global-set-key (kbd "C-x C-f") 'spacemacs/helm-find-files)
     (global-set-key (kbd "C-x b") 'helm-buffers-list)
@@ -178,7 +178,7 @@
                 (spacemacs||set-helm-key "hPw" profiler-report-write-profile)
                 ;; define the key binding at the very end in order to allow the user
                 ;; to overwrite any key binding
-                (unless (configuration-layer/layer-usedp 'smex)
+                (unless (configuration-layer/layer-usedp 'amx)
                   (spacemacs/set-leader-keys
                     dotspacemacs-emacs-command-key 'spacemacs/helm-M-x-fuzzy-matching))))
     ;; avoid duplicates in `helm-M-x' history.

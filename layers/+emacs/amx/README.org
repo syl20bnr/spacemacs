@@ -1,8 +1,6 @@
-#+TITLE: Smex layer
+#+TITLE: Amx layer
 
 #+TAGS: emacs|layer
-
-[[file:img/smex.png]]
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
@@ -14,11 +12,11 @@
 This layer provides a more traditional alternative to =helm-M-x= based on =ido=.
 
 ** Features:
-- Provides an alternative way for =helm-M-x= based on =ido= and [[https://github.com/nonsequitur/smex][smex]]
+- Provides an alternative way for =helm-M-x= based on =ido= and [[https://github.com/DarwinAwardWinner/amx][amx]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =smex= to the existing =dotspacemacs-configuration-layers= list in this
+add =amx= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Key bindings

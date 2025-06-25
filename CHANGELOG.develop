@@ -523,6 +523,7 @@ both Racer and RLS not being maintained anymore.
 - twitch
 - openai (thanks to Hendrik Rommeswinkel)
 *** Renamed layers
+- =smex= renamed to =amx= (thanks to Lin Sun)
 - =extra-langs= renamed to =major-modes= (thanks to Eivind Fonn)
 - =pdf-tools= renamed to =pdf=
 - =mercury-layer= renamed to =mercury=

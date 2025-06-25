@@ -79,7 +79,7 @@ To load some configuration layers using the variable
 
 #+BEGIN_SRC elisp
   ;; List of configuration layers to load.
-  dotspacemacs-configuration-layers '(auto-completion smex)
+  dotspacemacs-configuration-layers '(auto-completion amx)
 #+END_SRC
 
 Some configuration layers support configuration variables to expose granular
@@ -91,7 +91,7 @@ Variables can be directly set within =dotspacemacs-configuration-layers= like so
   dotspacemacs-configuration-layers '(auto-completion
                                       (git :variables
                                            git-magit-status-fullscreen t)
-                                      smex)
+                                      amx)
 #+END_SRC
 
 At anytime you can apply the changes made to the dotfile or layers
