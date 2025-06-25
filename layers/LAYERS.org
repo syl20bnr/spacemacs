@@ -21,6 +21,7 @@
   - [[#mu4e][Mu4e]]
   - [[#notmuch][Notmuch]]
 - [[#emacs][Emacs]]
+  - [[#amx][Amx]]
   - [[#better-defaults][Better Defaults]]
   - [[#helpful][Helpful]]
   - [[#ibuffer][IBuffer]]
@@ -28,7 +29,6 @@
   - [[#outshine][Outshine]]
   - [[#quickurl][Quickurl]]
   - [[#semantic][Semantic]]
-  - [[#amx][Amx]]
   - [[#tabs][Tabs]]
   - [[#typography][Typography]]
 - [[#file-trees][File trees]]
@@ -478,6 +478,14 @@ Features:
 - Email tagging
 
 * Emacs
+** Amx
+[[file:+emacs/amx/README.org][+emacs/amx/README.org]]
+
+This layer provides a more traditional alternative to =helm-M-x= based on =ido=.
+
+Features:
+- Provides an alternative way for =helm-M-x= based on =ido= and [[https://github.com/DarwinAwardWinner/amx][amx]]
+
 ** Better Defaults
 [[file:+emacs/better-defaults/README.org][+emacs/better-defaults/README.org]]
 
@@ -576,14 +584,6 @@ Features:
   [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org][this page]] for demonstration of refactoring features.
 - Support Lisp source code formatting with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]. See
   [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos-elisp.org][this page]] for demonstration of Lisp formatting features.
-
-** Amx
-[[file:+emacs/amx/README.org][+emacs/amx/README.org]]
-
-This layer provides a more traditional alternative to =helm-M-x= based on =ido=.
-
-Features:
-- Provides an alternative way for =helm-M-x= based on =ido= and [[https://github.com/DarwinAwardWinner/amx][amx]]
 
 ** Tabs
 [[file:+emacs/tabs/README.org][+emacs/tabs/README.org]]
