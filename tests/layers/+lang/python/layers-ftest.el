@@ -29,7 +29,7 @@ The PYNAME is the basename of python interpreter place holder.
 Delete the temporary directory after BODY exits normally or
 non-locally. It extents the `ert-with-temp-directory' with the PYPATH.
 This function will change the `default-directory' to the target directory."
-  (declare (indent 1) (debug (symbolp body)))
+  (declare (indent 3) (debug (symbolp body)))
   `(ert-with-temp-directory ,dir
      (let* ((_bin (if (eq system-type 'windows-nt) "Scripts" "bin"))
             (_vbin (file-name-concat ,dir ".venv" _bin))
@@ -62,3 +62,23 @@ This function will change the `default-directory' to the target directory."
       (with-current-buffer (find-file-noselect (expand-file-name "t1.py" dir))
         (should (string-match-p "xpython" python-shell-interpreter))))))
 
+(ert-deftest python-shell-interpreter-breadth-first ()
+  "Test python layer should search interpreter in Breadth-First"
+  (pytest-in-temp-directory "python" dir pypath
+    (let* ((pdir (file-name-concat dir "pdir"))
+           (ipy (string-replace "python" "ipython"
+                                (file-name-nondirectory pypath)))
+           (ipython0 (file-name-concat (file-name-directory pypath) ipy))
+           (ipython1 (file-name-concat pdir ipy)))
+      ;; Should "ipython" first if both "python" & "ipython" in same dir
+      (message "ipython0 %s ipython1 %s" ipython0 ipython1)
+      (copy-file pypath ipython0)  ; now the DIR has both "python" and "ipython"
+      (with-current-buffer (find-file-noselect (expand-file-name "t0.py" dir))
+        (should (string-match-p "ipython" python-shell-interpreter)))
+      (delete-file ipython0)
+      (mkdir pdir)
+      (copy-file pypath ipython1)
+      (add-to-list 'exec-path pdir)
+      (with-current-buffer (find-file-noselect (expand-file-name "t1.py" dir))
+        ;; .venv/ on top of exec-path with "python", pdir with "ipython" on 2nd
+        (should (string= "python" (file-name-base python-shell-interpreter)))))))
