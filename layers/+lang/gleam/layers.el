@@ -22,5 +22,5 @@
 
 
 (configuration-layer/declare-layer-dependencies
-  (append '(tree-sitter)
+ (append '(tree-sitter)
          (if (and (boundp 'gleam-enable-lsp) gleam-enable-lsp) '(lsp) '())))

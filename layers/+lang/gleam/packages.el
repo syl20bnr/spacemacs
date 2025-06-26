@@ -25,13 +25,10 @@
   '((treesit)
     (gleam-ts-mode)))
 
-(defun gleam/post-init-treesit ()
-  "Initialize treesit"
-  (use-package treesit
-    :defer t))
-
 (defun gleam/init-gleam-ts-mode ()
   "Initialize gleam-ts-mode"
+  (unless (treesit-available-p)
+    (error "Gleam layer requires Emacs to be compiled with treesit support (built-in with Emacs 29+)"))
   (use-package gleam-ts-mode
     :mode ("\\.gleam\\'" . gleam-ts-mode)
     :hook ((gleam-ts-mode . spacemacs//gleam-setup-format-on-save)

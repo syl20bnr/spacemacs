@@ -18,7 +18,8 @@
   - [[#execution-1][Execution]]
 
 * Description
-This layers adds support for [[https://gleam.run/][Gleam]]. It relies on the official [[https://github.com/gleam-lang/gleam-mode][gleam-ts-mode]] package and [[https://github.com/emacsmirror/tree-sitter-indent][tree-sitter-indent]].
+This layers adds support for [[https://gleam.run/][Gleam]]. It relies on the official [[https://github.com/gleam-lang/gleam-mode][gleam-ts-mode]] package and requires Emacs to be compiled with treesit support (built-in with version 29+).
+To check that the treesit package is installed, you can run =M: (treesit-available-p)=.
 
 ** Features:
 - [[https://gleam.run/news/v0.21-introducing-the-gleam-language-server/][Gleam language server]] integration
