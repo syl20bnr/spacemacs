@@ -22,7 +22,8 @@
 
 
 (defconst helm-packages
-  '(ace-jump-helm-line
+  '((avy-jump-helm-line
+     :location (recipe :fetcher github :repo "sunlin7/avy-jump-helm-line"))
     auto-highlight-symbol
     bookmark
     helm
@@ -48,12 +49,12 @@
 
 
 ;; Initialization of packages
-(defun helm/init-ace-jump-helm-line ()
-  (use-package ace-jump-helm-line
+(defun helm/init-avy-jump-helm-line ()
+  (use-package avy-jump-helm-line
     :defer t
     :init
     (with-eval-after-load 'helm
-      (define-key helm-map (kbd "C-q") 'ace-jump-helm-line))))
+      (define-key helm-map (kbd "C-q") 'avy-jump-helm-line))))
 
 (defun helm/pre-init-auto-highlight-symbol ()
   (spacemacs|use-package-add-hook auto-highlight-symbol
