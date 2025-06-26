@@ -36,6 +36,7 @@
     link-hint
     lorem-ipsum
     (origami :toggle (eq 'origami dotspacemacs-folding-method))
+    (occur-mode :location built-in)
     password-generator
     (persistent-scratch :toggle dotspacemacs-scratch-buffer-persistent)
     pcre2el
@@ -671,3 +672,12 @@ See variable `undo-fu-session-directory'." dir))
   (evil-define-key 'normal wgrep-mode-map ",r" #'wgrep-toggle-readonly-area)
   (evil-define-key 'normal wgrep-mode-map ",d" #'wgrep-mark-deletion)
   (evil-define-key 'normal wgrep-mode-map ",f" #'next-error-follow-minor-mode))
+
+;; copy wgrep
+;; this already exists as `i', but I keep looking for things similar to wgrep
+(defun spacemacs-editing/init-occur-mode ()
+  (spacemacs/set-leader-keys-for-major-mode 'occur-mode
+    "w" 'occur-edit-mode)
+  (spacemacs/set-leader-keys-for-major-mode 'occur-edit-mode
+    "," 'occur-cease-edit)
+  )
