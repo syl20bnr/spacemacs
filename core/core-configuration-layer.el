@@ -1200,14 +1200,25 @@ USEDP if non-nil indicates that made packages are used packages."
   (dolist (pkg (append dotspacemacs-additional-packages
                        dotspacemacs--additional-theme-packages))
     (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
-           (obj (configuration-layer/get-package pkg-name)))
+           (obj (configuration-layer/get-package pkg-name))
+           pkg-toggle
+           obj-toggle)
       (if (null obj)
           (setq obj (configuration-layer/make-package pkg 'dotfile))
+        (setq pkg-toggle (if (and (listp pkg) (memq :toggle pkg))
+                             (plist-get pkg :toggle)
+                           t)       ; user-defined package is enabled by default
+              obj-toggle (cfgl-package-toggled-p obj t))
         (setq obj (configuration-layer/make-package pkg 'dotfile obj))
-        ;; set :toggle to t for user defined package should be enabled default
-        (unless (listp pkg)
+        ;; For dotfile-defined package that is on, but Spacemacs-defined package is off,
+        ;; shift the package owner to dotfile. The flag/action table:
+        ;; | pkg\pkg | obj:off         | obj:on |
+        ;; |---------+-----------------+--------|
+        ;; | pkg:off | off             | on     |
+        ;; | pkg:on  | on, shift owner | on     |
+        (when (and pkg-toggle (not obj-toggle))
           (oset obj toggle t)
-          (object-add-to-list obj 'owners 'dotfile t)))
+          (object-add-to-list obj 'owners 'dotfile)))
       (configuration-layer//add-package obj usedp)))
   (dolist (xpkg dotspacemacs-excluded-packages)
     (let ((obj (configuration-layer/get-package xpkg)))

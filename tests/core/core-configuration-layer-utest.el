@@ -2020,8 +2020,25 @@
     (configuration-layer/make-packages-from-layers '(layer-dotfile-2) 'used)
     (configuration-layer/make-packages-from-dotfile 'used)
     (should
-     (equal (cfgl-package :name 'pkg1 :owners '(layer-dotfile-2 dotfile))
+     (equal (cfgl-package :name 'pkg1 :owners '(layer-dotfile-2))
             (gethash 'pkg1 configuration-layer--indexed-packages)))))
+
+(ert-deftest test-make-packages-from-dotfile--dotfile-to-own-toggled-off-package ()
+             (let* ((layer-dotfile-2 (cfgl-layer :name 'layer-dotfile-2
+                                                 :dir "/path/"
+                                                 :packages '((pkg1 :toggle 'nil))))
+                    (dotspacemacs-additional-packages '(pkg1))
+                    configuration-layer--used-layers
+                    (configuration-layer--indexed-layers (make-hash-table))
+                    configuration-layer--used-packages
+                    (configuration-layer--indexed-packages (make-hash-table)))
+               (defun layer-dotfile-2/init-pkg1 nil)
+               (helper--add-layers (list layer-dotfile-2) t)
+               (configuration-layer/make-packages-from-layers '(layer-dotfile-2) 'used)
+               (configuration-layer/make-packages-from-dotfile 'used)
+               (should
+                (equal (cfgl-package :name 'pkg1 :owners '(dotfile layer-dotfile-2))
+                       (gethash 'pkg1 configuration-layer--indexed-packages)))))
 
 (ert-deftest test-make-packages-from-dotfile--dotfile-excludes-pkg2-in-layer-11 ()
   (let* ((layer-dotfile-3 (cfgl-layer :name 'layer-dotfile-3
