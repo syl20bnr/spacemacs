@@ -19,6 +19,7 @@
         - [[#basic][Basic]]
         - [[#selecting-an-alternate-lsp-server][Selecting an alternate LSP server]]
         - [[#path-to-lsp-server-executables][Path to LSP server executables]]
+        - [[#indent-line-with-lsp][Indent line with lsp]]
         - [[#semantic-highlighting][Semantic highlighting]]
         - [[#cache-directory-absolute-or-relative][Cache directory (absolute or relative)]]
         - [[#example-dotspacemacs-configuration-layers-entry][Example dotspacemacs-configuration-layers entry]]
@@ -173,6 +174,11 @@ variable:
 | clangd | =lsp-clients-clangd-executable= |
 | ccls   | =ccls-executable=               |
 
+***** Indent line with lsp
+To indent a line using LSP, set the layer variable
+=c-c++-formatter-indent-line= to a non-nil value.
+This enables indentation according to the LSP formatting feature.
+
 ***** Semantic highlighting
 Currently only available for =lsp-ccls= and =clangd=. Semantic highlighting
 can precisely highlight identifiers.
@@ -303,6 +309,12 @@ To organize the file header includes on save, set the layer variable
 style defined in a =.clang-format= file. This file is either located in the same
 directory as the file being edited, or in any of its parent directories. If no
 =.clang-format= file is found, then a default style will be used.
+
+To enable indentation with clang-format, set =c-c++-formatter-indent-line= to =t=:
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables c-c++-formatter-indent-line t)))
+#+END_SRC
 
 To enable automatic buffer formatting on save, set the variable
 =c-c++-enable-clang-format-on-save= to =t=:

@@ -331,6 +331,13 @@
   "Toggle auto-newline."
   (c-toggle-auto-newline 1))
 
+(defun spacemacs//c-c++-setup-formatter-indent-line ()
+  "Setup `indent-line-function' with the formatter indent function."
+  (setq-local indent-line-function
+              `(lambda (&rest args)
+                 (or (spacemacs//c-c++-formatter-indent-line args)
+                     (apply ,(symbol-function indent-line-function) args)))))
+
 
 ;; clang
 
@@ -400,3 +407,13 @@ is non-nil."
   "Add before-save hook for c-c++-organize-includes."
   (add-hook 'before-save-hook
             #'spacemacs//c-c++-organize-includes-on-save nil t))
+
+(defun spacemacs//c-c++-formatter-indent-line (&rest _)
+  "Indent current line with `lsp-format-region' or `clang-format-region'."
+  (when-let* ((fun (cond ((bound-and-true-p lsp-mode) #'lsp-format-region)
+                         ((and (fboundp 'clang-format-region)
+                               (executable-find "clang-format"))
+                          #'clang-format-region))))
+    (call-interactively fun)
+    ;; return `t' to say "indent" been applied
+    t))
