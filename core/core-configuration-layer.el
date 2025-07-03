@@ -593,11 +593,11 @@ To prevent package from being installed or uninstalled set the variable
   ;; usage and ownership
   (configuration-layer/discover-layers 'refresh-index)
   (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
-  (configuration-layer//declare-used-packages configuration-layer--used-layers)
   ;; then load the functions and finally configure the layers
   (configuration-layer//load-layers-files configuration-layer--used-layers
                                           '("funcs"))
   (configuration-layer//configure-layers configuration-layer--used-layers)
+  (configuration-layer//declare-used-packages configuration-layer--used-layers)
   ;; load layers lazy settings
   (configuration-layer/load-auto-layer-file)
   ;; try the package-quickstart-file before detecting package installation
@@ -1602,7 +1602,7 @@ RNAME is the name symbol of another existing layer."
   "Return non-nil if NAME is the name of a used package."
   (let ((obj (configuration-layer/get-package name)))
     (and obj (cfgl-package-get-safe-owner obj)
-         (not (oref obj excluded))
+         (cfgl-package-used-p obj t)
          (not (memq nil (mapcar
                          'configuration-layer/package-used-p
                          (oref obj requires)))))))
