@@ -26,6 +26,8 @@
 (defmacro spacemacs|dotspacemacs-backward-compatibility (variable default)
   "Return `if' sexp for backward compatibility with old dotspacemacs
 values."
+  (declare (obsolete nil "The `dotspacemacs-backward-compatibility' will be removed after 2025.
+Please reinstall the package which relies on this macro."))
   `(if (boundp ',variable) ,variable ',default))
 
 (defun spacemacs/system-is-mac ()

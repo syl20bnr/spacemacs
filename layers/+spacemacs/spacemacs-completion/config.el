@@ -24,15 +24,17 @@
 
 ;; Helm
 
-(defvar helm-use-fuzzy (spacemacs|dotspacemacs-backward-compatibility
-                        dotspacemacs-helm-use-fuzzy always)
+(defvar helm-use-fuzzy 'always
   "Controls fuzzy matching in helm. If set to `always', force fuzzy matching
   in all non-asynchronous sources. If set to `source', preserve individual
   source settings. Else, disable fuzzy matching in all sources.")
+(define-obsolete-variable-alias
+  'dotspacemacs-helm-use-fuzzy 'helm-use-fuzzy "20180608")
 
-(defvar helm-enable-auto-resize (spacemacs|dotspacemacs-backward-compatibility
-                                 dotspacemacs-helm-resize nil)
+(defvar helm-enable-auto-resize nil
   "If non nil, `helm' will try to minimize the space it uses.")
+(define-obsolete-variable-alias
+  'dotspacemacs-helm-resize 'helm-enable-auto-resize "20180608")
 
 (defface spacemacs-helm-navigation-ts-face
   `((t :background ,(face-attribute 'error :foreground)
