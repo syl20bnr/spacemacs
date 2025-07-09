@@ -726,8 +726,8 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil.
                      ;; (This argument *could* be used by a wrapper.)
                      (if single-count
                          ahead ; Pretend time-travel doesn't happen.
-                       (package-build--ensure-count-increase
-                        rcp (copy-sequence version) ahead))))
+                       (package-build--adjust-commit-count
+                        rcp scommit (copy-sequence version) ahead))))
             (package-build--revdesc rcp scommit tag)))
      (t
       ;; The latest commit, which touched a relevant file, is either the
@@ -737,7 +737,7 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil.
       ;; release.
       (list rcommit rtime (package-version-join version) rrevdesc tag)))))
 
-(defun package-build--ensure-count-increase (rcp version ahead)
+(defun package-build--adjust-commit-count (rcp commit version ahead)
   (if-let ((previous (cdr (assq (intern (oref rcp name))
                                 (package-build-archive-alist)))))
       ;; Because upstream may have rewritten history, we cannot be certain
@@ -746,6 +746,7 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil.
       ;; previous snapshot.
       (let ((count (list ahead))
             (pversion (aref previous 0))
+            (pcommit (alist-get :commit (aref previous 4)))
             (pcount nil))
         (when (and
                ;; If there is no zero part, then we know that the previous
@@ -768,31 +769,37 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil.
               (cl-incf i))
             (setq pcount (cdr pversion))
             (setq pversion (nreverse tagged)))
-          ;; Determine whether we can reset the count or increase it, or
+          ;; Determine whether we can reset or increase the count, or
           ;; whether we have to preserve the old count due to rewritten
           ;; history in order to ensure that the new snapshot version is
           ;; greater than the previous snapshot.
+          ;;
           ;; If the previous and current snapshot commits do not follow
           ;; the same tag, then their respective counts of commits since
           ;; their respective tag have no relation to each other and we
           ;; can simply reset the count, determined above.
           (when (equal version pversion)
-            ;; If the new count is smaller than the old, then we keep the
-            ;; old count and append the new count as a separate version
-            ;; part.
-            ;;
-            ;; We may have had to do that for previous snapshots, possibly
-            ;; even for multiple consecutive snapshots.  Beginning at the
-            ;; end, scrape of all counts that are smaller than the current
-            ;; count, but leave the others intact.
-            (setq pcount (nreverse pcount))
-            (while (and pcount (> ahead (car pcount)))
-              (pop pcount))
-            (when pcount
-              ;; This snapshot is based on the same tag as the previous
-              ;; snapshot and, due to history rewriting, the count did
-              ;; not increase.
-              (setq count (nreverse (cons (car count) pcount))))))
+            (if (equal commit pcommit)
+                ;; If we are building the same commit as last time (and
+                ;; no new tag appeared), then we use the same count as
+                ;; last time.
+                (setq count pcount)
+              ;; If the new count is not larger than the old, then we
+              ;; keep the old count and append the new count.
+              ;;
+              ;; We may have had to do that for previous snapshots,
+              ;; possibly even for multiple consecutive snapshots.
+              ;; Beginning at the end, scrape off all counts that are
+              ;; smaller than the current count, but leave the others
+              ;; intact.
+              (setq pcount (nreverse pcount))
+              (while (and pcount (> ahead (car pcount)))
+                (pop pcount))
+              (when pcount
+                ;; This snapshot is based on the same tag as the previous
+                ;; snapshot and, due to history rewriting, the count did
+                ;; not increase.
+                (setq count (nreverse (cons (car count) pcount)))))))
         count)
     (list ahead)))
 
