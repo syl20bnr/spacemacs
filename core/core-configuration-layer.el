@@ -790,7 +790,7 @@ a new object."
                         (plist-get (cdr pkg-specs) :min-version)))
          (step (when (listp pkg-specs)
                  (plist-get (cdr pkg-specs) :step)))
-         (toggle (when (listp pkg-specs)
+         (toggle (when (and (listp pkg-specs) (memq :toggle pkg-specs))
                    (plist-get (cdr pkg-specs) :toggle)))
          (requires (when (listp pkg-specs)
                      (plist-get (cdr pkg-specs) :requires)))
@@ -817,7 +817,7 @@ a new object."
             (version-to-list min-version)))
     (when step
       (oset obj step step))
-    (when toggle
+    (when (and (listp pkg-specs) (memq :toggle pkg-specs))
       (oset obj toggle toggle))
     (when (and ownerp requires)
       (oset obj requires requires))

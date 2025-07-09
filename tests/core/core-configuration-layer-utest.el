@@ -2026,7 +2026,7 @@
 (ert-deftest test-make-packages-from-dotfile--dotfile-to-own-toggled-off-package ()
              (let* ((layer-dotfile-2 (cfgl-layer :name 'layer-dotfile-2
                                                  :dir "/path/"
-                                                 :packages '((pkg1 :toggle 'nil))))
+                                                 :packages '((pkg1 :toggle nil))))
                     (dotspacemacs-additional-packages '(pkg1))
                     configuration-layer--used-layers
                     (configuration-layer--indexed-layers (make-hash-table))
