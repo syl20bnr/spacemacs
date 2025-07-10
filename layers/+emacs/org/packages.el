@@ -598,6 +598,11 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (use-package org-contacts))
     (evilified-state-evilify-map org-agenda-mode-map
       :mode org-agenda-mode
+      :pre-bindings
+      (kbd "C-n") nil ; occupied by evil-paste-pop-next, clear it before evilify
+      "G" nil
+      "|" nil
+      "\\" nil
       :bindings
       "j" 'org-agenda-next-line
       "k" 'org-agenda-previous-line
