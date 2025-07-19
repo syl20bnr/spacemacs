@@ -599,10 +599,18 @@ Headline^^            Visit entry^^               Filter^^                    Da
     (evilified-state-evilify-map org-agenda-mode-map
       :mode org-agenda-mode
       :pre-bindings
-      (kbd "C-n") nil ; occupied by evil-paste-pop-next, clear it before evilify
-      "G" nil
-      "|" nil
-      "\\" nil
+      ;; Remove some key bindings that cannot be evilified.  These commands are
+      ;; bound to other keys, below.
+      ;;
+      ;; `org-agenda-filter-remove-all' is not bound (`org-agenda-set-tags' is
+      ;; bound to ":", which is mapped to "|")
+      ;;
+      ;; `org-agenda-filter-by-tag' is not bound, but "\\" is bound to
+      ;; `org-agenda-filter' instead, which is a good enough substitute.
+      (kbd "C-n") nil                   ;`org-agenda-next-line'
+      "G" nil                           ;`org-agenda-toggle-time-grid'
+      "|" nil                           ;`org-agenda-filter-remove-all'
+      "\\" nil                          ;`org-agenda-filter-by-tag'
       :bindings
       "j" 'org-agenda-next-line
       "k" 'org-agenda-previous-line
