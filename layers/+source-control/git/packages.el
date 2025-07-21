@@ -37,7 +37,8 @@
     git-messenger
     git-timemachine
     golden-ratio
-    (helm-git-grep :requires helm)
+    (helm-git-grep :location (recipe :fetcher github :repo "yasuyk/helm-git-grep")
+                   :requires helm)
     magit
     (magit-delta :toggle git-enable-magit-delta-plugin)
     (magit-gitflow :toggle git-enable-magit-gitflow-plugin)
