@@ -204,7 +204,8 @@
     :init
     (dolist (mode markdown--key-bindings-modes)
       (spacemacs/set-leader-keys-for-major-mode mode
-        "it" 'markdown-toc-generate-toc))))
+        "it" 'markdown-toc-generate-toc
+        "p" 'markdown-toc-follow-link-at-point))))
 
 (defun markdown/init-vmd-mode ()
   (use-package vmd-mode
