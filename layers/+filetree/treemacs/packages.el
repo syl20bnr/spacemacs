@@ -87,7 +87,9 @@
         (treemacs-git-mode treemacs-use-git-mode)
       (treemacs-git-mode -1))
     (add-to-list 'spacemacs-window-split-ignore-prefixes
-                 treemacs--buffer-name-prefix)))
+                 (if (boundp 'treemacs-buffer-name-prefix)
+                     treemacs-buffer-name-prefix
+                   treemacs--buffer-name-prefix))))
 
 (defun treemacs/init-treemacs-evil ()
   (use-package treemacs-evil
@@ -129,7 +131,9 @@
           (dolist (n (number-sequence 1 5))
             (add-to-list 'winum-ignored-buffers
                          (format "%sFramebuffer-%s*"
-                                 treemacs--buffer-name-prefix n))))))))
+                                 (if (boundp 'treemacs-buffer-name-prefix)
+                                     treemacs-buffer-name-prefix
+                                   treemacs--buffer-name-prefix) n))))))))
 
 (defun treemacs/init-treemacs-magit ()
   (use-package treemacs-magit
