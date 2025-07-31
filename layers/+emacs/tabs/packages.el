@@ -34,6 +34,7 @@
     (require 'all-the-icons))
 
   (use-package centaur-tabs
+    :defer t
     :demand
     :custom
     (centaur-tabs-set-icons tabs-icons)
@@ -44,6 +45,10 @@
     (centaur-tabs-close-button "✕")
     (centaur-tabs-modified-marker "•")
     (centaur-tabs-cycle-scope 'tabs)
+    :init
+    (if (daemonp)
+        (add-hook 'server-after-make-frame-hook #'centaur-tabs-mode)
+      (centaur-tabs-mode t))
     :config
     (unless (daemonp)
       (setq centaur-tabs-set-bar tabs-selected-tab-bar))
@@ -52,7 +57,6 @@
     (if tabs-group-by-project
         (centaur-tabs-group-by-projectile-project)
       (centaur-tabs-group-buffer-groups))
-    (centaur-tabs-mode t)
 
     (when tabs-auto-hide
       (add-hook 'window-setup-hook 'spacemacs//tabs-timer-hide)
