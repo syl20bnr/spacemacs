@@ -36,13 +36,6 @@
 (defun restructuredtext/post-init-auto-complete ()
   (add-hook 'rst-mode-hook 'auto-complete-mode))
 
-;; (defun restructuredtext/init-auto-complete-rst ()
-;;   (use-package auto-complete-rst
-;;     :commands (auto-complete-rst-add-sources
-;;                auto-complete-rst-init)
-;;     :init (spacemacs/add-to-hook 'rst-mode-hook '(auto-complete-rst-init
-;;                                                   auto-complete-rst-add-sources))))
-
 (defun restructuredtext/init-rst-directives ()
   (use-package rst-directives))
 
