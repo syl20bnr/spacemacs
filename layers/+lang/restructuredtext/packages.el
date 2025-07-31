@@ -23,7 +23,7 @@
 
 (defconst restructuredtext-packages
   '(
-    auto-complete
+    company
     ;; Disabled due to package is not longer maintained
     ;; (auto-complete-rst :requires auto-complete)
     (rst :location built-in)
@@ -32,9 +32,6 @@
     flyspell
     smartparens
     yasnippet))
-
-(defun restructuredtext/post-init-auto-complete ()
-  (add-hook 'rst-mode-hook 'auto-complete-mode))
 
 (defun restructuredtext/init-rst-directives ()
   (use-package rst-directives))
@@ -47,12 +44,11 @@
     :defer t
     :config (add-hook 'rst-adjust-hook 'rst-toc-update)))
 
+(defun restructuredtext/post-init-company ()
+  (spacemacs|add-company-backends :backends company-capf :modes rst-mode))
+
 (defun restructuredtext/post-init-flyspell ()
-  (spell-checking/add-flyspell-hook 'rst-mode-hook)
-  ;; important auto-complete work-around to be applied to make both flyspell
-  ;; and auto-complete to work together
-  (when (configuration-layer/package-used-p 'auto-complete)
-    (add-hook 'rst-mode-hook 'ac-flyspell-workaround t)))
+  (spell-checking/add-flyspell-hook 'rst-mode-hook))
 
 (defun restructuredtext/post-init-yasnippet ()
   (add-hook 'rst-mode-hook 'spacemacs/load-yasnippet))
