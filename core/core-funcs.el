@@ -26,8 +26,13 @@
 (defmacro spacemacs|dotspacemacs-backward-compatibility (variable default)
   "Return `if' sexp for backward compatibility with old dotspacemacs
 values."
-  (declare (obsolete nil "The `dotspacemacs-backward-compatibility' will be removed after 2025.
-Please reinstall the package which relies on this macro."))
+  (declare (obsolete nil "The `spacemacs|dotspacemacs-backward-compatibility' macro will be removed after 2025.
+Please reinstall the package which relies on this macro (such as `hybrid-mode')"))
+  ;; Display a warning in addition to the obsolete declaration.  This macro is
+  ;; used in autoload forms in `hybrid-mode' which are interpreted (not
+  ;; byte-compiled).
+  (warn "The `spacemacs|dotspacemacs-backward-compatibility' macro will be removed after 2025.
+Please reinstall the package which relies on this macro (such as `hybrid-mode')")
   `(if (boundp ',variable) ,variable ',default))
 
 (defun spacemacs/system-is-mac ()
