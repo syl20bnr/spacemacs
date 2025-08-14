@@ -214,7 +214,7 @@ Check [[https://github.com/golangci/golangci-lint][golangci-lint]] and [[https:/
 When using golangci-lint, ensure you have the latest version, currently [[https://github.com/golangci/golangci-lint/releases][v2.x]].
 
 Please remember that without properly configured =flycheck-golangci-lint= variables =golangci-lint=
-may not run as expected. The recommended way is to use a =.golanci.yml= in your project.
+may not run as expected. The recommended way is to use a =.golangci.yml= in your project.
 But if this is not possible you can also set global command line flags for =golangci-lint=.
 Especially important is the selection of which linters to run and whether to lint test files too.
 
