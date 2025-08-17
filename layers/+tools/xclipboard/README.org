@@ -14,6 +14,10 @@
 * Description
 =xclipboard= integration layer.
 
+When running Emacs in a terminal, it will attempt to use OSC52 for copying and pasting
+automatically. This feature is intended for terminals that do not support OSC52, or for
+users who want advanced clipboard functionality in the terminal.
+
 ** Features:
 - adds copy support to the X-clipboard from the terminal.
 - adds paste support to the X-clipboard from the terminal.
@@ -29,6 +33,9 @@ Note that =xsel= might not be installed by default on e.g. Ubuntu systems.
 
 Clipboard manager integration requires [[http://parcellite.sourceforge.net/][Parcellite]] or [[https://github.com/CristianHenzel/ClipIt][ClipIt]] installed on Linux
 and [[https://github.com/TermiT/Flycut][Flycut]] installed on macOS.
+
+For Emacs on a remote server over SSH, X11 forwarding must be enabled and working with a
+local X server before use.
 
 * Usage
 ** Clipboard Manager Integration
