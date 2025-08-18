@@ -1,0 +1,144 @@
+#+TITLE: Aider Layer
+
+#+TAGS: layer|tool
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+- [[#usage][Usage]]
+- [[#key-bindings][Key bindings]]
+  - [[#general-commands][General Commands]]
+  - [[#ai-modes][AI Modes]]
+  - [[#file-management][File Management]]
+  - [[#ai-interactions][AI Interactions]]
+  - [[#session-management][Session Management]]
+  - [[#git-integration][Git Integration]]
+
+* Description
+This layer adds support for [[https://github.com/Aider-AI/aider][Aider]], an AI pair programming tool that helps you
+edit code in your local git repository. Aider works with various language models
+(GPT-4, Claude, etc.) to make changes to your codebase.
+
+** Features:
+- AI-powered code editing and generation
+- Multiple AI modes: code, ask, architect, and help
+- Seamless integration with git repositories
+- File management for AI context
+- Unit test generation and debugging
+- Auto-commit with generated messages
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =aider= to the existing =dotspacemacs-configuration-layers= list in this file.
+
+You will also need to install the =Aider= tool itself:
+
+#+BEGIN_SRC sh
+  uv tool install --with pip aider-chat@latest
+#+END_SRC
+
+For more installation information, please check the [[https://aider.chat/docs/install.html][Aider Installation]].
+
+* Configuration
+Before using this layer, you need make sure the =aider= command works in your
+terminal first.
+
+Create a =.aider.conf.yml= on your home directory for global configuration, and
+create a =.aider.conf.yml= in your project directory for local configurations.
+
+Configure Aider by following the [[https://aider.chat/docs/config.html][Aider Configuration Guide]].
+
+* Usage
+This layer provides comprehensive integration with Aider through Emacs. The main
+entry point is the transient menu accessible via ~SPC $ a y~.
+
+Basic workflow:
+- Open your project in Spacemacs
+- Start an Aider session with ~SPC $ a a~
+- Add files to Aider's context with ~SPC $ a f~ or ~SPC $ a F~
+- Use ~SPC $ a *~ to question symbole under cursor
+- Use ~SPC $ a c~ to change code by description
+- Use ~SPC $ a y~ to open the Aider transient menu for all actions
+
+The layer supports multiple AI modes:
+- *Code mode* (~SPC $ a 1~): For direct code editing
+- *Ask mode* (~SPC $ a 2~): For questions and explanations
+- *Architect mode* (~SPC $ a 3~): For high-level design discussions
+- *Help mode* (~SPC $ a 4~): For getting help with Aider itself
+
+* Key bindings
+
+** General Commands
+
+| Key binding | Description                      |
+|-------------+----------------------------------|
+| ~SPC $ a y~ | Open Aider transient menu        |
+| ~SPC $ a a~ | Run Aider                        |
+| ~SPC $ a .~ | Run Aider in current directory   |
+| ~SPC $ a :~ | Run Aider in specified directory |
+| ~SPC $ a l~ | Clear chat history               |
+| ~SPC $ a s~ | Reset Aider session              |
+| ~SPC $ a x~ | Exit Aider                       |
+| ~SPC $ a ?~ | Show Aider help                  |
+| ~SPC $ a h~ | Show output history              |
+| ~SPC $ a o~ | Change AI model                  |
+| ~SPC $ a v~ | Send voice input                 |
+| ~SPC $ a W~ | Web search integration           |
+
+** AI Modes
+
+| Key binding | Description              |
+|-------------+--------------------------|
+| ~SPC $ a 1~ | Switch to code mode      |
+| ~SPC $ a 2~ | Switch to ask mode       |
+| ~SPC $ a 3~ | Switch to architect mode |
+| ~SPC $ a 4~ | Switch to help mode      |
+
+** File Management
+
+| Key binding | Description                         |
+|-------------+-------------------------------------|
+| ~SPC $ a f~ | Add file to Aider context           |
+| ~SPC $ a p~ | Add project file to context         |
+| ~SPC $ a F~ | Add current file to context         |
+| ~SPC $ a d~ | Add same type files under directory |
+| ~SPC $ a w~ | Add files in current window         |
+| ~SPC $ a m~ | Batch add Dired marked files        |
+| ~SPC $ a j~ | Drop file from context              |
+| ~SPC $ a J~ | Drop current file from context      |
+| ~SPC $ a k~ | Batch drop Dired marked files       |
+| ~SPC $ a K~ | Drop all files from context         |
+| ~SPC $ a A~ | List added files                    |
+
+** AI Interactions
+
+| Key binding | Description                            |
+|-------------+----------------------------------------|
+| ~SPC $ a c~ | Direct code change request             |
+| ~SPC $ a e~ | Ask question about code                |
+| ~SPC $ a r~ | Architect this code                    |
+| ~SPC $ a q~ | Ask general question                   |
+| ~SPC $ a *~ | Ask question about symbol under cursor |
+| ~SPC $ a g~ | Accept suggested change                |
+| ~SPC $ a i~ | Implement TODO                         |
+| ~SPC $ a t~ | Write unit test                        |
+| ~SPC $ a T~ | Fix failing test under cursor          |
+| ~SPC $ a !~ | Debug exception                        |
+
+** Session Management
+
+| Key binding | Description               |
+|-------------+---------------------------|
+| ~SPC $ a S~ | Create session scratchpad |
+| ~SPC $ a G~ | Add file to session       |
+
+** Git Integration
+
+| Key binding | Description                        |
+|-------------+------------------------------------|
+| ~SPC $ a ^~ | Show last commit with Magit        |
+| ~SPC $ a u~ | Undo last commit                   |
+| ~SPC $ a C~ | Commit with auto-generated message |
+| ~SPC $ a R~ | Refresh repository map             |

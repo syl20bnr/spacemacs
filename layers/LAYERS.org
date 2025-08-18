@@ -210,6 +210,7 @@
   - [[#themes-megapack][Themes Megapack]]
   - [[#theming][Theming]]
 - [[#tools][Tools]]
+  - [[#aider][Aider]]
   - [[#ansible][Ansible]]
   - [[#apache][Apache]]
   - [[#bm][Bm]]
@@ -2748,6 +2749,18 @@ Features:
 - Includes three additional layer variables for tweaking headings.
 
 * Tools
+** Aider
+[[file:+tools/aider/README.org][+tools/aider/README.org]]
+
+This layer adds support for aider in Spacemacs.
+Features:
+- AI-powered code editing and generation
+- Multiple AI modes: code, ask, architect, and help
+- Seamless integration with git repositories
+- File management for AI context
+- Unit test generation and debugging
+- Auto-commit with generated messages
+
 ** Ansible
 [[file:+tools/ansible/README.org][+tools/ansible/README.org]]
 
