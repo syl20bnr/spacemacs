@@ -124,6 +124,8 @@
            evil-intercept-maps))
     (evilified-state-evilify-map edebug-mode-map
       :eval-after-load edebug
+      :pre-bindings               ; Remove key bindings that cannot be evilified
+      "G" nil                     ; edebug-Go-nonstop-mode
       :bindings
       "a" 'edebug-stop
       "c" 'edebug-go-mode
