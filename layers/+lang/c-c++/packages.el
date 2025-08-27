@@ -60,7 +60,7 @@
     (ycmd :toggle (eq c-c++-backend 'ycmd))))
 
 (defun c-c++/init-gendoxy ()
-  "Initialise gendoxy (doxygen package)"
+  "Initialize gendoxy (doxygen package)"
   (use-package gendoxy
     :defer t
     :init (dolist (mode c-c++-modes)

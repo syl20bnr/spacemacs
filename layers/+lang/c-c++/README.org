@@ -48,11 +48,13 @@
       - [[#gotomember][goto/member]]
     - [[#debugger][debugger]]
   - [[#rtags-1][RTags]]
+  - [[#ycmd][ycmd]]
   - [[#doxygen][Doxygen]]
   - [[#additional-key-bindings][Additional key bindings]]
     - [[#disassemble][Disassemble]]
     - [[#formatting-clang-format][Formatting (clang-format)]]
     - [[#open-matching-files][Open matching files]]
+    - [[#cscope][cscope]]
     - [[#refactor][Refactor]]
 
 * Description
@@ -507,6 +509,12 @@ A ~[ccls]~ suffix indicates that the binding is for the indicated backend only.
 | ~SPC m g X~ | fix fixit at point              |
 | ~SPC m g Y~ | cycle overlays on screen        |
 
+
+** ycmd
+
+| Key binding | Description          |
+|-------------|----------------------|
+| ~SPC m g G~ | goto imprecise       |
 ** Doxygen
 
 | Key binding | Description                                                         |
@@ -541,6 +549,12 @@ A ~[ccls]~ suffix indicates that the binding is for the indicated backend only.
 |             | (e.g. switch between .cpp and .h, requires a project to work) |
 | ~SPC m g A~ | open matching file in another window                          |
 |             | (e.g. switch between .cpp and .h, requires a project to work) |
+
+*** cscope
+
+| Key binding | Description        |
+|-------------|--------------------|
+| ~SPC m g i~ | cscope index files |
 
 *** Refactor
 
