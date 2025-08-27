@@ -8,9 +8,9 @@
 ;; Created: Tue Mar  5 16:15:50 1996
 ;; Version: 0
 ;; Package-Requires: ()
-;; Last-Updated: Mon Jan  1 11:45:14 2018 (-0800)
+;; Last-Updated: Fri Aug 15 12:03:30 2025 (-0700)
 ;;           By: dradams
-;;     Update #: 236
+;;     Update #: 238
 ;; URL: https://www.emacswiki.org/emacs/download/frame-fns.el
 ;; Doc URL: https://emacswiki.org/emacs/FrameModes
 ;; Keywords: internal, extensions, local, frames
@@ -38,6 +38,8 @@
 ;;
 ;;; Change Log:
 ;;
+;; 2025/08/15 dadams
+;;     get-a-frame: Typo in error msg.
 ;; 2017/10/22 dadams
 ;;     frames-on: Removed (unused) second arg.
 ;; 2011/01/04 dadams
@@ -239,12 +241,12 @@ If FRAME is a frame, it is returned."
   (cond ((framep frame) frame)
         ((stringp frame)
          (catch 'get-a-frame-found
-           (dolist (fr (frame-list))
+           (dolist (fr  (frame-list))
              (when (string= frame (get-frame-name fr))
                (throw 'get-a-frame-found fr)))
            nil))
         (t (error
-            "Function `get-frame-name': Arg neither a string nor a frame: `%s'"
+            "Function `get-a-frame': Arg neither a string nor a frame: `%s'"
             frame))))
 
 (defun read-frame (prompt &optional default existing)
