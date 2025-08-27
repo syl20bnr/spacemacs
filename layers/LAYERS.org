@@ -3287,6 +3287,10 @@ Features:
 
 =xclipboard= integration layer.
 
+When running Emacs in a terminal, it will attempt to use OSC52 for copying and pasting
+automatically. This feature is intended for terminals that do not support OSC52, or for
+users who want advanced clipboard functionality in the terminal.
+
 Features:
 - adds copy support to the X-clipboard from the terminal.
 - adds paste support to the X-clipboard from the terminal.

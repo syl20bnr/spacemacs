@@ -311,6 +311,7 @@ directory as the file being edited, or in any of its parent directories. If no
 =.clang-format= file is found, then a default style will be used.
 
 To enable indentation with clang-format, set =c-c++-formatter-indent-line= to =t=:
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '((c-c++ :variables c-c++-formatter-indent-line t)))
