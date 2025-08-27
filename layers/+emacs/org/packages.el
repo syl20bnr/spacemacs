@@ -35,7 +35,7 @@
     (ob :location built-in)
     (org :location elpa :min-version "9.7.8")
     (org-agenda :location built-in)
-    (org-wild-notifier :toggle org-enable-notifications)
+    (org-alert  :toggle org-enable-notifications)
     (org-contacts :toggle org-enable-org-contacts-support)
     org-contrib
     (org-vcard :toggle org-enable-org-contacts-support)
@@ -629,12 +629,14 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (kbd "M-SPC") 'spacemacs/org-agenda-transient-state/body
       (kbd "s-M-SPC") 'spacemacs/org-agenda-transient-state/body)))
 
-(defun org/init-org-wild-notifier ()
-  (use-package org-wild-notifier
+(defun org/init-org-alert ()
+  (use-package org-alert
     :defer t
     :init
     (when org-start-notification-daemon-on-startup
-      (org-wild-notifier-mode))))
+        (org-alert-enable))
+    :commands (org-alert-check org-alert-enable org-alert-disable)
+    ))
 
 (defun org/init-org-brain ()
   (use-package org-brain

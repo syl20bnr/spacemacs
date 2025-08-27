@@ -42,7 +42,7 @@ the project root). If it an absolute path, one global file is
 used.")
 
 (defvar org-enable-notifications nil
-  "If non-nil org-wild-notifier is configured.")
+  "If non-nil org-alert is configured.")
 
 (defvar org-start-notification-daemon-on-startup nil
   "If non-nil start the notification daemon on startup.")
