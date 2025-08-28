@@ -1,0 +1,145 @@
+#+TITLE: Claude Code Layer
+
+#+TAGS: layer|tool
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+- [[#usage][Usage]]
+- [[#key-bindings][Key bindings]]
+  - [[#menu-entries][Menu Entries]]
+  - [[#session-management][Session Management]]
+  - [[#navigation][Navigation]]
+  - [[#interaction][Interaction]]
+  - [[#debug-commands][Debug Commands]]
+  - [[#assistant-functions][Assistant Functions]]
+
+* Description
+This layer adds support for [[https://github.com/manzaltu/claude-code-ide.el][Claude Code IDE]], an Emacs package that provides
+seamless integration with Claude Code CLI for AI-assisted coding.
+
+** Features:
+- AI-powered code editing and generation using Claude
+- Terminal-based interaction with Claude Code CLI
+- Multi-project session management
+- Deep Emacs integration with transient menus
+- Resume and continue conversations
+- Send code regions and symbols for analysis
+- Project-aware context handling
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =claude-code= to the existing =dotspacemacs-configuration-layers= list in this file.
+
+You will also need to install the Claude Code CLI tool:
+
+#+BEGIN_SRC sh
+  # Install Claude Code CLI
+  npm install -g @anthropic/claude-code
+
+  # Or using other package managers
+  brew install anthropic/tap/claude-code
+#+END_SRC
+
+For more installation information, please check the [[https://docs.anthropic.com/en/docs/claude-code][Claude Code Documentation]].
+
+* Configuration
+Before using this layer, ensure the =claude-code= command works in your terminal.
+User settings are defined in =~/.claude/settings.json= and apply to all projects.
+Project settings are saved in your project directory:
+- =.claude/settings.json= for settings that are checked into source control and
+  shared with your team
+- =.claude/settings.local.json= for settings that are not checked in, useful for
+  personal preferences and experimentation.
+
+Please refer the [[https://docs.anthropic.com/en/docs/claude-code/settings][Claude Code settings]] for detailed information.
+
+The package supports various customization options. You can configure the
+options in your Spacemacs configuration:
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((claude-code :variables
+                               claude-code-ide-window-side 'right
+                               claude-code-ide-window-width 100)))
+#+END_SRC
+
+For the full options, please refer the [[https://github.com/manzaltu/claude-code-ide.el][Claude Code IDE configuration]] section on
+its project page.
+
+* Usage
+This layer provides comprehensive integration with Claude Code through Emacs. The main
+entry point is the transient menu accessible via ~SPC a c y~.
+
+Basic workflow:
+- Open your project in Spacemacs
+- Use ~SPC a c y~ to open the Claude Code transient menu
+- Start a Claude Code session with ~SPC a c s~
+- Send prompts with ~SPC a c p~ or use helper functions
+- Continue conversations with ~SPC a c c~ or resume with ~SPC a c r~
+
+The layer includes helpful functions for common tasks:
+- Ask questions about symbols at point
+
+* Key bindings
+
+** Menu Entries
+
+| Key binding | Description                     |
+|-------------+---------------------------------|
+| ~SPC $ d y~ | Open Claude Code transient menu |
+| ~SPC $ d C~ | Configuration transient menu    |
+
+And in the claude code terminal buffer,
+| Key binding  | Command                        | Description                          |
+|--------------+--------------------------------+--------------------------------------|
+| ~M-RET~      | claude-code-ide-insert-newline | Insert a newline in the prompt       |
+| ~C-<escape>~ | claude-code-ide-send-escape    | Send escape key to cancel operations |
+
+** Session Management
+
+| Key binding | Description                           |
+|-------------+---------------------------------------|
+| ~SPC $ d s~ | Start Claude Code for current project |
+| ~SPC $ d c~ | Continue Claude Code for current project |
+| ~SPC $ d r~ | Resume a previous conversation        |
+| ~SPC $ d l~ | List and switch between sessions      |
+| ~SPC $ d b~ | Switch to Claude Code buffer          |
+| ~SPC $ d t~ | Toggle Claude Code window             |
+| ~SPC $ d q~ | Stop Claude Code for current project  |
+
+** Navigation
+
+| Key binding | Description                      |
+|-------------+----------------------------------|
+| ~SPC $ d b~ | Switch to Claude Code buffer     |
+| ~SPC $ d t~ | Toggle Claude Code window        |
+
+** Interaction
+
+| Key binding | Description                           |
+|-------------+---------------------------------------|
+| ~SPC $ d i~ | Insert selected text to Claude prompt |
+| ~SPC $ d p~ | Send prompt to Claude from minibuffer |
+| ~SPC $ d e~ | Send escape to Claude buffer          |
+| ~SPC $ d n~ | Insert newline in  Claude buffer      |
+
+** Debug Commands
+
+| Key binding | Description              |
+|-------------+--------------------------|
+| ~SPC $ d s~ | Check claude code status |
+| ~SPC $ d v~ | Show version             |
+| ~SPC $ d d~ | Toggle the debug mode    |
+| ~SPC $ d l~ | Show debug info          |
+| ~SPC $ d c~ | Clear debug info         |
+| ~SPC $ d v~ | Show version             |
+| ~SPC $ d m~ | Show MCP sessions        |
+| ~SPC $ d p~ | Show active ports        |
+
+** Assistant Functions
+
+| Key binding | Description                                |
+|-------------+--------------------------------------------|
+| ~SPC $ d *~ | Ask question about symbol at point         |

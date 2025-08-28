@@ -227,6 +227,7 @@
   - [[#finance][Finance]]
   - [[#geolocation][Geolocation]]
   - [[#imenu-list][Imenu-list]]
+  - [[#claude-code][Claude Code]]
   - [[#import-js][Import-js]]
   - [[#kubernetes][Kubernetes]]
   - [[#lsp][LSP]]
@@ -2954,6 +2955,21 @@ a completion buffer.
 
 Features:
 - IDE like outline view of current buffer showing all significant symbols in one view
+
+** Claude Code
+[[file:+tools/claude-code/README.org][+tools/claude-code/README.org]]
+
+This layer adds support for [[https://github.com/manzaltu/claude-code-ide.el][Claude Code IDE]], an Emacs package that provides
+seamless integration with Claude Code CLI for AI-assisted coding.
+
+Features:
+- AI-powered code editing and generation using Claude
+- Terminal-based interaction with Claude Code CLI
+- Multi-project session management
+- Deep Emacs integration with transient menus
+- Resume and continue conversations
+- Send code regions and symbols for analysis
+- Project-aware context handling
 
 ** Import-js
 [[file:+tools/import-js/README.org][+tools/import-js/README.org]]
