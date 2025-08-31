@@ -217,8 +217,6 @@ Git commands (start with ~g~):
 
 | Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
-| ~SPC g /~   | open =helm-git-grep=                                |
-| ~SPC g *~   | open =helm-git-grep-at-point=                       |
 | ~SPC g b~   | open a =magit= blame                                |
 | ~SPC g f f~ | view a file at a specific branch or commit          |
 | ~SPC g f l~ | commits log for current file                        |

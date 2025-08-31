@@ -39,7 +39,7 @@
     (helm-posframe :toggle helm-use-posframe)
     helm-projectile
     ;; FIXME Remove obsolete packages helm-swoop, helm-themes,
-    ;; helm-ag, helm-git-grep, etc. (see https://github.com/melpa/melpa/pull/9520)
+    ;; helm-ag etc. (see https://github.com/melpa/melpa/pull/9520)
     (helm-swoop :location (recipe
                            :fetcher github
                            :repo "emacsattic/helm-swoop"))
@@ -82,6 +82,7 @@
 (defun helm/init-helm ()
   (use-package helm
     :defer t
+    :commands (helm-grep-git-1)
     :init
     (spacemacs|diminish helm-ff-cache-mode)
     (spacemacs|add-transient-hook completing-read
@@ -190,6 +191,11 @@
                     dotspacemacs-emacs-command-key 'spacemacs/helm-M-x-fuzzy-matching))))
     ;; avoid duplicates in `helm-M-x' history.
     (setq history-delete-duplicates t)
+    ;; bind for grep in git
+    (when (configuration-layer/layer-used-p 'git)
+      (spacemacs/set-leader-keys
+        "g/" 'spacemacs/helm-git-grep
+        "g*" 'spacemacs/helm-git-grep-at-point))
     :config
     (helm-mode)
     (spacemacs|hide-lighter helm-mode)

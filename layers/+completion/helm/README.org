@@ -20,6 +20,7 @@
   - [[#transient-state][Transient state]]
   - [[#files][Files]]
   - [[#buffers][Buffers]]
+  - [[#git-if-git-layer-is-enabled][Git (if git layer is enabled)]]
   - [[#bookmarks][Bookmarks]]
   - [[#colorsfaces][Colors/Faces]]
   - [[#c-z-and-tab-switch][C-z and Tab switch]]
@@ -192,6 +193,12 @@ In the =helm-buffers= buffer:
 | Key binding  | Description                              |
 |--------------+------------------------------------------|
 | ~S-<return>~ | open the selected buffer in other window |
+
+** Git (if git layer is enabled)
+| Key binding | Description                   |
+|-------------+-------------------------------|
+| ~SPC g /~   | open =helm-git-grep=          |
+| ~SPC g *~   | open =helm-git-grep-at-point= |
 
 ** Bookmarks
 In the =helm-bookmarks= buffer:

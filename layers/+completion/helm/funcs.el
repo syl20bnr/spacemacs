@@ -535,6 +535,16 @@ Removes the automatic guessing of the initial value based on thing at point. "
     (set-text-properties 0 (length input) nil input)
     (helm-find-files-1 input)))
 
+(defun spacemacs/helm-git-grep ()
+  "Search for a pattern in the Git repository of the current buffer."
+  (interactive)
+  (helm-grep-git-1 "" t nil ""))
+
+(defun spacemacs/helm-git-grep-at-point ()
+  "Search for the symbol at point in the Git repository of the current buffer."
+  (interactive)
+  (helm-grep-git-1 "" t))
+
  ;; Key bindings
 
 (defmacro spacemacs||set-helm-key (keys func)

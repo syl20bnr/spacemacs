@@ -37,8 +37,6 @@
     git-messenger
     git-timemachine
     golden-ratio
-    (helm-git-grep :location (recipe :fetcher github :repo "yasuyk/helm-git-grep")
-                   :requires helm)
     magit
     (magit-delta :toggle git-enable-magit-delta-plugin)
     (magit-gitflow :toggle git-enable-magit-gitflow-plugin)
@@ -69,13 +67,6 @@
     ;; See `git-packages' form in this file.
     (unless (spacemacs/system-is-mswindows)
       (add-to-list 'spacemacs-evil-collection-allowed-list 'forge))))
-
-(defun git/init-helm-git-grep ()
-  (use-package helm-git-grep
-    :defer t
-    :init (spacemacs/set-leader-keys
-            "g/" 'helm-git-grep
-            "g*" 'helm-git-grep-at-point)))
 
 (defun git/init-code-review ()
   (use-package code-review
