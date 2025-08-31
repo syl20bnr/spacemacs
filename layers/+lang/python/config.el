@@ -95,6 +95,15 @@ Possible values are `on-visit', `on-project-switch' or `nil'.")
 (defvar python-enable-importmagic nil
   "If non-nil, enable the importmagic feature.")
 
+(defvar python-enable-tools '(pip pipenv poetry)
+  "List of Python package management tools to enable in Spacemacs.
+
+Possible values:
+- `pip`: Enable pip package management functionality
+- `pipenv`: Enable pipenv virtual environment and package management
+- `poetry`: Enable Poetry package and dependency management
+- `uv`: Enable uv package and dependency management")
+
 (defvar spacemacs--python-pyenv-modes nil
   "List of major modes where to add pyenv support.")
 

@@ -43,9 +43,11 @@
           :toggle (memq 'nose (flatten-list (list python-test-runner))))
     org
     pip-requirements
-    pipenv
-    poetry
-    pippel
+    (pipenv :toggle (memq 'pipenv python-enable-tools))
+    (poetry :toggle (memq 'poetry python-enable-tools))
+    (pippel :toggle (memq 'pip python-enable-tools))
+    (uv :toggle (memq 'uv python-enable-tools)
+        :location (recipe :fetcher github :repo "borgstad/uv.el" :files ("*.el")))
     py-isort
     pyenv-mode
     pydoc
@@ -272,6 +274,24 @@
     :config
     (evilified-state-evilify-map pippel-package-menu-mode-map
       :mode pippel-package-menu-mode)))
+
+(defun python/init-uv ()
+  (use-package uv
+    :defer t
+    :init
+    (spacemacs/declare-prefix-for-mode 'python-mode
+      "u" "UV")
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode
+      "uv" 'uv
+      "ua" 'uv-add
+      "ud" 'uv-remove
+      "ul" 'uv-lock
+      "ue" 'uv-edit-pyproject-toml
+      "ub" 'uv-build
+      "up" 'uv-publish
+      "un" 'uv-new
+      "ui" 'uv-init
+      "ur" 'uv-run)))
 
 (defun python/init-py-isort ()
   (use-package py-isort

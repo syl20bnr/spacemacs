@@ -38,6 +38,7 @@
     - [[#automatic-activation-of-local-pyenv-version][Automatic activation of local pyenv version]]
   - [[#manage-environments-and-packages-with-pipenv][Manage environments and packages with pipenv]]
   - [[#manage-environments-and-packages-with-poetry][Manage environments and packages with Poetry]]
+  - [[#manage-environments-and-packages-with-uv][Manage environments and packages with uv]]
 - [[#key-bindings][Key bindings]]
   - [[#inferior-repl-process][Inferior REPL process]]
   - [[#running-python-script-in-shell][Running Python Script in shell]]
@@ -61,7 +62,7 @@ This layer adds support for the Python language.
 - Code Navigation
 - Documentation Lookup using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] and [[https://github.com/tsgates/pylookup][pylookup]]
 - Test Runners using [[https://github.com/ionrock/pytest-el][pytest]] or [[https://github.com/syl20bnr/nose.el][nose.el]]
-- Virtual Environment using [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]] as well as [[https://github.com/pypa/pipenv][pipenv]] and [[https://github.com/galaunay/poetry.el][poetry]]
+- Virtual Environment using [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]] as well as [[https://github.com/pypa/pipenv][pipenv]], [[https://github.com/galaunay/poetry.el][poetry]], and [[https://github.com/astral-sh/uv][UV]]
 - semantic mode is enabled
 - PEP8 compliant formatting via [[https://github.com/google/yapf][YAPF]], [[https://github.com/ambv/black][black]], or [[https://github.com/astral-sh/ruff][ruff]]
 - PEP8 checks with [[https://pypi.python.org/pypi/flake8][flake8]] or [[https://pypi.python.org/pypi/pylint/1.6.4][pylint]]
@@ -469,6 +470,37 @@ It provides the following key bindings:
 | ~SPC m v o d~ | De-activate the virtualenv associated to the current poetry project |
 | ~SPC m v o a~ | Activate the virtualenv associated to the current poetry project    |
 | ~SPC m v o t~ | Toggle the virtualenv associated to the current poetry project      |
+
+** Manage environments and packages with uv
+[[https://github.com/astral-sh/uv][UV]] is a fast Python package installer and resolver written in Rust. It's designed
+to be a drop-in replacement for pip and pip-tools, offering significantly faster
+package installation and dependency resolution.
+
+Spacemacs integration for UV is provided by the [[https://github.com/borgstad/uv.el][uv.el]] package.
+It provides the following key bindings:
+
+| Key binding | Description                        |
+|-------------+------------------------------------|
+| ~SPC m u v~ | Open the main UV transient menu    |
+| ~SPC m u a~ | Add regular dependencies           |
+| ~SPC m u d~ | Remove dependencies                |
+| ~SPC m u l~ | Lock project dependencies          |
+| ~SPC m u e~ | Edit pyproject.toml file           |
+| ~SPC m u b~ | Build the package                  |
+| ~SPC m u p~ | Publish the package                |
+| ~SPC m u n~ | Create a new Python project        |
+| ~SPC m u i~ | Initialize a new UV project        |
+| ~SPC m u r~ | Run commands in the UV environment |
+
+To enable UV support, add ~uv~ to your ~python-enable-tools~ list:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+                '((python :variables python-enable-tools '(uv))))
+#+END_SRC
+
+*Note:* You need to install the ~uv~ command-line tool first. See the
+[[https://github.com/astral-sh/uv][UV documentation]] for installation instructions.
 
 * Key bindings
 ** Inferior REPL process
