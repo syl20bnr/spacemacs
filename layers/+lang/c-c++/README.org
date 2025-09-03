@@ -510,12 +510,12 @@ A ~[ccls]~ suffix indicates that the binding is for the indicated backend only.
 | ~SPC m g X~ | fix fixit at point              |
 | ~SPC m g Y~ | cycle overlays on screen        |
 
-
 ** ycmd
 
-| Key binding | Description          |
-|-------------|----------------------|
-| ~SPC m g G~ | goto imprecise       |
+| Key binding | Description    |
+|-------------+----------------|
+| ~SPC m g G~ | goto imprecise |
+
 ** Doxygen
 
 | Key binding | Description                                                         |
@@ -554,7 +554,7 @@ A ~[ccls]~ suffix indicates that the binding is for the indicated backend only.
 *** cscope
 
 | Key binding | Description        |
-|-------------|--------------------|
+|-------------+--------------------|
 | ~SPC m g i~ | cscope index files |
 
 *** Refactor

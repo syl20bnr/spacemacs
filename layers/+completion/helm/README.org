@@ -195,6 +195,7 @@ In the =helm-buffers= buffer:
 | ~S-<return>~ | open the selected buffer in other window |
 
 ** Git (if git layer is enabled)
+
 | Key binding | Description                   |
 |-------------+-------------------------------|
 | ~SPC g /~   | open =helm-git-grep=          |
