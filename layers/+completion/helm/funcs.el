@@ -646,12 +646,31 @@ to buffers)."
 
 
 ;; theme
+(defun spacemacs//helm-themes-load (theme)
+  "Disable the `custom-enabled-themes'first then load the named THEME."
+  (mapc 'disable-theme custom-enabled-themes)
+  (if (string= theme "default")
+      t
+    (load-theme (intern theme) t)))
+
+(defun spacemacs//helm-themes-candidates ()
+  "Return list of available themes with `default' on the head."
+  (cons 'default (custom-available-themes)))
 
 (defun spacemacs/helm-themes ()
-  "Remove limit on number of candidates on `helm-themes'"
+  "List the theme candidates without number limit."
   (interactive)
-  (let (helm-candidate-number-limit)
-    (helm-themes)))
+  (let (helm-candidate-number-limit
+        (orig-theme (or (car-safe custom-enabled-themes) 'default)))
+    (unwind-protect
+        (unless (helm :prompt (format "pattern (current theme: %s): " orig-theme)
+                      :preselect (format "%s$" orig-theme)
+                      :sources (helm-build-sync-source "Selection Theme"
+                                 :candidates 'spacemacs//helm-themes-candidates
+                                 :action 'spacemacs//helm-themes-load
+                                 :persistent-action 'spacemacs//helm-themes-load)
+                      :buffer "*helm-themes*")
+          (spacemacs//helm-themes-load (symbol-name orig-theme))))))
 
 ;; Buffers ---------------------------------------------------------------------
 

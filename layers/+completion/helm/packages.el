@@ -38,14 +38,11 @@
     helm-org
     (helm-posframe :toggle helm-use-posframe)
     helm-projectile
-    ;; FIXME Remove obsolete packages helm-swoop, helm-themes,
+    ;; FIXME Remove obsolete packages helm-swoop
     ;; helm-ag etc. (see https://github.com/melpa/melpa/pull/9520)
     (helm-swoop :location (recipe
                            :fetcher github
                            :repo "emacsattic/helm-swoop"))
-    (helm-themes :location (recipe
-                           :fetcher github
-                           :repo "emacsattic/helm-themes"))
     (helm-spacemacs-help :location local)
     helm-xref
     imenu
@@ -191,6 +188,8 @@
                     dotspacemacs-emacs-command-key 'spacemacs/helm-M-x-fuzzy-matching))))
     ;; avoid duplicates in `helm-M-x' history.
     (setq history-delete-duplicates t)
+    ;; bind for helm-themes
+    (spacemacs/set-leader-keys "Ts" 'spacemacs/helm-themes)
     ;; bind for grep in git
     (when (configuration-layer/layer-used-p 'git)
       (spacemacs/set-leader-keys
@@ -501,13 +500,6 @@
       "s C-s" 'helm-multi-swoop-all)
 
     (evil-add-command-properties 'helm-swoop :jump t)))
-
-(defun helm/init-helm-themes ()
-  (use-package helm-themes
-    :defer t
-    :init
-    (spacemacs/set-leader-keys
-      "Ts" 'spacemacs/helm-themes)))
 
 (defun helm/init-helm-xref ()
   (use-package helm-xref
