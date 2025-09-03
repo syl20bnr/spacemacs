@@ -660,8 +660,9 @@ to buffers)."
 (defun spacemacs/helm-themes ()
   "List the theme candidates without number limit."
   (interactive)
-  (let (helm-candidate-number-limit
-        (orig-theme (or (car-safe custom-enabled-themes) 'default)))
+  (let* (helm-candidate-number-limit
+         (get-theme (lambda () (or (car-safe custom-enabled-themes) 'default)))
+         (orig-theme (funcall get-theme)))
     (unwind-protect
         (unless (helm :prompt (format "pattern (current theme: %s): " orig-theme)
                       :preselect (format "%s$" orig-theme)
@@ -670,7 +671,8 @@ to buffers)."
                                  :action 'spacemacs//helm-themes-load
                                  :persistent-action 'spacemacs//helm-themes-load)
                       :buffer "*helm-themes*")
-          (spacemacs//helm-themes-load (symbol-name orig-theme))))))
+          (unless (eq orig-theme (funcall get-theme))
+            (spacemacs//helm-themes-load (symbol-name orig-theme)))))))
 
 ;; Buffers ---------------------------------------------------------------------
 
