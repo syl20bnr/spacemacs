@@ -58,6 +58,7 @@ Please refer the [[https://docs.anthropic.com/en/docs/claude-code/settings][Clau
 
 The package supports various customization options. You can configure the
 options in your Spacemacs configuration:
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '((claude-code :variables
@@ -83,7 +84,6 @@ The layer includes helpful functions for common tasks:
 - Ask questions about symbols at point
 
 * Key bindings
-
 ** Menu Entries
 
 | Key binding | Description                     |
@@ -92,6 +92,7 @@ The layer includes helpful functions for common tasks:
 | ~SPC $ d C~ | Configuration transient menu    |
 
 And in the claude code terminal buffer,
+
 | Key binding  | Command                        | Description                          |
 |--------------+--------------------------------+--------------------------------------|
 | ~M-RET~      | claude-code-ide-insert-newline | Insert a newline in the prompt       |
@@ -99,22 +100,22 @@ And in the claude code terminal buffer,
 
 ** Session Management
 
-| Key binding | Description                           |
-|-------------+---------------------------------------|
-| ~SPC $ d s~ | Start Claude Code for current project |
+| Key binding | Description                              |
+|-------------+------------------------------------------|
+| ~SPC $ d s~ | Start Claude Code for current project    |
 | ~SPC $ d c~ | Continue Claude Code for current project |
-| ~SPC $ d r~ | Resume a previous conversation        |
-| ~SPC $ d l~ | List and switch between sessions      |
-| ~SPC $ d b~ | Switch to Claude Code buffer          |
-| ~SPC $ d t~ | Toggle Claude Code window             |
-| ~SPC $ d q~ | Stop Claude Code for current project  |
+| ~SPC $ d r~ | Resume a previous conversation           |
+| ~SPC $ d l~ | List and switch between sessions         |
+| ~SPC $ d b~ | Switch to Claude Code buffer             |
+| ~SPC $ d t~ | Toggle Claude Code window                |
+| ~SPC $ d q~ | Stop Claude Code for current project     |
 
 ** Navigation
 
-| Key binding | Description                      |
-|-------------+----------------------------------|
-| ~SPC $ d b~ | Switch to Claude Code buffer     |
-| ~SPC $ d t~ | Toggle Claude Code window        |
+| Key binding | Description                  |
+|-------------+------------------------------|
+| ~SPC $ d b~ | Switch to Claude Code buffer |
+| ~SPC $ d t~ | Toggle Claude Code window    |
 
 ** Interaction
 
@@ -123,7 +124,7 @@ And in the claude code terminal buffer,
 | ~SPC $ d i~ | Insert selected text to Claude prompt |
 | ~SPC $ d p~ | Send prompt to Claude from minibuffer |
 | ~SPC $ d e~ | Send escape to Claude buffer          |
-| ~SPC $ d n~ | Insert newline in  Claude buffer      |
+| ~SPC $ d n~ | Insert newline in Claude buffer       |
 
 ** Debug Commands
 
@@ -140,6 +141,6 @@ And in the claude code terminal buffer,
 
 ** Assistant Functions
 
-| Key binding | Description                                |
-|-------------+--------------------------------------------|
-| ~SPC $ d *~ | Ask question about symbol at point         |
+| Key binding | Description                        |
+|-------------+------------------------------------|
+| ~SPC $ d *~ | Ask question about symbol at point |

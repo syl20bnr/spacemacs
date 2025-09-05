@@ -69,7 +69,6 @@ The layer supports multiple AI modes:
 - *Help mode* (~SPC $ a 4~): For getting help with Aider itself
 
 * Key bindings
-
 ** General Commands
 
 | Key binding | Description                      |
