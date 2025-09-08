@@ -111,7 +111,7 @@ States:
 This is used to detect when Emacs has been upgraded, so caches and
 byte-compiled files can be refreshed if needed."
   (with-temp-file spacemacs--last-emacs-version-file
-    (insert (format "(setq spacemacs--last-emacs-version %S)"
+    (insert (format ";;; -*- lexical-binding: nil; -*-\n(setq spacemacs--last-emacs-version %S)"
                     (setq spacemacs--last-emacs-version emacs-version)))
 
     ;; Ensure the directory exists before creating the temp file.

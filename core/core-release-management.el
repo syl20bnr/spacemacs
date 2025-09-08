@@ -391,7 +391,7 @@ If old and new revisions are different `spacemacs-revision--changed-hook'
               (setq new_rev (current-word))
               (kill-buffer proc-buffer)))
           (with-temp-file ,spacemacs-revision--file
-            (insert (format "(setq spacemacs-revision--last %S)" new_rev))
+            (insert (format ";;; -*- lexical-binding: nil; -*-\n(setq spacemacs-revision--last %S)" new_rev))
             (make-directory (file-name-directory ,spacemacs-revision--file) t))
           new_rev))
      (lambda (new_rev)
