@@ -137,7 +137,7 @@ of directories to file basenames."
         (setq filename (expand-file-name name path)))
       (list feature filename noerror)))
 
-  (advice-add #'require :filter-args #'require@LOAD-HINTS)
+  (advice-add #'require :filter-args #'require@LOAD-HINTS '((depth . -99)))
 
   ;; Advice to update load-hints after autoload generation.
   (define-advice package-generate-autoloads (:after (name pkg-dir) LOAD-HINTS)
