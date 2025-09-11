@@ -634,9 +634,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :defer t
     :init
     (when org-start-notification-daemon-on-startup
-        (org-alert-enable))
-    :commands (org-alert-check org-alert-enable org-alert-disable)
-    ))
+      (spacemacs/defer-until-after-user-config #'org-alert-enable))
+    :commands (org-alert-check org-alert-enable org-alert-disable)))
 
 (defun org/init-org-brain ()
   (use-package org-brain
