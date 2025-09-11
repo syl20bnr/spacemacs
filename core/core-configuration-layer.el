@@ -593,11 +593,11 @@ To prevent package from being installed or uninstalled set the variable
   ;; usage and ownership
   (configuration-layer/discover-layers 'refresh-index)
   (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
-  (configuration-layer//declare-used-packages configuration-layer--used-layers)
   ;; then load the functions and finally configure the layers
   (configuration-layer//load-layers-files configuration-layer--used-layers
                                           '("funcs"))
   (configuration-layer//configure-layers configuration-layer--used-layers)
+  (configuration-layer//declare-used-packages configuration-layer--used-layers)
   ;; load layers lazy settings
   (configuration-layer/load-auto-layer-file)
   ;; try the package-quickstart-file before detecting package installation
