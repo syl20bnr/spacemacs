@@ -32,6 +32,8 @@
   (use-package claude-code-ide
     :defer t
     :init
+    (spacemacs/declare-prefix "$d" "Claude")
+    (spacemacs/declare-prefix "$dd" "Debug")
     (spacemacs/set-leader-keys
       "$dy" 'claude-code-ide-menu
       ;; Session Management
