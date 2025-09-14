@@ -669,10 +669,10 @@ by default."
   '(choice (const nil) (const all) (const trailing) (const changed))
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
+(spacemacs|defc dotspacemacs-search-tools '("rg" "ag" "ack" "grep")
   "List of search tool executable names. Spacemacs uses the first installed
-tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'."
-  '(set (const "rg") (const "ag") (const "pt") (const "ack") (const "grep"))
+tool of the list. Supported tools are `rg', `ag', `ack' and `grep'."
+  '(set (const "rg") (const "ag") (const "ack") (const "grep"))
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-startup-lists '((recents  . 5)

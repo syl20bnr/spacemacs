@@ -159,17 +159,6 @@ If DEFAULT-INPUTP is non nil then the current region or symbol at point
   (interactive)
   (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-ack))
 
-(defun spacemacs/helm-files-do-pt (&optional dir)
-  "Search in files with `pt'."
-  (interactive)
-  (let ((helm-ag-base-command "pt -e --nocolor --nogroup"))
-    (helm-do-ag dir)))
-
-(defun spacemacs/helm-files-do-pt-region-or-symbol ()
-  "Search in files with `pt' using a default input."
-  (interactive)
-  (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-pt))
-
 (defun spacemacs/helm-files-do-rg (&optional dir)
   "Search in files with `rg'."
   (interactive)
@@ -292,17 +281,6 @@ If DEFAULT-INPUTP is non nil then the current region or symbol at point
   (interactive)
   (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-buffers-do-ack))
 
-(defun spacemacs/helm-buffers-do-pt (&optional _)
-  "Search in opened buffers with `pt'."
-  (interactive)
-  (let ((helm-ag-base-command "pt -e --nocolor --nogroup"))
-    (helm-do-ag-buffers)))
-
-(defun spacemacs/helm-buffers-do-pt-region-or-symbol ()
-  "Search in opened buffers with `pt' using a default input."
-  (interactive)
-  (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-buffers-do-pt))
-
 (defun spacemacs/helm-buffers-do-rg (&optional _)
   "Search in opened buffers with `rg'."
   (interactive)
@@ -380,23 +358,6 @@ If DEFAULT-INPUTP is non nil then the current region or symbol at point
     (if dir
         (spacemacs//helm-do-ag-region-or-symbol
          'spacemacs/helm-files-do-ack dir)
-      (message "error: Not in a project."))))
-
-(defun spacemacs/helm-project-do-pt ()
-  "Search in current project with `pt'."
-  (interactive)
-  (let ((dir (projectile-project-root)))
-    (if dir
-        (spacemacs/helm-files-do-pt dir)
-      (message "error: Not in a project."))))
-
-(defun spacemacs/helm-project-do-pt-region-or-symbol ()
-  "Search in current project with `pt' using a default input."
-  (interactive)
-  (let ((dir (projectile-project-root)))
-    (if dir
-        (spacemacs//helm-do-ag-region-or-symbol
-         'spacemacs/helm-files-do-pt dir)
       (message "error: Not in a project."))))
 
 (defun spacemacs/helm-project-do-rg ()
