@@ -220,16 +220,6 @@ If DEFAULT-INPUTP is non nil then the current region or symbol at point
   (interactive)
   (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-ack default-directory))
 
-(defun spacemacs/helm-dir-do-pt ()
-  "Search in current directory with `pt'."
-  (interactive)
-  (spacemacs/helm-files-do-pt default-directory))
-
-(defun spacemacs/helm-dir-do-pt-region-or-symbol ()
-  "Search in current directory with `pt' with a default input."
-  (interactive)
-  (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-pt default-directory))
-
 (defun spacemacs/helm-dir-do-rg ()
   "Search in current directory with `rg'."
   (interactive)
@@ -322,7 +312,7 @@ If DEFAULT-INPUTP is non nil then the current region or symbol at point
     (spacemacs/helm-project-smart-do-search)))
 
 (defun spacemacs/helm-projectile-grep ()
-  "Replace `helm-projectile-grep' to actually use `ag', `pt' etc.."
+  "Replace `helm-projectile-grep' to actually use `ag', `rg' etc.."
   (interactive)
   (helm-exit-and-execute-action
    'spacemacs/helm-project-smart-do-search-in-dir))

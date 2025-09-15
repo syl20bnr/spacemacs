@@ -250,7 +250,7 @@
     :init
     (setq helm-ag-use-grep-ignore-list t)
     ;; This overrides the default C-s action in helm-projectile-switch-project
-    ;; to search using rg/ag/pt/whatever instead of just grep
+    ;; to search using rg/ag/whatever instead of just grep
     (with-eval-after-load 'helm-projectile
       (define-key helm-projectile-projects-map
                   (kbd "C-s") 'spacemacs/helm-projectile-grep)
@@ -309,8 +309,6 @@
       "skD" 'spacemacs/helm-dir-do-ack-region-or-symbol
       "srd" 'spacemacs/helm-dir-do-rg
       "srD" 'spacemacs/helm-dir-do-rg-region-or-symbol
-      "std" 'spacemacs/helm-dir-do-pt
-      "stD" 'spacemacs/helm-dir-do-pt-region-or-symbol
       ;; current project scope
       "/"   'spacemacs/helm-project-smart-do-search
       "*"   'spacemacs/helm-project-smart-do-search-region-or-symbol

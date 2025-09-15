@@ -2784,7 +2784,6 @@ You can toggle auto-save in a buffer by calling the command =auto-save-mode=.
 Spacemacs can be interfaced with different search utilities like:
 - [[https://github.com/BurntSushi/ripgrep][rg]]
 - [[https://github.com/ggreer/the_silver_searcher][ag]]
-- [[https://github.com/monochromegane/the_platinum_searcher][pt]]
 - [[https://beyondgrep.com/][ack]]
 - grep
 
@@ -2796,11 +2795,12 @@ If the last key (determining the scope) is uppercase then the current region or
 symbol under point is used as default input for the search. For instance
 ~SPC s a B~ will search with symbol under point (if there is no active region).
 
-If the tool key is omitted then a default tool will be automatically selected
-for the search. This tool corresponds to the first tool found on the system of
-the list =dotspacemacs-search-tools=, the default order is =rg=, =ag=, =pt=,
-=ack= then =grep=. For instance ~SPC s b~ will search in the opened buffers
-using =pt= if =rg= and =ag= have not been found on the system.
+If the tool key is omitted then a default tool will be automatically
+selected for the search. This tool corresponds to the first tool found
+on the system of the list =dotspacemacs-search-tools=, the default
+order is =rg=, =ag=, =ack= then =grep=. For instance ~SPC s b~ will
+search in the opened buffers using =ack= if =rg= and =ag= have not
+been found on the system.
 
 The tool keys are:
 
@@ -2810,7 +2810,6 @@ The tool keys are:
 | grep | g   |
 | ack  | k   |
 | rg   | r   |
-| pt   | t   |
 
 The available scopes and corresponding keys are:
 
@@ -2825,13 +2824,10 @@ of the sequence, for instance ~SPC s a a~ will search in the current
 file with =ag=.
 
 *Notes*:
-- =rg=, =ag= and =pt= are optimized to be used in a source control repository but
-  they can be used in an arbitrary directory as well.
+- =rg= and =ag= are optimized to be used in a source control
+  repository but they can be used in an arbitrary directory as well.
 - It is also possible to search in several directories at once by marking
   them in the Helm buffer (not available in Ivy).
-
-*Beware* if you use =pt=, [[https://core.tcl.tk/tcllib/doc/tcllib-1-17/embedded/www/tcllib/files/apps/pt.html][TCL parser tools]] also install a command line tool
-called =pt=.
 
 **** Useful key bindings
 
@@ -2874,8 +2870,6 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e 
 | ~SPC s k B~ | =ack= with default text                             |
 | ~SPC s r b~ | =rg=                                                |
 | ~SPC s r B~ | =rg= with default text                              |
-| ~SPC s t b~ | =pt=                                                |
-| ~SPC s t B~ | =pt= with default text                              |
 
 **** Searching in files in an arbitrary directory
 
@@ -2891,8 +2885,6 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e 
 | ~SPC s k F~ | =ack= with default text                             |
 | ~SPC s r f~ | =rg=                                                |
 | ~SPC s r F~ | =rg= with default text                              |
-| ~SPC s t f~ | =pt=                                                |
-| ~SPC s t F~ | =pt= with default text                              |
 
 **** Searching in current directory
 
@@ -2905,8 +2897,6 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e 
 | ~SPC s g d~          | =grep= with default text                            |
 | ~SPC s k d~          | =ack=                                               |
 | ~SPC s k D~          | =ack= with default text                             |
-| ~SPC s t d~          | =pt=                                                |
-| ~SPC s t D~          | =pt= with default text                              |
 | ~SPC s r d~          | =rg=                                                |
 | ~SPC s r D~          | =rg= with default text                              |
 
@@ -2921,8 +2911,6 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e 
 | ~SPC s g p~          | =grep= with default text                            |
 | ~SPC s k p~          | =ack=                                               |
 | ~SPC s k P~          | =ack= with default text                             |
-| ~SPC s t p~          | =pt=                                                |
-| ~SPC s t P~          | =pt= with default text                              |
 | ~SPC s r p~          | =rg=                                                |
 | ~SPC s r P~          | =rg= with default text                              |
 
@@ -3351,8 +3339,8 @@ an ~occurrence~.
 
 *** Replacing text in several files
 **** Helm
-If you have =rg=, =ag=, =pt= or =ack= installed, replacing an occurrence of text
-in several files can be performed via [[https://github.com/syohex/emacs-helm-ag][helm-ag]].
+If you have =rg=, =ag=, or =ack= installed, replacing an occurrence of
+text in several files can be performed via [[https://github.com/syohex/emacs-helm-ag][helm-ag]].
 
 Say you want to replace all =foo= occurrences by =bar= in your current
 project:
@@ -3362,8 +3350,8 @@ project:
 - edit the occurrences then leave the =iedit state=
 - press ~C-c C-c~
 
-*Note*: In Spacemacs, =helm-ag= despite its name works with =rg=, =pt= and =ack=
-as well (but not with =grep=).
+*Note*: In Spacemacs, =helm-ag= despite its name works with =rg= and
+=ack= as well (but not with =grep=).
 
 **** Compleseus
 The same above steps as with the =helm= layer work with the =compleseus= layer.
@@ -3742,7 +3730,6 @@ To search in a project see [[#searching-in-a-project][project searching]].
 | ~SPC s a p~ | run =ag=                                                                                 |
 | ~SPC s g p~ | run =grep=                                                                               |
 | ~SPC s k p~ | run =ack=                                                                                |
-| ~SPC s t p~ | run =pt=                                                                                 |
 | ~SPC s r p~ | run =rg=                                                                                 |
 | ~SPC f y C~ | show and copy current file path relative to the project root with line and column number |
 | ~SPC f y D~ | show and copy current directory path relative to the project root                        |

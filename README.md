@@ -144,7 +144,6 @@ Last but not least there are a lot of high class tutorials available on YouTube:
 
    - [ripgrep (rg)][ripgrep]
    - [The silver searcher (ag)][ag]
-   - [The platinum searcher (pt)][pt]
    - [ack][]
    - [GNU Grep][] or [BSD Grep][]
 
@@ -637,7 +636,6 @@ Thank you!
 [ripgrep]: https://github.com/BurntSushi/ripgrep
 [ripgrep-installation]: https://github.com/BurntSushi/ripgrep#installation=
 [ag]: https://github.com/ggreer/the_silver_searcher
-[pt]: https://github.com/monochromegane/the_platinum_searcher
 [ack]: https://github.com/beyondgrep/ack3
 [GNU Grep]: https://www.gnu.org/software/grep/
 [BSD Grep]: https://man.openbsd.org/grep
