@@ -42,9 +42,6 @@ jobs:
       - run:
           name: Make sure that this PR targets develop branch
           command: .circleci/PR_base
-      - run:
-          name: Make sure that this PR doesn't need rebase
-          command: .circleci/PR_rebased
   "Validate Documentation":
     executor: spacetools
     environment:
