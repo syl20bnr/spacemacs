@@ -1,0 +1,41 @@
+;;; core-dotspacemacs-ftest.el --- Tests for .spacemacs configuration file  -*- lexical-binding: t; -*-
+;;
+;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
+;;
+;; Author: Aaron L Zeng <me@bcc32.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+(require 'cl-lib)
+(require 'core-dotspacemacs)
+
+(defun dotspacemacs-vars-and-values ()
+  (cl-loop for var being the symbols
+           when (string-prefix-p "dotspacemacs-" (symbol-name var))
+           when (boundp var)
+           collect (cons var (symbol-value var))
+           into vars-and-values
+           finally return (cl-sort vars-and-values #'string< :key #'car)))
+
+(ert-deftest test-dotspacemacs-template-defaults-match-initial-values ()
+  (load (concat spacemacs-core-directory "templates/dotspacemacs-template.el"))
+  (let* ((before (dotspacemacs-vars-and-values))
+         (_ (progn
+              (dotspacemacs/layers)
+              (dotspacemacs/init)))
+         (after (dotspacemacs-vars-and-values)))
+    (should (equal before after))))
