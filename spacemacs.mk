@@ -32,7 +32,7 @@ installation:
 	@echo "================================================================="
 	@echo "INSTALLATION OF PACKAGES FOR $(TEST_NAME)"
 	@echo "================================================================="
-	@emacs -batch \
+	SPACEMACSDIR=$(TEST_DIR) emacs -Q -batch \
 		$(addprefix -l $(EMACS_DIR)/, $(LOAD_FILES))
 
 ifneq ($(strip $(UNIT_TEST_FILES)),)
@@ -40,7 +40,7 @@ unit_tests:
 	@echo "================================================================="
 	@echo "UNIT TESTS FOR $(TEST_NAME)"
 	@echo "================================================================="
-	emacs -batch -l ert \
+	SPACEMACSDIR=$(TEST_DIR) emacs -Q -batch -l ert \
 		$(addprefix -l $(EMACS_DIR)/, $(LOAD_FILES)) \
 		$(addprefix -l $(TEST_DIR)/, $(UNIT_TEST_FILES)) \
 		-f ert-run-tests-batch-and-exit
@@ -51,7 +51,7 @@ func_tests:
 	@echo "================================================================="
 	@echo "FUNCTIONAL TESTS FOR $(TEST_NAME)"
 	@echo "================================================================="
-	@emacs -batch -l ert \
+	SPACEMACSDIR=$(TEST_DIR) emacs -Q -batch -l ert \
 		$(addprefix -l $(EMACS_DIR)/, $(LOAD_FILES)) \
 		$(addprefix -l $(TEST_DIR)/, $(FUNC_TEST_FILES)) \
 		-f ert-run-tests-batch-and-exit

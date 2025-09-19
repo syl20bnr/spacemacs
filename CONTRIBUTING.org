@@ -361,7 +361,7 @@ testable layer is enabled in turn.
 
 To add tests for a layer, do the following:
 1. Create a subfolder of =tests/= corresponding to the layer you want to test.
-2. Write a file called =dotspacemacs.el= in that folder. It should be a minimal
+2. Write a file called =init.el= in that folder. It should be a minimal
    dotfile that enables the layer in question (and other layers it may depend
    on).
 3. Write a number of files with tests. Please try to separate unit and
