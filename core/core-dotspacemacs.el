@@ -114,7 +114,7 @@ state and should only be used for testing."
   'boolean
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-verify-spacelpa-archives nil
+(spacemacs|defc dotspacemacs-verify-spacelpa-archives t
   "If non-nil then verify the signature for downloaded Spacelpa archives."
   'boolean
   'spacemacs-dotspacemacs-init)
@@ -250,7 +250,10 @@ whenever you start Emacs."
   'boolean
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-configuration-layers '(emacs-lisp)
+(spacemacs|defc dotspacemacs-configuration-layers '(emacs-lisp
+                                                    helm
+                                                    multiple-cursors
+                                                    treemacs)
   "List of configuration layers to load."
   '(repeat (choice symbol (cons symbol sexp)))
   'spacemacs-dotspacemacs-layers)
@@ -731,7 +734,7 @@ visiting README.org files of Spacemacs."
   'boolean
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-new-empty-buffer-major-mode nil
+(spacemacs|defc dotspacemacs-new-empty-buffer-major-mode 'text-mode
   "Set the major mode for a new empty buffer."
   'symbol
   'spacemacs-dotspacemacs-init)
