@@ -37,7 +37,7 @@ You will also need to install the Claude Code CLI tool:
 
 #+BEGIN_SRC sh
   # Install Claude Code CLI
-  npm install -g @anthropic/claude-code
+  npm install -g @anthropic-ai/claude-code
 
   # Or using other package managers
   brew install anthropic/tap/claude-code
