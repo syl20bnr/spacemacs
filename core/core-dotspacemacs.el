@@ -1148,11 +1148,13 @@ error recovery."
                    "[[file:%s::dotspacemacs/layers][Show in File]]\n")
            (dotspacemacs/location)))
   ;; protect global values of these variables
-  (let (dotspacemacs-additional-packages
+  (dlet (dotspacemacs-additional-packages
         dotspacemacs-configuration-layer-path
         dotspacemacs-configuration-layers
         dotspacemacs-excluded-packages
         dotspacemacs-install-packages
+        ;; `passed-tests' and `total-tests' are expected to be dynamically bound
+        ;; when `spacemacs//test-list' is called.
         (passed-tests 0)
         (total-tests 0))
     (load (dotspacemacs/location))
@@ -1183,11 +1185,11 @@ error recovery."
                      `(,symbol ,(let ((v (symbol-value symbol)))
                                   (if (or (symbolp v) (listp v))
                                       `',v v))))
-                   (dotspacemacs/get-variable-list))
-         (passed-tests 0) (total-tests 0))
-     (setq dotspacemacs-filepath fpath)
-     (load dotspacemacs-filepath)
-     ,@body))
+                   (dotspacemacs/get-variable-list)))
+     (dlet ((passed-tests 0) (total-tests 0))
+       (setq dotspacemacs-filepath fpath)
+       (load dotspacemacs-filepath)
+       ,@body)))
 
 (defun dotspacemacs//test-dotspacemacs/init ()
   "Tests for `dotspacemacs/init'"
