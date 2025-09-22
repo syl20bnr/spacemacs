@@ -66,7 +66,8 @@
       "$gc" 'gptel-add                      ; Add context
       "$gf" 'gptel-add-file                 ; Add a file
       "$go" 'gptel-org-set-topic            ; Set topic in Org-mode
-      "$gp" 'gptel-org-set-properties)))    ; Set properties in Org-mode
+      "$gp" 'gptel-org-set-properties       ; Set properties in Org-mode
+      "$gr" 'gptel-rewrite)))               ; Rewrite or refactor test region
 
 (defun llm-client/post-init-org ()
   "Set up Org-mode keybindings for GPTel."

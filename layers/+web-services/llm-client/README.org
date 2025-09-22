@@ -93,16 +93,17 @@ The layer provides several key bindings to interact with LLMs efficiently.
 
 ** GPTel
 
-| Key binding | Command                  | Description                    |
-|-------------+--------------------------+--------------------------------|
-| ~SPC $ g g~ | gptel                    | Start a new GPTel session      |
-| ~SPC $ g s~ | gptel-send               | Send a message to GPTel        |
-| ~SPC $ g q~ | gptel-abort              | Abort any active GPTel process |
-| ~SPC $ g m~ | gptel-menu               | Open the GPTel menu            |
-| ~SPC $ g c~ | gptel-add                | Add to context                 |
-| ~SPC $ g f~ | gptel-add-file           | Add a file to context          |
-| ~SPC $ g o~ | gptel-org-set-topic      | Set topic in Org-mode          |
-| ~SPC $ g p~ | gptel-org-set-properties | Set properties in Org-mode     |
+| Key binding | Command                  | Description                     |
+|-------------+--------------------------+---------------------------------|
+| ~SPC $ g g~ | gptel                    | Start a new GPTel session       |
+| ~SPC $ g s~ | gptel-send               | Send a message to GPTel         |
+| ~SPC $ g q~ | gptel-abort              | Abort any active GPTel process  |
+| ~SPC $ g m~ | gptel-menu               | Open the GPTel menu             |
+| ~SPC $ g c~ | gptel-add                | Add to context                  |
+| ~SPC $ g f~ | gptel-add-file           | Add a file to context           |
+| ~SPC $ g r~ | gptel-rewrite            | Rewrite or refactor text region |
+| ~SPC $ g o~ | gptel-org-set-topic      | Set topic in Org-mode           |
+| ~SPC $ g p~ | gptel-org-set-properties | Set properties in Org-mode      |
 
 In addition, this layer adds the following key bindings to =org-mode=
 
