@@ -45,9 +45,8 @@
     :ensure t
     :init
     ;; evilify gptel-context-buffer-mode-map
-    (require 'gptel-context)
-    (evil-set-initial-state 'gptel-context-buffer-mode 'evilified)
     (evilified-state-evilify-map gptel-context-buffer-mode-map
+      :eval-after-load gptel-context
       :mode gptel-context-buffer-mode
       :bindings
       "C-c C-c" #'gptel-context-confirm
