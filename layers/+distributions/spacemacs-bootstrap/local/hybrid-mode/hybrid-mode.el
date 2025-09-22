@@ -36,26 +36,18 @@
   "Value of `evil-default-state' for hybrid-mode."
   :group 'spacemacs
   :type 'symbol)
-(define-obsolete-variable-alias
-  'hybrid-mode-default-state 'hybrid-style-default-state "20180608")
 
 ;;;###autoload
 (defcustom hybrid-style-enable-hjkl-bindings nil
   "If non-nil then packages configuration should enable hjkl navigation."
   :group 'spacemacs
   :type 'boolean)
-(define-obsolete-variable-alias
-  'hybrid-mode-enable-hjkl-bindings 'hybrid-style-enable-hjkl-bindings
-  "20180608")
 
 ;;;###autoload
 (defcustom hybrid-style-enable-evilified-state t
   "If non-nil then evilified states is enabled in buffer supporting it."
   :group 'spacemacs
   :type 'boolean)
-(define-obsolete-variable-alias
-  'hybrid-mode-enable-evilified-state 'hybrid-style-enable-evilified-state
-  "20180608")
 
 ;;;###autoload
 (defcustom hybrid-style-use-evil-search-module nil
@@ -63,9 +55,6 @@
 behavior (for instance it support C-r pasting)."
   :group 'spacemacs
   :type 'boolean)
-(define-obsolete-variable-alias
-  'hybrid-mode-use-evil-search-module 'hybrid-style-use-evil-search-module
-  "20180608")
 
 (defvar hybrid-mode-default-state-backup evil-default-state
   "Backup of `evil-default-state'.")

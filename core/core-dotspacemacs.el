@@ -351,9 +351,6 @@ pressing `<leader> m`. Set it to `nil` to disable it."
   'string
   'spacemacs-dotspacemacs-init)
 
-(define-obsolete-variable-alias 'dotspacemacs-command-key
-  'dotspacemacs-emacs-command-key "2016-01-09 (58e524)")
-
 (spacemacs|defc dotspacemacs-distinguish-gui-tab nil
   "If non nil, distinguish C-i and tab in the GUI version of Emacs."
   'boolean

@@ -61,21 +61,13 @@ or lists of these.")
 
 (defvar vim-style-remap-Y-to-y$ nil
   "If non nil `Y' is remapped to `y$' in Evil states.")
-(define-obsolete-variable-alias
-  'dotspacemacs-remap-Y-to-y$ 'vim-style-remap-Y-to-y$ "20180608")
 
 (defvar vim-style-retain-visual-state-on-shift t
   "If non-nil, the shift mappings `<' and `>' retain visual state
 if used there.")
-(define-obsolete-variable-alias
-  'dotspacemacs-retain-visual-state-on-shift
-  'vim-style-retain-visual-state-on-shift "20180608")
 
 (defvar vim-style-visual-line-move-text nil
   "If non-nil, J and K move lines up and down when in visual mode.")
-(define-obsolete-variable-alias
-  'dotspacemacs-visual-line-move-text 'vim-style-visual-line-move-text
-  "20180608")
 
 (defvar vim-style-enable-undo-region nil
   "If non-nil, `u' is remapped to `undo' in visual state.
@@ -83,9 +75,6 @@ Otherwise, in visual state `u' downcases visually selected text.")
 
 (defvar vim-style-ex-substitute-global nil
   "If non nil, inverse the meaning of `g' in `:substitute' Evil ex-command.")
-(define-obsolete-variable-alias
-  'dotspacemacs-ex-substitute-global 'vim-style-ex-substitute-global
-  "20180608")
 
 ;; State cursors
 (defvar spacemacs-evil-cursors '(("normal" "DarkGoldenrod2" box)
