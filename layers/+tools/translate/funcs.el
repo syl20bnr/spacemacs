@@ -20,23 +20,20 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(when (and (configuration-layer/package-used-p 'translate-mode)
-           (configuration-layer/package-used-p 'go-translate))
+(defun translate/translate-current-reference-paragraph ()
+  "Show all available translations of the reference paragraph at point in a pop-up frame."
+  (interactive)
+  (gt-start translate//paragraph-translator))
 
-  (defun translate/translate-current-reference-paragraph ()
-    "Show all available translations of the reference paragraph at point in a pop-up frame."
-    (interactive)
-    (gt-start translate//paragraph-translator))
+(defun translate/translate-word-at-point ()
+  "Pop-up translations of the word at point."
+  (interactive)
+  (gt-start translate//word-translator))
 
-  (defun translate/translate-word-at-point ()
-    "Pop-up translations of the word at point."
-    (interactive)
-    (gt-start translate//word-translator))
-
-  (defun translate//set-translate-mode-paragraph-functions ()
-    (cond ((eq major-mode 'markdown-mode)
-           (setq translate-forward-paragraph-function 'markdown-forward-paragraph
-                 translate-backward-paragraph-function 'markdown-backward-paragraph))
-          ((eq major-mode 'org-mode)
-           (setq translate-forward-paragraph-function 'org-forward-paragraph
-                 translate-backward-paragraph-function 'org-backward-paragraph)))))
+(defun translate//set-translate-mode-paragraph-functions ()
+  (cond ((eq major-mode 'markdown-mode)
+         (setq translate-forward-paragraph-function 'markdown-forward-paragraph
+               translate-backward-paragraph-function 'markdown-backward-paragraph))
+        ((eq major-mode 'org-mode)
+         (setq translate-forward-paragraph-function 'org-forward-paragraph
+               translate-backward-paragraph-function 'org-backward-paragraph))))
