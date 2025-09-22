@@ -91,7 +91,7 @@ If PATH is provided, use it as the package directory, otherwise use `package-use
            (package-desc-name pkg-desc) pkg-dir))))))
 
 ;; Lookup load hints for a given file.
-(defun spacemacs//lookup-load-hints (file)
+(defsubst spacemacs//lookup-load-hints (file)
   "Find out the `load-hints' item for the FILE.
 Returns the directory path from load-hints where FILE is found."
   (unless (file-name-absolute-p file)
