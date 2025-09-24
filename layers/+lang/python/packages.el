@@ -42,7 +42,7 @@
     (nose :location (recipe :fetcher github :repo "syl20bnr/nose.el")
           :toggle (memq 'nose (flatten-list (list python-test-runner))))
     org
-    pip-requirements
+    (pip-requirements :toggle (memq 'pip python-enable-tools))
     (pipenv :toggle (memq 'pipenv python-enable-tools))
     (poetry :toggle (memq 'poetry python-enable-tools))
     (pippel :toggle (memq 'pip python-enable-tools))
