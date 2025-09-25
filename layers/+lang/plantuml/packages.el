@@ -43,6 +43,9 @@
     :config
     ;; Our default is jar execution, not server as server is not working reliable see #13574
     (setq plantuml-default-exec-mode 'jar)
+    ;; Convenient for GUI and TUI buffers
+    (define-advice plantuml-jar-output-type-opt (:around (ORIG output-type))
+      (funcall ORIG (if (display-graphic-p) output-type "txt")))
     ;; for now plantuml electric indentation is buggy and does not
     ;; really work, let's disable auto-indentation on paste for
     ;; this mode
