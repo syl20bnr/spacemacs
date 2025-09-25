@@ -570,8 +570,8 @@ These bindings work with whichever runner(s) you enabled via ~python-test-runner
 | ~SPC m t F~ | re-run the tests that last failed in debug mode      |
 
 #+BEGIN_QUOTE
-The previous buffer-oriented bindings ~SPC m t b~ and ~SPC m t B~ were redundant.
-Use ~SPC m t m~ and ~SPC m t M~ instead.
+  The previous buffer-oriented bindings ~SPC m t b~ and ~SPC m t B~ were redundant.
+  Use ~SPC m t m~ and ~SPC m t M~ instead.
 #+END_QUOTE
 
 *** Pytest-only bindings
@@ -582,8 +582,8 @@ These are available only when ~pytest~ is enabled in ~python-test-runner~.
 | ~SPC m t D~ | pytest dispatch/transient (if available) |
 
 #+BEGIN_QUOTE
-Tip: For ad-hoc flags (e.g. ~--pdb~, ~-k expr~, ~-x~), use the universal argument:
-~SPC u~ before a test command to be prompted for extra CLI args.
+  Tip: For ad-hoc flags (e.g. ~--pdb~, ~-k expr~, ~-x~), use the universal argument:
+  ~SPC u~ before a test command to be prompted for extra CLI args.
 #+END_QUOTE
 
 *** Nose-only bindings
