@@ -277,6 +277,63 @@ location of \".venv\" file, then relative to pyvenv-workon-home()."
 
 ;; Tests
 
+;; python-pytest adapters
+(defun spacemacs//python-pytest-one (&rest pytest-args)
+  "Runs the correct python-pytest- function to run test the thing at point."
+
+  ;; python-pytest uses either python-pytest-run-def-at-point-treesit or
+  ;; python-pytest-run-def-or-class-at-point-dwim via transient :if / :if-not rules.
+  ;;
+  ;; Sadly, the treesit version does not accept parameters, so we have to
+  ;; replicate its behavior here, ugh
+  (require 'python-pytest)
+  (if (python-pytest--use-treesit-p)
+      (python-pytest--run
+        :args pytest-args
+        :file (buffer-file-name)
+        :node-id (python-pytest--node-id-def-at-point-treesit)
+        :edit current-prefix-arg)
+    (python-pytest-run-def-or-class-at-point-dwim (buffer-file-name)
+                                                  (python-pytest--node-id-def-or-class-at-point)
+                                                  pytest-args)))
+
+(defun spacemacs/python-pytest-one ()
+  "Runs pytest on the thing at point"
+  (spacemacs//python-pytest-one))
+
+(defun spacemacs/python-pytest-one-pdb ()
+  "Runs pytest on the thing at point with PDB enabled"
+  (spacemacs//python-pytest-one "--pdb"))
+
+(defun spacemacs/python-pytest-test-module ()
+  "Tests the current module"
+  (python-pytest-file (buffer-file-name) nil))
+
+(defun spacemacs/python-pytest-all-pdb ()
+  "Runs current project's tests with PDB enabled"
+  (python-pytest '("--pdb")))
+
+(defun spacemacs/python-pytest-module-pdb ()
+  "Runs the tests in the current module with PDB enabled"
+  (python-pytest-file (buffer-file-name) '("--pdb")))
+
+(defun spacemacs/python-pytest-last-failed-pdb ()
+  "Re-executes the failing tests with PDB enabled"
+  (python-pytest-last-failed '("--pdb")))
+
+;; Forward declare to silence byte-compiler and allow early local binding.
+(defvar python-pytest-project-root-override nil
+  "Directory to use as project root for python-pytest, or nil.")
+
+(defun spacemacs//python-pytest-set-root-from-setup-cfg ()
+  "If a setup.cfg is found above `default-directory', set pytest root to that dir.
+Unset the override when not found."
+  (let* ((dir (locate-dominating-file default-directory "setup.cfg"))
+         (root (and dir (file-name-as-directory (expand-file-name dir)))))
+    (setq-local python-pytest-project-root-override root)))
+
+;; Test Dispatchers
+
 (defun spacemacs//python-get-main-testrunner ()
   "Get the main test runner."
   (if (listp python-test-runner) (car python-test-runner) python-test-runner))
@@ -345,7 +402,7 @@ to be called for each testrunner. "
   (interactive "P")
   (spacemacs//python-call-correct-test-function
    arg
-   '((pytest . python-pytest-file)
+   '((pytest . spacemacs/python-pytest-test-module)
      (nose   . nosetests-module))))
 
 (defun spacemacs/python-test-pdb-module (arg)
@@ -353,7 +410,7 @@ to be called for each testrunner. "
   (interactive "P")
   (spacemacs//python-call-correct-test-function
    arg
-   '((pytest . spacemacs/python-pytest-file-pdb)
+   '((pytest . spacemacs/python-pytest-module-pdb)
      (nose   . nosetests-pdb-module))))
 
 (defun spacemacs/python-test-suite (arg)
@@ -376,16 +433,24 @@ to be called for each testrunner. "
   (interactive "P")
   (spacemacs//python-call-correct-test-function
    arg
-   '((pytest . python-pytest-function)
+   '((pytest . spacemacs/python-pytest-one)
      (nose   . nosetests-one))))
 
 (defun spacemacs/python-test-pdb-one (arg)
   "Run current test in debug mode."
   (interactive "P")
+
   (spacemacs//python-call-correct-test-function
    arg
-   '((pytest . spacemacs/python-pytest-function-pdb)
+   '((pytest . spacemacs/python-pytest-one-pdb)
      (nose   . nosetests-pdb-one))))
+
+(defun spacemacs/python-test-dispatch (arg)
+  "Runner-agnostic dispatch (pytest-only). ARG selects secondary runner (not supported here)."
+  (interactive "P")
+  (spacemacs//python-call-correct-test-function
+   arg
+   '((pytest . python-pytest-dispatch))))
 
 (defun spacemacs//python-runner-enabled-p (runner)
   "Return non-nil if RUNNER is enabled in `python-test-runner`."
@@ -418,17 +483,8 @@ to be called for each testrunner. "
       "ts" 'spacemacs/python-test-suite
       "tS" 'spacemacs/python-test-pdb-suite)))
 
-;; Forward declare to silence byte-compiler and allow early local binding.
-(defvar python-pytest-project-root-override nil
-  "Directory to use as project root for python-pytest, or nil.")
-
-(defun spacemacs//python-pytest-set-root-from-setup-cfg ()
-  "If a setup.cfg is found above `default-directory', set pytest root to that dir.
-Unset the override when not found."
-  (let* ((dir (locate-dominating-file default-directory "setup.cfg"))
-         (root (and dir (file-name-as-directory (expand-file-name dir)))))
-    (setq-local python-pytest-project-root-override root)))
-
+
+;; Utils
 (defun spacemacs//python-sort-imports ()
   ;; py-isort-before-save checks the major mode as well, however we can prevent
   ;; it from loading the package unnecessarily by doing our own check
@@ -436,33 +492,6 @@ Unset the override when not found."
              (derived-mode-p 'python-mode))
     (py-isort-before-save)))
 
-(defun spacemacs/python-pytest--with-args (cmd &rest args)
-  "Call python-pytest CMD with extra ARGS appended temporarily."
-  (let ((python-pytest-arguments (append python-pytest-arguments args)))
-    (call-interactively cmd)))
-
-(defun spacemacs/python-pytest-all-pdb ()
-  (interactive)
-  (spacemacs/python-pytest--with-args #'python-pytest "--pdb"))
-
-(defun spacemacs/python-pytest-file-pdb ()
-  (interactive)
-  (spacemacs/python-pytest--with-args #'python-pytest-file "--pdb"))
-
-(defun spacemacs/python-pytest-function-pdb ()
-  (interactive)
-  (spacemacs/python-pytest--with-args #'python-pytest-function "--pdb"))
-
-(defun spacemacs/python-pytest-last-failed-pdb ()
-  (interactive)
-  (spacemacs/python-pytest--with-args #'python-pytest-last-failed "--pdb"))
-
-(defun spacemacs/python-test-dispatch (arg)
-  "Runner-agnostic dispatch (pytest-only). ARG selects secondary runner (not supported here)."
-  (interactive "P")
-  (spacemacs//python-call-correct-test-function
-   arg
-   '((pytest . python-pytest-dispatch))))
 
 
 ;; Formatters
