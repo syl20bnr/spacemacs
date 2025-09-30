@@ -372,7 +372,10 @@
     (spacemacs//bind-python-testing-keys)
     ;; Make the override robust per-buffer, regardless of load order.
     (add-hook 'python-mode-local-vars-hook
-              #'spacemacs//python-pytest-set-root-from-setup-cfg)))
+              #'spacemacs//python-pytest-set-root-from-setup-cfg)
+
+    :config
+    (advice-add #'python-pytest--get-buffer :around #'spacemacs/around-python-pytest--get-buffer)))
 
 (defun python/init-python ()
   (use-package python

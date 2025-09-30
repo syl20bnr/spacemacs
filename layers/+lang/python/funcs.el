@@ -278,6 +278,15 @@ location of \".venv\" file, then relative to pyvenv-workon-home()."
 ;; Tests
 
 ;; python-pytest adapters
+
+(defun spacemacs/around-python-pytest--get-buffer (fn &rest args)
+  "Adjust the caller's next-error-last-buffer"
+  (let ((buffer (apply fn args)))
+    (unless (eq buffer (current-buffer))
+      (setq-local next-error-last-buffer buffer))
+
+    buffer))
+
 (defun spacemacs//python-pytest-one (&rest pytest-args)
   "Runs the correct python-pytest- function to run test the thing at point."
 
