@@ -28,7 +28,7 @@
     company
     cython-mode
     dap-mode
-    pet
+    (pet :toggle (eq python-virtualenv-management 'pet))
     eldoc
     evil-matchit
     flycheck
