@@ -12,14 +12,12 @@
 
 echo_headline "Downloading and replacing files"
 built_in_manifest=".ci/built_in_manifest"
-lines=$(cat "${built_in_manifest}")
-while read line; do
-    url=$(echo $line | cut -f1 -d " ")
-    target=$(echo $line | cut -f2 -d " ")
-    curl "${url}" --output "${target}"
-    if [ $? -ne 0 ]; then
-        echo "Failed to update built in file: ${target} from url: ${url}"
-        echo "Please update manifest file: ~/.emacs.d/.ci/built_in_manifest"
-        exit 2
-    fi
+while read -r line; do
+  url=$(cut -f1 -d " " <<<"$line")
+  target=$(cut -f2 -d " " <<<"$line")
+  if ! curl "${url}" --output "${target}"; then
+    echo "Failed to update built in file: ${target} from url: ${url}"
+    echo "Please update manifest file: ~/.emacs.d/.ci/built_in_manifest"
+    exit 2
+  fi
 done <"${built_in_manifest}"
