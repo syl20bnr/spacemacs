@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+## PR bot file check script for CircleCI
+##
+## Copyright (c) 2012-2014 Sylvain Benner
+## Copyright (c) 2014-2025 Sylvain Benner & Contributors
+##
+## Author: Aaron L Zeng
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
+
+fail_when_undefined_pr_number
+built_in_manifest=".ci/built_in_manifest"
+
+pr_owner=$(curl -s "${pr_data_URL}" | jq -r '.head.owner.name')
+if [[ ${pr_owner} == "${UPD_BOT_LOGIN}" ]]; then
+  echo "This PR is from the bot, who is allowed to update built-in files."
+  exit 0
+fi
+
+echo_headline "Checking PR diff for bot-maintained files"
+
+# https://docs.github.com/en/rest/pulls/pulls?apiVersion=2022-11-28#list-pull-requests-files
+# This endpoint is paginated, but trying to fetch each page of the results
+# would be too complex for this bash script.  Instead, just fetch as many as
+# possible in one page---that's enough for almost all PRs.
+changed_files=$(curl -sL \
+  -H "Accept: application/vnd.github+json" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  "${pr_files_URL}?per_page=100" \
+  | jq -r '.[].filename' \
+  | LC_ALL=C sort)
+
+manifest_files=$(cut -f2 -d " " "$built_in_manifest" \
+  | LC_ALL=C sort)
+
+intersection=$(
+  LC_ALL=C comm -12 <(printf "%s\n" "$changed_files") <(printf "%s\n" "$manifest_files")
+)
+
+if [[ -n $intersection ]]; then
+  echo "The following files are auto-updated by the bot, and any changes will be overwritten."
+  echo "You should remove changes to these files from the PR, and"
+  echo "consider submitting your changes to the upstream source instead:"
+  echo
+  printf "%s\n" "$intersection"
+  exit 2
+fi

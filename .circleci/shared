@@ -23,6 +23,7 @@ upstream_data_URL_root+="${prj_repo}"
 
 CIRCLE_PR_NUMBER="${CIRCLE_PR_NUMBER:-${CIRCLE_PULL_REQUEST##*/}}"
 pr_data_URL="${upstream_data_URL_root}/pulls/${CIRCLE_PR_NUMBER}"
+pr_files_URL="${upstream_data_URL_root}/pulls/${CIRCLE_PR_NUMBER}/files"
 upstream_data_URL="${upstream_data_URL_root}/branches/develop"
 
 pr_file_list_URL="${api_URL_root}/"

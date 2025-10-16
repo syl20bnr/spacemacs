@@ -42,6 +42,9 @@ jobs:
       - run:
           name: Make sure that this PR targets develop branch
           command: .circleci/PR_base
+      - run:
+          name: Make sure that this PR doesn't update bot-maintained files
+          command: .circleci/PR_bot_files
   "Validate Documentation":
     executor: spacetools
     environment:
