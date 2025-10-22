@@ -386,12 +386,11 @@ Point size is recommended, because it's device independent. (default 10.0)"
   '(choice (const evil) (const origami) (const vimish))
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-undo-system 'undo-fu
+(spacemacs|defc dotspacemacs-undo-system 'undo-redo
   "The backend used for undo/redo functionality. Possible values are
-`undo-fu', `undo-redo' and `undo-tree' see also `evil-undo-system'.
+`undo-redo', `undo-fu' and `undo-tree' see also `evil-undo-system'.
 Note that saved undo history does not get transferred when changing
-your undo system. The default is currently `undo-fu' as `undo-tree'
-is not maintained anymore and `undo-redo' is very basic."
+your undo system from or to undo-tree. (default `undo-redo')"
   '(choice (const undo-fu) (const undo-redo) (const undo-tree))
   'spacemacs-dotspacemacs-init)
 
