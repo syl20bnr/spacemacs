@@ -48,7 +48,7 @@
     multi-line
     (undo-tree :toggle (eq 'undo-tree dotspacemacs-undo-system))
     (undo-fu :toggle (eq 'undo-fu dotspacemacs-undo-system))
-    (undo-fu-session :toggle (not (eq 'undo-tree dotspacemacs-undo-system)))
+    (undo-fu-session :toggle (eq 'undo-fu dotspacemacs-undo-system))
     (vundo :toggle (not (eq 'undo-tree dotspacemacs-undo-system)))
     (unkillable-scratch :toggle dotspacemacs-scratch-buffer-unkillable)
     uuidgen
