@@ -26,7 +26,6 @@
 ;; Increase garbage collection threshold to speed up startup.
 (defconst emacs-start-time (current-time))
 (setq gc-cons-threshold 402653184 gc-cons-percentage 0.6)
-
 ;; ---------------------------------------------------------------------------
 ;; * Load Core Paths
 ;; ---------------------------------------------------------------------------
@@ -44,7 +43,7 @@
 ;; ---------------------------------------------------------------------------
 ;; * Remove Stale Compiled Files
 ;; ---------------------------------------------------------------------------
-;; Remove old compiled files if Emacs version has changed.
+;; Remove stale compiled files if Emacs version has changed.
 (load (concat spacemacs-core-directory "core-compilation")
       nil (not init-file-debug))
 (load spacemacs--last-emacs-version-file t (not init-file-debug))
@@ -56,10 +55,13 @@
 ;; ---------------------------------------------------------------------------
 ;; * Emacs Version Check
 ;; ---------------------------------------------------------------------------
-;; Stop initialization if Emacs is too old.
+;; Stop initialization if the version of Emacs the user is using is too old.
 (when (not (version<= spacemacs-emacs-min-version emacs-version))
-  (error (concat "Your version of Emacs (%s) is too old. "
-                 "Spacemacs requires Emacs version %s or above.")
+  (error (concat "Your version of emacs (%s) is too old. "
+                 "Spacemacs requires emacs version %s or above."
+                  "Please update your emacs version."
+	          "You can install a newer version at https://www.gnu.org/software/emacs/download.html") 
+		     
          emacs-version spacemacs-emacs-min-version))
 
 ;; -------------------------------------------------------------------------
@@ -91,5 +93,5 @@
     (when dotspacemacs-server-socket-dir
       (setq server-socket-dir dotspacemacs-server-socket-dir))
     (unless (or (daemonp) (server-running-p))
-      (message "Starting a server...")
+      (message "Starting a Emacs server...")
       (server-start))))

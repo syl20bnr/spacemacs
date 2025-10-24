@@ -155,7 +155,10 @@
     (advice-add 'evil-refresh-cursor :around #'spacemacs/not-in-pdf-view-mode))
 
   (when vim-style-enable-undo-region
-    (define-key evil-visual-state-map (kbd "u") 'undo))
+    (define-key evil-visual-state-map (kbd "u")
+                (if (eq dotspacemacs-undo-system 'undo-fu)
+                    'undo
+                  'evil-undo)))
 
   (evil-ex-define-cmd "enew" 'spacemacs/new-empty-buffer)
 
