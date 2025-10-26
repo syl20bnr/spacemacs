@@ -330,39 +330,29 @@ buffer."
 
 (define-obsolete-function-alias 'spacemacs/derived-mode-p 'provided-mode-derived-p "2024-06")
 
+(defun spacemacs//alternate-buffer-skip (_window buffer _bury-or-kill)
+  "For use as `switch-to-prev-buffer-skip' in `spacemacs/alternate-buffer'."
+  (or (and (bound-and-true-p spacemacs-useful-buffers-restrict-spc-tab)
+           (spacemacs/useless-buffer-p buffer))
+      (and (bound-and-true-p spacemacs-layouts-restrict-spc-tab)
+           (not (member buffer (persp-buffer-list))))))
+
 (defun spacemacs/alternate-buffer (&optional window)
   "Switch back and forth between current and last buffer in WINDOW.
 
-WINDOW defaults to the selected window.
+If `spacemacs-useful-buffers-restrict-spc-tab' is non-nil, then this
+only switches to useful buffers, see `spacemacs-useful-buffers-regexp'.
+Additionally, if `spacemacs-layouts-restrict-spc-tab' is non-nil, then
+this only switches to the current layout's buffers.
 
-If `spacemacs-layouts-restrict-spc-tab' is non-nil, then this
-only switches between the current layout's buffers."
+The optional WINDOW parameter for non-interactive calls is deprecated.
+Instead, use `with-selected-window'."
   (interactive)
-  (cl-destructuring-bind (buf start pos)
-      (let ((my-buffer (window-buffer window))
-            (usefulp (if (bound-and-true-p spacemacs-useful-buffers-restrict-spc-tab)
-                         (symbol-function 'spacemacs/useful-buffer-p)
-                       #'always))
-            (predicate #'always)
-            (default (list (other-buffer) nil nil)))
-
-        (when (bound-and-true-p spacemacs-layouts-restrict-spc-tab)
-          (let ((buffer-list (persp-buffer-list)))
-            ;; find buffer of the same persp in window, and don't try
-            ;; `other-buffer'
-            (setq predicate (lambda (buffer) (member buffer buffer-list))
-                  default (list nil nil nil))))
-
-        (seq-find (lambda (it)
-                    (let ((buffer (car it)))
-                      (and (not (eq buffer my-buffer))
-                           (funcall usefulp buffer)
-                           (funcall predicate buffer))))
-                  (window-prev-buffers window)
-                  default))
-    (if (not buf)
-        (message "Last buffer not found.")
-      (set-window-buffer-start-and-point window buf start pos))))
+  (let ((switch-to-prev-buffer-skip #'spacemacs//alternate-buffer-skip))
+    (with-selected-window (or window (selected-window))
+      (set-window-next-buffers nil nil)
+      (previous-buffer)
+      (set-window-next-buffers nil nil))))
 
 (defun spacemacs/alternate-window ()
   "Switch back and forth between current and last window in the
