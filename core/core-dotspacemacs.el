@@ -483,6 +483,36 @@ window."
   'boolean
   'spacemacs-dotspacemacs-init)
 
+(spacemacs|defc dotspacemacs-enable-cycling nil
+  "Make consecutive tab key presses after
+`spacemacs/alternate-buffer' (SPC TAB) or
+`spacemacs/alternate-window' (SPC w TAB) cycle through previous buffers
+or windows. After arriving at the destination buffer/window, from the
+point of view of consecutive commands, it is as if the destination was
+directly switched to. By default, the backspace key cycles in the
+opposite direction.
+
+You can customize the cycling keys with the options
+`spacemacs-default-cycle-forwards-key',
+`spacemacs-default-cycle-backwards-key', or with the command-specific
+variants `spacemacs-alternate-buffer-cycle-forwards-key',
+`spacemacs-alternate-buffer-cycle-backwards-key'
+`spacemacs-alternate-window-cycle-forwards-key', and
+`spacemacs-alternate-window-cycle-backwards-key',
+
+Moreover, you can set the option `transient-cycles-show-cycling-keys' to
+nil to suppress the message specifying the cycling keys in each invocation.
+
+Note that this feature requires Emacs 29 or later.
+
+Set the option to t in order to enable cycling for all current and
+future cycling commands. Alternatively, choose a subset of the currently
+supported commands: '(alternate-buffer alternate-window). (default nil)"
+  '(choice (const t)
+           (repeat (choice (const alternate-buffer)
+                           (const alternate-window))))
+  'spacemacs-dotspacemacs-init)
+
 (spacemacs|defc dotspacemacs-maximize-window-keep-side-windows t
   "Whether side windows (such as those created by treemacs or neotree)
 are kept or minimized by `spacemacs/toggle-maximize-window' (SPC w m)."

@@ -1,4 +1,4 @@
-;;; packages.el --- Spacemacs Navigation Layer packages File  -*- lexical-binding: nil; -*-
+;;; packages.el --- Spacemacs Navigation Layer packages File  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;
@@ -39,6 +39,9 @@
         restart-emacs
         (smooth-scrolling :location built-in)
         symbol-overlay
+        (transient-cycles
+         :toggle (and dotspacemacs-enable-cycling
+                      (version<= "29.1" emacs-version)))
         winum
         disable-mouse))
 
@@ -432,6 +435,68 @@
       ("t" symbol-overlay-toggle-in-scope)
       ("z" recenter-top-bottom)
       ("q" nil :exit t))))
+
+(defun spacemacs-navigation/init-transient-cycles ()
+  (use-package transient-cycles
+    :demand t
+    :config
+    (when (or (eq t dotspacemacs-enable-cycling)
+              (member 'alternate-buffer dotspacemacs-enable-cycling))
+      (transient-cycles-define-commands
+       (window prev-buffers)
+       (([remap spacemacs/alternate-buffer] ()
+         (interactive)
+         (setq window (selected-window) ; account for calls inside with-selected-window
+               prev-buffers (cons
+                             (list (window-buffer)
+                                   (copy-marker (window-start))
+                                   (copy-marker (window-point)))
+                             (window-prev-buffers window)))
+         (set-window-next-buffers nil nil)
+         (let ((switch-to-prev-buffer-skip
+                (symbol-function #'spacemacs//alternate-buffer-skip)))
+           (previous-buffer))))
+       (lambda (_ignore)
+         (lambda (arg)
+           (with-selected-window window
+             (let ((switch-to-prev-buffer-skip
+                    (symbol-function #'spacemacs//alternate-buffer-skip)))
+               (if (cl-plusp arg)
+                   (previous-buffer)
+                 (next-buffer))))))
+       :on-exit (progn (set-window-next-buffers window nil)
+                       (set-window-prev-buffers window prev-buffers))
+       :cycle-backwards-key (or spacemacs-alternate-buffer-cycle-backwards-key
+                                spacemacs-default-cycle-backwards-key)
+       :cycle-forwards-key (or spacemacs-alternate-buffer-cycle-forwards-key
+                               spacemacs-default-cycle-forwards-key)))
+    (when (or (eq t dotspacemacs-enable-cycling)
+              (member 'alternate-window dotspacemacs-enable-cycling))
+      (transient-cycles-define-commands
+       (sorted-windows index)
+       (([remap spacemacs/alternate-window] ()
+         (interactive)
+         (setq sorted-windows
+               (sort (window-list)
+                     (lambda (w1 w2)
+                       (> (window-use-time w1)
+                          (window-use-time w2))))
+               index 1)
+         (when (length= sorted-windows 1)
+           (user-error "Last window not found."))
+         (select-window (nth index sorted-windows) 'mark-for-redisplay)))
+       (lambda (_ignore)
+         (lambda (arg)
+           (setq index (mod (if (cl-plusp arg)
+                                (1+ index)
+                              (1- index))
+                          (length sorted-windows)))
+           (select-window (nth index sorted-windows) 'mark-for-redisplay)))
+       :on-exit (select-window (selected-window)) ; set the window-use-time
+       :cycle-forwards-key (or spacemacs-alternate-window-cycle-forwards-key
+                               spacemacs-default-cycle-forwards-key)
+       :cycle-backwards-key (or spacemacs-alternate-window-cycle-backwards-key
+                                spacemacs-default-cycle-backwards-key)))))
 
 (defun spacemacs-navigation/init-winum ()
   (use-package winum

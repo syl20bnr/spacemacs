@@ -22,6 +22,7 @@ This layer adds general navigation functions to all supported layers.
 - Support for =paradox= a modern emacs package manager
 - Shortcuts for restarting =emacs=
 - Shortcuts for easily switching between windows
+- Adds cycling functionality to some commands (see =dotspacemacs-enable-cycling=)
 
 * Key bindings
 
