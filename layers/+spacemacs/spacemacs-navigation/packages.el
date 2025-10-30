@@ -453,14 +453,12 @@
                                    (copy-marker (window-point)))
                              (window-prev-buffers window)))
          (set-window-next-buffers nil nil)
-         (let ((switch-to-prev-buffer-skip
-                (symbol-function #'spacemacs//alternate-buffer-skip)))
+         (let ((switch-to-prev-buffer-skip #'spacemacs//alternate-buffer-skip))
            (previous-buffer))))
        (lambda (_ignore)
          (lambda (arg)
            (with-selected-window window
-             (let ((switch-to-prev-buffer-skip
-                    (symbol-function #'spacemacs//alternate-buffer-skip)))
+             (let ((switch-to-prev-buffer-skip #'spacemacs//alternate-buffer-skip))
                (if (cl-plusp arg)
                    (previous-buffer)
                  (next-buffer))))))
