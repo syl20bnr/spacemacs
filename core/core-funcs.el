@@ -347,7 +347,12 @@ this only switches to the current layout's buffers.
 
 The optional WINDOW parameter for non-interactive calls is deprecated.
 Instead, use `with-selected-window'."
+  (declare (advertised-calling-convention () "2025-10"))
   (interactive)
+  (when window
+    (lwarn '(spacemacs core-funcs)
+           :warning
+           "The WINDOW argument to `spacemacs/alternate-buffer' is deprecated."))
   (let ((switch-to-prev-buffer-skip #'spacemacs//alternate-buffer-skip))
     (with-selected-window (or window (selected-window))
       (set-window-next-buffers nil nil)
