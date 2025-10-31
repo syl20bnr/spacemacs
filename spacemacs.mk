@@ -33,6 +33,7 @@ installation:
 	@echo "INSTALLATION OF PACKAGES FOR $(TEST_NAME)"
 	@echo "================================================================="
 	SPACEMACSDIR=$(TEST_DIR) emacs -Q -batch \
+		--eval '(setq package-check-signature nil)' \
 		$(addprefix -l $(EMACS_DIR)/, $(LOAD_FILES))
 
 ifneq ($(strip $(UNIT_TEST_FILES)),)
