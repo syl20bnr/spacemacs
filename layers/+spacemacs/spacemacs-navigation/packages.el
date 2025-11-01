@@ -446,12 +446,9 @@
        (window prev-buffers)
        (([remap spacemacs/alternate-buffer] ()
          (interactive)
+         (push-window-buffer-onto-prev)
          (setq window (selected-window) ; account for calls inside with-selected-window
-               prev-buffers (cons
-                             (list (window-buffer)
-                                   (copy-marker (window-start))
-                                   (copy-marker (window-point)))
-                             (window-prev-buffers window)))
+               prev-buffers (window-prev-buffers))
          (set-window-next-buffers nil nil)
          (let ((switch-to-prev-buffer-skip #'spacemacs//alternate-buffer-skip))
            (previous-buffer))))
@@ -463,7 +460,10 @@
                    (previous-buffer)
                  (next-buffer))))))
        :on-exit (progn (set-window-next-buffers window nil)
-                       (set-window-prev-buffers window prev-buffers))
+                       (set-window-prev-buffers window prev-buffers)
+                       (with-current-buffer (window-buffer window)
+                         (when (bound-and-true-p tab-line-mode)
+                           (tab-line-force-update nil))))
        :cycle-backwards-key (or spacemacs-alternate-buffer-cycle-backwards-key
                                 spacemacs-default-cycle-backwards-key)
        :cycle-forwards-key (or spacemacs-alternate-buffer-cycle-forwards-key
