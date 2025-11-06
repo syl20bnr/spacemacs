@@ -2,7 +2,7 @@
 
 #+TAGS: layer|web service
 
-* Table of Contents                               :TOC_5_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -36,32 +36,33 @@ file.
 
 ** Prerequisites
 This layer requires external components to be fully functional.
+1. **Copilot Language Server:**
+   The core `copilot.el` package requires the language server. It can be
+   installed manually with:
 
-1.  **Copilot Language Server:**
-    The core `copilot.el` package requires the language server. It can be
-    installed manually with:
-    #+BEGIN_SRC sh
-      $ npm install -g @github/copilot-language-server
-    #+END_SRC
+   #+BEGIN_SRC sh
+     $ npm install -g @github/copilot-language-server
+   #+END_SRC
 
-    Or, you can install it from within Emacs:
-    #+BEGIN_SRC elisp
-      SPC SPC copilot-install-server
-    #+END_SRC
+   Or, you can install it from within Emacs:
 
-2.  **Python 3 (for MCP Tools):**
-    While the layer itself does not require it, most useful MCP servers
-    (like the filesystem or shell servers) are Python-based scripts.
-    Please ensure you have a `python3` (or `python`) command
-    available in your system's `PATH` to run them.
+   #+BEGIN_SRC elisp
+     SPC SPC copilot-install-server
+   #+END_SRC
 
-3.  **MCP Server Installation (Manual):**
-    This layer **does not** install MCP servers for you. You must
-    install them manually. For example, the common filesystem server
-    is a Node.js package.
-    #+BEGIN_SRC sh
-      $ npm install -g @modelcontextprotocol/server-filesystem
-    #+END_SRC
+2. **Python 3 (for MCP Tools):**
+   While the layer itself does not require it, most useful MCP servers
+   (like the filesystem or shell servers) are Python-based scripts.
+   Please ensure you have a `python3` (or `python`) command
+   available in your system's `PATH` to run them.
+3. **MCP Server Installation (Manual):**
+   This layer **does not** install MCP servers for you. You must
+   install them manually. For example, the common filesystem server
+   is a Node.js package.
+
+   #+BEGIN_SRC sh
+     $ npm install -g @modelcontextprotocol/server-filesystem
+   #+END_SRC
 
 * Configuration
 The Copilot service must be logged into.
@@ -96,35 +97,37 @@ function in your `~/.spacemacs` file *after* the `mcp-hub` package
 is loaded.
 
 *** Example: Enabling the Filesystem Server ***
-1.  First, install the server (this requires Node.js / `npx`):
-    #+BEGIN_SRC sh
-      $ npm install -g @modelcontextprotocol/server-filesystem
-    #+END_SRC
+1. First, install the server (this requires Node.js / `npx`):
 
-2.  Then, add the following code to your `dotspacemacs/user-config`:
-    #+BEGIN_SRC elisp
-      (defun dotspacemacs/user-config ()
-        ;; ...
-        (with-eval-after-load 'mcp-hub
-          ;; This list is the "Single Source of Truth"
-          (setq github-copilot-mcp-servers
-                '(;; Add the filesystem server
-                  ;; It must be installed (e.g., via "npm install -g @modelcontextprotocol/server-filesystem")
-                  ("fs" . (:command "npx"
-                           :args ("-y" "@modelcontextprotocol/server-filesystem"
-                                   ;; This path MUST be absolute and point to your projects
-                                   "/home/your-user/projects")))))
+   #+BEGIN_SRC sh
+     $ npm install -g @modelcontextprotocol/server-filesystem
+   #+END_SRC
 
-          ;; We must also tell the mcp-hub to use this new list
-          (setq mcp-hub-servers github-copilot-mcp-servers))
-        )
-    #+END_SRC
+2. Then, add the following code to your `dotspacemacs/user-config`:
+
+   #+BEGIN_SRC elisp
+     (defun dotspacemacs/user-config ()
+       ;; ...
+       (with-eval-after-load 'mcp-hub
+         ;; This list is the "Single Source of Truth"
+         (setq github-copilot-mcp-servers
+               '(;; Add the filesystem server
+                 ;; It must be installed (e.g., via "npm install -g @modelcontextprotocol/server-filesystem")
+                 ("fs" . (:command "npx"
+                          :args ("-y" "@modelcontextprotocol/server-filesystem"
+                                  ;; This path MUST be absolute and point to your projects
+                                  "/home/your-user/projects")))))
+
+         ;; We must also tell the mcp-hub to use this new list
+         (setq mcp-hub-servers github-copilot-mcp-servers))
+       )
+   #+END_SRC
 
 *** Finding More Servers ***
 You can add any MCP-compliant server to this list (like a local
 Ollama instance). You can find more servers to install and use here:
--   **Official MCP Repo:** [[https://github.com/lizqwerscott/mcp.el]]
--   **Server Directory:** [[https://www.mcpserver.directory/]]
+- **Official MCP Repo:** [[https://github.com/lizqwerscott/mcp.el]]
+- **Server Directory:** [[https://www.mcpserver.directory/]]
 
 * Key bindings
 ** General

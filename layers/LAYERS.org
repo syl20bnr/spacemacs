@@ -3432,10 +3432,15 @@ Features:
 
 This layer enables usage of [[https://github.com/features/copilot][GitHub Copilot]] in Spacemacs.
 
+It provides code completion, chat-based AI interaction, and a powerful
+framework for integrating external AI tools and models.
+
 Features:
-- Ai powered code completions using [[https://github.com/copilot-emacs/copilot.el][copilot.el]]
-- Ai chat interactions using [[https://github.com/chep/copilot-chat.el][copilot-chat.el]]
-- Automatic generation of git commit messages using [[https://github.com/chep/copilot-chat.el][copilot-chat.el]]
+- AI powered code completions using [[https://github.com/copilot-emacs/copilot.el][copilot.el]].
+- AI chat interactions using [[https://github.com/chep/copilot-chat.el][copilot-chat.el]].
+- AI tool integration via [[https://github.com/lizqwerscott/mcp.el][mcp.el]], allowing the chat AI to
+  run commands, interact with the filesystem, and more. [EXPERIMENTAL]
+- Automatic generation of git commit messages.
 
 ** Hacker News
 [[file:+web-services/hackernews/README.org][+web-services/hackernews/README.org]]
