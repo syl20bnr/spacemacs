@@ -164,8 +164,7 @@ Intended for use in mode hooks."
 
 (defun spacemacs//find-ert-test-buffer (ert-test)
   "Return the buffer where ERT-TEST is defined."
-  (save-excursion
-    (car (find-definition-noselect (ert-test-name ert-test) 'ert-deftest))))
+  (car (find-definition-noselect (ert-test-name ert-test) 'ert--test)))
 
 (defun spacemacs/ert-run-tests-buffer ()
   "Run all the tests in the current buffer."
