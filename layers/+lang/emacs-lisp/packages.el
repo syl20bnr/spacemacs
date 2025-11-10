@@ -103,6 +103,7 @@
       (spacemacs/set-leader-keys-for-major-mode mode
         "df" 'spacemacs/edebug-instrument-defun-on
         "dF" 'spacemacs/edebug-instrument-defun-off))
+    :config
     (spacemacs/declare-prefix-for-mode 'edebug-eval-mode "mg" "goto")
     (spacemacs/declare-prefix-for-mode 'edebug-eval-mode "me" "eval")
     (spacemacs/set-leader-keys-for-major-mode 'edebug-eval-mode
