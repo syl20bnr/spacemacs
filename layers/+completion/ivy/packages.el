@@ -413,7 +413,11 @@
       "sS" 'swiper-thing-at-point
       "sb" 'swiper-all
       "sB" 'swiper-all-thing-at-point)
-    (global-set-key "\C-s" 'swiper)))
+    (global-set-key (kbd "C-s") 'swiper)
+    ;; isearch has special functionality to search a manual's full text, in
+    ;; Info-mode.
+    (with-eval-after-load 'info
+      (define-key Info-mode-map (kbd "C-s") 'isearch-forward))))
 
 (defun ivy/post-init-wgrep ()
   (spacemacs/set-leader-keys-for-major-mode 'ivy-occur-grep-mode
