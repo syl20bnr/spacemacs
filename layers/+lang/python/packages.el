@@ -423,6 +423,7 @@
       "sN" 'spacemacs/python-shell-restart-switch
       "sR" 'spacemacs/python-shell-send-region-switch
       "sr" 'spacemacs/python-shell-send-region
+      "sL" 'spacemacs/python-shell-send-line-switch
       "sl" 'spacemacs/python-shell-send-line
       "ss" 'spacemacs/python-shell-send-with-output)
 

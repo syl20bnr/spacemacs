@@ -626,6 +626,13 @@ Bind formatter to '==' for LSP and '='for all other backends."
         (end (point-at-eol)))
     (python-shell-send-region start end)))
 
+(defun spacemacs/python-shell-send-line-switch ()
+  "Send the current line to shell and switch to it insert mode."
+  (interactive)
+  (call-interactively #'spacemacs/python-shell-send-line)
+  (python-shell-switch-to-shell)
+  (evil-insert-state))
+
 (defun spacemacs/python-shell-send-statement ()
   "Send the statement under cursor to shell."
   (interactive)
