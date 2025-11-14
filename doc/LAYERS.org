@@ -413,10 +413,12 @@ The Spacemacs loading process can be summarized as follows:
 
    Alternatively, if a package is part of the end user's
    =dotspacemacs-additional-packages=, it will also be installed.
-3. All packages which should be installed are installed in alphabetical order,
-   =package.el= built-in Emacs library is in charge of implicit dependencies.
-   Installed packages not following the rules of 2. are removed as well as
-   their dependencies if possible. (This last behavior is optional but default.)
+3. New versions of built-in packages, and =bootstrap= and =pre= packages are
+   installed first, then the remaining packages are installed in the order in
+   which they are declared. The built-in Emacs library =package.el= is in charge
+   of implicit dependencies. Installed packages not following the rules of 2.
+   are removed as well as their dependencies if possible. (This last behavior is
+   optional but default.)
 4. The =pre-init=, =init= and =post-init= functions for each installed package
    are executed in turn.
 
