@@ -1877,7 +1877,7 @@ RNAME is the name symbol of another existing layer."
             (when install-deps
               (setq result (append install-deps result))))
           (when (funcall filter pkg-name)
-            (cl-pushnew pkg-name result))))
+            (setq result (append result (list pkg-name))))))
       (delete-dups result))))
 
 (defun configuration-layer//filter-packages-with-deps
