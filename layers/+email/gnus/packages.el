@@ -51,7 +51,7 @@
     (spacemacs/declare-prefix-for-mode 'message-mode "mi" "insert")
     (spacemacs/set-leader-keys-for-major-mode 'message-mode
       ;; RFC 1855
-      "miF" 'flame-on)
+      "iF" 'spacemacs/gnus-flame-on)
     ;; NOTE: If any of the following variables are modified,
     ;; also update their values in: `gnus/README.org'
     (setq-default
