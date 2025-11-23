@@ -2534,7 +2534,6 @@ This layer integrates a web feed reader into spacemacs.
 Features:
 - Support for reading RSS and Atom feeds directly within emacs via [[https://github.com/skeeto/elfeed][Elfeed]].
 - Support for managing feeds via org files supplied by [[https://github.com/remyhonig/elfeed-org][elfeed-org]].
-- Support for displaying feed database content in the browser via [[https://github.com/skeeto/elfeed#web-interface][web interface]].
 
 ** Epub
 [[file:+readers/epub/README.org][+readers/epub/README.org]]
