@@ -53,15 +53,24 @@
     (error "LanguageTool has not been set up yet")))
 
 (defun spacemacs//languagetool-detect ()
-  "Detects whether the LanguageTool binary exists."
-  (cond ((boundp 'langtool-java-classpath) t)
+  "Detects whether the LanguageTool is set up
+  or whether the executable file 'languagetool' exists
+  (and set the corresponding variable as the default)."
+  (cond ((boundp 'langtool-language-tool-jar)
+         (or (file-readable-p langtool-language-tool-jar)
+             (spacemacs-buffer/warning "LanguageTool isn't set up correctly")))
+        ((boundp 'langtool-java-classpath) t)
+        ((boundp 'langtool-bin)
+         (or (executable-find langtool-bin)
+             (spacemacs-buffer/warning "LanguageTool isn't set up correctly")))
+        ((boundp 'langtool-language-tool-server-jar)
+         (or (file-readable-p langtool-language-tool-server-jar)
+             (spacemacs-buffer/warning "LanguageTool isn't set up correctly")))
         ((and (boundp 'langtool-http-server-host)
               (boundp 'langtool-http-server-port)) t)
-        ((boundp 'langtool-language-tool-jar)
-         (if (file-readable-p langtool-language-tool-jar)
-             t
-           (spacemacs-buffer/warning "LanguageTool binary not found")))
-        (t (spacemacs-buffer/warning "LanguageTool binary not set"))))
+        (t (if-let* ((exe (executable-find "languagetool")))
+               (setq langtool-bin exe)
+             (spacemacs-buffer/warning "LanguageTool isn't set up")))))
 
 (defun spacemacs//languagetool-get-language ()
   "Tries to parse the current spell checking language for a
