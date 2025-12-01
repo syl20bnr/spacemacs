@@ -103,12 +103,15 @@ and its values are removed."
 
 ;; Originally based on https://stackoverflow.com/a/2322164
 (defun spacemacs/dump-vars-to-file (varlist filename)
-  "simplistic dumping of variables in VARLIST to a file FILENAME"
-  (with-temp-file filename
-    (spacemacs/dump-vars varlist (current-buffer))
-    (delay-mode-hooks (emacs-lisp-mode))
-    (elisp-enable-lexical-binding)
-    (make-directory (file-name-directory filename) t)))
+  "Simplistic dumping of variables in VARLIST to a file FILENAME."
+  ;; Write even when the file is locked by another Emacs.  Don't bother to
+  ;; prompt the user.
+  (cl-letf (((symbol-function #'ask-user-about-lock) #'always))
+    (with-temp-file filename
+      (spacemacs/dump-vars varlist (current-buffer))
+      (delay-mode-hooks (emacs-lisp-mode))
+      (elisp-enable-lexical-binding)
+      (make-directory (file-name-directory filename) t))))
 
 ;; From https://stackoverflow.com/a/2322164
 (defun spacemacs/dump-vars (varlist buffer)
