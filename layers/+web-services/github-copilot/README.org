@@ -56,8 +56,8 @@ This layer requires external components to be fully functional.
    This layer acts as a client. The actual tools (MCP Servers) run externally.
    - **Node.js:** Required for the official filesystem server and many web-based tools (install via `npm`).
    - **Python 3:** Required for many system administration and local scripting tools.
-   Please ensure both `node` (and `npm`) and `python3` are available in your system's `PATH`.
 
+   Please ensure both `node` (and `npm`) and `python3` are available in your system's `PATH`.
 3. **MCP Server Installation (Manual):**
    This layer **does not** install MCP servers for you. You must
    install them manually. For example, the common filesystem server
