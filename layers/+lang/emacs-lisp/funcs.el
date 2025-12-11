@@ -37,7 +37,9 @@ Unlike `eval-defun', this does not go to topmost function."
   "Find thing under point and go to it another window."
   (interactive)
   (let ((symb (variable-at-point)))
-    (if (and symb (not (equal symb 0)) (not (fboundp symb)))
+    (if (and symb
+             (not (equal symb 0))
+             (not (fboundp symb)))
         (find-variable-other-window symb)
       (find-function-at-point))))
 
@@ -73,12 +75,11 @@ Unlike `eval-defun', this does not go to topmost function."
   (let ((evilified? (spacemacs//support-evilified-buffer-p)))
     (if (not edebug-mode)
         ;; disable edebug-mode
-        (when evilified?
-          (evil-evilified-state-exit))
+        (when evilified? (evil-evilified-state-exit))
       ;; enable edebug-mode
-      (when evilified?
-        (evil-evilified-state))
-      (when (and (fboundp 'golden-ratio-mode) golden-ratio-mode)
+      (when evilified? (evil-evilified-state))
+      (when (and (fboundp 'golden-ratio-mode)
+                 golden-ratio-mode)
         (golden-ratio)))))
 
 
@@ -95,7 +96,8 @@ Requires smartparens because all movement is done using `sp-up-sexp'."
     ;; evil-move-beyond-eol disables the evil advices around eval-last-sexp
     (save-excursion
       (let ((max 10))
-        (while (and (> max 0) (sp-point-in-string-or-comment))
+        (while (and (> max 0)
+                    (sp-point-in-string-or-comment))
           (cl-decf max)
           (sp-up-sexp)))
       (sp-up-sexp arg)
@@ -118,7 +120,8 @@ Requires smartparens because all movement is done using `sp-forward-symbol'."
     ;; evil-move-beyond-eol disables the evil advices around eval-last-sexp
     (save-excursion
       (let ((max 10))
-        (while (and (> max 0) (sp-point-in-string-or-comment))
+        (while (and (> max 0)
+                    (sp-point-in-string-or-comment))
           (cl-decf max)
           (sp-up-sexp)))
       (sp-up-sexp arg)
@@ -142,8 +145,7 @@ Intended for use in mode hooks."
 (defun spacemacs//make-elisp-buffers-format-on-save-maybe ()
   "Add a function to format buffers on save when required."
   (when emacs-lisp-format-on-save
-    (add-hook
-     'emacs-lisp-mode-hook #'spacemacs//make-elisp-buffer-format-on-save)))
+    (add-hook 'emacs-lisp-mode-hook #'spacemacs//make-elisp-buffer-format-on-save)))
 
 (defun spacemacs//make-elisp-buffer-format-on-save ()
   "Make sure that this buffer is formatted on save"
@@ -153,7 +155,7 @@ Intended for use in mode hooks."
   "Format the given buffer if required."
   (when emacs-lisp-format-on-save
     (save-excursion
-      (elisp-autofmt-buffer)
+      (indent-region (point-min) (point-max))
       (whitespace-cleanup))))
 
 
@@ -174,9 +176,8 @@ definition is unknown."
   (save-buffer)
   (load-file (buffer-file-name))
   (let ((cbuf (current-buffer)))
-    (ert
-     '(satisfies
-       (lambda (test) (eq cbuf (spacemacs//find-ert-test-buffer test)))))))
+    (ert '(satisfies (lambda (test)
+                       (eq cbuf (spacemacs//find-ert-test-buffer test)))))))
 
 
 ;; setup flycheck, but not for `lisp-interaction-mode'
