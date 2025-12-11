@@ -4,19 +4,17 @@ import os
 import re
 
 # ==========================================
-#  SPACEMACS AGENT BUILDER (V14 - MODEL ROUTING)
+#  SPACEMACS AGENT BUILDER (V17 - FOOTER FIX)
 # ==========================================
-# GOAL:
-# 1. Assign SPECIFIC models to agent types (General vs. Codex).
-# 2. Inject 'model:' property into Copilot YAML frontmatter.
-# 3. Maintain Unified Mode headers.
+# FIXES:
+# 1. Cleaner Gemini Prompt formatting (removes redundant separators).
+# 2. Ensures Footer is correctly appended to the Global Header.
 # ==========================================
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = ".github"
 GEMINI_CMD_DIR = os.path.join(".gemini", "commands")
 
-# Configuration: Source Files and their Start Markers for AGENTS
 SOURCES = [
     {
         "file": "coding_ai.md",
@@ -26,7 +24,8 @@ SOURCES = [
     {
         "file": "general_ai.md",
         "marker": "### Default Universal Persona",
-        "type": "strategic"
+        "type": "strategic",
+        "footer_pattern": r"(?m)^## 5\. How to Choose.*"
     },
     {
         "file": "stakeholder_ai.md",
@@ -85,48 +84,47 @@ def clean_slug(name):
     return name_lower.split()[0].replace(".", "").replace("'", "").strip()
 
 def get_mode_text(agent_type):
-    """Returns the standardized MODE text based on agent type."""
     if agent_type == "strategic":
         return """
----
 MODE: STRATEGIC PLANNING & ARCHITECTURE
 (Focus on high-level design, user stories, and requirements. Use Github MCP if available to read issues.)
 """
     elif agent_type == "simulation":
         return """
----
 MODE: USER SIMULATION
 (Focus on subjective feedback, usability, and constraints. Do not write code.)
 """
     elif agent_type == "specialist":
         return """
----
 MODE: IMPLEMENTATION & CRAFTSMANSHIP
 (Focus on concrete code, strict rules, and technical correctness. Adhere to the loaded profile.)
 """
     return ""
 
 def get_model_id(agent_type):
-    """
-    Returns the specific model ID for the agent type.
-    This enables the 'General' vs 'Codex' split.
-    """
     if agent_type == "specialist":
-        # The Coding Specialists get the Codex model
         return "gpt-5.1-codex"
     else:
-        # Strategic and Simulation agents get the General Reasoning model
         return "gpt-5.1"
+
+def clean_header_content(header):
+    # Removes trailing dashes/stars aggressively
+    cleaned = re.sub(r'(\n\s*[-*]{3,}\s*)+$', '', header.strip())
+    return cleaned.strip()
 
 def parse_agents_from_text(roster_content, source_type):
     agents = []
     raw_splits = re.split(r"(?m)^-\s+\*\*(Role|Name):\*\*\s+", roster_content)
+
+    if len(raw_splits) < 2:
+        return agents
 
     iterator = iter(raw_splits[1:])
     for key, chunk in zip(iterator, iterator):
         role = "Unknown"
         name = "Unknown"
 
+        # Clean trailing headers like "### "
         chunk = re.split(r"(?m)^### ", chunk)[0]
 
         if key == "Role":
@@ -158,17 +156,14 @@ def generate_copilot_files(global_headers, agents):
     for agent in agents:
         filename = f"{agent['slug']}.agent.md"
         path = os.path.join(agents_dir, filename)
-
-        # Get the correct model based on type
         target_model = get_model_id(agent["type"])
 
-        # Copilot YAML with model property
         yaml = f"---\nname: {agent['slug']}\ndescription: {agent['role']}\nmodel: {target_model}\n---"
-
         context = global_headers.get(agent["type"], "")
         mode_text = get_mode_text(agent["type"])
 
-        content = f"{yaml}\n\n{context}\n{mode_text}\n\n# Identity: {agent['name']}\n{agent['body']}"
+        # Structure: YAML -> Context (Header + Footer) -> Separator -> Identity -> Mode
+        content = f"{yaml}\n\n{context}\n\n---\n\n# Identity: {agent['name']}\n{agent['body']}\n\n---\n{mode_text}"
 
         with open(path, "w", encoding="utf-8") as f:
             f.write(content)
@@ -181,30 +176,18 @@ def generate_gemini_commands(global_headers, agents):
 
     for agent in agents:
         slug = agent["slug"]
-        profile_path = None
-        if slug in PROFILE_MAP:
-             profile_path = PROFILE_MAP[slug]
-
+        profile_path = PROFILE_MAP.get(slug)
         mode_section = get_mode_text(agent["type"])
 
         toolbox_section = ""
         if profile_path:
-            toolbox_section = f"""
----
-TOOLBOX (AUTO-LOADED):
-!{{cat {profile_path}}}
-"""
+            toolbox_section = f"\nTOOLBOX (AUTO-LOADED):\n!{{cat {profile_path}}}\n"
         elif agent["type"] == "specialist":
-             toolbox_section = """
----
-TOOLBOX:
-(No specific profile loaded. Ask user to load one if implementation is needed.)
-"""
+             toolbox_section = "\nTOOLBOX:\n(No specific profile loaded. Ask user to load one if implementation is needed.)\n"
 
         system_header = global_headers.get(agent["type"], "")
 
-        # Note: Gemini CLI usually handles models via config flags, but we add a hint in the prompt too
-        # just in case the user manually routes it later.
+        # CLEANER PROMPT STRUCTURE (Removes double dashes)
         prompt_text = f"""
 SYSTEM INSTRUCTIONS:
 {system_header}
@@ -212,6 +195,8 @@ SYSTEM INSTRUCTIONS:
 ---
 AGENT PERSONA:
 {agent['body']}
+
+---
 {mode_section}
 {toolbox_section}
 ---
@@ -248,12 +233,35 @@ def main():
             print(f"⚠️ Warning: Marker '{source['marker']}' not found in {source['file']}.")
             continue
 
-        header = full_content.split(source["marker"])[0].strip()
-        roster = full_content.split(source["marker"])[1].strip()
+        # Split Header and Roster
+        parts = full_content.split(source["marker"])
+        header_raw = parts[0]
+        roster_raw = parts[1]
+
+        # 1. Clean the Header
+        header = clean_header_content(header_raw)
+
+        # 2. Extract Footer (Phonebook) if pattern exists
+        if "footer_pattern" in source:
+            footer_match = re.search(source["footer_pattern"], roster_raw, re.DOTALL)
+            if footer_match:
+                print(f"   ℹ️  Found Footer (Phonebook) in {source['file']}.")
+                split_index = footer_match.start()
+
+                # The footer is everything from the match to the end
+                footer_content = roster_raw[split_index:]
+
+                # The roster is everything BEFORE the match
+                roster_raw = roster_raw[:split_index]
+
+                # Append footer to header
+                header = header + "\n\n---\n" + footer_content.strip()
+            else:
+                print(f"   ⚠️  Footer pattern defined but not found in {source['file']}.")
 
         global_headers[source["type"]] = header
 
-        agents = parse_agents_from_text(roster, source["type"])
+        agents = parse_agents_from_text(roster_raw, source["type"])
         all_agents.extend(agents)
         print(f"   Found {len(agents)} agents.")
 
@@ -261,9 +269,6 @@ def main():
     generate_gemini_commands(global_headers, all_agents)
 
     print("\n✅ Done! Unified Framework Active.")
-    print("   Models assigned:")
-    print("   - Strategists/Simulators: gpt-5.1")
-    print("   - Specialists:            gpt-5.1-codex")
 
 if __name__ == "__main__":
     main()

@@ -28,13 +28,6 @@ We operate with a **Unified Agentic System**. While all agents may run in the sa
 
 ---
 
-## CORE OPERATIONAL MODE: CRITICAL REVIEW
-**INSTRUCTION:**
-When acting as a Stakeholder, your goal is to be **biased**, **subjective**, and **true to your persona**.
-You are not here to be nice. You are here to represent a specific user segment's pain points.
-
----
-
 ## CRITICAL GUARDRAIL 0: SESSION HYGIENE
 
 **You operate strictly in a FRESH context.**
