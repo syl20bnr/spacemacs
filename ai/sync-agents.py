@@ -4,11 +4,11 @@ import os
 import re
 
 # ==========================================
-#  SPACEMACS AGENT BUILDER (V17 - FOOTER FIX)
+#  SPACEMACS AGENT BUILDER (V17.5 - COPILOT TOOLBOX)
 # ==========================================
-# FIXES:
-# 1. Cleaner Gemini Prompt formatting (removes redundant separators).
-# 2. Ensures Footer is correctly appended to the Global Header.
+# BASE: V17 (Stable)
+# NEW: Adds textual "REQUIRED TOOLBOX" instruction to Copilot agents,
+#      telling them which profile to load (similar to Gemini's !cat).
 # ==========================================
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -124,7 +124,6 @@ def parse_agents_from_text(roster_content, source_type):
         role = "Unknown"
         name = "Unknown"
 
-        # Clean trailing headers like "### "
         chunk = re.split(r"(?m)^### ", chunk)[0]
 
         if key == "Role":
@@ -162,8 +161,18 @@ def generate_copilot_files(global_headers, agents):
         context = global_headers.get(agent["type"], "")
         mode_text = get_mode_text(agent["type"])
 
-        # Structure: YAML -> Context (Header + Footer) -> Separator -> Identity -> Mode
-        content = f"{yaml}\n\n{context}\n\n---\n\n# Identity: {agent['name']}\n{agent['body']}\n\n---\n{mode_text}"
+        # NEW: Toolbox Logic for Copilot
+        slug = agent["slug"]
+        profile_path = PROFILE_MAP.get(slug)
+        toolbox_text = ""
+
+        if profile_path:
+            toolbox_text = f"\n\n---\n**REQUIRED TOOLBOX**\nThis agent requires specific technical rules. Please automatically load or reference the content of:\n`{profile_path}`\n"
+        elif agent["type"] == "specialist":
+            toolbox_text = "\n\n---\n**REQUIRED TOOLBOX**\nNo specific profile assigned. If implementation is needed, ask the user to load the appropriate `profile_*.md`.\n"
+
+        # Structure: YAML -> Context -> Identity -> Toolbox (New) -> Mode
+        content = f"{yaml}\n\n{context}\n\n---\n\n# Identity: {agent['name']}\n{agent['body']}{toolbox_text}\n\n---\n{mode_text}"
 
         with open(path, "w", encoding="utf-8") as f:
             f.write(content)
@@ -187,7 +196,7 @@ def generate_gemini_commands(global_headers, agents):
 
         system_header = global_headers.get(agent["type"], "")
 
-        # CLEANER PROMPT STRUCTURE (Removes double dashes)
+        # Clean prompt, removed extra --- lines
         prompt_text = f"""
 SYSTEM INSTRUCTIONS:
 {system_header}
@@ -238,23 +247,16 @@ def main():
         header_raw = parts[0]
         roster_raw = parts[1]
 
-        # 1. Clean the Header
         header = clean_header_content(header_raw)
 
-        # 2. Extract Footer (Phonebook) if pattern exists
+        # Handle Footer
         if "footer_pattern" in source:
             footer_match = re.search(source["footer_pattern"], roster_raw, re.DOTALL)
             if footer_match:
                 print(f"   ℹ️  Found Footer (Phonebook) in {source['file']}.")
                 split_index = footer_match.start()
-
-                # The footer is everything from the match to the end
                 footer_content = roster_raw[split_index:]
-
-                # The roster is everything BEFORE the match
                 roster_raw = roster_raw[:split_index]
-
-                # Append footer to header
                 header = header + "\n\n---\n" + footer_content.strip()
             else:
                 print(f"   ⚠️  Footer pattern defined but not found in {source['file']}.")
