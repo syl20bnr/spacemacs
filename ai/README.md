@@ -30,7 +30,10 @@
     - [Workflow 2: Architecture](#workflow-2-architecture)
     - [Workflow 3: Implementation](#workflow-3-implementation)
     - [Workflow 4: Review](#workflow-4-review)
-  - [Updating The Blueprints](#updating-the-blueprints)
+  - [⚙️ AI Framework Maintenance (The Build Pipeline)](#-ai-framework-maintenance-the-build-pipeline)
+    - [1. The Source of Truth (Edit these!)](#1-the-source-of-truth-edit-these)
+    - [2. The Build Process](#2-the-build-process)
+    - [3. How to Update](#3-how-to-update)
 
 <!-- markdown-toc end -->
 
@@ -258,12 +261,34 @@ Use short, focused interactions with specific agents.
 
 ---
 
-## Updating The Blueprints
+## ⚙️ AI Framework Maintenance (The Build Pipeline)
 
-**!! IMPORTANT !!**
-After editing any `.md` file in `ai/`, run the sync script to update the CLI commands:
+This repository uses a **compiled AI architecture**. We do not manually write individual agent files. Instead, we maintain three "Monolithic Blueprints" which are compiled into specific agent formats (Copilot Markdown & Gemini TOML) via a build script.
 
-**How to run the script (from the repository root):**
-```bash
-python ai/sync-agents.py
-```
+### 1. The Source of Truth (Edit these!)
+**NEVER** edit files in `.github/agents/` or `.gemini/commands/` directly. Your changes will be overwritten by the next build.
+Only edit the source blueprints in the `ai/` directory:
+
+1.  **`ai/coding_ai.md`:** Defines the **Specialists** (Spacky, Marjin, etc.) and their shared Technical Guardrails.
+2.  **`ai/general_ai.md`:** Defines the **Strategists** (Bob, Kael'Thas, etc.) and the global "Phonebook" (Routing Table).
+3.  **`ai/stakeholder_ai.md`:** Defines the **Simulators** (Dr. Chen, Vlad, etc.) and the "Critical Review" mode.
+
+### 2. The Build Process
+The `sync-agents.py` script acts as the compiler. It performs the following operations:
+* **Splitting:** Extracts individual personas from the monolithic files via Regex.
+* **Inheritance:** Injects the correct Global Guardrails, Context Headers, and Footers (e.g., the Strategy Phonebook) into every agent.
+* **Formatting:** Generates specific file formats for different AI clients (YAML frontmatter for Copilot, TOML config for Gemini).
+
+### 3. How to Update
+Whenever you modify a persona or a guardrail:
+
+1.  Edit the relevant `_ai.md` file.
+2.  Run the build script from the repository root:
+    ```bash
+    python ai/sync-agents.py
+    ```
+3.  Verify the output:
+    * Check `.github/agents/` for updated `.agent.md` files.
+    * Check `.gemini/commands/` for updated `.toml` files.
+4.  Commit **both** the source changes and the re-generated artifacts.
+5.  Make sure that no rules are lost and that the correct static model for copilot is used (gpt 5.1 for strategic and gpt 5.1 codex for coding agents)
