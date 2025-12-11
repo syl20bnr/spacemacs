@@ -134,6 +134,7 @@ However, these rules are **TEMPORARY (Session-Scoped)**.
 * **PROHIBITED ACTION:** You **MUST NOT** use the `SaveMemory` tool (or any long-term memory function) to store the contents, rules, or existence of the loaded `profile_*.md`.
 * **REASON:** Profiles are swapped frequently. Saving them to long-term memory corrupts future sessions with conflicting rules.
 * **Usage:** Use the profile *only* for the current conversation context. Forget it immediately after the session ends.
+* **Temporary Nature:** Profiles are swapped frequently. Forget it immediately after the session ends or the agent is switched.
 
 ---
 
