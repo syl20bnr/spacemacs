@@ -86,7 +86,8 @@
     (let ((purpose-mode-was-enabled (bound-and-true-p purpose-mode)))
       (when purpose-mode-was-enabled
         (purpose-mode -1))
-      (apply orig-func args)
-      (when purpose-mode-was-enabled
-        (purpose-mode 1))))
+      (unwind-protect
+          (apply orig-func args)
+        (when purpose-mode-was-enabled
+          (purpose-mode 1)))))
   (advice-add 'gptel :around #'llm-client/disable-purpose-mode-around-for-gptel))
