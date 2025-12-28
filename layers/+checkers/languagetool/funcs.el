@@ -22,20 +22,31 @@
 
 
 (defun spacemacs/languagetool-next-error (count)
+  "Jump to the COUNT next languagetool error and maybe show the message.
+
+The message is shown if layer variable `languagetool-show-error-on-jump'
+is non-nil."
   (interactive "p")
   (dotimes (_ count) (langtool-goto-next-error))
   (when languagetool-show-error-on-jump (langtool-show-message-at-point)))
 
 (defun spacemacs/languagetool-previous-error (count)
+  "Jump to the COUNT previous languagetool error and maybe show the message.
+
+The message is shown if layer variable `languagetool-show-error-on-jump'
+is non-nil."
   (interactive "p")
   (dotimes (_ count) (langtool-goto-previous-error))
   (when languagetool-show-error-on-jump (langtool-show-message-at-point)))
 
 (defun spacemacs/languagetool-toggle ()
-  "Performs grammar and spell checking on the current buffer
-  using LanguageTool for grammar and flyspell for spell checking.
-  Flyspell errors will be cleared if the 'spell-checking' layer
-  is active as they add a lot of clutter."
+  "Perform grammar and spell checking on the current buffer.
+
+Grammar is checked with LanguageTool and spelling is checked with
+Flyspell.
+
+Flyspell errors will be cleared if the 'spell-checking' layer is active
+as they add a lot of clutter."
   (interactive)
   (if (package-installed-p 'langtool)
       (let* ((has-ran (bound-and-true-p langtool-mode-line-message))
@@ -53,9 +64,14 @@
     (error "LanguageTool has not been set up yet")))
 
 (defun spacemacs//languagetool-detect ()
-  "Detects whether the LanguageTool is set up
-  or whether the executable file 'languagetool' exists
-  (and set the corresponding variable as the default)."
+  "Return non-nil if LanguageTool is set up correctly.
+
+LanguageTool is configured via the variables described in the
+`languagetool' layer README.  Alternatively, if an executable file
+\"languagetool\" exists in variable `exec-path', it will be used as a
+fallback value of `langtool-bin'.
+
+If not set up correctly, display a warning in the *Spacemacs* buffer."
   (cond ((boundp 'langtool-language-tool-jar)
          (or (file-readable-p langtool-language-tool-jar)
              (spacemacs-buffer/warning "LanguageTool isn't set up correctly")))
@@ -73,9 +89,9 @@
              (spacemacs-buffer/warning "LanguageTool isn't set up")))))
 
 (defun spacemacs//languagetool-get-language ()
-  "Tries to parse the current spell checking language for a
-  usable locale string. This won't do anything if the
-  'spell-checking' layer is not active."
+  "Try to parse the current spell checking language for a usable locale string.
+
+This won't do anything if the `spell-checking' layer is not active."
   ;; We'll assume the language is either a locale or a named language (i.e.
   ;; "en_GB" or "english")
   (when-let* ((language (and (featurep 'flyspell)

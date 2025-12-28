@@ -22,5 +22,6 @@
 
 
 (defvar languagetool-show-error-on-jump nil
-  "If non-nil, automatically show a popup with the error when
-  jumping to LanguageTool errors with '[ a' and '] a'.")
+  "If non-nil, show a popup with the error when jumping to LanguageTool errors.
+
+Jump to previous and next errors with \\`[ a' and \\`] a'.")
