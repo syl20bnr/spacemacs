@@ -8,6 +8,7 @@
   - [[#rcirc][RCIRC]]
   - [[#slack][Slack]]
 - [[#checkers][Checkers]]
+  - [[#languagetool][LanguageTool]]
   - [[#spell-checking][Spell Checking]]
   - [[#syntax-checking][Syntax Checking]]
 - [[#completion][Completion]]
@@ -191,8 +192,6 @@
   - [[#epub][Epub]]
   - [[#pdf][PDF]]
   - [[#speed-reading][Speed Reading]]
-- [[#readmeorg-files-that-need-proper-tags][README.org files that need proper tags]]
-  - [[#languagetool][LanguageTool]]
 - [[#source-control][Source control]]
   - [[#git][Git]]
   - [[#perforce][Perforce]]
@@ -343,6 +342,15 @@ Features:
 - Notifications with [[https://github.com/jwiegley/alert][alert.el]]
 
 * Checkers
+** LanguageTool
+[[file:+checkers/languagetool/README.org][+checkers/languagetool/README.org]]
+
+This layer adds grammar checking using [[https://www.languagetool.org/][LanguageTool]]. LanguageTool will use the
+language set using ~SPC S d~ if the =spell-checking= layer is enabled.
+
+Features:
+- Spelling and grammar checking
+
 ** Spell Checking
 [[file:+checkers/spell-checking/README.org][+checkers/spell-checking/README.org]]
 
@@ -2578,16 +2586,6 @@ A speed reading mode for Emacs.
 
 Features:
 - Support for =speed-reading= of arbitrary texts
-
-* README.org files that need proper tags
-** LanguageTool
-[[file:+tools/languagetool/README.org][+tools/languagetool/README.org]]
-
-This layer adds grammar checking using [[https://www.languagetool.org/][LanguageTool]]. LanguageTool will use the
-language set using ~SPC S d~ if the =spell-checking= layer is enabled.
-
-Features:
-- Spelling and grammar checking
 
 * Source control
 ** Git
