@@ -14,7 +14,7 @@
 fail_when_undefined_pr_number
 built_in_manifest=".ci/built_in_manifest"
 
-pr_owner=$(curl -s "${pr_data_URL}" | jq -r '.head.owner.name')
+pr_owner=$(curl -s "${pr_data_URL}" | jq -r '.user.login')
 if [[ ${pr_owner} == "${UPD_BOT_LOGIN}" ]]; then
   echo "This PR is from the bot, who is allowed to update built-in files."
   exit 0
