@@ -1076,7 +1076,13 @@ that is put in the tarball."
     (when (and (eq system-type 'windows-nt)
                (eq (package-build--tar-type) 'gnu))
       (setq tar (replace-regexp-in-string "^\\([a-z]\\):" "/\\1" tar)))
-    (let ((default-directory directory))
+    (let ((default-directory directory)
+          (process-environment process-environment))
+      (when (eq system-type 'darwin)
+        ;; Files whose name begin with ._ are added to tarballs
+        ;; by, default, but at least we can turn that off.  See
+        ;; also https://superuser.com/a/260264.
+        (setenv "COPYFILE_DISABLE" "true"))
       (process-file
        package-build-tar-executable nil
        (get-buffer-create "*package-build-checkout*") nil
