@@ -89,4 +89,4 @@ Otherwise, in visual state `u' downcases visually selected text.")
                                  ("iedit" "firebrick1" box)
                                  ("iedit-insert" "firebrick1" (bar . 2)))
   "Colors assigned to evil states with cursor definitions.
-To add your own, use `spacemacs/add-evil-curosr'.")
+To add your own, use `spacemacs/add-evil-cursor'.")
