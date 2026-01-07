@@ -1,4 +1,4 @@
-;;; funcs.el --- Spacemacs Bootstrap Layer functions File  -*- lexical-binding: nil; -*-
+;;; funcs.el --- Spacemacs Bootstrap Layer functions File  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;
@@ -67,11 +67,13 @@ For evil states that also need an entry to `spacemacs-evil-cursors' use
   ;; for example treemacs: it needs no cursor since it solely uses hl-line-mode
   ;; and having an evil cursor defined anyway leads to the cursor sometimes
   ;; visibly flashing in treemacs buffers
-  (eval `(defface ,(spacemacs/state-color-face (intern state))
-           `((t (:background ,color :inherit 'mode-line)))
-           (format "%s state face." state)
-           :group 'spacemacs))
-  ;; 'unspecified may not be used in defface, so set it via set-face-attribute.
+  (custom-declare-face
+    (spacemacs/state-color-face (intern state))
+    `((t (:background ,color :inherit mode-line)))
+    (format "%s state face." state)
+    :group 'spacemacs)
+  ;; 'unspecified may not be used in custom-declare-face, so set it via
+  ;; set-face-attribute.
   (set-face-attribute (spacemacs/state-color-face (intern state)) nil
                       :foreground (face-attribute 'mode-line :background)))
 
