@@ -24,6 +24,7 @@
 (setq spacemacs-modeline-packages
       '(
         (doom-modeline :toggle (eq (spacemacs/get-mode-line-theme-name) 'doom))
+        evil
         fancy-battery
         (spaceline :toggle (spacemacs//enable-spaceline-p))
         (spaceline-all-the-icons :toggle (eq (spacemacs/get-mode-line-theme-name) 'all-the-icons))
@@ -36,6 +37,9 @@
   (use-package doom-modeline
     :defer t
     :init (doom-modeline-mode)))
+
+(defun spacemacs-modeline/post-init-evil ()
+  (advice-add 'evil-generate-mode-line-tag :around #'spacemacs//colorize-evil-mode-line-tag))
 
 (defun spacemacs-modeline/init-fancy-battery ()
   (use-package fancy-battery
