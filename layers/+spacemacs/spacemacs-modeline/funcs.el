@@ -78,10 +78,6 @@ Return nil if no scale is defined."
     (set-face-attribute 'powerline-inactive2 nil
                         :inherit 'font-lock-comment-face)))
 
-(defun spacemacs//evil-state-face ()
-  (let ((state (if (eq 'operator evil-state) evil-previous-state evil-state)))
-    (intern (format "spacemacs-%S-face" state))))
-
 (defun spacemacs//restore-buffers-powerline ()
   "Restore the powerline in the buffers.
 Excluding which-key."

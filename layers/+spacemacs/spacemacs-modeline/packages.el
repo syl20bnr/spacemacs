@@ -93,7 +93,7 @@
     :config
     (spacemacs/customize-powerline-faces)
     (setq spaceline-org-clock-p nil
-          spaceline-highlight-face-func 'spacemacs//evil-state-face)
+          spaceline-highlight-face-func 'spacemacs/current-state-face)
     ;; unicode
     (let ((unicodep (dotspacemacs|symbol-value
                      dotspacemacs-mode-line-unicode-symbols)))
