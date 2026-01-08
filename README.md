@@ -532,9 +532,6 @@ first.
 Spacemacs is a community-driven project, it needs _you_ to keep it up to date
 and to propose great and useful configurations for all the things!
 
-This repository utilizes a specialized **[AI Collaboration Framework](ai/README.md)** for maintenance, refactoring, and quality assurance.
-Contributors are encouraged to leverage our pre-configured AI agents (like **Spacky** for Elisp or **G.O.L.E.M.** for documentation) to ensure code consistency and adherence to Spacemacs conventions.
-
 Before contributing, be sure to consult the [contribution
 guidelines][CONTRIBUTING.org] and [conventions][CONVENTIONS.org].
 
