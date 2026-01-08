@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2011-2024 Donald Ephraim Curtis
 ;; Copyright (C) 2012-2024 Steve Purcell
-;; Copyright (C) 2016-2025 Jonas Bernoulli
+;; Copyright (C) 2016-2026 Jonas Bernoulli
 ;; Copyright (C) 2009 Phil Hagelberg
 
 ;; Author: Donald Ephraim Curtis <dcurtis@milkbox.net>
@@ -1022,6 +1022,7 @@ Use a sandbox if `package-build--use-sandbox' is non-nil."
 (defun package-build--write-pkg-file (rcp dir)
   (pcase-let (((eieio name version summary dependencies) rcp))
     (with-temp-file (expand-file-name (format "%s-pkg.el" name) dir)
+      (set-buffer-file-coding-system 'utf-8)
       (insert ";; -*- no-byte-compile: t; lexical-binding: nil -*-\n")
       (insert (format "(define-package \"%s\" \"%s\"\n" name version))
       (insert (format "  %s\n" (prin1-to-string (concat summary "."))))
@@ -1778,6 +1779,7 @@ If optional PRETTY-PRINT is non-nil, then pretty-print
                   vc-pkgs))))))
     (setq entries (cl-sort entries #'string< :key #'car))
     (with-temp-file (or file (expand-file-name "archive-contents"))
+      (set-buffer-file-coding-system 'utf-8)
       (let ((print-level nil)
             (print-length nil))
         (if pretty-print
@@ -1791,6 +1793,7 @@ If optional PRETTY-PRINT is non-nil, then pretty-print
     (setq vc-pkgs (cl-sort vc-pkgs #'string< :key #'car))
     (with-temp-file (expand-file-name "elpa-packages.eld"
                                       (and file (file-name-nondirectory file)))
+      (set-buffer-file-coding-system 'utf-8)
       (let ((print-level nil)
             (print-length nil))
         (insert "((")
