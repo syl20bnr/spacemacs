@@ -18,6 +18,10 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =ranger= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+Make sure that the =dirvish= layer is removed or commented out in the
+=dotspacemacs-configuration-layers= list. Or add =ranger= below the =dirvish=
+layer. Spacemacs uses the layer that's listed last.
+
 To use ranger/deer by default set ~ranger-override-dired~ to ~ranger/deer~ like
 shown in the example below (setting this via customize as explained by the
 original [[https://github.com/ralesi/ranger.el#installation][ranger installation instructions]] will not work). To default with
