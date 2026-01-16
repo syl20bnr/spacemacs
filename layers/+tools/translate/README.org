@@ -39,7 +39,7 @@ sync with the cursor in the translation buffer.
 * Configuration
 All layer configurations can be done by setting layer variables in your dotfile.
 No custom user config lines are necessary. For more details please see the homepage
-of package [[https://github.com/rayw000/translate-mode][translate-mode]] and [[https://github.com/lorniu/go-translate/][go-translate]].
+of package [[https://github.com/rayw000/translate-mode][translate-mode]] and [[https://github.com/lorniu/gt.el/][gt]].
 
 ** Languages
 You need to set languages to make online translation work.

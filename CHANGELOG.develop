@@ -3793,6 +3793,9 @@ files (thanks to Daniel Nicolai)
   - ~SPC m s D~ is to set days for =transmission-turtle-mode= to be active.
   - ~SPC m s S~ is to set speed limits for =transmission-turtle-mode=.
   - ~SPC m s T~ is to set time range for =transmission-turtle-mode to be active.
+**** Translate
+- Update =go-translate= references to =gt= following upstream package rename
+  (thanks to klochowicz)
 **** Treemacs
 - =Treemacs= replaces =NeoTree= as the default sidebar
 - Added missing ~SPC p t~ to =readme.org= (thanks to oo6)

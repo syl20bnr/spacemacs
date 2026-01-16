@@ -23,7 +23,7 @@
 
 (defconst translate-packages
   '(translate-mode
-    go-translate))
+    gt))
 
 (defun translate/init-translate-mode ()
   "Initialize required packages."
@@ -31,8 +31,8 @@
     :defer t
     :hook (translate-mode . translate//set-translate-mode-paragraph-functions)))
 
-(defun translate/init-go-translate ()
-  (use-package go-translate
+(defun translate/init-gt ()
+  (use-package gt
     :commands (gt-start)
     :config
     (defun translate//reference-paragraph-texter ()
@@ -52,14 +52,14 @@
        :taker (gt-taker :text (lambda () (translate//reference-paragraph-texter)))
        :engines (list (gt-google-engine) (gt-bing-engine))
        :render (translate//check-and-get-render translate/paragraph-render))
-      "Paragraph translator for `go-translate'.")
+      "Paragraph translator for `gt'.")
     (defconst translate//word-translator
       (gt-translator
        :taker (gt-taker :text 'word)
        :engines (list (gt-google-engine) (gt-bing-engine))
        :render (translate//check-and-get-render translate/word-render))
-      "Word translator for `go-translate'.")))
+      "Word translator for `gt'.")))
 
 (defun translate/pre-init-posframe ()
   (spacemacs|use-package-add-hook posframe
-    :post-config (translate/init-go-translate)))
+    :post-config (translate/init-gt)))
