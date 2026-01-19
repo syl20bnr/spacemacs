@@ -30,3 +30,15 @@ The possible values are:
 'deer (default)
 'ranger
 nil (restores the default behavior of `-')")
+
+(defvar ranger-override-dired 'deer
+  "Option to override dired when entering directories.
+
+The possible values are:
+'ranger
+'deer (default)
+'dirvish
+nil (restores the default behavior of `dired')")
+
+(defvar dirvish-enable-dired-omit t
+  "If non-nil, enable `dired-omit-mode' by default in dirvish buffers.")

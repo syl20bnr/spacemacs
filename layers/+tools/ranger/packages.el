@@ -24,17 +24,48 @@
 
 (defconst ranger-packages
   '(
+    all-the-icons
     (dired :location built-in)
+    (dirvish :toggle (eq ranger-override-dired 'dirvish))
     golden-ratio
-    ranger))
+    nerd-icons
+    (ranger :toggle (not (eq ranger-override-dired 'dirvish)))))
 
 (defun ranger//set-leader-keys ()
-  (spacemacs/declare-prefix "atr" "ranger/deer")
-  (spacemacs/set-leader-keys
-    "atrr" 'ranger
-    "atrd" 'deer
-    "jD" 'deer-jump-other-window
-    "jd" 'deer))
+  (spacemacs/declare-prefix "atr" "ranger/dirvish")
+  (if (eq ranger-override-dired 'dirvish)
+      (spacemacs/set-leader-keys
+        "atrr" 'ranger/dirvish-full-layout
+        "atrd" 'dirvish
+        "atrs" 'dirvish-side
+        "atrq" 'dirvish-quick-access
+        "atrf" 'dirvish-fd)
+    (spacemacs/set-leader-keys
+      "atrr" 'ranger
+      "atrd" 'deer
+      "jD" 'deer-jump-other-window
+      "jd" 'deer)))
+
+(defun ranger/init-dirvish ()
+  (use-package dirvish
+    :commands (dirvish dirvish-side dirvish-dwim dirvish-quick-access
+                       dirvish-fd dirvish-override-dired-mode
+                       dirvish-layout-toggle dirvish-layout-switch
+                       dirvish-dispatch dirvish-ls-switches-menu
+                       dirvish-narrow dirvish-subtree-toggle dirvish-quit)
+    :init
+    (ranger//set-leader-keys)
+    (when (eq ranger-override-dired 'dirvish)
+      (setq dirvish-default-layout nil)
+      (dirvish-override-dired-mode 1))
+    :config
+    (ranger//apply-override-dired)
+    ;; Add icons attribute based on dotspacemacs-default-icons-font.
+    ;; We don't override dirvish-attributes or dirvish-mode-line-format
+    ;; to respect user customizations via M-x customize.
+    (when-let ((icons-font dotspacemacs-default-icons-font))
+      (eval-after-load icons-font
+        `(add-to-list 'dirvish-attributes ',icons-font)))))
 
 (defun ranger/init-ranger ()
   (use-package ranger
@@ -52,12 +83,56 @@
     :config
     (when (memq 'helm dotspacemacs-configuration-layers)
       (require 'helm))
-    (define-key ranger-mode-map (kbd "-") 'ranger-up-directory)))
+    (define-key ranger-mode-map (kbd "-") 'ranger-up-directory)
+    (ranger//apply-override-dired)))
 
 (defun ranger/post-init-dired ()
   ;; Be sure to override dired bindings
-  (ranger//set-leader-keys))
+  (ranger//set-leader-keys)
+  (when dirvish-enable-dired-omit
+    (add-hook 'dired-mode-hook #'dired-omit-mode))
+  (use-package dired
+    :defer t
+    :config
+    (when (eq ranger-override-dired 'dirvish)
+      (evilified-state-evilify-map dired-mode-map
+        :mode dired-mode
+        :bindings
+        ;; Navigation
+        "h"         'dired-up-directory
+        "l"         'dirvish/dired-find-file-smart
+        "gr"        'revert-buffer
+
+        ;; Dirvish-specific
+        "q"         'dirvish-quit
+        "/"         'dirvish-narrow
+        (kbd "TAB") 'dirvish-subtree-toggle
+        "f"         'dirvish-layout-toggle
+        "gf"        'dirvish-layout-toggle
+        "gt"        'dirvish-layout-switch
+        "gd"        'dirvish-dispatch
+        "gl"        'dirvish-ls-switches-menu
+
+        ;; Dired enhancements
+        "i"         'dired-toggle-read-only
+        "I"         'dired-maybe-insert-subdir
+        "g$"        'dired-hide-subdir
+        "g?"        'dired-summary
+        "gj"        'dired-next-dirline
+        "gk"        'dired-prev-dirline
+        "gG"        'dired-do-chgrp
+        "gO"        'dired-find-file-other-window
+        (kbd "C-l") 'recenter-top-bottom))))
+
+(defun ranger/post-init-all-the-icons ()
+  "all-the-icons is initialized by spacemacs-visual layer.
+Dirvish uses it for file icons in `dirvish-attributes'.")
+
+(defun ranger/post-init-nerd-icons ()
+  "nerd-icons is initialized by spacemacs-visual layer.
+Dirvish uses it for file icons in `dirvish-attributes'.")
 
 (defun ranger/post-init-golden-ratio ()
   (with-eval-after-load 'golden-ratio
-    (add-to-list 'golden-ratio-exclude-modes "ranger-mode")))
+    (add-to-list 'golden-ratio-exclude-modes "ranger-mode")
+    (add-to-list 'golden-ratio-exclude-modes "dirvish-mode")))

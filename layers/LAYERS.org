@@ -3140,9 +3140,11 @@ file.
 
 To use ranger/deer by default set ~ranger-override-dired~ to ~ranger/deer~ like
 shown in the example below (setting this via customize as explained by the
-original [[https://github.com/ralesi/ranger.el#installation][ranger installation instructions]] will not work). To default with
-preview enabled when entering ranger set ~ranger-show-preview~ to ~t~. The following
-example code shows how you can set both variables at once via the
+original [[https://github.com/ralesi/ranger.el#installation][ranger installation instructions]] will not work). You can also use
+=dirvish= for a modern dired experience; dired opens a single column, while
+~SPC a t r r~ opens dirvish with the full layout. To default with preview enabled
+when entering ranger set ~ranger-show-preview~ to ~t~. The following example code
+shows how you can set both variables at once via the
 ~dotspacemacs-configuration-layers~ of your dotfiles as follows:
 
 #+BEGIN_SRC emacs-lisp

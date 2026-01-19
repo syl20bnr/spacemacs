@@ -7,26 +7,26 @@
   - [[#features][Features:]]
 - [[#configuration][Configuration]]
   - [[#customizing][Customizing]]
+  - [[#dirvish-options][Dirvish options]]
   - [[#parent-options][Parent options]]
   - [[#preview-options][Preview options]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer brings Ranger features to spacemacs from the =ranger= package.
+This layer brings Ranger features to spacemacs from the =ranger= package, with
+optional =dirvish= integration.
 
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =ranger= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-Make sure that the =dirvish= layer is removed or commented out in the
-=dotspacemacs-configuration-layers= list. Or add =ranger= below the =dirvish=
-layer. Spacemacs uses the layer that's listed last.
-
 To use ranger/deer by default set ~ranger-override-dired~ to ~ranger/deer~ like
 shown in the example below (setting this via customize as explained by the
-original [[https://github.com/ralesi/ranger.el#installation][ranger installation instructions]] will not work). To default with
-preview enabled when entering ranger set ~ranger-show-preview~ to ~t~. The following
-example code shows how you can set both variables at once via the
+original [[https://github.com/ralesi/ranger.el#installation][ranger installation instructions]] will not work). You can also use
+=dirvish= for a modern dired experience; dired opens a single column, while
+~SPC a t r r~ opens dirvish with the full layout. To default with preview enabled
+when entering ranger set ~ranger-show-preview~ to ~t~. The following example code
+shows how you can set both variables at once via the
 ~dotspacemacs-configuration-layers~ of your dotfiles as follows:
 
 #+BEGIN_SRC emacs-lisp
@@ -88,6 +88,33 @@ return a string that is placed in the header-line.
   (setq ranger-parent-header-func 'ranger-parent-header-line)
 #+END_SRC
 
+** Dirvish options
+Enable =dired-omit-mode= in dirvish buffers by default (layer variable):
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '(ranger :variables
+                         ranger-override-dired 'dirvish
+                         dirvish-enable-dired-omit t))
+#+END_SRC
+
+You can customize =dirvish-attributes= in your =dotspacemacs/user-config=:
+
+#+BEGIN_SRC elisp
+  (setq dirvish-attributes
+        '(file-size file-time all-the-icons subtree-state vc-state))
+#+END_SRC
+
+See [[https://github.com/alexluigit/dirvish#attributes][dirvish documentation]] for the full list.
+
+A recommended mode-line format for dirvish (add to =dotspacemacs/user-config=):
+
+#+BEGIN_SRC elisp
+  (setq dirvish-mode-line-format
+        '(:left (sort file-time " " file-size " " file-modes " " file-link-number)
+                :right (omit yank index)))
+#+END_SRC
+
 ** Parent options
 You can set the number of folders to nest to the left, adjusted by =z-= and =z+=
 
@@ -136,11 +163,15 @@ To set the max files size (in MB), set the following parameter:
 #+END_SRC
 
 * Key bindings
+When ~ranger-override-dired~ is set to ~dirvish~, the ~SPC a t r~ prefix is bound
+to dirvish commands (e.g., ~SPC a t r r~ opens the full layout, ~SPC a t r d~ opens
+dirvish in a single column).
 
 | Key binding     | Description                                          |
 |-----------------+------------------------------------------------------|
-| ~SPC a t r r~   | launch ranger                                        |
-| ~SPC a t r d~   | deer (minimal ranger window in current directory)    |
+| ~SPC a t r r~   | launch ranger / dirvish full layout                  |
+| ~SPC a t r d~   | deer / dirvish single column                         |
+| ~f~             | (ranger) search for file names                       |
 | ~C-p~           | (ranger) toggle ranger in dired buffer               |
 | ~j~             | (ranger) navigate down                               |
 | ~k~             | (ranger) navigate up                                 |
@@ -150,7 +181,6 @@ To set the max files size (in MB), set the following parameter:
 | ~D~             | (ranger) delete                                      |
 | ~C-j~           | (ranger) scroll preview window down                  |
 | ~C-k~           | (ranger) scroll preview window up                    |
-| ~f~             | (ranger) search for file names                       |
 | ~i~             | (ranger) show preview of current file                |
 | ~zi~            | (ranger) toggle showing literal / full-text previews |
 | ~zh~            | (ranger) toggle showing dotfiles                     |
@@ -169,3 +199,15 @@ To set the max files size (in MB), set the following parameter:
 | ~S~             | (ranger) enter shell                                 |
 | ~;C~            | (ranger) copy directory / copy and move directory    |
 | ~;+~            | (ranger) create directory                            |
+
+Dirvish key bindings (when ~ranger-override-dired~ is ~dirvish~):
+
+| Key binding | Description                  |
+|-------------+------------------------------|
+| ~q~         | quit dirvish                 |
+| ~/~         | narrow                       |
+| ~TAB~       | toggle subtree               |
+| ~f~ / ~gf~  | toggle layout (dirvish only) |
+| ~gt~        | switch layout                |
+| ~gd~        | dispatch menu                |
+| ~gl~        | ls switches menu             |
