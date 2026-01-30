@@ -1,0 +1,51 @@
+#+TITLE: Mermaid layer
+
+[[file:img/logo.svg]]
+
+* Table of Contents                                   :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#installation][Installation]]
+- [[#key-bindings][Key Bindings]]
+
+* Description
+This layer adds support for [[https://mermaid-js.github.io/][Mermaid]] diagrams
+to Spacemacs. Mermaid is a JavaScript-based diagramming and charting tool that
+renders Markdown-inspired text definitions to create and display diagrams.
+
+For help with how to use Mermaid, see the [[https://mermaid.js.org/intro/getting-started][reference guide]].
+
+The official file extension supported by this layer is =.mmd=. If you want something else,
+set it in your =user-config= function of your =~/.spacemacs= file.
+
+For example, the following diagram can be defined as follows:
+
+#+BEGIN_SRC mermaid
+sequenceDiagram
+    Server<<->>Client: Hello
+#+END_SRC
+
+** Features:
+- Syntax highlighting for Mermaid files (with .mmd extension)
+- Diagram preview on region/buffer/file
+- Key bindings for compiling and changing output types
+
+* Installation
+Add the layer to your =~/.spacemacs= file:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers '(mermaid))
+#+END_SRC
+
+To compile mermaid diagram, please install [[https://github.com/mermaid-js/mermaid-cli][mmdc]] command-line tool.
+
+* Key Bindings
+
+| Key Binding | Description                |
+|-------------+----------------------------|
+| ~SPC m c c~ | Compile Mermaid diagram    |
+| ~SPC m c f~ | Compile Mermaid file       |
+| ~SPC m c b~ | Compile Mermaid buffer     |
+| ~SPC m c r~ | Compile Mermaid region     |
+| ~SPC m c o~ | Open browser with diagram  |
+| ~SPC m c d~ | Open Mermaid documentation |

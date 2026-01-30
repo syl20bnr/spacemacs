@@ -93,6 +93,7 @@
       - [[#dhall][Dhall]]
       - [[#fountain][Fountain]]
       - [[#graphviz][Graphviz]]
+      - [[#mermaid][Mermaid]]
       - [[#html][HTML]]
       - [[#json][JSON]]
       - [[#jsonnet][Jsonnet]]
@@ -1317,6 +1318,29 @@ Features:
 - Integration of a live-preview of =.dot= files via [[https://github.com/ppareit/graphviz-dot-mode][graphviz-dot-mode]].
 - Control of the graphviz compiler directly from emacs.
 - Support for formatting =.dot= files automatically.
+
+**** Mermaid
+[[file:+lang/mermaid/README.org][+lang/mermaid/README.org]]
+
+This layer adds support for [[https://mermaid-js.github.io/][Mermaid]] diagrams
+to Spacemacs. Mermaid is a JavaScript-based diagramming and charting tool that
+renders Markdown-inspired text definitions to create and display diagrams.
+
+For help with how to use Mermaid, see the [[https://mermaid.js.org/intro/getting-started][reference guide]].
+
+The official file extension supported by this layer is =.mmd=. If you want something else,
+set it in your =user-config= function of your =~/.spacemacs= file.
+
+For example, the following diagram can be defined as follows:
+
+#+BEGIN_SRC mermaid
+sequenceDiagram
+    Server<<->>Client: Hello
+#+END_SRC
+
+- Syntax highlighting for Mermaid files (with .mmd extension)
+- Diagram preview on region/buffer/file
+- Key bindings for compiling and changing output types
 
 **** HTML
 [[file:+lang/html/README.org][+lang/html/README.org]]

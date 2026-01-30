@@ -32,6 +32,9 @@
 (defvar org-enable-github-support nil
   "If non-nil GitHub related packages are configured.")
 
+(defvar org-enable-mermaid-support nil
+  "If non-nil ob-mermaid are configured.")
+
 (defvar org-enable-reveal-js-support nil
   "If non-nil, enable export to reveal.js.")
 

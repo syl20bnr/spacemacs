@@ -33,6 +33,7 @@
     htmlize
     ;; ob, org, org-agenda and org-contacts are installed by `org-contrib'
     (ob :location built-in)
+    (ob-mermaid :toggle org-enable-mermaid-support)
     (org :location elpa)
     (org-agenda :location built-in)
     (org-alert  :toggle org-enable-notifications)
@@ -121,6 +122,13 @@
                      'org-babel-execute-src-block@load-lang))
     ;; Fix redisplay of inline images after a code block evaluation.
     (add-hook 'org-babel-after-execute-hook 'spacemacs/ob-fix-inline-images)))
+
+(defun org/init-ob-mermaid ()
+  (use-package ob-mermaid
+    :defer t
+    :init
+    (spacemacs|use-package-add-hook org
+      :post-config (add-to-list 'org-babel-load-languages '(mermaid . t)))))
 
 (defun org/init-org ()
   (use-package org
