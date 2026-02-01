@@ -1,4 +1,4 @@
-;;; packages.el --- ranger Layer packages File for Spacemacs  -*- lexical-binding: nil; -*-
+;;; packages.el --- ranger Layer packages File for Spacemacs  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;
@@ -24,11 +24,9 @@
 
 (defconst ranger-packages
   '(
-    all-the-icons
     (dired :location built-in)
     (dirvish :toggle (eq ranger-override-dired 'dirvish))
     golden-ratio
-    nerd-icons
     (ranger :toggle (not (eq ranger-override-dired 'dirvish)))))
 
 (defun ranger//set-leader-keys ()
@@ -63,9 +61,9 @@
     ;; Add icons attribute based on dotspacemacs-default-icons-font.
     ;; We don't override dirvish-attributes or dirvish-mode-line-format
     ;; to respect user customizations via M-x customize.
-    (when-let ((icons-font dotspacemacs-default-icons-font))
-      (eval-after-load icons-font
-        `(add-to-list 'dirvish-attributes ',icons-font)))))
+    (when-let* ((icons-font dotspacemacs-default-icons-font))
+      (with-eval-after-load icons-font
+        (add-to-list 'dirvish-attributes icons-font)))))
 
 (defun ranger/init-ranger ()
   (use-package ranger
@@ -123,14 +121,6 @@
         "gG"        'dired-do-chgrp
         "gO"        'dired-find-file-other-window
         (kbd "C-l") 'recenter-top-bottom))))
-
-(defun ranger/post-init-all-the-icons ()
-  "all-the-icons is initialized by spacemacs-visual layer.
-Dirvish uses it for file icons in `dirvish-attributes'.")
-
-(defun ranger/post-init-nerd-icons ()
-  "nerd-icons is initialized by spacemacs-visual layer.
-Dirvish uses it for file icons in `dirvish-attributes'.")
 
 (defun ranger/post-init-golden-ratio ()
   (with-eval-after-load 'golden-ratio
