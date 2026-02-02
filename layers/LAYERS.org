@@ -3132,7 +3132,8 @@ Features:
 ** Ranger
 [[file:+tools/ranger/README.org][+tools/ranger/README.org]]
 
-This layer brings Ranger features to spacemacs from the =ranger= package.
+This layer brings Ranger features to spacemacs from the =ranger= package, with
+optional =dirvish= integration.
 
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =ranger= to the existing =dotspacemacs-configuration-layers= list in this
