@@ -1,4 +1,4 @@
-;;; layers.el --- Gleam layer layers file for Spacemacs.  -*- lexical-binding: nil; -*-
+;;; layers.el --- Gleam layer layers file for Spacemacs.  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

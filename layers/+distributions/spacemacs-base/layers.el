@@ -1,4 +1,4 @@
-;;; layers.el --- Spacemacs base distribution layers File  -*- lexical-binding: nil; -*-
+;;; layers.el --- Spacemacs base distribution layers File  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;

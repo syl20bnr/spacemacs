@@ -1,4 +1,4 @@
-;;; layers.el --- Ruby Layer declarations File for Spacemacs  -*- lexical-binding: nil; -*-
+;;; layers.el --- Ruby Layer declarations File for Spacemacs  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;
