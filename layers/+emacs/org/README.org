@@ -616,7 +616,9 @@ variable =org-enable-asciidoc-support= to =t=.
 #+END_SRC
 
 ** Mermaid support
-To enable Mermaid diagram support in Org mode, set the variable =org-enable-mermaid-support= to =t=.
+To enable Mermaid diagram support in Org mode, set the variable
+=org-enable-mermaid-support= to =t= (this will automatically enable
+the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+lang/mermaid/README.org][Mermaid layer]]).
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
