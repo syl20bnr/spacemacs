@@ -9,9 +9,9 @@
 - [[#key-bindings][Key Bindings]]
 
 * Description
-This layer adds support for [[https://mermaid-js.github.io/][Mermaid]] diagrams
-to Spacemacs. Mermaid is a JavaScript-based diagramming and charting tool that
-renders Markdown-inspired text definitions to create and display diagrams.
+This layer adds support for [[https://mermaid.js.org/][Mermaid]] diagrams to Spacemacs. Mermaid is
+a JavaScript-based diagramming and charting tool that renders
+Markdown-inspired text definitions to create and display diagrams.
 
 For help with how to use Mermaid, see the [[https://mermaid.js.org/intro/getting-started][reference guide]].
 
