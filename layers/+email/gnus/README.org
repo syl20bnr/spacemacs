@@ -44,7 +44,7 @@ following:
   (setq gnus-secondary-select-methods
     '(
       (nntp "gmane"
-             (nntp-address "news.gmane.org"))
+             (nntp-address "news.gmane.io"))
       (nntp "news.eternal-september.org")
       (nntp "nntp.aioe.org")
       (nntp "news.gwene.org")
