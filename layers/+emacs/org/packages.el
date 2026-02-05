@@ -193,7 +193,6 @@
     (with-eval-after-load 'org-src
       (spacemacs/set-leader-keys-for-minor-mode 'org-src-mode
         dotspacemacs-major-mode-leader-key 'org-edit-src-exit
-        "c" 'org-edit-src-exit
         "a" 'org-edit-src-abort
         "k" 'org-edit-src-abort))
 
