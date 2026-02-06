@@ -22,30 +22,18 @@
 
 
 (setq csharp-packages
-      '(
-        company
-        (csharp-mode :toggle (version< emacs-version "29.0.60"))
+      `(
+        (csharp-mode
+         ,@(and (version<= "29.0.60" emacs-version) '(:location built-in)))
         evil-matchit
         ggtags
-        omnisharp
-        flycheck
-        ))
-
-(defun csharp/init-omnisharp ()
-  (use-package omnisharp
-    :defer t
-    :init
-    (spacemacs//csharp-setup-backend)
-    :config
-    (spacemacs//csharp-configure)
-    ))
-
-(defun csharp/post-init-company ()
-  (spacemacs//csharp-setup-company))
+        flycheck))
 
 (defun csharp/init-csharp-mode ()
   (use-package csharp-mode
-    :defer t))
+    :defer t
+    :init
+    (spacemacs//csharp-setup-backend)))
 
 (defun csharp/post-init-evil-matchit ()
   (with-eval-after-load 'evil-matchit

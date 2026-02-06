@@ -25,7 +25,7 @@
 
 (spacemacs|define-jump-handlers csharp-mode)
 
-(defvar csharp-backend 'omnisharp
+(defvar csharp-backend 'lsp
   "The backend to use for IDE features.
-Possible values are `omnisharp' and `lsp'.
-If `nil' then no backend is enabled.")
+Possible values are `lsp' and nil.
+If nil then no backend is enabled.")
