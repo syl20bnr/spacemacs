@@ -17,7 +17,7 @@ This layer adds support for editing =systemd= configuration files in Spacemacs.
 - Syntax highlighting
 - Auto completion
 - Syntax checking via =systemd-analyze=
-- Viewing systemd system and user unit via [[https://github.com/SebastianMeisel/journalctl-mode][journalctl-mode]]
+- Viewing systemd system and user unit logs via [[https://github.com/SebastianMeisel/journalctl-mode][journalctl-mode]]
 
 * Install
 To use this contribution add it to your =~/.spacemacs=
@@ -32,7 +32,7 @@ To use this contribution add it to your =~/.spacemacs=
 | Key binding | Description                                                              |
 |-------------+--------------------------------------------------------------------------|
 | ~SPC m h d~ | Systemd open the directives documentation                                |
-| ~SPC m h o~ | Systemd open documentation (if a =\=Documentation= directive is provided |
+| ~SPC m h o~ | Systemd open documentation (if a =Documentation== directive is provided) |
 
 ** Journalctl-mode
 
