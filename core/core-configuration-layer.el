@@ -2057,6 +2057,36 @@ LAYER must not be the owner of PKG."
              (memq layer enabled)
            (not (memq layer disabled))))))
 
+(defun configuration-layer//funcall-recording-load-history (func)
+  "Call FUNC while attributing any definitions to the correct source file.
+
+Layer init functions are called via `funcall' during Spacemacs startup.
+At that point, `load-file-name' typically points to init.el (because we
+are still inside init.el's `load'), so any `defun' or `defvar' evaluated
+during FUNC is incorrectly recorded under init.el in `load-history'.
+
+This function fixes that by:
+1. Looking up the file where FUNC was defined (via `symbol-file').
+2. Let-binding `load-file-name' to that file and `current-load-list' to
+   nil, so that definitions made during FUNC are captured separately.
+3. After FUNC returns, merging the captured definitions into the correct
+   file's `load-history' entry.
+
+Definitions are merged even if FUNC signals an error, since any
+definitions evaluated before the error are live in the runtime and
+should be navigable via `find-function'."
+  (if-let* ((source-file (symbol-file func 'defun)))
+      (let ((current-load-list nil)
+            (load-file-name source-file))
+        (unwind-protect
+            (funcall func)
+          ;; Merge captured definitions into the source file's load-history.
+          (when current-load-list
+            (if-let* ((entry (assoc source-file load-history)))
+                (setcdr entry (append current-load-list (cdr entry)))
+              (push (cons source-file current-load-list) load-history)))))
+    (funcall func)))
+
 (defun configuration-layer//pre-configure-package (pkg)
   "Pre-configure PKG object, i.e. call its pre-init functions."
   (let* ((pkg-name (oref pkg name)))
@@ -2069,7 +2099,8 @@ LAYER must not be the owner of PKG."
            (spacemacs-buffer/message
             (format "%S -> pre-init (%S)..." pkg-name layer))
            (condition-case-unless-debug err
-               (funcall (intern (format "%S/pre-init-%S" layer pkg-name)))
+               (configuration-layer//funcall-recording-load-history
+                (intern (format "%S/pre-init-%S" layer pkg-name)))
              ('error
               (configuration-layer//error
                (concat "\nAn error occurred while pre-configuring %S "
@@ -2084,7 +2115,8 @@ LAYER must not be the owner of PKG."
          (owner (car (oref pkg owners))))
     ;; init
     (spacemacs-buffer/message (format "%S -> init (%S)..." pkg-name owner))
-    (funcall (intern (format "%S/init-%S" owner pkg-name)))))
+    (configuration-layer//funcall-recording-load-history
+     (intern (format "%S/init-%S" owner pkg-name)))))
 
 (defun configuration-layer//post-configure-package (pkg)
   "Post-configure PKG object, i.e. call its post-init functions."
@@ -2098,7 +2130,8 @@ LAYER must not be the owner of PKG."
            (spacemacs-buffer/message
             (format "%S -> post-init (%S)..." pkg-name layer))
            (condition-case-unless-debug err
-               (funcall (intern (format "%S/post-init-%S" layer pkg-name)))
+               (configuration-layer//funcall-recording-load-history
+                (intern (format "%S/post-init-%S" layer pkg-name)))
              ('error
               (configuration-layer//error
                (concat "\nAn error occurred while post-configuring %S "
