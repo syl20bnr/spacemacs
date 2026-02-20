@@ -157,30 +157,59 @@ file is invalid, then raise an error."
 
 ;;; Validation
 
+(define-error 'package-recipe-invalid "Invalid package recipe"
+              'package-build-error)
+
 ;;;###autoload
 (defun package-recipe-validate-all ()
   "Validate all package recipes.
 Return a boolean indicating whether all recipes are valid and show
 a message for each invalid recipe."
   (interactive)
-  (let ((all-valid t))
+  (let ((invalid 0)
+        (errors 0))
     (dolist-with-progress-reporter (name (package-recipe-recipes))
         "Validating recipes..."
       (condition-case err
           (package-recipe-lookup name)
-        (error (message "Invalid recipe for %s: %S" name (cdr err))
-               (setq all-valid nil))))
-    all-valid))
+        (package-recipe-invalid
+         (message "%s" (error-message-string err))
+         (cl-incf invalid))
+        (error
+         (message "Error validating recipe: %s, %s" name
+                  (error-message-string err))
+         (cl-incf invalid)
+         (cl-incf errors))))
+    (cond ((= invalid 0)
+           (message "All recipes are valid"))
+          ((= errors 0)
+           (message "%s recipe%s invalid"
+                    invalid (if (= invalid 1) " is" "s are")))
+          ((message "%s recipe%s invalid (%s error%s)"
+                    invalid (if (= invalid 1) " is" "s are")
+                    errors (if (= errors 1) "" "s"))))
+    (= invalid 0)))
+
+(defmacro package-recipe--assert (name form format-string &rest args)
+  (declare (indent 1))
+  `(unless ,form
+     (signal 'package-recipe-invalid
+             (list (let ((name ,name))
+                     (if (stringp name) (intern-soft name) name))
+                   (format-message ,format-string ,@args)))))
 
 (defun package-recipe--validate (recipe name)
   "Perform some basic checks on the raw RECIPE for the package named NAME."
   (pcase-let ((`(,ident . ,plist) recipe))
-    (cl-assert ident)
-    (cl-assert (symbolp ident))
-    (cl-assert (string= (symbol-name ident) name)
-               nil "Recipe '%s' contains mismatched package name '%s'"
-               name ident)
-    (cl-assert plist)
+    (package-recipe--assert name
+      (and ident
+           (symbolp ident)
+           (not (keywordp ident)))
+      "must begin with symbol, naming the package; not %S" ident)
+    (package-recipe--assert name
+      (string= (symbol-name ident) name)
+      "mismatched package name %s vs. %s" name ident)
+    (package-recipe--assert name plist "Recipe cannot be empty")
     (let* ((symbol-keys '(:fetcher))
            (string-keys '( :url :repo :branch :tag :commit
                            :version-regexp :shell-command))
@@ -188,24 +217,38 @@ a message for each invalid recipe."
            (all-keys (append symbol-keys string-keys list-keys)))
       (dolist (thing plist)
         (when (keywordp thing)
-          (cl-assert (memq thing all-keys) nil "Unknown keyword %S" thing)))
+          (package-recipe--assert name
+            (memq thing all-keys)
+            "unknown keyword %S" thing)))
       (let ((fetcher (plist-get plist :fetcher)))
-        (cl-assert fetcher nil ":fetcher is missing")
+        (package-recipe--assert name fetcher ":fetcher is missing")
         (if (memq fetcher package-recipe--forge-fetchers)
             (progn
-              (cl-assert (plist-get plist :repo) ":repo is missing")
-              (cl-assert (not (plist-get plist :url)) ":url is redundant"))
-          (cl-assert (plist-get plist :url) ":url is missing")))
+              (package-recipe--assert name
+                (plist-get plist :repo)
+                ":repo is missing")
+              (package-recipe--assert name
+                (not (plist-get plist :url))
+                ":url is redundant"))
+          (package-recipe--assert name
+            (plist-get plist :url)
+            ":url is missing")))
       (dolist (key symbol-keys)
-        (when-let ((val (plist-get plist key)))
-          (cl-assert (symbolp val) nil "%s must be a symbol but is %S" key val)))
+        (when-let* ((val (plist-get plist key)))
+          (package-recipe--assert name
+            (symbolp val)
+            "%s must be a symbol but is %S" key val)))
       (dolist (key list-keys)
-        (when-let ((val (plist-get plist key)))
-          (cl-assert (listp val) nil "%s must be a list but is %S" key val)))
+        (when-let* ((val (plist-get plist key)))
+          (package-recipe--assert name
+            (listp val)
+            "%s must be a list but is %S" key val)))
       (dolist (key string-keys)
-        (when-let ((val (plist-get plist key)))
-          (cl-assert (stringp val) nil "%s must be a string but is %S" key val)))
-      (when-let ((spec (plist-get plist :files)))
+        (when-let* ((val (plist-get plist key)))
+          (package-recipe--assert name
+            (stringp val)
+            "%s must be a string but is %S" key val)))
+      (when-let* ((spec (plist-get plist :files)))
         ;; `:defaults' is only allowed as the first element.
         ;; If we find it in that position, skip over it.
         (when (eq (car spec) :defaults)
@@ -214,21 +257,19 @@ a message for each invalid recipe."
         ;; Lists whose first element is `:exclude', `:inputs' or
         ;; `:rename' are also valid.
         (dolist (entry spec)
-          (unless (cond ((stringp entry)
-                         (not (equal entry "*")))
-                        ((listp entry)
-                         (and-let* ((globs (cdr entry)))
-                           (and (or (memq (car entry)
-                                          '(:exclude :inputs :rename))
-                                    (stringp (car entry)))
-                                (seq-every-p (lambda (glob)
-                                               (and (stringp glob)
-                                                    (not (equal glob "*"))))
-                                             globs)))))
-            (error "Invalid files spec entry %S" entry))))
-      ;; Silence byte compiler of Emacs 28.  It appears that uses
-      ;; inside cl-assert sometimes, but not always, do not count.
-      (list name ident all-keys))
+          (package-recipe--assert name
+            (cond ((stringp entry)
+                   (not (equal entry "*")))
+                  ((listp entry)
+                   (and-let* ((globs (cdr entry)))
+                     (and (or (memq (car entry)
+                                    '(:exclude :inputs :rename))
+                              (stringp (car entry)))
+                          (seq-every-p (lambda (glob)
+                                         (and (stringp glob)
+                                              (not (equal glob "*"))))
+                                       globs)))))
+            "invalid files spec entry %S" entry))))
     recipe))
 
 (provide 'package-recipe)
