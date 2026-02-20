@@ -93,12 +93,12 @@
       - [[#dhall][Dhall]]
       - [[#fountain][Fountain]]
       - [[#graphviz][Graphviz]]
-      - [[#mermaid][Mermaid]]
       - [[#html][HTML]]
       - [[#json][JSON]]
       - [[#jsonnet][Jsonnet]]
       - [[#latex][LaTeX]]
       - [[#markdown][Markdown]]
+      - [[#mermaid][Mermaid]]
       - [[#plantuml][Plantuml]]
       - [[#restructuredtext][ReStructuredText]]
       - [[#semantic-web][Semantic Web]]
@@ -1319,29 +1319,6 @@ Features:
 - Control of the graphviz compiler directly from emacs.
 - Support for formatting =.dot= files automatically.
 
-**** Mermaid
-[[file:+lang/mermaid/README.org][+lang/mermaid/README.org]]
-
-This layer adds support for [[https://mermaid-js.github.io/][Mermaid]] diagrams
-to Spacemacs. Mermaid is a JavaScript-based diagramming and charting tool that
-renders Markdown-inspired text definitions to create and display diagrams.
-
-For help with how to use Mermaid, see the [[https://mermaid.js.org/intro/getting-started][reference guide]].
-
-The official file extension supported by this layer is =.mmd=. If you want something else,
-set it in your =user-config= function of your =~/.spacemacs= file.
-
-For example, the following diagram can be defined as follows:
-
-#+BEGIN_SRC mermaid
-sequenceDiagram
-    Server<<->>Client: Hello
-#+END_SRC
-
-- Syntax highlighting for Mermaid files (with .mmd extension)
-- Diagram preview on region/buffer/file
-- Key bindings for compiling and changing output types
-
 **** HTML
 [[file:+lang/html/README.org][+lang/html/README.org]]
 
@@ -1405,6 +1382,30 @@ Features:
 - TOC generation via [[https://github.com/ardumont/markdown-toc][markdown-toc]]
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
   using the =emoji= layer or having a proper font) :clap:
+
+**** Mermaid
+[[file:+lang/mermaid/README.org][+lang/mermaid/README.org]]
+
+This layer adds support for [[https://mermaid.js.org/][Mermaid]] diagrams to Spacemacs. Mermaid is
+a JavaScript-based diagramming and charting tool that renders
+Markdown-inspired text definitions to create and display diagrams.
+
+For help with how to use Mermaid, see the [[https://mermaid.js.org/intro/getting-started][reference guide]].
+
+The official file extension supported by this layer is =.mmd=. If you want something else,
+set it in your =user-config= function of your =~/.spacemacs= file.
+
+For example, the following diagram can be defined as follows:
+
+#+BEGIN_SRC mermaid
+  sequenceDiagram
+      Server<<->>Client: Hello
+#+END_SRC
+
+Features:
+- Syntax highlighting for Mermaid files (with .mmd extension)
+- Diagram preview on region/buffer/file
+- Key bindings for compiling and changing output types
 
 **** Plantuml
 [[file:+lang/plantuml/README.org][+lang/plantuml/README.org]]
@@ -1941,8 +1942,7 @@ Features:
 [[file:+lang/csharp/README.org][+lang/csharp/README.org]]
 
 This layer adds support for the C# language using the [[https://github.com/OmniSharp/omnisharp-roslyn][omnisharp-roslyn]]
-language server with either the [[https://github.com/OmniSharp/omnisharp-emacs][omnisharp-emacs]]
-or the [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] packages.
+language server with the [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] package.
 
 Features:
 - Syntax checking with flycheck (when =syntax-checking= layer is used)
@@ -3245,7 +3245,7 @@ Features:
 - Syntax highlighting
 - Auto completion
 - Syntax checking via =systemd-analyze=
-- Viewing systemd system and user unit via [[https://github.com/SebastianMeisel/journalctl-mode][journalctl-mode]]
+- Viewing systemd system and user unit logs via [[https://github.com/SebastianMeisel/journalctl-mode][journalctl-mode]]
 
 ** Tern
 [[file:+tools/tern/README.org][+tools/tern/README.org]]

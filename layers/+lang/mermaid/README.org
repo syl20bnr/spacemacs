@@ -4,11 +4,11 @@
 
 [[file:img/logo.svg]]
 
-* Table of Contents                                   :TOC_5_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#installation][Installation]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support for [[https://mermaid.js.org/][Mermaid]] diagrams to Spacemacs. Mermaid is
@@ -23,8 +23,8 @@ set it in your =user-config= function of your =~/.spacemacs= file.
 For example, the following diagram can be defined as follows:
 
 #+BEGIN_SRC mermaid
-sequenceDiagram
-    Server<<->>Client: Hello
+  sequenceDiagram
+      Server<<->>Client: Hello
 #+END_SRC
 
 ** Features:
@@ -41,9 +41,9 @@ Add the layer to your =~/.spacemacs= file:
 
 To compile mermaid diagram, please install [[https://github.com/mermaid-js/mermaid-cli][mmdc]] command-line tool.
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                |
+| Key binding | Description                |
 |-------------+----------------------------|
 | ~SPC m c c~ | Compile Mermaid diagram    |
 | ~SPC m c f~ | Compile Mermaid file       |
