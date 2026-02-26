@@ -86,9 +86,8 @@ A COUNT argument matches the indentation to the next COUNT lines."
   :type '(repeat symbol)
   :group 'spacemacs)
 
-(defcustom spacemacs-yank-indent-modes '(latex-mode)
-  "Modes in which to indent regions that are yanked (or yank-popped).
-Only modes that don't derive from `prog-mode' should be listed here."
+(defcustom spacemacs-yank-indent-modes '(prog-mode latex-mode)
+  "Modes in which to indent regions that are yanked (or yank-popped)."
   :type '(repeat symbol)
   :group 'spacemacs)
 
@@ -1682,9 +1681,8 @@ argument is changed to nil.  If the indentation would not be enabled
 based on the major mode, ARGS (including the prefix argument) is passed
 through unchanged."
   (evil-with-single-undo
-    (let ((enable (and (not (member major-mode spacemacs-indent-sensitive-modes))
-                       (or (derived-mode-p 'prog-mode)
-                           (member major-mode spacemacs-yank-indent-modes)))))
+    (let ((enable (and (not (derived-mode-p spacemacs-indent-sensitive-modes))
+                       (derived-mode-p spacemacs-yank-indent-modes))))
       (when (and enable (equal '(4) (car args)))
         (setf (car args) nil
               enable nil))
