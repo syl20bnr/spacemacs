@@ -1676,7 +1676,7 @@ With prefix \\[universal-argument], don't indent."
                          (or (derived-mode-p 'prog-mode)
                              (member major-mode spacemacs-yank-indent-modes)))))
         (when (and enable (equal '(4) prefix))
-          (setq args (cdr args)))
+          (setf (car args) nil))
         (prog1
             (apply yank-func args)
           (when (and enable (not (equal '(4) prefix)))
