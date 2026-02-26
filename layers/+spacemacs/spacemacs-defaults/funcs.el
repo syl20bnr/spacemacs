@@ -1669,21 +1669,19 @@ Compare them on count first,and in case of tie sort them alphabetically."
   "Indent yanked text, unless `major-mode' is in `spacemacs-indent-sensitive-modes'.
 
 With prefix \\[universal-argument], don't indent."
-  (evil-start-undo-step)
-  (prog1
-      (let ((prefix (car args))
-            (enable (and (not (member major-mode spacemacs-indent-sensitive-modes))
-                         (or (derived-mode-p 'prog-mode)
-                             (member major-mode spacemacs-yank-indent-modes)))))
-        (when (and enable (equal '(4) prefix))
-          (setf (car args) nil))
-        (prog1
-            (apply yank-func args)
-          (when (and enable (not (equal '(4) prefix)))
-            (let ((transient-mark-mode nil))
-              (spacemacs/yank-advised-indent-function (region-beginning)
-                                                      (region-end))))))
-    (evil-end-undo-step)))
+  (evil-with-single-undo
+    (let ((enable (and (not (member major-mode spacemacs-indent-sensitive-modes))
+                       (or (derived-mode-p 'prog-mode)
+                           (member major-mode spacemacs-yank-indent-modes)))))
+      (when (and enable (equal '(4) (car args)))
+        (setf (car args) nil
+              enable nil))
+      (prog1
+          (apply yank-func args)
+        (when enable
+          (let ((transient-mark-mode nil))
+            (spacemacs/yank-advised-indent-function (region-beginning)
+                                                    (region-end))))))))
 
 (dolist (func '(yank yank-pop evil-paste-before evil-paste-after))
   (advice-add func :around #'spacemacs//yank-indent-region))
