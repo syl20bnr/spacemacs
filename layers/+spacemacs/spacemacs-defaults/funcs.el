@@ -1680,8 +1680,7 @@ With prefix \\[universal-argument], don't indent."
         (prog1
             (apply yank-func args)
           (when (and enable (not (equal '(4) prefix)))
-            (let ((transient-mark-mode nil)
-                  (save-undo buffer-undo-list))
+            (let ((transient-mark-mode nil))
               (spacemacs/yank-advised-indent-function (region-beginning)
                                                       (region-end))))))
     (evil-end-undo-step)))
