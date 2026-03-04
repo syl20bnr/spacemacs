@@ -1362,7 +1362,7 @@ is the same as the value of `export_file_name'."
     "doc/dir" "doc/*.info" "doc/*.texi" "doc/*.texinfo"
     "docs/dir" "docs/*.info" "docs/*.texi" "docs/*.texinfo"
     (:exclude
-     ".dir-locals.el" "lisp/.dir-locals.el"
+     ".*.el" "lisp/.*.el"
      "test.el" "tests.el" "*-test.el" "*-tests.el"
      "lisp/test.el" "lisp/tests.el" "lisp/*-test.el" "lisp/*-tests.el"))
   "Default value for `:files' attribute in recipes.")
