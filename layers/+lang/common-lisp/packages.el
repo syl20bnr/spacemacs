@@ -96,11 +96,8 @@
                            slime-sbcl-exts
                            slime-scratch)
           inferior-lisp-program "sbcl")
-    ;; enable fuzzy matching in code buffer and SLIME REPL
-    (setq slime-complete-symbol*-fancy t)
-    (setq slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
     (add-hook 'slime-repl-mode-hook #'spacemacs//deactivate-smartparens)
-    (spacemacs/add-to-hooks 'slime-mode '(lisp-mode-hook))
+    (add-hook 'lisp-mode-hook #'slime-mode)
     :config
     (slime-setup)
     (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
