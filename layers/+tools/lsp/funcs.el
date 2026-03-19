@@ -132,7 +132,8 @@
     "xL" #'lsp-lens-hide)
   (when (configuration-layer/package-used-p 'lsp-treemacs)
     (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
-      "gh" #'lsp-treemacs-call-hierarchy
+      "gh" "hierarchy"
+      "ghh" #'lsp-treemacs-call-hierarchy
       "gT" #'lsp-treemacs-type-hierarchy)))
 
 (defun spacemacs//lsp-bind-simple-navigation-functions (prefix-char)
