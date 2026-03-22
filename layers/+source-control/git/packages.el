@@ -282,8 +282,10 @@
 
 (defun git/init-magit-todos ()
   (use-package magit-todos
-    :hook (magit-mode . magit-todos-mode)
-    :config (spacemacs|diminish magit-todos-mode "TODOS")))
+    :after magit-status
+    :config
+    (spacemacs|diminish magit-todos-mode "TODOS")
+    (magit-todos-mode 1)))
 
 (defun git/init-orgit ()
   (use-package orgit
