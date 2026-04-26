@@ -1067,6 +1067,13 @@ to `auto', tags may not be properly aligned. "
      `(web-mode-type-face ((,class (:inherit ,font-lock-type-face))))
      `(web-mode-warning-face ((,class (:inherit ,font-lock-warning-face))))
 
+;;;;; wgrep
+     `(wgrep-face ((,class (:foreground ,green))))
+     `(wgrep-delete-face ((,class (:foreground ,red))))
+     `(wgrep-reject-face ((,class (:foreground ,red))))
+     `(wgrep-file-face ((,class (:foreground ,green))))
+     `(wgrep-done-face ((,class (:foreground ,blue))))
+
 ;;;;; which-key
      `(which-key-command-description-face ((,class (:foreground ,base))))
      `(which-key-group-description-face ((,class (:foreground ,keyword))))

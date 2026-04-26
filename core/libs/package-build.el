@@ -1,4 +1,4 @@
-;;; package-build.el --- Tools for assembling a package archive  -*- lexical-binding:t; coding:utf-8 -*-
+;;; package-build.el --- Curate an Emacs Lisp package archive  -*- lexical-binding:t; coding:utf-8 -*-
 
 ;; Copyright (C) 2011-2024 Donald Ephraim Curtis
 ;; Copyright (C) 2012-2024 Steve Purcell
@@ -35,12 +35,10 @@
 
 ;;; Commentary:
 
-;; This file allows a curator to publish an archive of Emacs packages.
-
-;; The archive is generated from a set of recipes, which describe elisp
-;; projects and repositories from which to get them.  The term "package"
-;; here is used to mean a specific version of a project that is prepared
-;; for download and installation.
+;; This package allows a curator to publish an Emacs Lisp package
+;; archive.  The archive is generated from a set of recipes, which
+;; describe Emacs Lisp projects and repositories from which to get
+;; them.
 
 ;;; Code:
 
@@ -59,36 +57,56 @@
 
 ;;; Options
 
-(defvar package-build--melpa-base
-  (file-name-directory
-   (directory-file-name
-    (file-name-directory (or load-file-name (buffer-file-name))))))
-
 (defgroup package-build nil
-  "Tools for building package.el-compliant packages from upstream source code."
+  "Curate an Emacs Lisp package archive."
   :group 'development)
 
+(define-obsolete-variable-alias 'package-build--melpa-base
+  'package-build-directory "Package-Build 5.0.0")
+
+(defcustom package-build-directory
+  (let ((dir (file-name-directory
+              (directory-file-name
+               (file-name-directory
+                (or load-file-name (buffer-file-name)))))))
+    (if (and (file-directory-p (expand-file-name "package-build" dir))
+             (file-directory-p (expand-file-name "packages" dir))
+             (file-directory-p (expand-file-name "recipes" dir)))
+        dir
+      (locate-user-emacs-file "package-build/")))
+  "Parent directory of directories used by `package-build'.
+
+The other directories can be configured using dedicated options, but
+as long as you want to keep everything below a common directory, it
+is easier to customize just this option.  Restart Emacs for that to
+take effect."
+  :type 'directory)
+
 (defcustom package-build-working-dir
-  (expand-file-name "working/" package-build--melpa-base)
-  "Directory in which to keep checkouts."
-  :group 'package-build
-  :type 'string)
+  (expand-file-name "working/" package-build-directory)
+  "Directory used to checkout package repositories.
+
+Usually this is a subdirectory of `package-build-directory'."
+  :type 'directory)
 
 (defcustom package-build-archive-dir
-  (expand-file-name "packages/" package-build--melpa-base)
-  "Directory in which to keep compiled archives."
-  :group 'package-build
-  :type 'string)
+  (expand-file-name "packages/" package-build-directory)
+  "Directory used to store build package archives.
+
+Usually this is a subdirectory of `package-build-directory'."
+  :set-after '(package-build-directory)
+  :type 'directory)
 
 (defcustom package-build-recipes-dir
-  (expand-file-name "recipes/" package-build--melpa-base)
-  "Directory containing recipe files."
-  :group 'package-build
-  :type 'string)
+  (expand-file-name "recipes/" package-build-directory)
+  "Directory containing package recipe files.
+
+Usually this is a subdirectory of `package-build-directory'."
+  :set-after '(package-build-directory)
+  :type 'directory)
 
 (defcustom package-build-verbose t
-  "When non-nil, then print additional progress information."
-  :group 'package-build
+  "Whether to print additional progress information during builds."
   :type 'boolean)
 
 (defcustom package-build-stable nil
@@ -99,7 +117,6 @@ are build.  `package-build-snapshot-version-functions' and/or
 `package-build-release-version-functions' are used to determine
 the appropriate version for each package and how the version
 string is formatted."
-  :group 'package-build
   :type 'boolean)
 
 (defcustom package-build-all-publishable (not package-build-stable)
@@ -111,7 +128,6 @@ a version string should be considered an error or not.
 Currently this defaults to (not package-build-stable), but the
 default is likely to be changed to just t in the future.  See
 also the commit that added this option."
-  :group 'package-build
   :type 'boolean
   :set-after '(package-build-stable))
 
@@ -141,7 +157,6 @@ an abbreviation of COMMIT.
 
 If obsolete `package-build-get-version-function' is non-nil,
 then that overrides the value set here."
-  :group 'package-build
   :type 'hook
   :options (list #'package-build-tag-version
                  #'package-build-header-version))
@@ -167,7 +182,6 @@ current release, which they use as part of the returned VERSION.
 
 If obsolete `package-build-get-version-function' is non-nil,
 then that overrides the value set here."
-  :group 'package-build
   :type 'hook
   :options (list #'package-build-release+count-version
                  #'package-build-release+timestamp-version
@@ -178,7 +192,6 @@ then that overrides the value set here."
 If non-nil, this function is called with the recipe object as
 argument, and must return non-nil if the package is to be build.
 If nil (the default), then all packages are build."
-  :group 'package-build
   :type '(choice (const :tag "build all") function))
 
 (defcustom package-build-build-function
@@ -189,25 +202,21 @@ The default, `package-build--build-package', extracts metadata from
 the library whose name matches the name of the package, and creates
 a tarball, containing at least that library and \"NAME-pkg.el\", which
 is generated."
-  :group 'package-build
   :type '(choice (const package-build--build-package) function))
 
 (defcustom package-build-run-recipe-org-exports nil
   "Whether to export the files listed in the `:org-exports' recipe slot.
 Note that Melpa leaves this disabled."
-  :group 'package-build
   :type 'boolean)
 
 (defcustom package-build-run-recipe-shell-command nil
   "Whether to run the shell command from the `:shell-command' recipe slot.
 Note that Melpa leaves this disabled."
-  :group 'package-build
   :type 'boolean)
 
 (defcustom package-build-run-recipe-make-targets nil
   "Whether to run the make targets from the `:make-targets' recipe slot.
 Note that Melpa leaves this disabled."
-  :group 'package-build
   :type 'boolean)
 
 (defcustom package-build-timeout-executable "timeout"
@@ -217,7 +226,6 @@ This must be a version which supports the \"-k\" option.
 On MacOS it is possible to install coreutils using Homebrew or
 similar, which will provide the GNU timeout program as
 \"gtimeout\"."
-  :group 'package-build
   :type '(file :must-match t))
 
 (defcustom package-build-timeout-secs nil
@@ -227,7 +235,6 @@ If an external process takes longer than specified here to
 complete, then it is terminated.  If nil, then no time limit is
 applied.  This setting requires
 `package-build-timeout-executable' to be set."
-  :group 'package-build
   :type 'number)
 
 (defcustom package-build-tar-executable "tar"
@@ -237,7 +244,6 @@ Certain package names (e.g., \"@\") may not work properly with a BSD tar.
 On MacOS it is possible to install gnu-tar using Homebrew or
 similar, which will provide the GNU tar program as
 \"gtar\"."
-  :group 'package-build
   :type '(file :must-match t))
 
 (defvar package-build--tar-type nil
@@ -254,7 +260,6 @@ If nil (the default), then no badge images are generated,
 otherwise this has the form (NAME COLOR).  MELPA sets the value
 in its top-level Makefile, to different values, depending on the
 channel that is being build."
-  :group 'package-build
   :type '(list (string :tag "Archive name") color))
 
 (defcustom package-build-version-regexp
@@ -276,14 +281,12 @@ the package is substituted for \"%p\".
 
 Note that this variable can be overridden in a package's recipe,
 using the `:version-regexp' slot."
-  :group 'package-build
   :type 'string)
 
 (defcustom package-build-allowed-git-protocols '("https" "file" "ssh")
   "Protocols that can be used to fetch from upstream with git.
 By default insecure protocols, such as \"http\" or \"git\", are
 disallowed."
-  :group 'package-build
   :type '(repeat string))
 
 (defvar package-build-use-git-remote-hg nil
