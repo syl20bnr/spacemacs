@@ -35,6 +35,7 @@
              :toggle (or (eq 'diff-hl version-control-diff-tool)
                          (eq 'git-gutter+ version-control-diff-tool)))
     diff-mode
+    evil-collection
     evil-unimpaired
     (git-gutter         :toggle (eq 'git-gutter version-control-diff-tool))
     (git-gutter-fringe  :toggle (eq 'git-gutter version-control-diff-tool))
@@ -138,6 +139,9 @@
       ("K" diff-file-prev "previous file")
       ("q" nil "quit" :exit t)
       ("<escape>" nil nil :exit t))))
+
+(defun version-control/pre-init-evil-collection ()
+  (add-to-list 'spacemacs-evil-collection-allowed-list 'diff-hl))
 
 (defun version-control/init-diff-hl ()
   (use-package diff-hl
