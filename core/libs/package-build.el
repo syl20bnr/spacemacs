@@ -119,17 +119,12 @@ the appropriate version for each package and how the version
 string is formatted."
   :type 'boolean)
 
-(defcustom package-build-all-publishable (not package-build-stable)
+(defcustom package-build-all-publishable t
   "Whether even packages that lack a release can be published.
 
 This option is used to determine whether failure to come up with
-a version string should be considered an error or not.
-
-Currently this defaults to (not package-build-stable), but the
-default is likely to be changed to just t in the future.  See
-also the commit that added this option."
-  :type 'boolean
-  :set-after '(package-build-stable))
+a version string should be considered an error or not."
+  :type 'boolean)
 
 (make-obsolete-variable 'package-build-get-version-function
                         'package-build-stable
@@ -141,7 +136,9 @@ If this is non-nil, then it overrides
 `package-build-snapshot-version-functions'.")
 
 (defcustom package-build-release-version-functions
-  (list #'package-build-tag-version)
+  (list #'package-build-tag-version
+        #'package-build-header-version
+        #'package-build-fallback-version)
   "Functions used to determine the current release of a package.
 
 Each function is called in order, with the recipe object as argument,
@@ -159,10 +156,11 @@ If obsolete `package-build-get-version-function' is non-nil,
 then that overrides the value set here."
   :type 'hook
   :options (list #'package-build-tag-version
-                 #'package-build-header-version))
+                 #'package-build-header-version
+                 #'package-build-fallback-version))
 
 (defcustom package-build-snapshot-version-functions
-  (list #'package-build-timestamp-version)
+  (list #'package-build-release+timestamp-version)
   "Function used to determine the current snapshot of a package.
 
 Each function is called in order, with the recipe object as argument,
@@ -184,8 +182,16 @@ If obsolete `package-build-get-version-function' is non-nil,
 then that overrides the value set here."
   :type 'hook
   :options (list #'package-build-release+count-version
+                 #'package-build-release+onecount-version
                  #'package-build-release+timestamp-version
                  #'package-build-timestamp-version))
+
+(defcustom package-build-minimal-release-components 3
+  "Minimal number of version components before \".0.SNAPSHOT\".
+When constructing a snapshot version of the form \"RELEASE.0.SNAPSHOT\",
+this option controls whether additional \".0\" components are appended
+to RELEASE.  Use 0 to add no filling components."
+  :type 'natnum)
 
 (defcustom package-build-predicate-function nil
   "Predicate used by `package-build-all' to determine which packages to build.
@@ -469,6 +475,17 @@ or snapshots are build.")
                     tag)
           "{short(node)}\n"))))
 
+(defun package-build--version-separator (release)
+  (make-list (max 1 (- (1+ package-build-minimal-release-components)
+                       (length release)))
+             0))
+
+(defun package-build--release-placeholder ()
+  ;; Always use at least three zero components before the snapshot
+  ;; component, even if `package-build-minimal-release-components' asks
+  ;; for fewer.  Subtract one because the separator is added elsewhwere.
+  (make-list (1- (max 3 package-build-minimal-release-components)) 0))
+
 ;;;; Tag
 
 (defun package-build-tag-version (rcp)
@@ -575,6 +592,34 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil."
                 "log" "--first-parent"
                 "--template" "commit: {node} {date|hgdate}\n"
                 )) ; TODO What is the equivalent of Git's "-L"?
+
+;;;; Fallback
+
+(defun package-build-fallback-version (rcp)
+  "Determine version string in a \"0.0.0.SNAPSHOT\" format for RCP.
+
+This function implements a fallback that can be used on the
+release channel, for packages that don't do releases.  It should
+be the last element of `package-build-release-version-functions',
+and at the same time `package-build-snapshot-version-functions'
+should contain only a `package-build-release+{*}-version' function.
+
+The result of such a configuration is that, for packages that
+don't do releases, the release and snapshot channels provide
+the same \"0.0.0.COUNT\" snapshot.  That way, all packages are
+available on the release channel, which makes that channel more
+attractive to users, which might encourage some maintainers to
+release more often, or if they have never done a release before,
+to finally get around to that initial release.  In other words,
+this might help overcome the release channel's chicken and egg
+problem.
+
+Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or
+nil if `package-build-stable' is non-nil."
+  (and package-build-stable
+       (let ((package-build-release-version-functions nil))
+         (run-hook-with-args-until-success
+          'package-build-snapshot-version-functions rcp))))
 
 ;;;; NAME-pkg
 
@@ -687,9 +732,9 @@ VERSION-STRING has the format \"%Y%m%d.%H%M\"."
 (defun package-build-release+timestamp-version (rcp)
   "Determine version string in the \"RELEASE.0.TIMESTAMP\" format for RCP.
 
-Use `package-build-release-version-functions' to determine
-RELEASE.  TIMESTAMP is the COMMITTER-DATE for the identified
-last relevant commit, using the format \"%Y%m%d.%H%M\".
+Use `package-build-release-version-functions' to determine RELEASE.
+TIMESTAMP is the COMMITTER-DATE for the identified last relevant
+commit, using the format \"%Y%m%d.%H%M\".
 
 Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil."
   (pcase-let*
@@ -701,10 +746,13 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil."
     (cond
      ((> ahead 0)
       (list scommit stime
-            (package-version-join
-             (nconc (if rversion (version-to-list rversion) (list 0 0))
-                    (list 0)
-                    (version-to-list sversion)))
+            (let ((release (if rversion
+                               (version-to-list rversion)
+                             (package-build--release-placeholder))))
+              (package-version-join
+               (nconc release
+                      (package-build--version-separator release)
+                      (version-to-list sversion))))
             (package-build--revdesc rcp scommit tag)))
      (t
       ;; The latest commit, which touched a relevant file, is either the
@@ -712,35 +760,38 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil."
       ;; same commit/release as on the stable channel; as it would not
       ;; make sense for the development channel to lag behind the latest
       ;; release.
-      (list rcommit rtime (package-version-join rversion) rrevdesc tag)))))
+      (list rcommit rtime rversion rrevdesc tag)))))
 
 ;;;; Release+Count
 
-(defun package-build-release+count-version (rcp &optional single-count)
+(defun package-build-release+count-version (rcp &optional modifier)
   "Determine version string in the \"RELEASE.0.COUNT\" format for RCP.
 
-Use `package-build-release-version-functions' to determine
-RELEASE.  COUNT is the number of commits since RELEASE until the
-last relevant commit.  If RELEASE is the same as for the last
-snapshot but COUNT is not larger than for that snapshot because
-history was rewritten, then use \"RELEASE.0.OLDCOUNT.NEWCOUNT\".
+Use `package-build-release-version-functions' to determine RELEASE.
+COUNT is the number of commits since RELEASE until the last relevant
+commit.  If RELEASE is the same as for the last snapshot but COUNT is
+not larger than for that snapshot because history was rewritten, then
+use \"RELEASE.0.OLDCOUNT.NEWCOUNT\".
+
+Prefer this function over `package-build-release+onecount-version'.
+Both functions usually use just one COUNT, but this function has the
+advantage that it handles rewritten history.
 
 Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil.
 \n(fn RCP)"
   (pcase-let*
-      ;; Get the commit but ignore the associated timestamp.
-      ((`(,scommit ,stime ,_) (package-build-timestamp-version rcp))
-       (`(,rcommit ,rtime ,version ,rrevdesc ,tag)
+      ((`(,scommit ,stime ,sversion) (package-build-timestamp-version rcp))
+       (`(,rcommit ,rtime ,rversion ,rrevdesc ,tag)
         (run-hook-with-args-until-success
          'package-build-release-version-functions rcp))
-       (version (and rcommit (version-to-list version)))
+       (version (and rcommit (version-to-list rversion)))
        (merge-base (and rcommit
                         (package-build--merge-base rcp scommit rcommit)))
        (ahead (package-build--commit-count rcp scommit rcommit)))
     (cond
      ((or (when (not rcommit)
             ;; No appropriate release detected.
-            (setq version (list 0 0))
+            (setq version (package-build--release-placeholder))
             t)
           (when (not merge-base)
             ;; As a result of butchered history rewriting, version tags
@@ -750,7 +801,7 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil.
             ;; that means that users, who have installed a snapshot based
             ;; on a now abandoned tag, are stuck on that snapshot until
             ;; upstream creates a new version tag.
-            (setq version (list 0 0))
+            (setq version (package-build--release-placeholder))
             t)
           ;; Snapshot commit is newer than latest release (or there is no
           ;; release).
@@ -758,10 +809,11 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil.
       (list scommit stime
             (package-version-join
              (append version
-                     (list 0)
-                     ;; (This argument *could* be used by a wrapper.)
-                     (if single-count
-                         ahead ; Pretend time-travel doesn't happen.
+                     (package-build--version-separator version)
+                     (and (eq modifier 'with-date)
+                          (list (car (version-to-list sversion))))
+                     (if (memq modifier '(one-count with-date))
+                         (list ahead) ; Pretend time-travel doesn't happen.
                        (package-build--adjust-commit-count
                         rcp scommit (copy-sequence version) ahead))))
             (package-build--revdesc rcp scommit tag)))
@@ -858,36 +910,40 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil.
                              (format "only(%s, %s)" rev since)
                            (format "ancestors(%s)" rev)))))
 
-;;;; Fallback-Count
+;;;; Release+Onecount
 
-(defun package-build-fallback-count-version (rcp)
-  "Determine version string in the \"0.0.0.COUNT\" format for RCP.
+(defun package-build-release+onecount-version (rcp)
+  "Determine version string in the \"RELEASE.0.COUNT\" format for RCP.
 
-This function implements a fallback that can be used on the
-release channel, for packages that don't do releases.  It should
-be the last element of `package-build-release-version-functions',
-and at the same time `package-build-snapshot-version-functions'
-should contain only `package-build-release+count-version'.
+Use `package-build-release-version-functions' to determine RELEASE.
+COUNT is the number of commits since RELEASE until the last relevant
+commit.
 
-The result of such a configuration is that, for packages that
-don't do releases, the release and snapshot channels provide
-the same \"0.0.0.COUNT\" snapshot.  That way, all packages are
-available on the release channel, which makes that channel more
-attractive to users, which might encourage some maintainers to
-release more often, or if they have never done a release before,
-to finally get around to that initial release.  In other words,
-this might help overcome the release channel's chicken and egg
-problem.
+Prefer `package-build-release+count-version' over this function.
+Both functions usually use just one COUNT, but this function has
+the disadvantage that it does not handle rewritten history.
 
-Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC)."
-  (let ((package-build-release-version-functions nil))
-    (package-build-release+count-version rcp)))
+Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil."
+  (package-build-release+count-version rcp 'one-count))
+
+;;;; Release+Date+Count
+
+(defun package-build-release+date+count-version (rcp)
+  "Determine version string in the \"RELEASE.0.DATE.COUNT\" format for RCP.
+
+Use `package-build-release-version-functions' to determine RELEASE.
+DATE is the COMMITTER-DATE for the identified last relevant commit,
+using the format \"%Y%m%d\".  COUNT is the number of commits since
+RELEASE until the last relevant commit.
+
+Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil."
+  (package-build-release+count-version rcp 'with-date))
 
 ;;; Call Process
 
 (defun package-build--call-process (package command &rest args)
   "For PACKAGE, run COMMAND with ARGS in `default-directory'.
-We use this to wrap commands is proper environment settings and
+We use this to wrap commands in proper environment settings and
 with a timeout so that no command can block the build process,
 and so we can properly log errors.  PACKAGE must be the name of
 a package, a `package-recipe' object or nil, and is only used
