@@ -188,8 +188,6 @@ of directories to file basenames."
   (hidden-mode-line-mode)
   ;; Disable GUI elements (toolbars, scrollbars, etc.) for a cleaner look.
   (spacemacs//toggle-gui-elements 0)
-  ;; Setup vertical ido mode for the setup wizard.
-  (spacemacs//setup-ido-vertical-mode)
   ;; Set preferred coding system to UTF-8 to avoid prompts.
   (prefer-coding-system 'utf-8)
   ;; Extend use-package if installed.
@@ -270,22 +268,6 @@ of directories to file basenames."
     (spacemacs/load-spacemacs-env))
   ;; Install the dotfile if required.
   (dotspacemacs/maybe-install-dotfile))
-
-;; Setup ido-vertical-mode for the setup wizard.
-(defun spacemacs//setup-ido-vertical-mode ()
-  "Setup `ido-vertical-mode' for the setup wizard.
-Only activates after ido is loaded, for use in the dotfile setup wizard."
-  (with-eval-after-load 'ido
-    (require 'ido-vertical-mode)
-    (ido-vertical-mode t)
-    (add-hook
-     'ido-setup-hook
-     ;; Natural navigation keys for ido vertical mode.
-     (defun spacemacs//ido-vertical-natural-navigation ()
-       (define-key ido-completion-map (kbd "<up>") 'ido-prev-match)
-       (define-key ido-completion-map (kbd "<down>") 'ido-next-match)
-       (define-key ido-completion-map (kbd "<left>") 'ido-delete-backward-updir)
-       (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)))))
 
 ;; Override the default startup echo area message.
 (defun display-startup-echo-area-message ()

@@ -995,15 +995,6 @@ Ask for confirmation before copying the file if the destination already exists."
   (copy-file dotspacemacs-template-file dotspacemacs-filepath 1)
   (message "%s has been installed." dotspacemacs-filepath))
 
-(defvar ido-max-window-height)
-
-(defun dotspacemacs//ido-completing-read (prompt candidates)
-  "Call `ido-completing-read' with a CANDIDATES alist where the key is
-a display strng and the value is the actual value to return."
-  (let ((ido-max-window-height (1+ (length candidates))))
-    (cadr (assoc (ido-completing-read prompt (mapcar 'car candidates))
-                 candidates))))
-
 (defun dotspacemacs/maybe-install-dotfile ()
   "Install the dotfile if it does not exist."
   (unless (file-exists-p dotspacemacs-filepath)
@@ -1023,23 +1014,36 @@ If ARG is non nil then ask questions to the user before installing the dotfile."
            ;; editing style
            `(("dotspacemacs-editing-style 'vim"
               ,(format
-                "dotspacemacs-editing-style '%S"
-                (dotspacemacs//ido-completing-read
-                 "What is your preferred editing style? "
-                 '(("Among the stars aboard the Evil flagship (vim)"
-                    vim)
-                   ("On the planet Emacs in the Holy control tower (emacs)"
-                    emacs)))))
+                "dotspacemacs-editing-style '%s"
+                (cadr (read-multiple-choice
+                       "What is your preferred editing style?"
+                       '((?v "vim") (?e "emacs") (?h "hybrid"))
+                       (substitute-command-keys "\
+Choose your editing style.
+
+`vim': Recommended for users familiar with Vim, and the most popular choice.
+Use \\`SPC' as your leader key.
+
+`emacs': Key bindings compatible with vanilla Emacs.
+Use \\`M-m' as your leader key.
+
+`hybrid': Like Vim, but use Emacs-style key bindings in insert state.
+Use \\`SPC' as your leader key.
+") t))))
              ("dotspacemacs-distribution 'spacemacs"
               ,(format
-                "dotspacemacs-distribution '%S"
-                (dotspacemacs//ido-completing-read
-                 "What distribution of spacemacs would you like to start with? "
-                 `(("The standard distribution, recommended (spacemacs)"
-                    spacemacs)
-                   (,(concat "A minimalist distribution that you can build on "
-                             "(spacemacs-base)")
-                    spacemacs-base)))))))))
+                "dotspacemacs-distribution '%s"
+                (cadr (read-multiple-choice
+                       "What distribution of spacemacs would you like to start with?"
+                       `((?s "spacemacs" "The standard distribution, recommended")
+                         (?b "spacemacs-base" "A minimalist distribution that you can build on"))
+                       (substitute-command-keys "\
+`spacemacs': The standard distribution.
+Recommended for most users.
+
+`spacemacs-base': A minimalist distribution that you can build on.
+Configures only the minimal packages for core Spacemacs functionality.
+") t))))))))
     (with-current-buffer (find-file-noselect dotspacemacs-template-file)
       (dolist (p preferences)
         (goto-char (point-min))
