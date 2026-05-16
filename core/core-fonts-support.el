@@ -49,15 +49,7 @@ The return value is nil if no font was found, non-nil otherwise."
                             :powerline-offset))
                (fontspec (apply 'font-spec :name font font-props)))
           (spacemacs-buffer/message "Setting font \"%s\"..." font)
-          ;; We set the INHIBIT-CUSTOMIZE parameter to t to tell set-frame-font
-          ;; not to fiddle with the default face in the user's Customization
-          ;; settings. We don't need Customization because our way of ensuring
-          ;; that the font is applied to future frames is to modify
-          ;; default-frame-alist, and Customization causes issues, see
-          ;; https://github.com/syl20bnr/spacemacs/issues/5353.
-          ;; INHIBIT-CUSTOMIZE is only present in recent emacs versions.
-          (set-frame-font fontspec nil t t)
-          (push `(font . ,(frame-parameter nil 'font)) default-frame-alist)
+          (set-face-attribute 'default nil :font fontspec)
 
           ;; Make sure that our font is used for fixed-pitch face as well
           (set-face-attribute 'fixed-pitch nil :family 'unspecified)
