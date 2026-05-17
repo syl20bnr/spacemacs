@@ -37,7 +37,7 @@ fringe)."
 (spacemacs|defc version-control-diff-tool 'diff-hl
   "Options are `diff-hl' (the preferred choice) or `git-gutter' to show
 version-control markers, `nil' to disable this feature."
-  '(choice (const diff-hl) (const git-gutter) nil))
+  '(choice (const diff-hl) (const git-gutter) (const nil)))
 
 (spacemacs|defc version-control-diff-side 'right
   "Side on which to show version-control markers.
