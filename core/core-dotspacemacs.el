@@ -1035,8 +1035,8 @@ Use \\`SPC' as your leader key.
                 "dotspacemacs-distribution '%s"
                 (cadr (read-multiple-choice
                        "What distribution of spacemacs would you like to start with?"
-                       `((?s "spacemacs" "The standard distribution, recommended")
-                         (?b "spacemacs-base" "A minimalist distribution that you can build on"))
+                       `((?s "spacemacs")
+                         (?b "spacemacs-base"))
                        (substitute-command-keys "\
 `spacemacs': The standard distribution.
 Recommended for most users.
