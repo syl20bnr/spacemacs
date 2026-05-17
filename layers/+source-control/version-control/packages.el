@@ -23,11 +23,7 @@
 (defconst version-control-packages
   '(
     browse-at-remote
-    ;; Git-gutter+ is not longer maintained and will break with latest magit version
-    ;; therefore we switch to diff-hl for users which have configered git-gutter+ to avoid
-    ;; breaking there config.
-    (diff-hl :toggle (or (eq 'diff-hl version-control-diff-tool)
-                         (eq 'git-gutter+ version-control-diff-tool)))
+    (diff-hl :toggle (eq 'diff-hl version-control-diff-tool))
     diff-mode
     evil-collection
     evil-unimpaired
