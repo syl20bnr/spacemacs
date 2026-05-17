@@ -26,13 +26,7 @@
     ;; Git-gutter+ is not longer maintained and will break with latest magit version
     ;; therefore we switch to diff-hl for users which have configered git-gutter+ to avoid
     ;; breaking there config.
-    ;; (diff-hl            :toggle (or (eq 'diff-hl version-control-diff-tool)
-    ;;                                 (eq 'git-gutter+ version-control-diff-tool)))
-    (diff-hl :location (recipe
-                        :fetcher github
-                        :repo "smile13241324/diff-hl"
-                        :branch "frame-local-diff-hl-margin-mode")
-             :toggle (or (eq 'diff-hl version-control-diff-tool)
+    (diff-hl :toggle (or (eq 'diff-hl version-control-diff-tool)
                          (eq 'git-gutter+ version-control-diff-tool)))
     diff-mode
     evil-collection
@@ -151,16 +145,6 @@
     (setq diff-hl-side (if (eq version-control-diff-side 'left)
                            'left 'right))
     (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-    (define-advice turn-on-diff-hl-mode (:after (&rest _) AUTOMARGIN)
-      (and (memq version-control-margin '(t auto))
-           (not diff-hl-margin-mode)    ; not global mode
-           (not (display-graphic-p (window-frame (get-buffer-window))))
-           (diff-hl-margin-local-mode)
-           (diff-hl-update)))
-    (when (eq version-control-margin 'global)
-        (run-with-idle-timer 1 nil 'spacemacs/vcs-enable-margin-globally))
-    ;; The diff-hl-margin mode requests the diff-hl-mode to be enabled, so
-    ;; enable the diff-hl-mode anyway.
     (run-with-idle-timer 1 nil 'global-diff-hl-mode)))
 
 (defun version-control/post-init-evil-unimpaired ()
