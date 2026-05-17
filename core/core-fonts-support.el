@@ -74,18 +74,21 @@ The return value is nil if no font was found, non-nil otherwise."
                      (fallback-spec2 (apply 'font-spec
                                             :name fallback-font-name2
                                             fallback-props)))
-                ;; window numbers (ding bang circled digits)
-                (set-fontset-font "fontset-default"
-                                  '(#x2776 . #x2793) fallback-spec nil 'prepend)
-                ;; mode-line circled letters (circled latin capital/small letters)
-                (set-fontset-font "fontset-default"
-                                  '(#x24b6 . #x24e9) fallback-spec nil 'prepend)
-                ;; mode-line additional characters (circled/squared mathematical operators)
-                (set-fontset-font "fontset-default"
-                                  '(#x2295 . #x22a1) fallback-spec nil 'prepend)
-                ;; new version lighter (arrow block)
-                (set-fontset-font "fontset-default"
-                                  '(#x2190 . #x21ff) fallback-spec2 nil 'prepend)))))
+                ;; Active fontset might be `fontset-default', `fontset-startup',
+                ;; or something else.
+                (let ((active-fontset (face-attribute 'default :fontset)))
+                  ;; window numbers (ding bang circled digits)
+                  (set-fontset-font active-fontset
+                                    '(#x2776 . #x2793) fallback-spec nil 'prepend)
+                  ;; mode-line circled letters (circled latin capital/small letters)
+                  (set-fontset-font active-fontset
+                                    '(#x24b6 . #x24e9) fallback-spec nil 'prepend)
+                  ;; mode-line additional characters (circled/squared mathematical operators)
+                  (set-fontset-font active-fontset
+                                    '(#x2295 . #x22a1) fallback-spec nil 'prepend)
+                  ;; new version lighter (arrow block)
+                  (set-fontset-font active-fontset
+                                    '(#x2190 . #x21ff) fallback-spec2 nil 'prepend))))))
         (throw 'success t)))
     nil))
 
