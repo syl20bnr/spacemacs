@@ -22,7 +22,7 @@
 
 
 (defconst spacemacs-bootstrap-packages
-  '(
+  `(
     ;; bootstrap packages,
     ;; `use-package' cannot be used for bootstrap packages configuration
     (async :step bootstrap)
@@ -44,7 +44,7 @@
     (which-key-posframe :step pre :toggle (and (consp dotspacemacs-which-key-position)
                                                (eq (car dotspacemacs-which-key-position) 'posframe)))
     dash
-    (transient :location elpa)))
+    (transient :location ,(if dotspacemacs-prefer-builtin-package 'built-in 'elpa))))
 
 ;; bootstrap packages
 

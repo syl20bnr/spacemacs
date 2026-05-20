@@ -754,6 +754,15 @@ number of recent files to show in each project."
   '(repeat symbol)
   'spacemacs-dotspacemacs-layers)
 
+(spacemacs|defc dotspacemacs-prefer-builtin-package (version< "30" emacs-version)
+  "If non-nil, prefer the builtin packages instead of install the package from melpa.
+
+The Emacs31 includes org and transient packages new enough, so there is
+no need to install newer versions from ELPA, which could cause
+performance issues."
+  'boolean
+  'spacemacs-dotspacemacs-layers)
+
 (spacemacs|defc dotspacemacs-pretty-docs nil
   "Run `spacemacs/prettify-org-buffer' when
 visiting README.org files of Spacemacs."

@@ -22,7 +22,7 @@
 
 
 (defconst org-packages
-  '(
+  `(
     company
     company-emoji
     emoji-cheat-sheet-plus
@@ -34,7 +34,7 @@
     ;; ob, org, org-agenda and org-contacts are installed by `org-contrib'
     (ob :location built-in)
     (ob-mermaid :toggle org-enable-mermaid-support)
-    (org :location elpa)
+    (org :location ,(if dotspacemacs-prefer-builtin-package 'built-in 'elpa))
     (org-agenda :location built-in)
     (org-alert  :toggle org-enable-notifications)
     (org-contacts :toggle org-enable-org-contacts-support)
