@@ -213,6 +213,11 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   - added  ~lsp-use-lsp-ui~ variable to control whether ~lsp-ui~ is installed or not.
   - added ~SPC m g h~ to go to call hierarchy.
   - added ~SPC m g T~ to go to type hierarchy.
+- Exclude paths matched by the workspace root's =.gitignore= from
+  =lsp-mode='s file watchers. Enabled by default; toggle with the new
+  variable ~lsp-file-watch-respect-gitignore~. Uses =git ls-files= to
+  resolve gitignore semantics correctly (negations, nested
+  =.gitignore= files, =.git/info/exclude=, global excludes).
 ***** IPython notebook
 - Key bindings;
   - Change prefix from ~SPC a i~ to ~SPC a y~ (thanks to Swaroop C H)
