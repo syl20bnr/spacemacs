@@ -2032,6 +2032,43 @@ a package."
   (with-temp-file file
     (insert (json-encode (package-build--archive-alist-for-json)))))
 
+;;; Webpage
+
+(defun package-build--format-webpage (file dir)
+  (when (file-exists-p file)
+    (with-temp-file (expand-file-name file dir)
+      (save-excursion (insert-file-contents file))
+      (while (re-search-forward "${\\([^}]+\\)}" nil t)
+        (cond
+          ((string-prefix-p "list-" (match-string 1))
+           (let* ((channel (substring (match-string 1) 5))
+                  (beg (match-beginning 0))
+                  (col (- beg (save-excursion (goto-char beg) (pos-bol))))
+                  (sep (concat "\n" (make-string col ?\s)))
+                  (cnt (expand-file-name
+                        "archive-contents"
+                        (if (equal dir channel) dir (concat dir "/" channel))))
+                  (sig (concat cnt ".sig"))
+                  (pkgs (package-build-archive-alist cnt))
+                  (signed (file-exists-p sig)))
+             (replace-match "")
+             (insert
+              (mapconcat
+               (lambda (pkg)
+                 (pcase-let* ((`(,pkg . [,ver ,_ ,desc ,_ ,alist]) pkg)
+                              (ver (package-version-join ver))
+                              (url (alist-get :url alist))
+                              (pre (format "%s/%s" channel pkg)))
+                   (concat
+                    (format "<li><a href=\"%s\">%s</a> — " url pkg)
+                    (format "<a href=\"%s-%s.tar\">%s</a> " pre ver ver)
+                    (if signed
+                        (format "(<a href=\"%s-%s.tar.sig\">sig</a>) " pre ver)
+                      "— ")
+                    (format "<a href=\"%s-readme.txt\">%s</a></li>" pre desc))))
+               pkgs sep))))
+          ((replace-match (or (getenv (match-string 1)) "") t t)))))))
+
 ;;; _
 
 (provide 'package-build)
