@@ -74,10 +74,7 @@
            ("\\.Rd\\'"           . Rd-mode)
            ("\\.[Bb][Uu][Gg]\\'" . ess-bugs-mode)
            ("\\.[Bb][Oo][Gg]\\'" . ess-bugs-mode)
-           ("\\.[Bb][Mm][Dd]\\'" . ess-bugs-mode)
-           ("\\.[Jj][Aa][Gg]\\'" . ess-jags-mode)
-           ("\\.[Jj][Oo][Gg]\\'" . ess-jags-mode)
-           ("\\.[Jj][Mm][Dd]\\'" . ess-jags-mode))
+           ("\\.[Bb][Mm][Dd]\\'" . ess-bugs-mode))
     :commands (R stata julia SAS ess-julia-mode)
     :init
     (setq ess-use-company nil
