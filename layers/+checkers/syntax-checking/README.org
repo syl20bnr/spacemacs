@@ -67,7 +67,7 @@ in =dotspacemacs/user-config=. (Because =dotspacemacs/user-config= is evaluated
 after layers so your settings won't be overridden.)
 
 ** Tooltip Pop-up
-By default, tooltips are shown when the point is on erros after a short delay.
+By default, tooltips are shown when the point is on errors after a short delay.
 You can disable them by setting the variable =syntax-checking-enable-tooltips=
 to =nil=.
 

@@ -91,4 +91,4 @@ After installing the dependencies, add this to your ~/.spacemacs.
 | Key binding | Description               |
 |-------------+---------------------------|
 | ~C-j~       | next entry and follow     |
-| ~C-k~       | prevoius entry and follow |
+| ~C-k~       | previous entry and follow |

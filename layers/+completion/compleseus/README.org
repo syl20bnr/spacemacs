@@ -60,7 +60,7 @@ The default is set to ~'("M-." "C-SPC" "C-M-j" "C-M-k")~
 | ~C-z~       | select embark action from list |
 
 ** Narrowing
-Many consult commands support 'narrowing', whith allows you to type a key and narrow the list of candidates available
+Many consult commands support 'narrowing', which allows you to type a key and narrow the list of candidates available
 Once you have discovered the narrowing keys available, you can do them directly with ~key SPC~.
 e.g. in ~compleseus/switch-to-buffer~ type ~* SPC~ to see only modified buffers.
 Delete the narrowing key again to return to all selections.

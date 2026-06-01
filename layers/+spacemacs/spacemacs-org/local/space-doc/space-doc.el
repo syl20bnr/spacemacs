@@ -89,7 +89,7 @@ by the function. Otherwise - disable. The tags used in
 This mode:
  - hides `org-mode' meta tags like #+TITLE: while
 keeping their content visible.
- - Improves emphasized region apparence.
+ - Improves emphasized region appearance.
  - enables buffer local link  opening with `spacemacs//space-doc-open'.
 =================================================
 = THE MODE IS CUSTOMIZABLE - read Spacemacs FAQ =

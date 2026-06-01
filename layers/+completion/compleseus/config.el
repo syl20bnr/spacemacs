@@ -30,7 +30,7 @@
 (defvar compleseus-buffer-search-restrict-project t
   "If non-nil, `spacemacs/consult-line-multi' and `spacemacs/consult-line-multi-symbol'
 will be restricted to buffers of the current project.
-This is the default behaviour of `consult-line-multi', but it can be overriden
+This is the default behaviour of `consult-line-multi', but it can be overridden
 by using a prefix argument.
 
 If nil, we invert the default behaviour, and thus restrict to buffers

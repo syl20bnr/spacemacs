@@ -76,7 +76,7 @@ windows correctly."
 
 (defun spacemacs/window-purpose-sync-popwin ()
   "Synchronize window-purpose layer with popwin.
-Enable or disable advices to popwin, according to the state of `purpose-mode'."
+Enable or disable advice to popwin, according to the state of `purpose-mode'."
   (require 'window-purpose)
   (if purpose-mode
       (progn

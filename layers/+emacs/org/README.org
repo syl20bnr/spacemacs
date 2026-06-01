@@ -733,7 +733,7 @@ for some of the most frequently used commands
 
 | Key binding   | Description                                       |
 |---------------+---------------------------------------------------|
-| ~M-RET M-RET~ | org-meta-return (dwim retrun)                     |
+| ~M-RET M-RET~ | org-meta-return (dwim return)                     |
 | ~M-h/l~       | org-meta-left/right (e.g. promote/demote heading) |
 
 *Normal state*
@@ -976,7 +976,7 @@ The evilified org agenda supports the following bindings:
 Use ~SPC m .~, ~M-SPC~ or ~s-M-SPC~ in an org agenda buffer to activate its
 transient state. The transient state aims to list the most useful org agenda
 commands and visually organize them by category. The commands associated with
-each binding are listed bellow.
+each binding are listed below.
 
 | Key binding | Description         | Command                           |
 |-------------+---------------------+-----------------------------------|

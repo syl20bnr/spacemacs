@@ -67,8 +67,8 @@ You can disable icons just for the tabs display by setting =tabs-icons= to =nil=
 |-------------+-------------------------------------------------------|
 | ~g t~       | Select the next available tab                         |
 | ~g T~       | Select the previous available tab                     |
-| ~g C-t~     | Move current tabe to right                            |
-| ~g C-T~     | Move current tabe to left                             |
+| ~g C-t~     | Move current tab to right                             |
+| ~g C-T~     | Move current tab to left                              |
 | ~C-c t s~   | Display a list of current buffer groups using Counsel |
 | ~C-c t p~   | Group buffer tabs by projectile                       |
 | ~C-c t g~   | Group buffer tabs by groups                           |

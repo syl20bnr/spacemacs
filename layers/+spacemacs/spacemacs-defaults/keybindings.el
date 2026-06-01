@@ -1139,7 +1139,7 @@ If FRAME is nil, it defaults to the selected frame."
       (set-frame-parameter frame 'alpha-background increased-alpha))))
 
 (defun spacemacs/decrease-background-transparency (&optional frame)
-  "Decrease backrgound transparency for FRAME.
+  "Decrease background transparency for FRAME.
 If FRAME is nil, it defaults to the selected frame."
   (interactive)
   (let* ((current-alpha (or (frame-parameter frame 'alpha-background) 100))

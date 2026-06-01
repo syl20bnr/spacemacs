@@ -143,7 +143,7 @@ This feature is provided by the [[https://github.com/company-mode/company-statis
 is used. The variable has no effect when =auto-complete= is used.
 
 Beware: Sorting completion results is often done already by the
-completion backend, doing it again in company may degrate
+completion backend, doing it again in company may degrade
 performance.
 
 #+BEGIN_SRC emacs-lisp

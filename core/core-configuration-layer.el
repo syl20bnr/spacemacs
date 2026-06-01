@@ -1290,7 +1290,7 @@ USEDP if non-nil indicates that made packages are used packages."
 
 (defun configuration-layer//filter-distant-packages
     (packages usedp &optional predicate)
-  "Return the distant packages (ie to be intalled).
+  "Return the distant packages (ie to be installed).
 If USEDP is non nil then returns only the used packages; if it is nil then
 return both used and unused packages.
 PREDICATE is an additional expression that eval to a boolean."
@@ -1350,7 +1350,7 @@ Possible return values:
                (directory-file-name
                 (concat configuration-layer-directory path))))
         'category
-      ;; most frequent files encoutered in a layer are tested first
+      ;; most frequent files encountered in a layer are tested first
       (when (or (locate-file "packages" (list path) load-suffixes)
                 (locate-file "layers" (list path) load-suffixes)
                 (locate-file "config" (list path) load-suffixes)
@@ -2603,7 +2603,7 @@ Return nil if MODE does not appear in `auto-mode-alist'."
         (spacemacs-buffer/insert-page-break)
         (let ((buffer-read-only nil))
           (spacemacs-buffer/append
-           ;; The messsage should less than 76 characters for tty frame
+           ;; The message should less than 76 characters for tty frame
            (format "\n%s packages loaded in %.3fs (%s)"
                    (cadr (assq 'total stats))
                    configuration-layer--spacemacs-startup-time
@@ -2912,7 +2912,7 @@ happened during the download."
     result))
 
 (defun configuration-layer//stable-elpa-disable-repository ()
-  "Remove stable ELPA repostiory from `package.el' archive.."
+  "Remove stable ELPA repository from `package.el' archive.."
   (setq configuration-layer-elpa-archives
         (cl-delete configuration-layer-stable-elpa-name
                    configuration-layer-elpa-archives

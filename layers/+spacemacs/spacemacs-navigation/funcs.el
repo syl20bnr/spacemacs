@@ -461,7 +461,7 @@ ivy"
 ;; paradox
 
 (defun spacemacs/paradox-list-packages ()
-  "Load depdendencies for auth and open the package list."
+  "Load dependencies for auth and open the package list."
   (interactive)
   (require 'epa-file)
   (require 'auth-source)

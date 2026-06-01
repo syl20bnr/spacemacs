@@ -299,7 +299,7 @@ Note: this function relies on embark internals and might break upon embark updat
        (caar narrow-keys)))))
 
 (defun spacemacs/consult-edit ()
-  "Export the consult buffer and make the buffer editable righ away."
+  "Export the consult buffer and make the buffer editable right away."
   (interactive)
   (require 'embark)
   (let ((embark-after-export-hook '(spacemacs/grep-change-to-wgrep-mode)))

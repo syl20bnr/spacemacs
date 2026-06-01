@@ -1071,7 +1071,7 @@ Possible values:
   "Return a list of buffers to display automatically when splitting windows.
 
 This excludes ephemeral buffers (those whose names begin with a
-space), unless they are visitin a file, just as `list-buffers' does."
+space), unless they are visiting a file, just as `list-buffers' does."
   (seq-remove
    (lambda (b)
      (and (string= (substring (buffer-name b) 0 1) " ")

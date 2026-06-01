@@ -128,7 +128,7 @@ Return t if VAL is valid, and return an error when VAL is invalid or when
 VAR-SYMBOL is not a spacemacs custom variable.
 
 This function should be used with `apply-partially', and be set to the
-`safe-local-variable' perperty of VAR-SYMBOL. `apply-partially' returns a
+`safe-local-variable' property of VAR-SYMBOL. `apply-partially' returns a
 validation function that takes one argument and validate it against the scheme
 of VAR-SYMBOL.
 

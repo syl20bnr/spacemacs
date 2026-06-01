@@ -1306,7 +1306,7 @@ This layer adds support for the [[https://fountain.io/][fountain]] screenwriting
 
 Features:
 - Fountain files support via [[https://github.com/rnkn/fountain-mode/][fountain-mode]]
-- Confortable writing layout via [[https://github.com/rnkn/olivetti/][olivetti-mode]]
+- Comfortable writing layout via [[https://github.com/rnkn/olivetti/][olivetti-mode]]
 
 **** Graphviz
 [[file:+lang/graphviz/README.org][+lang/graphviz/README.org]]
@@ -1424,7 +1424,7 @@ For example, the following diagram can be defined as follows:
   @startuml
   JAremko->robbyoconnor : I think the docs can benefit from some kind of illustration
   JAremko<-robbyoconnor : I'm too lazy -- I have actual work to do. I link to the docs. If you can write me a diagram in plantuml, I'll gladly compile and add it.
-  JAremko->robbyoconnor : *gives ths diagram*
+  JAremko->robbyoconnor : *gives this diagram*
   robbyoconnor<-JAremko : *robbyoconnor adds it and JAremko is happy*
   ...
   robbyoconnor->theOtherPerson : And they thinks it's funny? Yup, they definitely finds it funny. Right?

@@ -40,7 +40,7 @@
     (setq cursor-in-non-selected-windows nil)))
 
 (defun spacemacs//set-dotted-directory ()
-  "Set the face of diretories for `.' and `..'"
+  "Set the face of directories for `.' and `..'"
   (set-face-attribute 'helm-ff-dotted-directory
                       nil
                       :foreground 'unspecified

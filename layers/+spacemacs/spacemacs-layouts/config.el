@@ -67,7 +67,7 @@ Must be a list with 10 entries, where each entry is a list of
 names. The 2nd list contains possible names for the 2nd
 layout (or 10th) layout, the 3rd list contains names for the 3rd
 layout, the 4th for the 4th, and so on until the 10th (aka layout
-number 0). The first list is sepcial - it is a grab-bag for names
+number 0). The first list is special - it is a grab-bag for names
 in case none of the regular names can be used for a new layout.")
 
 (defvar spacemacs--old-layouts-restricted-functions nil)
@@ -84,7 +84,7 @@ To change the value of this variable, redefine the complete list
 using `setopt', `customize-set-variable', or by setting it as a
 layer variable in `dotspacemacs-configuration-layers'. This
 ensures that the custom set function is called which removes and
-adds advices to the respective functions."
+adds advice to the respective functions."
   :type '(repeat function)
   :set (lambda (_ value)
          (dolist (fn spacemacs--old-layouts-restricted-functions)

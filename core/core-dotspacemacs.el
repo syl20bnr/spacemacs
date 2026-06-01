@@ -161,7 +161,7 @@ a layer lazily."
   'spacemacs-dotspacemacs-layers)
 
 (spacemacs|defc dotspacemacs-additional-packages '()
-  "List of additional packages that will be installed wihout being
+  "List of additional packages that will be installed without being
 wrapped in a layer. If you need some configuration for these
 packages then consider to create a layer, you can also put the
 configuration in `dotspacemacs/user-config'."
@@ -224,7 +224,7 @@ buffer, it requires \"nerd-icons\" package been installed.
 For graphic frame, it also requires a nerd font been installed (Execute
 the `nerd-icons-install-fonts' to install the font file).
 
-For terminal frame, it requires a nerd font avaliable on Terminal
+For terminal frame, it requires a nerd font available on Terminal
 (Please make sure your terminal working with nerd font first then try
 this feature).
 
