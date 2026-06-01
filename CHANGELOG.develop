@@ -31,13 +31,10 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
  **** Testing and CI
 #+END_EXAMPLE
 
-* Release
-** ?
-  - Fixed typos
-
 * Release 0.300.x
 ** 0.300.0
 *** Hot new feature
+- Fixed typos
 - Remove obsolete hack erc-sasl
 - Remove =spacemacs/counsel-gtags-define-keys-for-mode= warnings
 - Add configuration layer for gleam-lang (thanks to Qynn Schwaab)
