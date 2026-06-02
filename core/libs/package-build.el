@@ -14,7 +14,7 @@
 ;; Package-Version: 4.0.0.50-git
 ;; Package-Requires: (
 ;;     (emacs  "26.1")
-;;     (compat "30.1"))
+;;     (compat "31.0"))
 
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 

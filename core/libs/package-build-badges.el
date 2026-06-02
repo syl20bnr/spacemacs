@@ -1,13 +1,12 @@
 ;;; package-build-badges.el --- Create badges for packages  -*- lexical-binding:t; coding:utf-8 -*-
 
-;; Copyright (C) 2011-2024 Donald Ephraim Curtis
-;; Copyright (C) 2012-2024 Steve Purcell
+;; Copyright (C) 2011-2021 Donald Ephraim Curtis
+;; Copyright (C) 2012-2021 Steve Purcell
 ;; Copyright (C) 2018-2026 Jonas Bernoulli
-;; Copyright (C) 2021-2023 Free Software Foundation, Inc
-;; Copyright (C) 2009 Phil Hagelberg
+;; Copyright (C) 2021-2023 Free Software Foundation, Inc.
 
-;; Author: Donald Ephraim Curtis <dcurtis@milkbox.net>
-;; Maintainer: Jonas Bernoulli <emacs.package-build@jonas.bernoulli.dev>
+;; Author: Jonas Bernoulli <jonas@bernoulli.dev>
+;; Maintainer: Jonas Bernoulli <jonas@bernoulli.dev>
 ;; Homepage: https://github.com/melpa/package-build
 ;; Keywords: maint tools
 
