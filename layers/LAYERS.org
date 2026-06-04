@@ -11,6 +11,7 @@
   - [[#languagetool][LanguageTool]]
   - [[#spell-checking][Spell Checking]]
   - [[#syntax-checking][Syntax Checking]]
+  - [[#harper][Harper]]
 - [[#completion][Completion]]
   - [[#auto-completion][Auto-completion]]
   - [[#compleseus][Compleseus]]
@@ -371,6 +372,17 @@ This layer adds on-the-fly syntax checking to all supported language layers.
 Features:
 - Automatic syntax checking with [[http://www.flycheck.org/][Flycheck]] for various language layers.
 - Shows syntax error in pop-up window via [[https://github.com/flycheck/flycheck-pos-tip][flycheck-pos-tip]].
+
+** Harper
+
+[[file:+checkers/harper/README.org][+checkers/harper/README.org]]
+
+Features:
+- Offline grammar and spell checking via Harper's Rust based language server.
+- Integrated LSP diagnostics through Eglot, showing errors, warnings, and suggestions.
+- Quick fix actions and code actions accessible via `,` and `'` keys.
+- Toggle Harper for the current buffer with `SPC S h`.
+- Customizable binary path and arguments via `harper-ls-bin` and `harper-ls-args` layer variables.
 
 * Completion
 ** Auto-completion

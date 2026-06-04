@@ -503,6 +503,7 @@ both Racer and RLS not being maintained anymore.
 - import-js (thanks to Thanh Vuong and Seong Yong-ju)
 - kubernetes with tramp support (thanks to Matt Bray and Maxi Wolff)
 - languagetool (thanks to Robbert van der Helm)
+- harper (thanks to Lin Sun)
 - lsp (thanks to Fangrui Song, 0bl.blwl, Cormac Cannon, Juuso Valkeejärvi,
   Guan Xipeng, Ivan Yonchovski, Justin Martin, dscole and Sylvain Benner)
 - node (thanks to jupl)
