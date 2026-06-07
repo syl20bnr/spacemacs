@@ -489,7 +489,7 @@ or snapshots are build.")
 (defun package-build--release-placeholder ()
   ;; Always use at least three zero components before the snapshot
   ;; component, even if `package-build-minimal-release-components' asks
-  ;; for fewer.  Subtract one because the separator is added elsewhwere.
+  ;; for fewer.  Subtract one because the separator is added elsewhere.
   (make-list (1- (max 3 package-build-minimal-release-components)) 0))
 
 ;;;; Tag
@@ -1033,7 +1033,8 @@ Use a sandbox if `package-build--use-sandbox' is non-nil."
        (unless package-build--inhibit-fetch
          (let ((default-directory dir))
            (package-build--message "Updating %s" dir)
-           (package-build--call-process rcp "git" "fetch" "-f" "--tags" "origin")
+           (package-build--call-process
+            rcp "git" "fetch" "-f" "--tags" "--prune" "--prune-tags" "origin")
            ;; We might later checkout "origin/HEAD". Sadly "git fetch"
            ;; cannot be told to keep it up-to-date, so we have to make
            ;; a second request.
