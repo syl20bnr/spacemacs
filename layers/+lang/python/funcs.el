@@ -92,6 +92,7 @@
         (require (pcase python-lsp-server
                    ('pylsp 'lsp-pylsp)
                    ('pyright 'lsp-pyright)
+                   ('ty 'lsp-python-ty)
                    (x (user-error "Unknown value for `python-lsp-server': %s" x))))
         (lsp-deferred))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))

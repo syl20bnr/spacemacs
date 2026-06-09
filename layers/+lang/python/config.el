@@ -33,7 +33,7 @@ If `nil' then `anaconda' is the default backend unless the `lsp' layer is used."
 (put 'python-backend 'safe-local-variable #'symbolp)
 
 (defvar python-lsp-server 'pylsp
-  "Language server for lsp backend. Possible values are `pylsp', `pyright'")
+  "Language server for lsp backend. Possible values are `pylsp', `pyright', `ty'")
 (put 'python-lsp-server 'safe-local-variable #'symbolp)
 
 (defvar python-lsp-git-root nil
@@ -47,13 +47,13 @@ If `nil' then `anaconda' is the default backend unless the `lsp' layer is used."
 
 (defvar python-formatter
   (if (and (configuration-layer/layer-used-p 'lsp)
-           ;; pyright does not support formatting
+           ;; pyright and ty do not support formatting
            (eq python-lsp-server 'pylsp))
       'lsp
     'yapf)
   "The formatter to use. Possible values are `yapf', `black', `ruff' and `lsp'.
 The default formatter is `yapf' unless both the `lsp' layer is used,
-and `python-lsp-server' is `pylsp' (pyright does not support formatting).")
+and `python-lsp-server' is `pylsp' (pyright and ty do not support formatting).")
 
 (defvar python-format-on-save nil
   "If non-nil, automatically format code with formatter selected

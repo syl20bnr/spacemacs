@@ -15,6 +15,7 @@
   - [[#language-server-protocol][Language Server Protocol]]
     - [[#python-lsp-server][python-lsp-server]]
     - [[#microsoft-pyright-language-server][Microsoft pyright language server]]
+    - [[#ty-language-server][ty language server]]
 - [[#additional-tools][Additional tools]]
   - [[#syntax-checking][Syntax checking]]
   - [[#test-runner][Test runner]]
@@ -58,9 +59,10 @@ This layer adds support for the Python language.
 ** Features:
 - Support for the following backends:
   - [[https://github.com/proofit404/anaconda-mode][anaconda]] (default),
-  - [[https://github.com/emacs-lsp/lsp-mode/blob/master/clients/lsp-pylsp.el][Language Server Protocol]] (experimental - 2 implementations),
+  - [[https://github.com/emacs-lsp/lsp-mode][Language Server Protocol]] (3 implementations),
     - python-lsp-server
     - Microsoft pyright language server
+    - ty language server
 - Auto-completion
 - Code Navigation
 - Documentation Lookup using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] and [[https://github.com/tsgates/pylookup][pylookup]]
@@ -145,6 +147,7 @@ The =lsp= backend can use either of the following language server implementation
 |----------+-------------------------------------|
 | 'pylsp   | [[https://pypi.org/project/python-lsp-server/][python-lsp-server package]] (default) |
 | 'pyright | [[https://github.com/emacs-lsp/lsp-pyright][Microsoft pyright language server]]   |
+| 'ty      | [[https://docs.astral.sh/ty/][ty language server]]                  |
 
 =pylsp= is default value for =python-lsp-server=, an example for use =pylsp=:
 
@@ -157,6 +160,13 @@ variable as follows:
 
 #+BEGIN_SRC elisp
   (python :variables python-backend 'lsp python-lsp-server 'pyright)
+#+END_SRC
+
+To use the ty language server, set the =python-lsp-server= layer variable as
+follows:
+
+#+BEGIN_SRC elisp
+  (python :variables python-backend 'lsp python-lsp-server 'ty)
 #+END_SRC
 
 *** python-lsp-server
@@ -191,6 +201,19 @@ installed via pip, yarn or npm as follows:
   yarn global add pyright
   # or via npm
   npm install -g pyright
+#+END_SRC
+
+*** ty language server
+[[https://docs.astral.sh/ty/][Ty]] is an extremely fast Python type checker and language server written in Rust
+by Astral (the creators of Ruff and uv). See the [[https://docs.astral.sh/ty/installation/][official installation guide]] for
+all methods.
+
+#+BEGIN_SRC sh
+  # project (recommended, also [[#manage-environments-and-packages-with-uv][enable uv support]])
+  uv add --dev ty
+
+  # global
+  uv tool install ty@latest
 #+END_SRC
 
 * Additional tools
@@ -241,8 +264,8 @@ The default =python-formatter= is =yapf=, with the following exception: When
 both the =lsp= layer is used, and =python-lsp-server= is =pylsp=, the default
 formatter is =lsp=.
 
-Note that the =pyright= language server does not support formatting, but it
-can be used alongside with =ruff=, which does support it.
+Note that the =pyright= and =ty= language servers do not support formatting,
+but they can be used alongside with =ruff=, which does support it.
 
 The key binding ~SPC m =~ invokes the selected formatter on the current buffer
 when in non LSP python mode otherwise ~SPC m ==~ is used.
