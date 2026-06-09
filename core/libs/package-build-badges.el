@@ -32,12 +32,21 @@
 
 ;;; Code:
 
+(require 'cl-lib)
+
 (defvar package-build-badge-data)
 
-(defun package-build--write-badge-image ( name version target-dir
-                                          &optional archive color)
+(cl-defun package-build--write-badge-image ( name version target-dir
+                                             &optional archive color)
   "Make badge svg file.
 This is essentially a copy of `elpaa--make-badge'."
+  (unless (or (executable-find "magick")
+              (executable-find "convert"))
+    (message "Install ImageMagick to create badges, or %s to ./config.mk %s"
+             "add CONFIG=\"(setq package-build-badge-data nil)\""
+             "to avoid this message")
+    (setq package-build-badge-data nil)
+    (cl-return-from package-build--write-badge-image))
   (let* ((file (expand-file-name (concat name "-badge.svg") target-dir))
          (left (or archive (car package-build-badge-data) "myElpa"))
          (right version)

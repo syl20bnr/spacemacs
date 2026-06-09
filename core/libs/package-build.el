@@ -434,6 +434,21 @@ or snapshots are build.")
       (oset rcp version version)
       (oset rcp revdesc revdesc))))
 
+(cl-defmethod package-build--head ((rcp package-git-recipe))
+  (with-slots (commit branch) rcp
+    (or commit
+        (and branch (concat "origin/" branch))
+        "origin/HEAD")))
+
+(cl-defmethod package-build--head ((rcp package-hg-recipe))
+  ;; This isn't really HEAD, but the complicated argument "hg log"
+  ;; apparently needs, to show a simple list of the relevant commits.
+  (with-slots (commit branch) rcp
+    (format "sort(ancestors(%s), -rev)"
+            (or commit
+                (format "max(branch(%s))"
+                        (or branch "default"))))))
+
 (cl-defmethod package-build--select-commit ((rcp package-git-recipe) rev exact)
   (if-let* ((commit
              (car (apply #'process-lines
@@ -586,18 +601,22 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil."
   (process-lines "hg" "files" "--include" "**/*.el"))
 
 (cl-defmethod package-build--insert-version-header-log
-  ((_rcp package-git-recipe) lib)
+  ((rcp package-git-recipe) lib)
   (call-process "git" nil t nil
                 "log" "--first-parent" "--no-renames"
                 "--pretty=format:commit %H %cd" "--date=unix"
-                "-L" (format "/^;;* *\\(Package-\\)\\?Version:/,+1:%s" lib)))
+                "-L" (format "/^;;* *\\(Package-\\)\\?Version:/,+1:%s" lib)
+                (package-build--head rcp)))
 
 (cl-defmethod package-build--insert-version-header-log
-  ((_rcp package-hg-recipe) _lib)
+  ((rcp package-hg-recipe) lib)
   (call-process "hg" nil t nil
-                "log" "--first-parent"
-                "--template" "commit: {node} {date|hgdate}\n"
-                )) ; TODO What is the equivalent of Git's "-L"?
+                "log"
+                "--template" "commit {node} {date|hgdate}\n"
+                "--rev" (package-build--head rcp)
+                ;; Unlike Git's "-L" that prints the full diff for LIB,
+                ;; but that should be okay.
+                "-p" "--" lib))
 
 ;;;; Fallback
 
@@ -703,9 +722,8 @@ VERSION-STRING has the format \"%Y%m%d.%H%M\"."
 
 (cl-defmethod package-build--timestamp-version ((rcp package-git-recipe))
   (pcase-let*
-      (((eieio commit branch) rcp)
-       (branch (and branch (concat "origin/" branch)))
-       (rev (or commit branch "origin/HEAD"))
+      (((eieio commit) rcp)
+       (rev (package-build--head rcp))
        (`(,rev-hash ,rev-time) (package-build--select-commit rcp rev commit))
        (`(,tag-hash ,tag-time) (package-build-tag-version rcp)))
     ;; If the latest commit that touches a relevant file is an ancestor of
@@ -723,12 +741,8 @@ VERSION-STRING has the format \"%Y%m%d.%H%M\"."
       (list rev-hash rev-time))))
 
 (cl-defmethod package-build--timestamp-version ((rcp package-hg-recipe))
-  (pcase-let* (((eieio commit branch) rcp)
-               (rev (format "sort(ancestors(%s), -rev)"
-                            (or commit
-                                (format "max(branch(%s))"
-                                        (or branch "default"))))))
-    (package-build--select-commit rcp rev nil)))
+  ;; Someone who likes hg can volunteer to implement the merge-base logic.
+  (package-build--select-commit rcp (package-build--head rcp) nil))
 
 (define-obsolete-function-alias 'package-build-get-snapshot-version
   'package-build-snapshot-version "Package-Build 5.0.0")
