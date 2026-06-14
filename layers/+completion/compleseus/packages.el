@@ -145,11 +145,6 @@
            ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
            ("M-s l" . consult-line))                 ;; needed by consult-line to detect isearch
 
-    ;; Enable automatic preview at point in the *Completions* buffer.
-    ;; This is relevant when you use the default completion UI,
-    ;; and not necessary for Vertico etc.
-    :hook (completion-list-mode . consult-preview-at-point-mode)
-
     ;; The :init configuration is always executed (Not lazy)
     :init
     ;; disable automatic preview by default
