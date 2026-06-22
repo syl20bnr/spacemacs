@@ -136,6 +136,12 @@
       :mode indent-guide-global-mode
       :documentation "Highlight indentation level at point globally. (alternative to highlight-indentation)."
       :evil-leader "t TAB")
+    :config
+    ;; `helm-major-mode' is special only via its `mode-class' property and has
+    ;; no `derived-mode-parent', so indent-guide's `derived-mode-p' check (which
+    ;; walks the parent chain, not `mode-class') never matches it against
+    ;; `special-mode' and the default inhibit list misses helm buffers.
+    (add-to-list 'indent-guide-inhibit-modes 'helm-major-mode)
     :spacediminish (" ⓘ" " i")))
 
 (defun spacemacs-editing-visual/init-rainbow-delimiters ()

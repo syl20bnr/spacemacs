@@ -142,6 +142,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 - Other:
   - Support for multiple cursors using =evil-mc= is now encapsulated in the
     =multiple-cursors= layer (thanks to Codruț Constantin Gușoi)
+  - Inhibit =indent-guide= in =helm= buffers so =indent-guide-global-mode= no
+    longer breaks =helm= with "Args out of range"
 ***** C-C++
 - CMake support has been extracted from the =c-c++= layer into the new =cmake=
   layer.
