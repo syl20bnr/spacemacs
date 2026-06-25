@@ -21,8 +21,8 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-EMACS_DIR = $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-TEST_NAME = `basename $(TEST_DIR) | tr a-z A-Z`
+EMACS_DIR = $(shell dirname "$(realpath $(lastword $(MAKEFILE_LIST)))")
+TEST_NAME = `basename "$(TEST_DIR)" | tr a-z A-Z`
 
 all: test
 
@@ -32,18 +32,18 @@ installation:
 	@echo "================================================================="
 	@echo "INSTALLATION OF PACKAGES FOR $(TEST_NAME)"
 	@echo "================================================================="
-	SPACEMACSDIR=$(TEST_DIR) emacs -Q -batch \
+	SPACEMACSDIR="$(TEST_DIR)" emacs -Q -batch \
 		--eval '(setq package-check-signature nil)' \
-		$(addprefix -l $(EMACS_DIR)/, $(LOAD_FILES))
+		$(addprefix -l "$(EMACS_DIR)/", $(LOAD_FILES))
 
 ifneq ($(strip $(UNIT_TEST_FILES)),)
 unit_tests:
 	@echo "================================================================="
 	@echo "UNIT TESTS FOR $(TEST_NAME)"
 	@echo "================================================================="
-	SPACEMACSDIR=$(TEST_DIR) emacs -Q -batch -l ert \
-		$(addprefix -l $(EMACS_DIR)/, $(LOAD_FILES)) \
-		$(addprefix -l $(TEST_DIR)/, $(UNIT_TEST_FILES)) \
+	SPACEMACSDIR="$(TEST_DIR)" emacs -Q -batch -l ert \
+		$(addprefix -l "$(EMACS_DIR)/", $(LOAD_FILES)) \
+		$(addprefix -l "$(TEST_DIR)/", $(UNIT_TEST_FILES)) \
 		-f ert-run-tests-batch-and-exit
 endif
 
@@ -52,9 +52,9 @@ func_tests:
 	@echo "================================================================="
 	@echo "FUNCTIONAL TESTS FOR $(TEST_NAME)"
 	@echo "================================================================="
-	SPACEMACSDIR=$(TEST_DIR) emacs -Q -batch -l ert \
-		$(addprefix -l $(EMACS_DIR)/, $(LOAD_FILES)) \
-		$(addprefix -l $(TEST_DIR)/, $(FUNC_TEST_FILES)) \
+	SPACEMACSDIR="$(TEST_DIR)" emacs -Q -batch -l ert \
+		$(addprefix -l "$(EMACS_DIR)/", $(LOAD_FILES)) \
+		$(addprefix -l "$(TEST_DIR)/", $(FUNC_TEST_FILES)) \
 		-f ert-run-tests-batch-and-exit
 endif
 

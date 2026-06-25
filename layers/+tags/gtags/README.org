@@ -128,7 +128,7 @@ And finally:
 
 **** Configure your environment to use pygments and ctags
 To be able to use =pygments= and =ctags=, you need to copy the sample
-=gtags.conf= either to =/etc/gtags.conf= or =$HOME/.globalrc=. For example:
+=gtags.conf= either to =/etc/gtags.conf= or ="${HOME}/.globalrc"=. For example:
 
 #+BEGIN_SRC sh
   cp gtags.conf ~/.globalrc

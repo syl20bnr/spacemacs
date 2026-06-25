@@ -16,13 +16,13 @@ abs_p() {
     [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
 }
 
-ln -s "$(pwd)" $HOME/.emacs.d
-cp .github/workflows/scripts/dot_lock.el ~/.emacs.d/.lock
+ln -s "$(pwd)" "${HOME}/.emacs.d"
+cp .github/workflows/scripts/dot_lock.el "${HOME}/.emacs.d/.lock"
 
-testdir=$(abs_p tests/$1)
+testdir="$(abs_p tests/$1)"
 cd ..
 
-echo "Running '$2' for '$1' in '$testdir' folder"
-cd $testdir && echo "Now in $(pwd)"
+echo "Running '$2' for '$1' in '${testdir}' folder"
+cd "${testdir}" && echo "Now in $(pwd)"
 make $2
 exit $?

@@ -543,7 +543,7 @@ the new configuration. This can be achieved easily using the following steps:
 #+END_SRC
 
 If you're on Fish shell, you will need to modify the last command to:
-=env HOME=$HOME/spacemacs emacs=
+=env HOME="${HOME}/spacemacs" emacs=
 
 ** Try the default Spacemacs config without modifying my existing .spacemacs?
 You can pass either the =--default-dotspacemacs= (recommended) or

@@ -157,7 +157,7 @@ new contexts feature.
 
 ** Attachment directory
 By default =mu4e= will save attachment files to =$HOME=, but this layer changes
-that to =$HOME/Downloads= if it exists. You can override this in your
+that to ="${HOME}/Downloads"= if it exists. You can override this in your
 =dotspacemacs/user-config=:
 
 #+BEGIN_SRC emacs-lisp
