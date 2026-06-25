@@ -41,3 +41,33 @@
               (not treemacs-lock-width))
     (treemacs-without-messages
      (treemacs-toggle-fixed-width))))
+
+(defun spacemacs/treemacs-on-frame-resize (frame)
+  "Auto-hide/restore treemacs and maintain its width on frame resize."
+  (let* ((treemacs-window (treemacs-get-local-window))
+         (main-width (- (frame-width frame) treemacs-width)))
+    (when treemacs-window
+      (with-selected-window treemacs-window
+        (treemacs--set-width treemacs-width)))
+    (when treemacs-auto-hide-min-width
+      (if (< main-width treemacs-auto-hide-min-width)
+          (when treemacs-window
+            (unless (frame-parameter frame 'spacemacs-treemacs-manual-override)
+              (set-frame-parameter frame 'spacemacs-treemacs-auto-hidden t)
+              (delete-window treemacs-window)))
+        (set-frame-parameter frame 'spacemacs-treemacs-manual-override nil)
+        (when (frame-parameter frame 'spacemacs-treemacs-auto-hidden)
+          (set-frame-parameter frame 'spacemacs-treemacs-auto-hidden nil)
+          (unless treemacs-window
+            (let ((current-window (selected-window)))
+              (treemacs)
+              (select-window current-window))))))))
+
+(defun spacemacs/treemacs-manual-open (&rest _)
+  "Prevent automatic re-hiding of treemacs when manually opened
+in a narrow frame."
+  (when treemacs-auto-hide-min-width
+    (let ((frame (selected-frame)))
+      (when (< (- (frame-width frame) treemacs-width)
+               treemacs-auto-hide-min-width)
+        (set-frame-parameter frame 'spacemacs-treemacs-manual-override t)))))
