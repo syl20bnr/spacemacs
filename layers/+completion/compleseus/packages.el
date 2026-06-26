@@ -320,8 +320,7 @@
 
 (defun compleseus/init-embark-consult ()
   (use-package embark-consult
-    :after (embark consult)
-    :demand t))
+    :after (embark consult)))
 
 (defun compleseus/init-orderless ()
   (use-package orderless
