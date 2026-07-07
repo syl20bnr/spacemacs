@@ -1223,6 +1223,8 @@ Other:
   - Added ~s~ =hydra-dired-quick-sort/body= (thanks to duianto)
   - Added ~SPC p E~ for =projectile-find-references= (thanks to Alfonso Montero)
   - Evilify =proced= (thanks to Jaehyun Yeom)
+  - Removed ~SPC p g~ and ~SPC p G~ for tags-related commands, which
+    have been deleted (thanks to Aaron Zeng)
 - Improvements:
   - Inhibited golden-ratio mode from interfering with ediff windows
   - Rewrote window layout functions for ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and
