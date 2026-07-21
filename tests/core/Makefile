@@ -20,7 +20,8 @@
 ## You should have received a copy of the GNU General Public License
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-TEST_DIR := $(shell dirname "$(realpath $(lastword $(MAKEFILE_LIST)))")
+TEST_DIR := $(shell dirname "$(realpath $(lastword $(MAKEFILE_LIST)))" \
+	| sed 's/ /\\ /g')
 
 LOAD_FILES = init.el core/core-versions.el core/core-load-paths.el
 UNIT_TEST_FILES = $(wildcard *-utest.el)
