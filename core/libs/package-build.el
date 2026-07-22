@@ -11,7 +11,7 @@
 ;; Homepage: https://github.com/melpa/package-build
 ;; Keywords: maint tools
 
-;; Package-Version: 4.0.0.50-git
+;; Package-Version: 5.0.0
 ;; Package-Requires: (
 ;;     (emacs  "26.1")
 ;;     (compat "31.0"))
@@ -38,6 +38,10 @@
 ;; describe Emacs Lisp projects and repositories from which to get
 ;; them.
 
+;; This package is used by, and maintained as part of, MELPA.
+;; You can also use it to create your own ELPA with little effort,
+;; see https://codeberg.org/tarsius/myelpa/wiki.
+
 ;;; Code:
 
 (require 'cl-lib)
@@ -58,9 +62,6 @@
 (defgroup package-build nil
   "Curate an Emacs Lisp package archive."
   :group 'development)
-
-(define-obsolete-variable-alias 'package-build--melpa-base
-  'package-build-directory "Package-Build 5.0.0")
 
 (defcustom package-build-directory
   (let ((dir (file-name-directory
@@ -106,9 +107,6 @@ Usually this is a subdirectory of `package-build-directory'."
 (defcustom package-build-verbose t
   "Whether to print additional progress information during builds."
   :type 'boolean)
-
-(define-obsolete-variable-alias 'package-build-stable
-  'package-build-releases "Package-Build 5.0.0")
 
 (defcustom package-build-releases nil
   "Whether to build release or snapshot packages.
@@ -236,9 +234,6 @@ similar, which will provide the GNU timeout program as
 \"gtimeout\"."
   :type '(file :tag "Executable"))
 
-(define-obsolete-variable-alias 'package-build-timeout-secs
-  'package-build-timeout "Package-Build 5.0.0")
-
 (defcustom package-build-timeout nil
   "Timeout if a process takes more seconds to complete.
 
@@ -260,9 +255,6 @@ similar, which will provide the GNU tar program as
 (defvar package-build--tar-type nil
   "Type of `package-build-tar-executable'.
 Can be `gnu' or `bsd'; nil means the type is not decided yet.")
-
-(define-obsolete-variable-alias 'package-build-write-melpa-badge-images
-  'package-build-badge-data "Package-Build 5.0.0")
 
 (defcustom package-build-badge-data nil
   "Text and color used in badge images, if any.
@@ -543,9 +535,6 @@ Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC TAG) or nil."
 (cl-defmethod package-build--list-tags ((_rcp package-hg-recipe))
   (delete "tip" (process-lines "hg" "tags" "--quiet")))
 
-(define-obsolete-function-alias 'package-build-get-tag-version
-  'package-build-tag-version "Package-Build 5.0.0")
-
 ;;;; Header
 
 (defun package-build-header-version (rcp)
@@ -743,9 +732,6 @@ VERSION-STRING has the format \"%Y%m%d.%H%M\"."
 (cl-defmethod package-build--timestamp-version ((rcp package-hg-recipe))
   ;; Someone who likes hg can volunteer to implement the merge-base logic.
   (package-build--select-commit rcp (package-build--head rcp) nil))
-
-(define-obsolete-function-alias 'package-build-get-snapshot-version
-  'package-build-snapshot-version "Package-Build 5.0.0")
 
 ;;;; Release+Timestamp
 
@@ -1023,11 +1009,6 @@ Use a sandbox if `package-build--use-sandbox' is non-nil."
                                 (list ".git" ".hg")))
               ,command ,@args)))
     ((apply #'package-build--call-process package command args))))
-
-(defun package-build--run-process (command &rest args)
-  "Like `package-build--call-process', but lacks the PACKAGE argument."
-  (apply #'package-build--call-process nil command args))
-(make-obsolete 'package-build--run-process 'package-build--call-process "5.0.0")
 
 ;;; Fetch
 
