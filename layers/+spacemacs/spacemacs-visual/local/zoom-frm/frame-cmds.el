@@ -8,9 +8,9 @@
 ;; Created: Tue Mar  5 16:30:45 1996
 ;; Version: 0
 ;; Package-Requires: ((frame-fns "0"))
-;; Last-Updated: Mon Dec 26 08:33:38 2022 (-0800)
-;;           By: dradams
-;;     Update #: 3189
+;; Last-Updated: Sun Jul 19 15:26:35 2026 (-0700)
+;;           By: drew0
+;;     Update #: 3191
 ;; URL: https://www.emacswiki.org/emacs/download/frame-cmds.el
 ;; Doc URL: https://emacswiki.org/emacs/FrameModes
 ;; Doc URL: https://www.emacswiki.org/emacs/OneOnOneEmacs
@@ -292,6 +292,8 @@
 ;;
 ;;; Change Log:
 ;;
+;; 2026/07/19 drew0
+;; Frame-Commands (defgroup): Updated mailto address.
 ;; 2020/09/13 dadams
 ;;     Added: toggle-menu-bar-for-frame.
 ;; 2019/12/13 dadams
@@ -635,10 +637,12 @@
   :group 'frames
   :prefix "frcmds-"
   :link `(url-link :tag "Send Bug Report"
-          ,(concat "mailto:" "drew.adams" "@" "oracle" ".com?subject=\
+          ,(format (concat "mailto:" "drew" "0000" "0001" "@gm" "ail" ".com?subject=\
 frame-cmds.el bug: \
-&body=Describe bug here, starting with `emacs -q'.  \
-Don't forget to mention your Emacs and library versions."))
+&body=Describe bug below, using a precise recipe that starts with `emacs -Q' or `emacs -q'.  \
+Be sure to mention the `Update #' from the file header.\
+%%0A%%0AEmacs version: %s")
+          (emacs-version)))
   :link '(url-link :tag "Other Libraries by Drew"
           "https://www.emacswiki.org/emacs/DrewsElispLibraries")
   :link '(url-link :tag "Download"
