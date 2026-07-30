@@ -1984,6 +1984,9 @@ Other:
     - ~SPC m d s n~ Create a new dotnet solution
     - ~SPC m d s r~ Remove from the current dotnet solution
     - ~SPC m d t~   Run tests for the current dotnet project
+**** Eglot
+- Key bindings:
+  - Added basic key bindings and jump handler for =eglot= (thanks to kenkangxgwe)
 **** Elfeed
 - Fixed selection bindings in visual state (thanks to Jeremy Symon)
 - Fixed not saving on quit (thanks to Andrew Stevanus)

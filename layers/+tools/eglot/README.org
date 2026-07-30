@@ -6,6 +6,14 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#in-development][In Development!]]
+- [[#key-bindings][Key bindings]]
+  - [[#format][Format]]
+  - [[#code-actions][Code actions]]
+  - [[#goto][Goto]]
+  - [[#backend][Backend]]
+  - [[#refactor][Refactor]]
+  - [[#toggles][Toggles]]
+- [[#language-layer-integration][Language layer integration]]
 
 * Description
 This layer adds support for basic language server protocol packages speaking
@@ -20,8 +28,64 @@ There is not much going on with this layer right now, it only has the most basic
 of setup. Hopefully each language layer will start adopting it and completing
 the integration.
 
-The first thing it needs it key bindings...
+* Key bindings
+A number of eglot features have been bound to the ~eglot--managed-mode~ minor mode,
+meaning they are available in all language layers using the eglot layer under
+the major mode leader key ~SPC m~ / ~,~:
 
+These key bindings are selected to match with the [[../lsp/][+tools/lsp]] layer regarding
+similar functions.
+
+** Format
+| Key binding | Description      |
+|-------------+------------------|
+| ~SPC m = b~ | Format buffer    |
+| ~SPC m = r~ | Format region    |
+| ~SPC m = o~ | Organize imports |
+
+** Code actions
+| Key binding | Description      |
+|-------------+------------------|
+| ~SPC m a a~ | Code actions     |
+| ~SPC m a f~ | Quickfix         |
+| ~SPC m a i~ | Inline           |
+| ~SPC m a e~ | Extract          |
+| ~SPC m a o~ | Organize imports |
+
+** Goto
+| Key binding | Description                   |
+|-------------+-------------------------------|
+| ~SPC m g d~ | Find definitions              |
+| ~SPC m g D~ | Find definitions other window |
+| ~SPC m g r~ | Find references               |
+| ~SPC m g i~ | Find implementation           |
+| ~SPC m g t~ | Find type definition          |
+| ~SPC m g C~ | Find declaration              |
+| ~SPC m g b~ | Go back                       |
+
+** Backend
+| Key binding | Description   |
+|-------------+---------------|
+| ~SPC m b r~ | Reconnect     |
+| ~SPC m b s~ | Shutdown      |
+| ~SPC m b e~ | Events buffer |
+| ~SPC m b S~ | Shutdown all  |
+
+** Refactor
+| Key binding | Description      |
+|-------------+------------------|
+| ~SPC m r r~ | Rename           |
+| ~SPC m r i~ | Inline           |
+| ~SPC m r e~ | Extract          |
+| ~SPC m r o~ | Organize imports |
+| ~SPC m r f~ | Format           |
+
+** Toggles
+| Key binding | Description        |
+|-------------+--------------------|
+| ~SPC m T h~ | Toggle inlay hints |
+
+* Language layer integration
 Here is an example on how to integrate eglot into the language backend of a layer:
 
 #+BEGIN_SRC elisp
