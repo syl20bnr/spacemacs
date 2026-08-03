@@ -22,8 +22,7 @@
 
 
 (defconst eglot-packages
-  '(eglot
-    (flycheck-eglot :requires flycheck)))
+  '(eglot))
 
 (defun eglot/init-eglot ()
   (use-package eglot
@@ -77,8 +76,6 @@
       "Th" #'eglot-inlay-hints-mode)
     ))
 
-(defun eglot/init-flycheck-eglot ()
-  (use-package flycheck-eglot
-    :after eglot
-    :config
+(defun eglot/post-init-flycheck ()
+  (with-eval-after-load 'flycheck
     (global-flycheck-eglot-mode)))
