@@ -18,6 +18,7 @@ mkdir -p ~/.emacs.d/.cache/.org-timestamps
 rm -rf /root/.emacs.d/elpa/28.2/develop/org-*
 
 emacs -batch \
+      --no-dotspacemacs \
       -l ~/.emacs.d/init.el \
       -l ~/.emacs.d/core/core-documentation.el \
       -f spacemacs/publish-doc
