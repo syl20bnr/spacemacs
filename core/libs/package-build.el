@@ -11,7 +11,7 @@
 ;; Homepage: https://github.com/melpa/package-build
 ;; Keywords: maint tools
 
-;; Package-Version: 5.0.0
+;; Package-Version: 5.0.1
 ;; Package-Requires: (
 ;;     (emacs  "26.1")
 ;;     (compat "31.0"))
@@ -125,15 +125,6 @@ This option is used to determine whether failure to come up with
 a version string should be considered an error or not."
   :type 'boolean)
 
-(make-obsolete-variable 'package-build-get-version-function
-                        'package-build-releases
-                        "Package-Build 5.0.0")
-(defvar package-build-get-version-function nil
-  "This variable is obsolete and its value should be nil.
-If this is non-nil, then it overrides
-`package-build-release-version-functions' and
-`package-build-snapshot-version-functions'.")
-
 (defcustom package-build-release-version-functions
   (list #'package-build-tag-version
         #'package-build-header-version
@@ -149,10 +140,7 @@ of COMMIT.  If a tag was involve in determining the version, then TAG
 is that tag and REVDESC contains that tag and an abbreviated commit
 hash.  If TAG exactly matches COMMIT, then REVDESC is just that TAG.
 Otherwise if no tag was involved then TAG is omitted and REVDESC is
-an abbreviation of COMMIT.
-
-If obsolete `package-build-get-version-function' is non-nil,
-then that overrides the value set here."
+an abbreviation of COMMIT."
   :type 'hook
   :options (list #'package-build-tag-version
                  #'package-build-header-version
@@ -175,10 +163,7 @@ an abbreviation of COMMIT.
 
 Some of the functions that return snapshot versions, internally
 use `package-build-release-version-functions' to determine the
-current release, which they use as part of the returned VERSION.
-
-If obsolete `package-build-get-version-function' is non-nil,
-then that overrides the value set here."
+current release, which they use as part of the returned VERSION."
   :type 'hook
   :options (list #'package-build-release+count-version
                  #'package-build-release+onecount-version
@@ -405,14 +390,6 @@ being run for a particular package."
       ((default-directory (package-recipe--working-tree rcp))
        (`(,commit ,time ,version ,revdesc)
         (cond
-          ((with-no-warnings package-build-get-version-function)
-           (display-warning 'package-build "\
-Variable `package-build-get-version-function' is obsolete.
-Instead set `package-build-release-version-functions'
-and/or `package-build-snapshot-version-functions', and
-set `package-build-releases' to control whether releases
-or snapshots are build.")
-           (with-no-warnings (funcall package-build-get-version-function rcp)))
           (package-build-releases
            (run-hook-with-args-until-success
             'package-build-release-version-functions rcp))
@@ -634,65 +611,6 @@ nil if `package-build-releases' is non-nil."
        (let ((package-build-release-version-functions nil))
          (run-hook-with-args-until-success
           'package-build-snapshot-version-functions rcp))))
-
-;;;; NAME-pkg
-
-(defun package-build-pkg-version (rcp)
-  "Determine version specified in the \"NAME-pkg.el\" file.
-Return (COMMIT-HASH COMMITTER-DATE VERSION-STRING REVDESC) or nil."
-  (declare (obsolete "extract version from tag and/or main library instead."
-                     "Package-Build 5.0.0"))
-  (and-let* ((file (package-build--pkgfile rcp)))
-    (let ((regexp (package-build--version-regexp rcp))
-          commit date version)
-      (catch 'before-latest
-        (pcase-dolist (`(,c ,d) (package-build--pkgfile-commits rcp file))
-          (with-temp-buffer
-            (save-excursion
-              (package-build--insert-pkgfile rcp c file))
-            (when-let* ((n (ignore-errors (nth 2 (read (current-buffer)))))
-                        (v (ignore-errors
-                             (version-to-list
-                              (and (string-match regexp n)
-                                   ;; Use match-group 0, not 1, because in
-                                   ;; this file a version string without a
-                                   ;; prefix is expected.
-                                   (match-string 0 n))))))
-              (when (and version (not (equal v version)))
-                (throw 'before-latest nil))
-              (setq commit c)
-              (setq date d)
-              (setq version v)))))
-      (and version
-           (list commit
-                 (string-to-number date)
-                 (package-version-join version)
-                 (package-build--revdesc rcp commit))))))
-
-(defun package-build--pkgfile (rcp)
-  (package-build--match-library rcp (concat (oref rcp name) "-pkg.el")))
-
-(cl-defmethod package-build--pkgfile-commits
-  ((_rcp package-git-recipe) file)
-  (mapcar (lambda (line) (split-string line " "))
-          (process-lines "git" "log" "--first-parent"
-                         "--pretty=format:%H %cd" "--date=unix"
-                         "--" file)))
-
-(cl-defmethod package-build--pkgfile-commits
-  ((_rcp package-hg-recipe) file)
-  (mapcar (lambda (line) (seq-take (split-string line " ") 2))
-          (process-lines "hg" "log"
-                         "--template" "{node} {date|hgdate}\n"
-                         "--" file)))
-
-(cl-defmethod package-build--insert-pkgfile
-  ((_rcp package-git-recipe) commit file)
-  (call-process "git" nil t nil "show" (concat commit ":" file)))
-
-(cl-defmethod package-build--insert-pkgfile
-  ((_rcp package-hg-recipe) commit file)
-  (call-process "hg" nil t nil "cat" "-r" commit file))
 
 ;;;; Timestamp
 
@@ -1364,43 +1282,6 @@ is the same as the value of `export_file_name'."
         (oset rcp authors (package-build--authors))
         (oset rcp maintainers (package-build--maintainers))))))
 
-(defun package-build--extract-from-package (rcp files)
-  "Store information from the \"*-pkg.el\" file from FILES in RCP."
-  (declare (obsolete "exclusively extract metadata from main library instead."
-                     "Package-Build 5.0.0"))
-  (let* ((name (oref rcp name))
-         (file (concat name "-pkg.el"))
-         (file (or (car (rassoc file files)) file)))
-    (when (or (file-exists-p file)
-              (file-exists-p (setq file (concat file ".in"))))
-      (let ((form (with-temp-buffer
-                    (insert-file-contents file)
-                    (read (current-buffer)))))
-        (unless (eq (car-safe form) 'define-package)
-          (package-build--error name "No define-package found in %s" file))
-        (pcase-let* ((`(,_ ,_ ,_ ,summary ,deps . ,plist) form))
-          (when summary
-            (oset rcp summary (package-build--normalize-summary summary)))
-          (oset rcp dependencies
-                (mapcar (pcase-lambda (`(,pkg ,ver))
-                          (unless (symbolp pkg)
-                            (package-build--error name
-                              "Invalid package name in dependency: %S" pkg))
-                          (list pkg ver))
-                        (eval deps)))
-          (when-let* ((v (or (alist-get :url plist)
-                             (alist-get :homepage plist))))
-            (oset rcp webpage
-                  (if (string-match package-build--http-regexp v)
-                      (replace-match "https" t t v 1)
-                    v)))
-          (when-let* ((v (alist-get :keywords plist)))
-            (oset rcp keywords v))
-          (when-let* ((v (alist-get :maintainers plist)))
-            (oset rcp maintainers v))
-          (when-let* ((v (alist-get :authors plist)))
-            (oset rcp authors v)))))))
-
 (defun package-build--normalize-summary (summary)
   (if (or (not summary) (string-empty-p summary))
       "[No description available]"
@@ -1709,58 +1590,6 @@ in `package-build-archive-dir'."
       (package-build--error name
         "Missing library \"%s.el\" matching package name `%s'" name name))
     (package-build--extract-from-library rcp files)
-    (unless package-build--inhibit-build
-      (unwind-protect
-          (progn
-            (package-build--copy-package-files files target)
-            (package-build--set-version-headers rcp target)
-            (package-build--write-pkg-file rcp target)
-            (package-build--generate-info-files rcp files target)
-            (package-build--create-tar rcp tmpdir)
-            (package-build--write-pkg-readme rcp files))
-        (delete-directory tmpdir t nil)))
-    (package-build--write-archive-entry rcp)))
-
-(defun package-build--legacy-build (rcp files)
-  (declare (obsolete package-build--build-package "Package-Build 5.0.0"))
-  (with-suppressed-warnings ((obsolete package-build--build-single-file-package
-                                       package-build--build-multi-file-package))
-    (if (= (length files) 1)
-        (package-build--build-single-file-package rcp files)
-      (package-build--build-multi-file-package rcp files))))
-
-(defun package-build--build-single-file-package (rcp files)
-  (declare (obsolete package-build--build-package "Package-Build 5.0.0"))
-  (oset rcp tarballp nil)
-  (pcase-let* (((eieio name version) rcp)
-               (file (caar files))
-               (source (expand-file-name file))
-               (target (expand-file-name (concat name "-" version ".el")
-                                         package-build-archive-dir)))
-    (unless (equal (file-name-sans-extension (file-name-nondirectory file))
-                   name)
-      (package-build--error name
-        "Single file %s does not match package name %s" file name))
-    (package-build--extract-from-library rcp target)
-    (unless package-build--inhibit-build
-      (copy-file source target t)
-      (package-build--set-version-headers rcp target)
-      (package-build--write-pkg-readme rcp files))
-    (package-build--write-archive-entry rcp)))
-
-(defun package-build--build-multi-file-package (rcp files)
-  (declare (obsolete package-build--build-package "Package-Build 5.0.0"))
-  (pcase-let* (((eieio name version) rcp)
-               (tmpdir (file-name-as-directory
-                        (make-temp-file (concat name "-") t)))
-               (target (expand-file-name (concat name "-" version) tmpdir)))
-    (unless (or (rassoc (concat name ".el") files)
-                (rassoc (concat name "-pkg.el") files))
-      (package-build--error name
-        "%s[-pkg].el matching package name is missing" name))
-    (package-build--extract-from-library rcp files)
-    (with-suppressed-warnings ((obsolete package-build--extract-from-package))
-      (package-build--extract-from-package rcp files))
     (unless package-build--inhibit-build
       (unwind-protect
           (progn
