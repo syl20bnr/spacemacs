@@ -37,6 +37,7 @@
   - [[#eshell-1][Eshell]]
   - [[#vterm][vterm]]
   - [[#multi-vterm][Multi-vterm]]
+  - [[#ghostel][ghostel]]
 
 * Description
 This layer configures the various shells available in Emacs.
@@ -315,6 +316,7 @@ Some advanced configuration is setup for =eshell= in this layer:
 | ~SPC a t s t~ | Toggle pop-shell with =ansi-term=                        |
 | ~SPC a t s T~ | Toggle pop-shell with =term=                             |
 | ~SPC a t s v~ | Toggle pop-shell with =vterm=                            |
+| ~SPC a t s g~ | Toggle pop-shell with =ghostel=                          |
 |---------------+----------------------------------------------------------|
 | ~SPC p '​~     | Toggle pop-shell with your default shell in project root |
 | ~SPC p "​~     | Open external terminal emulator in project root          |
@@ -373,3 +375,13 @@ For example with bash
 | ~SPC m n~              | go to next multi-vterm     |
 | ~SPC m N~ or ~SPC m p~ | go to previous multi-vterm |
 | ~SPC m r~              | rename vterm buffer        |
+
+** ghostel
+
+Ghostel is a terminal emulator powered by `libghostty`. It offers fast rendering
+and built‑in copy/Emacs navigation modes. The layer provides:
+- REPL registration (`spacemacs/register-repl 'ghostel 'ghostel`).
+- A `shell-pop` command (`make-shell-pop-command "ghostel" ghostel`).
+- Leader key `SPC a t s g` (bound to `spacemacs/shell-pop-ghostel`).
+- Toggle variable `shell-enable-ghostel-support` (default `t`).
+- Requires the system package `libghostty`.

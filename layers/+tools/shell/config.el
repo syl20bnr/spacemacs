@@ -52,7 +52,7 @@ Possible values are `ansi-term' (default for Linux/macOS),
   "Width in percents for the shell window.")
 
 (defvar shell-default-term-shell shell-file-name
-  "Default shell to use in `term', `ansi-term' and `vterm' shells.")
+  "Default shell to use in `term', `ansi-term', `vterm', and `ghostel' shells.")
 
 (defvar shell-enable-smart-eshell nil
   "If non-nil then `em-smart' is enabled.
@@ -83,6 +83,12 @@ This is only applied to `term' and `ansi-term' modes.")
 
 These packages require dynamic module support in your Emacs, as
 well as cmake and libtool.  See the layer README for details.")
+
+(defvar shell-enable-ghostel-support
+  (and module-file-suffix (not (spacemacs/system-is-mswindows)))
+  "If non-nil, enable the `ghostel' package.
+
+Requires libghostty to be installed on the system.")
 
 (defvar spacemacs-vterm-history-file-location nil
   "Bash history full file name.")
