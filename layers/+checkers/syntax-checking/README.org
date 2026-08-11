@@ -67,7 +67,7 @@ in =dotspacemacs/user-config=. (Because =dotspacemacs/user-config= is evaluated
 after layers so your settings won't be overridden.)
 
 ** Tooltip Pop-up
-By default, tooltips are shown when the point is on errors after a short delay.
+By default, inline error annotations are shown when point is on errors.
 You can disable them by setting the variable =syntax-checking-enable-tooltips=
 to =nil=.
 
@@ -75,30 +75,6 @@ to =nil=.
   (setq-default dotspacemacs-configuration-layers
                 '((syntax-checking :variables
                                    syntax-checking-enable-tooltips nil)))
-#+END_SRC
-
-By default the tooltip pop-up window persists. If you prefer it to be hidden
-automatically after a certain number of seconds, you can set the variable
-=syntax-checking-auto-hide-tooltips= to a positive value. For example, to
-hide it after 5 seconds:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-                '((syntax-checking :variables
-                                   syntax-checking-auto-hide-tooltips 5)))
-#+END_SRC
-
-Because flycheck almost immediately shows the tooltip pop-up window it can
-potentially hide code before or after the current line you're on.
-If you prefer it to show up only after a certain amount of time has passed,
-you can set the variable =syntax-checking-tooltips-delay= to a positive value.
-Otherwise flychecks default value of 0.9 is used.
-Example:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-                '((syntax-checking :variables
-                                   syntax-checking-tooltips-delay 5)))
 #+END_SRC
 
 ** Error List Pop-up

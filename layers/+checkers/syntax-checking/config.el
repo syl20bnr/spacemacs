@@ -30,17 +30,6 @@
   "If non-nil display tooltips when hovering on errors."
   '(boolean))
 
-(spacemacs|defc syntax-checking-auto-hide-tooltips nil
-  "Auto hide tooltips after the given number of seconds.
-If non-positive or nil, do not hide tooltip."
-  '(number))
-
-(spacemacs|defc syntax-checking-tooltips-delay nil
-  "Show tooltips only after the given number of seconds have passed.
-If non-positive or nil, wait the default amount of time before
-showing tooltip."
-  '(number))
-
 ;; a small circle used for flycheck-indication-mode
 (define-fringe-bitmap 'syntax-checking--fringe-indicator
   (vector #b00000000

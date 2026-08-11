@@ -28,7 +28,6 @@
 (defconst syntax-checking-packages
   '(
     flycheck
-    (flycheck-pos-tip :toggle syntax-checking-enable-tooltips)
     popwin))
 
 (defun syntax-checking/init-flycheck ()
@@ -41,7 +40,6 @@
                    (global-flycheck-mode 1)))
       lazy-load-flycheck)
     (setq flycheck-standard-error-navigation syntax-checking-use-standard-error-navigation
-          flycheck-display-errors-delay (or syntax-checking-tooltips-delay 0.9)
           flycheck-global-modes nil)
     ;; key bindings
     (spacemacs/set-leader-keys
@@ -61,6 +59,8 @@
       :documentation "Enable error and syntax checking."
       :evil-leader "ts")
     :config
+    (when syntax-checking-enable-tooltips
+      (global-flycheck-annotate-mode))
     ;; Custom fringe/margin indicator
     (pcase-let ((`(,bitmap . ,margin-str) syntax-checking-indication-symbol))
       (when (booleanp syntax-checking-use-original-bitmaps)
@@ -76,13 +76,6 @@
       "k" #'flycheck-error-list-previous-error
       "J" #'next-line
       "K" #'previous-line)))
-
-(defun syntax-checking/init-flycheck-pos-tip ()
-  (use-package flycheck-pos-tip
-    :after (flycheck)
-    :init
-    (flycheck-pos-tip-mode)
-    (setq flycheck-pos-tip-timeout (or syntax-checking-auto-hide-tooltips 0))))
 
 (defun syntax-checking/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
