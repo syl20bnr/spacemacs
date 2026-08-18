@@ -128,7 +128,6 @@ In addition, this layer adds the following key bindings to =org-mode=
 | ~SPC m $ g p~ | gptel-org-set-properties | Set properties in Org-mode |
 
 ** gptel-agent
-
 In addition to the bindings offered by gptel, these bindings are unique to gptel-agent.
 
 | Key binding | Command            | Description                      |

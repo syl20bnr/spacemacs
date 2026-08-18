@@ -1207,10 +1207,12 @@ Key binding prefixes:
 | ~SPC m r q~ | Kill current response headers buffer and its window |
 
 ** Org-modern
+
 | Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC m T m~ | Toggle org-modern in current buffer                 |
 | ~SPC m T M~ | Toggle org-modern in all org and org agenda buffers |
+
 ** Org-roam
 Key binding prefixes:
 - ~SPC a o r~ (anywhere)

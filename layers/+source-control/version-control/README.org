@@ -75,7 +75,7 @@ one over the other:
 | Dired support                       | X       |            |
 
 =diff-hl= supports both the margin (TTY frames) and the fringe (GUI
-frames).  =git-gutter-fringe= supports only the GUI/Fringe, while the
+frames). =git-gutter-fringe= supports only the GUI/Fringe, while the
 =git-gutter= supports the TUI/Margin. Check the variable
 =version-control-margin= for how Spacemacs selects the margin
 features.

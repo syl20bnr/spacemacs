@@ -377,7 +377,6 @@ For example with bash
 | ~SPC m r~              | rename vterm buffer        |
 
 ** ghostel
-
 Ghostel is a terminal emulator powered by `libghostty`. It offers fast rendering
 and built‑in copy/Emacs navigation modes. The layer provides:
 - REPL registration (`spacemacs/register-repl 'ghostel 'ghostel`).
