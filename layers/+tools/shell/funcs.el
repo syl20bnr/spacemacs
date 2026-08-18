@@ -276,6 +276,11 @@ is achieved by adding the relevant text properties."
   (interactive)
   (multi-vterm))
 
+(defun multighostel (&optional _)
+  "Wrapper to call ghostel with `t' to create a new ghostel frame"
+  (interactive)
+  (ghostel t))
+
 (defun inferior-shell (&optional ARG)
   "Wrapper to open shell in current window"
   (interactive)

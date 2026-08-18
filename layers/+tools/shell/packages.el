@@ -369,7 +369,12 @@
     (setq ghostel-shell shell-default-term-shell)
     (add-hook 'ghostel-mode-hook 'spacemacs/disable-hl-line-mode)
     (with-eval-after-load 'centered-cursor-mode
-      (add-hook 'ghostel-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode))))
+      (add-hook 'ghostel-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode))
+    (spacemacs/set-leader-keys-for-major-mode 'ghostel-mode
+      "c" 'multighostel
+      "n" 'ghostel-next
+      "N" 'ghostel-previous
+      "p" 'ghostel-previous)))
 
 (defun shell/init-evil-ghostel ()
   (use-package evil-ghostel

@@ -228,7 +228,7 @@
       :documentation "Delete consecutive horizontal whitespace with a single key."
       :evil-leader "td")
     :config
-    (nconc hungry-delete-except-modes '(term-mode vterm-mode))
+    (nconc hungry-delete-except-modes '(term-mode vterm-mode ghostel-mode))
     (setq-default hungry-delete-chars-to-skip " \t\f\v") ; only horizontal whitespace
     (define-key hungry-delete-mode-map (kbd "DEL") 'hungry-delete-backward)
     (define-key hungry-delete-mode-map (kbd "S-DEL") 'delete-backward-char)))
