@@ -925,6 +925,9 @@ to `auto', tags may not be properly aligned. "
      `(powerline-inactive1 ((,class (:background ,bg2 :foreground ,base))))
      `(powerline-inactive2 ((,class (:background ,bg2 :foreground ,base))))
 
+;;;;; pulse
+     `(pulse-highlight-start-face ((,class (:background ,blue-bg-s))))
+
 ;;;;; rainbow-delimiters
      `(rainbow-delimiters-depth-1-face ((,class :foreground ,keyword)))
      `(rainbow-delimiters-depth-2-face ((,class :foreground ,func)))
