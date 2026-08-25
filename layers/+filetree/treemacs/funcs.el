@@ -59,9 +59,8 @@
         (when (frame-parameter frame 'spacemacs-treemacs-auto-hidden)
           (set-frame-parameter frame 'spacemacs-treemacs-auto-hidden nil)
           (unless treemacs-window
-            (let ((current-window (selected-window)))
-              (treemacs)
-              (select-window current-window))))))))
+            (save-selected-window
+              (treemacs))))))))
 
 (defun spacemacs/treemacs-manual-open (&rest _)
   "Prevent automatic re-hiding of treemacs when manually opened in a narrow frame."
