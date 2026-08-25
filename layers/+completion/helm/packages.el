@@ -27,6 +27,8 @@
     auto-highlight-symbol
     bookmark
     helm
+    ;; FIXME Remove obsolete package helm-ag etc. (see
+    ;; https://github.com/melpa/melpa/pull/9520)
     (helm-ag :location (recipe
                         :fetcher github
                         :repo "smile13241324/helm-ag"))
@@ -37,11 +39,6 @@
     helm-mode-manager
     helm-org
     helm-projectile
-    ;; FIXME Remove obsolete packages helm-swoop
-    ;; helm-ag etc. (see https://github.com/melpa/melpa/pull/9520)
-    (helm-swoop :location (recipe
-                           :fetcher github
-                           :repo "emacsattic/helm-swoop"))
     (helm-spacemacs-help :location local)
     helm-xref
     imenu
@@ -128,6 +125,11 @@
     (spacemacs||set-helm-key "sj"   spacemacs/helm-jump-in-buffer)
     (evil-add-command-properties 'spacemacs/helm-jump-in-buffer :jump t)
     (evil-add-command-properties 'lazy-helm/spacemacs/helm-jump-in-buffer :jump t)
+    ;; search current buffer
+    (spacemacs||set-helm-key "ss"   spacemacs/helm-occur)
+    (spacemacs||set-helm-key "sS"   spacemacs/helm-occur-region-or-symbol)
+    (evil-add-command-properties 'spacemacs/helm-occur :jump t)
+    (evil-add-command-properties 'spacemacs/helm-occur-region-or-symbol :jump t)
     ;; search with grep
     (spacemacs||set-helm-key "sgb"  spacemacs/helm-buffers-do-grep)
     (spacemacs||set-helm-key
@@ -445,35 +447,6 @@
       "h p"   'helm-spacemacs-help-packages
       "h r"   'helm-spacemacs-help-docs
       "h t"   'helm-spacemacs-help-toggles)))
-
-(defun helm/init-helm-swoop ()
-  (use-package helm-swoop
-    :defer t
-    :init
-    (setq helm-swoop-split-with-multiple-windows t
-          helm-swoop-split-direction 'split-window-vertically
-          helm-swoop-split-window-function 'spacemacs/helm-swoop-split-window-function)
-
-    (defun spacemacs/helm-swoop-split-window-function (&rest args)
-      "Override to make helm settings (like `helm-split-window-default-side') work"
-      (let (;; current helm-swoop implemenatation prevents it from being used fullscreen
-            (helm-full-frame nil)
-            (pop-up-windows t))
-        (apply 'helm-default-display-buffer args)))
-
-    (defun spacemacs/helm-swoop-clear-cache ()
-      "Call `helm-swoop--clear-cache' to clear the cache"
-      (interactive)
-      (helm-swoop--clear-cache)
-      (message "helm-swoop cache cleaned."))
-
-    (spacemacs/set-leader-keys
-      "sC"    'spacemacs/helm-swoop-clear-cache
-      "ss"    'helm-swoop
-      "sS"    'helm-multi-swoop
-      "s C-s" 'helm-multi-swoop-all)
-
-    (evil-add-command-properties 'helm-swoop :jump t)))
 
 (defun helm/init-helm-xref ()
   (use-package helm-xref

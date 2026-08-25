@@ -299,8 +299,7 @@
       :bindings
       "j" 'cider-repl-history-forward
       "k" 'cider-repl-history-previous
-      "s" (cond ((featurep 'helm-swoop) 'helm-swoop)
-                ((featurep 'swiper) 'swiper)
+      "s" (cond ((featurep 'swiper) 'swiper)
                 (t 'cider-repl-history-occur))
       "r" 'cider-repl-history-update)
 

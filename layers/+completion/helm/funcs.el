@@ -72,13 +72,31 @@
 
 ;; Search tools integration
 
+(defun spacemacs/initial-search-input (&optional force-input)
+  "Get initial input from region for helm search functions.
+
+If region is not active and FORCE-INPUT is non-nil, return the symbol at point.
+If FORCE-INPUT is nil or there is no symbol at point,
+return the empty string."
+  (if (use-region-p)
+      (buffer-substring-no-properties
+       (region-beginning) (region-end))
+    (or (and force-input (thing-at-point 'symbol t))
+        "")))
+
+(defun spacemacs/helm-occur ()
+  "Wrapper to execute `helm-occur'."
+  (interactive)
+  (helm-multi-occur-1
+   (list (current-buffer))))
+
 (defun spacemacs/helm-occur-region-or-symbol ()
   "Wrapper to execute `helm-occur'."
   (interactive)
   (helm-multi-occur-1
    (list (current-buffer))
-   (and-let* ((symbol (thing-at-point 'symbol)))
-     (regexp-quote symbol))))
+   (and-let* ((input (spacemacs/initial-search-input t)))
+     (regexp-quote input))))
 
 (defun spacemacs//helm-do-ag-region-or-symbol (func &optional dir)
   "Search with `ag' with a default input."
