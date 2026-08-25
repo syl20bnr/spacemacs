@@ -44,12 +44,12 @@
 
 (defun spacemacs/treemacs-on-frame-resize (frame)
   "Auto-hide/restore treemacs and maintain its width on FRAME resize."
-  (let* ((treemacs-window (treemacs-get-local-window))
-         (main-width (- (frame-width frame) treemacs-width)))
-    (when treemacs-window
-      (with-selected-window treemacs-window
-        (treemacs--set-width treemacs-width)))
-    (when treemacs-auto-hide-min-width
+  (when treemacs-auto-hide-min-width
+    (let* ((treemacs-window (treemacs-get-local-window))
+           (main-width (- (frame-width frame) treemacs-width)))
+      (when treemacs-window
+        (with-selected-window treemacs-window
+          (treemacs--set-width treemacs-width)))
       (if (< main-width treemacs-auto-hide-min-width)
           (when treemacs-window
             (unless (frame-parameter frame 'spacemacs-treemacs-manual-override)
