@@ -65,9 +65,9 @@
     (setq spacemacs--symbol-highlight-transient-state-doc
           (concat
            spacemacs--symbol-highlight-transient-state-doc
-           "  Search: [_s_] swoop  [_b_] buffers  [_f_] files  [_/_] project"))
+           "  Search: [_s_] occur  [_b_] buffers  [_f_] files  [_/_] project"))
     (spacemacs/transient-state-register-add-bindings 'symbol-highlight
-      '(("s" spacemacs/helm-swoop-region-or-symbol :exit t)
+      '(("s" spacemacs/helm-occur-region-or-symbol :exit t)
         ("b" spacemacs/helm-buffers-smart-do-search-region-or-symbol :exit t)
         ("f" spacemacs/helm-files-smart-do-search-region-or-symbol :exit t)
         ("/" spacemacs/helm-project-smart-do-search-region-or-symbol :exit t)))))

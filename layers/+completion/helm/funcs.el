@@ -72,6 +72,14 @@
 
 ;; Search tools integration
 
+(defun spacemacs/helm-occur-region-or-symbol ()
+  "Wrapper to execute `helm-occur'."
+  (interactive)
+  (helm-multi-occur-1
+   (list (current-buffer))
+   (and-let* ((symbol (thing-at-point 'symbol)))
+     (regexp-quote symbol))))
+
 (defun spacemacs//helm-do-ag-region-or-symbol (func &optional dir)
   "Search with `ag' with a default input."
   (require 'helm-ag)
