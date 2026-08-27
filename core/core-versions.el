@@ -36,6 +36,11 @@
   "0.999.0"
   "Spacemacs version. This string identifies the current release of Spacemacs.")
 
+(defconst spacemacs-repository-version
+  (let ((default-directory (file-name-directory load-file-name)))
+    (string-trim (shell-command-to-string "git rev-parse HEAD")))
+  "Git revision of Spacemacs when it was loaded.")
+
 ;; The minimum version of Emacs required to run Spacemacs.
 ;; If a user attempts to run Spacemacs on an older version, it may not work
 ;; correctly or may refuse to start.
