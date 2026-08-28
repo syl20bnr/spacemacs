@@ -298,6 +298,14 @@ is achieved by adding the relevant text properties."
      (delete-dups
       (split-string (buffer-string) "\n")))))
 
+(defun spacemacs/multi-vterm-switch-buffer ()
+  "Switching the vterm buffers."
+  (interactive)
+  (pop-to-buffer (completing-read "Vterm buffer: "
+                                  (mapcar 'buffer-name multi-vterm-buffer-list))
+                 (append display-buffer--same-window-action
+                         '((category . comint)))))
+
 (defun spacemacs/helm-vterm-search-history ()
   "Narrow down bash history with helm."
   (interactive)

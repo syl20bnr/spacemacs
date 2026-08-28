@@ -396,7 +396,8 @@
       "n" 'multi-vterm-next
       "N" 'multi-vterm-prev
       "p" 'multi-vterm-prev
-      "r" 'multi-vterm-rename-buffer)))
+      "r" 'multi-vterm-rename-buffer
+      "s" 'spacemacs/multi-vterm-switch-buffer)))
 
 (defun shell/post-init-window-purpose ()
   (purpose-set-extension-configuration
