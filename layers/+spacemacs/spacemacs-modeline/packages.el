@@ -91,7 +91,6 @@
                   '(spacemacs custom))
             (spacemacs/mode-line-separator))
            (t 'wave))
-          powerline-image-apple-rgb (eq window-system 'ns)
           powerline-scale (or (spacemacs/mode-line-separator-scale) 1.5)
           spaceline-byte-compile nil)
     :config
