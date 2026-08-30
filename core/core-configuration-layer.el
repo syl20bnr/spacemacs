@@ -1717,9 +1717,15 @@ RNAME is the name symbol of another existing layer."
             (oset pkg lazy-install nil))
            (t (configuration-layer//warning "Cannot install package %S."
                                             pkg-name)))
-        ('error
+        (error
          (configuration-layer//error
-          (concat "\nAn error occurred while installing %s " "(error: %s)\n")
+          (concat "An error occurred while installing %s " "(error: %s)"
+                  (when (and (equal err '(wrong-type-argument package-desc nil))
+                             (and (listp location) (eq 'recipe (car location)))
+                             (boundp 'quelpa--tar-type)
+                             (not (eq quelpa--tar-type 'gnu)))
+                    ". It looks like GNU tar is not installed, or `quelpa-build-tar-executable' \
+needs to be customized to a GNU tar executable."))
           pkg-name
           err)
          (spacemacs//redisplay))))))
