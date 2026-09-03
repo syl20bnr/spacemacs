@@ -11,7 +11,7 @@
 ;; Homepage: https://github.com/melpa/package-build
 ;; Keywords: maint tools
 
-;; Package-Version: 5.0.1
+;; Package-Version: 5.0.2
 ;; Package-Requires: (
 ;;     (emacs  "26.1")
 ;;     (compat "31.0"))
