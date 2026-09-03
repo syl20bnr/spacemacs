@@ -465,7 +465,10 @@
 (with-eval-after-load 'compile
   (evil-define-key 'motion compilation-mode-map (kbd "gf") 'find-file-at-point)
   (define-key compilation-mode-map "r" 'recompile)
-  (define-key compilation-mode-map "g" nil))
+  (define-key compilation-mode-map "g" nil)
+  (evil-define-key 'motion compilation-minor-mode-map (kbd "gf") 'find-file-at-point)
+  (define-key compilation-minor-mode-map "r" 'recompile)
+  (define-key compilation-minor-mode-map "g" nil))
 ;; narrow & widen -------------------------------------------------------------
 (spacemacs/set-leader-keys
   "nr" 'narrow-to-region
