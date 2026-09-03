@@ -1038,10 +1038,10 @@ Features:
 ** Spacemacs-project
 [[file:+spacemacs/spacemacs-project/README.org][+spacemacs/spacemacs-project/README.org]]
 
-This layer tweaks =projectile= to integrate nicely into Spacemacs.
+This layer tweaks =project= and =projectile= to integrate nicely into Spacemacs.
 
 Features:
-- Setup of =projectile= key bindings, including functions for project search, switching, version control and compilation.
+- Setup of key bindings, including functions for project search, switching, version control and compilation.
 - Additional path helper functions, to copy the location of a buffer relative to the project root.
 
 ** Spacemacs-purpose
