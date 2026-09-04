@@ -50,3 +50,10 @@ There are 3 possible values:
 
 (defvar treemacs-use-all-the-icons-theme nil
   "Enable the treemacs supported `all-the-icons' theme")
+
+(defvar treemacs-auto-hide-min-width 80
+  "Minimum frame width (in columns) excluding the treemacs window.
+
+If the frame is resized so that the width (excluding the treemacs window) is less than this value, the treemacs window will be automatically hidden.
+
+If nil, disable auto-hide.")
