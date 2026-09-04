@@ -1232,32 +1232,24 @@ such as is done by \\[spacemacs/prompt-kill-emacs].")
        (server-running-p)
        dotspacemacs-persistent-server))
 
-(define-advice kill-emacs (:around (f &rest args) spacemacs-really-exit)
+(defun spacemacs//kill-emacs-query-functions ()
   "Do not actually kill Emacs if a persistent server is running.
 
 If `dotspacemacs-persistent-server' is non-nil and the Emacs
 server is running, just kill the current frame instead of the
 Emacs server.
 
-Setting `spacemacs-really-kill-emacs' non-nil overrides this advice."
-  (if (and (not spacemacs-really-kill-emacs)
-           (not noninteractive)         ;in batch mode, just kill emacs
-           (spacemacs//persistent-server-running-p))
-      (spacemacs/frame-killer)
-    (apply f args)))
+Setting `spacemacs-really-kill-emacs' non-nil overrides this behavior."
+  (if (or spacemacs-really-kill-emacs
+          (not (spacemacs//persistent-server-running-p)))
+      t
+    (spacemacs/frame-killer)
+    (message "Emacs cannot exit because persistent-server is running")
+    nil))
 
-(define-advice save-buffers-kill-emacs (:around (f &rest args) spacemacs-really-exit)
-  "Do not actually kill Emacs if a persistent server is running.
-
-If `dotspacemacs-persistent-server' is non-nil and the Emacs
-server is running, just kill the current frame instead of the
-Emacs server.
-
-Setting `spacemacs-really-kill-emacs' non-nil overrides this advice."
-  (if (and (not spacemacs-really-kill-emacs)
-           (spacemacs//persistent-server-running-p))
-      (spacemacs/frame-killer)
-    (apply f args)))
+(unless noninteractive
+  ;; Prevent quit if persistent server is running
+  (add-hook 'kill-emacs-query-functions 'spacemacs//kill-emacs-query-functions))
 
 (defun spacemacs/save-buffers-kill-emacs ()
   "Save all changed buffers and exit Spacemacs."
@@ -1268,15 +1260,13 @@ Setting `spacemacs-really-kill-emacs' non-nil overrides this advice."
 (defun spacemacs/kill-emacs ()
   "Lose all changes and exit Spacemacs."
   (interactive)
-  (let ((spacemacs-really-kill-emacs t))
-    (kill-emacs)))
+  (kill-emacs))
 
 (defun spacemacs/prompt-kill-emacs ()
   "Prompt to save changed buffers and exit Spacemacs."
   (interactive)
   (save-some-buffers nil t)
-  (let ((spacemacs-really-kill-emacs t))
-    (kill-emacs)))
+  (kill-emacs))
 
 (defun spacemacs/frame-killer ()
   "Kill server buffer and hide the main Emacs window."
