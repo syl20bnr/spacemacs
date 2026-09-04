@@ -436,6 +436,24 @@ where DIRECTORY may be nil for built-in packages.")
   "Load the .lock file"
   (configuration-layer/load-file configuration-layer-lock-file))
 
+(define-advice package--save-selected-packages
+    (:override (&optional value) dont-save-to-custom-file)
+  "Set `package-selected-packages' to VALUE, without saving it with Customize.
+
+Spacemacs computes the set of packages to install from the enabled
+layers and `dotspacemacs-additional-packages' and deletes orphan
+packages itself, so the package.el commands that consume the saved
+list (`package-autoremove' and `package-install-selected-packages') are
+not useful with Spacemacs.
+
+Saving the list would only clutter the dotfile's custom settings with an
+entry listing every installed package.
+
+This function still sets `package-selected-package' in memory so that
+`package-autoremove' can be used to explicitly delete orphan packages."
+  (when (or value after-init-time)
+    (setq package-selected-packages value)))
+
 (defun configuration-layer/initialize ()
   "Initialize `package.el'."
   (unless dotspacemacs-use-spacelpa
