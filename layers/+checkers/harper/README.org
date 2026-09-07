@@ -1,0 +1,96 @@
+#+TITLE: Harper layer
+
+#+TAGS: checker|layer
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#harper-binary][Harper binary]]
+- [[#configuration][Configuration]]
+- [[#usage][Usage]]
+  - [[#activating-harper][Activating Harper]]
+  - [[#deactivating-harper][Deactivating Harper]]
+- [[#requirements][Requirements]]
+- [[#key-bindings][Key bindings]]
+- [[#known-issues][Known issues]]
+
+* Description
+This layer provides grammar and spell checking using [[https://github.com/Automattic/harper][Harper]], an offline,
+privacy-first grammar checker written in Rust. It integrates with =eglot= to
+provide IDE-like diagnostics directly in your buffers.
+
+** Features:
+- Fast, on-device grammar and spell checking without network calls.
+- Rich diagnostics via LSP (Eglot) showing errors, warnings, and quick-fixes.
+- Simple toggle to enable/disable per buffer.
+- Customizable binary path for non-standard installations.
+- Offline grammar and spell checking via Harper's Rust-based language server.
+- Integrated LSP diagnostics through Eglot, showing errors, warnings, and
+  suggestions.
+- Quick-fix actions and code actions accessible via `, ,` and `, '` keys.
+- Toggle Harper for the current buffer with `SPC S h`.
+- Customizable binary path and arguments via `harper-ls-bin` and
+  `harper-ls-args` layer variables.
+
+* Install
+** Layer
+To use this configuration layer, add =harper= to your =dotspacemacs-configuration-layers= list in your =~/.spacemacs= file.
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+                '((harper)))
+#+END_SRC
+
+** Harper binary
+If the =harper= binary is not on your =PATH=, specify its location via a layer variable.
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+                '((harper :variables
+                         harper-ls-bin "~/.local/bin/harper")))
+#+END_SRC
+
+* Configuration
+You can customize the Harper language-server binary and additional arguments.
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+                '((harper :variables
+                         harper-ls-bin "~/bin/harper"
+                         harper-ls-args '("--stdio"))))
+#+END_SRC
+
+* Usage
+** Activating Harper
+Use the toggle command to start checking the current buffer.
+
+- \`SPC S h\` → runs =spacemacs/harper-toggle=.
+
+When activated, the buffer enters =harper-checker-mode=. In this mode the following keys are available:
+
+- \`n\` → Jump to the next Harper error.
+- \`p\` → Jump to the previous Harper error.
+- \`,\` → Quick-fix the current error via Eglot.
+- \`'\` → Show code actions for the current diagnostic.
+
+** Deactivating Harper
+Calling the toggle command again shuts down the Harper language server and returns the buffer to its original major mode.
+
+* Requirements
+1. The =harper= binary installed on your system (see the Harper GitHub page for installation instructions).
+2. =eglot= (included in Spacemacs) for LSP integration.
+
+* Key bindings
+| Key binding | Description                          |
+|-------------+--------------------------------------|
+| ~SPC S h~   | Toggle Harper for the current buffer |
+| ~SPC m n~   | Jump to the next Harper error        |
+| ~SPC m p~   | Jump to the previous Harper error    |
+| ~SPC m ,~   | Quick-fix the current error          |
+| ~SPC m '~   | View available code actions          |
+
+* Known issues
+- On some systems the Harper binary may require additional Rust shared libraries; ensure they are available in =LD_LIBRARY_PATH=.
+- Occasionally the language server may not restart cleanly after a toggle; a full =M-x kill-buffer-and-window= on the buffer followed by re-opening fixes the issue.
