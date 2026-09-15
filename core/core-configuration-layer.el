@@ -390,7 +390,10 @@ file. It can be overridden by users inside `dotspacemacs/user-init'.")
   "Hash map to index `cfgl-layer' objects by their names.")
 
 (defvar configuration-layer--used-packages '()
-  "An alphabetically sorted list of used package names.")
+  "A list of used package names.")
+
+(defvar configuration-layer--used-packages-sorted '()
+  "Like `configuration-layer--used-packages', but sorted alphabetically.")
 
 (defvar configuration-layer--indexed-packages (make-hash-table)
   "Hash map to index `cfgl-package' objects by their names.")
@@ -641,7 +644,7 @@ To prevent package from being installed or uninstalled set the variable
                  (not (eq 'template spacemacs-load-dotspacemacs)))
         (configuration-layer/delete-orphan-packages packages))))
   ;; configure used packages
-  (configuration-layer//configure-packages configuration-layer--used-packages)
+  (configuration-layer//configure-packages configuration-layer--used-packages-sorted)
   ;; evaluate layer variables a second time to override default values set in
   ;; packages configuration above
   (configuration-layer//set-layers-variables configuration-layer--used-layers)
@@ -922,7 +925,7 @@ a new object."
   "Describe a package in the context of the configuration layer system."
   (interactive
    (list (intern
-          (completing-read "Package: " configuration-layer--used-packages))))
+          (completing-read "Package: " configuration-layer--used-packages-sorted))))
   (help-setup-xref (list #'configuration-layer/describe-package
                          pkg-symbol layer-list pkg-list)
                    (called-interactively-p 'interactive))
@@ -1655,9 +1658,14 @@ RNAME is the name symbol of another existing layer."
     (configuration-layer/make-packages-from-layers layers t)
     (configuration-layer/make-packages-from-dotfile t)
     (setq configuration-layer--used-packages
-          (sort (cl-delete-if-not #'configuration-layer/package-used-p
-                                  configuration-layer--used-packages)
-                #'string<))))
+          (cl-delete-if-not #'configuration-layer/package-used-p
+                            ;; Reverse such that we get the order in which
+                            ;; packages are declared in each layer of
+                            ;; `configuration-layer--used-layers' and
+                            ;; `dotspacemacs-additional-packages'.
+                            (nreverse configuration-layer--used-packages))
+          configuration-layer--used-packages-sorted
+          (sort (cl-copy-list configuration-layer--used-packages) #'string<))))
 
 (defun configuration-layer//load-layers-files (layer-names files)
   "Load the files of list FILES for all passed LAYER-NAMES."
@@ -1753,10 +1761,10 @@ RNAME is the name symbol of another existing layer."
                          pkg-name)))
                    (oref layer packages)))))
       (let ((last-buffer (current-buffer))
-            (sorted-pkg (sort inst-pkgs #'string<)))
+            (sorted-pkg (sort (cl-copy-list inst-pkgs) #'string<)))
         (spacemacs-buffer/goto-buffer)
         (goto-char (point-max))
-        (configuration-layer//install-packages sorted-pkg)
+        (configuration-layer//install-packages inst-pkgs)
         (configuration-layer//configure-packages sorted-pkg)
         (configuration-layer//load-layer-files layer '("keybindings"))
         (oset layer lazy-install nil)
@@ -1876,7 +1884,7 @@ RNAME is the name symbol of another existing layer."
             (when install-deps
               (setq result (append install-deps result))))
           (when (funcall filter pkg-name)
-            (cl-pushnew pkg-name result))))
+            (setq result (append result (list pkg-name))))))
       (delete-dups result))))
 
 (defun configuration-layer//filter-packages-with-deps
@@ -2166,7 +2174,7 @@ to update."
   (configuration-layer/retrieve-package-archives nil 'force)
   (setq configuration-layer--check-new-version-error-packages nil)
   (let* ((distant-packages (configuration-layer//filter-distant-packages
-                            configuration-layer--used-packages t))
+                            configuration-layer--used-packages-sorted t))
          (update-packages
           (configuration-layer//get-packages-to-update distant-packages))
          (skipped-count (length
