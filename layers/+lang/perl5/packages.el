@@ -80,13 +80,13 @@
     (font-lock-add-keywords
      'cperl-mode
      '(("\\(\\([@%]\\|\\$#\\)[a-zA-Z_:][a-zA-Z0-9_:]*\\)" 1
-        (if (nth 4 (syntax-ppss))
+        (if (ppss-comment-depth (syntax-ppss))
             'font-lock-comment-face
           (if (eq (char-after (match-beginning 2)) ?%)
               'cperl-hash-face
             'cperl-array-face)) t)
        ("\\(\\([$@]+\\)[a-zA-Z_:][a-zA-Z0-9_:]*\\)[ \t]*\\([[{]\\)" 1
-        (if (nth 4 (syntax-ppss))
+        (if (ppss-comment-depth (syntax-ppss))
             'font-lock-comment-face
           (if (= (- (match-end 2) (match-beginning 2)) 1)
               (if (eq (char-after (match-beginning 3)) ?{)
@@ -94,15 +94,15 @@
                 'cperl-array-face)
             font-lock-variable-name-face)) t)
        ("\\([]}\\\\%@>*&]\\|\\$[a-zA-Z0-9_:]*\\)[ \t]*{[ \t]*\\(-?[a-zA-Z0-9_:]+\\)[ \t]*}"
-        (2 (if (nth 4 (syntax-ppss))
+        (2 (if (ppss-comment-depth (syntax-ppss))
                'font-lock-comment-face
              'font-lock-string-face) t)
         ("\\=[ \t]*{[ \t]*\\(-?[a-zA-Z0-9_:]+\\)[ \t]*}" nil nil
-         (1 (if (nth 4 (syntax-ppss))
+         (1 (if (ppss-comment-depth (syntax-ppss))
                 'font-lock-comment-face
               'font-lock-string-face) t)))
        ("[[ \t{,(]\\(-?[a-zA-Z0-9_:]+\\)[ \t]*=>" 1
-        (if (nth 4 (syntax-ppss))
+        (if (ppss-comment-depth (syntax-ppss))
             'font-lock-comment-face
           'font-lock-string-face) t)))
 

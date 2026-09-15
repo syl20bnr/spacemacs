@@ -70,8 +70,8 @@
            (goto-char (match-beginning 1))
            (let ((sexp (syntax-ppss)))
              ;; not inside string or comment
-             (not (or (nth 3 sexp)
-                      (nth 4 sexp))))))))
+             (not (or (ppss-string-terminator sexp)
+                      (ppss-comment-depth sexp))))))))
 
 (defun spacemacs//react-setup-yasnippet ()
   (yas-activate-extra-mode 'js-mode))
