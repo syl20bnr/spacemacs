@@ -92,10 +92,27 @@ to `auto', tags may not be properly aligned. "
   :type 'boolean
   :group 'spacemacs-theme)
 
+(defcustom spacemacs-theme-force-gui-colors nil
+  "If non-nil, use GUI colors in both the GUI and the terminal.
+
+This is ignored if `spacemacs-theme-force-terminal-colors' is non-nil."
+  :type 'boolean
+  :group 'spacemacs-theme)
+
+(defcustom spacemacs-theme-force-terminal-colors nil
+  "If non-nil, use terminal colors in both the GUI and the terminal.
+
+This overrides `spacemacs-theme-force-gui-colors' if both are non-nil."
+  :type 'boolean
+  :group 'spacemacs-theme)
+
+
 (defun create-spacemacs-theme (variant theme-name)
   (let* ((true-color-p (lambda ()
-                         (or (display-graphic-p)
-                             (= (tty-display-color-cells) 16777216))))
+                         (and (not spacemacs-theme-force-terminal-colors)
+                              (or spacemacs-theme-force-gui-colors
+                                  (display-graphic-p)
+                                  (= (tty-display-color-cells) 16777216)))))
          ;; Helper function to get custom color or default value
          (get-color (lambda (color-name default-value)
                       (or (alist-get color-name spacemacs-theme-custom-colors)
