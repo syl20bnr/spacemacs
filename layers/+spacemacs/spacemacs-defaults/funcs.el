@@ -1333,7 +1333,7 @@ useful to use full screen on macOS without animations."
   (cond
    ((spacemacs/system-is-mswindows)
     (w32-shell-execute "open" (replace-regexp-in-string "/" "\\\\" file-path)))
-   ((spacemacs/system-is-mac) (shell-command (format "open \"%s\"" file-path)))
+   ((spacemacs/system-is-mac) (call-process "open" nil nil nil file-path))
    ((spacemacs/system-is-linux) (let ((process-connection-type nil))
                                   (start-process "" nil "xdg-open" file-path)))))
 
