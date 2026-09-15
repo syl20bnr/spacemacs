@@ -1362,7 +1362,8 @@ the default explorer."
 (defun spacemacs/copy-whole-buffer-to-clipboard ()
   "Copy entire buffer to clipboard."
   (interactive)
-  (clipboard-kill-ring-save (point-min) (point-max)))
+  (clipboard-kill-ring-save (point-min) (point-max))
+  (message "Copied entire buffer to clipboard."))
 
 (defun spacemacs/copy-clipboard-to-whole-buffer ()
   "Copy clipboard and replace buffer."
