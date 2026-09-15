@@ -11,10 +11,10 @@
 ;; Homepage: https://github.com/melpa/package-build
 ;; Keywords: maint tools
 
-;; Package-Version: 5.0.2
+;; Package-Version: 5.0.3
 ;; Package-Requires: (
 ;;     (emacs  "26.1")
-;;     (compat "31.0"))
+;;     (compat "31.1"))
 
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -331,7 +331,7 @@ being run for a particular package."
   (declare (indent defun))
   (let ((message (apply #'format-message format-string args)))
     (package-build--log package message)
-    (signal 'package-build-error message)))
+    (signal 'package-build-error (list message))))
 
 (defun package-build--log (package message)
   (with-temp-buffer
@@ -1431,7 +1431,7 @@ or all exclude rules (with the `:exclude' keyword removed)."
                 (concat subdir (car entry) "/")))))
           spec))
 
-(defun package-build--copy-package-files (files target-dir)
+(defun package-build--copy-package-files (rcp files target-dir)
   "Copy FILES from `default-directory' to TARGET-DIR.
 FILES is a list of (SOURCE . DEST) relative filepath pairs."
   (package-build--message
@@ -1441,14 +1441,18 @@ FILES is a list of (SOURCE . DEST) relative filepath pairs."
     (let ((src* (expand-file-name src))
           (dst* (expand-file-name dst target-dir)))
       (make-directory (file-name-directory dst*) t)
-      (cond ((file-regular-p src*)
+      (cond ((not (file-in-directory-p src* default-directory))
+             (package-build--error rcp
+               "Symlink %s points outside package repository" src))
+            ((file-regular-p src*)
              (package-build--message
               "  %s %s -> %s" (if (equal src dst) " " "!") src dst)
              (copy-file src* dst*))
             ((file-directory-p src*)
              (package-build--message
               "  %s %s => %s" (if (equal src dst) " " "!") src dst)
-             (copy-directory src* dst*))))))
+             (copy-directory src* dst*))
+            ((package-build--message "File %s has unexpected type" src))))))
 
 (defun package-build--spec-globs (rcp)
   "Return a list of vcs arguments to match the files specified in RCP."
@@ -1593,7 +1597,7 @@ in `package-build-archive-dir'."
     (unless package-build--inhibit-build
       (unwind-protect
           (progn
-            (package-build--copy-package-files files target)
+            (package-build--copy-package-files rcp files target)
             (package-build--set-version-headers rcp target)
             (package-build--write-pkg-file rcp target)
             (package-build--generate-info-files rcp files target)
