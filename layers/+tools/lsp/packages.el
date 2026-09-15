@@ -64,7 +64,9 @@
     (add-to-list 'lsp--formatting-indent-alist '(web-mode . web-mode-markup-indent-offset))
     (add-hook 'lsp-after-open-hook (lambda ()
                                      "Setup xref jump handler"
-                                     (spacemacs//setup-lsp-jump-handler)))))
+                                     (spacemacs//setup-lsp-jump-handler)))
+    (advice-add 'lsp--get-ignored-regexes-for-workspace-root
+                :around #'spacemacs//lsp-merge-gitignore-regexes)))
 
 (defun lsp/init-lsp-ui ()
   (use-package lsp-ui
