@@ -3679,6 +3679,10 @@ files (thanks to Daniel Nicolai)
 **** Spacemacs-defaults
 - Updated spacemacs/save-as function, see github #8974 and #14754 (thanks to
   Daniel Nicolai and Lebensterben)
+**** Spacemacs-evil
+- Fixed ~g r~ (=revert-buffer=) being unbound in =special-mode= buffers after
+  =evil-collection= 3.0, which binds it in normal state only (thanks
+  to Jonathan Lipworth)
 **** Spotify
 - Replaced helm-spotify package with helm-spotify-plus
   (thanks to Leonard Lausen)
