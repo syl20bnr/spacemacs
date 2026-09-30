@@ -67,9 +67,9 @@
   (when (configuration-layer/package-used-p 'robe)
     (spacemacs|add-company-backends
       :backends company-robe
-      :modes ruby-mode enh-ruby-mode))
+      :modes ruby-mode ruby-ts-mode enh-ruby-mode))
   (with-eval-after-load 'company-dabbrev-code
-    (dolist (mode '(ruby-mode enh-ruby-mode))
+    (dolist (mode '(ruby-mode ruby-ts-mode enh-ruby-mode))
       (add-to-list 'company-dabbrev-code-modes mode))))
 
 
