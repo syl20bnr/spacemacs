@@ -48,11 +48,8 @@
 
 (defconst configuration-layer-private-layer-directory
   (let ((dotspacemacs-layer-dir
-         (when dotspacemacs-directory
-           (expand-file-name
-            (concat dotspacemacs-directory "layers/")))))
-    (if (and dotspacemacs-directory
-             (file-exists-p dotspacemacs-layer-dir))
+         (expand-file-name (concat dotspacemacs-directory "layers/"))))
+    (if (file-directory-p dotspacemacs-layer-dir)
         dotspacemacs-layer-dir
       spacemacs-private-directory))
   "Spacemacs default directory for private layers.")
@@ -1415,10 +1412,9 @@ discovery."
                          (list spacemacs-private-directory))
                        ;; layers in dotdirectory
                        ;; this path may not exist, so check if it does
-                       (when dotspacemacs-directory
-                         (let ((dir (expand-file-name (concat dotspacemacs-directory
-                                                              "layers/"))))
-                           (when (file-exists-p dir) (list dir))))
+                       (let ((dir (expand-file-name
+                                   (concat dotspacemacs-directory "layers/"))))
+                         (and (file-directory-p dir) (list dir)))
                        ;; additional layer directories provided by the user
                        dotspacemacs-configuration-layer-path)))
     ;; filter out directories that don't exist

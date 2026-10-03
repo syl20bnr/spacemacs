@@ -45,7 +45,7 @@ their configuration.")
 
 (defconst dotspacemacs-filepath
   (let* ((spacemacs-init
-          (if dotspacemacs-directory
+          (if (file-directory-p dotspacemacs-directory)
               (concat dotspacemacs-directory "init.el")
             "~/.spacemacs")))
     (if (file-regular-p spacemacs-init)
