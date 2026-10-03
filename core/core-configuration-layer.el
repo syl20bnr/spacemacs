@@ -1332,11 +1332,11 @@ PREDICATE is an additional expression that eval to a boolean."
 (defun configuration-layer//copy-template (name template &optional layer-dir)
   "Copy and replace special values of TEMPLATE to layer string NAME.
 If LAYER_DIR is nil, the private directory is used."
-  (cl-flet ((cl-substitute (old new) (let ((case-fold-search nil))
-                                       (save-excursion
-                                         (goto-char (point-min))
-                                         (while (search-forward old nil t)
-                                           (replace-match new t))))))
+  (cl-flet ((replace (old new) (let ((case-fold-search nil))
+                                 (save-excursion
+                                   (goto-char (point-min))
+                                   (while (search-forward old nil t)
+                                     (replace-match new t))))))
     (let ((src (concat configuration-layer-template-directory
                        (format "%s.template" template)))
           (dest (if layer-dir
@@ -1345,14 +1345,14 @@ If LAYER_DIR is nil, the private directory is used."
                           (format "%s" template)))))
       (copy-file src dest)
       (find-file dest)
-      (cl-substitute "%LAYER_NAME%" name)
+      (replace "%LAYER_NAME%" name)
       (cond
        (user-full-name
-        (cl-substitute "%USER_FULL_NAME%" user-full-name)
-        (cl-substitute "%USER_MAIL_ADDRESS%" user-mail-address))
+        (replace "%USER_FULL_NAME%" user-full-name)
+        (replace "%USER_MAIL_ADDRESS%" user-mail-address))
        (t
-        (cl-substitute "%USER_FULL_NAME%" "Sylvain Benner & Contributors")
-        (cl-substitute "%USER_MAIL_ADDRESS%" "sylvain.benner@gmail.com")))
+        (replace "%USER_FULL_NAME%" "Sylvain Benner & Contributors")
+        (replace "%USER_MAIL_ADDRESS%" "sylvain.benner@gmail.com")))
       (save-buffer))))
 
 (defun configuration-layer//directory-type (path)
