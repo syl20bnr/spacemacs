@@ -49,7 +49,6 @@
 (require 'core-spacemacs-buffer)
 (require 'core-keybindings)
 (require 'core-toggle)
-(require 'core-early-funcs)
 (require 'core-funcs)
 (require 'core-transient-state)
 (require 'core-use-package-ext)
