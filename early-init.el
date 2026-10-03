@@ -51,3 +51,7 @@
 - If environment variable XDG_CONFIG_HOME is set and its subdirectory
   \"spacemacs\" exists, use that value.
 - Otherwise use \"~/.spacemacs.d/\".")
+
+;; Spacemacs usually replaces `user-emacs-directory', so it doesn't make sense
+;; for users to put custom Lisp there.
+(setq user-lisp-directory (concat dotspacemacs-directory "user-lisp/"))
