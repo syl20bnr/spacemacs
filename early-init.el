@@ -34,3 +34,23 @@
 ;; the package manager before loading the init file, so this file is neither
 ;; needed nor loaded on those versions.
 (setq package-enable-at-startup nil)
+
+;;; Define some essential constants that are needed early.
+
+(defconst dotspacemacs-directory
+  (let ((spacemacs-dir
+         (file-name-as-directory
+          (or (getenv "SPACEMACSDIR")
+              (if-let* ((xdg-conf (getenv "XDG_CONFIG_HOME"))
+                        (xdg-conf-spacemacs (concat (file-name-as-directory xdg-conf) "spacemacs/"))
+                        ((file-directory-p xdg-conf-spacemacs)))
+                  xdg-conf-spacemacs
+                "~/.spacemacs.d/")))))
+    (when (file-directory-p spacemacs-dir)
+      spacemacs-dir))
+  "Directory containing Spacemacs customizations (defaults to nil).
+- If environment variable SPACEMACSDIR is set and that directory exists,
+  use that value.
+- If environment variable XDG_CONFIG_HOME is set and its subdirectory
+  \"spacemacs\" exists, use that value.
+- Otherwise use ~/.spacemacs.d if it exists.")
