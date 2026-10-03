@@ -272,7 +272,7 @@ If PROPS is non-nil then return packages as lists along with their properties."
              :initform elpa
              :type (satisfies (lambda (x)
                                 (or (stringp x)
-                                    (memq x '(built-in local site elpa))
+                                    (memq x '(built-in local site user-lisp elpa))
                                     (and (listp x) (eq 'recipe (car x))))))
              :documentation "Location of the package.")
    (toggle :initarg :toggle
@@ -345,8 +345,8 @@ is ignored."
 
 Site packages are not built-in to Emacs itself but instead must be
 provided with the Emacs distribution (site-lisp).  We do not consider
-them distant,to avoid attempting and failing to install them from ELPA."
-  (and (not (memq (oref pkg location) '(built-in site local)))
+them distant, to avoid attempting and failing to install them from ELPA."
+  (and (not (memq (oref pkg location) '(built-in site user-lisp local)))
        (not (stringp (oref pkg location)))))
 
 (cl-defmethod cfgl-package-get-safe-owner ((pkg cfgl-package))
@@ -1013,7 +1013,7 @@ a new object."
         (if (not (configuration-layer/package-used-p pkg-symbol))
             (princ "\nYou are not using this package.\n")
           (princ "\nYou are using this package")
-          (if (or (memq (oref pkg location) '(built-in local site))
+          (if (or (memq (oref pkg location) '(built-in local site user-lisp))
                   (stringp (oref pkg location)))
               (princ ".\n")
             (if (not (package-installed-p pkg-symbol))
@@ -1055,6 +1055,10 @@ a new object."
             ;; TODO find a way to find the location on disk and detect if it is
             ;; really installed
             (princ "\nWhen used it must be installed by a third party.\n"))
+           ((eq 'user-lisp location)
+            ;; TODO find a way to find the location on disk and detect if it is
+            ;; really installed
+            (princ "\nThis is a local package in `user-lisp-directory'.\n"))
            ((eq 'elpa location)
             ;; TODO find a way to find the ELPA repository
             (princ "\nWhen used it is downloaded from an ELPA repository.\n"))
@@ -1696,7 +1700,7 @@ RNAME is the name symbol of another existing layer."
         (cl-incf
          (cond ((eq 'elpa location) elpa)
                ((and (listp location) (eq 'recipe (car location))) recipe)
-               ((memq location '(local site)) local)
+               ((memq location '(local site user-lisp)) local)
                ((eq 'built-in location) built-in)))))
     `((total ,total)
       (elpa ,elpa)

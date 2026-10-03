@@ -2188,6 +2188,9 @@
   packages.
 - New value =site= for package =:location= keyword, a site package is a package
   installed on the host by a third party (ie. =mu4e= which is installed by =mu=)
+- New value =user-lisp= for package =:location= keyword, for files in
+  =user-lisp-directory=, which Emacs automatically scrapes and for
+  autoload cookies and adds to load-path at startup.
 - New documentation formatting tool =doc-fmt= (thanks to JAremko)
 - New keywords for =spacemacs|add-toggle= macro:
   - =:prefix= a symbol that is bound to the raw prefix argument
