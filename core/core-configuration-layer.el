@@ -669,52 +669,55 @@ To prevent package from being installed or uninstalled set the variable
       (spacemacs-buffer/message "Loading auto-layer file...")
       (configuration-layer/load-file file))))
 
-(defun configuration-layer/create-layer ()
-  "Ask the user for a configuration layer name and the layer
-directory to use. Create a layer with this name in the selected
-layer directory."
-  (interactive)
-  (let* ((current-layer-paths (mapcar (lambda (dir) (expand-file-name dir))
-                                      (cons
-                                       configuration-layer-private-layer-directory
-                                       dotspacemacs-configuration-layer-path)))
-         (other-choice "Another directory...")
-         (helm-lp-source
-          `((name . "Configuration Layer Paths")
-            (candidates . ,(append current-layer-paths
-                                   (list other-choice)))
-            (action . (lambda (c) c))))
-         (layer-path-sel (if (configuration-layer/layer-used-p 'helm)
-                             (helm :sources helm-lp-source
-                                   :prompt "Configuration layer path: ")
-                           (completing-read "Configuration layer path: "
-                                            (append current-layer-paths
-                                                    (list other-choice)))))
-         (layer-path (cond
-                      ((string-equal layer-path-sel other-choice)
-                       (read-directory-name (concat "Other configuration "
-                                                    "layer path: ") "~/"))
-                      ((member layer-path-sel current-layer-paths)
-                       layer-path-sel)
-                      (t
-                       (error "Please select an option from the list"))))
-         (name (read-from-minibuffer "Configuration layer name: "))
-         (layer-dir (concat layer-path "/" name)))
-    (cond
-     ((string-equal "" name)
-      (configuration-layer/message
-       "Cannot create a configuration layer without a name."))
-     ((file-exists-p layer-dir)
-      (configuration-layer/message
-       (concat "Cannot create configuration layer \"%s\", "
-               "this layer already exists.") name))
-     (t
-      (make-directory layer-dir t)
-      (configuration-layer//copy-template name "packages.el" layer-dir)
-      (when (y-or-n-p "Create readme?")
-        (configuration-layer//copy-template name "README.org" layer-dir))
-      (configuration-layer/message
-       "Configuration layer \"%s\" successfully created." name)))))
+(defun configuration-layer/create-layer (name layer-dir)
+  "Create a new configuration layer with NAME, in LAYER-DIR.
+
+Interactively, prompt the user for a name and directory to use.
+
+LAYER-DIR must not exist yet."
+  (interactive
+   (let* ((current-layer-paths (mapcar (lambda (dir) (expand-file-name dir))
+                                       (cons
+                                        configuration-layer-private-layer-directory
+                                        dotspacemacs-configuration-layer-path)))
+          (other-choice "Another directory...")
+          (helm-lp-source
+           `((name . "Configuration Layer Paths")
+             (candidates . ,(append current-layer-paths
+                                    (list other-choice)))
+             (action . (lambda (c) c))))
+          (layer-path-sel (if (configuration-layer/layer-used-p 'helm)
+                              (helm :sources helm-lp-source
+                                    :prompt "Configuration layer path: ")
+                            (completing-read "Configuration layer path: "
+                                             (append current-layer-paths
+                                                     (list other-choice)))))
+          (layer-path (cond
+                       ((string-equal layer-path-sel other-choice)
+                        (read-directory-name (concat "Other configuration "
+                                                     "layer path: ") "~/"))
+                       ((member layer-path-sel current-layer-paths)
+                        layer-path-sel)
+                       (t
+                        (error "Please select an option from the list"))))
+          (name (read-from-minibuffer "Configuration layer name: "))
+          (layer-dir (concat (file-name-as-directory layer-path) name)))
+     (list name layer-dir)))
+  (cond
+   ((string-equal "" name)
+    (configuration-layer/message
+     "Cannot create a configuration layer without a name."))
+   ((file-exists-p layer-dir)
+    (configuration-layer/message
+     (concat "Cannot create configuration layer \"%s\", "
+             "this layer already exists.") name))
+   (t
+    (make-directory layer-dir t)
+    (configuration-layer//copy-template name "packages.el" layer-dir)
+    (when (y-or-n-p "Create readme?")
+      (configuration-layer//copy-template name "README.org" layer-dir))
+    (configuration-layer/message
+     "Configuration layer \"%s\" successfully created." name))))
 
 (defun configuration-layer//select-packages (layer-specs packages)
   "Return the selected packages of LAYER-SPECS from given PACKAGES list."
