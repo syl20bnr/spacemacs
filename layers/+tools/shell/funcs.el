@@ -310,7 +310,8 @@ is achieved by adding the relevant text properties."
     (pop-to-buffer-same-window
      (completing-read "Vterm buffer: "
                       (mapcar 'buffer-name
-                              (remq (current-buffer) multi-vterm-buffer-list))))))
+                              (remq (current-buffer) multi-vterm-buffer-list))
+                      nil t))))
 
 (defun spacemacs/helm-vterm-search-history ()
   "Narrow down bash history with helm."
