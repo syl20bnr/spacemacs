@@ -690,15 +690,16 @@ LAYER-DIR must not exist yet."
                                     :prompt "Configuration layer path: ")
                             (completing-read "Configuration layer path: "
                                              (append current-layer-paths
-                                                     (list other-choice)))))
+                                                     (list other-choice))
+                                             nil t)))
           (layer-path (cond
                        ((string-equal layer-path-sel other-choice)
-                        (read-directory-name (concat "Other configuration "
-                                                     "layer path: ") "~/"))
+                        (read-directory-name
+                         "Other configuration layer path: " "~/"))
                        ((member layer-path-sel current-layer-paths)
                         layer-path-sel)
                        (t
-                        (error "Please select an option from the list"))))
+                        (user-error "Please select an option from the list"))))
           (name (read-from-minibuffer "Configuration layer name: "))
           (layer-dir (concat (file-name-as-directory layer-path) name)))
      (when (string-empty-p name)
