@@ -676,10 +676,9 @@ Interactively, prompt the user for a name and directory to use.
 
 LAYER-DIR must not exist yet."
   (interactive
-   (let* ((current-layer-paths (mapcar (lambda (dir) (expand-file-name dir))
-                                       (cons
-                                        configuration-layer-private-layer-directory
-                                        dotspacemacs-configuration-layer-path)))
+   (let* ((current-layer-paths (cons
+                                configuration-layer-private-layer-directory
+                                dotspacemacs-configuration-layer-path))
           (other-choice "Another directory...")
           (helm-lp-source
            `((name . "Configuration Layer Paths")
