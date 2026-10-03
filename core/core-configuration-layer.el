@@ -702,22 +702,19 @@ LAYER-DIR must not exist yet."
                         (error "Please select an option from the list"))))
           (name (read-from-minibuffer "Configuration layer name: "))
           (layer-dir (concat (file-name-as-directory layer-path) name)))
+     (when (string-empty-p name)
+       (user-error "Cannot create a configuration layer without a name"))
+     (when (file-exists-p layer-dir)
+       (user-error
+        "Cannot create configuration layer \"%s\", which already exists"
+        name))
      (list name layer-dir)))
-  (cond
-   ((string-equal "" name)
-    (configuration-layer/message
-     "Cannot create a configuration layer without a name."))
-   ((file-exists-p layer-dir)
-    (configuration-layer/message
-     (concat "Cannot create configuration layer \"%s\", "
-             "this layer already exists.") name))
-   (t
-    (make-directory layer-dir t)
-    (configuration-layer//copy-template name "packages.el" layer-dir)
-    (when (y-or-n-p "Create readme?")
-      (configuration-layer//copy-template name "README.org" layer-dir))
-    (configuration-layer/message
-     "Configuration layer \"%s\" successfully created." name))))
+  (make-directory layer-dir t)
+  (configuration-layer//copy-template name "packages.el" layer-dir)
+  (when (y-or-n-p "Create readme?")
+    (configuration-layer//copy-template name "README.org" layer-dir))
+  (configuration-layer/message
+   "Configuration layer \"%s\" successfully created." name))
 
 (defun configuration-layer//select-packages (layer-specs packages)
   "Return the selected packages of LAYER-SPECS from given PACKAGES list."
