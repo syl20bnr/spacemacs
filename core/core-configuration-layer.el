@@ -39,16 +39,15 @@
   "Timeout in seconds to reach a package archive page.")
 
 (defconst configuration-layer-template-directory
-  (expand-file-name (concat spacemacs-core-directory "templates/"))
+  (concat spacemacs-core-directory "templates/")
   "Configuration layer templates directory.")
 
 (defconst configuration-layer-directory
-  (expand-file-name (concat spacemacs-start-directory "layers/"))
+  (concat spacemacs-start-directory "layers/")
   "Spacemacs layers directory.")
 
 (defconst configuration-layer-private-layer-directory
-  (let ((dotspacemacs-layer-dir
-         (expand-file-name (concat dotspacemacs-directory "layers/"))))
+  (let ((dotspacemacs-layer-dir (concat dotspacemacs-directory "layers/")))
     (if (file-directory-p dotspacemacs-layer-dir)
         dotspacemacs-layer-dir
       spacemacs-private-directory))
@@ -1415,8 +1414,7 @@ discovery."
                          (list spacemacs-private-directory))
                        ;; layers in dotdirectory
                        ;; this path may not exist, so check if it does
-                       (let ((dir (expand-file-name
-                                   (concat dotspacemacs-directory "layers/"))))
+                       (let ((dir (concat dotspacemacs-directory "layers/")))
                          (and (file-directory-p dir) (list dir)))
                        ;; additional layer directories provided by the user
                        dotspacemacs-configuration-layer-path)))
