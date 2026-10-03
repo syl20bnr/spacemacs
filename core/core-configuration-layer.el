@@ -1336,7 +1336,7 @@ If LAYER_DIR is nil, the private directory is used."
                                  (save-excursion
                                    (goto-char (point-min))
                                    (while (search-forward old nil t)
-                                     (replace-match new t))))))
+                                     (replace-match new t t))))))
     (let ((src (concat configuration-layer-template-directory
                        (format "%s.template" template)))
           (dest (if layer-dir
