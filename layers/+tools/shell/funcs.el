@@ -304,7 +304,7 @@ is achieved by adding the relevant text properties."
       (split-string (buffer-string) "\n")))))
 
 (defun spacemacs/multi-vterm-switch-buffer ()
-  "Switching the vterm buffers."
+  "Switch between the multi-vterm buffers."
   (interactive)
   (let ((display-buffer-overriding-action '(nil (category . comint))))
     (pop-to-buffer-same-window
