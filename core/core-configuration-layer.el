@@ -1380,14 +1380,12 @@ Possible return values:
 
 (defun configuration-layer//get-category-from-path (dirpath)
   "Return a category symbol from the given DIRPATH.
+DIRPATH should be an absolute path to a directory.
 The directory name must start with `+'.
 Returns nil if the directory is not a category."
   (when (file-directory-p dirpath)
-    (let ((dirname (file-name-nondirectory
-                    (directory-file-name
-                     (concat configuration-layer-directory
-                             dirpath)))))
-      (when (string-match "^+" dirname)
+    (let ((dirname (file-name-nondirectory (directory-file-name dirpath))))
+      (when (string-prefix-p "+" dirname)
         (intern (substring dirname 1))))))
 
 (defun configuration-layer//get-layer-parent-category (layer-name)
