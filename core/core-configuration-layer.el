@@ -1359,15 +1359,16 @@ If LAYER_DIR is nil, the private directory is used."
 
 (defun configuration-layer//directory-type (path)
   "Return the type of directory pointed by PATH.
+
+PATH should be an absolute path to a directory.
+
 Possible return values:
   layer    - the directory is a layer
   category - the directory is a category
-  nil      - the directory is a regular directory."
+  nil      - the directory is a regular directory or is not a directory."
   (when (file-directory-p path)
     (if (string-match
-         "^+" (file-name-nondirectory
-               (directory-file-name
-                (concat configuration-layer-directory path))))
+         "^+" (file-name-nondirectory (directory-file-name path)))
         'category
       ;; most frequent files encountered in a layer are tested first
       (when (or (locate-file "packages" (list path) load-suffixes)
