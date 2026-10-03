@@ -675,7 +675,7 @@ directory to use. Create a layer with this name in the selected
 layer directory."
   (interactive)
   (let* ((current-layer-paths (mapcar (lambda (dir) (expand-file-name dir))
-                                      (cl-pushnew
+                                      (cons
                                        configuration-layer-private-layer-directory
                                        dotspacemacs-configuration-layer-path)))
          (other-choice "Another directory...")
