@@ -1328,6 +1328,8 @@ useful to use full screen on macOS without animations."
   (if (y-or-n-p (format "Erase content of buffer %s? " (current-buffer)))
       (erase-buffer)))
 
+;; TODO: When Spacemacs's min version is Emacs 31, replace this with
+;; `shell-command-do-open'.
 (defun spacemacs//open-in-external-app (file-path)
   "Open FILE-PATH in external application."
   (cond
