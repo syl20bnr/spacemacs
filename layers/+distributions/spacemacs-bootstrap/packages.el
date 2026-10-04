@@ -621,9 +621,7 @@ Press \\[which-key-toggle-persistent] to hide."
 ;; pre packages
 
 (defun spacemacs-bootstrap/init-evil-evilified-state ()
-  (use-package evil-evilified-state)
-  (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
-              spacemacs-default-map))
+  (use-package evil-evilified-state))
 
 ;; we own pcre2el here, so that it's always available to ivy and helm
 ;; (necessary when using spacemacs-base distribution)

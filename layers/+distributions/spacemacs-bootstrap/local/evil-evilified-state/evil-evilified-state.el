@@ -178,7 +178,14 @@ Needed to bypass keymaps set as text properties."
 (add-hook 'evil-evilified-state-entry-hook
           'evilified-state--evilified-state-on-entry)
 
-;; default key bindings for all evilified buffers
+;;; default key bindings for all evilified buffers
+
+;; This first one seems redundant with the `bind-map' call above, but in fact,
+;; with :override-minor-modes non-nil, `bind-map' no longer sets the key
+;; directly in the state keymap.  Since `evilified-state-evilify-map' relies on
+;; the bindings in `evil-evilified-state-map' to determine which keys to
+;; relocate, we must explicitly add it here.
+(define-key evil-evilified-state-map (kbd dotspacemacs-leader-key) 'spacemacs-cmds)
 (define-key evil-evilified-state-map "/" 'evil-search-forward)
 (define-key evil-evilified-state-map ":" 'evil-ex)
 (define-key evil-evilified-state-map "h" 'evil-backward-char)
