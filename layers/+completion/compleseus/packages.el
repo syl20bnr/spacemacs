@@ -429,7 +429,6 @@
         (define-key vertico-reverse-map (kbd "C-M-k")
                     #'spacemacs/next-candidate-preview))
       (define-key vertico-map (kbd "C-l") #'vertico-insert)
-      (define-key vertico-map (kbd "M-RET") #'vertico-exit-input)
       (define-key vertico-map (kbd "C-SPC") #'spacemacs/embark-preview)
       (define-key vertico-map (kbd "C-r") #'consult-history)
       (define-key vertico-map (kbd "M-P") #'spacemacs/consult-toggle-preview)))
