@@ -436,8 +436,10 @@
   (use-package vertico-directory
     :after vertico
     ;; More convenient directory navigation commands
-    :init (bind-key "C-h" 'vertico-directory-up vertico-map
-                    (spacemacs//support-hjkl-navigation-p))
+    :init
+    (define-key vertico-map (kbd "M-DEL") #'vertico-directory-delete-word)
+    (bind-key "C-h" 'vertico-directory-up vertico-map
+              (spacemacs//support-hjkl-navigation-p))
     ;; tidy shadowed file names
     :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 
