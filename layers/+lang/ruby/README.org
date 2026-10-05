@@ -43,19 +43,36 @@ This layer provides support for the Ruby programming language.
 - Formatter (prettier)
 - Interactive REPL and code navigation (robe)
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
+- Optional tree-sitter based editing with the built-in =ruby-ts-mode=
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =ruby= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-This layer supports two different Ruby modes: Emacs's built-in Ruby Mode and
-[[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]]. By default the built-in Ruby mode is enabled. To switch to the
-=enh-ruby-mode= set =ruby-enable-enh-ruby-mode= to t:
+This layer supports three different Ruby modes: Emacs's built-in Ruby Mode,
+Emacs's built-in tree-sitter based =ruby-ts-mode= and [[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]]. By
+default the built-in Ruby mode is enabled. To switch to the =enh-ruby-mode= set
+=ruby-enable-enh-ruby-mode= to t:
 
 #+BEGIN_SRC emacs-lisp
   (defun dotspacemacs-configuration-layers ()
      '((ruby :variables ruby-enable-enh-ruby-mode t)))
+#+END_SRC
+
+To use =ruby-ts-mode= set =ruby-enable-ts-mode= to t. This requires Emacs 29 or
+later compiled with tree-sitter support. Files are remapped from =ruby-mode= to
+=ruby-ts-mode= and all the key bindings and integrations of the layer are
+available in both modes. On Emacs 31 the Ruby grammar is installed on demand
+according to =treesit-auto-install-grammar=. On older versions install it with
+~M-x treesit-install-language-grammar RET ruby~, until then the layer falls
+back to =ruby-mode=.
+When =ruby-enable-enh-ruby-mode= is also non-nil, =enh-ruby-mode= takes
+precedence.
+
+#+BEGIN_SRC emacs-lisp
+  (defun dotspacemacs-configuration-layers ()
+     '((ruby :variables ruby-enable-ts-mode t)))
 #+END_SRC
 
 ** Choosing a backend
@@ -284,6 +301,7 @@ When =ruby-test-runner= equals =minitest=.
 | Variable                           | Default value | Description                                                                                  |
 |------------------------------------+---------------+----------------------------------------------------------------------------------------------|
 | =ruby-enable-enh-ruby-mode=        | =nil=         | If non-nil, use =enh-ruby-mode= package instead of the built-in Ruby Mode.                   |
+| =ruby-enable-ts-mode=              | =nil=         | If non-nil, use the built-in tree-sitter based =ruby-ts-mode= (Emacs 29+).                   |
 | =ruby-version-manager=             | =nil=         | If non nil, defines the Ruby version manager.Possible values are =rbenv=, =rvm= or =chruby=. |
 | =ruby-test-runner=                 | =ruby-test=   | Test runner to use. Possible values are =ruby-test=, =minitest= or =rspec=.                  |
 | =ruby-highlight-debugger-keywords= | =t=           | If non-nil, enable highlight for debugger keywords.                                          |
