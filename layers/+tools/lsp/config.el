@@ -43,3 +43,10 @@ If `both', binds lightweight navigation functions under `SPC m g' and lsp-ui fun
 
 (defvar lsp-manage-backends-manually nil "When non-nil lsp-mode does not insert `company-capf' as the ultimate first item of `company-backends'.
 `lsp-manage-backends-manually' can either be `:all' or a list of major-modes that should be managed manually.")
+
+(defvar lsp-file-watch-respect-gitignore t
+  "When non-nil, exclude paths matched by the workspace root's `.gitignore'
+from LSP file watchers. Patterns are parsed in Elisp (no `git' subprocess)
+and merged with `lsp-file-watch-ignored-directories' and
+`lsp-file-watch-ignored-files'. Changes to `.gitignore' take effect on
+the next workspace restart.")
