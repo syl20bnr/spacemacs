@@ -13,10 +13,10 @@
 
 cp .circleci/web/.spacemacs ~/
 # First time fails
-emacs -batch -l ~/.emacs.d/init.el
+emacs -batch -u ""
 
 # But the second one?
-emacs -batch -l ~/.emacs.d/init.el
+emacs -batch -u ""
 if [ $? -ne 0 ]; then
     echo "Dependencies installation failed."
     exit 2
