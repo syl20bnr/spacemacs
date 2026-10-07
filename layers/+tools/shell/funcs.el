@@ -303,6 +303,15 @@ is achieved by adding the relevant text properties."
      (delete-dups
       (split-string (buffer-string) "\n")))))
 
+(defun spacemacs/multi-vterm-switch-buffer ()
+  "Switch between the multi-vterm buffers."
+  (interactive)
+  (pop-to-buffer-same-window
+   (completing-read "Vterm buffer: "
+                    (mapcar 'buffer-name
+                            (remq (current-buffer) multi-vterm-buffer-list))
+                    nil t)))
+
 (defun spacemacs/helm-vterm-search-history ()
   "Narrow down bash history with helm."
   (interactive)

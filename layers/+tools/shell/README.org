@@ -375,6 +375,7 @@ For example with bash
 | ~SPC m n~              | go to next multi-vterm     |
 | ~SPC m N~ or ~SPC m p~ | go to previous multi-vterm |
 | ~SPC m r~              | rename vterm buffer        |
+| ~SPC m s~              | switch buffers by name     |
 
 ** ghostel
 Ghostel is a terminal emulator powered by `libghostty`. It offers fast rendering
