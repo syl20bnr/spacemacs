@@ -35,18 +35,23 @@
 ;; needed nor loaded on those versions.
 (setq package-enable-at-startup nil)
 
-(load (concat (file-name-directory load-file-name)
-              "core/core-early-funcs")
-      nil (not init-file-debug))
+;;; Define some essential constants that are needed early.
 
-;; Unfortunately the hooks below prevent users from customizing gui elements
-;; within dotspacemacs/user-config function. Thus the hooks are commented out.
-;; These should not be needed in any case since gui elements are turned off
-;; within spacemacs/init function.  Original comment follows next.
-;;
-;; Remove GUI elements soon after GUI being initialized to avoid some possible
-;; grapical glitches. This has to be done use these hooks, see
-;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Early-Init-File.html
-;;
-;; (add-hook 'window-setup-hook 'spacemacs/toggle-gui-elements-off)
-;; (add-hook 'tty-setup-hook 'spacemacs/toggle-gui-elements-off)
+(defconst dotspacemacs-directory
+  (file-name-as-directory
+   (or (getenv "SPACEMACSDIR")
+       (if-let* ((xdg-conf (getenv "XDG_CONFIG_HOME"))
+                 (xdg-conf-spacemacs (concat (file-name-as-directory xdg-conf) "spacemacs/"))
+                 ((file-directory-p xdg-conf-spacemacs)))
+           xdg-conf-spacemacs
+         "~/.spacemacs.d/")))
+  "Directory containing Spacemacs customizations.
+- If environment variable SPACEMACSDIR is set and that directory exists,
+  use that value.
+- If environment variable XDG_CONFIG_HOME is set and its subdirectory
+  \"spacemacs\" exists, use that value.
+- Otherwise use \"~/.spacemacs.d/\".")
+
+;; Spacemacs usually replaces `user-emacs-directory', so it doesn't make sense
+;; for users to put custom Lisp there.
+(setq user-lisp-directory (concat dotspacemacs-directory "user-lisp/"))

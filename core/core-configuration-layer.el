@@ -39,20 +39,16 @@
   "Timeout in seconds to reach a package archive page.")
 
 (defconst configuration-layer-template-directory
-  (expand-file-name (concat spacemacs-core-directory "templates/"))
+  (concat spacemacs-core-directory "templates/")
   "Configuration layer templates directory.")
 
 (defconst configuration-layer-directory
-  (expand-file-name (concat spacemacs-start-directory "layers/"))
+  (concat spacemacs-start-directory "layers/")
   "Spacemacs layers directory.")
 
 (defconst configuration-layer-private-layer-directory
-  (let ((dotspacemacs-layer-dir
-         (when dotspacemacs-directory
-           (expand-file-name
-            (concat dotspacemacs-directory "layers/")))))
-    (if (and dotspacemacs-directory
-             (file-exists-p dotspacemacs-layer-dir))
+  (let ((dotspacemacs-layer-dir (concat dotspacemacs-directory "layers/")))
+    (if (file-directory-p dotspacemacs-layer-dir)
         dotspacemacs-layer-dir
       spacemacs-private-directory))
   "Spacemacs default directory for private layers.")
@@ -275,7 +271,7 @@ If PROPS is non-nil then return packages as lists along with their properties."
              :initform elpa
              :type (satisfies (lambda (x)
                                 (or (stringp x)
-                                    (memq x '(built-in local site elpa))
+                                    (memq x '(built-in local site user-lisp elpa))
                                     (and (listp x) (eq 'recipe (car x))))))
              :documentation "Location of the package.")
    (toggle :initarg :toggle
@@ -348,8 +344,8 @@ is ignored."
 
 Site packages are not built-in to Emacs itself but instead must be
 provided with the Emacs distribution (site-lisp).  We do not consider
-them distant,to avoid attempting and failing to install them from ELPA."
-  (and (not (memq (oref pkg location) '(built-in site local)))
+them distant, to avoid attempting and failing to install them from ELPA."
+  (and (not (memq (oref pkg location) '(built-in site user-lisp local)))
        (not (stringp (oref pkg location)))))
 
 (cl-defmethod cfgl-package-get-safe-owner ((pkg cfgl-package))
@@ -1016,7 +1012,7 @@ a new object."
         (if (not (configuration-layer/package-used-p pkg-symbol))
             (princ "\nYou are not using this package.\n")
           (princ "\nYou are using this package")
-          (if (or (memq (oref pkg location) '(built-in local site))
+          (if (or (memq (oref pkg location) '(built-in local site user-lisp))
                   (stringp (oref pkg location)))
               (princ ".\n")
             (if (not (package-installed-p pkg-symbol))
@@ -1058,6 +1054,10 @@ a new object."
             ;; TODO find a way to find the location on disk and detect if it is
             ;; really installed
             (princ "\nWhen used it must be installed by a third party.\n"))
+           ((eq 'user-lisp location)
+            ;; TODO find a way to find the location on disk and detect if it is
+            ;; really installed
+            (princ "\nThis is a local package in `user-lisp-directory'.\n"))
            ((eq 'elpa location)
             ;; TODO find a way to find the ELPA repository
             (princ "\nWhen used it is downloaded from an ELPA repository.\n"))
@@ -1358,15 +1358,16 @@ If LAYER_DIR is nil, the private directory is used."
 
 (defun configuration-layer//directory-type (path)
   "Return the type of directory pointed by PATH.
+
+PATH should be an absolute path to a directory.
+
 Possible return values:
   layer    - the directory is a layer
   category - the directory is a category
-  nil      - the directory is a regular directory."
+  nil      - the directory is a regular directory or is not a directory."
   (when (file-directory-p path)
     (if (string-match
-         "^+" (file-name-nondirectory
-               (directory-file-name
-                (concat configuration-layer-directory path))))
+         "^+" (file-name-nondirectory (directory-file-name path)))
         'category
       ;; most frequent files encountered in a layer are tested first
       (when (or (locate-file "packages" (list path) load-suffixes)
@@ -1378,14 +1379,12 @@ Possible return values:
 
 (defun configuration-layer//get-category-from-path (dirpath)
   "Return a category symbol from the given DIRPATH.
+DIRPATH should be an absolute path to a directory.
 The directory name must start with `+'.
 Returns nil if the directory is not a category."
   (when (file-directory-p dirpath)
-    (let ((dirname (file-name-nondirectory
-                    (directory-file-name
-                     (concat configuration-layer-directory
-                             dirpath)))))
-      (when (string-match "^+" dirname)
+    (let ((dirname (file-name-nondirectory (directory-file-name dirpath))))
+      (when (string-prefix-p "+" dirname)
         (intern (substring dirname 1))))))
 
 (defun configuration-layer//get-layer-parent-category (layer-name)
@@ -1415,10 +1414,8 @@ discovery."
                          (list spacemacs-private-directory))
                        ;; layers in dotdirectory
                        ;; this path may not exist, so check if it does
-                       (when dotspacemacs-directory
-                         (let ((dir (expand-file-name (concat dotspacemacs-directory
-                                                              "layers/"))))
-                           (when (file-exists-p dir) (list dir))))
+                       (let ((dir (concat dotspacemacs-directory "layers/")))
+                         (and (file-directory-p dir) (list dir)))
                        ;; additional layer directories provided by the user
                        dotspacemacs-configuration-layer-path)))
     ;; filter out directories that don't exist
@@ -1700,7 +1697,7 @@ RNAME is the name symbol of another existing layer."
         (cl-incf
          (cond ((eq 'elpa location) elpa)
                ((and (listp location) (eq 'recipe (car location))) recipe)
-               ((memq location '(local site)) local)
+               ((memq location '(local site user-lisp)) local)
                ((eq 'built-in location) built-in)))))
     `((total ,total)
       (elpa ,elpa)
