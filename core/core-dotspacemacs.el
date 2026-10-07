@@ -189,10 +189,13 @@ in `dotspacemacs-themes'.")
       (and (eq dotspacemacs-editing-style 'hybrid)
            hybrid-style-enable-evilified-state)))
 
-(defun spacemacs//support-hjkl-navigation-p ()
-  "Returns non-nil if navigation keys should be evilified."
-  (or (eq dotspacemacs-editing-style 'vim)
-      (and (eq dotspacemacs-editing-style 'hybrid)
+(defun spacemacs//support-hjkl-navigation-p (&optional style)
+  "Returns non-nil if navigation keys should be evilified.
+
+STYLE defaults to `dotspacemacs-editing-style'."
+  (setq style (or style dotspacemacs-editing-style))
+  (or (eq style 'vim)
+      (and (eq style 'hybrid)
            hybrid-style-enable-hjkl-bindings)))
 
 (spacemacs|defc dotspacemacs-startup-banner 'official

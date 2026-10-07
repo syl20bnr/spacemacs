@@ -298,9 +298,7 @@ MODE parameter must match the :modes values used in the call to
 (defun spacemacs//company-active-navigation (style)
   "Set navigation for the given editing STYLE."
   (cond
-   ((or (eq 'vim style)
-        (and (eq 'hybrid style)
-             hybrid-style-enable-hjkl-bindings))
+   ((spacemacs//support-hjkl-navigation-p style)
     (dolist (map (list company-active-map company-search-map))
       (define-key map (kbd "C-j") 'company-select-next)
       (define-key map (kbd "C-k") 'company-select-previous)
