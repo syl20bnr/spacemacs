@@ -670,6 +670,17 @@
     (should (null (configuration-layer/package-used-p
                    (nth (random 3) layer1-packages))))))
 
+(ert-deftest test-package-usedp--toggled-off-package-cannot-be-used ()
+  (let* ((layer1 (cfgl-layer :name 'layer1 :dir "/path/"))
+         configuration-layer--used-layers
+         configuration-layer--used-packages
+         (configuration-layer--indexed-layers (make-hash-table))
+         (configuration-layer--indexed-packages (make-hash-table)))
+    (helper--add-layers (list layer1) t)
+    (helper--add-packages
+     (list (cfgl-package :name 'pkg1 :owners '(layer1) :toggle nil)) t)
+    (should (null (configuration-layer/package-used-p 'pkg1)))))
+
 (ert-deftest test-package-usedp--used-pkg-requires-used-pkg-can-be-used ()
   (let* ((layer1 (cfgl-layer :name 'layer1 :dir "/path/"))
          (layer1-packages '(pkg1))
