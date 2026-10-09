@@ -149,4 +149,4 @@ This is essentially a copy of `elpaa--make-badge'."
             width))))))
 
 (provide 'package-build-badges)
-;;; package-badges.el ends here
+;;; package-build-badges.el ends here

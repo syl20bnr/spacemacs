@@ -44,15 +44,10 @@
   "Keymap for `package-recipe-mode'.")
 
 ;;;###autoload
-(if (fboundp 'lisp-data-mode) ; Since Emacs 28.1.
-    (define-derived-mode package-recipe-mode lisp-data-mode "Melpa-Recipe"
-      "Major mode for buffers holding Melpa package recipes."
-      :group 'package-build
-      (package-recipe-mode--enable))
-  (define-derived-mode package-recipe-mode emacs-lisp-mode "Melpa-Recipe"
-    "Major mode for buffers holding Melpa package recipes."
-    :group 'package-build
-    (package-recipe-mode--enable)))
+(define-derived-mode package-recipe-mode lisp-data-mode "Melpa-Recipe"
+  "Major mode for buffers holding Melpa package recipes."
+  :group 'package-build
+  (package-recipe-mode--enable))
 
 (defun package-recipe-mode--enable ()
   (setq-local package-build-recipes-dir default-directory)
