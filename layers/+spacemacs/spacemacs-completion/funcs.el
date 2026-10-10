@@ -159,9 +159,7 @@ See https://github.com/syl20bnr/spacemacs/issues/3700"
    ((string-equal "*helm-ag*" helm-buffer)
     (helm-ag-edit))
    ((string-equal "*helm find files*" helm-buffer)
-    (spacemacs/helm-find-files-edit))
-   ((string-equal "*Helm Swoop*" helm-buffer)
-    (helm-swoop-edit))))
+    (spacemacs/helm-find-files-edit))))
 
 (defun spacemacs//helm-navigation-ts-on-enter ()
   "Initialization of helm transient-state."
