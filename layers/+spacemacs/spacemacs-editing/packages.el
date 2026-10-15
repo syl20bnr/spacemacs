@@ -118,11 +118,12 @@
       (advice-remove 'dired-noselect 'dired-noselect@quick-sort-setup))
     :config
     (evil-define-key 'normal dired-mode-map "s" 'dired-quick-sort-transient)
-    ;; prevent `evil-collection' from changing this binding
-    (add-to-list 'evil-collection-binding-overrides
-                 '(search-or-filter :enabled
-                                    (lambda (map-sym _ _ _)
-                                      (not (eq map-sym 'dired-mode-map)))))))
+    (with-eval-after-load 'evil-collection
+      ;; prevent `evil-collection' from changing this binding
+      (add-to-list 'evil-collection-binding-overrides
+                   '(search-or-filter :enabled
+                                      (lambda (map-sym _ _ _)
+                                        (not (eq map-sym 'dired-mode-map))))))))
 
 (defun spacemacs-editing/init-drag-stuff ()
   (use-package drag-stuff
