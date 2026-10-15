@@ -41,7 +41,6 @@
     (shell :location built-in)
     shell-pop
     (term :location built-in)
-    (xterm-color :toggle (version< emacs-version "29.0.50"))
     terminal-here
     vi-tilde-fringe
     window-purpose
@@ -301,31 +300,6 @@
   (add-hook 'term-mode-hook 'spacemacs/disable-hl-line-mode)
   (with-eval-after-load 'centered-cursor-mode
     (add-hook 'term-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode)))
-
-(defun shell/init-xterm-color ()
-  (use-package xterm-color
-    :init
-    ;; Comint and Shell
-    (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter)
-    (setq comint-output-filter-functions
-          (remove 'ansi-color-process-output comint-output-filter-functions))
-    (add-hook 'eshell-mode-hook 'spacemacs/init-eshell-xterm-color)
-    (with-eval-after-load 'eshell
-      ;; Work around bug in eshell's preoutput-filter code.
-      ;; Eshell doesn't call preoutput-filter functions in the context of the eshell
-      ;; buffer. This breaks the xterm color filtering when the eshell buffer is updated
-      ;; when it's not currently focused.
-      ;; To remove if/when fixed upstream.
-      (defun eshell-output-filter@spacemacs-with-buffer (fn process string)
-        (let ((proc-buf (if process (process-buffer process)
-                          (current-buffer))))
-          (when proc-buf
-            (with-current-buffer proc-buf
-              (funcall fn process string)))))
-      (advice-add
-       #'eshell-output-filter
-       :around
-       #'eshell-output-filter@spacemacs-with-buffer))))
 
 (defun shell/init-terminal-here ()
   (use-package terminal-here
