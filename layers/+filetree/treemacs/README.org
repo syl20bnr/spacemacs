@@ -16,6 +16,7 @@
   - [[#flattening-of-directories][Flattening of directories]]
   - [[#locking-width][Locking width]]
   - [[#theme][Theme]]
+  - [[#auto-hide][Auto hide]]
 - [[#key-bindings][Key bindings]]
   - [[#global][Global]]
   - [[#inside-treemacs][Inside Treemacs]]
