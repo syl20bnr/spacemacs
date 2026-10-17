@@ -139,6 +139,19 @@ To use the `all-the-icons` theme rather than the default one, set the `treemacs-
     (treemacs :variables treemacs-use-all-the-icons-theme t)))
 #+END_SRC
 
+** Auto hide
+To have treemacs automatically hide when the frame is resized too narrow,
+set the layer variable =treemacs-auto-hide-min-width= to a positive integer
+representing the minimum width that the main window must have (in columns)
+before treemacs is hidden.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (treemacs :variables treemacs-auto-hide-min-width 80)))
+#+END_SRC
+
+Default is =80=. Set to =nil= to disable this behaviour.
+
 * Key bindings
 ** Global
 
