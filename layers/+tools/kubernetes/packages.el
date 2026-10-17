@@ -26,8 +26,7 @@
 (defconst kubernetes-packages
   '(
     kubernetes
-    kubernetes-evil
-    (kubernetes-tramp :toggle (version< emacs-version "29.0.50"))))
+    kubernetes-evil))
 
 (defun kubernetes/init-kubernetes ()
   (use-package kubernetes
@@ -40,7 +39,3 @@
 (defun kubernetes/init-kubernetes-evil ()
   (use-package kubernetes-evil
     :after kubernetes-overview))
-
-(defun kubernetes/init-kubernetes-tramp ()
-  (use-package kubernetes-tramp
-    :defer t))
