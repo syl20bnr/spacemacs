@@ -359,11 +359,9 @@
         which-key-max-description-length 32
         which-key-max-display-columns nil
         which-key-min-display-lines 6
-        which-key-prevent-C-h-from-cycling t
         which-key-sort-order 'which-key-prefix-then-key-order
         which-key-sort-uppercase-first nil
         which-key-special-keys nil
-        which-key-use-C-h-for-paging t
         which-key-allow-evil-operators t)
 
   (spacemacs|add-toggle which-key
