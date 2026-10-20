@@ -1244,8 +1244,6 @@ Other:
       =spacemacs-window-split-ignore-prefixes=.
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
-  - Added support for =helm-swoop-edit= in =helm= transient state
-    (thanks to Troy Hinckley)
   - Added prefix argument to =rename-current-buffer-file=. If the prefix
     argument is non-nil then use the directory instead of filename as default
     value when prompting the user (thanks to Eivind Fonn)
@@ -2405,8 +2403,6 @@ Other:
   - Updated =helm-xref= to set the correct =xref-show-xrefs-function= for
     Emacs 27 (thanks to Junxuan)
   - Hide =helm-ff-cache-mode= mode-line indicator (thanks to duianto)
-  - Ignored =helm-full-frame= and =pop-up-windows= in =helm-swoop= to fix
-    selection navigation (thanks to Boris Sergeyev)
 - Key bindings:
   - Added Key bindings for directory search:
     - ~SPC s d for =spacemacs/helm-dir-smart-do-search=
@@ -2421,7 +2417,6 @@ Other:
     - ~SPC s t D for =spacemacs/helm-dir-do-pt-region-or-symbol=
     (thanks to Tim Jäger and Eivind Fonn)
   - Added ~SPC b U~ to list all useless buffers (thanks to Thomas de Beauchêne)
-  - Added ~SPC s C~ for =helm-swoop-clear-cache= (thanks to Yang Qian)
   - Removed ~SPC s w w~ key binding for =helm-wikipedia-suggest=, which was
     removed upstream.
   - ~SPC g f f~ for =helm-ls-git-ls= (thanks to duianto)
@@ -2454,6 +2449,8 @@ Other:
   - Moved the =helm-org= definition from the =org= layer to =helm= so that
     =helm-spacemacs-faq= (~SPC h f~) works without the =org= layer
     (thanks to Nicholas Kirchner)
+  - Removed unmaintained =helm-swoop= package in favor of =helm-occur=
+    (thanks to Aaron Zeng)
 **** HTML
 - Added =impatient-mode= under ~SPC m i~ (thanks to geo7)
 - Added =counsel-css= as an =ivy= alternative to =helm-css-scss=

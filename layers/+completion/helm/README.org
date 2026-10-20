@@ -25,7 +25,6 @@
   - [[#colorsfaces][Colors/Faces]]
   - [[#c-z-and-tab-switch][C-z and Tab switch]]
   - [[#helm-focus][Helm focus]]
-  - [[#helm-swoop][Helm-swoop]]
   - [[#universal-argument][Universal argument]]
   - [[#replacing-text-in-several-files][Replacing text in several files]]
   - [[#resume-last-session][Resume last session]]
@@ -44,7 +43,6 @@ Mastering your choice of completion system will make you a Spacemacs power user.
 ** Features:
 - Project wide =grep= like text search via =helm-dir-smart-do-search=
 - Project wide text replacements using =helm-edit-mode=
-- Buffer wide dynamic text search via =helm-swoop=
 - Fuzzy matching for most =helm-sources=
 - Detailed configuration parameters for helms appearance
 - Intuitive =transient state=
@@ -225,21 +223,6 @@ makes sense to swap them. It's also recommended [[http://tuhdo.github.io/helm-in
 ** Helm focus
 If you find yourself unable to return focus to Helm (after a careless
 mouse-click for example), use ~SPC w b~ to return focus to the minibuffer.
-
-** Helm-swoop
-[[https://github.com/ShingoFukuyama/helm-swoop][Helm-swoop]] is very similar to =moccur=, it displays a =helm= buffer with all the
-occurrences of the word under point. You can then change the search query in
-real-time and navigate between them easily.
-
-You can even edit the occurrences directly in the =helm= buffer and apply the
-modifications to the buffer.
-
-| Key binding | Description                    |
-|-------------+--------------------------------|
-| ~SPC s C~   | clear =helm-swoop= own cache   |
-| ~SPC s s~   | execute =helm-swoop=           |
-| ~SPC s S~   | execute =helm-multi-swoop=     |
-| ~SPC s C-s~ | execute =helm-multi-swoop-all= |
 
 ** Universal argument
 ~SPC u~ is not working before =helm-M-x= (~SPC SPC~). Instead, call =helm-M-x=

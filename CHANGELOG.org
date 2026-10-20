@@ -4598,7 +4598,6 @@ Improve loading robustness:
 - Manually manage =popwin= to improve popup window interactions (thanks to
   tuhdo)
 - Enable fuzzy matching in Helm (thanks to ralesi)
-- Turn on colors in =helm-swoop= (thanks to danielwuz)
 - Render README.md file of layers with =Open README= action of
   =helm-spacemacs=, use the universal argument ~C-u~ to open
   the file without rendering it (thanks to tuhdo)
