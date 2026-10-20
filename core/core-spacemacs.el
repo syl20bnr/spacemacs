@@ -274,13 +274,6 @@ defer call using `spacemacs-post-user-config-hook'."
       (funcall func)
     (add-hook 'spacemacs-post-user-config-hook func)))
 
-;; Remove byte-compiled versions of files listed in spacemacs-compiled-files.
-(defun spacemacs//byte-compile-cleanup ()
-  "Remove byte-compiled versions of `spacemacs-compiled-files'."
-  (let ((default-directory spacemacs-start-directory))
-    (spacemacs//remove-byte-compiled-files
-     spacemacs-compiled-files)))
-
 ;; Setup the startup hook for post-initialization processing.
 (defun spacemacs/setup-startup-hook ()
   "Add post init processing to `emacs-startup-hook'."
@@ -332,10 +325,7 @@ defer call using `spacemacs-post-user-config-hook'."
       (when (> 1 (spacemacs//dir-byte-compile-state
                   (concat spacemacs-core-directory "libs/")))
         (byte-recompile-directory (concat spacemacs-core-directory "libs/") 0))
-    (spacemacs//remove-byte-compiled-files-in-dir spacemacs-core-directory))
-
-  ;; Check if Spacemacs revision has changed.
-  (spacemacs//revision-check))
+    (spacemacs//remove-byte-compiled-files-in-dir spacemacs-core-directory)))
 
 ;; Provide the core-spacemacs feature for require.
 (provide 'core-spacemacs)

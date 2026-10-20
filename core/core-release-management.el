@@ -48,14 +48,6 @@
   "Time of last version check.")
 (defvar spacemacs-version--startup-check-interval (* 3600 24)
   "Minimum number of seconds between two version checks at startup.")
-(defvar spacemacs-revision--last nil
-  "Last detected git revision of `spacemacs-start-directory' or nil.
-NOTE: This variable will be set asynchronously after Spacemacs startup.")
-(defvar spacemacs-revision--file
-  (expand-file-name (concat spacemacs-cache-directory "spacemacs-revision"))
-  "File where the last revision of `spacemacs-start-directory' is saved.")
-(defvar spacemacs-revision--changed-hook nil
-  "Hooks to be ran when Spacemacs detects revision change.")
 
 (defun spacemacs/switch-to-version (&optional version)
   "Switch spacemacs to VERSION.
@@ -269,8 +261,7 @@ OWNER REPO."
         (default-directory (file-truename spacemacs-start-directory)))
     (prog1 (eq 0 (process-file "git" nil proc-buffer nil
                                "reset" "--hard" tag))
-      (kill-buffer proc-buffer)
-      (spacemacs//revision-update))))
+      (kill-buffer proc-buffer))))
 
 (defun spacemacs//git-latest-tag (remote branch)
   "Returns the latest tag on REMOTE/BRANCH."
@@ -359,44 +350,5 @@ Example: (1 42 3) = 1 042 003"
 (spacemacs/set-new-version-lighter-mode-line-faces)
 (add-hook 'spacemacs-post-theme-change-hook
           'spacemacs/set-new-version-lighter-mode-line-faces)
-
-(defun spacemacs//revision-update ()
-  "Update saved revision value and trigger `spacemacs-revision--changed-hook'."
-  (let ((proc-buffer "spacemacs//revision-update:git-get-current-rev"))
-    (when (eq 0 (process-file "git" nil proc-buffer nil "rev-parse" "HEAD"))
-      (with-current-buffer proc-buffer
-        (goto-char 1)
-        (setq spacemacs-revision--last (current-word))
-        (kill-buffer proc-buffer))))
-  (spacemacs/dump-vars-to-file '(spacemacs-revision--last)
-                               spacemacs-revision--file)
-  (run-hooks 'spacemacs-revision--changed-hook))
-
-(defun spacemacs//revision-check ()
-  "Update saved value of the current revision asynchronously.
-If old and new revisions are different `spacemacs-revision--changed-hook'
- will be triggered."
-  (when (file-exists-p spacemacs-revision--file)
-    (load spacemacs-revision--file nil t))
-  (when spacemacs-revision--changed-hook
-    (require 'async)
-    (async-start
-     `(lambda ()
-        (let ((proc-buffer "spacemacs//revision-check:git-get-current-rev")
-              (default-directory (file-truename ,spacemacs-start-directory))
-              (new_rev))
-          (when (eq 0 (process-file "git" nil proc-buffer nil "rev-parse" "HEAD"))
-            (with-current-buffer proc-buffer
-              (goto-char 1)
-              (setq new_rev (current-word))
-              (kill-buffer proc-buffer)))
-          (with-temp-file ,spacemacs-revision--file
-            (insert (format ";;; -*- lexical-binding: nil; -*-\n(setq spacemacs-revision--last %S)" new_rev))
-            (make-directory (file-name-directory ,spacemacs-revision--file) t))
-          new_rev))
-     (lambda (new_rev)
-       (unless (string= spacemacs-revision--last new_rev)
-         (setq spacemacs-revision--last new_rev)
-         (run-hooks 'spacemacs-revision--changed-hook))))))
 
 (provide 'core-release-management)
