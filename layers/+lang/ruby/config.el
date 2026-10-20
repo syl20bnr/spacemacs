@@ -25,6 +25,7 @@
 
 (spacemacs|define-jump-handlers enh-ruby-mode)
 (spacemacs|define-jump-handlers ruby-mode)
+(spacemacs|define-jump-handlers ruby-ts-mode)
 
 (defvar ruby-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'robe)
   "Defines the backend for IDE features, defaulting to robe.
@@ -33,6 +34,13 @@ If `nil' then `robe' is the default backend unless `lsp' layer is used.")
 
 (defvar ruby-enable-enh-ruby-mode nil
   "If non-nil, use `enh-ruby-mode' package instead of the built-in Ruby Mode.")
+
+(defvar ruby-enable-ts-mode nil
+  "If non-nil, use the built-in tree-sitter based `ruby-ts-mode'.
+Requires Emacs 29+ compiled with tree-sitter support. On Emacs 31+ the Ruby
+grammar is installed on demand, on older versions it must be installed with
+`treesit-install-language-grammar'. Ignored when `ruby-enable-enh-ruby-mode'
+is non-nil.")
 
 (defvar ruby-version-manager nil
   "If non nil, defines the Ruby version manager.
