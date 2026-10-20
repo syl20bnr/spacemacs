@@ -1259,12 +1259,6 @@ Setting `spacemacs-really-kill-emacs' non-nil overrides this advice."
       (spacemacs/frame-killer)
     (apply f args)))
 
-(defun spacemacs/save-buffers-kill-emacs ()
-  "Save all changed buffers and exit Spacemacs."
-  (interactive)
-  (let ((spacemacs-really-kill-emacs t))
-    (save-buffers-kill-emacs)))
-
 (defun spacemacs/kill-emacs ()
   "Lose all changes and exit Spacemacs."
   (interactive)
@@ -1274,9 +1268,11 @@ Setting `spacemacs-really-kill-emacs' non-nil overrides this advice."
 (defun spacemacs/prompt-kill-emacs ()
   "Prompt to save changed buffers and exit Spacemacs."
   (interactive)
-  (save-some-buffers nil t)
   (let ((spacemacs-really-kill-emacs t))
-    (kill-emacs)))
+    (save-buffers-kill-emacs)))
+
+(define-obsolete-function-alias 'spacemacs/save-buffers-kill-emacs
+  #'spacemacs/prompt-kill-emacs "2026-10")
 
 (defun spacemacs/frame-killer ()
   "Kill server buffer and hide the main Emacs window."
