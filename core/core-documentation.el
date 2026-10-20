@@ -1,4 +1,4 @@
-;;; core-spacemacs.el --- Spacemacs Core File
+;;; core-spacemacs.el --- Spacemacs Core File  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;
@@ -38,6 +38,9 @@
     ("spacemacs" . "Spacemacs distribution layers"))
   "Special names for categories. Used to generate the layers list.")
 
+(defvar publish-target nil
+  "Directory to publish documentation to.")
+
 (defun spacemacs//generate-layers-from-path (path level)
   "Add all layers found in PATH to the current buffer, at org level LEVEL."
   (let* ((all-subs (directory-files path t nil nil))
@@ -67,7 +70,7 @@
         (insert (format "\n%s %s\n" level pretty-name))
         (spacemacs//generate-layers-from-path c (concat level "*"))))))
 
-(defun spacemacs//fetch-docs-from-root (project-plist)
+(defun spacemacs//fetch-docs-from-root (_project-plist)
   "Add missing CONTRIBUTING and COMMUNITY files to doc folder for publishing.
    Have been moved out of the doc folder to let github show the documentation.
    See commit 315528c89fd351d559a262bb88bd15ed961e4b4e"
@@ -93,7 +96,7 @@ See `spacemacs//fetch-docs-from-root'"
       (f-move file-to-move
               (concat publish-target file-name)))))
 
-(defun spacemacs/generate-layers-file (project-plist)
+(defun spacemacs/generate-layers-file (_project-plist)
   "Generate the layers list file."
   (interactive)
   (with-temp-buffer
