@@ -1885,6 +1885,8 @@ Other:
   - Fixed ~SPC m e~ key bindings to behave like in Emacs Lisp
     (thanks to Boris Avdeev)
   - Fixed initialization of =counsel-gtags= (thanks to Sylvain Benner)
+**** Compleseus
+- Fix editing =consult-line= exports by entering Occur Edit mode.
 **** Coq
 - Key bindings:
   - ~SPC m T e~ Toggle electric terminator (thanks to Ignat Insarov)
