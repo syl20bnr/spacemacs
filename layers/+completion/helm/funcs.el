@@ -79,11 +79,11 @@
              ;; make thing-at-point choosing the active region first
              ((symbol-function 'this-fn) (symbol-function 'thing-at-point))
              ((symbol-function 'thing-at-point)
-              (lambda (thing)
+              (lambda (thing &optional no-properties)
                 (let ((res (if (region-active-p)
                                (buffer-substring-no-properties
                                 (region-beginning) (region-end))
-                             (this-fn thing))))
+                             (this-fn thing no-properties))))
                   (when res (rxt-quote-pcre res))))))
     (funcall func dir)))
 
