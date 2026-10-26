@@ -15,8 +15,10 @@
       - [[#emmy-server-setup][Emmy server setup]]
       - [[#lua-language-server-setup][Lua-language server setup]]
       - [[#lua-lsp-server-setup][Lua-lsp server setup]]
+    - [[#eglot-1][Eglot]]
 - [[#key-bindings][Key bindings]]
   - [[#lsp-1][LSP]]
+  - [[#eglot][Eglot]]
   - [[#commands][Commands]]
 
 * Description
@@ -44,6 +46,9 @@ Supported backends are:
   - emmy LSP server (default)
   - lua-language-server.
   - lua-lsp.
+- =eglot= using one of below LSP servers
+  - lua-language-server.
+  - lua-lsp.
 
 *** Lua mode
 This backend provides basic support via pure emacs packages. It requires less setup than a full blown LSP setup
@@ -65,7 +70,8 @@ Once it is installed the key bindings are provided by [[file:../../+tools/lsp/RE
 consistent key bindings among different layers.
 
 To enable LSP set =lua-backend= to =lsp=. If =lua-backend= is =nil= and the =LSP layer= is loaded
-=LSP= will be used automatically otherwise it will fallback to =lua-mode=.
+=LSP= will be used automatically, otherwise if the =Eglot layer= is loaded =eglot= will be used.
+If neither =LSP= nor =Eglot= layers are loaded, it will fallback to =lua-mode=.
 
 #+BEGIN_SRC elisp
   (lua :variables
@@ -115,10 +121,30 @@ To instruct Spacemacs to use this server set your config as shown below:
        lsp-clients-luarocks-bin-dir "~/.luarocks/bin/") ; default path
 #+END_SRC
 
+*** Eglot
+This backend uses Emacs built-in eglot client with a configurable LSP server.
+It requires one of the following server implementations to be installed and available
+in your =PATH=:
+- [[https://github.com/sumneko/lua-language-server][lua-language-server]]
+- [[https://github.com/Alloyed/lua-lsp][lua-lsp]]
+
+To enable Eglot set =lua-backend= to =eglot=:
+
+#+BEGIN_SRC elisp
+  (lua :variables
+       lua-backend 'eglot)
+#+END_SRC
+
+Eglot will automatically select the appropriate server from your =PATH=.
+
 * Key bindings
 ** LSP
 The default key bindings for the LSP implementations are defined and documented in
 the [[file:../../+tools/lsp/README.org][LSP layer]].
+
+** Eglot
+The default key bindings for the eglot implementations are defined and documented in
+the [[file:../../+tools/eglot/README.org][eglot layer]].
 
 ** Commands
 
