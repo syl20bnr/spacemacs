@@ -15,10 +15,10 @@
       - [[#emmy-server-setup][Emmy server setup]]
       - [[#lua-language-server-setup][Lua-language server setup]]
       - [[#lua-lsp-server-setup][Lua-lsp server setup]]
-    - [[#eglot-1][Eglot]]
+    - [[#eglot][Eglot]]
 - [[#key-bindings][Key bindings]]
   - [[#lsp-1][LSP]]
-  - [[#eglot][Eglot]]
+  - [[#eglot-1][Eglot]]
   - [[#commands][Commands]]
 
 * Description
