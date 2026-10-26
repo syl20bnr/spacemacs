@@ -604,7 +604,7 @@ respond to this toggle."
   :evil-leader "Tg")
 ;; quit -----------------------------------------------------------------------
 (spacemacs/set-leader-keys
-  "qs" 'spacemacs/save-buffers-kill-emacs
+  "qs" 'spacemacs/prompt-kill-emacs
   "qq" 'spacemacs/prompt-kill-emacs
   "qQ" 'spacemacs/kill-emacs
   "qf" 'spacemacs/frame-killer)
