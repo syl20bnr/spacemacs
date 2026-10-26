@@ -106,23 +106,21 @@
            ("C-c b" . consult-bookmark)
            ("C-c k" . consult-kmacro)
            ;; C-x bindings (ctl-x-map)
-           ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
-           ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
-           ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
-           ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
-           ;; C-x p bindings (project-prefix-map)
-           ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+           ([remap repeat-complex-command] . consult-complex-command)       ;; C-x M-:
+           ([remap switch-to-buffer] . consult-buffer)                      ;; C-x b
+           ([remap switch-to-buffer-other-window] . consult-buffer-other-window) ;; C-x 4 b
+           ([remap switch-to-buffer-other-frame] . consult-buffer-other-frame)   ;; C-x 5 b
+           ([remap project-switch-to-buffer] . consult-project-buffer)      ;; C-x p b
            ;; Custom M-# bindings for fast register access
            ("M-#" . consult-register-load)
            ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
            ("C-M-#" . consult-register)
            ;; Other custom bindings
-           ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+           ([remap yank-pop] . consult-yank-pop)                            ;; M-y
            ;; M-g bindings (goto-map)
            ("M-g e" . consult-compile-error)
            ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
-           ("M-g g" . consult-goto-line)             ;; orig. goto-line
-           ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
+           ([remap goto-line] . consult-goto-line)                          ;; M-g g, M-g M-g
            ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
            ("M-g m" . consult-mark)
            ("M-g k" . consult-global-mark)
@@ -141,8 +139,7 @@
            ;; Isearch integration
            ("M-s e" . consult-isearch-history)
            :map isearch-mode-map
-           ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
-           ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
+           ([remap isearch-edit-string] . consult-isearch-history) ;; M-e, M-s e
            ("M-s l" . consult-line))                 ;; needed by consult-line to detect isearch
 
     ;; The :init configuration is always executed (Not lazy)
