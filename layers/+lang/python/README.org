@@ -95,6 +95,9 @@ To choose a default backend set the layer variable =python-backend=:
 Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
 is used and you did not specify any value for =python-backend=.
 
+Otherwise the =eglot= backend will be selected if the layer =eglot= is used and
+you did not specify the =python-backend=.
+
 Backend can be chosen on a per project basis using directory local variables
 (files named =.dir-locals.el= at the root of a project), an example to use the
 =lsp= backend:
@@ -114,6 +117,7 @@ The available options are:
 |-----------+---------------------------|
 | 'anaconda | Default                   |
 | 'lsp      | python-lsp-server package |
+| 'eglot    | emacs builtin eglot package |
 
 * Backends
 ** Anaconda
