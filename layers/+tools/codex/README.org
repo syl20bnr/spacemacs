@@ -1,0 +1,134 @@
+#+TITLE: Codex Layer
+
+#+TAGS: layer|tool
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+- [[#usage][Usage]]
+- [[#key-bindings][Key bindings]]
+  - [[#menu-entries][Menu Entries]]
+  - [[#session-management][Session Management]]
+  - [[#navigation][Navigation]]
+  - [[#interaction][Interaction]]
+  - [[#manage][Manage]]
+  - [[#debug-commands][Debug Commands]]
+  - [[#assistant-functions][Assistant Functions]]
+
+* Description
+This layer adds support for [[https://github.com/dgillis/emacs-codex-ide][Codex IDE]], an Emacs package that provides
+seamless integration with the OpenAI Codex CLI for AI-assisted coding.
+
+** Features:
+- AI-powered code editing and generation using Codex
+- Native integration with the =codex app-server= (no terminal wrapper)
+- Syntax-highlighted code blocks rendered with Emacs major modes
+- Diff rendering with a canonical session diff buffer
+- Clickable file and code references that jump to real buffers
+- Interactive in-buffer approval review flow
+- Expandable/collapsible transcript detail
+- Multi-project session management
+- Resume and continue conversations
+- Send prompts and images for analysis
+- Project-aware context handling
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =codex= to the existing =dotspacemacs-configuration-layers= list in this file.
+
+You will also need to install the Codex CLI tool. For more information, please
+check the [[https://developers.openai.com/codex/app-server][OpenAI Codex documentation]].
+
+#+BEGIN_SRC sh
+  # Install the Codex CLI (e.g. via npm)
+  npm install -g @openai/codex
+#+END_SRC
+
+Ensure the =codex= command works in your terminal before using this layer.
+
+* Configuration
+Before using this layer, ensure the =codex= command works in your terminal.
+
+The package supports various customization options. You can configure the
+options in your Spacemacs configuration:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((codex :variables
+                         codex-ide-model "gpt-5.2"
+                         codex-ide-reasoning-effort "high"
+                         codex-ide-fast "off")))
+#+END_SRC
+
+For the full options, please refer the [[https://github.com/dgillis/emacs-codex-ide][Codex IDE configuration]] section on
+its project page.
+
+* Usage
+This layer provides comprehensive integration with Codex through Emacs. The main
+entry point is the transient menu accessible via ~SPC $ x y~.
+
+Basic workflow:
+- Open your project in Spacemacs
+- Use ~SPC $ x y~ to open the Codex transient menu
+- Start a Codex session with ~SPC $ x s~
+- Send prompts with ~SPC $ x p~ or use helper functions
+- Continue conversations with ~SPC $ x c~ or reset with ~SPC $ x r~
+
+The layer includes helpful functions for common tasks:
+- Ask questions about symbols at point
+
+* Key bindings
+** Menu Entries
+
+| Key binding | Description                     |
+|-------------+---------------------------------|
+| ~SPC $ x y~ | Open Codex transient menu       |
+| ~SPC $ x C~ | Agent configuration menu        |
+
+** Session Management
+
+| Key binding | Description                        |
+|-------------+------------------------------------|
+| ~SPC $ x s~ | Start Codex for current project    |
+| ~SPC $ x c~ | Continue Codex for current project |
+| ~SPC $ x r~ | Reset the current session          |
+| ~SPC $ x l~ | Manage and list sessions           |
+| ~SPC $ x q~ | Stop Codex for current project     |
+| ~SPC $ x b~ | Switch to Codex session buffer     |
+
+** Navigation
+
+| Key binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC $ x b~ | Switch to Codex session buffer |
+
+** Interaction
+
+| Key binding | Description                          |
+|-------------+--------------------------------------|
+| ~SPC $ x p~ | Send prompt to Codex from minibuffer |
+| ~SPC $ x i~ | Attach an image file                 |
+| ~SPC $ x I~ | Attach clipboard image               |
+
+** Manage
+
+| Key binding | Description               |
+|-------------+---------------------------|
+| ~SPC $ x L~ | List live session buffers |
+| ~SPC $ x D~ | Open session diff buffer  |
+
+** Debug Commands
+
+| Key binding   | Description            |
+|---------------+------------------------|
+| ~SPC $ x d~   | Open the debug menu    |
+| ~SPC $ x d s~ | Check Codex CLI status |
+| ~SPC $ x d v~ | Show debug info        |
+
+** Assistant Functions
+
+| Key binding | Description                        |
+|-------------+------------------------------------|
+| ~SPC $ x *~ | Ask question about symbol at point |

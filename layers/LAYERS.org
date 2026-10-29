@@ -217,6 +217,7 @@
   - [[#cfengine][CFEngine]]
   - [[#chrome][Chrome]]
   - [[#claude-code-layer][Claude Code Layer]]
+  - [[#codex-layer][Codex Layer]]
   - [[#cmake][CMake]]
   - [[#command-log][Command-log]]
   - [[#dap][DAP]]
@@ -2859,6 +2860,23 @@ Features:
 - Deep Emacs integration with transient menus
 - Resume and continue conversations
 - Send code regions and symbols for analysis
+- Project-aware context handling
+
+** Codex Layer
+[[file:+tools/codex/README.org][+tools/codex/README.org]]
+
+This layer adds support for [[https://github.com/dgillis/emacs-codex-ide][Codex IDE]], an Emacs package that provides
+seamless integration with the OpenAI Codex CLI for AI-assisted coding.
+
+Features:
+- AI-powered code editing and generation using Codex
+- Native integration with the codex app-server (no terminal wrapper)
+- Syntax-highlighted code blocks rendered with Emacs major modes
+- Diff rendering with a canonical session diff buffer
+- Interactive in-buffer approval review flow
+- Multi-project session management
+- Resume and continue conversations
+- Send prompts and images for analysis
 - Project-aware context handling
 
 ** CMake
