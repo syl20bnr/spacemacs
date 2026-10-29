@@ -348,7 +348,8 @@
       "c" 'multighostel
       "n" 'ghostel-next
       "N" 'ghostel-previous
-      "p" 'ghostel-previous)))
+      "p" 'ghostel-previous
+      "s" 'spacemacs/ghostel-switch-buffer)))
 
 (defun shell/init-evil-ghostel ()
   (use-package evil-ghostel
