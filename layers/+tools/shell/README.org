@@ -118,6 +118,7 @@ To define the default shell you can set the layer variable =shell-default-shell=
 to the following variables:
 - =ansi-term= (default on Linux/macOS)
 - =eshell= (default on Windows)
+- =ghostel=
 - =shell=
 - =term=
 - =vterm=
@@ -384,3 +385,9 @@ and built‑in copy/Emacs navigation modes. The layer provides:
 - Leader key `SPC a t s g` (bound to `spacemacs/shell-pop-ghostel`).
 - Toggle variable `shell-enable-ghostel-support` (default `t`).
 - Requires the system package `libghostty`.
+| Key binding            | Description                |
+|------------------------+----------------------------|
+| ~SPC m c~              | create a new multi-vterm   |
+| ~SPC m n~              | go to next multi-vterm     |
+| ~SPC m N~ or ~SPC m p~ | go to previous multi-vterm |
+| ~SPC m s~              | switch buffers by name     |
