@@ -29,12 +29,14 @@
   (pcase c-c++-backend
     ('lsp-clangd (spacemacs//c-c++-setup-lsp-clangd))
     ('lsp-ccls (spacemacs//c-c++-setup-lsp-ccls))
+    ('eglot (spacemacs//c-c++-setup-eglot))
     ('rtags (spacemacs//c-c++-setup-rtags))
     ('ycmd (spacemacs//c-c++-setup-ycmd))))
 
 (defun spacemacs//c-c++-setup-company ()
   "Conditionally setup C/C++ company integration based on backend."
   (pcase c-c++-backend
+    ('eglot (spacemacs//c-c++-setup-eglot-company))
     ('rtags (spacemacs//c-c++-setup-rtags-company))
     ('ycmd (spacemacs//c-c++-setup-ycmd-company))))
 
@@ -170,6 +172,19 @@
 (defun spacemacs//c-c++-setup-lsp-dap ()
   "Setup DAP integration."
   (mapc #'require c-c++-dap-adapters))
+
+
+;; eglot
+
+(defun spacemacs//c-c++-setup-eglot ()
+  "Setup eglot backend."
+  (eglot-ensure))
+
+(defun spacemacs//c-c++-setup-eglot-company ()
+  "Setup eglot auto-completion."
+  (spacemacs|add-company-backends
+    :backends company-capf
+    :modes c-mode-common))
 
 
 ;; rtags
