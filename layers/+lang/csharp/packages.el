@@ -22,9 +22,7 @@
 
 
 (setq csharp-packages
-      `(
-        (csharp-mode
-         ,@(and (version<= "29.0.60" emacs-version) '(:location built-in)))
+      '((csharp-mode :location built-in)
         evil-matchit
         ggtags
         flycheck))
