@@ -385,6 +385,7 @@ and built‑in copy/Emacs navigation modes. The layer provides:
 - Leader key `SPC a t s g` (bound to `spacemacs/shell-pop-ghostel`).
 - Toggle variable `shell-enable-ghostel-support` (default `t`).
 - Requires the system package `libghostty`.
+
 | Key binding            | Description                |
 |------------------------+----------------------------|
 | ~SPC m c~              | create a new multi-vterm   |
