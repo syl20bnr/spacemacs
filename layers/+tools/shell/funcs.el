@@ -287,6 +287,15 @@ is achieved by adding the relevant text properties."
             :append
             :local))
 
+(defun spacemacs/ghostel-switch-buffer ()
+  "Switch between the multi-vterm buffers."
+  (interactive)
+  (pop-to-buffer-same-window
+   (completing-read "Ghostel buffer: "
+                    (mapcar 'buffer-name
+                            (remq (current-buffer) (ghostel-buffer-list)))
+                    nil t)))
+
 (defun spacemacs//vterm-make-history-candidates ()
   (with-temp-buffer
     (insert-file-contents spacemacs-vterm-history-file-location)
