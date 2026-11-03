@@ -74,7 +74,21 @@
       ;; toggles
       "T" "toggle"
       "Th" #'eglot-inlay-hints-mode)
-    ))
+    ;; Eglot 1.25 moved code actions and renaming into the Refactor package,
+    ;; for which it is now a backend, and made the `eglot-' commands obsolete
+    ;; aliases.  Use Refactor's commands when Eglot is a Refactor backend.
+    (when (fboundp 'eglot-refactor-backend)
+      (spacemacs/set-leader-keys-for-minor-mode 'eglot--managed-mode
+        "=o" #'refactor-organize-imports
+        "aa" #'refactor
+        "af" #'refactor-quickfix
+        "ai" #'refactor-inline
+        "ae" #'refactor-extract
+        "ao" #'refactor-organize-imports
+        "rr" #'refactor-rename
+        "ri" #'refactor-inline
+        "re" #'refactor-extract
+        "ro" #'refactor-organize-imports))))
 
 (defun eglot/post-init-flycheck ()
   (with-eval-after-load 'flycheck
