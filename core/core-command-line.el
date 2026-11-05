@@ -63,7 +63,7 @@ arguments is that we want to process these arguments as soon as possible."
            (setq spacemacs-debug-with-adv-timers t)
            (when next-arg-digit
              (setq spacemacs-debug-timer-threshold next-arg-digit
-                   i (1+ 1)))
+                   i (1+ i)))
            (setq spacemacs-debugp t))
           ("--no-layer"
            (setq configuration-layer-exclude-all-layers t))
