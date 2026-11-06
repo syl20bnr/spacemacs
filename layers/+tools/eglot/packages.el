@@ -22,7 +22,8 @@
 
 
 (defconst eglot-packages
-  '(eglot))
+  '(eglot
+    flycheck))
 
 (defun eglot/init-eglot ()
   (use-package eglot
