@@ -104,12 +104,6 @@
     ;; `evil-cp-change' should move the point, see https://github.com/luxbock/evil-cleverparens/pull/71
     (evil-set-command-properties 'evil-cp-change :move-point t)))
 
-(defun spacemacs-evil/init-evil-ediff ()
-  (use-package evil-ediff
-    :after (ediff)
-    :if (memq dotspacemacs-editing-style '(hybrid vim))))
-
-
 (defun spacemacs-evil/init-evil-collection ()
   (use-package evil-collection
     :after evil
