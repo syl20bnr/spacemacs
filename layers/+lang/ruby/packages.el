@@ -46,6 +46,9 @@
     rubocopfmt
     ruby-hash-syntax
     (ruby-mode :location built-in :toggle (not ruby-enable-enh-ruby-mode))
+    (ruby-ts-mode :location built-in
+                  :toggle (and ruby-enable-ts-mode
+                               (not ruby-enable-enh-ruby-mode)))
     ruby-refactor
     ruby-test-mode
     ruby-tools
@@ -55,7 +58,7 @@
 (defun ruby/init-bundler ()
   (use-package bundler
     :defer t
-    :init (dolist (mode '(ruby-mode enh-ruby-mode))
+    :init (dolist (mode '(ruby-mode ruby-ts-mode enh-ruby-mode))
             (spacemacs/declare-prefix-for-mode mode "mb"
               (if (eq ruby-backend 'lsp) "build/bundle" "bundle"))
             (spacemacs/set-leader-keys-for-major-mode mode
@@ -71,20 +74,27 @@
     :commands chruby-use-corresponding
     :defer t
     :init (spacemacs/add-to-hooks 'chruby-use-corresponding
-                                  '(ruby-mode-hook enh-ruby-mode-hook))))
+                                  '(ruby-mode-hook
+                                    ruby-ts-mode-hook
+                                    enh-ruby-mode-hook))))
 
 (defun ruby/post-init-add-node-modules-path ()
-  (spacemacs/add-to-hooks #'add-node-modules-path '(ruby-mode-hook)))
+  (spacemacs/add-to-hooks #'add-node-modules-path '(ruby-mode-hook
+                                                    ruby-ts-mode-hook)))
 
 (defun ruby/post-init-company ()
-  (add-hook 'ruby-mode-local-vars-hook #'spacemacs//ruby-setup-company))
+  (spacemacs/add-to-hooks #'spacemacs//ruby-setup-company
+                          '(ruby-mode-local-vars-hook
+                            ruby-ts-mode-local-vars-hook)))
 
 (defun ruby/pre-init-dap-mode ()
   (when (eq ruby-backend 'lsp)
     (add-to-list 'spacemacs--dap-supported-modes 'ruby-mode)
+    (add-to-list 'spacemacs--dap-supported-modes 'ruby-ts-mode)
     (add-to-list 'spacemacs--dap-supported-modes 'enh-ruby-mode))
   (spacemacs/add-to-hooks #'spacemacs//ruby-setup-dap
                           '(ruby-mode-local-vars-hook
+                            ruby-ts-mode-local-vars-hook
                             enh-ruby-mode-local-vars-hook)))
 
 (defun ruby/init-enh-ruby-mode ()
@@ -110,16 +120,22 @@
       "r}" 'enh-ruby-toggle-block)))
 
 (defun ruby/post-init-evil-matchit ()
-  (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
-    (add-hook hook `turn-on-evil-matchit-mode)))
+  (dolist (hook '(ruby-mode-hook ruby-ts-mode-hook enh-ruby-mode-hook))
+    (add-hook hook `turn-on-evil-matchit-mode))
+  ;; evil-matchit only registers its ruby rules for `ruby-mode' and
+  ;; `enh-ruby-mode'
+  (with-eval-after-load 'evil-matchit
+    (evilmi-load-plugin-rules '(ruby-ts-mode) '(simple ruby))))
 
 (defun ruby/post-init-flycheck ()
   (spacemacs/enable-flycheck 'ruby-mode)
+  (spacemacs/enable-flycheck 'ruby-ts-mode)
   (spacemacs/enable-flycheck 'enh-ruby-mode))
 
 (defun ruby/post-init-ggtags ()
   (spacemacs/add-to-hooks 'spacemacs/ggtags-mode-enable
                           '(ruby-mode-local-vars-hook
+                            ruby-ts-mode-local-vars-hook
                             enh-ruby-mode-local-vars-hook)))
 
 (defun ruby/init-minitest ()
@@ -128,13 +144,14 @@
     :init
     (spacemacs/add-to-hooks 'spacemacs//ruby-enable-minitest-mode
                             '(ruby-mode-local-vars-hook
+                              ruby-ts-mode-local-vars-hook
                               enh-ruby-mode-local-vars-hook))
     ;; remove hooks added by minitest mode
-    (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+    (dolist (hook '(ruby-mode-hook ruby-ts-mode-hook enh-ruby-mode-hook))
       (remove-hook hook 'minitest-enable-appropriate-mode))
     :config
     (spacemacs|hide-lighter minitest-mode)
-    (dolist (mode '(ruby-mode enh-ruby-mode))
+    (dolist (mode '(ruby-mode ruby-ts-mode enh-ruby-mode))
       (spacemacs/set-leader-keys-for-major-mode mode
         "ta" 'minitest-verify-all
         "tb" 'minitest-verify
@@ -147,6 +164,7 @@
 
 (defun ruby/pre-init-prettier-js ()
   (add-to-list 'spacemacs--prettier-modes 'ruby-mode)
+  (add-to-list 'spacemacs--prettier-modes 'ruby-ts-mode)
   (add-to-list 'spacemacs--prettier-modes 'enh-ruby-mode))
 
 (defun ruby/pre-init-popwin ()
@@ -169,7 +187,7 @@
   (use-package rake
     :defer t
     :init (setq rake-cache-file (concat spacemacs-cache-directory "rake.cache"))
-    :config (dolist (mode '(ruby-mode enh-ruby-mode))
+    :config (dolist (mode '(ruby-mode ruby-ts-mode enh-ruby-mode))
               (spacemacs/declare-prefix-for-mode mode "mk" "rake")
               (spacemacs/set-leader-keys-for-major-mode mode
                 "kk"    'rake
@@ -186,14 +204,15 @@
     :defer t
     :init
     (spacemacs/register-repl 'robe 'robe-start "robe")
-    (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+    (dolist (hook '(ruby-mode-hook ruby-ts-mode-hook enh-ruby-mode-hook))
       (add-hook hook 'robe-mode))
     (spacemacs/add-to-hooks 'robe-jump
                             '(spacemacs-jump-handlers-ruby-mode
+                              spacemacs-jump-handlers-ruby-ts-mode
                               spacemacs-jump-handlers-enh-ruby-mode))
     :config
     (spacemacs|hide-lighter robe-mode)
-    (dolist (mode '(ruby-mode enh-ruby-mode))
+    (dolist (mode '(ruby-mode ruby-ts-mode enh-ruby-mode))
       (spacemacs/declare-prefix-for-mode mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode mode "mh" "docs")
       (spacemacs/declare-prefix-for-mode mode "mr" "refactor/robe")
@@ -223,16 +242,17 @@
     :init
     (spacemacs/add-to-hooks 'spacemacs//ruby-enable-rspec-mode
                             '(ruby-mode-local-vars-hook
+                              ruby-ts-mode-local-vars-hook
                               enh-ruby-mode-local-vars-hook))
     ;; remove hooks automatically added by rspec via autoload
     ;; because we want to be able to control when rspec-mode is
     ;; loaded based on the layer variable `ruby-test-runner'
-    (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+    (dolist (hook '(ruby-mode-hook ruby-ts-mode-hook enh-ruby-mode-hook))
       (remove-hook hook 'rspec-enable-appropriate-mode))
     :config
     (add-hook 'rspec-compilation-mode-hook 'spacemacs//inf-ruby-auto-enter)
     (spacemacs|hide-lighter rspec-mode)
-    (dolist (mode '(ruby-mode enh-ruby-mode))
+    (dolist (mode '(ruby-mode ruby-ts-mode enh-ruby-mode))
       (spacemacs/set-leader-keys-for-major-mode mode
         "ta"    'rspec-verify-all
         "tb"    'rspec-verify
@@ -251,8 +271,9 @@
   (use-package rubocop
     :defer t
     :init (spacemacs/add-to-hooks 'rubocop-mode '(ruby-mode-hook
+                                                  ruby-ts-mode-hook
                                                   enh-ruby-mode-hook))
-    :config (dolist (mode '(ruby-mode enh-ruby-mode))
+    :config (dolist (mode '(ruby-mode ruby-ts-mode enh-ruby-mode))
               (spacemacs/declare-prefix-for-mode mode "mR" "RuboCop")
               (spacemacs/set-leader-keys-for-major-mode mode
                 "Rd" 'rubocop-check-directory
@@ -268,7 +289,7 @@
     :init
     (setq-default rubocopfmt-disabled-cops '())
 
-    (dolist (mode '(ruby-mode enh-ruby-mode))
+    (dolist (mode '(ruby-mode ruby-ts-mode enh-ruby-mode))
       (spacemacs/declare-prefix-for-mode mode "m=" "format")
       (spacemacs/set-leader-keys-for-major-mode mode
         "=r" #'rubocopfmt))))
@@ -277,7 +298,7 @@
   (use-package ruby-hash-syntax
     :defer t
     :init
-    (dolist (mode '(ruby-mode enh-ruby-mode))
+    (dolist (mode '(ruby-mode ruby-ts-mode enh-ruby-mode))
       (spacemacs/set-leader-keys-for-major-mode mode
         "xh" 'ruby-hash-syntax-toggle))))
 
@@ -311,13 +332,54 @@
       "r{"  'ruby-toggle-block
       "r}"  'ruby-toggle-block)))
 
+;; `ruby-ts-mode' reuses most of `ruby-mode' (indentation variables, block and
+;; string quote toggling), so `ruby-mode' stays configured and files are
+;; remapped to `ruby-ts-mode' through `major-mode-remap-alist'.
+(defun ruby/init-ruby-ts-mode ()
+  (cond
+   ((not (and (fboundp 'treesit-available-p) (treesit-available-p)))
+    (spacemacs-buffer/warning
+     (concat "`ruby-enable-ts-mode' requires Emacs 29+ compiled with "
+             "tree-sitter support, falling back to `ruby-mode'.")))
+   ;; Since Emacs 31 `ruby-ts-mode' installs its grammar on demand, older
+   ;; versions have no recipe for it and cannot install it non-interactively.
+   ((not (or (fboundp 'treesit-ensure-installed)
+             (treesit-language-available-p 'ruby)))
+    (spacemacs-buffer/warning
+     (concat "`ruby-enable-ts-mode': the tree-sitter Ruby grammar is missing, "
+             "falling back to `ruby-mode'. Install it with "
+             "`M-x treesit-install-language-grammar RET ruby' and restart.")))
+   (t
+    (use-package ruby-ts-mode
+      :defer t
+      :init
+      (add-to-list 'major-mode-remap-alist '(ruby-mode . ruby-ts-mode))
+      (with-eval-after-load 'inf-ruby
+        (add-to-list 'ruby-source-modes 'ruby-ts-mode))
+      (spacemacs/declare-prefix-for-mode 'ruby-ts-mode "mi" "insert")
+      (spacemacs/declare-prefix-for-mode 'ruby-ts-mode "mt" "test")
+      (spacemacs/declare-prefix-for-mode 'ruby-ts-mode "mT" "toggle")
+      (add-hook 'ruby-ts-mode-hook #'spacemacs//ruby-setup-backend)
+      (add-hook 'ruby-ts-mode-local-vars-hook
+                #'spacemacs/ruby-maybe-highlight-debugger-keywords)
+      (when ruby-prettier-on-save
+        (add-hook 'ruby-ts-mode-hook 'spacemacs/ruby-fmt-before-save-hook))
+      :config
+      (spacemacs/set-leader-keys-for-major-mode 'ruby-ts-mode
+        "if"  'spacemacs/ruby-insert-frozen-string-literal-comment
+        "is"  'spacemacs/ruby-insert-shebang
+        "r'"  'ruby-toggle-string-quotes
+        "r\"" 'ruby-toggle-string-quotes
+        "r{"  'ruby-toggle-block
+        "r}"  'ruby-toggle-block)))))
+
 (defun ruby/init-ruby-refactor ()
   (use-package ruby-refactor
     :defer t
-    :init (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+    :init (dolist (hook '(ruby-mode-hook ruby-ts-mode-hook enh-ruby-mode-hook))
             (add-hook hook 'ruby-refactor-mode-launch))
     :config
-    (dolist (mode '(ruby-mode enh-ruby-mode))
+    (dolist (mode '(ruby-mode ruby-ts-mode enh-ruby-mode))
       (spacemacs/declare-prefix-for-mode mode "mre" "extract")
       (spacemacs/set-leader-keys-for-major-mode mode
         "rem" 'ruby-refactor-extract-to-method
@@ -331,6 +393,7 @@
     :defer t
     :init (spacemacs/add-to-hooks 'spacemacs//ruby-enable-ruby-test-mode
                                   '(ruby-mode-local-vars-hook
+                                    ruby-ts-mode-local-vars-hook
                                     enh-ruby-mode-local-vars-hook))
     :config
     ;; `ruby-test-mode' adds a hook to enable itself, this hack
@@ -338,7 +401,7 @@
     ;; mode
     (remove-hook 'ruby-mode-hook 'ruby-test-enable)
     (spacemacs|hide-lighter ruby-test-mode)
-    (dolist (mode '(ruby-mode enh-ruby-mode))
+    (dolist (mode '(ruby-mode ruby-ts-mode enh-ruby-mode))
       (spacemacs/set-leader-keys-for-major-mode mode
         "tb" 'ruby-test-run
         "tt" 'ruby-test-run-at-point))))
@@ -346,11 +409,11 @@
 (defun ruby/init-ruby-tools ()
   (use-package ruby-tools
     :defer t
-    :init (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+    :init (dolist (hook '(ruby-mode-hook ruby-ts-mode-hook enh-ruby-mode-hook))
             (add-hook hook 'ruby-tools-mode))
     :config
     (spacemacs|hide-lighter ruby-tools-mode)
-    (dolist (mode '(ruby-mode enh-ruby-mode))
+    (dolist (mode '(ruby-mode ruby-ts-mode enh-ruby-mode))
       (spacemacs/declare-prefix-for-mode mode "mx" "text")
       (spacemacs/set-leader-keys-for-major-mode mode
         "x\'" 'ruby-tools-to-single-quote-string
@@ -363,12 +426,14 @@
     :init
     (setq rspec-use-rvm t)
     (spacemacs/add-to-hooks 'rvm-activate-corresponding-ruby
-                            '(ruby-mode-hook enh-ruby-mode-hook))))
+                            '(ruby-mode-hook ruby-ts-mode-hook enh-ruby-mode-hook))))
 
 (defun ruby/pre-init-smartparens ()
   (spacemacs|use-package-add-hook smartparens
     :post-config
-    (sp-with-modes (if ruby-enable-enh-ruby-mode 'enh-ruby-mode 'ruby-mode)
+    (sp-with-modes (if ruby-enable-enh-ruby-mode
+                       'enh-ruby-mode
+                     '(ruby-mode ruby-ts-mode))
       (sp-local-pair
        "{" "}"
        :pre-handlers '(sp-ruby-pre-handler)

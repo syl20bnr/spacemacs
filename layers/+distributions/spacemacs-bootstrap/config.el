@@ -46,7 +46,7 @@
     (nxml-mode . nxml-child-indent)
     (perl-mode . perl-indent-level)
     (puppet-mode . puppet-indent-level)
-    (ruby-mode . ruby-indent-level)
+    ((ruby-mode ruby-ts-mode) . ruby-indent-level)
     (rust-mode . rust-indent-offset)
     (scala-mode . scala-indent:step)
     (sgml-mode . sgml-basic-offset)
