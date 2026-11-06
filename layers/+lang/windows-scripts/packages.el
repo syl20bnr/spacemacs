@@ -25,6 +25,7 @@
   '(
     (bat-mode :location built-in)
     bmx-mode
+    company
     ggtags
     powershell))
 
@@ -72,11 +73,10 @@
                                             :label "bmx-fixup")))))))
 
 (defun windows-scripts/post-init-company ()
-  (when (configuration-layer/package-used-p 'company)
-    (add-hook 'company-completion-finished-hook #'bmx--company-completion-finished-hook)
-    (spacemacs|add-company-backends
-      :backends (bmx--company-label-backend bmx--company-variable-backend company-files company-capf)
-      :modes bat-mode)))
+  (add-hook 'company-completion-finished-hook #'bmx--company-completion-finished-hook)
+  (spacemacs|add-company-backends
+    :backends (bmx--company-label-backend bmx--company-variable-backend company-files company-capf)
+    :modes bat-mode))
 
 (defun windows-scripts/post-init-ggtags ()
   (add-hook 'bat-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

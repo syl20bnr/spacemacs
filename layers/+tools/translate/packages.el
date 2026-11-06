@@ -23,7 +23,8 @@
 
 (defconst translate-packages
   '(translate-mode
-    gt))
+    gt
+    posframe))
 
 (defun translate/init-translate-mode ()
   "Initialize required packages."
