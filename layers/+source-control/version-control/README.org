@@ -111,15 +111,16 @@ Then you may mark (=m= key) files you are interested in, to form a fileset.
 Most commands described above are applicable to filesets too.
 To some of them are given shortcuts:
 
-| Key binding | Description                       |
-|-------------+-----------------------------------|
-| ~=~         | Compare selected files with head  |
-| ~c~         | Open a =commit message buffer=    |
-| ~l~         | List changes                      |
-| ~a~         | Annotate selected files           |
-| ~i~         | Add into a version control system |
-| ~r~         | Refresh directory view            |
-| ~E~         | Ignore file under cursor          |
+| Key binding | Description                        |
+|-------------+------------------------------------|
+| ~=~         | Compare marked files with head     |
+| ~c~         | Commit/Add/"Continue" marked files |
+| ~C~         | Commit/Add/"Continue" all files    |
+| ~l~         | List changes                       |
+| ~a~         | Annotate marked files              |
+| ~i~         | Add into a version control system  |
+| ~r~         | Refresh directory view             |
+| ~E~         | Ignore marked files under cursor   |
 
 Navigation and interaction commands in the VC Directory buffer:
 

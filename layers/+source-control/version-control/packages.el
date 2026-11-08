@@ -57,6 +57,7 @@
         (kbd "<backtab>") 'vc-dir-previous-directory
         "l" 'vc-print-log
         "c" 'vc-next-action
+        "C" 'vc-dir-root-next-action
         "a" 'vc-annotate
         "r" 'vc-dir-refresh
         "E" 'vc-dir-ignore))
