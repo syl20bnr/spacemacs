@@ -37,11 +37,8 @@
     helm-mode-manager
     helm-org
     helm-projectile
-    ;; FIXME Remove obsolete packages helm-swoop
+    ;; helm-occur (builtin occur-based search) replaces the obsolete helm-swoop
     ;; helm-ag etc. (see https://github.com/melpa/melpa/pull/9520)
-    (helm-swoop :location (recipe
-                           :fetcher github
-                           :repo "emacsattic/helm-swoop"))
     (helm-spacemacs-help :location local)
     helm-xref
     imenu
@@ -65,9 +62,9 @@
     (setq spacemacs--symbol-highlight-transient-state-doc
           (concat
            spacemacs--symbol-highlight-transient-state-doc
-           "  Search: [_s_] swoop  [_b_] buffers  [_f_] files  [_/_] project"))
+           "  Search: [_s_] occur  [_b_] buffers  [_f_] files  [_/_] project"))
     (spacemacs/transient-state-register-add-bindings 'symbol-highlight
-      '(("s" spacemacs/helm-swoop-region-or-symbol :exit t)
+      '(("s" spacemacs/helm-occur :exit t)
         ("b" spacemacs/helm-buffers-smart-do-search-region-or-symbol :exit t)
         ("f" spacemacs/helm-files-smart-do-search-region-or-symbol :exit t)
         ("/" spacemacs/helm-project-smart-do-search-region-or-symbol :exit t)))))
@@ -280,8 +277,9 @@
       "srB" '("rg-search buffers w/ input" .
               spacemacs/helm-buffers-do-rg-region-or-symbol)
       ;; current file scope
-      "ss"  'spacemacs/helm-file-smart-do-search
-      "sS"  'spacemacs/helm-file-smart-do-search-region-or-symbol
+      "ss"  'spacemacs/helm-occur
+      "sS"  'spacemacs/helm-multi-occur
+      "s C-s" 'spacemacs/helm-multi-occur-all
       "saa" 'helm-ag-this-file
       "saA" 'spacemacs/helm-file-do-ag-region-or-symbol
       ;; files scope
@@ -445,35 +443,6 @@
       "h p"   'helm-spacemacs-help-packages
       "h r"   'helm-spacemacs-help-docs
       "h t"   'helm-spacemacs-help-toggles)))
-
-(defun helm/init-helm-swoop ()
-  (use-package helm-swoop
-    :defer t
-    :init
-    (setq helm-swoop-split-with-multiple-windows t
-          helm-swoop-split-direction 'split-window-vertically
-          helm-swoop-split-window-function 'spacemacs/helm-swoop-split-window-function)
-
-    (defun spacemacs/helm-swoop-split-window-function (&rest args)
-      "Override to make helm settings (like `helm-split-window-default-side') work"
-      (let (;; current helm-swoop implemenatation prevents it from being used fullscreen
-            (helm-full-frame nil)
-            (pop-up-windows t))
-        (apply 'helm-default-display-buffer args)))
-
-    (defun spacemacs/helm-swoop-clear-cache ()
-      "Call `helm-swoop--clear-cache' to clear the cache"
-      (interactive)
-      (helm-swoop--clear-cache)
-      (message "helm-swoop cache cleaned."))
-
-    (spacemacs/set-leader-keys
-      "sC"    'spacemacs/helm-swoop-clear-cache
-      "ss"    'helm-swoop
-      "sS"    'helm-multi-swoop
-      "s C-s" 'helm-multi-swoop-all)
-
-    (evil-add-command-properties 'helm-swoop :jump t)))
 
 (defun helm/init-helm-xref ()
   (use-package helm-xref

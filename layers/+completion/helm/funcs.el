@@ -136,6 +136,143 @@ If DEFAULT-INPUTP is non nil then the current region or symbol at point
   (interactive)
   (spacemacs/helm-file-smart-do-search t))
 
+;; Search in current buffer using helm-occur (replaces helm-swoop) -------------
+
+(defun spacemacs/helm-occur ()
+  "Search lines in the current buffer matching a regexp with `helm-occur'.
+
+This is the maintained replacement of the obsolete `helm-swoop'.  It
+uses Helm to collect the lines matching a regexp, the same kind of
+search performed by the Emacs builtin `occur'."
+  (interactive)
+  (require 'helm-occur)
+  (helm-occur))
+
+(defun spacemacs/helm-occur-region-or-symbol ()
+  "Search the current buffer with `helm-occur' using the region or symbol."
+  (interactive)
+  (spacemacs/helm-occur))
+
+(defun spacemacs/helm-multi-occur ()
+  "Search lines in multiple buffers with `helm-multi-occur'.
+
+Prompts for the buffers to search, then runs helm's builtin
+`helm-multi-occur-1' across the selected buffers.  This is the
+maintained replacement for the obsolete `helm-multi-swoop'."
+  (interactive)
+  (require 'helm-occur)
+  (require 'helm-buffers)
+  (let ((buf-names (helm-comp-read
+                    "Buffers: "
+                    (helm-skip-boring-buffers
+                     (helm-buffer-list-1 nil) nil)
+                    :name "Occur in buffer(s)"
+                    :marked-candidates t
+                    :must-match t
+                    :buffer "*helm occur buffer list*")))
+    (helm-multi-occur-1 (mapcar 'get-buffer buf-names))))
+
+(defun spacemacs/helm-multi-occur-all ()
+  "Search lines in all open buffers with `helm-multi-occur'.
+
+Searches all non-boring current buffers (excluding helm buffers,
+minibuffers, hidden windows, etc.).  This is the maintained
+replacement for the obsolete `helm-multi-swoop-all'."
+  (interactive)
+  (require 'helm-occur)
+  (require 'helm-buffers)
+  (let* ((names (helm-skip-boring-buffers
+                 (helm-buffer-list-1 nil) nil))
+         (buffers (mapcar 'get-buffer names)))
+    (helm-multi-occur-1 buffers)))
+
+(defun spacemacs//helm-occur-normalize-buffers (mbufs)
+  "Return a clean list of live buffer objects from MBUFS.
+
+MBUFS may contain buffer objects, buffer names, or nils.  Return the
+list restricted to live buffer objects, dropping everything else."
+  (delq nil (mapcar (lambda (b)
+                      (let ((bb (if (stringp b) (get-buffer b) b)))
+                        (and (bufferp bb) (buffer-live-p bb) bb)))
+                    mbufs)))
+
+(defun spacemacs/helm-occur-edit ()
+  "Edit the `helm-occur' results in an editable `*Occur*' buffer.
+
+This replaces the obsolete helm-swoop edit workflow.  It exits the
+helm session, runs the Emacs builtin `occur' command with the current
+search pattern over every buffer that was searched (a single buffer for
+`helm-occur', several buffers for `helm-multi-occur') to create a
+standard `*Occur*' buffer, and enables `occur-edit-mode' so that edits
+to the occurrences are written back to their originating buffer.
+
+Use \\[occur-cease-edit] or the Spacemacs leader binding (`,c' / `,,')
+to return to plain Occur mode."
+  (interactive)
+  (require 'helm-occur)
+  (require 'replace)
+  ;; Capture the target buffers and the current pattern while the helm
+  ;; session is still alive.  funcs.el is loaded with dynamic binding
+  ;; (lexical-binding is nil) so a closure cannot capture these `let*'
+  ;; variables; we therefore pass them as ARGS through
+  ;; `helm-run-after-exit', which are evaluated before exiting helm and
+  ;; handed to the helper function after the session has quit.
+  ;;
+  ;; Every moccur source (both the single-buffer `helm-occur' and the
+  ;; multi-buffer `helm-multi-occur' sessions) carries the
+  ;; `moccur-buffers' attribute holding the full list of buffers that
+  ;; were searched.  We collect all of them so the editable `*Occur*'
+  ;; buffer contains occurrences from every searched buffer, exactly like
+  ;; `helm-multi-swoop-edit' does, instead of only the source under
+  ;; point (the old `buffer-name' approach dropped other buffers' matches).
+  (let* ((mbufs (helm-get-attr 'moccur-buffers))
+         (bufs (if (and mbufs (listp mbufs))
+                   (spacemacs//helm-occur-normalize-buffers mbufs)
+                 ;; Fall back to the source's single buffer.
+                 (let ((bn (helm-get-attr 'buffer-name)))
+                   (and bn (list (get-buffer bn))))))
+         (pattern (and (boundp 'helm-input)
+                       (substring-no-properties helm-input))))
+    (helm-run-after-exit
+     #'spacemacs//helm-occur-edit-finish bufs pattern)))
+
+(defun spacemacs//helm-occur-edit-finish (bufs pattern)
+  "Create an editable `*Occur*' buffer for BUFS with PATTERN.
+
+Called after exiting the helm session by `spacemacs/helm-occur-edit'.
+Runs the builtin `occur' on BUFS (a list of one or more buffers) then
+enables `occur-edit-mode' so edits are written back to the originating
+buffer of each occurrence."
+  (let ((bufs (spacemacs//helm-occur-normalize-buffers bufs)))
+    (if (or (null pattern) (string-empty-p pattern) (null bufs))
+        (message "helm-occur: no active occur search to edit")
+      ;; When several buffers were searched, run the builtin
+      ;; `multi-occur'; otherwise `occur'.  Both produce a `*Occur*'
+      ;; buffer whose lines carry `occur-target' markers that let
+      ;; `occur-edit-mode' write each edit back to the correct buffer.
+      (if (cdr bufs)
+          (multi-occur bufs pattern)
+        (with-current-buffer (car bufs)
+          (occur pattern)))
+      (let ((obuf (get-buffer "*Occur*")))
+        (when obuf
+          (switch-to-buffer obuf)
+          (occur-edit-mode)
+          ;; Place point on the first occurrence so the user can start
+          ;; editing right away.
+          (goto-char (point-min))
+          (when (re-search-forward "^[[:space:]]*[0-9]+:" nil t)
+            (goto-char (match-end 0))))))))
+
+;; Bind a `C-c C-e' operation on `helm-occur-map' that opens an editable
+;; `*Occur*' buffer (the Emacs builtin `occur' + `occur-edit-mode').  This is
+;; the maintained replacement for the removed obsolete helm-swoop edit
+;; workflow.  The binding is set up with a top-level `with-eval-after-load'
+;; so it is reliably installed when the helm layer is set up, regardless of
+;; whether the helm package's `:config' block has run yet.
+(with-eval-after-load 'helm-occur
+  (define-key helm-occur-map (kbd "C-c C-e") 'spacemacs/helm-occur-edit))
+
 ;; Search in files -----------------------------------------------------
 
 (defun spacemacs/helm-files-do-ag (&optional dir)
