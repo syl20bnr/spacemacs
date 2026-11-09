@@ -25,7 +25,7 @@
   - [[#colorsfaces][Colors/Faces]]
   - [[#c-z-and-tab-switch][C-z and Tab switch]]
   - [[#helm-focus][Helm focus]]
-  - [[#helm-swoop][Helm-swoop]]
+  - [[#helm-occur][Helm-occur]]
   - [[#universal-argument][Universal argument]]
   - [[#replacing-text-in-several-files][Replacing text in several files]]
   - [[#resume-last-session][Resume last session]]
@@ -44,7 +44,7 @@ Mastering your choice of completion system will make you a Spacemacs power user.
 ** Features:
 - Project wide =grep= like text search via =helm-dir-smart-do-search=
 - Project wide text replacements using =helm-edit-mode=
-- Buffer wide dynamic text search via =helm-swoop=
+- Buffer wide dynamic text search via =helm-occur=
 - Fuzzy matching for most =helm-sources=
 - Detailed configuration parameters for helms appearance
 - Intuitive =transient state=
@@ -226,20 +226,27 @@ makes sense to swap them. It's also recommended [[http://tuhdo.github.io/helm-in
 If you find yourself unable to return focus to Helm (after a careless
 mouse-click for example), use ~SPC w b~ to return focus to the minibuffer.
 
-** Helm-swoop
-[[https://github.com/ShingoFukuyama/helm-swoop][Helm-swoop]] is very similar to =moccur=, it displays a =helm= buffer with all the
-occurrences of the word under point. You can then change the search query in
-real-time and navigate between them easily.
+** Helm-occur
+=helm-occur= is the Helm interface to the Emacs builtin =occur= search. Like
+=moccur=, it displays a Helm buffer with all the occurrences of the word under
+point; you can change the search query in real-time and navigate between them
+easily. It is the maintained replacement for the obsolete =helm-swoop=, which
+was removed from this layer because it is no longer maintained.
 
-You can even edit the occurrences directly in the =helm= buffer and apply the
-modifications to the buffer.
+You can turn the current =helm-occur= results into an editable =*Occur*= buffer
+with ~C-c C-e~ inside the Helm occur buffer. This runs the Emacs builtin
+=occur= (or =multi-occur= when several buffers were searched, such as with
+=helm-multi-occur=) with the current search pattern and enables the Emacs
+builtin =occur-edit-mode=, allowing you to edit the occurrences, with the
+changes written back to each originating buffer. Leave the edit mode with
+~C-c C-c~ (=occur-cease-edit=).
 
-| Key binding | Description                    |
-|-------------+--------------------------------|
-| ~SPC s C~   | clear =helm-swoop= own cache   |
-| ~SPC s s~   | execute =helm-swoop=           |
-| ~SPC s S~   | execute =helm-multi-swoop=     |
-| ~SPC s C-s~ | execute =helm-multi-swoop-all= |
+| Key binding | Description                                                      |
+|-------------+------------------------------------------------------------------|
+| ~SPC s s~   | search the current buffer with =helm-occur=                       |
+| ~SPC s S~   | search selected buffers with =helm-multi-occur=                   |
+| ~SPC s C-s~ | search all buffers with =helm-multi-occur-all=                    |
+| ~C-c C-e~   | (in the Helm occur buffer) open an editable ~*Occur*~ buffer via =occur-edit-mode= |
 
 ** Universal argument
 ~SPC u~ is not working before =helm-M-x= (~SPC SPC~). Instead, call =helm-M-x=
