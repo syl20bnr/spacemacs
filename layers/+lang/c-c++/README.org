@@ -29,6 +29,7 @@
         - [[#microsoft-adapter-installation][Microsoft adapter installation]]
         - [[#codefreak-adapter-installation][CodeFreak adapter installation]]
         - [[#lldb-adapter-installation][LLDB adapter installation]]
+    - [[#eglot][Eglot]]
     - [[#rtags][rtags]]
       - [[#external-dependencies-1][External dependencies]]
       - [[#configuration-1][Configuration]]
@@ -88,6 +89,7 @@ file.
 Supported backends are:
 - =lsp-clangd= using clangd LSP server
 - =lsp-ccls= using ccls LSP server
+- =eglot= using the emacs builtin eglot with the clangd LSP server
 - =rtags= using [[https://github.com/Andersbakken/rtags][rtags]]
 - =ycmd= using [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]]
 
@@ -98,7 +100,9 @@ To choose a default backend set the layer variable =c-c++-backend=:
 #+END_SRC
 
 Alternatively the =lsp-clangd= backend will be automatically chosen if the layer
-=lsp= is used and you did not specify any value for =c-c++-backend=.
+=lsp= is used and you did not specify any value for =c-c++-backend=. Otherwise
+the =eglot= backend will be selected if the layer =eglot= is used and you did
+not specify the =c-c++-backend=.
 
 *Note:* It is recommended to use a modern backend like the =lsp= ones.
 
@@ -251,6 +255,21 @@ distribution's package repository.
 Alternatively build directly following the [[https://github.com/llvm/llvm-project/tree/main/lldb/tools/lldb-vscode#installation-for-visual-studio-code][official installation instructions]].
 
 Adjust the =dap-lldb-debug-program= variable to match the executable.
+
+*** Eglot
+Eglot support is provided via the [[file:../../+tools/eglot/README.org][eglot layer]].
+
+To enable the eglot backend set the layer variable =c-c++-backend= to =eglot=:
+
+#+BEGIN_SRC elisp
+  (c-c++ :variables c-c++-backend 'eglot)
+#+END_SRC
+
+Alternatively, add the =eglot= layer to =dotspacemacs-configuration-layers= and
+the =eglot= backend will be selected automatically if no other backend is set.
+
+The default key bindings for the eglot backend are defined in the
+[[file:../../+tools/eglot/README.org][eglot layer]].
 
 *** rtags
 rtags is a well established clang-based source code indexing tool.

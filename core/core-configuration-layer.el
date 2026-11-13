@@ -39,20 +39,16 @@
   "Timeout in seconds to reach a package archive page.")
 
 (defconst configuration-layer-template-directory
-  (expand-file-name (concat spacemacs-core-directory "templates/"))
+  (concat spacemacs-core-directory "templates/")
   "Configuration layer templates directory.")
 
 (defconst configuration-layer-directory
-  (expand-file-name (concat spacemacs-start-directory "layers/"))
+  (concat spacemacs-start-directory "layers/")
   "Spacemacs layers directory.")
 
 (defconst configuration-layer-private-layer-directory
-  (let ((dotspacemacs-layer-dir
-         (when dotspacemacs-directory
-           (expand-file-name
-            (concat dotspacemacs-directory "layers/")))))
-    (if (and dotspacemacs-directory
-             (file-exists-p dotspacemacs-layer-dir))
+  (let ((dotspacemacs-layer-dir (concat dotspacemacs-directory "layers/")))
+    (if (file-directory-p dotspacemacs-layer-dir)
         dotspacemacs-layer-dir
       spacemacs-private-directory))
   "Spacemacs default directory for private layers.")
@@ -275,7 +271,7 @@ If PROPS is non-nil then return packages as lists along with their properties."
              :initform elpa
              :type (satisfies (lambda (x)
                                 (or (stringp x)
-                                    (memq x '(built-in local site elpa))
+                                    (memq x '(built-in local site user-lisp elpa))
                                     (and (listp x) (eq 'recipe (car x))))))
              :documentation "Location of the package.")
    (toggle :initarg :toggle
@@ -348,8 +344,8 @@ is ignored."
 
 Site packages are not built-in to Emacs itself but instead must be
 provided with the Emacs distribution (site-lisp).  We do not consider
-them distant,to avoid attempting and failing to install them from ELPA."
-  (and (not (memq (oref pkg location) '(built-in site local)))
+them distant, to avoid attempting and failing to install them from ELPA."
+  (and (not (memq (oref pkg location) '(built-in site user-lisp local)))
        (not (stringp (oref pkg location)))))
 
 (cl-defmethod cfgl-package-get-safe-owner ((pkg cfgl-package))
@@ -435,6 +431,24 @@ where DIRECTORY may be nil for built-in packages.")
 (defun configuration-layer/load-lock-file ()
   "Load the .lock file"
   (configuration-layer/load-file configuration-layer-lock-file))
+
+(define-advice package--save-selected-packages
+    (:override (&optional value) dont-save-to-custom-file)
+  "Set `package-selected-packages' to VALUE, without saving it with Customize.
+
+Spacemacs computes the set of packages to install from the enabled
+layers and `dotspacemacs-additional-packages' and deletes orphan
+packages itself, so the package.el commands that consume the saved
+list (`package-autoremove' and `package-install-selected-packages') are
+not useful with Spacemacs.
+
+Saving the list would only clutter the dotfile's custom settings with an
+entry listing every installed package.
+
+This function still sets `package-selected-package' in memory so that
+`package-autoremove' can be used to explicitly delete orphan packages."
+  (when (or value after-init-time)
+    (setq package-selected-packages value)))
 
 (defun configuration-layer/initialize ()
   "Initialize `package.el'."
@@ -655,52 +669,52 @@ To prevent package from being installed or uninstalled set the variable
       (spacemacs-buffer/message "Loading auto-layer file...")
       (configuration-layer/load-file file))))
 
-(defun configuration-layer/create-layer ()
-  "Ask the user for a configuration layer name and the layer
-directory to use. Create a layer with this name in the selected
-layer directory."
-  (interactive)
-  (let* ((current-layer-paths (mapcar (lambda (dir) (expand-file-name dir))
-                                      (cl-pushnew
-                                       configuration-layer-private-layer-directory
-                                       dotspacemacs-configuration-layer-path)))
-         (other-choice "Another directory...")
-         (helm-lp-source
-          `((name . "Configuration Layer Paths")
-            (candidates . ,(append current-layer-paths
-                                   (list other-choice)))
-            (action . (lambda (c) c))))
-         (layer-path-sel (if (configuration-layer/layer-used-p 'helm)
-                             (helm :sources helm-lp-source
-                                   :prompt "Configuration layer path: ")
-                           (completing-read "Configuration layer path: "
-                                            (append current-layer-paths
-                                                    (list other-choice)))))
-         (layer-path (cond
-                      ((string-equal layer-path-sel other-choice)
-                       (read-directory-name (concat "Other configuration "
-                                                    "layer path: ") "~/"))
-                      ((member layer-path-sel current-layer-paths)
-                       layer-path-sel)
-                      (t
-                       (error "Please select an option from the list"))))
-         (name (read-from-minibuffer "Configuration layer name: "))
-         (layer-dir (concat layer-path "/" name)))
-    (cond
-     ((string-equal "" name)
-      (configuration-layer/message
-       "Cannot create a configuration layer without a name."))
-     ((file-exists-p layer-dir)
-      (configuration-layer/message
-       (concat "Cannot create configuration layer \"%s\", "
-               "this layer already exists.") name))
-     (t
-      (make-directory layer-dir t)
-      (configuration-layer//copy-template name "packages.el" layer-dir)
-      (when (y-or-n-p "Create readme?")
-        (configuration-layer//copy-template name "README.org" layer-dir))
-      (configuration-layer/message
-       "Configuration layer \"%s\" successfully created." name)))))
+(defun configuration-layer/create-layer (name layer-dir)
+  "Create a new configuration layer with NAME, in LAYER-DIR.
+
+Interactively, prompt the user for a name and directory to use.
+
+LAYER-DIR must not exist yet."
+  (interactive
+   (let* ((current-layer-paths (cons
+                                configuration-layer-private-layer-directory
+                                dotspacemacs-configuration-layer-path))
+          (other-choice "Another directory...")
+          (helm-lp-source
+           `((name . "Configuration Layer Paths")
+             (candidates . ,(append current-layer-paths
+                                    (list other-choice)))
+             (action . (lambda (c) c))))
+          (layer-path-sel (if (configuration-layer/layer-used-p 'helm)
+                              (helm :sources helm-lp-source
+                                    :prompt "Configuration layer path: ")
+                            (completing-read "Configuration layer path: "
+                                             (append current-layer-paths
+                                                     (list other-choice))
+                                             nil t)))
+          (layer-path (cond
+                       ((string-equal layer-path-sel other-choice)
+                        (read-directory-name
+                         "Other configuration layer path: " "~/"))
+                       ((member layer-path-sel current-layer-paths)
+                        layer-path-sel)
+                       (t
+                        (user-error "Please select an option from the list"))))
+          (name (read-from-minibuffer "Configuration layer name: "))
+          (layer-dir (concat (file-name-as-directory layer-path) name)))
+     (when (string-empty-p name)
+       (user-error "Cannot create a configuration layer without a name"))
+     (when (file-exists-p layer-dir)
+       (user-error
+        "Cannot create configuration layer \"%s\", which already exists"
+        name))
+     (list name layer-dir)))
+  (make-directory layer-dir t)
+  (configuration-layer//copy-template name "packages.el" layer-dir)
+  (when (y-or-n-p "Create readme?")
+    (configuration-layer//copy-template name "README.org" layer-dir))
+  (configuration-layer/message
+   "Configuration layer \"%s\" successfully created." name))
 
 (defun configuration-layer//select-packages (layer-specs packages)
   "Return the selected packages of LAYER-SPECS from given PACKAGES list."
@@ -998,7 +1012,7 @@ a new object."
         (if (not (configuration-layer/package-used-p pkg-symbol))
             (princ "\nYou are not using this package.\n")
           (princ "\nYou are using this package")
-          (if (or (memq (oref pkg location) '(built-in local site))
+          (if (or (memq (oref pkg location) '(built-in local site user-lisp))
                   (stringp (oref pkg location)))
               (princ ".\n")
             (if (not (package-installed-p pkg-symbol))
@@ -1040,6 +1054,10 @@ a new object."
             ;; TODO find a way to find the location on disk and detect if it is
             ;; really installed
             (princ "\nWhen used it must be installed by a third party.\n"))
+           ((eq 'user-lisp location)
+            ;; TODO find a way to find the location on disk and detect if it is
+            ;; really installed
+            (princ "\nThis is a local package in `user-lisp-directory'.\n"))
            ((eq 'elpa location)
             ;; TODO find a way to find the ELPA repository
             (princ "\nWhen used it is downloaded from an ELPA repository.\n"))
@@ -1315,11 +1333,11 @@ PREDICATE is an additional expression that eval to a boolean."
 (defun configuration-layer//copy-template (name template &optional layer-dir)
   "Copy and replace special values of TEMPLATE to layer string NAME.
 If LAYER_DIR is nil, the private directory is used."
-  (cl-flet ((cl-substitute (old new) (let ((case-fold-search nil))
-                                       (save-excursion
-                                         (goto-char (point-min))
-                                         (while (search-forward old nil t)
-                                           (replace-match new t))))))
+  (cl-flet ((replace (old new) (let ((case-fold-search nil))
+                                 (save-excursion
+                                   (goto-char (point-min))
+                                   (while (search-forward old nil t)
+                                     (replace-match new t t))))))
     (let ((src (concat configuration-layer-template-directory
                        (format "%s.template" template)))
           (dest (if layer-dir
@@ -1328,27 +1346,28 @@ If LAYER_DIR is nil, the private directory is used."
                           (format "%s" template)))))
       (copy-file src dest)
       (find-file dest)
-      (cl-substitute "%LAYER_NAME%" name)
+      (replace "%LAYER_NAME%" name)
       (cond
        (user-full-name
-        (cl-substitute "%USER_FULL_NAME%" user-full-name)
-        (cl-substitute "%USER_MAIL_ADDRESS%" user-mail-address))
+        (replace "%USER_FULL_NAME%" user-full-name)
+        (replace "%USER_MAIL_ADDRESS%" user-mail-address))
        (t
-        (cl-substitute "%USER_FULL_NAME%" "Sylvain Benner & Contributors")
-        (cl-substitute "%USER_MAIL_ADDRESS%" "sylvain.benner@gmail.com")))
+        (replace "%USER_FULL_NAME%" "Sylvain Benner & Contributors")
+        (replace "%USER_MAIL_ADDRESS%" "sylvain.benner@gmail.com")))
       (save-buffer))))
 
 (defun configuration-layer//directory-type (path)
   "Return the type of directory pointed by PATH.
+
+PATH should be an absolute path to a directory.
+
 Possible return values:
   layer    - the directory is a layer
   category - the directory is a category
-  nil      - the directory is a regular directory."
+  nil      - the directory is a regular directory or is not a directory."
   (when (file-directory-p path)
     (if (string-match
-         "^+" (file-name-nondirectory
-               (directory-file-name
-                (concat configuration-layer-directory path))))
+         "^+" (file-name-nondirectory (directory-file-name path)))
         'category
       ;; most frequent files encountered in a layer are tested first
       (when (or (locate-file "packages" (list path) load-suffixes)
@@ -1360,14 +1379,12 @@ Possible return values:
 
 (defun configuration-layer//get-category-from-path (dirpath)
   "Return a category symbol from the given DIRPATH.
+DIRPATH should be an absolute path to a directory.
 The directory name must start with `+'.
 Returns nil if the directory is not a category."
   (when (file-directory-p dirpath)
-    (let ((dirname (file-name-nondirectory
-                    (directory-file-name
-                     (concat configuration-layer-directory
-                             dirpath)))))
-      (when (string-match "^+" dirname)
+    (let ((dirname (file-name-nondirectory (directory-file-name dirpath))))
+      (when (string-prefix-p "+" dirname)
         (intern (substring dirname 1))))))
 
 (defun configuration-layer//get-layer-parent-category (layer-name)
@@ -1397,10 +1414,8 @@ discovery."
                          (list spacemacs-private-directory))
                        ;; layers in dotdirectory
                        ;; this path may not exist, so check if it does
-                       (when dotspacemacs-directory
-                         (let ((dir (expand-file-name (concat dotspacemacs-directory
-                                                              "layers/"))))
-                           (when (file-exists-p dir) (list dir))))
+                       (let ((dir (concat dotspacemacs-directory "layers/")))
+                         (and (file-directory-p dir) (list dir)))
                        ;; additional layer directories provided by the user
                        dotspacemacs-configuration-layer-path)))
     ;; filter out directories that don't exist
@@ -1682,7 +1697,7 @@ RNAME is the name symbol of another existing layer."
         (cl-incf
          (cond ((eq 'elpa location) elpa)
                ((and (listp location) (eq 'recipe (car location))) recipe)
-               ((memq location '(local site)) local)
+               ((memq location '(local site user-lisp)) local)
                ((eq 'built-in location) built-in)))))
     `((total ,total)
       (elpa ,elpa)

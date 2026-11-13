@@ -89,7 +89,10 @@
     (add-to-list 'spacemacs-window-split-ignore-prefixes
                  (if (boundp 'treemacs-buffer-name-prefix)
                      treemacs-buffer-name-prefix
-                   treemacs--buffer-name-prefix))))
+                   treemacs--buffer-name-prefix))
+    (add-hook 'window-size-change-functions #'spacemacs/treemacs-on-frame-resize)
+    (advice-add 'treemacs :before #'spacemacs/treemacs-manual-open)
+    (advice-add 'treemacs-select-window :before #'spacemacs/treemacs-manual-open)))
 
 (defun treemacs/init-treemacs-evil ()
   (use-package treemacs-evil

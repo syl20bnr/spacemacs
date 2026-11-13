@@ -26,9 +26,13 @@
 (spacemacs|define-jump-handlers c++-mode)
 (spacemacs|define-jump-handlers c-mode)
 
-(defvar c-c++-backend (when (configuration-layer/layer-used-p 'lsp) 'lsp-clangd)
+(defvar c-c++-backend (cond
+                        ((configuration-layer/layer-used-p 'lsp) 'lsp-clangd)
+                        ((configuration-layer/layer-used-p 'eglot) 'eglot)
+                        (t nil))
   "The backend to use for IDE features.
-Possible values are `lsp-ccls', `lsp-clangd', `rtags' and `ycmd'.")
+Possible values are `lsp-ccls', `lsp-clangd', `eglot', `rtags' and `ycmd'.
+If `nil' then the default backend unless the `lsp' or `eglot' layer is used.")
 
 
 ;; lsp

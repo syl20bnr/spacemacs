@@ -293,12 +293,11 @@
                                           "snippets"
                                           spacemacs--auto-completion-dir))
            (dotspacemacs-directory-snippets-dir
-            (when dotspacemacs-directory
-              (let ((snippet-dir (expand-file-name
-                                  "snippets"
-                                  dotspacemacs-directory)))
-                (when (file-accessible-directory-p snippet-dir)
-                  snippet-dir)))))
+            (let ((snippet-dir (expand-file-name
+                                "snippets"
+                                dotspacemacs-directory)))
+              (and (file-accessible-directory-p snippet-dir)
+                   snippet-dir))))
       ;; ~/.emacs.d/layers/auto-completion/snippets
       (add-to-list 'yas-snippet-dirs spacemacs-layer-snippets-dir)
       ;; ~/.emacs.d/private/snippets

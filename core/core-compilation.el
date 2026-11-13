@@ -25,15 +25,6 @@
 (require 'subr-x)      ;; Miscellaneous extensions (e.g., string manipulation)
 (require 'bytecomp)    ;; Byte-compilation utilities
 
-;; Variable to store the last Emacs version used by Spacemacs.
-(defvar spacemacs--last-emacs-version ""
-  "This variable is set during Emacs initialization to its version.")
-
-;; Path to the file where the last Emacs version is persisted.
-(defconst spacemacs--last-emacs-version-file
-  (expand-file-name (concat spacemacs-cache-directory "last-emacs-version"))
-  "File that sets `spacemacs--last-emacs-version' variable.")
-
 ;; Utility function to remove all byte-compiled files (.elc) in a directory.
 (defun spacemacs//remove-byte-compiled-files-in-dir (dir)
   "Remove all .elc files in DIR directory.
@@ -104,20 +95,6 @@ States:
       ;; Cache and return the determined state
       (puthash dir state spacemacs--dir-byte-compile-status)
       state)))
-
-;; Function to update and persist the last Emacs version used.
-(defun spacemacs//update-last-emacs-version ()
-  "Update `spacemacs--last-emacs-version' and its saved value.
-This is used to detect when Emacs has been upgraded, so caches and
-byte-compiled files can be refreshed if needed."
-  (with-temp-file spacemacs--last-emacs-version-file
-    (insert (format ";;; -*- lexical-binding: nil; -*-\n(setq spacemacs--last-emacs-version %S)"
-                    (setq spacemacs--last-emacs-version emacs-version)))
-
-    ;; Ensure the directory exists before creating the temp file.
-    ;; Without this block will fail when trying to write the file.
-    (make-directory (file-name-directory spacemacs--last-emacs-version-file)
-                    t)))
 
 ;; Make this module available for require
 (provide 'core-compilation)

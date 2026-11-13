@@ -42,18 +42,6 @@
       nil (not init-file-debug))
 
 ;; ---------------------------------------------------------------------------
-;; * Remove Stale Compiled Files
-;; ---------------------------------------------------------------------------
-;; Remove old compiled files if Emacs version has changed.
-(load (concat spacemacs-core-directory "core-compilation")
-      nil (not init-file-debug))
-(load spacemacs--last-emacs-version-file t (not init-file-debug))
-
-;; Update saved Emacs version if necessary.
-(unless (string= spacemacs--last-emacs-version emacs-version)
-  (spacemacs//update-last-emacs-version))
-
-;; ---------------------------------------------------------------------------
 ;; * Emacs Version Check
 ;; ---------------------------------------------------------------------------
 ;; Stop initialization if Emacs is too old.

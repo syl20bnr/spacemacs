@@ -21,7 +21,7 @@ This layer adds support for basic language server protocol packages speaking
 
 ** Features:
 - Provide LSP support using eglot.
-- Provide Flycheck integration using [[https://github.com/flycheck/flycheck-eglot][flycheck-eglot]]
+- Provide Flycheck integration
 
 * In Development!
 There is not much going on with this layer right now, it only has the most basic

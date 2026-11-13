@@ -43,35 +43,9 @@
 Useful for users in order to given them a hint of potential bottleneck in
 their configuration.")
 
-(defconst dotspacemacs-directory
-  (let ((spacemacs-dir
-         (file-name-as-directory
-          (or (getenv "SPACEMACSDIR")
-              (let ((local-spacemacs
-                     (expand-file-name ".spacemacs.d/"
-                                       spacemacs-start-directory)))
-                (if (file-directory-p local-spacemacs)
-                    local-spacemacs
-                  (if-let* ((xdg-conf (getenv "XDG_CONFIG_HOME"))
-                            (xdg-conf-spacemacs
-                             (concat (file-name-as-directory xdg-conf)
-                                     "spacemacs/"))
-                            ((file-directory-p xdg-conf-spacemacs)))
-                      xdg-conf-spacemacs
-                    "~/.spacemacs.d/")))))))
-    (when (file-directory-p spacemacs-dir)
-      spacemacs-dir))
-  "Directory containing Spacemacs customizations (defaults to nil).
-- If environment variable SPACEMACSDIR is set and that directory exists,
-  use that value.
-- If .spacemacs.d exists inside `spacemacs-start-directory', use it.
-- If environment variable XDG_CONFIG_HOME is set and its subdirectory
-  \"spacemacs\" exists, use that value.
-- Otherwise use ~/.spacemacs.d if it exists.")
-
 (defconst dotspacemacs-filepath
   (let* ((spacemacs-init
-          (if dotspacemacs-directory
+          (if (file-directory-p dotspacemacs-directory)
               (concat dotspacemacs-directory "init.el")
             "~/.spacemacs")))
     (if (file-regular-p spacemacs-init)
@@ -197,10 +171,13 @@ in `dotspacemacs-themes'.")
       (and (eq dotspacemacs-editing-style 'hybrid)
            hybrid-style-enable-evilified-state)))
 
-(defun spacemacs//support-hjkl-navigation-p ()
-  "Returns non-nil if navigation keys should be evilified."
-  (or (eq dotspacemacs-editing-style 'vim)
-      (and (eq dotspacemacs-editing-style 'hybrid)
+(defun spacemacs//support-hjkl-navigation-p (&optional style)
+  "Returns non-nil if navigation keys should be evilified.
+
+STYLE defaults to `dotspacemacs-editing-style'."
+  (setq style (or style dotspacemacs-editing-style))
+  (or (eq style 'vim)
+      (and (eq style 'hybrid)
            hybrid-style-enable-hjkl-bindings)))
 
 (spacemacs|defc dotspacemacs-startup-banner 'official

@@ -89,9 +89,7 @@ When searching in the helm-find-files (`SPC f f') actions (`C-z')."
 (defun spacemacs//helm-hjkl-navigation (style)
   "Set navigation on 'hjkl' for the given editing STYLE."
   (cond
-   ((or (eq 'vim style)
-        (and (eq 'hybrid style)
-             hybrid-style-enable-hjkl-bindings))
+   ((spacemacs//support-hjkl-navigation-p style)
     (define-key helm-map (kbd "C-j") 'helm-next-line)
     (define-key helm-map (kbd "C-k") 'helm-previous-line)
     (define-key helm-map (kbd "C-S-j") 'helm-follow-action-forward)
@@ -214,9 +212,7 @@ See https://github.com/syl20bnr/spacemacs/issues/3700"
 (defun spacemacs//ivy-hjkl-navigation (style)
   "Set navigation on 'hjkl' for the given editing STYLE."
   (cond
-   ((or (eq 'vim style)
-        (and (eq 'hybrid style)
-             hybrid-style-enable-hjkl-bindings))
+   ((spacemacs//support-hjkl-navigation-p style)
     (dolist (map (list ivy-minibuffer-map
                        ivy-switch-buffer-map
                        ivy-reverse-i-search-map))

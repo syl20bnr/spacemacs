@@ -35,7 +35,8 @@
   (when python-poetry-activate (spacemacs//poetry-activate))
   (pcase python-backend
     ('anaconda (spacemacs//python-setup-anaconda))
-    ('lsp (spacemacs//python-setup-lsp))))
+    ('lsp (spacemacs//python-setup-lsp))
+    ('eglot (spacemacs//python-setup-eglot))))
 
 (defun spacemacs//python-setup-company ()
   "Conditionally setup company based on backend."
@@ -83,7 +84,13 @@
   (call-interactively #'push-button))
 
 
-;; lsp
+;; eglot
+
+(defun spacemacs//python-setup-eglot ()
+  "Setup eglot backend."
+  (eglot-ensure))
+
+;; lsp
 
 (defun spacemacs//python-setup-lsp ()
   "Setup lsp backend."

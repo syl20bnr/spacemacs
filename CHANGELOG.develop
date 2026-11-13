@@ -1885,6 +1885,8 @@ Other:
   - Fixed ~SPC m e~ key bindings to behave like in Emacs Lisp
     (thanks to Boris Avdeev)
   - Fixed initialization of =counsel-gtags= (thanks to Sylvain Benner)
+**** Compleseus
+- Fix editing =consult-line= exports by entering Occur Edit mode.
 **** Coq
 - Key bindings:
   - ~SPC m T e~ Toggle electric terminator (thanks to Ignat Insarov)
@@ -3679,6 +3681,10 @@ files (thanks to Daniel Nicolai)
 **** Spacemacs-defaults
 - Updated spacemacs/save-as function, see github #8974 and #14754 (thanks to
   Daniel Nicolai and Lebensterben)
+**** Spacemacs-evil
+- Fixed ~g r~ (=revert-buffer=) being unbound in =special-mode= buffers after
+  =evil-collection= 3.0, which binds it in normal state only (thanks
+  to Jonathan Lipworth)
 **** Spotify
 - Replaced helm-spotify package with helm-spotify-plus
   (thanks to Leonard Lausen)
@@ -3813,6 +3819,9 @@ files (thanks to Daniel Nicolai)
   (thanks to klochowicz)
 **** Treemacs
 - =Treemacs= replaces =NeoTree= as the default sidebar
+- Added layer variable =treemacs-auto-hide-min-width= to automatically
+  hide treemacs when the frame is resized below the minimum width and
+  restores it when space becomes available (thanks to ClarityStorm)
 - Added missing ~SPC p t~ to =readme.org= (thanks to oo6)
 - Remapped =winum-select-window-0-or-10= to =treemacs-select-window= so that
   ~C-x w 0~, ~SPC 0~ and ~M-0~ call the same command (thanks to duianto, Miciah)

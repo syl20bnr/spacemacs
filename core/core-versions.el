@@ -40,7 +40,7 @@
 ;; If a user attempts to run Spacemacs on an older version, it may not work
 ;; correctly or may refuse to start.
 (defconst spacemacs-emacs-min-version
-  "28.2"
+  "29.1"
   "Minimal version of Emacs required by Spacemacs. Older versions are unsupported.")
 
 ;;;; Conditional Evaluation Macro

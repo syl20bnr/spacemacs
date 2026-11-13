@@ -104,12 +104,6 @@
     ;; `evil-cp-change' should move the point, see https://github.com/luxbock/evil-cleverparens/pull/71
     (evil-set-command-properties 'evil-cp-change :move-point t)))
 
-(defun spacemacs-evil/init-evil-ediff ()
-  (use-package evil-ediff
-    :after (ediff)
-    :if (memq dotspacemacs-editing-style '(hybrid vim))))
-
-
 (defun spacemacs-evil/init-evil-collection ()
   (use-package evil-collection
     :after evil
@@ -117,6 +111,11 @@
     (setq evil-collection-mode-list spacemacs-evil-collection-allowed-list)
     (setq evil-collection-want-unimpaired-p nil)
     (evil-collection-init)
+    ;; evil-collection >= 3.0 binds `g r' in `special-mode-map' for normal
+    ;; state only, but Spacemacs opens `special-mode' buffers in motion state.
+    ;; Restore the direct binding for `special-mode-map' alone: overriding the
+    ;; `refresh' entry globally breaks dired, where `g' is not a prefix key.
+    (evil-collection-define-key nil 'special-mode-map "gr" 'revert-buffer)
     ;; replace `dired-goto-file' with equivalent helm and ivy functions:
     ;; `spacemacs/helm-find-files' fuzzy matching and other features
     ;; `spacemacs/counsel-find-file' more `M-o' actions

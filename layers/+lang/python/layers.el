@@ -21,6 +21,6 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(when (and (boundp 'python-backend)
-           (eq python-backend 'lsp))
-  (configuration-layer/declare-layer-dependencies '(lsp)))
+(cl-case (bound-and-true-p python-backend)
+  (lsp (configuration-layer/declare-layer-dependencies '(lsp)))
+  (eglot (configuration-layer/declare-layer-dependencies '(eglot))))

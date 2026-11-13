@@ -21,6 +21,6 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(when (and (boundp 'lua-backend)
-           (eq lua-backend 'lsp))
-  (configuration-layer/declare-layer-dependencies '(lsp)))
+(cl-case (bound-and-true-p lua-backend)
+  (eglot (configuration-layer/declare-layer-dependencies '(eglot)))
+  (lsp (configuration-layer/declare-layer-dependencies '(lsp))))

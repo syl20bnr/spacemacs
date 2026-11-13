@@ -103,3 +103,4 @@ disk.
 | ~C-M-k~     | Move to previous candidate and preview                                        |
 | ~C-SPC~     | Preview candidate                                                             |
 | ~M-P~       | Toggle previewing on for compleseus functions (requires rerunning the search) |
+| ~M-DEL~     | Delete last path component (in file prompts)                                  |

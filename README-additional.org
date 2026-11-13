@@ -19,6 +19,18 @@ All user configuration, personal layers, and automation live in the git submodul
 - Submodule path: ~.spacemacs.d~
 - Repository: ~git@github.com:lesliebinbin/.spacemacs.d.git~
 
+*** Configuration Directory Discovery
+The fork-specific bootstrap in ~early-init.el~ selects the customization
+directory before loading the core:
+1. ~SPACEMACSDIR~, when explicitly set.
+2. The repository-local ~.spacemacs.d/~ alongside ~early-init.el~, if it exists.
+3. ~$XDG_CONFIG_HOME/spacemacs/~, if it exists.
+4. =~/.spacemacs.d/=, even if not yet created.
+
+This small bootstrap exception to the core-file policy preserves local
+configuration discovery across upstream synchronization.  ~user-lisp-directory~
+also follows the selected customization directory.
+
 ** Reusable Agent Assets
 Reusable agent skills, runbooks, and profiles are located in ~.spacemacs.d/agents/~:
 - Runbooks: ~.spacemacs.d/agents/runbooks/~

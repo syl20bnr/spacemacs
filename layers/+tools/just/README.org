@@ -28,8 +28,8 @@ add =just= to the existing =dotspacemacs-configuration-layers= list in this file
 
 | Shortcut    | Binding                     |
 |-------------+-----------------------------|
-| ~SPC p j~   | ~justl-exec-recipe-in-dir~  |
+| ~SPC p j~   | ~justl-exec-default-recipe~ |
 |-------------+-----------------------------|
-| ~SPC p J j~ | ~justl-exec-recipe-in-dir~  |
-| ~SPC p J J~ | ~justl-exec-default-recipe~ |
+| ~SPC p J j~ | ~justl-exec-default-recipe~ |
+| ~SPC p J J~ | ~justl-exec-recipe-in-dir~  |
 | ~SPC p J l~ | ~justl~                     |

@@ -103,8 +103,8 @@ default."
 
   ;; tab manipulation with command key
   (global-set-key (kbd-mac-command "t") #'tab-new)
-  (global-set-key (kbd-mac-command "{") #'tab-next)
-  (global-set-key (kbd-mac-command "}") #'tab-previous)
+  (global-set-key (kbd-mac-command "{") #'tab-previous)
+  (global-set-key (kbd-mac-command "}") #'tab-next)
 
   (global-set-key (kbd-mac-command "Z") 'evil-redo)
   (global-set-key (kbd-mac-command "C-f") 'spacemacs/toggle-frame-fullscreen)

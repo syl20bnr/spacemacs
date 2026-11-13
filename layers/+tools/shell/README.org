@@ -118,6 +118,7 @@ To define the default shell you can set the layer variable =shell-default-shell=
 to the following variables:
 - =ansi-term= (default on Linux/macOS)
 - =eshell= (default on Windows)
+- =ghostel=
 - =shell=
 - =term=
 - =vterm=
@@ -299,8 +300,7 @@ Some advanced configuration is setup for =eshell= in this layer:
 - add support for auto-completion via =company= (when the =auto-completion=
   layer is installed)
 - pressing ~i~ in normal state will automatically jump to the prompt
-- color support with package ~xterm-color~ on Emacs28 and before
-- color support with built-in ~ansi-color~ by default on Emacs29 and later
+- color support with built-in ~ansi-color~~
 
 * Key bindings
 
@@ -375,6 +375,7 @@ For example with bash
 | ~SPC m n~              | go to next multi-vterm     |
 | ~SPC m N~ or ~SPC m p~ | go to previous multi-vterm |
 | ~SPC m r~              | rename vterm buffer        |
+| ~SPC m s~              | switch buffers by name     |
 
 ** ghostel
 Ghostel is a terminal emulator powered by `libghostty`. It offers fast rendering
@@ -384,3 +385,10 @@ and built‑in copy/Emacs navigation modes. The layer provides:
 - Leader key `SPC a t s g` (bound to `spacemacs/shell-pop-ghostel`).
 - Toggle variable `shell-enable-ghostel-support` (default `t`).
 - Requires the system package `libghostty`.
+
+| Key binding            | Description                |
+|------------------------+----------------------------|
+| ~SPC m c~              | create a new multi-vterm   |
+| ~SPC m n~              | go to next multi-vterm     |
+| ~SPC m N~ or ~SPC m p~ | go to previous multi-vterm |
+| ~SPC m s~              | switch buffers by name     |

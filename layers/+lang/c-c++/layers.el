@@ -26,4 +26,5 @@
    (pcase c-c++-backend
      ('lsp-clangd '(lsp dap))
      ('lsp-ccls '(lsp dap))
+     ('eglot '(eglot))
      ('rtags '(gtags)))))

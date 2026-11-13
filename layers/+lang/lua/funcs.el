@@ -23,8 +23,10 @@
 
 (defun spacemacs//lua-setup-backend ()
   "Conditionally setup lua backend."
-  (when (eq lua-backend 'lsp)
-    (spacemacs//lua-setup-lsp)))
+  (pcase lua-backend
+    ('lsp (spacemacs//lua-setup-lsp))
+    ('eglot (spacemacs//lua-setup-eglot))
+    ('lua-mode (ignore))))
 
 (defun spacemacs//lua-setup-company ()
   "Conditionally setup company based on backend."
@@ -33,7 +35,7 @@
      (spacemacs|add-company-backends
        :backends company-lua
        :modes lua-mode))
-    ('lsp
+    ((or 'lsp 'eglot)
      (spacemacs|add-company-backends
        :backends company-capf
        :modes lua-mode))))
@@ -52,3 +54,12 @@
                       ('lua-lsp '(emmy-lua lsp-lua-language-server))))
         (lsp-deferred))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+
+;; Eglot Lua
+
+(defun spacemacs//lua-setup-eglot ()
+  "Setup lua eglot backend."
+  (if (configuration-layer/layer-used-p 'eglot)
+      (eglot-ensure)
+    (message "`eglot' layer is not installed, please add `eglot' layer to your dotfile.")))

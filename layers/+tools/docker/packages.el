@@ -25,7 +25,6 @@
 (defconst docker-packages
   '(
     docker
-    (docker-tramp :toggle (version< emacs-version "29.0.50"))
     dockerfile-mode
     flycheck))
 
@@ -39,10 +38,6 @@
     (evil-define-key 'normal docker-volume-mode-map (kbd "q") 'quit-window)
     (evil-define-key 'normal docker-network-mode-map (kbd "q") 'quit-window)
     (evil-define-key 'normal docker-machine-mode-map (kbd "q") 'quit-window)))
-
-(defun docker/init-docker-tramp ()
-  (use-package docker-tramp
-    :defer t))
 
 (defun docker/init-dockerfile-mode ()
   (use-package dockerfile-mode

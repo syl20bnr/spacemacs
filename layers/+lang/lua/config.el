@@ -25,10 +25,13 @@
 
 (spacemacs|define-jump-handlers lua-mode)
 
-(defvar lua-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'lua-mode)
+(defvar lua-backend (cond
+                      ((configuration-layer/layer-used-p 'lsp) 'lsp)
+                      ((configuration-layer/layer-used-p 'eglot) 'eglot)
+                      (t 'lua-mode))
   "The backend to use for IDE features.
-Possible values are `lua-mode' and `lsp'.
-If `nil' then `lua-mode' is the default backend unless `lsp' layer is used.")
+Possible values are `lua-mode', `eglot' and `lsp'.
+If `nil' then `lua-mode' is the default backend unless `lsp' or `eglot' layer is used.")
 
 (defvar lua-lsp-server 'emmy
   "Language server to use for lsp backend.

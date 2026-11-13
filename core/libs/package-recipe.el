@@ -30,7 +30,6 @@
 
 (require 'compat nil t)
 (require 'eieio)
-(require 'subr-x)
 (require 'url-parse)
 
 (defvar package-build-use-git-remote-hg)

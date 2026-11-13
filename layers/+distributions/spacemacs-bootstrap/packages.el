@@ -359,11 +359,9 @@
         which-key-max-description-length 32
         which-key-max-display-columns nil
         which-key-min-display-lines 6
-        which-key-prevent-C-h-from-cycling t
         which-key-sort-order 'which-key-prefix-then-key-order
         which-key-sort-uppercase-first nil
         which-key-special-keys nil
-        which-key-use-C-h-for-paging t
         which-key-allow-evil-operators t)
 
   (spacemacs|add-toggle which-key
@@ -437,7 +435,8 @@ Press \\[which-key-toggle-persistent] to hide."
            ("evil-lisp-state-\\(.+\\)" . "\\1")
            ("helm-mini\\|ivy-switch-buffer" . "list-buffers")
            ("lazy-helm/\\(.+\\)" . "\\1")
-           ("lazy-helm/spacemacs/\\(.+\\)" . "\\1"))))
+           ("lazy-helm/spacemacs/\\(.+\\)" . "\\1")
+           ("spacemacs-cmds" . "root"))))
 
     (dolist (nd new-descriptions)
       ;; ensure the target matches the whole string
@@ -603,9 +602,11 @@ Press \\[which-key-toggle-persistent] to hide."
               which-key-replacement-alist
               :test #'equal)
 
-  (which-key-add-key-based-replacements
-    dotspacemacs-leader-key '("root" . "Spacemacs root")
-    dotspacemacs-emacs-leader-key '("root" . "Spacemacs root"))
+  ;; Title shown while the leader key is pending.
+  (dolist (leader (list dotspacemacs-leader-key dotspacemacs-emacs-leader-key))
+    (cl-pushnew (cons (key-description (kbd leader)) "Spacemacs root")
+                which-key--prefix-title-alist
+                :test #'equal))
 
   ;; disable special key handling for spacemacs, since it can be
   ;; disorienting if you don't understand it
@@ -621,9 +622,7 @@ Press \\[which-key-toggle-persistent] to hide."
 ;; pre packages
 
 (defun spacemacs-bootstrap/init-evil-evilified-state ()
-  (use-package evil-evilified-state)
-  (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
-              spacemacs-default-map))
+  (use-package evil-evilified-state))
 
 ;; we own pcre2el here, so that it's always available to ivy and helm
 ;; (necessary when using spacemacs-base distribution)

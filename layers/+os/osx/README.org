@@ -106,23 +106,23 @@ To get =gls= install coreutils homebrew:
 
 | Key binding | Description                 |
 |-------------+-----------------------------|
-| ~⌘ =~      | Scale up text               |
-| ~⌘ -~      | Scale down text             |
-| ~⌘ q~      | Quit                        |
-| ~⌘ v~      | Paste                       |
-| ~⌘ c~      | Copy                        |
-| ~⌘ x~      | Cut                         |
-| ~⌘ a~      | Select all                  |
-| ~⌘ w~      | Close window                |
-| ~⌘ W~      | Close frame                 |
-| ~⌘ n~      | New frame                   |
-| ~⌘ `~      | Other frame                 |
-| ~⌘ t~      | New tab                     |
-| ~⌘ {~      | Previous tab                |
-| ~⌘ }~      | Next tab                    |
-| ~⌘ z~      | Undo                        |
-| ~⌘ Z~      | Redo                        |
-| ~⌃ ⌘ f~    | Toggle fullscreen           |
+| ~⌘ =~       | Scale up text               |
+| ~⌘ -~       | Scale down text             |
+| ~⌘ q~       | Quit                        |
+| ~⌘ v~       | Paste                       |
+| ~⌘ c~       | Copy                        |
+| ~⌘ x~       | Cut                         |
+| ~⌘ a~       | Select all                  |
+| ~⌘ w~       | Close window                |
+| ~⌘ W~       | Close frame                 |
+| ~⌘ n~       | New frame                   |
+| ~⌘ `~       | Other frame                 |
+| ~⌘ t~       | New tab                     |
+| ~⌘ {~       | Previous tab                |
+| ~⌘ }~       | Next tab                    |
+| ~⌘ z~       | Undo                        |
+| ~⌘ Z~       | Redo                        |
+| ~⌃ ⌘ f~     | Toggle fullscreen           |
 | ~SPC x w d~ | Define word under the point |
 
 * Future Work

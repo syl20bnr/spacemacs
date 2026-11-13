@@ -158,7 +158,7 @@ Last but not least there are a lot of high class tutorials available on YouTube:
 1. Most Linux distribution ships a package manager already and if this is the
    case you are all set for this step.
 
-   If it doesn't, you may need to build the softwares mentioned below from their
+   If it doesn't, you may need to build the software mentioned below from their
    sources.
 
 2. In most distributions, Emacs is installed via an `emacs` package from the
@@ -195,8 +195,9 @@ Last but not least there are a lot of high class tutorials available on YouTube:
    fc-cache -fv
    ```
 
-6. *(Optional)* If your distribution is listed [here][ripgrep-installation],
-   follow the instructions. Otherwise, you can download its pre-built binary or
+6. *(Optional)* If your distribution is listed
+   [here][ripgrep-installation], follow the instructions to install
+   ripgrep (rg). Otherwise, you can download its pre-built binary or
    build it from source.
 
 ### macOS

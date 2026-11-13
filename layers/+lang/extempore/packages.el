@@ -22,7 +22,8 @@
 
 
 (defconst extempore-packages
-  '(extempore-mode))
+  '(eldoc
+    extempore-mode))
 
 (defun extempore/init-extempore-mode ()
   "Initialize extempore mode"
