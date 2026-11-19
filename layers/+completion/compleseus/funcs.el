@@ -216,46 +216,16 @@ targets."
          (remq #'spacemacs/embark-which-key-indicator embark-indicators)))
     (apply fn args)))
 
-(defun spacemacs/embark-action-completing-read ()
-  "Bypass `embark-act' and execute `embark-keymap-help' directly.
+(defvar embark-prompter)
 
-This function mimics the Helm action menu.
-Note: this function relies on embark internals and might break upon embark updates.
-"
-  (interactive)
+(defun spacemacs/embark-action-completing-read (&optional arg)
+  "Like `embark-act', but always choose the action with `completing-read'.
+
+This function mimics the Helm action menu.  ARG is passed to `embark-act'."
+  (interactive "P")
   (require 'embark)
-  (let* ((targets (or (embark--targets) (user-error "No target found")))
-         (indicators (mapcar #'funcall embark-indicators))
-         (default-done nil))
-    (unwind-protect
-        (while
-            (let* ((target (car targets))
-                   (action (embark-completing-read-prompter
-                            (let ((embark-default-action-overrides
-                                   (if default-done
-                                       `((t . ,default-done))
-                                     embark-default-action-overrides)))
-                              (embark--action-keymap (plist-get target :type)
-                                                     (cdr targets)))
-                            nil))
-                   (default-action (or default-done
-                                       (embark--default-action
-                                        (plist-get target :type)))))
-              ;; if the action is non-repeatable, cleanup indicator now
-              (mapc #'funcall indicators)
-              (condition-case err
-                  (embark--act
-                   action
-                   (if (and (eq action default-action)
-                            (eq action embark--command)
-                            (not (memq action embark-multitarget-actions)))
-                       (embark--orig-target target)
-                     target)
-                   (embark--quit-p action))
-                (user-error
-                 (funcall (if repeat #'message #'user-error)
-                          "%s" (cadr err))))))
-      (mapc #'funcall indicators))))
+  (let ((embark-prompter #'embark-completing-read-prompter))
+    (embark-act arg)))
 
 (defun spacemacs/minibuffer-default-add-function ()
   "See `minibuffer-default-add-function'"
