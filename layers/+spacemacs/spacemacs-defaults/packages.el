@@ -405,7 +405,6 @@ un-modified buffer for recentf."
     :init
     ;; Minibuffer history
     (setq savehist-file (concat spacemacs-cache-directory "savehist")
-          enable-recursive-minibuffers t ; Allow commands in minibuffers
           history-length 1000
           ;; We use an idle timer instead, as saving can cause
           ;; noticable delays with large histories.
