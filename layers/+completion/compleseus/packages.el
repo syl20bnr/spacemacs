@@ -388,9 +388,6 @@
     ;; cleans ~/foo/bar/// to /, and ~/foo/bar/~/ to ~/.
     (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
 
-    ;; Enable recursive minibuffers
-    (setq enable-recursive-minibuffers t)
-
     ;; when vertico is used set this so tab when doing M-: will show suggestions
     ;; https://github.com/minad/vertico/issues/24
     (setq-default completion-in-region-function
