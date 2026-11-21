@@ -136,11 +136,12 @@
 (defun mu4e/init-mu4e-alert ()
   (use-package mu4e-alert
     :defer t
-    :init (with-eval-after-load 'mu4e
-            (when mu4e-enable-notifications
-              (mu4e-alert-enable-notifications))
-            (when mu4e-enable-mode-line
-              (mu4e-alert-enable-mode-line-display)))))
+    :after mu4e
+    :init
+    (when mu4e-enable-notifications
+      (mu4e-alert-enable-notifications))
+    (when mu4e-enable-mode-line
+      (mu4e-alert-enable-mode-line-display))))
 
 (defun mu4e/init-helm-mu ()
   (use-package helm-mu
