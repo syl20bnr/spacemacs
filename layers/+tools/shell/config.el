@@ -23,8 +23,9 @@
 
 ;; Emacs built-in variables
 
-;; move point to the end of buffer on new output
-(setq comint-move-point-for-output t)
+;; move point to the end of buffer on new output, except in the selected window
+;; to avoid disrupting text selection
+(setq comint-move-point-for-output 'others)
 
 ;; allow moving around the buffer in emacs >= 26.1 in evil's normal mode
 (setq term-char-mode-point-at-process-mark nil)
