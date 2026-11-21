@@ -1074,6 +1074,10 @@ Configures only the minimal packages for core Spacemacs functionality.
   (advice-add 'dotspacemacs/user-config :around
               'dotspacemacs//profile-user-config))
 
+
+
+;;; Spacemacs custom frame title format specifiers
+
 (defun spacemacs//escape-verbatim-for-title (string)
   (replace-regexp-in-string "%" "%%" string t t))
 
@@ -1121,6 +1125,8 @@ TITLE-FORMAT may contain all of the %-constructs valid for
   %U -- prints `user-login-name'"
   (format-spec title-format spacemacs//title-format-spec t))
 (byte-compile 'spacemacs/title-prepare)
+
+
 
 (defun dotspacemacs/safe-load ()
   "Error recovery from malformed .spacemacs.
