@@ -1074,6 +1074,10 @@ Configures only the minimal packages for core Spacemacs functionality.
   (advice-add 'dotspacemacs/user-config :around
               'dotspacemacs//profile-user-config))
 
+
+
+;;; Spacemacs custom frame title format specifiers
+
 (when (version< emacs-version "31.0.90")
   (define-advice format-spec
       (:around (f format specification &rest rest)
@@ -1137,6 +1141,8 @@ TITLE-FORMAT may contain all of the %-constructs valid for
   %S -- prints `system-name'
   %U -- prints `user-login-name'"
   (format-spec title-format spacemacs--title-format-spec t))
+
+
 
 (defun dotspacemacs/safe-load ()
   "Error recovery from malformed .spacemacs.
