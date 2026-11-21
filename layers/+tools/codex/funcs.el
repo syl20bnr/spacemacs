@@ -29,4 +29,4 @@
                  (lambda (&rest _args)
                    (format "What does %s do?" symbol))))
         (codex-ide-prompt))
-    (message "No symbol at point")))
+    (user-error "No symbol at point")))
