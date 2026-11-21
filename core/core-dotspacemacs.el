@@ -1119,7 +1119,7 @@ Cached in a buffer-local variable."
   %t -- prints `projectile-project-name'
   %I -- prints `invocation-name'
   %S -- prints `system-name'
-  %U -- prints contents of $USER
+  %U -- prints `user-login-name'
   %b -- prints buffer name
   %f -- prints visited file name
   %F -- prints frame name
@@ -1143,7 +1143,7 @@ Cached in a buffer-local variable."
                 ?t #'spacemacs//buffer-project-name
                 ?S #'system-name
                 ?I invocation-name
-                ?U (or (getenv "USER") "")
+                ?U user-login-name
                 ?b "%b"
                 ?f "%f"
                 ?F "%F"
