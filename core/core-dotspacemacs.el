@@ -1075,15 +1075,19 @@ Configures only the minimal packages for core Spacemacs functionality.
   (advice-add 'dotspacemacs/user-config :around
               'dotspacemacs//profile-user-config))
 
+(defun spacemacs//escape-verbatim-for-title (string)
+  (replace-regexp-in-string "%" "%%" string t t))
+
 (defvar-local spacemacs--buffer-project-name nil)
 (defun spacemacs--buffer-project-name ()
   "Return the current buffer's `projectile-project-name', or \"-\".
 
 Cached in a buffer-local variable."
   (with-memoization spacemacs--buffer-project-name
-    (if (fboundp 'projectile-project-name)
-        (projectile-project-name)
-      "-")))
+    (spacemacs//escape-verbatim-for-title
+     (if (fboundp 'projectile-project-name)
+         (projectile-project-name)
+       "-"))))
 (byte-compile 'spacemacs--buffer-project-name)
 
 (defvar-local spacemacs--buffer-abbreviated-filename nil)
@@ -1092,8 +1096,9 @@ Cached in a buffer-local variable."
 
 Cached in a buffer-local variable."
   (with-memoization spacemacs--buffer-abbreviated-filename
-    (abbreviate-file-name (or (buffer-file-name)
-                              (buffer-name)))))
+    (spacemacs//escape-verbatim-for-title
+     (abbreviate-file-name (or (buffer-file-name)
+                               (buffer-name))))))
 (byte-compile 'spacemacs--buffer-abbreviated-filename)
 
 (defun spacemacs/title-prepare (title-format)
@@ -1110,7 +1115,7 @@ TITLE-FORMAT may contain all of the %-constructs valid for
   (let ((fs (format-spec-make
              ?a #'spacemacs--buffer-abbreviated-filename
              ?t #'spacemacs--buffer-project-name
-             ?S #'system-name
+             ?S (lambda () (spacemacs//escape-verbatim-for-title (system-name)))
              ?I invocation-name
              ?U user-login-name)))
 
