@@ -1075,6 +1075,25 @@ Configures only the minimal packages for core Spacemacs functionality.
   (advice-add 'dotspacemacs/user-config :around
               'dotspacemacs//profile-user-config))
 
+(when (version< emacs-version "31.0.90")
+  (define-advice format-spec
+      (:around (f format specification &rest rest)
+               spacemacs-backport-046db640)
+    "Backport of 046db640 as advice.
+
+That Emacs commit fixes `format-spec' to run the specifier functions in
+the correct (outer) buffer."
+    (let* ((orig-buffer (current-buffer))
+           (specification
+            (mapcar (lambda (pair)
+                      (if (functionp (cdr pair))
+                          (let ((f (cdr pair)))
+                            (cons (car pair)
+                                  (lambda () (with-current-buffer orig-buffer (funcall f)))))
+                        pair))
+                    specification)))
+      (apply f format specification rest))))
+
 (defvar-local spacemacs--buffer-project-name nil)
 (defun spacemacs//buffer-project-name ()
   "Return the current buffer's `projectile-project-name', or \"-\".
