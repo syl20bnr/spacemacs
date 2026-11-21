@@ -1075,6 +1075,9 @@ Configures only the minimal packages for core Spacemacs functionality.
   (advice-add 'dotspacemacs/user-config :around
               'dotspacemacs//profile-user-config))
 
+(defvar-local spacemacs--buffer-project-name nil)
+(defvar-local spacemacs--buffer-abbreviated-filename nil)
+
 (defun spacemacs/title-prepare (title-format)
   "A string is printed verbatim except for %-constructs.
   %a -- prints the `abbreviated-file-name', or `buffer-name'
@@ -1102,19 +1105,15 @@ Configures only the minimal packages for core Spacemacs functionality.
     (let* ((buffer-list-update-hook nil)
            (project-name
             (lambda ()
-              (if (boundp 'spacemacs--buffer-project-name)
-                  spacemacs--buffer-project-name
-                (setq-local spacemacs--buffer-project-name
-                            (if (fboundp 'projectile-project-name)
-                                (projectile-project-name)
-                              "-")))))
+              (with-memoization spacemacs--buffer-project-name
+                (if (fboundp 'projectile-project-name)
+                    (projectile-project-name)
+                  "-"))))
            (abbreviated-file-name
             (lambda ()
-              (if (boundp 'spacemacs--buffer-abbreviated-filename)
-                  spacemacs--buffer-abbreviated-filename
-                (setq-local spacemacs--buffer-abbreviated-filename
-                            (abbreviate-file-name (or (buffer-file-name)
-                                                      (buffer-name)))))))
+              (with-memoization spacemacs--buffer-abbreviated-filename
+                (abbreviate-file-name (or (buffer-file-name)
+                                          (buffer-name))))))
            (fs (format-spec-make
                 ?a abbreviated-file-name
                 ?t project-name
