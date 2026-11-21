@@ -1143,27 +1143,9 @@ Cached in a buffer-local variable."
                 ?t #'spacemacs//buffer-project-name
                 ?S #'system-name
                 ?I invocation-name
-                ?U user-login-name
-                ?b "%b"
-                ?f "%f"
-                ?F "%F"
-                ?* "%*"
-                ?+ "%+"
-                ?s "%s"
-                ?l "%l"
-                ?c "%c"
-                ?p "%p"
-                ?P "%P"
-                ?m "%m"
-                ?n "%n"
-                ?z "%z"
-                ?Z "%Z"
-                ?\[ "%["
-                ?\] "%]"
-                ?% "%%"
-                ?- "%-")))
+                ?U user-login-name)))
 
-      (format-spec title-format fs))))
+      (format-spec title-format fs t))))
 
 (defun dotspacemacs/safe-load ()
   "Error recovery from malformed .spacemacs.
