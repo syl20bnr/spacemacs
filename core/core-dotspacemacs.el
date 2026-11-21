@@ -1074,72 +1074,59 @@ Configures only the minimal packages for core Spacemacs functionality.
   (advice-add 'dotspacemacs/user-config :around
               'dotspacemacs//profile-user-config))
 
+
+
+;;; Spacemacs custom frame title format specifiers
+
+(defun spacemacs//escape-verbatim-for-title (string)
+  (replace-regexp-in-string "%" "%%" string t t))
+
+(defvar-local spacemacs--buffer-project-name nil)
+(defun spacemacs--buffer-project-name ()
+  "Return the current buffer's `projectile-project-name', or \"-\".
+
+Cached in a buffer-local variable."
+  (with-memoization spacemacs--buffer-project-name
+    (spacemacs//escape-verbatim-for-title
+     (if (fboundp 'projectile-project-name)
+         (projectile-project-name)
+       "-"))))
+(byte-compile 'spacemacs--buffer-project-name)
+
+(defvar-local spacemacs--buffer-abbreviated-filename nil)
+(defun spacemacs--buffer-abbreviated-filename ()
+  "Return the abbreviated file name for the current buffer, or its buffer name.
+
+Cached in a buffer-local variable."
+  (with-memoization spacemacs--buffer-abbreviated-filename
+    (spacemacs//escape-verbatim-for-title
+     (abbreviate-file-name (or (buffer-file-name)
+                               (buffer-name))))))
+(byte-compile 'spacemacs--buffer-abbreviated-filename)
+
+(defvar spacemacs//title-format-spec
+  `((?a . ,#'spacemacs--buffer-abbreviated-filename)
+    (?t . ,#'spacemacs--buffer-project-name)
+    (?S . ,(lambda () (spacemacs//escape-verbatim-for-title (system-name))))
+    (?I . ,invocation-name)
+    (?U . ,user-login-name))
+  "Format specifiers for `dotspacemacs-frame-title-format'.")
+
 (defun spacemacs/title-prepare (title-format)
   "A string is printed verbatim except for %-constructs.
+
+TITLE-FORMAT may contain all of the %-constructs valid for
+`frame-title-format', as well as the following:
+
   %a -- prints the `abbreviated-file-name', or `buffer-name'
   %t -- prints `projectile-project-name'
   %I -- prints `invocation-name'
   %S -- prints `system-name'
-  %U -- prints contents of $USER
-  %b -- prints buffer name
-  %f -- prints visited file name
-  %F -- prints frame name
-  %s -- prints process status
-  %p -- prints percent of buffer above top of window, or Top, Bot or All
-  %P -- prints percent of buffer above bottom of window, perhaps plus Top, or
-  print Bottom or All
-  %m -- prints mode name
-  %n -- prints Narrow if appropriate
-  %z -- prints mnemonics of buffer, terminal, and keyboard coding systems
-  %Z -- like %z, but including the end-of-line format"
-  ;; save-match-data to work around Emacs bug, see
-  ;; https://github.com/syl20bnr/spacemacs/issues/9700
-  (save-match-data
-    ;; disable buffer-list-update-hook to work around recursive invocations
-    ;; caused by the temp-buffer used by `format-spec' below, see
-    ;; https://github.com/syl20bnr/spacemacs/issues/12387
-    (let* ((buffer-list-update-hook nil)
-           (project-name
-            (when (string-match-p "%t" title-format)
-              (if (boundp 'spacemacs--buffer-project-name)
-                  spacemacs--buffer-project-name
-                (setq-local spacemacs--buffer-project-name
-                            (if (fboundp 'projectile-project-name)
-                                (projectile-project-name)
-                              "-")))))
-           (abbreviated-file-name
-            (when (string-match-p "%a" title-format)
-              (if (boundp 'spacemacs--buffer-abbreviated-filename)
-                  spacemacs--buffer-abbreviated-filename
-                (setq-local spacemacs--buffer-abbreviated-filename
-                            (abbreviate-file-name (or (buffer-file-name)
-                                                      (buffer-name)))))))
-           (fs (format-spec-make
-                ?a abbreviated-file-name
-                ?t project-name
-                ?S (system-name)
-                ?I invocation-name
-                ?U (or (getenv "USER") "")
-                ?b "%b"
-                ?f "%f"
-                ?F "%F"
-                ?* "%*"
-                ?+ "%+"
-                ?s "%s"
-                ?l "%l"
-                ?c "%c"
-                ?p "%p"
-                ?P "%P"
-                ?m "%m"
-                ?n "%n"
-                ?z "%z"
-                ?Z "%Z"
-                ?\[ "%["
-                ?\] "%]"
-                ?% "%%"
-                ?- "%-")))
+  %U -- prints `user-login-name'"
+  (format-spec title-format spacemacs//title-format-spec t))
+(byte-compile 'spacemacs/title-prepare)
 
-      (format-spec title-format fs))))
+
 
 (defun dotspacemacs/safe-load ()
   "Error recovery from malformed .spacemacs.
