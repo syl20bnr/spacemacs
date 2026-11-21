@@ -1124,17 +1124,14 @@ TITLE-FORMAT may contain all of the %-constructs valid for
   %I -- prints `invocation-name'
   %S -- prints `system-name'
   %U -- prints `user-login-name'"
-  ;; save-match-data to work around Emacs bug, see
-  ;; https://github.com/syl20bnr/spacemacs/issues/9700
-  (save-match-data
-    (let ((fs (format-spec-make
-               ?a #'spacemacs//buffer-abbreviated-filename
-               ?t #'spacemacs//buffer-project-name
-               ?S #'system-name
-               ?I invocation-name
-               ?U user-login-name)))
+  (let ((fs (format-spec-make
+             ?a #'spacemacs//buffer-abbreviated-filename
+             ?t #'spacemacs//buffer-project-name
+             ?S #'system-name
+             ?I invocation-name
+             ?U user-login-name)))
 
-      (format-spec title-format fs t))))
+    (format-spec title-format fs t)))
 
 (defun dotspacemacs/safe-load ()
   "Error recovery from malformed .spacemacs.
