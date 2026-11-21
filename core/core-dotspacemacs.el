@@ -1076,7 +1076,23 @@ Configures only the minimal packages for core Spacemacs functionality.
               'dotspacemacs//profile-user-config))
 
 (defvar-local spacemacs--buffer-project-name nil)
+(defun spacemacs//buffer-project-name ()
+  "Return the current buffer's `projectile-project-name', or \"-\".
+
+Cached in a buffer-local variable."
+  (with-memoization spacemacs--buffer-project-name
+    (if (fboundp 'projectile-project-name)
+        (projectile-project-name)
+      "-")))
+
 (defvar-local spacemacs--buffer-abbreviated-filename nil)
+(defun spacemacs//buffer-abbreviated-filename ()
+  "Return the abbreviated file name for the current buffer, or its buffer name.
+
+Cached in a buffer-local variable."
+  (with-memoization spacemacs--buffer-abbreviated-filename
+    (abbreviate-file-name (or (buffer-file-name)
+                              (buffer-name)))))
 
 (defun spacemacs/title-prepare (title-format)
   "A string is printed verbatim except for %-constructs.
@@ -1103,20 +1119,9 @@ Configures only the minimal packages for core Spacemacs functionality.
     ;; caused by the temp-buffer used by `format-spec' below, see
     ;; https://github.com/syl20bnr/spacemacs/issues/12387
     (let* ((buffer-list-update-hook nil)
-           (project-name
-            (lambda ()
-              (with-memoization spacemacs--buffer-project-name
-                (if (fboundp 'projectile-project-name)
-                    (projectile-project-name)
-                  "-"))))
-           (abbreviated-file-name
-            (lambda ()
-              (with-memoization spacemacs--buffer-abbreviated-filename
-                (abbreviate-file-name (or (buffer-file-name)
-                                          (buffer-name))))))
            (fs (format-spec-make
-                ?a abbreviated-file-name
-                ?t project-name
+                ?a #'spacemacs//buffer-abbreviated-filename
+                ?t #'spacemacs//buffer-project-name
                 ?S #'system-name
                 ?I invocation-name
                 ?U (or (getenv "USER") "")
