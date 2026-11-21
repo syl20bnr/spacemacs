@@ -1115,22 +1115,15 @@ Cached in a buffer-local variable."
 
 (defun spacemacs/title-prepare (title-format)
   "A string is printed verbatim except for %-constructs.
+
+TITLE-FORMAT may contain all of the %-constructs valid for
+`frame-title-format', as well as the following:
+
   %a -- prints the `abbreviated-file-name', or `buffer-name'
   %t -- prints `projectile-project-name'
   %I -- prints `invocation-name'
   %S -- prints `system-name'
-  %U -- prints `user-login-name'
-  %b -- prints buffer name
-  %f -- prints visited file name
-  %F -- prints frame name
-  %s -- prints process status
-  %p -- prints percent of buffer above top of window, or Top, Bot or All
-  %P -- prints percent of buffer above bottom of window, perhaps plus Top, or
-  print Bottom or All
-  %m -- prints mode name
-  %n -- prints Narrow if appropriate
-  %z -- prints mnemonics of buffer, terminal, and keyboard coding systems
-  %Z -- like %z, but including the end-of-line format"
+  %U -- prints `user-login-name'"
   ;; save-match-data to work around Emacs bug, see
   ;; https://github.com/syl20bnr/spacemacs/issues/9700
   (save-match-data
