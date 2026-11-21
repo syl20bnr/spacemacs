@@ -23,6 +23,7 @@
 (require 'core-command-line)
 (require 'core-load-paths)
 (require 'core-customization)
+(require 'format-spec)
 
 (when (version<= emacs-version "28")
   (autoload 'if-let* "subr-x"))
