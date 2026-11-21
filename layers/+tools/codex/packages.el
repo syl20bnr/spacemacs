@@ -24,8 +24,7 @@
 (defconst codex-packages
   '((codex-ide :location (recipe
                           :fetcher github
-                          :repo "dgillis/emacs-codex-ide")
-               :requires transient)))
+                          :repo "dgillis/emacs-codex-ide"))))
 
 (defun codex/init-codex-ide ()
   "Initialize Codex IDE package."
