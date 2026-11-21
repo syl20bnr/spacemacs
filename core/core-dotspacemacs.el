@@ -1084,6 +1084,7 @@ Cached in a buffer-local variable."
     (if (fboundp 'projectile-project-name)
         (projectile-project-name)
       "-")))
+(byte-compile 'spacemacs--buffer-project-name)
 
 (defvar-local spacemacs--buffer-abbreviated-filename nil)
 (defun spacemacs--buffer-abbreviated-filename ()
@@ -1093,6 +1094,7 @@ Cached in a buffer-local variable."
   (with-memoization spacemacs--buffer-abbreviated-filename
     (abbreviate-file-name (or (buffer-file-name)
                               (buffer-name)))))
+(byte-compile 'spacemacs--buffer-abbreviated-filename)
 
 (defun spacemacs/title-prepare (title-format)
   "A string is printed verbatim except for %-constructs.
@@ -1145,6 +1147,7 @@ Cached in a buffer-local variable."
                 ?- "%-")))
 
       (format-spec title-format fs))))
+(byte-compile 'spacemacs/title-prepare)
 
 (defun dotspacemacs/safe-load ()
   "Error recovery from malformed .spacemacs.
