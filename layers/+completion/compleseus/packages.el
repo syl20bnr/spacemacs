@@ -419,6 +419,8 @@
 
     :config
     (define-key vertico-map (kbd "C-.") 'spacemacs/embark-select)
+    (define-key vertico-map (kbd "<next>") #'vertico-scroll-up)
+    (define-key vertico-map (kbd "<prior>") #'vertico-scroll-down)
     (when (spacemacs//support-hjkl-navigation-p)
       (define-key vertico-map (kbd "C-j") #'vertico-next)
       (define-key vertico-map (kbd "C-k") #'vertico-previous)

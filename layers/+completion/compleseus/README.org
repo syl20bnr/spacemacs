@@ -101,6 +101,8 @@ disk.
 | ~C-S-k~     | Move to previous group of results                                             |
 | ~C-M-j~     | Move to next candidate and preview                                            |
 | ~C-M-k~     | Move to previous candidate and preview                                        |
+| ~<next>~    | Scroll candidates down by one page                                            |
+| ~<prior>~   | Scroll candidates up by one page                                              |
 | ~C-SPC~     | Preview candidate                                                             |
 | ~M-P~       | Toggle previewing on for compleseus functions (requires rerunning the search) |
 | ~M-DEL~     | Delete last path component (in file prompts)                                  |
