@@ -23,7 +23,6 @@
 (require 'core-command-line)
 (require 'core-load-paths)
 (require 'core-customization)
-(require 'format-spec)
 
 (when (version<= emacs-version "28")
   (autoload 'if-let* "subr-x"))
@@ -1118,6 +1117,14 @@ Cached in a buffer-local variable."
      (abbreviate-file-name (or (buffer-file-name)
                                (buffer-name))))))
 
+(defvar spacemacs--title-format-spec
+  `((?a . ,#'spacemacs//buffer-abbreviated-filename)
+    (?t . ,#'spacemacs//buffer-project-name)
+    (?S . ,(lambda () (spacemacs//escape-verbatim-for-title (system-name))))
+    (?I . ,(spacemacs//escape-verbatim-for-title invocation-name))
+    (?U . ,(spacemacs//escape-verbatim-for-title user-login-name)))
+  "Format specifiers for `dotspacemacs-frame-title-format'.")
+
 (defun spacemacs/title-prepare (title-format)
   "A string is printed verbatim except for %-constructs.
 
@@ -1129,14 +1136,7 @@ TITLE-FORMAT may contain all of the %-constructs valid for
   %I -- prints `invocation-name'
   %S -- prints `system-name'
   %U -- prints `user-login-name'"
-  (let ((fs (format-spec-make
-             ?a #'spacemacs//buffer-abbreviated-filename
-             ?t #'spacemacs//buffer-project-name
-             ?S (lambda () (spacemacs//escape-verbatim-for-title (system-name)))
-             ?I (spacemacs//escape-verbatim-for-title invocation-name)
-             ?U (spacemacs//escape-verbatim-for-title user-login-name))))
-
-    (format-spec title-format fs t)))
+  (format-spec title-format spacemacs--title-format-spec t))
 
 (defun dotspacemacs/safe-load ()
   "Error recovery from malformed .spacemacs.
