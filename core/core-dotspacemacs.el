@@ -1134,16 +1134,12 @@ Cached in a buffer-local variable."
   ;; save-match-data to work around Emacs bug, see
   ;; https://github.com/syl20bnr/spacemacs/issues/9700
   (save-match-data
-    ;; disable buffer-list-update-hook to work around recursive invocations
-    ;; caused by the temp-buffer used by `format-spec' below, see
-    ;; https://github.com/syl20bnr/spacemacs/issues/12387
-    (let* ((buffer-list-update-hook nil)
-           (fs (format-spec-make
-                ?a #'spacemacs//buffer-abbreviated-filename
-                ?t #'spacemacs//buffer-project-name
-                ?S #'system-name
-                ?I invocation-name
-                ?U user-login-name)))
+    (let ((fs (format-spec-make
+               ?a #'spacemacs//buffer-abbreviated-filename
+               ?t #'spacemacs//buffer-project-name
+               ?S #'system-name
+               ?I invocation-name
+               ?U user-login-name)))
 
       (format-spec title-format fs t))))
 
