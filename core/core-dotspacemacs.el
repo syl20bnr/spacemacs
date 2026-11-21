@@ -1101,7 +1101,7 @@ Configures only the minimal packages for core Spacemacs functionality.
     ;; https://github.com/syl20bnr/spacemacs/issues/12387
     (let* ((buffer-list-update-hook nil)
            (project-name
-            (when (string-match-p "%t" title-format)
+            (lambda ()
               (if (boundp 'spacemacs--buffer-project-name)
                   spacemacs--buffer-project-name
                 (setq-local spacemacs--buffer-project-name
@@ -1109,7 +1109,7 @@ Configures only the minimal packages for core Spacemacs functionality.
                                 (projectile-project-name)
                               "-")))))
            (abbreviated-file-name
-            (when (string-match-p "%a" title-format)
+            (lambda ()
               (if (boundp 'spacemacs--buffer-abbreviated-filename)
                   spacemacs--buffer-abbreviated-filename
                 (setq-local spacemacs--buffer-abbreviated-filename
@@ -1118,7 +1118,7 @@ Configures only the minimal packages for core Spacemacs functionality.
            (fs (format-spec-make
                 ?a abbreviated-file-name
                 ?t project-name
-                ?S (system-name)
+                ?S #'system-name
                 ?I invocation-name
                 ?U (or (getenv "USER") "")
                 ?b "%b"
