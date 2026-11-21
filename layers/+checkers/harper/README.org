@@ -1,0 +1,86 @@
+#+TITLE: Harper layer
+
+#+TAGS: checker|layer
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#harper-binary][Harper binary]]
+- [[#configuration][Configuration]]
+- [[#usage][Usage]]
+- [[#requirements][Requirements]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer provides grammar and spell checking using [[https://github.com/Automattic/harper][Harper]], an offline,
+privacy-first grammar checker written in Rust.  It integrates with =lsp-mode= as
+an *add-on* language server so that =harper-ls= runs in the same buffer as the
+primary language server (e.g. =clangd= for C/C++), giving IDE-like grammar and
+spelling diagnostics for comments and prose alongside the compiler's own
+diagnostics.
+
+** Features:
+- Fast, on-device grammar and spell checking without network calls.
+- Runs =harper-ls= in the same buffer as the primary LSP server (e.g. =clangd=)
+  thanks to lsp-mode's add-on client support.
+- Rich diagnostics via lsp-mode (surfaced through flycheck or flymake), aggregated from all attached servers.
+- Simple toggle to enable/disable Harper per major mode.
+- Customizable binary path and arguments.
+
+* Install
+** Layer
+This layer requires the =lsp= layer.  To use it, add both =harper= and =lsp= to
+your =dotspacemacs-configuration-layers= list in your =~/.spacemacs= file.
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+                '((lsp) (harper)))
+#+END_SRC
+
+** Harper binary
+Install the Harper language server and make sure =harper-ls= is on your
+=$PATH= (e.g. via =brew install harper= or =cargo install harper-ls=).  If it is
+not on your =PATH=, specify its location via a layer variable.
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+                '((lsp) (harper :variables
+                                harper-ls-bin "~/.local/bin/harper")))
+#+END_SRC
+
+* Configuration
+You can customize the Harper language-server binary, its arguments and the
+set of major modes it activates in.
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+                '((lsp) (harper :variables
+                                harper-ls-bin "~/bin/harper"
+                                harper-ls-args '("--stdio")
+                                harper-ls-enabled-modes '(c-mode c++-mode
+                                                             c-ts-mode c++-ts-mode))))
+#+END_SRC
+
+* Usage
+Once a file is opened in one of the modes listed in =harper-ls-enabled-modes=,
+the primary language server (e.g. =clangd=) is started by the language layer and
+=harper-ls= is automatically launched alongside it.  Grammar and spelling issues
+are underlined, and compiler errors/warnings from =clangd= are shown as usual.
+Use the toggle command to enable/disable Harper for the current buffer.
+
+* Requirements
+1. The =lsp= layer enabled in your dotfile.
+2. The =harper-ls= binary installed on your system (see the Harper GitHub page).
+3. A primary LSP server for the buffer (e.g. =clangd= for C/C++) provided by
+   the corresponding language layer.
+
+* Key bindings
+| Key binding | Description                          |
+|-------------+--------------------------------------|
+| ~SPC S h~   | Toggle Harper for the current buffer |
+
+Diagnostics navigation is provided by lsp-mode / the language layer; you can
+also call =M-x spacemacs/harper-next-error= and
+=M-x spacemacs/harper-prev-error=.
