@@ -31,6 +31,11 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         emacs_version: [29.4, 30.1, 31.1]
+        # Emacs 31.1 on Windows is blocked on
+        # https://github.com/jcs090218/setup-emacs-windows/pull/476
+        exclude:
+          - os: windows-latest
+            emacs_version: 31.1
     steps:
 # Installing Emacs on Unix
     - name: Install Emacs on UNIX
