@@ -1094,15 +1094,19 @@ the correct (outer) buffer."
                     specification)))
       (apply f format specification rest))))
 
+(defun spacemacs//escape-verbatim-for-title (string)
+  (string-replace "%" "%%" string))
+
 (defvar-local spacemacs--buffer-project-name nil)
 (defun spacemacs//buffer-project-name ()
   "Return the current buffer's `projectile-project-name', or \"-\".
 
 Cached in a buffer-local variable."
   (with-memoization spacemacs--buffer-project-name
-    (if (fboundp 'projectile-project-name)
-        (projectile-project-name)
-      "-")))
+    (spacemacs//escape-verbatim-for-title
+     (if (fboundp 'projectile-project-name)
+         (projectile-project-name)
+       "-"))))
 
 (defvar-local spacemacs--buffer-abbreviated-filename nil)
 (defun spacemacs//buffer-abbreviated-filename ()
@@ -1110,8 +1114,9 @@ Cached in a buffer-local variable."
 
 Cached in a buffer-local variable."
   (with-memoization spacemacs--buffer-abbreviated-filename
-    (abbreviate-file-name (or (buffer-file-name)
-                              (buffer-name)))))
+    (spacemacs//escape-verbatim-for-title
+     (abbreviate-file-name (or (buffer-file-name)
+                               (buffer-name))))))
 
 (defun spacemacs/title-prepare (title-format)
   "A string is printed verbatim except for %-constructs.
@@ -1127,9 +1132,9 @@ TITLE-FORMAT may contain all of the %-constructs valid for
   (let ((fs (format-spec-make
              ?a #'spacemacs//buffer-abbreviated-filename
              ?t #'spacemacs//buffer-project-name
-             ?S #'system-name
-             ?I invocation-name
-             ?U user-login-name)))
+             ?S (lambda () (spacemacs//escape-verbatim-for-title (system-name)))
+             ?I (spacemacs//escape-verbatim-for-title invocation-name)
+             ?U (spacemacs//escape-verbatim-for-title user-login-name))))
 
     (format-spec title-format fs t)))
 

@@ -62,10 +62,6 @@
 
 (ert-deftest spacemacs/title-prepare-percent-in-filename ()
   "Regression test for file names containing \"%\" characters."
-  ;; FIXME: This test is currently broken because percent characters substituted
-  ;; by `spacemacs/title-prepare' are not escaped, and then are subsequently
-  ;; mangled by `format-mode-line'.
-  :expected-result :failed
   (let ((buffer-names '(" *temp%*" " *temp%%*" " *temp%%%*" " *temp%%%%*"
                         " *temp%f*" " *temp%f%*" " *temp%f%%*" " *temp%f%%%*")))
     (cl-flet ((test-title-in-temp-buffer (buffer-name)
