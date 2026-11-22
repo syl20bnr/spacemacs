@@ -223,7 +223,6 @@ of directories to file basenames."
   (configuration-layer/initialize)
   ;; Set frame and icon title formats if specified.
   (when dotspacemacs-frame-title-format
-    (require 'format-spec)
     (setq frame-title-format '((:eval (spacemacs/title-prepare dotspacemacs-frame-title-format))))
     (if dotspacemacs-icon-title-format
         (setq icon-title-format '((:eval (spacemacs/title-prepare dotspacemacs-icon-title-format))))
