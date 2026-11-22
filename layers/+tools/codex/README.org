@@ -82,10 +82,10 @@ The layer includes helpful functions for common tasks:
 * Key bindings
 ** Menu Entries
 
-| Key binding | Description                     |
-|-------------+---------------------------------|
-| ~SPC $ x y~ | Open Codex transient menu       |
-| ~SPC $ x C~ | Agent configuration menu        |
+| Key binding | Description               |
+|-------------+---------------------------|
+| ~SPC $ x y~ | Open Codex transient menu |
+| ~SPC $ x C~ | Agent configuration menu  |
 
 ** Session Management
 
