@@ -40,7 +40,6 @@
       "$xc" 'codex-ide-continue
       "$xr" 'codex-ide-reset-current-session
       "$xq" 'codex-ide-stop
-      "$xl" 'codex-ide-status
       ;; Navigation
       "$xb" 'codex-ide-switch-to-buffer
       ;; Interaction
@@ -48,12 +47,20 @@
       "$xi" 'codex-ide-submit-image
       "$xI" 'codex-ide-submit-clipboard-image
       ;; Manage
-      "$xL" 'codex-ide-session-buffer-list
+      "$xm" 'codex-ide-status
+      "$xl" 'codex-ide-session-buffer-list
       "$xD" 'codex-ide-session-diff-open
       ;; Submenus for configuration and debugging
       "$xC" 'codex-ide-agent-config-menu
+      "$xR" 'codex-ide-set-model-and-reasoning-effort
       "$xdd" 'codex-ide-debug-menu
       "$xds" 'codex-ide-show-cli-info
       "$xdv" 'codex-ide-show-debug-info
       ;; Assistant functions
-      "$x*" 'spacemacs/codex-explain-symbol-at-point)))
+      "$x*" 'spacemacs/codex-explain-symbol-at-point)
+    (with-eval-after-load 'codex-ide-status-mode
+      (evil-define-key 'motion codex-ide-status-mode-map
+        (kbd "RET") 'codex-ide-status-mode-display-session-at-point))
+    (with-eval-after-load 'codex-ide-session-mode
+      (define-key codex-ide-session-mode-map (kbd "<return>") 'codex-ide-submit)
+      (define-key codex-ide-session-mode-map (kbd "S-<return>") 'newline))))

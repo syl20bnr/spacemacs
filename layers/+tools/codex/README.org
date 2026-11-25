@@ -82,10 +82,11 @@ The layer includes helpful functions for common tasks:
 * Key bindings
 ** Menu Entries
 
-| Key binding | Description               |
-|-------------+---------------------------|
-| ~SPC $ x y~ | Open Codex transient menu |
-| ~SPC $ x C~ | Agent configuration menu  |
+| Key binding   | Description                      |
+|---------------+----------------------------------|
+| ~SPC $ x y~   | Open Codex transient menu        |
+| ~SPC $ x C~   | Agent configuration menu         |
+| ~SPC $ x R~   | Set model and reasoning effort   |
 
 ** Session Management
 
@@ -94,9 +95,12 @@ The layer includes helpful functions for common tasks:
 | ~SPC $ x s~ | Start Codex for current project    |
 | ~SPC $ x c~ | Continue Codex for current project |
 | ~SPC $ x r~ | Reset the current session          |
-| ~SPC $ x l~ | Manage and list sessions           |
+| ~SPC $ x m~ | Show Codex session status          |
 | ~SPC $ x q~ | Stop Codex for current project     |
 | ~SPC $ x b~ | Switch to Codex session buffer     |
+
+The status buffer (opened with ~SPC $ x m~) lists your Codex sessions; press
+~RET~ on a session to display it at point.
 
 ** Navigation
 
@@ -112,11 +116,14 @@ The layer includes helpful functions for common tasks:
 | ~SPC $ x i~ | Attach an image file                 |
 | ~SPC $ x I~ | Attach clipboard image               |
 
+In the Codex session buffer, press ~RET~ to submit your current input and
+~S-~RET~ to insert a newline.
+
 ** Manage
 
 | Key binding | Description               |
 |-------------+---------------------------|
-| ~SPC $ x L~ | List live session buffers |
+| ~SPC $ x l~ | List live session buffers |
 | ~SPC $ x D~ | Open session diff buffer  |
 
 ** Debug Commands
