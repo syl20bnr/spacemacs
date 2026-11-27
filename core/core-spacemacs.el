@@ -230,7 +230,10 @@ of directories to file basenames."
   ;; will be included.
   (when (fboundp 'prepare-user-lisp)    ;Added in Emacs 31.1
     (setq user-lisp-directory (concat dotspacemacs-directory "user-lisp/"))
-    (prepare-user-lisp))
+    ;; Copied from startup.el
+    (when (and init-file-user
+               (file-directory-p user-lisp-directory))
+      (prepare-user-lisp (not user-lisp-auto-scrape))))
   ;; Set frame and icon title formats if specified.
   (when dotspacemacs-frame-title-format
     (setq frame-title-format '((:eval (spacemacs/title-prepare dotspacemacs-frame-title-format))))
