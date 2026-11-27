@@ -27,6 +27,21 @@
 (when (version<= emacs-version "28")
   (autoload 'if-let* "subr-x"))
 
+(defconst dotspacemacs-directory
+  (file-name-as-directory
+   (or (getenv "SPACEMACSDIR")
+       (if-let* ((xdg-conf (getenv "XDG_CONFIG_HOME"))
+                 (xdg-conf-spacemacs (concat (file-name-as-directory xdg-conf) "spacemacs/"))
+                 ((file-directory-p xdg-conf-spacemacs)))
+           xdg-conf-spacemacs
+         "~/.spacemacs.d/")))
+  "Directory containing Spacemacs customizations.
+- If environment variable SPACEMACSDIR is set and that directory exists,
+  use that value.
+- If environment variable XDG_CONFIG_HOME is set and its subdirectory
+  \"spacemacs\" exists, use that value.
+- Otherwise use \"~/.spacemacs.d/\".")
+
 (defconst dotspacemacs-template-directory
   (concat spacemacs-core-directory "templates/")
   "Templates directory.")

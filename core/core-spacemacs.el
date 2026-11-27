@@ -221,6 +221,19 @@ of directories to file basenames."
                                     dotspacemacs-editing-style))
   ;; Initialize the configuration layer (layers, packages, etc.).
   (configuration-layer/initialize)
+  ;; Spacemacs usually replaces `user-emacs-directory', so it doesn't make sense
+  ;; for users to put custom Lisp there.
+  ;;
+  ;; During startup, Emacs will have already called `prepare-user-lisp' with the
+  ;; default value of `user-lisp-directory', so in effect, files in either
+  ;; user-lisp directory (~/.emacs.d/user-lisp/ or ~/.spacemacs.d/user-lisp/)
+  ;; will be included.
+  (when (fboundp 'prepare-user-lisp)    ;Added in Emacs 31.1
+    (setq user-lisp-directory (concat dotspacemacs-directory "user-lisp/"))
+    ;; Copied from startup.el
+    (when (and init-file-user
+               (file-directory-p user-lisp-directory))
+      (prepare-user-lisp (not user-lisp-auto-scrape))))
   ;; Set frame and icon title formats if specified.
   (when dotspacemacs-frame-title-format
     (setq frame-title-format '((:eval (spacemacs/title-prepare dotspacemacs-frame-title-format))))
