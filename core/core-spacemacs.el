@@ -228,8 +228,9 @@ of directories to file basenames."
   ;; default value of `user-lisp-directory', so in effect, files in either
   ;; user-lisp directory (~/.emacs.d/user-lisp/ or ~/.spacemacs.d/user-lisp/)
   ;; will be included.
-  (setq user-lisp-directory (concat dotspacemacs-directory "user-lisp/"))
-  (prepare-user-lisp)
+  (when (fboundp 'prepare-user-lisp)    ;Added in Emacs 31.1
+    (setq user-lisp-directory (concat dotspacemacs-directory "user-lisp/"))
+    (prepare-user-lisp))
   ;; Set frame and icon title formats if specified.
   (when dotspacemacs-frame-title-format
     (setq frame-title-format '((:eval (spacemacs/title-prepare dotspacemacs-frame-title-format))))
