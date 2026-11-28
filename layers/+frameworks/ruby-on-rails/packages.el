@@ -83,7 +83,7 @@
       ;; Refactoring 'projectile-rails-mode
       "fRx" 'projectile-rails-extract-region)
 
-    (dolist (mode '(ruby-mode enh-ruby-mode))
+    (dolist (mode '(ruby-mode ruby-ts-mode enh-ruby-mode))
       (spacemacs/declare-prefix-for-mode mode "mf" "rails")
       (spacemacs/declare-prefix-for-mode mode "mfc" "generate/destroy")
       (spacemacs/declare-prefix-for-mode mode "mfR" "extract")
