@@ -320,3 +320,46 @@ EXTRA is an additional parameter that's passed to the LSP function"
 (defun spacemacs//lsp-client-server-id ()
   "Return the ID of the LSP server associated with current project."
   (mapcar 'lsp--client-server-id (mapcar 'lsp--workspace-client (lsp-workspaces))))
+
+
+;; .gitignore-aware file watcher ignore lists
+
+(defun spacemacs//lsp-gitignore-regexes (workspace-root)
+  "Return (FILES DIRS) regex lists for paths git ignores under WORKSPACE-ROOT.
+Asks git itself via `git ls-files --others --ignored --exclude-standard
+--directory', so all gitignore semantics (negations, nested `.gitignore'
+files, `.git/info/exclude', global excludes) are honored. Returns nil
+unless `lsp-file-watch-respect-gitignore' is non-nil, WORKSPACE-ROOT is
+a git working tree, and `git' is on PATH."
+  (when (and lsp-file-watch-respect-gitignore
+             workspace-root
+             (file-exists-p (expand-file-name ".git" workspace-root))
+             (executable-find "git"))
+    (let* ((default-directory (file-name-as-directory
+                               (file-truename workspace-root)))
+           (root (directory-file-name default-directory))
+           files dirs)
+      (with-temp-buffer
+        (when (zerop (process-file "git" nil (list t nil) nil
+                                   "ls-files" "-z"
+                                   "--others" "--ignored"
+                                   "--exclude-standard" "--directory"))
+          (dolist (rel (split-string (buffer-string) "\0" t))
+            (let* ((dir-only (string-suffix-p "/" rel))
+                   (clean (if dir-only (substring rel 0 -1) rel))
+                   (abs (expand-file-name clean root))
+                   (rx (concat "\\`" (regexp-quote abs)
+                               (if dir-only "\\(?:/\\|\\'\\)" "\\'"))))
+              (push rx dirs)
+              (unless dir-only (push rx files))))))
+      (list (nreverse files) (nreverse dirs)))))
+
+(defun spacemacs//lsp-merge-gitignore-regexes (orig-fn workspace-root)
+  "Around-advice merging `.gitignore' regexes into LSP's ignore lists.
+Wraps `lsp--get-ignored-regexes-for-workspace-root'."
+  (let ((base (funcall orig-fn workspace-root))
+        (extra (spacemacs//lsp-gitignore-regexes workspace-root)))
+    (if extra
+        (list (append (car base) (car extra))
+              (append (cadr base) (cadr extra)))
+      base)))
